@@ -150,17 +150,11 @@ public class JsonEspedsgRoadmapController {
 		obj = new RoadmapObject();
 		obj.setId("4");obj.setSubject("Infrastructure-Code assambley");
 		obj.setText("Jenkins-Git / Java team/RS");
-		obj.setStatus("R");
+		obj.setStatus("Y");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
-		obj.setId("5");obj.setSubject("Thymeleaf framework - JSP phase out");
-		obj.setText("Java team");
-		obj.setStatus("R");
-		list.add(obj);
-		//
-		obj = new RoadmapObject();
-		obj.setId("6");obj.setSubject("AS400 handover to JavaServices");
+		obj.setId("5");obj.setSubject("AS400 handover to JavaServices");
 		obj.setText("Java team on FreeForm");
 		obj.setStatus("R");
 		list.add(obj);
