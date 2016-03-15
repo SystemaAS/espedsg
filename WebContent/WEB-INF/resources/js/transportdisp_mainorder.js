@@ -22,18 +22,29 @@
 	function drag(ev) {
 	    ev.dataTransfer.setData("text", ev.target.id);
 	}*/
+  //this drag function is used when the order is the TARGET of a drag and not the source
+	function highlightDropArea(ev) {
+		var data = ev.dataTransfer.getData("text");
+		jq("#"+ev.target.id).addClass('isa_blue');
+	}
+	//this drag function is used when the order is the TARGET of a drag and not the source
+	function noHighlightDropArea(ev) {
+	//jq("#"+ev.target.id).css("color", "red");
+	jq("#"+ev.target.id).removeClass('isa_blue');
+	}
+	
 	function allowDrop(ev) {
 	    ev.preventDefault();
 	}
 	function drop(ev) {
-	    ev.preventDefault();
+		ev.preventDefault();
 	    var data = ev.dataTransfer.getData("text");
-	    //DEBUG alert(data);
+	    //alert(data);
 	    var record = data.split("@");
 	    var avd = record[0].replace("avd_","");
 	    var trip = record[1].replace("tripnr_","");
 	    var opd = jq("#wsopd").val();
-	    //DEBUG alert(trip + "XX" + avd + "XX" + opd);
+	    //alert(trip + "XX" + avd + "XX" + opd);
 	    if(trip!='' && avd!='' && opd!=''){
 	    	setTripOnOrder(trip, avd, opd);
 	    }

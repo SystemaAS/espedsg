@@ -17,4 +17,5 @@ public interface UrlCgiProxyService {
 	public String getJsonContent(String urlStr);
 	public String getJsonContent(String urlStr, String urlParams);
 	public String getJsonContentFromJsonRawString(String jsonPayloadOriginal);
+	
 }

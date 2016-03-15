@@ -26,6 +26,7 @@ public class UrlCgiProxyServiceImpl implements UrlCgiProxyService{
 	//private static final Logger logger = Logger.getLogger(UrlCgiProxyServiceImpl.class.getName());
 	private static final String ENCODING_JSON_UTF8 = "UTF8";
 	private static final String ENCODING_STREAMS_UTF8 = "UTF-8";
+
 	private ApplicationContext context;
 	
 	/**

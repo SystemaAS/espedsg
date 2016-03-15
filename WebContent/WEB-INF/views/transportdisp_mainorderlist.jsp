@@ -341,12 +341,10 @@
 			        	</td>
 			        	<td>	
 			        		&nbsp;<font title="opd" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.ourRef"/></font>
-			        		<%-- TODO -->expose when Bring accepts estimates - COVI!!!
 			        		<a href="javascript:void(0);" onClick="window.open('sporringoppdraggate.do?lang=NO&cw=true','opdWin','top=100px,left=300px,height=900px,width=1200px,scrollbars=no,status=no,location=no')">
 		 						<img id="imgOpdSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="14px" width="14px" border="0" alt="search">
 		 					</a>
-		 					 --%>
-				        	&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.opd}'>
+		 					&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.opd}'>
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="opdType" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.orderType"/></font>

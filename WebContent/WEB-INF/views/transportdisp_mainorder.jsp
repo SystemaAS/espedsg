@@ -242,7 +242,7 @@
             		</td>
             </tr>
             <%-- FORM DETAIL --%>
-            <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
+            <tr >
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="tripNr" id="tripNr" value='${model.record.hepro}'>
@@ -251,7 +251,7 @@
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
 		
-					<table style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
 							<td valign="top" >
@@ -380,9 +380,9 @@
 													</table>
 								   				</span>
 								   				&nbsp;<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
-								   				<%-- TODO -->expose when Bring accepts estimates - COVI!!!
+								   				<%-- TODO -->expose when Bring accepts estimates - COVI!!! --%>
 								   				&nbsp;<button name="planleggingButton" id="planleggingButton" class="buttonGrayWithGreenFrame" type="button" >Til planlegging</button>
-								   				--%>
+								   				
 										</c:if>
 			 						</td>
 			 						
