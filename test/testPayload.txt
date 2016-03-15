@@ -1,0 +1,1 @@
+{"user" : "OSCAR", "avd" : "1", "opd" : "139", "errMsg" : "", "oneorder1" : [ {"sveh_syav" : "999", "sveh_syop" : "139"}], "oneorder2" : [{"sveh_mopa" : "VERY LONG ISLAND AND NEW YORK STATE", "sveh_molk" : "US"} ] }
