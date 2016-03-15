@@ -124,7 +124,7 @@ public class JsonEspedsgRoadmapController {
 	}
 	
 	/**
-	 * 
+	 * Since there is no data layer...
 	 * @return
 	 */
 	private List setRoadmapSpecification(){
