@@ -138,7 +138,7 @@ public class JsonEspedsgRoadmapController {
 		obj = new RoadmapObject();
 		obj.setId("2");obj.setSubject("Upgrade to Java 7");
 		obj.setText("RS/OT");
-		obj.setStatus("R");
+		obj.setStatus("Y");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
@@ -148,15 +148,21 @@ public class JsonEspedsgRoadmapController {
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
-		obj.setId("4");obj.setSubject("Infrastructure-Code assambley");
-		obj.setText("Jenkins-Git / Java team/RS");
-		obj.setStatus("Y");
+		obj.setId("4");obj.setSubject("Infrastructure - Version controll");
+		obj.setText("Git / Java team");
+		obj.setStatus("G");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
-		obj.setId("5");obj.setSubject("AS400 handover to JavaServices");
-		obj.setText("Java team on FreeForm");
+		obj.setId("5");obj.setSubject("Infrastructure - Code assambley");
+		obj.setText("Jenkins / Java team");
 		obj.setStatus("R");
+		list.add(obj);
+		//
+		obj = new RoadmapObject();
+		obj.setId("6");obj.setSubject("AS400 handover to JavaServices");
+		obj.setText("Java team on FreeForm");
+		obj.setStatus("Y");
 		list.add(obj);
 		return list;
 	}
