@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- ================  -->
+ 	<!-- APPLICATION WIDE -->  
+	<!-- ================  -->
+	<bean id="urlCgiProxyService" class="no.systema.main.service.UrlCgiProxyServiceImpl"/>
+	<bean id="systemaWebLoginService" class="no.systema.main.service.login.SystemaWebLoginServiceImpl"/>
+	<bean id="currencyRateService" class="no.systema.main.service.general.CurrencyRateServiceImpl"/>
+	<bean id="notisblockService" class="no.systema.main.service.general.notisblock.NotisblockServiceImpl"/>
+	
+	
+	<!-- =========  -->
+	<!-- TDS WIDE   -->
+	<!-- =========  -->
+	<bean id="tdsTaricVarukodService" class="no.systema.tds.service.TdsTaricVarukodServiceImpl"/>
+	<!-- TDS - Drop down bean --> 
+    <bean id="tdsDropDownListPopulationService" class="no.systema.tds.service.html.dropdown.TdsDropDownListPopulationService"/>
+	<!-- TDS - Authorization -->
+    <bean id="tdsAuthorizationService" class="no.systema.tds.service.TdsAuthorizationServiceImpl"/>
+    <!-- TDS - Sign/Name -->
+    <bean id="tdsSignatureNameService" class="no.systema.tds.service.TdsSignatureNameServiceImpl"/>
+    <!-- TDS - Godsnr -->
+    <bean id="tdsGodsnrService" class="no.systema.tds.service.TdsGodsnrServiceImpl"/>
+    <!-- TDS - Tilläggskoder -->
+    <bean id="tdsTillaggskoderService" class="no.systema.tds.service.TdsTillaggskoderServiceImpl"/>
+    <!-- TDS - Bilagda Handlingar YKoder -->
+    <bean id="tdsBilagdaHandlingarYKoderService" class="no.systema.tds.service.TdsBilagdaHandlingarYKoderServiceImpl"/>
+    <!-- TDS - Genreal Codes ChildWindow Service -->
+    <bean id="tdsGeneralCodesChildWindowService" class="no.systema.tds.service.TdsGeneralCodesChildWindowServiceImpl"/>
+    
+    
+	<!-- ==========  -->
+	<!-- TDS EXPORT  -->
+	<!-- =========== -->
+	<bean id="tdsExportCustomerService" class="no.systema.tds.tdsexport.service.TdsExportCustomerServiceImpl"/>
+	<bean id="tdsExportTullkontorService" class="no.systema.tds.tdsexport.service.TdsExportTullkontorServiceImpl"/>
+	<bean id="tdsExportTopicListService" class="no.systema.tds.tdsexport.service.TdsExportTopicListServiceImpl"/>
+	<bean id="tdsExportSpecificTopicService" class="no.systema.tds.tdsexport.service.TdsExportSpecificTopicServiceImpl"/>
+	<bean id="tdsExportSpecificTopicItemService" class="no.systema.tds.tdsexport.service.TdsExportSpecificTopicItemServiceImpl"/>
+	<!-- TDS EXPORT Drop down bean --> 
+    <bean id="dropDownListPopulationService" class="no.systema.tds.tdsexport.service.html.dropdown.DropDownListPopulationService"/>
+	
+	<!-- ===========  -->
+	<!-- TDS-NCTS EXPORT  -->
+	<!-- ===========  -->
+	<bean id="nctsExportTopicListService" class="no.systema.tds.nctsexport.service.NctsExportTopicListServiceImpl"/>
+	<bean id="nctsExportSpecificTopicService" class="no.systema.tds.nctsexport.service.NctsExportSpecificTopicServiceImpl"/>
+	<bean id="nctsExportSpecificTopicItemService" class="no.systema.tds.nctsexport.service.NctsExportSpecificTopicItemServiceImpl"/>
+	<!-- TDS-NCTS EXPORT Drop down bean --> 
+    <bean id="nctsExportdropDownListPopulationService" class="no.systema.tds.nctsexport.service.html.dropdown.DropDownListPopulationService"/>
+	
+	<!-- ==========  -->
+	<!-- TDS IMPORT  -->
+	<!-- =========== -->
+	<bean id="tdsImportCustomerService" class="no.systema.tds.tdsimport.service.TdsImportCustomerServiceImpl"/>
+	<bean id="tdsImportTullkontorService" class="no.systema.tds.tdsimport.service.TdsImportTullkontorServiceImpl"/>
+	<bean id="tdsImportTopicListService" class="no.systema.tds.tdsimport.service.TdsImportTopicListServiceImpl"/>
+	<bean id="tdsImportSpecificTopicService" class="no.systema.tds.tdsimport.service.TdsImportSpecificTopicServiceImpl"/>
+	<bean id="tdsImportSpecificTopicItemService" class="no.systema.tds.tdsimport.service.TdsImportSpecificTopicItemServiceImpl"/>
+	
+	<!-- TDS IMPORT Drop down bean --> 
+    <bean id="tdsImportDropDownListPopulationService" class="no.systema.tds.tdsimport.service.html.dropdown.DropDownListPopulationService"/>
+	
+	<!-- ===========  -->
+	<!-- TDS-NCTS IMPORT  -->
+	<!-- ===========  -->
+	<bean id="nctsImportTopicListService" class="no.systema.tds.nctsimport.service.NctsImportTopicListServiceImpl"/>
+	<bean id="nctsImportSpecificTopicService" class="no.systema.tds.nctsimport.service.NctsImportSpecificTopicServiceImpl"/>
+	<bean id="nctsImportSpecificTopicItemService" class="no.systema.tds.nctsimport.service.NctsImportSpecificTopicItemServiceImpl"/>
+	<bean id="nctsImportSpecificTopicUnloadingService" class="no.systema.tds.nctsimport.service.NctsImportSpecificTopicUnloadingServiceImpl"/>
+	<bean id="nctsImportSpecificTopicUnloadingItemService" class="no.systema.tds.nctsimport.service.NctsImportSpecificTopicUnloadingItemServiceImpl"/>
+	<!-- NCTS IMPORT Drop down bean --> 
+    <bean id="nctsImportDropDownListPopulationService" class="no.systema.tds.nctsimport.service.html.dropdown.DropDownListPopulationService"/>
+	
+	<!-- ===========  -->
+	<!-- TDS ADMIN    -->
+	<!-- ===========  -->
+	<bean id="tdsAdminTransportService" class="no.systema.tds.admin.service.TdsAdminTransportServiceImpl"/>
+	
+	
+	
+	<!-- =========  -->
+	<!-- SKAT WIDE   -->
+	<!-- =========  -->
+	<bean id="skatTaricVarukodService" class="no.systema.skat.service.SkatTaricVarukodServiceImpl"/>
+	<!-- SKAT - Authorization -->
+    <bean id="skatAuthorizationService" class="no.systema.skat.service.SkatAuthorizationServiceImpl"/>
+    <!-- SKAT - Drop down bean --> 
+    <bean id="skatDropDownListPopulationService" class="no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService"/>
+	<!-- SKAT - Customer --> 
+	<bean id="skatCustomerService" class="no.systema.skat.service.SkatCustomerServiceImpl"/>
+	 <!-- SKAT - Tullkontor --> 
+	<bean id="skatTullkontorService" class="no.systema.skat.service.SkatTullkontorServiceImpl"/>
+	
+		
+    <!-- ===========  -->
+	<!-- SKAT IMPORT  -->
+	<!-- =========== -->
+	<bean id="skatImportTopicListService" class="no.systema.skat.skatimport.service.SkatImportTopicListServiceImpl"/>
+	<bean id="skatImportSpecificTopicService" class="no.systema.skat.skatimport.service.SkatImportSpecificTopicServiceImpl"/>
+	<bean id="skatImportSpecificTopicItemService" class="no.systema.skat.skatimport.service.SkatImportSpecificTopicItemServiceImpl"/>
+	<!-- SKAT IMPORT Drop down bean --> 
+    <bean id="skatImportDropDownListPopulationService" class="no.systema.skat.skatimport.service.html.dropdown.SkatImportDropDownListPopulationService"/>
+	
+	<!-- ===========  -->
+	<!-- SKAT EXPORT  -->
+	<!-- =========== -->
+	<bean id="skatExportTopicListService" class="no.systema.skat.skatexport.service.SkatExportTopicListServiceImpl"/>
+	<bean id="skatExportSpecificTopicService" class="no.systema.skat.skatexport.service.SkatExportSpecificTopicServiceImpl"/>
+	<bean id="skatExportSpecificTopicItemService" class="no.systema.skat.skatexport.service.SkatExportSpecificTopicItemServiceImpl"/>
+	<!-- SKAT EXPORT Drop down bean  -->  
+    <bean id="skatExportDropDownListPopulationService" class="no.systema.skat.skatexport.service.html.dropdown.SkatExportDropDownListPopulationService"/>
+	
+	<!-- ================  -->
+	<!-- SKAT-NCTS EXPORT  -->
+	<!-- ================  -->
+	<bean id="skatNctsExportTopicListService" class="no.systema.skat.nctsexport.service.SkatNctsExportTopicListServiceImpl"/>
+	<bean id="skatNctsExportSkatSpecificTopicService" class="no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicServiceImpl"/>
+	<bean id="skatNctsExportSkatSpecificTopicItemService" class="no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemServiceImpl"/>
+	<!-- SKAT-NCTS EXPORT Drop down bean --> 
+    <bean id="skatNctsExportSkatdropDownListPopulationService" class="no.systema.skat.nctsexport.service.html.dropdown.SkatNctsExportDropDownListPopulationService"/>
+	
+	<!-- ================  -->
+	<!-- SKAT-NCTS IMPORT  -->
+	<!-- ================  -->
+	<bean id="skatNctsImportTopicListService" class="no.systema.skat.nctsimport.service.SkatNctsImportTopicListServiceImpl"/>
+	<bean id="skatNctsImportSpecificTopicService" class="no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicServiceImpl"/>
+	<bean id="skatNctsImportSpecificTopicItemService" class="no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicItemServiceImpl"/>
+	<bean id="skatNctsImportSpecificTopicUnloadingService" class="no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicUnloadingServiceImpl"/>
+	<bean id="skatNctsImportSpecificTopicUnloadingItemService" class="no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicUnloadingItemServiceImpl"/>
+	<!-- SKAT NCTS IMPORT Drop down bean --> 
+    <bean id="skatNctsImportDropDownListPopulationService" class="no.systema.skat.nctsimport.service.html.dropdown.SkatNctsImportDropDownListPopulationService"/>
+	
+	<!-- ===========  -->
+	<!-- SKAT ADMIN    -->
+	<!-- ===========  -->
+	<bean id="skatAdminTransportService" class="no.systema.skat.admin.service.SkatAdminTransportServiceImpl"/>
+	
+	
+	<!-- ===============  -->
+	<!-- TVINN-SAD WIDE   -->
+	<!-- ===============  -->
+	<!-- TVINN-SAD - Authorization -->
+    <bean id="tvinnSadAuthorizationService" class="no.systema.tvinn.sad.service.TvinnSadAuthorizationServiceImpl"/>
+    <bean id="tvinnSadCustomerService" class="no.systema.tvinn.sad.service.TvinnSadCustomerServiceImpl"/>
+    <bean id="tvinnSadTolltariffVarukodService" class="no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodServiceImpl"/>
+    <bean id="tvinnSadTullkontorService" class="no.systema.tvinn.sad.service.TvinnSadTullkontorServiceImpl"/>
+    <!-- TVINN - Drop down bean --> 
+    <bean id="tvinnSadDropDownListPopulationService" class="no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService"/>
+    
+    <!-- ================= -->
+	<!-- TVINN-SAD EXPORT  -->
+	<!-- ================= -->
+	<bean id="sadExportTopicListService" class="no.systema.tvinn.sad.sadexport.service.SadExportTopicListServiceImpl"/>
+	<bean id="sadExportSpecificTopicService" class="no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicServiceImpl"/>
+	<bean id="sadExportSpecificTopicItemService" class="no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicItemServiceImpl"/>
+	<!-- SAD EXPORT Drop down bean --> 
+    <bean id="sadExportDropDownListPopulationService" class="no.systema.tvinn.sad.sadexport.service.html.dropdown.SadExportDropDownListPopulationService"/>
+	<!-- SAD EXPORT - General Codes ChildWindow Service -->
+    <bean id="sadExportGeneralCodesChildWindowService" class="no.systema.tvinn.sad.sadexport.service.SadExportGeneralCodesChildWindowServiceImpl"/>
+    
+	<!-- ================= -->
+	<!-- TVINN-SAD IMPORT  -->
+	<!-- ================= -->
+	<bean id="sadImportTopicListService" class="no.systema.tvinn.sad.sadimport.service.SadImportTopicListServiceImpl"/>
+	<bean id="sadImportSpecificTopicService" class="no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicServiceImpl"/>
+	<bean id="sadImportSpecificTopicItemService" class="no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicItemServiceImpl"/>
+	<!-- SAD IMPORT Drop down bean --> 
+    <bean id="sadImportDropDownListPopulationService" class="no.systema.tvinn.sad.sadimport.service.html.dropdown.SadImportDropDownListPopulationService"/>
+	<!-- SAD IMPORT - General Codes ChildWindow Service -->
+    <bean id="sadImportGeneralCodesChildWindowService" class="no.systema.tvinn.sad.sadimport.service.SadImportGeneralCodesChildWindowServiceImpl"/>
+    
+	<!-- =====================  -->
+	<!-- TVINN-SAD NCTS EXPORT  -->
+	<!-- =====================  -->
+	<bean id="sadNctsExportTopicListService" class="no.systema.tvinn.sad.nctsexport.service.SadNctsExportTopicListServiceImpl"/>
+	<bean id="sadNctsExportSkatSpecificTopicService" class="no.systema.tvinn.sad.nctsexport.service.SadNctsExportSpecificTopicServiceImpl"/>
+	<bean id="sadNctsExportSkatSpecificTopicItemService" class="no.systema.tvinn.sad.nctsexport.service.SadNctsExportSpecificTopicItemServiceImpl"/>
+	<!-- SKAT-NCTS EXPORT Drop down bean --> 
+    <bean id="sadNctsExportSkatdropDownListPopulationService" class="no.systema.tvinn.sad.nctsexport.service.html.dropdown.SadNctsExportDropDownListPopulationService"/>
+	
+	<!-- =====================  -->
+	<!-- TVINN-SAD NCTS IMPORT  -->
+	<!-- =====================  -->
+	<bean id="sadNctsImportTopicListService" class="no.systema.tvinn.sad.nctsimport.service.SadNctsImportTopicListServiceImpl"/>
+	<bean id="sadNctsImportSpecificTopicService" class="no.systema.tvinn.sad.nctsimport.service.SadNctsImportSpecificTopicServiceImpl"/>
+	<bean id="sadNctsImportSpecificTopicItemService" class="no.systema.tvinn.sad.nctsimport.service.SadNctsImportSpecificTopicItemServiceImpl"/>
+	<bean id="sadNctsImportSpecificTopicUnloadingService" class="no.systema.tvinn.sad.nctsimport.service.SadNctsImportSpecificTopicUnloadingServiceImpl"/>
+	<bean id="sadNctsImportSpecificTopicUnloadingItemService" class="no.systema.tvinn.sad.nctsimport.service.SadNctsImportSpecificTopicUnloadingItemServiceImpl"/>
+	<!-- SKAT NCTS IMPORT Drop down bean --> 
+    <bean id="sadNctsImportDropDownListPopulationService" class="no.systema.tvinn.sad.nctsimport.service.html.dropdown.SadNctsImportDropDownListPopulationService"/>
+	
+	<!-- =================  -->
+	<!-- TVINN-SAD ADMIN    -->
+	<!-- =================  -->
+	<bean id="sadAdminTransportService" class="no.systema.tvinn.sad.admin.service.SadAdminTransportServiceImpl"/>
+	
+	<!-- ============================  -->
+	<!-- OVERVIEW UFORTOLLEDE OPPDRAG  -->
+	<!-- ============================  -->
+	<bean id="uoppdragService" class="no.systema.overview.ufortolledeoppdrag.service.UoppdragServiceImpl"/>
+	
+	<!-- ============================  -->
+	<!-- OVERVIEW SENDINGER LEVTID	  -->
+	<!-- ============================  -->
+	<bean id="sendingerlevtidService" class="no.systema.overview.sendingerlevtid.service.SendingerlevtidServiceImpl"/>
+	<bean id="sendingerlevtidCarrierService" class="no.systema.overview.sendingerlevtid.service.SendingerlevtidCarrierServiceImpl"/>
+	
+	<!-- ============================  -->
+	<!-- SPØRRING PÅ OPPDRAG  		  -->
+	<!-- ============================  -->
+	<bean id="sporringOppdragService" class="no.systema.sporringoppdrag.service.SporringOppdragTopicListServiceImpl"/>
+	<bean id="sporringOppdragSpecificTopicService" class="no.systema.sporringoppdrag.service.SporringOppdragSpecificTopicServiceImpl"/>
+	
+	<!-- ============================  -->
+	<!-- FRAKTKALKULATOR				  -->
+	<!-- ============================  -->
+	<bean id="fraktKalkulatorChildWindowsService" class="no.systema.fraktkalkulator.service.FraktKalkulatorChildWindowsServiceImpl"/>
+	<bean id="fraktKalkulatorUserService" class="no.systema.fraktkalkulator.service.FraktKalkulatorUserServiceImpl"/>
+	<bean id="fraktKalkulatorResultService" class="no.systema.fraktkalkulator.service.FraktKalkulatorResultServiceImpl"/>
+	<bean id="fraktKalkulatorDropDownService" class="no.systema.fraktkalkulator.service.FraktKalkulatorDropDownServiceImpl"/>
+	
+	<!-- ============================  -->
+	<!-- WORKING WITH TRIPS			  -->
+	<!-- ============================  -->
+	<bean id="transportDispWorkflowListService" class="no.systema.transportdisp.service.TransportDispWorkflowListServiceImpl"/>
+	<bean id="transportDispChildWindowService" class="no.systema.transportdisp.service.TransportDispChildWindowServiceImpl"/>
+	<bean id="transportDispWorkflowSpecificTripService" class="no.systema.transportdisp.service.TransportDispWorkflowSpecificTripServiceImpl"/>
+	<bean id="transportDispWorkflowShippingPlanningOrdersListService" class="no.systema.transportdisp.service.TransportDispWorkflowShippingPlanningOrdersListServiceImpl"/>
+	<bean id="transportDispWorkflowSpecificOrderService" class="no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderServiceImpl"/>	
+	<bean id="transportDispWorkflowBudgetService" class="no.systema.transportdisp.service.TransportDispWorkflowBudgetServiceImpl"/>	
+	<!-- WRK.WITH TRIPS - Drop down bean --> 
+    <bean id="transportDispDropDownListPopulationService" class="no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService"/>
+    <!-- Post Update service-->
+    <bean id="transportDispPostUpdateService" class="no.systema.transportdisp.service.TransportDispPostUpdateServiceImpl"/>
+   
+    <!-- ============================  -->
+	<!-- EFAKTURA          			   -->
+	<!-- ============================  -->
+	<bean id="efakturaListService" class="no.systema.efaktura.service.EfakturaListServiceImpl"/>
+	<bean id="efakturaChildWindowService" class="no.systema.efaktura.service.EfakturaChildWindowServiceImpl"/>
+	
+	
+	<!-- ============================  -->
+	<!-- EBOOKING          			   -->
+	<!-- ============================  -->
+	<bean id="ebookingChildWindowService" class="no.systema.ebooking.service.EbookingChildWindowServiceImpl"/>
+	
+    
+	<!-- ==============================  -->
+	<!-- SYSTEMA SPECIFIC CUSTOMER/APPL  -->
+	<!-- ==============================  -->
+	<bean id="fileDatabaseService" class="no.systema.espedsgadmin.service.FileDatabaseServiceImpl"/>
+	
+	<!-- ==============================  -->
+	<!-- SYSJSERVICES TEST APP  -->
+	<!-- ==============================  -->
+	<bean id="sysJservicesListService" class="no.systema.asyjservices.service.SysJservicesListServiceImpl"/>
+	
+	
+</beans>

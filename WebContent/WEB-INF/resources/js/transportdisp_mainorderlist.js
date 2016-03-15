@@ -1,0 +1,656 @@
+  //this variable is a global jQuery var instead of using "$" all the time. Very handy
+  var jq = jQuery.noConflict();
+  var counterIndex = 0;
+  var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+
+  //Global functions
+  function g_getCurrentYearStr(){
+	  return new Date().getFullYear().toString();
+  }
+  function g_getCurrentMonthStr(){
+	  var currentMonth = new Date().getMonth() + 1;
+	  var currentMonthStr = currentMonth.toString();
+	  if (currentMonth < 10) { currentMonthStr = '0' + currentMonth; }
+	  return currentMonthStr;
+  }
+  
+  //---------------------------------
+  //START - Drag from Orders to Trip 
+  //---------------------------------
+  	//this drag function is used when the order is the SOURCE of a drag and not the target
+	function drag(ev) {
+	    ev.dataTransfer.setData("text", ev.target.id);
+	}
+	//END Drag
+	
+	//---------------------------------
+	//START - Drop from Trips to Order
+	//---------------------------------
+	//this drag function is used when the order is the TARGET of a drag and not the source
+	function highlightDropArea(ev) {
+  		var data = ev.dataTransfer.getData("text");
+  		jq("#"+ev.target.id).addClass('isa_blue');
+	}
+	//this drag function is used when the order is the TARGET of a drag and not the source
+    function noHighlightDropArea(ev) {
+    	//jq("#"+ev.target.id).css("color", "red");
+    	jq("#"+ev.target.id).removeClass('isa_blue');
+	}
+    //this drag function is used when the order is the TARGET of a drag and not the source
+    function allowDrop(ev) {
+    	ev.preventDefault();
+	}
+    //this drag function is used when the order is the TARGET of a drag and not the source
+	function drop(ev) {
+	    ev.preventDefault();
+	    jq("#"+ev.target.id).removeClass('isa_blue');
+	    
+	    var data = ev.dataTransfer.getData("text");
+	    //DEBUG alert(data);
+	    var record = data.split("@");
+	    var trip = record[1].replace("tripnr_","");
+	    //DEBUG alert(event.target.id);
+	    if(trip.indexOf("_") == -1){ //meaning the trip is valid
+		    //get target ids
+		    var recordTarget = event.target.id.split("_");
+		    var avd = recordTarget[0].replace("davd","");
+		    var opd = recordTarget[1].replace("dopd","");
+		    //DEBUG alert(trip + "XX" + avd + "XX" + opd);
+		    if(trip!='' && avd!='' && opd!=''){
+		    	setTripOnOrder(trip, avd, opd);
+		    }else{
+		    	alert("Ordre/tur/avd mangler?")
+		    }
+	    }
+	    //N/A
+	    //ev.target.appendChild(document.getElementById(data));
+	}
+	//Connect trip with order
+  	//if = OK then go to order (GUI)
+  	function setTripOnOrder(trip, avd, opd){
+  		var requestString = "&wmode=A&wstur=" + trip + "&wsavd=" + avd + "&wsopd=" + opd;
+  		jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'addTripToOrder_TransportDisp.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(),
+  					  requestString : requestString },
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		if(len==1){
+			  		//update = OK
+		  			reloadParentOrder(trip,avd,opd);
+		  		}else{
+		  			//update != OK
+		  			alert("Error on order update [addTripToOrder_TransportDisp.do]...?");
+		  		}
+		  	  },
+		  	  error: function() {
+		  		  alert('Error loading ...');
+			  }
+  		});
+  	}
+  //------------------------------------------
+  //END - Drag and drop from Trips to Order
+  //------------------------------------------
+  	
+    //Reload the order after being coupled with the trip 
+    //NOTE: this function is call from: 
+    //(1) from this same file in the above ajax: setTripOnOrder(trip,avd,opd)
+    function reloadParentOrder(trip, avd, opd) {
+    	window.location = "transportdisp_mainorder.do?hepro=" + trip + "&heavd=" + avd + "&heopd=" + opd;
+    	
+    	//in case we want to refresh the order list (unlikely)
+    	//window.location = "transportdisp_mainorderlist.do?action=doFind&avd=" + avd;
+    	
+    }
+	
+  
+  
+  
+  //Stretch workplace
+  jq(function() {
+	  jq("#checkBoxVisibility").click(function() {
+		  if (jq(this).is(":checked")) {
+			  jq('#tdsBanner').hide();
+		  }else{
+			  jq('#tdsBanner').show();
+		  }
+	  });
+	  
+	  jq("#fromDateF").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#fromDateT").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+	  });
+	  jq("#fromDateT").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#to").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+	  });
+	  jq("#toDateF").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#toDateT").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+	  });
+	  jq("#toDateT").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#submit").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+	  });
+
+	  jq("#fromDateF").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#fromDateF").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#fromDateF").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#fromDateF").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+	  });
+	  jq("#fromDateT").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#fromDateT").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#fromDateT").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#fromDateT").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+	  });
+	  jq("#toDateF").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#toDateF").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#toDateF").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#toDateF").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+	  });
+	  jq("#toDateT").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#toDateT").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#toDateT").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#toDateT").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+	  });
+	  
+  });	
+  
+  jq(function() {
+	  jq('#alinkTripListId').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  }); 
+	  jq("#cnButton").click(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT }); 
+		  if(jq('#avd').val()!='' && jq('#tur').val()!=''){
+			  window.location = "transportdisp_mainorder.do?heavd=" + jq('#avd').val() + "&hepro=" + jq('#tur').val();
+		  }else{
+			  window.location = "transportdisp_mainorder.do?heavd=" + jq('#userAvd').val();
+		  }
+	  });
+	  
+  });
+
+  //---------------------------------------
+  //DELETE Order
+  //This is done in order to present a jquery
+  //Alert modal pop-up
+  //----------------------------------------
+  function doPermanentlyDeleteOrder(element){
+	  //start
+	  var record = element.id.split('@');
+	  var avd = record[0];
+	  var opd = record[1];
+	  avd= avd.replace("avd_","");
+	  opd= opd.replace("opd_","");
+	  	//Start dialog
+	  	jq('<div></div>').dialog({
+	        modal: true,
+	        title: "Dialog - Slett Oppdrag " + opd,
+	        buttons: {
+		        Fortsett: function() {
+	        		jq( this ).dialog( "close" );
+		            //do delete
+		            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		            window.location = "transportdisp_mainorderlist_permanently_delete_order.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd;
+		        },
+		        Avbryt: function() {
+		            jq( this ).dialog( "close" );
+		        }
+	        },
+	        open: function() {
+		  		  var markup = "Er du sikker på at du vil slette denne?";
+		          jq(this).html(markup);
+		          //make Cancel the default button
+		          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
+		     }
+		});  //end dialog
+  }	  
+  //-----------------------------------------------------------
+  //Go to the specific order through AJAX
+  //Reason: we must validate first if the order can be updated
+  //The user will be promted with a reasonable pop-up...
+  //-----------------------------------------------------------
+  function goToSpecificOrder(element){
+	  //start
+	  var record = element.id.split('@');
+	  var hepro = record[0];
+	  var heavd = record[1];
+	  var heopd = record[2];
+	  hepro = hepro.replace("hepro_",""); heavd = heavd.replace("heavd_",""); heopd = heopd.replace("heopd_","");
+	  var requestString = "&heavd="+ heavd + "&heopd=" + heopd;
+	  //DEBUG --> 
+	  //alert(requestString);
+	  jq.ajax({
+		  type: 'GET',
+	  	  url: 'validateSpecificOpenOrder_TransportDisp.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(), 
+	  		  	  requestString : requestString }, 
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		for ( var i = 0; i < len; i++) {
+	  			if(data[i].errMsg!=''){
+	  					//alert(data[i].errMsg);
+	  					jq('<div></div>').dialog({
+		  			        modal: true,
+		  			        title: "Dialog",
+		  			        open: function() {
+		  			          var markup = data[i].errMsg;
+		  			          jq(this).html(markup);
+		  			        },
+		  			        buttons: {
+		  			          Ok: function() {
+		  			            jq( this ).dialog( "close" );
+		  			            //get back to the starting point
+		  			            //TODO maybe to refresh. N/A at the moment...-->jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		  			            //TODO maybe to refresh. N/A at the moment...-->window.location = "transportdisp_mainorderlist.do?action=doFind";
+		  			          }
+		  			        }
+	  					});  //end confirm dialog
+	  				
+	  			}else{
+	  				//proceed to the redirect for validate=OK
+	  				jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  				window.location = "transportdisp_mainorder.do?user=" + jq('#applicationUser').val() + "&heavd=" + heavd + "&heopd=" + heopd;
+	  			}
+	  		}
+	  	  },
+	  	  error: function() {
+		  	    alert('Error loading ...');
+	  	  }
+		  
+	  });
+  }
+  
+  function setBlockUI(element){
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  }
+  
+  //-------------------
+  //Datatables jquery
+  //-------------------
+  //private function
+  function filtersInit () {
+    jq('#currentOrders').DataTable().search(
+    		jq('#currentOrders_filter').val()
+    ).draw();
+    jq('#openOrders').DataTable().search(
+    		jq('#openOrders_filter').val()
+    ).draw();
+    
+  }
+
+  jq(document).ready(function() {
+    //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	jq('#currentOrders').dataTable( {
+	  "jQueryUI": false,
+	  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+	  "scrollY":        	"350px",
+	  "scrollCollapse":  	false,
+	  "autoWidth": false, //for optimization purposes when initializing the table
+	  "lengthMenu": [ 50, 75, 100]
+	} );
+    //event on input field for search
+    jq('input.currentOrders_filter').on( 'keyup click', function () {
+    		filtersInit();
+    } );
+    
+    //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	jq('#openOrders').dataTable( {
+	  "jQueryUI": false,
+	  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+	  "scrollY":        	"700px",
+	  "scrollCollapse":  	false,
+	  "autoWidth": false, //for optimization purposes when initializing the table
+	  "lengthMenu": [ 50, 75, 100]
+	  
+	} );
+	
+    //event on input field for search
+    jq('input.openOrders_filter').on( 'keyup click', function () {
+    		filtersInit();
+    });
+    
+    //init economy-matrix draggable poput 
+    showDialogMatrixDraggable();
+    
+  });
+  //draggable window
+  function showDialogMatrixDraggable(){
+	  //jq( "#dialogDraggableMatrix" ).removeClass("popup");
+	  jq( "#dialogDraggableMatrix" ).dialog({
+		  minHeight: 280,
+		  minWidth:420,
+		  position: { my: "right top", at: "right bottom", of: window }
+	  }); 
+	  jq( "#dialogDraggableMatrix" ).focus();
+  }
+  
+  
+  //----------------------------------------
+  //Iterate through check-boxes to update
+  //----------------------------------------
+  function getValidCheckis(record) {
+	  var FIELD_SEPARATOR = "@";
+	  var requestString = "";
+	  
+	  //Check current orders
+	  jq( ".clazz_checkis_currentorders" ).each(function( i ) {
+		  var id = this.id;
+		  if (jq(this).is(":checked")) {
+			  //DEBUG alert("checked:" + id);
+			  var rawString = id.split(FIELD_SEPARATOR);
+			  if(requestString==""){ requestString = rawString[1]; }
+			  else{ requestString += FIELD_SEPARATOR + rawString[1]; }
+		  }
+	  });
+	  //Check open orders
+	  if(requestString==""){
+		  jq( ".clazz_checkis_openorders" ).each(function( i ) {
+			  var id = this.id;
+			  if (jq(this).is(":checked")) {
+				  //DEBUG alert("checked:" + id);
+				  var rawString = id.split(FIELD_SEPARATOR);
+				  if(requestString==""){ requestString = rawString[1]; }
+				  else{ requestString += FIELD_SEPARATOR + rawString[1]; }
+			  }
+		  });
+	  }
+	  //DEBUG alert(requestString);
+	  //Now update all trips with checked check boxes if any
+	  if(requestString!="" && requestString!=null){
+		  jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'updateMainOrdersLists_TransportDisp.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(), 
+		  		  	  requestString : requestString }, 
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		for ( var i = 0; i < len; i++) {
+		  			//we send the redirect after all updates in order to refresh...
+		  			window.location = "transportdisp_mainorderlist.do?action=doFind&wssavd=" + data[i].tuavd + "&wstur=" + data[i].tupro;
+		  		}
+		  	  },
+		  	  error: function() {
+			  	    alert('Error loading ...');
+		  	  }
+		  });
+	  }
+  }
+  
+  
+//----------------------------------------
+  //Iterate through check-boxes to update
+  //----------------------------------------
+  function getValidPositions(record) {
+	  var FIELD_SEPARATOR = "@";
+	  var WSPOS_SUFFIX = "&wspos=";
+	  var tripNr = jq('#tripNr').val();
+	  //alert(tripNr);
+	  var requestString = "";
+	  
+	  //Check current orders
+	  jq( ".clazz_position_currentorders" ).each(function( i ) {
+		  
+		  var counter = i + 1;
+		  var wsposValue = jq('#wspos'+counter).val();
+		  var id = jq('#wspos'+counter).attr('title');
+		  var rawString = id.split(FIELD_SEPARATOR);
+		  //alert(id);
+		  //alert(wsposValue);
+		  
+		  if(requestString==""){ 
+			  requestString = rawString[1]; 
+			  if(wsposValue!=""){
+				  requestString += WSPOS_SUFFIX + wsposValue;
+			  }
+		  }else{ 
+			  requestString += FIELD_SEPARATOR + rawString[1];
+			  if(wsposValue!=""){
+				  requestString += WSPOS_SUFFIX + wsposValue;
+			  }
+		  }
+	  });
+	  //alert(requestString);
+	  //Now update all trips position values
+	  
+	  jq.ajax({
+	  	  type: 'GET',
+	  	  url: 'updatePositionsMainOrdersLists_TransportDisp.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(), 
+	  		  	  requestString : requestString }, 
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		for ( var i = 0; i < len; i++) {
+	  			//we send the redirect after all updates in order to refresh...
+	  			window.location = "transportdisp_mainorderlist.do?action=doFind&wssavd=" + data[i].tuavd + "&wstur=" + tripNr;
+	  		}
+	  	  },
+	  	  error: function() {
+		  	    alert('Error loading ...');
+	  	  }
+	  });
+	  
+	 
+  }
+  
+  
+  
+  //-----------------------------------
+  //START Model dialog Copy Order
+  //-----------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq( ".clazz_dialog" ).each(function(){
+		jq(this).dialog({
+			autoOpen: false,
+			modal: true
+		});
+	  });
+  });
+  //Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq(".copyLink").click(function() {
+		  var id = this.id;
+		  counterIndex = id.replace("copyLink","");
+		  //setters (add more if needed)
+		  jq('#dialog'+counterIndex).dialog( "option", "title", "Kopi Oppdrag " + jq('#originalOpd'+counterIndex).val() );
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialog'+counterIndex).dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSave"+counterIndex,	
+				 text: "Fortsett",
+				 click: function(){
+					 		jq('#copyForm'+counterIndex).submit();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancel"+counterIndex,
+			 	 text: "Avbryt", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+					 		jq( this ).dialog( "close" ); 
+					 		  
+				 		} 
+	 	 		 } ] 
+			  
+		  });
+		  //init values
+		  //jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  
+		  //open now
+		  jq('#dialog'+counterIndex).dialog('open');
+		 
+	  });
+  });
+  
+  //Events for the html elements (some kind of "implicit validation")
+  jq(function() {
+	  jq(".newAvd").blur(function() {
+		  if(jq("#dialog"+counterIndex).find('.newAvd').val()!=''){
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+	  /*
+	  jq(".newSign").change(function() {
+		  if(jq("#dialog"+counterIndex).find('.newAvd').val()!='' && jq("#dialog"+counterIndex).find('.newSign').val()!=''){
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+	  */
+	  
+  });
+  //---------------------------------
+  //END Model dialog Copy Order
+  //---------------------------------
+
+//-----------------------------------
+  //START Model dialog Move Order
+  //-----------------------------------
+//Initialize <div> here
+  jq(function() { 
+	  jq( ".clazz_dialogMove" ).each(function(){
+		jq(this).dialog({
+			autoOpen: false,
+			modal: true
+		});
+	  });
+  });
+  //Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq(".moveLink").click(function() {
+		  var id = this.id;
+		  counterIndex = id.replace("moveLink","");
+		  //setters (add more if needed)
+		  jq('#dialogMove'+counterIndex).dialog( "option", "title", "Flytte Oppdrag " + jq('#originalOpd'+counterIndex).val() );
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialogMove'+counterIndex).dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSaveMove"+counterIndex,	
+				 text: "Fortsett",
+				 click: function(){
+					 		jq('#moveForm'+counterIndex).submit();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancelMove"+counterIndex,
+			 	 text: "Avbryt", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		jq("#dialogSaveMove"+counterIndex).button("option", "disabled", true);
+					 		jq( this ).dialog( "close" ); 
+					 		  
+				 		} 
+	 	 		 } ] 
+			  
+		  });
+		  //init values
+		  //jq("#dialogSaveMove"+counterIndex).button("option", "disabled", true);
+		  
+		  //open now
+		  jq('#dialogMove'+counterIndex).dialog('open');
+		 
+	  });
+  });
+  
+  //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
+  jq(function() {
+	  jq(".newAvdMove").blur(function() {
+		  if(jq("#dialogMove"+counterIndex).find('.newAvdMove').val()!=''){
+			  jq("#dialogSaveMove"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSaveMove"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+	  /*
+	  jq(".newSign").change(function() {
+		  if(jq("#dialog"+counterIndex).find('.newAvd').val()!='' && jq("#dialog"+counterIndex).find('.newSign').val()!=''){
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+	  */
+	  
+  });
+  //---------------------------------
+  //END Model dialog Copy Order
+  //---------------------------------
+
+
+  
+  

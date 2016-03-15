@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <!-- configure your Excel or PDFs views here --> 
+    <bean id="uoppListExcelView" class="no.systema.overview.ufortolledeoppdrag.view.UoppdragListExcelBuilder" />
+
+    <!-- TDS Import -->
+    <bean id="tdsImportItemListExcelView" class="no.systema.tds.tdsimport.view.ItemLineListExcelBuilder" />
+    <!-- TDS Export -->
+    <bean id="tdsExportItemListExcelView" class="no.systema.tds.tdsexport.view.ItemLineListExcelBuilder" />
+    <!-- TDS NCTS-Export -->
+    <bean id="tdsNctsExportItemListExcelView" class="no.systema.tds.nctsexport.view.ItemLineListExcelBuilder" />
+    <!-- TDS NCTS-Import -->
+    <bean id="tdsNctsImportItemListExcelView" class="no.systema.tds.nctsimport.view.ItemLineListExcelBuilder" />
+    <bean id="tdsNctsImportUnloadingItemListExcelView" class="no.systema.tds.nctsimport.view.UnloadingItemLineListExcelBuilder" />
+    
+    
+    <!-- SKAT Import -->
+    <bean id="skatImportItemListExcelView" class="no.systema.skat.skatimport.view.ItemLineListExcelBuilder" />
+    <!-- SKAT Export -->
+    <bean id="skatExportItemListExcelView" class="no.systema.skat.skatexport.view.ItemLineListExcelBuilder" />
+    <!-- SKAT NCTS Export -->
+    <bean id="skatNctsExportItemListExcelView" class="no.systema.skat.nctsexport.view.ItemLineListExcelBuilder" />
+     
+     
+    <!-- TVINN-SAD Import -->
+    <bean id="tvinnsadImportItemListExcelView" class="no.systema.tvinn.sad.sadimport.view.ItemLineListExcelBuilder" />
+    <!-- TVINN-SAD Export -->
+    <bean id="tvinnsadExportItemListExcelView" class="no.systema.tvinn.sad.sadexport.view.ItemLineListExcelBuilder" />
+
+    <!-- SPØRRING OPPDRAG -->
+    <bean id="sporringOppdragListExcelView" class="no.systema.sporringoppdrag.view.MainListExcelBuilder" />
+
+    <!-- WORK WITH TRIPS -->
+    <bean id="transportDispWorkflowTripListExcelView" class="no.systema.transportdisp.view.WorkflowTripListExcelBuilder" />
+    <bean id="transportDispWorkflowOpenOrdersListExcelView" class="no.systema.transportdisp.view.WorkflowOpenOrdersListExcelBuilder" />
+	<bean id="transportDispWorkflowSpecificTripContentListExcelView" class="no.systema.transportdisp.view.WorkflowSpecificTripContentListExcelBuilder" />
+	
+	<!-- EHF faktura -->
+    <bean id="efakturaListExcelView" class="no.systema.efaktura.view.EfakturaListExcelBuilder" />
+    
+	
+
+
+
+
+     
+</beans>
