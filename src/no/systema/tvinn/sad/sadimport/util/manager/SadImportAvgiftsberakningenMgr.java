@@ -80,7 +80,7 @@ public class SadImportAvgiftsberakningenMgr {
 		  List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> result = new ArrayList<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord>();
 		  try{
 			  String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_AVGIFTER_BEFORE_CALCULATION_URL;
-			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt + "siknk=" + siknk_receiverId;
+			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt + "&siknk=" + siknk_receiverId;
 			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 			  //logger.info(METHOD + "URL:" + BASE_URL);
 		  	  //logger.info(METHOD + "PARAMS:" + urlRequestParamsKeys);
