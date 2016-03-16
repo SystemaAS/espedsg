@@ -363,13 +363,13 @@ public class SadImportAjaxHandlerController {
 	  * @return
 	  */
 	 @RequestMapping(value = "getAvgiftDataBeforeCalculation_SadImport.do", method = RequestMethod.GET)
-	  public @ResponseBody List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> getAvgiftDataBeforeCalculation(@RequestParam String applicationUser, @RequestParam String svvnt) {
+	  public @ResponseBody List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> getAvgiftDataBeforeCalculation(@RequestParam String applicationUser, @RequestParam String svvnt, @RequestParam String siknk_receiverId ) {
 		  final String METHOD = "[DEBUG] getAvgiftDataBeforeCalculation ";
 		  logger.info(METHOD + "Inside...");
 		  List result = new ArrayList();
 		  try{
 			  String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_AVGIFTER_BEFORE_CALCULATION_URL;
-			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt;
+			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt + "&siknk=" + siknk_receiverId;
 			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 			  logger.info(METHOD + "URL:" + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		  	  logger.info(METHOD + "PARAMS:" + urlRequestParamsKeys);

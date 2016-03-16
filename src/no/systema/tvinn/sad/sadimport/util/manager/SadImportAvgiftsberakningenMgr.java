@@ -74,13 +74,13 @@ public class SadImportAvgiftsberakningenMgr {
 	 * @param svvnt
 	 * @return
 	 */
-	public List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> getAvgiftDataBeforeCalculation(String applicationUser, String svvnt) {
+	public List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> getAvgiftDataBeforeCalculation(String applicationUser, String svvnt, String siknk_receiverId) {
 		  final String METHOD = "[DEBUG] getAvgiftDataBeforeCalculation ";
 		  logger.info(METHOD + "Inside...");
 		  List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> result = new ArrayList<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord>();
 		  try{
 			  String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_AVGIFTER_BEFORE_CALCULATION_URL;
-			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt;
+			  String urlRequestParamsKeys = "user=" + applicationUser + "&svvnt=" + svvnt + "siknk=" + siknk_receiverId;
 			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 			  //logger.info(METHOD + "URL:" + BASE_URL);
 		  	  //logger.info(METHOD + "PARAMS:" + urlRequestParamsKeys);

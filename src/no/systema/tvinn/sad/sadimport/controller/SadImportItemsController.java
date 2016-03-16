@@ -172,7 +172,7 @@ public class SadImportItemsController {
 				this.backEndValidationOnTolltariff(appUser, recordToValidate, isBatch);
 				//check avgifter (is not mandatory for TVINN but the user must get a warning)
 				//DEBUG--> logger.info("A2#############" + recordToValidate.getSvpva());
-				List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> avgList = this.avgiftsberakningenMgr.getAvgiftDataBeforeCalculation(appUser.getUser(), recordToValidate.getSvvnt());
+				List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> avgList = this.avgiftsberakningenMgr.getAvgiftDataBeforeCalculation(appUser.getUser(), recordToValidate.getSvvnt(), headerRecord.getSiknk());
 				if((avgList!=null && avgList.size()>0)){
 					//We must check if this avgift data could be filled in automatically (single choices) or not (multiple choice = end-user must filled in, if applicable)
 					if(this.avgiftsberakningenMgr.isMultipleChoiceAvgiftMatrix(avgList)){
@@ -502,7 +502,7 @@ public class SadImportItemsController {
 		    			//-----------------------------------
 		    			//check avgifter (existent or not)
 		    			//-----------------------------------
-						List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> avgList = this.avgiftsberakningenMgr.getAvgiftDataBeforeCalculation(appUser.getUser(), record.getSvvnt());
+						List<JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord> avgList = this.avgiftsberakningenMgr.getAvgiftDataBeforeCalculation(appUser.getUser(), record.getSvvnt(), headerRecord.getSiknk());
 						if((avgList!=null && avgList.size()>0)){
 							//We must check if this avgift data could be filled in automatically (single choices) or not (multiple choice = end-user must filled in)
 							if(this.avgiftsberakningenMgr.isMultipleChoiceAvgiftMatrix(avgList)){

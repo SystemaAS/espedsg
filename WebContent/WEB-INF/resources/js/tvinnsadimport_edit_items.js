@@ -449,6 +449,7 @@
 			jq.getJSON('getAvgiftDataBeforeCalculation_SadImport.do', {
 				applicationUser : jq('#applicationUser').val(),
 				svvnt : jq('#svvnt').val(),
+				siknk_receiverId : jq('#receiverId').val(),
 				ajax : 'true'
 			}, function(data) {
 				//payload
@@ -750,6 +751,7 @@
 			jq.getJSON('getAvgiftDataBeforeCalculation_SadImport.do', {
 				applicationUser : jq('#applicationUser').val(),
 				svvnt : jq('#svvnt').val(),
+				siknk_receiverId : jq('#receiverId').val(),
 				ajax : 'true'
 			}, function(data) {
 				//payload
