@@ -931,7 +931,7 @@
 									        	<tr>
 										        	<td  colspan="3" class="text12" align="left" >
 										        	&nbsp;<img onMouseOver="showPop('52_info');" onMouseOut="hidePop('52_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-										        	<b>52.</b><font class="text16RedBold" >*</font><b>Garanti-kode</b>&nbsp;
+										        	<b>52.</b><b>Garanti-kode</b>&nbsp;
 										        	
 													<div class="text11" style="position: relative;" align="left">
 														<span style="position:absolute;top:2px; width:250px;" id="52_info" class="popupWithInputText text11"  >
@@ -956,6 +956,9 @@
 											           			<li>
 											           				<b>6</b>&nbsp;Unntak fra garanti (båt, fly, osv) i henhold til Transitteringskonvensjonens Vedlegg I, Artikkel 7.
 											           			</li>
+											           			<li>
+											           				<b>7</b>&nbsp;Forhåndsvarsel
+											           			</li>
 											           		</ul>
 											           		Ved bruk av forenklet prosedyre, kan bare garantitype 1 (Universalgaranti) brukes.
 													</span>	
@@ -964,13 +967,13 @@
 									        	</tr>
 									        	<tr height="5"><td></td></tr>
 							            		<tr>
-							            			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="thgkd">Kode</span></td>
-							            			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="thgft1">Garantinummer</span></td>
-							            			<td class="text12">&nbsp;<span title="thgft2">&nbsp;</span></td>
+							            			<td class="text12">&nbsp;<span title="thgkd">Kode</span></td>
+							            			<td class="text12">&nbsp;<span title="thgft1">Garantinummer</span></td>
+							            			<td class="text12">&nbsp;<span title="thgadk">Tilg.kode</span></td>
 							            		</tr>
 							            		<tr>
 							            			<td>
-							            				<select class="inputTextMediumBlueMandatoryField" name="thgkd" id="thgkd" >
+							            				<select class="inputTextMediumBlue" name="thgkd" id="thgkd" >
 										 				  <option value="">-velg-</option>
 														  <option value="0"<c:if test="${model.record.thgkd == '0'}"> selected </c:if> >0</option>
 														  <option value="1"<c:if test="${model.record.thgkd == '1'}"> selected </c:if> >1</option>
@@ -978,18 +981,20 @@
 														  <option value="3"<c:if test="${model.record.thgkd == '3'}"> selected </c:if> >3</option>
 														  <option value="4"<c:if test="${model.record.thgkd == '4'}"> selected </c:if> >4</option>
 														  <option value="6"<c:if test="${model.record.thgkd == '6'}"> selected </c:if> >6</option>
+														  <option value="7"<c:if test="${model.record.thgkd == '7'}"> selected </c:if> >7</option>
+														  
 														</select>
 							            			</td>
-							            			<td><input type="text" class="inputTextMediumBlueMandatoryField" name="thgft1" id="thgft1" size="24" maxlength="24" value="${model.record.thgft1}"></td>
+							            			<td><input type="text" class="inputTextMediumBlue" name="thgft1" id="thgft1" size="24" maxlength="24" value="${model.record.thgft1}"></td>
+							            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${model.record.thgadk}"></td>
+							            		</tr>
+							            		<tr>
+							            			
+							            			<td class="text12">&nbsp;<span title="thgbgi">Ikke gyl.EU</span></td>
+							            			<td class="text12">&nbsp;<span title="thgbgu">Garant. gjelder ikke [land]</span></td>
 							            			<td>&nbsp;</td>
 							            		</tr>
 							            		<tr>
-							            			<td class="text12">&nbsp;<span title="thgadk">Tilgangskode</span></td>
-							            			<td class="text12">&nbsp;<span title="thgbgi">Ikke gyldig i EU</span></td>
-							            			<td class="text12">&nbsp;<span title="thgbgu">Garantien gjelder ikke [landkode]</span></td>
-							            		</tr>
-							            		<tr>
-							            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${model.record.thgadk}"></td>
 							            			<td>
 								            			<select name="thgbgi" id="thgbgi" >
 									 				  <option value="0"<c:if test="${model.record.thgbgi == '0'}"> selected </c:if> >0</option>
@@ -1003,8 +1008,8 @@
 					                                	 	<option value="${country.zkod}"<c:if test="${model.record.thgbgu == country.zkod}"> selected </c:if> >${country.zkod}</option>
 														</c:forEach> 
 													</select>
-									            		
-							            			</td> 
+									            	</td>
+									            	<td>&nbsp;</td> 
 							            		</tr>
 							            		<tr height="2"><td></td></tr>
 							            	</table>

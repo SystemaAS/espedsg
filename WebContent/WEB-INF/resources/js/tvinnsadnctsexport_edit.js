@@ -32,6 +32,16 @@
 		jq("#thdta").datepicker({ 
 		  dateFormat: 'ddmmy' 
 		});
+		
+		jq('#thdk').change(function() {
+			//alert(jq("#thdk").val());
+			if("SS" == jq("#thdk").val()){
+				//garanti
+				jq("#thgkd").val("7");
+				jq("#thgft1").val("");
+				jq("#thgadk").val("");
+			}
+		});
 	
 		//=====================================
 	  	//START Child window for general codes
@@ -2303,46 +2313,44 @@
 	//Some fields must be validated upon "change" on the spot
 	//E.g. Guarantee 
 	//--------------------------------------------------------
-	/*
 	//Guarantee nr and code validation
 	jq(function() { 
-	    jq('#thgft1').blur(function() {
-	    		var original_guaranteeNumber = jq('#thgft1').val();
-	    		var original_guaranteeCode = jq('#thgadk').val();
-	    		
-	    		//alert('Hej');
-	    		//this parameters must match the AJAX controller parameter names in Spring exactly...
-			jq.getJSON('validateGuaranteeNrAndCode_SkatNctsExport.do', {
-				applicationUser : jq('#applicationUser').val(),
-				guaranteeNumber : jq('#thgft1').val(),
-				guaranteeCode : jq('#thgadk').val(),
-				ajax : 'true'
-			}, 
-			function(data) {
-				var len = data.length;
-				for ( var i = 0; i < len; i++) {
-					var errMsg = data[i].errMsg;
+		jq('#thgft1').blur(function() {
+    		validateGuarantee();
+	    });
+		jq('#thgadk').blur(function() {
+    		validateGuarantee();
+	    });
+	});
+	
+	function validateGuarantee(){
+		//alert('Hej');
+		//this parameters must match the AJAX controller parameter names in Spring exactly...
+		jq.getJSON('validateGuaranteeNrAndCode_TvinnSadNctsExport.do', {
+			applicationUser : jq('#applicationUser').val(),
+			guaranteeNumber : jq('#thgft1').val(),
+			guaranteeCode : jq('#thgadk').val(),
+			ajax : 'true'
+		}, 
+		function(data) {
+			var len = data.length;
+			for ( var i = 0; i < len; i++) {
+				var errMsg = data[i].errMsg;
+				//alert(errMsg);
+				if(errMsg!=null || !"".equals(errMsg)){
 					alert(errMsg);
-					/*
-					var errMsg = data[i].errMsg;
-					if(errMsg!=null && !"".equals(errMsg)){
-						alert('NOK');
-						jq('#thgft1').val(errMsg);
-						jq('#thgadk').val(original_guaranteeCode);
-					}else{
-						alert('No errors');
-						jq('#thgft1').val(data[i].thgft1);
-						jq('#thgadk').val(data[i].thgadk);
-					}
-					
+				}else{
+					//alert('No errors');
+					jq('#thgft1').val(data[i].thgft1);
+					jq('#thgadk').val(data[i].thgadk);
 				}
 				
-			});
-		
-	    });
-	    
-	});
-	*/
+			}
+			
+		});
+	
+	}
+	
 	
   	
 	
