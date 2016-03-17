@@ -189,6 +189,36 @@ public class DateTimeManager {
 	 * @param dateTimeMask
 	 * @return
 	 */
+	public boolean isValidForwardDateIncludingToday( String userValue, String dateTimeMask){
+		boolean retval = false;
+		SimpleDateFormat formatter = new SimpleDateFormat(dateTimeMask);
+		String currentDate = this.getCurrentDate_ISO();
+		if(dateTimeMask!=null && dateTimeMask.length()==6){
+			currentDate = this.getCurrentDate_NO();
+		}
+		try{
+			if(userValue!=null && dateTimeMask!=null){
+				//check for the minimum of values in each string
+				if(userValue.length()>=4 && dateTimeMask.length()>=2){
+					Date userDate = formatter.parse(userValue);
+					Date today = formatter.parse(currentDate);
+					if(userDate.equals(today) || userDate.after(today)){
+						retval = true;
+					}
+				}
+			}
+		}catch(Exception e){
+			//nothing. the method will return false...
+		}
+		
+		return retval;
+	}
+	/**
+	 * 
+	 * @param userValue
+	 * @param dateTimeMask
+	 * @return
+	 */
 	public boolean isValidBackwardDate( String userValue, String dateTimeMask){
 		boolean retval = false;
 		SimpleDateFormat formatter = new SimpleDateFormat(dateTimeMask);

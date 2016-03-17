@@ -13,6 +13,7 @@ import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
+import no.systema.main.util.DateTimeManager;
 import no.systema.tvinn.sad.nctsexport.service.SadNctsExportSpecificTopicService;
 import no.systema.tvinn.sad.nctsexport.service.SadNctsExportSpecificTopicServiceImpl;
 
@@ -21,6 +22,7 @@ import no.systema.tvinn.sad.nctsexport.model.jsonjackson.topic.validation.JsonSa
 
 import no.systema.tvinn.sad.nctsexport.url.store.SadNctsExportUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
+
 
 /**
  * 
@@ -95,9 +97,12 @@ public class SadNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsd1", "systema.tvinn.sad.ncts.export.header.error.null.thtsd1");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsb", "systema.tvinn.sad.ncts.export.header.error.null.thtsb");
 		//Garanti
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgkd", "systema.tvinn.sad.ncts.export.header.error.null.thgkd");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgft1", "systema.tvinn.sad.ncts.export.header.error.null.thgft1");
-		
+		if(!"SS".equals(record.getThdk())){
+			if(record.getThgft2()==null || "".equals (record.getThgft2())){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgkd", "systema.tvinn.sad.ncts.export.header.error.null.thgkd");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgft1", "systema.tvinn.sad.ncts.export.header.error.null.thgft1");
+			}
+		}
 		
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
@@ -158,17 +163,28 @@ public class SadNctsExportHeaderValidator implements Validator {
 						logger.info("ERROR thdfsk");
 					}
 				}
-				
+				*/
 				//-----------------
 				//Kontrollresultat
 				//-----------------
 				if(record.getThenkl()!=null && "J".equals(record.getThenkl())){
-					if(record.getThdkr()==null || "".equals (record.getThdkr())){
-						errors.rejectValue("thdkr", "systema.tvinn.sad.ncts.export.header.error.null.thdkr");
-						logger.info("ERROR thdkr");
+					if(!this.isForhandsvarsel(record.getThdk())){
+						if(!"A3".equals(record.getThdkr()) ){
+							errors.rejectValue("thdkr", "systema.tvinn.sad.ncts.export.header.error.rule.thdkr.invalid.value.withforenkladprocedure");
+						}
+						if("".equals(record.getThddt()) ){
+							errors.rejectValue("thddt", "systema.tvinn.sad.ncts.export.header.error.rule.thddt.invalid.value.withforenkladprocedure");
+						}else{
+							if(this.isValidFristDate(record.getThddt())){
+								//OK
+							}else{
+								errors.rejectValue("thddt", "systema.tvinn.sad.ncts.export.header.error.rule.thddt.invalid.date.logical");
+							}
+						}
 					}
 				}
 				
+				/*
 				//Transitkontor
 				if(record.getThdkr()!=null && "A3".equals(record.getThdkr())){
 					if( record.getThalk()!=null && record.getThblk()!=null){
@@ -183,22 +199,6 @@ public class SadNctsExportHeaderValidator implements Validator {
 					}
 				}
 				
-				//--------
-				//Garanti
-				//--------
-				if(record.getThgft1()==null || "".equals(record.getThgft1())){
-					if(record.getThgft2()==null || "".equals (record.getThgft2())){
-						errors.rejectValue("thgft1", "systema.tvinn.sad.ncts.export.header.error.rule.thgft1.atleastone");
-						logger.info("ERROR thgft1");
-					}
-				}
-				
-				//Garantikoder
-				String errMsg = this.isValidGuarantee(record);
-				if(errMsg!=null){
-					errors.reject("thgft1", "Garantifel: " + errMsg);
-				}
-				
 				//Begränsnings land
 				if("1".equals(record.getThgbgi())){
 					if(record.getThgbgu()==null || "".equals(record.getThgbgu())){
@@ -207,12 +207,45 @@ public class SadNctsExportHeaderValidator implements Validator {
 				}
 				*/
 				
+				//--------
+				//Garanti
+				//--------
+				/*if(record.getThgft1()==null || "".equals(record.getThgft1())){
+					if(record.getThgft2()==null || "".equals (record.getThgft2())){
+						errors.rejectValue("thgft1", "systema.tvinn.sad.ncts.export.header.error.rule.thgft1.atleastone");
+						logger.info("ERROR thgft1");
+					}
+				}*/
+				//Garantikoder
+				if(this.isForhandsvarsel(record.getThdk())){
+					if(record.getThgft1()!=null && !"".equals (record.getThgft1())){
+						errors.reject("thgft1", "Garantifejl: Forhåndsvarsl(SS) skal ikke ha garantikoder(Garantinr)" );
+					}
+					if(record.getThgadk()!=null && !"".equals (record.getThgadk())){
+						errors.reject("thgft1", "Garantifejl: Forhåndsvarsl(SS) skal ikke ha garantikoder(Tilg.kode)" );
+					}
+				}else{
+					//Only if annan garanti is empty
+					if(record.getThgft2()==null || "".equals (record.getThgft2())){
+						String errMsg = this.isValidGuarantee(record);
+						if(errMsg!=null){
+							errors.reject("thgft1", "Garantifel: " + errMsg);
+						}
+					}
+				}
 				//Mandatory lastested vid DeklTyp: SS
-				if("SS".equals(record.getThdk())){
+				if(this.isForhandsvarsel(record.getThdk())){
 					if(!"".equals(record.getThlsd())){
 						//OK
 					}else{
 						errors.rejectValue("thlsd", "systema.tvinn.sad.ncts.export.header.error.rule.thlsd.lastested.mandatory");
+					}
+					//Frister
+					if(!"".equals(record.getThdkr())){
+						errors.rejectValue("thdkr", "systema.tvinn.sad.ncts.export.header.error.rule.thdkr.invalid.value.withss.type");
+					}else if(!"".equals(record.getThddt())){
+						errors.rejectValue("thddt", "systema.tvinn.sad.ncts.export.header.error.rule.thddt.invalid.value.withss.type");
+						
 					}
 				}
 				
@@ -223,6 +256,19 @@ public class SadNctsExportHeaderValidator implements Validator {
 			}
 		}
 		
+	}
+	/**
+	 * 
+	 * @param code
+	 * @return
+	 */
+	private boolean isForhandsvarsel(String code){
+		boolean retval = false;
+		
+		if("SS".equals(code)){
+			retval = true;
+		}
+		return retval;
 	}
 	
 	/**
@@ -241,6 +287,17 @@ public class SadNctsExportHeaderValidator implements Validator {
 		}catch(Exception e){
 			//nothing
 		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param rawValue
+	 * @return
+	 */
+	private boolean isValidFristDate(String rawValue){
+		boolean retval = false;
+		DateTimeManager mgr = new DateTimeManager();
+		retval = mgr.isValidForwardDateIncludingToday(rawValue, "ddMMyy");
 		return retval;
 	}
 	

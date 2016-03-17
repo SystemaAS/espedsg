@@ -31,12 +31,12 @@ public class DateTester {
 		
 		
 		DateTimeManager mgr = new DateTimeManager();
-		String userDate = "20151128";
-		boolean isValid = mgr.currentDayBeforeUserDate(userDate, "yyyyMMdd");
+		String userDate = "160318";
+		boolean isValid = mgr.isValidForwardDateIncludingToday(userDate, "ddMMyy");
 		if(isValid){
-			System.out.println("Valid old file");
+			System.out.println("Valid date");
 		}else{
-			System.out.println("Valid new file");
+			System.out.println("Invalid");
 		}
 		/*
 		try{

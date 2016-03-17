@@ -23,9 +23,9 @@
     
 	//date fields
     jq(function() {
-		jq("#thtrdt").datepicker({ 
+		/*readonly --> jq("#thtrdt").datepicker({ 
 		  dateFormat: 'ddmmy' 
-		});
+		});*/
 		jq("#thddt").datepicker({ 
 		  dateFormat: 'ddmmy' 
 		});
@@ -40,6 +40,16 @@
 				jq("#thgkd").val("7");
 				jq("#thgft1").val("");
 				jq("#thgadk").val("");
+				//Kontrolsresultat/Frist
+				jq("#thdkr").val("");
+				jq("#thddt").val("");
+			}
+		});
+		jq('#thenkl').change(function() {
+			//alert(jq("#thdk").val());
+			if("J" == jq("#thenkl").val()){
+				//Kontrolsresultat/Frist
+				jq("#thdkr").val("A3");
 			}
 		});
 	
@@ -2316,10 +2326,22 @@
 	//Guarantee nr and code validation
 	jq(function() { 
 		jq('#thgft1').blur(function() {
-    		validateGuarantee();
+			if("SS" == jq('#thdk').val()){
+				jq('#thgkd').val("7");
+				jq('#thgft1').val("");
+				jq('#thgadk').val("");
+			}else{
+				validateGuarantee();
+			}
 	    });
 		jq('#thgadk').blur(function() {
-    		validateGuarantee();
+			if("SS" == jq('#thdk').val()){
+				jq('#thgkd').val("7");
+				jq('#thgft1').val("");
+				jq('#thgadk').val("");
+			}else{
+				validateGuarantee();
+			}
 	    });
 	});
 	
@@ -2337,12 +2359,16 @@
 			for ( var i = 0; i < len; i++) {
 				var errMsg = data[i].errMsg;
 				//alert(errMsg);
-				if(errMsg!=null || !"".equals(errMsg)){
-					alert(errMsg);
-				}else{
+				if(errMsg==null || '' == errMsg){
 					//alert('No errors');
 					jq('#thgft1').val(data[i].thgft1);
 					jq('#thgadk').val(data[i].thgadk);
+					if(jq('#thgkd').val()==''){
+						jq('#thgkd').val("1");
+					}
+				}else{
+					alert(errMsg);
+					
 				}
 				
 			}

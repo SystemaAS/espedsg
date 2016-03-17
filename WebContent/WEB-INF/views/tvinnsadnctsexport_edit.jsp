@@ -192,7 +192,7 @@
 						<div class="text11" style="position: relative;" align="left">
 						<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 		           		<br/>
-		           		Kun status <b>M</b>, <b>(Fejl)</b> eller <b>' '</b> kan redigeres.
+		           		Kun status <b>M</b>, <b>(Feil)</b> eller <b>' '</b> kan redigeres.
 		           			<ul>
 								<li><b>' '</b>(Blank) Åpen for endring.</li>
 								<li><b>E</b>&nbsp;Noen arbeider med (Endrer) den aktuelle TET nå. Hvis man arbeider med en deklarasjon og strømbrudd eller lignende inntreffer vil deklarasjonen bli "hengende" i status'E'.
@@ -716,40 +716,8 @@
            	</tr> 
            	<tr height="10"><td></td></tr>
            	
-            <%-- INVOICE AMOUNT Fields 
-            <tr>
-	            <td width="5">&nbsp;</td>
-	            <td >
-	                <table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td class="text12"><font class="text16RedBold" >*</font><b><span title="thgbl">Garantibeløb&nbsp;</span></b></td>
-				 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${model.record.thgbl}"></td>
-				 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="thgvk">Møntsort</span>
-				 				<%-- Note: onChange event in jQuery for this currency list 
-				 				<select name="thgvk" id="thgvk" >
-				 				  <option value="">-velg-</option>	
-				 				  	<c:forEach var="code" items="${model.currencyCodeList}" >
-                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.thgvk == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
-									</c:forEach> 
-								</select>
-								<a tabindex="-1" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>								
-			 				</td>
-		 				</tr>
-		 				<%--
-		 				<tr>
-			 				<td class="text12">&nbsp;Kurs&nbsp;</td>
-				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value='${vaku}'></td>
-				 			
-		 				</tr>
-		 				 
-		 				 
-		 				<tr height="15"><td></td></tr>
-					</table>
-					</td>
-			</tr>
-			--%>
+            
+			
 			<tr>
 				<td width="5">&nbsp;</td>
 	            <td >
@@ -926,7 +894,7 @@
 							        	<tr height="18"><td>&nbsp;</td></tr>
 							        <tr >
 							        	<td >&nbsp;&nbsp;
-							            	<table class="tableBorderWithRoundCornersGray" align="left" border="0" cellspacing="2" cellpadding="0">
+							            	<table width="90%" class="tableBorderWithRoundCornersGray" align="left" border="0" cellspacing="2" cellpadding="0">
 							            		<tr height="2"><td ></td></tr>
 									        	<tr>
 										        	<td  colspan="3" class="text12" align="left" >
@@ -1011,12 +979,52 @@
 									            	</td>
 									            	<td>&nbsp;</td> 
 							            		</tr>
+							            		<tr height="5"><td></td></tr>
+							            		<tr>
+							            			<td colspan="3" class="text12">&nbsp;<span title="thgkd">Annen Garanti</span></td>
+							            		</tr>
+							            		<tr>
+							            			<td colspan="3"><input type="text" class="inputTextMediumBlue" name="thgft2" id="thgft2" size="35" maxlength="35" value="${model.record.thgft2}"></td>
+							            		</tr>
 							            		<tr height="2"><td></td></tr>
 							            	</table>
 							            </td>  
 							            <td>&nbsp;</td>
 							        </tr>
-							        <tr height="15">
+							        <tr height="10">
+							        <%-- Garantibeløp --%>
+						            <tr>
+							            <td colspan="2">
+							                <table align="left" border="0" cellspacing="0" cellpadding="0">
+										 		<tr>
+										 			<td class="text12"><b><span title="thgbl">Garantibeløp&nbsp;</span></b></td>
+										 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${model.record.thgbl}"></td>
+										 			<td class="text12">&nbsp;<span title="thgvk">Valuta</span>
+										 				<%-- Note: onChange event in jQuery for this currency list --%>
+										 				<select name="thgvk" id="thgvk" >
+										 				  <option value="">-velg-</option>	
+										 				  	<c:forEach var="code" items="${model.currencyCodeList}" >
+						                                	 	<option value="${code.zkod}"<c:if test="${model.record.thgvk == code.zkod}"> selected </c:if> >${code.zkod}</option>
+															</c:forEach> 
+														</select>
+														<a tabindex="-1" id="thgvkIdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+														</a>								
+									 				</td>
+								 				</tr>
+								 				<%--
+								 				<tr>
+									 				<td class="text12">&nbsp;Kurs&nbsp;</td>
+										 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value='${vaku}'></td>
+										 			
+								 				</tr>
+								 				--%> 
+								 				 
+								 				<tr height="15"><td></td></tr>
+											</table>
+											</td>
+									</tr>
+							        <tr height="10">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
@@ -1371,48 +1379,11 @@
 								</td> 
 							</tr>
 							<tr height="2"><td>&nbsp;</td></tr>
-							<tr>
-					            <td class="text12" align="left" >
-					            <img onMouseOver="showPop('transnr_dt_info');" onMouseOut="hidePop('transnr_dt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="thtrnr">Transittnr.</span>
-					            <div class="text11" style="position: relative;" align="left">
-								<span style="position:absolute;top:2px; width:250px;" id="transnr_dt_info" class="popupWithInputText text11"  >
-					           	
-					           			<b>Transiteringsnr</b>
-					           			<p>
-										Transittnr. (<b>MRN-nr</b>) og dato kommer i retur fra Tollvesenet i <b>IE28</b>. 
-										</p>
-										<p>
-										Feltet er stengt. read-only						
-										</p>
-								
-								</span>	
-								</div>
-								</td>
-					            
-					            <td >
-					            	<input type="text" class="inputTextMediumBlue" name="thtrnr" id="thtrnr" size="17" maxlength="18" value="${model.record.thtrnr}">&nbsp;&nbsp;
-					            </td>
-					        </tr>
+							
 					        <tr>
-					            <td class="text12" align="left" >
-					            <img onMouseOver="showPop('transnr_dt_info');" onMouseOut="hidePop('transnr_dt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="thtrdt">Transittdato</span>
-					            <div class="text11" style="position: relative;" align="left">
-								<span style="position:absolute;top:2px; width:250px;" id="transnr_dt_info" class="popupWithInputText text11"  >
-					           		<b>Transittdato</b>
-				           			<p>
-									Transittnr. (<b>MRN-nr</b>) og <b>dato</b> kommer i retur fra Tollvesenet i <b>IE28</b>. 
-									</p>
-									<p>
-									Feltet er stengt. (read-only)									
-									</p>
-								</span>	
-								</div>
-								</td>
-					            
+					            <td class="text12" align="left" ><span title="thtrdt">Transittdato</span></td>
 					            <td class="text12" >
-					            	<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thtrdt" id="thtrdt" size="8" maxlength="6" value="${model.record.thtrdt}">
+					            	<input readonly type="text" class="inputTextReadOnly" name="thtrdt" id="thtrdt" size="8" value="${model.record.thtrdt}">
 					            	&nbsp;
 					            </td>
 					        </tr>
@@ -1527,7 +1498,9 @@
 								</div>
 								</td>
 					           	<td class="text12" align="left">
+					           		
 					           		<select name="thdkr" id="thdkr" >
+					           			<option value="">-velg-</option>
 					 				  <option value="A1"<c:if test="${model.record.thdkr == 'A1'}"> selected </c:if> >A1</option>
 					 				  <option value="A2"<c:if test="${model.record.thdkr == 'A2'}"> selected </c:if> >A2</option>
 									  <option value="A3"<c:if test="${model.record.thdkr == 'A3'}"> selected </c:if> >A3</option>
@@ -1910,13 +1883,10 @@
 							 				<tr>
 								 				<td nowrap class="text12">
 								 				<img onMouseOver="showPop('returadress_info');" onMouseOut="hidePop('returadress_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									 			&nbsp;<span title="thtsn1/thtsn2/thtslk">Returadresse&nbsp;</span>
+									 			<b>&nbsp;9.</b>&nbsp;<span title="/thtsn2/thtslk">Returadresse&nbsp;</span>
 								 				<div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="returadress_info" class="popupWithInputText text11"  >
-					           	
-									           			<br>
-									           			-pending...
-									           			<br/>
+					           		           			Pending...
 												</span>
 												</div>
 												</td>
