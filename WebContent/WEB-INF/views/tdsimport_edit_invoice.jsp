@@ -103,7 +103,7 @@
 				 				&nbsp;Tolldeknr.&nbsp;<b>${model.opd}</b>
 				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
 				 				&nbsp;&nbsp;Status:&nbsp;<b>${model.status}</b>
-				 				&nbsp;&nbsp;Dekl.:&nbsp;<b>${recordTopicTvinnSad.sedty}</b>
+				 				&nbsp;&nbsp;Dekl.:&nbsp;<b>${recordTopic.svih_dek1}</b>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -383,7 +383,7 @@
 				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}"/>
 				 	<input type="hidden" name="status" id="status" value="${Xmodel.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${Xmodel.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicTvinnSad.sebel1}"/>
+				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopic.svih_fabl}"/>
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -408,7 +408,7 @@
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${activeUrlRPGUpdate_TvinnSad}<br/><br/>
+		           		   				${activeUrlRPGUpdate}<br/><br/>
 		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
 		           		   			</div>
 						        </span>  
