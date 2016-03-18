@@ -27,7 +27,10 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
@@ -35,13 +38,13 @@ import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.sadimport.model.topic.SadImportSpecificTopicTotalItemLinesObject;
 import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerRecord;
 
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicRecord;
 import no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicService;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
+
 import no.systema.tvinn.sad.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemRecord;
@@ -75,6 +78,7 @@ public class SadImportHeaderController {
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	private SadImportCalculator sadImportCalculator = new SadImportCalculator();
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -161,6 +165,11 @@ public class SadImportHeaderController {
 				
 				//get some item lines total fields (∑)
 				totalItemLinesObject = this.getRequiredSumsInItemLines(avd, opd, appUser);
+				//TODO COVI/CB
+				JsonSadImportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
+				totalItemLinesObject.setFinansOpplysningarTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
+				totalItemLinesObject.setFinansOpplysningarTotSum(sumFaktTotalRecord.getTot_fabl());
+				totalItemLinesObject.setFinansOpplysningarTotKurs(sumFaktTotalRecord.getTot_vaku());
 				
 				//-------------
 				//FETCH RECORD
@@ -178,20 +187,20 @@ public class SadImportHeaderController {
 					session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 					
 					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-				    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-				    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-				    	//--------------------------------------
-				    	//EXECUTE the FETCH (RPG program) here
-				    	//--------------------------------------
-				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-						//Debug --> 
-				    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				    	if(jsonPayload!=null){
-				    		JsonSadImportSpecificTopicContainer jsonSadImportSpecificTopicContainer = this.sadImportSpecificTopicService.getSadImportSpecificTopicContainer(jsonPayload);
-				    		
-				    		//populate gui elements
-				    		//add gui lists here
+			    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+			    	//--------------------------------------
+			    	//EXECUTE the FETCH (RPG program) here
+			    	//--------------------------------------
+			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+					//Debug --> 
+			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			    	if(jsonPayload!=null){
+			    		JsonSadImportSpecificTopicContainer jsonSadImportSpecificTopicContainer = this.sadImportSpecificTopicService.getSadImportSpecificTopicContainer(jsonPayload);
+			    		
+			    		//populate gui elements
+			    		//add gui lists here
 						this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 						this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 						this.setCodeDropDownMgr(appUser, model);	
@@ -200,14 +209,14 @@ public class SadImportHeaderController {
 			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 						//put the doUpdate action since we are preparing the record for an update (when saving)
 						successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
-				    		
-				    	}else{
-						logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-						return loginView;
-					}
-				    	logger.info(Calendar.getInstance().getTime() +  "END of FETCH");
+			    		
+			    	}else{
+			    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+			    		return loginView;
+			    	}
+			    	logger.info(Calendar.getInstance().getTime() +  "END of FETCH");
 					
-			    	//----------------------------
+		    	//----------------------------
 				//CREATE and/or UPDATE RECORD
 				//----------------------------	
 				}else if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
@@ -243,8 +252,7 @@ public class SadImportHeaderController {
 				    //check for validation ERRORS
 					//----------------------------
 					if(bindingResult.hasErrors()){
-						
-					    	logger.info("[ERROR Validation] Record does not validate)");
+							logger.info("[ERROR Validation] Record does not validate)");
 					    	//put domain objects and do go back to the original view...
 					    	recordToValidate.setSiavd(avd);
 					    	recordToValidate.setSitdn(opd);
@@ -257,14 +265,14 @@ public class SadImportHeaderController {
 					    	}
 
 				    }else{
-				    		JsonSadImportSpecificTopicRecord jsonSadImportSpecificTopicRecord = null;
+			    		JsonSadImportSpecificTopicRecord jsonSadImportSpecificTopicRecord = null;
 						
 						if(opd!=null && !"".equals(opd)){
 							logger.info("PURE UPDATE transaction..."); 
 							//PURE UDPATE transaction
 							//this means that the update is an update of an existing record
 							jsonSadImportSpecificTopicRecord = new JsonSadImportSpecificTopicRecord();
-    							ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSadImportSpecificTopicRecord);
+							ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSadImportSpecificTopicRecord);
 				            //binder.registerCustomEditor(...); // if needed
 							binder.bind(request);
 				            this.adjustFieldsAfterBind(request, jsonSadImportSpecificTopicRecord);
@@ -878,6 +886,7 @@ public class SadImportHeaderController {
 	 */
 	private SadImportSpecificTopicTotalItemLinesObject getRequiredSumsInItemLines(String avd, String opd, SystemaWebUser appUser){
 		SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject = new SadImportSpecificTopicTotalItemLinesObject();
+		
 		//-----------------------------------------------------
 		//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 		//-----------------------------------------------------
@@ -991,8 +1000,10 @@ public class SadImportHeaderController {
 	    	}
 	    	totalItemLinesObject.setSumOfAntalItemLines(numberOfItemLines);
 	    	totalItemLinesObject.setSumOfAntalKolliInItemLines(antalKolli);
-	    	totalItemLinesObject.setSumTotalAmountItemLines(totalAmount);
-	    	totalItemLinesObject.setSumTotalBruttoViktItemLines(totalGrossWeight);
+	    	totalItemLinesObject.setSumTotalAmountItemLines(numberFormatter.getDouble(numberFormatter.getString(totalAmount, 3, false, "NO")));
+	    	totalItemLinesObject.setSumTotalBruttoViktItemLines(numberFormatter.getDouble(numberFormatter.getString(totalGrossWeight, 3, false, "NO")));
+	    	
+	    	
 	    	//DEBUG
 	    	logger.info("AntalKolli: " + totalItemLinesObject.getSumOfAntalKolliInItemLines());
 	    	logger.info("AntalItems: " + totalItemLinesObject.getSumOfAntalItemLines());
@@ -1061,44 +1072,42 @@ public class SadImportHeaderController {
 		return record;
 	}
 	
-	
-	private void toDo(HttpServletRequest request, String avd, String opd, SystemaWebUser appUser, JsonSadImportSpecificTopicContainer jsonSadImportSpecificTopicContainer ){
-		/*
-		String BASE_URL_FETCH = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FINANS_OPPLYS_LIST_DATA_URL;
-		String urlRequestParamsKeys = this.getRequestUrlKeyParametersFinansOpplysningar(request, avd, opd, appUser);
-			
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @return
+	 */
+	private JsonSadImportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices(String avd, String opd, SystemaWebUser appUser){
+		//--------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		JsonSadImportSpecificTopicFaktTotalRecord returnRecord = null;
+		
+		String BASE_URL_FETCH = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + "215"; //TODO COVI+ opd;
+		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av item list... ");
-	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL_FETCH));
-	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-	    	//--------------------------------------
-	    	//EXECUTE the FETCH (RPG program) here
-	    	//--------------------------------------
-		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-	    	logger.info(jsonPayloadFetch);
-	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	    	JsonSadImportTopicFinansOpplysningerContainer finansOpplysningerContainer = this.sadImportSpecificTopicService.getSadImportTopicFinansOpplysningerContainer(jsonPayloadFetch);
-	    	if(finansOpplysningerContainer!=null){
-	    		//update the topic record ONLY when the Finans Oppl. exists (at least one row in the list)
-			Collection<JsonSadImportTopicFinansOpplysningerRecord> list = finansOpplysningerContainer.getInvoicList();
-	    		if(list!=null & list.size()>0){
-		    		//Set the common currency code for all invoices (if more than one)
-		    		finansOpplysningerContainer.setCalculatedValidCurrency(this.sadImportCalculator.getFinalCurrency(finansOpplysningerContainer));
-		    		Double calculatedItemLinesTotalAmount = this.sadImportCalculator.getItemLinesTotalAmount(finansOpplysningerContainer);
-		    		finansOpplysningerContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
-	    			logger.info("############FINANS OPP Exists-calculatedAmount:" + finansOpplysningerContainer.getCalculatedItemLinesTotalAmount());
-	    			logger.info("############FINANS OPP Exists-validCurrency:" + finansOpplysningerContainer.getCalculatedValidCurrency());
-	    			//UPDATE of some relevant records for R.22 and R.23
-	    			this.sadImportSpecificTopicService.updateFinansInformationIfApplicable(jsonSadImportSpecificTopicContainer);
-	    			//DEBUG
-	    			for(JsonSadImportSpecificTopicRecord record : jsonSadImportSpecificTopicContainer.getOneorder()){
-	    				logger.info("################:" + record.getFinansOpplysningarExist());
-	    			}
-	    		}
+    	logger.info(jsonPayload);
+		
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	JsonSadImportSpecificTopicFaktTotalContainer container = this.sadImportSpecificTopicService.getSadImportSpecificTopicFaktTotalContainer(jsonPayload);
+    	if(container!=null){
+	    	for(JsonSadImportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+				 returnRecord = record;
 	    	}
-	    	*/
+    	}
+		
+		return returnRecord;
 	}
 	
 	
@@ -1307,6 +1316,9 @@ public class SadImportHeaderController {
 			record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
 			record.setSumTotalAmountItemLines(totalItemLinesObject.getSumTotalAmountItemLines());
 			record.setSumTotalBruttoViktItemLines(totalItemLinesObject.getSumTotalBruttoViktItemLines());
+			record.setFinansOpplysningarTotValidCurrency(totalItemLinesObject.getFinansOpplysningarTotValidCurrency());
+			record.setFinansOpplysningarTotSum(totalItemLinesObject.getFinansOpplysningarTotSum());
+			record.setFinansOpplysningarTotKurs(totalItemLinesObject.getFinansOpplysningarTotKurs());
 			//Adjust dates
 			this.adjustDatesOnFetch(record);
 			
@@ -1329,6 +1341,9 @@ public class SadImportHeaderController {
 		record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
 		record.setSumTotalAmountItemLines(totalItemLinesObject.getSumTotalAmountItemLines());
 		record.setSumTotalBruttoViktItemLines(totalItemLinesObject.getSumTotalBruttoViktItemLines());
+		record.setFinansOpplysningarTotValidCurrency(totalItemLinesObject.getFinansOpplysningarTotValidCurrency());
+		record.setFinansOpplysningarTotSum(totalItemLinesObject.getFinansOpplysningarTotSum());
+		record.setFinansOpplysningarTotKurs(totalItemLinesObject.getFinansOpplysningarTotKurs());
 		//Adjust dates
 		this.adjustDatesOnFetch(record);
 				

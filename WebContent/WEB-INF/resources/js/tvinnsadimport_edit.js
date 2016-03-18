@@ -22,8 +22,13 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
+  	
+  	  jq('#getFinansOpplSumButton').click(function() { 
+  		jq('#sibel3').val(jq('#finansOpplysningarTotSum').val());
+  		jq('#sival3').val(jq('#finansOpplysningarTotValidCurrency').val());	
+  		jq('#sivku').val(jq('#finansOpplysningarTotKurs').val());
+	  });
     });
-    
     
     //General functions
   	jq(function() {

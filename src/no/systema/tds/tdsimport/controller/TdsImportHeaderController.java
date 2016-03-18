@@ -167,7 +167,6 @@ public class TdsImportHeaderController {
 				JsonTdsImportSpecificTopicRecord sumTopicRecord = this.getSumOfSpecificFieldsInItemLines(avd, opd, appUser);
 				JsonTdsImportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
 				
-				
 				//we do save the sum of antalKolliInItemLines.
 				//this is the only place of initialization of this variable
 				//session.setAttribute("sumOfAntalKolliInItemLines", sumOfAntalKolliInItemLines);

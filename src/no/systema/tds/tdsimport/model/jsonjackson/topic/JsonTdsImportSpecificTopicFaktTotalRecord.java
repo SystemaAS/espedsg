@@ -27,4 +27,5 @@ public class JsonTdsImportSpecificTopicFaktTotalRecord {
 	public String getTot_fabl() {return this.tot_fabl;}
 	
 	
+	
 }

@@ -153,5 +153,23 @@ public class NumberFormatterLocaleAware {
 		 }
 		 return retval;
 	 }
+	 /**
+	  * 
+	  * @param sourceNumber
+	  * @param numberOfDecimals
+	  * @return
+	  */
+	 public Double getDouble(Double sourceNumber, int numberOfDecimals){
+		 StringBuffer suffixDecimals = new StringBuffer();
+		 for(int x=0;x<numberOfDecimals;x++){
+			 suffixDecimals.append("0");
+		 }
+		 DecimalFormat df = new DecimalFormat("#." + suffixDecimals.toString() );
+		 String sourceNumberStr = df.format(sourceNumber);
+		 Double retval = Double.valueOf(sourceNumberStr);
+		 return retval;
+		
+	 }
+	 
 	 
 }

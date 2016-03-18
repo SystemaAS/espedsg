@@ -47,6 +47,9 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTop
 import no.systema.tds.tdsexport.util.TdsExportCalculator;
 import no.systema.tds.tdsexport.service.html.dropdown.DropDownListPopulationService;
 import no.systema.tds.tdsexport.validator.TdsExportInvoiceValidator;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicFaktTotalContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicFaktTotalRecord;
+import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
 
 
 
@@ -287,8 +290,14 @@ public class TdsExportHeaderInvoiceController {
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonTdsExportTopicInvoiceContainer jsonTdsExportTopicInvoiceContainer = this.tdsExportSpecificTopicService.getTdsExportTopicInvoiceContainerContainer(jsonPayloadFetch);
 	    	if(jsonTdsExportTopicInvoiceContainer!=null){
-	    		//Set the common currency code for all invoices (if more than one)
+	    		//get totals from AS400
+	    		JsonTdsExportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
+	    		jsonTdsExportTopicInvoiceContainer.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vakd());
+	    		jsonTdsExportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_fabl());
+	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonTdsExportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
 	    		
+	    		/*OBSOLETE SECTION. Has been repalced by service AS400 above: this.getInvoiceTotalFromInvoices...
+	    		//Set the common currency code for all invoices (if more than one)
 	    		jsonTdsExportTopicInvoiceContainer.setCalculatedValidCurrency(this.tdsExportCalculator.getFinalCurrency(jsonTdsExportTopicInvoiceContainer));
 	    		
 	    		Double calculatedItemLinesTotalAmount = this.tdsExportCalculator.getItemLinesTotalAmountInvoice(jsonTdsExportTopicInvoiceContainer);
@@ -297,7 +306,7 @@ public class TdsExportHeaderInvoiceController {
 	    		logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
 	    		jsonTdsExportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
 	    		jsonTdsExportTopicInvoiceContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
-				    
+				 */   
 	    	} 
 			
 	    	//drop downs populated from back-end
@@ -323,7 +332,43 @@ public class TdsExportHeaderInvoiceController {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @return
+	 */
+	private JsonTdsExportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices( String avd, String opd, SystemaWebUser appUser){
+		//--------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		JsonTdsExportSpecificTopicFaktTotalRecord returnRecord = null;
+		
+		String BASE_URL_FETCH = TdsExportUrlDataStore.TDS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av item list... ");
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.info(jsonPayload);
+		
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	JsonTdsExportSpecificTopicFaktTotalContainer container = this.tdsExportSpecificTopicService.getTdsExportSpecificTopicFaktTotalContainer(jsonPayload);
+    	if(container!=null){
+	    	for(JsonTdsExportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+				 returnRecord = record;
+	    	}
+    	}
+		
+		return returnRecord;
+	}
 	
 	/**
 	 * Set aspects  objects

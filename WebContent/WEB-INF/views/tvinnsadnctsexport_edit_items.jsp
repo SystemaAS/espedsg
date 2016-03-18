@@ -1001,8 +1001,24 @@
 	 				</table>
 					<%-- Item input --%>
 				 	<table width="100%" align="center" class="secondarySectionFrame" border="0" cellspacing="0" cellpadding="0">
-				 		<tr height="10"><td class="text" align="left"></td></tr>
+				 		<tr height="8"><td class="text" align="left"></td></tr>
 				 		
+				 		<tr>
+		            		<td class="text12" align="left" >&nbsp;&nbsp;&nbsp;&nbsp;
+		            		<img onMouseOver="showPop('tvtdn2_info');" onMouseOut="hidePop('tvtdn2_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		            		<span title="tvavd2/tvtdn2" >Oppdrag</span>&nbsp;&nbsp;
+		            			<input readonly type="text" class="inputTextReadOnlyNormal" name="tvavd2" id="tvavd2" size="6" value="${model.record.tvavd2}">
+		            			<input readonly type="text" class="inputTextReadOnlyNormal" name="tvtdn2" id="tvtdn2" size="10" value="${model.record.tvtdn2}">
+		            		<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="tvtdn2_info" class="popupWithInputText text11"  >
+			           			Hvis deklarasjonen er basert på et oppdrag/eksportdekl., vises avd./oppdragsnr. her.
+ 							</span>
+							</div>	
+		            			
+		            		</td>
+		            	</tr>
+		            	 
+		        		<tr height="5"><td class="text" align="left"></td></tr>
 				 		<tr>
 			 				<%-- SENDER --%>
 				 			<td >		
@@ -1990,9 +2006,7 @@
 						
 						
 						
-						<!--  SIKKERHET HERE ! -->
-						
-						<tr>
+						<!--  SIKKERHET HERE ! --><tr>
 				<td colspan="2">&nbsp;&nbsp;
 		            	<table width="99%" align="center" class="tableBorderWithRoundCornersDarkRed" border="0" cellspacing="2" cellpadding="0">
 		            		<tr>

@@ -41,22 +41,14 @@ import no.systema.tds.tdsimport.service.TdsImportSpecificTopicService;
 import no.systema.tds.tdsimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
 import no.systema.tds.tdsimport.util.RpgReturnResponseHandler;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalRecord;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceRecord;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicRecord;
 import no.systema.tds.tdsimport.util.TdsImportCalculator;
 import no.systema.tds.tdsimport.service.html.dropdown.DropDownListPopulationService;
 import no.systema.tds.tdsimport.validator.TdsImportInvoiceValidator;
-
-//import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemContainer;
-//import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemRecord;
-
-//import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
-//import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
-
-//import no.systema.tvinn.sad.sadimport.validator.SadImportHeaderFinansOpplysningerValidator;
-//import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTaricVarukodContainer;
-//import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTaricVarukodRecord;
 
 /**
  * TDS Import create items gateway
@@ -272,7 +264,6 @@ public class TdsImportHeaderInvoiceController {
 				
 			}
 			
-			
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -298,8 +289,15 @@ public class TdsImportHeaderInvoiceController {
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonTdsImportTopicInvoiceContainer jsonTdsImportTopicInvoiceContainer = this.tdsImportSpecificTopicService.getTdsImportTopicInvoiceContainerContainer(jsonPayloadFetch);
 	    	if(jsonTdsImportTopicInvoiceContainer!=null){
-	    		//Set the common currency code for all invoices (if more than one)
+	    		//get totals from AS400
+	    		JsonTdsImportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
+	    		jsonTdsImportTopicInvoiceContainer.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vakd());
+	    		jsonTdsImportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_fabl());
+	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonTdsImportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
 	    		
+	    		/*OBSOLETE SECTION. Has been repalced by service AS400 above: this.getInvoiceTotalFromInvoices...
+	    		 * 
+	    		//Set the common currency code for all invoices (if more than one)
 	    		jsonTdsImportTopicInvoiceContainer.setCalculatedValidCurrency(this.tdsImportCalculator.getFinalCurrency(jsonTdsImportTopicInvoiceContainer));
 	    		
 	    		Double calculatedItemLinesTotalAmount = this.tdsImportCalculator.getItemLinesTotalAmountInvoice(jsonTdsImportTopicInvoiceContainer);
@@ -308,8 +306,10 @@ public class TdsImportHeaderInvoiceController {
 	    		logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
 	    		jsonTdsImportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
 	    		jsonTdsImportTopicInvoiceContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
-				    
+				*/    
 	    	} 
+	    	
+	    	
 			
 	    	//drop downs populated from back-end
 	    	//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","GCY");
@@ -322,19 +322,51 @@ public class TdsImportHeaderInvoiceController {
     		//this next step is necessary for the default values on "create new" record
     		if(bindingErrorsExist){
     			this.setDefaultDomainItemRecordInView(model, jsonTdsImportTopicInvoiceContainer, recordToValidate);
-    		}else{
-    			this.setDefaultDomainItemRecordInView(model, jsonTdsImportTopicInvoiceContainer, null);
     		}
     		
 	    	successView.addObject("model",model);
 			//successView.addObject(Constants.EDIT_ACTION_ON_TOPIC, Constants.ACTION_FETCH);
 	    	logger.info("END of method");
 	    	return successView;
-		}
-		
+		}	
 	}
 	
-	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @return
+	 */
+	private JsonTdsImportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices( String avd, String opd, SystemaWebUser appUser){
+		//--------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		JsonTdsImportSpecificTopicFaktTotalRecord returnRecord = null;
+		
+		String BASE_URL_FETCH = TdsImportUrlDataStore.TDS_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av item list... ");
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.info(jsonPayload);
+		
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	JsonTdsImportSpecificTopicFaktTotalContainer container = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicFaktTotalContainer(jsonPayload);
+    	if(container!=null){
+	    	for(JsonTdsImportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+				 returnRecord = record;
+	    	}
+    	}
+		return returnRecord;
+	}
 	
 	/**
 	 * Set aspects  objects
@@ -420,8 +452,6 @@ public class TdsImportHeaderInvoiceController {
 			}
 		}
 	}
-	
-	
 	
 	/**
 	 * 

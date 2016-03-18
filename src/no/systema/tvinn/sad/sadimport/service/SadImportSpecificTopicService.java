@@ -6,6 +6,9 @@ package no.systema.tvinn.sad.sadimport.service;
 //
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalForUpdateContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
+
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
@@ -40,6 +43,7 @@ public interface SadImportSpecificTopicService {
 	public JsonSadImportTopicFinansOpplysningerContainer getSadImportTopicFinansOpplysningerContainer (String utfPayload);
 	public JsonSadImportTopicFinansOpplysningerContainer getSadImportTopicFinansOpplysningerContainerOneInvoice (String utfPayload);
 	public void updateFinansInformationIfApplicable(JsonSadImportSpecificTopicContainer jsonSadImportSpecificTopicContainer);
+	public JsonSadImportSpecificTopicFaktTotalContainer getSadImportSpecificTopicFaktTotalContainer (String utfPayload);
 	//External invoices
 	public JsonSadImportTopicFinansOpplysningerExternalContainer getSadImportTopicFinansOpplysningerContainerContainerExternal (String utfPayload);
 	public JsonSadImportTopicFinansOpplysningerExternalContainer getSadImportTopicFinansOpplysningerContainerOneInvoiceExternal (String utfPayload);

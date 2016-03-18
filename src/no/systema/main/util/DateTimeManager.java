@@ -299,20 +299,21 @@ public class DateTimeManager {
 	 * @return
 	 */
 	public String getDateFormatted_ISO(String value, String sourceDateMask){
-		String newDateString = null;
+		String newDateString = value;
 		final String OLD_FORMAT = sourceDateMask;
-		try{
-			String oldDateString = value;
-			SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-			Date d = sdf.parse(oldDateString);
-			
-			sdf.applyPattern(ISO_FORMAT);
-			newDateString = sdf.format(d);
-			
-		}catch(Exception e){
-			e.printStackTrace();
+		if(value!=null && !"".equals(value)){
+			try{
+				String oldDateString = value;
+				SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+				Date d = sdf.parse(oldDateString);
+				
+				sdf.applyPattern(ISO_FORMAT);
+				newDateString = sdf.format(d);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-		
 		return newDateString;
 	}
 	
@@ -323,22 +324,22 @@ public class DateTimeManager {
 	 * @return
 	 */
 	public String getDateFormatted_NO(String value, String sourceDateMask){
-		String newDateString = null;
+		String newDateString = value;
 		final String OLD_FORMAT = sourceDateMask;
-		
-		try{
-			String oldDateString = value;
-
-			SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-			Date d = sdf.parse(oldDateString);
-			sdf.applyPattern(NO_FORMAT);
-			newDateString = sdf.format(d);
-			//System.out.println(newDateString);
-						
-		}catch(Exception e){
-			e.printStackTrace();
+		if(value!=null && !"".equals(value)){
+			try{
+				String oldDateString = value;
+	
+				SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+				Date d = sdf.parse(oldDateString);
+				sdf.applyPattern(NO_FORMAT);
+				newDateString = sdf.format(d);
+				//System.out.println(newDateString);
+							
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-
 		return newDateString;
 	}
 	

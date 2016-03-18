@@ -3,20 +3,17 @@
  */
 package no.systema.tvinn.sad.sadimport.service;
 //Containers
-import no.systema.tds.tdsimport.mapper.jsonjackson.TdsImportTopicInvoiceMapper;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalContainer;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalForUpdateContainer;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalRecord;
+
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalRecord;
 import no.systema.tvinn.sad.sadimport.controller.SadImportHeaderController;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicRecord;
 
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalForUpdateContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.logging.JsonSadImportSpecificTopicLoggingContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.logging.JsonSadImportSpecificTopicLoggingLargeTextContainer;
@@ -291,5 +288,20 @@ public class SadImportSpecificTopicServiceImpl implements SadImportSpecificTopic
 		return container;
 	}
 	
+	/**
+	 * 
+	 */
+	public JsonSadImportSpecificTopicFaktTotalContainer getSadImportSpecificTopicFaktTotalContainer (String utfPayload){
+		JsonSadImportSpecificTopicFaktTotalContainer container = null;
+		try{
+			SadImportSpecificTopicMapper mapper = new SadImportSpecificTopicMapper();
+			container = mapper.getFaktTotalContainer(utfPayload);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
 	
 }

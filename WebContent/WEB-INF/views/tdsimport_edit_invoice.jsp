@@ -193,19 +193,19 @@
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
 										<td class="text12Bold">&nbsp;Antal fakturor&nbsp;&nbsp;<font class="text12MediumBlue"><b>${model.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
-						            		</td>
+						            	</td>
+						            	
 										<td align="right" class="text11">Fsum:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopic.svih_fabl}">
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${recordTopic.svih_fabl}">
 											<font class="inputText11BlueBoldReadOnly">${recordTopic.svih_vakd}</font>
 										</td>
-										<%-- Bug somewhere !!!
+										
 										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${model.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
-											
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${model.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
 											<font class="inputText11BlueBoldReadOnly">${model.recordItemContainerInvoiceTopic.calculatedValidCurrency}</font>											
 										</td>
-										 --%>
-										<%--
+										 
+										<%-- Bug somewhere !!!
 										<td align="right" class="text11">Diff:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly
 												<c:choose>

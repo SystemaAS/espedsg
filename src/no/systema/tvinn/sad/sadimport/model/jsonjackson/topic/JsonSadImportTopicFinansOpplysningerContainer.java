@@ -37,13 +37,15 @@ public class JsonSadImportTopicFinansOpplysningerContainer {
 	public void setCalculatedItemLinesTotalAmount(Double value) {  this.calculatedItemLinesTotalAmount = value; }
 	public String getCalculatedItemLinesTotalAmount() {
 		NumberFormatterLocaleAware formatter = new NumberFormatterLocaleAware();
-		return formatter.getDoubleEuropeanFormat(this.calculatedItemLinesTotalAmount, 3);
+		//return formatter.getDoubleEuropeanFormat(this.calculatedItemLinesTotalAmount, 3);
+		return formatter.getString(this.calculatedItemLinesTotalAmount, 3, false, "NO");
 	}
 	private Double diffItemLinesTotalAmountWithInvoiceTotalAmount = 0.000D;
 	public void setDiffItemLinesTotalAmountWithInvoiceTotalAmount(Double value) {  this.diffItemLinesTotalAmountWithInvoiceTotalAmount = value; }
 	public String getDiffItemLinesTotalAmountWithInvoiceTotalAmount() {
 		NumberFormatterLocaleAware formatter = new NumberFormatterLocaleAware();
-		return formatter.getDoubleEuropeanFormat(this.diffItemLinesTotalAmountWithInvoiceTotalAmount, 3);
+		//return formatter.getDoubleEuropeanFormat(this.diffItemLinesTotalAmountWithInvoiceTotalAmount, 3);
+		return formatter.getString(this.diffItemLinesTotalAmountWithInvoiceTotalAmount, 3, false, "NO");
 	}
 	
 	//Used when different currencies exist. The main currency must be = NOK

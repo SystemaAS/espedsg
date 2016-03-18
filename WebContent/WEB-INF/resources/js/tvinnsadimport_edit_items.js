@@ -606,6 +606,11 @@
 								if(data[i].taalfa.length > 0){
 									//this is done in order to take care of the Varebeskrivelse (wd1=Varetext) 
 									taalfa = data[i].taalfa;
+									//PVA if tolltariff exists
+									var svpva = jq('#svpva').val();
+						    		if(svpva==''){
+						    			changePVA();
+						    		}
 								}
 							}
 							//Use the value or change a previous value into blank
@@ -650,8 +655,8 @@
 			});
 		});
 	});
-  	//Pva drop down
-  	jq(function() {
+  	//Pva drop down - CHANGE to svvnt.blur instead (tolltariff)
+  	/*jq(function() {
   		jq('#svpre').blur(function() {
   			var svpva = jq('#svpva').val();
     		if(svpva==''){
@@ -664,7 +669,7 @@
     			changePVA();
     		}
 		});
-	});
+	});*/
   	function changePVA(){
   		jq.getJSON('getPvaCode_SadImport.do', {
 			applicationUser : jq('#applicationUser').val(),
@@ -920,7 +925,8 @@
 	      jq('#tblItemLinesAll').dataTable( {
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "800px",
-	  		  "scrollCollapse":  true,
+	    	  "scrollCollapse":  true,
+	  		  "order": [[ 14, "desc" ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
@@ -928,6 +934,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
+	  		  "order": [[ 15, "desc" ], [ 1, 'asc' ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      
