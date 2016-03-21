@@ -43,6 +43,9 @@ import no.systema.tvinn.sad.nctsexport.validator.SadNctsExportItemsValidator;
 //application imports
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.nctsexport.util.manager.CodeDropDownMgr;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicListContainer;
+import no.systema.tvinn.sad.sadexport.service.SadExportTopicListService;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
 
 
@@ -136,7 +139,7 @@ public class SadNctsExportItemsController {
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//-------------------------------------------------------
 				//this is only for validation of gross weight 
-				//in first item line (manadatory), this is the only way
+				//in first item line (mandatory), this is the only way
 				//-------------------------------------------------------
 				String numberOfItemLinesInTopicStr = request.getParameter("numberOfItemLinesInTopic");
 				if(numberOfItemLinesInTopicStr==null || "".equals(numberOfItemLinesInTopicStr)){
@@ -149,7 +152,10 @@ public class SadNctsExportItemsController {
 						recordToValidate.setNumberOfItemLinesInTopicStr("-99");
 					}
 				}
-				logger.info("BB" + recordToValidate.getTvdref());
+				//Check if oppdrag ref (if any) is valid
+				if(!"".equals(recordToValidate.getTvtdn2())){
+					recordToValidate.setValidOppdragRef(this.isValidOppdragRef(appUser, recordToValidate));
+				}
 				validator.validate(recordToValidate, bindingResult);
 				
 			    //check for ERRORS
@@ -370,6 +376,35 @@ public class SadNctsExportItemsController {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @return
+	 */
+	private boolean isValidOppdragRef(SystemaWebUser appUser, JsonSadNctsExportSpecificTopicItemRecord recordToValidate){
+		boolean retval = false;
+		//get BASE URL
+		final String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_TOPICLIST_URL;
+		//add URL-parameters
+		String urlRequestParams = "user=" + appUser.getUser() + "&opd=" + recordToValidate.getTvtdn2();
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		//Debug --> 
+		logger.info(jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSadExportTopicListContainer jsonSadExportTopicListContainer = this.sadExportTopicListService.getSadExportTopicListContainer(jsonPayload);
+    		logger.info("AA");
+    		if(jsonSadExportTopicListContainer!=null){
+    			logger.info("BB");
+    			if(jsonSadExportTopicListContainer.getOrderList()!=null && jsonSadExportTopicListContainer.getOrderList().size()==1){
+    				logger.info("CC");
+    				retval = true;
+    			}
+    		}
+    	}
+		return retval;
+	}
 	
 	/**
 	 * 
@@ -706,6 +741,13 @@ public class SadNctsExportItemsController {
 	public void setSadNctsExportDropDownListPopulationService (SadNctsExportDropDownListPopulationService value){ this.sadNctsExportDropDownListPopulationService=value; }
 	public SadNctsExportDropDownListPopulationService getSadNctsExportDropDownListPopulationService(){return this.sadNctsExportDropDownListPopulationService;}
 	 
+	@Qualifier ("sadExportTopicListService")
+	private SadExportTopicListService sadExportTopicListService;
+	@Autowired
+	@Required
+	public void setSadExportTopicListService (SadExportTopicListService value){ this.sadExportTopicListService = value; }
+	public SadExportTopicListService getSadExportTopicListService(){ return this.sadExportTopicListService; }
+	
 	 
 }
 

@@ -54,7 +54,6 @@ public class SadNctsExportItemsValidator implements Validator {
 				//Oemballerade varor must always have "Styck" (delar)
 				//tveh
 				//-----------------------------------------------------
-				
 				if("NE".equals(record.getTveh()) || "NF".equals(record.getTveh())){
 					if(record.getTvnteh()==null && "".equals(record.getTvnteh())){
 						errors.rejectValue("tvnteh", "systema.tvinn.sad.ncts.export.header.error.rule.item.tvnteh.biggerThanZero");
@@ -307,6 +306,11 @@ public class SadNctsExportItemsValidator implements Validator {
 							//just take a fantom hit here 
 						}
 					}
+				}
+				
+				//Check valid Oppdrag reference
+				if(!record.isValidOppdragRef()){
+					errors.rejectValue("tvtdn2", "systema.tvinn.sad.ncts.export.header.error.rule.item.tvtdn2.mustExist");
 				}
 				
 			}

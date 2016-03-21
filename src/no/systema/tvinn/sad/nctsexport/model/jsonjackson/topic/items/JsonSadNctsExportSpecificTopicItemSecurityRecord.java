@@ -49,9 +49,9 @@ public class JsonSadNctsExportSpecificTopicItemSecurityRecord extends JsonAbstra
 	public void setTvnass(String value) {  this.tvnass = value; }
 	public String getTvnass() { return this.tvnass;}
 	
-	private String tvadds1 = null;
-	public void setTvadds1(String value) {  this.tvadds1 = value; }
-	public String getTvadds1() { return this.tvadds1;}
+	private String tvadss1 = null;
+	public void setTvadss1(String value) {  this.tvadss1 = value; }
+	public String getTvadss1() { return this.tvadss1;}
 	
 	private String tvpnss = null;
 	public void setTvpnss(String value) {  this.tvpnss = value; }
