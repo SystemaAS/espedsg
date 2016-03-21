@@ -24,9 +24,15 @@
 	  });
   	
   	  jq('#getFinansOpplSumButton').click(function() { 
-  		jq('#sibel3').val(jq('#finansOpplysningarTotSum').val());
-  		jq('#sival3').val(jq('#finansOpplysningarTotValidCurrency').val());	
-  		jq('#sivku').val(jq('#finansOpplysningarTotKurs').val());
+  		if(jq('#finansOpplysningarTotSum').val()!='' && jq('#finansOpplysningarTotValidCurrency').val()!='' ){    
+  			jq('#sibel3').val(jq('#finansOpplysningarTotSum').val());
+  			jq('#sival3').val(jq('#finansOpplysningarTotValidCurrency').val());	
+  			jq('#sivku').val(jq('#finansOpplysningarTotKurs').val());
+  			//for backwards compatibility meaning: ref till fakturalista
+  			jq('#sifif').val("F15  ER  BENYTTET");
+  			
+  			
+  		}
 	  });
     });
     

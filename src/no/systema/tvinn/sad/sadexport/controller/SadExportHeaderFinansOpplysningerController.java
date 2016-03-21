@@ -51,6 +51,9 @@ import no.systema.tvinn.sad.sadexport.util.SadExportCalculator;
 import no.systema.tvinn.sad.sadexport.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.sadexport.validator.SadExportHeaderFinansOpplysningerValidator;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
 
 import no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodService;
 
@@ -298,6 +301,12 @@ public class SadExportHeaderFinansOpplysningerController {
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadExportTopicFinansOpplysningerContainer jsonSadExportTopicFinansOpplysningerContainer = this.sadExportSpecificTopicService.getSadExportTopicFinansOpplysningerContainer(jsonPayloadFetch);
 	    	if(jsonSadExportTopicFinansOpplysningerContainer!=null){
+	    		
+	    		JsonSadExportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
+	    		jsonSadExportTopicFinansOpplysningerContainer.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vk28());
+	    		jsonSadExportTopicFinansOpplysningerContainer.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_bl28());
+	    		
+	    		/*OBSOLETE SECTION. Has been repalced by service AS400 above: this.getInvoiceTotalFromInvoices...
 	    		//Set the common currency code for all invoices (if more than one)
 	    		jsonSadExportTopicFinansOpplysningerContainer.setCalculatedValidCurrency(this.sadExportCalculator.getFinalCurrency(jsonSadExportTopicFinansOpplysningerContainer));
 	    		
@@ -307,7 +316,7 @@ public class SadExportHeaderFinansOpplysningerController {
 	    		logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
 	    		jsonSadExportTopicFinansOpplysningerContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
 	    		jsonSadExportTopicFinansOpplysningerContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
-				    
+				*/    
 	    	}
 	    	//drop downs populated from back-end
 	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
@@ -567,6 +576,42 @@ public class SadExportHeaderFinansOpplysningerController {
 				 model,appUser,CodeDropDownMgr.CODE_V_CURRENCY, null, null);
 	}
 	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @return
+	 */
+	private JsonSadExportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices(String avd, String opd, SystemaWebUser appUser){
+		//--------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		JsonSadExportSpecificTopicFaktTotalRecord returnRecord = null;
+		
+		String BASE_URL_FETCH = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av item list... ");
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.info(jsonPayload);
+		
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	JsonSadExportSpecificTopicFaktTotalContainer container = this.sadExportSpecificTopicService.getSadExportSpecificTopicFaktTotalContainer(jsonPayload);
+    	if(container!=null){
+	    	for(JsonSadExportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+				 returnRecord = record;
+	    	}
+    	}
+		return returnRecord;
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

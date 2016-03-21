@@ -165,11 +165,11 @@ public class SadImportHeaderController {
 				
 				//get some item lines total fields (∑)
 				totalItemLinesObject = this.getRequiredSumsInItemLines(avd, opd, appUser);
-				//TODO COVI/CB
+				//get invoice totals from invoice list
 				JsonSadImportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
-				totalItemLinesObject.setFinansOpplysningarTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
-				totalItemLinesObject.setFinansOpplysningarTotSum(sumFaktTotalRecord.getTot_fabl());
-				totalItemLinesObject.setFinansOpplysningarTotKurs(sumFaktTotalRecord.getTot_vaku());
+				totalItemLinesObject.setFinansOpplysningarTotValidCurrency(sumFaktTotalRecord.getTot_vk28());
+				totalItemLinesObject.setFinansOpplysningarTotSum(sumFaktTotalRecord.getTot_bl28());
+				totalItemLinesObject.setFinansOpplysningarTotKurs(sumFaktTotalRecord.getTot_kr28());
 				
 				//-------------
 				//FETCH RECORD
@@ -1086,7 +1086,7 @@ public class SadImportHeaderController {
 		JsonSadImportSpecificTopicFaktTotalRecord returnRecord = null;
 		
 		String BASE_URL_FETCH = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
-		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + "215"; //TODO COVI+ opd;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av item list... ");

@@ -63,6 +63,9 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTop
 import no.systema.tds.tdsexport.model.jsonjackson.topic.items.JsonTdsExportSpecificTopicItemContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.items.JsonTdsExportSpecificTopicItemRecord;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalRecord;
+import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
 
 
 
@@ -1539,6 +1542,10 @@ public class TdsExportHeaderController {
 			record.setSumOfAntalKolliInItemLines(sumTopicRecord.getSumOfAntalKolliInItemLines());
 			record.setSumOfGrossWeightInItemLines(sumTopicRecord.getSumOfGrossWeightInItemLines());
 			record.setSumOfInvoiceAmountInItemLines(sumTopicRecord.getSumOfInvoiceAmountInItemLines());
+			record.setInvoiceListTotSum(sumFaktTotalRecord.getTot_fabl());
+			record.setInvoiceListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
+			record.setInvoiceListTotKurs(sumFaktTotalRecord.getTot_vaku());
+			
 			//(2) now check if the Invoice Total amount is NULL. If it is then we should check if the list of invoices gives something
 			if(record.getSveh_fabl()!=null && !"".equals(record.getSveh_fabl())){
 				//nothing
@@ -1549,6 +1556,7 @@ public class TdsExportHeaderController {
 						record.setSveh_vakd(sumFaktTotalRecord.getTot_vakd());
 						record.setSveh_vaku(sumFaktTotalRecord.getTot_vaku());
 						record.setSveh_vaom(sumFaktTotalRecord.getTot_omr());
+						
 					}
 				}
 			}
@@ -1667,7 +1675,7 @@ public class TdsExportHeaderController {
 		
 	}	
 	
-
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

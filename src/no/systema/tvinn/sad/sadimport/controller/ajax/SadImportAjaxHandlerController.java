@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.JsonCurrencyRateContainer;
 import no.systema.main.model.jsonjackson.general.JsonCurrencyRateRecord;
 import no.systema.main.service.UrlCgiProxyService;
@@ -56,6 +57,8 @@ import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.pva.JsonSadI
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.pva.JsonSadImportSpecificTopicItemPvaRecord;
 
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicAvdDataContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicRecord;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerRecord;
@@ -739,6 +742,13 @@ public class SadImportAjaxHandlerController {
 	    		  //update the topic record ONLY when the Finans Oppl. exists (at least one row in the list)
 	    		  Collection<JsonSadImportTopicFinansOpplysningerRecord> list = finansOpplysningerContainer.getInvoicList();
 	    		  if(list!=null & list.size()>0){
+	    			  JsonSadImportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, applicationUser);
+    				  SadImportSpecificTopicFinansOpplysningarAjaxObject ajaxObject = new SadImportSpecificTopicFinansOpplysningarAjaxObject();
+    				  ajaxObject.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_bl28());
+    				  ajaxObject.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vk28());
+    				  result.add(ajaxObject);
+    				  
+    				  /*
 	    			  for(JsonSadImportTopicFinansOpplysningerRecord record : finansOpplysningerContainer.getInvoicList()){
 	    				  //Set the common currency code for all invoices (if more than one)
 	    				  finansOpplysningerContainer.setCalculatedValidCurrency(this.sadImportCalculator.getFinalCurrency(finansOpplysningerContainer));
@@ -752,11 +762,50 @@ public class SadImportAjaxHandlerController {
 	    				  ajaxObject.setCalculatedValidCurrency(finansOpplysningerContainer.getCalculatedValidCurrency());
 	    				  result.add(ajaxObject);
 	    				  break;
-	    			  }
+	    			  }*/
 	    		  }
+	    		  
 	    	  }	
 		  return result;
 	  }
+	  
+	  /**
+	   * 
+	   * @param avd
+	   * @param opd
+	   * @param applicationUser
+	   * @return
+	   */
+	  private JsonSadImportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices(String avd, String opd, String applicationUser){
+			//--------------------------
+			//get BASE URL = RPG-PROGRAM
+	        //---------------------------
+			JsonSadImportSpecificTopicFaktTotalRecord returnRecord = null;
+			
+			String BASE_URL_FETCH = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("FETCH av item list... ");
+	    	logger.info("URL: " + BASE_URL_FETCH);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+			//Debug --> 
+	    	logger.info(jsonPayload);
+			
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	JsonSadImportSpecificTopicFaktTotalContainer container = this.sadImportSpecificTopicService.getSadImportSpecificTopicFaktTotalContainer(jsonPayload);
+	    	if(container!=null){
+		    	for(JsonSadImportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+					 returnRecord = record;
+		    	}
+	    	}
+			
+			return returnRecord;
+		}
 	  
 	  /**
 	   * 

@@ -295,9 +295,9 @@
 					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
 				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
 				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-				 				<table id="containerdatatableTable" width="80%" cellspacing="2" align="left" >
+				 				<table id="container tableTable" width="80%" cellspacing="2" align="left" >
 								<tr>
-								<td>
+								<td class="text11">
 										
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>

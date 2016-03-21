@@ -55,6 +55,23 @@ public class JsonSadExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 		return this.sumTotalBruttoViktItemLinesStr;
 	}
 	
+	private boolean finansOpplysningarExist = false;
+	public void setFinansOpplysningarExist(boolean value) { this.finansOpplysningarExist = value; }
+	public boolean getFinansOpplysningarExist (){ return this.finansOpplysningarExist; }
+
+	//Used when different currencies exist. The main currency must be = SEK
+	private String finansOpplysningarTotValidCurrency = null;
+	public void setFinansOpplysningarTotValidCurrency(String value) {  this.finansOpplysningarTotValidCurrency = value; }
+	public String getFinansOpplysningarTotValidCurrency() { return this.finansOpplysningarTotValidCurrency; }
+	
+	private String finansOpplysningarTotSum = null;
+	public void setFinansOpplysningarTotSum(String value) {  this.finansOpplysningarTotSum = value; }
+	public String getFinansOpplysningarTotSum() { return this.finansOpplysningarTotSum; }
+	
+	private String finansOpplysningarTotKurs = null;
+	public void setFinansOpplysningarTotKurs(String value) {  this.finansOpplysningarTotKurs = value; }
+	public String getFinansOpplysningarTotKurs() { return this.finansOpplysningarTotKurs; }
+	
 	
 	//in order to validate before a "send topic"
 	private boolean validUpdate = false;

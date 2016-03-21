@@ -33,12 +33,16 @@ public class JsonSadExportTopicFinansOpplysningerContainer {
 	public void setErrMsg(String value) {  this.errMsg = value; }
 	public String getErrMsg() { return this.errMsg;}
 	
+	private String calculatedItemLinesTotalAmount = null;
+	public void setCalculatedItemLinesTotalAmount(String value) {  this.calculatedItemLinesTotalAmount = value; }
+	public String getCalculatedItemLinesTotalAmount() { return this.calculatedItemLinesTotalAmount; }
+	/*
 	private Double calculatedItemLinesTotalAmount = 0.000D;
 	public void setCalculatedItemLinesTotalAmount(Double value) {  this.calculatedItemLinesTotalAmount = value; }
 	public String getCalculatedItemLinesTotalAmount() {
 		NumberFormatterLocaleAware formatter = new NumberFormatterLocaleAware();
 		return formatter.getDoubleEuropeanFormat(this.calculatedItemLinesTotalAmount, 3);
-	}
+	}*/
 	private Double diffItemLinesTotalAmountWithInvoiceTotalAmount = 0.000D;
 	public void setDiffItemLinesTotalAmountWithInvoiceTotalAmount(Double value) {  this.diffItemLinesTotalAmountWithInvoiceTotalAmount = value; }
 	public String getDiffItemLinesTotalAmountWithInvoiceTotalAmount() {

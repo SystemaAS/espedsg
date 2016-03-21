@@ -1579,6 +1579,10 @@ public class TdsImportHeaderController {
 			record.setSumOfAntalKolliInItemLines(sumTopicRecord.getSumOfAntalKolliInItemLines());
 			record.setSumOfGrossWeightInItemLines(sumTopicRecord.getSumOfGrossWeightInItemLines());
 			record.setSumOfInvoiceAmountInItemLines(sumTopicRecord.getSumOfInvoiceAmountInItemLines());
+			record.setInvoiceListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
+			record.setInvoiceListTotSum(sumFaktTotalRecord.getTot_fabl());
+			record.setInvoiceListTotKurs(sumFaktTotalRecord.getTot_vaku());
+			
             //(2) now check if the Invoice Total amount is NULL. If it is then we should check if the list of invoices gives something
 			if(record.getSvih_fabl()!=null && !"".equals(record.getSvih_fabl())){
 				//nothing

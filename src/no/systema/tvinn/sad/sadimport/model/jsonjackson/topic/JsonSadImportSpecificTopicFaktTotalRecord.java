@@ -10,21 +10,21 @@ package no.systema.tvinn.sad.sadimport.model.jsonjackson.topic;
  */
 public class JsonSadImportSpecificTopicFaktTotalRecord {
 
-	private String tot_vakd = null;
-	public void setTot_vakd(String value) {  this.tot_vakd = value; }
-	public String getTot_vakd() {return this.tot_vakd;}
+	private String tot_vk28 = null;
+	public void setTot_vk28(String value) {  this.tot_vk28 = value; }
+	public String getTot_vk28() {return this.tot_vk28;}
 	
-	private String tot_vaku = null;
-	public void setTot_vaku(String value) {  this.tot_vaku = value; }
-	public String getTot_vaku() {return this.tot_vaku;}
+	private String tot_kr28 = null;
+	public void setTot_kr28(String value) {  this.tot_kr28 = value; }
+	public String getTot_kr28() {return this.tot_kr28;}
 	
-	private String tot_omr = null;
-	public void setTot_omr(String value) {  this.tot_omr = value; }
-	public String getTot_omr() {return this.tot_omr;}
+	private String tot_om28 = null;
+	public void setTot_om28(String value) {  this.tot_om28 = value; }
+	public String getTot_om28() {return this.tot_om28;}
 	
-	private String tot_fabl = null;
-	public void setTot_fabl(String value) {  this.tot_fabl = value; }
-	public String getTot_fabl() {return this.tot_fabl;}
+	private String tot_bl28 = null;
+	public void setTot_bl28(String value) {  this.tot_bl28 = value; }
+	public String getTot_bl28() {return this.tot_bl28;}
 	
 	
 }

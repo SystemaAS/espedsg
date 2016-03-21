@@ -304,7 +304,7 @@
 
 				 				<table id="containerdatatableTable" width="80%" cellspacing="2" align="left" >
 								<tr>
-								<td>
+								<td class="text11">
 							
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>

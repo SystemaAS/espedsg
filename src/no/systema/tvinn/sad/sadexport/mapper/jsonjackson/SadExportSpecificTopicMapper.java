@@ -14,7 +14,7 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpeci
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicRecord;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicAvdDataContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicAvdDataRecord;
-
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalContainer;
 
 /**
  * @author oscardelatorre
@@ -69,8 +69,24 @@ public class SadExportSpecificTopicMapper {
 		for(JsonSadExportSpecificTopicAvdDataRecord record : fields){
 			//debug here when applicable
 		}
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonSadExportSpecificTopicFaktTotalContainer getFaktTotalContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
-			
+		//At this point we now have an UTF-8 payload
+		JsonSadExportSpecificTopicFaktTotalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicFaktTotalContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		
 		return container;
 	}
 	

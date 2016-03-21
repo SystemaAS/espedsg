@@ -22,6 +22,17 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
+  	  jq('#getFinansOpplSumButton').click(function() { 
+  		if(jq('#finansOpplysningarTotSum').val()!='' && jq('#finansOpplysningarTotValidCurrency').val()!='' ){  
+	  		jq('#sebel1').val(jq('#finansOpplysningarTotSum').val());
+	  		jq('#seval1').val(jq('#finansOpplysningarTotValidCurrency').val());	
+	  		//jq('#KURS???').val(jq('#finansOpplysningarTotKurs').val());
+	  		
+	  		//for backwards compatibility meaning: ref till fakturalista
+  			jq('#sefif').val("F15  ER  BENYTTET");
+  			
+  		}
+	  });
     });
     
   //General functions

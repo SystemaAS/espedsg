@@ -796,11 +796,23 @@
 							        <tr height="15">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
+							        <tr>
+							            <td colspan="2" class="text12" align="left" >&nbsp;
+							            <span title="finansOpplysningarTotSum/finansOpplysningarTotValidCurrency"></span>Fakturasum. fra Finans.oppl.&nbsp;</span>
+							            <input type="text" class="inputTextReadOnly"  name="finansOpplysningarTotSum" id="finansOpplysningarTotSum" size="15" value='${ model.record.finansOpplysningarTotSum}'>
+							            &nbsp;&nbsp;
+							            <input type="text" class="inputTextReadOnly"  name="finansOpplysningarTotValidCurrency" id="finansOpplysningarTotValidCurrency" size="5" value='${ model.record.finansOpplysningarTotValidCurrency}'>
+							            &nbsp;<button title="Hente summen fra Finans.oppl." name="getFinansOpplSumButton" id="getFinansOpplSumButton" class="buttonGrayWithGreenFrame" type="button" >Hente summen</button>
+							            <input type="hidden" name="finansOpplysningarTotKurs" id="finansOpplysningarTotKurs" value='${ model.record.finansOpplysningarTotKurs}'>
+							            </td>
+							        </tr>
+							        <tr height="5">
+							            <td class="text12Bold" align="left" >&nbsp;</td> 
+							        </tr>
 								</table>
 							</td>
 						</tr>
 					</table>
-					  
 				</td>
 		  	</tr>
            	
@@ -1539,7 +1551,7 @@
 							<tr>
 				        		<td class="text12Gray" align="left" >Kolli&nbsp;</td>
 					        	<td >
-				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalKolliInItemLines" id="sumOfAntalKolliInItemLines" size="8" maxlength="7" value="${ model.record.sumOfAntalKolliInItemLinesStr}">
+				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalKolliInItemLines" id="sumOfAntalKolliInItemLines" size="10" maxlength="7" value="${ model.record.sumOfAntalKolliInItemLinesStr}">
 				            		<c:if test="${not empty ( model.record.sumOfAntalKolliInItemLinesStr &&  model.record.sentk)}">
 					            		<c:if test="${ model.record.sentk !=  model.record.sumOfAntalKolliInItemLinesStr}">
 							            <img onMouseOver="showPop('itemsSumKolli_info');" onMouseOut="hidePop('itemsSumKolli_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="kolliantal warning">	
@@ -1560,7 +1572,7 @@
 					        <tr>
 				        		<td class="text12Gray" align="left" >Varelinjer &nbsp;</td>
 					        	<td >
-				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalItemLines" id="sumOfAntalItemLines" size="8" value="${ model.record.sumOfAntalItemLinesStr}">
+				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalItemLines" id="sumOfAntalItemLines" size="10" value="${ model.record.sumOfAntalItemLinesStr}">
 				            		<c:if test="${not empty ( model.record.sumOfAntalItemLinesStr)}">
 					            		<c:if test="${ model.record.sumOfAntalItemLines <= 0 }">
 							            <img onMouseOver="showPop('itemsSum_info');" onMouseOut="hidePop('itemsSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="varelinjerantal warning">	
@@ -1576,7 +1588,7 @@
 					        <tr>
 					        		<td class="text12Gray" align="left" >Beløp&nbsp;</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLines" id="sumTotalAmountItemLines" size="8" value="${ model.record.sumTotalAmountItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLines" id="sumTotalAmountItemLines" size="10" value="${ model.record.sumTotalAmountItemLinesStr}">
 						            	<c:if test="${model.record.sumTotalAmountItemLines != model.record.sebel1Dbl}">
 						            		<img onMouseOver="showPop('itemsAmountSum_info');" onMouseOut="hidePop('itemsAmountSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="vare-sum warning">	
 							            <div class="text11" style="position: relative;" align="left">
@@ -1590,7 +1602,7 @@
 					        <tr>
 					        		<td class="text12Gray" align="left" >Bruttovekt&nbsp;</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalBruttoViktItemLines" id="sumTotalBruttoViktItemLines" size="8" value="${ model.record.sumTotalBruttoViktItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalBruttoViktItemLines" id="sumTotalBruttoViktItemLines" size="10" value="${ model.record.sumTotalBruttoViktItemLinesStr}">
 						            	<c:if test="${model.record.sumTotalBruttoViktItemLines != model.record.sevkbDbl}">
 						            		<img onMouseOver="showPop('itemsBruttoVektSum_info');" onMouseOut="hidePop('itemsBruttoVektSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="bruttovekt warning">	
 							            <div class="text11" style="position: relative;" align="left">

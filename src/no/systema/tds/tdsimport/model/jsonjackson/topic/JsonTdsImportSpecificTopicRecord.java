@@ -47,6 +47,19 @@ public class JsonTdsImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 		return this.sumOfInvoiceAmountInItemLinesStr;
 	}
 	
+	//Used when different currencies exist. The main currency must be = SEK
+	private String invoiceListTotValidCurrency = null;
+	public void setInvoiceListTotValidCurrency(String value) {  this.invoiceListTotValidCurrency = value; }
+	public String getInvoiceListTotValidCurrency() { return this.invoiceListTotValidCurrency; }
+	
+	private String invoiceListTotSum = null;
+	public void setInvoiceListTotSum(String value) {  this.invoiceListTotSum = value; }
+	public String getInvoiceListTotSum() { return this.invoiceListTotSum; }
+	
+	private String invoiceListTotKurs = null;
+	public void setInvoiceListTotKurs(String value) {  this.invoiceListTotKurs = value; }
+	public String getInvoiceListTotKurs() { return this.invoiceListTotKurs; }
+	
 	
 	//in order to validate before a "send topic"
 	private boolean validUpdate = false;

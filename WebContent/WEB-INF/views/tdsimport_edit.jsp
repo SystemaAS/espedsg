@@ -911,7 +911,7 @@
 				 			<td class="text12">
 				 				<b>&nbsp;22.</b>
 				 				<font class="text16RedBold" >*</font>
-				 				<span title="svih_fabl">Valuta och Fakt.Totalbelopp&nbsp;</span>
+				 				<span title="svih_fabl">Fakt.total&nbsp;</span>
 				 			</td>
 				 			<td align="left" >
 				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svih_fabl" id="svih_fabl" size="20" maxlength="20" value="${model.record.svih_fabl}">
@@ -942,9 +942,23 @@
 				 			<span title="svih_vaom">Faktor</span>
 				 			<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="svih_vaom" id="svih_vaom" size="10" maxlength="10" value="${model.record.svih_vaom}"></td>
 		 				</tr>
+		 				<tr height="10"><td></td></tr>
 		 				<tr>
+		 					<td class="text12Gray" align="right">
+				 				<span title="invoiceListTotSum/invoiceListTotValidCurrency"></span>Fakt.total (fakt.lista)&nbsp;</span>
+				 			</td>
+				            <td colspan="2" class="text12" align="left" >
+				            <input readonly type="text" class="inputTextReadOnly"  name="invoiceListTotSum" id="invoiceListTotSum" size="15" value='${ model.record.invoiceListTotSum}'>
+				            &nbsp;&nbsp;
+				            <input readonly type="text" class="inputTextReadOnly"  name="invoiceListTotValidCurrency" id="invoiceListTotValidCurrency" size="5" value='${ model.record.invoiceListTotValidCurrency}'>
+				            &nbsp;<button title="Hente summen fra Finans.oppl." name="getInvoiceListaSumButton" id="getInvoiceListaSumButton" class="buttonGrayWithGreenFrame" type="button" >Hämta Fakt.total</button>
+				            <input type="hidden" name="invoiceListTotKurs" id="invoiceListTotKurs" value='${ model.record.invoiceListTotKurs}'>
+				            </td>
+				        </tr>
+				        <tr height="2"><td></td></tr>
+				        <tr>
 			 				<td class="text12Gray" align="right">
-				 				<span title="sumOfItemAmounts">Fakt.Totalbelopp (varuposter)&nbsp;</span>
+				 				<span title="sumOfItemAmounts">Fakt.total (Varuposter)&nbsp;</span>
 				 			</td>
 				 			<td colspan="2" class="text12" align="left" >
 				 				<input readonly style="text-align: left" type="text" class="inputTextReadOnly" name="sumOfInvoiceAmountInItemLines" id="sumOfInvoiceAmountInItemLines" size="20" maxlength="20" value="${model.record.sumOfInvoiceAmountInItemLinesStr}">
@@ -966,7 +980,6 @@
 									</div>
 				 			</td>
 		 				</tr>
-		 				
 		 				<tr height="15"><td></td></tr>
 					</table>
 					</td>

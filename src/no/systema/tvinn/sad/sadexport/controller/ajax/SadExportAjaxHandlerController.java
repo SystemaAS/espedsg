@@ -51,6 +51,9 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopic
 import no.systema.tvinn.sad.sadexport.model.topic.SadExportSpecificTopicFinansOpplysningarAjaxObject;
 import no.systema.tvinn.sad.sadexport.util.SadExportCalculator;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalForUpdateContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
 
 /**
@@ -379,6 +382,13 @@ public class SadExportAjaxHandlerController {
 	    		  //update the topic record ONLY when the Finans Oppl. exists (at least one row in the list)
 	    		  Collection<JsonSadExportTopicFinansOpplysningerRecord> list = finansOpplysningerContainer.getInvoicList();
 	    		  if(list!=null & list.size()>0){
+	    			  JsonSadExportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, applicationUser);
+	    			  SadExportSpecificTopicFinansOpplysningarAjaxObject ajaxObject = new SadExportSpecificTopicFinansOpplysningarAjaxObject();
+    				  ajaxObject.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_bl28());
+    				  ajaxObject.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vk28());
+    				  result.add(ajaxObject);
+    				  
+	    			  /*
 	    			  for(JsonSadExportTopicFinansOpplysningerRecord record : finansOpplysningerContainer.getInvoicList()){
 	    				  //Set the common currency code for all invoices (if more than one)
 	    				  finansOpplysningerContainer.setCalculatedValidCurrency(this.sadExportCalculator.getFinalCurrency(finansOpplysningerContainer));
@@ -392,12 +402,42 @@ public class SadExportAjaxHandlerController {
 	    				  ajaxObject.setCalculatedValidCurrency(finansOpplysningerContainer.getCalculatedValidCurrency());
 	    				  result.add(ajaxObject);
 	    				  break;
-	    			  }
+	    			  }*/
 	    		  }
 	    	  }	
 		  return result;
 	  }
 	  
+	  private JsonSadExportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices(String avd, String opd, String applicationUser){
+			//--------------------------
+			//get BASE URL = RPG-PROGRAM
+	        //---------------------------
+			JsonSadExportSpecificTopicFaktTotalRecord returnRecord = null;
+			
+			String BASE_URL_FETCH = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("FETCH av item list... ");
+	    	logger.info("URL: " + BASE_URL_FETCH);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+			//Debug --> 
+	    	logger.info(jsonPayload);
+			
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	JsonSadExportSpecificTopicFaktTotalContainer container = this.sadExportSpecificTopicService.getSadExportSpecificTopicFaktTotalContainer(jsonPayload);
+	    	if(container!=null){
+		    	for(JsonSadExportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+					 returnRecord = record;
+		    	}
+	    	}
+			
+			return returnRecord;
+		}
 	  /**
 	   * 
 	   * @param applicationUser

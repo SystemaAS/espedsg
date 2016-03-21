@@ -19,7 +19,13 @@
   	  jq('#alinkArchive').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   	  });
-  	  
+  	  jq('#getInvoiceListaSumButton').click(function() { 
+  		if(jq('#invoiceListTotSum').val()!='' && jq('#invoiceListTotValidCurrency').val()!='' ){    
+  			jq('#sveh_fabl').val(jq('#invoiceListTotSum').val());
+  			jq('#sveh_vakd').val(jq('#invoiceListTotValidCurrency').val());	
+  			jq('#sveh_vaku').val(jq('#invoiceListTotKurs').val());
+  		}
+	  });
   	  
     });
     

@@ -25,6 +25,8 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopic
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalForUpdateContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalRecord;
+import no.systema.tvinn.sad.sadexport.mapper.jsonjackson.SadExportSpecificTopicMapper;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalContainer;
 
 
 /**
@@ -243,6 +245,22 @@ public class SadExportSpecificTopicServiceImpl implements SadExportSpecificTopic
 			e.printStackTrace();
 		}
 		return container;
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonSadExportSpecificTopicFaktTotalContainer getSadExportSpecificTopicFaktTotalContainer (String utfPayload){
+		JsonSadExportSpecificTopicFaktTotalContainer container = null;
+		try{
+			SadExportSpecificTopicMapper mapper = new SadExportSpecificTopicMapper();
+			container = mapper.getFaktTotalContainer(utfPayload);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
 	}
 	
 	

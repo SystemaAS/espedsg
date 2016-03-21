@@ -27,7 +27,7 @@ public final class SadImportUrlDataStore {
 	
 	//[2.1] FETCH Fakt.total from Invoices
 	//http://gw.systema.no/sycgip/tnoi033r.pgm?user=OSCAR&avd=1&opd=215
-	static public String SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI033R.pgm";
+	static public String SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI033R.pgm";
 	
 	//------------------------------
 	//[3] EDIT A SPECIFIC ARENDE

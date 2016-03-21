@@ -25,6 +25,10 @@ public final class SadExportUrlDataStore {
 	static public String SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE001R.pgm";
 	//http://gw.systema.no/sycgip/TNOE001R.pgm?user=OSCAR&avd=1&opd=91132
 	
+	//[2.1] FETCH Fakt.total from Invoices
+	//http://gw.systema.no/sycgip/tnoe033r.pgm?user=OSCAR&avd=1&opd=155272
+	static public String SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE033R.pgm";
+	
 	
 	//------------------------------
 	//[3] EDIT A SPECIFIC ARENDE

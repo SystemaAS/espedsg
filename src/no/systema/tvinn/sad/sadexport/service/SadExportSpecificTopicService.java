@@ -14,6 +14,7 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpeci
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalForUpdateContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalContainer;
 
 
 /**
@@ -32,6 +33,7 @@ public interface SadExportSpecificTopicService {
 	
 	public JsonSadExportTopicFinansOpplysningerContainer getSadExportTopicFinansOpplysningerContainer (String utfPayload);
 	public JsonSadExportTopicFinansOpplysningerContainer getSadExportTopicFinansOpplysningerContainerOneInvoice (String utfPayload);
+	public JsonSadExportSpecificTopicFaktTotalContainer getSadExportSpecificTopicFaktTotalContainer (String utfPayload);
 	
 	//External invoices
 	public JsonSadExportTopicFinansOpplysningerExternalContainer getSadExportTopicFinansOpplysningerContainerContainerExternal (String utfPayload);
