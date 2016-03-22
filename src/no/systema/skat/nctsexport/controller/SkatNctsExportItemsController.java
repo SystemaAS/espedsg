@@ -587,6 +587,8 @@ public class SkatNctsExportItemsController {
 				 model,appUser,CodeDropDownMgr.CODE_107_CURRENCY, null, null);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_302_STATUS_KODER, null, null);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_116_BETALNING_TRANSPORT, null, null);
 		
 	}
 	

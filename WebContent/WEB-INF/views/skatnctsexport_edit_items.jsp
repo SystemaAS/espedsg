@@ -2171,14 +2171,14 @@
 								            				<span title="tvtkbm">Transp.kost/Betal.måte</span>&nbsp;
 								            				<select name="tvtkbm" id="tvtkbm">
 								            				<option value="">-velg-</option>
-								 				  			<c:forEach var="code" items="${Xmodel.ncts116_BetalningTransport_CodeList}" >
+								 				  			<c:forEach var="code" items="${model.ncts116_BetalningTransport_CodeList}" >
 				                             	 				<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 															</c:forEach> 
 														</select>
 														<div class="text11" style="position: relative;" align="left">
 															<span style="position:absolute;top:2px; width:250px;" id="betalmade_info" class="popupWithInputText text11"  >
 											           			<ul>
-											           				<c:forEach var="code" items="${Xmodel.ncts116_BetalningTransport_CodeList}" >
+											           				<c:forEach var="code" items="${model.ncts116_BetalningTransport_CodeList}" >
 												 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
 											 				  		</c:forEach>	
 											           			</ul>
@@ -2277,9 +2277,9 @@
 																	            <td class="text12" align="left" >
 																	            		&nbsp;<select name="tvskss" id="tvskss">
 																		            		<option value="">-velg-</option>
-																		 				  	<c:forEach var="code" items="${Xmodel.ncts012_Sprak_CodeList}" >
-														                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvskss == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																							</c:forEach> 
+																		 				  	<c:forEach var="record" items="${model.ncts012_Sprak_CodeList}" >
+													                                	 	<option value="${record.tkkode}"<c:if test="${model.record.tvskss == record.tkkode}"> selected </c:if> >${record.tkkode}</option>
+													                                	 	</c:forEach> 
 																					</select>
 																					<a tabindex="-1" id="tvskssIdLink">
 																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
@@ -2314,8 +2314,8 @@
 																		            		<td align="left">
 																		            			<select name="tvlkss" id="tvlkss">
 																				            		<option value="">-velg-</option>
-																				            	<c:forEach var="country" items="${Xmodel.countryCodeList}" >
-															                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.tvlkss == country.zkod}"> selected </c:if> >${country.zkod}</option>
+																				            	<c:forEach var="country" items="${model.countryCodeList}" >
+															                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tvlkss == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																								</c:forEach> 
 																							</select>
 																							<a tabindex="-1" id="tvlkssIdLink">
@@ -2406,9 +2406,9 @@
 																	            <td class="text12" align="left" >
 																	            		&nbsp;<select name="tvskks" id="tvskks">
 																		            		<option value="">-velg-</option>
-																		 				  	<c:forEach var="code" items="${Xmodel.ncts012_Sprak_CodeList}" >
-														                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvskks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																							</c:forEach> 
+																		 				  	<c:forEach var="record" items="${model.ncts012_Sprak_CodeList}" >
+													                                	 	<option value="${record.tkkode}"<c:if test="${model.record.tvskks == record.tkkode}"> selected </c:if> >${record.tkkode}</option>
+													                                	 	</c:forEach>
 																					</select>
 																					<a tabindex="-1" id="tvskksIdLink">
 																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
@@ -2443,9 +2443,10 @@
 																		            		<td align="left">
 																		            			<select name="tvlkks" id="tvlkks">
 																				            		<option value="">-velg-</option>
-																			 				  	<c:forEach var="country" items="${Xmodel.countryCodeList}" >
-															                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.tvlkks == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																								</c:forEach> 
+																			 				  	<c:forEach var="country" items="${model.countryCodeList}" >
+															                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tvlkks == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
+																								</c:forEach>
+																								
 																							</select>
 																							<a tabindex="-1" id="tvlkksIdLink">
 																								<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
