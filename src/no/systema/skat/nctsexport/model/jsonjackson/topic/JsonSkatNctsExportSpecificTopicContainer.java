@@ -5,6 +5,8 @@ package no.systema.skat.nctsexport.model.jsonjackson.topic;
 
 import java.util.Collection;
 
+import no.systema.tvinn.sad.nctsexport.model.jsonjackson.topic.JsonSadNctsExportSpecificTopicRecord;
+
 
 
 /**
@@ -32,6 +34,10 @@ public class JsonSkatNctsExportSpecificTopicContainer {
 	private Collection<JsonSkatNctsExportSpecificTopicRecord> oneorder;
 	public void setOneorder(Collection<JsonSkatNctsExportSpecificTopicRecord> value){ this.oneorder = value; }
 	public Collection<JsonSkatNctsExportSpecificTopicRecord> getOneorder(){ return oneorder; }
+	
+	private Collection<JsonSkatNctsExportSpecificTopicRecord> securityhead;
+	public void setSecurityhead(Collection<JsonSkatNctsExportSpecificTopicRecord> value){ this.securityhead = value; }
+	public Collection<JsonSkatNctsExportSpecificTopicRecord> getSecurityhead(){ return securityhead; }
 	
 	
 }

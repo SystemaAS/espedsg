@@ -53,7 +53,23 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		logger.info("Inside SkatNctsExportHeaderValidator");
 		
 		//Check for Mandatory fields first
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdk", "systema.skat.ncts.export.header.error.null.thdk"); 
+		//Avsender
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnas", "systema.skat.ncts.export.header.error.null.thnas"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtins", "systema.skat.ncts.export.header.error.null.thtins"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thads1", "systema.skat.ncts.export.header.error.null.thads1"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thsks", "systema.skat.ncts.export.header.error.null.thsks"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpns", "systema.skat.ncts.export.header.error.null.thpns"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpss", "systema.skat.ncts.export.header.error.null.thpss"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlks", "systema.skat.ncts.export.header.error.null.thlks"); 
+		//Modtager
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnak", "systema.skat.ncts.export.header.error.null.thnak"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtins", "systema.skat.ncts.export.header.error.null.thtink"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thadk1", "systema.skat.ncts.export.header.error.null.thadk1"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskk", "systema.skat.ncts.export.header.error.null.thskk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpnk", "systema.skat.ncts.export.header.error.null.thpnk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpsk", "systema.skat.ncts.export.header.error.null.thpsk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlkk", "systema.skat.ncts.export.header.error.null.thlkk");
 		
 		//ansvarig
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnaa", "systema.skat.ncts.export.header.error.null.thnaa"); 
@@ -61,27 +77,28 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlka", "systema.skat.ncts.export.header.error.null.thlka"); 
 		
 		//header
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdk", "systema.skat.ncts.export.header.error.null.thdk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thavd", "systema.skat.ncts.export.header.error.null.thavd"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thsg", "systema.skat.ncts.export.header.error.null.thsg");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdst", "systema.skat.ncts.export.header.error.null.thdst");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdsk", "systema.skat.ncts.export.header.error.null.thdsk");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsb", "systema.skat.ncts.export.header.error.null.thtsb");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrm", "systema.skat.ncts.export.header.error.null.thtrm");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrmi", "systema.skat.ncts.export.header.error.null.thtrmi");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrmi", "systema.skat.ncts.export.header.error.null.thtrmi");
 		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thalk", "systema.skat.ncts.export.header.error.null.thalk");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thblk", "systema.skat.ncts.export.header.error.null.thblk");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtaid", "systema.skat.ncts.export.header.error.null.thtaid");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtalk", "systema.skat.ncts.export.header.error.null.thtalk");
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtgid", "systema.skat.ncts.export.header.error.null.thtgid");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtglk", "systema.skat.ncts.export.header.error.null.thtglk");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskfd", "systema.skat.ncts.export.header.error.null.thskfd");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrm", "systema.skat.ncts.export.header.error.null.thtrm");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thcats", "systema.skat.ncts.export.header.error.null.thcats");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgkd", "systema.skat.ncts.export.header.error.null.thgkd");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgadk", "systema.skat.ncts.export.header.error.null.thgadk");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thkdc", "systema.skat.ncts.export.header.error.null.thkdc");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgbl", "systema.skat.ncts.export.header.error.null.thgbl");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thgvk", "systema.skat.ncts.export.header.error.null.thgvk");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskfd", "systema.skat.ncts.export.header.error.null.thskfd");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdst", "systema.skat.ncts.export.header.error.null.thdst");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdsk", "systema.skat.ncts.export.header.error.null.thdsk");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsd1", "systema.skat.ncts.export.header.error.null.thtsd1");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsb", "systema.skat.ncts.export.header.error.null.thtsb");
+		
 		
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
@@ -188,10 +205,13 @@ public class SkatNctsExportHeaderValidator implements Validator {
 				//--------
 				//Garanti
 				//--------
-				if(record.getThgft1()==null || "".equals(record.getThgft1())){
-					if(record.getThgft2()==null || "".equals (record.getThgft2())){
-						errors.rejectValue("thgft1", "systema.skat.ncts.export.header.error.rule.thgft1.atleastone");
-						logger.info("ERROR thgft1");
+				//Garanti
+				if(!"SS".equals(record.getThdk())){
+					if(record.getThgft1()==null || "".equals(record.getThgft1())){
+						if(record.getThgft2()==null || "".equals (record.getThgft2())){
+							errors.rejectValue("thgft1", "systema.skat.ncts.export.header.error.rule.thgft1.atleastone");
+							logger.info("ERROR thgft1");
+						}
 					}
 				}
 				

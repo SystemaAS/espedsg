@@ -2006,7 +2006,8 @@
 						
 						
 						
-						<!--  SIKKERHET HERE ! --><tr>
+						<!--  SIKKERHET HERE ! -->
+				<tr>
 				<td colspan="2">&nbsp;&nbsp;
 		            	<table width="99%" align="center" class="tableBorderWithRoundCornersDarkRed" border="0" cellspacing="2" cellpadding="0">
 		            		<tr>

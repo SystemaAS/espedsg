@@ -79,6 +79,18 @@ public final class SkatConstants {
 	//domain objects for model-view passing values
 	public static final String DOMAIN_MODEL = "model";
 	public static final String DOMAIN_RECORD = "record";
+	
+	//filter per module
+	public static final String DOMAIN_SEARCH_FILTER_SKATIMPORT = "searchFilterSkatImport";
+	public static final String DOMAIN_SEARCH_FILTER_SKATEXPORT = "searchFilterSkatExport";
+	public static final String DOMAIN_SEARCH_FILTER_SKATIMPORT_NCTS = "searchFilterSkatImportNcts";
+	public static final String DOMAIN_SEARCH_FILTER_SKATEXPORT_NCTS = "searchFilterSkatExportNcts";
+	public static final String SESSION_SEARCH_FILTER_SKATIMPORT = "searchFilterSkatImport";
+	public static final String SESSION_SEARCH_FILTER_SKATEXPORT = "searchFilterSkatExport";
+	public static final String SESSION_SEARCH_FILTER_SKATMPORT_NCTS = "searchFilterSkatImportNcts";
+	public static final String SESSION_SEARCH_FILTER_SKATEXPORT_NCTS = "searchFilterSkatExportNcts";
+	
+	
 	public static final String DOMAIN_RECORD_TOPIC_SKAT = "recordTopicSkat";
 	public static final String DOMAIN_RECORD_TOPIC_SKAT_UNLOADING = "recordTopicSkatUnloading";
 	

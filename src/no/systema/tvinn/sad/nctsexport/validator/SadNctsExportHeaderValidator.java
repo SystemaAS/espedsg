@@ -52,7 +52,7 @@ public class SadNctsExportHeaderValidator implements Validator {
 	 */
 	public void validate(Object obj, Errors errors) { 
 		JsonSadNctsExportSpecificTopicRecord record = (JsonSadNctsExportSpecificTopicRecord)obj;
-		logger.info("Inside SkatNctsExportHeaderValidator");
+		logger.info("Inside SadNctsExportHeaderValidator");
 		
 		//Check for Mandatory fields first
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdk", "systema.tvinn.sad.ncts.export.header.error.null.thdk"); 
@@ -65,7 +65,7 @@ public class SadNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpss", "systema.tvinn.sad.ncts.export.header.error.null.thpss"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlks", "systema.tvinn.sad.ncts.export.header.error.null.thlks"); 
 		//Mottaker
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnas", "systema.tvinn.sad.ncts.export.header.error.null.thnak"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnak", "systema.tvinn.sad.ncts.export.header.error.null.thnak"); 
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtins", "systema.tvinn.sad.ncts.export.header.error.null.thtink"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thadk1", "systema.tvinn.sad.ncts.export.header.error.null.thadk1"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskk", "systema.tvinn.sad.ncts.export.header.error.null.thskk"); 
@@ -79,7 +79,6 @@ public class SadNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlka", "systema.tvinn.sad.ncts.export.header.error.null.thlka"); 
 		
 		//header
-		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thalk", "systema.tvinn.sad.ncts.export.header.error.null.thalk");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thblk", "systema.tvinn.sad.ncts.export.header.error.null.thblk");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtaid", "systema.tvinn.sad.ncts.export.header.error.null.thtaid");
@@ -248,11 +247,6 @@ public class SadNctsExportHeaderValidator implements Validator {
 						
 					}
 				}
-				
-				
-			
-
-				
 			}
 		}
 		

@@ -26,7 +26,10 @@ public final class SkatNctsExportUrlDataStore {
 	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE001R.pgm";
 	//http://gw.systema.no/sycgip/TDCE001R.pgm?user=OSCAR&avd=1&opd=50013
 	//http://gw.systema.no/sycgip/TDCE001R.pgm?user=OSCAR&avd=1 (for default values with CREATE NEW)
-		
+	//2.1 FETCH Sikkerhet (extra information)
+	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE021R.pgm";
+	//http://gw.systema.no/sycgip/tdce021r.pgm?user=OSCAR&avd=1&opd=50187
+	
 	//------------------------------
 	//[3] EDIT A SPECIFIC ARENDE
 	//(mode=A (Add new), 
@@ -51,6 +54,13 @@ public final class SkatNctsExportUrlDataStore {
 	//Refresh ARENDE
 	static public String NCTS_EXPORT_BASE_REFRESH_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE004R.pgm";
 	
+	//-----------------------------------------
+	//[3.1] EDIT A SPECIFIC ARENDE- SIKKERHET
+	//(mode=A (Add new), 
+	//mode=U (Update existing), 
+	//mode=D (Delete existing topic)	
+	//-----------------------------------------		
+	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE022R.pgm";
 	
 	//-----------------------------
 	//[5] FETCH ITEM RECORDS (LIST)
@@ -58,6 +68,9 @@ public final class SkatNctsExportUrlDataStore {
 	static public String NCTS_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE010R.pgm";
 	//[5.1] FETCH SPECIFIC ITEM (for an update)
 	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE011R.pgm";
+	//[5.2] FETCH SPECIFIC ITEM (for Sikkerhet)
+	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE025R.pgm";
+	//http://gw.systema.no/sycgip/tdce025r.pgm?user=OSCAR&avd=1&opd=1&lin=1
 	
 	
 	//-----------------------------------
@@ -68,6 +81,9 @@ public final class SkatNctsExportUrlDataStore {
 	//-----------------------------------
 	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE012R.pgm";	
 	//http://gw.systema.no/sycgip/TDCE012R.pgm?user=OSCAR&avd=1&opd=50079&lin=3&mode=D	
+	//[6.1] EDIT a SPECIFIC SIKKERHET ITEM RECORD
+	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE026R.pgm";	
+	//http://gw.systema.no/sycgip/tdce026r.pgm?user=OSCAR&mode=U&tvavd=1&tvtdn=1&tvli=1&tvnass=Tarzan
 	
 	
 	//------------------------------------------

@@ -1552,7 +1552,7 @@
 			 				</tr>
 
 				            <tr >	
-				            		<td class="text">&nbsp;</td> 
+			            		<td class="text">&nbsp;</td> 
 			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
 			 				    	<%-- only status = M or emtpy status is allowed --%>
 				 				    <c:choose>
@@ -1578,14 +1578,14 @@
 								    		<tr>
 									    		<td class="text14" colspan="2">
 									            <img width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="emergency">	
-										    		<b>Brugte garantibeløb</b>&nbsp;<font class="text14RedBold">overskrider</font>&nbsp;<b>alarmgrænsen på</b>&nbsp; 
+										    		<b>Brugte garantibeløp</b>&nbsp;<font class="text14RedBold">overskrider</font>&nbsp;<b>alarmgrensen på</b>&nbsp; 
 										    		<b>${model.record.tgprm}&nbsp;%</b>
 										    		<ul class="text14">
 										    			<li>
-										    				Totalt garantibeløb er: <font class="text14GreenBold">${model.record.tggbl}</font>
+										    				Totalt garantibeløp er: <font class="text14GreenBold">${model.record.tggbl}</font>
 										    			</li>
 										    			<li>
-										    				Totalt brugte garantibeløb (herunder dette angivelse) er: <font class="text14RedBold">${model.record.tggblb}</font>
+										    				Totalt brugte garantibeløp (herunder dette angivelse) er: <font class="text14RedBold">${model.record.tggblb}</font>
 										    			</li>
 										    		</ul>
 								    			</td>	

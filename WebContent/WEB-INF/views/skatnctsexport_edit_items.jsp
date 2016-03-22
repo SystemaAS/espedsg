@@ -87,18 +87,18 @@
 								<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
            						Status:&nbsp;<b>${model.status}</b>
 				 				&nbsp;&nbsp;&nbsp;Mrn-nr.:&nbsp;<b>${model.mrnNr}</b>
-			 				</td>
-			 				<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-			           			<div class="text11" align="left">
-				           		<br/>
+			 				
+			 				<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >	
 				           		Kun status <b>M</b>, <b>F</b>, <b>G</b> eller <b>' '</b> kan redigeres.
 				           			<ul>
 										<c:forEach var="record" items="${model.statusCodeList}" >
 						           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
 					           			</c:forEach>
 				           			</ul>
-								</div>
 							</span>
+							</div>
+							</td>
 		 				</tr>
 	 				</table>
 					<%-- MASTER Topic information [it is passed through a session object: recordTopic] --%>
@@ -208,9 +208,7 @@
 															<table width="95%" cellspacing="0" border="0" cellpadding="0">
 																<tr class="tableHeaderField" height="20" valign="left">
 																    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-																    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
-												                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
-												                    </c:if>   
+																      
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvnt.varekod"/>&nbsp;</td>   
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdk.angivType"/>&nbsp;</td>
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvalk.afsLand"/>&nbsp;</td>
@@ -221,7 +219,9 @@
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnt.kolliAnt"/>(&Sigma;)</td>
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnteh.styk"/>(&Sigma;)</td>
 												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvt.vareDescription"/>&nbsp;</td>
-
+																	<c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
+												                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+												                    </c:if> 
 											               		</tr> 
 										 						  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 														               <c:choose>           
@@ -239,13 +239,7 @@
 														               		</a>
 														               		--%>
 														               </td>
-														               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
-															               <td class="tableCell" align="center" nowrap>&nbsp;
-															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsexport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-															               	</a>	
-															               </td>
-														               </c:if>
+														               
 														               <td class="tableCell" >&nbsp;${record.tvvnt}</td>
 														               <td class="tableCell" >&nbsp;${record.tvdk}</td>
 														               <td class="tableCell" >&nbsp;${record.tvalk}</td>
@@ -256,7 +250,13 @@
 														               <td class="tableCell" >&nbsp;${record.sum_of_tvnt}</td>
 														               <td class="tableCell" >&nbsp;${record.sum_of_tvnteh}</td>
 														               <td width="40%" class="tableCell" width="100" >&nbsp;${record.tvvt}</td>
-														               
+														               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
+															               <td class="tableCell" align="center" nowrap>&nbsp;
+															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsexport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+															               	</a>	
+															               </td>
+														               </c:if>
 														            </tr>
 															        <%-- this param is used ONLY in this JSP --%>
 															        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" /> 
@@ -307,9 +307,7 @@
 								<table id="parentItemLineListTable" width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td> 
-									    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
-					                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
-					                    </c:if>  
+									      
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvnt.varekod"/>&nbsp;</td>   
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdk.angivType"/>&nbsp;</td>
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvalk.afsLand"/>&nbsp;</td>
@@ -320,6 +318,9 @@
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnt.kolliAnt"/>(&Sigma;)</td>
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnteh.styk"/>(&Sigma;)</td>
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvt.vareDescription"/>&nbsp;</td>
+					                    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
+					                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+					                    </c:if>
 					               </tr> 
 					               
 					               <form name="formItemList" id="formItemList" method="POST" >
@@ -341,13 +342,7 @@
 							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${counter.count}_${record.tvli}" href="#" onClick="getItemData(this);">${record.tvli}
 							               		<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;</a>
 							               </td>
-							               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
-								               <td class="tableCell" align="center" nowrap>&nbsp;
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsexport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	
-								               </td>
-							               </c:if>
+							               
 							               <td class="tableCell" >&nbsp;${record.tvvnt}</td>
 							               <td class="tableCell" >&nbsp;${record.tvdk}</td>
 							               <td class="tableCell" >&nbsp;${record.tvalk}</td>
@@ -358,6 +353,13 @@
 							               <td class="tableCell" >&nbsp;${record.sum_of_tvnt}</td>
 							               <td class="tableCell" >&nbsp;${record.sum_of_tvnteh}</td>
 							               <td class="tableCell" ><div style="width:120px" >&nbsp;${record.tvvt}</div></td>
+							               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
+								               <td class="tableCell" align="center" nowrap>&nbsp;
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsexport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+								               	</a>	
+								               </td>
+							               </c:if>
 								           </tr>
 								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
@@ -511,11 +513,9 @@
 												</table>
 											</div>
 										</span>	
-							            </td>
 							            
-							            <span style="position:absolute; left:900px; top:150px; width:250px; height:250px;" id="32_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<b>33.Varekod (Commodity Code)</b>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="32_info" class="popupWithInputText text11"  >	<b>33.Varekod (Commodity Code)</b>
 						           			<br/>
 						           			Enter the HS code for the goods, made up of at least six digits. However, where
 											Community legislation so provides, the Combined Nomenclature heading shall be used<br/><br/>
@@ -529,14 +529,14 @@
 												risk of fraud’ (Annex I to Appendix I Convention procedure/ Annex 44cof IPC).</li>
 												<li>in the Community, where required by Community legislation.</li>
 											</ul>
-						           			</div>
 										</span>
-							 			<td class="text12" nowrap>
+										</div>
+										</td>
+							 			<td class="text12" >
 							 				<img onMouseOver="showPop('deklTyp_info');" onMouseOut="hidePop('deklTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 					<b>1.</b>&nbsp;<span title="tvdk" >Angiv.&nbsp;</span>
-						 					</td>
-						 					<span style="position:absolute; left:900px; top:150px; width:250px; height:650px;" id="deklTyp_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+						 					<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="deklTyp_info" class="popupWithInputText text11"  >
 								           			<ul>
 								           				<li>
 								           				 	<b>T-</b>&nbsp;for the transportation of mixed consignments of T1 and T2 goods. In this case, the
@@ -579,12 +579,10 @@
 								           			<br/>
 								           			Procedurernas syfte är att visa vad ditt gods har för tullstatus det vill säga om det är en gemenskapsvara eller icke-gemenskapsvara.
 													<br/>Transiterar du en icke-gemenskapsvara ska du alltid använda T1 proceduren. Om du istället transiterar en gemenskapsvara kan du oftast använda T2 proceduren.						           			
-								           			
-												</div>
 											</span>		
-											
-												
-							 			
+											</div>
+										</td>
+
 							 			<td class="text12" align="left">
 							 			<img onMouseOver="showPop('15_info');" onMouseOut="hidePop('15_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>15.</b>&nbsp;<span title="tvalk" >Afs.land</span>
@@ -593,21 +591,17 @@
 						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 						            		</a>
 						            		 --%>
-							 			</td>
-							            <span style="position:absolute; left:900px; top:150px; width:250px; height:300px;"id="15_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="15_info" class="popupWithInputText text11"  >
 						           			<b>Important</b><br/>
 						           			This field should be entered if the sibling fields on header (15 and 17) are empty
 						           			<br/>
 											As a general rule, when item: 1.Deklaration type (in header) = <b>T-</b> there will be a need for filling these fields at an item line level
 						           			<br/><br/>
 											This is by defintion since T- is a combination of T1 and T2 meaning that each item line belongs either to one or the other						           			
-							           		</div>
 										</span>
-										
-							            
-							            
+										</div>
+										</td>
 							            
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('17_info');" onMouseOut="hidePop('17_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -617,27 +611,24 @@
 						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 						            		</a>
 						            		 --%>
-							            </td>
-							            <span style="position:absolute; left:900px; top:150px; width:250px; height:300px;"id="17_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+							           
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="17_info" class="popupWithInputText text11"  >
 						           			<b>Important</b><br/>
 						           			This field should be entered if the sibling fields on header (15 and 17) are empty
 						           			<br/>
 											As a general rule, when item: 1.Deklaration type (in header) = <b>T-</b> there will be a need for filling these fields at an item line level
 						           			<br/><br/>
 											This is by defintion since T- is a combination of T1 and T2 meaning that each item line belongs either to one or the other						           			
-							           		</div>
 										</span>
+										</div>
+										</td>
 										
-										
-										
-							            <td class="text12" align="left">
+										<td class="text12" align="left">
 							            <img onMouseOver="showPop('35_info');" onMouseOut="hidePop('35_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>35.</b>
-							            <span title="tvvktb" >Brut.vægt(kg)</span></td>
-							            <span style="position:absolute; left:900px; top:150px; width:250px; height:300px;"id="35_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+				 						<b>35.</b><span title="tvvktb" >Brut.vægt(kg)</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="35_info" class="popupWithInputText text11"  >
 						           			<br/>
 						           			<b>Bruttovægt</b><br/>
 						           			Enter the gross mass, in kilograms, of the goods described in the corresponding box 31.The ‘gross mass’ means the total weight of the goods including all packing but excluding containers and other transport equipment.
@@ -647,10 +638,9 @@
 							           			<li>Fraction from 0.001 to 0.499: rounded down to the nearest kilogram</li>
 							           			<li>Fraction from 0.500 to 0.999: rounded up to the nearest kilogram.</li>
 							           		</ul>
-						           			<br/><br/>
-						           			
-							           		</div>
 										</span>
+										</div>
+										</td>
 										<td class="text12" align="left"><b>&nbsp;38.</b>&nbsp;<span title="tvvktn" >Net.vægt(kg)</span></td>
 										<td class="text12" align="left"><b>&nbsp;44.</b>&nbsp;<span title="tvdty" >Dok.Type</span>&nbsp;&nbsp;</td>
 										<td class="text12" align="left"><b>&nbsp;44.</b>&nbsp;<span title="tvdref" >Dok.Ref</span>&nbsp;&nbsp;</td>
@@ -714,9 +704,8 @@
 										<td class="text12" align="left">
 										<img onMouseOver="showPop('44_main_info');" onMouseOut="hidePop('44_main_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">										
 										<b>44.</b>&nbsp;Supp.opl.
-										</td>
-										<span style="position:absolute; left:900px; top:150px; width:250px; height:200px;" id="44_main_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="44_main_info" class="popupWithInputText text11"  >
 							           		<b>44. Supplerende oplysninger</b>
 						           			<br/>
 											Sektionen är indelad i en <b>huvud Rubrik 44</b> (som är denna) och en <b>sekundär Rubrik 44</b>, som du hittar under Extraordinära Uppgifter.
@@ -725,67 +714,62 @@
 						           			<br/><br/>
 						           			Den sekundära sektionen under Extraordinära uppgifter använder du när du behöver registrera
 						           			flera förekomster av Rubrik 44
-						           			</div>
-										</span>										
-										
+										</span>
+										</div>										
+										</td>
 										<td class="text12" nowrap>
 										<img onMouseOver="showPop('31_kslag_info');" onMouseOut="hidePop('31_kslag_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.</b>
-										<font class="text16RedBold" >*</font><span title="tveh" >Kollislag</span></td>
-										<span style="position:absolute; left:900px; top:150px; width:250px; height:150px;" id="31_kslag_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+										<font class="text16RedBold" >*</font><span title="tveh" >Kollislag</span>
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_kslag_info" class="popupWithInputText text11"  >
 						           			<b>Kollislag [Enhet]</b>
 											<br/>
 						           			The correct kind of packages shall be entered.
-					           				</div>
 										</span>
-										
-										
+										</div>
+										</td>
 										<td class="text12">
 										<img onMouseOver="showPop('31_kantal_info');" onMouseOut="hidePop('31_kantal_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>31.</b><span title="tvnt" >Kolliant.</span></td>
-										<span style="position:absolute; left:900px; top:150px; width:250px; height:150px;" id="31_kantal_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+				 						<b>31.</b><span title="tvnt" >Kolliant.</span>
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_kantal_info" class="popupWithInputText text11"  >
 							           		<b>Kolliantal</b>
 						           			<br/>
 						           			Number of packages 
 											<br/>
 						           			Enter the number of packages for packaged goods and number of parts for unpackaged goods. The number of parts for unwrapped goods can never be zero. If the package type=bulkvarer this field should be = <b>Zero</b>.
-						           			</div>
-										</span>
+						           		</span>
+							            </div>
+							            </td>
 							            
-										
-							            
-							            <td class="text12" nowrap>
+							            <td class="text12" >
 										<img onMouseOver="showPop('31_styck_enhet_info');" onMouseOut="hidePop('31_styck_enhet_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>31.</b><span title="tvnteh" >Stykker</span></td>
-										<span style="position:absolute; left:900px; top:150px; width:250px; height:150px;" id="31_styck_enhet_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+				 						<b>31.</b><span title="tvnteh" >Stykker</span>
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_styck_enhet_info" class="popupWithInputText text11"  >
 						           			<b>Stykker</b>
 											<br/>
 						           			This field is used when Kolliantal can not be used. E.g. bulkvaror such as gas, fluids, etc.
 						           			<br/><br/>
 						           			This field is <b>mandatory</b> when Kollislag = <b>VQ, VG, VL, VY, VR, VO</b><br/><br/>
 						           			Kollislag: <b>NE</b> is always = unwrapped goods and requires (stykker) > 0
-					           				</div>
 										</span>
+										</div>
+										</td>
 										
-							            
 										<td class="text12" align="left" colspan="2">
 										<img onMouseOver="showPop('31_varubesk_info');" onMouseOut="hidePop('31_varubesk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>31.</b>
-										<font class="text16RedBold" >*</font><span title="tvvt / tvvt2, tvvt3, etc" >Varebeskrivelse&nbsp;</span></td>
-										<span style="position:absolute; left:900px; top:150px; width:250px; height:150px;" id="31_varubesk_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+				 						<b>31.</b><font class="text16RedBold" >*</font><span title="tvvt / tvvt2, tvvt3, etc" >Varebeskrivelse&nbsp;</span>
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_varubesk_info" class="popupWithInputText text11"  >
 						           			<b>Varebeskrivelse</b>
 											<br/>
 						           			The item description should be as accurate as possible.
-						           			<br/><br/>
-						           			</div>
+						           			<br/>
 										</span>
+										</div>
+										</td>
 							            
 										<td>&nbsp;</td>
 										<td class="text12" align="left" colspan="2">
@@ -929,7 +913,7 @@
 										</td>
 										
 					           			<td align="left">
-					            			<select name="tveh" id="tveh">
+					            			<select class="inputTextMediumBlueMandatoryField" name="tveh" id="tveh">
 							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="record" items="${model.ncts017_Kolli_CodeList}" >
 			                                	 	<option value="${record.tkkode}"<c:if test="${model.record.tveh == record.tkkode}"> selected </c:if> >${record.tkkode}</option>
@@ -946,7 +930,7 @@
 											&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="tvnteh" id="tvnteh" size="5" maxlength="5" value="${model.record.tvnteh}">
 										</td>
 																				
-										<td class="text12" align="left" colspan="2"><input type="text" class="inputText" name="tvvt" id="tvvt" size="40" maxlength="70" value="${model.record.tvvt}"></td>
+										<td class="text12" align="left" colspan="2"><input type="text" class="inputTextMediumBlueMandatoryField" name="tvvt" id="tvvt" size="40" maxlength="70" value="${model.record.tvvt}"></td>
 							            
 							            <td class="text12" align="left"><button name="itemDescriptionExtraInformationButton" class="buttonGray" type="button" onClick="showPop('itemDescriptionExtraInformation');" >Mere...</button> 
 								        <span style="position:absolute; left:580px; top:500px; width:350px; height:300px;" id="itemDescriptionExtraInformation" class="popupWithInputText"  >
@@ -1008,16 +992,15 @@
 									<tr>
 										<td class="text12" align="left" colspan="2">
 							            <img onMouseOver="showPop('31_gods_info');" onMouseOut="hidePop('31_gods_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>31.</b><span title="tvmn" >Kolli mærke&nbsp;</span></td>
-							            <span style="position:absolute; left:900px; top:500px; width:250px; height:120px;" id="31_gods_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+				 						<b>31.</b><span title="tvmn" >Kolli mærke&nbsp;</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_gods_info" class="popupWithInputText text11"  >
 						           			<b>Kolli mærke</b>
 											<br/>
 						           			Här anger du hur de kollin som varorna är förpackade i är märkta, obligatoriskt för emballerat gods. Fältet är frivilligt för bulkvaror och oemballerat gods.
-						           			</div>
 										</span>
-							            
+										</div>
+							            </td>
 							            
 										<td class="text12" align="left" >
 										<b>31.</b><span title="tvmnsk" >Kolli mærke.sprog&nbsp;</span></td>
@@ -1090,18 +1073,18 @@
 							 		<tr height="15">
 							 			<td class="text12White">
 											&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 			<b>&nbsp;2.</b>
-							 				<span style="position:absolute; left:900px; top:550px; width:250px; height:240px;" id="2_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+								 			<b>&nbsp;2.</b>Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="2_info" class="popupWithInputText text11"  >
 							           			Begreppet exportör används vid export då gemenskapsvaror förs ut fra EU:s tullområde till tredjeland.
 												Begreppet avsändare används vid: 
 								           		<ul>
 								           			<li>utförsel av gemenskapsvaror till länder och områden inom EU som valt att stå utanför skatteunionen, till exempel Åland, samt</li>
 								           			<li>återexport, det vill säga då icke-gemenskapsvaror återutförs.</li>
 								           		</ul>
-												</div>
 											</span>
-							 				Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+											</div>
+							 				
 						 				</td>
 					 				</tr>
 				 				</table>
@@ -1113,21 +1096,18 @@
 							 		<tr height="15">
 							 			<td class="text12White">
 							 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 				<b>&nbsp;8.</b>
-							 				<span style="position:absolute; left:900px; top:550px; width:250px; height:240px;" id="8_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
-							           			<br>
+							 				<b>&nbsp;8.</b>Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >
 							           			<ul>
 								           			<li>Här anger du det fullständiga namnet och adressen på varumottagaren, oftast den som köpt varorna.
 								           				Observera att även postnummer eller motsvarande ska anges.
 								           			</li>
 								           			<li>I de fall mottagaren har ett EORI-nummer kan du ange det.</li>
 								           		</ul>
-								           		</div>
 											</span>
-							 				Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+											</div>
 						 				</td>
-
 					 				</tr>
 				 				</table>
 				 			</td>
@@ -1419,12 +1399,11 @@
 					 		<td width="50%">
 						 		<table border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td nowrap colspan="2" class="text12" align="left">
+							            <td colspan="2" class="text12" align="left">
 							            &nbsp;<img onMouseOver="showPop('44_info');" onMouseOut="hidePop('44_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>44.</b>Certifikat og bevilling</td>
-							            <span style="position:absolute; left:900px; top:550px; width:250px; height:500px;" id="44_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-							           			<br/>
+				 						<b>44.</b>Certifikat og bevilling
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="44_info" class="popupWithInputText text11"  >
 							           			<b>Certifikat og bevilling</b>
 												<br/>
 							           			This box shall contain information necessary in respect of special regulations that
@@ -1435,13 +1414,11 @@
 												In the case of goods involving greater risk of fraud, or where the customs authorities or the principal consider it necessary, an itinerary shall be prescribed. Details of at least
 												the countries to be transited shall be entered. Where an exemption from the requirement of a prescribed itinerary has been authorised, the endorsment ‘Prescribed
 												itinerary waived’ shall be entered. The sub - division ‘ “Additional information code” (AI) shall not be completed. 
-												<br/><br/>
-											</div>
 										</span>
-										
+										</div>
+										</td>
 							           	<td class="text12" align="left">&nbsp;</td>
 							        </tr>
-							        
 							        
 							        <tr height="5"><td class="text" align="left"></td></tr>
 									<tr>
@@ -1829,17 +1806,16 @@
 							            <td class="text12" align="left">
 							            &nbsp;<img onMouseOver="showPop('40_info');" onMouseOut="hidePop('40_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>40.</b>Summarisk angivelse / Forudgående dokument
-							            </td>
-							            <span style="position:absolute; left:900px; top:550px; width:250px; height:300px;" id="40_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+							          
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="40_info" class="popupWithInputText text11"  >
 						           			<b>Summarisk angivelse / Forudgående dokument</b>
 											<br/>
 						           			Give the reference for the previous customs destination or corresponding customs documents.
 											In cases where more than one reference has to be entered, the word ‘Various’ may be entered in this box and a list of the references concerned may accompany the transit declaration.  
-											</div>
 										</span>
-							            
+										</div>
+										</td>						           
 							           	<td class="text12" align="left"><button name="previousDocumentsButton" class="buttonGray" type="button" onClick="showPop('previousDocuments');" >Mere...</button> 
 								        <span style="position:absolute; left:280px; top:800px; width:700px; height:200px;" id="previousDocuments" class="popupWithInputText"  >
 								           		<div class="text10" align="left">
@@ -2162,17 +2138,347 @@
 							            		<span title="tvfv">Kode:</span>&nbsp;<input readonly type="text" class="inputTextReadOnly" name="tvfv" id="tvfv" size="3" maxlength="2" value="${model.record.tvfv}">
 							            		&nbsp;&nbsp;<span title="tvfvnt">Antal:</span>&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="tvfvnt" id="tvfvnt" size="15" maxlength="11" value="${model.record.tvfvnt}">
 							            </td>
-							            
 							        </tr>
-							             
 							        <tr height="10"><td></td></tr>
 							</table>
 					        </td>
 				        </tr>
-						<tr height="25"><td></td></tr>
+				        
+						<tr height="10"><td></td></tr>
+						
+						
+       						<!--  SIKKERHET HERE ! -->
+								<tr>
+								<td colspan="2">&nbsp;&nbsp;
+						            	<table width="99%" align="center" class="tableBorderWithRoundCornersDarkRed" border="0" cellspacing="2" cellpadding="0">
+						            		<tr>
+											<td width="100%" align="left" valign="top" class="text12" >
+												<table width="50%" align="left" border="0" cellspacing="0" cellpadding="0">
+											 		<tr height="18px">
+											 			<td class="text14">
+											 				&nbsp;<img onMouseOver="showPop('sikkerhet_info');" onMouseOut="hidePop('sikkerhet_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+													        	<b>Sikkerhet</b>&nbsp;Arbeid med forhåndsvarsling
+													        <div class="text11" style="position: relative;" align="left">
+															<span style="position:absolute;top:2px; width:250px;" id="sikkerhet_info" class="popupWithInputText text11"  >
+									           					TODO
+															</span>
+															</div>	
+										 				</td>
+									 				</tr>
+									 				<tr>
+								            			<td class="text12">
+								            				<img onMouseOver="showPop('betalmade_info');" onMouseOut="hidePop('betalmade_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								            				<span title="tvtkbm">Transp.kost/Betal.måte</span>&nbsp;
+								            				<select name="tvtkbm" id="tvtkbm">
+								            				<option value="">-velg-</option>
+								 				  			<c:forEach var="code" items="${Xmodel.ncts116_BetalningTransport_CodeList}" >
+				                             	 				<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+															</c:forEach> 
+														</select>
+														<div class="text11" style="position: relative;" align="left">
+															<span style="position:absolute;top:2px; width:250px;" id="betalmade_info" class="popupWithInputText text11"  >
+											           			<ul>
+											           				<c:forEach var="code" items="${Xmodel.ncts116_BetalningTransport_CodeList}" >
+												 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
+											 				  		</c:forEach>	
+											           			</ul>
+														</span>
+														</div>
+								            			</td>
+								            			<td class="text12">
+								            				<img onMouseOver="showPop('farliggods_info');" onMouseOut="hidePop('farliggods_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								            				<span title="tvfgkd">Farlig gods KD</span>&nbsp;
+								            				<input type="text" class="inputTextMediumBlue" name="tvfgkd" id="tvfgkd" size="5" maxlength="4" value="${model.record.tvfgkd}">
+														
+														<div class="text11" style="position: relative;" align="left">
+															<span style="position:absolute;top:2px; width:250px;" id="farliggods_info" class="popupWithInputText text11"  >
+											           			TODO
+														</span>
+														</div>
+														
+														</td>
+								            		</tr>
+								            		<tr height="5"><td></td></tr>
+								 					<tr>
+								            			<td class="text12">&nbsp;<span title="tvkref">Kommersielt ref.nr</span></td>
+								            		</tr>
+								            		<tr>
+								            			<td colspan="2"><input type="text" class="inputTextMediumBlue" name="tvkref" id="tvkref" size="70" maxlength="70" value="${model.record.tvkref}"></td>
+								            		</tr>
+								        		</table>
+									        </td>
+								            
+										</tr>
+						            		<tr height="3"><td>&nbsp;</td></tr>
+								        	<tr>
+								        		<td width="50%" align="center" valign="top">
+												<table width="500px" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+											 		<tr height="18px">
+											 			<td class="text12White">
+											 				&nbsp;
+									 						&nbsp;Avsender - Sikkerhet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+										 				</td>
+									 				</tr>
+							 					</table>
+							 					<table width="500px" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+											 		<tr>	
+											 			<td width="5">&nbsp;</td>
+											            <td >	
+															<%-- create record --%>
+														 	<table align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+														 		<tr>
+															 		<td>
+																 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+															 				<%-- ================================================================================== --%>
+																	        	<%-- This hidden values are used when an AJAX event from within a dialog box is fired.  
+																	        		 These original values will be used when the user clicks "Cancel" buttons (puttting
+																	        		 back original value)																--%> 
+																	        	<%-- ================================================================================== --%>
+																	        	<input type="hidden" name="orig_tvknss" id="orig_tvknss" value='${XXmodel.record.tvknss}'>
+																	        	<input type="hidden" name="orig_tvnass" id="orig_tvnass" value='${XXmodel.record.tvnass}'>
+																	        	<input type="hidden" name="orig_tvtinss" id="orig_tvtinss" value='${XXmodel.record.tvtinss}'>
+																	        	<input type="hidden" name="orig_tvadss1" id="orig_tvadss1" value='${XXmodel.record.tvadss1}'>
+																	        	<input type="hidden" name="orig_tvpnss" id="orig_tvpnss" value='${XXmodel.record.tvpnss}'>
+																	        	<input type="hidden" name="orig_tvpsss" id="orig_tvpsss" value='${XXmodel.record.tvpsss}'>
+																	        	<input type="hidden" name="orig_tvlkss" id="orig_tvlkss" value='${XXmodel.record.tvlkss}'>
+																	        	<input type="hidden" name="orig_tvskss" id="orig_tvskss" value='${XXmodel.record.tvskss}'>
+																	        	
+																	        	<tr height="10">
+																	            <td class="text12" align="left">&nbsp;</td> 
+																	        </tr>
+																	 		<tr height="15">
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvknss">Kundenummer</span></td>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvnass">Navn</span>
+																	            	<a tabindex="-1" id="tvnassIdLink">
+																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+																					</a>
+															            		</td>
+																	        </tr>
+																	        <tr>
+																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvknss" id="tvknss" size="10" maxlength="8" value="${model.record.tvknss}"></td>
+																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnass" id="tvnass" size="30" maxlength="35" value="${model.record.tvnass}"></td>
+																	        </tr>
+																	        <tr>
+															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinss">TIN</span></td>
+																	        </tr>
+																	        <tr>
+																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvtinss" id="tvtinss" size="20" maxlength="17" value="${model.record.tvtinss}"></td>
+																	        </tr>
+								
+																	        <tr height="4"><td>&nbsp;</td></tr>
+																	        <tr>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvadss1">Adresse</span></td>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvskss">Språkkode</span>
+																            		
+																	            </td>
+																	        </tr>
+																	        <tr>
+																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvadss1" id="tvadss1" size="30" maxlength="30" value="${model.record.tvadss1}"></td>
+																	            <td class="text12" align="left" >
+																	            		&nbsp;<select name="tvskss" id="tvskss">
+																		            		<option value="">-velg-</option>
+																		 				  	<c:forEach var="code" items="${Xmodel.ncts012_Sprak_CodeList}" >
+														                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvskss == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+																							</c:forEach> 
+																					</select>
+																					<a tabindex="-1" id="tvskssIdLink">
+																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+																					</a>
+																				</td>
+																	        </tr>
+																	        <tr>
+																	        		<td>
+																		        		<table>
+																		        		<tr>
+																		            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvpsss">Postadresse</span></td>
+																		            		<td align="left">&nbsp;</td>
+																		            	</tr>
+																		        		<tr>
+																		            		<td align="left">
+																		       				<input type="text" class="inputTextMediumBlue" name="tvpsss" id="tvpsss" size="30" maxlength="24" value="${model.record.tvpsss}">
+																	            			</td> 
+																		            		<td align="left">&nbsp;</td>
+																		        		</tr>    	
+																		            	</table>
+																	            </td>
+																	            <td >
+																		            	<table>
+																		        		<tr>
+																		        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvpnss">Postnummer</span></td>
+																		            		<td class="text12" align="left" >&nbsp;<span title="tvlkss">Land</span>
+																		            		
+																		            		</td>
+																		            	</tr>
+																		        		<tr >
+																		        			<td align="left"><input type="text" class="inputTextMediumBlue" name="tvpnss" id="tvpnss" size="10" maxlength="8" value="${model.record.tvpnss}"></td> 
+																		            		<td align="left">
+																		            			<select name="tvlkss" id="tvlkss">
+																				            		<option value="">-velg-</option>
+																				            	<c:forEach var="country" items="${Xmodel.countryCodeList}" >
+															                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.tvlkss == country.zkod}"> selected </c:if> >${country.zkod}</option>
+																								</c:forEach> 
+																							</select>
+																							<a tabindex="-1" id="tvlkssIdLink">
+																								<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+																							</a>
+																		            		</td> 
+																		        		</tr>  
+																		            	</table>
+																	            </td>
+																            	</tr>
+																	        
+																	        <tr height="15">
+															            		<td class="text12Bold" align="left" >&nbsp;</td>
+															            		<td class="text12Bold" align="left" >&nbsp;</td> 
+																	        </tr>  
+																	        
+																        </table>
+															        </td>
+														        </tr>
+															</table>          
+										            		</td>
+										           	</tr> 
+						 						</table>
+							 					
+							        			</td>
+							        			<td width="50%" align="left" valign="top">
+												<table width="500px" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+											 		<tr height="18px">
+											 			<td class="text12White">
+											 				&nbsp;
+									 						&nbsp;Mottaker - Sikkerhet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+										 				</td>
+									 				</tr>
+							 					</table>
+							 					<table width="500px" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+											 		<tr>	
+											 			<td width="5">&nbsp;</td>
+											            <td >	
+															<%-- create record --%>
+														 	<table align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+														 		<tr>
+															 		<td>
+																 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+																	 		<%-- ================================================================================== --%>
+																	        	<%-- This hidden values are used when an AJAX event from within a dialog box is fired.  
+																	        		 These original values will be used when the user clicks "Cancel" buttons (puttting
+																	        		 back original value)																--%> 
+																	        	<%-- ================================================================================== --%>
+																	        	<input type="hidden" name="orig_tvknks" id="orig_tvknks" value='${XXmodel.record.tvknks}'>
+																	        	<input type="hidden" name="orig_tvnaks" id="orig_tvnaks" value='${XXmodel.record.tvnaks}'>
+																	        	<input type="hidden" name="orig_tvtinks" id="orig_tvtinks" value='${XXmodel.record.tvtinks}'>
+																	        	<input type="hidden" name="orig_tvadks1" id="orig_tvadks1" value='${XXmodel.record.tvadks1}'>
+																	        	<input type="hidden" name="orig_tvpnks" id="orig_tvpnks" value='${XXmodel.record.tvpnks}'>
+																	        	<input type="hidden" name="orig_tvpsks" id="orig_tvpsks" value='${XXmodel.record.tvpsks}'>
+																	        	<input type="hidden" name="orig_tvlkks" id="orig_tvlkks" value='${XXmodel.record.tvlkks}'>
+																	        	<input type="hidden" name="orig_tvskks" id="orig_tvskks" value='${XXmodel.record.tvskks}'>
+																	 		<tr height="10">
+																	            <td class="text12" align="left">&nbsp;</td> 
+																	        </tr>
+																	        <tr height="15">
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvknks">Kundenummer</span></td>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvnaks">Navn</span>
+																	            	<a tabindex="-1" id="tvnaksIdLink">
+																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+																					</a>	
+																	            </td>
+																	        </tr>
+																	        <tr>
+																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvknks" id="tvknks" size="10" maxlength="8" value="${model.record.tvknks}"></td>
+																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnaks" id="tvnaks" size="30" maxlength="35" value="${model.record.tvnaks}"></td>
+																	        </tr>
+																	        <tr>
+															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinks">TIN</span></td>
+																	        </tr>
+																	        <tr>
+																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvtinks" id="tvtinks" size="20" maxlength="17" value="${model.record.tvtinks}"></td>
+																	        </tr>
+								
+																	        <tr height="4"><td>&nbsp;</td></tr>
+																	        <tr>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvadks1">Adresse</span></td>
+																	            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvskks">Språkkode</span>
+																            		
+																	            </td>
+																	        </tr>
+																	        <tr>
+																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvadks1" id="tvadks1" size="30" maxlength="30" value="${model.record.tvadks1}"></td>
+																	            <td class="text12" align="left" >
+																	            		&nbsp;<select name="tvskks" id="tvskks">
+																		            		<option value="">-velg-</option>
+																		 				  	<c:forEach var="code" items="${Xmodel.ncts012_Sprak_CodeList}" >
+														                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvskks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+																							</c:forEach> 
+																					</select>
+																					<a tabindex="-1" id="tvskksIdLink">
+																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+																					</a>
+																				</td>
+																	        </tr>
+																	        <tr>
+																	        		<td>
+																		        		<table>
+																		        		<tr>
+																		            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvpsks">Postadresse</span></td>
+																		            		<td align="left">&nbsp;</td>
+																		            	</tr>
+																		        		<tr>
+																		            		<td align="left">
+																		       				<input type="text" class="inputTextMediumBlue" name="tvpsks" id="tvpsks" size="30" maxlength="24" value="${model.record.tvpsks}">
+																	            			</td> 
+																		            		<td align="left">&nbsp;</td>
+																		        		</tr>    	
+																		            	</table>
+																	            </td>
+																	            <td >
+																		            	<table>
+																		        		<tr>
+																		        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvpnks">Postnummer</span></td>
+																		            		<td class="text12" align="left" >&nbsp;<span title="tvlkks">Land</span>
+																		            		
+																		            		</td>
+																		            	</tr>
+																		        		<tr >
+																		        			<td align="left"><input type="text" class="inputTextMediumBlue" name="tvpnks" id="tvpnks" size="10" maxlength="8" value="${model.record.tvpnks}"></td> 
+																		            		<td align="left">
+																		            			<select name="tvlkks" id="tvlkks">
+																				            		<option value="">-velg-</option>
+																			 				  	<c:forEach var="country" items="${Xmodel.countryCodeList}" >
+															                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.tvlkks == country.zkod}"> selected </c:if> >${country.zkod}</option>
+																								</c:forEach> 
+																							</select>
+																							<a tabindex="-1" id="tvlkksIdLink">
+																								<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+																							</a>
+																		            		</td> 
+																		        		</tr>  
+																		            	</table>
+																	            </td>
+																            	</tr>
+																	        
+																	        <tr height="15">
+															            		<td class="text12Bold" align="left" >&nbsp;</td>
+															            		<td class="text12Bold" align="left" >&nbsp;</td> 
+																	        </tr>  
+																        </table>
+															        </td>
+														        </tr>
+															</table>          
+										            		</td>
+										           	</tr> 
+						 						</table>
+							        			</td>
+								        	</tr>
+								        	<tr height="10"><td>&nbsp;</td></tr>
+						            	</table>
+						            </td>  
+						            <td>&nbsp;</td>
+						        </tr>
+					<tr height="25"><td></td></tr>		
 				</table>
             	</td>
            	</tr>
+           	
             <tr height="30"><td></td></tr>
 		</table>
 		</td>

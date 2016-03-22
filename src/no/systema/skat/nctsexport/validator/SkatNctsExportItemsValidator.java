@@ -89,6 +89,7 @@ public class SkatNctsExportItemsValidator implements Validator {
 					}
 				}
 				
+				/*
 				//-----------------------------------------------------
 				//Oemballerade varor must always have "Styck" (delar)
 				//tveh2

@@ -26,19 +26,15 @@ import org.springframework.web.bind.WebDataBinder;
 //application imports
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JavaReflectionUtil;
+import no.systema.main.util.JsonDebugger;
 
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningRecord;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureRecord;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
 
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
-import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
-import no.systema.skat.skatimport.model.topic.SkatImportSpecificTopicTotalItemLinesObject;
-import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
 import no.systema.skat.nctsexport.validator.SkatNctsExportHeaderValidator;
 
 import no.systema.main.model.SystemaWebUser;
@@ -49,7 +45,6 @@ import no.systema.skat.nctsexport.model.topic.SkatNctsExportSpecificTopicTotalIt
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemRecord;
 
-
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicService;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemService;
 
@@ -59,10 +54,7 @@ import no.systema.skat.nctsexport.util.RpgReturnResponseHandler;
 import no.systema.skat.nctsexport.util.manager.CodeDropDownMgr;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
-
 import no.systema.skat.nctsexport.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.skat.nctsimport.url.store.SkatNctsImportUrlDataStore;
-
 
 /**
  * NCTS Export Topic Controller 
@@ -71,11 +63,10 @@ import no.systema.skat.nctsimport.url.store.SkatNctsImportUrlDataStore;
  * @date Apr 16, 2014
  * 
  */
-
 @Controller
 @Scope("session")
 public class SkatNctsExportHeaderController {
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(SkatNctsExportHeaderController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");
@@ -108,15 +99,13 @@ public class SkatNctsExportHeaderController {
 			return loginView;
 			
 		}else{
-			
             //add gui lists here
-	    		this.setCodeDropDownMgr(appUser, model);	
-	    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-	    		this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-	    		//domain
-	    		successView.addObject("model", model);
-	    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_CREATE);
-
+    		this.setCodeDropDownMgr(appUser, model);	
+    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+    		this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+    		//domain
+    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_CREATE);
 		}
 		
 		return successView;
@@ -178,31 +167,30 @@ public class SkatNctsExportHeaderController {
 					session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 					
 					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-				    	logger.info("URL: " + BASE_URL);
-				    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-				    	//--------------------------------------
-				    	//EXECUTE the FETCH (RPG program) here
-				    	//--------------------------------------
-				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			    	logger.info("URL: " + BASE_URL);
+			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+			    	//--------------------------------------
+			    	//EXECUTE the FETCH (RPG program) here
+			    	//--------------------------------------
+			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 					//Debug --> 
-				    	//logger.info(method + " --> jsonPayload:" + jsonPayload);
-				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				    	if(jsonPayload!=null){
-				    		JsonSkatNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
-				    		//add gui lists here
-				    		this.setCodeDropDownMgr(appUser, model);	
-				    		
-				    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicContainer, totalItemLinesObject);
-				    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-						//put the doUpdate action since we are preparing the record for an update (when saving)
-						successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-				    		
-				    	}else{
-						logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-						return loginView;
-					}
-			    	
-			    	//----------------------------
+			    	//logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			    	if(jsonPayload!=null){
+			    		JsonSkatNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+			    		this.fetchSecurityRecord(jsonNctsExportSpecificTopicContainer, appUser.getUser(), avd, opd );
+			    		//add gui lists here
+			    		this.setCodeDropDownMgr(appUser, model);	
+			    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicContainer, totalItemLinesObject);
+			    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+			    		//put the doUpdate action since we are preparing the record for an update (when saving)
+			    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+			    		
+			    	}else{
+			    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+			    		return loginView;
+			    	}
+		    	//----------------------------
 				//CREATE and/or UPDATE RECORD
 				//----------------------------	
 				}else if(SkatConstants.ACTION_UPDATE.equals(action)){
@@ -318,31 +306,46 @@ public class SkatNctsExportHeaderController {
 							session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL); 
 					    	
 							logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-						    	logger.info("URL: " + BASE_URL);
-						    	logger.info("URL PARAMS: " + urlRequestParams);
-						    	//----------------------------------------------------------------------------
-						    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-						    	//----------------------------------------------------------------------------
-						    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-								//Debug --> 
-						    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-						    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-						    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
-						    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-						    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-						    		this.setFatalError(model, rpgReturnResponseHandler, jsonNctsExportSpecificTopicRecord);
-						    		isValidCreatedRecordTransactionOnRPG = false;
-						    	}else{
-						    		//Update succefully done!
-						    		logger.info("[INFO] Record successfully updated, OK ");
-						    		//put domain objects
-						    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicRecord,totalItemLinesObject);
-						    	}
-							}else{
-								rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
-								this.setFatalError(model, rpgReturnResponseHandler, jsonNctsExportSpecificTopicRecord);
-								isValidCreatedRecordTransactionOnRPG = false;
-							}
+					    	logger.info("URL: " + BASE_URL);
+					    	logger.info("URL PARAMS: " + urlRequestParams);
+					    	//----------------------------------------------------------------------------
+					    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+					    	//----------------------------------------------------------------------------
+					    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+							//Debug --> 
+					    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+					    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+					    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+					    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+					    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+					    		this.setFatalError(model, rpgReturnResponseHandler, jsonNctsExportSpecificTopicRecord);
+					    		isValidCreatedRecordTransactionOnRPG = false;
+					    	}else{
+					    		//Update succefully done!
+					    		logger.info("[INFO] Record successfully updated, OK ");
+					    		
+					    		//------------------------------------
+					    		//Update/Create now Sikkerhet record
+					    		//------------------------------------
+					    		//Check if there is a record minimum of information in order to go on with security record - update
+					    		if(this.isQualifiedForUpdateSecurityRecord(jsonNctsExportSpecificTopicRecord)){
+						    		String mode = SkatConstants.MODE_ADD; //Add - default
+						    		if(this.existsSecurityRecord(appUser.getUser(), avd, opd)){
+						    			mode = SkatConstants.MODE_UPDATE; //Update
+						    		}
+						    		if(!this.updateSecurityRecord(jsonNctsExportSpecificTopicRecord, mode, appUser.getUser(), avd, opd)){
+						    			this.setFatalError(model, rpgReturnResponseHandler, jsonNctsExportSpecificTopicRecord);
+							    		isValidCreatedRecordTransactionOnRPG = false;	
+						    		}
+					    		}
+					    		//put domain objects
+					    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicRecord,totalItemLinesObject);
+					    	}
+						}else{
+							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
+							this.setFatalError(model, rpgReturnResponseHandler, jsonNctsExportSpecificTopicRecord);
+							isValidCreatedRecordTransactionOnRPG = false;
+						}
 				    }
 					
 		            //add gui lists here
@@ -382,7 +385,21 @@ public class SkatNctsExportHeaderController {
 	    	return successView;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param jsonNctsExportSpecificTopicRecord
+	 * @return
+	 */
+	private boolean isQualifiedForUpdateSecurityRecord(JsonSkatNctsExportSpecificTopicRecord jsonNctsExportSpecificTopicRecord){
+		boolean retval = false;
+		if(jsonNctsExportSpecificTopicRecord.getThdta()!=null && !"".equals(jsonNctsExportSpecificTopicRecord.getThdta())){
+			retval = true;
+		}
+		if(jsonNctsExportSpecificTopicRecord.getThtkbm()!=null && !"".equals(jsonNctsExportSpecificTopicRecord.getThtkbm())){
+			retval = true;
+		}
+		return retval;
+	}
 	/**
 	 * 
 	 * @param session
@@ -777,7 +794,141 @@ public class SkatNctsExportHeaderController {
 		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
         this.setDomainObjectsInView(model, jsonNctsExportSpecificTopicRecord);
 	}
+
+	/**
+	 * 
+	 * @param jsonNctsExportSpecificTopicContainer
+	 * @param user
+	 * @param avd
+	 * @param opd
+	 */
+	private void fetchSecurityRecord(JsonSkatNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer, String user, String avd, String opd){
+		String method = "fetchSecurityRecord";
+		logger.info("starting " + method + " transaction...");
+		
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_URL;
+		String urlRequestParamsKeys = "user=" + user + "&avd=" + avd + "&opd=" + opd;   
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	JsonSkatNctsExportSpecificTopicRecord sikkerhetRecord = null;
+    	JsonSkatNctsExportSpecificTopicRecord targetRecord = null;
+    	
+    	for (JsonSkatNctsExportSpecificTopicRecord topicRecord : jsonNctsExportSpecificTopicContainer.getOneorder()){
+    		targetRecord = topicRecord;
+    	}
+    	
+    	//------------------------
+    	//EXECUTE (Sikkerhet) here
+    	//------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSkatNctsExportSpecificTopicContainer topicSikkerhetContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+        	if(topicSikkerhetContainer!=null && topicSikkerhetContainer.getSecurityhead()!=null){
+        		for (JsonSkatNctsExportSpecificTopicRecord topicSikkerhetRecord : topicSikkerhetContainer.getSecurityhead()){
+        			sikkerhetRecord = topicSikkerhetRecord;
+        			//logger.info("A(thlosd):" + sikkerhetRecord.getThlosd());
+            	}
+        		//copy delta to target record
+        		if(sikkerhetRecord!=null && targetRecord!=null){
+	        		JavaReflectionUtil.setFields(sikkerhetRecord, targetRecord);
+	        		//logger.info(method + "targetRecord(thnas):" + targetRecord.getThnas());
+	        		//logger.info(method + "targetRecord(thlosd):" + targetRecord.getThlosd());
+	        		Collection newList = new ArrayList();
+	        		newList.add(targetRecord);
+	        		jsonNctsExportSpecificTopicContainer.setOneorder(newList);
+        		}
+        	}
+    	}
+	}
 	
+	/**
+	 * @param user
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private boolean existsSecurityRecord(String user, String avd, String opd){
+		boolean retval = false;
+		
+		String method = "existsSecurityRecord";
+		logger.info("starting " + method + " transaction...");
+		
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_URL;
+		String urlRequestParamsKeys = "user=" + user + "&avd=" + avd + "&opd=" + opd;   
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	
+    	//------------------------
+    	//EXECUTE (Sikkerhet) here
+    	//------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSkatNctsExportSpecificTopicContainer topicSikkerhetContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+        	if(topicSikkerhetContainer!=null && topicSikkerhetContainer.getSecurityhead()!=null){
+        		if(topicSikkerhetContainer.getSecurityhead().size()>0){
+        			retval = true;
+        		}
+        	}
+    	}
+    	return retval;
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param mode
+	 * @param user
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private boolean updateSecurityRecord(JsonSkatNctsExportSpecificTopicRecord recordToValidate, String mode, String user, String avd, String opd){
+		boolean retval = true;
+		String method = "updateSecurityRecord";
+		logger.info("starting " + method + " transaction...");
+		
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		//-------------
+		//get BASE URL
+        //-------------
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_URL;
+		//-----------------------------------------------------
+		//add URL-parameter "mode=U" (Update), (A)dd, (D)elete
+		//-----------------------------------------------------
+		String urlRequestParamsKeys = "user="+ user + "&mode=" + mode + "&thavd=" + avd + "&thtdn=" + opd;
+		//build the url parameters (from GUI-form) to send on a GET/POST method AFTER the keyParameters
+		String urlRequestParamsTopicSikkerhet = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+		//put the final valid param. string
+		String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicSikkerhet;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	//--------------------
+    	//EXECUTE the UPDATE 
+    	//--------------------
+    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		//Debug --> 
+    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+    		retval = false;
+    		
+    	}else{
+    		//Update successfully done!
+    		logger.info("[INFO] Record SECURITY-SIKKERHET successfully updated, OK ");
+    	}
+    	
+    	return retval;
+	}
 	/**
 	 * Gets the key parameter string (such as avd, opd, user, mode)
 	 * @param action

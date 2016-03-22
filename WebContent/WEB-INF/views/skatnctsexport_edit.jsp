@@ -181,21 +181,20 @@
 					&nbsp;&nbsp;
 					<font class="text16RedBold" >*</font><span title="thenkl">Type af procedure</span>&nbsp;
 					<%-- Must be model attribute in order to validate towards the filter (thsg) --%>
-           			<select class="text11" name="thenkl" id="thenkl">
+           			<select class="inputTextMediumBlueMandatoryField" class="text11" name="thenkl" id="thenkl">
 	            		<option value="J"<c:if test="${model.record.thenkl == 'J'}"> selected </c:if> >Forenklet</option>
 					  	<option value="N"<c:if test="${model.record.thenkl == 'N'}"> selected </c:if> >Normal</option>
 					</select>
-					<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-	           			<div class="text11" align="left">
-		           		<br/>
+					<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >		           	
 		           		Kun status <b>M</b>, <b>F</b>, <b>G</b> eller <b>' '</b> kan redigeres.
 		           			<ul>
 								<c:forEach var="record" items="${model.statusCodeList}" >
 				           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
 			           			</c:forEach>
 		           			</ul>
-						</div>
 					</span>
+					</div>
 				</td>
 				
 			</tr>
@@ -270,9 +269,9 @@
 				 			<td class="text12">
 				 				<img onMouseOver="showPop('deklTyp_info');" onMouseOut="hidePop('deklTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 			 					<b>1</b><font class="text16RedBold" >&nbsp;*</font><span title="thdk">Angivelse&nbsp;</span>
-			 				</td>	
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:650px;" id="deklTyp_info" class="popupWithInputText"  > 
-			 						<div class="text11" align="left">
+			 				
+			 					<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="deklTyp_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>
 					           				 	<b>T-</b>&nbsp;for the transportation of mixed consignments of T1 and T2 goods. In this case, the
@@ -315,12 +314,12 @@
 					           			<br/>
 					           			Procedurernas syfte är att visa vad ditt gods har för tullstatus det vill säga om det är en gemenskapsvara eller icke-gemenskapsvara.
 										<br/>Transiterar du en icke-gemenskapsvara ska du alltid använda T1 proceduren. Om du istället transiterar en gemenskapsvara kan du oftast använda T2 proceduren.						           			
-					           			
-									</div>
-								</span>		
+								</span>	
+								</div>
+							</td>	
 				 			
 				 			<td>
-				 				<select name="thdk" id="thdk" TABINDEX=1>
+				 				<select class="inputTextMediumBlueMandatoryField" name="thdk" id="thdk" TABINDEX=1>
 				 				  <option value="">-vælg-</option>
 				 				  	<c:forEach var="code" items="${model.ncts031_DeklType_CodeList}" >
                                 	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -330,16 +329,15 @@
 			 				<td class="text12">
 			 					&nbsp;<img onMouseOver="showPop('4_info');" onMouseOut="hidePop('4_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<b>4.</b><span title="thlstl">Ladelister&nbsp;</span>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:150px;" id="4_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
-					           				<li>
-					           				Udfyldes ikke, fordi papirladelister blev afskaffet med virkning fra den 1. januar 2005.		
-											</li>	
-										</ul>
-									</div>
+			 					<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="4_info" class="popupWithInputText text11"  >	
+           							<ul>
+				           				<li>
+				           				Udfyldes ikke, fordi papirladelister blev afskaffet med virkning fra den 1. januar 2005.		
+										</li>	
+									</ul>									
 								</span>
-								
+								</div>								
 				 			</td>
 				 			<td>	
 				 				<input readonly type="textReadOnly" class="inputTextMediumBlue"  name="thlstl" id="thlstl" size="8" maxlength="4" value='${model.record.thlstl}'>
@@ -348,19 +346,17 @@
 			 				<td class="text12">&nbsp;&nbsp;
 			 					&nbsp;<img onMouseOver="showPop('5_info');" onMouseOut="hidePop('5_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<b>5.</b><span title="thvpos">V.poster&nbsp;</span>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:150px;" id="5_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="5_info" class="popupWithInputText text11"  >	
+				           				<ul>
 					           				<li>
 					           				 The total number of items declared on the SAD will be entered here. The number of
 											 items corresponds to the number of boxes 31 to be completed. 
 					           				</li>	
-											
 										</ul>
 										Fältet är spärrat. Beräknas automatiskt från varulinjerna.
-									</div>
 								</span>
-								
+								</div>								
 				 			</td>
 				 			<td>	
 				 				<input type="text" class="inputTextReadOnly" readonly name="thvpos" id="thvpos" size="8" maxlength="8" value='${model.record.thvpos}'>
@@ -427,19 +423,19 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 			<b>&nbsp;2.</b>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="2_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-				           			Completion of this box is optional for the Contracting Parties.
+					 			<b>&nbsp;2.</b><font class="text16RedBold" >*</font>Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="2_info" class="popupWithInputText text11"  >	
+	           					           			Completion of this box is optional for the Contracting Parties.
 									The full name and the address of the consignor/exporter concerned shall be entered.
 									<br/>The Contracting Parties may add to the explanatory note the requirement to include a
 									reference to the identification number allocated by the competent authorities for tax,
 									statistical or other purposes.
 									<br/>Where consignments are grouped, the word “Various” in the appropriate language, may
 									be entered in this box and the list of consignors may be attached to the declaration.<ul>
-									</div>
 								</span>
-				 				<font class="text16RedBold" >*</font>Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								</div>
+				 				
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -472,8 +468,8 @@
 							        	
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thkns">Kundenummer</span></td>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnas">Navn&nbsp;</span>
-							            	<img id="imgCustomerSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog');">
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thnas">Navn&nbsp;</span>
+							            	<img id="imgCustomerSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog');">
 							            	<%-- =====================================================  --%>
 							            	<%-- Here we have the search Sender [Customer] popup window --%>
 							            	<%-- =====================================================  --%>
@@ -520,32 +516,32 @@
 							        </tr>
 							        <tr>
 							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thkns" id="thkns" size="8" maxlength="8" value="${model.record.thkns}"></td>
-							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thnas" id="thnas" size="30" maxlength="35" value="${model.record.thnas}"></td>
+							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnas" id="thnas" size="30" maxlength="35" value="${model.record.thnas}"></td>
 							            
 							        </tr>
 							        
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtins">TIN</span></td>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thtins">TIN</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtins" id="thtins" size="20" maxlength="17" value="${model.record.thtins}"></td>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtins" id="thtins" size="20" maxlength="17" value="${model.record.thtins}"></td>
 							            <td align="left">&nbsp;</td>
 							        </tr>
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;<span title="thads1">Adresse</span></td>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thsks">Språkkode</span>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thads1">Adresse</span></td>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thsks">Sprogkode</span>
 						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 						            		</a>
 							            
 							            </td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input type="text" class="inputTextMediumBlue" name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
 							            <td class="text12" align="left" >
-							            		&nbsp;<select name="thsks" id="thsks">
+							            		&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thsks" id="thsks">
 								            		<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -557,12 +553,12 @@
 							        		<td>
 								        		<table>
 								        		<tr>
-								            		<td class="text12" align="left" >&nbsp;<span title="thpss">By</span></td>
+								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpss">By</span></td>
 								            		<td align="left">&nbsp;</td>
 								            	</tr>
 								        		<tr>
 								            		<td align="left">
-								       				<input type="text" class="inputTextMediumBlue" name="thpss" id="thpss" size="30" maxlength="35" value="${model.record.thpss}">
+								       				<input type="text" class="inputTextMediumBlueMandatoryField" name="thpss" id="thpss" size="30" maxlength="35" value="${model.record.thpss}">
 							            			</td> 
 								            		<td align="left">&nbsp;</td>
 								        		</tr>    	
@@ -571,17 +567,17 @@
 							            <td >
 								            	<table>
 								        		<tr>
-								        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpns">Postnummer</span></td>
-								            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thlks">Land</span>
+								        			<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpns">Postnummer</span></td>
+								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlks">Land</span>
 								            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 								            		</a>
 								            		</td>
 								            	</tr>
 								        		<tr >
-								        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpns" id="thpns" size="10" maxlength="9" value="${model.record.thpns}"></td> 
+								        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpns" id="thpns" size="10" maxlength="9" value="${model.record.thpns}"></td> 
 								            		<td align="left">
-								            			<select name="thlks" id="thlks">
+								            			<select class="inputTextMediumBlueMandatoryField" name="thlks" id="thlks">
 										            		<option value="">-vælg-</option>
 									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 					                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlks == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
@@ -611,10 +607,9 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				<b>&nbsp;8.</b>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="8_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-				           			<br>
+				 				<b>&nbsp;8.</b>Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >	
 				           			<ul>
 					           			<li>The full name and address of the person(s) or company(s) to whom the goods are to be
 											delivered (consignee) shall be entered here. Where consignments are grouped, theword
@@ -622,9 +617,9 @@
 											consignees may be attached to the SAD.
 					           			</li>
 					           		</ul>
-					           		</div>
 								</span>
-				 				Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								</div>
+				 				
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -656,8 +651,8 @@
 							        	<input type="hidden" name="orig_thskk" id="orig_thskk" value='${model.record.thskk}'>
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknk">Kundenummer</span></td>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnak">Navn&nbsp;</span>
-							            <img id="imgReceiverSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog10');">
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thnak">Navn&nbsp;</span>
+							            <img id="imgReceiverSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog10');">
 							            	<%-- ======================================================== --%>
 							            	<%-- Here we have the search Receiver [Customer] popup window --%>
 							            	<%-- ======================================================== --%>
@@ -703,7 +698,7 @@
 							        </tr>
 							        <tr>
 							            <td align="left"><input type="text" class="inputTextMediumBlue" name="thknk" id="thknk" size="8" maxlength="8" value="${model.record.thknk}"></td>
-							            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnak" id="thnak" size="30" maxlength="35" value="${model.record.thnak}"></td>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnak" id="thnak" size="30" maxlength="35" value="${model.record.thnak}"></td>
 							        </tr>
 
 							        <tr>
@@ -716,17 +711,17 @@
 							        </tr>
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;<span title="thadk1">Adresse</span></td>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskk">Språkkode</span>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thadk1">Adresse</span></td>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thskk">Sprogkode</span>
 						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 						            		</a>
 							            </td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadk1" id="thadk1" size="30" maxlength="35" value="${model.record.thadk1}"></td>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thadk1" id="thadk1" size="30" maxlength="35" value="${model.record.thadk1}"></td>
 							            <td class="text12" align="left" >
-							            		&nbsp;<select name="thskk" id="thskk">
+							            		&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thskk" id="thskk">
 								            		<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -738,12 +733,12 @@
 							        		<td>
 								        		<table>
 								        		<tr>
-								            		<td class="text12" align="left" >&nbsp;<span title="thpsk">By</span></td>
+								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpsk">By</span></td>
 								            		<td align="left">&nbsp;</td>
 								            	</tr>
 								        		<tr>
 								            		<td align="left">
-								       				<input type="text" class="inputTextMediumBlue" name="thpsk" id="thpsk" size="30" maxlength="35" value="${model.record.thpsk}">
+								       				<input type="text" class="inputTextMediumBlueMandatoryField"  name="thpsk" id="thpsk" size="30" maxlength="35" value="${model.record.thpsk}">
 							            			</td> 
 								            		<td align="left">&nbsp;</td>
 								        		</tr>    	
@@ -752,18 +747,18 @@
 							            <td >
 								            	<table>
 								        		<tr>
-								        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnk">Postnummer</span></td>
-								            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thlkk">Land</span>
+								        			<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpnk">Postnummer</span></td>
+								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlkk">Land</span>
 								            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 								            		</a>
 								            		
 								            		</td>
 								            	</tr>
 								        		<tr >
-								        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnk" id="thpnk" size="10" maxlength="9" value="${model.record.thpnk}"></td> 
+								        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpnk" id="thpnk" size="10" maxlength="9" value="${model.record.thpnk}"></td> 
 								            		<td align="left">
-								            			<select name="thlkk" id="thlkk">
+								            			<select class="inputTextMediumBlueMandatoryField" name="thlkk" id="thlkk">
 										            		<option value="">-vælg-</option>
 									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 					                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlkk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
@@ -850,10 +845,10 @@
 							        	<td class="text12" align="left" >
 							        	&nbsp;<img onMouseOver="showPop('51_info');" onMouseOut="hidePop('51_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							        
-							        	<b>51.</b><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder og lande&nbsp;</span></td>
-							        	<span style="position:absolute; left:800px; top:750px; width:250px; height:240px;" id="51_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br>
+							        	<b>51.</b><font class="text16RedBold" >*</font><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder og lande&nbsp;</span>
+							        	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="51_info" class="popupWithInputText text11"  >	
+	           	
 						           			Skriv det planlagte grænseovergangssted, når forsendelsen kører ind i et EFTA-land (fx Norge eller Schweiz).	
 						           			<p>
 											Hvis forsendelsen skal køre gennem et EFTA-land for derefter igen at køre ind i EU, 
@@ -861,10 +856,10 @@
 											dvs. hvis en forsendelse fx skal køre fra Danmark til Italien via Schweiz, så skal både indgangstoldstedet til Schweiz og indgangstoldstedet til Italien skrives på forsendelsesangivelsen.
 						           			
 											</p>
-							           		</div>
-										</span>		
-							        	
-							            <td class="text12" align="left" >&nbsp;</td>
+										</span>
+										</div>
+										</td>		
+							        	<td class="text12" align="left" >&nbsp;</td>
 							        </tr>
 							        
 							        <tr>
@@ -872,9 +867,9 @@
 							            	<table align="left" border="0" cellspacing="0" cellpadding="0">
 							            		<tr>
 							            			
-						            			<td>
-						            			1.<input type="text" class="inputTextMediumBlue" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
-							            		<img id="imgTullkontorListTransit01" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor01_Dialog');">
+						            			<td class="text12" >
+						            			1.<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
+							            		<img id="imgTullkontorListTransit01" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor01_Dialog');">
 						            				<%-- ============================================================= --%>
 									            	<%-- Here we have the search Transittullkontor 01 popup window   --%>
 									            	<%-- ============================================================= --%>
@@ -916,11 +911,11 @@
 												</td>
 													
 														
-							            			<td>
+							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			2.<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${model.record.thtsd2}'>
-							            			<img id="imgTullkontorListTransit02" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor02_Dialog');">
+							            			<img id="imgTullkontorListTransit02" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor02_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 02 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -962,11 +957,11 @@
 							            			</td>
 							            			
 							            			
-							            			<td>
+							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			3.<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${model.record.thtsd3}'>
-							            			<img id="imgTullkontorListTransit03" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor03_Dialog');">
+							            			<img id="imgTullkontorListTransit03" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor03_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 03 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1010,9 +1005,9 @@
 							            		
 							            		
 							            		<tr>
-							            			<td>
+							            			<td class="text12" >
 							            			4.<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${model.record.thtsd4}'>
-							            			<img id="imgTullkontorListTransit04" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor04_Dialog');">
+							            			<img id="imgTullkontorListTransit04" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor04_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 04 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1053,11 +1048,11 @@
 														</span>
 							            			</td>
 							            			
-							            			<td>
+							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			5.<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${model.record.thtsd5}'>
-							            			<img id="imgTullkontorListTransit05" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor05_Dialog');">
+							            			<img id="imgTullkontorListTransit05" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor05_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 05 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1098,11 +1093,11 @@
 														</span>
 							            			</td>
 							            			
-							            			<td>
+							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			6.<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${model.record.thtsd6}'>
-							            			<img id="imgTullkontorListTransit06" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor06_Dialog');">
+							            			<img id="imgTullkontorListTransit06" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor06_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 06 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1144,9 +1139,9 @@
 							            			</td>					            			
 							            		</tr>
 							            		<tr>
-							            			<td>
+							            			<td class="text12" >
 							            			7.<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${model.record.thtsd7}'>
-							            			<img  id="imgTullkontorListTransit07" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor07_Dialog');">
+							            			<img  id="imgTullkontorListTransit07" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor07_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 07 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1188,11 +1183,11 @@
 							            			</td>
 							            			
 							            			
-							            			<td>
+							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			8.<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${model.record.thtsd8}'>
-							            			<img id="imgTullkontorListTransit08" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTransitTullkontor08_Dialog');">
+							            			<img id="imgTullkontorListTransit08" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor08_Dialog');">
 							            				<%-- ============================================================= --%>
 										            	<%-- Here we have the search Transittullkontor 08 popup window   --%>
 										            	<%-- ============================================================= --%>
@@ -1247,22 +1242,23 @@
 								        	
 								        	&nbsp;<img onMouseOver="showPop('53_info');" onMouseOut="hidePop('53_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 								        	<b>53.</b><font class="text16RedBold" >*</font><span title="thtsb">Bestemmelsestoldsted</span>
-								        	<img id="imgBestamstullKontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontorDialog11');">
+								        	<img id="imgBestamstullKontor" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTullkontorDialog11');">
 								        	&nbsp;
-								        	</td>
-								        	<span style="position:absolute; left:800px; top:750px; width:250px; height:300px;" id="53_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
-							           			<br/><br/>
+								        	<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="53_info" class="popupWithInputText text11"  >	
 							           			The name of the customs office at which the goods shall be presented in order to end
 												the transit operation shall be entered (office of destination). 
 												<br/><br/>
 							           			The offices of destination
 												are shown in the 'list of customs offices competent to deal with transit operations'. The
 												website address is:
-												http://europa.eu.int/comm/taxation_customs/dds/en/csrdhome.htm.</div>
-										</span>		
+												http://europa.eu.int/comm/taxation_customs/dds/en/csrdhome.htm.
+											</span>
+											</div>
+											</td>
+													
 								        	
-						            		<td ><input type="text" class="inputTextMediumBlue" name="thtsb" id="thtsb" size="10" maxlength="8" value="${model.record.thtsb}">
+						            		<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="thtsb" id="thtsb" size="10" maxlength="8" value="${model.record.thtsb}">
 										<%-- ============================================================= --%>
 							            	<%-- Here we have the search BestämmelsesTullkontor popup window   --%>
 							            	<%-- ============================================================= --%>
@@ -1317,10 +1313,9 @@
 									        	<tr >
 										        	<td  colspan="3" class="text12" align="left" >
 										        	&nbsp;<img onMouseOver="showPop('52_info');" onMouseOut="hidePop('52_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-										        	<b>52.</b><font class="text16RedBold" >*</font><b>Garantikoder</b>&nbsp;
-										        	</td>
-													<span style="position:absolute; left:800px; top:750px; width:250px; height:500px;" id="52_info" class="popupWithInputText"  >
-										           		<div class="text11" align="left">
+										        	<b>52.</b><b>Garantikoder</b>&nbsp;
+													<div class="text11" style="position: relative;" align="left">
+													<span style="position:absolute;top:2px; width:250px;" id="52_info" class="popupWithInputText text11"  >	
 											           		Enter the appropriate code for the type of guarantee being used in the sub division
 															marked “CODE” as specified in the table below.
 															<br/><br/>
@@ -1361,18 +1356,18 @@
 											           				<b>9</b>&nbsp;Enkelt kaution efter bilag 47a i GB Bilag 47a / For individual guarantee of the type under point 3 of Annex IV to Appendix I (NCTS manual);
 											           			</li>
 											           		</ul>
-										           		</div>
-													</span>		
+													</span>	
+													</div>
+													</td>	
 									        	</tr>
 									        	<tr height="5"><td></td></tr>
 							            		<tr>
 							            			<td class="text12">
 							            			<img onMouseOver="showPop('52_kode_info');" onMouseOut="hidePop('52_kode_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							            			<font class="text16RedBold" >*</font><span title="thgkd">Kode</span>
+							            			<span title="thgkd">Kode</span>
 							            			
-							            			<span style="position:absolute; left:800px; top:750px; width:250px; height:400px;" id="52_kode_info" class="popupWithInputText"  >
-										           		<div class="text11" align="left">
-										           			<br/><br/>
+							            			<div class="text11" style="position: relative;" align="left">
+													<span style="position:absolute;top:2px; width:250px;" id="52_kode_info" class="popupWithInputText text11"  >	
 										           			Garantikoder
 															<p>
 																I forbindelse med anvendelse af godkendte ordninger (godkendt afsender) skal kode 0 eller kode 1 altid bruges.
@@ -1406,8 +1401,8 @@
 											           				<b>9</b>&nbsp;Enkelt kaution efter bilag 47a i GB Bilag 47a / For individual guarantee of the type under point 3 of Annex IV to Appendix I (NCTS manual);
 											           			</li>
 											           		</ul>
-										           		</div>
-													</span>		
+													</span>
+													</div>		
 							            			
 							            			</td>
 							            			<td class="text12">&nbsp;<span title="thgft1">Garantinummer</span></td>
@@ -1437,8 +1432,8 @@
 							            			<td class="text12">
 							            			<img onMouseOver="showPop('beg_udenfor_info');" onMouseOut="hidePop('beg_udenfor_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							            			<span title="thgbgu">Begrænsning udenfor EU [landkode]</span>
-							            			<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="beg_udenfor_info" class="popupWithInputText"  >
-									           		<div class="text11" align="left">
+							            			<div class="text11" style="position: relative;" align="left">
+													<span style="position:absolute;top:2px; width:250px;" id="beg_udenfor_info" class="popupWithInputText text11"  >		           	
 									           			<p>
 									           			Skriv landekoden på det/de lande, hvor den anvendte sikkerhedsstillelse ikke er gyldig:
 									           			</p>
@@ -1449,10 +1444,9 @@
 									           				<li><b>AN</b>Andorra</li>
 									           				<li><b>SM</b>San Marino</li>
 									           				<li><b>HR</b>Kroatien</li>
-									           			</ul>
-													</div>
-												</span>			
-							            			
+									           			</ul>													
+													</span>	
+													</div>									            			
 							            			</td>
 							            		</tr>
 							            		<tr>
@@ -1471,7 +1465,7 @@
 														</c:forEach> 
 													</select>
 									            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-									            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									            		</a>
 							            			</td> 
 							            		</tr>
@@ -1479,8 +1473,8 @@
 							            		
 							            		<%-- These fields are not to be presented in the GUI --%>
 							            		<tr>
-									 			<td class="text12" colspan="2" ><font class="text16RedBold" >*</font><span title="thgbl">Garantibeløb&nbsp;</span></td>
-									 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="thgvk">Møntsort</span></td>
+									 			<td class="text12" colspan="2" ><span title="thgbl">Garantibeløb&nbsp;</span></td>
+									 			<td class="text12">&nbsp;<span title="thgvk">Møntsort</span></td>
 								 			</tr>
 									 		<tr>	
 									 			<td colspan="2" align="left" >
@@ -1494,7 +1488,7 @@
 														</c:forEach> 
 													</select>
 													<a tabindex="-1" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-									            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									            		</a>								
 								 				</td>
 							 				</tr>
@@ -1529,53 +1523,53 @@
 					 		<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('15_info');" onMouseOut="hidePop('15_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>15.</b><span title="thalk">Afsendelsesland&nbsp;</span></td>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="15_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<b>15.</b><font class="text16RedBold" >*</font><span title="thalk">Afsendelsesland&nbsp;</span>
+			 					<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="15_info" class="popupWithInputText text11"  >	
+	           	
 					           			<ul>
 					           				<li>The name of the country from which goods are to be dispatched/exported shall be
 												entered.
 											</li>
 					           			</ul>
-									</div>
-								</span>		
-					            
+								</span>	
+								</div>
+								</td>	
 					            <td >
-					            	<select name="thalk" id="thalk">
+					            	<select class="inputTextMediumBlueMandatoryField" name="thalk" id="thalk">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
 					            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 					            		</a>
 								</td>
 							</tr>
 							<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('17_info');" onMouseOut="hidePop('17_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					            <b>17.</b><span title="thblk">Bestemmelsesland&nbsp;</span></td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="17_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<br>
+					            <b>17.</b><font class="text16RedBold" >*</font><span title="thblk">Bestemmelsesland&nbsp;</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="17_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>The name of the country of destination shall be entered.<br/><br/></li>
 					           				<li>Det sidst kendte bestemmelsesland. En omladning i et andet land, ændrer ikke landet. Destination land kan aldrig være Europa.</li>
 					           			</ul>
-									</div>
 								</span>	
-					            
+					            </div>
+					            </td>
 					            
 					            <td >
-					            	<select name="thblk" id="thblk">
+					            	<select class="inputTextMediumBlueMandatoryField" name="thblk" id="thblk">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thblk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
 					            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 					            		</a>
 									
 								</td>
@@ -1592,13 +1586,12 @@
 			 		<td>
 			 			<table border="0" cellspacing="2" cellpadding="0">
 			 				<tr>
-					            <td class="text12" align="left" nowrap >
+					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('18_info');" onMouseOut="hidePop('18_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>18.</b>
-					            <font class="text16RedBold" >*</font><span title="thtaid">Transportmidlets identitet og nationalitet ved afsendelsen </span></td>
-					            
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:750px;" id="18_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <font class="text16RedBold" >*</font><span title="thtaid">Transportmidlets identitet og nationalitet ved afsendelsen </span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="18_info" class="popupWithInputText text11"  >
 					           			Transportmidlets identitet og nationalitet ved afsendelsen
 					           			<ul>
 						           			<li><b>First subdivision</b><br>
@@ -1635,13 +1628,14 @@
 										<br/><br/><b>FIXED TRANSPORT INSTALLATIONS</b><br/>
 										Details of the registration number or nationality shall not be entered.
 										In other cases, declaration of the nationality is optional for Contracting Parties.
-									</div>
 								</span>
+								</div>
+								</td>
 								<td class="text">&nbsp;</td>	
 					        </tr>
 					        <tr>
 				            	<td >
-				            		<input type="text" class="inputTextMediumBlue" name="thtaid" id="thtaid" size="25" maxlength="35" value="${model.record.thtaid}">
+				            		<input type="text" class="inputTextMediumBlueMandatoryField" name="thtaid" id="thtaid" size="25" maxlength="35" value="${model.record.thtaid}">
 				            	</td>
 				            	<td class="text">&nbsp;</td>
 	        				</tr>
@@ -1649,10 +1643,10 @@
 				            	<td class="text12">
 				            		<font class="text16RedBold" >*</font><span title="thtalk">Nationalitet</span>
 				            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 				            		</a>
 				            		
-				            		<select name="thtalk" id="thtalk">
+				            		<select class="inputTextMediumBlueMandatoryField" name="thtalk" id="thtalk">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
@@ -1661,7 +1655,7 @@
 									
 									&nbsp;<span title="thtask">Sprog</span>
 						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 						            		</a>
 									<select name="thtask" id="thtask">
 			            				<option value="">-vælg-</option>
@@ -1683,9 +1677,8 @@
 					 				  		<option value="${code.tkkode}"<c:if test="${model.record.thtrmi == code.tkkode}"> selected </c:if> >${code.tkkode}-${code.tktxtn}</option>
 										</c:forEach>  
 									</select>
-				            	</td>
-				            	<span style="position:absolute; left:800px; top:150px; width:250px; height:320px;" id="thtrmi_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+				            	<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="thtrmi_info" class="popupWithInputText text11"  >
 					           			This box is optional for EU Member States in respect of Community transit.
 										Using the appropriate Community codes, enter the mode of
 										transport upon departure.
@@ -1694,8 +1687,9 @@
 						 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
 					 				  		</c:forEach>	
 					           			</ul>
-									</div>
 								</span>
+								</div>
+								</td>
 								<td class="text">&nbsp;</td>
 	        				</tr>
 						</table>
@@ -1711,10 +1705,9 @@
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>21.</b>
-					            <font class="text16RedBold" >*</font><span title="thtgid">Det grænseoverskridende aktive transportmiddels identitet og nationalitet</span></td>
-					            
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="21_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <font class="text16RedBold" >*</font><span title="thtgid">Det grænseoverskridende aktive transportmiddels identitet og nationalitet</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >
 					           			Enter the appropriate code for the type (lorry, ship, railway wagon, aircraft, etc.) and
 										the means of identification (e.g. registration number or name) of the active means of
 										transport (i.e. the means of transport providing propulsion) which it is presumed will
@@ -1728,13 +1721,14 @@
 										in the case of a lorry on a sea-going vessel the active means of transport is the ship;
 										and where a combination of a tractor and a trailer is used, the active means of
 										transport is the tractor.
-									</div>
 								</span>	
+								</div>
+								</td>
 					            <td class="text">&nbsp;</td>
 					        </tr>
 				            <tr>
 				            	<td >
-				            		<input type="text" class="inputTextMediumBlue" name="thtgid" id="thtgid" size="25" maxlength="35" value="${model.record.thtgid}">
+				            		<input type="text" class="inputTextMediumBlueMandatoryField" name="thtgid" id="thtgid" size="25" maxlength="35" value="${model.record.thtgid}">
 				            	</td>
 				            	<td class="text">&nbsp;</td>
 	        				</tr>
@@ -1742,18 +1736,18 @@
 				            	<td class="text12">
 				            		<font class="text16RedBold" >*</font><span title="thtglk">Nationalitet</span>
 				            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 				            		</a>
 				            		
-				            		<select name="thtglk" id="thtglk">
+				            		<select class="inputTextMediumBlueMandatoryField" name="thtglk" id="thtglk">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtglk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-									&nbsp;<span title="thtgsk">Språk</span>
+									&nbsp;<span title="thtgsk">Sprog</span>
 						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 						            		</a>
 									<select name="thtgsk" id="thtgsk">
 			            				<option value="">-vælg-</option>
@@ -1770,15 +1764,14 @@
 				            		<img onMouseOver="showPop('thtrm_info');" onMouseOut="hidePop('thtrm_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		            		<b>25.</b>
 				            		<font class="text16RedBold" >*</font><span title="thtrm">Transp.måde ved grænsen&nbsp;</span>
-				            		<select name="thtrm" id="thtrm">
+				            		<select class="inputTextMediumBlueMandatoryField" name="thtrm" id="thtrm">
 			 						<option value="">-vælg-</option>
 				 				  	<c:forEach var="code" items="${model.transportmadeCodeList}" >
 				 				  		<option value="${code.tkkode}"<c:if test="${model.record.thtrm == code.tkkode}"> selected </c:if> >${code.tkkode}-${code.tktxtn}</option>
 									</c:forEach> 
 								</select>
-				            	</td>
-				            	<span style="position:absolute; left:800px; top:150px; width:250px; height:320px;" id="thtrm_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+				            	<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="thtrm_info" class="popupWithInputText text11"  >
 				           			Using the following codes enter the mode of the active means of transport on which the
 									goods will leave the territory of the Contracting Party in which the office of departure
 									is located.
@@ -1787,8 +1780,9 @@
 					 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
 				 				  		</c:forEach>	
 				           			</ul>
+								</span>
 								</div>
-							</span>
+								</td>
 							<td class="text">&nbsp;</td>
 	        				</tr>
 	        					
@@ -1804,9 +1798,9 @@
 			 				<tr>
 				 				<td class="text12">
 				 				<img onMouseOver="showPop('19_info');" onMouseOut="hidePop('19_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				<b>19.</b>&nbsp;<font class="text16RedBold" >*</font><span title="thkdc">Container&nbsp;&nbsp;</span></td>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="19_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+				 				<b>19.</b>&nbsp;<font class="text16RedBold" >*</font><span title="thkdc">Container&nbsp;&nbsp;</span>
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="19_info" class="popupWithInputText text11"  >
 					           		Enter one of the following codes to give the presumed situation at the border of the
 									Contracting Party in whose territory the office of departure is located, as known at the
 									time the goods are placed under the transit procedure.
@@ -1814,10 +1808,11 @@
 					           			<li><b>0</b>&nbsp;-&nbsp;Where the goods are not carried in a container</li>
 					           			<li><b>1</b>&nbsp;-&nbsp;Where the goods are carried in a container</li>
 					           		</ul>
-			           			</div>
 								</span>
+								</div>
+								</td>
 				 				<td class="text12" >
-		 							<select name="thkdc" id="thkdc">
+		 							<select class="inputTextMediumBlueMandatoryField" name="thkdc" id="thkdc">
 				 						<option value="0"<c:if test="${model.record.thkdc == 0}"> selected </c:if> >0</option>
 								  		<option value="1"<c:if test="${model.record.thkdc == 1}"> selected </c:if> >1</option>
 								  	</select>
@@ -1834,9 +1829,9 @@
 				            <td class="text12" align="left" >
 				            <img onMouseOver="showPop('lastplats_info');" onMouseOut="hidePop('lastplats_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 				            <b>27.</b>&nbsp;<span title="thlasd">Indladningssted</span>
-				            </td>
-				            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="lastplats_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+				            
+				            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="lastplats_info" class="popupWithInputText text11"  >
 				           			<b>Place of loading</b>
 				           			<br/><br/>
 				           			<ul>
@@ -1846,8 +1841,9 @@
 											time the goods are placed under the transit procedure.
 										</li>
 				           			</ul>
-								</div>
 							</span>
+							</div>
+							</td>
 							<td class="text12" >
 						    	<input type="text" class="inputTextMediumBlue" name="thlasd" id="thlasd" size="17" maxlength="17" value="${model.record.thlasd}">
 						    </td>
@@ -1857,14 +1853,14 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('autolagringsplats_info');" onMouseOut="hidePop('autolagringsplats_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <b>30.</b>&nbsp;<span title="thlsd">Aftalt opbevaringskode</span>
-					            </td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:140px;" id="autolagringsplats_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="autolagringsplats_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>Authorised location of goods, code</li>
 					           			</ul>
-									</div>
 								</span>	
+								</div>
+								</td>
 							    <td class="text" >
 							    	<input type="text" class="inputTextMediumBlue" name="thlsd" id="thlsd" size="17" maxlength="17" value="${model.record.thlsd}">
 							    </td>
@@ -1873,14 +1869,15 @@
 						    <td class="text12" align="left" >
 				            <img onMouseOver="showPop('aftaltKontrolsted_info');" onMouseOut="hidePop('aftaltKontrolsted_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 				            <b>30.</b>&nbsp;<span title="thlas2">Aftalt kontrolsted</span>
-				            </td>
-				            <span style="position:absolute; left:800px; top:550px; width:250px; height:140px;" id="aftaltKontrolsted_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+				           
+				            <div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="aftaltKontrolsted_info" class="popupWithInputText text11"  >
 				           			<ul>
 			           					<li>Customs sub place</li>
 				           			</ul>
-								</div>
 							</span>
+							</div>
+							</td>
 							<td class="text12" >
 						    		<input type="text" class="inputTextMediumBlue" name="thlas2" id="thlas2" size="17" maxlength="17" value="${model.record.thlas2}">
 						    </td>							    
@@ -1888,10 +1885,9 @@
 			 				<tr>
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('tullkontor_info');" onMouseOut="hidePop('tullkontor_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <font class="text16RedBold" >*</font><span title="thcats">Udgangstoldsted&nbsp;</span>
-					            </td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:300px;" id="tullkontor_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <b>C.</b>&nbsp;<font class="text16RedBold" >*</font><span title="thcats">Udgangstoldsted&nbsp;</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="tullkontor_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>Avgångstullkontor är det tullkontor där godset lämnar gemenskapens tullområde<br/><br/></li>
 					           				<li>Du anger avgångstullkontoret med en kod. Koden består av åtta tecken. De två första anger landet med hjälp av landkod. De följande sex tecknen anger det berörda kontoret i detta land.<br/><br/>
@@ -1899,12 +1895,13 @@
 					           				</li>
 					           				
 					           			</ul>
-									</div>
 								</span>	
+								</div>
+								</td>
 					            
 							    <td class="text">
-							    <input type="text" class="inputTextMediumBlue" name="thcats" id="thcats" size="10" maxlength="8" value='${model.record.thcats}'>
-							    <img id="imgUtfartstullKontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontorDialog10');">
+							    <input type="text" class="inputTextMediumBlueMandatoryField"  name="thcats" id="thcats" size="10" maxlength="8" value='${model.record.thcats}'>
+							    <img id="imgUtfartstullKontor" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTullkontorDialog10');">
 					            
 							    <%-- ======================================================== --%>
 					            	<%-- Here we have the search Tullkontor popup window --%>
@@ -1952,24 +1949,24 @@
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('sprakkod_foljedok_info');" onMouseOut="hidePop('sprakkod_foljedok_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <font class="text16RedBold" >*</font><span title="thskfd">Sprogkode dok.&nbsp;</span>
-					            </td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:240px;" id="sprakkod_foljedok_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="sprakkod_foljedok_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>Ledsagedokument (f.eks. varelista)
 					           				</li>
 					           			</ul>
-									</div>
 								</span>	
+								</div>
+								</td>
 					            <td align="left">
-	            					<select name="thskfd" id="thskfd">
+	            					<select class="inputTextMediumBlueMandatoryField" name="thskfd" id="thskfd">
 			            				<option value="">-vælg-</option>
 			 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thskfd == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 								</select>
 				            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 				            		</a>
 								
 								</td> 
@@ -1978,33 +1975,17 @@
 							<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('transnr_dt_info');" onMouseOut="hidePop('transnr_dt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="thtrnr">Transiteringsnr.</span></td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:150px;" id="transnr_dt_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
-					           				<li>Transiteringsnr til godkendelse</li>
-					           			</ul>	
-									</div>
+					            <span title="thtrdt">Transitdato</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="transnr_dt_info" class="popupWithInputText text11"  >
+				           			<ul>
+				           				<li>Transiteringsdato til godkendelse</li>
+				           			</ul>	
 								</span>	
-					            
-					            <td >
-					            	<input type="text" class="inputTextMediumBlue" name="thtrnr" id="thtrnr" size="17" maxlength="18" value="${model.record.thtrnr}">&nbsp;&nbsp;
-					            </td>
-					        </tr>
-					        <tr>
-					            <td class="text12" align="left" >
-					            <img onMouseOver="showPop('transnr_dt_info');" onMouseOut="hidePop('transnr_dt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="thtrdt">Transiteringsdatum</span></td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:150px;" id="transnr_dt_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
-					           				<li>Transiteringsdato til godkendelse</li>
-					           			</ul>	
-									</div>
-								</span>	
-					            
+								</div>
+								</td>
 					            <td class="text12" >
-					            	<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thtrdt" id="thtrdt" size="8" maxlength="8" value="${model.record.thtrdt}">
+					            	<input readonly onKeyPress="return numberKey(event)" type="text" class="inputTextReadOnly" name="thtrdt" id="thtrdt" size="8" value="${model.record.thtrdt}">
 					            	&nbsp;
 					            </td>
 					        </tr>
@@ -2012,76 +1993,79 @@
 					        <tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('deklarantplats_info');" onMouseOut="hidePop('deklarantplats_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <font class="text16RedBold" >*</font><span title="thdst">Deklarantenssted</span></td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:320px;" id="deklarantplats_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <font class="text16RedBold" >*</font><span title="thdst">Dekl.sted</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="deklarantplats_info" class="popupWithInputText text11"  >
 					           			<ul>
 					           				<li>Plats (inklusive landkod)</li>
 					           			</ul>	
-									</div>
 								</span>	
+								</div>
+								</td>
 					            
 					            <td class="text12" align="left" >
-					            	<input type="text" class="inputTextMediumBlue" name="thdst" id="thdst" size="10" maxlength="15" value="${model.record.thdst}">
+					            	<input type="text" class="inputTextMediumBlueMandatoryField" name="thdst" id="thdst" size="15" maxlength="15" value="${model.record.thdst}">
 					            	&nbsp;<font class="text16RedBold" >*</font><span title="thdsk">Dekl.sprog</span>
-					            	<select name="thdsk" id="thdsk">
+					            	<select class="inputTextMediumBlueMandatoryField" name="thdsk" id="thdsk">
 			            				<option value="">-vælg-</option>
 			 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 									</select>
 					            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 					            		</a>
 					            </td>
 					        </tr>
 					        <tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('deklarant_info');" onMouseOut="hidePop('deklarant_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="thtarf">Deklarant</span></td>
-					            <span style="position:absolute; left:	px; top:550px; width:250px; height:240px;" id="deklarant_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <span title="thtarf">Deklarant</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="deklarant_info" class="popupWithInputText text11"  >
 					           			Feltet er blokeret. Hentes automatisk.
-									</div>
 								</span>
+								</div>
+								</td>
 					            <td colspan="3" class="text12" align="left" >
 					            		<input readonly type="text" class="inputTextReadOnly" name="thtarf" id="thtarf" size="25" value="${model.record.thtarf}">
 					            </td>
 					        </tr>
 					        <tr height="15"><td>&nbsp;</td></tr>	 
-							<tr>
-					            <td class="text12" align="left" >
-					            <img onMouseOver="showPop('bruttovikt_info');" onMouseOut="hidePop('bruttovikt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <b>35.</b>
-					            <span title="thvkb">Bruttovægt</span></td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:320px;" id="bruttovikt_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
-					           				<li>Sending samlede bruttovægt.</li>
-					           				
-					           			</ul>
-					           			Feltet er blokeret. Beregnes automatisk fra vareposter.
-									</div>
-								</span>	
-					            
-					            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
-					        </tr>	    
+							
 					        <tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('6_info');" onMouseOut="hidePop('6_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <b>6.&nbsp;</b><span title="thntk">Kollital</span></td>
-					            <span style="position:absolute; left:800px; top:550px; width:250px; height:240px;" id="6_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<ul>
-					           				<li>The total number of packages (pallets, cartons, coils, etc.) making up the consignments
-												in question shall be entered here
-					           				</li>
-					           			</ul>
-					           			Feltet er blokeret. Beregnes automatisk fra vareposter.
-									</div>
+					            <b>6.&nbsp;</b><span title="thntk">Kollital</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="6_info" class="popupWithInputText text11"  >
+				           			<ul>
+				           				<li>The total number of packages (pallets, cartons, coils, etc.) making up the consignments
+											in question shall be entered here
+				           				</li>
+				           			</ul>
+				           			Feltet er blokeret. Beregnes automatisk fra vareposter.
 								</span>	
+								</div>
+								</td>
 					            <td ><input readonly onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thntk" id="thntk" size="8" maxlength="7" value="${model.record.thntk}"></td>
 					        </tr>
+					        <tr>
+					            <td class="text12" align="left" >
+					            <img onMouseOver="showPop('bruttovikt_info');" onMouseOut="hidePop('bruttovikt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <span title="thvkb">Bruttovægt</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="bruttovikt_info" class="popupWithInputText text11"  >
+				           			<ul>
+				           				<li>Sending samlede bruttovægt.</li>
+				           			</ul>
+				           			Feltet er blokeret. Beregnes automatisk fra vareposter.
+								</span>	
+								</div>
+								</td>
+					            
+					            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
+					        </tr>	    
 				            <tr height="2"><td>&nbsp;</td></tr>
 				            
 					     	<%-- This section is not needed in NCTS since the backend sums all kollis at an item level
@@ -2133,10 +2117,9 @@
 					     	<tr>
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('kontrollresultat_info');" onMouseOut="hidePop('kontrollresultat_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
- 								&nbsp;<span title="thdkr">Kontrollresultat.&nbsp;</span></td>
- 								<span style="position:absolute; left:800px; top:1000px; width:250px; height:500px;" id="kontrollresultat_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-				           			<br>
+ 								<b>D.</b>&nbsp;<span title="thdkr">Kontrollresultat.&nbsp;</span>
+ 								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="kontrollresultat_info" class="popupWithInputText text11"  >
 				           				Forenklet procedure
 				           			<br/>
 				           			<ul>
@@ -2144,9 +2127,9 @@
 					           		</ul>
 					           		<br>
 					           		For normal procedure = tomt.
-					           		
-					           		</div>
 								</span>
+								</div>
+								</td>
 					           	<td class="text12" align="left">
 					           		<select name="thdkr" id="thdkr" >
 					 				  <option value="">-vælg-</option>
@@ -2158,17 +2141,17 @@
 				           	<tr>
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('frist_info');" onMouseOut="hidePop('frist_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
- 								&nbsp;<span title="thddt">Deadline&nbsp;</span></td>
- 								<span style="position:absolute; left:800px; top:1000px; width:250px; height:500px;" id="frist_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-				           			<br>
+ 								<b>D.</b>&nbsp;<span title="thddt">Deadline&nbsp;</span>
+ 								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="frist_info" class="popupWithInputText text11"  >
 				           				Deadline	
 				           			<br/>
 				           			<ul>
 					           			<li>...</li>
 					           		</ul>
-					           		</div>
 								</span>
+								</div>
+								</td>
 					           	<td class="text12" align="left">
 					           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thddt" id="thddt" size="10" maxlength="8" value="${model.record.thddt}">
 					           		&nbsp;
@@ -2303,9 +2286,8 @@
 				 						
 				 						<b>&nbsp;50.</b><font class="text16RedBold" >*</font>Hovedforpligtet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 				 						
-						 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="14_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br>
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="14_info" class="popupWithInputText text11"  >
 						           			Hovedforpligtet. 
 						           			<ul>
 							           			<li>The principal’s name (full name of the person or company) and full address shall be
@@ -2318,11 +2300,9 @@
 													which is to be kept at the office of departure. If this is a legal person, the signatory
 													shall add after his signature his full name and the capacity in which he is signing.
 							           			</li>
-							           			
 							           		</ul>
-							           		</div>
 										</span>
-						 				
+										</div>
 					 				</td>
 				 				</tr>
 			 				</table>
@@ -2355,7 +2335,7 @@
 									        	<input type="hidden" name="orig_thska" id="orig_thska" value='${model.record.thska}'>
 							        				<td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="thtina">TIN</span></td>
 									            <td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="thnaa">Navn</span>
-									            <img id="imgAnsvarigSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog20');">
+									            <img id="imgAnsvarigSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog20');">
 									            	<%-- ======================================================== --%>
 									            	<%-- Here we have the search Ansvarig [Customer] popup window --%>
 									            	<%-- ======================================================== --%>
@@ -2401,8 +2381,8 @@
 									            
 									        </tr>
 									        <tr>
-									        		<td align="left"><input type="text" class="inputTextMediumBlue" name="thtina" id="thtina" size="20" maxlength="17" value="${model.record.thtina}"></td>
-									            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnaa" id="thnaa" size="30" maxlength="35" value="${model.record.thnaa}"></td>
+									        		<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtina" id="thtina" size="20" maxlength="17" value="${model.record.thtina}"></td>
+									            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnaa" id="thnaa" size="30" maxlength="35" value="${model.record.thnaa}"></td>
 									            
 									        </tr>
 
@@ -2411,7 +2391,7 @@
 									            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thada1">Adresse</span></td>
 									            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thska">Sprogkode</span>
 								            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 								            		</a>
 									            
 									            </td>
@@ -2448,14 +2428,14 @@
 										        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpna">Postnummer</span></td>
 										            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlka">Land</span>
 										            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-										            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+										            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 										            		</a>
 										            		</td>
 										            	</tr>
 										        		<tr >
 										        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpna" id="thpna" size="10" maxlength="9" value="${model.record.thpna}"></td> 
 										            		<td align="left">
-										            			<select name="thlka" id="thlka">
+										            			<select class="inputTextMediumBlueMandatoryField" name="thlka" id="thlka">
 												            		<option value="">-vælg-</option>
 											 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 							                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlka == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
@@ -2496,14 +2476,14 @@
 						 					<tr>
 									            <td class="text12" align="left">
 									            <img onMouseOver="showPop('forsegling_info');" onMouseOut="hidePop('forsegling_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 								&nbsp;<span title="thdfkd">Forsegling Id&nbsp;</span></td>
-				 								<span style="position:absolute; left:800px; top:1000px; width:250px; height:500px;" id="forsegling_info" class="popupWithInputText"  >
-									           		<div class="text11" align="left">
-								           			<br>
+				 								&nbsp;<span title="thdfkd">Forsegling Id&nbsp;</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:250px;" id="forsegling_info" class="popupWithInputText text11"  >								           			<br>
 								           				Skal indtaste alle værdier (Antal/kode/sprog) eller ingen.
 								           			<br/>
-								           			</div>
 												</span>
+												</div>
+												</td>
 									           	<td class="text12" align="left">
 									           		<input type="text" class="inputTextMediumBlue" name="thdfkd" id="thdfkd" size="20" maxlength="20" value="${model.record.thdfkd}">
 									           	</td>
@@ -2534,17 +2514,16 @@
 							 				<tr>
 									            <td class="text12" align="left">
 									            <img onMouseOver="showPop('kontrolltullplats_info');" onMouseOut="hidePop('kontrolltullplats_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 								&nbsp;<span title="thdats/thddtk">Kontroll toldsted og dato&nbsp;</span></td>
-				 								<span style="position:absolute; left:800px; top:1000px; width:250px; height:500px;" id="kontrolltullplats_info" class="popupWithInputText"  >
-									           		<div class="text11" align="left">
-								           			<br>
-								           				...
-								           			<br/>
+				 								&nbsp;<span title="thdats/thddtk">Kontroll toldsted og dato&nbsp;</span>
+				 								<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:250px;" id="kontrolltullplats_info" class="popupWithInputText text11"  >
+
 								           			<ul>
 									           			<li>?</li>
 									           		</ul>
-									           		</div>
 												</span>
+												</div>
+												</td>
 									           	<td class="text12" align="left">
 									           		<input readonly type="text" class="inputTextReadOnly" name="thdats" id="thdats" size="20" maxlength="8" value="${model.record.thdats}">
 									           	</td>
@@ -2556,14 +2535,13 @@
 							 				<tr>
 								 				<td nowrap class="text12">
 								 				<img onMouseOver="showPop('returadress_info');" onMouseOut="hidePop('returadress_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									 			&nbsp;<span title="thtsn1/thtsn2/thtslk">Returadresse&nbsp;</span></td>
-								 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:100px;" id="returadress_info" class="popupWithInputText"  >
-									           		<div class="text11" align="left">
-									           			<br>
+									 			&nbsp;<span title="thtsn1/thtsn2/thtslk">Returadresse&nbsp;</span>
+								 				<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:250px;" id="returadress_info" class="popupWithInputText text11"  >
 									           			-pending...
-									           			<br/>
-								           			</div>
 												</span>
+												</div>
+												</td>
 						 			
 								 				<td class="text12">
 								 					<input readonly type="text" class="inputTextReadOnly" name="thtsn1" id="thtsn1" size="20" maxlength="35" value="${model.record.thtsn1}">
@@ -2597,11 +2575,11 @@
 							 			<td class="text14">
 							 				&nbsp;<img onMouseOver="showPop('sikkerhed_info');" onMouseOut="hidePop('sikkerhed_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									        	<b>Sikkerhed</b>&nbsp;
-									        <span style="position:absolute; left:900px; top:1400px; width:250px; height:250px;" id="sikkerhed_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+									        <div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:250px;" id="sikkerhed_info" class="popupWithInputText text11"  >
 													TODO
-								           		</div>
-											</span>	
+												</span>
+											</div>
 						 				</td>
 					 				</tr>
 					 				<tr>
@@ -2609,11 +2587,7 @@
 					            			<td class="text12">&nbsp;<span title="thsik">
 					            				<img onMouseOver="showPop('sikkerhedIndicator_info');" onMouseOut="hidePop('sikkerhedIndicator_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            				Sikkerhed - Indikator</span>&nbsp;
-					            				<span style="position:absolute; left:900px; top:1400px; width:250px; height:250px;" id="sikkerhedIndicator_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
-													Indikator for specifik omstændighed (0 eller 1)	
-								           		</div>
-											</span>	
+					            				
 											
 					            				<select name="thsik" id="thsik" >
 							 				  <option value=""<c:if test="${model.record.thsik == '0' || empty model.record.thsik }"> selected </c:if> >0</option>
@@ -2621,6 +2595,12 @@
 											</select>
 											&nbsp;&nbsp;<span title="thdta">Ank.dato</span>&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thdta" id="thdta" size="9" maxlength="8" value="${model.record.thdta}">
 											&nbsp;<span title="thtma">Tid</span>&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thtma" id="thtma" size="5" maxlength="4" value="${model.record.thtma}">
+											
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="sikkerhedIndicator_info" class="popupWithInputText text11"  >
+												Indikator for specifik omstændighed (0 eller 1)	
+											</span>
+											</div>	
 										</td>
 					            		</tr>
 					            		<tr>
@@ -2652,15 +2632,15 @@
 	                             	 				<option value="${code.tkkode}"<c:if test="${model.record.thspom == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach> 
 											</select>
-											<span style="position:absolute; left:900px; top:1400px; width:250px; height:320px;" id="spesOmstand_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="spesOmstand_info" class="popupWithInputText text11"  >
 								           			<ul>
 								           				<c:forEach var="code" items="${model.ncts096_SpecOmst_CodeList}" >
 									 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
 								 				  		</c:forEach>	
 								           			</ul>
-												</div>
 											</span>
+											</div>
 				            				</td>
 					            			<td class="text12">
 					            				<img onMouseOver="showPop('betalmade_info');" onMouseOut="hidePop('betalmade_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -2671,15 +2651,15 @@
 	                             	 				<option value="${code.tkkode}"<c:if test="${model.record.thtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach> 
 											</select>
-											<span style="position:absolute; left:900px; top:1400px; width:250px; height:320px;" id="betalmade_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="betalmade_info" class="popupWithInputText text11"  >
 								           			<ul>
 								           				<c:forEach var="code" items="${model.ncts116_BetalningTransport_CodeList}" >
 									 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxtn}</li>
 								 				  		</c:forEach>	
 								           			</ul>
-												</div>
 											</span>
+											</div>
 					            			</td>
 					            		</tr>
 					            		<tr>
@@ -2694,7 +2674,7 @@
 												</c:forEach> 
 											</select>
 											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-					            					<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+					            					<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 					            				</a>
 					            			</td>
 					            		</tr>
@@ -2705,7 +2685,7 @@
 					            					<td colspan="4" class="text12">&nbsp;
 					            					<span title="thlkr1-8">Landkode for rejseplan</span>
 					            					<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            						<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+					            						<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 					            					</a>
 					            					</td>
 					            				</tr>
@@ -2823,7 +2803,7 @@
 													 		<tr height="15">
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknss">Kundenummer</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnass">Navn</span>
-													            <img id="imgAfsenderSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog30');">
+													            <img id="imgAfsenderSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog30');">
 													            	<%-- ======================================================== --%>
 													            	<%-- Here we have the search Afsender - Sikkerhed [Customer] popup window --%>
 													            	<%-- ======================================================== --%>
@@ -2883,7 +2863,7 @@
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadss1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskss">Sprogkode</span>
 												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 												            		</a>
 													            
 													            </td>
@@ -2920,7 +2900,7 @@
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnss">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkss">Land</span>
 														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 														            		</a>
 														            		</td>
 														            	</tr>
@@ -2991,7 +2971,7 @@
 													 		<tr height="15">
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknt">Kundenummer</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnat">Navn</span>
-													            <img id="imgTransportorSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog50');">
+													            <img id="imgTransportorSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog50');">
 													            	<%-- ======================================================== --%>
 													            	<%-- Here we have the search Afsender - Sikkerhed [Customer] popup window --%>
 													            	<%-- ======================================================== --%>
@@ -3050,7 +3030,7 @@
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadt1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskt">Sprogkode</span>
 												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 												            		</a>
 													            
 													            </td>
@@ -3087,7 +3067,7 @@
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnt">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkt">Land</span>
 														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 														            		</a>
 														            		</td>
 														            	</tr>
@@ -3156,7 +3136,7 @@
 													        <tr height="15">
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknks">Kundenummer</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnaks">Navn</span>
-													            <img id="imgModtagerSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog40');">
+													            <img id="imgModtagerSikkerhedSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog40');">
 													            	<%-- ======================================================== --%>
 													            	<%-- Here we have the search Modtager-Sikkerhed [Customer] popup window --%>
 													            	<%-- ======================================================== --%>
@@ -3216,7 +3196,7 @@
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadks1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskks">Sprogkode</span>
 												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 												            		</a>
 													            
 													            </td>
@@ -3253,7 +3233,7 @@
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnks">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkks">Land</span>
 														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 														            		</a>
 														            		</td>
 														            	</tr>

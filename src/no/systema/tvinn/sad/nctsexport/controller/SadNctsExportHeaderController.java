@@ -352,7 +352,7 @@ public class SadNctsExportHeaderController {
 			    	if(isValidCreatedRecordTransactionOnRPG){
 		            	successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
 		            }else{
-	            		//Validation errors have been generated and we must offset to some state (set or changed above in some flow)
+		            	//Validation errors have been generated and we must offset to some state (set or changed above in some flow)
 		            	successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, action);
 		            }
 					
