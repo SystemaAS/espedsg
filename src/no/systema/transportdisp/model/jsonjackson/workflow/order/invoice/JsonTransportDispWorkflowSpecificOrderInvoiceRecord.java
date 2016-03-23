@@ -160,9 +160,9 @@ public class JsonTransportDispWorkflowSpecificOrderInvoiceRecord extends JsonAbs
 	public void setFaaccn(String value) {  this.faaccn = value; }
 	public String getFaaccn() {return this.faaccn;}
 	
-	private String fabær = null;
-	public void setFabær(String value) {  this.fabær = value; }
-	public String getFabær() {return this.fabær;}
+	private String fabr = null;
+	public void setFabr(String value) {  this.fabr = value; }
+	public String getFabr() {return this.fabr;}
 	
 	private String fabaer = null;
 	public void setFabaer(String value) {  this.fabaer = value; }
