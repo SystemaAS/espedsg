@@ -9,6 +9,10 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/skatnctsexport_edit_items_childwindow_angivelselist.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
+	<style type = "text/css">
+	.ui-datepicker { font-size:9pt;}
+	</style>
+	
 	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;Søk Angivelse</td>
@@ -22,26 +26,35 @@
 					<tr>
 					<td>
 						<table>
-						<form name="skatNctsExportAngivelseForm" id="skatNctsExportAngivelseForm" action="skatnctsexport_edit_items_childwindow_angivelselist.do?action=doInit" method="post">
+						<form name="skatNctsExportAngivelseForm" id="skatNctsExportAngivelseForm" action="skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind" method="post">
 						<tr>
-							<td class="text11">&nbsp;Angivelse</td>
-							<td class="text11">&nbsp;<input type="text" class="inputText" name="vkod" id="vkod" size="10" maxlength="10" value="${Xmodel.vkod}"></td>
-							<%-- 
-							<td class="text11">&nbsp;Beskrivning</td>
-							<td class="text11">&nbsp;<input type="text" class="inputText" name="tekst" id="tekst" size="30" maxlength="50" value="${model.tekst}"></td>
-							--%>
-							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
+							<td class="text11">&nbsp;&nbsp;Afdelning</td>
+							<td class="text11">&nbsp;&nbsp;Angivelse</td>
+							<td class="text11">&nbsp;&nbsp;Ref.nr.</td>
+							<td class="text11">&nbsp;&nbsp;Ext.ref.nr</td>
+							<td class="text11">&nbsp;&nbsp;Dato</td>
+							<td class="text11">&nbsp;&nbsp;Afs.</td>
+							<td class="text11">&nbsp;&nbsp;Modt.</td>
+						 </tr>
+						 <tr>	
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value="${searchFilter.avd}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="7" value="${searchFilter.opd}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="refnr" id="refnr" size="10" maxlength="10" value="${searchFilter.refnr}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="xrefnr" id="xrefnr" size="10" maxlength="10" value="${searchFilter.xrefnr}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value="${searchFilter.datum}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="25" value="${searchFilter.avsNavn}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="25" value="${searchFilter.motNavn}"></td>
+							
+							<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
 		           		</tr>
 		           		
 		           		</table>
 					</td>
 					</tr>
-					 
-													           		
-	           		<tr height="10"><td></td></tr>
+					 								           		
+	           		<tr height="20"><td></td></tr>
 					
-					<tr class="text12" >
+					<tr class="text11" >
 					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:30em;">
 					<%-- this is the datatables grid (content)--%>
 					<table id="angivelseList" class="display compact cell-border" width="100%" >
@@ -61,7 +74,7 @@
 		                </thead>
 		                
 		                <tbody>
-		                <c:forEach var="record" items="${Xmodel.angivelseList}" varStatus="counter">    
+		                <c:forEach var="record" items="${model.angivelseList}" varStatus="counter">    
 			               <c:choose>           
 			                   <c:when test="${counter.count%2==0}">
 			                       <tr class="text11">
@@ -72,24 +85,23 @@
 			               </c:choose>
 			               <td class="text11">&nbsp;${record.avd}</td>
 			               <td class="text11">&nbsp;${record.sign}</td>
-			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${Xrecord.tatanr}@text${Xrecord.beskr1}" >
+			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="avd${record.avd}@opd${record.opd}" >
 			               		<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.opd}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.refnr}</td>
-		               	   <td class="text11">&nbsp;${topic.dkeh_xref}</td>
-		               	   <td class="text11">&nbsp;${topic.aart}</td>
-		               	   <td class="text11">&nbsp;${topic.datum}</td>
-		               	   <td class="text11">&nbsp;${topic.status}</td>
-		               	   <td class="text11">&nbsp;${topic.avsNavn}</td>
-		               	   <td class="text11">&nbsp;${topic.motNavn}</td>
+		               	   <td class="text11">&nbsp;${record.dkeh_xref}</td>
+		               	   <td class="text11">&nbsp;${record.aart}</td>
+		               	   <td class="text11">&nbsp;${record.datum}</td>
+		               	   <td class="text11">&nbsp;${record.status}</td>
+		               	   <td class="text11">&nbsp;${record.avsNavn}</td>
+		               	   <td class="text11">&nbsp;${record.motNavn}</td>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>
 		            </table>
-		            </td>
-	           		</tr>
-        			</table>
-		
+	    	        </td>
+           		</tr>
+       			</table>
 		</td>
 		</tr>
 	</table> 

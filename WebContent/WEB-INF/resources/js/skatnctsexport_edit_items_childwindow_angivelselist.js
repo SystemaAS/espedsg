@@ -1,17 +1,25 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
+  	
   	//--------
   	//Koder
   	//--------
 	jq(function() {
+		jq("#datum").datepicker({ 
+			  dateFormat: 'yymmdd' 
+			  //defaultDate: "-6m"	  
+		});
+		
+		//put values from childwindow into opener fields
 		jq('#angivelseList').on('click', 'td', function(){
 			  var id = this.id;
 			  var record = id.split('@');
-			  var vkod = record[0].replace("vkod", "");
-			  var text = record[1].replace("text", "");
+			  var avd = record[0].replace("avd", "");
+			  var opd = record[1].replace("opd", "");
 			  //alert(vkod + " " + text);
-			  opener.jq('#tvvnt').val(vkod);
-			  opener.jq('#tvvnt').focus();
+			  opener.jq('#tvavd2').val(avd);
+			  opener.jq('#tvtdn2').val(opd);
+			  opener.jq('#tvtdn2').focus();
 			  //close child window
 			  window.close();
 			  
