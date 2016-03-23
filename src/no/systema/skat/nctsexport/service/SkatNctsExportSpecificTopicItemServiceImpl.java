@@ -6,6 +6,7 @@ package no.systema.skat.nctsexport.service;
 import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportSpecificTopicItemMapper;
 import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportSpecificTopicItemSensitiveGoodsValidatorMapper;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.validation.JsonSkatNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer;
 
 /**
@@ -45,8 +46,21 @@ public class SkatNctsExportSpecificTopicItemServiceImpl implements SkatNctsExpor
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return container;
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonSkatNctsExportSpecificTopicItemSecurityContainer getNctsExportSpecificTopicItemSecurityContainer(String utfPayload){
+		JsonSkatNctsExportSpecificTopicItemSecurityContainer container = null;
+		try{
+			SkatNctsExportSpecificTopicItemMapper mapper = new SkatNctsExportSpecificTopicItemMapper();
+			container = mapper.getSecurityContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		return container;
-		
 	}
 }

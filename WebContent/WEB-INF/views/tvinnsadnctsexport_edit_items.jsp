@@ -1007,7 +1007,7 @@
 		            		<td class="text12" align="left" >&nbsp;&nbsp;&nbsp;&nbsp;
 		            		<img onMouseOver="showPop('tvtdn2_info');" onMouseOut="hidePop('tvtdn2_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		            		<span title="tvavd2/tvtdn2" >Oppdrag</span>&nbsp;&nbsp;
-		            			<input type="text" class="inputTextMediumBlue" name="tvavd2" id="tvavd2" size="5" maxlength="4" value="${model.record.tvavd2}">
+		            			<input type="text" class="inputTextMediumBlue" name="tvavd2" id="tvavd2" size="4" maxlength="4" value="${model.record.tvavd2}">
 		            			<input type="text" class="inputTextMediumBlue" name="tvtdn2" id="tvtdn2" size="8" maxlength="7" value="${model.record.tvtdn2}">
 		            		<div class="text11" style="position: relative;" align="left">
 							<span style="position:absolute;top:2px; width:250px;" id="tvtdn2_info" class="popupWithInputText text11"  >

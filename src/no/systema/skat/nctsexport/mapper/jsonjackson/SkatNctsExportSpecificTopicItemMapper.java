@@ -10,6 +10,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemRecord;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityRecord;
 //
 import java.util.*;
 
@@ -40,5 +42,27 @@ public class SkatNctsExportSpecificTopicItemMapper {
 			
 		}
 		return topicItemContainer;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonSkatNctsExportSpecificTopicItemSecurityContainer getSecurityContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonSkatNctsExportSpecificTopicItemSecurityContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatNctsExportSpecificTopicItemSecurityContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		//DEBUG
+		Collection<JsonSkatNctsExportSpecificTopicItemSecurityRecord> list = container.getSecurityline();
+		for(JsonSkatNctsExportSpecificTopicItemSecurityRecord record : list){
+			//DEBUG logger.info("Tvtinks (security): " + record.getTvtinks());
+		}
+		return container;
 	}
 }

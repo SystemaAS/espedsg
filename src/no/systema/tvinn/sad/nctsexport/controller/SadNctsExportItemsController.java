@@ -361,17 +361,13 @@ public class SadNctsExportItemsController {
 	    	logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadNctsExportSpecificTopicItemContainer jsonSadNctsExportSpecificTopicItemContainer = this.sadNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
-	    	
-	    	
 	    	//add gui lists here
     		this.setCodeDropDownMgr(appUser, model);	
     		//domain objects
 	    	this.setDomainObjectsForListInView(model, jsonSadNctsExportSpecificTopicItemContainer);
-			
-			successView.addObject("model",model);
+			successView.addObject(TvinnSadConstants.DOMAIN_MODEL,model);
 			//successView.addObject(Constants.EDIT_ACTION_ON_TOPIC, Constants.ACTION_FETCH);
-			
-			
+	
 			return successView;
 		}
 	}
@@ -394,11 +390,11 @@ public class SadNctsExportItemsController {
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
     		JsonSadExportTopicListContainer jsonSadExportTopicListContainer = this.sadExportTopicListService.getSadExportTopicListContainer(jsonPayload);
-    		logger.info("AA");
+    		//logger.info("AA");
     		if(jsonSadExportTopicListContainer!=null){
-    			logger.info("BB");
+    			//logger.info("BB");
     			if(jsonSadExportTopicListContainer.getOrderList()!=null && jsonSadExportTopicListContainer.getOrderList().size()==1){
-    				logger.info("CC");
+    				//logger.info("CC");
     				retval = true;
     			}
     		}

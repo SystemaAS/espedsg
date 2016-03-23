@@ -55,12 +55,9 @@ import no.systema.tvinn.sad.nctsexport.model.jsonjackson.topic.validation.JsonSa
  * @date Feb 19, 2016
  * 
  */
-
 @Controller
-
 public class SadNctsExportAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(SadNctsExportAjaxHandlerController.class.getName());
-	
 	/**
 	 * 
 	 * @param applicationUser
@@ -69,7 +66,6 @@ public class SadNctsExportAjaxHandlerController {
 	 * @param opd
 	 * @return
 	 */
-	
 	@RequestMapping(value = "getSpecificTopicItemChosenFromGuiElement_TvinnSadNctsExport.do", method = RequestMethod.GET)
 	public @ResponseBody Set<JsonSadNctsExportSpecificTopicItemRecord> getSpecificTopicItemChosenFromHtmlList
 	  						(@RequestParam String applicationUser, @RequestParam String elementValue, 
@@ -112,11 +108,8 @@ public class SadNctsExportAjaxHandlerController {
 		 }else{
 			 logger.error("[ERROR] on fields[]...null or incorrect length???...");
 		 }
-		 
 		 return result;
 	 }
-	 
-	 
 	  /**
 	   * 
 	   * @param applicationUser
@@ -124,12 +117,11 @@ public class SadNctsExportAjaxHandlerController {
 	   * @return
 	   */
 	  @RequestMapping(value = "initCreateNewTopic_TvinnSadNctsExport.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonTvinnSadCustomerRecord> initCreateNewTopic(@RequestParam String applicationUser, @RequestParam String avd) {
-		 
+	  public @ResponseBody Set<JsonTvinnSadCustomerRecord> initCreateNewTopic(@RequestParam String applicationUser, @RequestParam String avd) {		 
 		 	String method = "initCreateNewTopic";
 		 	logger.info("Inside " + method);
 		 	Set result = new HashSet();
-		 	
+ 	
 		 	logger.info("FETCH record transaction...");
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -138,7 +130,6 @@ public class SadNctsExportAjaxHandlerController {
 			//url params
 			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForInitCreateNewTopic(applicationUser, avd);
 			//for debug purposes in GUI
-			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			logger.info("URL: " + BASE_URL);
 			logger.info("URL PARAMS: " + urlRequestParamsKeys);

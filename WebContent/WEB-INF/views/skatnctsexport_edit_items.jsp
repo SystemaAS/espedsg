@@ -1067,6 +1067,26 @@
 				 		<tr height="10"><td class="text" align="left"></td></tr>
 				 		
 				 		<tr>
+		            		<td class="text12" align="left" >&nbsp;&nbsp;&nbsp;&nbsp;
+		            		<img onMouseOver="showPop('tvtdn2_info');" onMouseOut="hidePop('tvtdn2_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		            		<span title="tvavd2/tvtdn2" >Angiv.nr</span>&nbsp;&nbsp;
+		            			<input type="text" class="inputTextMediumBlue" name="tvavd2" id="tvavd2" size="4" maxlength="4" value="${model.record.tvavd2}">
+		            			<input type="text" class="inputTextMediumBlue" name="tvtdn2" id="tvtdn2" size="8" maxlength="7" value="${model.record.tvtdn2}">
+		            			<a tabindex="-1" id="tvtdn2IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								</a>
+		            		<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="tvtdn2_info" class="popupWithInputText text11"  >
+								<b>Avd/Angiv.nr</b><br/>
+			           			Hvis deklarasjonen er basert på et eksport angivelse, vises avd./angiv.nr. her.
+ 							</span>
+							</div>	
+		            			
+		            		</td>
+		            	</tr>
+		            	 
+		        		<tr height="5"><td class="text" align="left"></td></tr>
+				 		<tr>
 			 				<%-- SENDER --%>
 				 			<td >		
 				 				<table width="95%" align="center" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
@@ -2172,7 +2192,7 @@
 								            				<select name="tvtkbm" id="tvtkbm">
 								            				<option value="">-velg-</option>
 								 				  			<c:forEach var="code" items="${model.ncts116_BetalningTransport_CodeList}" >
-				                             	 				<option value="${code.tkkode}"<c:if test="${Xmodel.record.tvtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+				                             	 				<option value="${code.tkkode}"<c:if test="${model.record.tvtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 															</c:forEach> 
 														</select>
 														<div class="text11" style="position: relative;" align="left">
@@ -2234,14 +2254,14 @@
 																	        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 																	        		 back original value)																--%> 
 																	        	<%-- ================================================================================== --%>
-																	        	<input type="hidden" name="orig_tvknss" id="orig_tvknss" value='${XXmodel.record.tvknss}'>
-																	        	<input type="hidden" name="orig_tvnass" id="orig_tvnass" value='${XXmodel.record.tvnass}'>
-																	        	<input type="hidden" name="orig_tvtinss" id="orig_tvtinss" value='${XXmodel.record.tvtinss}'>
-																	        	<input type="hidden" name="orig_tvadss1" id="orig_tvadss1" value='${XXmodel.record.tvadss1}'>
-																	        	<input type="hidden" name="orig_tvpnss" id="orig_tvpnss" value='${XXmodel.record.tvpnss}'>
-																	        	<input type="hidden" name="orig_tvpsss" id="orig_tvpsss" value='${XXmodel.record.tvpsss}'>
-																	        	<input type="hidden" name="orig_tvlkss" id="orig_tvlkss" value='${XXmodel.record.tvlkss}'>
-																	        	<input type="hidden" name="orig_tvskss" id="orig_tvskss" value='${XXmodel.record.tvskss}'>
+																	        	<input type="hidden" name="orig_tvknss" id="orig_tvknss" value='${model.record.tvknss}'>
+																	        	<input type="hidden" name="orig_tvnass" id="orig_tvnass" value='${model.record.tvnass}'>
+																	        	<input type="hidden" name="orig_tvtinss" id="orig_tvtinss" value='${model.record.tvtinss}'>
+																	        	<input type="hidden" name="orig_tvadss1" id="orig_tvadss1" value='${model.record.tvadss1}'>
+																	        	<input type="hidden" name="orig_tvpnss" id="orig_tvpnss" value='${model.record.tvpnss}'>
+																	        	<input type="hidden" name="orig_tvpsss" id="orig_tvpsss" value='${model.record.tvpsss}'>
+																	        	<input type="hidden" name="orig_tvlkss" id="orig_tvlkss" value='${model.record.tvlkss}'>
+																	        	<input type="hidden" name="orig_tvskss" id="orig_tvskss" value='${model.record.tvskss}'>
 																	        	
 																	        	<tr height="10">
 																	            <td class="text12" align="left">&nbsp;</td> 
@@ -2364,14 +2384,14 @@
 																	        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 																	        		 back original value)																--%> 
 																	        	<%-- ================================================================================== --%>
-																	        	<input type="hidden" name="orig_tvknks" id="orig_tvknks" value='${XXmodel.record.tvknks}'>
-																	        	<input type="hidden" name="orig_tvnaks" id="orig_tvnaks" value='${XXmodel.record.tvnaks}'>
-																	        	<input type="hidden" name="orig_tvtinks" id="orig_tvtinks" value='${XXmodel.record.tvtinks}'>
-																	        	<input type="hidden" name="orig_tvadks1" id="orig_tvadks1" value='${XXmodel.record.tvadks1}'>
-																	        	<input type="hidden" name="orig_tvpnks" id="orig_tvpnks" value='${XXmodel.record.tvpnks}'>
-																	        	<input type="hidden" name="orig_tvpsks" id="orig_tvpsks" value='${XXmodel.record.tvpsks}'>
-																	        	<input type="hidden" name="orig_tvlkks" id="orig_tvlkks" value='${XXmodel.record.tvlkks}'>
-																	        	<input type="hidden" name="orig_tvskks" id="orig_tvskks" value='${XXmodel.record.tvskks}'>
+																	        	<input type="hidden" name="orig_tvknks" id="orig_tvknks" value='${model.record.tvknks}'>
+																	        	<input type="hidden" name="orig_tvnaks" id="orig_tvnaks" value='${model.record.tvnaks}'>
+																	        	<input type="hidden" name="orig_tvtinks" id="orig_tvtinks" value='${model.record.tvtinks}'>
+																	        	<input type="hidden" name="orig_tvadks1" id="orig_tvadks1" value='${model.record.tvadks1}'>
+																	        	<input type="hidden" name="orig_tvpnks" id="orig_tvpnks" value='${model.record.tvpnks}'>
+																	        	<input type="hidden" name="orig_tvpsks" id="orig_tvpsks" value='${model.record.tvpsks}'>
+																	        	<input type="hidden" name="orig_tvlkks" id="orig_tvlkks" value='${model.record.tvlkks}'>
+																	        	<input type="hidden" name="orig_tvskks" id="orig_tvskks" value='${model.record.tvskks}'>
 																	 		<tr height="10">
 																	            <td class="text12" align="left">&nbsp;</td> 
 																	        </tr>

@@ -70,7 +70,7 @@ public final class SkatNctsExportUrlDataStore {
 	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE011R.pgm";
 	//[5.2] FETCH SPECIFIC ITEM (for Sikkerhet)
 	static public String NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE025R.pgm";
-	//http://gw.systema.no/sycgip/tdce025r.pgm?user=OSCAR&avd=1&opd=1&lin=1
+	//http://gw.systema.no/sycgip/tdce025r.pgm?user=OSCAR&avd=1&opd=50187&lin=1
 	
 	
 	//-----------------------------------
@@ -83,7 +83,7 @@ public final class SkatNctsExportUrlDataStore {
 	//http://gw.systema.no/sycgip/TDCE012R.pgm?user=OSCAR&avd=1&opd=50079&lin=3&mode=D	
 	//[6.1] EDIT a SPECIFIC SIKKERHET ITEM RECORD
 	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE026R.pgm";	
-	//http://gw.systema.no/sycgip/tdce026r.pgm?user=OSCAR&mode=U&tvavd=1&tvtdn=1&tvli=1&tvnass=Tarzan
+	//http://gw.systema.no/sycgip/tdce026r.pgm?user=OSCAR&mode=U&tvavd=1&tvtdn=50187&tvli=1&tvtkbm=A&tvkref=Derivat&tvnass=Tarzan
 	
 	
 	//------------------------------------------

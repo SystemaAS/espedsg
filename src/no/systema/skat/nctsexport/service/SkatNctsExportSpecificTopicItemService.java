@@ -5,6 +5,7 @@ package no.systema.skat.nctsexport.service;
 
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.validation.JsonSkatNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
 
 
 /**
@@ -15,5 +16,6 @@ import no.systema.skat.nctsexport.model.jsonjackson.topic.items.validation.JsonS
  */
 public interface SkatNctsExportSpecificTopicItemService {
 	public JsonSkatNctsExportSpecificTopicItemContainer getNctsExportSpecificTopicItemContainer(String utfPayload);
+	public JsonSkatNctsExportSpecificTopicItemSecurityContainer getNctsExportSpecificTopicItemSecurityContainer(String utfPayload);
 	public JsonSkatNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer getJsonNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer(String utfPayload);
 }

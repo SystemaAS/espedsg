@@ -1,5 +1,16 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
+  	jq(function() {
+	  	jq('#tvtdn2IdLink').click(function() {
+	    	jq('#tvtdn2IdLink').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doInit&vkod=' + jq('#tvtdn2').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvtdn2IdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvtdn2IdLink').click();
+			}
+	    });
+  	});
   	
   	/**
   	 * gets a specific item line
@@ -115,6 +126,29 @@
 				jq('#tvdsk_readonly').val(data[i].tvdsk);
 				jq('#tvdo').val(data[i].tvdo);
 				// End rubrik 44
+				
+				//Sikkerhet - Security section
+				jq('#tvtkbm').val(data[i].tvtkbm);
+				jq('#tvkref').val(data[i].tvkref);
+				jq('#tvfgkd').val(data[i].tvfgkd);
+				jq('#tvknss').val(data[i].tvknss);
+				jq('#tvnass').val(data[i].tvnass);
+				jq('#tvadss1').val(data[i].tvadss1);
+				jq('#tvknss').val(data[i].tvknss);
+				jq('#tvpnss').val(data[i].tvpnss);
+				jq('#tvpsss').val(data[i].tvpsss);
+				jq('#tvlkss').val(data[i].tvlkss);
+				jq('#tvskss').val(data[i].tvskss);
+				jq('#tvtinss').val(data[i].tvtinss);
+				jq('#tvknks').val(data[i].tvknks);
+				jq('#tvnaks').val(data[i].tvnaks);
+				jq('#tvadks1').val(data[i].tvadks1);
+				jq('#tvknks').val(data[i].tvknks);
+				jq('#tvpnks').val(data[i].tvpnks);
+				jq('#tvpsks').val(data[i].tvpsks);
+				jq('#tvlkks').val(data[i].tvlkks);
+				jq('#tvskks').val(data[i].tvskks);
+				jq('#tvtinks').val(data[i].tvtinks);
 				
 				//debug information on Fetch item
 				jq('#debugPrintlnAjaxItemFetchInfo').text(data[i].debugPrintlnAjax);

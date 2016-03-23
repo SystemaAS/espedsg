@@ -309,6 +309,11 @@ public class SkatNctsExportItemsValidator implements Validator {
 					}
 				}
 				
+				//Check valid Oppdrag reference
+				if(!record.isValidOppdragRef()){
+					errors.rejectValue("tvtdn2", "systema.skat.ncts.export.header.error.rule.item.tvtdn2.mustExist");
+				}
+				
 				//--------------------------------
 				//Dok.Type and Dok.ref (Rubrik 44)
 				//--------------------------------

@@ -29,6 +29,10 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
+	private boolean validOppdragRef = true;
+	public void setValidOppdragRef(boolean value) {  this.validOppdragRef = value; }
+	public boolean isValidOppdragRef() {return this.validOppdragRef;}
+	
 	
 	//Aux. attr. in order to sum all packages
 	private Integer sum_of_tvnt = 0;

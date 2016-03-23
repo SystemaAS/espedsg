@@ -24,6 +24,7 @@ import no.systema.main.model.jsonjackson.general.JsonCurrencyRateRecord;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.service.general.CurrencyRateService;
+import no.systema.main.util.JavaReflectionUtil;
 
 //SKAT
 import no.systema.skat.url.store.SkatUrlDataStore;
@@ -42,13 +43,8 @@ import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicService;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemService;
 
 import no.systema.skat.nctsexport.model.jsonjackson.topic.validation.JsonSkatNctsExportSpecificTopicGuaranteeValidatorContainer;
-
-
-//import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicOmbudContainer;
-//import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicOmbudRecord;
-//import no.systema.skat.service.SkatTaricVarukodService;
-//import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
-//import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityRecord;
 
 
 /**
@@ -73,7 +69,6 @@ public class SkatNctsExportAjaxHandlerController {
 	 * @param opd
 	 * @return
 	 */
-	
 	@RequestMapping(value = "getSpecificTopicItemChosenFromGuiElement_SkatNctsExport.do", method = RequestMethod.GET)
 	public @ResponseBody Set<JsonSkatNctsExportSpecificTopicItemRecord> getSpecificTopicItemChosenFromHtmlList
 	  						(@RequestParam String applicationUser, @RequestParam String elementValue, 
@@ -106,15 +101,16 @@ public class SkatNctsExportAjaxHandlerController {
 					 for(JsonSkatNctsExportSpecificTopicItemRecord  record : container.getOrderList()){
 						 record.setDebugPrintlnAjax(BASE_URL + "?" + urlRequestParamsKeys + " <JSON> " + jsonPayload + "</JSON>");
 				         logger.info("=====>debugFetch: OK output on GUI");
+				         //get security fields and add to master record
+				         this.fetchSecurityRecord(record, applicationUser, avd, opd, lineNr);
+				         //complete record including security	
 				         result.add(record);
-						    
 					 }
 				 }
 			 }
 		 }else{
 			 logger.error("[ERROR] on fields[]...null or incorrect length???...");
 		 }
-		 
 		 return result;
 	 }
 	 
@@ -140,7 +136,6 @@ public class SkatNctsExportAjaxHandlerController {
 			//url params
 			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForInitCreateNewTopic(applicationUser, avd);
 			//for debug purposes in GUI
-			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			logger.info("URL: " + BASE_URL);
 			logger.info("URL PARAMS: " + urlRequestParamsKeys);
@@ -161,8 +156,7 @@ public class SkatNctsExportAjaxHandlerController {
 	    			}
 	    		}
 	    	}
-		return result;
-		  
+		return result;  
 	  }
 	  
 	  /**
@@ -170,6 +164,7 @@ public class SkatNctsExportAjaxHandlerController {
 	   * @param applicationUser
 	   * @param guaranteeNumber
 	   * @param guaranteeCode
+	   * 
 	   * @return
 	   */
 	  @RequestMapping(value = "validateGuaranteeNrAndCode_SkatNctsExport.do", method = RequestMethod.GET)
@@ -207,7 +202,6 @@ public class SkatNctsExportAjaxHandlerController {
 	    			}
 	    		}
 			return result;
-		  
 	  }	
 	  
 	  /**
@@ -291,6 +285,59 @@ public class SkatNctsExportAjaxHandlerController {
 		  return sb.toString();
 	  }
 	  
+	  /**
+	   * 
+	   * @param jsonNctsExportSpecificTopicItemRecord
+	   * @param user
+	   * @param avd
+	   * @param opd
+	   * @param lin
+	   */
+	  private void fetchSecurityRecord(JsonSkatNctsExportSpecificTopicItemRecord jsonNctsExportSpecificTopicItemRecord, String user, String avd, String opd, String lin){
+			String method = "fetchSecurityRecord";
+			logger.info("starting " + method + " transaction...");
+			
+			String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL;
+			String urlRequestParamsKeys = "user=" + user + "&avd=" + avd + "&opd=" + opd + "&lin=" + lin;   
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	JsonSkatNctsExportSpecificTopicItemSecurityRecord securityRecord = null;
+	    	JsonSkatNctsExportSpecificTopicItemRecord targetRecord = jsonNctsExportSpecificTopicItemRecord;
+	    	
+	    	//------------------------
+	    	//EXECUTE (Sikkerhet) here
+	    	//------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonSkatNctsExportSpecificTopicItemSecurityContainer securityContainer = this.skatNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemSecurityContainer(jsonPayload);
+	        	if(securityContainer!=null && securityContainer.getSecurityline()!=null){
+	        		for (JsonSkatNctsExportSpecificTopicItemSecurityRecord thisRecord : securityContainer.getSecurityline()){
+	        			securityRecord = thisRecord;
+	        			logger.info("Tvknss" + securityRecord.getTvknss());
+	            	}
+	        		//copy delta to target record
+	        		if(securityRecord!=null && targetRecord!=null){
+		        		JavaReflectionUtil.setFields(securityRecord, targetRecord);
+		        		//Replace the orginal with the complete record (including security record, if any)
+		        		jsonNctsExportSpecificTopicItemRecord = targetRecord;
+	        		}else{
+	        			/* TEST on Copy
+	        			securityRecord = new JsonSadNctsExportSpecificTopicItemSecurityRecord();
+		        		securityRecord.setTvnass("TARZAN");
+		        		logger.info("SOURCE:" + securityRecord.getTvnass());
+		        		JavaReflectionUtil.setFields(securityRecord, targetRecord);
+		        		//Replace the orginal with the complete record (including security record, if any)
+		        		jsonNctsExportSpecificTopicItemRecord = targetRecord;
+		        		logger.info("TARGET:" + jsonNctsExportSpecificTopicItemRecord.getTvnass());
+		        		*/
+	        		}
+	        	}
+	    	}
+		}
+		
 	  	
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
@@ -333,24 +380,4 @@ public class SkatNctsExportAjaxHandlerController {
 	  public SkatTaricVarukodService getSkatTaricVarukodService(){ return this.skatTaricVarukodService; }
 	  
 	  
-	  
-	  
-	  /* ? to be commented as it was
-	  @Qualifier
-	  private TdsImportTullkontorService tdsImportTullkontorService;
-	  @Autowired
-	  @Required	
-	  public void setTdsImportTullkontorService(TdsImportTullkontorService value){this.tdsImportTullkontorService = value;}
-	  public TdsImportTullkontorService getTdsImportTullkontorService(){ return this.tdsImportTullkontorService; }
-	   */
-	 
-	  /* ?
-	  @Qualifier 
-	  private TdsSignatureNameService tdsSignatureNameService;
-	  @Autowired
-	  @Required	
-	  public void setTdsSignatureNameService(TdsSignatureNameService value){this.tdsSignatureNameService = value;}
-	  public TdsSignatureNameService getTdsSignatureNameService(){ return this.tdsSignatureNameService; }
-	  */
-		
 }

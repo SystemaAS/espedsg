@@ -96,7 +96,7 @@
            			<select name="sign" id="sign">
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                             	 	<option value="${record.sign}"<c:if test="${searchFilterSkatExportNcts.sign == record.sign}"> selected </c:if> >${record.sign}</option>
+                             <option value="${record.sign}"<c:if test="${searchFilterSkatExportNcts.sign == record.sign}"> selected </c:if> >${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>

@@ -27,6 +27,7 @@ import org.springframework.validation.BindingResult;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 
 import no.systema.skat.nctsexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
@@ -37,15 +38,14 @@ import no.systema.skat.nctsexport.service.html.dropdown.SkatNctsExportDropDownLi
 import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
 import no.systema.skat.nctsexport.util.RpgReturnResponseHandler;
 import no.systema.skat.nctsexport.validator.SkatNctsExportItemsValidator;
-//application imports
+
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.nctsexport.util.manager.CodeDropDownMgr;
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
-import no.systema.skat.model.external.url.UrlISOLanguageObject;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
-import no.systema.skat.url.store.SkatUrlDataStore;
-
+import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListContainer;
+import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
+import no.systema.skat.skatexport.service.SkatExportTopicListService;
 
 /**
  * 
@@ -61,6 +61,7 @@ import no.systema.skat.url.store.SkatUrlDataStore;
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class SkatNctsExportItemsController {
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(SkatNctsExportItemsController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");
@@ -99,7 +100,6 @@ public class SkatNctsExportItemsController {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_NCTS_EXPORT);
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, SkatConstants.ACTIVE_URL_RPG_INITVALUE); 
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_UPDATE_SKAT, SkatConstants.ACTIVE_URL_RPG_INITVALUE);
-			
 			
 			boolean isValidCreatedRecordTransactionOnRPG = true;
 			//Keys and header information
@@ -153,7 +153,10 @@ public class SkatNctsExportItemsController {
 						recordToValidate.setNumberOfItemLinesInTopicStr("-99");
 					}
 				}
-				logger.info("BB" + recordToValidate.getTvdref());
+				//Check if oppdrag ref (if any) is valid
+				if(!"".equals(recordToValidate.getTvtdn2())){
+					recordToValidate.setValidOppdragRef(this.isValidOppdragRef(appUser, recordToValidate));
+				}
 				validator.validate(recordToValidate, bindingResult);
 				
 			    //check for ERRORS
@@ -174,7 +177,6 @@ public class SkatNctsExportItemsController {
 					if(lineNr!=null && !"".equals(lineNr)){
 						//clean
 						session.removeAttribute("tvli_SESSION");
-				    	
 						//-------
 						//UPDATE
 						//-------
@@ -237,10 +239,8 @@ public class SkatNctsExportItemsController {
 					//At this point we are ready to do an update
 					//--------------------------------------------------
 					if(isValidCreatedRecordTransactionOnRPG){
-						
 			            logger.info("[INFO] Valid previous step successfully processed, OK ");
 			            logger.info("[INFO] Ready to move forward to do the UPDATE");
-			            
 						//---------------------------
 						//get BASE URL = RPG-PROGRAM
 			            //---------------------------
@@ -253,29 +253,42 @@ public class SkatNctsExportItemsController {
 						session.setAttribute(SkatConstants.ACTIVE_URL_RPG_UPDATE_SKAT, BASE_URL_UPDATE + "==>params: " + urlRequestParams.toString()); 
 						
 						logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-					    	logger.info("URL: " + BASE_URL_UPDATE);
-					    	logger.info("URL PARAMS: " + urlRequestParams);
-					    	//----------------------------------------------------------------------------
-					    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-					    	//----------------------------------------------------------------------------
+				    	logger.info("URL: " + BASE_URL_UPDATE);
+				    	logger.info("URL PARAMS: " + urlRequestParams);
+				    	//----------------------------------------------------------------------------
+				    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+				    	//----------------------------------------------------------------------------
 						String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
 						//Debug --> 
-					    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-					    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-					    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
-					    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-					    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-					    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
-					    		
-					    	}else{
-					    		//Update succefully done!
-					    		logger.info("[INFO] Valid STEP[2] Update -- Record successfully updated, OK ");
-					    		//---------------------------
-					    		//REFRESH ON SOME VARIABLES
-					    		//---------------------------
-					    		//Update some variables on header such as (1)Number of item lines, (2)Kolliantal and (3)Gross weight-Bruttovikt
-					    		this.refreshHeaderVariables(appUser.getUser(), avd, opd);
-					    	}
+				    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+				    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+				    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
+				    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+				    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+				    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
+				    		
+				    	}else{
+				    		//Update succefully done!
+				    		logger.info("[INFO] Valid STEP[2] Update -- Record successfully updated, OK ");
+				    		//------------------------------------
+				    		//Update/Create now Security-Sikkerhet record
+				    		//------------------------------------
+				    		//Check if there is a record minimum of information in order to go on with security record - update
+				    		if(jsonSkatNctsExportSpecificTopicItemRecord.getTvtkbm()!=null && !"".equals(jsonSkatNctsExportSpecificTopicItemRecord.getTvtkbm())){
+					    		String mode = SkatConstants.MODE_ADD; //Add - default
+					    		if(this.existsSecurityRecord(appUser.getUser(), avd, opd, jsonSkatNctsExportSpecificTopicItemRecord.getTvli())){
+					    			mode = SkatConstants.MODE_UPDATE; //Update
+					    		}
+				    			if(!this.updateSecurityRecord(jsonSkatNctsExportSpecificTopicItemRecord, mode, appUser.getUser(), avd, opd)){
+					    			this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
+					    		}
+				    		}
+				    		//---------------------------
+				    		//REFRESH ON SOME VARIABLES
+				    		//---------------------------
+				    		//Update some variables on header such as (1)Number of item lines, (2)Kolliantal and (3)Gross weight-Bruttovikt
+				    		this.refreshHeaderVariables(appUser.getUser(), avd, opd);
+				    	}
 					}else{
 						rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
 						this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
@@ -297,30 +310,34 @@ public class SkatNctsExportItemsController {
 				String urlRequestParams = this.getRequestUrlKeyParametersUpdate(jsonSkatNctsExportSpecificTopicItemRecord, appUser,SkatConstants.MODE_DELETE );
 				
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL_DELETE);
-			    	logger.info("URL PARAMS: " + urlRequestParams);
-			    	//----------------------------------------------------------------------------
-			    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-			    	//----------------------------------------------------------------------------
+		    	logger.info("URL: " + BASE_URL_DELETE);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	//----------------------------------------------------------------------------
+		    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+		    	//----------------------------------------------------------------------------
 				String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_DELETE, urlRequestParams);
 				//Debug --> 
-			    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-			    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-			    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
-			    	
-			    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-			    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-			    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
-			    		
-			    	}else{
-			    		//Delete successfully done!
-			    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
-			    		//---------------------------
-			    		//REFRESH ON SOME VARIABLES
-			    		//---------------------------
-			    		//Update some variables on header such as (1)Number of item lines, (2)Kolliantal and (3)Gross weight-Bruttovikt
-			    		this.refreshHeaderVariables(appUser.getUser(), avd, opd);
-			    	}
+		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+		    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
+		    	
+		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+		    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
+		    		
+		    	}else{
+		    		//Delete successfully done!
+		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
+		    		
+		    		if(!this.updateSecurityRecord(jsonSkatNctsExportSpecificTopicItemRecord, SkatConstants.MODE_DELETE, appUser.getUser(), avd, opd)){
+		    			this.setFatalError(model, rpgReturnResponseHandler, jsonSkatNctsExportSpecificTopicItemRecord);
+		    		}
+		    		//---------------------------
+		    		//REFRESH ON SOME VARIABLES
+		    		//---------------------------
+		    		//Update some variables on header such as (1)Number of item lines, (2)Kolliantal and (3)Gross weight-Bruttovikt
+		    		this.refreshHeaderVariables(appUser.getUser(), avd, opd);
+		    	}
 			
 			}
 			
@@ -337,45 +354,59 @@ public class SkatNctsExportItemsController {
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			logger.info("FETCH av item list... ");
 	     	logger.info("URL: " + BASE_URL_FETCH);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
 			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(jsonPayloadFetch);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	JsonSkatNctsExportSpecificTopicItemContainer jsonSkatNctsExportSpecificTopicItemContainer = this.skatNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
-		    	if(jsonSkatNctsExportSpecificTopicItemContainer!=null){
-			    	//some aspects for GUI
-			    	jsonSkatNctsExportSpecificTopicItemContainer.setLastSelectedItemLineNumber(lastSelectedItemLineNumber);
-			    	logger.info("(B)##### lastSelectedItemLineNumber:" + lastSelectedItemLineNumber);
-		    	}
-		    	/*
-		    	this.populateHtmlDropDownsFromFile(model);
-		    	//general code population
-		    	this.populateCodesHtmlDropDownsFromJsonString(model,appUser, JsonSkatNctsCodeContainer.KOD_KOLLI_TYP);
-		    	this.populateCodesHtmlDropDownsFromJsonString(model,appUser, JsonSkatNctsCodeContainer.KOD_DOK);
-		    	this.populateCodesHtmlDropDownsFromJsonString(model,appUser, JsonSkatNctsCodeContainer.KOD_DEKL_TYP);
-	    		//land & currency codes
-	    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
-	    																	 model,appUser,"A","GCY",null,null);
-	    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
-						 												 model,appUser,"A","MDX",null,null);
-			*/
-		    	
-		    	//add gui lists here
-	    		this.setCodeDropDownMgr(appUser, model);	
-	    		//domain objects
-		    	this.setDomainObjectsForListInView(session, model, jsonSkatNctsExportSpecificTopicItemContainer);
-			
-			successView.addObject("model",model);
+	    	logger.info(jsonPayloadFetch);
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	JsonSkatNctsExportSpecificTopicItemContainer jsonSkatNctsExportSpecificTopicItemContainer = this.skatNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
+	    	if(jsonSkatNctsExportSpecificTopicItemContainer!=null){
+		    	//some aspects for GUI
+		    	jsonSkatNctsExportSpecificTopicItemContainer.setLastSelectedItemLineNumber(lastSelectedItemLineNumber);
+		    	logger.info("(B)##### lastSelectedItemLineNumber:" + lastSelectedItemLineNumber);
+	    	}
+	    	//add gui lists here
+    		this.setCodeDropDownMgr(appUser, model);	
+    		//domain objects
+	    	this.setDomainObjectsForListInView(session, model, jsonSkatNctsExportSpecificTopicItemContainer);
+			successView.addObject(SkatConstants.DOMAIN_MODEL,model);
 			
 			return successView;
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @return
+	 */
+	private boolean isValidOppdragRef(SystemaWebUser appUser, JsonSkatNctsExportSpecificTopicItemRecord recordToValidate){
+		boolean retval = false;
+		//get BASE URL
+		final String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_TOPICLIST_URL;
+		//add URL-parameters
+		String urlRequestParams = "user=" + appUser.getUser() + "&opd=" + recordToValidate.getTvtdn2();
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		//Debug --> 
+		logger.info(jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSkatExportTopicListContainer container = this.skatExportTopicListService.getSkatExportTopicListContainer(jsonPayload);
+    		//logger.info("AA");
+    		if(container!=null){
+    			//logger.info("BB");
+    			if(container.getOrderList()!=null && container.getOrderList().size()==1){
+    				//logger.info("CC");
+    				retval = true;
+    			}
+    		}
+    	}
+		return retval;
+	}
 	/**
 	 * 
 	 * @param appUser
@@ -592,6 +623,97 @@ public class SkatNctsExportItemsController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @param avd
+	 * @param opd
+	 * @param lin
+	 * @return
+	 */
+	private boolean existsSecurityRecord(String user, String avd, String opd, String lin){
+		boolean retval = false;
+		
+		String method = "existsSecurityRecord";
+		logger.info("starting " + method + " transaction...");
+		
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL;
+		String urlRequestParamsKeys = "user=" + user + "&avd=" + avd + "&opd=" + opd  + "&lin=" + lin;   
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	
+    	//------------------------
+    	//EXECUTE (Sikkerhet) here
+    	//------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSkatNctsExportSpecificTopicItemSecurityContainer securityItemContainer = this.skatNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemSecurityContainer(jsonPayload);
+        	if(securityItemContainer!=null && securityItemContainer.getSecurityline()!=null){
+        		if(securityItemContainer.getSecurityline().size()>0){
+        			retval = true;
+        		}
+        	}
+    	}
+    	return retval;
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param mode
+	 * @param user
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private boolean updateSecurityRecord(JsonSkatNctsExportSpecificTopicItemRecord recordToValidate, String mode, String user, String avd, String opd){
+		boolean retval = true;
+		String method = "updateSecurityRecord";
+		logger.info("starting " + method + " transaction...");
+		
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		//-------------
+		//get BASE URL
+        //-------------
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL;
+		
+		//-----------------------------------------------------
+		//add URL-parameter "mode=U" (Update), (A)dd, (D)elete
+		//-----------------------------------------------------
+		String urlRequestParamsKeys = "user="+ user + "&mode=" + mode + "&tvavd=" + avd + "&tvtdn=" + opd + "&tvli=" + recordToValidate.getTvli() ;
+		
+		//build the url parameters (from GUI-form) to send on a GET/POST method AFTER the keyParameters
+		String urlRequestParamsTopicSikkerhet = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+		//put the final valid param. string
+		String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicSikkerhet;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	
+    	//--------------------
+    	//EXECUTE the UPDATE 
+    	//--------------------
+    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		//Debug --> 
+    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
+    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+    		retval = false;
+    	}else{
+    		//Update successfully done!
+    		logger.info("[INFO] Record SECURITY-SIKKERHET successfully updated, OK ");
+    		//Update now Sikkerhet - part
+    	}
+    	return retval;
+	}
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -619,6 +741,13 @@ public class SkatNctsExportItemsController {
 	public void setSkatNctsExportDropDownListPopulationService (SkatNctsExportDropDownListPopulationService value){ this.skatNctsExportDropDownListPopulationService=value; }
 	public SkatNctsExportDropDownListPopulationService getSkatNctsExportDropDownListPopulationService(){return this.skatNctsExportDropDownListPopulationService;}
 	 
+	@Qualifier ("skatExportTopicListService")
+	private SkatExportTopicListService skatExportTopicListService;
+	@Autowired
+	@Required
+	public void setSkatExportTopicListService (SkatExportTopicListService value){ this.skatExportTopicListService = value; }
+	public SkatExportTopicListService getSkatExportTopicListService(){ return this.skatExportTopicListService; }
+	
 	 
 }
 
