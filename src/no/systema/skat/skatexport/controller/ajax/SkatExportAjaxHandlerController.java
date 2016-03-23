@@ -39,6 +39,8 @@ import no.systema.skat.util.SkatConstants;
 
 //EXPORT
 import no.systema.skat.skatexport.util.SkatExportTweaker;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemAvgifterRecord;
@@ -281,6 +283,44 @@ public class SkatExportAjaxHandlerController {
 	  
 	  /**
 	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @return
+	   */
+	  @RequestMapping(value = "getSpecificTopic_SkatExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatExportSpecificTopicRecord> getSpecificTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+		 logger.info("Inside: getSpecificTopic_SkatExport.do");
+		 Set result = new HashSet();
+		 String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
+		 //url params
+	 	 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
+		 //for debug purposes in GUI
+		 
+		 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	 logger.info("URL: " + BASE_URL);
+    	 logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	 //--------------------------------------
+    	 //EXECUTE the FETCH (RPG program) here
+    	 //--------------------------------------
+    	 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 //Debug --> 
+    	 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	 if(jsonPayload!=null){
+    		JsonSkatExportSpecificTopicContainer container = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);
+    		if(container!=null && container.getOneorder()!=null){
+    			for(JsonSkatExportSpecificTopicRecord record : container.getOneorder()){
+  				  //Debug
+  				  logger.info("Avs:" + record.getDkeh_02b());
+  				  //logger.info(record.getDkeh_08b());
+  				  result.add(record);
+  			  	}
+    		}
+    	 }
+		 return result;
+	 }
+	  /**
+	   * 
 	   * @param isoDate
 	   * @return
 	   */
@@ -296,73 +336,7 @@ public class SkatExportAjaxHandlerController {
 		  }
 		  return retval;
 	  }
-	  /**
-	   * 
-	   * @param applicationUser
-	   * @param dkihStr
-	   * @param dkivStr
-	   * @return
-	   */
-	  /*
-	  @RequestMapping(value = "calculateToldvaerdiSumsOnItem_SkatImport.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonSkatImportSpecificTopicItemToldvaerdiRecord> calculateTollvaerdiSumsOnItem(@RequestParam String applicationUser, @RequestParam String dkStr) {
-		  logger.info("Inside: calculateToldvaerdiSumsOnItem_SkatImport()");
-		  Set result = new HashSet();
-		  try{
-			  TollvaerdideklarationMgr tvMgr = new TollvaerdideklarationMgr(this.skatImportSpecificTopicItemService, this.urlCgiProxyService);
-			  String urlRequestParams = dkStr;
-			  JsonSkatImportSpecificTopicItemToldvaerdiRecord itemTollvaerdiRecord = tvMgr.calculateToldvaerdiSumsOnItem(applicationUser, urlRequestParams);
-			  if(itemTollvaerdiRecord!=null){
-				  result.add(itemTollvaerdiRecord);
-			  }else{
-				  logger.info("[ERROR] NULL object on return from toldvaerdiMgr... ? " );
-			  }
-		  }catch(Exception e){
-			  e.printStackTrace();
-		  }
-		  
-		  return result;
-	  }
-	  */
 	  
-	  /**
-	   * Item lines level. Get Bilagda handlingar ...
-	   * 
-	   * @param applicationUser
-	   * @param avd
-	   * @param opd
-	   * @return
-	   */
-	  /*
-	  @RequestMapping(value = "getBilagdaHandlingar_SkatImport.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonTdsImportSpecificTopicItemBilagdaHandlingarRecord> getBilagdaHandlingar(@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
-		  logger.info("Inside: getBilagdaHandlingar()");
-		  Set result = new HashSet();
-		  try{
-			  
-			  String BASE_URL = UrlDataStore.TDS_IMPORT_BASE_GET_BILAGDA_HANDLIGAR_URL;
-			  String urlRequestParams = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
-			  logger.info(BASE_URL);
-			  logger.info(urlRequestParams);
-			  
-			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
-			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-			  JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer container = this.tdsImportSpecificTopicItemService.getTdsBilagdaHandlingarContainer(jsonPayload);
-			  
-			  for(JsonTdsImportSpecificTopicItemBilagdaHandlingarRecord record : container.getBilhand()){
-				  logger.info(record.getBit1() + "##" + record.getBii1()) ;
-				  logger.info(record.getBit2() + "##" + record.getBii2()) ;
-				  result.add(record);
-			  }	
-			  
-		  }catch(Exception e){
-			  e.printStackTrace();
-			  
-		  }
-		  
-		  return result;
-	  }
-		*/
 	  
 	  /**
 	   * 

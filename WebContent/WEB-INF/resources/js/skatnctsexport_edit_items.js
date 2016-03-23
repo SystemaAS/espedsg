@@ -12,6 +12,62 @@
 	    });
   	});
   	
+  	jq(function() {
+  		jq('#tvtdn2').blur(function() {
+  		  if(jq('#tvtdn2').val()!='' ){
+  			 //only with create new line 
+  			 if(jq('#tvli').val()==''){
+  				getDefaultValuesFromSkatExportHeader();
+  			 }else if(jq('#tvnas').val()=='' && jq('#tvnak').val()==''){
+  				getDefaultValuesFromSkatExportHeader(); 
+  			 } 
+  		  }			  
+  		});
+  	});
+  	//populate GUI fields (when applicable)
+  	function getDefaultValuesFromSkatExportHeader(){
+  		jq.ajax({
+  	  	  type: 'GET',
+  	  	  url: 'getSpecificTopic_SkatExport.do',
+  	  	  data: { applicationUser : jq('#applicationUser').val(), 
+  	  		  	  avd : jq('#tvavd2').val(), 
+  	  		  	  opd : jq('#tvtdn2').val() },
+  	  	  dataType: 'json',
+  	  	  cache: false,
+  	  	  contentType: 'application/json',
+  	  	  success: function(data) {
+  	  		var len = data.length;
+  	  		//CLEAN all fields
+  	  		//Avsender
+			jq('#tvkns').val("");jq('#tvnas').val("");jq('#tvtins').val("");jq('#tvads1').val(""); 
+			jq('#tvpns').val("");jq('#tvpss').val(""); jq('#tvlks').val(""); 
+			//Mottaker
+			jq('#tvknk').val("");jq('#tvnak').val("");jq('#tvtink').val("");jq('#tvadk1').val(""); 
+			jq('#tvpnk').val("");jq('#tvpsk').val("");jq('#tvlkk').val("");
+			
+  			for ( var i = 0; i < len; i++) {
+  				//This line counter (lastSelectedItemLineNumber) is used in order to have a serial counter for the row lines. It is the only serial counter...
+  				//It is used ONLY for aspect/behavior purposes on GUI (scroll, bgColor, etc) in the specific row.
+  				//Avsender
+  				jq('#tvkns').val(data[i].dkeh_avkn);
+  				jq('#tvnas').val(data[i].dkeh_02b);
+  				jq('#tvtins').val(data[i].dkeh_02a);
+  				jq('#tvads1').val(data[i].dkeh_02c);
+  				jq('#tvpns').val(data[i].dkeh_02d);
+  				jq('#tvpss').val(data[i].dkeh_02e);
+  				jq('#tvlks').val(data[i].dkeh_02f);
+  				//Mottaker
+  				jq('#tvknk').val(data[i].dkeh_mokn);
+  				jq('#tvnak').val(data[i].dkeh_08b);
+  				jq('#tvtink').val(data[i].dkeh_08a);
+  				jq('#tvadk1').val(data[i].dkeh_08c);
+  				jq('#tvpnk').val(data[i].dkeh_08d);
+  				jq('#tvpsk').val(data[i].dkeh_08e);
+  				jq('#tvlkk').val(data[i].dkeh_08f);
+  			}
+	  	  }
+  		});		
+  	}
   	/**
   	 * gets a specific item line
   	 * 
@@ -25,7 +81,6 @@
 	  	var avdParam = jq('#avdItemList').val();
 	  	var opdParam = jq('#opdItemList').val();
 	  	//alert(htmlValue);
-	  	
 	  	jq.ajax({
 	  	  type: 'GET',
 	  	  url: 'getSpecificTopicItemChosenFromGuiElement_SkatNctsExport.do',

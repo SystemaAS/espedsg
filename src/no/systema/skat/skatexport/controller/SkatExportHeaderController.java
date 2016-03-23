@@ -656,9 +656,8 @@ public class SkatExportHeaderController {
 				return loginView;
 			}
 		    
-			
-		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-		    	//--------------------
+		    //At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
+		    //--------------------
 			//STEP 2: FETCH record
 			//--------------------
 			logger.info("starting FETCH record transaction...");
@@ -672,28 +671,27 @@ public class SkatExportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
-		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+	    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		JsonSkatExportSpecificTopicContainer jsonSkatExportSpecificTopicContainer = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);
-		    		//add gui lists here
-		    		
-		    		this.setCodeDropDownMgr(appUser, model);
-		    		this.setDomainObjectsInView(session, model, jsonSkatExportSpecificTopicContainer);
-		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-				//put the doUpdate action since we are preparing the record for an update (when saving)
-				successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-		    		
-		    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
+	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonSkatExportSpecificTopicContainer jsonSkatExportSpecificTopicContainer = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);
+	    		//add gui lists here
+	    		this.setCodeDropDownMgr(appUser, model);
+	    		this.setDomainObjectsInView(session, model, jsonSkatExportSpecificTopicContainer);
+	    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+	    		//put the doUpdate action since we are preparing the record for an update (when saving)
+	    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+	    		
+	    	}else{
+	    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+	    		return loginView;
 			}
 			
 			

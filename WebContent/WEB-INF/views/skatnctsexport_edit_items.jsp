@@ -112,7 +112,7 @@
 							            <td class="text11" align="left" >${recordTopicSkat.thkns}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">TIN-nr&nbsp;</td>
+							            <td width="30%" class="text11" align="left">CVR/SE-nr&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thtins}</td>
 							        </tr>
 									<tr>
@@ -142,7 +142,7 @@
 							            <td class="text11" align="left" >${recordTopicSkat.thknk}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">TIN-nr&nbsp;</td>
+							            <td width="30%" class="text11" align="left">EORI&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thtink}</td>
 							        </tr>
 							        <tr>
@@ -1202,7 +1202,7 @@
 							            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnas" id="tvnas" size="20" maxlength="35" value="${model.record.tvnas}"></td>
 							        </tr>
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtins" >TIN</span></td>
+							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtins" >CVR/SE-nr</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
@@ -1340,7 +1340,7 @@
 							            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnak" id="tvnak" size="20" maxlength="35" value="${model.record.tvnak}"></td>
 							        </tr>
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtink" >TIN</span></td>
+							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtink" >EORI</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
@@ -2279,7 +2279,7 @@
 																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnass" id="tvnass" size="30" maxlength="35" value="${model.record.tvnass}"></td>
 																	        </tr>
 																	        <tr>
-															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinss">TIN</span></td>
+															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinss">CVR/SE-nr</span></td>
 																	        </tr>
 																	        <tr>
 																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvtinss" id="tvtinss" size="20" maxlength="17" value="${model.record.tvtinss}"></td>
@@ -2408,7 +2408,7 @@
 																	            <td align="left"><input type="text" class="inputTextMediumBlue" name="tvnaks" id="tvnaks" size="30" maxlength="35" value="${model.record.tvnaks}"></td>
 																	        </tr>
 																	        <tr>
-															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinks">TIN</span></td>
+															        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="tvtinks">EORI</span></td>
 																	        </tr>
 																	        <tr>
 																	        		<td align="left"><input type="text" class="inputTextMediumBlue" name="tvtinks" id="tvtinks" size="20" maxlength="17" value="${model.record.tvtinks}"></td>
