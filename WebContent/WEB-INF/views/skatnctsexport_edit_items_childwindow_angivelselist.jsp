@@ -15,7 +15,10 @@
 	
 	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr>
-			<td colspan="3" class="text14Bold">&nbsp;Søk Angivelse</td>
+			<td colspan="3" class="text14Bold">&nbsp;&nbsp;
+			<img title="select" valign="bottom" src="resources/images/search.gif" width="22px" height="22px" border="0" alt="search">
+			Søk Angivelse
+			</td>
 		</tr>
 		<tr>
 		<td valign="top">
