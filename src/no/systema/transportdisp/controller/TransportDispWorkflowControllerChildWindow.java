@@ -53,6 +53,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWork
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowListRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.codes.JsonTransportDispCodeContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispLoadUnloadPlacesContainer;
@@ -80,7 +81,10 @@ import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispDriverRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispTranspCarrierContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispTranspCarrierRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.codes.JsonTransportDispCodeContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.codes.JsonTransportDispCodeRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispFileUploadValidationContainer;
+
 
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
@@ -119,6 +123,7 @@ public class TransportDispWorkflowControllerChildWindow {
 	private final String DATATABLE_TOLLSTED_CODES_LIST = "tollstedCodesList";
 	private final String DATATABLE_SUPPLIER_LIST = "supplierList";
 	private final String DATATABLE_GEBYRCODE_LIST = "gebyrCodeList";
+	private final String DATATABLE_COUNTRYCODE_LIST = "countryCodeList";
 	
 	
 	
@@ -1573,6 +1578,112 @@ public class TransportDispWorkflowControllerChildWindow {
 		    }
 		}
 	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_country.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitCountry(@ModelAttribute ("record") JsonTransportDispCodeRecord recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitBilNr");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		ModelAndView successView = new ModelAndView("redirect:transportdisp_workflow_childwindow_country.do?action=doFind" + "&ctype=" + callerType);
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TransportDispConstants.DOMAIN_RECORD, recordToValidate);
+			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_country.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindCountry(@ModelAttribute ("record") JsonTransportDispCodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindBilNr");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		final String CODE_TYPE_COUNTRY = "2";
+		
+		String callerType = request.getParameter("ctype");
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_country");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_CODES_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&typ=" + CODE_TYPE_COUNTRY;
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTransportDispCodeContainer container = null;
+	    			try{ container = this.transportDispDropDownListPopulationService.getCodeContainer(jsonPayload); }
+	    			catch(Exception e){ e.printStackTrace(); }
+	    			
+		    		if(container!=null){
+		    			List<JsonTransportDispCodeRecord> list = new ArrayList();
+		    			for(JsonTransportDispCodeRecord  record : container.getKodlista()){
+		    				//logger.info("todo");
+		    				//logger.info("todo");
+		    				list.add(record);
+		    			}
+		    			model.put(this.DATATABLE_COUNTRYCODE_LIST, list);
+		    			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+		    			model.put("callerType", callerType);
+		    		}
+	    			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+				
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+				return loginView;
+			}
+				
+		    }
+		}
+	}
+	
 	
 	/**
 	 * 

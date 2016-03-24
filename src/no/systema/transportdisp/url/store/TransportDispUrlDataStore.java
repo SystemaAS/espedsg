@@ -81,6 +81,7 @@ public final class TransportDispUrlDataStore {
 	//---------------------------------------------------
 	static public String TRANSPORT_DISP_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG005R.pgm"; 
 	//http://gw.systema.no/sycgip/TNOG005R.pgm?user=OSCAR&typ=2 //country list
+	
 	//---------------------------------------------------
 	//[1.1] GENERAL FUNCTIONS eg.(signature, other...) 
 	//---------------------------------------------------

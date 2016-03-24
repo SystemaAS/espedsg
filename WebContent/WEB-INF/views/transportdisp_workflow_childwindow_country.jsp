@@ -2,18 +2,19 @@
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header =====================================-->
-<jsp:include page="/WEB-INF/views/headerTvinnSadChildWindows.jsp" />
+<jsp:include page="/WEB-INF/views/headerTransportDispChildWindows.jsp" />
 <!-- =====================end header ====================================-->
 
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadnctsimport_unloading_edit_items_childwindow_generalcodes.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/transportdisp_workflow_childwindow.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
-			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Søk kode</td>
+			<img title="select" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
+			Sök kod
+			</td>
 		</tr>
 		<tr>
 		<td valign="top">
@@ -46,16 +47,16 @@
 					<tr class="text12" >
 					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:30em;">
 					<%-- this is the datatables grid (content)--%>
-					<table id="generalCodeList" class="display compact cell-border" width="100%" >
+					<table id="countryCodeList" class="display compact cell-border" width="100%" >
 						<thead>
 						<tr style="background-color:#EEEEEE">
-							<th class="text11" title="adunnr">&nbsp;Kode&nbsp;</th>
-		                    <th class="text11" title="adembg">&nbsp;Beskrivelse&nbsp;</th>
+							<th class="text11" title="zkod">&nbsp;Kode&nbsp;</th>
+		                    <th class="text11" title="ztxt">&nbsp;Beskrivelse&nbsp;</th>
 		                </tr> 
 		                </thead>
 		                
 		                <tbody>
-		                <c:forEach var="record" items="${model.generalCodeList}" varStatus="counter">    
+		                <c:forEach var="record" items="${model.countryCodeList}" varStatus="counter">    
 			               <c:choose>           
 			                   <c:when test="${counter.count%2==0}">
 			                       <tr class="text11">
@@ -65,24 +66,12 @@
 			                   </c:otherwise>
 			               </c:choose>
 			               
-			               <c:choose>           
-		                   	<c:when test="${not empty record.zkod}">
-				               <td nowrap style="cursor:pointer;" class="text11MediumBlue" 
-				               		id="kod${record.zkod}@ctype${model.callerType}" >
+		               	   <td nowrap style="cursor:pointer;" class="text11MediumBlue" 
+				               		id="kod${record.zkod}@text${record.ztxt}@ctype${model.callerType}" >
 				               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 				               		&nbsp;&nbsp;${record.zkod}
-				               </td>
-			               	   <td class="text11">&nbsp;${record.ztxt}</td>
-		               	   	</c:when>
-		               	   	<c:otherwise>
-	               	    		<td nowrap style="cursor:pointer;" class="text11MediumBlue" 
-				               		id="kod${record.tkkode}@ctype${model.callerType}" >
-				               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
-				               		&nbsp;&nbsp;${record.tkkode}
-				               </td>
-			               	   <td class="text11">&nbsp;${record.tktxtn}</td>
-		               	   	</c:otherwise>
-		               	   </c:choose>
+			               </td>
+		               	   <td class="text11">&nbsp;${record.ztxt}</td>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

@@ -11,7 +11,12 @@
 	
 	<table width="99%" height="100px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 	
-		<tr><td valign="top" colspan="3" class="text14Bold">&nbsp;Externa Fakturor</td></tr>
+		<tr><td valign="top" colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
+		<img title="select" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
+		Externa Fakturor
+		</td>
+		</tr>
+		
 		<tr height="8"><td></td></tr>
 		<tr>
 		<td valign="top">

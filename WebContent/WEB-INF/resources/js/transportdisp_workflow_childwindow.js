@@ -427,6 +427,43 @@
 	  });
 	});
 	
+	//CountryCodes
+	jq(function() {
+		jq('#countryCodeList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+		  var code = record[0].replace("kod", "");
+		  var callerType = record[2].replace("ctype", "");
+		  
+		  if(callerType=='tulk'){
+			  opener.jq('#tulk').val(code);
+			  opener.jq('#tulk').focus();
+			  
+		  }else if(callerType=='tulkh'){
+			  opener.jq('#tulkh').val(code);
+			  opener.jq('#tulkh').focus();
+			  
+		  }else if(callerType=='tulkc1'){
+			  opener.jq('#tulkc1').val(code);
+			  opener.jq('#tulkc1').focus();
+			  
+		  }else if(callerType=='tulkc2'){
+			  opener.jq('#tulkc2').val(code);
+			  opener.jq('#tulkc2').focus();
+			  
+		  }else if(callerType=='tusonf'){
+			  opener.jq('#tusonf').val(code);
+			  opener.jq('#tusonf').focus();
+			  
+		  }else if(callerType=='tusont'){
+			  opener.jq('#tusont').val(code);
+			  opener.jq('#tusont').focus();
+		  }
+		  
+		  //close child window
+		  window.close();
+	  });
+	});
 	//======================
     //Datatables jquery 
     //======================
@@ -502,7 +539,11 @@
         ).draw();
     }
     
-    
+    function filterCountryCodeList (){
+        jq('#countryCodeList').DataTable().search(
+    		jq('#countryCodeList_filter').val()
+        ).draw();
+    }
     
     
     
@@ -671,5 +712,16 @@
 		  filterGebyrCodeList();
 	  });
       
+	//-----------------------
+	  //tables [Country codes]
+	  //-----------------------
+	  jq('#countryCodeList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.countryCodeList_filter').on( 'keyup click', function () {
+		  filterCountryCodeList();
+	  });
     });
   	

@@ -640,7 +640,7 @@
 							    			</td>
 								    		<td class="text11" nowrap><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="tubiln" id="tubiln" size="10" maxlength="8" value="${model.record.tubiln}">
 								    		<a tabindex=0 id="tubilnIdLink" >
-								    			<img id="imgTruckLicSearch" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+								    			<img id="imgTruckLicSearch" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 									</a>
 								    		
 								    		</td>
@@ -651,26 +651,10 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tulk == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 											</select>
-											<%-- info span --%>
-											<img id="tulkImg" tabindex=0 onClick="showPop('truckLicCountry01Info');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-											<span style="position:absolute; left:300px; top:710px; width:350px; height:150px;" id="truckLicCountry01Info" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="truckLicCountry01" name="truckLicCountry01" size="5" onDblClick="setFocusTo_tuheng(); hidePop('truckLicCountry01Info');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="truckLicCountry01ButtonClose" id="truckLicCountry01ButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tuheng(); hidePop('truckLicCountry01Info');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
-											
-								    		</td>
+											<a tabindex="-1" id="tulkIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
+											</td>
 
 								    		<td><input type="text" class="inputTextMediumBlueUPPERCASE" name="tuheng" id="tuheng" size="10" maxlength="10" value="${model.record.tuheng}"></td>
 								    		<td class="text11" nowrap>
@@ -680,24 +664,10 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tulkh == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 												</select>
-												<%-- info span --%>
-												<img id="tulkhImg" tabindex=0 onClick="showPop('truckLicCountry02Info');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-												<span style="position:absolute; left:320px; top:810px; width:350px; height:150px;" id="truckLicCountry02Info" class="popupWithInputText"  >
-									           		<div class="text10" align="left">
-								           				<select class="text11" id="truckLicCountry02" name="truckLicCountry02" size="5" onDblClick="setFocusTo_tubilk(); hidePop('truckLicCountry02Info');">
-									           				<c:forEach var="country" items="${model.countryCodeList}" >
-									 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-															</c:forEach>
-									           			</select>
-									           			<table width="100%" align="left" border="0">
-															<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-															<tr align="left" >
-																<td class="text11">&nbsp;<button name="truckLicCountry02ButtonClose" id="truckLicCountry02ButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tubilk(); hidePop('truckLicCountry02Info');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-																</td>
-															</tr>
-														</table>
-													</div>
-												</span>	
+												<a tabindex="-1" id="tulkhIdLink">
+													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+												</a>
+												
 							    			</td>
 							    			
 								    	</tr>
@@ -710,7 +680,7 @@
 							    			</td>
 								    		<td><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="tubilk" id="tubilk" size="4" maxlength="3" value="${model.record.tubilk}">
 								    			<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_bilcode.do?action=doInit','bilcodeWin','top=300px,left=350px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-		 											<img id="imgTruckTypeSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+		 											<img id="imgTruckTypeSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 										</a>
 							    			</td>
 							    			
@@ -723,10 +693,10 @@
 													</c:forEach> 
 												</select>	
 												<%-- info span --%>
-												<img id="tuopdtImg" tabindex=-1 onClick="showPop('OppdragTypeInfo');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-												<span style="position:absolute; left:580px; top:850px; width:350px; height:150px;" id="OppdragTypeInfo" class="popupWithInputText"  >
-									           		<div class="text10" align="left">
-								           				<select class="text11" id="oppdragType" name="oppdragType" size="5" onDblClick="hidePop('OppdragTypeInfo');">
+												<img id="tuopdtImg" tabindex=-1 onClick="showPop('OppdragTypeInfo');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
+												<div class="text11" style="position: relative;" align="left">
+						 						<span style="position:absolute; width:280px; left:0px; top:4px;" id="OppdragTypeInfo" class="popupWithInputText"  >
+						 								<select class="text11" id="oppdragType" name="oppdragType" size="5" onDblClick="hidePop('OppdragTypeInfo');">
 									           				<c:forEach var="record" items="${model.oppdragstypeList}" >
 									 				  			<option value="${record.opdTyp}">${record.opdTyp}=${record.beskr}</option>
 															</c:forEach>
@@ -738,8 +708,8 @@
 																</td>
 															</tr>
 														</table>
-													</div>
 												</span>	
+												</div>
 								 			</td>
 								    	</tr>
 								    	<tr height="10"><td ></td></tr>
@@ -758,24 +728,9 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tulkc1 == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 											</select>
-											<%-- info span --%>
-											<img id="tulkc1Img" tabindex=0 onClick="showPop('containerCountry01Info');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-											<span style="position:absolute; left:300px; top:810px; width:350px; height:150px;" id="containerCountry01Info" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="containerCountry01" name="containerCountry01" size="5" onDblClick="setFocusTo_tucon2(); hidePop('containerCountry01Info');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="containerCountry01ButtonClose" id="containerCountry01ButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tucon2(); hidePop('containerCountry01Info');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
+											<a tabindex="-1" id="tulkc1IdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
 											
 								    		</td>
 
@@ -787,24 +742,9 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tulkc2 == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 											</select>
-											<%-- info span --%>
-											<img id="tulkc2Img" tabindex=0 onClick="showPop('containerCountry02Info');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-											<span style="position:absolute; left:320px; top:810px; width:350px; height:150px;" id="containerCountry02Info" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="containerCountry02" name="containerCountry02" size="5" onDblClick="setFocusTo_tuknt2(); hidePop('containerCountry02Info');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="containerCountry02ButtonClose" id="containerCountry02ButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tuknt2(); hidePop('containerCountry02Info');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
+											<a tabindex="-1" id="tulkc2IdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
 							    			</td>
 								    	</tr>
 								    
@@ -817,7 +757,7 @@
 						    				</td>
 								    		<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="tuknt2" id="tuknt2" size="9" maxlength="8" value="${model.record.tuknt2}">
 								    			<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_transpcarrier.do?action=doInit','transpcarrierWin','top=300px,left=350px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-		 										<img id="imgTruckersNrSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+		 										<img id="imgTruckersNrSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 									</a>
 								    		</td>
 								    		<td colspan="4"><input readonly tabindex=-1 type="text" class="inputTextMediumBlueUPPERCASE inputTextReadOnly" name="tunat" id="tunat" size="35" maxlength="30" value="${model.record.tunat}"></td>
@@ -833,7 +773,7 @@
 								    		</td>
 								    		<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="tusja1" id="tusja1" size="6" maxlength="8" value="${model.record.tusja1}">
 								    			<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_driver.do?action=doInit&dv=1','driverWin','top=300px,left=350px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-		 										<img id="imgDriver1Search" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+		 										<img id="imgDriver1Search" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 									</a>
 								    		</td>
 								    		<td colspan="4"><input type="text" class="inputTextMediumBlueUPPERCASE" name="tusjn1" id="tusjn1" size="35" maxlength="30" value="${model.record.tusjn1}"></td>
@@ -847,7 +787,7 @@
 								    		</td>
 								    		<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="tusja2" id="tusja2" size="6" maxlength="8" value="${model.record.tusja2}">
 								    			<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_driver.do?action=doInit&dv=2','driverWin','top=300px,left=350px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-		 										<img id="imgDriver2Search" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+		 										<img id="imgDriver2Search" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 									</a>
 								    		</td>
 								    		<td colspan="4"><input type="text" class="inputTextMediumBlueUPPERCASE" name="tusjn2" id="tusjn2" size="35" maxlength="30" value="${model.record.tusjn2}"></td>
@@ -913,29 +853,14 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tusonf == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 											</select>
-											<%-- info span --%>
-											<img id="tusonfImg" tabindex=0 onClick="showPop('etdCountryInfo');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-											<span style="position:absolute; left:800px; top:710px; width:350px; height:150px;" id="etdCountryInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="etdCountry" name="etdCountry" size="5" onDblClick="setFocusTo_tustef(); hidePop('etdCountryInfo');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="etdCountryButtonClose" id="etdCountryButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tustef(); hidePop('etdCountryInfo');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>
+											<a tabindex="-1" id="tusonfIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
 											
 							    			</td>
 								    		<td class="text11" nowrap><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tustef" id="tustef" size="6" maxlength="5" value="${model.record.tustef}">
 								    			<a tabindex=0 id=tustefIdLink>
-								    				<img id="imgFromSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+								    				<img id="imgFromSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 								    			</a>
 								    		</td>
 								    	</tr>
@@ -998,28 +923,13 @@
 							 				  		<option value="${country.zkod}"<c:if test="${model.record.tusont == country.zkod}"> selected </c:if> >${country.zkod}</option>
 												</c:forEach>  
 											</select>
-											<%-- info span --%>
-											<img id="tusontImg" tabindex=0  onClick="showPop('etaCountryInfo');" style="cursor:pointer; vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
-											<span style="position:absolute; left:800px; top:750px; width:350px; height:150px;" id="etaCountryInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="etaCountry" name="etaCountry" size="5" onDblClick="setFocusTo_tustet(); hidePop('etaCountryInfo');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="etaCountryButtonClose" id="etaCountryButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="setFocusTo_tustet(); hidePop('etaCountryInfo');">&nbsp;<spring:message code="systema.transportdisp.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>
+											<a tabindex="-1" id="tusontIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
 							    			</td>
 								    		<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tustet" id="tustet" size="6" maxlength="5" value="${model.record.tustet}">
 								    			<a tabindex=0 id="tustetIdLink" >
-		 											<img id="imgToSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
+		 											<img id="imgToSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search">
 		 										</a>
 								    		</td>
 								    	</tr>

@@ -13,7 +13,8 @@
 	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr height="5"><td colspan="2"></td></tr>
 		<tr>
-			<td colspan="3" class="text14Bold">&nbsp;
+			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
+				<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
 				<spring:message code="systema.transportdisp.orders.form.update.label.load.title"/>
 			</td>
 		</tr>
