@@ -2,6 +2,74 @@
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
     
+  	jq(function() {
+	  	jq('#tvtdn2IdLink').click(function() {
+	    	jq('#tvtdn2IdLink').attr('target','_blank');
+	    	window.open('tvinnsadnctsexport_edit_items_childwindow_oppdragslist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvtdn2IdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvtdn2IdLink').click();
+			}
+	    });
+  	});
+  	jq(function() {
+  		jq('#tvtdn2').blur(function() {
+  		  if(jq('#tvtdn2').val()!='' ){
+  			 //only with create new line 
+  			 if(jq('#tvli').val()==''){
+  				getDefaultValuesFromSkatExportHeader();
+  			 }else if(jq('#tvnas').val()=='' && jq('#tvnak').val()==''){
+  				getDefaultValuesFromSkatExportHeader(); 
+  			 } 
+  		  }			  
+  		});
+  	});
+  //populate GUI fields (when applicable)
+  	function getDefaultValuesFromSkatExportHeader(){
+  		jq.ajax({
+  	  	  type: 'GET',
+  	  	  url: 'getSpecificTopic_SadExport.do',
+  	  	  data: { applicationUser : jq('#applicationUser').val(), 
+  	  		  	  avd : jq('#tvavd2').val(), 
+  	  		  	  opd : jq('#tvtdn2').val() },
+  	  	  dataType: 'json',
+  	  	  cache: false,
+  	  	  contentType: 'application/json',
+  	  	  success: function(data) {
+  	  		var len = data.length;
+  	  		//CLEAN all fields
+  	  		//Avsender
+			jq('#tvkns').val("");jq('#tvnas').val("");jq('#tvtins').val("");jq('#tvads1').val(""); 
+			jq('#tvpns').val("");jq('#tvpss').val(""); jq('#tvlks').val(""); 
+			//Mottaker
+			jq('#tvknk').val("");jq('#tvnak').val("");jq('#tvtink').val("");jq('#tvadk1').val(""); 
+			jq('#tvpnk').val("");jq('#tvpsk').val("");jq('#tvlkk').val("");
+			
+  			for ( var i = 0; i < len; i++) {
+  				//This line counter (lastSelectedItemLineNumber) is used in order to have a serial counter for the row lines. It is the only serial counter...
+  				//It is used ONLY for aspect/behavior purposes on GUI (scroll, bgColor, etc) in the specific row.
+  				//Avsender
+  				jq('#tvkns').val(data[i].seknk);
+  				jq('#tvnas').val(data[i].senak);
+  				jq('#tvtins').val(data[i].serg);
+  				jq('#tvads1').val(data[i].seadk1);
+  				jq('#tvpns').val(data[i].seadk2);
+  				jq('#tvpss').val(data[i].seadk3);
+  				//jq('#tvlks').val(?);
+  				//Mottaker
+  				jq('#tvknk').val(data[i].sekns);
+  				jq('#tvnak').val(data[i].senas);
+  				//?jq('#tvtink').val(data[i].dkeh_08a);
+  				jq('#tvadk1').val(data[i].seads1);
+  				jq('#tvpnk').val(data[i].seads2);
+  				jq('#tvpsk').val(data[i].seads3);
+  				//?jq('#tvlkk').val(data[i].dkeh_08f);
+  			}
+	  	  }
+  		});	
+  		
+  	}
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {
       jq('#alinkTopicList').click(function() { 

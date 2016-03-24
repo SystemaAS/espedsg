@@ -41,19 +41,22 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicListContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicListRecord;
+import no.systema.tvinn.sad.sadexport.service.SadExportTopicListService;
+import no.systema.tvinn.sad.sadexport.filter.SearchFilterSadExportTopicList;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
+
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodRecord;
-import no.systema.tvinn.sad.nctsexport.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.sadexport.service.SadExportGeneralCodesChildWindowService;
 import no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodService;
 
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
-
-
-
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 
 /**
  * SAD NCTS Export Item Controller - child windows popup
@@ -70,6 +73,8 @@ public class SadNctsExportItemsControllerChildWindow {
 	
 	private static final Logger logger = Logger.getLogger(SadNctsExportItemsControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+	
 	//customer
 	private final String DATATABLE_LIST = "list";
 	private final String GENERAL_CODE_2_COUNTRY = "2";
@@ -90,8 +95,77 @@ public class SadNctsExportItemsControllerChildWindow {
 			logger.setLevel(Level.DEBUG);
 		}
 	}
-	
-	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadnctsexport_edit_items_childwindow_oppdragslist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
+	public ModelAndView doFindOppdragsList(@ModelAttribute ("record") SearchFilterSadExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindOppdragsList");
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("tvinnsadnctsexport_edit_items_childwindow_oppdragslist");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			
+			List<JsonSadExportTopicListRecord> list = (List<JsonSadExportTopicListRecord>)this.getOppdragsList(appUser, searchFilter);
+			model.put("oppdragsList", list);
+			successView.addObject(TvinnSadConstants.DOMAIN_SEARCH_FILTER , searchFilter);
+			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param searchFilter
+	 * @return
+	 */
+	private Collection<JsonSadExportTopicListRecord> getOppdragsList(SystemaWebUser appUser, SearchFilterSadExportTopicList searchFilter){
+		Collection<JsonSadExportTopicListRecord> list = new ArrayList<JsonSadExportTopicListRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		
+		//get BASE URL
+		final String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_TOPICLIST_URL;
+		//add URL-parameters
+		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+
+    	//Debug --> 
+    	logger.info(jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSadExportTopicListContainer jsonSadExportTopicListContainer = this.sadExportTopicListService.getSadExportTopicListContainer(jsonPayload);
+			//-----------------------------------------------------------
+			//now filter the topic list with the search filter (if applicable)
+			//-----------------------------------------------------------
+			list = jsonSadExportTopicListContainer.getOrderList();	
+			//Remove all "D" status rows. These are to be shown if-and-only-if the user demand it explicitly in the search filter
+			if(!"D".equals(searchFilter.getStatus())){
+				//To avoid the ...ConcurrentModificationException we take a copy of the existing list and iterate over new copy
+				for (JsonSadExportTopicListRecord record : new ArrayList<JsonSadExportTopicListRecord>(list)){
+					if("D".equals(record.getStatus())){
+						list.remove(record);
+					}
+				}
+			}
+    	}
+		return list;
+	}
 	/**
 	 * 
 	 * @param recordToValidate
@@ -262,6 +336,56 @@ public class SadNctsExportItemsControllerChildWindow {
 		}
 		return list;
 	}
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParameters(SearchFilterSadExportTopicList searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		//String action = request.getParameter("action");
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		if(searchFilter.getAvd()!=null && !"".equals(searchFilter.getAvd())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + searchFilter.getAvd());
+		}
+		if(searchFilter.getOpd()!=null && !"".equals(searchFilter.getOpd())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + searchFilter.getOpd());
+		}
+		if(searchFilter.getXref()!=null && !"".equals(searchFilter.getXref())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "xref=" + searchFilter.getXref());
+		}
+		if(searchFilter.getSg()!=null && !"".equals(searchFilter.getSg())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sg=" + searchFilter.getSg());
+		}
+		if(searchFilter.getSitll()!=null && !"".equals(searchFilter.getSitll())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lopenr=" + searchFilter.getSitll());
+		}
+		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + this.dateFormatter.convertToDate_ISO(searchFilter.getDatum()));
+		}
+		if(searchFilter.getDatumt()!=null && !"".equals(searchFilter.getDatumt())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datumt=" + this.dateFormatter.convertToDate_ISO(searchFilter.getDatumt()));
+		}
+		if(searchFilter.getStatus()!=null && !"".equals(searchFilter.getStatus())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "status=" + searchFilter.getStatus());
+		}
+		if(searchFilter.getAvsNavn()!=null && !"".equals(searchFilter.getAvsNavn())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avsNavn=" + searchFilter.getAvsNavn());
+		}
+		if(searchFilter.getMotNavn()!=null && !"".equals(searchFilter.getMotNavn())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "motNavn=" + searchFilter.getMotNavn());
+		}
+		if(searchFilter.getAart()!=null && !"".equals(searchFilter.getAart())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "aart=" + searchFilter.getAart());
+		}
+		if(searchFilter.getInnstikk()!=null && !"".equals(searchFilter.getInnstikk())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "innstikk=" + searchFilter.getInnstikk());
+		}
+		
+		return urlRequestParamsKeys.toString();
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -271,6 +395,7 @@ public class SadNctsExportItemsControllerChildWindow {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
+	
 	@Qualifier 
 	private SadExportGeneralCodesChildWindowService sadExportGeneralCodesChildWindowService;
 	@Autowired
@@ -278,12 +403,21 @@ public class SadNctsExportItemsControllerChildWindow {
 	public void setSadExportGeneralCodesChildWindowService(SadExportGeneralCodesChildWindowService value){this.sadExportGeneralCodesChildWindowService = value;}
 	public SadExportGeneralCodesChildWindowService getSadExportGeneralCodesChildWindowService(){ return this.sadExportGeneralCodesChildWindowService; }
 	
+	
 	@Qualifier 
 	private TvinnSadTolltariffVarukodService tvinnSadTolltariffVarukodService;
 	@Autowired
 	@Required	
 	public void setTvinnSadTolltariffVarukodService(TvinnSadTolltariffVarukodService value){this.tvinnSadTolltariffVarukodService = value;}
 	public TvinnSadTolltariffVarukodService getTvinnSadTolltariffVarukodService(){ return this.tvinnSadTolltariffVarukodService; }
+	
+	
+	@Qualifier ("sadExportTopicListService")
+	private SadExportTopicListService sadExportTopicListService;
+	@Autowired
+	@Required
+	public void setSadExportTopicListService (SadExportTopicListService value){ this.sadExportTopicListService = value; }
+	public SadExportTopicListService getSadExportTopicListService(){ return this.sadExportTopicListService; }
 	
 	
 }

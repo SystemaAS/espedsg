@@ -27,7 +27,6 @@ import no.systema.main.service.general.CurrencyRateService;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 
-//SKAT
 import no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodService;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
@@ -41,6 +40,7 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExpor
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicAvdDataContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicAvdDataRecord;
 
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicRecord;
 
 //import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemToldvaerdiRecord;
@@ -71,47 +71,7 @@ public class SadExportAjaxHandlerController {
 	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	private SadExportCalculator sadExportCalculator = new SadExportCalculator();
 	
-	/**
-	 * Gets the signature name (person)
-	 * 
-	 * @param applicationUser
-	 * @param avd
-	 * @param sign
-	 * @return
-	 */
-	/*
-	@RequestMapping(value = "getSignatureName_TdsImport.do", method = RequestMethod.GET)
-     public @ResponseBody Set<JsonTdsSignatureNameRecord> getSignatureName
-	  						(@RequestParam String applicationUser, @RequestParam String avd, 
-	  						 @RequestParam String sign) {
-		 logger.info("Inside: getSignatureName_TdsImport.do");
-		 Set result = new HashSet();
-		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TdsUrlDataStore.TDS_FETCH_SIGNATURE_NAME_URL;
-		 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&sign=" + sign;
-		 logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		 logger.info("PARAMS: " + urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		 logger.info(jsonPayload);
-		 if(jsonPayload!=null){
-			 	try{
-			 		JsonTdsSignatureNameContainer container = this.tdsSignatureNameService.getContainer(jsonPayload);
-					if(container!=null){
-						 for(JsonTdsSignatureNameRecord  record : container.getGetsignname()){
-							 logger.info("#### SVTH_NAMN:" + record.getSvth_namn());
-							 result.add(record);
-						 }
-					}
-			 	}catch(Exception e){
-			 		e.printStackTrace();
-			 	}
-			 }
-		 
-		 return result;
-	}
-	  */
+	
 	/**
 	 * Fetches the dep. information
 	 * 
@@ -474,7 +434,43 @@ public class SadExportAjaxHandlerController {
 		  
 		  return result;
 	  }
-	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @return
+	   */
+	  @RequestMapping(value = "getSpecificTopic_SadExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSadExportSpecificTopicRecord> getSpecificTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+		 logger.info("Inside: getSpecificTopic_SadExport.do");
+		 Set result = new HashSet();
+		 String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
+		 //url params
+	 	 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
+		 //for debug purposes in GUI
+		 
+		 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	 logger.info("URL: " + BASE_URL);
+    	 logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	 //--------------------------------------
+    	 //EXECUTE the FETCH (RPG program) here
+    	 //--------------------------------------
+    	 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 //Debug --> 
+    	 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	 if(jsonPayload!=null){
+    		JsonSadExportSpecificTopicContainer container = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
+    		if(container!=null && container.getOneorder()!=null){
+    			for(JsonSadExportSpecificTopicRecord record : container.getOneorder()){
+  				  //Debug
+  				  logger.info("Avs:" + record.getSenas());
+  				  result.add(record);
+  			  	}
+    		}
+    	 }
+		 return result;
+	 }
   	  /**
 	   * 
 	   * @param applicationUser

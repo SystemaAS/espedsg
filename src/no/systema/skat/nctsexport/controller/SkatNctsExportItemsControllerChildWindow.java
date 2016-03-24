@@ -86,7 +86,7 @@ public class SkatNctsExportItemsControllerChildWindow {
 	 * @return
 	 */
 	@RequestMapping(value="skatnctsexport_edit_items_childwindow_angivelselist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
-	public ModelAndView doInitAngivelseList(@ModelAttribute ("record") SearchFilterSkatExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFindAngivelseList(@ModelAttribute ("record") SearchFilterSkatExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doInitAngivelseList");
 		Map model = new HashMap();

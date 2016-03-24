@@ -1009,6 +1009,9 @@
 		            		<span title="tvavd2/tvtdn2" >Oppdrag</span>&nbsp;&nbsp;
 		            			<input type="text" class="inputTextMediumBlue" name="tvavd2" id="tvavd2" size="4" maxlength="4" value="${model.record.tvavd2}">
 		            			<input type="text" class="inputTextMediumBlue" name="tvtdn2" id="tvtdn2" size="8" maxlength="7" value="${model.record.tvtdn2}">
+		            			<a tabindex="-1" id="tvtdn2IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" border="0" alt="search" >
+								</a>
 		            		<div class="text11" style="position: relative;" align="left">
 							<span style="position:absolute;top:2px; width:250px;" id="tvtdn2_info" class="popupWithInputText text11"  >
 			           			Hvis deklarasjonen er basert på et oppdrag/eksportdekl., vises avd./oppdragsnr. her.
