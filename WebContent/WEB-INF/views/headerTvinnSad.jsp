@@ -158,10 +158,17 @@
 	               			</c:choose>
 	               			>&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.admin.label"/>&nbsp;&nbsp;</font>
 			    			</a>
+			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
 			    			<%--
 			    			<font class="headerMenuAdmin">&nbsp;<spring:message code="systema.tvinn.sad.admin.label"/>&nbsp;&nbsp;</font>
 			    			 --%>
-			    			 
+			    			 <%-- ------------------- --%>
+			    			<%-- Maintenance  MENU    --%>
+			    			<%-- -------------------- --%>
+			    			<a tabindex=-1 href="tvinnsadmaintenancegate.do">
+			    				&nbsp;<font class="headerMenuAdmin">
+		                   	&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.maintenance.label"/>&nbsp;&nbsp;</font>
+			    			</a>
 	      				</td>		      				
 	      				<td class="text11" width="50%" align="right" valign="middle">
 	      					<!-- Flags for languages in TVINN -->
