@@ -31,7 +31,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
-
+import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
 
 /**
  * TVINN Maintenance Export Topic Controller 
@@ -73,6 +73,7 @@ public class MaintSadExportController {
 			session.setAttribute(TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_TVINN_SAD_MAINTENANCE, TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
+			List list = this.populateMaintenanceMainList();
 			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 			//this.setCodeDropDownMgr(appUser, model);
@@ -80,14 +81,52 @@ public class MaintSadExportController {
 			//searchFilter.setSg(appUser.getTvinnSadSign());
 			//successView.addObject("searchFilter" , searchFilter);
 			//init the rest
-			//successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+			model.put("list", list);
+			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			//successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
 			
 	    	return successView;
 		}
 	}
-	
-	
+	/**
+	 * 
+	 * @return
+	 */
+	private List<MaintenanceMainListObject> populateMaintenanceMainList(){
+		List<MaintenanceMainListObject> listObject = new ArrayList<MaintenanceMainListObject>();
+		MaintenanceMainListObject object = new  MaintenanceMainListObject();
+		object.setId("1");
+		object.setSubject("Status");
+		object.setCode("SADE_STATUS");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("2");
+		object.setSubject("Avd-utførsel");
+		object.setCode("SADE_AVD");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("3");
+		object.setSubject("Løpenr. utførsel");
+		object.setCode("SADE_LOPE");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("4");
+		object.setSubject("Fiskeavgifter");
+		object.setCode("SADE_FISKAVG");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("5");
+		object.setSubject("Kundens varekatalog");
+		object.setCode("SADE_KUNDVAREK");
+		listObject.add(object);
+		
+		
+		return listObject;
+	}
 	
 
 	

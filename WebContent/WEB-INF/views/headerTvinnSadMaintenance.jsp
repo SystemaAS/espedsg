@@ -59,8 +59,8 @@
 		</tr>
 		<%-- Header menu --%>
 		<tr >
-			<td height="23" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+			<td height="25" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
+    			 <table width="1100" border="0" cellspacing="1" cellpadding="1">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------------- --%>
@@ -73,7 +73,7 @@
 		                       			class="headerMenuDarkGray"
 		                   			</c:when>
 		                   			<c:otherwise>   
-		                       			class="headerMenuLightGray"
+		                       			class="headerMenuWhite"
 		                   			</c:otherwise>
 		               			</c:choose>
 			    				
@@ -92,7 +92,7 @@
 	                       			class="headerMenuDarkGray"
 	                   			</c:when>
 	                   			<c:otherwise>   
-	                       			class="headerMenuLightGray"
+	                       			class="headerMenuWhite"
 	                   			</c:otherwise>
 	               			</c:choose>
 			    				
@@ -109,7 +109,7 @@
 	                       			class="headerMenuDarkGray"
 	                   			</c:when>
 	                   			<c:otherwise>   
-	                       			class="headerMenuLightGray"
+	                       			class="headerMenuWhite"
 	                   			</c:otherwise>
 	               			</c:choose>
 			    				>&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.label"/>&nbsp;</font>
@@ -126,7 +126,7 @@
 		                       			class="headerMenuDarkGray"
 		                   			</c:when>
 		                   			<c:otherwise>   
-		                       			class="headerMenuLightGray"
+		                       			class="headerMenuWhite"
 		                   			</c:otherwise>
 		               			</c:choose>
 			    				>&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.label"/>&nbsp;</font>
@@ -146,7 +146,7 @@
 	      					
 						    <img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
 		      				&nbsp;
-		      				<font class="headerMenuLightGray">
+		      				<font class="headerMenuWhite">
 			    				<img src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');" > 
 						        <span style="position:absolute; left:100px; top:150px; width:1000px; height:400px;" id="specialInformationAdmin" class="popupWithInputText"  >
 						           		<div class="text11" align="left">
@@ -160,7 +160,7 @@
 			    				
 		    				<font color="#FF6600"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;&nbsp;</font>
 			    			<a tabindex=-1 href="logoutTvinnSad.do">
-			    				<font class="headerMenuLightGray"><img src="resources/images/home.gif" border="0">&nbsp;
+			    				<font class="headerMenuWhite"><img src="resources/images/home.gif" border="0">&nbsp;
 			    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 			    				</font>
 			    			</a>

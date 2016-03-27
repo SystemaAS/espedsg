@@ -5,15 +5,15 @@
 <jsp:include page="/WEB-INF/views/headerTvinnSadMaintenance.jsp" />
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
-		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> 
-	<SCRIPT type="text/javascript" src="resources/js/TODO.js?ver=${user.versionEspedsg}"></SCRIPT>	--%>
+		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenanceexport.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
 	</style>
 
 
-<table width="90%" class="text11" cellspacing="0" border="0" cellpadding="0">
+<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr height="15"><td>&nbsp;</td></tr>
 	<tr>
 		<td>
@@ -21,8 +21,8 @@
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
-					<td width="15%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;eSpedsg Todo</font>
+					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
+						<font class="tabLink">&nbsp;TVINN - Vedlikehold</font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 						
 					</td>
@@ -42,7 +42,7 @@
 							</a>
 					</td>
 					 --%>
-					<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>
 		</table>
 		</td>
@@ -57,47 +57,43 @@
 			<tr>
 				<td width="2%">&nbsp;</td>
 					
-				<td width="98%">
-				<table cellspacing="0" border="0" cellpadding="0">
+				<td width="100%">
+				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="center">
 			    	    <tr>
-						<td >
-						<table cellspacing="0" border="0" cellpadding="0">
-							<tr class="tableHeaderField" height="20" valign="left">
-								<td class="tableHeaderFieldFirst" align="center" >&nbsp;ID&nbsp;</td>
-			                    <td width="20%" class="tableHeaderField" align="left" >&nbsp;SUBJECT&nbsp;</td>
-			                    <td class="tableHeaderField" align="center" >&nbsp;DESCRIPTION&nbsp;</td>
-			                    <td class="tableHeaderField" align="center" >&nbsp;STATUS&nbsp;</td>
+						<td class="text11">
+						<table id="mainList" class="display compact cell-border" >
+							<thead>
+							<tr>
+								<th class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
+								<th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
+								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
 			                </tr>  
-			                   
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">    
-				               <c:choose>           
-				                   <c:when test="${counter.count%2==0}">
-				                       <tr class="tableRow" height="20" >
-				                   </c:when>
-				                   <c:otherwise>   
-				                       <tr class="tableOddRow" height="20" >
-				                   </c:otherwise>
-				               </c:choose>
-				               <td class="tableCellFirst" align="center" ><font class="text12MediumBlue">&nbsp;${record.id}&nbsp;</font></td>
-				               <td width="20%" class="tableCell" nowrap ><font class="text12MediumBlue">&nbsp;${record.subject}&nbsp;</font></td>
-		                       <td class="tableCell" nowrap ><font class="text12MediumBlue">&nbsp;${record.text}&nbsp;</font></td>
-		                       <td class="tableCell" ><font class="text12MediumBlue">&nbsp;${record.description}&nbsp;</font></td>
-		                       
+			                </thead> 
+			                <tbody >  
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
+				               <tr class="tableRow" height="20" >
+				              
+				               <td class="tableCellFirst" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
+				               <td width="20%" class="tableCell" nowrap ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
+		                       <td class="tableCell" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
+				               <td class="tableCell" nowrap ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
 		                       <td class="tableCell" align="center">
-		                       		<c:if test="${record.status == 'G'}">
-		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
-		                       		</c:if>
-		                       		<c:if test="${record.status == 'R'}">
+		                       		<c:if test="${empty record.status}">
 		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
+		                       		</c:if>
+		                       		<c:if test="${not empty record.status}">
+		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
 		                       		</c:if>
 		                       		<c:if test="${record.status == 'Y'}">
 		                       			<img src="resources/images/bulletYellowModern.png" width="11px" height="11px" border="0">
 		                       		</c:if>
-		                       		
 		                       </td>
 				              
 				            </tr> 
 				            </c:forEach>
+				            </tbody>
 			            </table>
 					</td>	
 					</tr>
