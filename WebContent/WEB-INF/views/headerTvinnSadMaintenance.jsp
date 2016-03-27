@@ -59,8 +59,8 @@
 		</tr>
 		<%-- Header menu --%>
 		<tr >
-			<td height="25" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="1" cellpadding="1">
+			<td height="24" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
+    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------------- --%>
@@ -70,7 +70,7 @@
 			    				&nbsp;<font 
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='TVINN_SAD_MAINTENANCE_EXPORT'}">
-		                       			class="headerMenuDarkGray"
+		                       			class="headerMenuOrange"
 		                   			</c:when>
 		                   			<c:otherwise>   
 		                       			class="headerMenuWhite"
@@ -89,7 +89,7 @@
 			    				&nbsp;<font 
 			    				<c:choose>           
 	                   			<c:when test="${user.activeMenu=='TVINN_SAD_IMPORT'}">
-	                       			class="headerMenuDarkGray"
+	                       			class="headerMenuOrange"
 	                   			</c:when>
 	                   			<c:otherwise>   
 	                       			class="headerMenuWhite"
@@ -106,7 +106,7 @@
 			    				&nbsp;<font
 			    				<c:choose>           
 	                   			<c:when test="${user.activeMenu=='TVINN_SAD_NCTS_EXPORT'}">
-	                       			class="headerMenuDarkGray"
+	                       			class="headerMenuOrange"
 	                   			</c:when>
 	                   			<c:otherwise>   
 	                       			class="headerMenuWhite"
@@ -178,6 +178,12 @@
 			    		</td>
 			        </tr>
 			     </table> 
+			</td>
+	    </tr>
+	    <tr>
+		    <td height="2" class="tabThinBorderOrange" width="100%" align="left" colspan="3"> 
+	   			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+	   			 </table>
 			</td>
 	    </tr>
 	   

@@ -37,6 +37,13 @@ END override jQuery elements
 .tabThinBorderLightGray {  
     font-family: verdana, Arial, Helvetica, sans-serif; 
     background-color:#D3D3D3; 
+    /*border-style: solid; 
+    border-width: 0px 0px 0px 0px; 
+    border-color:#FF6600;*/
+}
+.tabThinBorderOrange {  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    background-color:#FF6600; 
     border-style: solid; 
     border-width: 0px 1px 1px 0px; 
     border-color:#FF6600;
@@ -68,7 +75,6 @@ END override jQuery elements
 	cursor:pointer;
 }
 .headerMenuOrange{
-	border: 0px solid #ccc;
 	-webkit-border-radius: 1em 4em 1em 4em;
 	-moz-border-radius: 1em 4em 1em 4em;
 	border-radius: 1em 4em 1em 4em;
@@ -76,6 +82,9 @@ END override jQuery elements
 	padding: 2px 4px;
 	background-color:#FF6600;
 	color:#FFFFFF;
+	border-style: solid; 
+    border-width: 0px 1px 0px 0px;
+	border-color:#778899;
 	cursor:pointer;
 }
 .headerMenuLightOrange{
