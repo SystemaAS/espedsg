@@ -138,7 +138,7 @@
 		               			</c:choose>
 			    				>&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.label"/>&nbsp;</font>
 			    			</a>
-			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
+			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">|</font>
 			    			<%--
 			    			<font class="headerMenuLightGreen">&nbsp;<spring:message code="systema.ncts.import.label"/>&nbsp;</font>
 			    			--%>
@@ -158,7 +158,7 @@
 	               			</c:choose>
 	               			>&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.admin.label"/>&nbsp;&nbsp;</font>
 			    			</a>
-			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
+			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">|</font>
 			    			<%--
 			    			<font class="headerMenuAdmin">&nbsp;<spring:message code="systema.tvinn.sad.admin.label"/>&nbsp;&nbsp;</font>
 			    			 --%>

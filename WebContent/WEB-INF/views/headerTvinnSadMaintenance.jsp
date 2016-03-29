@@ -131,7 +131,7 @@
 		               			</c:choose>
 			    				>&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.label"/>&nbsp;</font>
 			    			</a>
-			    			&nbsp;<font color="#FF6600"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
+			    			&nbsp;<font color="#FF6600"; style="font-weight: bold;">|</font>
 			    			
 			    			
 		    			 	<%-- ------------------- --%>
