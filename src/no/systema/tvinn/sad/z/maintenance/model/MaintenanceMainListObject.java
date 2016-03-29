@@ -9,11 +9,15 @@ import java.util.*;
  * @date Mar 27, 2016
  * 
  */
-public class MaintenanceMainListObject {
+public class MaintenanceMainListObject  {
 	
 	private String id = null; 
 	public void setId(String value) {  this.id = value; }
 	public String getId() { return this.id;}
+	
+	private Integer idInt = 0; 
+	public void setIdInt(Integer value) {  this.idInt = value; }
+	public Integer getIdInt() { return idInt;}
 	
 	private String code = null; 
 	public void setCode(String value) {  this.code = value; }
@@ -34,6 +38,10 @@ public class MaintenanceMainListObject {
 	private String description = null; 
 	public void setDescription(String value) {  this.description = value; }
 	public String getDescription() { return this.description;}
+	
+	private String dbTable = null; 
+	public void setDbTable(String value) {  this.dbTable = value; }
+	public String getDbTable() { return this.dbTable;}
 	
 	
 }

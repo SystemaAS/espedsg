@@ -61,11 +61,12 @@
 				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="center">
 			    	    <tr>
 						<td class="text11">
-						<table id="mainList" class="display compact cell-border" >
+						<table id="mainList" class="display compact " >
 							<thead>
 							<tr>
 								<th class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
-								<th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
+			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
 								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
@@ -73,13 +74,18 @@
 			                </thead> 
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
-				               <tr class="tableRow" height="20" >
+				               <tr class="tableRow"  height="20" >
 				              
-				               <td class="tableCellFirst" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
-				               <td width="20%" class="tableCell" nowrap ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
-		                       <td class="tableCell" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
-				               <td class="tableCell" nowrap ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
-		                       <td class="tableCell" align="center">
+				               <td class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
+				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
+			               			<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceexport_edit.do?action=doFetch&id=${Xrecord.id}">
+	               						<img src="resources/images/update.gif" border="0" alt="edit">
+				               		</a>
+				               </td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
 		                       		<c:if test="${empty record.status}">
 		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
 		                       		</c:if>

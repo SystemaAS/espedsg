@@ -109,15 +109,88 @@ END override jQuery elements
 	color:#E55B00;
 	cursor:pointer;
 }
+.tableHeaderField {  
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color:#000000; 
+    /*background-color: #DCDCDC ;*/
+    background-color: #DDDDDD; /*milk-white*/
+    border-style: solid; 
+    border-width: 1px 1px 1px 0px; 
+    border-color:#FF6600;
+}
+.tableHeaderFieldFirst { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color:#000000; 
+    background-color: #FEFCFF; /*milk-white*/
+    border-style: solid; 
+    border-width: 1px 1px 1px 1px; 
+    border-color:#FF6600;
+}
+
+.tab {
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 5px 5px 0px 0px;
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 11px;
+    color: #4E78A0; 
+    background-color:#FFFFFF;
+    border-style: solid; 
+    border-width: 1px 1px 0px 1px; 
+    border-color: #DDDDDD; /*A0A0A0*/
+    margin: 2px;
+    padding: 2px
+}
+.tabThinBorderWhite {  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 11px;  
+    color: #4E78A0; 
+    background-color:#FFFFFF;
+    border-style: solid; 
+    border-width: 0px 1px 1px 1px; 
+    border-color: #DDDDDD; /*A0A0A0*/
+}
+
+.tabFantomSpace {  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 10px; 
+    background-color:#FFFFFF;
+    border-style: solid; 
+    border-width: 0px 0px 1px 0px; 
+    border-color: #DDDDDD;
+    margin: 1px;
+    padding: 1px      
+}
+.tableCell{  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 10px;
+    color: black; 
+    border-style: solid; 
+    border-width: 0px 1px 1px 0px; 
+    border-color:#BBBBBB; 
+}
+.tableCellFirst{  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 10px; 
+    color: black;
+    border-style: solid; 
+    border-width: 0px 1px 1px 1px; 
+    border-color:#BBBBBB;
+}
+.headerTdsBannerAreaBg{
+	background-color:#FCFFF0;
+	border-style: outset; 
+    border-width: 0px 1px 1px 0px; 
+    /*border-color:#778899*/
+}
 
 
 
 
-
-
-
-
-
+/* ===========================================*/
 .ownScrollableSubWindow{    
   width: 1050px;
   height:10em;
@@ -393,13 +466,6 @@ END override jQuery elements
     border-width: 0px 1px 1px 0px; 
     border-color:#1F1F1F;
 	
-}
-
-.headerTdsBannerAreaBg{
-	background-color:#FCFFF0;
-	border-style: outset; 
-    border-width: 0px 1px 1px 0px; 
-    border-color:##778899
 }
 
 .headerMenuBlue{
@@ -1732,24 +1798,7 @@ END override jQuery elements
     border-width: 1px 1px 1px 1px; 
     border-color:#4E78A0
 }
-.tableHeaderField {  
-	font-family: Verdana, Arial, Helvetica, sans-serif; 
-	font-size: 12px; 
-	color:#000000; 
-    background-color: #DCDCDC ;
-    border-style: solid; 
-    border-width: 1px 1px 1px 0px; 
-    border-color:#FF6600;
-}
-.tableHeaderFieldFirst { 
-	font-family: Verdana, Arial, Helvetica, sans-serif; 
-	font-size: 12px; 
-	color:#000000; 
-    background-color: #DCDCDC ;
-    border-style: solid; 
-    border-width: 1px 1px 1px 1px; 
-    border-color:#FF6600;
-}
+
 .tableOddRow {  
         font-family: Verdana, Arial, Helvetica, sans-serif; 
         font-size: 10px; 
@@ -1759,15 +1808,6 @@ END override jQuery elements
         font-family: Verdana, Arial, Helvetica, sans-serif; 
         font-size: 10px; 
         background-color:#FFFFFF
-}
-.tableCell{  
-    font-family: verdana, Arial, Helvetica, sans-serif; 
-    font-size: 10px;
-    color: black; 
-    border-style: solid; 
-    border-width: 0px 1px 1px 0px; 
-    border-color:#BBBBBB
-     
 }
 .tableCellGray{  
     font-family: verdana, Arial, Helvetica, sans-serif; 
@@ -1836,14 +1876,7 @@ END override jQuery elements
     border-color:#4E78A0
      
 }
-.tableCellFirst{  
-    font-family: verdana, Arial, Helvetica, sans-serif; 
-    font-size: 10px; 
-    color: black;
-    border-style: solid; 
-    border-width: 0px 1px 1px 1px; 
-    border-color:#BBBBBB
-}
+
 .tableCellFirst11{  
     font-family: verdana, Arial, Helvetica, sans-serif; 
     font-size: 11px; 
@@ -1887,15 +1920,7 @@ END override jQuery elements
     border-color: #4E78A0;
 }
 
-.tabThinBorderWhite {  
-    font-family: verdana, Arial, Helvetica, sans-serif; 
-    font-size: 11px;  
-    color: #4E78A0; 
-    background-color:#FFFFFF;
-    border-style: solid; 
-    border-width: 0px 1px 1px 1px; 
-    border-color: #A0A0A0;
-}
+
 
 .tabThinBorderWhiteWithTopBorder {  
     font-family: verdana, Arial, Helvetica, sans-serif; 
@@ -1926,21 +1951,7 @@ END override jQuery elements
     border-width: 0px 0px 0px 0px; 
     border-color: #4E78A0;
 }
-.tab {
-	border: 1px solid #ccc;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 5px 5px 0px 0px;
-    font-family: verdana, Arial, Helvetica, sans-serif; 
-    font-size: 11px;
-    color: #4E78A0; 
-    background-color:#FFFFFF;
-    border-style: solid; 
-    border-width: 1px 1px 0px 1px; 
-    border-color: #A0A0A0;
-    margin: 2px;
-    padding: 2px
-}
+
 .tabDisabled { 
 	border: 1px solid #ccc;
 	-moz-border-radius: 2px;
@@ -1967,16 +1978,7 @@ END override jQuery elements
     margin: 2px;
     padding: 2px
 }
-.tabFantomSpace {  
-    font-family: verdana, Arial, Helvetica, sans-serif; 
-    font-size: 10px; 
-    background-color:#FFFFFF;
-    border-style: solid; 
-    border-width: 0px 0px 1px 0px; 
-    border-color: #A0A0A0;
-    margin: 1px;
-    padding: 1px      
-}
+
 
 .tabLink{ 
     font-family: verdana, Arial, Helvetica, sans-serif; 

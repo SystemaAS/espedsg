@@ -59,7 +59,7 @@
 		</tr>
 		<%-- Header menu --%>
 		<tr >
-			<td height="24" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
+			<td height="22" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
     			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
@@ -85,10 +85,10 @@
 			    			<%-- --------------------- --%>
 			    			<%-- TVINN-SAD IMPORT MENU --%>
 			    			<%-- --------------------- --%>
-			    			<a id="alinkTopicListMenuImp" tabindex=-1 href="TODOtvinnsadimport.do?action=doFind&sg=${user.tvinnSadSign}">
+			    			<a id="alinkTopicListMenuImp" tabindex=-1 href="tvinnsadmaintenanceimport.do?">
 			    				&nbsp;<font 
 			    				<c:choose>           
-	                   			<c:when test="${user.activeMenu=='TVINN_SAD_IMPORT'}">
+	                   			<c:when test="${user.activeMenu=='TVINN_SAD_MAINTENANCE_IMPORT'}">
 	                       			class="headerMenuOrange"
 	                   			</c:when>
 	                   			<c:otherwise>   
@@ -102,10 +102,10 @@
 			    			<%-- -------------------------- --%>
 			    			<%-- TVINN-SAD NCTS EXPORT MENU --%>
 			    			<%-- -------------------------- --%>
-			    			<a id="alinkTopicListMenuNctsExp" tabindex=-1 href="TODOtvinnsadnctsexport.do?action=doFind&sign=${user.tvinnSadSign}">
+			    			<a id="alinkTopicListMenuNctsExp" tabindex=-1 href="tvinnsadmaintenance_nctsexport.do?">
 			    				&nbsp;<font
 			    				<c:choose>           
-	                   			<c:when test="${user.activeMenu=='TVINN_SAD_NCTS_EXPORT'}">
+	                   			<c:when test="${user.activeMenu=='TVINN_SAD_MAINTENANCE_NCTS_EXPORT'}">
 	                       			class="headerMenuOrange"
 	                   			</c:when>
 	                   			<c:otherwise>   
@@ -119,11 +119,11 @@
 			    			<%-- --------------------- --%>
 			    			<%-- TVINN-SAD NCTS IMPORT MENU --%>
 			    			<%-- --------------------- --%>
-			    			<a id="alinkTopicListMenuNctsImp" tabindex=-1 href="TODOtvinnsadnctsimport.do?action=doFind&sign=${user.tvinnSadSign}">
+			    			<a id="alinkTopicListMenuNctsImp" tabindex=-1 href="tvinnsadmaintenance_nctsimport.do?">
 			    				&nbsp;<font
 			    				<c:choose>           
-		                   			<c:when test="${user.activeMenu=='TVINN_SAD_NCTS_IMPORT'}">
-		                       			class="headerMenuDarkGray"
+		                   			<c:when test="${user.activeMenu=='TVINN_SAD_MAINTENANCE_NCTS_IMPORT'}">
+		                       			class="headerMenuOrange"
 		                   			</c:when>
 		                   			<c:otherwise>   
 		                       			class="headerMenuWhite"
@@ -181,7 +181,7 @@
 			</td>
 	    </tr>
 	    <tr>
-		    <td height="2" class="tabThinBorderOrange" width="100%" align="left" colspan="3"> 
+		    <td height="4" class="tabThinBorderOrange" width="100%" align="left" colspan="3"> 
 	   			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 	   			 </table>
 			</td>

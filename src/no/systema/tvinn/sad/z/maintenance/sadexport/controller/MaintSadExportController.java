@@ -124,14 +124,10 @@ public class MaintSadExportController {
 		object.setCode("SADE_KUNDVAREK");
 		listObject.add(object);
 		
-		
 		return listObject;
 	}
 	
-
-	
 	//SERVICES
-	
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
 	@Autowired
@@ -139,21 +135,6 @@ public class MaintSadExportController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	/*
-	@Qualifier ("sadExportTopicListService")
-	private SadExportTopicListService sadExportTopicListService;
-	@Autowired
-	@Required
-	public void setSadExportTopicListService (SadExportTopicListService value){ this.sadExportTopicListService = value; }
-	public SadExportTopicListService getSadExportTopicListService(){ return this.sadExportTopicListService; }
-	
-	
-	@Qualifier ("tvinnSadDropDownListPopulationService")
-	private TvinnSadDropDownListPopulationService tvinnSadDropDownListPopulationService;
-	@Autowired
-	public void setTvinnSadDropDownListPopulationService (TvinnSadDropDownListPopulationService value){ this.tvinnSadDropDownListPopulationService=value; }
-	public TvinnSadDropDownListPopulationService getTvinnSadDropDownListPopulationService(){return this.tvinnSadDropDownListPopulationService;}
-	*/
-	
+
 }
 
