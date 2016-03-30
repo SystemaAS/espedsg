@@ -22,26 +22,9 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;TVINN - Vedlikehold</font>
-						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-						
+						<font class="tabLink">&nbsp;TVINN - Vedlikehold</font>&nbsp;
+						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</td>
-					<%--
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-		               		<a style="display:block;" id="norskImportLink" runat="server" href="skatadmin_norskimport.do">
-								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.admin.norsk.import.list.tab"/></font>
-								<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-							</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-		               		<a style="display:block;" id="norskExportLink" runat="server" href="skatadmin_norskexport.do">
-								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.admin.norsk.export.list.tab"/></font>
-								<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-							</a>
-					</td>
-					 --%>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>
 		</table>
@@ -78,7 +61,7 @@
 				              
 				               <td class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-				               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_edit.do?action=doFetch&id=${record.dbTable}">
+				               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_syft19r.do?id=${record.dbTable}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
@@ -89,7 +72,7 @@
 		                       		<c:if test="${empty record.status}">
 		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
 		                       		</c:if>
-		                       		<c:if test="${not empty record.status}">
+		                       		<c:if test="${record.status == 'G'}">
 		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
 		                       		</c:if>
 		                       		<c:if test="${record.status == 'Y'}">
