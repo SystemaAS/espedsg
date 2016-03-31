@@ -30,9 +30,15 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSyft19rValidator;
+
 
 /**
  *  TVINN Maintenance Import Syft19r Controller 
@@ -51,6 +57,7 @@ public class MaintSadImportSyft19rController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 	/**
 	 * 
@@ -59,11 +66,12 @@ public class MaintSadImportSyft19rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_syft19r.do", method=RequestMethod.GET)
-	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tvinnsadmaintenanceimport_syft19r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft19r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
+		String dbTable = request.getParameter("id");
 		
 		Map model = new HashMap();
 		if(appUser==null){
@@ -72,21 +80,136 @@ public class MaintSadImportSyft19rController {
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_MAINTENANCE_IMPORT);
 			//session.setAttribute(TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_TVINN_SAD_MAINTENANCE, TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
-			//lists
-			//List list = this.populateMaintenanceMainList();
-			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-			//this.setCodeDropDownMgr(appUser, model);
-			//init filter with users signature (for starters)
-			//searchFilter.setSg(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
-			//init the rest
-			//model.put("list", list);
-			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
-			//successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
+			//get table
+	    	List<JsonMaintSadImportKodtlikRecord> list = this.fetchList(appUser.getUser());
+	    	//set domain objets
+	    	model.put("dbTable", dbTable);
+			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadmaintenanceimport_syft19r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadImportKodtlikRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft19r");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		
+		String dbTable = request.getParameter("id");
+		String updateId = request.getParameter("updateId");
+		String delete = request.getParameter("d");
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			MaintSadImportSyft19rValidator validator = new MaintSadImportSyft19rValidator();
+			validator.validate(recordToValidate, bindingResult);
+			if(bindingResult.hasErrors()){
+				//ERRORS
+				logger.info("[ERROR Validation] Record does not validate)");
+				model.put("dbTable", dbTable);
+				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+			}else{
+				//------------
+				//UPDATE table
+				//------------
+				if(updateId!=null && !"".equals(updateId)){
+					if(delete!=null && !"".equals(delete) ){
+						//update
+						//this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE);
+					}else{
+						//update
+						//this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE);
+					}
+				}else{
+					//create new
+					this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD);
+				}
+				
+			}
+			//------------
+			//FETCH table
+			//------------
+	    	List<JsonMaintSadImportKodtlikRecord> list = this.fetchList(appUser.getUser());
+	    	//set domain objets
+	    	model.put("dbTable", dbTable);
+			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
+			
+			
+	    	return successView;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @return
+	 */
+	private List<JsonMaintSadImportKodtlikRecord> fetchList(String applicationUser){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT19R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportKodtlikRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+	        JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * UPDATE/CREATE/DELETE
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @return
+	 */
+	private int updateRecord(String applicationUser, JsonMaintSadImportKodtlikRecord record, String mode){
+		int retval = 0;
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT19R_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	
+    	/* TODO COVI...
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportKodtlikRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+	        JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	*/
+    	return retval;
+    
 	}
 	
 	

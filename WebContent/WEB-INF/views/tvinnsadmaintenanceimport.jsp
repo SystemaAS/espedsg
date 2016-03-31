@@ -52,7 +52,7 @@
 			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
 								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+			                    
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -65,20 +65,21 @@
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
-		                       		<c:if test="${empty record.status}">
-		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
+				               		<c:if test="${empty record.status}">
+		                       			&nbsp;<img src="resources/images/bulletRed.gif" border="0">
 		                       		</c:if>
 		                       		<c:if test="${record.status == 'G'}">
-		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
+		                       			&nbsp;<img src="resources/images/bulletGreen.gif" border="0">
 		                       		</c:if>
 		                       		<c:if test="${record.status == 'Y'}">
-		                       			<img src="resources/images/bulletYellowModern.png" width="11px" height="11px" border="0">
+		                       			&nbsp;<img src="resources/images/bulletYellow.gif" border="0">
 		                       		</c:if>
-		                       </td>
+				               		<font class="text12">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+				               </td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
+		                       
 				              
 				            </tr> 
 				            </c:forEach>

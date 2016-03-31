@@ -14,4 +14,6 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
  */
 public interface MaintSadImportKodtlikService {
 	public JsonMaintSadImportKodtlikContainer getList(String utfPayload);
+	//public int update(String utfPayload);
+	
 }

@@ -30,7 +30,9 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center">
 						<font class="tabLink">&nbsp;SYFT19 / KODTLIK</font>&nbsp;
-						<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
+						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_syft19r.do?id=${model.dbTable}">
+							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
+						</a>
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>
@@ -45,48 +47,36 @@
 	 	    
 			<%-- list component --%>
 			<tr>
-				<td width="2%">&nbsp;</td>
-					
+				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="center">
+				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-								<th class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
-								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
-			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
-								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldFirst" >&nbsp;KLISTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;KLIUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderField" >&nbsp;KLIKOD&nbsp;</th>
+			                    <th align="left" class="tableHeaderField" >&nbsp;KLINAV&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField">&nbsp;KLISTO&nbsp;</th>
+			                    <th align="center" class="tableHeaderField" >&nbsp;KLIXXX&nbsp;</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				              
-				               <td class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
-				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-				               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_edit.do?action=doFetch&id=${record.dbTable}">
-	               						<img src="resources/images/update.gif" border="0" alt="edit">
-				               		</a>
+				               <td align="center" width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.klista}&nbsp;</font></td>
+				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<img id="recordUpdate_${record.klikod}" onClick="updateKundensVarReg(this);" src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
-		                       		<c:if test="${empty record.status}">
-		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
-		                       		</c:if>
-		                       		<c:if test="${not empty record.status}">
-		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
-		                       		</c:if>
-		                       		<c:if test="${record.status == 'Y'}">
-		                       			<img src="resources/images/bulletYellowModern.png" width="11px" height="11px" border="0">
-		                       		</c:if>
-		                       </td>
-				              
+				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kliuni}&nbsp;</font></td>
+				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klikod}&nbsp;</font></td>
+		                       <td align="left"  class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klinav}&nbsp;</font></td>
+				               <td align="center"width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klisto}&nbsp;</font></td>
+		                       <td align="center"class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klixxx}&nbsp;</font></td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
@@ -97,7 +87,64 @@
 				</td>
 			</tr>
 		    
+	 	    <tr height="25"><td>&nbsp;</td></tr>
+	 	    
+	 	    <%-- Validation errors --%>
+			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+	            	<table align="left" border="0" cellspacing="0" cellpadding="0">
+	            	<tr >
+					<td >					
+			            <ul class="isa_error text12" >
+			            <c:forEach var="error" items="${errors.allErrors}">
+			                <li >
+			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
+			                </li>
+			            </c:forEach>
+			            </ul>
+					</td>
+					</tr>
+					</table>
+				</td>
+			</tr>
+			</spring:hasBindErrors>
+			<tr height="2"><td>&nbsp;</td></tr>
+	 	    
+	 	    <tr >
+	 	    	<td width="5%">&nbsp;</td>
+				<td width="100%">
+				<form action="tvinnsadmaintenanceimport_syft19r_edit.do" name="formRecord" id="formRecord" method="POST" >
+					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<table width="40%" cellspacing="1" border="0" align="left">
+			    	    <tr>
+						<td class="text11" title="Likviditetskod">&nbsp;<font class="text14RedBold" >*</font>KLIKOD</td>
+						<td class="text11" title="Beskrivelse">&nbsp;<font class="text14RedBold" >*</font>KLINAV</td>
+						<td class="text11" title="Stopp?">&nbsp;<font class="text14RedBold" >*</font>KLISTO</td>
+						</tr>
+						<tr>
+						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="klikod" id="klikod" size="2" maxlength="1" value='${model.record.klikod}'></td>
+						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="klinav" id="klinav" size="25" maxlength="30" value='${model.record.klinav}'></td>
+						<td >
+							<select class="inputTextMediumBlueMandatoryField" name="klisto" id="klisto">
+			            		<option value="">-velg-</option>
+			 				  	<option value="J" <c:if test="${ model.record.klisto == 'J'}"> selected </c:if> >Ja</option>
+			 				  	<option value="N" <c:if test="${ model.record.klisto == 'N'}"> selected </c:if> >Nej</option>
+							</select>
+						</td>
+						<td>
+							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+						</td>
+						
+						</tr>
+	 	    		</table>
+	 	    		
+	 	    	</form>
+	 	    </tr>
 	 	    <tr height="20"><td>&nbsp;</td></tr>
+	 	    
 	 		</table>
 		</td>
 	</tr>

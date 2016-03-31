@@ -346,29 +346,29 @@ public class SadImportHeaderController {
 							session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL); 
 					    	
 							logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-						    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-						    	logger.info("URL PARAMS: " + urlRequestParams);
-						    	//----------------------------------------------------------------------------
-						    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-						    	//----------------------------------------------------------------------------
-						    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-						    	//Debug --> 
-						    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-						    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-						    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
-						    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-						    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-						    		this.setFatalError(model, rpgReturnResponseHandler, jsonSadImportSpecificTopicRecord);
-						    		isValidCreatedRecordTransactionOnRPG = false;
-						    	}else{
-						    		//Update successfully done!
-						    		logger.info("[INFO] Record successfully updated, OK ");
-						    		//put domain objects
-						    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicRecord, totalItemLinesObject );
-						    		if(totalItemLinesObject.getSumOfAntalItemLines()>0 || this.ACTIVE_INNSTIKK_CODE.equals(jsonSadImportSpecificTopicRecord.getSimi())){
-						    			this.adjustValidUpdateFlag(model, jsonSadImportSpecificTopicRecord);
-						    		}
-						    	}
+					    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+					    	logger.info("URL PARAMS: " + urlRequestParams);
+					    	//----------------------------------------------------------------------------
+					    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+					    	//----------------------------------------------------------------------------
+					    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+					    	//Debug --> 
+					    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+					    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+					    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+					    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+					    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+					    		this.setFatalError(model, rpgReturnResponseHandler, jsonSadImportSpecificTopicRecord);
+					    		isValidCreatedRecordTransactionOnRPG = false;
+					    	}else{
+					    		//Update successfully done!
+					    		logger.info("[INFO] Record successfully updated, OK ");
+					    		//put domain objects
+					    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicRecord, totalItemLinesObject );
+					    		if(totalItemLinesObject.getSumOfAntalItemLines()>0 || this.ACTIVE_INNSTIKK_CODE.equals(jsonSadImportSpecificTopicRecord.getSimi())){
+					    			this.adjustValidUpdateFlag(model, jsonSadImportSpecificTopicRecord);
+					    		}
+					    	}
 						}else{
 							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tolldeklnr generation : " + rpgReturnResponseHandler.getErrorMessage());
 							this.setFatalError(model, rpgReturnResponseHandler, jsonSadImportSpecificTopicRecord);
