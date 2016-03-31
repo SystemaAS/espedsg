@@ -32,6 +32,7 @@ import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
 
 /**
  *  TVINN Maintenance Import Syft19r Controller 
@@ -97,6 +98,13 @@ public class MaintSadImportSyft19rController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-
+	
+	@Qualifier ("maintSadImportKodtlikService")
+	private MaintSadImportKodtlikService maintSadImportKodtlikService;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodtlikService (MaintSadImportKodtlikService value){ this.maintSadImportKodtlikService = value; }
+	public MaintSadImportKodtlikService getMaintSadImportKodtlikService(){ return this.maintSadImportKodtlikService; }
+	
 }
 

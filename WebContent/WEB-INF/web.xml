@@ -17,7 +17,7 @@
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/espedsg-servlet.xml, /WEB-INF/espedsg-service.xml</param-value>
+    <param-value>/WEB-INF/espedsg-servlet.xml, /WEB-INF/espedsg-service.xml, /WEB-INF/espedsg-maintenance-service.xml</param-value>
   </context-param>
   <servlet>
     <servlet-name>espedsg</servlet-name>
