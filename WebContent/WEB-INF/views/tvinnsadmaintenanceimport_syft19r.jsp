@@ -62,6 +62,7 @@
 			                    <th align="left" class="tableHeaderField" >&nbsp;KLINAV&nbsp;</th>
 								<th align="center" width="2%" class="tableHeaderField">&nbsp;KLISTO&nbsp;</th>
 			                    <th align="center" class="tableHeaderField" >&nbsp;KLIXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -69,14 +70,19 @@
 				               <tr class="tableRow" height="20" >
 				              
 				               <td align="center" width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.klista}&nbsp;</font></td>
-				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<img id="recordUpdate_${record.klikod}" onClick="updateKundensVarReg(this);" src="resources/images/update.gif" border="0" alt="edit">
+				               <td id="recordUpdate_${record.klikod}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
 				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kliuni}&nbsp;</font></td>
 				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klikod}&nbsp;</font></td>
 		                       <td align="left"  class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klinav}&nbsp;</font></td>
 				               <td align="center"width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klisto}&nbsp;</font></td>
 		                       <td align="center"class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.klixxx}&nbsp;</font></td>
+		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft19r_edit.do?action=doDelete&id=${model.dbTable}&klikod=${record.klikod}">
+					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+					               	</a>
+				               </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
@@ -110,6 +116,25 @@
 				</td>
 			</tr>
 			</spring:hasBindErrors>
+			
+			<%-- Other errors (none validation errors) --%>
+			<c:if test="${not empty model.errorMessage}">
+			<tr>
+				<td width="5">&nbsp;</td>
+				<td >
+	            	<table align="left" border="0" cellspacing="0" cellpadding="0">
+				 		<tr>
+				 			<td >
+				 				<ul class="isa_error text12" >
+                                    <li>[ERROR on Update] - Server return code: ${model.errorMessage}</li>                                    
+                                </ul>
+				 			</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			</c:if>
+			
 			<tr height="2"><td>&nbsp;</td></tr>
 	 	    
 	 	    <tr >
@@ -118,6 +143,7 @@
 				<form action="tvinnsadmaintenanceimport_syft19r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<input type="hidden" name="action" id=action value="doUpdate">
 					<table width="40%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11" title="Likviditetskod">&nbsp;<font class="text14RedBold" >*</font>KLIKOD</td>
@@ -126,7 +152,7 @@
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="klikod" id="klikod" size="2" maxlength="1" value='${model.record.klikod}'></td>
-						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="klinav" id="klinav" size="25" maxlength="30" value='${model.record.klinav}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="klinav" id="klinav" size="25" maxlength="30" value='${model.record.klinav}'></td>
 						<td >
 							<select class="inputTextMediumBlueMandatoryField" name="klisto" id="klisto">
 			            		<option value="">-velg-</option>

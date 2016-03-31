@@ -46,6 +46,9 @@ public final class TvinnSadMaintenanceConstants {
 	public static final String RESOURCE_MODEL_KEY_MINUTES_LIST = "minutesList";
 	public static final String RESOURCE_MODEL_KEY_UOM_LIST = "uomList";
 	
+	//CODES
+	public static final int ERROR_CODE = -1;
+	
 	
 	
 	//domain objects for model-view passing values

@@ -36,5 +36,14 @@ public class MaintSadImportSyft19rValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klisto", "", "KLISTO er obligatorisk"); 
 		
 	}
-	
+	/**
+	 * 
+	 * @param obj
+	 * @param errors
+	 */
+	public void validateDelete(Object obj, Errors errors) { 
+		JsonMaintSadImportKodtlikRecord record = (JsonMaintSadImportKodtlikRecord)obj;
+		logger.info(record.getKlikod());
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klikod", "", "KLIKOD er obligatorisk"); 
+	}
 }

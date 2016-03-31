@@ -29,7 +29,6 @@ public class JsonMaintSadImportKodtlikRecord extends JsonAbstractGrandFatherReco
 	public void setKlikod(String value) {  this.klikod = value; }
 	public String getKlikod() { return this.klikod;}
 	
-
 	private String klinav = null;
 	public void setKlinav(String value) {  this.klinav = value; }
 	public String getKlinav() { return this.klinav;}

@@ -27,12 +27,11 @@ public class MaintSadImportKodtlikMapper {
 		
 		//At this point we now have an UTF-8 payload
 		JsonMaintSadImportKodtlikContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintSadImportKodtlikContainer.class); 
-		//logger.info(mapper.writeValueAsString(topicListContainer));
-		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
 		Collection<JsonMaintSadImportKodtlikRecord> list = container.getList();
 		for(JsonMaintSadImportKodtlikRecord record : list){
-			//logger.info("todo");
+			//logger.info(record.getKlikod());
 		}
 		return container;
 	}

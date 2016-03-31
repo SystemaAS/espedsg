@@ -93,6 +93,8 @@ public class MaintSadImportSyft19rController {
 	
 	/**
 	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
 	 * @param session
 	 * @param request
 	 * @return
@@ -104,14 +106,18 @@ public class MaintSadImportSyft19rController {
 		
 		String dbTable = request.getParameter("id");
 		String updateId = request.getParameter("updateId");
-		String delete = request.getParameter("d");
+		String action = request.getParameter("action");
 		
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			MaintSadImportSyft19rValidator validator = new MaintSadImportSyft19rValidator();
-			validator.validate(recordToValidate, bindingResult);
+			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
+				validator.validateDelete(recordToValidate, bindingResult);
+			}else{
+				validator.validate(recordToValidate, bindingResult);
+			}
 			if(bindingResult.hasErrors()){
 				//ERRORS
 				logger.info("[ERROR Validation] Record does not validate)");
@@ -121,17 +127,31 @@ public class MaintSadImportSyft19rController {
 				//------------
 				//UPDATE table
 				//------------
-				if(updateId!=null && !"".equals(updateId)){
-					if(delete!=null && !"".equals(delete) ){
-						//update
-						//this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE);
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				//UPDATE
+				if (TvinnSadMaintenanceConstants.ACTION_UPDATE.equals(action) ){
+					if(updateId!=null && !"".equals(updateId)){
+					//update
+					logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
+					//CREATE
 					}else{
-						//update
-						//this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE);
+						//create new
+						logger.info(TvinnSadMaintenanceConstants.ACTION_CREATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD, errMsg);
 					}
-				}else{
-					//create new
-					this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD);
+				}else if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action) ){
+					//delete
+					logger.info(TvinnSadMaintenanceConstants.ACTION_DELETE);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE, errMsg);
+				}
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put("dbTable", dbTable);
+					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}
 				
 			}
@@ -143,7 +163,6 @@ public class MaintSadImportSyft19rController {
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
-			
 			
 	    	return successView;
 		}
@@ -183,7 +202,7 @@ public class MaintSadImportSyft19rController {
 	 * @param mode
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintSadImportKodtlikRecord record, String mode){
+	private int updateRecord(String applicationUser, JsonMaintSadImportKodtlikRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT19R_DML_UPDATE_URL;
@@ -195,19 +214,22 @@ public class MaintSadImportSyft19rController {
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
-    	
-    	/* TODO COVI...
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
     	//extract
-    	List<JsonMaintSadImportKodtlikRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-	        JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService(jsonPayload);
+	        JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService.doUpdate(jsonPayload);
 	        if(container!=null){
-	        	list = (List)container.getList();
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = TvinnSadMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
 	        }
     	}
-    	*/
+    	
     	return retval;
     
 	}

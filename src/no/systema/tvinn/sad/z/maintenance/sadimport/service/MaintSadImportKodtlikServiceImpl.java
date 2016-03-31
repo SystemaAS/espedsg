@@ -18,15 +18,32 @@ public class MaintSadImportKodtlikServiceImpl implements MaintSadImportKodtlikSe
 	 * 
 	 */
 	public JsonMaintSadImportKodtlikContainer getList(String utfPayload) {
-		JsonMaintSadImportKodtlikContainer list = null;
+		JsonMaintSadImportKodtlikContainer container = null;
 		try{
 			MaintSadImportKodtlikMapper mapper = new MaintSadImportKodtlikMapper();
-			list = mapper.getContainer(utfPayload);
+			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return list;
+		return container;
+		
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 */
+	public JsonMaintSadImportKodtlikContainer doUpdate(String utfPayload) {
+		JsonMaintSadImportKodtlikContainer container = null;
+		try{
+			MaintSadImportKodtlikMapper mapper = new MaintSadImportKodtlikMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return container;
 		
 	}
 
