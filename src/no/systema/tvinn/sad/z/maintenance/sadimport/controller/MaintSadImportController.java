@@ -189,7 +189,9 @@ public class MaintSadImportController {
 		object.setCode("SADI_GYLD_LIKV_KODER");
 		object.setText("SYFT19 / KODTLIK");
 		object.setDbTable("KODTLIK");
-		object.setStatus("Y");
+		object.setStatus("G");
+		object.setPgm("syft19r");
+		
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

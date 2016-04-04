@@ -43,5 +43,9 @@ public class MaintenanceMainListObject  {
 	public void setDbTable(String value) {  this.dbTable = value; }
 	public String getDbTable() { return this.dbTable;}
 	
+	private String pgm = null; 
+	public void setPgm(String value) {  this.pgm = value; }
+	public String getPgm() { return this.pgm;}
+	
 	
 }

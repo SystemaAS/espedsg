@@ -75,28 +75,43 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				           
+				              
 				               <td class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-				               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenance_nctsexport_edit.do?action=doFetch&id=${Xrecord.id}">
-	               						<img src="resources/images/update.gif" border="0" alt="edit">
-				               		</a>
+				               	<c:choose>
+				               		<c:when test="${record.status == 'G'}">
+					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenance_nctsexport_${record.pgm}.do?id=${record.dbTable}">
+		               						<img src="resources/images/update.gif" border="0" alt="edit">
+					               		</a>
+				               		</c:when>
+				               		<c:otherwise>
+											<img src="resources/images/lock.gif" border="0" alt="edit">				               		
+				               		</c:otherwise>
+				               	</c:choose>	
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" ><font class="text12">&nbsp;${record.subject}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
+				               		<c:choose>
+					               		<c:when test="${record.status == 'G'}">
+					               			<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+					               		</c:when>
+					               		<c:otherwise>
+					               			<font class="text12">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+					               		</c:otherwise>
+				               		</c:choose>
+				               </td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
 		                       		<c:if test="${empty record.status}">
-		                       			<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
+	                       				<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
 		                       		</c:if>
-		                       		<c:if test="${not empty record.status}">
+		                       		<c:if test="${record.status == 'G'}">
 		                       			<img src="resources/images/bulletGreen.png" width="12px" height="12px" border="0">
 		                       		</c:if>
 		                       		<c:if test="${record.status == 'Y'}">
 		                       			<img src="resources/images/bulletYellowModern.png" width="11px" height="11px" border="0">
 		                       		</c:if>
-		                       </td>
-				              
+				              </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
