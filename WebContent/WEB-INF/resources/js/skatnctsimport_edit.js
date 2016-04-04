@@ -123,53 +123,56 @@
 	//--------------------------------------------------------------------------------------
 	jq(function() { 
 	    jq('#tikn').blur(function() {
-	    		jq.getJSON('searchCustomer_Skat.do', {
-				applicationUser : jq('#applicationUser').val(),
-				customerName : "",
-				customerNumber : jq('#tikn').val(),
-				ajax : 'true'
-			}, function(data) {
-				//alert("Hello");
-				var len = data.length;
-				for ( var i = 0; i < len; i++) {
-					//html += '<option value="' + data[i].kundnr + '">' + data[i].knavn + '</option>';
-					customer = new Object();
-					customer.kundnr = data[i].kundnr;
-					customer.knavn = data[i].knavn;
-					customer.eori = data[i].eori;
-					customer.adr1 = data[i].adr1;
-					customer.adr2 = data[i].adr2;
-					customer.adr3 = data[i].adr3;
-					customer.postnr = data[i].sypoge;//data[i].postnr; DK=sypoge
-					if("" == customer.postnr){
-						customer.postnr = data[i].postnr;
+	    	var customerNumberVal = jq('#tikn').val();
+    		if(customerNumberVal!=""){
+		    		jq.getJSON('searchCustomer_Skat.do', {
+					applicationUser : jq('#applicationUser').val(),
+					customerName : "",
+					customerNumber : jq('#tikn').val(),
+					ajax : 'true'
+				}, function(data) {
+					//alert("Hello");
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						//html += '<option value="' + data[i].kundnr + '">' + data[i].knavn + '</option>';
+						customer = new Object();
+						customer.kundnr = data[i].kundnr;
+						customer.knavn = data[i].knavn;
+						customer.eori = data[i].eori;
+						customer.adr1 = data[i].adr1;
+						customer.adr2 = data[i].adr2;
+						customer.adr3 = data[i].adr3;
+						customer.postnr = data[i].sypoge;//data[i].postnr; DK=sypoge
+						if("" == customer.postnr){
+							customer.postnr = data[i].postnr;
+						}
+						customer.kpers = data[i].kpers;
+						customer.tlf = data[i].tlf;
+						customer.syland = data[i].syland;
+					  	//put the object in map now with customerNumber as key
+						map[customer.kundnr] = customer;
 					}
-					customer.kpers = data[i].kpers;
-					customer.tlf = data[i].tlf;
-					customer.syland = data[i].syland;
-				  	//put the object in map now with customerNumber as key
-					map[customer.kundnr] = customer;
-				}
-				if(len > 0){
-					jq('#tikn').val(customer.kundnr);
-					jq('#titin').val(customer.eori);
-					jq('#tina').val(customer.knavn);
-					jq('#tiad1').val(customer.adr1);
-					jq('#tipn').val(customer.postnr);
-					jq('#tips').val(customer.adr3);
-					jq('#tilk').val(customer.syland);
-					jq('#tisk').val("");	
-				}else{
-					//init fields
-					jq('#titin').val("");
-					jq('#tina').val("");
-					jq('#tiad1').val("");
-					jq('#tipn').val("");
-					jq('#tips').val("");
-					jq('#tilk').val("");
-					jq('#tisk').val("");
-				}
-			});
+					if(len > 0){
+						jq('#tikn').val(customer.kundnr);
+						jq('#titin').val(customer.eori);
+						jq('#tina').val(customer.knavn);
+						jq('#tiad1').val(customer.adr1);
+						jq('#tipn').val(customer.postnr);
+						jq('#tips').val(customer.adr3);
+						jq('#tilk').val(customer.syland);
+						jq('#tisk').val("");	
+					}else{
+						//init fields
+						jq('#titin').val("");
+						jq('#tina').val("");
+						jq('#tiad1').val("");
+						jq('#tipn').val("");
+						jq('#tips').val("");
+						jq('#tilk').val("");
+						jq('#tisk').val("");
+					}
+				});
+			}
 		});
 	});
 	

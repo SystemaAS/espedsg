@@ -139,10 +139,10 @@ public class SkatNctsExportController {
 		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
-		    		this.setCodeDropDownMgr(appUser, model);
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
+	    		this.setCodeDropDownMgr(appUser, model);
 				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				
@@ -160,7 +160,7 @@ public class SkatNctsExportController {
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            
-	          //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
 	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
 	            	session.setAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATEXPORT_NCTS, searchFilter);
 	            }else{

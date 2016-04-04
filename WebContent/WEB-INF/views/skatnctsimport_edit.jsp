@@ -192,18 +192,19 @@
 	            			<option value="J"<c:if test="${model.record.tienkl == 'J'}"> selected </c:if> >Forenklet</option>
 					  	<option value="N"<c:if test="${model.record.tienkl == 'N'}"> selected </c:if> >Normal</option>
 					</select>
-				</td>
-				<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-	           			<div class="text11" align="left">
-		           		<br/>
-		           		Kun <b>M</b>, F eller <b>' '</b> kan redigeres.
-		           			<ul>
-								<c:forEach var="record" items="${model.statusCodeList}" >
-				           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
-			           			</c:forEach>
-		           			</ul>
-						</div>
-					</span>	                
+				
+					<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute; left:150; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
+			           		<br/>
+			           		Kun <b>M</b>, F eller <b>' '</b> kan redigeres.
+			           			<ul>
+									<c:forEach var="record" items="${model.statusCodeList}" >
+					           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
+				           			</c:forEach>
+			           			</ul>
+						</span>	
+					</div>
+				</td>                
 			</tr>	
 			<%-- test indicator /per avdelning --%> 
 			<c:if test="${'1' == isTestAvd}">
@@ -399,8 +400,8 @@
 					 			</td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="titin" id="titin" size="17" maxlength="17" value="${model.record.titin}"></td>
-					 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="tina" id="tina" size="30" maxlength="30" value="${model.record.tina}"></td>
+					 			<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" name="titin" id="titin" size="17" maxlength="17" value="${model.record.titin}"></td>
+					 			<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" name="tina" id="tina" size="30" maxlength="30" value="${model.record.tina}"></td>
 			 				</tr>
 			 				<tr >
 					 			<td class="text12">&nbsp;<span title="tiad1">Adresse</span></td>
@@ -465,13 +466,13 @@
 						<tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="tign">Godsnr</span></td>
-				            <td colspan="3" ><input type="text" class="inputText" name="tign" id="tign" size="36" maxlength="35" value="${model.record.tign}"></td>
+				            <td colspan="3" ><input type="text" class="inputTextMediumBlueMandatoryField" name="tign" id="tign" size="36" maxlength="35" value="${model.record.tign}"></td>
 			            </tr>
 						<tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="tignsk">Sprogkode</span>&nbsp;</td>
 				            <td >
-					            <select name="tignsk" id="tignsk">
+					            <select class="inputTextMediumBlueMandatoryField" name="tignsk" id="tignsk">
 					            		<option value="">-vælg-</option>
 					 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                             <option value="${code.tkkode}"<c:if test="${model.record.tignsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -485,13 +486,13 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="titrnr">MRN-nr</span></td>
-				            <td colspan="3" ><input type="text" class="inputText" name="titrnr" id="titrnr" size="36" maxlength="18" value="${model.record.titrnr}"></td>
+				            <td colspan="3" ><input type="text" class="inputTextMediumBlueMandatoryField" name="titrnr" id="titrnr" size="36" maxlength="18" value="${model.record.titrnr}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="tialk">Afs.land</span>&nbsp;</td>
 				            <td >
-					            <select name="tialk" id="tialk">
+					            <select class="inputTextMediumBlueMandatoryField" name="tialk" id="tialk">
 					            		<option value="">-vælg-</option>
 				 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 		                              	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tialk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
@@ -540,7 +541,7 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="titsb">Best.toldsted</span></td>
-				            <td ><input type="text" class="inputText" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
+				            <td ><input type="text" class="inputTextMediumBlueMandatoryField" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
 					            	<img id="imgTullkontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontor_Dialog');">
 		            				<%-- ============================================================= --%>
 					            	<%-- Here we have the search Transittullkontor 01 popup window   --%>

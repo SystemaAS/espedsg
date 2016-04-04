@@ -36,6 +36,7 @@ import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureRecord;
 
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
+import no.systema.skat.nctsexport.filter.SearchFilterSkatNctsExportTopicList;
 import no.systema.skat.nctsimport.util.manager.CodeDropDownMgr;
 import no.systema.skat.nctsimport.validator.SkatNctsImportListValidator;
 
@@ -140,17 +141,17 @@ public class SkatNctsImportController {
 		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
-		    		this.setCodeDropDownMgr(appUser, model);
-		    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
+	    		this.setCodeDropDownMgr(appUser, model);
+	    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				
 				//this.populateCodesHtmlDropDownsFromJsonString(model, appUser, JsonSkatNctsCodeContainer.KOD_DEKL_TYP);
 				successView.addObject("model" , model);
 		    	
-		    		successView.addObject("list",new ArrayList());
+	    		successView.addObject("list",new ArrayList());
 				successView.addObject("searchFilter", recordToValidate);
 				return successView;
 	    		
@@ -162,19 +163,30 @@ public class SkatNctsImportController {
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
+	            
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+	            	session.setAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT_NCTS, searchFilter);
+	            }else{
+	            	SearchFilterSkatNctsImportTopicList sessionFilter = (SearchFilterSkatNctsImportTopicList)session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT_NCTS);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		searchFilter = sessionFilter;
+	            	}
+	            }
 				
 	            //get BASE URL
-		    		final String BASE_URL = SkatNctsImportUrlDataStore.NCTS_IMPORT_BASE_TOPICLIST_URL;
-		    		//add URL-parameters
+	    		final String BASE_URL = SkatNctsImportUrlDataStore.NCTS_IMPORT_BASE_TOPICLIST_URL;
+	    		//add URL-parameters
 				String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParams.toString());
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams.toString());
 			    	
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 				//Debug --> 
 				logger.info(jsonPayload);
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	
 				if(jsonPayload!=null){
 					JsonSkatNctsImportTopicListContainer container = this.skatNctsImportTopicListService.getNctsImportTopicListContainer(jsonPayload);
@@ -190,10 +202,13 @@ public class SkatNctsImportController {
 					this.setCodeDropDownMgr(appUser, model);
 					this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 					this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-					successView.addObject("model" , model);
-			    		//domain and search filter
-					successView.addObject("list",outputList);
-					successView.addObject("searchFilter", searchFilter);
+					successView.addObject(SkatConstants.DOMAIN_MODEL , model);
+		    		
+					//domain and search filter
+					successView.addObject(SkatConstants.DOMAIN_LIST,outputList);
+					if (session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT_NCTS) == null || session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT_NCTS).equals("")){
+						successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER_SKATIMPORT_NCTS, searchFilter);
+					}
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 					
 					return successView;

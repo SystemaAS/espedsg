@@ -119,19 +119,18 @@
            						<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>           						 
 				 				&nbsp;&nbsp;&nbsp;MRN-nr:&nbsp;<b>${recordTopicSkat.titrnr}</b>
 				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkat.tign}</b>
-				 				
-			 				</td>
-							<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-								<div class="text11" align="left">
-				           		<br/>
+				 			
+							<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 				           		Kun <b>M</b>, F eller <b>' '</b> kan redigeres.
 				           			<ul>
 										<c:forEach var="record" items="${model.statusCodeList}" >
 						           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
 					           			</c:forEach>
 				           			</ul>
-								</div>
-							</span>	                
+							</span>	
+							</div>
+							</td>                
 		 				</tr>
 		 				<tr height="15"><td></td></tr>
 	 				</table>
@@ -423,26 +422,28 @@
 										</td>
 										<td class="text12" align="left" valign="bottom">
 											<img onMouseOver="showPop('kontroll_info');" onMouseOut="hidePop('kontroll_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							                <span style="position:absolute; left:1020px; top:300px; width:250px; height:150px;" id="kontroll_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+							                <span title="tvctl" >Kontrol</span>
+							                
+							                <div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; top:2px; width:250px;" id="kontroll_info" class="popupWithInputText text11"  >
 								           			<br/>
 								           			<b>Nej</b>&nbsp;(0) = Hændelse er ikke registreret i.
 								           			<br/>
             											<b>Ja</b>&nbsp;(1) = Hændelse er allerede registreret i NCTS [fra en transiteringssted].
-								           		</div>
-											</span>	
-											<span title="tvctl" >Kontrol</span>
+								           	</span>	
+							           		</div>
+											
 										</td>
 							        </tr>
 							        <tr>
 							        		<td class="text12" align="left" >
-							        			&nbsp;&nbsp;<input type="text" class="inputText" name="tvst" id="tvst" size="35" maxlength="35" value="${model.record.tvst}">
+							        			&nbsp;&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="tvst" id="tvst" size="35" maxlength="35" value="${model.record.tvst}">
 			 			            		</td>
 			 			            		<td>
-							 				<select name="tvstlk" id="tvstlk">
-								            		<option value="">-vælg-</option>
+							 				<select class="inputTextMediumBlueMandatoryField" name="tvstlk" id="tvstlk">
+							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-			                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tvstlk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
+		                                	 		<option value="${country.dkkd_kd}"<c:if test="${model.record.tvstlk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 												</c:forEach> 
 											</select>
 						 				</td>
@@ -477,7 +478,7 @@
 							 		</tr>
 							 		<tr>	
 							 			<td class="text12" align="left">
-								            &nbsp;<textarea name="tvinf" id="tvinf" cols="50" rows="7" maxlength="279">${model.record.tvinf}</textarea>
+								            &nbsp;<textarea class="inputTextMediumBlueMandatoryField" name="tvinf" id="tvinf" cols="50" rows="7" maxlength="279">${model.record.tvinf}</textarea>
 							            </td>
 						            </tr>
 			        	        		</table>

@@ -145,9 +145,9 @@ public class SkatExportController {
 		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
 				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				this.setCodeDropDownMgr(appUser, model);
@@ -162,21 +162,32 @@ public class SkatExportController {
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
-		    		SearchFilterSkatExportTopicList searchFilter = new SearchFilterSkatExportTopicList();
+		    	SearchFilterSkatExportTopicList searchFilter = new SearchFilterSkatExportTopicList();
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+	            	session.setAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATEXPORT, searchFilter);
+	            }else{
+	            	SearchFilterSkatExportTopicList sessionFilter = (SearchFilterSkatExportTopicList)session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATEXPORT);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		searchFilter = sessionFilter;
+	            	}
+	            }
+	            
 	            //get BASE URL
-		    		final String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_TOPICLIST_URL;
-		    		//add URL-parameters
-		    		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
-		    		session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-			    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParams);
-			    	
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    		final String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_TOPICLIST_URL;
+	    		//add URL-parameters
+	    		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+	    		session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
 				//Debug --> 
 				logger.info(jsonPayload);
@@ -208,10 +219,12 @@ public class SkatExportController {
 					successView.addObject(SkatConstants.DOMAIN_MODEL , model);
 			    		//domain and search filter
 					successView.addObject(SkatConstants.DOMAIN_LIST,outputList);
-					successView.addObject("searchFilter", searchFilter);
+					
+					if (session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATEXPORT) == null || session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATEXPORT).equals("")){
+						successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER_SKATEXPORT, searchFilter);
+					}
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-			    	
-					return successView;
+			    	return successView;
 					
 			    	}else{
 					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");

@@ -1,6 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp" %>
-
+<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; top:2px; width:250px;" id="kontroll_info" class="popupWithInputText text11"  >
+								           	
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerTvinnSad.jsp" />
 <!-- =====================end header ==========================-->

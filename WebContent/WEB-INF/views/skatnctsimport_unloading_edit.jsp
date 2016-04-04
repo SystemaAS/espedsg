@@ -143,18 +143,17 @@
 				<c:if test="${recordTopicSkat.tienkl == 'J'}"><b>Forenklet</b></c:if>
 				<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>  
 				
-			</td>
-				<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-						<div class="text11" align="left">
-		           		<br/>
+					<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute; left:150; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 		           		Kun <b>M</b>, F eller <b>' '</b> kan redigeres.
 		           			<ul>
 								<c:forEach var="record" items="${model.statusCodeList}" >
 				           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
 			           			</c:forEach>
 		           			</ul>
-						</div>
-					</span>	                
+					</span>	
+					</div>
+				</td>                
 		</tr>	
 
 		<tr height="10"><td colspan="2">&nbsp;</td></tr>
@@ -440,19 +439,19 @@
 									<td class="text12">&nbsp;
 									<img onMouseOver="showPop('konform_info');" onMouseOut="hidePop('konform_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									<font class="text12Red" >*</font><span title="nikonf">Konform</span>
-						 				<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="konform_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="konform_info" class="popupWithInputText text11"  >
 							           			<br/>
 							           			<b>Konform</b>
 												 <ul>
 												 	<li><b>0</b> = Losses med bemærkninger.</li>
 												 	<li><b>1</b> = Losses uden bemærkninger.</li>
 												 </ul>
-						           			</div>
 										</span>
+										</div>
 									</td>			 			
 						 			<td class="text12">
-										<select name="nikonf" id="nikonf">
+										<select class="inputTextMediumBlueMandatoryField" name="nikonf" id="nikonf">
 						            			<option value="0"<c:if test="${model.record.nikonf == '0' || empty model.record.nikonf}}"> selected </c:if> >0</option>
 					 					  	<option value="1"<c:if test="${model.record.nikonf == '1'}"> selected </c:if> >1</option>
 										</select>
@@ -460,26 +459,26 @@
 									<td class="text12">&nbsp;
 									<img onMouseOver="showPop('afsluttet_info');" onMouseOut="hidePop('afsluttet_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									<font class="text12Red" >*</font><span title="nifulf">Afsluttet</span>
-										<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="afsluttet_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="afsluttet_info" class="popupWithInputText text11"  >
 							           			<br/>
 							           			<b>Afsluttet</b>
 												 <ul>
 												 	<li><b>Nej</b> = Losning er ikke afsluttet.</li>
 												 	<li><b>Ja</b> = Losning er afsluttet.</li>
 												 </ul>
-						           			</div>
 										</span>
+										</div>
 									</td>
 						 			<td class="text12">
-										<select name="nifulf" id="nifulf">
+										<select class="inputTextMediumBlueMandatoryField" name="nifulf" id="nifulf">
 						            			<option value=""<c:if test="${model.record.nifulf == '0' || empty model.record.nifulf}"> selected </c:if> >Nej</option>
 						            			<option value="1"<c:if test="${model.record.nifulf == '1'}"> selected </c:if> >Ja</option>
 										</select>
 						 			</td>
 						 			<td class="text12">&nbsp;<font class="text12Red" >*</font><span title="nidtl">Losning dato</span></td>
 						 			<td class="text12">
-						 				<input type="text" class="inputTextMediumBlue" name="nidtl" id="nidtl" size="9" maxlength="8" value="${model.record.nidtl}">
+						 				<input type="text" class="inputTextMediumBlueMandatoryField" name="nidtl" id="nidtl" size="9" maxlength="8" value="${model.record.nidtl}">
 					 				</td>
 						 		</tr>
 						 	</table>
@@ -507,19 +506,18 @@
 						 			<td class="text12" >&nbsp;&nbsp;
 						 			<img onMouseOver="showPop('control_OT_code_info');" onMouseOut="hidePop('control_OT_code_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 			<span title="nictb">OT:</span>&nbsp;
-						 				<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="control_OT_code_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-							           			<br/>
-							           			<b>CTL resultat</b>
-												<br/><br/>
-												 (Hvis losningsresultat = 0)
-												 <ul>
-												 	<li><b>DI</b> = Afvigelse i værdi.</li>
-												 	<li><b>OT</b> = Andre ting at rapportere</li>
-												 </ul>
-						           			</div>
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="control_OT_code_info" class="popupWithInputText text11"  >
+						           			<br/>
+						           			<b>CTL resultat</b>
+											<br/><br/>
+											 (Hvis losningsresultat = 0)
+											 <ul>
+											 	<li><b>DI</b> = Afvigelse i værdi.</li>
+											 	<li><b>OT</b> = Andre ting at rapportere</li>
+											 </ul>
 										</span>
-						 			
+										</div>
 						 			</td>
 						 			<td class="text12">
 										<input type="text" class="inputTextMediumBlue" name="nictb" id="nictb" size="40" maxlength="70" value="${model.record.nictb}">
@@ -529,8 +527,8 @@
 						 			<td class="text12" >&nbsp;&nbsp;
 						 			<img onMouseOver="showPop('control_DI_code_info');" onMouseOut="hidePop('control_DI_code_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 			<span title="nictb2">DI:</span>
-						 				<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="control_DI_code_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="control_DI_code_info" class="popupWithInputText text11"  >
 							           			<br/>
 							           			<b>CTL resultat</b>
 												<br/><br/>
@@ -539,8 +537,8 @@
 												 	<li><b>DI</b> = Afvigelse i værdi.</li>
 												 	<li><b>OT</b> = Andre ting at rapportere</li>
 												 </ul>
-						           			</div>
-										</span>						 			
+										</span>	
+										</div>					 			
 						 			</td>
 						 			<td class="text12">
 										<input type="text" class="inputTextMediumBlue" name="nictb2" id="nictb2" size="40" maxlength="70" value="${model.record.nictb2}">
@@ -550,15 +548,14 @@
 						 			<td class="text12" >&nbsp;&nbsp;
 						 			<img onMouseOver="showPop('pointer_info');" onMouseOut="hidePop('pointer_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 			<span title="nictp">Peker:</span>
-						 				<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="pointer_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-							           			<br/>
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="pointer_info" class="popupWithInputText text11"  >
 							           			<b>Peker</b>
 												<p>
 													Indtast rubrikknr ledsagedokumentet med fejl. Hvis der er afvigelser i den sidste post, pakker eller vægt, automatisk sendes point og kode.
 												</p>
-						           			</div>
-										</span>						 			
+										</span>
+										</div>						 			
 						 			</td>
 						 			<td class="text12">
 										<input type="text" class="inputTextMediumBlue" name="nictp" id="nictp" size="30" maxlength="35" value="${model.record.nictp}">
@@ -568,15 +565,15 @@
 						 			<td class="text12" >&nbsp;&nbsp;
 						 			<img onMouseOver="showPop('correctedValue_info');" onMouseOut="hidePop('correctedValue_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 			<span title="nictnv">Korrigeret værdi:</span>
-						 				<span style="position:absolute; left:1020px; top:500px; width:250px; height:150px;" id="correctedValue_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+						 				<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; top:2px; width:250px;" id="correctedValue_info" class="popupWithInputText text11"  >
 							           			<br/>
 							           			<b>Korrigeret værdi</b>
 												<p>
 													Indtast afvigende værdien i feltet er angivet i <b>peker</b>.
 												</p>
-						           			</div>
-										</span>						 			
+										</span>	
+										</div>					 			
 						 			</td>
 						 			<td class="text12">
 										<input type="text" class="inputTextMediumBlue" name="nictnv" id="nictnv" size="20" maxlength="15" value="${model.record.nictnv}">

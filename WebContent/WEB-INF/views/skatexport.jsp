@@ -116,7 +116,7 @@
            			<select name="avd" id="avd">
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.avdList}" >
-                       	 	<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
+                       	 	<option value="${record.avd}"<c:if test="${searchFilterSkatExport.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
 						</c:forEach> 
 					</select>
 				</td>
@@ -125,28 +125,28 @@
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
                        	 	<option value="${record.sign}"
-                    	 		<c:if test="${searchFilter.sign == record.sign}"> selected </c:if> >
+                    	 		<c:if test="${searchFilterSkatExport.sign == record.sign}"> selected </c:if> >
                           	 		${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="10" value='${searchFilter.opd}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="refnr" id="refnr"size="8" maxlength="35" value='${searchFilter.refnr}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="xrefnr" id="xrefnr"size="8" maxlength="35" value='${searchFilter.xrefnr}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="10" value='${searchFilterSkatExport.opd}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="refnr" id="refnr"size="8" maxlength="35" value='${searchFilterSkatExport.refnr}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="xrefnr" id="xrefnr"size="8" maxlength="35" value='${searchFilterSkatExport.xrefnr}'>&nbsp;</td>
 				
 				<td align="left" >
 					<select name="aart" id="aart" >
    	 				   <option value="">-vælg-</option>
 	 				   <c:forEach var="record" items="${model.angivelsesArterCodeList}" >
- 				  			<option value="${record.dkkd_kd}"<c:if test="${searchFilter.aart == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</option>
+ 				  			<option value="${record.dkkd_kd}"<c:if test="${searchFilterSkatExport.aart == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</option>
 					   </c:forEach>  
 					</select>					
 				</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="2" value='${searchFilter.status}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="internFakturanr" id="internFakturanr" size="8" maxlength="17" value='${searchFilter.internFakturanr}'>&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilterSkatExport.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="2" value='${searchFilterSkatExport.status}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilterSkatExport.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterSkatExport.motNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="internFakturanr" id="internFakturanr" size="8" maxlength="17" value='${searchFilterSkatExport.internFakturanr}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                 </td>

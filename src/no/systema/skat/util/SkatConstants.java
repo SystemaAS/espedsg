@@ -87,7 +87,7 @@ public final class SkatConstants {
 	public static final String DOMAIN_SEARCH_FILTER_SKATEXPORT_NCTS = "searchFilterSkatExportNcts";
 	public static final String SESSION_SEARCH_FILTER_SKATIMPORT = "searchFilterSkatImport";
 	public static final String SESSION_SEARCH_FILTER_SKATEXPORT = "searchFilterSkatExport";
-	public static final String SESSION_SEARCH_FILTER_SKATMPORT_NCTS = "searchFilterSkatImportNcts";
+	public static final String SESSION_SEARCH_FILTER_SKATIMPORT_NCTS = "searchFilterSkatImportNcts";
 	public static final String SESSION_SEARCH_FILTER_SKATEXPORT_NCTS = "searchFilterSkatExportNcts";
 	
 	

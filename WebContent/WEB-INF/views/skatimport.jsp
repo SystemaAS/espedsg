@@ -58,36 +58,35 @@
                 <td class="text12" align="left" >
 	 				<img onMouseOver="showPop('meddTyp_info');" onMouseOut="hidePop('meddTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 	 				<spring:message code="systema.skat.import.list.search.label.aart"/>
-	 				<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="meddTyp_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
-			           		<ul>
-			           			<c:forEach var="record" items="${model.angivelsesArterCodeList}" >
-			           			<li><b>${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
-			           			</c:forEach>
-			           		</ul>
-						</div>
+	 				<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="meddTyp_info" class="popupWithInputText text11"  >
+		           		<ul>
+		           			<c:forEach var="record" items="${model.angivelsesArterCodeList}" >
+		           			<li><b>${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
+		           			</c:forEach>
+		           		</ul>
 					</span>
+					</div>
 					
                 </td>
                 
                 <td class="text12" align="left" >
 				<img onMouseOver="showPop('datum_info');" onMouseOut="hidePop('datum_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 	<spring:message code="systema.skat.import.list.search.label.datum"/>
-                <span style="position:absolute; left:800px; top:150px; width:250px; height:180px;" id="datum_info" class="popupWithInputText"  >
-	           		<div class="text11" align="left">
+                <div class="text11" style="position: relative;" align="left">
+				<span style="position:absolute;top:2px; width:250px;" id="datum_info" class="popupWithInputText text11"  >
 	           		Standardsøg (blank dato) gælder <b> 15 dage bagud </b> på det tidspunkt. 
 	           		<br/><br/>
 					Hvis du ønsker at se længere tilbage i tiden, type, skal du angive fra dato. <br/>
 					For eksempel 20131001 leder efter en 1-Okt-2013 til i dag.
-	           		</div>
 				</span>	
+				</div>
                 </td>
                 <td class="text12" align="left" >
                 <img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.skat.import.list.search.label.status"/>
-                		<span style="position:absolute; left:850px; top:100px; width:500px; height:700px;" id="status_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
-		           		<br/>
+                		<div class="text11" style="position: relative;" align="left">
+						<span style="position:absolute;top:2px; width:500px;" id="status_info" class="popupWithInputText text11"  >
 		           		 Kun status <b>M</b>,<b>10</b>,<b>20</b>,<b>40</b> eller <b>' '</b> kan redigeres.
 		           		 <br/><br/> 
 		           			<table width="90%" align="center" cellspacing="0" border="0" cellpadding="0">
@@ -107,10 +106,9 @@
 			           				</c:otherwise>
 		           				</c:choose>
 		           				</c:forEach>
-		           			</table>
-		           			
-						</div>
-					</span>		
+		           			</table>		   
+					</span>	
+					</div>	
                 </td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.import.list.search.label.avsandare"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.import.list.search.label.mottagare"/></td>
@@ -122,7 +120,7 @@
            			<select name="avd" id="avd">
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.avdList}" >
-                   	 		<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
+                   	 		<option value="${record.avd}"<c:if test="${searchFilterSkatImport.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
 						</c:forEach> 
 					</select>
 				</td>
@@ -131,27 +129,27 @@
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
                              	 	<option value="${record.sign}"
-                             	 		<c:if test="${searchFilter.sign == record.sign}"> selected </c:if> >
+                             	 		<c:if test="${searchFilterSkatImport.sign == record.sign}"> selected </c:if> >
                              	 		${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="10" value='${searchFilter.opd}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="refnr" id="refnr"size="8" maxlength="35" value='${searchFilter.refnr}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="xrefnr" id="xrefnr"size="8" maxlength="35" value='${searchFilter.xrefnr}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="10" value='${searchFilterSkatImport.opd}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="refnr" id="refnr"size="8" maxlength="35" value='${searchFilterSkatImport.refnr}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="xrefnr" id="xrefnr"size="8" maxlength="35" value='${searchFilterSkatImport.xrefnr}'>&nbsp;</td>
 				<td align="left" >
 					<select name="aart" id="aart">
    	 				   <option value="">-vælg-</option>
 	 				   <c:forEach var="record" items="${model.angivelsesArterCodeList}" >
- 				  			<option value="${record.dkkd_kd}"<c:if test="${searchFilter.aart == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</option>
+ 				  			<option value="${record.dkkd_kd}"<c:if test="${searchFilterSkatImport.aart == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</option>
 					   </c:forEach>  
 					</select>	
 				</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="2" value='${searchFilter.status}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="internFakturanr" id="internFakturanr" size="8" maxlength="17" value='${searchFilter.internFakturanr}'>&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilterSkatImport.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="2" value='${searchFilterSkatImport.status}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilterSkatImport.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterSkatImport.motNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="internFakturanr" id="internFakturanr" size="8" maxlength="17" value='${searchFilterSkatImport.internFakturanr}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" value='<spring:message code="search.label"/>'>
                 </td>
@@ -214,16 +212,17 @@
 	                    <td class="tableHeaderField" nowrap>
 	                    		<img onMouseOver="showPop('update_info');" onMouseOut="hidePop('update_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		 					<spring:message code="systema.skat.import.list.search.label.update"/>
-	 					</td>
-		 				<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="update_info" class="popupWithInputText"  >
-			           		<div class="text11" align="left">
+	 			
+		 				<div class="text11" style="position: relative;" align="left">
+						<span style="position:absolute;top:2px; width:250px;" id="update_info" class="popupWithInputText text11"  >
 			           			<img title="Uppdatera ärende" style="vertical-align:bottom;" src="resources/images/update.gif" border="0">
 				           		<b>Uppdatera</b><br/>
 				           		<ul>
 				           			<li>&nbsp;Status=tomt, 10,20,40 eller M</li>
 				           		</ul>
-							</div>
 						</span>	
+						</div>
+						</td>
 	                    
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.list.search.label.arende"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.list.search.label.refnr"/>&nbsp;</td>

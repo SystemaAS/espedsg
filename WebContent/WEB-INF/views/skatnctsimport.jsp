@@ -53,29 +53,29 @@
                 <td class="text12" align="left" >
 				<img onMouseOver="showPop('datum_info');" onMouseOut="hidePop('datum_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.skat.ncts.import.list.search.label.datum"/>
-                <span style="position:absolute; left:900px; top:150px; width:250px; height:180px;" id="datum_info" class="popupWithInputText"  >
-	           		<div class="text11" align="left">
+                <div class="text11" style="position: relative;" align="left">
+				<span style="position:absolute;top:2px; width:250px;" id="datum_info" class="popupWithInputText text11"  >
 	           		Standardsøg (blank dato) gælder <b> 15 dage bagud </b> på det tidspunkt. 
 	           		<br/><br/>
 					Hvis du ønsker at se længere tilbage i tiden, type, skal du angive fra dato. <br/>
 					For eksempel 20131001 leder efter en 1-Okt-2013 til i dag.
-	           		</div>
-				</span>	
+	           	</span>	
+           		</div>
                 </td>
                 <td class="text12" align="left" >
 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-                <spring:message code="systema.skat.ncts.import.list.search.label.status"/></td>
-                <span style="position:absolute; left:900px; top:150px; width:250px; height:450px;" id="status_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
-		           		<br/>
-		           		Endast <b>M</b>, F eller <b>' '</b> kan redigeres.
-		           			<ul>
-								<c:forEach var="record" items="${model.statusCodeList}" >
-				           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
-			           			</c:forEach>
-		           			</ul>
-						</div>
-					</span>	                
+                <spring:message code="systema.skat.ncts.import.list.search.label.status"/>
+                	<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
+	           			Endast <b>M</b>, F eller <b>' '</b> kan redigeres.
+	           			<ul>
+							<c:forEach var="record" items="${model.statusCodeList}" >
+			           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
+		           			</c:forEach>
+	           			</ul>
+					</span>	 
+					</div>
+				</td>	               
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.type"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.ansvarig"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.godsnr"/></td>
@@ -88,7 +88,7 @@
            			<select name="avd" id="avd">
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.avdList}" >
-                        	 	<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
+                        	 	<option value="${record.avd}"<c:if test="${searchFilterSkatImportNcts.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>                       	 	
 						</c:forEach> 
 					</select>
 				</td>
@@ -96,24 +96,24 @@
            			<select name="sign" id="sign">
 	            		<option value="">-vælg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                             	 	<option value="${record.sign}"<c:if test="${searchFilter.sign == record.sign}"> selected </c:if> >${record.sign}</option>
+                             	 	<option value="${record.sign}"<c:if test="${searchFilterSkatImportNcts.sign == record.sign}"> selected </c:if> >${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value="${searchFilter.opd}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mrnNr" id="mrnNr" size="15" maxlength="18" value="${searchFilter.mrnNr}">&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value="${searchFilter.datum}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value="${searchFilter.status}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value="${searchFilterSkatImportNcts.opd}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="mrnNr" id="mrnNr" size="15" maxlength="18" value="${searchFilterSkatImportNcts.mrnNr}">&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value="${searchFilterSkatImportNcts.datum}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value="${searchFilterSkatImportNcts.status}">&nbsp;</td>
 				<td align="left" >
 					<select name="forenklad" id="forenklad">
 		            		<option value="">-vælg-</option>
-		            		<option value="J" <c:if test="${searchFilter.forenklad == 'J'}"> selected </c:if> >Forenklet</option>
-		            		<option value="N" <c:if test="${searchFilter.forenklad == 'N'}"> selected </c:if> >Normal</option>
+		            		<option value="J" <c:if test="${searchFilterSkatImportNcts.forenklad == 'J'}"> selected </c:if> >Forenklet</option>
+		            		<option value="N" <c:if test="${searchFilterSkatImportNcts.forenklad == 'N'}"> selected </c:if> >Normal</option>
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="ansNavn" id="ansNavn" size="12" maxlength="50" value="${searchFilter.ansNavn}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="godsNr" id="godsNr" size="12" maxlength="35" value="${searchFilter.godsNr}">&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumFr" id="datumFr" size="9" maxlength="8" value="${searchFilter.datumFr}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="ansNavn" id="ansNavn" size="12" maxlength="50" value="${searchFilterSkatImportNcts.ansNavn}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="godsNr" id="godsNr" size="12" maxlength="35" value="${searchFilterSkatImportNcts.godsNr}">&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumFr" id="datumFr" size="9" maxlength="8" value="${searchFilterSkatImportNcts.datumFr}">&nbsp;</td>
 
 				
 				<td valign="top" align="left" >

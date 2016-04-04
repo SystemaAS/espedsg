@@ -121,18 +121,18 @@
 								<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>
 				 				&nbsp;&nbsp;&nbsp;Mrn-nr:&nbsp;<b>${recordTopicSkat.titrnr}</b>
 				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkat.tign}</b>
-			 				</td>
-			 				<span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="status_info" class="popupWithInputText"  >
-								<div class="text11" align="left">
-				           		<br/>
+			 				
+			 				<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 				           		Kun <b>M</b>, F eller <b>' '</b> kan redigeres.
 				           			<ul>
 										<c:forEach var="record" items="${model.statusCodeList}" >
 						           			<li><b>${record.tkkode}&nbsp;</b>&nbsp;${record.tktxtn}</li>
 					           			</c:forEach>
 				           			</ul>
-								</div>
 							</span>
+							</div>
+							</td>
 		 				</tr>
 		 				<tr height="20"><td></td></tr>
 	 				</table>
@@ -410,15 +410,14 @@
 					 		<td >
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							 			<td class="text14" align="left" valign="bottom">
+							 			<td class="text12" align="left" valign="bottom">
 							 				<img onMouseOver="showPop('control_code_info');" onMouseOut="hidePop('control_code_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 				<c:if test="${recordTopicSkatUnloading.nikonf != '1'}">
 								 				<font class="text16RedBold" >*</font>
 							 				</c:if>
 							 				<span title="nvct" >Kode</span>
-							 				<span style="position:absolute; left:900px; top:250px; width:250px; height:250px;" id="control_code_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-							           			<br/>
+							 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="control_code_info" class="popupWithInputText text11"  >
 							           			<b>Kode</b>
 												<br/><br/>
 												 (Hvis losningsresultat = 0)
@@ -428,16 +427,14 @@
 												 	<li><b>OT</b> = Andre ting at rapportere</li>
 												 	<li><b><font style="color: red;">OR</font></b> = Den oprindelige vareposten rapporteret. Not needed by the end-user.</li>
 												 	<li><b><font style="color: red;">NP</font></b> = Dokumenter / Certifikater ikke forelagt. Not needed by the end-user. Not present. Is fixed automatically by the program</li>
-												 	
 												 </ul>
-						           			</div>
 											</span>
-							 				
+											</div>
 							 			</td>
-							 			<td class="text14" align="left">&nbsp;&nbsp;
+							 			<td class="text12" align="left">&nbsp;&nbsp;
 							            		<span title="nvctsk" >Sprogkode</span>
 							            </td>
-							            <td colspan="4" class="text14" align="left" valign="bottom">&nbsp;
+							            <td colspan="4" class="text12" align="left" valign="bottom">&nbsp;
 											<span title="nvctb" >Bemærkning</span>
 										</td>
 										<%-- This pointer (Peker) is automatically fixed by the AS400 service
@@ -462,7 +459,7 @@
 							        </tr>
 							        <tr>
 							        		<td class="text12" align="left">
-											<select class="text11" name="nvct" id="nvct">
+											<select class="inputTextMediumBlueMandatoryField" name="nvct" id="nvct">
 												<option value=""<c:if test="${model.record.nvct == ''}"> selected </c:if> >-vælg-</option>
 											  	<option value="DI"<c:if test="${model.record.nvct == 'DI'}"> selected </c:if> >DI</option>
 											  	<option value="NE"<c:if test="${model.record.nvct == 'NE'}"> selected </c:if> >NE</option>
@@ -595,7 +592,7 @@
 							        			<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="nvvktn" id="nvvktn" size="9" maxlength="9" value="${model.record.nvvktn}">
 			 			            		</td>
 			 			            		<td colspan="3" class="text12" align="left" >
-							        			<input type="text" class="inputText" name="nvvt" id="nvvt" size="60" maxlength="70" value="${model.record.nvvt}">
+							        			<input type="text" class="inputTextMediumBlueMandatoryField" name="nvvt" id="nvvt" size="60" maxlength="70" value="${model.record.nvvt}">
 			 			            		</td>
 			 			            					 			            		
 							        </tr>
@@ -687,7 +684,7 @@
 							        </tr>
 							        <tr>
 							        		<td colspan="3" class="text12" align="left">
-							        			<input type="text" class="inputText" name="nvmn" id="nvmn" size="35" maxlength="42" value="${model.record.nvmn}">
+							        			<input type="text" class="inputTextMediumBlueMandatoryField" name="nvmn" id="nvmn" size="35" maxlength="42" value="${model.record.nvmn}">
 			 			            		</td>
 							        		<td >
 											<select name="nvmnsk" id="nvmnsk">
@@ -702,7 +699,7 @@
 			 			            		</td>
 			 			            		
 			 			            		<td class="text12" align="left" >
-							        			<select name="nveh" id="nveh">
+							        			<select class="inputTextMediumBlueMandatoryField" name="nveh" id="nveh">
 							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.ncts017_Kolli_CodeList}" >
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nveh == code.tkkode}"> selected </c:if> >${code.tkkode}</option>

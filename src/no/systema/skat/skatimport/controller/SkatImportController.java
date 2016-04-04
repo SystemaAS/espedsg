@@ -41,6 +41,7 @@ import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningRecord;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureRecord;
+import no.systema.skat.nctsexport.filter.SearchFilterSkatNctsExportTopicList;
 
 import no.systema.skat.skatimport.filter.SearchFilterSkatImportTopicList;
 import no.systema.skat.url.store.SkatUrlDataStore;
@@ -150,9 +151,9 @@ public class SkatImportController {
 		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
 				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				this.setCodeDropDownMgr(appUser, model);
@@ -167,29 +168,39 @@ public class SkatImportController {
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
-		    		SearchFilterSkatImportTopicList searchFilter = new SearchFilterSkatImportTopicList();
+	    		SearchFilterSkatImportTopicList searchFilter = new SearchFilterSkatImportTopicList();
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+	            	session.setAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT, searchFilter);
+	            }else{
+	            	SearchFilterSkatImportTopicList sessionFilter = (SearchFilterSkatImportTopicList)session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		searchFilter = sessionFilter;
+	            	}
+	            }
 	            //get BASE URL
-		    		final String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_TOPICLIST_URL;
-		    		//add URL-parameters
-		    		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
-		    		session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-			    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParams);
-			    	
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    		final String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_TOPICLIST_URL;
+	    		//add URL-parameters
+	    		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+	    		session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
-				//Debug --> 
-			    	logger.info(jsonPayload);
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		
-			    		JsonSkatImportTopicListContainer jsonSkatImportTopicListContainer = this.skatImportTopicListService.getSkatImportTopicListContainer(jsonPayload);
-			    		//----------------------------------------------------------------
+		    	//Debug --> 
+		    	logger.info(jsonPayload);
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		
+		    		JsonSkatImportTopicListContainer jsonSkatImportTopicListContainer = this.skatImportTopicListService.getSkatImportTopicListContainer(jsonPayload);
+		    		//----------------------------------------------------------------
 					//now filter the topic list with the search filter (if applicable)
 					//----------------------------------------------------------------
 					outputList = jsonSkatImportTopicListContainer.getOrderList();	
@@ -212,20 +223,22 @@ public class SkatImportController {
 					this.setCodeDropDownMgr(appUser, model);
 					
 					successView.addObject(SkatConstants.DOMAIN_MODEL , model);
-			    		//domain and search filter
+		    		//domain and search filter
 					successView.addObject(SkatConstants.DOMAIN_LIST,outputList);
-					successView.addObject("searchFilter", searchFilter);
+					if (session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT) == null || session.getAttribute(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT).equals("")){
+						successView.addObject(SkatConstants.SESSION_SEARCH_FILTER_SKATIMPORT, searchFilter);
+					}
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 			    	
 					return successView;
-					
-			    	}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
+				
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
 		    }
 		}
-		
+	
 	}
 
 	/**
