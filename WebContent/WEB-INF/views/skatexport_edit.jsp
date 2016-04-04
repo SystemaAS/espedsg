@@ -177,8 +177,14 @@
 							</c:otherwise>
 						</c:choose>
 					</b>
-					<span style="position:absolute; left:800px; top:150px; width:250px; height:600px;" id="status_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
+					<%-- test indicator /per avdelning --%> 
+					<c:if test="${'1' == isTestAvd}">
+						<font class="text14Red" >	
+							&nbsp;&nbsp;<b>[TEST Afdeling]</b>
+						</font>
+					</c:if>
+					<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >	
 		           		<br/>
 		           		Kun status <b>M</b>,<b>11</b>,<b>20</b>eller <b>' '</b> kan redigeres. 
 		           			<ul>
@@ -186,14 +192,9 @@
 				           			<li><b>${record.dkkd_kd}&nbsp;-${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
 			           			</c:forEach>
 		           			</ul>
-						</div>
 					</span>
-					<%-- test indicator /per avdelning --%> 
-					<c:if test="${'1' == isTestAvd}">
-						<font class="text14Red" >	
-							&nbsp;&nbsp;<b>[TEST Afdeling]</b>
-						</font>
-					</c:if>
+					</div>
+					
 				</td>
 			</tr>	
 		</c:when>
@@ -236,17 +237,17 @@
 	            			<tr>
 				 			<td class="text12">
 				 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>1.1</b>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="1_1_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<b>1.1</b><span title="dkeh_r011" id="v_dkeh_r011" class="validation">Ang.type&nbsp;</span>
+			 					
+					           	<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="1_1_info" class="popupWithInputText text11"  >		
 					           			<ul>
 					           				<c:forEach var="record" items="${model.angivelsesTypeCodeList}" >
 					           				<li><b>${record.dkkd_kd}</b>&nbsp;${record.dkkf_txt}</li>
 				           					</c:forEach>
 					           			</ul>
-									</div>
 								</span>		
-			 					<span title="dkeh_r011" id="v_dkeh_r011" class="validation">Ang.type&nbsp;</span>
+			 					</div>
 				 			</td>
 				 			<td>
 				 				<select name="dkeh_r011" id="dkeh_r011" TABINDEX=3>
@@ -260,15 +261,16 @@
 			 				<td class="text12" align="left">
 			 				<img onMouseOver="showPop('meddTyp_info');" onMouseOut="hidePop('meddTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 			 				<span title="dkeh_aart" id="v_dkeh_aart" class="validation">Ang.art&nbsp;</span>
-				 			<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="meddTyp_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+				 			
+				           	<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="meddTyp_info" class="popupWithInputText text11"  >	
 					           		<ul>
 					           			<c:forEach var="record" items="${model.angivelsesArterCodeList}" >
 					           			<li><b>${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
 					           			</c:forEach>
 					           		</ul>
-								</div>
 							</span>
+							</div>
 							</td>
 			 				<td>
 				 				<select name="dkeh_aart" id="dkeh_aart" TABINDEX=10>
@@ -285,8 +287,9 @@
 		 						<img onMouseOver="showPop('1_2_info');" onMouseOut="hidePop('1_2_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<b>1.2</b>&nbsp;
 				 				<span title="dkeh_r012" id="v_dkeh_r012" class="validation">EU ang.art&nbsp;</span>
-				 				<span style="position:absolute; left:800px; top:150px; width:300px; height:240px;" id="1_2_info" class="popupWithInputText" >
-					           		<div class="text11" align="left">
+				 					
+					           	<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="1_2_info" class="popupWithInputText text11"  >	
 					           		Anden underrubrik.
 				           			<br/><br/>
 				           			<b>EU-Angivelsesart (fält 1:2)</b>
@@ -296,8 +299,8 @@
 					           			</c:forEach>
 					           			
 					           		</ul>
-									</div>
 								</span>
+								</div>
 				 			</td>
 				 			<td>
 				 				<select name="dkeh_r012" id="dkeh_r012" TABINDEX=10>
@@ -311,8 +314,8 @@
 			 				<td class="text12" align="left">
 			 					<img onMouseOver="showPop('ajour_info');" onMouseOut="hidePop('ajour_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<span title="dkeh_ajou" id="v_dkeh_ajou" class="validation">Ajour.type&nbsp;</span>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="ajour_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="ajour_info" class="popupWithInputText text11"  >	
 					           			<b>Ajourføringstype</b>
 					           			<ul>
 					           				<li>
@@ -334,8 +337,8 @@
 												<b>9</b> Ajourfør tidligere angivelse med faktisk ekspeditionstidspunkt.
 											</li>
 										</ul>
-									</div>
 								</span>
+								</div>
 				 			</td>
 				 			<td>	
 				 				<select name="dkeh_ajou" id="dkeh_ajou" >
@@ -352,8 +355,9 @@
 		 				<tr>
 							<td class="text12" align="left">
 								<img onMouseOver="showPop('ekspedsted_info');" onMouseOut="hidePop('ekspedsted_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="ekspedsted_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+								<b>A.1</b><span title="dkeh_a1" id="v_dkeh_a1" class="validation">Eksped.sted&nbsp;</span>
+					           	<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="ekspedsted_info" class="popupWithInputText text11"  >	
 					           			<b>Eksped.sted</b>
 					           			<br/><br/>
 					           			Ekspeditionssted, hvor varerne skal frigives til eksport.
@@ -361,10 +365,9 @@
 					           			Toldekspeditionssted eller godkendt eksportør.
 										<br/><br/>
 										Toldekspeditionssted for den godkendte eksportør er oplyst i bevillingen.
-									</div>
 								</span>
-				 				<b>A.1</b>
-				 				<span title="dkeh_a1" id="v_dkeh_a1" class="validation">Eksped.sted&nbsp;</span>
+								</div>
+				 				
 			 					<%-- info span --%>
 								<img onClick="showPop('toldstedCodeInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 								<span style="position:absolute; left:50px; top:280px; width:350px; height:150px;" id="toldstedCodeInfo" class="popupWithInputText"  >
@@ -395,8 +398,9 @@
 			 				</td>
 			 				<td align="left" class="text12">
 			 					<img onMouseOver="showPop('ekspednr_info');" onMouseOut="hidePop('ekspednr_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="ekspednr_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+								<b>A.2</b>&nbsp;<span title="dkeh_a2" id="v_dkeh_a2" class="validation">Eksped.nr.&nbsp;</span>
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="ekspednr_info" class="popupWithInputText text11"  >	
 					           			<b>Eksped.nummer</b>
 					           			<br/><br/>
 					           			Ekspeditionsnummeret er et unikt løbenummer med tretten cifre, som indeholder 
@@ -409,10 +413,8 @@
 					           			Eksempel:
 					           			<br/><br/>
 					           			2014<b>2</b>12345678
-					           			
-									</div>
 								</span>
-		 						<b>A.2</b>&nbsp;<span title="dkeh_a2" id="v_dkeh_a2" class="validation">Eksped.nr.&nbsp;</span>
+								</div>
 				 			</td>
 				 			<td align="left" >
 				 				<input type="text" class="inputTextMediumBlue" name="dkeh_a2" id="dkeh_a2" size="16" maxlength="13" value="${model.record.dkeh_a2}">
@@ -422,14 +424,14 @@
 		 					<td class="text12" >
 		 						<img onMouseOver="showPop('dkeh_dtm1_info');" onMouseOut="hidePop('dkeh_dtm1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<span title="dkeh_dtm1" id="v_dkeh_dtm1" class="validation">Forventet eksp.tid&nbsp;</span>
-				 				<span style="position:absolute; left:800px; top:150px; width:300px; height:140px;" id="dkeh_dtm1_info" class="popupWithInputText" >
-					           		<div class="text11" align="left">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="dkeh_dtm1_info" class="popupWithInputText text11"  >
 					           			<b>Forventet ekspeditionstidspunkt</b>
 					           			<br/><br/>
 					           			Forventet ankomst til toldekspeditionssted eller forventet indlæsningstid hos den godkendte eksportør.
 										Dato (år måned dato) og klokkeslæt (timer/minutter).
-					           		</div>
 								</span>
+								</div>
 				 			</td>
 							<td class="text12" align="left">
 			 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_dtm1" id="dkeh_dtm1" size="16" maxlength="12" value="${model.record.dkeh_dtm1}">
@@ -439,14 +441,14 @@
 				 			<td class="text12" >
 		 						<img onMouseOver="showPop('dkeh_dtm2_info');" onMouseOut="hidePop('dkeh_dtm2_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<span title="dkeh_dtm2" id="v_dkeh_dtm2" class="validation">Faktisk eksp.tid&nbsp;</span>
-				 				<span style="position:absolute; left:800px; top:150px; width:300px; height:140px;" id="dkeh_dtm2_info" class="popupWithInputText" >
-					           		<div class="text11" align="left">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="dkeh_dtm2_info" class="popupWithInputText text11"  >
 					           			<b>Faktisk ekspeditionstidspunkt</b>
 					           			<br/><br/>
 					           			Faktisk ekspeditionstid på et toldekspeditionssted eller tidspunktet, hvor den godkendte eksportør har overholdt sin forudanmeldelsestid.
 										Dato (år måned dato) og klokkeslæt (timer/minutter).
-					           		</div>
 								</span>
+								</div>
 			 				</td>
 			 				<td class="text12" align="left">
 			            			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_dtm2" id="dkeh_dtm2" size="16" maxlength="12" value="${model.record.dkeh_dtm2}">
@@ -528,9 +530,9 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 			<b>&nbsp;2.</b>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="2_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					 			<b>&nbsp;2.</b>Afsender/Eksportør&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="2_info" class="popupWithInputText text11"  >
 					           		<b>Afsender / Eksportør</b>
 					           		<ol>
 					           			<li><b>Afsenders navn</b>
@@ -540,9 +542,8 @@
 										Den fuldstændige adresse på den afsender/eksportør, der har udstedt fakturaen.
 										</li>
 									</ol>	
-									</div>
 								</span>
-				 				Afsender/Eksportør&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								</div>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -713,17 +714,16 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				<b>&nbsp;8.</b>
-				 				<span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="8_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+				 				<b>&nbsp;8.</b>Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >
 						           		<b>Modtager</b>
 						           		<ol>
 						           			<li>Rubrikken skal indeholde oplysning om modtagerens navn og adresse.</li>
 											
 										</ol>
-									</div>
 								</span>
-				 				Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								</div>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -883,15 +883,14 @@
 				 		<tr height="18px">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('14_b_info');" onMouseOut="hidePop('14_b_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		 						<b>&nbsp;14.</b>
-				 				<span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="14_b_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+		 						<b>&nbsp;14.</b>Klarereren / Repræsentant&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="14_b_info" class="popupWithInputText text11"  >
 				           			<b>14.&nbsp;Klarereren/repræsentanten</b> er den juridiske person, der afgiver fortoldningen.<br/><br/>
 									I rubrikken anføres oplysning om klarererens/repræsentantens <b>Repr. CVR/SE-nr.</b>, der skal angives med foranstillet ISO landekode DK
 									
-					           		</div>
 								</span>
-				 				Klarereren / Repræsentant&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								</div>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -1016,9 +1015,9 @@
 							            <td ><input type="text" class="inputTextMediumBlue" name="dkeh_28b" id="dkeh_28b" size="18" maxlength="17" value='${ model.record.dkeh_28b}'></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('faktTyp_info');" onMouseOut="hidePop('faktTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				<span title="dkeh_28a">Fakt.type&nbsp;</span></td>
-							            <div class="text11" style="position:relative;" align="left">
-							            <span style="position:absolute; left:0px; top:0px;" id="faktTyp_info" class="popupWithInputText"  >
+						 				<span title="dkeh_28a">Fakt.type&nbsp;</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="faktTyp_info" class="popupWithInputText text11"  >
 						           			<font class="text12">
 						           			<ul>
 							           			<li><b>N380</b> handelsfaktura</li>
@@ -1027,6 +1026,7 @@
 							           		</font>
 										</span>
 										</div>
+										</td>
 							            <td>
 							 				<select name="dkeh_28a" id="dkeh_28a">
 							 					<option value="">-vælg-</option><option value="N380"<c:if test="${ model.record.dkeh_28a == 'N380'}"> selected </c:if> >N380</option>
@@ -1062,15 +1062,16 @@
 					 		<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('17_a_info');" onMouseOut="hidePop('17_a_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>17a.</b><span title="dkeh_17a" id="v_dkeh_17a" class="validation">Bestem.land</span>&nbsp;</td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="17_a_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<b>17a.</b><span title="dkeh_17a" id="v_dkeh_17a" class="validation">Bestem.land</span>&nbsp;
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="17_a_info" class="popupWithInputText text11"  >
 					           			<b>17a. Bestemmelsesland</b>
 					           			<br/><br/>
 					           			Koden for bestemmelseslandet. Koderne fremgår af landefortegnelsen i bilag 37. Eller se kodetabeller i e-Export under virksomheder Told - Erhverv på http://www.skat.dk/
 					           			<br/><br/>
-									</div>
-								</span>		
+								</span>	
+								</div>
+								</td>	
 					            <td >
 					            	<select name="dkeh_17a" id="dkeh_17a">
 				 						<option value="">-vælg-</option>
@@ -1105,8 +1106,8 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('18_1_info');" onMouseOut="hidePop('18_1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 			 					<b>18.1</b>&nbsp;<span title="dkeh_181" id="v_dkeh_181" class="validation">Transp.ID</span>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="18_1_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="18_1_info" class="popupWithInputText text11"  >
 					           			<b>18.1 Transportmidlets identitet ved afgang</b>
 					           			<br/><br/>
 					           			Rubrikken udfyldes ikke ved udførsel med post, jernbane eller i faste installationer
@@ -1114,8 +1115,8 @@
 					           			Her angives identiteten for det transportmiddel, fx anhænger, bil eller skib, som varerne indlades på. 
 					           			Identiteten er normalt enten registreringsnummer eller navn.
 					           			<br/><br/>
-									</div>
-								</span>		
+								</span>	
+								</div>	
 					            </td>
 				                 <td >
 						            	<input type="text" class="inputTextMediumBlue" name="dkeh_181" id="dkeh_181" size="21" maxlength="20" value="${model.record.dkeh_181}">
@@ -1133,10 +1134,9 @@
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>21</b><span title="dkeh_21">&nbsp;Transportmidlets nationalitet ved udførsel&nbsp;</span>
-					            </td>
 					            
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:290px;" id="21_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >
 					           			<b>21 Transportmidlets nationalitet ved udførsel</b>&nbsp;
 					           			(Grænseoverskridende aktive transportmiddels nationalitet)
 					           			<br/><br/>
@@ -1147,9 +1147,9 @@
 					           			Anvendes fx et trækkende køretøj og påhængsvogn, er det aktive transportmiddel det trækkende køretøj.
 					           			<br/><br/>
 					           			Nationalitetskoden for det angivne transportmiddel jf. landefortegnelsen.
-									</div>
-									
 								</span>	
+								</div>
+								</td>
 								<td>
 					            		<select name="dkeh_21" id="dkeh_21">
 				 						<option value="">-vælg-</option>
@@ -1174,17 +1174,17 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('25_info');" onMouseOut="hidePop('25_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>25.</b>
-					            <span title="dkeh_25" id="v_dkeh_25" class="validation" >Transp.måde ved grænsen&nbsp;</span></td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="25_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <span title="dkeh_25" id="v_dkeh_25" class="validation" >Transp.måde ved grænsen&nbsp;</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="25_info" class="popupWithInputText text11"  >
 					           			<b>25. Transportmåde ved grænsen</b>
 					           			<br/><br/>
 					           			Koden for den transportmåde, der anvendes ved transporten over EU's ydre grænse. 
 					           			Denne transportmåde skal være i overensstemmelse med det aktive transportmiddel angivet i rubrik 21. 
 					           			Der anvendes koderne i bilag 145.
-					           			
-									</div>
-								</span>		
+								</span>	
+								</div>
+								</td>
 					            <td class="text12" >
 			           				<select name="dkeh_25" id="dkeh_25">
 				 						<option value="">-vælg-</option>
@@ -1199,15 +1199,16 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('26_info');" onMouseOut="hidePop('26_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>26.</b>
-					            <span title="dkeh_26" id="v_dkeh_26" class="validation">Indenlandsk transp.måde&nbsp;</span></td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="26_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <span title="dkeh_26" id="v_dkeh_26" class="validation">Indenlandsk transp.måde&nbsp;</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="26_info" class="popupWithInputText text11"  >
 					           			<b>26. Indenlandsk transportmåde</b>
 					           			<br/><br/>
 					           			Koden for den transportmåde, der anvendes ved varernes frigivelse til udførsel af EU's toldområde. 
 					           			Udfyldelsen er obligatorisk, og der anvendes de koder, der er anført i bilag 145.
-									</div>
-								</span>		
+								</span>	
+								</div>
+								</td>	
 					            
 					            <td class="text12" >
 			           				<select name="dkeh_26" id="dkeh_26">
@@ -1250,15 +1251,16 @@
 				 			<tr>
 				            <td class="text12" align="left" >
 				            <img onMouseOver="showPop('s13_info');" onMouseOut="hidePop('s13_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		 					<b>S13.1</b><span title="dkeh_s131" id="v_dkeh_s131" class="validation">&nbsp;Transitlandskode</span>&nbsp;</td>
-				            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="s13_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+		 					<b>S13.1</b><span title="dkeh_s131" id="v_dkeh_s131" class="validation">&nbsp;Transitlandskode</span>&nbsp;
+				            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="s13_info" class="popupWithInputText text11"  >
 				           			<b>S13. Transitlandskode</b>
 				           			<br/><br/>
 				           			Landekode/koder indsættes. 
 				           			<br/><br/>
-								</div>
-							</span>		
+							</span>	
+							</div>
+							</td>	
 				            <td >
 				            		<select name="dkeh_s131" id="dkeh_s131">
 			 						<option value="">-vælg-</option>
@@ -1291,15 +1293,16 @@
 							<tr>
 				            <td class="text12" align="left" >
 				            <img onMouseOver="showPop('s132_info');" onMouseOut="hidePop('s132_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		 					<b>S13.2</b><span title="dkeh_s132">&nbsp;Transitlandskode-2</span>&nbsp;</td>
-				            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="s132_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+		 					<b>S13.2</b><span title="dkeh_s132">&nbsp;Transitlandskode-2</span>&nbsp;
+				            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="s132_info" class="popupWithInputText text11"  >
 				           			<b>S13.2 Transitlandskode-2</b>
 				           			<br/><br/>
 				           			Landekode/koder indsættes. 
 				           			<br/><br/>
-								</div>
-							</span>		
+							</span>
+							</div>
+							</td>		
 				            <td >
 				            		<select name="dkeh_s132" id="dkeh_s132">
 			 						<option value="">-vælg-</option>
@@ -1396,9 +1399,9 @@
 							<tr>
 				            <td class="text12" align="left" >
 				            <img onMouseOver="showPop('dkeh_201_info');" onMouseOut="hidePop('dkeh_201_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		 					<b>20.1</b><span title="dkeh_201">&nbsp;Leveringsbetingelser [kode]</span>&nbsp;</td>
-				            <span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="dkeh_201_info" class="popupWithInputText"  >
-				           		<div class="text11" align="left">
+		 					<b>20.1</b><span title="dkeh_201">&nbsp;Leveringsbetingelser [kode]</span>&nbsp;
+				            <div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px; width:250px;" id="dkeh_201_info" class="popupWithInputText text11"  >
 				           			<b>20.1 Leveringsbetingelser</b>
 				           			<br/><br/>
 				           			Internationale koder for forsendelsesbetingelser og leveringsbetingelser. 
@@ -1408,8 +1411,9 @@
 				           				<li><b>${record.dkkd_kd}</b>&nbsp;${record.dkkf_txt}</li>
 				           				</c:forEach>				           									           									           									           									           									           				
 				           			</ul>
-								</div>
-							</span>		
+							</span>	
+							</div>
+							</td>	
 				            <td >
 					            	<select name="dkeh_201" id="dkeh_201">
 			 						<option value="">-vælg-</option>
@@ -1423,16 +1427,16 @@
 			 				<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('dkeh_202_info');" onMouseOut="hidePop('dkeh_202_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>20.2</b><span title="dkeh_202">&nbsp;Sted</span>&nbsp;</td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:520px;" id="dkeh_202_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<b>20.2</b><span title="dkeh_202">&nbsp;Sted</span>&nbsp;
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="dkeh_202_info" class="popupWithInputText text11"  >
 					           			<b>20.2 Sted</b>
 					           			<br/><br/>
 					           			Sted, hvor forsendelsesbetingelser og leveringsbetingelser opfyldes. 
 					           			<br/><br/>
-					           			
-									</div>
 								</span>	
+								</div>
+								</td>
 							</tr>
 							<tr>	
 					            <td colspan="2">
@@ -1444,20 +1448,20 @@
 					 		<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('s29_info');" onMouseOut="hidePop('s29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="s29_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<b>S29. Betalingsmåde for transportudgifter (Transport charges method of payment)</b>
-					           			<ul>
-					           				<c:forEach var="record" items="${model.betalningsmadeCodeList}" >
-					           				<li><b>${record.dkkd_kd}</b>&nbsp;${record.dkkf_txt}</li>
-					           				</c:forEach>				           									           									           									           									           									           				
-					           			</ul>
-					           			Her anføres koden for betalingsmåde, hvis der er oplysning om den.
-										</div>
+			 					<b>S29.</b>&nbsp;<span title="dkeh_s29" id="v_dkeh_s29" class="validation">Bet.måde for transp.udgifter</span>&nbsp;
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="s29_info" class="popupWithInputText text11"  >
+				           			<b>S29. Betalingsmåde for transportudgifter (Transport charges method of payment)</b>
+				           			<ul>
+				           				<c:forEach var="record" items="${model.betalningsmadeCodeList}" >
+				           				<li><b>${record.dkkd_kd}</b>&nbsp;${record.dkkf_txt}</li>
+				           				</c:forEach>				           									           									           									           									           									           				
+				           			</ul>
+				           			Her anføres koden for betalingsmåde, hvis der er oplysning om den.
 								</span>
-								<b>S29.</b>&nbsp;		
-					            <span title="dkeh_s29" id="v_dkeh_s29" class="validation">Bet.måde for transp.udgifter</span>&nbsp;</td>
-					            <td >
+								</div>
+								</td>
+								<td >
 					            		<select name="dkeh_s29" id="dkeh_s29">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="code" items="${model.betalningsmadeCodeList}" >
@@ -1480,16 +1484,16 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('30_info');" onMouseOut="hidePop('30_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <b>30.&nbsp;Varernes placering</b>
-					            </td>
-					            <span style="position:absolute; left:800px; top:150px; width:250px; height:240px;" id="30_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="30_info" class="popupWithInputText text11"  >
 					           			<b>30. Varernes placering</b>
 					           			<br/><br/>
 					           			Her angiver klarereren, hvor varerne kan kontrolleres. 
 					           			Hvis feltet ikke er udfyldt, vil varens placering være toldekspeditionsstedet, der er angivet i rubrik A. Rubrikken udfyldes med ISO landekode DK, SE-nummer, bevillingstype og løbenummeret på den adresse i bevillingen, som der er tale om.
 					           			<br/><br/>
-									</div>
-								</span>		
+								</span>	
+								</div>
+								</td>	
 					        </tr>
 				            <tr>
 				            		<td class="text12" align="left" >
@@ -1527,16 +1531,16 @@
 					            <img onMouseOver="showPop('uvp_info');" onMouseOut="hidePop('uvp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            30.d&nbsp;
 			 					<span title="dkeh_uvp" id="v_dkeh_uvp" class="validation">Var.plac.udpassage</span>
-			 					<span style="position:absolute; left:800px; top:150px; width:250px; height:300px;" id="uvp_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+			 					<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="uvp_info" class="popupWithInputText text11"  >
 					           			<b>Varernes placering udpassage</b>
 					           			<br/><br/>
 					           			Kan kun anvendes i forbindelse med ankomstregistreringer, dvs ajourføringstype = 6
 					           			<br/><br/>
 					           			[I BGM segmentet for angivelsesart: AIU FoU, FuaA, FuaF, Pro.]
 					           			
-									</div>
-								</span>		
+								</span>	
+								</div>	
 					            </td>
 				                 <td >
 						            	<input type="text" class="inputTextMediumBlue" name="dkeh_uvp" id="dkeh_uvp" size="21" maxlength="35" value="${model.record.dkeh_uvp}">
@@ -1549,32 +1553,34 @@
 	        					<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('brut_info');" onMouseOut="hidePop('brut_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <span title="dkeh_brut">Bruttovægt</span></td>
-					            <span style="position:absolute; left:800px; top:850px; width:250px; height:240px;" id="brut_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <span title="dkeh_brut">Bruttovægt</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="brut_info" class="popupWithInputText text11"  >
 					           			<b>Samlede bruttovægt</b>
-									</div>
 								</span>	
+								</div>
+								</td>
 					            <td >
-					            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="dkeh_brut" id="dkeh_brut" size="12" maxlength="11" value="${model.record.dkeh_brut}">
+				            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="dkeh_brut" id="dkeh_brut" size="12" maxlength="11" value="${model.record.dkeh_brut}">
 					            </td>
 					        </tr>
 				            <tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('6_info');" onMouseOut="hidePop('6_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <b>6.&nbsp;</b>
-					            <span title="dkeh_06" id="v_dkeh_06" class="validation">Kolli i alt</span></td>
-					            <span style="position:absolute; left:800px; top:850px; width:250px; height:240px;" id="6_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<b>6. Kolli i alt</b>
-					           			<br/><br/>
-					           			Det samlede antal kolli.
-					           			<br/><br/>
-					           			Beregnes automatisk af oplysninger om kolli antal i vareposterne.
-									</div>
+					            <span title="dkeh_06" id="v_dkeh_06" class="validation">Kolli i alt</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="6_info" class="popupWithInputText text11"  >
+				           			<b>6. Kolli i alt</b>
+				           			<br/><br/>
+				           			Det samlede antal kolli.
+				           			<br/><br/>
+				           			Beregnes automatisk af oplysninger om kolli antal i vareposterne.
 								</span>	
+								</div>
+								</td>
 					            <td >
-					            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="dkeh_06" id="dkeh_06" size="8" maxlength="7" value="${model.record.dkeh_06}">
+				            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="dkeh_06" id="dkeh_06" size="8" maxlength="7" value="${model.record.dkeh_06}">
 					            </td>
 					        </tr>
 					        
@@ -1588,7 +1594,7 @@
 						            		<c:if test="${ model.record.dkeh_06 !=  model.record.sumOfAntalKolliInItemLinesStr}">
 								            <img onMouseOver="showPop('itemsKolliSum_info');" onMouseOut="hidePop('itemsKolliSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="kolliantal warning">	
 								            <div class="text11" style="position: relative;" align="left">
-									            <span style="position:absolute; left:10px; top:0px;" id="itemsKolliSum_info" class="popupWithInputText"  >
+											<span style="position:absolute;top:2px; width:250px;" id="itemsKolliSum_info" class="popupWithInputText text11"  >
 								           			<font class="text11">
 								           			<p>
 								           			Summen af ​​antallet af pakker på produktlinje niveau svarer ikke til det angivne antal pakker i posten.
@@ -1598,7 +1604,7 @@
 								           			Hvis nummeret til venstre er = <b>-1</b> betyder, at der er mere end 0-varelinjer, og summen af varelinjer kolliantal er = 0 (hvilket ikke er korrekt).
 								           			</p>
 								           			</font>
-												</span>	
+											</span>	
 											</div>
 						            		</c:if>
 					            		</c:if>
@@ -1650,17 +1656,16 @@
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('29_info');" onMouseOut="hidePop('29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <b>29.</b>&nbsp;<span title="dkeh_29" id="v_dkeh_29" class="validation">Udgangstoldsted</span>
-					            <span style="position:absolute; left:800px; top:850px; width:250px; height:320px;" id="29_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="29_info" class="popupWithInputText text11"  >
 					           			<b>29. Udgangstoldsted</b>
 					           			<br/><br/>
 					           			Koden for det toldsted, hvorfra varerne forventes at udpassere af EU's toldområde eller hvor forsendelsesordning begyndes.
 										<br/><br/>
 										Udpasserer varerne som postforsendelse eller med jernbane, anføres henholdsvis kode DK000010 og DK000020.<br/><br/>
 					           			<br/><br/>
-					           			
-									</div>
 								</span>	
+								</div>
 								</td>
 					            <td >
 					            		<select id="dkeh_29" name="dkeh_29" >
@@ -1778,15 +1783,15 @@
 						 		<tr height="18px">
 						 			<td class="text12White">
 						 				&nbsp;<img onMouseOver="showPop('transportor_info');" onMouseOut="hidePop('transportor_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="transportor_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+				 						Transportør&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 						<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="transportor_info" class="popupWithInputText text11"  >
 							           			<b>Transportør</b>
 							           			<br/><br/>
 							           			Todo
 							           			<br/><br/>
-							           		</div>
 										</span>
-						 				Transportør&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+										</div>
 					 				</td>
 				 				</tr>
 			 				</table>
@@ -1893,15 +1898,15 @@
 						 		<tr height="18px">
 						 			<td class="text12White">
 						 				&nbsp;<img onMouseOver="showPop('representant_info');" onMouseOut="hidePop('representant_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="representant_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+				 						Representant ved udpassage&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 						<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="representant_info" class="popupWithInputText text11"  >
 							           			<b>Representant ved udpassage</b>
 							           			<br/><br/>
 							           			Todo
 							           			<br/><br/>
-							           		</div>
 										</span>
-						 				Representant ved udpassage&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+										</div>
 					 				</td>
 				 				</tr>
 			 				</table>
@@ -2157,43 +2162,41 @@
 								<td class="text12" nowrap>
 				 					<img onMouseOver="showPop('fraktdok_info');" onMouseOut="hidePop('fraktdok_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 				<span title="dkeh_gis1">Fragtdok.&nbsp;</span>
-					 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:100px;" id="fraktdok_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+					 				<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="fraktdok_info" class="popupWithInputText text11"  >
 							           		<b>Fragtdokument</b>
 							           		<ul>
 							           			<li><b>1</b> Hvis gennemgående fragtdokument</li>
 												<li><b>0</b> Hvis direkte udførsel, [1131] = 117 </li>
 												
 							           		</ul>
-										</div>
 									</span>
-					 				
+					 				</div>
 				 				</td>
 				 				
 				 				<td class="text12" nowrap>
 				 					<img onMouseOver="showPop('storageFlag_info');" onMouseOut="hidePop('storageFlag_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 				<span title="dkeh_gis2">Storage flag&nbsp;</span>
-					 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:100px;" id="storageFlag_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+					 				<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="storageFlag_info" class="popupWithInputText text11"  >
 							           		<b>Storage flag</b>
 							           		<ul>
 							           			<li>Storage flag = <b>0</b>, [1131] = 109 </li>
 							           		</ul>
-										</div>
 									</span>
-					 				
+					 				</div>
 				 				</td>
 				 				<td class="text12">
 				 					<img onMouseOver="showPop('forsegl_info');" onMouseOut="hidePop('forsegl_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 				<span title="dkeh_gis3">Disp. for Forsegling&nbsp;</span>
-					 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:100px;" id="forsegl_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+					 				<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="forsegl_info" class="popupWithInputText text11"  >
 							           		<b>Disp. for Forsegling</b>
 							           		<ul>
 							           			<li>Disp. For Forsegling = <b>0</b> eller <b>1</b>, [1131] = XXX</li>
 							           		</ul>
-										</div>
 									</span>
+									</div>
 				 				</td>
 				 			</tr>
 				 			
@@ -2224,14 +2227,14 @@
 				 				<td class="text12" colspan="3">
 				 					<img onMouseOver="showPop('restitution_info');" onMouseOut="hidePop('restitution_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 				<span title="dkeh_gis4">Restitution mindre end 1000 EURO&nbsp;</span>
-					 				<span style="position:absolute; left:800px; top:1000px; width:250px; height:100px;" id="restitution_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+					 				<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="restitution_info" class="popupWithInputText text11"  >
 							           		<b>Restitution mindre end 1000 EURO</b>
 							           		<ul>
 							           			<li>Restitution mindre end 1000 EURO = <b>0</b> eller <b>1</b>, [1131] = BBB</li>
 							           		</ul>
-										</div>
 									</span>
+									</div>
 				 				</td>
 				 			</tr>
 				 			<tr>	
@@ -2257,15 +2260,15 @@
 					 					<td class="text12" >
 					 					<img onMouseOver="showPop('plombering_info');" onMouseOut="hidePop('plombering_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 				&nbsp;<b>&nbsp;Plombering&nbsp;</b></td>
-					 					<span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="plombering_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+					 					<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="plombering_info" class="popupWithInputText text11"  >
 							           			<b>Plombering</b>
 							           			<br/>
 							           			<ul>
 								           			<li><b>Id-1...Id-5</b> Plomb.Id (hovedsageligt til interne plomber).</li>
 							           			</ul>	
-						           			</div>
 										</span>
+										</div>
 									</tr>
 				 				</table>
 				 			</td>
@@ -2360,16 +2363,17 @@
 					 				<tr>
 					 					<td class="text12" >
 					 					<img onMouseOver="showPop('bemaerkning_info');" onMouseOut="hidePop('bemaerkning_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				&nbsp;<b>&nbsp;Bemærkning&nbsp;</b></td>
-					 					<span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="bemaerkning_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+						 				&nbsp;<b>&nbsp;Bemærkning&nbsp;</b>
+					 					<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="bemaerkning_info" class="popupWithInputText text11"  >
 							           			<b>Bemærkning</b>
 							           			<br/>
 							           			<ul>
 								           			<li>Skal angives ved ajourføring type 1, 2 og 8</li>
 							           			</ul>	
-						           			</div>
 										</span>
+										</div>
+										</td>
 									</tr>
 				 				</table>
 				 			</td>
@@ -2413,18 +2417,7 @@
 				            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('indssted_info');" onMouseOut="hidePop('indssted_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 					            <span title="dkeh_ind" id="v_dkeh_ind" class="validation"><b></b>&nbsp;Indladningssted</span>
-					            <span style="position:absolute; left:800px; top:1000px; width:250px; height:320px;" id="indssted_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
-					           			<b>Indladningssted</b>
-					           			<br/><br/>
-					           			Kun på Angivelsesart:
-										<ul>
-											<li>Pro</li>
-											<li>ProM</li>
-										</ul>
-									</div>
-								</span>	
-								&nbsp;&nbsp;
+					            &nbsp;&nbsp;
 				            		<select id="dkeh_ind" name="dkeh_ind" >
 				            		<option value="">-vælg-</option>
 			 				  	<c:forEach var="record" items="${model.udgangstoldstedCodeList}" >
@@ -2449,7 +2442,19 @@
 											</tr>
 										</table>
 									</div>
-								</span>									
+								</span>
+								
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="indssted_info" class="popupWithInputText text11"  >
+					           			<b>Indladningssted</b>
+					           			<br/><br/>
+					           			Kun på Angivelsesart:
+										<ul>
+											<li>Pro</li>
+											<li>ProM</li>
+										</ul>
+								</span>	
+								</div>									
 				            </td>
 				        </tr>
 						<tr height="30"><td></td></tr>

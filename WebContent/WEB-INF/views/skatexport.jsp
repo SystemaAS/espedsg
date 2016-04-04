@@ -57,44 +57,44 @@
                 <td class="text12" align="left" >
 	 				<img onMouseOver="showPop('meddTyp_info');" onMouseOut="hidePop('meddTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 	 				<spring:message code="systema.skat.export.list.search.label.aart"/>
-	 				<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="meddTyp_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
+	 				<div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="meddTyp_info" class="popupWithInputText text11"  >
 			           		<ul>
 			           			<c:forEach var="record" items="${model.angivelsesArterCodeList}" >
 				           			<li><b>${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
 			           			</c:forEach>
 			           		</ul>
-						</div>
 					</span>
+					</div>
                 </td>
                 
                 <td class="text12" align="left" >
 				<img onMouseOver="showPop('datum_info');" onMouseOut="hidePop('datum_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 	<spring:message code="systema.skat.export.list.search.label.datum"/>
-                <span style="position:absolute; left:800px; top:150px; width:250px; height:180px;" id="datum_info" class="popupWithInputText"  >
-	           		<div class="text11" align="left">
+                <div class="text11" style="position: relative;" align="left">
+					<span style="position:absolute;top:2px; width:250px;" id="datum_info" class="popupWithInputText text11"  >
 	           		Standardsøg (blank dato) gælder <b> 15 dage bagud </b> på det tidspunkt. 
 	           		<br/><br/>
 					Hvis du ønsker at se længere tilbage i tiden, type, skal du angive fra dato. <br/>
 					For eksempel 20131001 leder efter en 1-Okt-2013 til i dag.
-	           		</div>
 				</span>	
+				</div>
                 </td>
                 <td class="text12" align="left" >
                 <img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.skat.export.list.search.label.status"/>
-                		<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="meddTyp_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
+                		<div class="text11" style="position: relative;" align="left">
+						<span style="position:absolute;top:2px; width:250px;" id="meddTyp_info" class="popupWithInputText text11"  >
 			           		<ul>
 			           			<c:forEach var="record" items="${model.angivelsesArterCodeList}" >
 				           			<li><b>${record.dkkd_kd}&nbsp;${record.dkkd_kd2}</b>&nbsp;${record.dkkf_txt}</li>
 			           			</c:forEach>
 			           		</ul>
+						</span>
 						</div>
-					</span>
                 		
-                		<span style="position:absolute; left:800px; top:150px; width:250px; height:600px;" id="status_info" class="popupWithInputText"  >
-		           		<div class="text11" align="left">
+                		<div class="text11" style="position: relative;" align="left">
+						<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 		           		<br/>
 		           		Kun status <b>M</b>,<b>11</b>,<b>20</b> eller <b>' '</b> kan redigeres. 
 		           			<ul>
@@ -103,8 +103,8 @@
 			           			</c:forEach>
 		           				
 		           			</ul>
-						</div>
 					</span>	
+					</div>
                 </td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.export.list.search.label.avsandare"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.export.list.search.label.mottagare"/></td>
@@ -206,17 +206,16 @@
 	                    <td class="tableHeaderField" nowrap>
 	                    		<img onMouseOver="showPop('update_info');" onMouseOut="hidePop('update_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		 					<spring:message code="systema.skat.export.list.search.label.update"/>
-	 					</td>
-		 				<span style="position:absolute; left:800px; top:150px; width:250px; height:400px;" id="update_info" class="popupWithInputText"  >
-			           		<div class="text11" align="left">
+	 					<div class="text11" style="position: relative;" align="left">
+						<span style="position:absolute;top:2px; width:250px;" id="update_info" class="popupWithInputText text11"  >	
 			           			<img title="Uppdatera ärende" style="vertical-align:bottom;" src="resources/images/update.gif" border="0">
 				           		<b>Uppdatera</b><br/>
 				           		<ul>
 				           			<li>&nbsp;Status=tomt eller M</li>
 				           		</ul>
-							</div>
 						</span>	
-	                    
+	                    </div>
+	                    </td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.arende"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.refnr"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.xrefnr"/>&nbsp;</td>
