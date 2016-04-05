@@ -341,7 +341,7 @@ public class SkatExportItemsController {
 					" " + "(fetched item list):" + jsonPayloadFetch); 
 			
 			//Debug --> 
-	    	logger.info(jsonPayloadFetch);
+	    	//logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSkatExportSpecificTopicItemContainer jsonSkatExportSpecificTopicItemContainer = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	if(jsonSkatExportSpecificTopicItemContainer!=null){

@@ -321,6 +321,49 @@ public class SkatExportAjaxHandlerController {
 	 }
 	  /**
 	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @return
+	   */
+	  @RequestMapping(value = "getItemLinesTopic_SkatExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatExportSpecificTopicRecord> getItemLinesTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+		 logger.info("Inside: getItemLinesTopic_SkatExport.do");
+		 
+		 Set result = new HashSet();
+		 String BASE_URL_FETCH = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL;
+		 StringBuffer urlRequestParamsKeys = new StringBuffer();
+			
+		 urlRequestParamsKeys.append("user=" + applicationUser);
+		 urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		 urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+			
+		 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		 logger.info("FETCH av item list... ");
+		 logger.info("URL: " + BASE_URL_FETCH);
+		 logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		 //--------------------------------------
+		 //EXECUTE the FETCH (RPG program) here
+		 //--------------------------------------
+		 String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys.toString());
+		 //Debug --> 
+		 logger.info(jsonPayloadFetch);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 if(jsonPayloadFetch!=null){
+			 JsonSkatExportSpecificTopicItemContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
+			 if(container!=null){
+				 for(JsonSkatExportSpecificTopicItemRecord record : container.getOrderList()){
+					 //Debug
+					 logger.info("Varenr:" + record.getDkev_331());
+	  				 result.add(record);
+				 }
+			 }
+		 }	
+		 return result;
+	 } 
+	  
+	  /**
+	   * 
 	   * @param isoDate
 	   * @return
 	   */
