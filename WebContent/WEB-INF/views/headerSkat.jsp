@@ -19,7 +19,9 @@
 	<%-- include som javascript functions --%>
 	<script type="text/javascript" src="${user.httpProtocol}://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script type="text/javascript" src="${user.httpProtocol}://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js""></script>
+	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
+	<SCRIPT type="text/javascript" src="resources/js/headerSkat.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	
 	
@@ -64,7 +66,7 @@
 			    			<%-- --------------- --%>
 			    			<%-- SKAT EXPORT MENU --%>
 			    			<%-- --------------- --%>
-			    			<a tabindex=-1 href="skatexport.do?action=doFind&sign=${user.skatSign}">
+			    			<a id="alinkTopicListMenuExp" tabindex=-1 href="skatexport.do?action=doFind&sign=${user.skatSign}">
 			    				&nbsp;<font 
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='SKAT_EXPORT'}">
@@ -85,7 +87,7 @@
 			    			<%-- ---------------  --%>
 			    			<%-- SKAT IMPORT MENU --%>
 			    			<%-- ---------------  --%>
-			    			<a tabindex=-1 href="skatimport.do?action=doFind&sign=${user.skatSign}" >
+			    			<a id="alinkTopicListMenuImp" tabindex=-1 href="skatimport.do?action=doFind&sign=${user.skatSign}" >
 			    				&nbsp;<font 
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='SKAT_IMPORT'}">
@@ -102,7 +104,7 @@
 			    			<%-- --------------------- --%>
 			    			<%-- SKAT NCTS EXPORT MENU --%>
 			    			<%-- --------------------- --%>
-			    			<a tabindex=-1 href="skatnctsexport.do?action=doFind&sign=${user.skatSign}">
+			    			<a id="alinkTopicListMenuNctsExp" tabindex=-1 href="skatnctsexport.do?action=doFind&sign=${user.skatSign}">
 			    				&nbsp;<font
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='SKAT_NCTS_EXPORT'}">
@@ -119,7 +121,7 @@
 			    			<%-- --------------------- --%>
 			    			<%-- SKAT NCTS IMPORT MENU --%>
 			    			<%-- --------------------- --%>
-			    			<a tabindex=-1 href="skatnctsimport.do?action=doFind&sign=${user.skatSign}">
+			    			<a id="alinkTopicListMenuNctsImp" tabindex=-1 href="skatnctsimport.do?action=doFind&sign=${user.skatSign}">
 			    				&nbsp;<font
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='SKAT_NCTS_IMPORT'}">

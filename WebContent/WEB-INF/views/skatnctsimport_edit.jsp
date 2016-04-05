@@ -20,7 +20,7 @@
 		<tr height="25"> 
 			<c:choose> 
 			    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td id="alinkTopicList" width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${model.record.tisg}">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.list.tab"/></font>
 							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
@@ -40,7 +40,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${model.record.tiavd}&sign=${model.record.tisg}
+						<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${model.record.tiavd}&sign=${model.record.tisg}
 													&opd=${model.record.titdn}&mrnNr=${model.record.titrnr}&godsNr=${model.record.tign}
 													&status=${model.record.tist}&datum=${model.record.tidt}">
 							<font class="tabDisabledLink">
@@ -54,7 +54,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
+						<a id="alinkUnloading" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
 													&opd=${model.record.titdn}&mrnNr=${model.record.titrnr}&godsNr=${model.record.tign}
 													&status=${model.record.tist}&datum=${model.record.tidt}">
 							<font class="tabDisabledLink">
@@ -66,7 +66,7 @@
 					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit_items.do?action=doFetch&avd=${model.record.tiavd}&sign=${model.record.tisg}
+						<a id="alinkUnloadingItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit_items.do?action=doFetch&avd=${model.record.tiavd}&sign=${model.record.tisg}
 											&opd=${model.record.titdn}&mrnNr=${model.record.titrnr}&godsNr=${model.record.tign}
 											&status=${model.record.tist}&datum=${model.record.tidt}">
 							<font class="tabDisabledLink">
@@ -78,7 +78,7 @@
 					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
+						<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
 											&opd=${model.record.titdn}&mrnNr=${model.record.titrnr}&godsNr=${model.record.tign}
 											&status=${model.record.tist}&datum=${model.record.tidt}">
 							<font class="tabDisabledLink">
@@ -89,7 +89,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
+						<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${model.record.tiavd}&sign=${model.record.tisg}
 											&opd=${model.record.titdn}&mrnNr=${model.record.titrnr}&godsNr=${model.record.tign}
 											&status=${model.record.tist}&datum=${model.record.tidt}">
 							<font class="tabDisabledLink">
@@ -102,7 +102,7 @@
 				</c:when>
 				<c:otherwise>
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${model.record.tisg}">
+						<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${model.record.tisg}">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.list.tab"/></font>
 							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 						</a>
@@ -610,7 +610,7 @@
 		 				    <c:choose>
 			 				    <c:when test="${ model.record.tist == 'F' || model.record.tist == 'M' || empty model.record.tist}">
 			 				    <td class="text9BlueGreen" valign="bottom"  >
-				 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatnctsimport_edit.do';" value='<spring:message code="systema.skat.ncts.import.createnew.submit"/>'/>
+				 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_edit.do';" value='<spring:message code="systema.skat.ncts.import.createnew.submit"/>'/>
 				 				</td>    	
 				 				    	&nbsp;&nbsp;
 				 				    	<c:if test="${not empty model.record.titdn}">

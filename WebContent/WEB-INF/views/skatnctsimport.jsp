@@ -117,7 +117,7 @@
 
 				
 				<td valign="top" align="left" >
-                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.skat.search"/>'>
+                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.skat.search"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
                 </td>
 			</tr>
@@ -188,7 +188,7 @@
 		               		<c:choose>
 		               		<c:when test="${empty topic.status || topic.status == 'M' || topic.status == 'F'}">
 	              	   	   		<span title="Angivelse er opdaterbar"></span>
-	            	   	   			<a href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
+	            	   	   			<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);"  href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
 	               					<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 	               				</a>
                				</c:when>
@@ -196,7 +196,7 @@
                					<c:choose>
 	               					<c:when test="${topic.status == 'U' || topic.status == 'H'}">
 		              	   	   			<span title="Losning er opdaterbar">
-		              	   	   			<a href="skatnctsimport_unloading_edit.do?action=doFetch&origo=list&avd=${topic.avd}&sign=${topic.sign}&opd=${topic.opd}&status=${topic.status}&datum=${topic.datum}">
+		              	   	   			<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="skatnctsimport_unloading_edit.do?action=doFetch&origo=list&avd=${topic.avd}&sign=${topic.sign}&opd=${topic.opd}&status=${topic.status}&datum=${topic.datum}">
 											<img valign="bottom" src="resources/images/unloading.png" width="16" hight="16" border="0" alt="lossning - editable">					
 										</a>
 		              	   	   			</span>
@@ -212,7 +212,7 @@
                		   		<c:choose>
 		               		<c:when test="${empty topic.status || topic.status == 'M' ||  topic.status == 'F'}">
 	              	   	   		<span title="Angivelse er opdaterbar"></span>
-	            	   	   			<a href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
+	            	   	   			<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
 	               					&nbsp;&nbsp;${topic.opd}
 	               				</a>
                				</c:when>
@@ -220,13 +220,13 @@
                					<c:choose>
 	               					<c:when test="${topic.status == 'U' || topic.status == 'H'}">
 		              	   	   			<span title="Lossning är uppdaterbar">
-		              	   	   			<a href="skatnctsimport_unloading_edit.do?action=doFetch&origo=list&avd=${topic.avd}&sign=${topic.sign}&opd=${topic.opd}&status=${topic.status}&datum=${topic.datum}">
+		              	   	   			<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="skatnctsimport_unloading_edit.do?action=doFetch&origo=list&avd=${topic.avd}&sign=${topic.sign}&opd=${topic.opd}&status=${topic.status}&datum=${topic.datum}">
 											&nbsp;&nbsp;${topic.opd}
 										</a>
 		              	   	   			</span>
 		               				</c:when>
 		               				<c:otherwise>
-										<a href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
+										<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);"  href="skatnctsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&status=${topic.status}">
 											&nbsp;&nbsp;${topic.opd}
 										</a>		               				
 		               				</c:otherwise>

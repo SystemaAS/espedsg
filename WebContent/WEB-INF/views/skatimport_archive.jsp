@@ -4,6 +4,7 @@
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerSkat.jsp" />
 <!-- =====================end header ==========================-->
+<SCRIPT type="text/javascript" src="resources/js/skatimport_archive.js?ver=${user.versionEspedsg}"></SCRIPT>
 
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
@@ -13,14 +14,14 @@
 			<tr height="2"><td></td></tr>
 			<tr height="25"> 
 				<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a tabindex=-1 style="display:block;" href="skatimport.do?action=doFind&sign=${model.sign}">
+					<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatimport.do?action=doFind&sign=${model.sign}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.list.tab"/></font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a tabindex=-1 style="display:block;" href="skatimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
+					<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.created.mastertopic.tab"/></font>
 						<font class="text12MediumBlue">[${model.opd}]</font>
@@ -31,7 +32,7 @@
 				</td>				
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a tabindex=-1 style="display:block;" href="skatimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+					<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
 												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicSkat.dkih_222}">
 						<font class="tabDisabledLink">
@@ -45,7 +46,7 @@
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a tabindex=-1 style="display:block;" href="skatimport_logging.do?avd=${model.avd}&sign=${model.sign}
+					<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatimport_logging.do?avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
 												&status=${model.status}&datum=${model.datum}">
 						<font class="tabDisabledLink">

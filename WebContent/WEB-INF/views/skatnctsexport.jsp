@@ -109,7 +109,7 @@
 				<td align="left" ><input type="text" class="inputText" name="bruttoVikt" id="bruttoVikt" size="10" maxlength="50" value='${searchFilterSkatExportNcts.bruttoVikt}'>&nbsp;</td>
 				
 				<td valign="top" align="left" >
-                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
+                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
                 </td>
 			</tr>
@@ -177,13 +177,13 @@
 		               <td class="tableCell" align="center" >
               	   	   		<c:if test="${empty topic.status || topic.status=='M' ||  topic.status=='G' ||  topic.status=='F'}">
               	   	   			<%-- only M, null or G (garantifel) are editable in NCTS --%>
-              	   	   			<a href="skatnctsexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.lrnNr}&syst=${topic.status}&sydt=${topic.datum}">
+              	   	   			<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);"  href="skatnctsexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.lrnNr}&syst=${topic.status}&sydt=${topic.datum}">
 	               					<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 	               				</a>	
 	               			</c:if>
 	               	   </td>
                		   <td class="tableCell" width="10%" >&nbsp;
-	               	   		<a href="skatnctsexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.lrnNr}&syst=${topic.status}&sydt=${topic.datum}">
+	               	   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);"  href="skatnctsexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.lrnNr}&syst=${topic.status}&sydt=${topic.datum}">
 	               	   			&nbsp;&nbsp;${topic.opd}
 	               			</a>
                		   </td>

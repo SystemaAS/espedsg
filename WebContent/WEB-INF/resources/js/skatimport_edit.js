@@ -3,7 +3,27 @@
 	//===========================================
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
+  	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   	
+  	//Overlay on tab (to mark visually a delay...)
+    jq(function() {
+      jq('#alinkTopicList').click(function() { 
+  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	  });	
+  	  jq('#alinkItemLines').click(function() { 
+  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	  });
+  	  jq('#alinkLogging').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
+  	  jq('#alinkArchive').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
+  	  
+  	  jq( "#submit" ).click(function( event ) {
+  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+  	  });
+    });  
   	
   	jq(document).ready(function(){
   	    jq(this).scrollTop(0); //needed for Chrome (bug)

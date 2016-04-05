@@ -25,7 +25,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsexport.do?action=doFind&sign=${model.record.thsg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsexport.do?action=doFind&sign=${model.record.thsg}">
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.export.list.tab"/></font>
 				</a>
@@ -45,7 +45,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsexport_edit_items.do?action=doFetch&avd=${model.record.thavd}&sign=${model.record.thsg}
+						<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsexport_edit_items.do?action=doFetch&avd=${model.record.thavd}&sign=${model.record.thsg}
 													&opd=${model.record.thtdn}&tullId=${model.record.thtuid}&mrnNr=${model.record.thtrnr}
 													&status=${model.record.thst}&datum=${model.record.thdt}">
 							<font class="tabDisabledLink">
@@ -59,7 +59,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsexport_logging.do?avd=${model.record.thavd}&sign=${model.record.thsg}
+						<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsexport_logging.do?avd=${model.record.thavd}&sign=${model.record.thsg}
 													&opd=${model.record.thtdn}&tullId=${model.record.thtuid}&mrnNr=${model.record.thtrnr}
 													&status=${model.record.thst}&datum=${model.record.thdt}">
 							<font class="tabDisabledLink">
@@ -70,7 +70,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatnctsexport_archive.do?avd=${model.record.thavd}&sign=${model.record.thsg}
+						<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsexport_archive.do?avd=${model.record.thavd}&sign=${model.record.thsg}
 													&opd=${model.record.thtdn}&tullId=${model.record.thtuid}&mrnNr=${model.record.thtrnr}
 													&status=${model.record.thst}&datum=${model.record.thdt}">
 							<font class="tabDisabledLink">
@@ -2179,7 +2179,7 @@
 			 				    	<%-- only status = M or emtpy status is allowed --%>
 				 				    <c:choose>
 					 				    <c:when test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}">
-						 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatnctsexport_edit.do';" value='<spring:message code="systema.skat.ncts.export.createnew.submit"/>'/>
+						 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsexport_edit.do';" value='<spring:message code="systema.skat.ncts.export.createnew.submit"/>'/>
 						 				    	&nbsp;&nbsp;
 						 				    	<c:if test="${not empty model.record.thtdn}">
 						 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" onclick="javascript: form.action='skatnctsexport_send.do';" value='<spring:message code="systema.skat.ncts.export.createnew.send"/>'/>

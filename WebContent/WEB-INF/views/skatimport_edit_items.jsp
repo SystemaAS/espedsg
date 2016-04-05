@@ -23,7 +23,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatimport.do?action=doFind&sign=${model.sign}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatimport.do?action=doFind&sign=${model.sign}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					
@@ -31,7 +31,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
+				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}">
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.created.mastertopic.tab"/></font>
@@ -51,7 +51,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatimport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${dkih_07}
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatimport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${dkih_07}
 													&status=${model.status}&datum=${model.datum}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.import.logging.tab"/>
@@ -61,7 +61,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatimport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${dkih_07}
+				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatimport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${dkih_07}
 													&status=${model.status}&datum=${model.datum}"">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.import.archive.tab"/>

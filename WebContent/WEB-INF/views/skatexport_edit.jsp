@@ -39,7 +39,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatexport.do?action=doFind&sign=${model.record.dkeh_sysg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatexport.do?action=doFind&sign=${model.record.dkeh_sysg}">
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.export.list.tab"/></font>
 				</a>
@@ -58,7 +58,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatexport_edit_items.do?action=doFetch&avd=${ model.record.dkeh_syav}&sign=${ model.record.dkeh_sysg}
+						<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatexport_edit_items.do?action=doFetch&avd=${ model.record.dkeh_syav}&sign=${ model.record.dkeh_sysg}
 													&opd=${ model.record.dkeh_syop}&refnr=${ model.record.dkeh_07}
 													&status=${ model.record.dkeh_syst}&datum=${ model.record.dkeh_sydt}&fabl=${ model.record.dkeh_222}">
 							<font class="tabDisabledLink">
@@ -69,7 +69,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatexport_logging.do?avd=${ model.record.dkeh_syav}&sign=${ model.record.dkeh_sysg}
+						<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatexport_logging.do?avd=${ model.record.dkeh_syav}&sign=${ model.record.dkeh_sysg}
 													&opd=${ model.record.dkeh_syop}&refnr=${ model.record.dkeh_07}
 													&status=${ model.record.dkeh_syst}&datum=${ model.record.dkeh_sydt}">
 							<font class="tabDisabledLink">
@@ -80,7 +80,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a tabindex=-1 style="display:block;" href="skatexport_archive.do?avd=${model.record.dkeh_syav}&sign=${model.record.dkeh_sysg}
+						<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatexport_archive.do?avd=${model.record.dkeh_syav}&sign=${model.record.dkeh_sysg}
 													&opd=${model.record.dkeh_syop}&refnr=${model.record.dkeh_07}
 													&status=${model.record.dkeh_syst}&datum=${model.record.dkeh_sydt}">
 							<font class="tabDisabledLink">
@@ -356,18 +356,7 @@
 							<td class="text12" align="left">
 								<img onMouseOver="showPop('ekspedsted_info');" onMouseOut="hidePop('ekspedsted_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 								<b>A.1</b><span title="dkeh_a1" id="v_dkeh_a1" class="validation">Eksped.sted&nbsp;</span>
-					           	<div class="text11" style="position: relative;" align="left">
-								<span style="position:absolute;top:2px; width:250px;" id="ekspedsted_info" class="popupWithInputText text11"  >	
-					           			<b>Eksped.sted</b>
-					           			<br/><br/>
-					           			Ekspeditionssted, hvor varerne skal frigives til eksport.
-					           			<br/><br/>
-					           			Toldekspeditionssted eller godkendt eksportør.
-										<br/><br/>
-										Toldekspeditionssted for den godkendte eksportør er oplyst i bevillingen.
-								</span>
-								</div>
-				 				
+					           	
 			 					<%-- info span --%>
 								<img onClick="showPop('toldstedCodeInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 								<span style="position:absolute; left:50px; top:280px; width:350px; height:150px;" id="toldstedCodeInfo" class="popupWithInputText"  >
@@ -387,6 +376,18 @@
 										</table>
 									</div>
 								</span>
+								
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="ekspedsted_info" class="popupWithInputText text11"  >	
+					           			<b>Eksped.sted</b>
+					           			<br/><br/>
+					           			Ekspeditionssted, hvor varerne skal frigives til eksport.
+					           			<br/><br/>
+					           			Toldekspeditionssted eller godkendt eksportør.
+										<br/><br/>
+										Toldekspeditionssted for den godkendte eksportør er oplyst i bevillingen.
+								</span>
+								</div>
 			 				</td>
 			 				<td class="text12">
 			            			<select name="dkeh_a1" id="dkeh_a1">

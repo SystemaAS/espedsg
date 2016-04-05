@@ -148,7 +148,7 @@
 				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterSkatExport.motNavn}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="internFakturanr" id="internFakturanr" size="8" maxlength="17" value='${searchFilterSkatExport.internFakturanr}'>&nbsp;</td>
 				<td valign="top" align="left" >
-                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
+                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="search.label"/>'>
                 </td>
 			</tr>
 			</form>
@@ -243,12 +243,12 @@
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
 		               <td class="tableCell" >&nbsp;${topic.sign}</td>
 		               <td nowrap class="tableCell" align="center">
-	               	   		<a href="skatexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&refnr=${topic.refnr}&syst=${topic.status}&sydt=${topic.datum}">
+	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="skatexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&refnr=${topic.refnr}&syst=${topic.status}&sydt=${topic.datum}">
 	               				<img title="Uppdatera ärende" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
             					</a>
                		   </td>
                		   <td class="tableCell" >&nbsp;
-               		   		<a href="skatexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&refnr=${topic.refnr}&syst=${topic.status}&sydt=${topic.datum}">
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="skatexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&refnr=${topic.refnr}&syst=${topic.status}&sydt=${topic.datum}">
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>

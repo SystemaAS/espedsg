@@ -17,7 +17,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkat.tisg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkat.tisg}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					
@@ -25,7 +25,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkat.tiavd}&opd=${recordTopicSkat.titdn}
+				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkat.tiavd}&opd=${recordTopicSkat.titdn}
 						&sysg=${recordTopicSkat.tisg}&syst=${recordTopicSkat.tist}&sydt=${recordTopicSkat.tidt}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${recordTopicSkat.titdn}]</font>
@@ -37,7 +37,7 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
+				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
 											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
 											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
 				<font class="tabDisabledLink">
@@ -51,7 +51,7 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
+				<a id="alinkUnloading" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
 											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
 											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
 					<font class="tabDisabledLink">
@@ -69,7 +69,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
 									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
 									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
 					<font class="tabDisabledLink">
@@ -80,7 +80,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
+				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
 									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
 									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
 					<font class="tabDisabledLink">
@@ -749,7 +749,7 @@
 						 				    		<c:choose>
 						 				    			<c:when test="${ recordTopicSkatUnloading.nikonf != '1'}">
 									 				    <td align="center" class="text9BlueGreen" valign="bottom"  >
-										 				    &nbsp;&nbsp;&nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit_items.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
+										 				    &nbsp;&nbsp;&nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit_items.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
 										 				</td>    	
 									 				</c:when>
 									 				<c:otherwise>

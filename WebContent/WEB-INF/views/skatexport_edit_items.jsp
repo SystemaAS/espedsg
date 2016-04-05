@@ -33,7 +33,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatexport.do?action=doFind&sign=${model.sign}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatexport.do?action=doFind&sign=${model.sign}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.export.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					
@@ -41,7 +41,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatexport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
+				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatexport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 						&sysg=${model.sign}&tuid=${model.refnr}&syst=${model.status}&sydt=${model.datum}">
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.export.created.mastertopic.tab"/></font>
@@ -61,7 +61,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatexport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${model.refnr}
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatexport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${model.refnr}
 													&status=${model.status}&datum=${model.datum}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.export.logging.tab"/>
@@ -71,7 +71,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="skatexport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${model.refnr}
+				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatexport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${model.refnr}
 													&status=${model.status}&datum=${model.datum}"">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.export.archive.tab"/>
@@ -106,8 +106,8 @@
 				 				Status:&nbsp;<b>${model.status}</b>
 				 				&nbsp;&nbsp;Angivelsesart:&nbsp;<b>${recordTopicSkat.dkeh_aart}</b>
 				 				
-				 				<span style="position:absolute; left:1020px; top:150px; width:250px; height:550px;" id="status_info" class="popupWithInputText"  >
-					           		<div class="text11" align="left">
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 					           		<br/>
 					           		Kun status <b>M</b>,<b>11</b>,<b>20</b> eller <b>' '</b> kan redigeres. 
 					           			<ul>
@@ -116,8 +116,8 @@
 						           			</c:forEach>
 					           				
 					           			</ul>
-									</div>
 								</span>
+								</div>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -571,10 +571,10 @@
 												</table>
 											</div>
 										</span>	
-							            </td>
+							           
 							            
-							            <span style="position:absolute; left:800px; top:250px; width:250px; height:300px;" id="33_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="33_info" class="popupWithInputText text11"  >
 						           			<b>33. Varekoder</b>
 						           			<br/><br/>
 											Her angiver klarereren den 10-cifrede varekode i henhold tilToldtariffen. I nogle tilfælde skal der yderligere angives op til to 4-cifrede tillægskoder, fx når der er tale om antidumpingtold, landbrugselement mv. 
@@ -583,8 +583,9 @@
 						           			<br/><br/>
 						           			I visse tilfælde kan eller skal der anvendes en særlig varekode. Disse særlige varekoder finder man i den elektroniske udgave af tariffen på Toldtariffen. 
 						           			Alle særlige varekoder starter med 99.
-						           			</div>
 										</span>
+										</div>
+							 			</td>
 							 			
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('37_1_info');" onMouseOut="hidePop('37_1_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -594,10 +595,9 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkev_37">Procedure</span>
-				 						</td>
-							            <span style="position:absolute; left:800px; top:250px; width:250px; height:500px;"id="37_1_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br>
+				 						
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="37_1_info" class="popupWithInputText text11"  >	
 						           			<b>37. Procedure</b>
 						           			<br/><br/>
 						           			Her skal klarereren angive den 7-cifrede kode for den procedure, som varerne ønskes toldbehandlet efter.
@@ -619,9 +619,9 @@
 						           				</li>
 						           			</ul>
 						           			<br/><br/>
-											
-							           		</div>
 										</span>
+										</div>
+										</td>
 							            
 							            <td class="text12" align="left" nowrap><b>42.</b>
 							            <%-- Varens pris IS NOT MAPPED to the EDIFACT but must be a part of the user input (required fields exactly the same as Stat.Værdi) --%>
@@ -638,9 +638,9 @@
 				 						<c:if test="${recordTopicSkat.dkeh_aart != '50'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
-				 						<span title="dkev_35">Brut.(kg)</span></td>
-							            <span style="position:absolute; left:800px; top:250px; width:250px; height:520px;"id="35_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+				 						<span title="dkev_35">Brut.(kg)</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="35_info" class="popupWithInputText text11"  >
 							           			<br/>
 							           			<b>35. Bruttomasse (kg)</b>
 							           			<br/><br/>
@@ -652,8 +652,9 @@
 								           		</ul>
 							           			<br/>
 							           			<b>Bruttomassen</b> betyder den samlede vægt af varerne inklusive al emballage, dog ikke transportmateriel, fx containere.
-							           		</div>
 										</span>
+										</div>
+										</td>
 										
 										<td class="text12" align="left">
 										<b>&nbsp;38.</b>
@@ -670,26 +671,25 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkev_311">Kolli mærke&nbsp;</span>
-							            <span style="position:absolute; left:800px; top:400px; width:250px; height:200px;" id="31_gods_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+							            
+							           	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_gods_info" class="popupWithInputText text11"  >	
 						           			<br/>
 						           			<b>Kolli Mærke</b>
 											<br/><br/>
 						           			Her oplyses emballagernes mærke og numre. For uemballerede varer skal klarereren anføre "in bulk".
-						           			</div>
 										</span>
+										</div>
 							            </td>
-							            
-							            
+
 							        </tr>
 							        <tr>
-							        		
 							            <td class="text12" align="left">
-							            		<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="dkev_331" id="dkev_331" size="12" maxlength="8" value="${model.record.dkev_331}">
+						            		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_331" id="dkev_331" size="12" maxlength="8" value="${model.record.dkev_331}">
 							            </td>
 									
 										<td align="left">
-											<select name="dkev_37" id="dkev_37">
+											<select class="inputTextMediumBlueMandatoryField" name="dkev_37" id="dkev_37">
 						 						<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.procedureKoderR37CodeList}" >
 							 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_37 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
@@ -700,17 +700,17 @@
 						            			</a>	
 						 				</td>
 						 				<td class="text12" align="left" nowrap>
-							            		<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="dkev_42" id="dkev_42" size="14" maxlength="13" value="${model.record.dkev_42}">
+							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_42" id="dkev_42" size="14" maxlength="13" value="${model.record.dkev_42}">
 							            	</td>
-								        	<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputText" name="dkev_35" id="dkev_35" size="13" maxlength="12" value="${model.record.dkev_35}"></td>
-										<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputText" name="dkev_38" id="dkev_38" size="13" maxlength="12" value="${model.record.dkev_38}"></td>
-										<td class="text12" align="left"><input type="text" class="inputText" name="dkev_311" id="dkev_311" size="17" maxlength="16" value="${model.record.dkev_311}"></td>
+								        	<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_35" id="dkev_35" size="13" maxlength="12" value="${model.record.dkev_35}"></td>
+										<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_38" id="dkev_38" size="13" maxlength="12" value="${model.record.dkev_38}"></td>
+										<td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="dkev_311" id="dkev_311" size="17" maxlength="16" value="${model.record.dkev_311}"></td>
 							        </tr>
 
 							        <tr height="10"><td class="text" align="left" colspan="12"><hr></td></tr>
 							        
 									<tr>
-										<td class="text12" nowrap>
+										<td class="text12" >
 										<img onMouseOver="showPop('31_kantal_info');" onMouseOut="hidePop('31_kantal_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 										<span id="kotaRubrik">
 											<b>31.3</b>
@@ -720,30 +720,30 @@
 							            </c:if>
 							            <span title="dkev_313">Kolli antal</span>
 				 						
-										<span style="position:absolute; left:800px; top:400px; width:250px; height:250px;" id="31_kantal_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+										<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_kantal_info" class="popupWithInputText text11"  >
 							           		<b>31.3 Kolliantal</b>
 						           			<br/><br/>
 						           			Her anfører klarereren det samlede antal kolli, der er omfattet af vareposten.
-						           			</div>
 										</span>
+										</div>
 										</td>
 										
-										<td class="text12" nowrap>
+										<td class="text12" >
 										<img onMouseOver="showPop('31_kslag_info');" onMouseOut="hidePop('31_kslag_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.4</b>
 										<c:if test="${recordTopicSkat.dkeh_aart != '22' && recordTopicSkat.dkeh_aart != '23' && recordTopicSkat.dkeh_aart != '50'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkev_314">Kolli art</span>
-										<span style="position:absolute; left:800px; top:400px; width:250px; height:150px;" id="31_kslag_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+										
+							           	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_kslag_info" class="popupWithInputText text11"  >	
 						           			<b>31.4 Kolli art</b>
 											<br/>
 						           			Her beskriver klarereren, hvordan varerne er pakket. Emballagekoderne findes på SKATs hjemmeside.
-					           				</div>
 										</span>
+										</div>
 										</td>
 										
 										<td class="text12" align="left" colspan="2">
@@ -753,24 +753,24 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 										<span title="dkev_315">Varebeskrivelse&nbsp;</span>
-										<span style="position:absolute; left:800px; top:400px; width:250px; height:200px;" id="31_varubesk_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-						           			<br/>
+										
+							           	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_varubesk_info" class="popupWithInputText text11"  >	
 						           			<b>Varebeskrivelse</b>
 											<br/><br/>
 						           			En varebeskrivelse er en beskrivelse, der er tilstrækkelig entydig til at fastslå varekoden i Toldtariffen, og som muliggør en øjeblikkelig og sikker identifikation af varen.							           			
-						           			</div>
 										</span>
+										</div>
 							            </td>
 							            
-							            <td class="text12" align="left" nowrap>
+							            <td class="text12" align="left" >
 										<img onMouseOver="showPop('41_info');" onMouseOut="hidePop('41_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>41.</b><span title="dkev_412">Suppl.enh.verdi</span>/<span title="dkev_411">enh.</span>
-				 							<a tabindex="-1" class="text14" target="_blank" href="${model.skatUnitOfMeasureCodesURL.value}" onclick="${model.skatUnitOfMeasureCodesURL.windowOpenDimensions}" >
-						            				<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-						            			</a>	
-				 						<span style="position:absolute; left:800px; top:250px; width:250px; height:320px;"id="41_info" class="popupWithInputText" >
-											<div class="text11" align="left">
+			 							<a tabindex="-1" class="text14" target="_blank" href="${model.skatUnitOfMeasureCodesURL.value}" onclick="${model.skatUnitOfMeasureCodesURL.windowOpenDimensions}" >
+				            				<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+				            			</a>	
+				 						<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="41_info" class="popupWithInputText text11"  >		
 												<b>41. Supplerende enheder</b>
 												<br/><br/>
 												Klarereren skal anføre supplerende mængde i den enhed, som Toldtariffen kræver for den pågældende varekode, fx stk., par, liter, 
@@ -782,18 +782,18 @@
 												<br/><br/>
 												Klarereren skal kun udfylde rubrikken, hvis der er krav om supplerende enhed ifølge Toldtariffen, 
 												eller når der er tale om indførsel efter reglerne for særlige varebevægelser.
-											</div>
 										</span>
+										</div>
 										</td>
 										<td class="text12" align="left">&nbsp;<span title="dkev_28b">Køb/Salgsfakt.</span></td>
 										
 							        </tr>
 									<tr>
 					           			<td class="text11" valign="bottom">
-											&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="dkev_313" id="dkev_313" size="7" maxlength="6" value="${model.record.dkev_313}">
+											&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_313" id="dkev_313" size="7" maxlength="6" value="${model.record.dkev_313}">
 										</td>
 										<td align="left" nowrap>
-					            			<select name="dkev_314" id="dkev_314">
+					            			<select class="inputTextMediumBlueMandatoryField" name="dkev_314" id="dkev_314">
 							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.emballageCodeList}" >
 			                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_314 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
@@ -804,7 +804,7 @@
 						            			</a>	
 										
 				            				</td> 										
-										<td class="text12" align="left" colspan="2"><input type="text" class="inputText" name="dkev_315" id="dkev_315" size="40" maxlength="45" value="${model.record.dkev_315}"></td>
+										<td class="text12" align="left" colspan="2"><input type="text" class="inputTextMediumBlueMandatoryField" name="dkev_315" id="dkev_315" size="40" maxlength="45" value="${model.record.dkev_315}"></td>
           										<td class="text12" align="left" nowrap>
 											<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="dkev_412" id="dkev_412" size="10" maxlength="9" value="${model.record.dkev_412}">
 											<select name="dkev_411" id="dkev_411">
@@ -839,8 +839,9 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkev_34a">Opr.land</span>
-										<span style="position:absolute; left:800px; top:250px; width:250px; height:600px;" id="34a_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+										
+							           	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="34a_info" class="popupWithInputText text11"  >	
 						           			<b>34.a Oprindelsesland</b>
 						           			<br/><br/>
 											Klarereren skal angive oprindelsesland med koden for det land, hvor varerne er fremstillet. Hvis fremstillingen er foregået i to eller flere lande, skal klarereren anføre det land, hvor den sidste væsentlige forarbejdning har fundet sted.						           			<br/><br/>
@@ -857,8 +858,8 @@
 						           			For skibe og fly, der allerede er i drift, angiver man landekoden for det land, hvor skibet eller flyet var registreret før erhvervelsen, uanset hvor det er bygget.
 						           			<br/><br/>
 						           			For varer, der hører under Toldtariffens kapitel 97, angiver man koden for afsendelseslandet.
-						           			</div>
 										</span>
+										</div>
 										</td>
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('46_info');" onMouseOut="hidePop('46_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -868,9 +869,9 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkev_46">Statistisk værdi:&nbsp;</span>
-							            <span style="position:absolute; left:800px; top:600px; width:250px; height:250px;" id="46_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
-							           			<br/>
+							            
+							           	<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="46_info" class="popupWithInputText text11"  >	
 							           			<b>46. Statistisk værdi</b>
 												<br/><br/>
 							           			Den statistiske værdi for den enkelte varepost svarer til varernes toldværdi. For toldfrie varer anvendes en tilsvarende værdi.
@@ -879,8 +880,8 @@
 												<br/><br/>
 												Skal der betales værditold af en vare, og har forsendelsen en samlet værdi på over 80.000 kr., skal klarereren afgive en toldværdideklaration. 
 												Hvis angivelsen omfatter flere vareposter, skal man altid - uanset værdi - afgive en toldværdispecifikation. Se reglerne i afsnit F.A.8.
-											</div>
 										</span>
+										</div>
 										</td>
 							           	<td colspan="3" class="text12" align="left" >
 								            <img onMouseOver="showPop('40_info');" onMouseOut="hidePop('40_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -889,8 +890,9 @@
 								            		<font class="text16RedBold" >*</font>
 								            </c:if>
 					 						<span title="dkev_401/dkev_402/dkev_403">Summarisk angivelse / Forudgående dokument:</span>
-								            <span style="position:absolute; left:800px; top:600px; width:250px; height:300px;" id="40_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+								            
+								           	<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="40_info" class="popupWithInputText text11"  >		
 							           			<b>40. Summarisk angivelse / Forudgående dokument</b>
 												<br/><br/>
 												Rubrikken skal udfyldes med henvisning til eventuelt tidligere udfærdigede dokumenter, der er relevante for indførslen (fx fragtbrev, TIR forsendelse, EU forsendelse mv.).
@@ -902,8 +904,8 @@
 												("Z for det foregående dokument, "821" for forsendelsesproceduren og "238544" for dokumentets registreringsnummer.)
 												<br/><br/>
 												Koderne findes på SKATs hjemmeside.
-												</div>
 											</span>
+											</div>
 						           		</td>
 							        </tr>
 							        <tr>
@@ -918,13 +920,13 @@
 						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 						            			</a>																	 			
 										</td>
-										<td class="text12" align="left"><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="dkev_46" id="dkev_46" size="16" maxlength="15" value="${model.record.dkev_46}"></td>
+										<td class="text12" align="left"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_46" id="dkev_46" size="16" maxlength="15" value="${model.record.dkev_46}"></td>
 			           					
 										<td colspan="3">
 										<table>
 										<tr>
 					           			<td class="text12">&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkev_401a-402a">40.2&nbsp;Kat./Type</span>
-						           			<select name="dkev_402a" id="dkev_402a">
+						           			<select class="inputTextMediumBlueMandatoryField" name="dkev_402a" id="dkev_402a">
 							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.transportdocsSummariskadocsCodeList}" >
 			                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_402a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
@@ -935,7 +937,7 @@
 											</a>										           				
 										</td>
 										<td class="text12" ><span title="dkev_403a">&nbsp;&nbsp;&nbsp;40.3&nbsp;Id</span>
-											<input type="text" class="inputText" name="dkev_403a" id="dkev_403a" size="20" maxlength="35" value="${model.record.dkev_403a}">
+											<input type="text" class="inputTextMediumBlueMandatoryField" name="dkev_403a" id="dkev_403a" size="20" maxlength="35" value="${model.record.dkev_403a}">
 											&nbsp;<button name="itemSummariskaDocsExtraFieldsButton" class="buttonGray" type="button" onClick="showPop('itemSummariskaDocsExtraFields');" >Mere...</button>
 									        <span style="position:absolute; left:250px; top:400px; width:750px; height:550px;" id="itemSummariskaDocsExtraFields" class="popupWithInputText"  >
 									           		<div class="text10" align="left">
@@ -1200,7 +1202,7 @@
     									    <td align="left" colspan="5">
 												<c:choose>	
 													<c:when test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
-														<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatexport_edit_items.do';" value='<spring:message code="systema.skat.export.item.createnew.submit"/>'>
+														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit_items.do';" value='<spring:message code="systema.skat.export.item.createnew.submit"/>'>
 														&nbsp;&nbsp;
 														<%-- SEND button: is causing some issues in the Stat.värde calculation
 														 We shall have the send button ONLY at one place (so far) and that is at the header level
@@ -1260,17 +1262,18 @@
 								<tr>
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						            <img onMouseOver="showPop('44_1_info');" onMouseOut="hidePop('44_1_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						            <span title="dkev_441">44.1&nbsp;Bevillingsnr:&nbsp;</td>
-							            <span style="position:absolute; left:800px; top:850px; width:250px; height:200px;" id="44_1_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+						            <span title="dkev_441">44.1&nbsp;Bevillingsnr:&nbsp;</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="44_1_info" class="popupWithInputText text11"  >	
 							           			<b>44.1 Bevillinr.[Sags-nr]</b>
 												<br/><br/>
 												Bevillingsnummeret [Sags-nr] er journalnummeret på bevillingen eller tilladelsen.
 												<br/><br/>
 												Skal angives, hvis der er krav om henvisning til bevilling.<br/>
 												Der kan f.eks. være tale om bevilling til passiv forædling. Bevillingskrav kan være afhængig af procedurekoden.
-											</div>
 										</span>
+										</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<input type="text" class="inputText" name="dkev_441" id="dkev_441" size="15" maxlength="13" value="${model.record.dkev_441}">
 						            </td>
@@ -1279,16 +1282,19 @@
 						         
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						            <img onMouseOver="showPop('44_2_info');" onMouseOut="hidePop('44_2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						            <span title="dkev_442a">44.2&nbsp;Certifikatnr:&nbsp;</td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:400px;" id="44_2_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+						            <span title="dkev_442a">44.2&nbsp;Certifikatnr:&nbsp;</span>
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="44_2_info" class="popupWithInputText text11"  >
 						           			<b>44.2 Certifikatnr / Certifikatkode</b>
 											<br/><br/>
 											Dokument til opfyldelse af varebestemmelserne. Indhentes hos ressortmyndighederne.
 											<br/>
 											<b>Se rubrik 44.3</b>
-										</div>
+
 									</span>
+									</div>
+									</td>
+									
 						            <td class="text12" align="left">
 						            		<input type="text" class="inputText" name="dkev_442a" id="dkev_442a" size="25" maxlength="35" value="${model.record.dkev_442a}">
 						            </td>
@@ -1296,15 +1302,16 @@
 						        <tr>
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						            <img onMouseOver="showPop('44_2b_info');" onMouseOut="hidePop('44_2b_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						            <span title="dkev_4421">44.2&nbsp;Certifikatkode:&nbsp;</td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:400px;" id="44_2b_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+						            <span title="dkev_4421">44.2&nbsp;Certifikatkode:&nbsp;</span>
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="44_2b_info" class="popupWithInputText text11"  >
 						           			<br/><br/>
 											Dokument til opfyldelse af varebestemmelserne. Indhentes hos ressortmyndighederne.
 											<br/>
 											<b>Se rubrik 44.3</b>
-										</div>
 									</span>
+									</div>
+									</td>
 						            <td class="text12" >
 				           				<select name="dkev_4421" id="dkev_4421">
 					 						<option value="">-vælg-</option>
@@ -1467,17 +1474,17 @@
 						        <tr>
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						            <img onMouseOver="showPop('44_3_info');" onMouseOut="hidePop('44_3_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						            <span title="dkev_443">44.3&nbsp;Varebestemmelse:&nbsp;</td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:400px;" id="44_3_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+						            <span title="dkev_443">44.3&nbsp;Varebestemmelse:&nbsp;</span>
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="44_3_info" class="popupWithInputText text11"  >
 						           			<b>44.3 Varebestemmelser</b>
 											<br/><br/>
 											Når der foreligger særliga udførselsbetingelser for varekoden, skal varebestemmelseskoden angives,
 											se afsnit [F.A.11] om varebestemmelser og se kodetabeller i e-Eksport under virksomheder Told - Erhverv 
 											på http://www.skat.dk
-											
-										</div>
 									</span>
+									</div>
+									</td>
 						            <td class="text12" >
 				           				<select name="dkev_443" id="dkev_443">
 					 						<option value="">-vælg-</option>
@@ -1495,9 +1502,9 @@
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('farligGods_info');" onMouseOut="hidePop('farligGods_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						            		<span title="dkev_444">44.4&nbsp;FN Farlig gods:&nbsp;</span>
-						            </td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="farligGods_info" class="popupWithInputText"  >
-					           			<div class="text11" align="left">
+						            
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="farligGods_info" class="popupWithInputText text11"  >
 					           			<b>FN-kode for farlige varer (UN Dangerous goods code)</b>
 										<br/><br/>
 										Her anføres De Forenede Nationers kode for farligt gods (UNDG), hvis det er relevant.
@@ -1508,9 +1515,9 @@
 										Anvendes ikke i den forenklede angivelse for AEO-certificerede virksomheder.
 										<br/><br/>
 										Feltet er ikke obligatorisk at udfylde.
-										</div>
-										
 									</span>
+									</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<select name="dkev_444" id="dkev_444">
 					 						<option value="">-vælg-</option>
@@ -1527,16 +1534,16 @@
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('transdokType_info');" onMouseOut="hidePop('transdokType_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						            		<span title="dkev_445a">44.5.a&nbsp;Transportdokumenttype&nbsp;</span>
-						            </td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="transdokType_info" class="popupWithInputText"  >
-					           			<div class="text11" align="left">
+						            
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="transdokType_info" class="popupWithInputText text11"  >	
 					           				<b>44.5.a&nbsp;Transportdokumenttype</b>
 											<br/><br/>
 											Todo
 											<br/><br/>
-										</div>
-										
 									</span>
+									</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<select name="dkev_445a" id="dkev_445a">
 					 						<option value="">-vælg-</option>
@@ -1555,15 +1562,16 @@
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('transdokNr_info');" onMouseOut="hidePop('transdokNr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						            		<span title="dkev_445b">44.5.b&nbsp;Transportdokumentnummer&nbsp;</span>
-						            </td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="transdokNr_info" class="popupWithInputText"  >
-					           			<div class="text11" align="left">
+						          
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="transdokNr_info" class="popupWithInputText text11"  >
 					           				<b>44.5.2&nbsp;Transportdokumentnummer</b>
 											<br/><br/>
 											Todo
 											<br/><br/>
-										</div>
 									</span>
+									</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<input type="text" class="inputText" name="dkev_445b" id="dkev_445b" size="20" maxlength="17" value="${model.record.dkev_445b}">
 						            </td>
@@ -1572,9 +1580,8 @@
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('delsend_info');" onMouseOut="hidePop('delsend_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						            		<span title="dkev_447">44.7&nbsp;Delsendinger:&nbsp;</span>
-						            </td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="delsend_info" class="popupWithInputText"  >
-					           			<div class="text11" align="left">
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="delsend_info" class="popupWithInputText text11"  >
 					           				<b>44.7&nbsp;Delsendinger</b>
 											<br/><br/>
 											Delsendinger består af en delsendingstype i første position og et firecifret løbenummer.
@@ -1593,9 +1600,9 @@
 												<li>Sending 1: <b>20003</b></li>
 												<li>Sidste sending 1: <b>90004</b></li>												
 											</ul>
-										</div>
-										
 									</span>
+									</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<input style="text-align:right;" onKeyPress="return amountKey(event)" type="text" class="inputText" name="dkev_447" id="dkev_447" size="6" maxlength="5" value="${model.record.dkev_447}">
 						            </td>
@@ -1604,16 +1611,15 @@
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							            <img onMouseOver="showPop('software_info');" onMouseOut="hidePop('software_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						            		<span title="dkev_448">44.8&nbsp;Softwareværdi:&nbsp;</span>
-						            </td>
-						            <span style="position:absolute; left:800px; top:850px; width:250px; height:300px;" id="software_info" class="popupWithInputText"  >
-					           			<div class="text11" align="left">
+						            <div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="software_info" class="popupWithInputText text11"  >
 					           				<b>44.8&nbsp;Softwareværdi</b>
 											<br/><br/>
 											Todo
 											<br/><br/>
-										</div>
-										
 									</span>
+									</div>
+									</td>
 						            <td class="text12" align="left">
 						            		<input style="text-align:right;" onKeyPress="return amountKey(event)" type="text" class="inputText" name="dkev_448" id="dkev_448" size="15" maxlength="15" value="${model.record.dkev_448}">
 						            </td>
@@ -1629,9 +1635,10 @@
 						 		<table border="0" cellspacing="1" cellpadding="0">
 						 			<tr>
 						            <td colspan="3" class="text12">
-			 						<b>44.6&nbsp;Supplerende vareoplysninger</b></td>
-						            <span style="position:absolute; left:left:800px; top:850px; width:250px; height:500px;" id="44a_info" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
+			 						<b>44.6&nbsp;Supplerende vareoplysninger</b>
+						            
+						           	<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute;top:2px; width:250px;" id="44a_info" class="popupWithInputText text11"  >	
 					           			<br/>
 					           			<b>Särskilda upplysningar</b>
 										<br/>
@@ -1645,9 +1652,10 @@
 										Här ska du ange en eller flera koder följda av ett identitetsnummer för de handlingar, certifikat eller tillstånd som ligger till grund för deklarationen. Koden består av fyra tecken och kan bestå av både bokstäver och siffror. Kod för faktura och identitetsnummer är obligatoriska uppgifter.    
 										<br/><br/>
 										Du ska även ange ett transportdokumentnummer. I de fall du inte skrivit något i fältet "Kommersiellt referensnummer", är transportdokumentnumret en obligatorisk uppgift. Transportdokumentnummer finns förklarat under rubriken " Transportdokumentnummer".
-										
-										</div>
 									</span>
+									</div>
+									</td>
+									
 							        </tr>
 									<tr height="5"><td></td></tr>
 									<%--
@@ -1697,8 +1705,8 @@
 						            		<td class="text12" align="left">&nbsp;&nbsp;
 											<img onMouseOver="showPop('332_info');" onMouseOut="hidePop('332_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
 											<span title="dkev_332">Tillægskode&nbsp;</span>
-											<span style="position:absolute; left:850px; top:850px; width:250px; height:200px;" id="332_info" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px; width:250px;" id="332_info" class="popupWithInputText text11"  >	
 								           			<b>33.&nbsp;Varekode [Tillægskoder]</b>
 													<p>
 													I nogle tilfælde skal der yderligere angives op til to 4-cifrede tillægskoder, fx når der er tale om antidumpingtold,
@@ -1707,8 +1715,9 @@
 													<p>
 													Se Toldtariffens vejledning om anvendelse af varekoder og tillægskoder og afsnittet om MIO.
 													</p>
-												</div>
 											</span>
+											</div>
+											
 										</td>
 										<td class="text12" align="left" colspan="2">
 											33.2&nbsp;<input type="text" class="inputText" name="dkev_332" id="dkev_332" size="4" maxlength="4" value="${model.record.dkev_332}">
@@ -1718,16 +1727,17 @@
 									<tr>
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('31_2_info');" onMouseOut="hidePop('31_2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							            <span title="dkev_312a,dkev_312b ..."><b>31.2</b>&nbsp;Containernr:&nbsp;</span></td>
-							            <span style="position:absolute; left:800px; top:800px; width:250px; height:250px;" id="31_2_info" class="popupWithInputText"  >
-						           			<div class="text11" align="left">
+							            <span title="dkev_312a,dkev_312b ..."><b>31.2</b>&nbsp;Containernr:&nbsp;</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="31_2_info" class="popupWithInputText text11"  >
+						           			
 						           			<b>31.2 Containernr</b>
 											<br/><br/>
 											Hvis varerne transporteres i container, angiver klarereren identifikationsnummeret på containeren. 
 											Både præfiks og nummer skal anføres.
-											</div>
 										</span>
-							            
+										</div>
+							            </td>
 							           	<td class="text12" align="left">
 								           	<input type="text" class="inputText" name="dkev_312a" id="dkev_312a" size="12" maxlength="11" value="${model.record.dkev_312a}">
 								        </td>
@@ -1773,17 +1783,18 @@
 						            		<td class="text12" align="left" >
 						            		<img onMouseOver="showPop('49_info');" onMouseOut="hidePop('49_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 							            <b>49.&nbsp;</b>
-							            <span title="dkev_49">Ident. af oplag</span></td>
-							            <span style="position:absolute; left:800px; top:800px; width:250px; height:250px;" id="49_info" class="popupWithInputText"  >
-							           		<div class="text11" align="left">
+							            <span title="dkev_49">Ident. af oplag</span>
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="49_info" class="popupWithInputText text11"  >
 							           			<b>49. Identificering af oplag</b>
 							           			<br/><br/>
 							           			Klarereren skal kun udfylde denne rubrik for varer, der oplægges på toldoplag. Man skal angive toldoplagets nummer, fx C123456DK.
 							           			<br/><br/>
 							           			Oplagsnummer skal angives, hvis angivelsen vedrører oplæggelse på toldoplag eller fraførsel fra toldoplag
-											</div>
-											
 										</span>	
+										</div>
+										</td>
+										
 							            <td ><input type="text" class="inputTextMediumBlue" name="dkev_49" id="dkev_49" size="18" maxlength="17" value="${model.record.dkev_49}"></td>
 			        					</tr>
 							        <tr height="15"><td></td></tr>
@@ -1791,13 +1802,14 @@
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('bem_info');" onMouseOut="hidePop('bem_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							            <span title="dkev_bem1,dkev_bem2 ..."><b>Bemærkninger&nbsp;</b></span>
-							            <span style="position:absolute; left:800px; top:800px; width:250px; height:250px;" id="bem_info" class="popupWithInputText"  >
-						           			<div class="text11" align="left">
+
+						           		<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="bem_info" class="popupWithInputText text11"  >	
 						           			<b>Bemærkninger&nbsp;</b>
 											<br/><br/>
 											Todo
-											</div>
 										</span>
+										</div>
 							            </td>
 							            
 								        <td class="text12" >&nbsp;<button name="bemaerkningButton" class="buttonGray" type="button" onClick="showPop('bemaerkningInfo');" >Mere...</button> 
@@ -1843,13 +1855,13 @@
 										<td class="text12">
 										<img onMouseOver="showPop('ym_info');" onMouseOut="hidePop('ym_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							            <span title="dkev_y71,dkev_y72 ..."><b>YM oplysninger&nbsp;</b></span>
-							            <span style="position:absolute; left:800px; top:800px; width:250px; height:250px;" id="ym_info" class="popupWithInputText"  >
-						           			<div class="text11" align="left">
+							            <div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute;top:2px; width:250px;" id="ym_info" class="popupWithInputText text11"  >
 						           			<b>YM oplysninger&nbsp;</b>
 											<br/><br/>
 											Todo
-											</div>
 										</span>
+										</div>
 										</td>
 										
 										<td class="text12" >&nbsp;<button name="YMPosterButton" class="buttonGray" type="button" onClick="showPop('YMPoster');" >Mere...</button> 
