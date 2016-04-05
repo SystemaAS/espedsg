@@ -138,7 +138,8 @@
 					 		//back to initial state of form elements on modal dialog
 					 		jq("#dialogSaveSU").button("option", "disabled", true);
 					 		jq("#selectedAvd").val("");
-					 		jq("#selectedSign").val("");
+					 		jq("#selectedOpd").val("");
+					 		jq("#selectedExtRefNr").val("");
 							jq( this ).dialog( "close" ); 
 				 		} 
 	 	 		 } ] 
@@ -149,24 +150,56 @@
 		  jq('#dialogCopyFromTransportUppdrag').dialog('open');
 	  });
   });
-  //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
+//Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
   jq(function() {
 	  jq("#selectedAvd").change(function() {
-		  if(jq("#dialog").find('#selectedAvd').val()!='' && jq("#dialog").find('#selectedSign').val()!=''){
-			  jq("#dialogSave").button("option", "disabled", false);
+		  if(jq('#selectedAvd').val()!=''){
+			  if(jq('#selectedOpd').val()!='' || jq('#selectedExtRefNr').val()!=''){
+				  jq("#dialogSaveTU").button("option", "disabled", false);
+			  }else{
+				  jq("#dialogSaveTU").button("option", "disabled", true);
+			  }
 		  }else{
-			  jq("#dialogSave").button("option", "disabled", true);
+			  applyRuleOnDialogTranspUppdragNullAvd();
 		  }
 	  });
-	  jq("#selectedSign").change(function() {
-		  if(jq("#dialog").find('#selectedAvd').val()!='' && jq("#dialog").find('#selectedSign').val()!=''){
-			  jq("#dialogSave").button("option", "disabled", false);
+	  jq("#selectedOpd").blur(function() {
+		  if(jq('#selectedAvd').val()!=''){
+			  if(jq("#selectedOpd").val()!=''){
+				  jq('#selectedExtRefNr').val("");
+				  jq("#dialogSaveTU").button("option", "disabled", false);
+			  }else{
+				  if(jq("#selectedExtRefNr").val()==''){
+					  jq("#dialogSaveTU").button("option", "disabled", true);
+				  }
+			  }
 		  }else{
-			  jq("#dialogSave").button("option", "disabled", true);
+			  applyRuleOnDialogTranspUppdragNullAvd();
 		  }
 	  });
-	  
+	  jq("#selectedExtRefNr").blur(function() {
+		  if(jq('#selectedAvd').val()!=''){
+			  if(jq("#selectedExtRefNr").val()!=''){
+				  jq('#selectedOpd').val("");
+				  jq("#dialogSaveTU").button("option", "disabled", false);
+			  }else{
+				  if(jq("#selectedOpd").val()==''){
+					  jq("#dialogSaveTU").button("option", "disabled", true);
+				  }
+			  }
+		  }else{
+			  applyRuleOnDialogTranspUppdragNullAvd();
+		  }
+	  });
   });
+  function applyRuleOnDialogTranspUppdragNullAvd(){
+	  if(jq('#selectedOpd').val()=='' && jq('#selectedExtRefNr').val()==''){
+		  jq("#dialogSaveTU").button("option", "disabled", false);
+	  }else{
+		  jq("#dialogSaveTU").button("option", "disabled", true);
+	  }
+  }
+  
   //-----------------------------------------------
   //END Model dialog "Kopiera Ärende from template
   //-----------------------------------------------

@@ -364,8 +364,9 @@
 					<table>
 						<tr>
 							<td class="text12" align="left" >&nbsp;Afdeling</td>
-    							<td class="text12" align="left" >&nbsp;Opdragsnr.</td>
-    						</tr>
+   							<td class="text12" align="left" >&nbsp;Opdragsnr.</td>
+   							<td class="text12" align="left" >&nbsp;Ext.ref.nr.</td>
+   						</tr>
 						<tr>
 							<td class="text12MediumBlue">
 								<select name="selectedAvd" id="selectedAvd">
@@ -377,6 +378,9 @@
 							</td>
 							<td class="text12MediumBlue">
 								<input type="text" class="inputText" id="selectedOpd" name="selectedOpd" size="10" maxlength="35" value=''>&nbsp;
+							</td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="selectedExtRefNr" name="selectedExtRefNr" size="25" maxlength="35" value=''>&nbsp;
 							</td>
 						</tr>
 					</table>

@@ -54,6 +54,7 @@ import no.systema.skat.util.SkatConstants;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.skatimport.util.RpgReturnResponseHandler;
 import no.systema.skat.skatimport.util.manager.CodeDropDownMgr;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 
 
 /**
@@ -710,57 +711,57 @@ public class SkatImportHeaderController {
 		String action=request.getParameter("actionGS");;
 		String avd=request.getParameter("selectedAvd");
 		String opd=request.getParameter("selectedOpd");
+		String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser DK AS
 		
 		//check user (should be in session already)
 		if(appUser==null){
 			return loginView;
 		}else{
 			
-			if( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))){
+			if( (opd!=null && !"".equals(opd) || extRefNr!=null && !"".equals(extRefNr)) && (avd!=null && !"".equals(avd))){
 				//--------------------
 				//STEP 1: COPY record
 				//--------------------
 				logger.info("starting PROCESS record transaction...");
 				String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, appUser);
+				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, extRefNr, appUser);
 				//for debug purposes in GUI
 				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 				
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	//--------------------------------------
-			    	//EXECUTE (RPG program) here
-			    	//--------------------------------------
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			    	//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		jsonPayload = jsonPayload.replaceAll("DKIH", "dkih");//AS must change so this step is removed!
-			    		jsonContainer = this.skatImportSpecificTopicService.getSkatImportTopicCopiedFromTransportUppdragContainer(jsonPayload);
-			    		if(jsonContainer!=null){
-			    			//Check for errors
-			    			if(jsonContainer.getErrMsg()!=null && !"".equals(jsonContainer.getErrMsg())){
-			    				logger.info("[WARN] errMsg containing: " + jsonContainer.getErrMsg());
-			    				logger.info("[WARN] redirecting to doPrepareCreate");
-			    				//Send the error message to the redirect view.
-			    				//request.setAttribute("errorMessageOnCopyFromTransportOppdrag", jsonContainer.getErrMsg());
-			    				model.put(SkatConstants.ASPECT_ERROR_MESSAGE, jsonContainer.getErrMsg());
-			    				model.put(SkatConstants.ASPECT_ERROR_META_INFO, "Vid kopiering av TransportUppdrag...");
-			    				fallbackView.addObject(SkatConstants.DOMAIN_MODEL, model);
-			    				
-			    				return fallbackView;
-			    			}
-			    		}
-			    	}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE (RPG program) here
+		    	//--------------------------------------
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		    	//Debug --> 
+		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		jsonPayload = jsonPayload.replaceAll("DKIH", "dkih");//AS must change so this step is removed!
+		    		jsonContainer = this.skatImportSpecificTopicService.getSkatImportTopicCopiedFromTransportUppdragContainer(jsonPayload);
+		    		if(jsonContainer!=null){
+		    			//Check for errors
+		    			if(jsonContainer.getErrMsg()!=null && !"".equals(jsonContainer.getErrMsg())){
+		    				logger.info("[WARN] errMsg containing: " + jsonContainer.getErrMsg());
+		    				logger.info("[WARN] redirecting to doPrepareCreate");
+		    				//Send the error message to the redirect view.
+		    				//request.setAttribute("errorMessageOnCopyFromTransportOppdrag", jsonContainer.getErrMsg());
+		    				model.put(SkatConstants.ASPECT_ERROR_MESSAGE, jsonContainer.getErrMsg());
+		    				model.put(SkatConstants.ASPECT_ERROR_META_INFO, "Vid kopiering av TransportUppdrag...");
+		    				fallbackView.addObject(SkatConstants.DOMAIN_MODEL, model);
+		    				
+		    				return fallbackView;
+		    			}
+		    		}
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 					return loginView;
-				}
-			    
+				}    
 				
-			    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-			    	//--------------------
+		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
+		    	//--------------------
 				//STEP 2: FETCH record
 				//--------------------
 				logger.info("starting FETCH record transaction...");
@@ -774,37 +775,34 @@ public class SkatImportHeaderController {
 				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 				
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	//--------------------------------------
-			    	//EXECUTE the FETCH (RPG program) here
-			    	//--------------------------------------
-			    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE the FETCH (RPG program) here
+		    	//--------------------------------------
+		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		JsonSkatImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
-		    			//populate gui
-					this.setCodeDropDownMgr(appUser, model);	
-			    		this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicContainer);
-			    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-					//put the doUpdate action since we are preparing the record for an update (when saving)
-					successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-			    		
-			    	}else{
-					logger.fatal("[ERROR fatal] NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
+		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		JsonSkatImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
+	    			//populate gui
+		    		this.setCodeDropDownMgr(appUser, model);	
+		    		this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicContainer);
+		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+		    		//put the doUpdate action since we are preparing the record for an update (when saving)
+		    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);	
+		    	}else{
+		    		logger.fatal("[ERROR fatal] NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
 			}else{
 				logger.warn("[INFO] Opdnr is NULL. Redirecting to: skatimport_edit.do?action=doPrepareCreate... ");
 				//return new ModelAndView("redirect:tdsimport_edit.do?action=doPrepareCreate");
 				return cleanNewView;
-			}
-			
+			}			
 			return successView;
 		}
-		
 	}
 	
 	/**
@@ -1156,14 +1154,18 @@ public class SkatImportHeaderController {
 	 * @param appUser
 	 * @return
 	 */
-	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, SystemaWebUser appUser){
+	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, String extRefNr, SystemaWebUser appUser){
 		//user=OSCAR&avd=1&opd=53452&sign=CB&mode=GS 
 		final String MODE = "GS";
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		if(opd!=null && !"".equals(opd)){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		}else if (extRefNr!=null && !"".equals(extRefNr)){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "h_xref=" + extRefNr);
+		}
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sign=" + appUser.getSkatSign());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE);
 		

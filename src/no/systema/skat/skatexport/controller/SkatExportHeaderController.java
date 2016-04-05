@@ -59,6 +59,7 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSp
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
 import no.systema.skat.skatimport.model.topic.SkatImportSpecificTopicTotalItemLinesObject;
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 
 
 /**
@@ -733,19 +734,20 @@ public class SkatExportHeaderController {
 		String action=request.getParameter("actionGS");;
 		String avd=request.getParameter("selectedAvd");
 		String opd=request.getParameter("selectedOpd");
-		
+		String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser Norway AS
+
 		//check user (should be in session already)
 		if(appUser==null){
 			return loginView;
 		}else{
 			
-			if( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))){
+			if( (opd!=null && !"".equals(opd) || extRefNr!=null && !"".equals(extRefNr)) && (avd!=null && !"".equals(avd))){
 				//--------------------
 				//STEP 1: COPY record
 				//--------------------
 				logger.info("starting PROCESS record transaction...");
 				String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, appUser);
+				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, extRefNr, appUser);
 				//for debug purposes in GUI
 				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 				
@@ -1180,19 +1182,22 @@ public class SkatExportHeaderController {
 	 * 
 	 * @param avd
 	 * @param opd
-	 * @param sign
-	 * 
+	 * @param extRefNr
 	 * @param appUser
 	 * @return
 	 */
-	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, SystemaWebUser appUser){
+	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, String extRefNr, SystemaWebUser appUser){
 		//user=OSCAR&avd=1&opd=53452&sign=CB&mode=GS 
 		final String MODE = "GS";
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		if(opd!=null && !"".equals(opd)){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		}else if (extRefNr!=null && !"".equals(extRefNr)){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "h_xref=" + extRefNr);
+		}
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sign=" + appUser.getSkatSign());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE);
 		
