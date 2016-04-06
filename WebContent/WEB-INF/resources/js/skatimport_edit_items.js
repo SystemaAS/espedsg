@@ -10,6 +10,9 @@
   	  jq('#alinkHeader').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   	  });
+  	  jq('#alinkInvoices').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
   	  jq('#alinkLogging').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });

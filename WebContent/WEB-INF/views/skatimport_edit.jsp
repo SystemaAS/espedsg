@@ -37,7 +37,7 @@
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
-			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatimport.do?action=doFind&sign=${model.record.dkih_sysg}">
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.list.tab"/></font>
@@ -55,6 +55,16 @@
 							<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 						</c:if>
 					</td>
+					
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkInvoices" tabindex=-1 style="display:block;" href="skatimport_edit_invoice.do?action=doFetch&avd=${model.record.dkih_syav}&sign=${model.record.dkih_sysg}
+															&opd=${model.record.dkih_syop}&refnr=${model.record.dkih_07}
+															&status=${model.record.dkih_syst}&datum=${model.record.dkih_sydt}&fabl=${model.record.dkih_222}">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.import.invoice.tab"/></font>
+						</a>
+					</td>
+					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatimport_edit_items.do?action=doFetch&avd=${ model.record.dkih_syav}&sign=${ model.record.dkih_sysg}
@@ -93,15 +103,15 @@
 							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 						</a>
 					</td>
-					<td width="20%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="10%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:when>
 				<c:otherwise>
-					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
+					<td width="15%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;<spring:message code="systema.skat.import.createnew.tab"/></font>
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 						
 					</td>
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:otherwise>
 			</c:choose>
 		</tr>

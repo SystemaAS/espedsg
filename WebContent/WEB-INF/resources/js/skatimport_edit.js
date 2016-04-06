@@ -9,8 +9,11 @@
     jq(function() {
       jq('#alinkTopicList').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });	
-  	  jq('#alinkItemLines').click(function() { 
+  	  });
+      jq('#alinkInvoices').click(function() { 
+  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	  });
+      jq('#alinkItemLines').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   	  });
   	  jq('#alinkLogging').click(function() { 
