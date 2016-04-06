@@ -16,9 +16,11 @@
 			  var record = id.split('@');
 			  var avd = record[0].replace("avd", "");
 			  var opd = record[1].replace("opd", "");
+			  var xref = record[2].replace("xref", "");
 			  //alert(vkod + " " + text);
 			  opener.jq('#tvavd2').val(avd);
 			  opener.jq('#tvtdn2').val(opd);
+			  opener.jq('#xref').val(xref);
 			  opener.jq('#tvtdn2').focus();
 			  //close child window
 			  window.close();

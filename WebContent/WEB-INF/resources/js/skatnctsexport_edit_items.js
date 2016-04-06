@@ -32,6 +32,15 @@
 				jq('#tvtdn2IdLink').click();
 			}
 	    });
+	    jq('#xrefIdLink').click(function() {
+	    	jq('#xrefIdLink').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#xrefIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#xrefIdLink').click();
+			}
+	    });
   	});
   	
   	jq(function() {
@@ -45,6 +54,17 @@
   			 } 
   		  }			  
   		});
+  		//same as above but with xref
+  		jq('#xref').blur(function() {
+		  if(jq('#xref').val()!='' ){
+			 //only with create new line 
+			 if(jq('#tvli').val()==''){
+				getDefaultValuesFromSkatExportHeader();
+			 }else if(jq('#tvnas').val()=='' && jq('#tvnak').val()==''){
+				getDefaultValuesFromSkatExportHeader(); 
+			 } 
+		  }			  
+		});
   	});
   	//populate GUI fields (when applicable)
   	function getDefaultValuesFromSkatExportHeader(){
@@ -53,7 +73,8 @@
   	  	  url: 'getSpecificTopic_SkatExport.do',
   	  	  data: { applicationUser : jq('#applicationUser').val(), 
   	  		  	  avd : jq('#tvavd2').val(), 
-  	  		  	  opd : jq('#tvtdn2').val() },
+  	  		  	  opd : jq('#tvtdn2').val(),
+  	  		  	  xref: jq('#xref').val() },
   	  	  dataType: 'json',
   	  	  cache: false,
   	  	  contentType: 'application/json',
@@ -604,8 +625,7 @@
 			}			
     		});
 	});
-
-
+	
 	//calculate a net weight from the gross weight
   	jq(function() { 
 	    jq('#tvvktb').blur(function() {
@@ -621,9 +641,37 @@
 		});
 	});
   	
-  	//Grid aspects on behavior usually required when updating more than 10-rows. 
+  	
+  	jq(document).ready(function() {
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLinesAll').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "800px",
+	  		  "scrollCollapse":  true,
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLines').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "180px",
+	  		  "scrollCollapse":  true,
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	      
+	      //event on input field for search
+	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+	      //event on input field for search
+	      jq('input.tblItemLinesAll_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+
+	});
+  	
+  	//OBSOLETE: Grid aspects on behavior usually required when updating more than 10-rows. 
 	//All this helps to high-light the next-row to update...after a newly row update has taken place.
-	jq(document).ready(function(){
+	/*jq(document).ready(function(){
 		var indx = 1;
 		try{
 			indx = parseInt(jq('#lastSelectedItemLineNumber').val());
@@ -647,6 +695,8 @@
 			jq('#tvvnt').focus();
 		}
 	});
+	*/
+  	
 	
 
 		

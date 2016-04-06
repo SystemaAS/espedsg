@@ -360,7 +360,7 @@ public class SkatNctsExportItemsController {
 	    	//--------------------------------------
 			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 			//Debug --> 
-	    	logger.info(jsonPayloadFetch);
+	    	//logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSkatNctsExportSpecificTopicItemContainer jsonSkatNctsExportSpecificTopicItemContainer = this.skatNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	if(jsonSkatNctsExportSpecificTopicItemContainer!=null){

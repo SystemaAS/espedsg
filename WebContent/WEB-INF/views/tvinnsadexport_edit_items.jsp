@@ -413,7 +413,7 @@
 									<thead>
 									<tr style="background-color:#DDDDDD">
 									    <th class="text12">&nbsp;Lin.&nbsp;</th> 
-									    <th class="text12">&nbsp;Redig.&nbsp;</th> 
+									    <th class="text12">&nbsp;Endre&nbsp;</th> 
 									    <th class="text12" nowrap>&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.svfyl.fk"/>&nbsp;</th>
 					                    <th class="text12" nowrap>&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.svvnt.vareNr"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.svvktn.nettov"/>&nbsp;</th>
@@ -441,7 +441,7 @@
 							               <td width="4%" class="text11" align="center">${record.svli}</td>
 							               <td width="4%" class="text11" align="center">&nbsp;
 							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.svli}" href="#" onClick="getItemData(this);">
-							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+							               			<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 							               </td>
 							               <td class="text11" >&nbsp;${record.svfyl}</td>
@@ -462,7 +462,7 @@
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+								               		<img src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	
 								               </td>
 							               </c:if>

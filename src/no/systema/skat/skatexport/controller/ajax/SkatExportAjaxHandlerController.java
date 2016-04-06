@@ -289,12 +289,12 @@ public class SkatExportAjaxHandlerController {
 	   * @return
 	   */
 	  @RequestMapping(value = "getSpecificTopic_SkatExport.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonSkatExportSpecificTopicRecord> getSpecificTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+	  public @ResponseBody Set<JsonSkatExportSpecificTopicRecord> getSpecificTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd, @RequestParam String xref) {
 		 logger.info("Inside: getSpecificTopic_SkatExport.do");
 		 Set result = new HashSet();
 		 String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
 		 //url params
-	 	 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd;
+	 	 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd + "&xref=" + xref;
 		 //for debug purposes in GUI
 		 
 		 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");

@@ -226,34 +226,33 @@
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatexport_edit_items.do';" value="<spring:message code="systema.skat.export.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
-										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
-									           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
-									           			<nav>
-									           			<table width="95%" border="0" align="left" cellspacing="2">
-									           			<tr>
-										           			<td colspan="3" class="text14"><b>Vareposter</b></td>
-										           		</tr>
-											           	<tr>	
-															<td >
-															<table width="95%" cellspacing="0" border="0" cellpadding="0">
-																<tr class="tableHeaderField" height="20" valign="left">
-																    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td> 
-																    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
-													                    	<td align="center" class="tableHeaderField" nowrap>Fjern</td>
-												                    </c:if>  
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_28b.purchaseSellerInvoice"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_32.varepostNr"/>&nbsp;</td>   
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_34a.oprLand"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_331.varekod"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_37.procedure"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_35.bruttov"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_38.nettov"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_412.supplEnhVerdi"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_313.kolliAntal"/>(&Sigma;)</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</td>
+										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+									           		<table id="containerdatatableTable" width="96%" align="left" >
+													<tr>
+													<td class="text12">
+												
+														<table id="tblItemLinesAll" class="display compact cell-border">
+										           			<thead>
+												           	<tr style="background-color:#DDDDDD">	
+																    <th class="text12">&nbsp;Linjenr.&nbsp;</th> 
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_28b.purchaseSellerInvoice"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_32.varepostNr"/>&nbsp;</th>   
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_34a.oprLand"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_331.varekod"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_37.procedure"/>&nbsp;</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_35.bruttov"/>&nbsp;</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_38.nettov"/>&nbsp;</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_412.supplEnhVerdi"/>&nbsp;</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_313.kolliAntal"/>(&Sigma;)</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</th>
+												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
+												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+													                    	<th align="center" class="text12" nowrap>Fjern</th>
+												                    </c:if>
 											               		</tr> 
+											               	</thead>
+											               	<tbody>	
 										 						  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 														               <c:choose>           
 														                   <c:when test="${counter.count%2==0}">
@@ -263,32 +262,32 @@
 														                       <tr class="tableOddRow" height="20" >
 														                   </c:otherwise>
 														               </c:choose>
-														               <td width="2%" class="tableCellFirst" align="center">&nbsp;${record.dkev_syli}
+														               <td width="2%" class="text11" align="center">&nbsp;${record.dkev_syli}
 														               		<%--
 														               		<a tabindex=-1 id="recordUpdate_${record.dkev_syli}_${record.dkev_32}" href="#" onClick="getItemData(this);">${record.dkev_syli}
 														               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 														               		</a>
 														               		--%>
 														               </td>
+														               <td class="text11" >&nbsp;${record.dkev_28b}</td>
+														               <td width="2%" class="text11" >&nbsp;${record.dkev_32}</td>
+														               <td class="text11" >&nbsp;${record.dkev_34a}</td>
+														               <td class="text11" >&nbsp;${record.dkev_331}</td>
+														               <td class="text11" >&nbsp;${record.dkev_37}</td>
+														               <td class="text11" >&nbsp;${record.dkev_35}</td>
+														               <td class="text11" >&nbsp;${record.dkev_38}</td>
+														               <td class="text11" >&nbsp;${record.dkev_412}</td>
+														               <td class="text11" >&nbsp;${record.dkev_313}</td>
+														               <td class="text11" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
+				               							               <td class="text11">&nbsp;${record.dkev_46}</td>
+														               <td class="text11">&nbsp;${record.dkev_42}</td>
 														               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
-															               <td class="tableCell" align="center" nowrap>&nbsp;
+															               <td class="text11" align="center" >
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">
-															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+															               		<img src="resources/images/delete.gif" border="0" alt="remove">
 															               	</a>	
 															               </td>
 														               </c:if>
-														               <td class="tableCell" >&nbsp;${record.dkev_28b}</td>
-														               <td width="2%" class="tableCell" >&nbsp;${record.dkev_32}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_34a}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_331}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_37}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_35}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_38}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_412}</td>
-														               <td class="tableCell" >&nbsp;${record.dkev_313}</td>
-														               <td class="tableCell" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
-				               							               <td class="tableCell">&nbsp;${record.dkev_46}</td>
-														               <td class="tableCell">&nbsp;${record.dkev_42}</td>
 														            </tr>
 														            <%-- this param is used ONLY in this JSP --%>
 															        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" /> 
@@ -296,12 +295,12 @@
 															        <c:set var="numberOfItemLinesInTopic" value="${record.dkev_syli}" scope="request" /> 
 															        
 															        </c:forEach>
+															    </tbody>    
 													        </table>
 															</td>											           		
-												         </tr>
-												         </table>
-										   			</nav>
-										   			</div>
+											         </tr>
+											         </table>
+										   			
 										   			<div>
 										   			<table >
 													<%-- OK BUTTON --%>
@@ -352,30 +351,39 @@
 						</tr> 
 						
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:1050px; height:10em;">
-								<table id="parentItemLineListTable" width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
-									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-									    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
-					                    	<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+							<td >
+								<form name="formItemList" id="formItemList" method="POST" >
+			               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
+		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
+		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+							
+								<table id="containerdatatableTable" width="95%" cellspacing="2" align="left" >
+								<tr>
+								<td class="text11">
+							
+								<table id="tblItemLines" width="95%" class="display compact cell-border">
+									<thead>
+										<tr style="background-color:#DDDDDD">
+									    <th class="text11">&nbsp;Lin.nr.&nbsp;</th>
+									    <th class="text11">&nbsp;Opd.&nbsp;</th>
+									    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_28b.purchaseSellerInvoice"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_32.varepostNr"/>&nbsp;</th>   
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_34a.oprLand"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_331.varekod"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_37.procedure"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_35.bruttov"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_38.nettov"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_412.supplEnhVerdi"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_313.kolliAntal"/>(&Sigma;)</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
+					                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+					                    	<th align="center" class="text11" nowrap>Fjern</th>
 					                    </c:if>  
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_28b.purchaseSellerInvoice"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_32.varepostNr"/>&nbsp;</td>   
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_34a.oprLand"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_331.varekod"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_37.procedure"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_35.bruttov"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_38.nettov"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_412.supplEnhVerdi"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_313.kolliAntal"/>(&Sigma;)</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</td>
-					               </tr> 
-					               <form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					               		</tr> 
+					               	</thead>	
+					                <tbody>
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
@@ -385,41 +393,42 @@
 							                       <tr id="parentItemListTableRowNr_${counter.count}" class="tableOddRow" height="20" >
 							                   </c:otherwise>
 							               </c:choose>
-							               <td width="2%" class="tableCellFirst" align="center">&nbsp;
+							               <td width="4%" class="text11" align="center">${record.dkev_syli}</td>
+   							               <td width="4%" class="text11" align="center">&nbsp;
 							               		<%--<a id="recordUpdate_${counter.count}_${record.sviv_vano}" href="#" onClick="getItemData(this);">${record.sviv_syli} --%>
-							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.dkev_syli}_${record.dkev_32}" href="#" onClick="getItemData(this);">${record.dkev_syli}
+							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.dkev_syli}_${record.dkev_32}" href="#" onClick="getItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 							               </td>
+							               <td class="text11" >&nbsp;${record.dkev_28b}</td>
+							               <td width="2%" class="text11" >&nbsp;${record.dkev_32}</td>
+							               <td class="text11" >&nbsp;${record.dkev_34a}</td>
+							               <td class="text11" >&nbsp;${record.dkev_331}</td>
+							               <td class="text11" >&nbsp;${record.dkev_37}</td>
+							               <td class="text11" >&nbsp;${record.dkev_35}</td>
+							               <td class="text11" >&nbsp;${record.dkev_38}</td>
+							               <td class="text11" >&nbsp;${record.dkev_412}</td>
+							               <td class="text11" >&nbsp;${record.dkev_313}</td>
+							               <td class="text11" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
+							               <td class="text11">&nbsp;${record.dkev_46}</td>
+   							               <td class="text11">&nbsp;${record.dkev_42}</td>
    							               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
-								               <td class="tableCell" align="center" nowrap>&nbsp;
+								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	
 								               </td>
 							               </c:if>
-							               <td class="tableCell" >&nbsp;${record.dkev_28b}</td>
-							               <td width="2%" class="tableCell" >&nbsp;${record.dkev_32}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_34a}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_331}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_37}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_35}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_38}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_412}</td>
-							               <td class="tableCell" >&nbsp;${record.dkev_313}</td>
-							               <td class="tableCell" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
-							               <td class="tableCell">&nbsp;${record.dkev_46}</td>
-   							               <td class="tableCell">&nbsp;${record.dkev_42}</td>
 							            </tr>
 								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" />  --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${record.dkev_syli}" scope="request" /> 
 								        </c:forEach>
-						            </form>
+						      		</tbody>
 						        </table>
-							</td>
-							
-						</tr>
-					</table>
+								</td>
+								</tr>
+								</table>
+						</form>		
 				</td>
 			</tr>
 			<tr height="3"><td></td></tr>
