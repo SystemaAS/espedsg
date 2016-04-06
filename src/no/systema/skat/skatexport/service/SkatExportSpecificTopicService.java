@@ -11,6 +11,9 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.logging.JsonSkatExport
 import no.systema.skat.skatexport.model.jsonjackson.topic.logging.JsonSkatExportSpecificTopicLoggingLargeTextContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicCopiedFromTransportUppdragContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalForUpdateContainer;
 
 
 /**
@@ -26,6 +29,14 @@ public interface SkatExportSpecificTopicService {
 	public JsonSkatExportSpecificTopicLoggingLargeTextContainer getSkatExportSpecificTopicLoggingLargeTextContainer(String utfPayload);
 	public JsonSkatExportTopicCopiedFromTransportUppdragContainer getSkatExportTopicCopiedFromTransportUppdragContainer(String utfPayload);
 	public JsonSkatExportSpecificTopicOmbudContainer getSkatExportSpecificTopicOmbudContainer (String utfPayload);
+	
+	//Invoices
+	public JsonSkatExportTopicInvoiceContainer getSkatExportTopicInvoiceContainerContainer (String utfPayload);
+	public JsonSkatExportTopicInvoiceContainer getSkatExportTopicInvoiceContainerOneInvoice (String utfPayload);
+	//External invoices
+	public JsonSkatExportTopicInvoiceExternalContainer getSkatExportTopicInvoiceContainerContainerExternal (String utfPayload);
+	public JsonSkatExportTopicInvoiceExternalContainer getSkatExportTopicInvoiceContainerOneInvoiceExternal (String utfPayload);
+	public JsonSkatExportTopicInvoiceExternalForUpdateContainer getSkatExportTopicInvoiceContainerOneInvoiceExternalForUpdate (String utfPayload);
 	
 	
 }

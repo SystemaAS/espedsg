@@ -18,6 +18,10 @@ import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportSpecificTopicLogg
 import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportSpecificTopicLoggingLargeTextMapper;
 import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportTopicCopiedFromTransportUppdragMapper;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudContainer;
+import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportTopicInvoiceMapper;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalForUpdateContainer;
 
 
 /**
@@ -151,5 +155,80 @@ public class SkatExportSpecificTopicServiceImpl implements SkatExportSpecificTop
 		}
 		return container;	
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public JsonSkatExportTopicInvoiceContainer getSkatExportTopicInvoiceContainerContainer (String utfPayload){
+		JsonSkatExportTopicInvoiceContainer container = null;
+		try{
+			SkatExportTopicInvoiceMapper mapper = new SkatExportTopicInvoiceMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return container;
+	}
+	/**
+	 * 
+	 */
+	public JsonSkatExportTopicInvoiceContainer getSkatExportTopicInvoiceContainerOneInvoice (String utfPayload){
+		JsonSkatExportTopicInvoiceContainer container = null;
+		try{
+			SkatExportTopicInvoiceMapper mapper = new SkatExportTopicInvoiceMapper();
+			container = mapper.getContainerOneInvoice(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
+	
+	/**
+	 * External invoices
+	 */
+	public JsonSkatExportTopicInvoiceExternalContainer getSkatExportTopicInvoiceContainerContainerExternal (String utfPayload){
+		JsonSkatExportTopicInvoiceExternalContainer container = null;
+		try{
+			SkatExportTopicInvoiceMapper mapper = new SkatExportTopicInvoiceMapper();
+			container = mapper.getContainerInvoiceExternal(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
+	/**
+	 * External invoices
+	 * 
+	 */
+	public JsonSkatExportTopicInvoiceExternalContainer getSkatExportTopicInvoiceContainerOneInvoiceExternal (String utfPayload){
+		JsonSkatExportTopicInvoiceExternalContainer container = null;
+		try{
+			SkatExportTopicInvoiceMapper mapper = new SkatExportTopicInvoiceMapper();
+			container = mapper.getContainerOneInvoiceInvoiceExternal(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	
+	/**
+	 * Update of external invoice (import it to normal invoice list)
+	 * @param utfPayload
+	 * 
+	 */
+	public JsonSkatExportTopicInvoiceExternalForUpdateContainer getSkatExportTopicInvoiceContainerOneInvoiceExternalForUpdate (String utfPayload){
+		JsonSkatExportTopicInvoiceExternalForUpdateContainer container = null;
+		try{
+			SkatExportTopicInvoiceMapper mapper = new SkatExportTopicInvoiceMapper();
+			container = mapper.getContainerOneInvoiceInvoiceExternalForUpdate(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
+	
 	
 }

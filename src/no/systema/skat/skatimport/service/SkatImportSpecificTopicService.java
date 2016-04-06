@@ -3,7 +3,10 @@
  */
 package no.systema.skat.skatimport.service;
 
-import no.systema.tds.tdsimport.model.jsonjackson.topic.archive.JsonTdsImportSpecificTopicArchiveContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalForUpdateContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.archive.JsonSkatImportSpecificTopicArchiveContainer;
 
 //
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicContainer;
@@ -12,7 +15,6 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.logging.JsonSkatImport
 import no.systema.skat.skatimport.model.jsonjackson.topic.logging.JsonSkatImportSpecificTopicLoggingLargeTextContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicOmbudContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicCopiedContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.archive.JsonSkatImportSpecificTopicArchiveContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecalculationContainer;
 
 
@@ -34,4 +36,13 @@ public interface SkatImportSpecificTopicService {
 	public JsonSkatImportSpecificTopicArchiveContainer getSkatImportSpecificTopicArchiveContainer(String utfPayload);
 	//
 	public JsonSkatImportSpecificTopicRecalculationContainer getSkatImportSpecificTopicRecalculationContainer (String utfpayload);
+	
+	//Invoices
+	public JsonSkatImportTopicInvoiceContainer getSkatImportTopicInvoiceContainerContainer (String utfPayload);
+	public JsonSkatImportTopicInvoiceContainer getSkatImportTopicInvoiceContainerOneInvoice (String utfPayload);
+	//External invoices
+	public JsonSkatImportTopicInvoiceExternalContainer getSkatImportTopicInvoiceContainerContainerExternal (String utfPayload);
+	public JsonSkatImportTopicInvoiceExternalContainer getSkatImportTopicInvoiceContainerOneInvoiceExternal (String utfPayload);
+	public JsonSkatImportTopicInvoiceExternalForUpdateContainer getSkatImportTopicInvoiceContainerOneInvoiceExternalForUpdate (String utfPayload);
+	
 }

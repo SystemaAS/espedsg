@@ -20,6 +20,12 @@ import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportSpecificTopicLogg
 import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportSpecificTopicLoggingLargeTextMapper;
 import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportSpecificTopicArchiveMapper;
 import no.systema.skat.skatimport.model.jsonjackson.topic.archive.JsonSkatImportSpecificTopicArchiveContainer;
+import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportTopicInvoiceMapper;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalForUpdateContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalRecord;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceRecord;
 
 /**
  * @author oscardelatorre
@@ -166,6 +172,88 @@ public class SkatImportSpecificTopicServiceImpl implements SkatImportSpecificTop
 		}
 		return container;
 		
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonSkatImportTopicInvoiceContainer getSkatImportTopicInvoiceContainerContainer (String utfPayload){
+		JsonSkatImportTopicInvoiceContainer container = null;
+		try{
+			SkatImportTopicInvoiceMapper mapper = new SkatImportTopicInvoiceMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	/**
+	 * 
+	 */
+	public JsonSkatImportTopicInvoiceContainer getSkatImportTopicInvoiceContainerOneInvoice (String utfPayload){
+		JsonSkatImportTopicInvoiceContainer container = null;
+		try{
+			SkatImportTopicInvoiceMapper mapper = new SkatImportTopicInvoiceMapper();
+			container = mapper.getContainerOneInvoice(utfPayload);
+			for(JsonSkatImportTopicInvoiceRecord record : container.getOneInvoice()){
+				//DEBUG
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	/**
+	 * External invoices
+	 * 
+	 */
+	public JsonSkatImportTopicInvoiceExternalContainer getSkatImportTopicInvoiceContainerContainerExternal (String utfPayload){
+		JsonSkatImportTopicInvoiceExternalContainer container = null;
+		try{
+			SkatImportTopicInvoiceMapper mapper = new SkatImportTopicInvoiceMapper();
+			container = mapper.getContainerInvoiceExternal(utfPayload);
+			for(JsonSkatImportTopicInvoiceExternalRecord record : container.getListexternfakt()){
+				//DEBUG
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
+	/**
+	 * External invoices
+	 * 
+	 */
+	public JsonSkatImportTopicInvoiceExternalContainer getSkatImportTopicInvoiceContainerOneInvoiceExternal (String utfPayload){
+		JsonSkatImportTopicInvoiceExternalContainer container = null;
+		try{
+			SkatImportTopicInvoiceMapper mapper = new SkatImportTopicInvoiceMapper();
+			container = mapper.getContainerInvoiceExternal(utfPayload);
+			for(JsonSkatImportTopicInvoiceExternalRecord record : container.getGetexternfakt()){
+				//DEBUG
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
+	
+	/**
+	 * For update
+	 */
+	public JsonSkatImportTopicInvoiceExternalForUpdateContainer getSkatImportTopicInvoiceContainerOneInvoiceExternalForUpdate (String utfPayload){
+		JsonSkatImportTopicInvoiceExternalForUpdateContainer container = null;
+		try{
+			SkatImportTopicInvoiceMapper mapper = new SkatImportTopicInvoiceMapper();
+			container = mapper.getContainerOneInvoiceInvoiceExternalForUpdate(utfPayload);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 		
 	}
 	
