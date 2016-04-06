@@ -230,35 +230,35 @@
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submitNew" onclick="javascript: form.action='skatimport_edit_items.do';" value="<spring:message code="systema.skat.import.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
-										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
-									           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
-									           			<nav>
-									           			<table width="95%" border="0" align="left" cellspacing="2">
-									           			<tr>
-										           			<td colspan="3" class="text14"><b>Vareposter</b></td>
-										           		</tr>
-											           	<tr>	
-															<td >
-															<table width="95%" cellspacing="0" border="0" cellpadding="0">
-																<tr class="tableHeaderField" height="20" valign="left">
-																    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>   
-																    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
-												                    	<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+										       <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+									           		<table id="containerdatatableTable" width="98%" align="left" >
+													<tr>
+													<td class="text12">
+												
+														<table id="tblItemLinesAll" class="display compact cell-border">
+										           			<thead>
+												           	<tr style="background-color:#DDDDDD">	
+																    <th class="">&nbsp;Linjenr.&nbsp;</th>   
+																    <th class="text11"><spring:message code="systema.skat.import.item.list.label.dkiv_28b.purchaseSellerInvoice"/>&nbsp;</th>
+												                    <th class="text11" ><spring:message code="systema.skat.import.item.list.label.dkiv_32.varepostNr"/>&nbsp;</th>   
+												                    <th class="text11" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_34.oprLand"/>&nbsp;</th>
+												                    <th class="text11" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_331.varekod"/>&nbsp;</th>
+												                    <th class="text11" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_36.preference"/>&nbsp;</th>
+												                    <th class="text11" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_37.procedure"/>&nbsp;</th>
+												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_35.bruttov"/>&nbsp;</th>
+												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_38.nettov"/>&nbsp;</th>
+												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_412.supplEnhVerdi"/>&nbsp;</th>
+												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_313a.kolliAntal"/></th>
+												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</th>
+												                    <th class="text11">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></th>
+												                    <th class="text11" ><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</th>
+												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
+												                    	<th align="center" class="text11" nowrap>Fjern</th>
 												                    </c:if>
-												                    <td class="tableHeaderField"><spring:message code="systema.skat.import.item.list.label.dkiv_28b.purchaseSellerInvoice"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_32.varepostNr"/>&nbsp;</td>   
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_34.oprLand"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_331.varekod"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_36.preference"/>&nbsp;</td>
-												                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_37.procedure"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_35.bruttov"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_38.nettov"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_412.supplEnhVerdi"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_313a.kolliAntal"/></td>
-												                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</td>
-												                    <td class="tableHeaderField">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></td>
-												                    <td class="tableHeaderField" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</td>
+												                    
 											               		</tr> 
+											               		</thead>
+											               		<tbody>
 										 						  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 														               <c:choose>           
 														                   <c:when test="${counter.count%2==0}">
@@ -268,35 +268,31 @@
 														                       <tr class="tableOddRow" height="20" >
 														                   </c:otherwise>
 														               </c:choose>
-														               <td width="2%" class="tableCellFirst" align="center">&nbsp;${record.dkiv_syli}
+														               <td width="2%" class="text11" align="center">&nbsp;${record.dkiv_syli}
 														               		<%--
 														               		<a tabindex=-1 id="recordUpdate_${record.dkiv_syli}_${record.dkiv_32}" href="#" onClick="getItemData(this);">${record.dkiv_syli}
 														               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 														               		</a>
 														               		--%>
 														               </td>
-														               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
-															               <td class="tableCell" align="center" nowrap>&nbsp;
-															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">
-															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-															               	</a>	
-															               </td>
-														               </c:if>
-														               <td class="tableCell" >&nbsp;${record.dkiv_28b}</td>
-														               <td width="2%" class="tableCell" >&nbsp;${record.dkiv_32}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_34}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_331}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_36}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_37}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_35}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_38}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_412}</td>
-														               <td class="tableCell" >&nbsp;${record.dkiv_313a}</td>
-														               <td class="tableCell" ><div style="width:120px">&nbsp;${record.dkiv_315a}</div></td>
-														               <td class="tableCell" align="left">&nbsp;
+														               
+														               <td class="text11" >&nbsp;${record.dkiv_28b}</td>
+														               <td width="2%" class="text11" >&nbsp;${record.dkiv_32}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_34}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_331}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_36}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_37}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_35}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_38}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_412}</td>
+														               <td class="text11" >&nbsp;${record.dkiv_313a}</td>
+														               <td class="text11" ><div style="width:120px">&nbsp;${record.dkiv_315a}</div></td>
+														               <td class="text11" align="left">&nbsp;&nbsp;${record.dkiv_46}
+														               
+														               <%--
 														               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_info_${record.dkiv_syli}');" onMouseOut="hidePop('avgifterReadOnly_info_${record.dkiv_syli}');" alt="info">
 														               		 <img valign="bottom" src="resources/images/infoOrange.png" width="12px" height="12px" border="0" alt="avg.info">&nbsp;
-														               		</font>&nbsp;${record.dkiv_46}
+														               		</font>
 														               <span class="popupWithInputTextGrayBg" style="position:absolute; left:620px; top:300px;" id="avgifterReadOnly_info_${record.dkiv_syli}" >
 														           		<div class="text10" align="left" >
 													           				<table cellspacing="0" border="0" cellpadding="0">
@@ -363,9 +359,16 @@
 													           				</table>		 
 													           			</div>
 													           			</span>	
-														               		
+														               	 --%>	
 														               	</td>
-														               <td class="tableCell">&nbsp;${record.dkiv_42}</td>
+														               <td class="text11">&nbsp;${record.dkiv_42}</td>
+														               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
+															               <td class="text11" align="center" nowrap>&nbsp;
+															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">
+															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+															               	</a>	
+															               </td>
+														               </c:if>
 														               
 														            </tr>
 														            <%-- this param is used ONLY in this JSP --%>
@@ -373,12 +376,14 @@
 															        <%-- this param is used throughout the Controller --%>
 															        <c:set var="numberOfItemLinesInTopic" value="${record.dkiv_syli}" scope="request" /> 
 															        </c:forEach>
+															     </tbody>   
 													        </table>
 															</td>											           		
 												         </tr>
-												         <tr>
-									           				<td>
-									           				<table >
+												         </table>
+												         
+												         <div>
+												         	<table >
 															<%-- OK BUTTON --%>
 									           				<tr align="left" >
 																<td class="text11"><button name="allItemsButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('allItems');">&nbsp;Ok</button></td>
@@ -390,12 +395,7 @@
 														 		</td>
 															</tr>
 															</table>
-															</td>
-														</tr>
-												           		
-										   			</table>
-										   			</nav>
-										   			</div>
+														</div>	
 								   				</span>	
 										</td>
 									</tr>
@@ -430,36 +430,45 @@
 									</tr>
 									<tr height="2"><td></td></tr>
 								</table>
-							</form>
+							
 							</td>
 						</tr> 
 						
 						<tr>
-							<td class="ownScrollableSubWindow">
-								<table id="parentItemLineListTable" width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
-									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>   
-									    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
-					                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+							<td >
+								<form name="formItemList" id="formItemList" method="POST" >
+			               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
+		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
+		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+								
+								<table id="containerdatatableTable" width="95%" cellspacing="2" align="left" >
+								<tr>
+								<td class="text11">
+							
+								<table id="tblItemLines" width="95%" class="display compact cell-border">
+									<thead>
+									<tr style="background-color:#DDDDDD">
+									    <th class="text11">&nbsp;Lin.nr.&nbsp;</th>
+									    <th class="text11">&nbsp;Opd.&nbsp;</th>   
+									    <th class="text11"><spring:message code="systema.skat.import.item.list.label.dkiv_28b.purchaseSellerInvoice"/>&nbsp;</th>
+					                    <th class="text11" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_32.varepostNr"/>&nbsp;</th>   
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_34.oprLand"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_331.varekod"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_36.preference"/>&nbsp;</th>
+					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_37.procedure"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_35.bruttov"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_38.nettov"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_412.supplEnhVerdi"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_313a.kolliAntal"/></th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></th>
+					                    <th class="text11" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</th>
+					                    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
+				                    		<th align="center" class="text11" nowrap>Fjern</td>
 					                    </c:if>
-					                    <td class="tableHeaderField"><spring:message code="systema.skat.import.item.list.label.dkiv_28b.purchaseSellerInvoice"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_32.varepostNr"/>&nbsp;</td>   
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_34.oprLand"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_331.varekod"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_36.preference"/>&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_37.procedure"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_35.bruttov"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_38.nettov"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_412.supplEnhVerdi"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_313a.kolliAntal"/></td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></td>
-					                    <td class="tableHeaderField" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</td>
 					               </tr> 
-					               <form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					               </thead>
+					               <tbody>
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
@@ -470,34 +479,29 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               
-							               <td width="2%" class="tableCellFirst" align="center">&nbsp;
+							               <td width="4%" class="text11" align="center">${record.dkiv_syli}</td>
+							               <td width="4%" class="text11" align="center">&nbsp;
 							               		<%--<a id="recordUpdate_${counter.count}_${record.sviv_vano}" href="#" onClick="getItemData(this);">${record.sviv_syli} --%>
-							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.dkiv_syli}_${record.dkiv_32}" href="#" onClick="getItemData(this);">${record.dkiv_syli}
+							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.dkiv_syli}_${record.dkiv_32}" href="#" onClick="getItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 							               </td>
-							               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
-								               <td class="tableCell" align="center" nowrap>&nbsp;
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	
-								               </td>
-							               </c:if>
-							               <td class="tableCell" >&nbsp;${record.dkiv_28b}</td>
-							               <td width="2%" class="tableCell" >&nbsp;${record.dkiv_32}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_34}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_331}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_36}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_37}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_35}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_38}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_412}</td>
-							               <td class="tableCell" >&nbsp;${record.dkiv_313a}</td>
-							               <td class="tableCell"><div style="width:120px">&nbsp;${record.dkiv_315a}</div></td>
-							               <td class="tableCell" align="left">&nbsp;
+							               <td class="text11" >&nbsp;${record.dkiv_28b}</td>
+							               <td width="2%" class="text11" >&nbsp;${record.dkiv_32}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_34}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_331}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_36}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_37}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_35}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_38}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_412}</td>
+							               <td class="text11" >&nbsp;${record.dkiv_313a}</td>
+							               <td class="text11"><div style="width:120px">&nbsp;${record.dkiv_315a}</div></td>
+							               <td class="text11" align="left">&nbsp;${record.dkiv_46}
+							               		<%--
 							               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_info_${record.dkiv_syli}');" onMouseOut="hidePop('avgifterReadOnly_info_${record.dkiv_syli}');" alt="info">
 							               		 <img valign="bottom" src="resources/images/infoOrange.png" width="12px" height="12px" border="0" alt="avg.info">&nbsp;
-							               		</font>/${record.dkiv_46}
+							               		</font>/
 							               		
 								               <span class="popupWithInputTextGrayBg" style="position:absolute; left:620px; top:300px;" id="avgifterReadOnly_info_${record.dkiv_syli}" >
 								           		<div class="text10" align="left" >
@@ -565,21 +569,30 @@
 							           				</table>		 
 							           			</div>
 							           			</span>	
+							           			 --%>
 							               	</td>
-							               <td class="tableCell">&nbsp;${record.dkiv_42}</td>
+							               <td class="text11">&nbsp;${record.dkiv_42}</td>
+							               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
+								               <td class="text11" align="center" nowrap>&nbsp;
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">
+								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+								               	</a>	
+								               </td>
+							               </c:if>
 							               
 							            </tr>
 								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" />  --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${record.dkiv_syli}" scope="request" /> 
 								        </c:forEach>
-						            </form>
+								    </tbody>    
 						        </table>
-							</td>
-							
-						</tr>
-					</table>
+								</td>
+								</tr>
+								</table>
+						</form>
 				</td>
 			</tr>
+			
 			<tr height="3"><td></td></tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>

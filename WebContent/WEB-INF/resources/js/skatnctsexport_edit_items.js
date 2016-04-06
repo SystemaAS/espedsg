@@ -648,6 +648,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "800px",
 	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
@@ -655,6 +656,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      
