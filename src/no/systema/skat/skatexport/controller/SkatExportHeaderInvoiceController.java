@@ -36,7 +36,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.service.SkatTaricVarukodService;
-import no.systema.tds.util.manager.CodeDropDownMgr;
+import no.systema.skat.skatexport.util.manager.CodeDropDownMgr;
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicService;
 import no.systema.skat.skatexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
@@ -50,8 +50,6 @@ import no.systema.skat.skatexport.validator.SkatExportInvoiceValidator;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalRecord;
 
-
-
 /**
  * SKAT Export create invoice gateway
  * 
@@ -59,7 +57,6 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecific
  * @date Apr 6, 2016
  * 
  */
-
 @Controller
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
@@ -88,14 +85,14 @@ public class SkatExportHeaderInvoiceController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tdsexport_edit_invoice.do",  method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView tdsExportListEditInvoice(@ModelAttribute ("record") JsonSkatExportTopicInvoiceRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="skatexport_edit_invoice.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView skatExportListEditInvoice(@ModelAttribute ("record") JsonSkatExportTopicInvoiceRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		boolean bindingErrorsExist = false;
-		logger.info("Inside: tdsExportListEditInvoice");
+		logger.info("Inside: skatExportListEditInvoice");
 		
-		ModelAndView successView = new ModelAndView("tdsexport_edit_invoice");
+		ModelAndView successView = new ModelAndView("skatexport_edit_invoice");
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
-		JsonSkatExportTopicInvoiceRecord jsonTdsExportTopicInvoiceRecord = recordToValidate;
+		JsonSkatExportTopicInvoiceRecord jsonSkatExportTopicInvoiceRecord = recordToValidate;
 		
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
@@ -123,7 +120,7 @@ public class SkatExportHeaderInvoiceController {
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSkatExportSpecificTopicRecord headerRecord = (JsonSkatExportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
-			String invoiceTotalAmount = headerRecord.getSveh_fabl();
+			String invoiceTotalAmount = headerRecord.getDkeh_222();
 			
 			
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
@@ -167,12 +164,12 @@ public class SkatExportHeaderInvoiceController {
 							//STEP[1] Generate new Item line key seeds (avd,opd,sftxt) by creating an empty new record. 
 							//		  This step is ONLY applicable for new item lines 
 							//-------------------------------------------------------------------------------------------
-							jsonTdsExportTopicInvoiceRecord  = this.createNewItemKeySeeds(recordToValidate, avd, opd, session, request, appUser);
-							if(jsonTdsExportTopicInvoiceRecord!=null){
-								String newId = jsonTdsExportTopicInvoiceRecord.getSvef_fatx();
+							jsonSkatExportTopicInvoiceRecord  = this.createNewItemKeySeeds(recordToValidate, avd, opd, session, request, appUser);
+							if(jsonSkatExportTopicInvoiceRecord!=null){
+								String newId = jsonSkatExportTopicInvoiceRecord.getSvef_fatx();
 								//take the rest from GUI.
-								jsonTdsExportTopicInvoiceRecord = new JsonSkatExportTopicInvoiceRecord();
-								ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonTdsExportTopicInvoiceRecord);
+								jsonSkatExportTopicInvoiceRecord = new JsonSkatExportTopicInvoiceRecord();
+								ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSkatExportTopicInvoiceRecord);
 					            //binder.registerCustomEditor(...); // if needed
 					            binder.bind(request);
 					            logger.info("[INFO] populate svef_fatx:" + newId);
@@ -189,14 +186,14 @@ public class SkatExportHeaderInvoiceController {
 					if(isValidCreatedRecordTransactionOnRPG){
 						logger.info("[INFO] Valid STEP[1] Add Record(if applicable) successfully created, OK ");
 						//adjust after bind (both UPDATE or CREATE)
-						this.adjustFieldsAfterBind(request, jsonTdsExportTopicInvoiceRecord);
+						this.adjustFieldsAfterBind(request, jsonSkatExportTopicInvoiceRecord);
 						
 						//---------------------------
 						//get BASE URL = RPG-PROGRAM
 			            //---------------------------
 						String BASE_URL_UPDATE = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_URL;
-						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonTdsExportTopicInvoiceRecord.getSvef_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
-						String urlRequestParamsTopicItem = this.urlRequestParameterMapper.getUrlParameterValidString((jsonTdsExportTopicInvoiceRecord));
+						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonSkatExportTopicInvoiceRecord.getSvef_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
+						String urlRequestParamsTopicItem = this.urlRequestParameterMapper.getUrlParameterValidString((jsonSkatExportTopicInvoiceRecord));
 						//put the final valid param. string
 						String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicItem;
 						//for debug purposes in GUI
@@ -216,7 +213,7 @@ public class SkatExportHeaderInvoiceController {
 				    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicInvoiceCreateOrUpdate(rpgReturnPayload);
 				    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
 				    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-				    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsExportTopicInvoiceRecord);
+				    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatExportTopicInvoiceRecord);
 				    		
 				    	}else{
 				    		//Update succefully done!
@@ -226,7 +223,7 @@ public class SkatExportHeaderInvoiceController {
 					}else{
 						if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage()) ){
 							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
-							this.setFatalError(model, rpgReturnResponseHandler, jsonTdsExportTopicInvoiceRecord);
+							this.setFatalError(model, rpgReturnResponseHandler, jsonSkatExportTopicInvoiceRecord);
 						}
 					}
 			    }
@@ -256,7 +253,7 @@ public class SkatExportHeaderInvoiceController {
 		    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
 		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
 		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-		    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsExportTopicInvoiceRecord);
+		    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatExportTopicInvoiceRecord);
 		    	}else{
 		    		//Delete succefully done!
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
@@ -264,7 +261,7 @@ public class SkatExportHeaderInvoiceController {
 				
 			}
 			
-			
+			/*
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -287,43 +284,32 @@ public class SkatExportHeaderInvoiceController {
 			//Debug --> 
 	    	logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	    	JsonSkatExportTopicInvoiceContainer jsonTdsExportTopicInvoiceContainer = this.skatExportSpecificTopicService.getSkatExportTopicInvoiceContainerContainer(jsonPayloadFetch);
-	    	if(jsonTdsExportTopicInvoiceContainer!=null){
+	    	JsonSkatExportTopicInvoiceContainer jsonSkatExportTopicInvoiceContainer = this.skatExportSpecificTopicService.getSkatExportTopicInvoiceContainerContainer(jsonPayloadFetch);
+	    	if(jsonSkatExportTopicInvoiceContainer!=null){
 	    		//get totals from AS400
 	    		JsonSkatExportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
-	    		jsonTdsExportTopicInvoiceContainer.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vakd());
-	    		jsonTdsExportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_fabl());
-	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonTdsExportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
+	    		jsonSkatExportTopicInvoiceContainer.setCalculatedValidCurrency(sumFaktTotalRecord.getTot_vakd());
+	    		jsonSkatExportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(sumFaktTotalRecord.getTot_fabl());
+	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonSkatExportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
 	    		
-	    		/*OBSOLETE SECTION. Has been repalced by service AS400 above: this.getInvoiceTotalFromInvoices...
-	    		//Set the common currency code for all invoices (if more than one)
-	    		jsonTdsExportTopicInvoiceContainer.setCalculatedValidCurrency(this.tdsExportCalculator.getFinalCurrency(jsonTdsExportTopicInvoiceContainer));
-	    		
-	    		Double calculatedItemLinesTotalAmount = this.tdsExportCalculator.getItemLinesTotalAmountInvoice(jsonTdsExportTopicInvoiceContainer);
-	    		Double diffItemLinesTotalAmountWithInvoiceTotalAmount = this.tdsExportCalculator.getDiffBetweenCalculatedTotalAmountAndTotalAmount(invoiceTotalAmount, calculatedItemLinesTotalAmount);
-	    		logger.info("CalculatedItemLinesTotalAmount:" + calculatedItemLinesTotalAmount);
-	    		logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
-	    		jsonTdsExportTopicInvoiceContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
-	    		jsonTdsExportTopicInvoiceContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
-				 */   
 	    	} 
-			
-	    	//drop downs populated from back-end
-	    	//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","GCY");
-    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService, model,appUser,"A","MDX");
-    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService, model,appUser,"A","MCF");
-	    	
-    		this.setDomainObjectsForListInView(model, jsonTdsExportTopicInvoiceContainer);
+			*/
+			//remove these 2 very line when uncomment the aboce (CB/OT)
+	    	JsonSkatExportTopicInvoiceContainer jsonSkatExportTopicInvoiceContainer = new JsonSkatExportTopicInvoiceContainer();
+	    	jsonSkatExportTopicInvoiceContainer.setInvList(new ArrayList());
+    		//after remove
+	    	this.setCodeDropDownMgr(appUser, model);
+    		this.setDomainObjectsForListInView(model, jsonSkatExportTopicInvoiceContainer);
 			
     		
     		//this next step is necessary for the default values on "create new" record
     		if(bindingErrorsExist){
-    			this.setDefaultDomainItemRecordInView(model, jsonTdsExportTopicInvoiceContainer, recordToValidate);
+    			this.setDefaultDomainItemRecordInView(model, jsonSkatExportTopicInvoiceContainer, recordToValidate);
     		}else{
-    			this.setDefaultDomainItemRecordInView(model, jsonTdsExportTopicInvoiceContainer, null);
+    			this.setDefaultDomainItemRecordInView(model, jsonSkatExportTopicInvoiceContainer, null);
     		}
     		
-	    	successView.addObject("model",model);
+	    	successView.addObject(SkatConstants.DOMAIN_MODEL,model);
 			//successView.addObject(Constants.EDIT_ACTION_ON_TOPIC, Constants.ACTION_FETCH);
 	    	logger.info("END of method");
 	    	return successView;
@@ -453,7 +439,7 @@ public class SkatExportHeaderInvoiceController {
 	
 	/**
 	 * 
-	 * @param jsonTdsExportTopicInvoiceRecord
+	 * @param jsonSkatExportTopicInvoiceRecord
 	 * @param avd
 	 * @param opd
 	 * @param session
@@ -563,6 +549,59 @@ public class SkatExportHeaderInvoiceController {
 		record.setSvef_omr(factor);
 	}
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param model
+	 */
+	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_107_CURRENCY, null, null);
+		
+		/*this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_008_COUNTRY, null, null);
+	
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_102_ANGIVELSESARTER, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_103_TOLDSTED, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_104_ANGIVELSESTYPE, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_106_INCOTERMS, null, null);
+		
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_108_TRANSPORTMADE, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_109_BETALNINGSMADE, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_117_UDGANGSTOLDSTED, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_119_EXPORTARTER, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_122_ERKLAERINGER_YM, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_123_T_STATUS, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_124_SUPPL_ENHEDER_YM, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_126_EU_ANGIVELSESARTER, null, null);
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+				 model,appUser,CodeDropDownMgr.CODE_127_STATUS_KODER, null, null);
+		*/
+}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

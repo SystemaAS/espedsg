@@ -22,6 +22,8 @@ import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportTopicInvoiceMappe
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalForUpdateContainer;
+import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportSpecificTopicMapper;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalContainer;
 
 
 /**
@@ -41,6 +43,23 @@ public class SkatExportSpecificTopicServiceImpl implements SkatExportSpecificTop
 		try{
 			SkatExportSpecificTopicMapper mapper = new SkatExportSpecificTopicMapper();
 			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return container;
+		
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 */
+	public JsonSkatExportSpecificTopicFaktTotalContainer getSkatExportSpecificTopicFaktTotalContainer (String utfPayload){
+		JsonSkatExportSpecificTopicFaktTotalContainer container = null;
+		try{
+			SkatExportSpecificTopicMapper mapper = new SkatExportSpecificTopicMapper();
+			container = mapper.getFaktTotalContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

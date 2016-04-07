@@ -188,7 +188,7 @@ public class SkatExportHeaderController {
 			    	//--------------------------------------
 			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 					//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	//logger.info(method + " --> jsonPayload:" + jsonPayload);
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
 			    		JsonSkatExportSpecificTopicContainer jsonSkatExportSpecificTopicContainer = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);

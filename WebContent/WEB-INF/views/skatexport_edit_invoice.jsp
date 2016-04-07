@@ -456,10 +456,11 @@
 							            </td>
 										<td align="left" nowrap>
 								            	<select class="inputTextMediumBlueMandatoryField" name="svef_vakd" id="svef_vakd">
-						 						<option value="">-välj-</option>
-							 				  	<c:forEach var="currency" items="${Xmodel.mdxCodeList}" >
-							 				  		<option value="${currency.svkd_kd}"<c:if test="${Xmodel.record.svef_vakd == currency.svkd_kd}"> selected </c:if> >${currency.svkd_kd}</option>
-												</c:forEach>  
+						 						<option value="">-vælg-</option>	
+								 				  <c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
+							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ Xmodel.record.todo == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+												  </c:forEach>  
+												</select>  
 											</select>
 											<a tabindex="-1" id="valutaIdLink">
            										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >

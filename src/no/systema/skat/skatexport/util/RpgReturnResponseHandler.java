@@ -170,7 +170,39 @@ public class RpgReturnResponseHandler {
 				}
 			}
 		}
-		
-		
 	}
+	
+	/**
+	 * 
+	 * @param rpgRawResponsePayload
+	 */
+	public void evaluateRpgResponseOnTopicInvoiceCreateOrUpdate(String rpgRawResponsePayload){
+		
+		if(rpgRawResponsePayload!=null){
+			String tmp = rpgRawResponsePayload.replaceAll("\"", "");
+			String tmp2 = tmp.replace("{", "");
+			String cleanRawPayload = tmp2.replace("}", "");
+			
+			String[] record = cleanRawPayload.split(",");
+			List <String>list = Arrays.asList(record);
+			for(String field: list){
+				//logger.info(field);
+				String[] keyValuePair = field.split(":");
+				if(keyValuePair[0]!=null){
+					if(keyValuePair[0].trim().equalsIgnoreCase("errMsg")){
+						if(keyValuePair.length>1){
+							String errorCode = keyValuePair[1];
+							if(errorCode!=null && !"".equals(errorCode.trim())){
+								this.errorMessage = errorCode ;
+								logger.info(this.errorMessage);
+							}
+						}
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("user")){
+						this.user = keyValuePair[1];
+					}
+				}
+			}
+		}
+	}
+	
 }

@@ -14,6 +14,7 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecific
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicOmbudRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalContainer;
 
 
 /**
@@ -71,6 +72,24 @@ public class SkatExportSpecificTopicMapper {
 		}
 		
 			
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonSkatExportSpecificTopicFaktTotalContainer getFaktTotalContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonSkatExportSpecificTopicFaktTotalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportSpecificTopicFaktTotalContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		
 		return container;
 	}
 	
