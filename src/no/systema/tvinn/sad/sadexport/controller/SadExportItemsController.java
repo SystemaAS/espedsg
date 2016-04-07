@@ -416,8 +416,7 @@ public class SadExportItemsController {
 			
 			//Debug --> 
 			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
-	    	
-			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			//logger.info("AA");
 	    	JsonSadExportSpecificTopicItemContainer container = this.sadExportSpecificTopicItemService.getSadExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	

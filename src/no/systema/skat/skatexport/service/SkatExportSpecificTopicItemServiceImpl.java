@@ -6,6 +6,8 @@ package no.systema.skat.skatexport.service;
 import no.systema.skat.skatexport.mapper.jsonjackson.SkatExportSpecificTopicItemMapper;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemAvgifterContainer;
+import no.systema.skat.mapper.jsonjackson.SkatAutoControlErrorMapper;
+import no.systema.skat.model.jsonjackson.JsonSkatAutoControlErrorContainer;
 
 /**
  * @author oscardelatorre
@@ -55,6 +57,18 @@ public class SkatExportSpecificTopicItemServiceImpl implements SkatExportSpecifi
 		
 	}
 	
-	
+	/**
+	 * 
+	 */
+	public JsonSkatAutoControlErrorContainer getSkatExportSpecificTopicItemAutoControlErrorContainer(String utfPayload){
+		JsonSkatAutoControlErrorContainer container= null;
+		try{
+			SkatAutoControlErrorMapper mapper = new SkatAutoControlErrorMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
 
 }

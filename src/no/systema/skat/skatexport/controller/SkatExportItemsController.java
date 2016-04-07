@@ -30,6 +30,7 @@ import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.context.TdsServletContext;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 
 
 import no.systema.skat.util.SkatConstants;
@@ -55,7 +56,11 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecific
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemRecord;
 import no.systema.skat.skatexport.util.SkatExportCalculator;
-import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
+import no.systema.skat.skatexport.util.manager.SkatExportItemsAutoControlMgr;
+import no.systema.skat.util.SkatConstants;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 
 
 
@@ -73,6 +78,7 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSp
 @Scope("session")
 public class SkatExportItemsController {
 	private static final Logger logger = Logger.getLogger(SkatExportItemsController.class.getName());
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private SkatExportCalculator skatExportCalculator = new SkatExportCalculator();
@@ -368,6 +374,254 @@ public class SkatExportItemsController {
 			}
 	}
 	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatexport_edit_items_autocontrol.do")
+	public ModelAndView skatExportEditItemAutoControl(@ModelAttribute ("record") JsonSkatExportSpecificTopicItemRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		logger.info("Inside: skatExportEditItemAutoControl");
+		final String AUTO_CONTROL_ERROR_FLAG_VALUE = "X";
+		final String ERROR_FRAME_STD_OUTPUT = "-------------------------------------------------------------";
+		
+		ModelAndView successView = null;
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		JsonSkatExportSpecificTopicItemRecord jsonSkatExportSpecificTopicItemRecord = null;
+		
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		//this fragment gets some header fields needed for the validator
+		JsonSkatExportSpecificTopicRecord headerRecord = (JsonSkatExportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		
+		Map model = new HashMap();
+		String urlRequestParamsKeys = null;
+		
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			StringBuffer params = new StringBuffer();
+			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getDkev_syav() + "&opd=" + recordToValidate.getDkev_syop());
+			successView = new ModelAndView("redirect:skatexport_edit_items.do?" + params);
+			
+			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL_FETCH = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL;
+			urlRequestParamsKeys = this.getRequestUrlKeyParameters(request, recordToValidate.getDkev_syav(), recordToValidate.getDkev_syop(), appUser);
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("FETCH av item list... ");
+	    	logger.info("URL: " + BASE_URL_FETCH);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+			//for debug purposes in GUI
+			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL_FETCH + "==>params: " + urlRequestParamsKeys.toString() + " " + "(fetched item list):" + jsonPayloadFetch); 
+			//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	
+	    	JsonSkatExportSpecificTopicItemContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
+	    	if(container!=null){
+	    		//INIT Autocontrol Manager...
+	    		SkatExportItemsAutoControlMgr autoControlMgr = new SkatExportItemsAutoControlMgr(this.urlCgiProxyService, this.skatExportSpecificTopicItemService);
+	    		
+	    		//Iterate on every line to control the requirements
+	    		for(JsonSkatExportSpecificTopicItemRecord record: container.getOrderList()){
+	    			//Fill in Taric Values in the record to prepare for some validity checks
+	    			boolean isBatch = true;
+	    			this.backEndValidationOnTolltariff(appUser, headerRecord, record, isBatch);
+	    			//Init record
+	    			autoControlMgr.setRecord(record);
+	    			/*
+	    			if(record!=null && record.isValidTolltariff()){
+	    				//---------------------------
+		    			//START with calculations
+		    			//---------------------------
+	    				String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
+		    			logger.info("Check Calculations " + idDebug);
+		    			//TODO autoControlMgr.calculateNetWeight(headerRecord, appUser);
+		    			
+	    				//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
+	    				//TODO autoControlMgr.updateItemRecord(appUser.getUser());
+						
+		    			//---------------------------
+		    			//START with validations now
+		    			//---------------------------
+						//Begin with the validity checks
+		    			//logger.info("level check (1) " + idDebug);
+
+						autoControlMgr.checkValidGrossAndNetWeight();
+						if(autoControlMgr.isValidRecord()){
+							//Go to level 2
+							//logger.info("level check (2) " + idDebug);
+	    					autoControlMgr.checkForMengdeMustExist();
+	    					if(autoControlMgr.isValidRecord()){
+	    						//Go to level 3
+	    						//logger.info("level check (3) " + idDebug);
+	    						autoControlMgr.checkForMengdeMustNotExist();
+	        					if(autoControlMgr.isValidRecord()){
+	    							//Go to level 4
+		    						//logger.info("level check (4) " + idDebug);
+		    						autoControlMgr.checkCountryCode();
+		    						if(autoControlMgr.isValidRecord()){
+		    							//Go to level FINAL MandatoryFields (must be the last check)
+			    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
+			    						autoControlMgr.checkValidMandatoryFields();
+										if(autoControlMgr.isValidRecord()){
+											//Update in order to remove previous error flags, if any...
+			    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
+			    		    			}else{
+			    		    				//Set error
+			    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
+				    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
+				    						logger.info(ERROR_FRAME_STD_OUTPUT);
+				    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+			    		    			}
+		    						}else{
+		    							//Set error
+		    							logger.info(ERROR_FRAME_STD_OUTPUT);
+			    						logger.info("ERROR level (4) - Country code" + idDebug);
+			    						logger.info(ERROR_FRAME_STD_OUTPUT);
+			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+		    						}
+	        					}else{
+	        						//Set error
+	        						logger.info(ERROR_FRAME_STD_OUTPUT);
+	        						logger.info("ERROR level (3) - Mengde must Not Exist" + idDebug);
+	        						logger.info(ERROR_FRAME_STD_OUTPUT);
+	        						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	        					}
+	    					}else{
+	    						//Set error
+	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    						logger.info("ERROR level (2) - Mengde must exist" + idDebug);
+	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    					}
+						}else{
+							//Set error
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							logger.info("ERROR level (1) - Weights" + idDebug);
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+						}
+	    			}else{
+	    				//Set error INIT (Tolltariff)
+	    				//Begin with the validity checks
+		    			String idDebug = record.getSvli() + "-" + record.getSvvnt();
+						logger.info(ERROR_FRAME_STD_OUTPUT);
+						logger.info("ERROR level (INIT) - Tolltariff nr:" + idDebug);
+						logger.info(ERROR_FRAME_STD_OUTPUT);
+						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    			}
+	    			*/
+	    			}
+	    		}
+			
+	    	}
+	    	return successView;
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param headerRecord
+	 * @param record
+	 * @param isBatch
+	 */
+	private void backEndValidationOnTolltariff(SystemaWebUser appUser, JsonSkatExportSpecificTopicRecord headerRecord, JsonSkatExportSpecificTopicItemRecord record, boolean isBatch){
+		//String ITEM_NR_SUFFIX_CHARACTERS_INVALID = "???";
+		//we must validate towards the back-end here in order to avoid injection problems in Validator
+		//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search-taric-number routine
+		JsonSkatTaricVarukodRecord jsonSkatTaricVarukodRecord = this.getTaricVarukod(appUser.getUser(), record.getDkev_331(), headerRecord.getDkeh_17a());
+		if(jsonSkatTaricVarukodRecord!=null){
+			//since the varukod is valid then we proceed to set more dependencies. This routine was not possible to implement as in TDS or SKAT
+			this.setValuesOnRecordToValidate(jsonSkatTaricVarukodRecord, record, isBatch);
+			
+		}else{
+			//only with validation of a specific record (no batch)
+			/*
+			if(!isBatch){
+				if(record.getDkev_331()!=null){
+					Integer length = record.getDkev_331().length();
+					if(length>=3){
+						record.setSvvntValid(false);
+					}else{
+						//put a suffix to indicate invalid number (in a single validation use case)
+						record.setSvvntValid(false);
+					}
+				}
+			}else{
+				record.setValidTolltariff(false);
+			}
+			*/
+		}
+		
+		
+	}
+	
+	private JsonSkatTaricVarukodRecord getTaricVarukod(String applicationUser, String taricVarukod, String selkbCountryCode) {
+		logger.info("Inside getTaricVarukod()");
+		JsonSkatTaricVarukodRecord retval = null;
+		
+		String TYPE_IE = "E";
+		try{
+		  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
+		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod + "&selkb=" + selkbCountryCode;
+		  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
+		  if(container!=null){
+			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
+				  //logger.info("MATCH on VAREKOD. !!!!: " + record.getTatanr());
+				  //logger.info("MATCH on VAREBESKRIV. !!!!: " + record.getBeskr1());
+				  retval = record;
+			  }	
+		  }
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	  
+		return retval;
+  	}
+	
+	/**
+	 * 
+	 * @param jsonSkatTaricVarukodRecord
+	 * @param recordToValidate
+	 * @param isBatch
+	 */
+	private void setValuesOnRecordToValidate(JsonSkatTaricVarukodRecord jsonSkatTaricVarukodRecord, JsonSkatExportSpecificTopicItemRecord recordToValidate, boolean isBatch){
+		/*
+		//since the varukod is valid then we proceed to set more dependencies. This routine was not possible to implement as in TDS or SKAT
+		if( "J".equals(jsonSkatTaricVarukodRecord.getTastk()) ){
+			recordToValidate.setExtraMangdEnhet("Y");
+		}else{
+			recordToValidate.setExtraMangdEnhet("N");
+		}
+		//fiskeavgift
+		if(  (jsonSkatTaricVarukodRecord.getFfsvavt()!=null && !"".equals(jsonSkatTaricVarukodRecord.getFfsvavt())) &&
+				 (jsonSkatTaricVarukodRecord.getFfsvavtp()!=null && !"".equals(jsonSkatTaricVarukodRecord.getFfsvavtp())) &&	
+				 (jsonSkatTaricVarukodRecord.getFfsvavts()!=null && !"".equals(jsonSkatTaricVarukodRecord.getFfsvavts())) ){
+			
+				recordToValidate.setMandatoryFiskAvgift(true);
+				
+				//only when Autocontrol is used...
+				if(isBatch){
+					recordToValidate.setSvavt(jsonSkatTaricVarukodRecord.getFfsvavt());
+					recordToValidate.setSvavtp(jsonSkatTaricVarukodRecord.getFfsvavtp());
+					recordToValidate.setSvavts(jsonSkatTaricVarukodRecord.getFfsvavts());
+				}
+		}
+		*/
+	}
 	/**
 	 * Populates all the 401 and 402 values 
 	 * @param jsonSkatImportSpecificTopicItemRecord

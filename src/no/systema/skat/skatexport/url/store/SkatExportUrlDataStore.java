@@ -55,9 +55,15 @@ public final class SkatExportUrlDataStore {
 	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE012R.pgm";
 	//http://gw.systema.no/sycgip/TDKE012R.pgm?user=OSCAR&avd=1&opd=80001&lin=2&mode=A
 	
+	//--------------------------------------
+	//[6.0.1] Update AutoControl error line  
+	//--------------------------------------
+	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE022R.pgm";
+	//http://gw.systema.no/sycgip/tdke022r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&sverr=X
+	
 	
 	//--------------------------------------------------------------------
-	//[6.0.1] EDIT/SAVE (Statistiskt værdi MÅSTE kalkyleras). Inga avgifter 
+	//[6.0.2] EDIT/SAVE (Statistiskt værdi MÅSTE kalkyleras). Inga avgifter 
 	//--------------------------------------------------------------------
 	//http://gw.systema.no/sycgip/TDKE017R.pgm?user=OSCAR&dkeh_221=USD&dkeh_221b=6.80&dkeh_222=2000
 	static public String SKAT_EXPORT_BASE_AVGIFTS_CALCULATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE017R.pgm";	
