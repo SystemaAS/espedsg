@@ -18,15 +18,15 @@
   		  if(jq('#tvtdn2').val()!='' ){
   			 //only with create new line 
   			 if(jq('#tvli').val()==''){
-  				getDefaultValuesFromSkatExportHeader();
+  				getDefaultValuesFromTvinnSadExportHeader();
   			 }else if(jq('#tvnas').val()=='' && jq('#tvnak').val()==''){
-  				getDefaultValuesFromSkatExportHeader(); 
+  				getDefaultValuesFromTvinnSadExportHeader(); 
   			 } 
   		  }			  
   		});
   	});
   //populate GUI fields (when applicable)
-  	function getDefaultValuesFromSkatExportHeader(){
+  	function getDefaultValuesFromTvinnSadExportHeader(){
   		jq.ajax({
   	  	  type: 'GET',
   	  	  url: 'getSpecificTopic_SadExport.do',
@@ -64,11 +64,57 @@
   				jq('#tvadk1').val(data[i].seads1);
   				jq('#tvpnk').val(data[i].seads2);
   				jq('#tvpsk').val(data[i].seads3);
-  				//?jq('#tvlkk').val(data[i].dkeh_08f);
+  				//other header fields
+  				if(jq('#tvalk').val()==''){
+  					jq('#tvalk').val("NO");
+  				}
+  				if(jq('#tvdty').val()==''){
+  					jq('#tvdty').val("830");
+  				}
+  				if(jq('#tvblk').val()==''){
+  					jq('#tvblk').val(data[i].thblk);
+  				}
+  				//get some values from SKAT Eksport Item lines
+  				getDefaultValuesFromTvinnSadExportItemLines();
   			}
 	  	  }
   		});	
   		
+  	}
+  	
+  	//GET some line default values from Skat Eksport
+  	function getDefaultValuesFromTvinnSadExportItemLines(){
+  		jq.ajax({
+    	  	  type: 'GET',
+    	  	  url: 'getItemLinesTopic_SadExport.do',
+    	  	  data: { applicationUser : jq('#applicationUser').val(), 
+    	  		  	  avd : jq('#tvavd2').val(), 
+    	  		  	  opd : jq('#tvtdn2').val() },
+    	  	  dataType: 'json',
+    	  	  cache: false,
+    	  	  contentType: 'application/json',
+    	  	  success: function(data) {
+    	  		var len = data.length;
+    	  		if (len>0){
+	    	  		//only first line
+	    			for ( var i = 0; i <= 1; i++) {
+	    				//alert(data[i].dkev_331);
+	    				if(jq('#tvvnt').val()==''){
+	    					jq('#tvvnt').val(data[i].svvnt);
+	    				}
+	    				if(jq('#tvvktb').val()==''){
+	    					jq('#tvvktb').val(data[i].svvktb);
+	    				}
+	    				if(jq('#tvvktn').val()==''){
+	    					jq('#tvvktn').val(data[i].svvktn);
+	    				}
+	    				if(jq('#tvnt').val()==''){
+	    					jq('#tvnt').val(data[i].wd1);
+	    				}
+	    			}
+    	  		}
+  		  	 }
+  		});		
   	}
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {

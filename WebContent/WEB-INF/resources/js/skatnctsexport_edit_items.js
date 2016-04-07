@@ -108,9 +108,15 @@
   				jq('#tvpsk').val(data[i].dkeh_08e);
   				jq('#tvlkk').val(data[i].dkeh_08f);
   				//other header fields
-  				jq('#tvalk').val("DK");
-  				jq('#tvdty').val("830");
-  				jq('#tvblk').val(data[i].dkeh_17a);
+  				if(jq('#tvalk').val()==''){
+  					jq('#tvalk').val("DK");
+  				}
+  				if(jq('#tvdty').val()==''){
+  					jq('#tvdty').val("830");
+  				}
+  				if(jq('#tvblk').val()==''){
+  					jq('#tvblk').val(data[i].dkeh_17a);
+  				}
   				//get some values from SKAT Eksport Item lines
   				getDefaultValuesFromSkatExportItemLines();
   			}
@@ -134,10 +140,18 @@
 	    	  		//only first line
 	    			for ( var i = 0; i <= 1; i++) {
 	    				//alert(data[i].dkev_331);
-	    				jq('#tvvnt').val(data[i].dkev_331);
-	    				jq('#tvvktb').val(data[i].dkev_35);
-	    				jq('#tvvktn').val(data[i].dkev_38);
-	    				jq('#tvnt').val(data[i].dkev_313);
+	    				if(jq('#tvvnt').val()==''){
+	    					jq('#tvvnt').val(data[i].dkev_331);
+	    				}
+	    				if(jq('#tvvktb').val()==''){
+	    					jq('#tvvktb').val(data[i].dkev_35);
+	    				}
+	    				if(jq('#tvvktn').val()==''){
+	    					jq('#tvvktn').val(data[i].dkev_38);
+	    				}
+	    				if(jq('#tvnt').val()==''){
+	    					jq('#tvnt').val(data[i].dkev_313);
+	    				}
 	    			}
     	  		}
   		  	 }

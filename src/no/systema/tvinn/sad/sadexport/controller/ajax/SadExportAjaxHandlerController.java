@@ -27,9 +27,13 @@ import no.systema.main.service.general.CurrencyRateService;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicRecord;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemRecord;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodService;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodRecord;
@@ -471,6 +475,51 @@ public class SadExportAjaxHandlerController {
     	 }
 		 return result;
 	 }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @return
+	   */
+	  @RequestMapping(value = "getItemLinesTopic_SadExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSadExportSpecificTopicRecord> getItemLinesTopic (@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+		 logger.info("Inside: getItemLinesTopic_SadExport.do");
+		 
+		 Set result = new HashSet();
+		 String BASE_URL_FETCH = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL;
+		 StringBuffer urlRequestParamsKeys = new StringBuffer();
+			
+		 urlRequestParamsKeys.append("user=" + applicationUser);
+		 urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		 urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+			
+		 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		 logger.info("FETCH av item list... ");
+		 logger.info("URL: " + BASE_URL_FETCH);
+		 logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		 //--------------------------------------
+		 //EXECUTE the FETCH (RPG program) here
+		 //--------------------------------------
+		 String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys.toString());
+		 //Debug --> 
+		 logger.info(jsonPayloadFetch);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 if(jsonPayloadFetch!=null){
+			 JsonSadExportSpecificTopicItemContainer container = this.sadExportSpecificTopicItemService.getSadExportSpecificTopicItemContainer(jsonPayloadFetch);
+			 if(container!=null){
+				 for(JsonSadExportSpecificTopicItemRecord record : container.getOrderList()){
+					 //Debug
+					 logger.info("Varenr:" + record.getSvvnt());
+					 logger.info("Beskr:" + record.getWd1());
+					 
+	  				 result.add(record);
+				 }
+			 }
+		 }	
+		 return result;
+	 } 
   	  /**
 	   * 
 	   * @param applicationUser
