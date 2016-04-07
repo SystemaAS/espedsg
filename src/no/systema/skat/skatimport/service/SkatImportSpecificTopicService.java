@@ -3,6 +3,7 @@
  */
 package no.systema.skat.skatimport.service;
 
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicFaktTotalContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalForUpdateContainer;
@@ -36,6 +37,9 @@ public interface SkatImportSpecificTopicService {
 	public JsonSkatImportSpecificTopicArchiveContainer getSkatImportSpecificTopicArchiveContainer(String utfPayload);
 	//
 	public JsonSkatImportSpecificTopicRecalculationContainer getSkatImportSpecificTopicRecalculationContainer (String utfpayload);
+	//
+	public JsonSkatImportSpecificTopicFaktTotalContainer getSkatImportSpecificTopicFaktTotalContainer (String utfPayload);
+	
 	
 	//Invoices
 	public JsonSkatImportTopicInvoiceContainer getSkatImportTopicInvoiceContainerContainer (String utfPayload);

@@ -19,12 +19,12 @@
   	  
     });
     
-  	/*
+  	
   	jq(function() {
   	  	jq('#importInvoicesButton').click(function() {
-  	  		window.open('tdsimport_edit_childwindow_external_invoices.do?avd=' + jq("#avd").val() + "&opd=" + jq("#opd").val(), 'importInvoicesWin','top=120px,left=100px,height=600px,width=800px,scrollbars=no,status=no,location=no');
+  	  		window.open('skatimport_edit_childwindow_external_invoices.do?avd=' + jq("#avd").val() + "&opd=" + jq("#opd").val(), 'importInvoicesWin','top=120px,left=100px,height=600px,width=800px,scrollbars=no,status=no,location=no');
   	  	});
-  	  
+  	  	/*
   	  	//Typ ( same as Bilagda Handlingar on item level)
 	    jq('#bilagdaHandIdLink').click(function() {
 	    	jq('#bilagdaHandIdLink').attr('target','_blank');
@@ -45,10 +45,11 @@
 				jq('#valutaIdLink').click();
 			}
 	    });
-  	  	
+  	  	*/
   	  	
   	});
   	
+  	/*
   	//Currency AJAX fetch
 	jq(function() { 
 	    jq('#svif_vakd').change(function() {

@@ -42,7 +42,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;<spring:message code="systema.tds.import.invoice.tab"/></font>
+				<font class="tabLink">&nbsp;<spring:message code="systema.skat.import.invoice.tab"/></font>
 			</td>
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -93,8 +93,8 @@
 	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Avd&nbsp;<b>${Xmodel.avd}</b>
-				 				&nbsp;Tolldeknr.&nbsp;<b>${Xmodel.opd}</b>
+				 				&nbsp;Afd&nbsp;<b>${Xmodel.avd}</b>
+				 				&nbsp;Angiv.&nbsp;<b>${Xmodel.opd}</b>
 				 				&nbsp;Sign&nbsp;<b>${Xmodel.sign}</b>
 				 				&nbsp;&nbsp;Status:&nbsp;<b>${Xmodel.status}</b>
 				 				&nbsp;&nbsp;Dekl.:&nbsp;<b>${recordTopic.svih_dek1}</b>
@@ -108,7 +108,7 @@
 					 		<td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Exportör</td>
+							            <td width="30%" class="text11Bold" align="left" >Eksportør</td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
@@ -116,20 +116,20 @@
 							           	<td class="text11MediumBlue" align="left"></td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Namn&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_avna}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adress 1&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_ava1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adress 2&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_ava2}</td>
 							        </tr>
 							        
 									<tr>
-							            <td width="30%" class="text11" align="left">Postadress&nbsp;</td>
+							            <td width="30%" class="text11" align="left">By&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_avpn}&nbsp;${recordTopic.svih_avpa}&nbsp;${recordTopic.svih_avlk}</td>
 							        </tr>
 							        <tr>
@@ -140,31 +140,31 @@
 					        <td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Mottagare</td>
+							            <td width="30%" class="text11Bold" align="left" >Modtager</td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">EORI.&nbsp;</td>
+							            <td width="30%" class="text11" align="left">CVR/SE-nr.&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moeo}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Namn&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_mona}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adress 1&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moa1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adress 2&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moa2}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Postadress&nbsp;</td>
+							            <td width="30%" class="text11" align="left">By&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_mopn}&nbsp;${recordTopic.svih_mopa}&nbsp;${recordTopic.svih_molk}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Handläggare&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Klarereren&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moha}&nbsp;tel:${recordTopic.svih_motl}</td>
 							        </tr>
 							        
@@ -186,7 +186,7 @@
 							<td>
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
-										<td class="text12Bold">&nbsp;Antal fakturor&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
+										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
 						            	</td>
 						            	
 										<td align="right" class="text11">Fsum:&nbsp;
@@ -268,7 +268,7 @@
 							               <td class="text11" >&nbsp;${record.svif_omr}</td>
 							               <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">	
 								               <td width="4%" class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Är du säker att du vill radera raden?')" tabindex=-1 href="tdsimport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svif_fatx}">
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svif_fatx}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	&nbsp;
 								               </td>
@@ -354,9 +354,9 @@
 						<tr>
 							<td class="text12Bold">
 								<c:if test="${XXmodel.status == 'M' || empty XXmodel.status}">
-									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tdsimport_edit_invoice.do';" value="Skapa ny">
+									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatimport_edit_invoice.do';" value="Skabe ny">
 								</c:if>
-								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera externa fakturor</button>
+								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Import eksterne fakturaer</button>
 							</td>
 						</tr>
 				   </table>
@@ -368,7 +368,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form name="tdsImportEditTopicInvoiceItemForm" id="tdsImportEditTopicInvoiceItemForm" method="post">
+	 				<form name="skatImportEditTopicInvoiceItemForm" id="skatImportEditTopicInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 				 	<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
@@ -402,7 +402,7 @@
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${activeUrlRPGUpdate}<br/><br/>
+		           		   				${activeUrlRPGUpdate_Skat}<br/><br/>
 		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
 		           		   			</div>
 						        </span>  
@@ -453,11 +453,11 @@
 							            </td>
 										<td align="left" nowrap>
 							            	<select class="inputTextMediumBlueMandatoryField" name="svif_vakd" id="svif_vakd">
-						 						<option value="">-välj-</option>
-						 						 
-							 				  	<c:forEach var="currency" items="${Xmodel.mdxCodeList}" >
-							 				  		<option value="${currency.svkd_kd}"<c:if test="${Xmodel.record.svif_vakd == currency.svkd_kd}"> selected </c:if> >${currency.svkd_kd}</option>
-												</c:forEach> 
+						 						<option value="">-vælg-</option>	
+								 				  <c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
+							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ Xmodel.record.todo == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+												  </c:forEach>  
+												</select> 
 												 
 											</select>
 											<a tabindex="-1" id="valutaIdLink">
@@ -479,11 +479,11 @@
 						    <td align="left" colspan="5">
 									<c:choose>	
 										<c:when test="${Xmodel.status == 'M' || empty Xmodel.status || Xmodel.status == '1'}">
-											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tdsimport_edit_invoice.do';" value='Spara faktura'>
+											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatimport_edit_invoice.do';" value='Spare faktura'>
 											&nbsp;&nbsp;
 										</c:when>
 										<c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='Ej uppdaterbart'/>
+				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='Ikke opdaterbar'/>
 				 				    	</c:otherwise>	
 			 				    	</c:choose>	
 							</td>							        	

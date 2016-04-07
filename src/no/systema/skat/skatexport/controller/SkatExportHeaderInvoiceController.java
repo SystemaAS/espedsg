@@ -135,7 +135,7 @@ public class SkatExportHeaderInvoiceController {
 			
 			
 			if(SkatConstants.ACTION_UPDATE.equals(action)){
-				
+				/*
 				SkatExportInvoiceValidator validator = new SkatExportInvoiceValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			    validator.validate(recordToValidate, bindingResult);
@@ -226,10 +226,10 @@ public class SkatExportHeaderInvoiceController {
 							this.setFatalError(model, rpgReturnResponseHandler, jsonSkatExportTopicInvoiceRecord);
 						}
 					}
-			    }
+			    }*/
 				
 			}else if(SkatConstants.ACTION_DELETE.equals(action)){
-				
+				/*
 				logger.info("[INFO] Delete record start process... ");
 				String lineIdToDelete = request.getParameter("fak");
 				
@@ -258,7 +258,7 @@ public class SkatExportHeaderInvoiceController {
 		    		//Delete succefully done!
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
-				
+				*/
 			}
 			
 			/*

@@ -43,7 +43,7 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;<spring:message code="systema.tds.export.invoice.tab"/></font>
+				<font class="tabLink">&nbsp;<spring:message code="systema.skat.export.invoice.tab"/></font>
 			</td>
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -100,8 +100,8 @@
 	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Avd&nbsp;<b>${Xmodel.avd}</b>
-				 				&nbsp;Tolldeknr.&nbsp;<b>${Xmodel.opd}</b>
+				 				&nbsp;Afd&nbsp;<b>${Xmodel.avd}</b>
+				 				&nbsp;Angiv.&nbsp;<b>${Xmodel.opd}</b>
 				 				&nbsp;Sign&nbsp;<b>${Xmodel.sign}</b>
 				 				&nbsp;&nbsp;Status:&nbsp;<b>${Xmodel.status}</b>
 			 				</td>
@@ -114,32 +114,32 @@
 					 		<td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Exportör</td>
+							            <td width="30%" class="text11Bold" align="left" >Eksportør</td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">EORI&nbsp;</td>
+							            <td width="30%" class="text11" align="left">CVR/SE-nr&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_aveo}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Namn&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avna}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adress 1&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_ava1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adress 2&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_ava2}</td>
 							        </tr>
 							        
 									<tr>
-							            <td width="30%" class="text11" align="left">Postadress&nbsp;</td>
+							            <td width="30%" class="text11" align="left">By&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avpn}&nbsp;${recordTopic.sveh_avpa}&nbsp;${recordTopic.sveh_avlk}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Handläggare&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Klarereren&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avha}&nbsp;tel:${recordTopic.sveh_avtl}</td>
 							        </tr>
 							        						        
@@ -148,7 +148,7 @@
 					        <td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Mottagare</td>
+							            <td width="30%" class="text11Bold" align="left" >Modtager</td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
@@ -156,19 +156,19 @@
 							           	<td class="text11MediumBlue" align="left"></td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Namn&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_mona}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adress 1&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_moa1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adress 2&nbsp;</td>
+							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_moa2}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Postadress&nbsp;</td>
+							            <td width="30%" class="text11" align="left">By&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_mopn}&nbsp;${recordTopic.sveh_mopa}&nbsp;${recordTopic.sveh_molk}</td>
 							        </tr>
 							        <tr>
@@ -193,7 +193,7 @@
 							<td>
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
-										<td class="text12Bold">&nbsp;Antal fakturor&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
+										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
 						            		</td>
 										<td align="right" class="text11">Fsum:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopic.sveh_fabl}">
@@ -237,13 +237,13 @@
 									<thead>
 									<tr style="background-color:#DDDDDD">
 									    <th class="text12"><span title="svef_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
-					                    <th class="text12" ><span title="svef_faty">&nbsp;Typ&nbsp;</span></th>
+					                    <th class="text12" ><span title="svef_faty">&nbsp;Type&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="svef_fabl">&nbsp;Belopp&nbsp;</span></th>
-					                    <th class="text12" ><span title="svef_vakd">&nbsp;Valuta&nbsp;</span></th>
+					                    <th class="text12" ><span title="svef_vakd">&nbsp;Møntsort&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="svef_vaku">&nbsp;Kurs&nbsp;</span></th>
 					                    <th class="text12" align="left"><span title="svef_omr">Faktor&nbsp;</span></th>
 					                    <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">
-					                    	<th align="center" class="text12" nowrap>Radera</th>
+					                    	<th align="center" class="text12" nowrap>Fjern</th>
 					                    </c:if>
 					               </tr>
 					              </thead>
@@ -269,7 +269,7 @@
 							               <td class="text11" >&nbsp;${record.svef_omr}</td>
 							               <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">	
 								               <td width="4%" class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Är du säker att du vill radera raden?')" tabindex=-1 href="tdsexport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svef_fatx}">
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svef_fatx}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	&nbsp;
 								               </td>
@@ -341,7 +341,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	           	<td>
-	           	<form name="createNewItemLine" id="createNewItemLine" method="post" action="tdsexport_edit_invoice.do">
+	           	<form name="createNewItemLine" id="createNewItemLine" method="post" >
 					<input type="hidden" name="action" id="action" value='doFetch'>
 	 				<input type="hidden" name="avd" id="avd" value="${Xmodel.avd}"/>
 	 				<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
@@ -355,9 +355,9 @@
 						<tr>
 							<td class="text12Bold">
 								<c:if test="${XXmodel.status == 'M' || empty XXmodel.status}">
-									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tdsexport_edit_invoice.do';" value="Skapa ny">
+									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatexport_edit_invoice.do';" value="Skabe ny">
 								</c:if>
-								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera externa fakturor</button>
+								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Import eksterne fakturaer</button>
 							</td>
 						</tr>
 					</table>
@@ -369,7 +369,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form name="tdsExportEditTopicInvoiceItemForm" id="tdsExportEditTopicInvoiceItemForm" method="post">
+	 				<form name="skatExportEditTopicInvoiceItemForm" id="skatExportEditTopicInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 				 	<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
@@ -403,7 +403,7 @@
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${activeUrlRPGUpdate_TvinnSad}<br/><br/>
+		           		   				${activeUrlRPGUpdate_Skat}<br/><br/>
 		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
 		           		   			</div>
 						        </span>  
@@ -419,9 +419,9 @@
 							 			<td class="text12" align="left"><span title="svef_fatx">
 							 			<font class="text16RedBold" >*</font>Fakturanr.</span>
 										</td>
-							            <td class="text12" align="left"><span title="svef_faty">&nbsp;<font class="text16RedBold" >*</font>Typ</span></td>
-							            <td class="text12" align="left"><span title="svef_fabl">&nbsp;<font class="text16RedBold" >*</font>Belopp</span></td>
-							            <td class="text12" align="left"><span title="svef_vakd">&nbsp;<font class="text16RedBold" >*</font>Valuta</span></td>
+							            <td class="text12" align="left"><span title="svef_faty">&nbsp;<font class="text16RedBold" >*</font>Type</span></td>
+							            <td class="text12" align="left"><span title="svef_fabl">&nbsp;<font class="text16RedBold" >*</font>Beløb</span></td>
+							            <td class="text12" align="left"><span title="svef_vakd">&nbsp;<font class="text16RedBold" >*</font>Møntsort</span></td>
 					            		<td class="text12" align="left"><span title="svef_vaku">&nbsp;<font class="text16RedBold" >*</font>Kurs</span></td>
 					            		<td class="text12" align="left"><span title="factor">Faktor&nbsp;</span></td>
 							        </tr>
@@ -482,11 +482,11 @@
 						    <td align="left" colspan="5">
 									<c:choose>	
 										<c:when test="${Xmodel.status == 'M' || empty Xmodel.status || Xmodel.status == '1'}">
-											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tdsexport_edit_invoice.do';" value='Spara faktura'>
+											<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit_invoice.do';" value='Spare faktura'>
 											&nbsp;&nbsp;
 										</c:when>
 										<c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='Ej uppdaterbart'/>
+				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='Ikke opdaterbar'/>
 				 				    	</c:otherwise>	
 			 				    	</c:choose>	
 							</td>							        	

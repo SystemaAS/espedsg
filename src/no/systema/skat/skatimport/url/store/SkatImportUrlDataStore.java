@@ -22,6 +22,8 @@ public final class SkatImportUrlDataStore {
 	//----------------------------
 	//TEST static public String XX_EXPORT_BASE_SPECIFIC_TOPIC_URL = "http://gw.systema.no/sycgip/TDKI001R.pgm?user=OSCAR&avd=1&opd=139";
 	static public String SKAT_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI001R.pgm";
+	//[2.1 FETCH Fakt.total from Invoices]
+	static public String SKAT_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI033R.pgm";
 	
 	//------------------------------
 	//[3] EDIT A SPECIFIC ARENDE
@@ -59,6 +61,30 @@ public final class SkatImportUrlDataStore {
 	//[6.1] AutoCopy (optional feature) after a valid UPDATE (ITEMS)
 	//---------------------------------------------------------------
 	static public String SKAT_IMPORT_BASE_AUTO_COPY_AFTER_UPDATE_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI024R.pgm";	
+	
+	//-----------------------------------
+	//[6.1] LIST/EDIT  INVOICE RECORD(s)
+	//(mode=A (Add new), 
+	//mode=U (Update existing), 
+	//mode=D (Delete existing topic)
+	//-----------------------------------
+	static public String SKAT_IMPORT_BASE_FETCH_TOPIC_INVOICELIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI030R.pgm";
+	//http://gw.systema.no/sycgip/tdki030r.pgm?user=OSCAR&avd=1&opd=52919
+	static public String SKAT_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI031R.pgm";
+	//http://gw.systema.no/sycgip/tdki031r.pgm?user=OSCAR&avd=1&opd=52919&fak=SE444197610900
+	static public String SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI032R.pgm";	
+	//http://gw.systema.no/sycgip/tdki032r.pgm?user=OSCAR&mode=U&avd=1&opd=52919&fak=SE444197610900..................................
+	
+	//------------------------------------------
+	//[6.2] LIST/Get  External INVOICE RECORD(s)
+	//------------------------------------------
+	static public String SKAT_IMPORT_BASE_FETCH_TOPIC_INVOICELIST_EXTERNAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI060R.pgm";
+	//http://gw.systema.no/sycgip/tdki060r.pgm?user=OSCAR
+	static public String SKAT_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_INVOICE_EXTERNAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI061R.pgm";	
+	//http://gw.systema.no/sycgip/tdki061r.pgm?user=OSCAR&reff=6441&unik=4009282
+	static public String SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_EXTERNAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI062R.pgm";	
+	//http://gw.systema.no/sycgip/tdki062r.pgm?user=OSCAR&avd=1&opd=91127&mode=U&reff=6445&unik=4012087
+	
 	
 	//------------------------------------------
 	//[7] LOG and ARCHIVE for a SPECIFIC ARENDE

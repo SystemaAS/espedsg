@@ -6,6 +6,8 @@ package no.systema.skat.skatimport.service;
 
 
 //SKAT
+import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportSpecificTopicMapper;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicFaktTotalContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecalculationContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicCopiedFromTransportUppdragContainer;
@@ -253,6 +255,24 @@ public class SkatImportSpecificTopicServiceImpl implements SkatImportSpecificTop
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return container;
+		
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 */
+	public JsonSkatImportSpecificTopicFaktTotalContainer getSkatImportSpecificTopicFaktTotalContainer (String utfPayload){
+		JsonSkatImportSpecificTopicFaktTotalContainer container = null;
+		try{
+			SkatImportSpecificTopicMapper mapper = new SkatImportSpecificTopicMapper();
+			container = mapper.getFaktTotalContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return container;
 		
 	}
