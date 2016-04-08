@@ -292,7 +292,7 @@
 				               							               <td class="text11">&nbsp;${record.dkev_46}</td>
 														               <td class="text11">&nbsp;${record.dkev_42}</td>
 														               <td align="center" class="text11">&nbsp;
-														               		<c:if test="${not empty Xrecord.dkerr}">
+														               		<c:if test="${not empty record.dkev_err}">
 														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               </td>
@@ -434,7 +434,7 @@
 							               <td class="text11">&nbsp;${record.dkev_46}</td>
    							               <td class="text11">&nbsp;${record.dkev_42}</td>
    							               <td align="center" class="text11">&nbsp;
-							               		<c:if test="${not empty Xrecord.dkerr}">
+							               		<c:if test="${not empty record.dkev_err}">
 							               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 							               </td>

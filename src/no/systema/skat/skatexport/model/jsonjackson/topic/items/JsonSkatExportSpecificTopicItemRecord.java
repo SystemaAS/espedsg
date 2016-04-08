@@ -682,6 +682,9 @@ public class JsonSkatExportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setDkev_x07(String value) {  this.dkev_x07 = value; }
 	public String getDkev_x07() { return this.dkev_x07;}
 	
+	private String dkev_err = null;
+	public void setDkev_err(String value) {  this.dkev_err = value; }
+	public String getDkev_err() { return this.dkev_err;}
 	
 	
 	/**

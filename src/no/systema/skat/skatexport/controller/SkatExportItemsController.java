@@ -473,7 +473,7 @@ public class SkatExportItemsController {
 		    						if(autoControlMgr.isValidRecord()){
 		    							//Go to level FINAL MandatoryFields (must be the last check)
 			    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
-			    						/*autoControlMgr.checkValidMandatoryFields();
+			    						autoControlMgr.checkValidMandatoryFields();
 										if(autoControlMgr.isValidRecord()){
 											//Update in order to remove previous error flags, if any...
 			    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
@@ -483,7 +483,7 @@ public class SkatExportItemsController {
 				    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
 				    						logger.info(ERROR_FRAME_STD_OUTPUT);
 				    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-			    		    			}*/
+			    		    			}
 		    						}else{
 		    							//Set error
 		    							logger.info(ERROR_FRAME_STD_OUTPUT);

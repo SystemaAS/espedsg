@@ -1027,6 +1027,11 @@ public class JsonSkatImportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public String getDkiv_x07() { return this.dkiv_x07;}
 	
 	
+	private String dkiv_err = null;
+	public void setDkiv_err(String value) {  this.dkiv_err = value; }
+	public String getDkiv_err() { return this.dkiv_err;}
+	
+	
 	/**
 	 * 
 	 * @return
