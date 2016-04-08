@@ -261,6 +261,7 @@
 												                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</th>
 												                    <th class="text11">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></th>
 												                    <th class="text11" ><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkerr.error"/>&nbsp;</th>
 												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
 												                    	<th align="center" class="text11" nowrap>Fjern</th>
 												                    </c:if>
@@ -371,6 +372,11 @@
 														               	 --%>	
 														               	</td>
 														               <td class="text11">&nbsp;${record.dkiv_42}</td>
+														               <td align="center" class="text11">&nbsp;
+														               		<c:if test="${not empty Xrecord.dkerr}">
+														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
+														               		</c:if>
+														               </td>
 														               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
 															               <td class="text11" align="center" nowrap>&nbsp;
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">
@@ -406,6 +412,9 @@
 															</table>
 														</div>	
 								   				</span>	
+								   				<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">		
+													&nbsp;<button title="Kontrollere vareposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Kontrollere vareposter</button>
+												</c:if>	
 										</td>
 									</tr>
 									<tr>
@@ -472,6 +481,7 @@
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.import.item.list.label.dkiv_315a.vareDescription"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;Avg / <spring:message code="systema.skat.import.item.list.label.dkiv_46.statValue"/></th>
 					                    <th class="text11" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_42.varansPris"/>&nbsp;</th>
+					                    <th class="text12" >&nbsp;<spring:message code="systema.skat.import.item.list.label.dkerr.error"/>&nbsp;</th>
 					                    <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">
 				                    		<th align="center" class="text11" nowrap>Fjern</td>
 					                    </c:if>
@@ -511,10 +521,10 @@
 							               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_info_${record.dkiv_syli}');" onMouseOut="hidePop('avgifterReadOnly_info_${record.dkiv_syli}');" alt="info">
 							               		 <img valign="bottom" src="resources/images/infoOrange.png" width="12px" height="12px" border="0" alt="avg.info">&nbsp;
 							               		</font>/
-							               		
+							               	   		
 								               <span class="popupWithInputTextGrayBg" style="position:absolute; left:620px; top:300px;" id="avgifterReadOnly_info_${record.dkiv_syli}" >
 								           		<div class="text10" align="left" >
-							           				<table cellspacing="0" border="0" cellpadding="0">
+								           	 		<table cellspacing="0" border="0" cellpadding="0">
 							           					<tr>
 							           						<td colspan="5" class="text12OrangeBold">Afgifter [Sker på SKAT]</td>
 							           					</tr>
@@ -575,12 +585,17 @@
 							           					</tr>
 							           					<tr height="10"><td></td></tr>
 							           					
-							           				</table>		 
-							           			</div>
-							           			</span>	
-							           			 --%>
+							           				</table>	
+							           			</div>	
+							           			</span>		 
+							           			--%>
 							               	</td>
 							               <td class="text11">&nbsp;${record.dkiv_42}</td>
+							               <td align="center" class="text11">&nbsp;
+							               		<c:if test="${not empty Xrecord.dkerr}">
+							               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
+							               		</c:if>
+							               </td>
 							               <c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'|| model.status == '40'}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_items.do?action=doDelete&avd=${record.dkiv_syav}&opd=${record.dkiv_syop}&lin=${record.dkiv_syli}&fabl=${XX.svih_fabl}">

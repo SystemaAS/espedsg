@@ -439,43 +439,41 @@ public class SkatExportItemsController {
 	    			this.backEndValidationOnTolltariff(appUser, headerRecord, record, isBatch);
 	    			//Init record
 	    			autoControlMgr.setRecord(record);
+	    			autoControlMgr.setHeaderRecord(headerRecord);
 	    			//DEBUG -->logger.info(record.getDkev_315());
-	    			/*
 	    			if(record!=null && record.isValidTolltariff()){
-	    				
 	    				//---------------------------
 		    			//START with calculations
 		    			//---------------------------
 	    				String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
 		    			logger.info("Check Calculations " + idDebug);
-		    			//TODO autoControlMgr.calculateNetWeight(headerRecord, appUser);
+		    			autoControlMgr.calculateNetWeight(headerRecord, appUser);
 		    			
 	    				//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
-	    				//TODO autoControlMgr.updateItemRecord(appUser.getUser());
+	    				autoControlMgr.updateItemRecord(appUser.getUser());
 						
 		    			//---------------------------
 		    			//START with validations now
 		    			//---------------------------
 						//Begin with the validity checks
 		    			//logger.info("level check (1) " + idDebug);
-
 						autoControlMgr.checkValidGrossAndNetWeight();
 						if(autoControlMgr.isValidRecord()){
 							//Go to level 2
 							//logger.info("level check (2) " + idDebug);
-	    					autoControlMgr.checkForMengdeMustExist();
+	    					autoControlMgr.checkProviantRestrictions();
 	    					if(autoControlMgr.isValidRecord()){
 	    						//Go to level 3
 	    						//logger.info("level check (3) " + idDebug);
-	    						autoControlMgr.checkForMengdeMustNotExist();
+	    						autoControlMgr.checkSuppEnhetsvalue_41();
 	        					if(autoControlMgr.isValidRecord()){
 	    							//Go to level 4
 		    						//logger.info("level check (4) " + idDebug);
-		    						autoControlMgr.checkCountryCode();
+		    						autoControlMgr.checkIdentAfOplag_49();
 		    						if(autoControlMgr.isValidRecord()){
 		    							//Go to level FINAL MandatoryFields (must be the last check)
 			    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
-			    						autoControlMgr.checkValidMandatoryFields();
+			    						/*autoControlMgr.checkValidMandatoryFields();
 										if(autoControlMgr.isValidRecord()){
 											//Update in order to remove previous error flags, if any...
 			    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
@@ -485,25 +483,25 @@ public class SkatExportItemsController {
 				    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
 				    						logger.info(ERROR_FRAME_STD_OUTPUT);
 				    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-			    		    			}
+			    		    			}*/
 		    						}else{
 		    							//Set error
 		    							logger.info(ERROR_FRAME_STD_OUTPUT);
-			    						logger.info("ERROR level (4) - Country code" + idDebug);
+			    						logger.info("ERROR level (4) - checkIdentAfOplag_49" + idDebug);
 			    						logger.info(ERROR_FRAME_STD_OUTPUT);
 			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 		    						}
 	        					}else{
 	        						//Set error
 	        						logger.info(ERROR_FRAME_STD_OUTPUT);
-	        						logger.info("ERROR level (3) - Mengde must Not Exist" + idDebug);
+	        						logger.info("ERROR level (3) - checkSuppEnhetsvalue_41" + idDebug);
 	        						logger.info(ERROR_FRAME_STD_OUTPUT);
 	        						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	        					}
 	    					}else{
 	    						//Set error
 	    						logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						logger.info("ERROR level (2) - Mengde must exist" + idDebug);
+	    						logger.info("ERROR level (2) - checkProviantRestrictions" + idDebug);
 	    						logger.info(ERROR_FRAME_STD_OUTPUT);
 	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	    					}
@@ -523,7 +521,7 @@ public class SkatExportItemsController {
 						logger.info(ERROR_FRAME_STD_OUTPUT);
 						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	    			}
-	    			*/
+	    			
 				}
     		}
 			
@@ -571,7 +569,13 @@ public class SkatExportItemsController {
 		
 		
 	}
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param taricVarukod
+	 * @param selkbCountryCode
+	 * @return
+	 */
 	private JsonSkatTaricVarukodRecord getTaricVarukod(String applicationUser, String taricVarukod, String selkbCountryCode) {
 		logger.info("Inside getTaricVarukod()");
 		JsonSkatTaricVarukodRecord retval = null;

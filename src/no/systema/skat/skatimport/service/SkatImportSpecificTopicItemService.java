@@ -3,6 +3,7 @@
  */
 package no.systema.skat.skatimport.service;
 
+import no.systema.skat.model.jsonjackson.JsonSkatAutoControlErrorContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemAvgifterContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer;
@@ -25,6 +26,9 @@ public interface SkatImportSpecificTopicItemService {
 	public JsonSkatImportSpecificTopicItemToldvaerdiContainer getSkatTullvaerdiContainer (String utfPayload);
 	public JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer getSkatTullvaerdiTransportContainer (String utfPayload);
 	public JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container getSkatCertificateNrAndCodeR442Container (String utfPayload);
+	
+	//
+	public JsonSkatAutoControlErrorContainer getSkatImportSpecificTopicItemAutoControlErrorContainer(String utfPayload);
 	
 	
 }

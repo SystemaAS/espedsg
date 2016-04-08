@@ -21,7 +21,6 @@ public class JsonSkatExportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
-	//in order to validate before a "send topic"
 	private boolean validTolltariff = true;
 	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
 	public boolean isValidTolltariff() {return this.validTolltariff;}

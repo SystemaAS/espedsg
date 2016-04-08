@@ -49,33 +49,10 @@ public class SkatExportItemsValidator implements Validator {
 		JsonSkatExportSpecificTopicItemRecord record = (JsonSkatExportSpecificTopicItemRecord)obj;
 			
 		if( this.ANG_ART_20_ALU.equals(record.getHeader_dkeh_aart()) ){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			
+			this.mandatoryFields_01(errors);
 			
 		}else if( this.ANG_ART_21_FOU.equals(record.getHeader_dkeh_aart()) ){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
-			
+			this.mandatoryFields_02(errors);
 			
 		}else if( this.ANG_ART_22_SUP.equals(record.getHeader_dkeh_aart()) ){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
@@ -88,74 +65,20 @@ public class SkatExportItemsValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
 			
 		}else if(this.ANG_ART_24_FUAA.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			this.mandatoryFields_02(errors);
+			
 			
 		}else if(this.ANG_ART_25_FUAF.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			this.mandatoryFields_02(errors);
 			
 		}else if(this.ANG_ART_28_EFU.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			this.mandatoryFields_02(errors);
 			
 		}else if(this.ANG_ART_26_PRO.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			this.mandatoryFields_02(errors);
 			
 		}else if(this.ANG_ART_27_PROM.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			this.mandatoryFields_02(errors);
 			
 		}else if(this.ANG_ART_30_EXS.equals(record.getHeader_dkeh_aart())){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
@@ -171,34 +94,13 @@ public class SkatExportItemsValidator implements Validator {
 			
 			
 		}else if(this.ANG_ART_31_YM_FUAGo.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
+			this.mandatoryFields_02(errors);
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_34a", "systema.skat.export.header.error.null.item.dkev_34a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
 			
 		}else if(this.ANG_ART_32_YM_FUAAo.equals(record.getHeader_dkeh_aart())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
+			this.mandatoryFields_02(errors);
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_34a", "systema.skat.export.header.error.null.item.dkev_34a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+			
 			
 		}
 		
@@ -223,7 +125,7 @@ public class SkatExportItemsValidator implements Validator {
 				}
 					
 				//----------------------
-				//49. Ident. of oplag
+				//49. Ident. af oplag
 				//----------------------
 				if(!"".equals(record.getDkev_37())){
 					if(record.getDkev_37().startsWith("3171")){
@@ -308,6 +210,7 @@ public class SkatExportItemsValidator implements Validator {
 		
 	}
 	
+	
 	/**
 	 * 
 	 * @param value
@@ -333,5 +236,38 @@ public class SkatExportItemsValidator implements Validator {
         }
         return retVal;
     }
+	
+	/**
+	 * 
+	 * @param errors
+	 */
+	private void mandatoryFields_01( Errors errors ){
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
+	}
+	
+	private void mandatoryFields_02( Errors errors ){
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_311", "systema.skat.export.header.error.null.item.dkev_311");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_313", "systema.skat.export.header.error.null.item.dkev_313");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_314", "systema.skat.export.header.error.null.item.dkev_314");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_315", "systema.skat.export.header.error.null.item.dkev_315");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_331", "systema.skat.export.header.error.null.item.dkev_331");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_35", "systema.skat.export.header.error.null.item.dkev_35");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_37", "systema.skat.export.header.error.null.item.dkev_37");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_38", "systema.skat.export.header.error.null.item.dkev_38");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_402a", "systema.skat.export.header.error.null.item.dkev_402");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_403a", "systema.skat.export.header.error.null.item.dkev_403");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_46", "systema.skat.export.header.error.null.item.dkev_46");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkev_42", "systema.skat.export.header.error.null.item.dkev_42");
+	}
 	
 }

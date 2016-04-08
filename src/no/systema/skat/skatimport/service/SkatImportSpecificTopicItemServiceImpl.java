@@ -3,8 +3,9 @@
  */
 package no.systema.skat.skatimport.service;
 
+import no.systema.skat.mapper.jsonjackson.SkatAutoControlErrorMapper;
+import no.systema.skat.model.jsonjackson.JsonSkatAutoControlErrorContainer;
 import no.systema.skat.skatimport.mapper.jsonjackson.SkatImportSpecificTopicItemMapper;
-//import no.systema.tds.mapper.jsonjackson.validation.TdsMangdEnhetMapper;
 
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemContainer;
@@ -13,7 +14,6 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSp
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemToldvaerdiContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer;
 
-//import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetContainer;
 
 /**
  * @author oscardelatorre
@@ -150,6 +150,22 @@ public class SkatImportSpecificTopicItemServiceImpl implements SkatImportSpecifi
 			e.printStackTrace();
 		}
 		
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 */
+	public JsonSkatAutoControlErrorContainer getSkatImportSpecificTopicItemAutoControlErrorContainer(String utfPayload){
+		JsonSkatAutoControlErrorContainer container= null;
+		try{
+			SkatAutoControlErrorMapper mapper = new SkatAutoControlErrorMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return container;
 	}
 	

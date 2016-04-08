@@ -58,8 +58,8 @@ public final class SkatExportUrlDataStore {
 	//--------------------------------------
 	//[6.0.1] Update AutoControl error line  
 	//--------------------------------------
-	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE022R.pgm";
-	//http://gw.systema.no/sycgip/tdke022r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&sverr=X
+	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE026R.pgm";
+	//http://gw.systema.no/sycgip/tdke026r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&dkev_err=X
 	
 	
 	//--------------------------------------------------------------------

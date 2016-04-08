@@ -21,6 +21,10 @@ public class JsonSkatImportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
+	private boolean validTolltariff = true;
+	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
+	public boolean isValidTolltariff() {return this.validTolltariff;}
+	
 	
 	private Integer sum_of_dkiv_313 = 0;
 	public Integer getSum_of_dkiv_313() {

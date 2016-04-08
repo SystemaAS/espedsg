@@ -58,9 +58,16 @@ public final class SkatImportUrlDataStore {
 	//http://gw.systema.no/sycgip/TDKI012R.pgm?user=OSCAR&avd=1&opd=80001&lin=2&mode=A
 	
 	//---------------------------------------------------------------
-	//[6.1] AutoCopy (optional feature) after a valid UPDATE (ITEMS)
+	//[6.0.1] AutoCopy (optional feature) after a valid UPDATE (ITEMS)
 	//---------------------------------------------------------------
 	static public String SKAT_IMPORT_BASE_AUTO_COPY_AFTER_UPDATE_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI024R.pgm";	
+	
+	//--------------------------------------
+	//[6.0.2] Update AutoControl error line  
+	//--------------------------------------
+	static public String SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI026R.pgm";
+	//http://gw.systema.no/sycgip/tdki026r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&dkiv_err=X
+	
 	
 	//-----------------------------------
 	//[6.1] LIST/EDIT  INVOICE RECORD(s)
