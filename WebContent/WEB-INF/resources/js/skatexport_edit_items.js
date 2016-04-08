@@ -27,7 +27,15 @@
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
 	  });
   	  
+  	  //Autocontrol
+  	  jq('#itemListControlButton').click(function() {
+  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+  		  window.location = 'skatexport_edit_items_autocontrol.do?dkev_syav='+ jq('#avd').val() + '&dkev_syop=' + jq('#opd').val();
+  	  });
+  	  
     });
+    
+    
   	//-----------------------------------------------------------------------------
   	//jQuery CALCULATOR (related to jquery.calculator.js and jquery.calculator.css
   	//-----------------------------------------------------------------------------

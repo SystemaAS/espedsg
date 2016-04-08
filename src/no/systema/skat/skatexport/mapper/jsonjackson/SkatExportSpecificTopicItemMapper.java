@@ -34,10 +34,10 @@ public class SkatExportSpecificTopicItemMapper {
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportSpecificTopicItemContainer topicItemContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatExportSpecificTopicItemContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
-		logger.info("[JSON-String payload status=OK]  " + topicItemContainer.getUser());
+		//logger.info("[JSON-String payload status=OK]  " + topicItemContainer.getUser());
 		//DEBUG
 		Collection<JsonSkatExportSpecificTopicItemRecord> list = topicItemContainer.getOrderList();
-		logger.info("Record list(size): " + list.size());
+		//logger.info("Record list(size): " + list.size());
 		
 		for(JsonSkatExportSpecificTopicItemRecord record : list){
 			//logger.info("Item description(dkev_315a): " + record.getDkev_315());

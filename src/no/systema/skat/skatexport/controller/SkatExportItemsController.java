@@ -439,8 +439,10 @@ public class SkatExportItemsController {
 	    			this.backEndValidationOnTolltariff(appUser, headerRecord, record, isBatch);
 	    			//Init record
 	    			autoControlMgr.setRecord(record);
+	    			//DEBUG -->logger.info(record.getDkev_315());
 	    			/*
 	    			if(record!=null && record.isValidTolltariff()){
+	    				
 	    				//---------------------------
 		    			//START with calculations
 		    			//---------------------------
@@ -515,18 +517,18 @@ public class SkatExportItemsController {
 	    			}else{
 	    				//Set error INIT (Tolltariff)
 	    				//Begin with the validity checks
-		    			String idDebug = record.getSvli() + "-" + record.getSvvnt();
+		    			String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
 						logger.info(ERROR_FRAME_STD_OUTPUT);
-						logger.info("ERROR level (INIT) - Tolltariff nr:" + idDebug);
+						logger.info("ERROR level (INIT) - Varukod nr:" + idDebug);
 						logger.info(ERROR_FRAME_STD_OUTPUT);
 						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	    			}
 	    			*/
-	    			}
-	    		}
+				}
+    		}
 			
-	    	}
-	    	return successView;
+    	}
+    	return successView;
 	}
 	
 	/**
@@ -542,10 +544,12 @@ public class SkatExportItemsController {
 		//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search-taric-number routine
 		JsonSkatTaricVarukodRecord jsonSkatTaricVarukodRecord = this.getTaricVarukod(appUser.getUser(), record.getDkev_331(), headerRecord.getDkeh_17a());
 		if(jsonSkatTaricVarukodRecord!=null){
+			//logger.info("VALID varukod...");
 			//since the varukod is valid then we proceed to set more dependencies. This routine was not possible to implement as in TDS or SKAT
 			this.setValuesOnRecordToValidate(jsonSkatTaricVarukodRecord, record, isBatch);
 			
 		}else{
+			logger.info("INVALID varukod...");
 			//only with validation of a specific record (no batch)
 			/*
 			if(!isBatch){
@@ -562,6 +566,7 @@ public class SkatExportItemsController {
 				record.setValidTolltariff(false);
 			}
 			*/
+			record.setValidTolltariff(false);
 		}
 		
 		

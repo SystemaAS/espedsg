@@ -6,19 +6,6 @@ import org.apache.log4j.Logger;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
-/*
-import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
-import no.systema.tds.service.TdsTillaggskoderService;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderRecord;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsTillaggskodRecord;
-import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetContainer;
-import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetRecord;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicRecord;
-import no.systema.tds.tdsimport.util.manager.TdsImportControllerAjaxCommonFunctionsMgr;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpecificTopicItemAvgifterRecord;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpecificTopicItemFormanskoderRecord;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpecificTopicItemRecord;
-*/
 
 import no.systema.skat.util.SkatConstants;
 import no.systema.main.util.NumberFormatterLocaleAware;

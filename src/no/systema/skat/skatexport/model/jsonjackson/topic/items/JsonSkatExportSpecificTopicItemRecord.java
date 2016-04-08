@@ -21,12 +21,11 @@ public class JsonSkatExportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
+	//in order to validate before a "send topic"
+	private boolean validTolltariff = true;
+	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
+	public boolean isValidTolltariff() {return this.validTolltariff;}
 	
-	//Aux. attribute to pass some header values into a Validator for Items.
-	/*private String header_svih_cont = null;
-	public void setHeader_svih_cont(String value) {  this.header_svih_cont = value; }
-	public String getHeader_svih_cont() {return this.header_svih_cont;}
-	*/
 	
 	//Aux. attribute to pass some header values into a Validator for Items. (Angivelsesart)
 	private String header_dkeh_aart = null;

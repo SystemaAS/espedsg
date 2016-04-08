@@ -324,7 +324,12 @@
 													</tr>
 													</table>
 										   			</div>
-								   				</span>	
+								   				</span>
+								   					
+								   			<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">		
+												&nbsp;<button title="Kontrollere vareposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Kontrollere vareposter</button>
+											</c:if>		
+								   				
 										</td>
 									</tr>
 									<tr>
