@@ -256,6 +256,7 @@
 												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</th>
 												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
 												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
+												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkerr.error"/>&nbsp;</th>
 												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
 													                    	<th align="center" class="text12" nowrap>Fjern</th>
 												                    </c:if>
@@ -290,6 +291,11 @@
 														               <td class="text11" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
 				               							               <td class="text11">&nbsp;${record.dkev_46}</td>
 														               <td class="text11">&nbsp;${record.dkev_42}</td>
+														               <td align="center" class="text11">&nbsp;
+														               		<c:if test="${not empty Xrecord.dkerr}">
+														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
+														               		</c:if>
+														               </td>
 														               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
 															               <td class="text11" align="center" >
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">
@@ -392,7 +398,8 @@
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_315.vareDescription"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
 					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
-					                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+					                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkerr.error"/>&nbsp;</th>
+										<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
 					                    	<th align="center" class="text11" nowrap>Fjern</th>
 					                    </c:if>  
 					               		</tr> 
@@ -426,6 +433,11 @@
 							               <td class="text11" ><div style="width:120px" >&nbsp;${record.dkev_315}</div></td>
 							               <td class="text11">&nbsp;${record.dkev_46}</td>
    							               <td class="text11">&nbsp;${record.dkev_42}</td>
+   							               <td align="center" class="text11">&nbsp;
+							               		<c:if test="${not empty Xrecord.dkerr}">
+							               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
+							               		</c:if>
+							               </td>
    							               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">

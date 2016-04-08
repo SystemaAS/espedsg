@@ -304,13 +304,13 @@
 														               <td class="text11" >&nbsp;${record.wd1}</td>
 														               <td align="center" class="text11">&nbsp;
 														               		<c:if test="${not empty record.sverr}">
-														               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
+														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               </td>
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
-															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+															               		<img src="resources/images/delete.gif" border="0" alt="remove">
 															               	</a>	
 															               </td>
 														               </c:if>
