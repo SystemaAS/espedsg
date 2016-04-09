@@ -77,38 +77,38 @@ public class SkatExportItemsAutoControlMgr {
 	 */
 	
 	public void checkValidMandatoryFields(){
-		if( this.ANG_ART_20_ALU.equals(record.getHeader_dkeh_aart()) ){
+		if( this.ANG_ART_20_ALU.equals(this.headerRecord.getDkeh_aart()) ){
 			this.mandatoryFields_01();
 			
-		}else if( this.ANG_ART_21_FOU.equals(record.getHeader_dkeh_aart()) ){
+		}else if( this.ANG_ART_21_FOU.equals(this.headerRecord.getDkeh_aart()) ){
 			this.mandatoryFields_02();
 			
-		}else if( this.ANG_ART_22_SUP.equals(record.getHeader_dkeh_aart()) ){
+		}else if( this.ANG_ART_22_SUP.equals(this.headerRecord.getDkeh_aart()) ){
 			if(record.getDkev_35()==null || "".equals(record.getDkev_35())){ this.validRecord = false; }
 			if(record.getDkev_402a()==null || "".equals(record.getDkev_402a())){ this.validRecord = false; }
 			if(record.getDkev_403a()==null || "".equals(record.getDkev_403a())){ this.validRecord = false; }
 			
-		}else if( this.ANG_ART_23_SUPH.equals(record.getHeader_dkeh_aart()) ){
+		}else if( this.ANG_ART_23_SUPH.equals(this.headerRecord.getDkeh_aart()) ){
 			if(record.getDkev_35()==null || "".equals(record.getDkev_35())){ this.validRecord = false; }
 			if(record.getDkev_402a()==null || "".equals(record.getDkev_402a())){ this.validRecord = false; }
 			if(record.getDkev_403a()==null || "".equals(record.getDkev_403a())){ this.validRecord = false; }
 			
-		}else if(this.ANG_ART_24_FUAA.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_24_FUAA.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 
-		}else if(this.ANG_ART_25_FUAF.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_25_FUAF.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 
-		}else if(this.ANG_ART_28_EFU.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_28_EFU.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 			
-		}else if(this.ANG_ART_26_PRO.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_26_PRO.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 			
-		}else if(this.ANG_ART_27_PROM.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_27_PROM.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 			
-		}else if(this.ANG_ART_30_EXS.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_30_EXS.equals(this.headerRecord.getDkeh_aart())){
 			if(record.getDkev_311()==null || "".equals(record.getDkev_311())){ this.validRecord = false; }
 			if(record.getDkev_313()==null || "".equals(record.getDkev_313())){ this.validRecord = false; }
 			if(record.getDkev_314()==null || "".equals(record.getDkev_314())){ this.validRecord = false; }
@@ -119,14 +119,14 @@ public class SkatExportItemsAutoControlMgr {
 			if(record.getDkev_403a()==null || "".equals(record.getDkev_403a())){ this.validRecord = false; }
 			
 			
-		}else if(this.ANG_ART_50_IE507.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_50_IE507.equals(this.headerRecord.getDkeh_aart())){
 			
 			
-		}else if(this.ANG_ART_31_YM_FUAGo.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_31_YM_FUAGo.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 			if(record.getDkev_34a()==null || "".equals(record.getDkev_34a())){ this.validRecord = false; }
 			
-		}else if(this.ANG_ART_32_YM_FUAAo.equals(record.getHeader_dkeh_aart())){
+		}else if(this.ANG_ART_32_YM_FUAAo.equals(this.headerRecord.getDkeh_aart())){
 			this.mandatoryFields_02();
 			if(record.getDkev_34a()==null || "".equals(record.getDkev_34a())){ this.validRecord = false; }
 		}
@@ -227,7 +227,7 @@ public class SkatExportItemsAutoControlMgr {
 		//----------------------
 		//Proviant restrictions
 		//----------------------
-		if(this.ANG_ART_26_PRO.equals(record.getHeader_dkeh_aart()) || this.ANG_ART_27_PROM.equals(record.getHeader_dkeh_aart())){
+		if(this.ANG_ART_26_PRO.equals(this.headerRecord.getDkeh_aart()) || this.ANG_ART_27_PROM.equals(this.headerRecord.getDkeh_aart())){
 			boolean match = false;
 			String [] validKodes = {"99302400","99302700","99309900"};
 			for(String code: validKodes){
@@ -428,7 +428,7 @@ public class SkatExportItemsAutoControlMgr {
 		  try{
 			  //Gross weight exists but not net weight
 			  if(grossWeight!=null && !"".equals(grossWeight) && (netWeight==null || "".equals(netWeight))  ){
-				  /*this field does not exist in SKAT (as for today)
+				  /*NOTE! this field does not exist in SKAT (as for today)
 				  if(headerRecord.getSefvk()!=null && !"".equals(headerRecord.getSefvk())){
 					  String tmp = headerRecord.getSefvk().replace("," , ".");
 					  grossNetFactor = Double.parseDouble(tmp);

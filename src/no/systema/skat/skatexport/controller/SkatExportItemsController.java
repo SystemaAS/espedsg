@@ -448,8 +448,7 @@ public class SkatExportItemsController {
 	    				String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
 		    			logger.info("Check Calculations " + idDebug);
 		    			autoControlMgr.calculateNetWeight(headerRecord, appUser);
-		    			
-	    				//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
+		    			//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
 	    				autoControlMgr.updateItemRecord(appUser.getUser());
 						
 		    			//---------------------------
@@ -583,15 +582,16 @@ public class SkatExportItemsController {
 		String TYPE_IE = "E";
 		try{
 		  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
-		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod + "&selkb=" + selkbCountryCode;
+		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod; // + "&selkb=" + selkbCountryCode;
 		  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  //logger.info("MATCH on VAREKOD. !!!!: " + record.getTatanr());
-				  //logger.info("MATCH on VAREBESKRIV. !!!!: " + record.getBeskr1());
-				  retval = record;
+				  if(taricVarukod!=null && taricVarukod.equals(record.getDktara02())){
+					  //logger.info("MATCH on VAREKOD. !!!!: " + record.getDktara02());
+					  retval = record;
+				  }
 			  }	
 		  }
 		}catch(Exception e){

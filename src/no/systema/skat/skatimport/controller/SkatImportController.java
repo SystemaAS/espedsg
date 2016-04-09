@@ -32,6 +32,7 @@ import no.systema.main.context.TdsServletContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 
 import no.systema.skat.skatimport.validator.SkatImportListValidator;
 import no.systema.main.model.SystemaWebUser;
@@ -69,7 +70,7 @@ import no.systema.skat.util.SkatConstants;
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class SkatImportController {
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(800);
 	private static final Logger logger = Logger.getLogger(SkatImportController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -195,7 +196,7 @@ public class SkatImportController {
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
 		    	//Debug --> 
-		    	logger.info(jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		

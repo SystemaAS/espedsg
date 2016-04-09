@@ -247,8 +247,8 @@ public class SkatImportItemsController {
 				            //-----------------------------------------------------------------------------
 				            TollvaerdideklarationMgr tvMgr = new TollvaerdideklarationMgr(this.skatImportSpecificTopicItemService, this.urlCgiProxyService);
 				            tvMgr.calculateToldVaerdiItemLinesTotalAmount(jsonSkatImportSpecificTopicItemRecord, headerRecord);
-		            			logger.info("_t12: " + jsonSkatImportSpecificTopicItemRecord.getDkiv_t12());
-		            			logger.info("_t24: " + jsonSkatImportSpecificTopicItemRecord.getDkiv_t24());
+	            			logger.info("_t12: " + jsonSkatImportSpecificTopicItemRecord.getDkiv_t12());
+	            			logger.info("_t24: " + jsonSkatImportSpecificTopicItemRecord.getDkiv_t24());
 				            
 				            //Now calculate the transport costs (EU-internal and external)
 				            //Note!: This function is also calculated in the AjaxController.
@@ -286,36 +286,36 @@ public class SkatImportItemsController {
 						session.setAttribute(SkatConstants.ACTIVE_URL_RPG_UPDATE_SKAT, BASE_URL_UPDATE + "==>params: " + urlRequestParams.toString()); 
 						
 						logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-					    	logger.info("URL: " + BASE_URL_UPDATE);
-					    	logger.info("URL PARAMS: " + urlRequestParams);
+				    	logger.info("URL: " + BASE_URL_UPDATE);
+				    	logger.info("URL PARAMS: " + urlRequestParams);
 					    	
-					    	//----------------------------------------------------------------------------
-					    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-					    	//----------------------------------------------------------------------------
+				    	//----------------------------------------------------------------------------
+				    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+				    	//----------------------------------------------------------------------------
 						String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
 						//Debug --> 
-					    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-					    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-					    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
-					    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-					    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-					    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatImportSpecificTopicItemRecord);
-					    		
-					    	}else{
-					    		//Update succefully done!
-					    		logger.info("[INFO] Valid STEP[2] Update -- Record successfully updated, OK ");
-					    		//-------------------------------------
-					    		//Build AutoCopy string if applicable
-					    		//-------------------------------------
-					    		if(this.skatAutoCopyMgr.isAutoCopyActive() && this.skatAutoCopyMgr.getCopyLineStartLineNrInt()>0){
+				    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+				    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+				    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
+				    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+				    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+				    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatImportSpecificTopicItemRecord);
+				    		
+				    	}else{
+				    		//Update succefully done!
+				    		logger.info("[INFO] Valid STEP[2] Update -- Record successfully updated, OK ");
+				    		//-------------------------------------
+				    		//Build AutoCopy string if applicable
+				    		//-------------------------------------
+				    		if(this.skatAutoCopyMgr.isAutoCopyActive() && this.skatAutoCopyMgr.getCopyLineStartLineNrInt()>0){
 								logger.info("[INFO] AutoCopy STEP after Update is activated and STARTs here");
 								//---------------------------------------------------------------------------------
 								//EXECUTE the UPDATE (RPG program) here (STEP [2] when updating an existing record
 								//---------------------------------------------------------------------------------
 								boolean rpgReturnPayloadAutoCopy = this.skatAutoCopyMgr.executeAutoCopySkatImport(avd, opd, appUser.getUser(), jsonSkatImportSpecificTopicItemRecord, this.urlCgiProxyService);
 								//do something if false. At this point it has not been specified how...
-							}
-					    	}
+				    		}
+				    	}
 					    	
 					}else{
 						rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
@@ -372,17 +372,16 @@ public class SkatImportItemsController {
 			//for debug purposes in GUI
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL_FETCH + "==>params: " + urlRequestParamsKeys.toString() + 
 					" " + "(fetched item list):" + jsonPayloadFetch); 
-			
 			//Debug --> 
 		    //logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSkatImportSpecificTopicItemContainer jsonSkatImportSpecificTopicItemContainer = this.skatImportSpecificTopicItemService.getSkatImportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	if(jsonSkatImportSpecificTopicItemContainer!=null){
-		    Double calculatedItemLinesTotalAmount = this.skatImportCalculator.getItemLinesTotalAmount(jsonSkatImportSpecificTopicItemContainer);
-		    Double diffItemLinesTotalAmountWithInvoiceTotalAmount = this.skatImportCalculator.getDiffBetweenCalculatedTotalAmountAndTotalAmount(invoiceTotalAmount, calculatedItemLinesTotalAmount);
-		    logger.info("calculatedItemLinesTotalAmount:" + calculatedItemLinesTotalAmount);
-		    logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
-		    jsonSkatImportSpecificTopicItemContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
+			    Double calculatedItemLinesTotalAmount = this.skatImportCalculator.getItemLinesTotalAmount(jsonSkatImportSpecificTopicItemContainer);
+			    Double diffItemLinesTotalAmountWithInvoiceTotalAmount = this.skatImportCalculator.getDiffBetweenCalculatedTotalAmountAndTotalAmount(invoiceTotalAmount, calculatedItemLinesTotalAmount);
+			    logger.info("calculatedItemLinesTotalAmount:" + calculatedItemLinesTotalAmount);
+			    logger.info("diffItemLinesTotalAmountWithInvoiceTotalAmount:" + diffItemLinesTotalAmountWithInvoiceTotalAmount);
+			    jsonSkatImportSpecificTopicItemContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
 		    	jsonSkatImportSpecificTopicItemContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
 		    	//some aspects for GUI
 		    	jsonSkatImportSpecificTopicItemContainer.setLastSelectedItemLineNumber(lastSelectedItemLineNumber);
@@ -404,8 +403,8 @@ public class SkatImportItemsController {
     		}	    		
 			successView.addObject("model",model);
 			//successView.addObject(Constants.EDIT_ACTION_ON_TOPIC, Constants.ACTION_FETCH);
-		    	return successView;
-			}
+	    	return successView;
+		}
 	}
 	
 	
@@ -473,72 +472,59 @@ public class SkatImportItemsController {
 	    			this.backEndValidationOnTolltariff(appUser, headerRecord, record, isBatch);
 	    			//Init record
 	    			autoControlMgr.setRecord(record);
+	    			autoControlMgr.setHeaderRecord(headerRecord);
 	    			//DEBUG -->
 	    			logger.info(record.getDkiv_315a());
-	    			/*
+	    			
 	    			if(record!=null && record.isValidTolltariff()){
-	    				
 	    				//---------------------------
 		    			//START with calculations
 		    			//---------------------------
-	    				String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
+	    				String idDebug = record.getDkiv_syli() + "-" + record.getDkiv_331();
 		    			logger.info("Check Calculations " + idDebug);
-		    			//TODO autoControlMgr.calculateNetWeight(headerRecord, appUser);
-		    			
-	    				//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
-	    				//TODO autoControlMgr.updateItemRecord(appUser.getUser());
+		    			autoControlMgr.calculateNetWeight(headerRecord, appUser);
+		    			//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
+	    				autoControlMgr.updateItemRecord(appUser.getUser());
 						
-		    			//---------------------------
+	    				//---------------------------
 		    			//START with validations now
 		    			//---------------------------
 						//Begin with the validity checks
 		    			//logger.info("level check (1) " + idDebug);
-
 						autoControlMgr.checkValidGrossAndNetWeight();
 						if(autoControlMgr.isValidRecord()){
 							//Go to level 2
 							//logger.info("level check (2) " + idDebug);
-	    					autoControlMgr.checkForMengdeMustExist();
+	    					autoControlMgr.checkManyCertificatesExist();
 	    					if(autoControlMgr.isValidRecord()){
 	    						//Go to level 3
 	    						//logger.info("level check (3) " + idDebug);
-	    						autoControlMgr.checkForMengdeMustNotExist();
+	    						autoControlMgr.checkValidMandatoryFields_41();
 	        					if(autoControlMgr.isValidRecord()){
-	    							//Go to level 4
-		    						//logger.info("level check (4) " + idDebug);
-		    						autoControlMgr.checkCountryCode();
-		    						if(autoControlMgr.isValidRecord()){
-		    							//Go to level FINAL MandatoryFields (must be the last check)
-			    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
-			    						autoControlMgr.checkValidMandatoryFields();
-										if(autoControlMgr.isValidRecord()){
-											//Update in order to remove previous error flags, if any...
-			    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
-			    		    			}else{
-			    		    				//Set error
-			    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
-				    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
-				    						logger.info(ERROR_FRAME_STD_OUTPUT);
-				    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-			    		    			}
-		    						}else{
-		    							//Set error
-		    							logger.info(ERROR_FRAME_STD_OUTPUT);
-			    						logger.info("ERROR level (4) - Country code" + idDebug);
+	    							//Go to level FINAL MandatoryFields (must be the last check)
+		    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
+		    						autoControlMgr.checkValidMandatoryFields();
+									if(autoControlMgr.isValidRecord()){
+										//Update in order to remove previous error flags, if any...
+		    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
+		    		    			}else{
+		    		    				//Set error
+		    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
+			    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
 			    						logger.info(ERROR_FRAME_STD_OUTPUT);
 			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-		    						}
+		    		    			}
 	        					}else{
 	        						//Set error
 	        						logger.info(ERROR_FRAME_STD_OUTPUT);
-	        						logger.info("ERROR level (3) - Mengde must Not Exist" + idDebug);
+	        						logger.info("ERROR level (3) - checkValidMandatoryFields_41" + idDebug);
 	        						logger.info(ERROR_FRAME_STD_OUTPUT);
 	        						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	        					}
 	    					}else{
 	    						//Set error
 	    						logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						logger.info("ERROR level (2) - Mengde must exist" + idDebug);
+	    						logger.info("ERROR level (2) - checkManyCertificatesExist" + idDebug);
 	    						logger.info(ERROR_FRAME_STD_OUTPUT);
 	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	    					}
@@ -552,13 +538,13 @@ public class SkatImportItemsController {
 	    			}else{
 	    				//Set error INIT (Tolltariff)
 	    				//Begin with the validity checks
-		    			String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
+		    			String idDebug = record.getDkiv_syli() + "-" + record.getDkiv_331();
 						logger.info(ERROR_FRAME_STD_OUTPUT);
 						logger.info("ERROR level (INIT) - Varukod nr:" + idDebug);
 						logger.info(ERROR_FRAME_STD_OUTPUT);
 						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
 	    			}
-	    			*/
+	    			
 				}
     		}
 			
@@ -579,11 +565,11 @@ public class SkatImportItemsController {
 		//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search-taric-number routine
 		JsonSkatTaricVarukodRecord jsonSkatTaricVarukodRecord = this.getTaricVarukod(appUser.getUser(), record.getDkiv_331(), headerRecord.getDkih_15());
 		if(jsonSkatTaricVarukodRecord!=null){
-			logger.info("VALID varukod...");
+			logger.info("VALID varukod:" + record.getDkiv_331());
 			this.setValuesOnRecordToValidate(jsonSkatTaricVarukodRecord, record, isBatch);
 			
 		}else{
-			logger.info("INVALID varukod...");
+			logger.info("INVALID varukod:" + record.getDkiv_331());
 			//only with validation of a specific record (no batch)
 			/*
 			if(!isBatch){
@@ -625,9 +611,10 @@ public class SkatImportItemsController {
 		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  //logger.info("MATCH on VAREKOD. !!!!: " + record.getTatanr());
-				  //logger.info("MATCH on VAREBESKRIV. !!!!: " + record.getBeskr1());
-				  retval = record;
+				  if(taricVarukod!=null && taricVarukod.equals(record.getDktara02())){
+					  //logger.info("MATCH on VAREKOD. !!!!: " + record.getDktara02());
+					  retval = record;
+				  }
 			  }	
 		  }
 		}catch(Exception e){

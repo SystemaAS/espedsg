@@ -26,6 +26,7 @@ import org.springframework.web.bind.WebDataBinder;
 //application imports
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicCopiedContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicCopiedFromTransportUppdragContainer;
@@ -68,11 +69,10 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
 @Controller
 @Scope("session")
 public class SkatImportHeaderController {
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(SkatImportHeaderController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
-	
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -187,7 +187,7 @@ public class SkatImportHeaderController {
 				    	//--------------------------------------
 				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 						//Debug --> 
-				    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+				    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 				    	if(jsonPayload!=null){
 				    		JsonSkatImportSpecificTopicContainer jsonSkatImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
