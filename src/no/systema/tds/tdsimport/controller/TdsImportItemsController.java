@@ -637,7 +637,7 @@ public class TdsImportItemsController {
 	    	//Json and execute 
 	    	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsImportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
 		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
 			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){

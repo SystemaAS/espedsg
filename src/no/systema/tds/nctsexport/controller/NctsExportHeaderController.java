@@ -2,6 +2,7 @@ package no.systema.tds.nctsexport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +28,7 @@ import org.springframework.web.bind.WebDataBinder;
 //application imports
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 import no.systema.tds.model.external.url.UrlISOLanguageObject;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
@@ -61,7 +65,7 @@ import no.systema.tds.nctsexport.mapper.url.request.UrlRequestParameterMapper;
 @Controller
 @Scope("session")
 public class NctsExportHeaderController {
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(NctsExportHeaderController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");
@@ -74,7 +78,12 @@ public class NctsExportHeaderController {
 		//binder.setValidator(new NctsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
     }
 	
-	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	
 	
 	/**
@@ -173,7 +182,7 @@ public class NctsExportHeaderController {
 				    	//--------------------------------------
 				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 						//Debug --> 
-				    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+				    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 				    	if(jsonPayload!=null){
 				    		JsonNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.nctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
@@ -468,15 +477,15 @@ public class NctsExportHeaderController {
 			session.setAttribute(TdsConstants.ACTIVE_URL_RPG, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the Print (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the Print (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    //END of PRINT here and now
 		    		
 		}
@@ -557,7 +566,7 @@ public class NctsExportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		jsonNctsExportTopicCopiedContainer = this.nctsExportSpecificTopicService.getNctsExportTopicCopiedContainer(jsonPayload);
@@ -596,7 +605,7 @@ public class NctsExportHeaderController {
 		    	//--------------------------------------
 		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		JsonNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.nctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);

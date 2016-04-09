@@ -84,7 +84,7 @@ import no.systema.tds.url.store.TdsUrlDataStore;
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class TdsExportItemsController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(4000);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private static final Logger logger = Logger.getLogger(TdsExportItemsController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
@@ -613,7 +613,7 @@ public class TdsExportItemsController {
 	    	//Json and execute 
 	    	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
 		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
 			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){

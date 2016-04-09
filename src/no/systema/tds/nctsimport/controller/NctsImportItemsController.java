@@ -2,6 +2,7 @@ package no.systema.tds.nctsimport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +30,7 @@ import org.springframework.validation.BindingResult;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 
 import no.systema.tds.nctsimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tds.nctsimport.model.jsonjackson.topic.items.JsonNctsImportSpecificTopicItemContainer;
@@ -62,6 +66,7 @@ import no.systema.tds.url.store.TdsUrlDataStore;
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class NctsImportItemsController {
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(NctsImportItemsController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");
@@ -72,6 +77,12 @@ public class NctsImportItemsController {
         //binder.setValidator(new TdsExportItemsValidator());
     }
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	/**
 	 * 
 	 * @param user
@@ -340,7 +351,7 @@ public class NctsImportItemsController {
 		    	//--------------------------------------
 			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(jsonPayloadFetch);
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	JsonNctsImportSpecificTopicItemContainer jsonNctsImportSpecificTopicItemContainer = this.nctsImportSpecificTopicItemService.getNctsImportSpecificTopicItemContainer(jsonPayloadFetch);
 		    	

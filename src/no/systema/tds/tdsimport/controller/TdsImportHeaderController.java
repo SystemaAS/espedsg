@@ -2,6 +2,7 @@ package no.systema.tds.tdsimport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.WebDataBinder;
 //application imports
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 import no.systema.skat.util.SkatConstants;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
@@ -71,6 +74,7 @@ import no.systema.tds.util.manager.TaricDirectAccessorMgr;
 @Controller
 @Scope("session")
 public class TdsImportHeaderController {
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(TdsImportHeaderController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
@@ -85,6 +89,12 @@ public class TdsImportHeaderController {
 		//binder.setValidator(new TdsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
     }
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 		
 	
 	/**
@@ -197,7 +207,7 @@ public class TdsImportHeaderController {
 			    	//--------------------------------------
 			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 					//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
 			    		JsonTdsImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicContainer(jsonPayload);
@@ -522,7 +532,7 @@ public class TdsImportHeaderController {
 	    	//--------------------------------------
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 	    	//Debug --> 
-	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    //END of PRINT here and now
 		}
@@ -600,7 +610,7 @@ public class TdsImportHeaderController {
 	    	//--------------------------------------
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 	    	//Debug --> 
-	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		jsonTdsImportTopicCopiedContainer = this.tdsImportSpecificTopicService.getTdsImportTopicCopiedContainer(jsonPayload);
@@ -637,7 +647,7 @@ public class TdsImportHeaderController {
 	    	//--------------------------------------
 	    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonTdsImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicContainer(jsonPayload);
@@ -715,7 +725,7 @@ public class TdsImportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		jsonPayload = jsonPayload.replaceAll("SVIH", "svih");//AS must change so this step is removed!
@@ -762,7 +772,7 @@ public class TdsImportHeaderController {
 	    	//--------------------------------------
 	    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-	    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonTdsImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicContainer(jsonPayload);
@@ -1048,7 +1058,7 @@ public class TdsImportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		JsonTdsImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicContainer(jsonPayload);
@@ -1212,7 +1222,7 @@ public class TdsImportHeaderController {
     	//--------------------------------------
 		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-    	//logger.info(jsonPayloadFetch);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	JsonTdsImportSpecificTopicItemContainer jsonTdsImportSpecificTopicItemContainer = this.getTdsImportSpecificTopicItemService().getTdsImportSpecificTopicItemContainer(jsonPayloadFetch);
     	//now to the real logic
@@ -1318,7 +1328,7 @@ public class TdsImportHeaderController {
     	//--------------------------------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-    	logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	JsonTdsImportSpecificTopicFaktTotalContainer container = this.tdsImportSpecificTopicService.getTdsImportSpecificTopicFaktTotalContainer(jsonPayload);
