@@ -125,6 +125,7 @@ public class MaintSadImportController {
 		object.setCode("SADI_LEVBETING");
 		object.setText("SAD012 / KODTLB");
 		object.setDbTable("KODTLB");
+		object.setStatus("Y");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -141,6 +142,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_GYLD_TARIFFOR");
 		object.setText("SYFT10 / KODTSI");
 		object.setDbTable("KODTSI");
+		object.setStatus("G");
+		object.setPgm("syft10r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

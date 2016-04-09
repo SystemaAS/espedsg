@@ -38,7 +38,10 @@ import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSyft19rValidator;
 
@@ -70,19 +73,35 @@ public class MaintSadImportAjaxHandlerController {
 	 * @return
 	 */
 	@RequestMapping(value="getSpecificRecord_syft19r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintSadImportKodtlikRecord> getRecord
+	public @ResponseBody List<JsonMaintSadImportKodtlikRecord> getRecordSyft19
 	  	(@RequestParam String applicationUser, @RequestParam String id) {
-		final String METHOD = "[DEBUG] method:getSpecificTopicAvdData ";
+		final String METHOD = "[DEBUG] getRecordSyft19 ";
 		logger.info(METHOD + " Inside...");
 		List<JsonMaintSadImportKodtlikRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchList(applicationUser, id);
+    	result = (List)this.fetchListSyft19(applicationUser, id);
     	
     	return result;
 	
 	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_syft10r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportKodtsiRecord> getRecordSyft10
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getRecordSyft10 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodtsiRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSyft10(applicationUser, id);
+    	
+    	return result;
 	
-	
+	}
 	
 	/**
 	 * 
@@ -90,7 +109,7 @@ public class MaintSadImportAjaxHandlerController {
 	 * @param id
 	 * @return
 	 */
-	private Collection<JsonMaintSadImportKodtlikRecord> fetchList(String applicationUser, String id){
+	private Collection<JsonMaintSadImportKodtlikRecord> fetchListSyft19(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT19R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&klikod=" + id;
@@ -114,6 +133,35 @@ public class MaintSadImportAjaxHandlerController {
     	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportKodtsiRecord> fetchListSyft10(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT10R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&ksisig=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportKodtsiRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportKodtsiContainer container = this.maintSadImportKodtsiService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportKodtsiRecord record: list){
+	        		//logger.info(record.getKlikod());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
 	
 	
 	//SERVICES
@@ -131,6 +179,13 @@ public class MaintSadImportAjaxHandlerController {
 	@Required
 	public void setMaintSadImportKodtlikService (MaintSadImportKodtlikService value){ this.maintSadImportKodtlikService = value; }
 	public MaintSadImportKodtlikService getMaintSadImportKodtlikService(){ return this.maintSadImportKodtlikService; }
+	
+	@Qualifier ("maintSadImportKodtsiService")
+	private MaintSadImportKodtsiService maintSadImportKodtsiService;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodtsiService (MaintSadImportKodtsiService value){ this.maintSadImportKodtsiService = value; }
+	public MaintSadImportKodtsiService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtsiService; }
 	
 }
 
