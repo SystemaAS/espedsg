@@ -3,6 +3,7 @@ package no.systema.tvinn.sad.sadimport.controller;
 import java.util.*;
 
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -91,6 +94,12 @@ public class SadImportHeaderFinansOpplysningerController {
 
     }
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	
 	/**
 	 * 
@@ -301,7 +310,7 @@ public class SadImportHeaderFinansOpplysningerController {
 					" " + "(fetched list):" + jsonPayloadFetch); 
 			
 			//Debug --> 
-	    	logger.info(jsonPayloadFetch);
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadImportTopicFinansOpplysningerContainer jsonSadImportTopicFinansOpplysningerContainer = this.sadImportSpecificTopicService.getSadImportTopicFinansOpplysningerContainer(jsonPayloadFetch);
 	    	if(jsonSadImportTopicFinansOpplysningerContainer!=null){
@@ -527,7 +536,7 @@ public class SadImportHeaderFinansOpplysningerController {
     	//--------------------------------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-    	logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	JsonSadImportSpecificTopicFaktTotalContainer container = this.sadImportSpecificTopicService.getSadImportSpecificTopicFaktTotalContainer(jsonPayload);

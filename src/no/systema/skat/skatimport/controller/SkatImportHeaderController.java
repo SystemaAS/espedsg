@@ -2,6 +2,7 @@ package no.systema.skat.skatimport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -82,7 +85,12 @@ public class SkatImportHeaderController {
 		//binder.setValidator(new TdsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
     }
 	
-		
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}	
 	
 	/**
 	 * Renders the create GUI view (without any logic)
@@ -528,15 +536,15 @@ public class SkatImportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the Print (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the Print (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    //END of PRINT here and now
 		    		
 		}
@@ -610,25 +618,25 @@ public class SkatImportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		jsonSkatImportTopicCopiedContainer = this.skatImportSpecificTopicService.getSkatImportTopicCopiedContainer(jsonPayload);
-		    		if(jsonSkatImportTopicCopiedContainer!=null){
-		    			//Check for errors
-		    			if(jsonSkatImportTopicCopiedContainer.getErrMsg()!=null && !"".equals(jsonSkatImportTopicCopiedContainer.getErrMsg())){
-		    				logger.fatal("[ERROR FATAL] errMsg containing: " + jsonSkatImportTopicCopiedContainer.getErrMsg());
-		    				return fallbackOnErrorView;
-		    			}
-		    		}
-		    	}else{
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		jsonSkatImportTopicCopiedContainer = this.skatImportSpecificTopicService.getSkatImportTopicCopiedContainer(jsonPayload);
+	    		if(jsonSkatImportTopicCopiedContainer!=null){
+	    			//Check for errors
+	    			if(jsonSkatImportTopicCopiedContainer.getErrMsg()!=null && !"".equals(jsonSkatImportTopicCopiedContainer.getErrMsg())){
+	    				logger.fatal("[ERROR FATAL] errMsg containing: " + jsonSkatImportTopicCopiedContainer.getErrMsg());
+	    				return fallbackOnErrorView;
+	    			}
+	    		}
+	    	}else{
 				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 				return loginView;
 			}
@@ -649,26 +657,26 @@ public class SkatImportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
-		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+	    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		JsonSkatImportSpecificTopicContainer jsonSkatImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
-		    		//add gui lists here
-		    		
-		    		this.setCodeDropDownMgr(appUser, model);
-		    		this.setDomainObjectsInView(session, model, jsonSkatImportSpecificTopicContainer);
-		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-				//put the doUpdate action since we are preparing the record for an update (when saving)
-				successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-		    		
-		    	}else{
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonSkatImportSpecificTopicContainer jsonSkatImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
+	    		//add gui lists here
+	    		
+	    		this.setCodeDropDownMgr(appUser, model);
+	    		this.setDomainObjectsInView(session, model, jsonSkatImportSpecificTopicContainer);
+	    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+			//put the doUpdate action since we are preparing the record for an update (when saving)
+			successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+	    		
+	    	}else{
 				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 				return loginView;
 			}
@@ -736,7 +744,7 @@ public class SkatImportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		    	//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		jsonPayload = jsonPayload.replaceAll("DKIH", "dkih");//AS must change so this step is removed!
@@ -782,7 +790,7 @@ public class SkatImportHeaderController {
 		    	//--------------------------------------
 		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		JsonSkatImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
@@ -844,7 +852,7 @@ public class SkatImportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    //END of PRINT here and now
 		    		

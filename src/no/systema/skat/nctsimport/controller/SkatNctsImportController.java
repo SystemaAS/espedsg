@@ -3,6 +3,7 @@ package no.systema.skat.nctsimport.controller;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -29,6 +32,7 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningRecord;
@@ -62,7 +66,7 @@ import no.systema.skat.util.SkatConstants;
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class SkatNctsImportController {
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(800);
 	private static final Logger logger = Logger.getLogger(SkatNctsImportController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
@@ -70,6 +74,12 @@ public class SkatNctsImportController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	
 	/**
 	 * 
@@ -185,7 +195,7 @@ public class SkatNctsImportController {
 			    	
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 				//Debug --> 
-				logger.info(jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	
 				if(jsonPayload!=null){

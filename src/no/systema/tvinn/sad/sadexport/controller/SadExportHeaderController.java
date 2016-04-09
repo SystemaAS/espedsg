@@ -2,6 +2,7 @@ package no.systema.tvinn.sad.sadexport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -88,7 +91,12 @@ public class SadExportHeaderController {
 		//binder.setValidator(new TdsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
     }
 	
-		
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}	
 	
 	/**
 	 * Renders the create GUI view (without any logic)
@@ -195,7 +203,7 @@ public class SadExportHeaderController {
 			    	//--------------------------------------
 			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 					//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
 			    		JsonSadExportSpecificTopicContainer jsonSadExportSpecificTopicContainer = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
@@ -533,7 +541,7 @@ public class SadExportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	//END of PRINT here and now
 		    	logger.info("Method PRINT END - " + method);	
@@ -616,7 +624,7 @@ public class SadExportHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		jsonSadExportTopicCopiedContainer = this.sadExportSpecificTopicService.getSadExportTopicCopiedContainer(jsonPayload);
@@ -655,7 +663,7 @@ public class SadExportHeaderController {
 		    	//--------------------------------------
 		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		JsonSadExportSpecificTopicContainer jsonSadExportSpecificTopicContainer = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
@@ -736,7 +744,7 @@ public class SadExportHeaderController {
 			    	//--------------------------------------
 			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			    	//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
 			    		jsonContainer = this.sadExportSpecificTopicService.getSadExportTopicCopiedFromTransportUppdragContainer(jsonPayload);
@@ -782,7 +790,7 @@ public class SadExportHeaderController {
 			    	//--------------------------------------
 			    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-			    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
 			    		JsonSadExportSpecificTopicContainer jsonSadExportSpecificTopicContainer = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
@@ -906,7 +914,7 @@ public class SadExportHeaderController {
 	    	//--------------------------------------
 		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-	    	//logger.info(jsonPayloadFetch);
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadExportSpecificTopicItemContainer jsonSadExportSpecificTopicItemContainer = this.getSadExportSpecificTopicItemService().getSadExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	//now to the real logic
@@ -1489,7 +1497,7 @@ public class SadExportHeaderController {
     	//--------------------------------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		//Debug --> 
-    	logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	JsonSadExportSpecificTopicFaktTotalContainer container = this.sadExportSpecificTopicService.getSadExportSpecificTopicFaktTotalContainer(jsonPayload);

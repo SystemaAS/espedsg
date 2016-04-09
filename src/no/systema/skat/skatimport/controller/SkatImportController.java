@@ -3,6 +3,7 @@ package no.systema.skat.skatimport.controller;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,8 @@ import org.springframework.context.ApplicationContext;
 
 
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -78,6 +81,13 @@ public class SkatImportController {
 	
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	
+	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	/**
 	 * This method is highly current but has been replaced with its sibling "doFind"
 	 * It could be re-activated if needed (as default)

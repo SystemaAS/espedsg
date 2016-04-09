@@ -2,6 +2,7 @@ package no.systema.tvinn.sad.nctsexport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -75,6 +78,12 @@ public class SadNctsExportItemsController {
         //binder.setValidator(new TdsExportItemsValidator());
     }
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	/**
 	 * 
 	 * @param user
@@ -358,7 +367,7 @@ public class SadNctsExportItemsController {
 	    	//--------------------------------------
 			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 			//Debug --> 
-	    	logger.info(jsonPayloadFetch);
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadNctsExportSpecificTopicItemContainer jsonSadNctsExportSpecificTopicItemContainer = this.sadNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	//add gui lists here
@@ -386,7 +395,7 @@ public class SadNctsExportItemsController {
 		String urlRequestParams = "user=" + appUser.getUser() + "&opd=" + recordToValidate.getTvtdn2();
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 		//Debug --> 
-		logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
     		JsonSadExportTopicListContainer jsonSadExportTopicListContainer = this.sadExportTopicListService.getSadExportTopicListContainer(jsonPayload);
@@ -641,7 +650,7 @@ public class SadNctsExportItemsController {
     	//EXECUTE (Sikkerhet) here
     	//------------------------
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
     		JsonSadNctsExportSpecificTopicItemSecurityContainer securityItemContainer = this.sadNctsExportSpecificTopicItemService.getNctsExportSpecificTopicItemSecurityContainer(jsonPayload);

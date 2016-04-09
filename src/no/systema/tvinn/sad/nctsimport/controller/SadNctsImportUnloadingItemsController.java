@@ -2,6 +2,7 @@ package no.systema.tvinn.sad.nctsimport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -74,6 +77,12 @@ public class SadNctsImportUnloadingItemsController {
         //binder.setValidator(new TdsExportItemsValidator());
     }
 	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	/**
 	 * 
 	 * @param user
@@ -341,7 +350,7 @@ public class SadNctsImportUnloadingItemsController {
 	    	//--------------------------------------
 			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 			//Debug --> 
-	    	logger.info(jsonPayloadFetch);
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadNctsImportSpecificTopicUnloadingItemContainer jsonNctsImportSpecificTopicUnloadingItemContainer = this.sadNctsImportSpecificTopicUnloadingItemService.getNctsImportSpecificTopicUnloadingItemContainer(jsonPayloadFetch);
 	    	

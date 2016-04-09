@@ -3,6 +3,7 @@ package no.systema.tvinn.sad.sadimport.controller;
 import java.util.*;
 
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -86,7 +89,12 @@ public class SadImportItemsController {
 
     }
 	
-	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	/**
 	 * 
 	 * @param user
@@ -353,7 +361,7 @@ public class SadImportItemsController {
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL_FETCH + "==>params: " + urlRequestParamsKeys.toString() + 
 					" " + "(fetched item list):" + jsonPayloadFetch); 
 			//Debug --> 
-			//logger.info(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	JsonSadImportSpecificTopicItemContainer jsonSadImportSpecificTopicItemContainer = this.sadImportSpecificTopicItemService.getSadImportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	if(jsonSadImportSpecificTopicItemContainer!=null){
@@ -675,7 +683,7 @@ public class SadImportItemsController {
 		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod;
 		  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		  //logger.info(jsonPayload);
+		  logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		  JsonTvinnSadTolltariffVarukodContainer container = this.tvinnSadTolltariffVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  if(container.getTariclist()!=null){

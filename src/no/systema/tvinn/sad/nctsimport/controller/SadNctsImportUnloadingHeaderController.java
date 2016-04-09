@@ -2,6 +2,7 @@ package no.systema.tvinn.sad.nctsimport.controller;
 
 import java.util.*;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -80,7 +83,12 @@ public class SadNctsImportUnloadingHeaderController {
 		//binder.setValidator(new NctsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
     }
 	
-	
+	@PostConstruct
+	public void initIt() throws Exception {
+		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
+			logger.setLevel(Level.DEBUG);
+		}
+	}
 	
 	
 	/**
@@ -248,7 +256,7 @@ public class SadNctsImportUnloadingHeaderController {
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 				//Debug --> 
-		    	logger.info(method + " --> jsonPayload:" + jsonPayload);
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
 		    		JsonSadNctsImportSpecificTopicUnloadingContainer jsonNctsImportSpecificTopicUnloadingContainer = this.sadNctsImportSpecificTopicUnloadingService.getNctsImportSpecificTopicUnloadingContainer(jsonPayload);
@@ -372,7 +380,7 @@ public class SadNctsImportUnloadingHeaderController {
 	    	//--------------------------------------
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		//Debug --> 
-	    	//logger.info(method + " --> jsonPayload:" + jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonSadNctsImportSpecificTopicContainer jsonNctsImportSpecificTopicContainer = this.sadNctsImportSpecificTopicService.getNctsImportSpecificTopicContainer(jsonPayload);
