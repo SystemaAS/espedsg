@@ -33,6 +33,9 @@
   			
   			//rest of the gang
   			jq('#ksinav').val("");jq('#ksinav').val(data[i].ksinav);
+  			jq('#ksovl').val("");jq('#ksovl').val(data[i].ksovl);
+  			jq('#ksuser').val("");jq('#ksuser').val(data[i].ksuser);
+  			jq('#ksixxx').val("");jq('#ksixxx').val(data[i].ksixxx);
   			//for a future update
   			jq('#updateId').val("");jq('#updateId').val(data[i].ksisig);
   			

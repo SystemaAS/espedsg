@@ -58,9 +58,9 @@
 								<th align="center" width="2%" class="tableHeaderFieldFirst" >&nbsp;KLISTA&nbsp;</th>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;KLIUNI</th>
-			                    <th align="center" width="2%" class="tableHeaderField" >&nbsp;KLIKOD&nbsp;</th>
-			                    <th align="left" class="tableHeaderField" >&nbsp;KLINAV&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField">&nbsp;KLISTO&nbsp;</th>
+			                    <th align="center" width="2%" class="tableHeaderField" >&nbsp;Likvid.kode&nbsp;</th>
+			                    <th align="left" class="tableHeaderField" >&nbsp;Beskrivelse&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField">&nbsp;Stopp?&nbsp;</th>
 			                    <th align="center" class="tableHeaderField" >&nbsp;KLIXXX&nbsp;</th>
 			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
@@ -86,6 +86,18 @@
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
+				            <tfoot>
+							<tr>
+								<th align="center" width="2%" class="tableHeaderFieldFirst11" >&nbsp;KLISTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLIUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLIKOD&nbsp;</th>
+			                    <th align="left" class="tableHeaderField11" >&nbsp;KLINAV&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField11">&nbsp;KLISTO&nbsp;</th>
+			                    <th align="center" class="tableHeaderField11" >&nbsp;KLIXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderField11">Slett</th>
+			                </tr>  
+			                </tfoot> 
 			            </table>
 					</td>	
 					</tr>
@@ -146,9 +158,9 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<table width="40%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-						<td class="text11" title="Likviditetskod">&nbsp;<font class="text14RedBold" >*</font>KLIKOD</td>
-						<td class="text11" title="Beskrivelse">&nbsp;<font class="text14RedBold" >*</font>KLINAV</td>
-						<td class="text11" title="Stopp?">&nbsp;<font class="text14RedBold" >*</font>KLISTO</td>
+						<td class="text12" title="KLIKOD">&nbsp;<font class="text14RedBold" >*</font>Likvid.kode</td>
+						<td class="text12" title="KLINAV">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse</td>
+						<td class="text12" title="KLISTO">&nbsp;<font class="text14RedBold" >*</font>Stopp?</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="klikod" id="klikod" size="2" maxlength="1" value='${model.record.klikod}'></td>

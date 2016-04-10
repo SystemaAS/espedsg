@@ -30,10 +30,10 @@ public class MaintSadImportSyft19rValidator implements Validator {
 	 */
 	public void validate(Object obj, Errors errors) { 
 		JsonMaintSadImportKodtlikRecord record = (JsonMaintSadImportKodtlikRecord)obj;
-		logger.info(record.getKlikod());
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klikod", "", "KLIKOD er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klinav", "", "KLINAV er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klisto", "", "KLISTO er obligatorisk"); 
+		//logger.info(record.getKlikod());
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klikod", "", "Likvid.kode (KLIKOD) er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klinav", "", "Beskrivelse (KLINAV) er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klisto", "", "Stopp? (KLISTO) er obligatorisk"); 
 		
 	}
 	/**
@@ -44,6 +44,6 @@ public class MaintSadImportSyft19rValidator implements Validator {
 	public void validateDelete(Object obj, Errors errors) { 
 		JsonMaintSadImportKodtlikRecord record = (JsonMaintSadImportKodtlikRecord)obj;
 		logger.info(record.getKlikod());
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klikod", "", "KLIKOD er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "klikod", "", "Likvid.kode (KLIKOD) er obligatorisk"); 
 	}
 }

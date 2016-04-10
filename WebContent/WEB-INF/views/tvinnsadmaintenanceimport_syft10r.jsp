@@ -59,11 +59,11 @@
 								<th align="center" width="2%" class="tableHeaderFieldFirst" >&nbsp;KSISTA&nbsp;</th>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;KSIUNI</th>
-			                    <th align="center" width="2%" class="tableHeaderField" >&nbsp;KSISIG&nbsp;</th>
-			                    <th align="left" class="tableHeaderField" >&nbsp;KSINAV&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField">&nbsp;KSIXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField" >&nbsp;KSOVL&nbsp;</th>
-			                    <th align="center" class="tableHeaderField" >&nbsp;KSUSER&nbsp;</th>
+			                    <th align="center" width="2%" class="tableHeaderField" >&nbsp;Sign.&nbsp;</th>
+			                    <th align="left" class="tableHeaderField" >&nbsp;Navn&nbsp;</th>
+								<th align="center" class="tableHeaderField" >&nbsp;Overlay&nbsp;</th>
+			                    <th align="center" class="tableHeaderField" >&nbsp;Brukerid&nbsp;</th>
+			                    <th align="center" class="tableHeaderField">&nbsp;Epost.&nbsp;</th>
 			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
@@ -77,18 +77,32 @@
 				               </td>
 				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksiuni}&nbsp;</font></td>
 				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksisig}&nbsp;</font></td>
-		                       <td align="left"  class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksinav}&nbsp;</font></td>
-				               <td align="center"width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksixxx}&nbsp;</font></td>
-		                       <td align="center"class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksovl}&nbsp;</font></td>
-		                       <td align="center"class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksuser}&nbsp;</font></td>
+		                       <td align="left"   class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksinav}&nbsp;</font></td>
+				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksovl}&nbsp;</font></td>
+		                       <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksuser}&nbsp;</font></td>
+		                       <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ksixxx}&nbsp;</font></td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft10r_edit.do?action=doDelete&id=${model.dbTable}&klikod=${record.ksisig}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft10r_edit.do?action=doDelete&id=${model.dbTable}&ksisig=${record.ksisig}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
+				            <tfoot>
+							<tr>
+							                                                                
+								<th align="center" width="2%" class="tableHeaderFieldFirst11" >&nbsp;KSISTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;KSIUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderField11" >&nbsp;KSISIG&nbsp;</th>
+			                    <th align="left" class="tableHeaderField11" >&nbsp;KSINAV&nbsp;</th>
+								<th align="center" class="tableHeaderField11" >&nbsp;KSOVL&nbsp;</th>
+			                    <th align="center" class="tableHeaderField11" >&nbsp;KSUSER&nbsp;</th>
+			                    <th align="center" class="tableHeaderField11">&nbsp;KSIXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderField11">Slett</th>
+			                </tr>  
+			                </tfoot> 
 			            </table>
 					</td>	
 					</tr>
@@ -150,27 +164,25 @@
 					<table width="40%" cellspacing="1" border="0" align="left">
 					
 			    	    <tr>
-						<td class="text11" title="Likviditetskod">&nbsp;<font class="text14RedBold" >*</font>KSISIG</td>
-						
+							<td class="text12" title="KSISIG">&nbsp;<font class="text14RedBold" >*</font>Sig.</td>
+							<td class="text12" title="KSINAV">&nbsp;<font class="text14RedBold" >*</font>Navn</td>
+							<td class="text12" title="KSOVL">&nbsp;Overlay</td>
+							<td class="text12" title="KSUSER">&nbsp;Brukerid</td>
+							<td class="text12" title="KSUSER">&nbsp;Epost for TVINN-melding</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="ksisig" id="ksisig" size="4" maxlength="3" value='${model.record.ksisig}'></td>
-						<%--
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="klinav" id="klinav" size="25" maxlength="30" value='${Xmodel.record.klinav}'></td>
-						<td >
-							<select class="inputTextMediumBlueMandatoryField" name="klisto" id="klisto">
-			            		<option value="">-velg-</option>
-			 				  	<option value="J" <c:if test="${ Xmodel.record.klisto == 'J'}"> selected </c:if> >Ja</option>
-			 				  	<option value="N" <c:if test="${ Xmodel.record.klisto == 'N'}"> selected </c:if> >Nej</option>
-							</select>
-						</td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ksinav" id="ksinav" size="16" maxlength="16" value='${model.record.ksinav}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="ksovl" id="ksovl" size="10" maxlength="8" value='${model.record.ksovl}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="ksuser" id="ksuser" size="10" maxlength="10" value='${model.record.ksuser}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="ksixxx" id="ksixxx" size="30" maxlength="42" value='${model.record.ksixxx}'></td>
 						
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>
-						 --%>
-						 
+
 						</tr>
+						
 	 	    		</table>
 	 	    		
 	 	    	</form>
