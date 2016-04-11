@@ -3,6 +3,7 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -16,6 +17,7 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSp
  * 
  */
 public class SkatExportItemsValidator implements Validator {
+	private static final Logger logger = Logger.getLogger(SkatExportItemsValidator.class.getName());
 	
 	final String ANG_ART_20_ALU = "20";
 	final String ANG_ART_21_FOU = "21";
@@ -222,11 +224,12 @@ public class SkatExportItemsValidator implements Validator {
             if (value != null) {
                 //String nameRegex = "^(\\d{4})$";
                 //String nameRegex = "^\\w{2}\\d{9}\\w{3}$";
-            	    String nameRegex = "[a-zA-Z]{1}[0-9]{6}DK";
+        	    String nameRegex = "[a-zA-Z]{1}[0-9]{6}DK";
                 Pattern namePattern = Pattern.compile(nameRegex);
                 Matcher nameMatcher = namePattern.matcher(value);
                 boolean matchFound = nameMatcher.find();
                 if (matchFound) {
+                	logger.info("MATCH!!!!!");
                     retVal = true;
                 } 
             }

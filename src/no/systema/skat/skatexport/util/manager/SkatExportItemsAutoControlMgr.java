@@ -297,11 +297,12 @@ public class SkatExportItemsAutoControlMgr {
             if (value != null) {
                 //String nameRegex = "^(\\d{4})$";
                 //String nameRegex = "^\\w{2}\\d{9}\\w{3}$";
-            	    String nameRegex = "[a-zA-Z]{1}[0-9]{6}DK";
-                Pattern namePattern = Pattern.compile(nameRegex);
+            	String nameRegex = "[a-zA-Z]{1}[0-9]{6}DK";
+            	Pattern namePattern = Pattern.compile(nameRegex);
                 Matcher nameMatcher = namePattern.matcher(value);
                 boolean matchFound = nameMatcher.find();
                 if (matchFound) {
+                	//logger.info("MATCH!!!!!");
                     retVal = true;
                 } 
             }
@@ -379,7 +380,7 @@ public class SkatExportItemsAutoControlMgr {
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		
 		String BASE_URL_UPDATE = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL;
-		logger.info("[INFO] UPDATE (light) to be done with lineNr [svli]:" + this.record.getDkev_syli());
+		logger.info("[INFO] UPDATE (light) to be done with lineNr [dkev_syli]:" + this.record.getDkev_syli());
 		
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + applicationUser);
@@ -387,17 +388,17 @@ public class SkatExportItemsAutoControlMgr {
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + this.record.getDkev_syop());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lin=" + this.record.getDkev_syli());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=U");
-		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "svligh=X"); //light update flag
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkev_ligh=X"); //light update flag
 		
 		
 		String urlRequestParamsItem = urlRequestParameterMapper.getUrlParameterValidString((this.record));
 		//put the final valid param. string
 		String urlRequestParams = urlRequestParamsKeys.toString() + urlRequestParamsItem;
-		/*DEBUG 
+		/*DEBUG*/
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + BASE_URL_UPDATE);
     	logger.info("URL PARAMS: " + urlRequestParams);
-    	*/
+    	
     	//----------------------------------------------------------------------------
     	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
     	//----------------------------------------------------------------------------

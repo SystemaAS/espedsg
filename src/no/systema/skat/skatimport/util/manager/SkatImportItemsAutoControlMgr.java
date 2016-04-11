@@ -92,6 +92,7 @@ public class SkatImportItemsAutoControlMgr {
 			if(record.getDkiv_46()==null || "".equals(record.getDkiv_46())){ this.validRecord = false; }
 			
 		}else if( this.ANG_ART_FUE_04.equals(this.headerRecord.getDkih_aart()) ){
+			//logger.info("####### FUE_04");
 			if(record.getDkiv_311a()==null || "".equals(record.getDkiv_311a())){ this.validRecord = false; }
 			if(record.getDkiv_313a()==null || "".equals(record.getDkiv_313a())){ this.validRecord = false; }
 			if(record.getDkiv_314a()==null || "".equals(record.getDkiv_314a())){ this.validRecord = false; }
@@ -328,7 +329,7 @@ public class SkatImportItemsAutoControlMgr {
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		
 		String BASE_URL_UPDATE = SkatImportUrlDataStore.SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL;
-		logger.info("[INFO] UPDATE (light) to be done with lineNr [svli]:" + this.record.getDkiv_syli());
+		logger.info("[INFO] UPDATE (light) to be done with lineNr [dkiv_syli]:" + this.record.getDkiv_syli());
 		
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + applicationUser);
@@ -336,7 +337,7 @@ public class SkatImportItemsAutoControlMgr {
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + this.record.getDkiv_syop());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lin=" + this.record.getDkiv_syli());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=U");
-		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "svligh=X"); //light update flag
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkiv_ligh=X"); //light update flag
 		
 		
 		String urlRequestParamsItem = urlRequestParameterMapper.getUrlParameterValidString((this.record));
