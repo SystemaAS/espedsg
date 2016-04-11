@@ -92,15 +92,15 @@
 				            <tfoot>
 							<tr>
 							                                                                
-								<th align="center" width="2%" class="tableHeaderFieldFirst11" >&nbsp;KSISTA&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;Endre&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;KSIUNI</th>
-			                    <th align="center" width="2%" class="tableHeaderField11" >&nbsp;KSISIG&nbsp;</th>
-			                    <th align="left" class="tableHeaderField11" >&nbsp;KSINAV&nbsp;</th>
-								<th align="center" class="tableHeaderField11" >&nbsp;KSOVL&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11" >&nbsp;KSUSER&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">&nbsp;KSIXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">Slett</th>
+								<th align="center" width="2%" class="tableHeaderFieldFirstWhiteBg11" >&nbsp;KSISTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KSIUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KSISIG&nbsp;</th>
+			                    <th align="left" class="tableHeaderFieldWhiteBg11" >&nbsp;KSINAV&nbsp;</th>
+								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KSOVL&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KSUSER&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;KSIXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>

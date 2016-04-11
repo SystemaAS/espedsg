@@ -137,11 +137,29 @@ END override jQuery elements
     border-width: 1px 1px 1px 1px; 
     border-color:#FF6600
 }
+.tableHeaderFieldFirstWhiteBg11 { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+	color:#000000; 
+    background-color: #FFFFFF ;
+    border-style: solid; 
+    border-width: 1px 1px 1px 1px; 
+    border-color:#FF6600
+}
 .tableHeaderField11 {  
 	font-family: Verdana, Arial, Helvetica, sans-serif; 
 	font-size: 11px; 
 	color:#000000; 
     background-color: #DDDDDD;
+    border-style: solid; 
+    border-width: 1px 1px 1px 0px; 
+    border-color:#FF6600
+}
+.tableHeaderFieldWhiteBg11 {  
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+	color:#000000; 
+    background-color: #FFFFFF;
     border-style: solid; 
     border-width: 1px 1px 1px 0px; 
     border-color:#FF6600

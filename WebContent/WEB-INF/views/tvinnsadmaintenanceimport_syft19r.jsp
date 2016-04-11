@@ -88,14 +88,14 @@
 				            </tbody>
 				            <tfoot>
 							<tr>
-								<th align="center" width="2%" class="tableHeaderFieldFirst11" >&nbsp;KLISTA&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;Endre&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLIUNI</th>
-			                    <th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLIKOD&nbsp;</th>
-			                    <th align="left" class="tableHeaderField11" >&nbsp;KLINAV&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11">&nbsp;KLISTO&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11" >&nbsp;KLIXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">Slett</th>
+								<th align="center" width="2%" class="tableHeaderFieldFirstWhiteBg11" >&nbsp;KLISTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KLIUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KLIKOD&nbsp;</th>
+			                    <th align="left" class="tableHeaderFieldWhiteBg11" >&nbsp;KLINAV&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11">&nbsp;KLISTO&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KLIXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>

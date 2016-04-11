@@ -99,19 +99,19 @@
 				            </tbody>
 				            <tfoot>
 							<tr>
-							    <th align="center" width="2%" class="tableHeaderFieldFirst11" >&nbsp;KLBSTA&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;Endre&nbsp;</th>
-								<th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLBUNI</th>
-			                    <th align="center" width="2%" class="tableHeaderField11" >&nbsp;KLBKOD&nbsp;</th>
-			                    <th align="left" class="tableHeaderField11" >&nbsp;KLBKT&nbsp;</th>
-								<th align="center" class="tableHeaderField11" >&nbsp;KLBNAV&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11" >&nbsp;KLBFOK&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">&nbsp;KLBPRM&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11" >&nbsp;KLBFRK&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">&nbsp;KLBXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">&nbsp;KLBXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">&nbsp;KLBXXX&nbsp;</th>
-			                    <th align="center" class="tableHeaderField11">Slett</th>
+							    <th align="center" width="2%" class="tableHeaderFieldFirstWhiteBg11" >&nbsp;KLBSTA&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBUNI</th>
+			                    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBKOD&nbsp;</th>
+			                    <th align="left" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBKT&nbsp;</th>
+								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBNAV&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBFOK&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;KLBPRM&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;KLBFRK&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;KLBXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;KLBXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;KLBXXX&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>
