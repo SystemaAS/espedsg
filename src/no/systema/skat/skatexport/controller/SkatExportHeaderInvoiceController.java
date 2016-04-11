@@ -115,7 +115,6 @@ public class SkatExportHeaderInvoiceController {
 			return this.loginView;
 		}else{
 			
-			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_IMPORT);
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, SkatConstants.ACTIVE_URL_RPG_INITVALUE);
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_UPDATE_SKAT, SkatConstants.ACTIVE_URL_RPG_INITVALUE);
 			
@@ -144,14 +143,13 @@ public class SkatExportHeaderInvoiceController {
 			
 			
 			if(SkatConstants.ACTION_UPDATE.equals(action)){
-				/*
 				SkatExportInvoiceValidator validator = new SkatExportInvoiceValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			    validator.validate(recordToValidate, bindingResult);
 			    //check for ERRORS
 				if(bindingResult.hasErrors()){
 				    	logger.info("[ERROR Validation] Record does not validate)");
-				    	logger.info("[INFO faktnr] " + recordToValidate.getSvef_fatx());
+				    	logger.info("[INFO faktnr] " + recordToValidate.getDkef_fatx());
 				    	bindingErrorsExist = true;
 				    	model.put("record", recordToValidate);
 				    	
@@ -163,7 +161,7 @@ public class SkatExportHeaderInvoiceController {
 						logger.info("UPDATE(only) ITEM (existent invoice) on process...");
 					}else{
 						//Minimum
-						if(recordToValidate.getSvef_fatx()!=null && !"".equals(recordToValidate.getSvef_fatx())){
+						if(recordToValidate.getDkef_fatx()!=null && !"".equals(recordToValidate.getDkef_fatx())){
 							//-------
 							//CREATE
 							//-------
@@ -175,7 +173,7 @@ public class SkatExportHeaderInvoiceController {
 							//-------------------------------------------------------------------------------------------
 							jsonSkatExportTopicInvoiceRecord  = this.createNewItemKeySeeds(recordToValidate, avd, opd, session, request, appUser);
 							if(jsonSkatExportTopicInvoiceRecord!=null){
-								String newId = jsonSkatExportTopicInvoiceRecord.getSvef_fatx();
+								String newId = jsonSkatExportTopicInvoiceRecord.getDkef_fatx();
 								//take the rest from GUI.
 								jsonSkatExportTopicInvoiceRecord = new JsonSkatExportTopicInvoiceRecord();
 								ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSkatExportTopicInvoiceRecord);
@@ -201,7 +199,7 @@ public class SkatExportHeaderInvoiceController {
 						//get BASE URL = RPG-PROGRAM
 			            //---------------------------
 						String BASE_URL_UPDATE = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_URL;
-						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonSkatExportTopicInvoiceRecord.getSvef_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
+						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonSkatExportTopicInvoiceRecord.getDkef_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
 						String urlRequestParamsTopicItem = this.urlRequestParameterMapper.getUrlParameterValidString((jsonSkatExportTopicInvoiceRecord));
 						//put the final valid param. string
 						String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicItem;
@@ -235,10 +233,10 @@ public class SkatExportHeaderInvoiceController {
 							this.setFatalError(model, rpgReturnResponseHandler, jsonSkatExportTopicInvoiceRecord);
 						}
 					}
-			    }*/
+			    }
 				
 			}else if(SkatConstants.ACTION_DELETE.equals(action)){
-				/*
+
 				logger.info("[INFO] Delete record start process... ");
 				String lineIdToDelete = request.getParameter("fak");
 				
@@ -267,10 +265,9 @@ public class SkatExportHeaderInvoiceController {
 		    		//Delete succefully done!
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
-				*/
+				
 			}
 			
-			/*
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -302,10 +299,7 @@ public class SkatExportHeaderInvoiceController {
 	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonSkatExportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
 	    		
 	    	} 
-			*/
-			//remove these 2 very line when uncomment the aboce (CB/OT)
-	    	JsonSkatExportTopicInvoiceContainer jsonSkatExportTopicInvoiceContainer = new JsonSkatExportTopicInvoiceContainer();
-	    	jsonSkatExportTopicInvoiceContainer.setInvList(new ArrayList());
+			
     		//after remove
 	    	this.setCodeDropDownMgr(appUser, model);
     		this.setDomainObjectsForListInView(model, jsonSkatExportTopicInvoiceContainer);
@@ -473,7 +467,7 @@ public class SkatExportHeaderInvoiceController {
 		urlRequestParamsForSeed.append("user=" + appUser.getUser());
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
-		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fak=" + record.getSvef_fatx());
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fak=" + record.getDkef_fatx());
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + SkatConstants.MODE_ADD);
 		logger.info("URL for SEED: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("PARAMS for SEED: " + urlRequestParamsForSeed.toString());
@@ -555,7 +549,7 @@ public class SkatExportHeaderInvoiceController {
 	private void adjustFieldsAfterBind(HttpServletRequest request, JsonSkatExportTopicInvoiceRecord record){
 		String factor = request.getParameter("factor");
 		//fields
-		record.setSvef_omr(factor);
+		record.setDkef_omr(factor);
 	}
 	
 	/**

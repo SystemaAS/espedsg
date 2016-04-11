@@ -100,10 +100,10 @@
 	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Afd&nbsp;<b>${Xmodel.avd}</b>
-				 				&nbsp;Angiv.&nbsp;<b>${Xmodel.opd}</b>
-				 				&nbsp;Sign&nbsp;<b>${Xmodel.sign}</b>
-				 				&nbsp;&nbsp;Status:&nbsp;<b>${Xmodel.status}</b>
+				 				&nbsp;Afd&nbsp;<b>${model.avd}</b>
+				 				&nbsp;Angiv.&nbsp;<b>${model.opd}</b>
+				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
+				 				&nbsp;&nbsp;Status:&nbsp;<b>${model.status}</b>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -119,28 +119,28 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">CVR/SE-nr&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_aveo}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_02a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avna}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_02b}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_ava1}</td>
+							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_02c}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_ava2}</td>
+							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_02d}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avpn}&nbsp;${recordTopic.sveh_avpa}&nbsp;${recordTopic.sveh_avlk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_02e}&nbsp;${recordTopicSkat.dkeh_02f}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Klarereren&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_avha}&nbsp;tel:${recordTopic.sveh_avtl}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_14a}&nbsp;&nbsp;Status${recordTopicSkat.dkeh_14b}</td>
 							        </tr>
 							        						        
 			        	        </table>
@@ -153,23 +153,23 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">EORI.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"></td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_08a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_mona}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_08b}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_moa1}</td>
+							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_08c}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_moa2}</td>
+							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_08d}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.sveh_mopn}&nbsp;${recordTopic.sveh_mopa}&nbsp;${recordTopic.sveh_molk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkeh_08e}&nbsp;${recordTopicSkat.dkeh_08f}</td>
 							        </tr>
 							        <tr>
 							        		<td width="30%" class="text11" align="left">&nbsp;</td>
@@ -193,15 +193,15 @@
 							<td>
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
-										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
+										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${model.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
 						            		</td>
 										<td align="right" class="text11">Fsum:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopic.sveh_fabl}">
-											<font class="inputText11BlueBoldReadOnly">${recordTopic.sveh_vakd}</font>
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopicSkat.dkeh_222}">
+											<font class="inputText11BlueBoldReadOnly">${recordTopicSkat.dkeh_221}</font>
 										</td>
 										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${Xmodel.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
-											<font class="inputText11BlueBoldReadOnly">${Xmodel.recordItemContainerInvoiceTopic.calculatedValidCurrency}</font>											
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${model.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
+											<font class="inputText11BlueBoldReadOnly">${model.recordItemContainerInvoiceTopic.calculatedValidCurrency}</font>											
 										</td>
 										<%--
 										<td align="right" class="text11">Diff:&nbsp;
@@ -226,8 +226,8 @@
 						<tr>
 							<td >
 							<form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${Xmodel.opd}">
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${Xmodel.avd}">
+					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
+				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
 				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<table id="containerdatatableTable" width="80%" cellspacing="2" align="left" >
 								<tr>
@@ -236,19 +236,21 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th class="text12"><span title="svef_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
-					                    <th class="text12" ><span title="svef_faty">&nbsp;Type&nbsp;</span></th>
-					                    <th align="right" class="text12" ><span title="svef_fabl">&nbsp;Belopp&nbsp;</span></th>
-					                    <th class="text12" ><span title="svef_vakd">&nbsp;Møntsort&nbsp;</span></th>
-					                    <th align="right" class="text12" ><span title="svef_vaku">&nbsp;Kurs&nbsp;</span></th>
-					                    <th class="text12" align="left"><span title="svef_omr">Faktor&nbsp;</span></th>
-					                    <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">
+									    <th class="text12"><span title="dkef_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
+					                    <%--
+					                    <th class="text12" ><span title="dkef_faty">&nbsp;Type&nbsp;</span></th>
+					                     --%>
+					                    <th align="right" class="text12" ><span title="dkef_fabl">&nbsp;Belopp&nbsp;</span></th>
+					                    <th class="text12" ><span title="dkef_vakd">&nbsp;Møntsort&nbsp;</span></th>
+					                    <th align="right" class="text12" ><span title="dkef_vaku">&nbsp;Kurs&nbsp;</span></th>
+					                    <th class="text12" align="left"><span title="dkef_omr">Faktor&nbsp;</span></th>
+					                    <c:if test="${ model.status == 'M' || empty  model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
 					                    	<th align="center" class="text12" nowrap>Fjern</th>
 					                    </c:if>
 					               </tr>
 					              </thead>
 					              <tbody>  
-					                 <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
+					                 <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
 							                       <tr class="tableRow" height="20" >
@@ -258,18 +260,20 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               <td width="20%" class="text11" >
-							               		<a tabindex=-1 id="recordUpdate_${record.svef_fatx}" href="#" onClick="getItemData(this);">
-							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.svef_fatx}
+							               		<a tabindex=-1 id="recordUpdate_${record.dkef_fatx}" href="#" onClick="getItemData(this);">
+							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.dkef_fatx}
 							               		</a>
 							               </td>
-							               <td class="text11" >&nbsp;${record.svef_faty}</td>
-							               <td align="right" class="text11" >&nbsp;${record.svef_fabl}&nbsp;</td>
-							               <td class="text11" >&nbsp;${record.svef_vakd}</td>
-							               <td align="right" class="text11" >&nbsp;${record.svef_vaku}&nbsp;</td>
-							               <td class="text11" >&nbsp;${record.svef_omr}</td>
-							               <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">	
+							               <%--
+							               <td class="text11" >&nbsp;${record.dkef_faty}</td>
+							                --%>
+							               <td align="right" class="text11" >&nbsp;${record.dkef_fabl}&nbsp;</td>
+							               <td class="text11" >&nbsp;${record.dkef_vakd}</td>
+							               <td align="right" class="text11" >&nbsp;${record.dkef_vaku}&nbsp;</td>
+							               <td class="text11" >&nbsp;${record.dkef_omr}</td>
+							               <c:if test="${ model.status == 'M' || empty  model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
 								               <td width="4%" class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svef_fatx}">
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_invoice.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${record.dkef_fatx}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	&nbsp;
 								               </td>
@@ -279,7 +283,7 @@
 								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
 								        --%> 
 								        <%-- this param is used throughout the Controller --%>
-								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
+								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.dkln}" scope="request" /> 
 								        </c:forEach>
 						            </tbody>
 						        </table>
@@ -343,18 +347,18 @@
 	           	<td>
 	           	<form name="createNewItemLine" id="createNewItemLine" method="post" >
 					<input type="hidden" name="action" id="action" value='doFetch'>
-	 				<input type="hidden" name="avd" id="avd" value="${Xmodel.avd}"/>
-	 				<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
-	 				<input type="hidden" name="sign" id="sign" value="${Xmodel.sign}"/>
-	 				<input type="hidden" name="status" id="status" value="${XXmodel.status}"/>
-	 				<input type="hidden" name="datum" id="datum" value='${XXmodel.datum}'>
-	 				<input type="hidden" name="fabl" id="fabl" value='${XrecordTopicTvinnSad.sebel1}'>
-	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicTvinnSad.sevkb}'>
+	 				<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
+	 				<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
+	 				<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
+	 				<input type="hidden" name="status" id="status" value="${model.status}"/>
+	 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
+	 				<input type="hidden" name="fabl" id="fabl" value='${XrecordTopicSkat.todo}'>
+	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicSkat.todo}'>
 	 				
 	 				<table width="80%" cellspacing="0" border="0" cellpadding="0">
 						<tr>
 							<td class="text12Bold">
-								<c:if test="${XXmodel.status == 'M' || empty XXmodel.status}">
+								<c:if test="${ model.status == 'M' || empty  model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
 									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatexport_edit_invoice.do';" value="Skabe ny">
 								</c:if>
 								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Import eksterne fakturaer</button>
@@ -372,13 +376,13 @@
 	 				<form name="skatExportEditTopicInvoiceItemForm" id="skatExportEditTopicInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
-				 	<input type="hidden" name="avd" id="avd" value="${Xmodel.avd}"/>
-				 	<input type="hidden" name="sign" id="sign" value="${Xmodel.sign}"/>
-				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${Xmodel.record.isModeUpdate}"/>
-				 	<input type="hidden" name="status" id="status" value="${XXmodel.status}"/>
-				 	<input type="hidden" name="datum" id="datum" value="${XXmodel.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${XrecordTopicTvinnSad.sebel1}"/>
+				 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
+				 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
+				 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
+				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}"/>
+				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
+				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
+				 	<input type="hidden" name="fabl" id="fabl" value="${XrecordTopicSkat.todo}"/>
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -416,32 +420,33 @@
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td class="text12" align="left"><span title="svef_fatx">
+							 			<td class="text12" align="left"><span title="dkef_fatx">
 							 			<font class="text16RedBold" >*</font>Fakturanr.</span>
 										</td>
-							            <td class="text12" align="left"><span title="svef_faty">&nbsp;<font class="text16RedBold" >*</font>Type</span></td>
-							            <td class="text12" align="left"><span title="svef_fabl">&nbsp;<font class="text16RedBold" >*</font>Beløb</span></td>
-							            <td class="text12" align="left"><span title="svef_vakd">&nbsp;<font class="text16RedBold" >*</font>Møntsort</span></td>
-					            		<td class="text12" align="left"><span title="svef_vaku">&nbsp;<font class="text16RedBold" >*</font>Kurs</span></td>
+										<%--
+							            <td class="text12" align="left"><span title="dkef_faty">&nbsp;<font class="text16RedBold" >*</font>Type</span></td>
+							             --%>
+							            <td class="text12" align="left"><span title="dkef_fabl">&nbsp;<font class="text16RedBold" >*</font>Beløb</span></td>
+							            <td class="text12" align="left"><span title="dkef_vakd">&nbsp;<font class="text16RedBold" >*</font>Møntsort</span></td>
+					            		<td class="text12" align="left"><span title="dkef_vaku">&nbsp;<font class="text16RedBold" >*</font>Kurs</span></td>
 					            		<td class="text12" align="left"><span title="factor">Faktor&nbsp;</span></td>
 							        </tr>
 							        <tr>
 						        		<td align="left">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="svef_fatx" id="svef_fatx" size="20" maxlength="17" value="${Xmodel.record.svef_fatx}">
+						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="dkef_fatx" id="dkef_fatx" size="20" maxlength="17" value="${model.record.dkef_fatx}">
 										</td>
+										<%--
 										<td>
-											<%--
-											<input type="text" class="inputText" name="svef_faty" id="svef_faty" size="5" maxlength="5" value="${Xmodel.record.svef_faty}">
-							 				 --%>
-											<select class="inputTextMediumBlueMandatoryField" name="svef_faty" id="svef_faty">
+											
+											<select class="inputTextMediumBlueMandatoryField" name="dkef_faty" id="dkef_faty">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="code" items="${Xmodel.mcfCodeList}" >
 							 				  		<c:choose>
-														<c:when test="${not empty Xmodel.record.svef_faty}">
-								 				  			<option value="${code.svkd_kd}"<c:if test="${Xmodel.record.svef_faty == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+														<c:when test="${not empty Xmodel.record.dkef_faty}">
+								 				  			<option value="${code.dkkd_kd}"<c:if test="${Xmodel.record.dkef_faty == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 								 				  		</c:when>
 								 				  		<c:otherwise>
-								 				  			<option value="${code.svkd_kd}"<c:if test="${Xmodel.record.svef_faty == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+								 				  			<option value="${code.dkkd_kd}"<c:if test="${Xmodel.record.dkef_faty == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 								 				  		</c:otherwise>
 								 				  	</c:choose>
 												</c:forEach>  
@@ -451,23 +456,24 @@
            									</a>
 											
 			 							</td>
+			 							--%>
+			 							
 										<td class="text12" align="left">
-							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svef_fabl" id="svef_fabl" size="13" maxlength="12" value="${Xmodel.record.svef_fabl}">
+							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkef_fabl" id="dkef_fabl" size="13" maxlength="12" value="${model.record.dkef_fabl}">
 							            </td>
 										<td align="left" nowrap>
-								            	<select class="inputTextMediumBlueMandatoryField" name="svef_vakd" id="svef_vakd">
+							            	<select class="inputTextMediumBlueMandatoryField" name="dkef_vakd" id="dkef_vakd">
 						 						<option value="">-vælg-</option>	
-								 				  <c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
-							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ Xmodel.record.todo == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
-												  </c:forEach>  
-												</select>  
+								 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
+							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkef_vakd == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+												  </c:forEach> 
 											</select>
 											<a tabindex="-1" id="valutaIdLink">
            										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
            									</a>
 										</td>
 							        		<td class="text12" align="left">
-							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svef_vaku" id="svef_vaku" size="8" maxlength="8" value="${Xmodel.record.svef_vaku}">
+							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkef_vaku" id="dkef_vaku" size="8" maxlength="8" value="${model.record.dkef_vaku}">
 							            </td>
 							            <%-- this field is only used via Ajax since there is no database field. It is used to disclosed a factor when changing the currency --%>
 							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>

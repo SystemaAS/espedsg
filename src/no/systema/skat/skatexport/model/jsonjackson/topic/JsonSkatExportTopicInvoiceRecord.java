@@ -27,73 +27,73 @@ public class JsonSkatExportTopicInvoiceRecord extends JsonAbstractGrandFatherRec
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
-	private String svef_syav = null;
-	public void setSvef_syav(String value) {  this.svef_syav = value; }
-	public String getSvef_syav() { return this.svef_syav;}
+	private String dkef_syav = null;
+	public void setDkef_syav(String value) {  this.dkef_syav = value; }
+	public String getDkef_syav() { return this.dkef_syav;}
 	
-	private String svef_syop = null;
-	public void setSvef_syop(String value) {  this.svef_syop = value; }
-	public String getSvef_syop() { return this.svef_syop;}
+	private String dkef_syop = null;
+	public void setDkef_syop(String value) {  this.dkef_syop = value; }
+	public String getDkef_syop() { return this.dkef_syop;}
 	
-	private String svef_faty = null;
-	public void setSvef_faty(String value) {  this.svef_faty = value; }
-	public String getSvef_faty() { return this.svef_faty;}
+	private String dkef_faty = null;
+	public void setDkef_faty(String value) {  this.dkef_faty = value; }
+	public String getDkef_faty() { return this.dkef_faty;}
 	
-	private String svef_fatx = null;
-	public void setSvef_fatx(String value) {  this.svef_fatx = value; }
-	public String getSvef_fatx() { return this.svef_fatx;}
+	private String dkef_fatx = null;
+	public void setDkef_fatx(String value) {  this.dkef_fatx = value; }
+	public String getDkef_fatx() { return this.dkef_fatx;}
 	
-	private String svef_vakd = null;
-	public void setSvef_vakd(String value) { this.svef_vakd = value; }
-	public String getSvef_vakd() { return this.svef_vakd; }
+	private String dkef_vakd = null;
+	public void setDkef_vakd(String value) { this.dkef_vakd = value; }
+	public String getDkef_vakd() { return this.dkef_vakd; }
 	
-	private String svef_vaku = null;
-	public void setSvef_vaku(String value) {  this.svef_vaku = value; }
-	public String getSvef_vaku() { return this.svef_vaku;}
+	private String dkef_vaku = null;
+	public void setDkef_vaku(String value) {  this.dkef_vaku = value; }
+	public String getDkef_vaku() { return this.dkef_vaku;}
 
-	private Double svef_vakuDbl = 0.00D;
-	public Double getSvef_vakuDbl() { 
-		if(this.svef_vaku!=null){
+	private Double dkef_vakuDbl = 0.00D;
+	public Double getDkef_vakuDbl() { 
+		if(this.dkef_vaku!=null){
 			try{
-				this.svef_vakuDbl = Double.parseDouble(this.svef_vaku.replace(",", "."));
+				this.dkef_vakuDbl = Double.parseDouble(this.dkef_vaku.replace(",", "."));
 			}catch(Exception e){
 				//nothing
 			}
 		}
-		return this.svef_vakuDbl;
+		return this.dkef_vakuDbl;
 	}
 	
-	private String svef_fabl = null;
-	public void setSvef_fabl(String value) {  this.svef_fabl = value; }
-	public String getSvef_fabl() { return this.svef_fabl;}
+	private String dkef_fabl = null;
+	public void setDkef_fabl(String value) {  this.dkef_fabl = value; }
+	public String getDkef_fabl() { return this.dkef_fabl;}
 	
-	private Double svef_fablDbl = 0.00D;
+	private Double dkef_fablDbl = 0.00D;
 	public Double getSfkr28Dbl() { 
-		if(this.svef_fabl!=null){
+		if(this.dkef_fabl!=null){
 			try{
-				this.svef_fablDbl = Double.parseDouble(this.svef_fabl.replace(",", "."));
+				this.dkef_fablDbl = Double.parseDouble(this.dkef_fabl.replace(",", "."));
 			}catch(Exception e){
 				//nothing
 			}
 		}
-		return this.svef_fablDbl;
+		return this.dkef_fablDbl;
 	}
 	
 	//None database field (internal)
-	private String svef_omr = null;
-	public void setSvef_omr(String value) {  this.svef_omr = value; }
-	public String getSvef_omr() { return this.svef_omr;}
+	private String dkef_omr = null;
+	public void setDkef_omr(String value) {  this.dkef_omr = value; }
+	public String getDkef_omr() { return this.dkef_omr;}
 	
-	private Integer svef_omrInt = 1;
-	public Integer getSvef_omrInt() { 
-		if(this.svef_omr!= null){
+	private Integer dkef_omrInt = 1;
+	public Integer getDkef_omrInt() { 
+		if(this.dkef_omr!= null){
 			try{
-				svef_omrInt = Integer.parseInt(this.svef_omr);
+				dkef_omrInt = Integer.parseInt(this.dkef_omr);
 			}catch(Exception e){
 				//nothing
 			}
 		}
-		return this.svef_omrInt;
+		return this.dkef_omrInt;
 	}
 	
 	/**

@@ -93,11 +93,10 @@
 	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Afd&nbsp;<b>${Xmodel.avd}</b>
-				 				&nbsp;Angiv.&nbsp;<b>${Xmodel.opd}</b>
-				 				&nbsp;Sign&nbsp;<b>${Xmodel.sign}</b>
-				 				&nbsp;&nbsp;Status:&nbsp;<b>${Xmodel.status}</b>
-				 				&nbsp;&nbsp;Dekl.:&nbsp;<b>${recordTopic.svih_dek1}</b>
+				 				&nbsp;Afd&nbsp;<b>${model.avd}</b>
+				 				&nbsp;Angiv.&nbsp;<b>${model.opd}</b>
+				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
+				 				&nbsp;&nbsp;Status:&nbsp;<b>${model.status}</b>				 				
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -113,24 +112,24 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">EORI&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"></td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_avna}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02b}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_ava1}</td>
+							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02c}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_ava2}</td>
+							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02d}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_avpn}&nbsp;${recordTopic.svih_avpa}&nbsp;${recordTopic.svih_avlk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02e}&nbsp;${recordTopicSkat.dkih_02f}</td>
 							        </tr>
 							        <tr>
 							        		<td width="30%" class="text11" align="left">&nbsp;</td>
@@ -145,27 +144,27 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">CVR/SE-nr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moeo}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_mona}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08b}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse 1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moa1}</td>
+							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08c}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse 2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moa2}</td>
+							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08d}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_mopn}&nbsp;${recordTopic.svih_mopa}&nbsp;${recordTopic.svih_molk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08e}&nbsp;${recordTopicSkat.dkih_08f}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Klarereren&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopic.svih_moha}&nbsp;tel:${recordTopic.svih_motl}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_14a}&nbsp;&nbsp;${recordTopicSkat.dkih_14b}</td>
 							        </tr>
 							        
 			        	        </table>
@@ -186,17 +185,17 @@
 							<td>
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
-										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
+										<td class="text12Bold">&nbsp;Antall fakturaer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${model.recordItemContainerInvoiceTopic.totalNumberOfItemLines}</b></font>
 						            	</td>
 						            	
 										<td align="right" class="text11">Fsum:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${recordTopic.svih_fabl}">
-											<font class="inputText11BlueBoldReadOnly">${recordTopic.svih_vakd}</font>
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${recordTopicSkat.dkih_222}">
+											<font class="inputText11BlueBoldReadOnly">${recordTopicSkat.dkih_221}</font>
 										</td>
 										
 										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${Xmodel.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
-											<font class="inputText11BlueBoldReadOnly">${Xmodel.recordItemContainerInvoiceTopic.calculatedValidCurrency}</font>											
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${model.recordItemContainerInvoiceTopic.calculatedItemLinesTotalAmount}">
+											<font class="inputText11BlueBoldReadOnly">${model.recordItemContainerInvoiceTopic.calculatedValidCurrency}</font>											
 										</td>
 										 
 										<%-- Bug somewhere !!!

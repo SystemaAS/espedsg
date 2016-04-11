@@ -21,54 +21,54 @@ public class JsonSkatExportTopicInvoiceExternalRecord extends JsonAbstractGrandF
 	public void setDebugPrintlnAjax(String value) {  this.debugPrintlnAjax = value; }
 	public String getDebugPrintlnAjax() {return this.debugPrintlnAjax;}
 	
-	private String svef_syav = null;
-	public void setSvef_syav(String value) {  this.svef_syav = value; }
-	public String getSvef_syav() { return this.svef_syav;}
+	private String dkef_syav = null;
+	public void setDkef_syav(String value) {  this.dkef_syav = value; }
+	public String getDkef_syav() { return this.dkef_syav;}
 	
-	private String svef_syop = null;
-	public void setSvef_syop(String value) {  this.svef_syop = value; }
-	public String getSvef_syop() { return this.svef_syop;}
+	private String dkef_syop = null;
+	public void setDkef_syop(String value) {  this.dkef_syop = value; }
+	public String getDkef_syop() { return this.dkef_syop;}
 	
-	private String svef_faty = null;
-	public void setSvef_faty(String value) {  this.svef_faty = value; }
-	public String getSvef_faty() { return this.svef_faty;}
+	private String dkef_faty = null;
+	public void setDkef_faty(String value) {  this.dkef_faty = value; }
+	public String getDkef_faty() { return this.dkef_faty;}
 	
-	private String svef_fatx = null;
-	public void setSvef_fatx(String value) {  this.svef_fatx = value; }
-	public String getSvef_fatx() { return this.svef_fatx;}
+	private String dkef_fatx = null;
+	public void setDkef_fatx(String value) {  this.dkef_fatx = value; }
+	public String getDkef_fatx() { return this.dkef_fatx;}
 	
-	private String svef_vakd = null;
-	public void setSvef_vakd(String value) { this.svef_vakd = value; }
-	public String getSvef_vakd() { return this.svef_vakd; }
+	private String dkef_vakd = null;
+	public void setDkef_vakd(String value) { this.dkef_vakd = value; }
+	public String getDkef_vakd() { return this.dkef_vakd; }
 	
-	private String svef_vaku = null;
-	public void setSvef_vaku(String value) {  this.svef_vaku = value; }
-	public String getSvef_vaku() { return this.svef_vaku;}
+	private String dkef_vaku = null;
+	public void setDkef_vaku(String value) {  this.dkef_vaku = value; }
+	public String getDkef_vaku() { return this.dkef_vaku;}
 
-	private String svef_fabl = null;
-	public void setSvef_fabl(String value) {  this.svef_fabl = value; }
-	public String getSvef_fabl() { return this.svef_fabl;}
+	private String dkef_fabl = null;
+	public void setDkef_fabl(String value) {  this.dkef_fabl = value; }
+	public String getDkef_fabl() { return this.dkef_fabl;}
 	
-	private Double svef_fablDbl = 0.00D;
-	public Double getSvef_fablDbl() { 
-		if(this.svef_fabl!=null){
+	private Double dkef_fablDbl = 0.00D;
+	public Double getDkef_fablDbl() { 
+		if(this.dkef_fabl!=null){
 			try{
-				this.svef_fablDbl = Double.parseDouble(this.svef_fabl.replace(",", "."));
+				this.dkef_fablDbl = Double.parseDouble(this.dkef_fabl.replace(",", "."));
 			}catch(Exception e){
 				//nothing
 			}
 		}
-		return this.svef_fablDbl;
+		return this.dkef_fablDbl;
 	}
 	
 	
-	private String svef_unik = null;
-	public void setSvef_unik(String value) {  this.svef_unik = value; }
-	public String getSvef_unik() { return this.svef_unik;}
+	private String dkef_unik = null;
+	public void setDkef_unik(String value) {  this.dkef_unik = value; }
+	public String getDkef_unik() { return this.dkef_unik;}
 	
-	private String svef_reff = null;
-	public void setSvef_reff(String value) {  this.svef_reff = value; }
-	public String getSvef_reff() { return this.svef_reff;}
+	private String dkef_reff = null;
+	public void setDkef_reff(String value) {  this.dkef_reff = value; }
+	public String getDkef_reff() { return this.dkef_reff;}
 	
 	
 	

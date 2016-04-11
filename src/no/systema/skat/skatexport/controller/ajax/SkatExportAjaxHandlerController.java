@@ -50,6 +50,8 @@ import no.systema.skat.skatexport.service.SkatExportSpecificTopicService;
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicItemService;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.skatexport.util.manager.AvgiftsberakningenMgr;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceRecord;
 
 /**
  * This Ajax handler is the class handling ajax request in SkatImport. 
@@ -361,6 +363,51 @@ public class SkatExportAjaxHandlerController {
 		 }	
 		 return result;
 	 } 
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @param invoiceNr
+	   * @return
+	   */
+	  @RequestMapping(value = "getInvoiceLine_SkatExport.do", method = RequestMethod.GET)
+	  public @ResponseBody List<JsonSkatExportTopicInvoiceRecord> getInvoiceLine(@RequestParam String applicationUser, 
+								@RequestParam String avd,	@RequestParam String opd, @RequestParam String invoiceNr) {
+		  logger.info("Inside: getInvoiceLine()");
+		  logger.info("InvoiceNr:" + invoiceNr);
+		  List<JsonSkatExportTopicInvoiceRecord> list = new ArrayList<JsonSkatExportTopicInvoiceRecord>();
+		  try{
+			  String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_INVOICE_URL;
+			  String urlRequestParams = "user=" + applicationUser + "&avd=" + avd +   "&opd=" + opd + "&fak=" + invoiceNr;
+			  
+			  logger.info(BASE_URL);
+			  logger.info(urlRequestParams);
+			  
+			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			  JsonSkatExportTopicInvoiceContainer container = null;
+			  
+			  try{
+				  if(jsonPayload!=null){
+					container = this.skatExportSpecificTopicService.getSkatExportTopicInvoiceContainerOneInvoice(jsonPayload);
+					if(container!=null){
+						for(JsonSkatExportTopicInvoiceRecord  record : container.getOneInvoice()){
+							//logger.info(record.getDkef_fatx());
+							list.add(record);
+		    			}
+					}
+				  }
+			  }catch(Exception e){
+				  e.printStackTrace();
+			  }
+		  }catch(Exception e){
+			  e.printStackTrace();
+			  
+		  }
+		  
+		  return list;
+	  }
 	  
 	  /**
 	   * 
@@ -438,23 +485,6 @@ public class SkatExportAjaxHandlerController {
 	  public void setSkatExportSpecificTopicService (SkatExportSpecificTopicService value){ this.skatExportSpecificTopicService = value; }
 	  public SkatExportSpecificTopicService getSkatExportSpecificTopicService(){ return this.skatExportSpecificTopicService; }
 	  
-	  /*
-	  @Qualifier
-	  private TdsImportTullkontorService tdsImportTullkontorService;
-	  @Autowired
-	  @Required	
-	  public void setTdsImportTullkontorService(TdsImportTullkontorService value){this.tdsImportTullkontorService = value;}
-	  public TdsImportTullkontorService getTdsImportTullkontorService(){ return this.tdsImportTullkontorService; }
-	   */
-	  
-	  
-	  /*
-	  @Qualifier 
-	  private TdsSignatureNameService tdsSignatureNameService;
-	  @Autowired
-	  @Required	
-	  public void setTdsSignatureNameService(TdsSignatureNameService value){this.tdsSignatureNameService = value;}
-	  public TdsSignatureNameService getTdsSignatureNameService(){ return this.tdsSignatureNameService; }
-	  */
+	 
 		
 }

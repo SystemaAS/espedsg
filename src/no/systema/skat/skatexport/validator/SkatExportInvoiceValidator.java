@@ -29,13 +29,11 @@ public class SkatExportInvoiceValidator implements Validator {
 	public void validate(Object obj, Errors errors) { 
 		JsonSkatExportTopicInvoiceRecord record = (JsonSkatExportTopicInvoiceRecord)obj;
 		
-		/*
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svef_fatx", "systema.tds.export.header.error.null.invoice.invnr.svef_fatx");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svef_faty", "systema.tds.export.header.error.null.invoice.typ.svef_faty"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svef_fabl", "systema.tds.export.header.error.null.invoice.belopp.svef_fabl"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svef_vakd", "systema.tds.export.header.error.null.invoice.valuta.svef_vakd"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svef_vaku", "systema.tds.export.header.error.null.invoice.valutaKurs.svef_vaku"); 
-		*/
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkef_fatx", "systema.skat.export.header.error.null.invoice.invnr.dkef_fatx");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkef_faty", "systema.skat.export.header.error.null.invoice.typ.dkef_faty"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkef_fabl", "systema.skat.export.header.error.null.invoice.belopp.dkef_fabl"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkef_vakd", "systema.skat.export.header.error.null.invoice.valuta.dkef_vakd"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkef_vaku", "systema.skat.export.header.error.null.invoice.valutaKurs.dkef_vaku"); 
 		
 		
 	}
@@ -47,12 +45,15 @@ public class SkatExportInvoiceValidator implements Validator {
 	private boolean atLeastOneValueExists(JsonSkatExportTopicInvoiceRecord record){
 		boolean retval = false;
 		if(record!=null){
-			if(!"".equals(record.getSvef_faty()) || !"".equals(record.getSvef_fabl()) || 
-			   !"".equals(record.getSvef_vakd()) || !"".equals(record.getSvef_vaku()) ){
+			/*
+			if(!"".equals(record.getDkef_faty()) || !"".equals(record.getDkef_fabl()) || 
+			   !"".equals(record.getDkef_vakd()) || !"".equals(record.getDkef_vaku()) ){
 				retval = true;
+			}*/
+			if(!"".equals(record.getDkef_fabl()) || !"".equals(record.getDkef_vakd()) || !"".equals(record.getDkef_vaku()) ){
+					retval = true;
 			}
 		}
-		
 		return retval;
 	}
 }

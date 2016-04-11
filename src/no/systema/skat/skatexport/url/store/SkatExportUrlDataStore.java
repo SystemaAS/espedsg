@@ -12,7 +12,6 @@ import no.systema.main.util.AppConstants;
  */
 public final class SkatExportUrlDataStore {
 	
-	
 	//----------------------------
 	//[1] FETCH ARENDE LIST
 	//----------------------------
@@ -34,8 +33,7 @@ public final class SkatExportUrlDataStore {
 	//mode=C (Copy selected topic)... from Norskexport or fallback to the origin: transportuppdrag
 	//mode=S (Send topic)
 	//------------------------------		
-	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE002R.pgm";
-	
+	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE002R.pgm";	
 	
 	//-----------------------------
 	//[5] FETCH ITEM RECORDS (LIST)
@@ -44,7 +42,6 @@ public final class SkatExportUrlDataStore {
 	
 	//[5.1] FETCH SPECIFIC ITEM (for an update)
 	static public String SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE011R.pgm";
-	
 	
 	//-----------------------------------
 	//[6] EDIT A SPECIFIC ITEM RECORD
@@ -61,13 +58,11 @@ public final class SkatExportUrlDataStore {
 	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE026R.pgm";
 	//http://gw.systema.no/sycgip/tdke026r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&dkev_err=X
 	
-	
 	//--------------------------------------------------------------------
 	//[6.0.2] EDIT/SAVE (Statistiskt værdi MÅSTE kalkyleras). Inga avgifter 
 	//--------------------------------------------------------------------
 	//http://gw.systema.no/sycgip/TDKE017R.pgm?user=OSCAR&dkeh_221=USD&dkeh_221b=6.80&dkeh_222=2000
 	static public String SKAT_EXPORT_BASE_AVGIFTS_CALCULATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE017R.pgm";	
-	
 	
 	//-----------------------------------
 	//[6.1] LIST/EDIT  INVOICE RECORD(s)

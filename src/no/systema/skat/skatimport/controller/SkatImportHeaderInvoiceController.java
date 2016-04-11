@@ -270,7 +270,6 @@ public class SkatImportHeaderInvoiceController {
 				*/
 			}
 			
-			/*
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -302,10 +301,7 @@ public class SkatImportHeaderInvoiceController {
 	    		logger.info("CalculatedItemLinesTotalAmount:" + jsonSkatImportTopicInvoiceContainer.getCalculatedItemLinesTotalAmount());
 	    		
 	    	} 
-			*/
-			//remove these 2 very line when uncomment the aboce (CB/OT)
-	    	JsonSkatImportTopicInvoiceContainer jsonSkatImportTopicInvoiceContainer = new JsonSkatImportTopicInvoiceContainer();
-	    	jsonSkatImportTopicInvoiceContainer.setInvList(new ArrayList());
+			
     		//after remove
 	    	this.setCodeDropDownMgr(appUser, model);
     		this.setDomainObjectsForListInView(model, jsonSkatImportTopicInvoiceContainer);
@@ -473,7 +469,7 @@ public class SkatImportHeaderInvoiceController {
 		urlRequestParamsForSeed.append("user=" + appUser.getUser());
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
-		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fak=" + record.getSvif_fatx());
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fak=" + record.getDkif_fatx());
 		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + SkatConstants.MODE_ADD);
 		logger.info("URL for SEED: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("PARAMS for SEED: " + urlRequestParamsForSeed.toString());
@@ -555,7 +551,7 @@ public class SkatImportHeaderInvoiceController {
 	private void adjustFieldsAfterBind(HttpServletRequest request, JsonSkatImportTopicInvoiceRecord record){
 		String factor = request.getParameter("factor");
 		//fields
-		record.setSvif_omr(factor);
+		record.setDkif_omr(factor);
 	}
 	
 	/**
