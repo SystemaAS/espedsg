@@ -144,14 +144,14 @@ public class SkatImportHeaderInvoiceController {
 			
 			
 			if(SkatConstants.ACTION_UPDATE.equals(action)){
-				/*
+	
 				SkatImportInvoiceValidator validator = new SkatImportInvoiceValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			    validator.validate(recordToValidate, bindingResult);
 			    //check for ERRORS
 				if(bindingResult.hasErrors()){
 				    	logger.info("[ERROR Validation] Record does not validate)");
-				    	logger.info("[INFO faktnr] " + recordToValidate.getSvef_fatx());
+				    	logger.info("[INFO faktnr] " + recordToValidate.getDkif_fatx());
 				    	bindingErrorsExist = true;
 				    	model.put("record", recordToValidate);
 				    	
@@ -163,7 +163,7 @@ public class SkatImportHeaderInvoiceController {
 						logger.info("UPDATE(only) ITEM (existent invoice) on process...");
 					}else{
 						//Minimum
-						if(recordToValidate.getSvef_fatx()!=null && !"".equals(recordToValidate.getSvef_fatx())){
+						if(recordToValidate.getDkif_fatx()!=null && !"".equals(recordToValidate.getDkif_fatx())){
 							//-------
 							//CREATE
 							//-------
@@ -175,7 +175,7 @@ public class SkatImportHeaderInvoiceController {
 							//-------------------------------------------------------------------------------------------
 							jsonSkatImportTopicInvoiceRecord  = this.createNewItemKeySeeds(recordToValidate, avd, opd, session, request, appUser);
 							if(jsonSkatImportTopicInvoiceRecord!=null){
-								String newId = jsonSkatImportTopicInvoiceRecord.getSvef_fatx();
+								String newId = jsonSkatImportTopicInvoiceRecord.getDkif_fatx();
 								//take the rest from GUI.
 								jsonSkatImportTopicInvoiceRecord = new JsonSkatImportTopicInvoiceRecord();
 								ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSkatImportTopicInvoiceRecord);
@@ -201,7 +201,7 @@ public class SkatImportHeaderInvoiceController {
 						//get BASE URL = RPG-PROGRAM
 			            //---------------------------
 						String BASE_URL_UPDATE = SkatImportUrlDataStore.SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_URL;
-						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonSkatImportTopicInvoiceRecord.getSvef_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
+						urlRequestParamsKeys = this.getRequestUrlKeyParametersUpdate(jsonSkatImportTopicInvoiceRecord.getDkif_fatx(), avd, opd, appUser, SkatConstants.MODE_UPDATE);
 						String urlRequestParamsTopicItem = this.urlRequestParameterMapper.getUrlParameterValidString((jsonSkatImportTopicInvoiceRecord));
 						//put the final valid param. string
 						String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicItem;
@@ -219,7 +219,7 @@ public class SkatImportHeaderInvoiceController {
 						//Debug --> 
 				    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
 				    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-				    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicInvoiceCreateOrUpdate(rpgReturnPayload);
+				    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
 				    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
 				    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
 				    		this.setFatalError(model, rpgReturnResponseHandler, jsonSkatImportTopicInvoiceRecord);
@@ -235,10 +235,10 @@ public class SkatImportHeaderInvoiceController {
 							this.setFatalError(model, rpgReturnResponseHandler, jsonSkatImportTopicInvoiceRecord);
 						}
 					}
-			    }*/
+			    }
 				
 			}else if(SkatConstants.ACTION_DELETE.equals(action)){
-				/*
+				
 				logger.info("[INFO] Delete record start process... ");
 				String lineIdToDelete = request.getParameter("fak");
 				
@@ -267,7 +267,7 @@ public class SkatImportHeaderInvoiceController {
 		    		//Delete succefully done!
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
-				*/
+				
 			}
 			
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC

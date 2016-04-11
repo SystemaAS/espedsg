@@ -52,26 +52,28 @@
   	  	
   	});
   	
-  	/*
+  	
   	//Currency AJAX fetch
 	jq(function() { 
-	    jq('#svif_vakd').change(function() {
+	    jq('#dkif_vakd').change(function() {
 	    	//alert('Hej');
 	    	//this parameters must match the AJAX controller parameter names in Spring exactly...
-			jq.getJSON('getCurrencyRate_TdsImport.do', {
+			jq.getJSON('getCurrencyRate_Skat.do', {
 				applicationUser : jq('#applicationUser').val(),
-				currencyCode : jq('#svif_vakd').val(),
+				currencyCode : jq('#dkif_vakd').val(),
 				ajax : 'true'
 			}, function(data) {
 				var len = data.length;
 				for ( var i = 0; i < len; i++) {
-					jq('#svif_vaku').val(data[i].svvk_krs);
-					jq('#factor').val(data[i].svvs_omr);
+					jq('#dkif_vaku').val(data[i].dkvk_krs);
+					jq('#factor').val(data[i].dkvs_omr);
 				}
 				
 			});
 	    });
 	});
+	
+	
   	//-----------------------------------------
   	//Get the item line for a potential Update
   	//-----------------------------------------
@@ -81,7 +83,7 @@
   	  var invoiceNr = record[1];
   	  jq.ajax({
   	  	  type: 'GET',
-  	  	  url: 'getInvoiceLine_TdsImport.do',
+  	  	  url: 'getInvoiceLine_SkatImport.do',
   	  	  data: { applicationUser : jq('#applicationUser').val(),
   		  		  avd : jq('#avd').val(),
   		  		  opd : jq('#opd').val(),
@@ -93,11 +95,11 @@
   	  		var len = data.length;
   	  		for ( var i = 0; i < len; i++) {
   	  			jq("#isModeUpdate").val("true");
-  	  			jq("#svif_fatx").val(data[i].svif_fatx);
-  	  			jq("#svif_fabl" ).val(data[i].svif_fabl);
-  	  			jq("#svif_vakd").val(data[i].svif_vakd);
-  	  			jq("#svif_vaku").val(data[i].svif_vaku);
-  	  			jq("#svif_faty").val(data[i].svif_faty);
+  	  			jq("#dkif_fatx").val(data[i].dkif_fatx);
+  	  			jq("#dkif_fabl" ).val(data[i].dkif_fabl);
+  	  			jq("#dkif_vakd").val(data[i].dkif_vakd);
+  	  			jq("#dkif_vaku").val(data[i].dkif_vaku);
+  	  			jq("#dkif_faty").val(data[i].dkif_faty);
   	  		}
   	  	  },
 	  	  error: function() {
@@ -106,7 +108,7 @@
   	  });
   	  
     }	
-  	*/
+  	
     
   //-------------------
     //Datatables jquery

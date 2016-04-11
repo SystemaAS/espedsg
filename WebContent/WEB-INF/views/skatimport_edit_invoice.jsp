@@ -222,8 +222,8 @@
 						<tr>
 							<td >
 							<form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${Xmodel.opd}">
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${Xmodel.avd}">
+					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
+				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
 				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							
 								<table id="containerdatatableTable" width="80%" cellspacing="2" align="left" >
@@ -233,12 +233,14 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th class="text12"><span title="svif_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
-					                    <th class="text12" ><span title="svif_faty">&nbsp;Typ&nbsp;</span></th>
-					                    <th align="right" class="text12" ><span title="svif_fabl">&nbsp;Belopp&nbsp;</span></th>
-					                    <th class="text12" ><span title="svif_vakd">&nbsp;Valuta&nbsp;</span></th>
-					                    <th align="right" class="text12" ><span title="svif_vaku">&nbsp;Kurs&nbsp;</span></th>
-					                    <th class="text12" align="left"><span title="svif_omr">Faktor&nbsp;</span></th> 
+									    <th class="text12"><span title="dkif_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
+					                    <%--
+					                    <th class="text12" ><span title="dkif_faty">&nbsp;Typ&nbsp;</span></th>
+					                     --%>
+					                    <th align="right" class="text12" ><span title="dkif_fabl">&nbsp;Beløb&nbsp;</span></th>
+					                    <th class="text12" ><span title="dkif_vakd">&nbsp;Møntsort&nbsp;</span></th>
+					                    <th align="right" class="text12" ><span title="dkif_vaku">&nbsp;Kurs&nbsp;</span></th>
+					                    <th class="text12" align="left"><span title="dkif_omr">Faktor&nbsp;</span></th> 
 					                    <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">
 					                    	<th align="center" class="text12" >Radera</th>
 					                    </c:if>
@@ -246,7 +248,7 @@
 					               </tr> 
 					               </thead>
 					               <tbody>
-				 					  <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
+				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
 							                       <tr class="tableRow" height="20" >
@@ -256,18 +258,20 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               <td width="20%" class="text11" >
-							               		<a tabindex=-1 id="recordUpdate_${record.svif_fatx}" href="#" onClick="getItemData(this);">
-							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.svif_fatx}
+							               		<a tabindex=-1 id="recordUpdate_${record.dkif_fatx}" href="#" onClick="getItemData(this);">
+							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.dkif_fatx}
 							               		</a>
 							               </td>
-							               <td class="text11" >&nbsp;${record.svif_faty}</td>
-							               <td align="right" class="text11" >&nbsp;${record.svif_fabl}&nbsp;</td>
-							               <td class="text11" >&nbsp;${record.svif_vakd}</td>
-							               <td align="right" class="text11" >&nbsp;${record.svif_vaku}&nbsp;</td>
-							               <td class="text11" >&nbsp;${record.svif_omr}</td>
-							               <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">	
+							               <%--
+							               <td class="text11" >&nbsp;${record.dkif_faty}</td>
+							                --%>
+							               <td align="right" class="text11" >&nbsp;${record.dkif_fabl}&nbsp;</td>
+							               <td class="text11" >&nbsp;${record.dkif_vakd}</td>
+							               <td align="right" class="text11" >&nbsp;${record.dkif_vaku}&nbsp;</td>
+							               <td class="text11" >&nbsp;${record.dkif_omr}</td>
+							               <c:if test="${ model.status == 'M' || empty  model.status || model.status == '10' || model.status == '20' || model.status == '40'}">
 								               <td width="4%" class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_invoice.do?action=doDelete&sign=${Xmodel.sign}&avd=${Xmodel.avd}&opd=${Xmodel.opd}&status=${Xmodel.status}&fak=${record.svif_fatx}">
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatimport_edit_invoice.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${record.dkif_fatx}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	&nbsp;
 								               </td>
@@ -342,17 +346,17 @@
 	           	<td>
 	           	<form name="createNewItemLine" id="createNewItemLine" method="post" >
 					<input type="hidden" name="action" id="action" value='doFetch'>
-	 				<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
-	 				<input type="hidden" name="avd" id="avd" value="${Xmodel.avd}"/>
-	 				<input type="hidden" name="sign" id="sign" value="${Xmodel.sign}"/>
-	 				<input type="hidden" name="status" id="status" value="${XXmodel.status}"/>
-	 				<input type="hidden" name="datum" id="datum" value='${Xmodel.datum}'>
-	 				<input type="hidden" name="fabl" id="fabl" value='${recordTopic.svih_fabl}'>
-	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicTvinnSad.sevkb}'>
+	 				<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
+	 				<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
+	 				<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
+	 				<input type="hidden" name="status" id="status" value="${model.status}"/>
+	 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
+	 				<input type="hidden" name="fabl" id="fabl" value='${XrecordTopicSkat.todo}'>
+	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicSkat.todo}'>
 	 				<table width="80%" cellspacing="0" border="0" cellpadding="0">
 						<tr>
 							<td class="text12Bold">
-								<c:if test="${XXmodel.status == 'M' || empty XXmodel.status}">
+								<c:if test="${ model.status == 'M' || empty  model.status || model.status == '10' || model.status == '20' || model.status == '40'}">
 									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatimport_edit_invoice.do';" value="Skabe ny">
 								</c:if>
 								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Import eksterne fakturaer</button>
@@ -370,13 +374,13 @@
 	 				<form name="skatImportEditTopicInvoiceItemForm" id="skatImportEditTopicInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<input type="hidden" name="opd" id="opd" value="${Xmodel.opd}"/>
-				 	<input type="hidden" name="avd" id="avd" value="${Xmodel.avd}"/>
-				 	<input type="hidden" name="sign" id="sign" value="${Xmodel.sign}"/>
-				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${Xmodel.record.isModeUpdate}"/>
-				 	<input type="hidden" name="status" id="status" value="${XXmodel.status}"/>
-				 	<input type="hidden" name="datum" id="datum" value="${XXmodel.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopic.svih_fabl}"/>
+				 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
+				 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
+				 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
+				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}"/>
+				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
+				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
+				 	<input type="hidden" name="fabl" id="fabl" value="${XrecordTopicSkat.svih_fabl}"/>
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -415,29 +419,32 @@
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td class="text12" align="left"><span title="svif_fatx"><font class="text16RedBold" >*</font>Fakturanr.</span></td>
+							 			<td class="text12" align="left"><span title="dkif_fatx"><font class="text16RedBold" >*</font>Fakturanr.</span></td>
+							            <%--
 							            <td class="text12" align="left"><font class="text16RedBold" >*</font><span title="svif_faty">&nbsp;Typ</span></td>
-							            <td class="text12" align="left"><font class="text16RedBold" >*</font><span title="svif_fabl">&nbsp;Belopp</span></td>
-							            <td class="text12" align="left"><font class="text16RedBold" >*</font><span title="svif_vakd">&nbsp;Valuta</span></td>
-					            		<td class="text12" align="left"><font class="text16RedBold" >*</font><span title="svif_vaku">&nbsp;Kurs</span></td>
+							             --%>
+							            <td class="text12" align="left"><font class="text16RedBold" >*</font><span title="dkif_fabl">&nbsp;Beløb</span></td>
+							            <td class="text12" align="left"><font class="text16RedBold" >*</font><span title="dkif_vakd">&nbsp;Møntsort</span></td>
+					            		<td class="text12" align="left"><font class="text16RedBold" >*</font><span title="dkif_vaku">&nbsp;Kurs</span></td>
 					            		<td class="text12" align="left"><span title="factor">Faktor&nbsp;</span></td>
 					            		
 							        </tr>
 							        <tr>
 						        		<td align="left">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="svif_fatx" id="svif_fatx" size="20" maxlength="17" value="${Xmodel.record.svif_fatx}">
+						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="dkif_fatx" id="dkif_fatx" size="20" maxlength="17" value="${model.record.dkif_fatx}">
 										</td>
+										<%--
 										<td>
-											<select class="inputTextMediumBlueMandatoryField" name="svif_faty" id="svif_faty">
+											<select class="inputTextMediumBlueMandatoryField" name="dkif_faty" id="dkif_faty">
 						 						<option value="">-Välj-</option>
 						 						
 							 				  	<c:forEach var="code" items="${Xmodel.mcfCodeList}" >
 							 				  		<c:choose>
-														<c:when test="${not empty Xmodel.record.svif_faty}">
-								 				  			<option value="${code.svkd_kd}"<c:if test="${Xmodel.record.svif_faty == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+														<c:when test="${not empty Xmodel.record.dkif_faty}">
+								 				  			<option value="${code.dkkd_kd}"<c:if test="${Xmodel.record.dkif_faty == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 								 				  		</c:when>
 								 				  		<c:otherwise>
-								 				  			<option value="${code.svkd_kd}"<c:if test="${Xmodel.record.svif_faty == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+								 				  			<option value="${code.dkkd_kd}"<c:if test="${Xmodel.record.dkif_faty == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 								 				  		</c:otherwise>
 								 				  	</c:choose>
 												</c:forEach>
@@ -447,14 +454,15 @@
            										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
            									</a>
 			 							</td>
+			 							 --%>
 										<td class="text12" align="left">
-							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svif_fabl" id="svif_fabl" size="13" maxlength="12" value="${Xmodel.record.svif_fabl}">
+							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkif_fabl" id="dkif_fabl" size="13" maxlength="12" value="${model.record.dkif_fabl}">
 							            </td>
 										<td align="left" nowrap>
-							            	<select class="inputTextMediumBlueMandatoryField" name="svif_vakd" id="svif_vakd">
+							            	<select class="inputTextMediumBlueMandatoryField" name="dkif_vakd" id="dkif_vakd">
 						 						<option value="">-vælg-</option>	
-								 				  <c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
-							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ Xmodel.record.todo == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+								 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
+							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkif_vakd == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
 												  </c:forEach>  
 												</select> 
 												 
@@ -464,7 +472,7 @@
            									</a>
 										</td>
 						        		<td class="text12" align="left">
-						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svif_vaku" id="svif_vaku" size="8" maxlength="8" value="${Xmodel.record.svif_vaku}">
+						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkif_vaku" id="dkif_vaku" size="8" maxlength="8" value="${model.record.dkif_vaku}">
 							            </td>
 							            <%-- this field is only used via Ajax since there is no database field. It is used to disclosed a factor when changing the currency --%>
 							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>
@@ -477,7 +485,7 @@
 					    <tr>	
 						    <td align="left" colspan="5">
 									<c:choose>	
-										<c:when test="${Xmodel.status == 'M' || empty Xmodel.status || Xmodel.status == '1'}">
+										<c:when test="${ model.status == 'M' || empty  model.status || model.status == '10' || model.status == '20' || model.status == '40'}">
 											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='skatimport_edit_invoice.do';" value='Spare faktura'>
 											&nbsp;&nbsp;
 										</c:when>

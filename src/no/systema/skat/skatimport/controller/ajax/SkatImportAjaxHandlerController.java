@@ -34,6 +34,8 @@ import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 
 
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceRecord;
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Record;
@@ -72,39 +74,7 @@ public class SkatImportAjaxHandlerController {
 	 * @param sign
 	 * @return
 	 */
-	/*
-	@RequestMapping(value = "getSignatureName_TdsImport.do", method = RequestMethod.GET)
-     public @ResponseBody Set<JsonTdsSignatureNameRecord> getSignatureName
-	  						(@RequestParam String applicationUser, @RequestParam String avd, 
-	  						 @RequestParam String sign) {
-		 logger.info("Inside: getSignatureName_TdsImport.do");
-		 Set result = new HashSet();
-		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TdsUrlDataStore.TDS_FETCH_SIGNATURE_NAME_URL;
-		 String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&sign=" + sign;
-		 logger.info("URL: " + BASE_URL);
-		 logger.info("PARAMS: " + urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		 logger.info(jsonPayload);
-		 if(jsonPayload!=null){
-			 	try{
-			 		JsonTdsSignatureNameContainer container = this.tdsSignatureNameService.getContainer(jsonPayload);
-					if(container!=null){
-						 for(JsonTdsSignatureNameRecord  record : container.getGetsignname()){
-							 logger.info("#### SVTH_NAMN:" + record.getSvth_namn());
-							 result.add(record);
-						 }
-					}
-			 	}catch(Exception e){
-			 		e.printStackTrace();
-			 	}
-			 }
-		 
-		 return result;
-	}
-	  */
+	
 	/**
 	 * Fetches the dep. information (Ombud)
 	 * 
@@ -383,6 +353,51 @@ public class SkatImportAjaxHandlerController {
 		  }
 		  
 		  return result;
+	  }
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param avd
+	   * @param opd
+	   * @param invoiceNr
+	   * @return
+	   */
+	  @RequestMapping(value = "getInvoiceLine_SkatImport.do", method = RequestMethod.GET)
+	  public @ResponseBody List<JsonSkatImportTopicInvoiceRecord> getInvoiceLine(@RequestParam String applicationUser, 
+								@RequestParam String avd,	@RequestParam String opd, @RequestParam String invoiceNr) {
+		  logger.info("Inside: getInvoiceLine()");
+		  logger.info("InvoiceNr:" + invoiceNr);
+		  List<JsonSkatImportTopicInvoiceRecord> list = new ArrayList<JsonSkatImportTopicInvoiceRecord>();
+		  try{
+			  String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_INVOICE_URL;
+			  String urlRequestParams = "user=" + applicationUser + "&avd=" + avd +   "&opd=" + opd + "&fak=" + invoiceNr;
+			  
+			  logger.info(BASE_URL);
+			  logger.info(urlRequestParams);
+			  
+			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			  JsonSkatImportTopicInvoiceContainer container = null;
+			  
+			  try{
+				  if(jsonPayload!=null){
+					container = this.skatImportSpecificTopicService.getSkatImportTopicInvoiceContainerOneInvoice(jsonPayload);
+					if(container!=null){
+						for(JsonSkatImportTopicInvoiceRecord  record : container.getOneInvoice()){
+							//logger.info(record.getDkif_fatx());
+							list.add(record);
+		    			}
+					}
+				  }
+			  }catch(Exception e){
+				  e.printStackTrace();
+			  }
+		  }catch(Exception e){
+			  e.printStackTrace();
+			  
+		  }
+		  
+		  return list;
 	  }
 	  
 	  /**
