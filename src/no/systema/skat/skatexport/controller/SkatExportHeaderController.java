@@ -63,7 +63,9 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSp
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
 import no.systema.skat.skatimport.model.topic.SkatImportSpecificTopicTotalItemLinesObject;
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalRecord;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
 
 
 /**
@@ -175,6 +177,12 @@ public class SkatExportHeaderController {
 			if(action!=null){
 				//get some item lines total fields (∑)
 				totalItemLinesObject = this.getRequiredSumsInItemLines(avd, opd, appUser);
+				//get invoice totals from invoice list
+				JsonSkatExportSpecificTopicFaktTotalRecord sumFaktTotalRecord = this.getInvoiceTotalFromInvoices(avd, opd, appUser);
+				totalItemLinesObject.setFakturaListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
+				totalItemLinesObject.setFakturaListTotSum(sumFaktTotalRecord.getTot_fabl());
+				totalItemLinesObject.setFakturaListTotKurs(sumFaktTotalRecord.getTot_vaku());
+				
 				//-------------
 				//FETCH RECORD
 				//-------------
@@ -1203,9 +1211,9 @@ public class SkatExportHeaderController {
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 		if(opd!=null && !"".equals(opd)){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 		}else if (extRefNr!=null && !"".equals(extRefNr)){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_xref=" + extRefNr);
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_xref=" + extRefNr);
 		}
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sign=" + appUser.getSkatSign());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE);
@@ -1343,6 +1351,10 @@ public class SkatExportHeaderController {
 			record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 			record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
 			record.setSumTotalAmountItemLines(totalItemLinesObject.getSumTotalAmountItemLines());
+			//Invoice list
+			record.setFakturaListTotValidCurrency(totalItemLinesObject.getFakturaListTotValidCurrency());
+			record.setFakturaListTotSum(totalItemLinesObject.getFakturaListTotSum());
+			record.setFakturaListTotKurs(totalItemLinesObject.getFakturaListTotKurs());
 			
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
@@ -1457,6 +1469,44 @@ public class SkatExportHeaderController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @return
+	 */
+	private JsonSkatExportSpecificTopicFaktTotalRecord getInvoiceTotalFromInvoices(String avd, String opd, SystemaWebUser appUser){
+		//--------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		JsonSkatExportSpecificTopicFaktTotalRecord returnRecord = null;
+		
+		String BASE_URL_FETCH = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av item list... ");
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+		//Debug --> 
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	JsonSkatExportSpecificTopicFaktTotalContainer container = this.skatExportSpecificTopicService.getSkatExportSpecificTopicFaktTotalContainer(jsonPayload);
+    	if(container!=null){
+	    	for(JsonSkatExportSpecificTopicFaktTotalRecord record : container.getInvTot()){
+				 returnRecord = record;
+	    	}
+    	}
+		
+		return returnRecord;
 	}
 	
 	//SERVICES

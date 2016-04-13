@@ -34,6 +34,7 @@ import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 
 
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalForUpdateContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceRecord;
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
@@ -400,6 +401,42 @@ public class SkatImportAjaxHandlerController {
 		  return list;
 	  }
 	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param requestParams
+	   * @return
+	   */
+	  @RequestMapping(value = "updateExternalInvoiceLine_SkatImport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatImportTopicInvoiceExternalForUpdateContainer> updateExternalInvoiceLineImport(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		  logger.info("Inside updateExternalInvoiceLineImport");
+		  
+		  Set<JsonSkatImportTopicInvoiceExternalForUpdateContainer> result = new HashSet<JsonSkatImportTopicInvoiceExternalForUpdateContainer>();
+		  
+		  try{
+			  String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_EXTERNAL_URL;
+			  String urlRequestParamsKeys = "user=" + applicationUser + requestParams;
+			  logger.info("URL:" + BASE_URL);
+			  logger.info("PARAMS:" + urlRequestParamsKeys);
+			  
+			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			  
+			  JsonSkatImportTopicInvoiceExternalForUpdateContainer container = this.skatImportSpecificTopicService.getSkatImportTopicInvoiceContainerOneInvoiceExternalForUpdate(jsonPayload);
+			  if(container!=null && ( container.getErrmsg()!=null && !"".equals(container.getErrmsg())) ){
+				  logger.info("[ERROR] " + container.getErrmsg());
+			  }else{
+				  logger.info("[INFO]" + " Update successfully done!");
+				  result.add(container);
+				 
+			  }
+			  	
+		  }catch(Exception e){
+			  //e.printStackTrace();
+		  }
+		  
+		  return result;
+	  }
 	  /**
 	   * get correct date formatted
 	   * @param isoDate

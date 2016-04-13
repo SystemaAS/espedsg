@@ -22,7 +22,7 @@
 					  
 					  jq.ajax({
 				  	  	  type: 'GET',
-				  	  	  url: 'updateExternalInvoiceLine_TdsExport.do',
+				  	  	  url: 'updateExternalInvoiceLine_SkatImport.do',
 				  	  	  data: { applicationUser : jq('#applicationUser').val(),
 						  			requestParams : requestParams },
 				  	  	  dataType: 'json',
@@ -32,7 +32,7 @@
 				  	  	  success: function(data) {
 				  	  		var len = data.length;
 				  	  		for ( var i = 0; i < len; i++) {
-				  	  			//Nothing
+				  	  			//Update has been done successfully
 				  	  		}
 				  	  	  },
 					  	  error: function() {

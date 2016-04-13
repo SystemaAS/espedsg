@@ -27,6 +27,18 @@
   	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+  	  
+  	  jq('#getFakturaListSumButton').click(function() { 
+  		if(jq('#fakturaListTotSum').val()!='' && jq('#fakturaListTotValidCurrency').val()!='' ){  
+	  		jq('#dkeh_222').val(jq('#fakturaListTotSum').val());
+	  		jq('#dkeh_221').val(jq('#fakturaListTotValidCurrency').val());	
+	  		//jq('#KURS???').val(jq('#finansOpplysningarTotKurs').val());
+	  		
+	  		//for backwards compatibility meaning: ref till fakturalista
+  			jq('#dkeh_28b').val("FLERE FAKTURAER");
+  			
+  		}
+	  });
     });  
   	
   	jq(document).ready(function(){

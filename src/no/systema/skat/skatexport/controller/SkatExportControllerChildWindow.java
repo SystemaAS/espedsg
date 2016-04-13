@@ -40,19 +40,12 @@ import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-//import no.systema.tds.model.jsonjackson.codes.JsonTdsTillaggskodContainer;
-//import no.systema.tds.model.jsonjackson.codes.JsonTdsTillaggskodRecord;
-//import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderContainer;
-//import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderRecord;
 
-//import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
-//import no.systema.tds.service.TdsTillaggskoderService;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalRecord;
-
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicService;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.skatexport.util.RpgReturnResponseHandler;
@@ -168,12 +161,12 @@ public class SkatExportControllerChildWindow {
 			model.put("avd", avd);
 			model.put("opd", opd);
 			
-			/* TODO COVI/CB
+			
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
-			String BASE_URL_FETCH = TdsExportUrlDataStore.TDS_EXPORT_BASE_FETCH_TOPIC_INVOICELIST_EXTERNAL_URL;
+			String BASE_URL_FETCH = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_TOPIC_INVOICELIST_EXTERNAL_URL;
 			urlRequestParamsKeys = "user=" + appUser.getUser();
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -188,10 +181,10 @@ public class SkatExportControllerChildWindow {
 			//Debug --> 
 	    	logger.info(jsonPayloadFetch);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	    	JsonTdsExportTopicInvoiceExternalContainer container = this.tdsExportSpecificTopicService.getTdsExportTopicInvoiceContainerContainerExternal(jsonPayloadFetch);
+	    	JsonSkatExportTopicInvoiceExternalContainer container = this.skatExportSpecificTopicService.getSkatExportTopicInvoiceContainerContainerExternal(jsonPayloadFetch);
 	    	//drop downs populated from back-end
 	    	this.setDomainObjectsForListInView(model, container);
-			*/
+			
 			
 			
 	    	successView.addObject("model",model);

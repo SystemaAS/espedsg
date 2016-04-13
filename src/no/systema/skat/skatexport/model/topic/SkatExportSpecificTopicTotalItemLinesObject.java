@@ -28,5 +28,18 @@ public class SkatExportSpecificTopicTotalItemLinesObject {
 	public Double getSumTotalAmountItemLines() {return this.sumTotalAmountItemLines;}
 	
 	
+	//Used when different currencies exist. The main currency must be = DKK
+	private String fakturaListTotValidCurrency = null;
+	public void setFakturaListTotValidCurrency(String value) {  this.fakturaListTotValidCurrency = value; }
+	public String getFakturaListTotValidCurrency() { return this.fakturaListTotValidCurrency; }
+	
+	private String fakturaListTotSum = null;
+	public void setFakturaListTotSum(String value) {  this.fakturaListTotSum = value; }
+	public String getFakturaListTotSum() { return this.fakturaListTotSum; }
+	
+	private String fakturaListTotKurs = null;
+	public void setFakturaListTotKurs(String value) {  this.fakturaListTotKurs = value; }
+	public String getFakturaListTotKurs() { return this.fakturaListTotKurs; }
+	
 	
 }

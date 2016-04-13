@@ -27,10 +27,6 @@ import no.systema.main.service.general.CurrencyRateService;
 import no.systema.main.util.DateTimeManager;
 
 //SKAT
-//import no.systema.skat.skatimport.util.manager.TollvaerdideklarationMgr;
-//import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemToldvaerdiRecord;
-//import no.systema.skat.service.SkatTaricVarukodService;
-
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 import no.systema.skat.service.SkatTaricVarukodService;
@@ -52,6 +48,7 @@ import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.skatexport.util.manager.AvgiftsberakningenMgr;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceExternalForUpdateContainer;
 
 /**
  * This Ajax handler is the class handling ajax request in SkatImport. 
@@ -407,6 +404,43 @@ public class SkatExportAjaxHandlerController {
 		  }
 		  
 		  return list;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param requestParams
+	   * @return
+	   */
+	  @RequestMapping(value = "updateExternalInvoiceLine_SkatExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatExportTopicInvoiceExternalForUpdateContainer> updateExternalInvoiceLineExport(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		  logger.info("Inside updateExternalInvoiceLineExport");
+		  
+		  Set<JsonSkatExportTopicInvoiceExternalForUpdateContainer> result = new HashSet<JsonSkatExportTopicInvoiceExternalForUpdateContainer>();
+		  
+		  try{
+			  String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_EXTERNAL_URL;
+			  String urlRequestParamsKeys = "user=" + applicationUser + requestParams;
+			  logger.info("URL:" + BASE_URL);
+			  logger.info("PARAMS:" + urlRequestParamsKeys);
+			  
+			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			  
+			  JsonSkatExportTopicInvoiceExternalForUpdateContainer container = this.skatExportSpecificTopicService.getSkatExportTopicInvoiceContainerOneInvoiceExternalForUpdate(jsonPayload);
+			  if(container!=null && ( container.getErrmsg()!=null && !"".equals(container.getErrmsg())) ){
+				  logger.info("[ERROR] " + container.getErrmsg());
+			  }else{
+				  logger.info("[INFO]" + " Update successfully done!");
+				  result.add(container);
+				 
+			  }
+			  	
+		  }catch(Exception e){
+			  //e.printStackTrace();
+		  }
+		  
+		  return result;
 	  }
 	  
 	  /**
