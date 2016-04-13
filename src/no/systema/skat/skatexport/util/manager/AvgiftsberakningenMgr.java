@@ -96,12 +96,12 @@ public class AvgiftsberakningenMgr {
 		//for debug purposes in GUI
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + BASE_URL_CALCULATION_AVGIFTER);
-    		logger.info("URL PARAMS: " + urlRequestParamsKeys);
-    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_CALCULATION_AVGIFTER, urlRequestParamsKeys);
-    		logger.info(jsonPayload);
-		
-    		JsonSkatExportSpecificTopicItemAvgifterContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemAvgifterContainer(jsonPayload);
-    		logger.info("[INFO] Avgifts calculation process END");
+		logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_CALCULATION_AVGIFTER, urlRequestParamsKeys);
+		logger.info(jsonPayload);
+	
+		JsonSkatExportSpecificTopicItemAvgifterContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemAvgifterContainer(jsonPayload);
+		logger.info("[INFO] Avgifts calculation process END");
 		for(JsonSkatExportSpecificTopicItemAvgifterRecord record : container.getStatvaluecalc()){
 			//logger.info("[DEBUG] sviv_stva: " + record.getSviv_stva());
 			//logger.info("[DEBUG] sviv_abb1: " + record.getSviva_abb1());
@@ -111,7 +111,6 @@ public class AvgiftsberakningenMgr {
 			
 			retval = record;
 		}
-		
 		return retval;
 	}
 	

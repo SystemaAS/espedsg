@@ -47,7 +47,7 @@
 			                    </tr>
 			                    </thead>
 			                    <tbody>
-			                    <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
+			                    <c:forEach items="${model.list}" var="record" varStatus="counter">    
 					               <c:choose>           
 					                   <c:when test="${counter.count%2==0}">
 					                       <tr class="tableRow" height="15" >
@@ -56,7 +56,7 @@
 					                       <tr class="tableOddRow" height="15" >
 					                   </c:otherwise>
 					               </c:choose>
-					               <td class="text11" align="center">
+					               <td align="center" class="text11" >
 					               		<input class="clazzInvoiceAware" type="checkbox" value="J" id="id${record.dkef_reff}_unik${record.dkef_unik}" name="id${record.dkef_reff}_unik${record.dkef_unik}" >
 					               </td>
 					               <td width="10%" class="text11" align="center">&nbsp;<span title="reff/unik:${record.dkef_reff}/${record.dkef_unik}">${record.dkef_fatx}</span></td>
@@ -64,7 +64,7 @@
 					               <td class="text11" >&nbsp;${record.dkef_faty}</td>
 					                --%>
 					               <td align="right" class="text11" >&nbsp;${record.dkef_fabl}&nbsp;</td>
-					               <td class="text11" >&nbsp;${record.dkef_vakd}</td>
+					               <td align="center" class="text11" >&nbsp;${record.dkef_vakd}</td>
 					               
 				               </tr>
 				               </c:forEach>

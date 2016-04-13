@@ -18,8 +18,11 @@ import no.systema.skat.skatexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicItemService;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemAvgifterRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemRecord;
 import no.systema.skat.model.jsonjackson.JsonSkatAutoControlErrorContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.items.JsonTdsExportSpecificTopicItemStatisticalValueRecord;
 
 /**
  * AutoControl Manager (Copied from Tvinn SAD Export)
@@ -78,7 +81,9 @@ public class SkatExportItemsAutoControlMgr {
 	
 	public void checkValidMandatoryFields(){
 		if( this.ANG_ART_20_ALU.equals(this.headerRecord.getDkeh_aart()) ){
+			logger.info("###############################################:" + this.isValidRecord());
 			this.mandatoryFields_01();
+			logger.info("###############################################:" + this.isValidRecord());
 			
 		}else if( this.ANG_ART_21_FOU.equals(this.headerRecord.getDkeh_aart()) ){
 			this.mandatoryFields_02();
@@ -449,6 +454,51 @@ public class SkatExportItemsAutoControlMgr {
 			  logger.info("[ERROR] on Net weight calculation - Auto control:" + e.toString());
 		  }
 		
+	}
+	/**
+	 * 
+	 * @param headerRecord
+	 * @param applicationUser
+	 */
+	public void calculateStatisticalValuesOnItem(JsonSkatExportSpecificTopicRecord headerRecord, String applicationUser){
+		StringBuffer urlRequestParams = new StringBuffer();
+		if( this.record.getDkev_46()!=null && !"".equals(this.record.getDkev_46()) ){
+			//nothing 
+		}else{
+			if(validStatisticalValuesParameters(headerRecord)){
+				urlRequestParams.append("dkeh_221=" + headerRecord.getDkeh_221());
+				urlRequestParams.append("&dkeh_221b=" + headerRecord.getDkeh_221b());
+				urlRequestParams.append("&dkeh_222=" + headerRecord.getDkeh_222());
+				urlRequestParams.append("&dkev_46=" + this.record.getDkev_46());
+				urlRequestParams.append("&dkev_42=" + this.record.getDkev_42());
+				//As in the Ajax method:calculateStatistisktVarde_SkatExport.do (not Auto control)
+				AvgiftsberakningenMgr avgiftsMgr = new AvgiftsberakningenMgr(this.skatExportSpecificTopicItemService, this.urlCgiProxyService);
+				JsonSkatExportSpecificTopicItemAvgifterRecord itemAvgiftsRecord = avgiftsMgr.calculateChargesOnItem(applicationUser, urlRequestParams.toString());
+				  if(itemAvgiftsRecord!=null){
+					  this.record.setDkev_46(itemAvgiftsRecord.getDkev_46());
+				  }else{
+					//nothing since this will be catched in: checkMandatoryFields...
+				  }
+			}else{
+				//nothing since this will be catched in: checkMandatoryFields... 
+			}
+		}
+		
+	}
+	/**
+	 * 
+	 * @param headerRecord
+	 * @return
+	 */
+	private boolean validStatisticalValuesParameters(JsonSkatExportSpecificTopicRecord headerRecord){
+		boolean retval = false;
+		if( (headerRecord.getDkeh_221()!=null && !"".equals(headerRecord.getDkeh_221())) && 
+			(headerRecord.getDkeh_221b()!=null && !"".equals(headerRecord.getDkeh_221b())) &&	
+			(headerRecord.getDkeh_222()!=null && !"".equals(headerRecord.getDkeh_222())) &&
+			(this.record.getDkev_42()!=null && !"".equals(this.record.getDkev_42())) ){
+			retval = true;
+		}
+		return retval;
 	}
 	
 }

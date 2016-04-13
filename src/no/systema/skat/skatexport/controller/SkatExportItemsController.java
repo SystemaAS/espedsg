@@ -456,8 +456,10 @@ public class SkatExportItemsController {
 		    			//---------------------------
 	    				String idDebug = record.getDkev_syli() + "-" + record.getDkev_331();
 		    			logger.info("Check Calculations " + idDebug);
-		    			logger.info("isValid:" + autoControlMgr.isValidRecord());
 		    			autoControlMgr.calculateNetWeight(headerRecord, appUser);
+		    			if(record.getDkev_46() == null || "".equals(record.getDkev_46()) ){
+		    				autoControlMgr.calculateStatisticalValuesOnItem(headerRecord, appUser.getUser());
+		    			}
 		    			//Update (back-end) the record after the above backEndValdiationOnTolltariff and upcoming calculations...
 	    				autoControlMgr.updateItemRecord(appUser.getUser());
 						

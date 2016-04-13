@@ -48,20 +48,22 @@
   	//-----------------------------------------------
   	jq(function() {
   		jq('#dkiv_42').blur(function() {
-  			//(1) Calc. aprox Gross weight (proposal to the user)
-  			var unitPrice = jq('#dkiv_42').val().replace(".",""); //must clean all US notation
-  			unitPrice = unitPrice.replace(",","."); //now we replace EU notation with US in order to use Math
-  			var invoiceAmount = jq('#fabl').val().replace(".","");
-  			invoiceAmount = invoiceAmount.replace(",",".");
-  			if(unitPrice != "" && invoiceAmount != ""){
-  				if(invoiceAmount>0){
-  					var totalGross = jq('#totalGrossWeight').val().replace(".","");
-  					totalGross = totalGross.replace(",",".");
-  					var proposedGross = (unitPrice/invoiceAmount) * totalGross;
-  					//final value proposed
-  					proposedGross = proposedGross.toFixed(3);
-  					jq('#dkiv_35').val(proposedGross.replace(".",",")); //final EU-format (for decimals)
-  				}
+  			if(jq('#dkiv_35').val()==''){
+	  			//(1) Calc. aprox Gross weight (proposal to the user)
+	  			var unitPrice = jq('#dkiv_42').val().replace(".",""); //must clean all US notation
+	  			unitPrice = unitPrice.replace(",","."); //now we replace EU notation with US in order to use Math
+	  			var invoiceAmount = jq('#fabl').val().replace(".","");
+	  			invoiceAmount = invoiceAmount.replace(",",".");
+	  			if(unitPrice != "" && invoiceAmount != ""){
+	  				if(invoiceAmount>0){
+	  					var totalGross = jq('#totalGrossWeight').val().replace(".","");
+	  					totalGross = totalGross.replace(",",".");
+	  					var proposedGross = (unitPrice/invoiceAmount) * totalGross;
+	  					//final value proposed
+	  					proposedGross = proposedGross.toFixed(3);
+	  					jq('#dkiv_35').val(proposedGross.replace(".",",")); //final EU-format (for decimals)
+	  				}
+	  			}
   			}
   			//(a) Calculate Freight/Transport costs ONLY if this is a new line (CREATE NEW mode)
   			//(b) Get pairs of Certifcate Nr. and codes if applicable. ONLY with (CREATE NEW mode)
@@ -571,14 +573,14 @@
   	//calculate a net weight from the gross weight
   	jq(function() { 
 	    jq('#dkiv_35').blur(function() {
-		  //init field(s)
-	    	  var grossWeight = jq('#dkiv_35').val();
-	    	  grossWeight = grossWeight.replace(",",".");
-	    	  var netWeight = jq('#dkiv_38').val("");
-		  if(netWeight!=null){
-			  var netWeightRaw = Math.round(grossWeight * 0.8);
-			  jq('#dkiv_38').val(netWeightRaw);
-		  }
+	    	if(jq('#dkiv_38').val()==''){	
+	    		//init field(s)
+	    		var grossWeight = jq('#dkiv_35').val();
+	    		grossWeight = grossWeight.replace(",",".");
+	    		var netWeight = jq('#dkiv_38').val("");
+	    		var netWeightRaw = Math.round(grossWeight * 0.8);
+	    		jq('#dkiv_38').val(netWeightRaw);
+	    	}
 		  
 		});
 	});

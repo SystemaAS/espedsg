@@ -47,7 +47,7 @@
 			                    </tr>
 			                    </thead>
 			                    <tbody>
-			                    <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
+			                    <c:forEach items="${model.list}" var="record" varStatus="counter">    
 					               <c:choose>           
 					                   <c:when test="${counter.count%2==0}">
 					                       <tr class="tableRow" height="15" >
