@@ -1505,7 +1505,6 @@ public class SkatExportHeaderController {
 				 returnRecord = record;
 	    	}
     	}
-		
 		return returnRecord;
 	}
 	

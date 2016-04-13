@@ -1004,8 +1004,6 @@
 							        <tr height="5">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
-							        
-							        
 							        <tr>
 							            <td colspan="5" class="text12" align="left" >&nbsp;
 							            <span title="fakturaListTotSum/fakturaListTotValidCurrency"></span>Fakturasum. fra Fakturaer&nbsp;</span>
@@ -1068,7 +1066,6 @@
 					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221c" id="dkeh_221c" size="8" maxlength="7" value="${model.record.dkeh_221c}">
 				 			</td>
 		 				</tr>
-		 				<tr height="10"><td></td></tr>
 					</table>
 					</td>
 			</tr>

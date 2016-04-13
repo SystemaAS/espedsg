@@ -984,52 +984,8 @@
 				 	</table>
             		</td>
            	</tr>
-           	
-           	<%-- INVOICE AMOUNT Fields --%>
-			<tr height="10"><td></td></tr>
-            <tr>
-	            <td width="5">&nbsp;</td>
-	            <td >
-	                <table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td class="text12">
-				 				<b>&nbsp;22.2</b>&nbsp;
-				 				<span title="dkih_222" id="v_dkih_222" class="validation">Fakturabeløb&nbsp;</span>
-				 			</td>
-				 			<td align="left" >
-				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkih_222" id="dkih_222" size="20" maxlength="20" value="${model.record.dkih_222}">
-				 			</td>
-				 			<td class="text12">
-				 				<b>&nbsp;22.1</b>&nbsp;
-				 				<span title="dkih_221" id="v_dkih_221" class="validation">Fakuramøntsort</span>
-				 				<%-- Note: onChange event in jQuery for this currency list --%>
-				 				<select name="dkih_221" id="dkih_221" >
-				 				  <option value="">-vælg-</option>	
-				 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
-			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkih_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
-								  </c:forEach>  
-								</select>
-								<a tabindex="-1" class="text14" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>																	 			
-								
-			 				</td>
-		 				</tr>
-		 				<tr>
-			 				<td class="text12" align="right">
-				 				<span title="dkih_221b">Kurs&nbsp;</span>
-				 			</td>
-				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkih_221b" id="dkih_221b" size="20" maxlength="20" value="${model.record.dkih_221b}"></td>
-				 			<td class="text12" align="left" >&nbsp;
-					 			<span title="dkih_221c">Faktor</span>
-					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkih_221c" id="dkih_221c" size="8" maxlength="7" value="${model.record.dkih_221c}">
-				 			</td>
-		 				</tr>
-		 				<tr height="10"><td>&nbsp;</td></tr>
-					</table>
-					</td>
-			</tr>
-			<tr>
+           	<tr height="20"><td></td></tr>
+           	<tr>
 				<td width="5">&nbsp;</td>
 	            <td >
 					<%-- Special section --%>
@@ -1081,7 +1037,21 @@
 			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkih_28c" id="dkih_28c" size="9" maxlength="8" value="${model.record.dkih_28c}">
 			 							</td>
 							        </tr>
-							        <tr height="15">
+							        <tr height="5">
+							            <td class="text12Bold" align="left" >&nbsp;</td> 
+							        </tr>
+							        <tr>
+							            <td colspan="5" class="text12" align="left" >&nbsp;
+							            <span title="fakturaListTotSum/fakturaListTotValidCurrency"></span>Fakturasum. fra Fakturaer&nbsp;</span>
+							            <input readonly type="text" class="inputTextReadOnly"  name="fakturaListTotSum" id="fakturaListTotSum" size="15" value='${ model.record.fakturaListTotSum}'>
+							            &nbsp;&nbsp;
+							            <input readonly type="text" class="inputTextReadOnly"  name="fakturaListTotValidCurrency" id="fakturaListTotValidCurrency" size="5" value='${ model.record.fakturaListTotValidCurrency}'>
+							            &nbsp;<button title="Hente summen fra Fakturaer" name="getFakturaListSumButton" id="getFakturaListSumButton" class="buttonGrayWithGreenFrame" type="button" >Hente summen</button>
+							            <input type="hidden" name="fakturaListTotKurs" id="fakturaListTotKurs" value='${ model.record.fakturaListTotKurs}'>
+							            </td>
+							        </tr>
+							         
+							        <tr height="5">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
 								</table>
@@ -1091,6 +1061,49 @@
 					  
 				</td>
 		  	</tr>
+		  	<%-- INVOICE AMOUNT Fields --%>
+			<tr height="10"><td></td></tr>
+            <tr>
+	            <td width="5">&nbsp;</td>
+	            <td >
+	                <table align="left" border="0" cellspacing="0" cellpadding="0">
+				 		<tr>
+				 			<td class="text12">
+				 				<b>&nbsp;22.2</b>&nbsp;
+				 				<span title="dkih_222" id="v_dkih_222" class="validation">Fakturabeløb&nbsp;</span>
+				 			</td>
+				 			<td align="left" >
+				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkih_222" id="dkih_222" size="20" maxlength="20" value="${model.record.dkih_222}">
+				 			</td>
+				 			<td class="text12">
+				 				<b>&nbsp;22.1</b>&nbsp;
+				 				<span title="dkih_221" id="v_dkih_221" class="validation">Fakuramøntsort</span>
+				 				<%-- Note: onChange event in jQuery for this currency list --%>
+				 				<select name="dkih_221" id="dkih_221" >
+				 				  <option value="">-vælg-</option>	
+				 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
+			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkih_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+								  </c:forEach>  
+								</select>
+								<a tabindex="-1" class="text14" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
+				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+				            		</a>																	 			
+								
+			 				</td>
+		 				</tr>
+		 				<tr>
+			 				<td class="text12" align="right">
+				 				<span title="dkih_221b">Kurs&nbsp;</span>
+				 			</td>
+				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkih_221b" id="dkih_221b" size="20" maxlength="20" value="${model.record.dkih_221b}"></td>
+				 			<td class="text12" align="left" >&nbsp;
+					 			<span title="dkih_221c">Faktor</span>
+					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkih_221c" id="dkih_221c" size="8" maxlength="7" value="${model.record.dkih_221c}">
+				 			</td>
+		 				</tr>
+					</table>
+					</td>
+			</tr>
            	</table>
 		</td>
 		<%-- --------------- --%>
