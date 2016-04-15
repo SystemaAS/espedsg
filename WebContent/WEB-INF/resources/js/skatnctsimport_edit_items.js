@@ -26,6 +26,7 @@
   	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+  	  
     });  
   	//date fields
     jq(function() {

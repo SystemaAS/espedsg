@@ -171,6 +171,53 @@
 				  opener.jq('#thlkt').val(land);
 				  opener.jq('#thskt').val("");	
 				  opener.jq('#thnat').focus();
+			  //---------------------------------------	  
+			  //SKAT NCTS Eksport Module - ITEM LINES 
+			  //---------------------------------------	 
+				//Avs  
+			  }else if(callerType == 'tvnas'){
+				  opener.jq('#tvkns').val(knr);
+				  opener.jq('#tvtins').val(eori);
+				  opener.jq('#tvnas').val(knavn);
+				  opener.jq('#tvads1').val(adr1);
+				  opener.jq('#tvpns').val(postnr);
+				  opener.jq('#tvpss').val(adr3);
+				  opener.jq('#tvlks').val(land);
+				  opener.jq('#tvsks').val("");	
+				  opener.jq('#tvnas').focus();
+				//Modtager  
+			  }else if(callerType == 'tvnak'){
+				  opener.jq('#tvknk').val(knr);
+				  opener.jq('#tvtink').val(eori);
+				  opener.jq('#tvnak').val(knavn);
+				  opener.jq('#tvadk1').val(adr1);
+				  opener.jq('#tvpnk').val(postnr);
+				  opener.jq('#tvpsk').val(adr3);
+				  opener.jq('#tvlkk').val(land);
+				  opener.jq('#tvskk').val("");	
+				  opener.jq('#tvnak').focus();	
+				//Avs - Sikkerhed  
+			  }else if(callerType == 'tvnass'){
+				  opener.jq('#tvknss').val(knr);
+				  opener.jq('#tvtinss').val(eori);
+				  opener.jq('#tvnass').val(knavn);
+				  opener.jq('#tvadss1').val(adr1);
+				  opener.jq('#tvpnss').val(postnr);
+				  opener.jq('#tvpsss').val(adr3);
+				  opener.jq('#tvlkss').val(land);
+				  opener.jq('#tvskss').val("");	
+				  opener.jq('#tvnass').focus();
+				//Modtager - Sikkerhed
+			  }else if(callerType == 'tvnaks'){
+				  opener.jq('#tvknks').val(knr);
+				  opener.jq('#tvtinks').val(eori);
+				  opener.jq('#tvnaks').val(knavn);
+				  opener.jq('#tvadks1').val(adr1);
+				  opener.jq('#tvpnks').val(postnr);
+				  opener.jq('#tvpsks').val(adr3);
+				  opener.jq('#tvlkks').val(land);
+				  opener.jq('#tvskks').val("");	
+				  opener.jq('#tvnaks').focus();		  
 			  //=========================
 			  //SKAT NCTS Import Module 
 			  //=========================  

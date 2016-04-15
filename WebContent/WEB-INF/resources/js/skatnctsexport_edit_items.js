@@ -20,6 +20,50 @@
   	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+  	  
+  	  //----------------
+	  	//CUSTOMER search
+	  	//----------------
+	    //SENDER
+	    jq('#tvnasIdLink').click(function() {
+	    	jq('#tvnasIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#tvnas').val() + '&ctype=tvnas', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvnasIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvnasIdLink').click();
+			}
+	    });
+	    //MOTTAKER
+	    jq('#tvnakIdLink').click(function() {
+	    	jq('#tvnakIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#tvnak').val() + '&ctype=tvnak', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvnakIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvnakIdLink').click();
+			}
+	    });
+	    //SENDER - SIKKERHED
+	    jq('#tvnassIdLink').click(function() {
+	    	jq('#tvnassIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#tvnass').val() + '&ctype=tvnass', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvnassIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvnassIdLink').click();
+			}
+	    });
+	    //MOTTAKER - SIKKERHED
+	    jq('#tvnaksIdLink').click(function() {
+	    	jq('#tvnaksIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#tvnaks').val() + '&ctype=tvnaks', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvnaksIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvnaksIdLink').click();
+			}
+	    });
     });  
   	
   	jq(function() {
