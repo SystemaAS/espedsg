@@ -1464,9 +1464,9 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-					            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-					            		</a>
+					            	<a tabindex="-1" id="thalkIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>	
 								</td>
 							</tr>
 							<tr>
@@ -1490,9 +1490,9 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thblk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-					            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-					            		</a>
+					            	<a tabindex="-1" id="thblkIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>
 									
 								</td>
 					        </tr>
@@ -1564,9 +1564,6 @@
 	        				<tr>
 				            	<td class="text12">
 				            		<font class="text16RedBold" >*</font><span title="thtalk">Nationalitet</span>
-				            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-				            		</a>
 				            		
 				            		<select class="inputTextMediumBlueMandatoryField" name="thtalk" id="thtalk">
 				 						<option value="">-vælg-</option>
@@ -1574,17 +1571,21 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-									
+									<a tabindex="-1" id="thtalkIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>
+				            		
 									&nbsp;<span title="thtask">Sprog</span>
-						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-						            		</a>
+						            		
 									<select name="thtask" id="thtask">
 			            				<option value="">-vælg-</option>
 			 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thtask == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 									</select>
+									<a tabindex="-1" id="thtaskIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>
 				            	</td>
 				            	<td class="text">&nbsp;</td>
 	        				</tr>

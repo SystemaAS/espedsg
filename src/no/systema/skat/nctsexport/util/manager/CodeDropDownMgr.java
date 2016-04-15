@@ -38,7 +38,7 @@ import no.systema.skat.nctsexport.util.SkatNctsExportConstants;
  */
 public class CodeDropDownMgr {
 	private static final Logger logger = Logger.getLogger(CodeDropDownMgr.class.getName());
-	/*
+	/**
 		012= KOD_SPRAK
 		013= KOD_DOK
 		014= KOD_TIDIGARE_DOK
