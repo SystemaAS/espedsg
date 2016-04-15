@@ -20,44 +20,89 @@
 			  //addressing a parent field from this child window
 			  
 			  //=========================
-			  //TVINN SAD Export Module 
+			  //SKAT Export Module 
 			  //=========================
-			  if(callerType == 'senak'){
-				  opener.jq('#seknk').val(knr);
-				  opener.jq('#senak').val(knavn);
-				  opener.jq('#serg').val(syrg);
-				  opener.jq('#seadk1').val(adr1);
-				  opener.jq('#seadk2').val(adr2);
-				  opener.jq('#seadk3').val(adr3);
-				  
-					 
-			  }else if(callerType == 'senas'){
-				  opener.jq('#sekns').val(knr);
-				  opener.jq('#senas').val(knavn);
-				  opener.jq('#seads1').val(adr1);
-				  opener.jq('#seads2').val(adr2);
-				  opener.jq('#seads3').val(adr3);
-				  opener.jq('#senas').focus();
+			  //AVS
+			  if(callerType == 'dkeh_02b'){
+				  opener.jq('#dkeh_avkn').val(knr);
+				  opener.jq('#dkeh_02b').val(knavn);
+				  opener.jq('#dkeh_02a').val(eori);
+				  opener.jq('#dkeh_02c').val(adr1);
+				  opener.jq('#dkeh_02e').val(adr3);
+				  opener.jq('#dkeh_02d').val(postnr);
+				  opener.jq('#dkeh_02f').val(land);
+				  opener.jq('#dkeh_02b').focus();
+			  //MOTTAGARE		 
+			  }else if(callerType == 'dkeh_08b'){
+				  opener.jq('#dkeh_mokn').val(knr);
+				  opener.jq('#dkeh_08b').val(knavn);
+				  opener.jq('#dkeh_08a').val(eori);
+				  opener.jq('#dkeh_08c').val(adr1);
+				  opener.jq('#dkeh_08e').val(adr3);
+				  opener.jq('#dkeh_08d').val(postnr);
+				  opener.jq('#dkeh_08f').val(land);
+				  opener.jq('#dkeh_08b').focus();
+			  //CARRIER	  
+			  }else if(callerType == 'dkeh_treo'){
+				  opener.jq('#dkeh_trkn').val(knr);
+				  opener.jq('#dkeh_treo').val(eori);
+				  opener.jq('#dkeh_trkn').focus();
+			  //Representant ved udpassage
+			  }else if(callerType == 'dkeh_rena'){
+				  opener.jq('#dkeh_rekn').val(knr);
+				  opener.jq('#dkeh_rena').val(knavn);
+				  opener.jq('#dkeh_reeo').val(eori);
+				  opener.jq('#dkeh_rega').val(adr1);
+				  opener.jq('#dkeh_reby').val(adr3);
+				  opener.jq('#dkeh_repo').val(postnr);
+				  opener.jq('#dkeh_relk').val(land);
+				  opener.jq('#dkeh_rena').focus();
+
 			  //=========================
-			  //TVINN SAD Import Module 
-			  //=========================  
-			  }else if(callerType == 'sinas'){
-				  opener.jq('#sikns').val(knr);
-				  opener.jq('#sinas').val(knavn);
-				  opener.jq('#siads1').val(adr1);
-				  opener.jq('#siads2').val(adr2);
-				  opener.jq('#siads3').val(adr3);
-				  opener.jq('#sinas').focus();
-				
-				
-			  }else if(callerType == 'sinak'){
-				  opener.jq('#siknk').val(knr);
-				  opener.jq('#sinak').val(knavn);
-				  opener.jq('#sirg').val(syrg);
-				  opener.jq('#siadk1').val(adr1);
-				  opener.jq('#siadk2').val(adr2);
-				  opener.jq('#siadk3').val(adr3);
-				  
+			  //SKAT Import Module 
+			  //=========================
+		      //AVS		  
+			  }else if(callerType == 'dkih_02b'){
+				  opener.jq('#dkih_avkn').val(knr);
+				  opener.jq('#dkih_02b').val(knavn);
+				  opener.jq('#dkih_02a').val(eori);
+				  opener.jq('#dkih_02c').val(adr1);
+				  opener.jq('#dkih_02e').val(adr3);
+				  opener.jq('#dkih_02d').val(postnr);
+				  opener.jq('#dkih_02f').val(land);
+				  opener.jq('#dkih_02b').focus();
+			  //MOTTAGARE		 
+			  }else if(callerType == 'dkih_08b'){
+				  opener.jq('#dkih_mokn').val(knr);
+				  opener.jq('#dkih_08b').val(knavn);
+				  opener.jq('#dkih_08a').val(eori);
+				  opener.jq('#dkih_08c').val(adr1);
+				  opener.jq('#dkih_08e').val(adr3);
+				  opener.jq('#dkih_08d').val(postnr);
+				  opener.jq('#dkih_08f').val(land);
+				  opener.jq('#dkih_08b').focus();
+
+			  //CARRIER
+			  }else if(callerType == 'dkih_trna'){
+				  opener.jq('#dkih_trkn').val(knr);
+				  opener.jq('#dkih_trna').val(knavn);
+				  opener.jq('#dkih_treo').val(eori);
+				  opener.jq('#dkih_trga').val(adr1);
+				  opener.jq('#dkih_trby').val(adr3);
+				  opener.jq('#dkih_trpo').val(postnr);
+				  opener.jq('#dkih_trlk').val(land);
+				  opener.jq('#dkih_trna').focus();
+			  
+			  //UNDERETTES
+			  }else if(callerType == 'dkih_nina'){
+				  opener.jq('#dkih_nikn').val(knr);
+				  opener.jq('#dkih_nina').val(knavn);
+				  opener.jq('#dkih_nieo').val(eori);
+				  opener.jq('#dkih_niga').val(adr1);
+				  opener.jq('#dkih_niby').val(adr3);
+				  opener.jq('#dkih_nipo').val(postnr);
+				  opener.jq('#dkih_nilk').val(land);
+				  opener.jq('#dkih_nina').focus();		  
 			  //=========================
 			  //SKAT NCTS Eksport Module 
 			  //=========================  
@@ -82,8 +127,52 @@
 				  opener.jq('#thlkk').val(land);
 				  opener.jq('#thskk').val("");	
 				  opener.jq('#thnak').focus();
+			  //Ansvarige	  
+			  }else if(callerType == 'thnaa'){
+				  opener.jq('#thtina').val(eori);
+				  opener.jq('#thnaa').val(knavn);
+				  opener.jq('#thada1').val(adr1);
+				  opener.jq('#thpna').val(postnr);
+				  opener.jq('#thpsa').val(adr3);
+				  opener.jq('#thlka').val(land);
+				  opener.jq('#thskk').val("");	
+				  opener.jq('#thnaa').focus();
 				  
+			  //Avsender - Sikkerhed	  
+			  }else if(callerType == 'thnass'){
+				  opener.jq('#thknss').val(knr);
+				  opener.jq('#thnass').val(knavn);
+				  opener.jq('#thtinss').val(eori);
+				  opener.jq('#thadss1').val(adr1);
+				  opener.jq('#thpsss').val(adr3);
+				  opener.jq('#thpnss').val(postnr);
+				  opener.jq('#thlkss').val(land);
+				  opener.jq('#thskss').val("");
+				  opener.jq('#thnass').focus();
+			  //Modtager - Sikkerhed	  
+			  }else if(callerType == 'thnaks'){
+				  opener.jq('#thknks').val(knr);
+				  opener.jq('#thtinks').val(eori);
+				  opener.jq('#thnaks').val(knavn);
+				  opener.jq('#thadks1').val(adr1);
+				  opener.jq('#thpnks').val(postnr);
+				  opener.jq('#thpsks').val(adr3);
+				  opener.jq('#thlkks').val(land);
+				  opener.jq('#thskks').val("");	
+				  opener.jq('#thnaks').focus();
+			  //Carrier - Sikkerhed	  
+			  }else if(callerType == 'thnat'){
+				  opener.jq('#thknt').val(knr);
+				  opener.jq('#thtint').val(eori);
+				  opener.jq('#thnat').val(knavn);
+				  opener.jq('#thadt1').val(adr1);
+				  opener.jq('#thpnt').val(postnr);
+				  opener.jq('#thpst').val(adr3);
+				  opener.jq('#thlkt').val(land);
+				  opener.jq('#thskt').val("");	
+				  opener.jq('#thnat').focus();
 			  }
+			  
 			  //close child window
 			  window.close();
 		  });

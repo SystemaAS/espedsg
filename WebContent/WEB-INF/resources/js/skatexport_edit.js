@@ -39,6 +39,52 @@
   			
   		}
 	  });
+  	  
+  	  
+  	  	//----------------
+	  	//CUSTOMER search
+	  	//----------------
+	    //SENDER
+	    jq('#dkeh_02bIdLink').click(function() {
+	    	jq('#dkeh_02bIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkeh_02b').val() + '&ctype=dkeh_02b', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#dkeh_02bIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_02bIdLink').click();
+			}
+	    });
+	    //MODTAGER
+	    jq('#dkeh_08bIdLink').click(function() {
+	    	jq('#dkeh_08bIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkeh_08b').val() + '&ctype=dkeh_08b', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#dkeh_08bIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_08bIdLink').click();
+			}
+	    });
+	    //CARRIER
+	    jq('#dkeh_treoIdLink').click(function() {
+	    	jq('#dkeh_treoIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkeh_treo').val() + '&ctype=dkeh_treo', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#dkeh_treoIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_treoIdLink').click();
+			}
+	    });
+	    //REPRESENTAT ved udpassage
+	    jq('#dkeh_renaIdLink').click(function() {
+	    	jq('#dkeh_renaIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkeh_rena').val() + '&ctype=dkeh_rena', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#dkeh_renaIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_renaIdLink').click();
+			}
+	    });
+  	  
     });  
   	
   	jq(document).ready(function(){

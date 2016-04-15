@@ -48,6 +48,47 @@
 				jq('#thnakIdLink').click();
 			}
 	    });
+	    //Ansvarige
+	    jq('#thnaaIdLink').click(function() {
+	    	jq('#thnaaIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnaa').val() + '&ctype=thnaa', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnaaIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnaaIdLink').click();
+			}
+	    });
+	    //SIKKERHED
+	    //SENDER - SIKK
+	    jq('#thnassIdLink').click(function() {
+	    	jq('#thnassIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnass').val() + '&ctype=thnass', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnassIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnassIdLink').click();
+			}
+	    });
+	    //MOTTAKER - SIKK
+	    jq('#thnaksIdLink').click(function() {
+	    	jq('#thnaksIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnaks').val() + '&ctype=thnaks', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnaksIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnaksIdLink').click();
+			}
+	    });
+	    //Carrier - SIKK
+	    jq('#thnatIdLink').click(function() {
+	    	jq('#thnatIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnat').val() + '&ctype=thnat', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnatIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnatIdLink').click();
+			}
+	    });
   	  
     });  
 	  

@@ -38,6 +38,50 @@
   			
   		}
 	  });
+  	  
+  	  //----------------
+  	  //CUSTOMER search
+  	  //----------------
+  	  //SENDER
+  	  jq('#dkih_02bIdLink').click(function() {
+  		  jq('#dkih_02bIdLink').attr('target','_blank');
+  		  window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkih_02b').val() + '&ctype=dkih_02b', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_02bIdLink').keypress(function(e){ //extra feature for the end user
+  		  if(e.which == 13) {
+  			  jq('#dkih_02bIdLink').click();
+  		  }
+  	  });
+  	  //MODTAGER
+  	  jq('#dkih_08bIdLink').click(function() {
+    	jq('#dkih_08bIdLink').attr('target','_blank');
+    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkih_08b').val() + '&ctype=dkih_08b', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_08bIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkih_08bIdLink').click();
+		}
+  	  });
+  	  //CARRIER
+  	  jq('#dkih_trnaIdLink').click(function() {
+    	jq('#dkih_trnaIdLink').attr('target','_blank');
+    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkih_trna').val() + '&ctype=dkih_trna', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_trnaIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkih_trnaIdLink').click();
+		}
+  	  });
+  	  //UNDERETTES
+  	  jq('#dkih_ninaIdLink').click(function() {
+    	jq('#dkih_ninaIdLink').attr('target','_blank');
+    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#dkih_nina').val() + '&ctype=dkih_nina', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_ninaIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkih_ninaIdLink').click();
+		}
+  	  });
     });  
   	
   	jq(document).ready(function(){
