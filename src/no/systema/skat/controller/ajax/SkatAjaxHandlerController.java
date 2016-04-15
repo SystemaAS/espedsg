@@ -123,8 +123,8 @@ public class SkatAjaxHandlerController {
 	    		JsonSkatCustomerContainer container = this.skatCustomerService.getSkatCustomerContainer(jsonPayload);
 	    		if(container!=null){
 	    			for(JsonSkatCustomerRecord  record : container.getCustomerlist()){
-	    				logger.info("CUSTOMER via AJAX: " + record.getKnavn() + " NUMBER:" + record.getKundnr());
-	    				logger.info("KPERS: " + record.getKpers() + " TLF:" + record.getTlf());
+	    				//logger.info("CUSTOMER via AJAX: " + record.getKnavn() + " NUMBER:" + record.getKundnr());
+	    				//logger.info("KPERS: " + record.getKpers() + " TLF:" + record.getTlf());
 	    				result.add(record);
 	    			}
 	    		}

@@ -469,49 +469,10 @@
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thkns">Kundenummer</span></td>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thnas">Navn&nbsp;</span>
-							            	<img id="imgCustomerSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog');">
-							            	<%-- =====================================================  --%>
-							            	<%-- Here we have the search Sender [Customer] popup window --%>
-							            	<%-- =====================================================  --%>
-							            	<span style="position:absolute; left:500px; top:280px; width:300px; height:225px;" id="searchCustomerDialog" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-								           			<table>
-								           				<tr>
-															<td class="text11">&nbsp;Kundenummer</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_avkn" id="search_sveh_avkn" size="18" maxlength="8" value=""></td>
-														</tr>
-									           			<tr>
-															<td class="text11">&nbsp;Navn</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_avna" id="search_sveh_avna" size="18" maxlength="35" value=""></td>
-														</tr>
-									           			<tr>
-									           				<td class="text11">&nbsp;</td>
-										           			<td align="right">&nbsp;<button name="searchCustomer" class="buttonGray" type="button" onClick="searchSenderOwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-										           		</tr>
-										           		<tr height="4"><td ></td></tr>
-										           		<tr>
-									           				<td class="text11">&nbsp;Udvalg</td>
-										           			<td>&nbsp;</td>
-										           		</tr>
-										           		<tr>
-															<td colspan="2">&nbsp;
-																<%-- check jQuery events (onChange) for this list --%>
-																<select class="text11" id="senderList" name="senderList" size="3" onDblClick="hidePop('searchCustomerDialog');">
-				 													<option value="">-vælg-</option>
-				 							 					</select>
-															</td>
-															
-															<%-- <input type="hidden" name="hidden_sveh_avkn" id="hidden_sveh_avkn" value=''> --%>
-														</tr>
-								           			</table>
-													<table width="30%" align="left" border="0">
-														<tr align="left" >
-															<td >&nbsp;<button name="searchCustomerCloseOk" id="searchCustomerCloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog');"><spring:message code="systema.skat.ok"/></button></td>
-															<td >&nbsp;<button name="searchCustomerCloseCancel" id="searchCustomerCloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog');"><spring:message code="systema.skat.cancel"/></button></td>
-														</tr>
-													</table>
-												</div>
-											</span>				
+							            	<a tabindex="-1" id="thnasIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
+							            			
 							            </td>
 							        </tr>
 							        <tr>
@@ -521,7 +482,7 @@
 							        </tr>
 							        
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thtins">TIN</span></td>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thtins">CVR/SE-nr</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>
@@ -652,48 +613,9 @@
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknk">Kundenummer</span></td>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thnak">Navn&nbsp;</span>
-							            <img id="imgReceiverSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchCustomerDialog10');">
-							            	<%-- ======================================================== --%>
-							            	<%-- Here we have the search Receiver [Customer] popup window --%>
-							            	<%-- ======================================================== --%>
-							            	<span style="position:absolute; left:500px; top:550px; width:300px; height:225px;" id="searchCustomerDialog10" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-								           			<table>
-								           				<tr>
-															<td class="text11">&nbsp;Kundenummer</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_mokn" id="search_sveh_mokn" size="18" maxlength="8" value=""></td>
-														</tr>
-									           			<tr>
-															<td class="text11">&nbsp;Navn</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_mona" id="search_sveh_mona" size="18" maxlength="35" value=""></td>
-														</tr>
-									           			<tr>
-									           				<td class="text11">&nbsp;</td>
-										           			<td align="right">&nbsp;<button name="searchCustomer10" class="buttonGray" type="button" onClick="searchReceiverOwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-										           		</tr>
-										           		<tr height="4"><td ></td></tr>
-										           		<tr>
-									           				<td class="text11">&nbsp;Udvalg</td>
-										           			<td>&nbsp;</td>
-										           		</tr>
-										           		<tr>
-															<td colspan="2">&nbsp;
-																<select class="text11" id="receiverList" name="receiverList" size="3" onChange="setReceiver();" onDblClick="hidePop('searchCustomerDialog10');">
-				 													<option selected value="">-vælg-</option>
-				 							 					</select>
-															</td>
-															
-															<%-- <input type="hidden" name="hidden_sveh_avkn" id="hidden_sveh_avkn" value=''> --%>
-														</tr>
-								           			</table>
-													<table width="30%" align="left" border="0">
-														<tr align="left" >
-															<td >&nbsp;<button name="searchCustomer10CloseOk" id="searchCustomer10CloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');"><spring:message code="systema.skat.ok"/></button></td>
-															<td >&nbsp;<button name="searchCustomer10CloseCancel" id="searchCustomer10CloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');"><spring:message code="systema.skat.cancel"/></button></td>
-														</tr>
-													</table>
-												</div>
-											</span>	
+							            	<a tabindex="-1" id="thnakIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>	
 										</td>
 							        </tr>
 							        <tr>
@@ -702,7 +624,7 @@
 							        </tr>
 
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtink">TIN</span></td>
+							            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtink">EORI</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        <tr>

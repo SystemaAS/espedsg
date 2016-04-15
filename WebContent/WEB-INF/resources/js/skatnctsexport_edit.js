@@ -24,6 +24,31 @@
   	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+  	  
+  	  	//----------------
+	  	//CUSTOMER search
+	  	//----------------
+	    //SENDER
+	    jq('#thnasIdLink').click(function() {
+	    	jq('#thnasIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnas').val() + '&ctype=thnas', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnasIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnasIdLink').click();
+			}
+	    });
+	    //MOTTAKER
+	    jq('#thnakIdLink').click(function() {
+	    	jq('#thnakIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#thnak').val() + '&ctype=thnak', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#thnakIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#thnakIdLink').click();
+			}
+	    });
+  	  
     });  
 	  
 	jq(document).ready(function(){
