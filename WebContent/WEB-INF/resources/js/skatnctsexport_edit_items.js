@@ -127,7 +127,7 @@
   	function getDefaultValuesFromSkatExportItemLines(){
   		jq.ajax({
     	  	  type: 'GET',
-    	  	  url: 'getItemLinesTopic_SkatExport.do',
+    	  	  url: 'getFirstItemLineTopic_SkatExport.do',
     	  	  data: { applicationUser : jq('#applicationUser').val(), 
     	  		  	  avd : jq('#tvavd2').val(), 
     	  		  	  opd : jq('#tvtdn2').val() },
@@ -138,10 +138,14 @@
     	  		var len = data.length;
     	  		if (len>0){
 	    	  		//only first line
-	    			for ( var i = 0; i <= 1; i++) {
-	    				//alert(data[i].dkev_331);
+	    			for ( var i = 0; i < 1; i++) {
 	    				if(jq('#tvvnt').val()==''){
-	    					jq('#tvvnt').val(data[i].dkev_331);
+	    					var itemCode = data[i].dkev_331;
+	    					if(itemCode!='' && itemCode.length>6){
+	    						var tmp = itemCode.substring(0, 6);
+	    						itemCode = tmp;
+	    					}
+	    					jq('#tvvnt').val(itemCode);
 	    				}
 	    				if(jq('#tvvktb').val()==''){
 	    					jq('#tvvktb').val(data[i].dkev_35);
@@ -152,6 +156,7 @@
 	    				if(jq('#tvnt').val()==''){
 	    					jq('#tvnt').val(data[i].dkev_313);
 	    				}
+	    		
 	    			}
     	  		}
   		  	 }
@@ -644,9 +649,10 @@
   	jq(function() { 
 	    jq('#tvvktb').blur(function() {
 		  //init field(s)
-	    	  var grossWeight = jq('#tvvktb').val().replace(".","");
-	    	  grossWeight = grossWeight.replace(",",".");
+    	  var grossWeight = jq('#tvvktb').val().replace(".","");
+    	  grossWeight = grossWeight.replace(",",".");
 	    	  
+    	  
 		  var netWeight = jq('#tvvktn').val("");
 		  if(netWeight!=null){
 			  var netWeightRaw = Math.round(grossWeight * 0.8);
