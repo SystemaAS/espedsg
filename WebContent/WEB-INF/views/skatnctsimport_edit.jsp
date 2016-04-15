@@ -355,48 +355,11 @@
 						        	<input type="hidden" name="orig_tilk" id="orig_tilk" value='${model.record.tilk}'>
 						        	<input type="hidden" name="orig_tisk" id="orig_tisk" value='${model.record.tisk}'>
 			 				
-					 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="titin">TIN</span></td>
+					 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="titin">CVR/SE-nr</span></td>
 					 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="tina">Navn</span>
-						            <img id="imgAnsvarigSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog10');">
-						            	<%-- ======================================================== --%>
-						            	<%-- Here we have the search Ansvarig [Customer] popup window --%>
-						            	<%-- ======================================================== --%>
-						            	<span style="position:absolute; left:500px; top:250px; width:300px; height:250px;" id="searchCustomerDialog10" class="popupWithInputText"  >
-						           		<div class="text10" align="left">
-						           			<table>
-						           				<tr>
-													<td class="text11">&nbsp;Kundenummer</td>
-													<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_dkkn" id="search_sveh_dkkn" size="18" maxlength="8" value=""></td>
-												</tr>
-							           			<tr>
-													<td class="text11">&nbsp;Navn</td>
-													<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_dkna" id="search_sveh_dkna" size="18" maxlength="35" value=""></td>
-												</tr>
-							           			<tr>
-							           				<td class="text11">&nbsp;</td>
-								           			<td align="right">&nbsp;<button name="searchCustomer20" class="buttonGray" type="button" onClick="searchAnsvarigOwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-								           		</tr>
-								           		<tr height="4"><td ></td></tr>
-								           		<tr>
-							           				<td class="text11">&nbsp;Udvalg</td>
-								           			<td>&nbsp;</td>
-								           		</tr>
-								           		<tr>
-													<td colspan="2">&nbsp;
-														<select class="text11" id="ansvarigList" name="ansvarigList" size="3" onDblClick="hidePop('searchCustomerDialog10');">
-		 													<option selected value="">-vælg-</option>
-		 							 					</select>
-													</td>
-												</tr>
-						           			</table>
-											<table width="30%" align="left" border="0">
-												<tr align="left" >
-													<td >&nbsp;<button name="searchCustomer10CloseOk" id="searchCustomer10CloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');"><spring:message code="systema.skat.ok"/></button></td>
-													<td >&nbsp;<button name="searchCustomer10CloseCancel" id="searchCustomer10CloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');"><spring:message code="systema.skat.cancel"/></button></td>
-												</tr>
-											</table>
-										</div>
-									</span>	
+						            <a tabindex="-1" id="tinaIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 					 			</td>
 			 				</tr>
 			 				<tr >

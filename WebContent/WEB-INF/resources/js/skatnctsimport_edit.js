@@ -32,6 +32,20 @@
   	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+  	  
+  	  //----------------
+	  	//CUSTOMER search
+	  	//----------------
+	    //ANSVARLIG
+	    jq('#tinaIdLink').click(function() {
+	    	jq('#tinaIdLink').attr('target','_blank');
+	    	window.open('skat_childwindow_customer.do?action=doFind&sonavn=' + jq('#tina').val() + '&ctype=tina', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tinaIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tinaIdLink').click();
+			}
+	    });
     });  
   	
   	jq(document).ready(function(){

@@ -171,8 +171,20 @@
 				  opener.jq('#thlkt').val(land);
 				  opener.jq('#thskt').val("");	
 				  opener.jq('#thnat').focus();
+			  //=========================
+			  //SKAT NCTS Import Module 
+			  //=========================  
+			  }else if(callerType == 'tina'){
+				  opener.jq('#tikn').val(knr);
+				  opener.jq('#tina').val(knavn);
+				  opener.jq('#titin').val(eori);
+				  opener.jq('#tiad1').val(adr1);
+				  opener.jq('#tips').val(adr3);
+				  opener.jq('#tipn').val(postnr);
+				  opener.jq('#tilk').val(land);
+				  opener.jq('#tisk').val("");
+				  opener.jq('#tina').focus();
 			  }
-			  
 			  //close child window
 			  window.close();
 		  });
