@@ -493,10 +493,7 @@
 							        <tr>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thads1">Adresse</span></td>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thsks">Sprogkode</span>
-						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-						            		</a>
-							            
+						            		
 							            </td>
 							        </tr>
 							        <tr>
@@ -508,6 +505,10 @@
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 													</c:forEach> 
 											</select>
+											<a tabindex="-1" id="thsksIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
+							            
 										</td>
 							        </tr>
 							        <tr>
@@ -530,9 +531,7 @@
 								        		<tr>
 								        			<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpns">Postnummer</span></td>
 								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlks">Land</span>
-								            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-								            		</a>
+								            		
 								            		</td>
 								            	</tr>
 								        		<tr >
@@ -544,6 +543,9 @@
 					                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlks == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 														</c:forEach> 
 													</select>
+													<a id="thlksIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 								            		</td> 
 								        		</tr>  
 								            	</table>
@@ -635,9 +637,7 @@
 							        <tr>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thadk1">Adresse</span></td>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thskk">Sprogkode</span>
-						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-						            		</a>
+						            		
 							            </td>
 							        </tr>
 							        <tr>
@@ -649,6 +649,9 @@
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 													</c:forEach> 
 											</select>
+											<a tabindex="-1" id="thskkIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 							        </tr>
 							        <tr>
@@ -671,9 +674,6 @@
 								        		<tr>
 								        			<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thpnk">Postnummer</span></td>
 								            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlkk">Land</span>
-								            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-								            		</a>
 								            		
 								            		</td>
 								            	</tr>
@@ -686,6 +686,10 @@
 					                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlkk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 														</c:forEach> 
 													</select>
+													<a id="thlkkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
+								            		
 								            		</td> 
 								        		</tr>  
 								            	</table>
@@ -789,365 +793,73 @@
 							            	<table align="left" border="0" cellspacing="0" cellpadding="0">
 							            		<tr>
 							            			
-						            			<td class="text12" >
-						            			1.<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
-							            		<img id="imgTullkontorListTransit01" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor01_Dialog');">
-						            				<%-- ============================================================= --%>
-									            	<%-- Here we have the search Transittullkontor 01 popup window   --%>
-									            	<%-- ============================================================= --%>
-									            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor01_Dialog" class="popupWithInputText"  >
-										           		<div class="text10" align="left">
-										           			<table>
-										           				<tr>
-																	<td class="text11">&nbsp;Toldsted</td>
-																	<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit01" id="search_sveh_utfa_transit01" size="18" maxlength="8" value=""></td>
-																</tr>
-											           			<tr>
-																	<td class="text11">&nbsp;Kode</td>
-																	<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit01" id="search_sveh_utfa_Code_transit01" size="18" maxlength="35" value=""></td>
-																</tr>
-											           			<tr>
-											           				<td class="text11">&nbsp;</td>
-												           			<td align="right">&nbsp;<button name="searchTransitTullkontor01" class="buttonGray" type="button" onClick="searchTransitTullkontor01_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-												           		</tr>
-												           		<tr height="4"><td ></td></tr>
-												           		<tr>
-											           				<td class="text11">&nbsp;Udvalg</td>
-												           			<td>&nbsp;</td>
-												           		</tr>
-												           		<tr>
-																	<td colspan="2">&nbsp;
-																		<select class="text11" id="tullkontorListTransit01" name="tullkontorListTransit01" size="3" onDblClick="hidePop('searchTransitTullkontor01_Dialog');">
-						 													<option selected value="">-vælg-</option>
-						 							 					</select>
-																	</td>
-																</tr>
-										           			</table>
-															<table width="100%" align="left" border="0">
-																<tr align="left" >
-																	<td >&nbsp;<button name="searchTransitTullkontor01_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor01_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																</tr>
-															</table>
-														</div>
-													</span>
-												</td>
-													
-														
+							            			<td class="text12" >
+							            			1.<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
+									            		<a id="thtsd1IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									            		</a>
+								            		</td>
+
 							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			2.<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${model.record.thtsd2}'>
-							            			<img id="imgTullkontorListTransit02" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor02_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 02 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor02_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit02" id="search_sveh_utfa_transit02" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit02" id="search_sveh_utfa_Code_transit02" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor02" class="buttonGray" type="button" onClick="searchTransitTullkontor02_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit02" name="tullkontorListTransit02" size="3" onDblClick="hidePop('searchTransitTullkontor02_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor02_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor02_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+									            		<a id="thtsd2IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									            		</a>
 							            			</td>
-							            			
 							            			
 							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			3.<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${model.record.thtsd3}'>
-							            			<img id="imgTullkontorListTransit03" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor03_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 03 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor03_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit03" id="search_sveh_utfa_transit03" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit03" id="search_sveh_utfa_Code_transit03" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor03" class="buttonGray" type="button" onClick="searchTransitTullkontor03_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit03" name="tullkontorListTransit03" size="3" onDblClick="hidePop('searchTransitTullkontor03_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor03_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor03_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd3IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>
 							            		</tr>
-							            		
 							            		
 							            		<tr>
 							            			<td class="text12" >
 							            			4.<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${model.record.thtsd4}'>
-							            			<img id="imgTullkontorListTransit04" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor04_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 04 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor04_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Tullkontor</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit04" id="search_sveh_utfa_transit04" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kod</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit04" id="search_sveh_utfa_Code_transit04" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor04" class="buttonGray" type="button" onClick="searchTransitTullkontor04_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit04" name="tullkontorListTransit04" size="3" onDblClick="hidePop('searchTransitTullkontor04_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor04_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor04_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd4IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>
 							            			
 							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			5.<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${model.record.thtsd5}'>
-							            			<img id="imgTullkontorListTransit05" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor05_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 05 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor05_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit05" id="search_sveh_utfa_transit05" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit05" id="search_sveh_utfa_Code_transit05" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor05" class="buttonGray" type="button" onClick="searchTransitTullkontor05_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit05" name="tullkontorListTransit05" size="3" onDblClick="hidePop('searchTransitTullkontor05_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor05_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor05_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd5IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>
 							            			
 							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			6.<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${model.record.thtsd6}'>
-							            			<img id="imgTullkontorListTransit06" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor06_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 06 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor06_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit06" id="search_sveh_utfa_transit06" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit06" id="search_sveh_utfa_Code_transit06" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor06" class="buttonGray" type="button" onClick="searchTransitTullkontor06_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit06" name="tullkontorListTransit06" size="3" onDblClick="hidePop('searchTransitTullkontor06_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor06_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor06_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd6IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>					            			
 							            		</tr>
 							            		<tr>
 							            			<td class="text12" >
 							            			7.<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${model.record.thtsd7}'>
-							            			<img  id="imgTullkontorListTransit07" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor07_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 07 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor07_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit07" id="search_sveh_utfa_transit07" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit07" id="search_sveh_utfa_Code_transit07" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor07" class="buttonGray" type="button" onClick="searchTransitTullkontor07_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit07" name="tullkontorListTransit07" size="3" onDblClick="hidePop('searchTransitTullkontor07_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor07_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor07_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd7IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>
-							            			
 							            			
 							            			<td class="text12" >
 							            			&nbsp;
 							            			&nbsp;
 							            			8.<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${model.record.thtsd8}'>
-							            			<img id="imgTullkontorListTransit08" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTransitTullkontor08_Dialog');">
-							            				<%-- ============================================================= --%>
-										            	<%-- Here we have the search Transittullkontor 08 popup window   --%>
-										            	<%-- ============================================================= --%>
-										            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTransitTullkontor08_Dialog" class="popupWithInputText"  >
-											           		<div class="text10" align="left">
-											           			<table>
-											           				<tr>
-																		<td class="text11">&nbsp;Toldsted</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_transit08" id="search_sveh_utfa_transit08" size="18" maxlength="8" value=""></td>
-																	</tr>
-												           			<tr>
-																		<td class="text11">&nbsp;Kode</td>
-																		<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_transit08" id="search_sveh_utfa_Code_transit08" size="18" maxlength="35" value=""></td>
-																	</tr>
-												           			<tr>
-												           				<td class="text11">&nbsp;</td>
-													           			<td align="right">&nbsp;<button name="searchTransitTullkontor08" class="buttonGray" type="button" onClick="searchTransitTullkontor08_OwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-													           		</tr>
-													           		<tr height="4"><td ></td></tr>
-													           		<tr>
-												           				<td class="text11">&nbsp;Udvalg</td>
-													           			<td>&nbsp;</td>
-													           		</tr>
-													           		<tr>
-																		<td colspan="2">&nbsp;
-																			<select class="text11" id="tullkontorListTransit08" name="tullkontorListTransit08" size="3" onDblClick="hidePop('searchTransitTullkontor08_Dialog');">
-							 													<option selected value="">-vælg-</option>
-							 							 					</select>
-																		</td>
-																	</tr>
-											           			</table>
-																<table width="100%" align="left" border="0">
-																	<tr align="left" >
-																		<td >&nbsp;<button name="searchTransitTullkontor08_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTransitTullkontor08_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-																	</tr>
-																</table>
-															</div>
-														</span>
+							            			<a id="thtsd8IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td>
 							            		</tr>
 							            	</table>
@@ -1163,9 +875,7 @@
 								        	<td class="text12" align="left" >
 								        	
 								        	&nbsp;<img onMouseOver="showPop('53_info');" onMouseOut="hidePop('53_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								        	<b>53.</b><font class="text16RedBold" >*</font><span title="thtsb">Bestemmelsestoldsted</span>
-								        	<img id="imgBestamstullKontor" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTullkontorDialog11');">
-								        	&nbsp;
+								        	<b>53.</b><font class="text16RedBold" >*</font><span title="thtsb">Bestemmelsestoldsted</span>&nbsp;
 								        	<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="53_info" class="popupWithInputText text11"  >	
 							           			The name of the customs office at which the goods shall be presented in order to end
@@ -1178,49 +888,12 @@
 											</span>
 											</div>
 											</td>
-													
 								        	
 						            		<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="thtsb" id="thtsb" size="10" maxlength="8" value="${model.record.thtsb}">
-										<%-- ============================================================= --%>
-							            	<%-- Here we have the search BestämmelsesTullkontor popup window   --%>
-							            	<%-- ============================================================= --%>
-							            	<span style="position:absolute; left:350px; top:880px; width:300px; height:250px;" id="searchTullkontorDialog11" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-								           			<table>
-								           				<tr>
-															<td class="text11">&nbsp;Toldsted</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_bestam" id="search_sveh_utfa_bestam" size="18" maxlength="8" value=""></td>
-														</tr>
-									           			<tr>
-															<td class="text11">&nbsp;Kode</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code_bestam" id="search_sveh_utfa_Code_bestam" size="18" maxlength="35" value=""></td>
-														</tr>
-									           			<tr>
-									           				<td class="text11">&nbsp;</td>
-										           			<td align="right">&nbsp;<button name="searchTullkontor11" class="buttonGray" type="button" onClick="searchBestamTullkontorOwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-										           		</tr>
-										           		<tr height="4"><td ></td></tr>
-										           		<tr>
-									           				<td class="text11">&nbsp;Udvalg</td>
-										           			<td>&nbsp;</td>
-										           		</tr>
-										           		<tr>
-															<td colspan="2">&nbsp;
-																<select class="text11" id="tullkontorListBestam" name="tullkontorListBestam" size="3" onDblClick="hidePop('searchTullkontorDialog11');">
-				 													<option selected value="">-vælg-</option>
-				 							 					</select>
-															</td>
-															
-															
-														</tr>
-								           			</table>
-													<table width="100%" align="left" border="0">
-														<tr align="left" >
-															<td >&nbsp;<button name="searchTullkontorClose11" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTullkontorDialog11');"><spring:message code="systema.skat.ok"/></button></td>
-														</tr>
-													</table>
-												</div>
-											</span>									            
+						            		<a id="thtsbIdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+			            						<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+			        			    		</a>
+					            			</td>
 								            
 								            </tr>
 							            </table>
@@ -1386,9 +1059,9 @@
 					                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thgbgu == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 														</c:forEach> 
 													</select>
-									            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-									            		</a>
+									            	<a id="thgbguIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+								            		</a>
 							            			</td> 
 							            		</tr>
 							            		<tr height="5"><td></td></tr>
@@ -1464,9 +1137,10 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-					            	<a tabindex="-1" id="thalkIdLink">
+					            	<a tabindex="-1" id="thalkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
 										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-									</a>	
+									</a>
+									
 								</td>
 							</tr>
 							<tr>
@@ -1490,7 +1164,7 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thblk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-					            	<a tabindex="-1" id="thblkIdLink">
+					            	<a tabindex="-1" id="thblkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
 										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									</a>
 									
@@ -1571,7 +1245,7 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtalk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
-									<a tabindex="-1" id="thtalkIdLink">
+									<a tabindex="-1" id="thtalkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
 										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									</a>
 				            		
@@ -1583,7 +1257,7 @@
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thtask == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 									</select>
-									<a tabindex="-1" id="thtaskIdLink">
+									<a tabindex="-1" id="thtaskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
 										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									</a>
 				            	</td>
@@ -1658,9 +1332,6 @@
 	        				<tr>
 				            	<td class="text12">
 				            		<font class="text16RedBold" >*</font><span title="thtglk">Nationalitet</span>
-				            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-				            		</a>
 				            		
 				            		<select class="inputTextMediumBlueMandatoryField" name="thtglk" id="thtglk">
 				 						<option value="">-vælg-</option>
@@ -1668,16 +1339,21 @@
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtglk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
+									<a id="thtglkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+				            		</a>
+				            		
 									&nbsp;<span title="thtgsk">Sprog</span>
-						            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-						            		</a>
+						            		
 									<select name="thtgsk" id="thtgsk">
 			            				<option value="">-vælg-</option>
 			 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thtgsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 									</select>
+									<a tabindex="-1" id="thtgskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 									
 				            	</td>
 				            	<td class="text">&nbsp;</td>
@@ -1824,48 +1500,10 @@
 					            
 							    <td class="text">
 							    <input type="text" class="inputTextMediumBlueMandatoryField"  name="thcats" id="thcats" size="10" maxlength="8" value='${model.record.thcats}'>
-							    <img id="imgUtfartstullKontor" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTullkontorDialog10');">
-					            
-							    <%-- ======================================================== --%>
-					            	<%-- Here we have the search Tullkontor popup window --%>
-					            	<%-- ======================================================== --%>
-					            	<span style="position:absolute; left:650px; top:700px; width:300px; height:250px;" id="searchTullkontorDialog10" class="popupWithInputText"  >
-						           		<div class="text10" align="left">
-						           			<table>
-						           				<tr>
-													<td class="text11">&nbsp;Toldsted</td>
-													<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa" id="search_sveh_utfa" size="18" maxlength="8" value=""></td>
-												</tr>
-							           			<tr>
-													<td class="text11">&nbsp;Kode</td>
-													<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code" id="search_sveh_utfa_Code" size="18" maxlength="35" value=""></td>
-												</tr>
-							           			<tr>
-							           				<td class="text11">&nbsp;</td>
-								           			<td align="right">&nbsp;<button name="searchTullkontor10" id="searchTullkontor10" class="buttonGray" type="button" onClick="searchAvgangTullkontorOwnWindow()"><spring:message code="systema.skat.search"/></button></td>
-								           		</tr>
-								           		<tr height="4"><td ></td></tr>
-								           		<tr>
-							           				<td class="text11">&nbsp;Udvalg</td>
-								           			<td>&nbsp;</td>
-								           		</tr>
-								           		<tr>
-													<td colspan="2">&nbsp;
-														<select class="text11" id="tullkontorListAvgang" name="tullkontorListAvgang" size="3" onDblClick="hidePop('searchTullkontorDialog10');">
-		 													<option selected value="">-vælg-</option>
-		 							 					</select>
-													</td>
-													
-													
-												</tr>
-						           			</table>
-											<table width="100%" align="left" border="0">
-												<tr align="left" >
-													<td >&nbsp;<button name="searchTullkontorClose10" id="searchTullkontorClose10" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTullkontorDialog10');"><spring:message code="systema.skat.ok"/></button></td>
-												</tr>
-											</table>
-										</div>
-									</span>	
+			            		<a id="thcatsIdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+			            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+			            		</a>
+								</td>
 					        </tr>
 					        <tr height="2"><td>&nbsp;</td></tr>
 					        <tr>
@@ -1888,10 +1526,9 @@
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thskfd == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 								</select>
-				            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-				            		</a>
-								
+				            		<a tabindex="-1" id="thskfdIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 								</td> 
 							</tr>
 							<tr height="2"><td>&nbsp;</td></tr>
@@ -1935,9 +1572,9 @@
                                	 			<option value="${code.tkkode}"<c:if test="${model.record.thdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 									</select>
-					            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-					            		</a>
+				            		<a tabindex="-1" id="thdskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 					            </td>
 					        </tr>
 					        <tr>
@@ -2274,10 +1911,7 @@
 									        <tr>
 									            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thada1">Adresse</span></td>
 									            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thska">Sprogkode</span>
-								            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-								            		</a>
-									            
+								            		
 									            </td>
 									        </tr>
 									        <tr>
@@ -2289,6 +1923,10 @@
 						                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thska == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 															</c:forEach> 
 													</select>
+													<a tabindex="-1" id="thskaIdLink"  OnClick="triggerChildWindowLanguageCodes(this)">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+													</a>
+									            
 												</td>
 									        </tr>
 									        <tr>
@@ -2311,9 +1949,7 @@
 										        		<tr>
 										        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpna">Postnummer</span></td>
 										            		<td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thlka">Land</span>
-										            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-										            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-										            		</a>
+										            		
 										            		</td>
 										            	</tr>
 										        		<tr >
@@ -2325,6 +1961,9 @@
 							                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlka == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																</c:forEach> 
 															</select>
+															<a tabindex="-1" id="thlkaIdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+															</a>
 										            		</td> 
 										        		</tr>  
 										            	</table>
@@ -2550,16 +2189,16 @@
 					            			<td class="text12">&nbsp;&nbsp;<span title="thlosd">Lossested</span>
 					            				<input type="text" class="inputTextMediumBlue" name="thlosd" id="thlosd" size="30" maxlength="35" value="${model.record.thlosd}">
 					            			</td>
-					            			<td class="text12">&nbsp;&nbsp;<span title="thlosd">Lossested sprogkode</span>
+					            			<td class="text12">&nbsp;&nbsp;<span title="thlosdsk">Lossested sprogkode</span>
 					            				<select name="thlosdsk" id="thlosdsk">
 					            				<option value="">-vælg-</option>
 					 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                             	 			<option value="${code.tkkode}"<c:if test="${model.record.thlosdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach> 
 											</select>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-					            					<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-					            				</a>
+											<a tabindex="-1" id="thlosdskIdLink"  OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 					            			</td>
 					            		</tr>
 					            		<tr>
@@ -2568,9 +2207,9 @@
 					            				<tr>
 					            					<td colspan="4" class="text12">&nbsp;
 					            					<span title="thlkr1-8">Landkode for rejseplan</span>
-					            					<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            						<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-					            					</a>
+					            					<a tabindex="-1" id="thlkr1-8"  OnClick="triggerChildWindowCountryCodes(this)">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+													</a>
 					            					</td>
 					            				</tr>
 					            				<tr>
@@ -2707,10 +2346,7 @@
 													        <tr>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadss1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskss">Sprogkode</span>
-												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-												            		</a>
-													            
+												            		
 													            </td>
 													        </tr>
 													        <tr>
@@ -2722,6 +2358,10 @@
 										                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskss == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 																			</c:forEach> 
 																	</select>
+																	<a tabindex="-1" id="thskssIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+																	</a>
+													            
 																</td>
 													        </tr>
 													        <tr>
@@ -2744,9 +2384,7 @@
 														        		<tr>
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnss">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkss">Land</span>
-														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-														            		</a>
+														            		
 														            		</td>
 														            	</tr>
 														        		<tr >
@@ -2758,6 +2396,9 @@
 											                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlkss == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																				</c:forEach> 
 																			</select>
+																			<a id="thlkssIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+														            		</a>
 														            		</td> 
 														        		</tr>  
 														            	</table>
@@ -2836,9 +2477,7 @@
 													        <tr>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadt1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskt">Sprogkode</span>
-												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-												            		</a>
+												            		
 													            
 													            </td>
 													        </tr>
@@ -2851,6 +2490,9 @@
 										                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskt == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 																			</c:forEach> 
 																	</select>
+																	<a tabindex="-1" id="thsktIdLink"  OnClick="triggerChildWindowLanguageCodes(this)">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+																	</a>
 																</td>
 													        </tr>
 													        <tr>
@@ -2873,9 +2515,7 @@
 														        		<tr>
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnt">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkt">Land</span>
-														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-														            		</a>
+														            		
 														            		</td>
 														            	</tr>
 														        		<tr >
@@ -2887,6 +2527,9 @@
 											                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlkt == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																				</c:forEach> 
 																			</select>
+																			<a id="thlktIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+															            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+														            		</a>
 														            		</td> 
 														        		</tr>  
 														            	</table>
@@ -2963,10 +2606,7 @@
 													        <tr>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadks1">Adresse</span></td>
 													            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskks">Sprogkode</span>
-												            		<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-												            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-												            		</a>
-													            
+												            		
 													            </td>
 													        </tr>
 													        <tr>
@@ -2978,6 +2618,9 @@
 										                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 																			</c:forEach> 
 																	</select>
+																	<a tabindex="-1" id="thskksIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+																	</a>
 																</td>
 													        </tr>
 													        <tr>
@@ -3000,9 +2643,7 @@
 														        		<tr>
 														        			<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpnks">Postnummer</span></td>
 														            		<td class="text12" align="left" >&nbsp;<span title="thlkks">Land</span>
-														            		<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-														            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-														            		</a>
+														            		
 														            		</td>
 														            	</tr>
 														        		<tr >
@@ -3014,6 +2655,9 @@
 											                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thlkks == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																				</c:forEach> 
 																			</select>
+																			<a id="thlkksIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+															            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+														            		</a>
 														            		</td> 
 														        		</tr>  
 														            	</table>

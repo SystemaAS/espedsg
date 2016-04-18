@@ -40,11 +40,12 @@ import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
-import no.systema.tvinn.sad.model.jsonjackson.tullkontor.JsonTvinnSadTullkontorContainer;
-import no.systema.tvinn.sad.model.jsonjackson.tullkontor.JsonTvinnSadTullkontorRecord;
+import no.systema.skat.model.jsonjackson.tullkontor.JsonSkatTullkontorContainer;
+import no.systema.skat.model.jsonjackson.tullkontor.JsonSkatTullkontorRecord;
+import no.systema.skat.service.SkatTullkontorService;
+
 import no.systema.skat.nctsexport.service.SkatNctsExportGeneralCodesChildWindowService;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
@@ -88,6 +89,45 @@ public class SkatNctsExportHeaderControllerChildWindow {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_edit_childwindow_tullkontor.do", params="action=doInit",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doInitTullkontor(@ModelAttribute ("record") JsonSkatTullkontorRecord recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitTullkontor");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		String tullkontorCode = request.getParameter("tkkode");
+		String tullkontorName = request.getParameter("tktxtn");
+		String tullkontorType = request.getParameter("tktype");
+		
+		
+		ModelAndView successView = new ModelAndView("skatnctsexport_edit_childwindow_tullkontor");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			List list = new ArrayList();
+			if( (tullkontorName!=null && !"".equals(tullkontorName)) || (tullkontorCode!=null && !"".equals(tullkontorCode)) ){  
+				list = this.getTullkontorList(appUser, tullkontorName, tullkontorCode, tullkontorType);
+			}
+			model.put("tullkontorList", list);
+			model.put("callerType", callerType);
+			model.put("tkkode", tullkontorCode);
+			model.put("tktxtn", tullkontorName);
+			
+			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
 	
 	/**
 	 * 
@@ -190,12 +230,11 @@ public class SkatNctsExportHeaderControllerChildWindow {
 	 * @param kontorType
 	 * @return
 	 */
-	/*
-	private List<JsonTvinnSadTullkontorRecord> getTullkontorList(SystemaWebUser appUser, String tullkontorName, String tullkontorCode, String tullkontorType){
-		  List<JsonTvinnSadTullkontorRecord> result = new ArrayList<JsonTvinnSadTullkontorRecord>();
+	private List<JsonSkatTullkontorRecord> getTullkontorList(SystemaWebUser appUser, String tullkontorName, String tullkontorCode, String tullkontorType){
+		  List<JsonSkatTullkontorRecord> result = new ArrayList<JsonSkatTullkontorRecord>();
 		
 		  //prepare the access CGI with RPG back-end
-		  String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_UTFARTS_TULLKONTOR_URL;
+		  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_UTFARTS_TULLKONTOR_URL;
 		  String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchUtfartsTullkontor(appUser.getUser(), tullkontorName, tullkontorCode, tullkontorType);
 		  logger.info("URL: " + BASE_URL);
 		  logger.info("PARAMS: " + urlRequestParamsKeys);
@@ -204,16 +243,16 @@ public class SkatNctsExportHeaderControllerChildWindow {
 		  //logger.info(jsonPayload);
 		  logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		  if(jsonPayload!=null){
-			  JsonTvinnSadTullkontorContainer container = this.tvinnSadTullkontorService.getTvinnSadTullkontorContainer(jsonPayload);
+			  JsonSkatTullkontorContainer container = this.skatTullkontorService.getSkatTullkontorContainer(jsonPayload);
 			  if(container!=null){
-				  for(JsonTvinnSadTullkontorRecord  record : container.getCustomslist()){
-					  //logger.info("Kontorsnamn via AJAX: " + record.getTktxtn() + " Code:" + record.getTkkode());
+				  for(JsonSkatTullkontorRecord  record : container.getCustomslist()){
+					  //logger.info("Kontorsnamn: " + record.getTktxtn() + " Code:" + record.getTkkode());
 					  result.add(record);
 				  }
 			  }
 		  }
 		  return result;
-	}*/
+	}
 	
 	/**
 	 * 
@@ -223,21 +262,20 @@ public class SkatNctsExportHeaderControllerChildWindow {
 	 * @param tullkontorType
 	 * @return
 	 */
-	/*
 	private String getRequestUrlKeyParametersForSearchUtfartsTullkontor(String applicationUser, String soName, String code, String tullkontorType){
 		  StringBuffer sb = new StringBuffer();
 		  sb.append("user=" + applicationUser);
 		  if(soName!=null && !"".equals(soName) && code!=null && !"".equals(code)){
-			  sb.append( TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
-			  sb.append( TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
+			  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
+			  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
 		  }else if (soName!=null && !"".equals(soName)){
-			  sb.append( TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
+			  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
 		  }else if (code!=null && !"".equals(code)){
-			  sb.append( TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
+			  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
 		  }
 		//append the type when applicable
 		  if (tullkontorType!=null && !"".equals(tullkontorType)){
-			  sb.append( TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST);
+			  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST);
 			  if("avg".equals(tullkontorType)){
 				  sb.append("avg=J");
 			  }else if ("ank".equals(tullkontorType)){
@@ -247,7 +285,7 @@ public class SkatNctsExportHeaderControllerChildWindow {
 			  }
 		  }
 		  return sb.toString();
-	  }*/
+	  }
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -265,14 +303,14 @@ public class SkatNctsExportHeaderControllerChildWindow {
 	public void setSkatNctsExportGeneralCodesChildWindowService(SkatNctsExportGeneralCodesChildWindowService value){this.skatNctsExportGeneralCodesChildWindowService = value;}
 	public SkatNctsExportGeneralCodesChildWindowService getSkatNctsExportGeneralCodesChildWindowService(){ return this.skatNctsExportGeneralCodesChildWindowService; }
 	
-	/*
-	@Qualifier ("tvinnSadTullkontorService")
-	private TvinnSadTullkontorService tvinnSadTullkontorService;
+	
+	@Qualifier ("skatTullkontorService")
+	private SkatTullkontorService skatTullkontorService;
 	@Autowired
 	@Required
-	public void setTvinnSadTullkontorService (TvinnSadTullkontorService value){ this.tvinnSadTullkontorService = value; }
-	public TvinnSadTullkontorService getTvinnSadTullkontorService(){ return this.tvinnSadTullkontorService; }
-	*/
+	public void setSkatTullkontorService (SkatTullkontorService value){ this.skatTullkontorService = value; }
+	public SkatTullkontorService getSkatTullkontorService(){ return this.skatTullkontorService; }
+	
 	
 }
 

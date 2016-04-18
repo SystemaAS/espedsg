@@ -89,50 +89,36 @@
 				jq('#thnatIdLink').click();
 			}
 	    });
-	    
-	    //Landkod - thalk
-	    jq('#thalkIdLink').click(function() {
-	    	jq('#thalkIdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=thalk', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-	    });
-	    jq('#thalkIdLink').keypress(function(e){ //extra feature for the end user
-			if(e.which == 13) {
-				jq('#thalkIdLink').click();
-			}
-	    });
-	    //Landkod - thblk
-	    jq('#thblkIdLink').click(function() {
-	    	jq('#thblkIdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=thblk', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-	    });
-	    jq('#thblkIdLink').keypress(function(e){ //extra feature for the end user
-			if(e.which == 13) {
-				jq('#thblkIdLink').click();
-			}
-	    });
-	    //Landkod - thtalk
-	    jq('#thtalkIdLink').click(function() {
-	    	jq('#thtalkIdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=thtalk', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-	    });
-	    jq('#thtalkIdLink').keypress(function(e){ //extra feature for the end user
-			if(e.which == 13) {
-				jq('#thtalkIdLink').click();
-			}
-	    });
-	    //Språk - thtask
-	    jq('#thtaskIdLink').click(function() {
-	    	jq('#thtaskIdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=012&ctype=thtask', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-	    });
-	    jq('#thtaskIdLink').keypress(function(e){ //extra feature for the end user
-			if(e.which == 13) {
-				jq('#thtaskIdLink').click();
-			}
-	    });
-  	  
-    });  
+	    //END CUSTOMER SEARCH
+    });
+    
+    
+    //ChildWindow Country Codes
+    function triggerChildWindowCountryCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    //ChildWindow Language Codes
+    function triggerChildWindowLanguageCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=012&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    //ChildWindow Tullkontor Codes
+    function triggerChildWindowTullkontorCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	//alert(idLink + "XX" + id);
+    	//alert(jq("#"+id).val());
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatnctsexport_edit_childwindow_tullkontor.do?action=doInit&tkkode=' + jq("#"+id).val()+ '&ctype=' + id, "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
 	  
+    
+    
 	jq(document).ready(function(){
   	    jq(this).scrollTop(0); //needed for Chrome (bug)
   	});
@@ -167,9 +153,8 @@
 		});
 	});
 	
-	
+    
 	var map = {};
-  	
   	//init the customer object in javascript (will be put into a map)
   	var customer = new Object();
   	//fields
