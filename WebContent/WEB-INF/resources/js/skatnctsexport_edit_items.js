@@ -64,8 +64,59 @@
 				jq('#tvnaksIdLink').click();
 			}
 	    });
-    });  
-  	
+	    //-----------
+	    //Varukoder
+	    //-----------
+	    jq('#tvvntIdLink').click(function() {
+	    	jq('#tvvntIdLink').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_tolltariff.do?action=doInit&vkod=' + jq('#tvvnt').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvvntIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvvntIdLink').click();
+			}
+	    });
+	    
+	    //DocType
+	    jq('#tvdtyIdLink').click(function() {
+	    	jq('#tvdtyIdLink').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_generalcodes.do?action=doInit&type=013&ctype=tvdty', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvdtyIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvdtyIdLink').click();
+			}
+	    });
+	    
+	    //Kollislag
+	    jq('#tvehIdLink').click(function() {
+	    	jq('#tvehIdLink').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_generalcodes.do?action=doInit&type=017&ctype=tveh', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#tvehIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#tvehIdLink').click();
+			}
+	    });
+	    
+	    
+    }); 
+    
+    //ChildWindow Language Codes
+    function triggerChildWindowLanguageCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatnctsexport_edit_items_childwindow_generalcodes.do?action=doInit&type=012&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    //ChildWindow Country Codes
+    function triggerChildWindowCountryCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatnctsexport_edit_items_childwindow_generalcodes.do?action=doInit&type=008&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    
   	jq(function() {
 	  	jq('#tvtdn2IdLink').click(function() {
 	    	jq('#tvtdn2IdLink').attr('target','_blank');
@@ -384,6 +435,7 @@
 		});
 	});
   	
+  	/*
   	//----------------------------------
 	//Events Varukod (SEARCH window)
 	//----------------------------------
@@ -393,7 +445,6 @@
     			jq("#search_svvs_vata").focus();
     		});
 	});
-	
 	jq(function() {	    
 		jq('#search_svvs_vata').keypress(function(e){
 			if(e.which == 13) {
@@ -402,7 +453,6 @@
 			}			
     		});
 	});
-
 	//On Keypress (13)
 	jq(function() { 
 	    jq('#taricVarukodList').keypress(function() {
@@ -414,11 +464,11 @@
 			    	var key = jq('#taricVarukodList').val();
 			    	jq('#svev_vata').val(key); 
 		    	}
-	    });
-	    
+	    }); 
 	});
-	
-	
+	*/
+  	
+  	
 	//---------------------------------------------------------
   	//FETCH CUSTOMER from SENDER [AVSÄNDARE] html area
   	//---------------------------------------------------------

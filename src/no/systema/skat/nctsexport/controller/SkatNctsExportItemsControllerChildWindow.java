@@ -41,12 +41,20 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
+import no.systema.skat.nctsexport.service.SkatNctsExportGeneralCodesChildWindowService;
+import no.systema.skat.service.SkatTaricVarukodService;
 import no.systema.skat.skatexport.filter.SearchFilterSkatExportTopicList;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListRecord;
 import no.systema.skat.skatexport.service.SkatExportTopicListService;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
+import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
+
 
 /**
  * SKAT NCTS Export Item Controller - child windows popup
@@ -63,6 +71,9 @@ public class SkatNctsExportItemsControllerChildWindow {
 	
 	private static final Logger logger = Logger.getLogger(SkatNctsExportItemsControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	
+	private final String GENERAL_CODE_008_COUNTRY = "008";
+	private final String GENERAL_CODE_107_CURRENCY = "107";
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -106,6 +117,156 @@ public class SkatNctsExportItemsControllerChildWindow {
 			
 	    	return successView;
 		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_edit_items_childwindow_generalcodes.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitGeneralCodes(@ModelAttribute ("record") JsonSkatNctsCodeRecord recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitGeneralCodes");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		String typeCode = request.getParameter("type");
+		
+		ModelAndView successView = new ModelAndView("skatnctsexport_edit_items_childwindow_generalcodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			  
+			List list = this.getCodeList(appUser, typeCode);
+			model.put("generalCodeList", list);
+			model.put("callerType", callerType);
+			
+			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_edit_items_childwindow_tolltariff.do", params="action=doInit",  method={RequestMethod.GET, RequestMethod.POST } )
+	public ModelAndView doInitTolltariff(@ModelAttribute ("record") JsonSkatTaricVarukodContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitTolltariff");
+		Map model = new HashMap();
+		String varuKod = request.getParameter("vkod");
+		String text = request.getParameter("tekst");
+		String ieMode = "E";
+		
+		ModelAndView successView = new ModelAndView("skatnctsexport_edit_items_childwindow_tolltariff");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			  
+			List<JsonSkatTaricVarukodRecord> list = new ArrayList();
+			if(text!=null && !"".equals(text)){
+				//TODO (CB) list = this.getTulltaxaListFromDesc(appUser, text, ieMode);
+				model.put("tekst", text);
+			}else{
+				list = this.getTolltariffList(appUser, varuKod, ieMode);
+				model.put("vkod", varuKod);
+			}
+			model.put("tolltariffList", list);
+			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param tolltariffVarekod
+	 * @param ieMode
+	 * @return
+	 */
+	private List<JsonSkatTaricVarukodRecord> getTolltariffList(SystemaWebUser appUser, String tolltariffVarekod, String ieMode){
+		List<JsonSkatTaricVarukodRecord> list = new ArrayList<JsonSkatTaricVarukodRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser() + "&ie=" + ieMode);
+		urlRequestParams.append("&kod=" + tolltariffVarekod);
+		
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+		
+		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info(jsonPayload);
+		JsonSkatTaricVarukodContainer container = null;
+		try{
+			if(jsonPayload!=null){
+				container = this.skatTaricVarukodService.getContainer(jsonPayload);
+				if(container!=null){
+					for(JsonSkatTaricVarukodRecord  record : container.getTariclist()){
+						list.add(record);
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param typeCode
+	 * @return
+	 */
+	private List<JsonSkatNctsCodeRecord> getCodeList(SystemaWebUser appUser, String typeCode){
+		List<JsonSkatNctsCodeRecord> list = new ArrayList<JsonSkatNctsCodeRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		String BASE_URL = SkatUrlDataStore.SKAT_NCTS_CODES_URL;
+		//Exception for CODE_URL (MUST be borrowed from SAD EKS/IMP
+		if(this.GENERAL_CODE_008_COUNTRY.equalsIgnoreCase(typeCode) || this.GENERAL_CODE_107_CURRENCY.equalsIgnoreCase(typeCode) ){
+		   BASE_URL = SkatUrlDataStore.SKAT_CODES_URL;
+		}
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&typ=" + typeCode);
+		
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+		
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		
+		JsonSkatNctsCodeContainer container = null;
+		try{
+			if(jsonPayload!=null){
+				container = this.skatNctsExportGeneralCodesChildWindowService.getNctsCodeContainer(jsonPayload);
+				if(container!=null){
+					for(JsonSkatNctsCodeRecord  record : container.getKodlista()){
+						list.add(record);
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	/**
@@ -214,6 +375,21 @@ public class SkatNctsExportItemsControllerChildWindow {
 	public void setSkatExportTopicListService (SkatExportTopicListService value){ this.skatExportTopicListService = value; }
 	public SkatExportTopicListService getSkatImportTopicListService(){ return this.skatExportTopicListService; }
 	
+	
+	@Qualifier 
+	private SkatNctsExportGeneralCodesChildWindowService skatNctsExportGeneralCodesChildWindowService;
+	@Autowired
+	@Required	
+	public void setSkatNctsExportGeneralCodesChildWindowService(SkatNctsExportGeneralCodesChildWindowService value){this.skatNctsExportGeneralCodesChildWindowService = value;}
+	public SkatNctsExportGeneralCodesChildWindowService getSkatNctsExportGeneralCodesChildWindowService(){ return this.skatNctsExportGeneralCodesChildWindowService; }
+	
+	
+	@Qualifier 
+	private SkatTaricVarukodService skatTaricVarukodService;
+	@Autowired
+	@Required	
+	public void setSkatTaricVarukodService(SkatTaricVarukodService value){this.skatTaricVarukodService = value;}
+	public SkatTaricVarukodService getSkatTaricVarukodService(){ return this.skatTaricVarukodService; }
 	
 }
 
