@@ -39,6 +39,14 @@
 				  opener.jq('#dkiv_4421').val(kod);
 				  opener.jq('#dkiv_4421').focus();
 				  
+			  }else if(callerType == 'dkiv_443'){
+				  opener.jq('#dkiv_443').val(kod);
+				  opener.jq('#dkiv_443').focus();
+				  
+			  }else if(callerType == 'dkiv_444b'){
+				  opener.jq('#dkiv_444b').val(kod);
+				  opener.jq('#dkiv_444b').focus();
+				  
 			  }
 
 			  //close child window

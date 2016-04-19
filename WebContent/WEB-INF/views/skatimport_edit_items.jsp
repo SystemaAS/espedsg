@@ -1825,9 +1825,9 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkiv_443 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatVabCertifikatk44_3CodesURL.value}" onclick="${model.skatVabCertifikatk44_3CodesURL.windowOpenDimensions}" >
-           										<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           									</a>
+										<a tabindex="-1" id="dkiv_443IdLink" OnClick="triggerChildWindowGeneralCodes(this, '019')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>
 										
 				           			</td>
 						        </tr>
@@ -1852,9 +1852,9 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkiv_444b == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatPreferenceDokumentation44_4CodesURL.value}" onclick="${model.skatPreferenceDokumentation44_4CodesURL.windowOpenDimensions}" >
-           										<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           									</a>
+										<a tabindex="-1" id="dkiv_444bIdLink" OnClick="triggerChildWindowGeneralCodes(this, '012')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>
 										
 				           			</td>
 						        </tr>

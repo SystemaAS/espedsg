@@ -67,7 +67,7 @@
 			               <c:choose>           
 		                   	<c:when test="${not empty record.dkkd_kd}">
 		                   	   <c:choose> 
-		                   	   <c:when test="${not empty record.dkkd_kd2}">	
+		                   	   <c:when test="${model.callerType=='dkiv_402a'}">	
 					               <td nowrap style="cursor:pointer;" class="text11MediumBlue" 
 					               		id="kod${record.dkkd_kd2}${record.dkkd_kd}@ctype${model.callerType}" >
 					               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">

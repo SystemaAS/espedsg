@@ -13,7 +13,7 @@
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="select" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Sök kod
+			Søg kode
 			</td>
 		</tr>
 		<tr>
