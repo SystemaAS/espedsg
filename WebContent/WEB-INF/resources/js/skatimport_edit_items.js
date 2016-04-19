@@ -29,7 +29,42 @@
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   		  window.location = 'skatimport_edit_items_autocontrol.do?dkiv_syav='+ jq('#avd').val() + '&dkiv_syop=' + jq('#opd').val();
   	  });
-    });  
+    }); 
+    
+    jq(function() {
+    	//Varekod
+    	jq('#dkiv_331IdLink').click(function() {
+    		jq('#dkiv_331IdLink').attr('target','_blank');
+    		window.open('skatimport_edit_items_childwindow_tolltariff.do?action=doInit&vkod=' + jq('#dkiv_331').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    	});
+    	jq('#dkiv_331IdLink').keypress(function(e){ //extra feature for the end user
+    		if(e.which == 13) {
+			jq('#dkiv_331IdLink').click();
+    		}
+    	});
+    });
+    
+    //ChildWindow General Codes
+    function triggerChildWindowGeneralCodes(record, typeCode){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatimport_edit_items_childwindow_generalcodes.do?action=doInit&type=' + typeCode + '&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    //ChildWindow General Codes
+    function triggerChildWindowGeneralCodesR40(record, typeCode, dkih_25, dkih_26){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	var url = "skatimport_edit_items_childwindow_generalcodesR40.do?action=doInit&type=" + typeCode;
+    	if(dkih_25!=''){  url = url + "&dkih_25=" + dkih_25; }
+    	if(dkih_26!=''){ url = url + "&dkih_26=" + dkih_26; }
+    	//final append
+    	url = url + '&ctype=' + id;
+    	//go
+    	window.open(url, "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    
   	//-----------------------------------------------------------------------------
   	//jQuery CALCULATOR (related to jquery.calculator.js and jquery.calculator.css
   	//-----------------------------------------------------------------------------

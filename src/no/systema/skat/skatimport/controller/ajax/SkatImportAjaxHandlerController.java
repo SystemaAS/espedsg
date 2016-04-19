@@ -211,9 +211,9 @@ public class SkatImportAjaxHandlerController {
 			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
 			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  logger.info(METHOD + "dktara02:" + record.getDktara02());
-				  logger.info(METHOD + "dktara63:" + record.getDktara63());
-				  logger.info(METHOD + "dktara64:" + record.getDktara64());
+				  //logger.info(METHOD + "dktara02:" + record.getDktara02());
+				  //logger.info(METHOD + "dktara63:" + record.getDktara63());
+				  //logger.info(METHOD + "dktara64:" + record.getDktara64());
 				  result.add(record);
 			  }	
 		  }catch(Exception e){
