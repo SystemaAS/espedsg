@@ -38,17 +38,18 @@
 				jq('#bilagdaHandIdLink').click();
 			}
 	    });
+	    */
 	    //Valuta
-	    jq('#valutaIdLink').click(function() {
-	    	jq('#valutaIdLink').attr('target','_blank');
-	    	window.open('tdsimport_edit_invoice_childwindow_generalcodes.do?action=doInit&type=MDX&ctype=svif_vakd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    jq('#dkif_vakdIdLink').click(function() {
+	    	jq('#dkif_vakdIdLink').attr('target','_blank');
+	    	window.open('skatimport_edit_childwindow_generalcodes.do?action=doInit&type=020&ctype=dkif_vakd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
-	    jq('#valutaIdLink').keypress(function(e){ //extra feature for the end user
+	    jq('#dkif_vakdIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
-				jq('#valutaIdLink').click();
+				jq('#dkif_vakdIdLink').click();
 			}
 	    });
-  	  	*/
+  	  	
   	  	
   	});
   	

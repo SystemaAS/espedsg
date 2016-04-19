@@ -84,8 +84,59 @@
 				jq('#dkeh_renaIdLink').click();
 			}
 	    });
+	    
+	    //Eksp.sted
+	  	  jq('#dkeh_a1IdLink').click(function() {
+	    	jq('#dkeh_a1IdLink').attr('target','_blank');
+	    	window.open('skatexport_edit_childwindow_generalcodes.do?action=doInit&type=103&ctype=dkeh_a1', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  	  });
+	  	  jq('#dkeh_a1IdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_a1IdLink').click();
+			}
+	  	  });
+	  	  
+	      //Valuta
+	  	  jq('#dkeh_221IdLink').click(function() {
+	    	jq('#dkeh_221IdLink').attr('target','_blank');
+	    	window.open('skatexport_edit_childwindow_generalcodes.do?action=doInit&type=107&ctype=dkeh_221', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  	  });
+	  	  jq('#dkeh_221IdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_221IdLink').click();
+			}
+	  	  });
+	  	  
+	  	  //Udgangstoldsted
+	  	  jq('#dkeh_29IdLink').click(function() {
+	    	jq('#dkeh_29IdLink').attr('target','_blank');
+	    	window.open('skatexport_edit_childwindow_tullkontor.do?action=doInit&type=117&ctype=dkeh_29&tkkode=' + jq('#dkeh_29').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  	  });
+	  	  jq('#dkeh_29IdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_29IdLink').click();
+			}
+	  	  });
+	  	  //Udgangstoldsted
+	  	  jq('#dkeh_indIdLink').click(function() {
+	    	jq('#dkeh_indIdLink').attr('target','_blank');
+	    	window.open('skatexport_edit_childwindow_tullkontor.do?action=doInit&type=117&ctype=dkeh_ind&tkkode=' + jq('#dkeh_ind').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  	  });
+	  	  jq('#dkeh_indIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#dkeh_indIdLink').click();
+			}
+	  	  });
   	  
-    });  
+    }); 
+    
+    //ChildWindow Country Codes
+    function triggerChildWindowCountryCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatexport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
   	
   	jq(document).ready(function(){
   	    jq(this).scrollTop(0); //needed for Chrome (bug)

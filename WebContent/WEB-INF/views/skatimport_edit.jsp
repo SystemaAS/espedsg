@@ -380,9 +380,7 @@
 			 				<td class="text12" align="center"><b>A.1</b>
 				 				<font class="text16RedBold" >*</font>
 			 					<span title="dkih_a">Eksped.sted&nbsp;</span>
-			 					<a tabindex="-1" class="text14" target="_blank" href="${model.toldstedCodesURL.value}" onclick="${model.toldstedCodesURL.windowOpenDimensions}" >
-				            			<img tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-			            			</a>	
+			 						
 			 				</td>
 			 				<td class="text12">
 			            			<select name="dkih_a" id="dkih_a">
@@ -391,7 +389,9 @@
 					 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkih_a == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
 										</c:forEach>  
 								</select>
-									
+								<a tabindex="-1" id="dkih_aIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>	
 			 				</td> 
 			 				<td class="text12">
 			 					&nbsp;<img onMouseOver="showPop('ajour_info');" onMouseOut="hidePop('ajour_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -658,9 +658,7 @@
 								        		<tr>
 								            		<td class="text12" align="left" >&nbsp;&nbsp;
 								            		<span title="dkih_02f" id="v_dkih_02f" class="validation">Land</span>
-												<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								            		</a>																	 			
+																													 			
 								            		</td>
 								            		
 								            	</tr>
@@ -673,6 +671,9 @@
 															</c:forEach>  
 
 														</select>
+														<a tabindex="-1" id="dkih_02fIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+														</a>
 													</td>
 								            		<td align="left">&nbsp;</td> 
 								        		</tr>    	
@@ -793,9 +794,7 @@
 								        		<tr>
 								        			<td class="text12" align="left" >&nbsp;&nbsp;
 								            		<span title="dkih_08f">Land</span>
-												<a tabindex=-1 class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								            		</a>																	 			
+																												 			
 												</td>
 								            	</tr>
 								        		<tr>
@@ -806,6 +805,9 @@
 										 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkih_08f == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 															</c:forEach>  
 													</select>
+													<a tabindex="-1" id="dkih_08fIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+														</a>
 								            		</td> 
 								        		</tr>
 							            	</table>
@@ -1005,9 +1007,9 @@
 			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkih_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
 								  </c:forEach>  
 								</select>
-								<a tabindex="-1" class="text14" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>																	 			
+								<a tabindex="-1" id="dkih_221IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>																		 			
 								
 			 				</td>
 		 				</tr>
@@ -1060,9 +1062,9 @@
 					 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkih_15 == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach>  
 									</select>
-									<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-					            		</a>																	 			
+									<a tabindex="-1" id="dkih_15IdLink" OnClick="triggerChildWindowCountryCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>																 			
 								</td>
 							</tr>
 							<tr height="8"><td class="text"></td> </tr>
@@ -1145,9 +1147,9 @@
 					 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkih_211 == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach>  
 									</select>
-									<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-					            		</a>																	 			
+									<a tabindex="-1" id="dkih_211IdLink" OnClick="triggerChildWindowCountryCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>																	 			
 					            	</td>
 					        </tr>
 						</table>
@@ -1791,9 +1793,7 @@
 										        		<tr>
 										        			<td class="text12" align="left" >&nbsp;&nbsp;
 										            		<span title="dkih_trlk">Land</span>
-														<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-										            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-										            		</a>																	 			
+																														 			
 														</td>
 										            	</tr>
 										        		<tr >
@@ -1804,6 +1804,9 @@
 											 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkih_trlk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																</c:forEach>  
 															</select>
+															<a tabindex="-1" id="dkih_trlkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+															</a>
 										            		</td> 
 										        		</tr>  
 										            	</table>
@@ -1929,9 +1932,7 @@
 										        		<tr>
 										        			<td class="text12" align="left" >&nbsp;&nbsp;
 										            		<span title="dkih_nilk">Land</span>
-														<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-										            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-										            		</a>																	 			
+																														 			
 														</td>
 										            	</tr>
 										        		<tr >
@@ -1942,6 +1943,9 @@
 											 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkih_nilk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																</c:forEach>  
 															</select>
+															<a tabindex="-1" id="dkih_nilkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+															</a>
 										            		</td> 
 										        		</tr>  
 										            	</table>

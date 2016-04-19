@@ -107,6 +107,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="skatImportTopicListService" class="no.systema.skat.skatimport.service.SkatImportTopicListServiceImpl"/>
 	<bean id="skatImportSpecificTopicService" class="no.systema.skat.skatimport.service.SkatImportSpecificTopicServiceImpl"/>
 	<bean id="skatImportSpecificTopicItemService" class="no.systema.skat.skatimport.service.SkatImportSpecificTopicItemServiceImpl"/>
+	<bean id="skatImportGeneralCodesChildWindowService" class="no.systema.skat.skatimport.service.SkatImportGeneralCodesChildWindowServiceImpl"/>
 	<!-- SKAT IMPORT Drop down bean --> 
     <bean id="skatImportDropDownListPopulationService" class="no.systema.skat.skatimport.service.html.dropdown.SkatImportDropDownListPopulationService"/>
 	
@@ -116,6 +117,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="skatExportTopicListService" class="no.systema.skat.skatexport.service.SkatExportTopicListServiceImpl"/>
 	<bean id="skatExportSpecificTopicService" class="no.systema.skat.skatexport.service.SkatExportSpecificTopicServiceImpl"/>
 	<bean id="skatExportSpecificTopicItemService" class="no.systema.skat.skatexport.service.SkatExportSpecificTopicItemServiceImpl"/>
+	<bean id="skatExportGeneralCodesChildWindowService" class="no.systema.skat.skatexport.service.SkatExportGeneralCodesChildWindowServiceImpl"/>
 	<!-- SKAT EXPORT Drop down bean  -->  
     <bean id="skatExportDropDownListPopulationService" class="no.systema.skat.skatexport.service.html.dropdown.SkatExportDropDownListPopulationService"/>
 	

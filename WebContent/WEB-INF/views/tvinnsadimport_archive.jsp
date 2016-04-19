@@ -105,7 +105,8 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.archive.list.label.additionalInfo"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;Dokument</td> 
 	                    
-	               </tr>     
+	               </tr> 
+	               <c:if test="${not empty list}">    
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
 		                   <c:when test="${counter.count%2==0}">
@@ -130,7 +131,7 @@
 		               </td>
 		            </tr> 
 		            </c:forEach>
-		            
+		            </c:if>
 	            </table>
 			</td>	
 			</tr>

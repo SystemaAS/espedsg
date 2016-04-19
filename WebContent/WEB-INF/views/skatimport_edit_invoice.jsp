@@ -241,7 +241,7 @@
 					                    <th class="text12" ><span title="dkif_vakd">&nbsp;Møntsort&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="dkif_vaku">&nbsp;Kurs&nbsp;</span></th>
 					                    <th class="text12" align="left"><span title="dkif_omr">Faktor&nbsp;</span></th> 
-					                    <c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">
+					                    <c:if test="${ model.status == 'M' || empty  model.status || model.status == '10' || model.status == '20' || model.status == '40'}">
 					                    	<th align="center" class="text12" >Radera</th>
 					                    </c:if>
 					                    
@@ -467,9 +467,9 @@
 												</select> 
 												 
 											</select>
-											<a tabindex="-1" id="valutaIdLink">
-           										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-           									</a>
+											<a tabindex="-1" id="dkif_vakdIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 						        		<td class="text12" align="left">
 						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkif_vaku" id="dkif_vaku" size="8" maxlength="8" value="${model.record.dkif_vaku}">

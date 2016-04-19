@@ -82,8 +82,40 @@
 			jq('#dkih_ninaIdLink').click();
 		}
   	  });
-    });  
+  	  
+  	  //Eksped.sted
+  	  jq('#dkih_aIdLink').click(function() {
+    	jq('#dkih_aIdLink').attr('target','_blank');
+    	window.open('skatimport_edit_childwindow_generalcodes.do?action=doInit&type=006&ctype=dkih_a', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_aIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkih_aIdLink').click();
+		}
+  	  });
+  	  //Valuta
+  	  jq('#dkih_221IdLink').click(function() {
+    	jq('#dkih_221IdLink').attr('target','_blank');
+    	window.open('skatimport_edit_childwindow_generalcodes.do?action=doInit&type=020&ctype=dkih_221', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#dkih_221IdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkih_221IdLink').click();
+		}
+  	  });
   	
+    });  
+    
+    //ChildWindow Country Codes
+    function triggerChildWindowCountryCodes(record){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatimport_edit_childwindow_generalcodes.do?action=doInit&type=008&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+  	
+    
+    
   	jq(document).ready(function(){
   	    jq(this).scrollTop(0); //needed for Chrome (bug)
   	});

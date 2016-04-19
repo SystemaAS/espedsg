@@ -364,28 +364,7 @@
 							<td class="text12" align="left">
 								<img onMouseOver="showPop('ekspedsted_info');" onMouseOut="hidePop('ekspedsted_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 								<b>A.1</b><span title="dkeh_a1" id="v_dkeh_a1" class="validation">Eksped.sted&nbsp;</span>
-					           	
-			 					<%-- info span --%>
-								<img onClick="showPop('toldstedCodeInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								<span style="position:absolute; left:50px; top:280px; width:350px; height:150px;" id="toldstedCodeInfo" class="popupWithInputText"  >
-					           		<div class="text10" align="left">
-				           				<select class="text11" id="toldstedList" name="toldstedList" size="5" onDblClick="hidePop('toldstedCodeInfo');">
-					           				<c:forEach var="record" items="${model.toldstedCodeList}" >
-					 				  			<option value="${record.dkkd_kd}">${record.dkkd_kd}&nbsp;${record.dkkf_txt}</option>
-											</c:forEach>
-					           			</select>
-					           			
-										<table width="100%" align="left" border="0">
-											<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-											<tr align="left" >
-												<td class="text11">&nbsp;<button name="toldstedButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('toldstedCodeInfo');">&nbsp;<spring:message code="systema.skat.export.ok"/></button> 
-												</td>
-											</tr>
-										</table>
-									</div>
-								</span>
-								
-								<div class="text11" style="position: relative;" align="left">
+					           	<div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:250px;" id="ekspedsted_info" class="popupWithInputText text11"  >	
 					           			<b>Eksped.sted</b>
 					           			<br/><br/>
@@ -404,6 +383,9 @@
 					 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkeh_a1 == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
 										</c:forEach>  
 								</select>
+								<a tabindex="-1" id="dkeh_a1IdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
 			 				</td>
 			 				<td align="left" class="text12">
 			 					<img onMouseOver="showPop('ekspednr_info');" onMouseOut="hidePop('ekspednr_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -641,9 +623,7 @@
 									            		
 									            		<td class="text12" align="left" >&nbsp;&nbsp;
 									            		<span title="dkeh_02f">Land</span>
-													<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-									            			<img tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-									            		</a>																	 			
+																														 			
 									            		</td>
 									            		
 									            	</tr>
@@ -656,6 +636,9 @@
 																</c:forEach>  
 	
 															</select>
+															<a tabindex="-1" id="dkeh_02fIdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+															</a>
 														</td>
 									            		<td align="left">&nbsp;</td> 
 									        		</tr>    	
@@ -774,9 +757,7 @@
 								        		<tr>
 								        			<td class="text12" align="left" >&nbsp;&nbsp;
 								            		<span title="dkeh_08f" id="v_dkeh_08f" class="validation">Land</span>
-												<a tabindex=-1 class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-								            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								            		</a>																	 			
+																													 			
 												</td>
 								            	</tr>
 								        		<tr>
@@ -787,6 +768,9 @@
 										 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_08f == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 															</c:forEach>  
 													</select>
+													<a tabindex="-1" id="dkeh_08fIdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+													</a>
 								            		</td> 
 								        		</tr>
 							            	</table>
@@ -969,9 +953,9 @@
 			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkeh_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
 								  </c:forEach>  
 								</select>
-								<a tabindex="-1" class="text14" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>																	 			
+								<a tabindex="-1" id="dkeh_221IdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>																	 			
 								
 			 				</td>
 		 				</tr>
@@ -1020,7 +1004,10 @@
 					 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_17a == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach>  
 									</select>
-									<%-- info span --%>
+									<a tabindex="-1" id="dkeh_17aIdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
+									<%-- info span 
 									<img onClick="showPop('bestemmelseslandInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
 									<span style="position:absolute; left:800px; top:150px; width:350px; height:150px;" id="bestemmelseslandInfo" class="popupWithInputText"  >
 						           		<div class="text10" align="left">
@@ -1039,6 +1026,7 @@
 											</table>
 										</div>
 									</span>
+									--%>
 								</td>
 							</tr>
 							
@@ -1098,9 +1086,9 @@
 					 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_21 == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach>  
 									</select>
-									<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-					            		</a>																	 			
+									<a tabindex="-1" id="dkeh_21IdLink"   OnClick="triggerChildWindowCountryCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>																	 			
 					            	</td>
 					        </tr>
 						</table>
@@ -1209,25 +1197,10 @@
 				 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_s131 == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 									</c:forEach>  
 								</select>
-								<img onClick="showPop('transitlandInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								<%-- info span --%>
-								<span style="position:absolute; left:800px; top:150px; width:350px; height:150px;" id="transitlandInfo" class="popupWithInputText"  >
-					           		<div class="text10" align="left">
-				           				<select class="text11" id="transitland" name="transitland" size="5" onDblClick="hidePop('transitlandInfo');">
-					           				<c:forEach var="country" items="${model.countryCodeList}" >
-					 				  			<option value="${country.dkkd_kd}">${country.dkkd_kd}&nbsp;${country.dkkf_txt}</option>
-											</c:forEach>
-					           			</select>
-					           			
-										<table width="100%" align="left" border="0">
-											<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-											<tr align="left" >
-												<td class="text11">&nbsp;<button name="transitlandButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('transitlandInfo');">&nbsp;<spring:message code="systema.skat.export.ok"/></button> 
-												</td>
-											</tr>
-										</table>
-									</div>
-								</span>
+								<a tabindex="-1" id="dkeh_s131IdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+								
 							</td>
 							</tr>
 							
@@ -1251,25 +1224,9 @@
 				 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_s132 == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 									</c:forEach>  
 								</select>
-								<img onClick="showPop('transitland2Info');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								<%-- info span --%>
-								<span style="position:absolute; left:800px; top:150px; width:350px; height:150px;" id="transitland2Info" class="popupWithInputText"  >
-					           		<div class="text10" align="left">
-				           				<select class="text11" id="transitland2" name="transitland2" size="5" onDblClick="hidePop('transitland2Info');">
-					           				<c:forEach var="country" items="${model.countryCodeList}" >
-					 				  			<option value="${country.dkkd_kd}">${country.dkkd_kd}&nbsp;${country.dkkf_txt}</option>
-											</c:forEach>
-					           			</select>
-					           			
-										<table width="100%" align="left" border="0">
-											<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-											<tr align="left" >
-												<td class="text11">&nbsp;<button name="transitland2ButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('transitland2Info');">&nbsp;<spring:message code="systema.skat.export.ok"/></button> 
-												</td>
-											</tr>
-										</table>
-									</div>
-								</span>
+								<a tabindex="-1" id="dkeh_s132IdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
 								&nbsp;
 								<button name="transitCountriesButton" class="buttonGray" type="button" onClick="showPop('transitCountries');" >Mere transit</button> 
 							        <span style="position:absolute; left:950px; top:300px; width:250px; height:200px;" id="transitCountries" class="popupWithInputText"  >
@@ -1615,25 +1572,9 @@
 				 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkeh_29 == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
 									</c:forEach>
 									</select>
-									<%-- udgangstoldsted description span --%>
-									<img onClick="showPop('udgangtoldstedInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-									<span style="position:absolute; left:1000px; top:700px; width:350px; height:150px;" id="udgangtoldstedInfo" class="popupWithInputText"  >
-						           		<div class="text10" align="left">
-					           				<select class="text11" id="udgangstoldsted" name="udgangstoldsted" size="5" onDblClick="hidePop('29_info');">
-						           				<c:forEach var="record" items="${model.udgangstoldstedCodeList}" >
-						 				  			<option value="${record.dkkd_kd}">${record.dkkd_kd}&nbsp;${record.dkkf_txt}</option>
-												</c:forEach>
-						           			</select>
-						           			
-											<table width="100%" align="left" border="0">
-												<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-												<tr align="left" >
-													<td class="text11">&nbsp;<button name="utgangstoldstedButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('udgangtoldstedInfo');">&nbsp;<spring:message code="systema.skat.export.ok"/></button> 
-													</td>
-												</tr>
-											</table>
-										</div>
-									</span>									
+									<a tabindex="-1" id="dkeh_29IdLink" >
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>									
 					            </td>
 					        </tr>
 						</table>
@@ -1896,9 +1837,7 @@
 										        		<tr>
 										        			<td class="text12" align="left" >&nbsp;&nbsp;
 										            		<span title="dkeh_relk">Land</span>
-															<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-										            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-										            		</a>																	 			
+																																 			
 														</td>
 										            	</tr>
 										        		<tr >
@@ -1909,6 +1848,9 @@
 											 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkeh_relk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 																</c:forEach>  
 															</select>
+															<a tabindex="-1" id="dkeh_relkIdLink"  OnClick="triggerChildWindowCountryCodes(this)">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+															</a>
 										            		</td> 
 										        		</tr>  
 										            	</table>
@@ -2289,25 +2231,9 @@
 			 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkeh_ind == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
 								</c:forEach>
 								</select>
-								<%-- udgangstoldsted description span --%>
-								<img onClick="showPop('indladningsstedInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-								<span style="position:absolute; left:1000px; top:1300px; width:350px; height:150px;" id="indladningsstedInfo" class="popupWithInputText"  >
-					           		<div class="text10" align="left">
-				           				<select class="text11" id="indladningssted" name="indladningssted" size="5" onDblClick="hidePop('indladningsstedInfo');">
-					           				<c:forEach var="record" items="${model.udgangstoldstedCodeList}" >
-					 				  			<option value="${record.dkkd_kd}">${record.dkkd_kd}&nbsp;${record.dkkf_txt}</option>
-											</c:forEach>
-					           			</select>
-					           			
-										<table width="100%" align="left" border="0">
-											<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-											<tr align="left" >
-												<td class="text11">&nbsp;<button name="indladningsstedButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('indladningsstedInfo');">&nbsp;<spring:message code="systema.skat.export.ok"/></button> 
-												</td>
-											</tr>
-										</table>
-									</div>
-								</span>
+								<a tabindex="-1" id="dkeh_indIdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
 								
 								<div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:250px;" id="indssted_info" class="popupWithInputText text11"  >

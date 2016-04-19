@@ -46,5 +46,13 @@ public class JsonSkatCodeRecord implements Comparable<JsonSkatCodeRecord> {
 	public void setDkkf_txt(String value){ this.dkkf_txt = value;}
 	public String getDkkf_txt(){ return this.dkkf_txt; }
 
+	//compatibility issues
+	private String tkkode = null;
+	public void setTkkode(String value){ this.tkkode = value;}
+	public String getTkkode(){ return this.tkkode; }
+	
+	private String tktxtn = null;
+	public void setTktxtn(String value){ this.tktxtn = value;}
+	public String getTktxtn(){ return this.tktxtn; }
 	
 }
