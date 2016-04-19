@@ -51,6 +51,10 @@
 				  opener.jq('#dkeh_29').val(kod);
 				  opener.jq('#dkeh_29').focus();
 				  
+			  }else if(callerType == 'dkef_vakd'){
+				  opener.jq('#dkef_vakd').val(kod);
+				  opener.jq('#dkef_vakd').focus();
+				  
 			  }
 
 			  //close child window

@@ -468,9 +468,9 @@
 							 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkef_vakd == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
 												  </c:forEach> 
 											</select>
-											<a tabindex="-1" id="valutaIdLink">
-           										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-           									</a>
+											<a tabindex="-1" id="dkef_vakdIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 							        		<td class="text12" align="left">
 							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkef_vaku" id="dkef_vaku" size="8" maxlength="8" value="${model.record.dkef_vaku}">
