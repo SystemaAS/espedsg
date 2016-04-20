@@ -36,6 +36,7 @@ public final class SkatImportConstants {
 		020=Valutakoder R22       
 	*/
 	
+	
 	public static final String RESOURCE_MODEL_KEY_CODE_001_ANGIVELSESARTER_LIST = "angivelsesArterCodeList";
 	public static final String RESOURCE_MODEL_KEY_CODE_005_CERTIFIKAT_R44_2_LIST = "certifikatKoderR44_2CodeList"; //CertifikatKoderR44
 	public static final String RESOURCE_MODEL_KEY_CODE_006_TOLDSTED_LIST = "toldstedCodeList"; //Ekspeditionssted

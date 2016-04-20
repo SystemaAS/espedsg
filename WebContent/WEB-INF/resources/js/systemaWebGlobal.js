@@ -1,10 +1,14 @@
     //for mouse-over for css popup
     function showPop(id){
-        document.getElementById(id).style.visibility = "visible";
+    	if(id!=''){
+    		document.getElementById(id).style.visibility = "visible";
+    	}
     }
     //for mouse-out for css popup
     function hidePop(id){
-        document.getElementById(id).style.visibility = "hidden";
+    	if(id!=''){
+    		document.getElementById(id).style.visibility = "hidden";
+    	}
     }
     
 

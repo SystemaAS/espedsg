@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.skat.util.SkatConstants;
 
 
 @Controller
@@ -37,6 +38,12 @@ public class LogoutSkatController {
 		}else{
 			logger.info("Logging out from Systema SKAT Toldsystem...");
 			session.removeAttribute(AppConstants.ASPECT_ERROR_MESSAGE);
+			//Code managers
+			session.removeAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT);
+			session.removeAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT);
+			session.removeAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT_NCTS);
+			session.removeAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS);
+			
 			view = this.successView;
 		}
 		return view;

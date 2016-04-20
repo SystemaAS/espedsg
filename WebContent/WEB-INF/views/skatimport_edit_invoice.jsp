@@ -60,9 +60,14 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;<spring:message code="systema.skat.import.logging.tab"/></font>
-				<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatimport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${model.opd}&refnr=${dkih_07}
+													&status=${model.status}&datum=${model.datum}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.skat.import.logging.tab"/>
+					</font>
+					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>

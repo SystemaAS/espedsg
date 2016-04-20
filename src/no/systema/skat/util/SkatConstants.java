@@ -89,6 +89,12 @@ public final class SkatConstants {
 	public static final String SESSION_SEARCH_FILTER_SKATEXPORT = "searchFilterSkatExport";
 	public static final String SESSION_SEARCH_FILTER_SKATIMPORT_NCTS = "searchFilterSkatImportNcts";
 	public static final String SESSION_SEARCH_FILTER_SKATEXPORT_NCTS = "searchFilterSkatExportNcts";
+	//
+	public static final String SESSION_CODE_MANAGER_EXISTS_SKATIMPORT = "codeMgrExistsSkatImport";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SKATEXPORT = "codeMgrExistsSkatExport";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS = "codeMgrExistsSkatImportNcts";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SKATIMPORT_NCTS = "codeMgrExistsSkatExportNcts";
+	
 	
 	
 	public static final String DOMAIN_RECORD_TOPIC_SKAT = "recordTopicSkat";

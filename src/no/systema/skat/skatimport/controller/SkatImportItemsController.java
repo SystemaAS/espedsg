@@ -33,6 +33,7 @@ import no.systema.main.context.TdsServletContext;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.HttpSessionManager;
 import no.systema.skat.skatimport.util.manager.SkatImportItemsAutoControlMgr;
 import no.systema.skat.skatimport.service.SkatImportSpecificTopicItemService;
 import no.systema.skat.skatimport.mapper.url.request.UrlRequestParameterMapper;
@@ -44,13 +45,13 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecific
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.util.manager.SkatAutoCopyItemLinesMgr;
-
 import no.systema.skat.url.store.SkatUrlDataStore;
 
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 import no.systema.skat.skatimport.service.html.dropdown.SkatImportDropDownListPopulationService;
 import no.systema.skat.skatimport.util.RpgReturnResponseHandler;
 import no.systema.skat.skatimport.util.SkatImportCalculator;
+import no.systema.skat.skatimport.util.SkatImportConstants;
 import no.systema.skat.skatimport.util.SkatImportTweaker;
 import no.systema.skat.skatimport.util.manager.CodeDropDownMgr;
 import no.systema.skat.skatimport.util.manager.TollvaerdideklarationMgr;
@@ -78,6 +79,8 @@ import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 public class SkatImportItemsController {
 	private static final Logger logger = Logger.getLogger(SkatImportItemsController.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private static final HttpSessionManager httpSessionManager = new HttpSessionManager();
+	
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private SkatImportCalculator skatImportCalculator = new SkatImportCalculator();
@@ -395,10 +398,20 @@ public class SkatImportItemsController {
 		    	jsonSkatImportSpecificTopicItemContainer.setLastSelectedItemLineNumber(lastSelectedItemLineNumber);
 		    	//logger.info("(B)##### lastSelectedItemLineNumber:" + lastSelectedItemLineNumber);
 	    	}
+	    	
 	    	//drop downs populated from back-end
-	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
+	    	//This is done to boost performance
+	    	String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT);
+	    	if(codeMgrExists!=null){
+	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
+	    	}else{
+	    		this.setCodeDropDownMgr(appUser, model, headerRecord);
+	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
+	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT );
+	    	}
+	    	//logger.debug("BB");
     		
-    		//drop downs populated from a txt file
+	    	//drop downs populated from a txt file
     		model.put(SkatConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.skatImportDropDownListPopulationService.getBerakningsEnheterList());
     		this.setDomainObjectsForListInView(session, model, jsonSkatImportSpecificTopicItemContainer);
 			//this next step is necessary for the default values on "create new" record
@@ -411,6 +424,7 @@ public class SkatImportItemsController {
     		}	    		
 			successView.addObject("model",model);
 			//successView.addObject(Constants.EDIT_ACTION_ON_TOPIC, Constants.ACTION_FETCH);
+			logger.debug("END OF METHOD");
 	    	return successView;
 		}
 	}
@@ -1049,7 +1063,7 @@ public class SkatImportItemsController {
 		map.put("dkih_25", headerRecord.getDkih_25());
 		map.put("dkih_26", headerRecord.getDkih_26());
 		
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
+			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_001_ANGIVELSESARTER, null, null,null);
 	
 	    	this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
@@ -1057,7 +1071,7 @@ public class SkatImportItemsController {
 	    	
 	    	this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
     						model,appUser,CodeDropDownMgr.CODE_006_TOLDSTED, null, null,null);
-		
+	    	
 	    	this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_007_EMBALLAGE_R31, null, null,null);
 	    	
@@ -1072,7 +1086,7 @@ public class SkatImportItemsController {
 		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_012_PDOKUMENTATIONSKODER_R44_4, null, null,null);
-	
+		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_013_PREFERENCE_R36, null, null,null);
 		
@@ -1087,17 +1101,14 @@ public class SkatImportItemsController {
 		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_020_CURRENCY, null, null, null);
-
+	
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 					 	model,appUser,CodeDropDownMgr.CODE_021_SUPP_VAREOPL_R44_6, null, null, null );
 		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 						model,appUser,CodeDropDownMgr.CODE_022_SUPP_ENHEDER_R41_1, null, null, null);
 		
-		
-		
 	}
-	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

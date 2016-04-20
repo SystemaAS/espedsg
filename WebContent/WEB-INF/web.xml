@@ -15,6 +15,13 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
+  <!-- 
+  <listener>
+    <listener-class>no.systema.main.util.HttpSessionManager</listener-class>
+  </listener>
+   -->
+   
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/espedsg-servlet.xml, /WEB-INF/espedsg-service.xml, /WEB-INF/espedsg-maintenance-service.xml</param-value>
