@@ -759,6 +759,7 @@
 	      jq('#tblItemLinesAll').dataTable( {
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "800px",
+	    	  "deferRender": true,
 	  		  "scrollCollapse":  true,
 	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
@@ -767,7 +768,8 @@
 	      jq('#tblItemLines').dataTable( {
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
-	  		  "scrollCollapse":  true,
+	    	  "deferRender": true, //to speed the table load
+	    	  "scrollCollapse":  true,
 	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
