@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +21,7 @@ import no.systema.skat.model.external.url.UrlSkatCurrencyObject;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
+import no.systema.skat.skatexport.util.SkatExportConstants;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.nctsexport.util.SkatNctsExportConstants;
@@ -181,6 +184,71 @@ public class CodeDropDownMgr {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void setCodeMgrListsInSession(Map model, HttpSession session){
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_012_SPRAK_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_012_SPRAK_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_013_DOKTYPE_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_013_DOKTYPE_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_014_TIDIGAREDOKS_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_014_TIDIGAREDOKS_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_017_KOLLI_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_017_KOLLI_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_031_DEKLTYPE_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_031_DEKLTYPE_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_039_TILLAGSUPP_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_039_TILLAGSUPP_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_047_KONTROLL_RESULTAT_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_047_KONTROLL_RESULTAT_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_064_KANSLIGVARA_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_064_KANSLIGVARA_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_096_SPEC_OMST_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_096_SPEC_OMST_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_105_TILLGANGASKOD_GARANTI_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_105_TILLGANGASKOD_GARANTI_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_106_TULLKONTOR_REF_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_106_TULLKONTOR_REF_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_116_BETALNINGSSATT_TRANSPORTKOSTNAD_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_116_BETALNINGSSATT_TRANSPORTKOSTNAD_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_302_STATUS_KODER_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_302_STATUS_KODER_LIST) );
+		session.setAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_108_TRANSPORTMADE_LIST, (List)model.get(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_108_TRANSPORTMADE_LIST) );
+		
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void getCodeMgrListsFromSession(Map model, HttpSession session){
+		List list = new ArrayList();
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_012_SPRAK_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_012_SPRAK_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_013_DOKTYPE_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_013_DOKTYPE_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_014_TIDIGAREDOKS_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_014_TIDIGAREDOKS_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_017_KOLLI_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_017_KOLLI_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_031_DEKLTYPE_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_031_DEKLTYPE_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_039_TILLAGSUPP_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_039_TILLAGSUPP_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_047_KONTROLL_RESULTAT_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_047_KONTROLL_RESULTAT_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_064_KANSLIGVARA_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_064_KANSLIGVARA_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_096_SPEC_OMST_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_096_SPEC_OMST_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_105_TILLGANGASKOD_GARANTI_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_105_TILLGANGASKOD_GARANTI_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_106_TULLKONTOR_REF_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_106_TULLKONTOR_REF_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_116_BETALNINGSSATT_TRANSPORTKOSTNAD_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_116_BETALNINGSSATT_TRANSPORTKOSTNAD_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_302_STATUS_KODER_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_302_STATUS_KODER_LIST, list);
+		list = (List)session.getAttribute("model." + SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_108_TRANSPORTMADE_LIST);
+		model.put(SkatNctsExportConstants.RESOURCE_MODEL_KEY_CODE_NCTSEX_108_TRANSPORTMADE_LIST, list);
 		
 	}
 	

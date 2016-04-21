@@ -249,7 +249,7 @@ public class SkatExportHeaderControllerChildWindow {
 			urlRequestParams.append("&sonavn=" + tullkontorName);
 		}
 		if(tullkontorCode!=null && !"".equals(tullkontorCode)){
-			urlRequestParams.append("&kod=" + tullkontorCode);
+			urlRequestParams.append("&kode1=" + tullkontorCode);
 		}
 		
 		

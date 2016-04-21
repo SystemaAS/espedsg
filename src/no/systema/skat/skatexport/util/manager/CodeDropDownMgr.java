@@ -5,6 +5,8 @@ package no.systema.skat.skatexport.util.manager;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 
 import no.systema.main.model.SystemaWebUser;
@@ -17,6 +19,7 @@ import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.skatexport.util.SkatExportConstants;
+import no.systema.skat.skatimport.util.SkatImportConstants;
 
 
 /**
@@ -262,5 +265,99 @@ public class CodeDropDownMgr {
 		return sortedList;
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void setCodeMgrListsInSession(Map model, HttpSession session){
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_017_TRANSPORTDOK_SUMMARISKA_R40_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_017_TRANSPORTDOK_SUMMARISKA_R40_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_022_SUPP_ENHEDER_R41_1_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_022_SUPP_ENHEDER_R41_1_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_102_ANGIVELSESARTER_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_102_ANGIVELSESARTER_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_103_TOLDSTED_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_103_TOLDSTED_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_104_ANGIVELSESTYPE_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_104_ANGIVELSESTYPE_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_106_INCOTERMS_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_106_INCOTERMS_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_108_TRANSPORTMADE_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_108_TRANSPORTMADE_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_109_BETALNINGSMADE_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_109_BETALNINGSMADE_LIST) );
+		//
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_110_EMBALLAGE_R31_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_110_EMBALLAGE_R31_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_112_PROCEDURE_R37_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_112_PROCEDURE_R37_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_113_CERTIFIKAT_R44_2_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_113_CERTIFIKAT_R44_2_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_114_VAB_CERTIFIKAT_R44_3_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_114_VAB_CERTIFIKAT_R44_3_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_115_FN_FARLIG_GODS_R44_4_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_115_FN_FARLIG_GODS_R44_4_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_116_TRANSPORTDOK_TYPE_R44_5_1_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_116_TRANSPORTDOK_TYPE_R44_5_1_LIST) );
+		//
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_117_UDGANGSTOLDSTED_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_117_UDGANGSTOLDSTED_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_119_EXPORTARTER_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_119_EXPORTARTER_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_122_ERKLAERINGER_YM_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_122_ERKLAERINGER_YM_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_123_T_STATUS_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_123_T_STATUS_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_124_SUPPL_ENHEDER_YM_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_124_SUPPL_ENHEDER_YM_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_126_EU_ANGIVELSESARTER_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_126_EU_ANGIVELSESARTER_LIST) );
+		session.setAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_127_STATUS_KODER_LIST, (List)model.get(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_127_STATUS_KODER_LIST) );
+		
+		
+	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void getCodeMgrListsFromSession(Map model, HttpSession session){
+		List list = new ArrayList();
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_008_COUNTRY_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_017_TRANSPORTDOK_SUMMARISKA_R40_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_017_TRANSPORTDOK_SUMMARISKA_R40_LIST, list);
+		
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_022_SUPP_ENHEDER_R41_1_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_022_SUPP_ENHEDER_R41_1_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_102_ANGIVELSESARTER_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_102_ANGIVELSESARTER_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_103_TOLDSTED_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_103_TOLDSTED_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_104_ANGIVELSESTYPE_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_104_ANGIVELSESTYPE_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_106_INCOTERMS_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_106_INCOTERMS_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_107_CURRENCY_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_108_TRANSPORTMADE_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_108_TRANSPORTMADE_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_109_BETALNINGSMADE_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_109_BETALNINGSMADE_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_110_EMBALLAGE_R31_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_110_EMBALLAGE_R31_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_112_PROCEDURE_R37_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_112_PROCEDURE_R37_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_113_CERTIFIKAT_R44_2_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_113_CERTIFIKAT_R44_2_LIST, list);
+		//
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_114_VAB_CERTIFIKAT_R44_3_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_114_VAB_CERTIFIKAT_R44_3_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_115_FN_FARLIG_GODS_R44_4_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_115_FN_FARLIG_GODS_R44_4_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_116_TRANSPORTDOK_TYPE_R44_5_1_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_116_TRANSPORTDOK_TYPE_R44_5_1_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_117_UDGANGSTOLDSTED_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_117_UDGANGSTOLDSTED_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_119_EXPORTARTER_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_119_EXPORTARTER_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_122_ERKLAERINGER_YM_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_122_ERKLAERINGER_YM_LIST, list);
+		//
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_123_T_STATUS_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_123_T_STATUS_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_124_SUPPL_ENHEDER_YM_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_124_SUPPL_ENHEDER_YM_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_126_EU_ANGIVELSESARTER_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_126_EU_ANGIVELSESARTER_LIST, list);
+		list = (List)session.getAttribute("model." + SkatExportConstants.RESOURCE_MODEL_KEY_CODE_127_STATUS_KODER_LIST);
+		model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_127_STATUS_KODER_LIST, list);
+		
+		
+	}
 	
 }

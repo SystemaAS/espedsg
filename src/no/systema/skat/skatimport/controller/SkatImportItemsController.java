@@ -410,8 +410,7 @@ public class SkatImportItemsController {
 	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT );
 	    	}
 	    	//logger.debug("BB");
-    		
-	    	//drop downs populated from a txt file
+    		//drop downs populated from a txt file
     		model.put(SkatConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.skatImportDropDownListPopulationService.getBerakningsEnheterList());
     		this.setDomainObjectsForListInView(session, model, jsonSkatImportSpecificTopicItemContainer);
 			//this next step is necessary for the default values on "create new" record

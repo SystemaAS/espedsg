@@ -379,7 +379,17 @@ public class SkatNctsExportItemsController {
 		    	logger.info("(B)##### lastSelectedItemLineNumber:" + lastSelectedItemLineNumber);
 	    	}
 	    	//add gui lists here
-    		this.setCodeDropDownMgr(appUser, model);	
+    		//this.setCodeDropDownMgr(appUser, model);
+    		
+    		String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS);
+	    	if(codeMgrExists!=null){
+	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
+	    	}else{
+	    		this.setCodeDropDownMgr(appUser, model);
+	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
+	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS );
+	    	}
+    		
     		//domain objects
 	    	this.setDomainObjectsForListInView(session, model, jsonSkatNctsExportSpecificTopicItemContainer);
 			successView.addObject(SkatConstants.DOMAIN_MODEL,model);
