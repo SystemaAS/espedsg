@@ -745,10 +745,8 @@
 		  //init field(s)
     	  var grossWeight = jq('#tvvktb').val().replace(".","");
     	  grossWeight = grossWeight.replace(",",".");
-	    	  
-    	  
-		  var netWeight = jq('#tvvktn').val("");
-		  if(netWeight!=null){
+	    
+    	  if(jq('#tvvktn').val()==''){
 			  var netWeightRaw = Math.round(grossWeight * 0.8);
 			  jq('#tvvktn').val(netWeightRaw);
 		  }

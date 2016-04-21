@@ -25,6 +25,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.service.general.CurrencyRateService;
 import no.systema.main.util.DateTimeManager;
+import no.systema.main.util.JsonDebugger;
 
 //SKAT
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
@@ -64,7 +65,7 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInv
 public class SkatExportAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(SkatExportAjaxHandlerController.class.getName());
 	private SkatExportTweaker skatExportTweaker = new SkatExportTweaker();
-	 
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(800); 
 	/**
 	 * Fetches the dep. information (Ombud)
 	 * 
@@ -346,8 +347,8 @@ public class SkatExportAjaxHandlerController {
 		 //--------------------------------------
 		 String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys.toString());
 		 //Debug --> 
-		 logger.info(jsonPayloadFetch);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+		 //logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		 if(jsonPayloadFetch!=null){
 			 JsonSkatExportSpecificTopicItemContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
 			 if(container!=null){

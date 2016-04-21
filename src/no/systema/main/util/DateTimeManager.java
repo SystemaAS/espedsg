@@ -239,30 +239,21 @@ public class DateTimeManager {
 		
 		return retval;
 	}
-	
 	/**
-	 * The method compares with current time-stamp (now) in milliseconds and compare it with the use value.
-	 * A valid forward time should always return a positive value.
+	 * Compares current time with user time
 	 * @param userValue
+	 * @param dateMask
 	 * @return
 	 */
 	public boolean isValidForwardTime( String userValue, String dateMask){
 		boolean retval = false;
-		Calendar userCalendar = Calendar.getInstance();
-		Calendar calendar = Calendar.getInstance();
-		Long diff = 0L;
 		try{
-			if(userValue!=null && dateMask!=null){
-				//check for the minimum of values in each string
-				if(userValue.length()>=4 && dateMask.length()>=2){
-					Date userDate = new SimpleDateFormat(dateMask).parse(userValue);
-					userCalendar.setTime(userDate);
-					diff = userCalendar.getTimeInMillis() - calendar.getTimeInMillis();
-					//System.out.println("Milliseconds diff: " + diff);
-					if (diff>0){
-						retval = true;
-					}
-				}
+			SimpleDateFormat dateFormat = new SimpleDateFormat(dateMask);
+			Date userTime = dateFormat.parse(userValue);
+			Date currentTime = dateFormat.parse(dateFormat.format(new Date()));
+
+			if (userTime.after(currentTime)){
+			    retval = true;
 			}
 		}catch(Exception e){
 			//nothing. the method will return false...

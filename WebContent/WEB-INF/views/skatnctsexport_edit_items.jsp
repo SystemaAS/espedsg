@@ -699,7 +699,7 @@
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 											</a>											           				
 										</td>
-										<td class="text12" align="left"><input type="text" class="inputText" name="tvdref" id="tvdref" size="10" maxlength="20" value="${model.record.tvdref}"></td>
+										<td class="text12" align="left"><input type="text" class="inputText" name="tvdref" id="tvdref" size="15" maxlength="20" value="${model.record.tvdref}"></td>
 										
 							        </tr>
 							        <tr height="10"><td class="text" align="left" colspan="9"><hr></td></tr>

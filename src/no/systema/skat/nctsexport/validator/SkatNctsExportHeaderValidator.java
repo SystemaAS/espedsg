@@ -13,6 +13,8 @@ import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
+import no.systema.main.util.DateTimeManager;
+import no.systema.main.validator.DateValidator;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicService;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicServiceImpl;
 
@@ -58,7 +60,7 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnas", "systema.skat.ncts.export.header.error.null.thnas"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtins", "systema.skat.ncts.export.header.error.null.thtins"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thads1", "systema.skat.ncts.export.header.error.null.thads1"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thsks", "systema.skat.ncts.export.header.error.null.thsks"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thsks", "systema.skat.ncts.export.header.error.null.thsks"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpns", "systema.skat.ncts.export.header.error.null.thpns"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpss", "systema.skat.ncts.export.header.error.null.thpss"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlks", "systema.skat.ncts.export.header.error.null.thlks"); 
@@ -66,7 +68,7 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnak", "systema.skat.ncts.export.header.error.null.thnak"); 
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtins", "systema.skat.ncts.export.header.error.null.thtink"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thadk1", "systema.skat.ncts.export.header.error.null.thadk1"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskk", "systema.skat.ncts.export.header.error.null.thskk"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskk", "systema.skat.ncts.export.header.error.null.thskk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpnk", "systema.skat.ncts.export.header.error.null.thpnk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thpsk", "systema.skat.ncts.export.header.error.null.thpsk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thlkk", "systema.skat.ncts.export.header.error.null.thlkk");
@@ -79,9 +81,7 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		//header
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thavd", "systema.skat.ncts.export.header.error.null.thavd"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thsg", "systema.skat.ncts.export.header.error.null.thsg");
-		
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrmi", "systema.skat.ncts.export.header.error.null.thtrmi");
-		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thalk", "systema.skat.ncts.export.header.error.null.thalk");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thblk", "systema.skat.ncts.export.header.error.null.thblk");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtaid", "systema.skat.ncts.export.header.error.null.thtaid");
@@ -89,8 +89,7 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtgid", "systema.skat.ncts.export.header.error.null.thtgid");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtglk", "systema.skat.ncts.export.header.error.null.thtglk");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrm", "systema.skat.ncts.export.header.error.null.thtrm");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrm", "systema.skat.ncts.export.header.error.null.thtrm");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thcats", "systema.skat.ncts.export.header.error.null.thcats");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskfd", "systema.skat.ncts.export.header.error.null.thskfd");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdst", "systema.skat.ncts.export.header.error.null.thdst");
@@ -126,7 +125,12 @@ public class SkatNctsExportHeaderValidator implements Validator {
 					}
 				}
 				
-				
+				if(record.getThtins()!=null && !"".equals(record.getThtins())){
+					if(!this.isValidSenderEori(record.getThtins())){
+						errors.rejectValue("thddt", "systema.skat.ncts.export.header.error.rule.cvrNrPrefixSender");
+						logger.info("ERROR thddt");
+					}
+				}
 				//------------------------------------------------------------------
 				//Förseglingsrelaterade fält (all 3 fields must be filled or empty)
 				//------------------------------------------------------------------				
@@ -189,14 +193,27 @@ public class SkatNctsExportHeaderValidator implements Validator {
 						//to be assessed
 						//errors.rejectValue("thtsd1", "systema.skat.ncts.export.header.error.rule.thtsd1.atleastone");
 					}else{
-						if(!"1".equals(record.getThsik())){
-							errors.rejectValue("thsik", "systema.skat.ncts.export.header.error.rule.thsik.sikkerhed.indicator.mandatory");
-						}else{
-							//relationship with Ank.dato og tid... only when indicator = 1
-							if( (record.getThdta()!=null && !"".equals (record.getThdta())) && (record.getThtma()!=null && !"".equals (record.getThtma())) ){
-								//valid
+						if("SS".equals(record.getThdk())){
+							if(!"1".equals(record.getThsik())){
+								errors.rejectValue("thsik", "systema.skat.ncts.export.header.error.rule.thsik.sikkerhed.indicator.mandatory");
 							}else{
-								errors.rejectValue("thdta", "systema.skat.ncts.export.header.error.rule.thdta.dateAndTime.mandatory");
+								//relationship with Ank.dato og tid... only when indicator = 1
+								if( (record.getThdta()!=null && !"".equals (record.getThdta())) && (record.getThtma()!=null && !"".equals (record.getThtma())) ){
+									
+									//check logical validity of Ank.dato
+									DateTimeManager dateTimeMgr = new DateTimeManager();
+									boolean isValidDate = dateTimeMgr.isValidCurrentAndForwardDate(record.getThdta(), "yyyyMMdd");
+									boolean isValidTime = dateTimeMgr.isValidForwardTime(record.getThtma(), "HHmm");
+									if(!isValidDate){
+										errors.rejectValue("thdta", "systema.skat.ncts.export.header.error.rule.ankomstDatoThdtaNotValid"); 
+									}
+									if(!isValidTime){
+										errors.rejectValue("thtma", "systema.skat.ncts.export.header.error.rule.ankomstTidThtmaNotValid"); 
+									}
+									
+								}else{
+									errors.rejectValue("thdta", "systema.skat.ncts.export.header.error.rule.thdta.dateAndTime.mandatory");
+								}
 							}
 						}
 					}
@@ -238,6 +255,7 @@ public class SkatNctsExportHeaderValidator implements Validator {
 				}
 				
 				//Sikkerhed = 1
+				
 				String SIKKERHED_ACTIVE = "1";
 				if(SIKKERHED_ACTIVE.equals(record.getThsik())){
 					//Rubrik 27
@@ -470,5 +488,21 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		  sb.append( SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "thgadk=" + guaranteeCode );
 		  return sb.toString();
 	  }
+	  
+	  /**
+	   * 
+	   * @param record
+	   * @return
+	   */
+	  private boolean isValidSenderEori(String value){
+			boolean retval = false;
+			if( value!=null && !"".equals(value) ){ 
+				if(value.startsWith("DK")){
+					retval = true;
+				}
+			}
+			
+			return retval;
+		}
 	  
 }

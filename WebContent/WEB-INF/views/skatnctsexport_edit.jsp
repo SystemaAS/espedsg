@@ -492,14 +492,14 @@
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thads1">Adresse</span></td>
-							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thsks">Sprogkode</span>
+							            <td class="text12" align="left" >&nbsp;<span title="thsks">Sprogkode</span>
 						            		
 							            </td>
 							        </tr>
 							        <tr>
 							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
 							            <td class="text12" align="left" >
-							            		&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thsks" id="thsks">
+							            		&nbsp;<select class="inputTextMediumBlue" name="thsks" id="thsks">
 								            		<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -636,14 +636,14 @@
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>
 							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thadk1">Adresse</span></td>
-							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thskk">Sprogkode</span>
+							            <td class="text12" align="left" >&nbsp;<span title="thskk">Sprogkode</span>
 						            		
 							            </td>
 							        </tr>
 							        <tr>
 							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thadk1" id="thadk1" size="30" maxlength="35" value="${model.record.thadk1}"></td>
 							            <td class="text12" align="left" >
-							            		&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thskk" id="thskk">
+							            		&nbsp;<select class="inputTextMediumBlue" name="thskk" id="thskk">
 								            		<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
 				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
@@ -1266,9 +1266,8 @@
 	        				<tr>
 				            	<td class="text12">
 				            		<img onMouseOver="showPop('thtrmi_info');" onMouseOut="hidePop('thtrmi_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				            		<b>26.</b>
-				            		<font class="text16RedBold" >*</font><span title="thtrmi">Transp.måde ved afsendelsen&nbsp;</span>
-				 				  	<select name="thtrmi" id="thtrmi">
+				            		<b>26.</b><span title="thtrmi">Transp.måde ved afsendelsen&nbsp;</span>
+				 				  	<select class="inputTextMediumBlue" name="thtrmi" id="thtrmi">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="code" items="${model.transportmadeCodeList}" >
 					 				  		<option value="${code.tkkode}"<c:if test="${model.record.thtrmi == code.tkkode}"> selected </c:if> >${code.tkkode}-${code.tktxtn}</option>
@@ -1361,9 +1360,8 @@
  		       				<tr>
 				            	<td class="text12">
 				            		<img onMouseOver="showPop('thtrm_info');" onMouseOut="hidePop('thtrm_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		            		<b>25.</b>
-				            		<font class="text16RedBold" >*</font><span title="thtrm">Transp.måde ved grænsen&nbsp;</span>
-				            		<select class="inputTextMediumBlueMandatoryField" name="thtrm" id="thtrm">
+		            				<b>25.</b><span title="thtrm">Transp.måde ved grænsen&nbsp;</span>
+				            		<select class="inputTextMediumBlue" name="thtrm" id="thtrm">
 			 						<option value="">-vælg-</option>
 				 				  	<c:forEach var="code" items="${model.transportmadeCodeList}" >
 				 				  		<option value="${code.tkkode}"<c:if test="${model.record.thtrm == code.tkkode}"> selected </c:if> >${code.tkkode}-${code.tktxtn}</option>
