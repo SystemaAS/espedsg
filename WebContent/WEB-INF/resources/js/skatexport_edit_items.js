@@ -32,8 +32,40 @@
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   		  window.location = 'skatexport_edit_items_autocontrol.do?dkev_syav='+ jq('#avd').val() + '&dkev_syop=' + jq('#opd').val();
   	  });
-  	  
     });
+    
+    jq(function() {
+    	//Varekod
+    	jq('#dkev_331IdLink').click(function() {
+    		jq('#dkev_331IdLink').attr('target','_blank');
+    		window.open('skatexport_edit_items_childwindow_tolltariff.do?action=doInit&vkod=' + jq('#dkev_331').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    	});
+    	jq('#dkev_331IdLink').keypress(function(e){ //extra feature for the end user
+    		if(e.which == 13) {
+			jq('#dkev_331IdLink').click();
+    		}
+    	});
+    });
+    
+    //ChildWindow General Codes
+    function triggerChildWindowGeneralCodes(record, typeCode){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	window.open('skatexport_edit_items_childwindow_generalcodes.do?action=doInit&type=' + typeCode + '&ctype=' + id , "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
+    //ChildWindow General Codes
+    function triggerChildWindowGeneralCodesR40(record, typeCode, dkeh_26){
+    	var idLink = record.id;
+    	var id = idLink.replace("IdLink", "");
+    	jq(idLink).attr('target','_blank');
+    	var url = "skatexport_edit_items_childwindow_generalcodesR40.do?action=doInit&type=" + typeCode;
+    	if(dkeh_26!=''){ url = url + "&dkeh_26=" + dkeh_26; }
+    	//final append
+    	url = url + '&ctype=' + id;
+    	//go
+    	window.open(url, "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    }
     
     
   	//-----------------------------------------------------------------------------

@@ -551,63 +551,7 @@
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkev_331">Varekode</span>
-						            		<img id="imgTaricVarukodSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTaricCodesDialog');">
-	
-							            <%-- ======================================================== --%>
-						            		<%-- Here we have the search Taric codes popup window --%>
-						            		<%-- ======================================================== --%>
-						            		<span style="position:absolute; left:300px; top:450px; width:500px; height:210px;" id="searchTaricCodesDialog" class="popupWithInputText"  >
-							           		<div class="text10" align="left">
-							           			<table>
-								           			<tr>
-								           			<td>
-									           			<table>
-									           				<tr>
-																<td class="text11">&nbsp;Varukod</td>
-																<td class="text11">&nbsp;<input type="text" class="inputText" name="search_dkev_331" id="search_dkev_331" size="10" maxlength="10" value=""></td>
-															</tr>
-										           			<tr>
-										           				<td align="right">&nbsp;<button name="searchTaricCode" id="searchTaricCode" class="buttonGray" type="button" onClick="searchTaricVarukod();"><spring:message code="systema.skat.export.search"/></button></td>
-										           				<td class="text11">&nbsp;</td>
-											           			
-											           		</tr>
-											           		<tr height="4"><td ></td></tr>
-										           		</table>
-									           		</td>
-									           		</tr>
-													
-													<tr>
-								           			<td>
-									           			<table>							           		
-											           		<tr>
-										           				<td class="text11">&nbsp;Lista</td>
-											           			<td>&nbsp;</td>
-											           		</tr>
-											           		<tr>
-																<td colspan="2">&nbsp;
-																	<select class="text11" id="taricVarukodList" name="taricVarukodList" size="5" onDblClick="hidePop('searchTaricCodesDialog');">
-					 													<option selected value="">-vælg-</option>
-					 							 					</select>
-																</td>
-															</tr>
-									           			</table>
-								           			</td>
-								           			</tr>
-														
-													<tr>
-								           			<td>								           			
-														<table width="100%" align="left" border="0">
-															<tr align="left" >
-																<td >&nbsp;<button name="searchTaricCodesClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTaricCodesDialog');"><spring:message code="systema.skat.export.ok"/></button></td>
-															</tr>
-														</table>
-													</td>
-													</tr>
-												</table>
-											</div>
-										</span>	
-							           
-							            
+						            	 
 							            <div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="33_info" class="popupWithInputText text11"  >
 						           			<b>33. Varekoder</b>
@@ -721,6 +665,9 @@
 							        <tr>
 							            <td class="text12" align="left">
 						            		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_331" id="dkev_331" size="12" maxlength="8" value="${model.record.dkev_331}">
+							            	<a tabindex="-1" id="dkev_331IdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 							            </td>
 									
 										<td align="left">
@@ -730,9 +677,9 @@
 							 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_37 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 												</c:forEach>  
 											</select>	
-											<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-						            			</a>	
+											<a tabindex="-1" id="dkev_37IdLink" OnClick="triggerChildWindowGeneralCodes(this, '112')">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>	
 						 				</td>
 						 				<td class="text12" align="left" nowrap>
 							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_42" id="dkev_42" size="14" maxlength="13" value="${model.record.dkev_42}">
@@ -801,10 +748,7 @@
 							            <td class="text12" align="left" >
 										<img onMouseOver="showPop('41_info');" onMouseOut="hidePop('41_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>41.</b><span title="dkev_412">Suppl.enh.verdi</span>/<span title="dkev_411">enh.</span>
-			 							<a tabindex="-1" class="text14" target="_blank" href="${model.skatUnitOfMeasureCodesURL.value}" onclick="${model.skatUnitOfMeasureCodesURL.windowOpenDimensions}" >
-				            				<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            			</a>	
-				 						<div class="text11" style="position: relative;" align="left">
+			 							<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="41_info" class="popupWithInputText text11"  >		
 												<b>41. Supplerende enheder</b>
 												<br/><br/>
@@ -834,9 +778,9 @@
 			                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_314 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 												</c:forEach> 
 											</select>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-						            			</a>	
+											<a tabindex="-1" id="dkev_314IdLink" OnClick="triggerChildWindowGeneralCodes(this, '110')">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>	
 										
 				            				</td> 										
 										<td class="text12" align="left" colspan="2"><input type="text" class="inputTextMediumBlueMandatoryField" name="dkev_315" id="dkev_315" size="40" maxlength="45" value="${model.record.dkev_315}"></td>
@@ -848,6 +792,9 @@
 							 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_411 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 												</c:forEach>  
 											</select>
+											<a tabindex="-1" id="dkev_411IdLink" OnClick="triggerChildWindowGeneralCodes(this, '022')">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 										<td class="text12" >
 											<input type="text" class="inputText" name="dkev_28b" id="dkev_28b" size="20" maxlength="17" value="${model.record.dkev_28b}">
@@ -951,9 +898,9 @@
 							 				  		<option value="${country.dkkd_kd}"<c:if test="${model.record.dkev_34a == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 												</c:forEach>  
 											</select>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-						            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-						            			</a>																	 			
+											<a tabindex="-1" id="dkev_34aIdLink" OnClick="triggerChildWindowGeneralCodes(this, '008')">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>																	 			
 										</td>
 										<td class="text12" align="left"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_46" id="dkev_46" size="16" maxlength="15" value="${model.record.dkev_46}"></td>
 			           					
@@ -967,8 +914,8 @@
 			                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_402a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 												</c:forEach> 
 											</select>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-												<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
+											<a tabindex="-1" id="dkev_402aIdLink" OnClick="triggerChildWindowGeneralCodesR40(this, '017', ${recordTopicSkat.dkeh_26})">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 											</a>										           				
 										</td>
 										<td class="text12" ><span title="dkev_403a">&nbsp;&nbsp;&nbsp;40.3&nbsp;Id</span>
@@ -1354,9 +1301,9 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_4421 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-           										<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           									</a>
+										<a tabindex="-1" id="dkev_4421IdLink" OnClick="triggerChildWindowGeneralCodes(this, '113')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>
            									
            								<button name="containerNrButton" class="buttonGray" type="button" onClick="showPop('certifikatKode_Info');" >Mere...</button> 
 								           	<span style="position:absolute; left:480px; top:750px; width:550px; height:400px;" id="certifikatKode_Info" class="popupWithInputText"  >
@@ -1527,9 +1474,9 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_443 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-           									<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           								</a>
+										<a tabindex="-1" id="dkev_443IdLink" OnClick="triggerChildWindowGeneralCodes(this, '114')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>
 										
 				           			</td>
 						        </tr>
@@ -1560,10 +1507,10 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_444 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-           									<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           								</a>
-						            </td>
+										<a tabindex="-1" id="dkev_444IdLink" OnClick="triggerChildWindowGeneralCodes(this, '115')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>						            
+									</td>
 						        </tr>
 						        <tr>
 						            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1586,10 +1533,9 @@
 						 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_445a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 											</c:forEach>  
 										</select>
-										<a tabindex="-1" class="text14" target="_blank" href="${model.skatStamdataCodesURL.value}" onclick="${model.skatStamdataCodesURL.windowOpenDimensions}" >
-           									<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-           								</a>
-										
+										<a tabindex="-1" id="dkev_445aIdLink" OnClick="triggerChildWindowGeneralCodes(this, '116')">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+										</a>										
 						            </td>
 						        </tr>
 						        
