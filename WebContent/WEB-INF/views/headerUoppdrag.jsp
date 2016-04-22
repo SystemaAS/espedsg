@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<link href="resources/espedsg.css?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
-		<link type="text/css" href="${user.httpProtocol}://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/overcast/jquery-ui.css" rel="stylesheet">
+		<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/overcast/jquery-ui.css" rel="stylesheet">
 		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -14,8 +14,8 @@
 	</head>
 	<body>
 	<%-- include som javascript functions --%>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	
 	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
 	
