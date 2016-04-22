@@ -377,11 +377,11 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							
-								<table id="containerdatatableTable" width="95%" cellspacing="2" align="left" >
+								<table id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 							
-								<table id="tblItemLines" width="95%" class="display compact cell-border">
+								<table id="tblItemLines" class="display compact cell-border">
 									<thead>
 										<tr style="background-color:#DDDDDD">
 									    <th class="text11">&nbsp;Lin.nr.&nbsp;</th>
@@ -1846,7 +1846,7 @@
 										</td>
 										
 										<td class="text12" >&nbsp;<button name="YMPosterButton" class="buttonGray" type="button" onClick="showPop('YMPoster');" >Mere...</button> 
-								        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:450px; width:1100px; height:500px;" id="YMPoster" class="popupWithInputTextThickBorder"  >
+								        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:450px; width:1200px; height:500px;" id="YMPoster" class="popupWithInputTextThickBorder"  >
 							           		<div class="ownScrollableSubWindow" style="width:1080px; height:450px; margin:10px;">
 							           			<nav>
 							           			<table class="formFrameTitaniumWhite" width="95%" border="0" align="left" cellspacing="2">

@@ -198,7 +198,7 @@
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submitSkapaNy" value='Skapa ny'>
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Visa alla</button>
-											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 										           			<table id="containerdatatableTable" align="left" >
 										           			<tr>
 											           			<td colspan="3" class="text14"><b>Varuposter</b></td>
@@ -325,7 +325,7 @@
 	 							<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 				 				
-				 				<table id="containerdatatableTable" width="100%" align="left" >
+				 				<table id="containerdatatableTable" align="left" >
 								<tr>
 								<td class="text11">	
 							

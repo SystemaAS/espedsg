@@ -30,12 +30,12 @@
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	
 	
-    <table class="noBg" width="1100" border="0" cellspacing="0" cellpadding="0">
+    <table class="noBg" width="1200" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 	 	<tr>
 	 		 <%-- class="grayTitanBg" --%>
     		<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
     			 	<tr>
 			        	<td>&nbsp;</td>
 			        	<td>&nbsp;</td>
@@ -65,7 +65,7 @@
 		<c:when test="${user.authorizedSkatUserAS400 == 'Y'}">
 		<tr >
 			<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------- --%>
@@ -204,7 +204,7 @@
 	    <c:otherwise>
 	    	    		<tr>
 				<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-	    			 <table width="1100" border="0" cellspacing="1" cellpadding="1">
+	    			 <table width="1200" border="0" cellspacing="1" cellpadding="1">
 					 	<tr >
 				    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;</td>
 	      				<td class="text11" width="50%" align="right">

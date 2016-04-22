@@ -105,7 +105,7 @@
 				 								<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window TVINN --%>
 									            	<%-- ===========================================  --%>
-									            	<span style="position:absolute; left:620px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
 									           				<tr>
@@ -130,7 +130,7 @@
 				 								<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window SKAT --%>
 									            	<%-- ===========================================  --%>
-									            	<span style="position:absolute; left:620px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
 									           				<tr>
@@ -156,7 +156,7 @@
 				 								<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window TDS --%>
 									            	<%-- ===========================================  --%>
-									            	<span style="position:absolute; left:620px; top:180px; width:390px; height:300px;" id="infoTDS" class="popupPlain"  >
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTDS" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
 									           				<tr>
@@ -182,7 +182,7 @@
 				 								<%-- ======================================================  --%>
 									            	<%-- Here we have the info popup window Ufortollede Oppdrag  --%>
 									            	<%-- ======================================================  --%>
-									            		<span style="position:absolute; left:620px; top:180px; width:390px; height:300px;" id="infoUOpp" class="popupPlain"  >
+									            		<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoUOpp" class="popupPlain"  >
 										           		<div align="center">
 										           			<table>
 										           				<tr>

@@ -211,7 +211,7 @@
 									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" value='Skabe ny'>
 								</c:if>
 								<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
-								        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+								        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 							           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
 							           			<nav>
 							           			<table width="95%" border="0" align="left" cellspacing="2">

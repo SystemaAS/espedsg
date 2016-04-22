@@ -21,12 +21,12 @@
 	<%-- include som javascript functions --%>
  	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
  
-	<table class="dashboardFrameMain" width="1100" border="0" cellspacing="0" cellpadding="0">
+	<table class="dashboardFrameMain" width="1200" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 		<tr class="text" height="10"><td></td></tr>
 		<tr >
     		<td height="60" align="center" colspan="2"> 
-			 <table width="1050" height="100" class="dashboardBanner" border="0" cellspacing="0" cellpadding="0" align="center" 
+			 <table width="1150" height="100" class="dashboardBanner" border="0" cellspacing="0" cellpadding="0" align="center" 
     			 		<c:if test="${ not empty user.banner }">
     			 			style="background-image:url('${user.banner}');background-repeat:no-repeat;" 
     			 		</c:if>  >
@@ -69,7 +69,7 @@
 		<%-- Dashboard menu --%>
 		<tr >
 			<td height="23" align="center" colspan="2"> 
-    			 <table class="dashboardFrameMain" width="1050" border="0" cellspacing="0" cellpadding="0" align="center" >
+    			 <table class="dashboardFrameMain" width="1150" border="0" cellspacing="0" cellpadding="0" align="center" >
 				 	<tr >
 			    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;
 			    			

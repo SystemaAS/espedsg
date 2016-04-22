@@ -239,7 +239,7 @@
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submitNew" onclick="javascript: form.action='skatimport_edit_items.do';" value="<spring:message code="systema.skat.import.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
-										       <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+										       <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 									           		<table id="containerdatatableTable" width="98%" align="left" >
 													<tr>
 													<td class="text12">
@@ -459,14 +459,14 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								
-								<table id="containerdatatableTable" width="95%" cellspacing="2" align="left" >
+								<table id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 							
-								<table id="tblItemLines" width="95%" class="display compact cell-border">
+								<table id="tblItemLines" class="display compact cell-border">
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th class="text11">&nbsp;Lin.nr.&nbsp;</th>
+									    <th class="text11">&nbsp;Lin&nbsp;</th>
 									    <th class="text11">&nbsp;Opd.&nbsp;</th>   
 									    <th class="text11"><spring:message code="systema.skat.import.item.list.label.dkiv_28b.purchaseSellerInvoice"/>&nbsp;</th>
 					                    <th class="text11" nowrap><spring:message code="systema.skat.import.item.list.label.dkiv_32.varepostNr"/>&nbsp;</th>   
@@ -2561,7 +2561,7 @@
 											<tr>
 												<td colspan="3" class="text12">
 												<button name="toldvardideklButton" class="buttonGray" type="button" onClick="showPop('toldvardidekl');" >Blankett</button> 
-											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:500px; width:1100px; height:600px;" id="toldvardidekl" class="popupWithInputTextThickBorder"  >
+											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:500px; width:1200px; height:600px;" id="toldvardidekl" class="popupWithInputTextThickBorder"  >
 										           		<div class="ownScrollableSubWindow" style="width:1080px; height:480px; margin:10px;">
 										           			<nav>
 										           			<table width="95%" border="0" align="left" cellspacing="2" cellpadding="0">

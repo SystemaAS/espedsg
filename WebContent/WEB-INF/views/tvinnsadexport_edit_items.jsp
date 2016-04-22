@@ -257,7 +257,7 @@
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_items.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
-										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
+										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 									           		
 									           			<table id="containerdatatableTable" width="98%" align="left" >
 									           			<tr>
@@ -405,7 +405,7 @@
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 		 						<input type="hidden" name="selkbCountryCode" id="selkbCountryCode" value="${recordTopicTvinnSad.selkb}">
 				 					
-								<table id="containerdatatableTable" width="100%" cellspacing="2" align="left" >
+								<table id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 							
