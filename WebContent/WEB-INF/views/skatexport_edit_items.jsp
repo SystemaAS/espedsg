@@ -384,7 +384,7 @@
 								<table id="tblItemLines" class="display compact cell-border">
 									<thead>
 										<tr style="background-color:#DDDDDD">
-									    <th class="text11">&nbsp;Lin.nr.&nbsp;</th>
+									    <th class="text11">&nbsp;Lin&nbsp;</th>
 									    <th class="text11">&nbsp;Opd.&nbsp;</th>
 									    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_28b.purchaseSellerInvoice"/>&nbsp;</th>
 					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_32.varepostNr"/>&nbsp;</th>   
