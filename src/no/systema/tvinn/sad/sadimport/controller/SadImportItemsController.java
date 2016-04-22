@@ -379,8 +379,17 @@ public class SadImportItemsController {
 
 	    	}
 	    	//drop downs populated from back-end
-	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
-	    		
+	    	//performance boost that should be implemented as a last resort
+	    	String codeMgrExists = (String)session.getAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADIMPORT);
+	    	if(codeMgrExists!=null){
+	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
+	    	}else{
+	    		this.setCodeDropDownMgr(appUser, model, headerRecord);
+	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
+	    		session.setAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADIMPORT, TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADIMPORT );
+	    	}
+	    	
+	    	
     		//drop downs populated from a txt file
     		model.put(TvinnSadConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.sadImportDropDownListPopulationService.getBerakningsEnheterList());
     		this.setDomainObjectsForListInView(appUser, session, model, jsonSadImportSpecificTopicItemContainer);
@@ -1010,11 +1019,7 @@ public class SadImportItemsController {
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model, JsonSadImportSpecificTopicRecord headerRecord){
 	    	//values for map 
 		Map map = new HashMap();
-		/*
-		Map map = new HashMap();
-		map.put("dkih_25", headerRecord.getDkih_25());
-		map.put("dkih_26", headerRecord.getDkih_26());
-		*/
+		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,

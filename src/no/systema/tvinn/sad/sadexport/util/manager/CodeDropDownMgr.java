@@ -5,6 +5,8 @@ package no.systema.tvinn.sad.sadexport.util.manager;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 
 import no.systema.main.model.SystemaWebUser;
@@ -167,7 +169,79 @@ public class CodeDropDownMgr {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void setCodeMgrListsInSession(Map model, HttpSession session){
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_1_EKSPEDISJONSTYPER_IMPORT_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_1_EKSPEDISJONSTYPER_IMPORT_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_2_COUNTRY_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_2_COUNTRY_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_3_TRANSAKSJONSTYPER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_3_TRANSAKSJONSTYPER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_4_TRANSPORTMATER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_4_TRANSPORTMATER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_5_TOLLNEDSETTELSER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_5_TOLLNEDSETTELSER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_6_PREFERANSER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_6_PREFERANSER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_7_VFKODER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_7_VFKODER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_8_AVGIFTSKODER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_8_AVGIFTSKODER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_FF_AVGIFTSKODER_SEKV_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_FF_AVGIFTSKODER_SEKV_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_9_EKSPEDISJONSTYPER_EXPORT_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_9_EKSPEDISJONSTYPER_EXPORT_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_A_ENHETSKODER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_A_ENHETSKODER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_B_DOK_SERTIFIKATKODER_IMPORT_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_B_DOK_SERTIFIKATKODER_IMPORT_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_C_DOK_SERTIFIKATKODER_EXPORT_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_C_DOK_SERTIFIKATKODER_EXPORT_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_D_LAGRINGSSTED_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_D_LAGRINGSSTED_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_E_FYLKESKODERKODER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_E_FYLKESKODERKODER_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_F_TYPETILFELLE_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_F_TYPETILFELLE_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST) );
+		session.setAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST, (List)model.get(SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST) );
+		
+	}
 	
-	
-	
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 */
+	public void getCodeMgrListsFromSession(Map model, HttpSession session){
+		List list = new ArrayList();
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_1_EKSPEDISJONSTYPER_IMPORT_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_1_EKSPEDISJONSTYPER_IMPORT_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_2_COUNTRY_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_2_COUNTRY_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_3_TRANSAKSJONSTYPER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_3_TRANSAKSJONSTYPER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_4_TRANSPORTMATER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_4_TRANSPORTMATER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_5_TOLLNEDSETTELSER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_5_TOLLNEDSETTELSER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_6_PREFERANSER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_6_PREFERANSER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_7_VFKODER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_7_VFKODER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_8_AVGIFTSKODER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_8_AVGIFTSKODER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_FF_AVGIFTSKODER_SEKV_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_FF_AVGIFTSKODER_SEKV_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_9_EKSPEDISJONSTYPER_EXPORT_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_9_EKSPEDISJONSTYPER_EXPORT_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_A_ENHETSKODER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_A_ENHETSKODER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_B_DOK_SERTIFIKATKODER_IMPORT_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_B_DOK_SERTIFIKATKODER_IMPORT_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_C_DOK_SERTIFIKATKODER_EXPORT_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_C_DOK_SERTIFIKATKODER_EXPORT_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_D_LAGRINGSSTED_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_D_LAGRINGSSTED_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_E_FYLKESKODERKODER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_E_FYLKESKODERKODER_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_F_TYPETILFELLE_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_F_TYPETILFELLE_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST, list);
+		list = (List)session.getAttribute("model." + SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST);
+		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST, list);
+		
+	}
 }

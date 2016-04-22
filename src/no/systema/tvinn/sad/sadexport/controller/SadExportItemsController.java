@@ -74,7 +74,7 @@ import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVaruko
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class SadExportItemsController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(800);
 	private static final Logger logger = Logger.getLogger(SadExportItemsController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
@@ -356,9 +356,18 @@ public class SadExportItemsController {
 		    	//some aspects for GUI
 		    	jsonSadExportSpecificTopicItemContainer.setLastSelectedItemLineNumber(lastSelectedItemLineNumber);
 	    	}
+	    	
 	    	//drop downs populated from back-end
-	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
-    		
+	    	//performance boost that should be implemented as a last resort
+	    	String codeMgrExists = (String)session.getAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADEXPORT);
+	    	if(codeMgrExists!=null){
+	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
+	    	}else{
+	    		this.setCodeDropDownMgr(appUser, model, headerRecord);
+	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
+	    		session.setAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADEXPORT, TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADEXPORT );
+	    	}
+	    	
     		//drop downs populated from a txt file
     		model.put(TvinnSadConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.sadExportDropDownListPopulationService.getBerakningsEnheterList());
     		this.setDomainObjectsForListInView(appUser, session, model, jsonSadExportSpecificTopicItemContainer, headerRecord);

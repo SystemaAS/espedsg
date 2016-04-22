@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 
 
 @Controller
@@ -37,6 +38,11 @@ public class LogoutTvinnSadController {
 		}else{
 			logger.info("Logging out from Systema TVINN-SAD Tollsystem...");
 			session.removeAttribute(AppConstants.ASPECT_ERROR_MESSAGE);
+			//
+			session.removeAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADIMPORT);
+			session.removeAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADEXPORT);
+			session.removeAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADIMPORT_NCTS);
+			session.removeAttribute(TvinnSadConstants.SESSION_CODE_MANAGER_EXISTS_SADEXPORT_NCTS);
 			view = this.successView;
 		}
 		return view;

@@ -89,6 +89,11 @@ public final class TvinnSadConstants {
 	public static final String SESSION_SEARCH_FILTER_SADEXPORT = "searchFilterSadExport";
 	public static final String SESSION_SEARCH_FILTER_SADIMPORT_NCTS = "searchFilterSadImportNcts";
 	public static final String SESSION_SEARCH_FILTER_SADEXPORT_NCTS = "searchFilterSadExportNcts";
+	//
+	public static final String SESSION_CODE_MANAGER_EXISTS_SADIMPORT = "codeMgrExistsSadImport";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SADEXPORT = "codeMgrExistsSadExport";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SADEXPORT_NCTS = "codeMgrExistsSadImportNcts";
+	public static final String SESSION_CODE_MANAGER_EXISTS_SADIMPORT_NCTS = "codeMgrExistsSadExportNcts";
 	
 	
 	public static final String DOMAIN_RECORD_TOPIC_TVINN_SAD = "recordTopicTvinnSad";
