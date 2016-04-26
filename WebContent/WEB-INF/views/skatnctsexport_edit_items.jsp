@@ -2085,10 +2085,13 @@
 								            				<img onMouseOver="showPop('farliggods_info');" onMouseOut="hidePop('farliggods_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 								            				<span title="tvfgkd">Farlig gods KD</span>&nbsp;
 								            				<input type="text" class="inputTextMediumBlue" name="tvfgkd" id="tvfgkd" size="5" maxlength="4" value="${model.record.tvfgkd}">
+															<a tabindex=-1 href="renderLocalPdf.do?fn=UN_dangerousGoods.pdf" target="_blank">
+				 												<img valign="bottom" width="14px" height="14px" src="resources/images/pdf.png" border="0" alt="pdf">
+				 											</a>
 														
 														<div class="text11" style="position: relative;" align="left">
 															<span style="position:absolute;top:2px; width:250px;" id="farliggods_info" class="popupWithInputText text11"  >
-											           			TODO
+											           			Refer to UN-list of dangerous goods
 														</span>
 														</div>
 														
