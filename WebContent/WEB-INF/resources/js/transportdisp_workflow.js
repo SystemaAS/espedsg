@@ -39,7 +39,10 @@
 	    //DEBUG alert(data);
 	    var record = data.split("@");
 	    var opd = record[1].replace("opd_","");
-	    if(opd.indexOf("_") == -1){ //meaning the trip is valid
+	    var existentTripNr = record[2].replace("tripnr_","");
+	    
+	    //meaning the trip is valid (valid opd and no trip previously attached)
+	    if(opd.indexOf("_") == -1 && existentTripNr == ""){ 
 		    //DEBUG alert(event.target.id);
 		    //get target ids
 		    var recordTarget;var avd; var trip;
@@ -57,6 +60,8 @@
 		    }else{
 		    	alert("Ordre/tur/avd mangler?");
 		    }
+	    }else{
+	    	alert("Ordre har tur:" + existentTripNr + " allerede");
 	    }
 	    //N/A
 	    //ev.target.appendChild(document.getElementById(data));
@@ -65,6 +70,7 @@
 	//if = OK then go to trip planning (GUI)
 	
 	function setTripOnOrder(trip, avd, opd){
+		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 		var requestString = "&wmode=A&wstur=" + trip + "&wsavd=" + avd + "&wsopd=" + opd;
 		jq.ajax({
 		  	  type: 'GET',

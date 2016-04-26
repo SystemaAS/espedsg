@@ -307,8 +307,8 @@
 			               </td>
 			               	
 			               <td style="width: 50px;" draggable="true" ondragstart="drag(event)" align="center" nowrap style="cursor:pointer;" class="text11 tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@status_${record.turclose}@${counter.count}">
-			               		<div style="height: 100%; width:100%" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlist${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
-			               		&nbsp;&nbsp;<img title="Edit trip ${record.tupro}" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
+			               		<div style="display:block;" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlist${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
+			               		&nbsp;&nbsp;<img title="Edit trip ${record.tupro}" style="vertical-align:middle;cursor:pointer;" src="resources/images/update.gif" border="0" alt="edit">
 			               		<%--<font class="text11MediumBlue"><spring:message code="systema.transportdisp.workflow.trip.list.search.label.edit"/></font> --%>
 			               		</div>
 			               </td>
@@ -521,7 +521,7 @@
 	            		</td>
 	            </tr>
 	            <%-- FORM DETAIL --%>
-		 		<tr id="formcontainer" ondrop="drop(event)" ondragover="allowDrop(event)" >
+		 		<tr id="formcontainer" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
 	            		<td>
 	            			<form name="transportdispForm" id="transportdispForm" method="post">
 	            			<%-- <input type="hidden" name="tuavd" id="tuavd" value='${model.record.tuavd}'> --%>

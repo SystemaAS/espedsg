@@ -18,11 +18,13 @@
   //------------------------------------------
   //START - Drag and drop from Trips to Order
   //------------------------------------------
-  	/*this drag function implemented on the callers .js
+  	//this drag function implemented on the callers .js
 	function drag(ev) {
 	    ev.dataTransfer.setData("text", ev.target.id);
-	}*/
-  //this drag function is used when the order is the TARGET of a drag and not the source
+	}
+	
+	
+	//this drag function is used when the order is the TARGET of a drag and not the source
 	function highlightDropArea(ev) {
 		var data = ev.dataTransfer.getData("text");
 		jq("#"+ev.target.id).addClass('isa_blue');
@@ -46,6 +48,7 @@
 	    var opd = jq("#wsopd").val();
 	    //alert(trip + "XX" + avd + "XX" + opd);
 	    if(trip!='' && avd!='' && opd!=''){
+	    	//alert("AAA:" +  trip +"XX" +  avd + "XX" + opd);
 	    	setTripOnOrder(trip, avd, opd);
 	    }
 	    //N/A
@@ -54,6 +57,8 @@
 	//Connect trip with order
   	//if = OK then go to order (GUI)
   	function setTripOnOrder(trip, avd, opd){
+  		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  		
   		var requestString = "&wmode=A&wstur=" + trip + "&wsavd=" + avd + "&wsopd=" + opd;
   		jq.ajax({
 		  	  type: 'GET',

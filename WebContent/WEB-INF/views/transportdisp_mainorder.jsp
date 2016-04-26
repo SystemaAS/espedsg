@@ -229,7 +229,7 @@
             		<td>
 	        			<table style="width:99%;" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
-				 			<td class="text12White">
+				 			<td class="text12White" >
 								&nbsp;<spring:message code="systema.transportdisp.orders.form.update.label.header.edit"/>	
 								&nbsp;&nbsp;<b>${model.record.heavd}/${model.record.heopd}</b>
 								&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
@@ -251,20 +251,22 @@
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
 		
-					<table ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
 							<td valign="top" >
 								<table border="0" >
 								<tr>
-									<td colspan="6" class="text12">
+									<td colspan="6" class="text12" >
 								 		<c:choose>
 								 		<c:when test="${not empty model.record.heopd}">
 								 			&nbsp;<span title="heavd"><font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.update.label.dept"/></span>&nbsp;		
 								 			<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="heavd" id="heavd" size="5" value='${model.record.heavd}'>
 								 			&nbsp;&nbsp;&nbsp;<span title="hesg"><spring:message code="systema.transportdisp.orders.form.update.label.sign"/></span>&nbsp;		
 								 			<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="hesg" id="hesg" size="5" value='${model.record.hesg}'>
-								 			
+								 			<%-- Drag and drop handle (when being source) --%>
+								 			&nbsp;<img title="Drag to target..." style="vertical-align:top; cursor:pointer;" src="resources/images/icon_drag_drop.png" width="35px" height="22px" border="0" alt="edit" draggable="true" ondragstart="drag(event)" id="avd_${model.record.heavd}@opd_${model.record.heopd}@tripnr_${model.record.hepro}">
+								 		
 								 		</c:when>
 								 		<c:otherwise>
 											&nbsp;<span title="heavd"><font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.update.label.dept"/></span>&nbsp;		
@@ -285,6 +287,7 @@
 								 		<c:if test="${not empty model.record.hesgm}">
 								 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font title="hesgm" class="inputText11" style="background-color: #DFF2BF;color: #4F8A10;">Levert:&nbsp;${model.record.hesgm}&nbsp;-&nbsp;${model.record.hedtmo}:${model.record.heklmo}</font>
 								 		</c:if>	
+								 		
 								 	</td>
 							 	</tr>
 							 	</table>	
