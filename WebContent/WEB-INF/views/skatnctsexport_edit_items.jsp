@@ -458,63 +458,6 @@
 							 			<td class="text12" align="left">
 							            <img id="imgTaricVarukodSearch" onMouseOver="showPop('32_info');" onMouseOut="hidePop('32_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>33.</b><span title="tvvnt" >Varekod</span>
-							            <%-- 
-							            <img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTaricCodesDialog');">
-							            ======================================================== 
-						            	 Here we have the search Taric codes popup window 
-						            		 ======================================================== 
-						            		<span style="position:absolute; left:300px; top:450px; width:500px; height:210px;" id="searchTaricCodesDialog" class="popupWithInputText"  >
-							           		<div class="text10" align="left">
-							           			<table>
-								           			<tr>
-								           			<td>
-									           			<table>
-									           				<tr>
-																<td class="text11">&nbsp;Varekod</td>
-																<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svvs_vata" id="search_svvs_vata" size="10" maxlength="8" value=''></td>
-															</tr>
-										           			<tr>
-										           				<td align="right">&nbsp;<button name="searchTaricCode" class="buttonGray" type="button" onClick="searchTaricVarukod();"><spring:message code="systema.skat.search"/></button></td>
-										           				<td class="text11">&nbsp;</td>
-											           			
-											           		</tr>
-											           		<tr height="4"><td ></td></tr>
-										           		</table>
-									           		</td>
-									           		</tr>
-													
-													<tr>
-								           			<td>
-									           			<table>							           		
-											           		<tr>
-										           				<td class="text11">&nbsp;Liste</td>
-											           			<td>&nbsp;</td>
-											           		</tr>
-											           		<tr>
-																<td colspan="2">&nbsp;
-																	<select class="text11" id="taricVarukodList" name="taricVarukodList" size="5" onDblClick="hidePop('searchTaricCodesDialog');">
-					 													<option selected value="">-vælg-</option>
-					 							 					</select>
-																</td>
-															</tr>
-									           			</table>
-								           			</td>
-								           			</tr>
-														
-													<tr>
-								           			<td>								           			
-														<table width="100%" align="left" border="0">
-															<tr align="left" >
-																<td >&nbsp;<button name="searchTaricCodesClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTaricCodesDialog');"><spring:message code="systema.skat.ok"/></button></td>
-															</tr>
-														</table>
-													</td>
-													</tr>
-												</table>
-											</div>
-										</span>	
-										--%>
-							            
 							            <div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="32_info" class="popupWithInputText text11"  >	<b>33.Varekod (Commodity Code)</b>
 						           			<br/>
@@ -2088,7 +2031,7 @@
 							        <tr>
 							            <td colspan="2" class="text12" align="left">
 							            		&nbsp;
-							            		<span title="tvfv">Kode:</span>&nbsp;<input readonly type="text" class="inputTextReadOnly" name="tvfv" id="tvfv" size="3" maxlength="2" value="${model.record.tvfv}">
+							            		<span title="tvfv">Kode:</span>&nbsp;<input type="text" class="inputText" name="tvfv" id="tvfv" size="3" maxlength="2" value="${model.record.tvfv}">
 							            		&nbsp;&nbsp;<span title="tvfvnt">Antal:</span>&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="tvfvnt" id="tvfvnt" size="15" maxlength="11" value="${model.record.tvfvnt}">
 							            </td>
 							        </tr>

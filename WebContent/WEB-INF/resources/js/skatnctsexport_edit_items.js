@@ -404,69 +404,49 @@
 	  	  }
 	  	});
   	}
+  
   	
-  	//taric varukod search (same function as in TDS EXPORT. Therefore the name: search_svvs_vata in the search field name)
-  	function searchTaricVarukod() {
-		jq(function() {
-			jq.getJSON('searchTaricVarukod_SkatNctsExport.do', {
-				applicationUser : jq('#applicationUser').val(),
-				taricVarukod : jq('#search_svvs_vata').val(),
-				ajax : 'true'
-			}, function(data) {
-				var html = '<option selected value="">-Select-</option>';
-				var len = data.length;
-				for ( var i = 0; i < len; i++) {
-					html += '<option value="' + data[i].dktara02 + '">' + data[i].dktara02 + ' ' + data[i].dktara64 +  '</option>';
-				}
-				//now that we have our options, give them to our select
-				jq('#taricVarukodList').html(html);
-			});
-		});
-	}
-  	//set the taric varukod in target input text field
-  	jq(function() { 
-	    jq('#taricVarukodList').change(function() {
-		  //init field(s)
-		  jq('#tvvnt').val("");
-		  //and populate (if applicable)
-		  var key = jq('#taricVarukodList').val();
-		  jq('#tvvnt').val(key.substring(0,6));
-		  			  
-		});
-	});
   	
-  	/*
-  	//----------------------------------
-	//Events Varukod (SEARCH window)
-	//----------------------------------
-	//img click
-	jq(function() {	    
-		jq('#imgTaricVarukodSearch').click(function(){
-    			jq("#search_svvs_vata").focus();
-    		});
-	});
-	jq(function() {	    
-		jq('#search_svvs_vata').keypress(function(e){
-			if(e.which == 13) {
-				e.preventDefault();//this is necessary in order to avoid form.action in form submit button (Save)
-				jq(searchTaricVarukod);
-			}			
-    		});
-	});
-	//On Keypress (13)
-	jq(function() { 
-	    jq('#taricVarukodList').keypress(function() {
-		    	if(e.which == 13) {
-				//alert("hej till publiken");
-				e.preventDefault();//this is necessary in order to avoid form.action in form submit button (Save)
-			    	jq('#svev_vata').val(""); 
-				//now populate (if applicable)
-			    	var key = jq('#taricVarukodList').val();
-			    	jq('#svev_vata').val(key); 
-		    	}
-	    }); 
-	});
-	*/
+  	jq(function() {
+  		jq('#tvvnt').blur(function() {
+  		  if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==6 ){
+  			//STEP(1) get varebeskrivelse if empty 
+  			if(jq('#tvvt').val()==''){  
+	  			jq.getJSON('searchTaricVarukod_SkatNctsExport.do', {
+					applicationUser : jq('#applicationUser').val(),
+					taricVarukod : jq('#tvvnt').val(),
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						//första bästa, annars får användaren använda luppen
+						jq('#tvvt').val(data[i].dktara64);					
+					}					
+				});
+  			}
+  			//STEP(2) get følsomme varer krav (mandatory or not)
+  			if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==6 ){  
+	  			jq.getJSON('isFolsommeVare_SkatNctsExport.do', {
+					applicationUser : jq('#applicationUser').val(),
+					taricVarukod : jq('#tvvnt').val(),
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					if(len>0){
+						for ( var i = 0; i < len; i++) {
+							//there has been a match. Proceed to populate hidden fields to force validation with folsomme vare
+							jq('#tvfv').val(data[i].tfkode);
+						}	
+					}else{
+						jq('#tvfvnt').val("");
+						jq('#tvfv').val("");
+					}	
+				});
+  			}
+  		  }			  
+  		});
+  	});
+  	
   	
   	
 	//---------------------------------------------------------

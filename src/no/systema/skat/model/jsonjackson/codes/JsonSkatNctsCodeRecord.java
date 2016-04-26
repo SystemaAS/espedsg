@@ -17,6 +17,11 @@ public class JsonSkatNctsCodeRecord {
 	public void setTktxtn(String value){ this.tktxtn = value;}
 	public String getTktxtn(){ return this.tktxtn; }
 	
+	private String tfkode = null;
+	public void setTfkode(String value){ this.tfkode = value;}
+	public String getTfkode(){ return this.tfkode; }
+	
+	
 	//for compatibility issues towards other codes (general)
 	private String dkkd_kd = null;
 	public void setDkkd_kd(String value){ this.dkkd_kd = value;}

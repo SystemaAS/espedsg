@@ -463,6 +463,11 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setTvfvnt(String value) {  this.tvfvnt = value; }
 	public String getTvfvnt() { return this.tvfvnt; }
 	
+	private String tvfvHidden = null;
+	public void setTvfvHidden(String value) {  this.tvfvHidden = value; }
+	public String getTvfvHidden() { return this.tvfvHidden; }
+	
+	
 	private String tvln = null;
 	public void setTvln(String value) {  this.tvln = value; }
 	public String getTvln() { return this.tvln; }

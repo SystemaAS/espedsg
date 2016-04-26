@@ -31,8 +31,11 @@ import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
 import no.systema.skat.model.jsonjackson.customer.JsonSkatCustomerRecord;
 import no.systema.skat.service.SkatTaricVarukodService;
+import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 
 import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
@@ -216,20 +219,52 @@ public class SkatNctsExportAjaxHandlerController {
 		  logger.info("Inside searchTaricVarukod_SkatNctsExport()");
 		  Set result = new HashSet();
 		  String IMPORT_IE = "E";//
-		  
+		  int VARUKOD_LENGTH_DK = 6;
 		  try{
-			  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
-			  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + IMPORT_IE + "&kod=" + taricVarukod;
-			  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
-			  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
-			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  /*logger.info("dktara02:" + record.getDktara02());
-				  logger.info("dktara63:" + record.getDktara63());
-				  logger.info("dktara64:" + record.getDktara64());
-				  */
-				  result.add(record);
-			  }	
+			  if(taricVarukod!=null && taricVarukod.length()==VARUKOD_LENGTH_DK){
+				  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
+				  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + IMPORT_IE + "&kod=" + taricVarukod;
+				  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+				  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
+				  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
+					  logger.info("dktara02:" + record.getDktara02());
+					  logger.info("dktara63:" + record.getDktara63());
+					  logger.info("dktara64:" + record.getDktara64());
+					  result.add(record);
+				  }	
+			  }
+		  }catch(Exception e){
+			  e.printStackTrace();
+		  }
+		  
+		  return result;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param taricVarukod
+	   * @return
+	   */
+	  @RequestMapping(value = "isFolsommeVare_SkatNctsExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatTaricVarukodRecord> isFolsommeVare(@RequestParam String applicationUser, @RequestParam String taricVarukod) {
+		  logger.info("Inside isFolsommeVare_SkatNctsExport()");
+		  Set result = new HashSet();
+		  int VARUKOD_LENGTH_DK = 6;
+		  String FOLSOMMEVARE_CODE = "064";
+		  try{
+			  if(taricVarukod!=null && taricVarukod.length()==VARUKOD_LENGTH_DK){
+				  String BASE_URL = SkatUrlDataStore.SKAT_NCTS_CODES_URL;
+				  String urlRequestParamsKeys = "user=" + applicationUser + "&typ=" + FOLSOMMEVARE_CODE + "&tariff=" + taricVarukod;
+				  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+				  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				  JsonSkatNctsCodeContainer container = this.skatDropDownListPopulationService.getNctsCodeContainer(jsonPayload);
+				  for(JsonSkatNctsCodeRecord record : container.getKodlista()){
+					  //logger.info("tkkode:" + record.getTkkode());
+					  result.add(record);
+				  }	
+			  }
 		  }catch(Exception e){
 			  e.printStackTrace();
 		  }
@@ -379,5 +414,11 @@ public class SkatNctsExportAjaxHandlerController {
 	  public void setSkatTaricVarukodService(SkatTaricVarukodService value){this.skatTaricVarukodService = value;}
 	  public SkatTaricVarukodService getSkatTaricVarukodService(){ return this.skatTaricVarukodService; }
 	  
+	  @Qualifier ("skatDropDownListPopulationService")
+		private SkatDropDownListPopulationService skatDropDownListPopulationService;
+		@Autowired
+		public void setSkatDropDownListPopulationService (SkatDropDownListPopulationService value){ this.skatDropDownListPopulationService=value; }
+		public SkatDropDownListPopulationService getSkatDropDownListPopulationService(){return this.skatDropDownListPopulationService;}
+		
 	  
 }

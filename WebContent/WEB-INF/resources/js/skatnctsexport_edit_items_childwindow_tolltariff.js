@@ -11,6 +11,9 @@
 			  var text = record[1].replace("text", "");
 			  var callerType = record[2].replace("ctype", "");
 			  //alert(vkod + " " + text + " " + callerType);
+			  if(vkod!=null && vkod.length>6){
+				  vkod = vkod.substring(0, 6);
+			  }	  
 			  opener.jq('#tvvnt').val(vkod);
 			  opener.jq('#tvvnt').focus();
 			  //close child window

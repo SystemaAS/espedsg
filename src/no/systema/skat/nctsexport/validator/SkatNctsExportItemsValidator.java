@@ -11,9 +11,14 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemRecord;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.validation.JsonSkatNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemService;
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemServiceImpl;
 import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
+import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
+
+import no.systema.skat.url.store.SkatUrlDataStore;
 /**
  * 
  * @author oscardelatorre
@@ -26,7 +31,7 @@ public class SkatNctsExportItemsValidator implements Validator {
 	//Intantiate services here since we are not capable to configure injection with Autowired. Check that further...
 	private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 	private SkatNctsExportSpecificTopicItemService nctsExportSpecificTopicItemService = new SkatNctsExportSpecificTopicItemServiceImpl();
-		
+	private SkatDropDownListPopulationService skatDropDownListPopulationService = new SkatDropDownListPopulationService();
 	/**
 	 * 
 	 */
@@ -253,9 +258,8 @@ public class SkatNctsExportItemsValidator implements Validator {
 					}
 					
 				}
+				*/
 				
-				
-				/*
 				//------------------------------------------------------------
 				//Känsliga varor must always check for mandatory input or none
 				//-------------------------------------------------------------
@@ -268,10 +272,9 @@ public class SkatNctsExportItemsValidator implements Validator {
 						}
 					}else{
 						//back to default values
-						record.setTvfv(null);
 						record.setTvfvnt(null);
 					}
-				}*/
+				}
 				
 				//-----------------------------------------------
 				//Gross weight only mandatory on first item line
@@ -360,14 +363,15 @@ public class SkatNctsExportItemsValidator implements Validator {
 		String method = "isVarukodWithSensitiveGoodsFlag";
 	 	logger.info("Inside " + method);
 	 	boolean retval = false;
-	 	
+	 	String FOLSOMMEVARE_CODE = "064";
 	 	logger.info("VALIDATION of Sensitive Goods...");
 		//---------------------------
 		//get BASE URL = RPG-PROGRAM
 		//---------------------------
-		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_VALIDATE_SPECIFIC_TOPIC_ITEM_SENSITIVE_GOODS_URL;
+		String BASE_URL = SkatUrlDataStore.SKAT_NCTS_CODES_URL;
 		//url params
-		String urlRequestParamsKeys = "user=" + record.getApplicationUser() + "&tftanr=" + record.getTvvnt();
+		String urlRequestParamsKeys = "user=" + record.getApplicationUser() + "&typ=" + FOLSOMMEVARE_CODE + "&tariff=" + record.getTvvnt();
+		//String urlRequestParamsKeys = "user=" + record.getApplicationUser() + "&tftanr=" + record.getTvvnt();
 		//for debug purposes in GUI
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -382,26 +386,25 @@ public class SkatNctsExportItemsValidator implements Validator {
 		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	
 		if(jsonPayload!=null){
-			JsonSkatNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer container = this.nctsExportSpecificTopicItemService.getJsonNctsExportSpecificTopicItemSensitiveGoodsValidatorContainer(jsonPayload);
-			if(container!=null){
-				if("Y".equals(container.getExists()) ){
-					logger.info("##########################################################");
-					logger.info("[MANDATORY value required] on Sensitive goods for: " + container.getTftanr());
-					logger.info("##########################################################");
-					//set the code no matter if <null> or <not null>
-					record.setTvfv(container.getTfkode());
-					logger.info("Sensitive goods code:" + record.getTvfv());
-					
-					retval = true;
-				}else{
-					record.setTvfv(null);
-					record.setTvfvnt(null);
-					
+			try{
+			JsonSkatNctsCodeContainer container = this.skatDropDownListPopulationService.getNctsCodeContainer(jsonPayload);
+				if(container!=null){
+					for(JsonSkatNctsCodeRecord codeRecord : container.getKodlista()){
+						logger.info("tkkode:" + codeRecord.getTkkode());
+						record.setTvfv(codeRecord.getTfkode());
+						retval = true;
+					}	
+					//if no match erase kode/antal
+					if(!retval){
+						record.setTvfv(null);
+						record.setTvfvnt(null);
+					}
 				}
+			}catch(Exception e){
+				
 			}
 		}
 		return retval;
 	}
-
 	
 }
