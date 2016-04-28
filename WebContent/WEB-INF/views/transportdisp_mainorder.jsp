@@ -265,7 +265,7 @@
 								 			&nbsp;&nbsp;&nbsp;<span title="hesg"><spring:message code="systema.transportdisp.orders.form.update.label.sign"/></span>&nbsp;		
 								 			<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="hesg" id="hesg" size="5" value='${model.record.hesg}'>
 								 			<%-- Drag and drop handle (when being source) --%>
-								 			&nbsp;<img title="Drag to target..." style="vertical-align:top; cursor:pointer;" src="resources/images/icon_drag_drop.png" width="35px" height="22px" border="0" alt="edit" draggable="true" ondragstart="drag(event)" id="avd_${model.record.heavd}@opd_${model.record.heopd}@tripnr_${model.record.hepro}">
+								 			&nbsp;<img title="Drag to target..." style="vertical-align:middle;cursor:pointer;" src="resources/images/icon_drag_drop.png" width="30px" height="30px" border="0" alt="edit" draggable="true" ondragstart="drag(event)" id="avd_${model.record.heavd}@opd_${model.record.heopd}@tripnr_${model.record.hepro}">
 								 		
 								 		</c:when>
 								 		<c:otherwise>

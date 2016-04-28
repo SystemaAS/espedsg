@@ -420,6 +420,9 @@
                     		<th class="text12"><input style="cursor:pointer;" type="button" value="<spring:message code="systema.transportdisp.orders.open.list.search.label.pick"/>" name="openordersColumnHeaderButton" id="openordersColumnHeaderButton" onClick="getValidCheckis(this);"></th>
                    		</c:if>
                    		<th style="width: 110px;" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.ourRef"/></th>   
+                   		<c:if test="${empty searchFilter.tur}">
+                   			<th class="text12"></th>   
+                   		</c:if>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.orderType"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.sign"/></th>
 	                    <c:if test="${empty searchFilter.tur && not empty searchFilter.opd}">
@@ -469,7 +472,7 @@
 		   					</td>
 		   					<td class="text11MediumBlue" ><input class="clazz_checkis_openorders" type="checkbox" id="checkis_openorders${counter.count}@user=${user.user}&wmode=A&wstur=${searchFilter.tur}&wsavd=${record.heavd}&wsopd=${record.heopd}"></td>		
             		   </c:if>
-            		   <td draggable="true" ondragstart="drag(event)" class="text11MediumBlue" style="width: 110px;" id="avd_${record.heavd}@opd_${record.heopd}@${counter.count}" >
+            		   <td class="text11MediumBlue" style="width: 110px;" >
 			           		<div id="davd${record.heavd}_dopd${record.heopd}_linkcontainer${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
 			           		<a style="cursor:pointer;" id="hepro_${searchFilter.tur}@heavd_${record.heavd}@heopd_${record.heopd}@alinkOpenOrdersListId_${counter.count}" onClick="goToSpecificOrder(this);">
     		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
@@ -477,6 +480,12 @@
     		    			</a>
     		    			</div>
 			           </td>
+			           <c:if test="${empty searchFilter.tur}">
+				           <td class="text11MediumBlue">
+				           		<%-- Drag and drop handle (when being source) --%>
+			 			  		 &nbsp;<img title="Drag to target..." style="vertical-align:middle;cursor:pointer;" src="resources/images/icon_drag_drop.png" width="20px" height="20px" border="0" alt="edit" draggable="true" ondragstart="drag(event)" id="avd_${record.heavd}@opd_${record.heopd}@tripnr_@${counter.count}">
+						   </td>
+					   </c:if>									 		
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.heot}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
 		               <c:if test="${empty searchFilter.tur && not empty searchFilter.opd}">
