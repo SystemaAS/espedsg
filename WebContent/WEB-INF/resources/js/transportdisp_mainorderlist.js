@@ -40,6 +40,7 @@
     function allowDrop(ev) {
     	ev.preventDefault();
 	}
+    
     //this drag function is used when the order is the TARGET of a drag and not the source
 	function drop(ev) {
 	    ev.preventDefault();
@@ -92,6 +93,73 @@
 			  }
   		});
   	}
+  	
+  	//this drag function is used when the list of current order LIST on allocated TRIP is the TARGET of a drag and not the source
+    function dropX(ev) {
+	    ev.preventDefault();
+	    jq("#"+ev.target.id).removeClass('isa_blue');
+	    
+	    var data = ev.dataTransfer.getData("text");
+	    //alert(data);
+	    var record = data.split("@");
+	    var opd = record[1].replace("opd_","");
+	    var existentTripNr = record[2].replace("tripnr_","");
+	    
+	    //meaning the trip is valid (valid opd and no trip previously attached)
+	    if(opd.indexOf("_") == -1 && existentTripNr == ""){ 
+		    //DEBUG alert(event.target.id);
+		    //get target ids
+		    var recordTarget;var avd; var trip;
+		    if(event.target.id.indexOf("oncontainer") > -1){ 
+		    	//alert("A");
+		    	recordTarget = event.target.id.split("_");
+		    	avd = recordTarget[0].replace("dtuavd","");
+		    	trip = recordTarget[1].replace("dtupro","");
+		    }else{ //dropping in the form area
+		    	//alert("B");
+		    	avd = jq("#tuavd").val();
+		    	trip = jq("#tupro").val();
+		    }
+		    //DEBUG alert(trip + "XX" + avd + "XX" + opd);
+		    
+		    if(trip!='' && avd!='' && opd!=''){
+		    	setOrderOnTrip(trip, avd, opd);
+		    }else{
+		    	alert("Ordre/tur/avd mangler?");
+		    }
+	    }else{
+	    	alert("Ordre har tur:" + existentTripNr + " allerede");
+	    }
+	    //N/A
+	    //ev.target.appendChild(document.getElementById(data));
+	}
+    //Connect order with trip
+  	//if = OK then go to trip list (GUI)
+  	function setOrderOnTrip(trip, avd, opd){
+  		var requestString = "&wmode=A&wstur=" + trip + "&wsavd=" + avd + "&wsopd=" + opd;
+  		jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'addTripToOrder_TransportDisp.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(),
+  					  requestString : requestString },
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		if(len==1){
+			  		//update = OK
+		  			reloadParentTrip(trip,avd,opd);
+		  		}else{
+		  			//update != OK
+		  			alert("Error on order update [addTripToOrder_TransportDisp.do]...?");
+		  		}
+		  	  },
+		  	  error: function() {
+		  		  alert('Error loading ...');
+			  }
+  		});
+  	}
   //------------------------------------------
   //END - Drag and drop from Trips to Order
   //------------------------------------------
@@ -104,6 +172,17 @@
     	
     	//in case we want to refresh the order list (unlikely)
     	//window.location = "transportdisp_mainorderlist.do?action=doFind&avd=" + avd;
+    	
+    }
+    
+    //Reload the order after being coupled with the trip 
+    //NOTE: this function is call from: 
+    //(1) from this same file in the above ajax: setTripOnOrder(trip,avd,opd)
+    function reloadParentTrip(trip, avd, opd) {
+    	window.location = "transportdisp_mainorderlist.do?action=doFind&wssavd=" + avd + "&wstur=" + trip;
+    	
+    	//in case we want to refresh the order list (unlikely)
+    	//window.location = "transportdisp_mainorder.do?hepro=" + trip + "&heavd=" + avd + "&heopd=" + opd;
     	
     }
 	

@@ -66,9 +66,9 @@
 	    //N/A
 	    //ev.target.appendChild(document.getElementById(data));
 	}
+	
 	//Connect trip with order
 	//if = OK then go to trip planning (GUI)
-	
 	function setTripOnOrder(trip, avd, opd){
 		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 		var requestString = "&wmode=A&wstur=" + trip + "&wsavd=" + avd + "&wsopd=" + opd;
