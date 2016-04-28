@@ -399,6 +399,7 @@
 			 text: "Fortsett",
 			 click: function(){
             			uploadFile();
+            			jq( this ).dialog( "close" ); 
 			 		}
 		 	 },
  	 		{
