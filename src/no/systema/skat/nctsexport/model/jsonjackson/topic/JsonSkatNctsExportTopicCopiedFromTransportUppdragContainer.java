@@ -30,9 +30,21 @@ public class JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer {
 	public void setOpd(String value) {  this.opd = value; }
 	public String getOpd() { return this.opd;}
 	
-	private String dkih_tuid = null;
-	public void setDkih_tuid(String value) {  this.dkih_tuid = value; }
-	public String getDkih_tuid() { return this.dkih_tuid;}
+	private String thtuid = null;
+	public void setThtuid(String value) {  this.thtuid = value; }
+	public String getThtuid() { return this.thtuid;}
+	
+	private String thavd = null;
+	public void setThavd(String value) {  this.thavd = value; }
+	public String getThavd() { return this.thavd;}
+	
+	private String thtdn = null;
+	public void setThtdn(String value) {  this.thtdn = value; }
+	public String getThtdn() { return this.thtdn;}
+	
+	private String thsg = null;
+	public void setThsg(String value) {  this.thsg = value; }
+	public String getThsg() { return this.thsg;}
 	
 	private String errMsg = null;
 	public void setErrMsg(String value) {  this.errMsg = value; }

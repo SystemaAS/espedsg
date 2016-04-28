@@ -598,31 +598,31 @@ public class SkatNctsExportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		jsonNctsExportTopicCopiedContainer = this.skatNctsExportSpecificTopicService.getNctsExportTopicCopiedContainer(jsonPayload);
-		    		if(jsonNctsExportTopicCopiedContainer!=null){
-		    			//Check for errors
-		    			if(jsonNctsExportTopicCopiedContainer.getErrMsg()!=null && !"".equals(jsonNctsExportTopicCopiedContainer.getErrMsg())){
-		    				logger.fatal("[ERROR FATAL] errMsg containing: " + jsonNctsExportTopicCopiedContainer.getErrMsg());
-		    				return fallbackOnErrorView;
-		    			}
-		    		}
-		    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		jsonNctsExportTopicCopiedContainer = this.skatNctsExportSpecificTopicService.getNctsExportTopicCopiedContainer(jsonPayload);
+	    		if(jsonNctsExportTopicCopiedContainer!=null){
+	    			//Check for errors
+	    			if(jsonNctsExportTopicCopiedContainer.getErrMsg()!=null && !"".equals(jsonNctsExportTopicCopiedContainer.getErrMsg())){
+	    				logger.fatal("[ERROR FATAL] errMsg containing: " + jsonNctsExportTopicCopiedContainer.getErrMsg());
+	    				return fallbackOnErrorView;
+	    			}
+	    		}
+	    	}else{
+	    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+	    		return loginView;
 			}
 			
-		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-		    	//--------------------
+	    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
+	    	//--------------------
 			//STEP 2: FETCH record
 			//--------------------
 			logger.info("starting FETCH record transaction...");
@@ -636,28 +636,28 @@ public class SkatNctsExportHeaderController {
 			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
-		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+	    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 			//Debug --> 
-		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		JsonSkatNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
-		    		//add gui lists here
-		    		this.setCodeDropDownMgr(appUser, model);	
-		    		
-		    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicContainer );
-		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-				//put the doUpdate action since we are preparing the record for an update (when saving)
-				successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-		    		
-		    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonSkatNctsExportSpecificTopicContainer jsonNctsExportSpecificTopicContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+	    		//add gui lists here
+	    		this.setCodeDropDownMgr(appUser, model);	
+	    		
+	    		this.setDomainObjectsInView(session, model, jsonNctsExportSpecificTopicContainer );
+	    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+			//put the doUpdate action since we are preparing the record for an update (when saving)
+			successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+	    		
+	    	}else{
+	    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+	    		return loginView;
 			}
 			return successView;
 		}
@@ -747,7 +747,7 @@ public class SkatNctsExportHeaderController {
 	            //---------------------------
 				BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
 				//url params
-				urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, jsonContainer.getAvd(), jsonContainer.getOpd(), jsonContainer.getSign(), appUser);
+				urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, jsonContainer.getThavd(), jsonContainer.getThtdn(), jsonContainer.getThsg(), appUser);
 				//for debug purposes in GUI
 				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 				
