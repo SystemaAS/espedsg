@@ -37,6 +37,7 @@ public final class SkatNctsExportUrlDataStore {
 	//mode=D (Delete existing topic)	
 	//mode=C (Copy existing topic) from Norskimport or fallback to the origin: transportuppdrag
 	//mode=S (Send topic)
+	//mode=GS (Clone from SKAT Export)
 	//------------------------------		
 	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE002R.pgm";
 	//http://gw.systema.no/sycgip/TDCE002R.pgm?user=OSCAR&thavd=1&sign=CB&mode=A

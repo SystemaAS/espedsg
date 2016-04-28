@@ -9,6 +9,7 @@ import no.systema.skat.nctsexport.model.jsonjackson.topic.logging.JsonSkatNctsEx
 import no.systema.skat.nctsexport.model.jsonjackson.topic.logging.JsonSkatNctsExportSpecificTopicLoggingLargeTextContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.validation.JsonSkatNctsExportSpecificTopicGuaranteeValidatorContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer;
 
 /**
  * 
@@ -24,4 +25,5 @@ public interface SkatNctsExportSpecificTopicService {
 	public JsonSkatNctsExportSpecificTopicLoggingLargeTextContainer getNctsExportSpecificTopicLoggingLargeTextContainer(String utfPayload);
 	public JsonSkatNctsExportSpecificTopicGuaranteeValidatorContainer getNctsExportSpecificTopicGuaranteeValidatorContainer(String utfPayload);
 	public JsonSkatNctsExportTopicCopiedContainer getNctsExportTopicCopiedContainer(String utfPayload);
+	public JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer getSkatNctsExportTopicCopiedFromTransportUppdragContainer(String utfPayload);
 }

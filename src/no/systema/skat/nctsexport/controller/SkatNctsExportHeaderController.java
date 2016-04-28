@@ -38,6 +38,8 @@ import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureRecord;
 
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer;
 import no.systema.skat.nctsexport.validator.SkatNctsExportHeaderValidator;
 
 import no.systema.main.model.SystemaWebUser;
@@ -661,6 +663,125 @@ public class SkatNctsExportHeaderController {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_doFetchTopicFromTransportUppdrag.do", method={RequestMethod.POST} )
+	public ModelAndView doFetchTopicFromTransportUppdrag( HttpSession session, HttpServletRequest request){
+		JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer jsonContainer = null;
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		ModelAndView successView = new ModelAndView("skatnctsexport_edit");
+		//fallback view (usually on errors)
+		ModelAndView fallbackView = new ModelAndView("skatnctsexport_edit");
+		fallbackView.addObject("action", "doPrepareCreate");
+		//this view is when the end user choose not to copy at all. He/She will start from scratch (empty form (header))
+		ModelAndView cleanNewView = new ModelAndView("redirect:skatnctsexport_edit.do?action=doPrepareCreate");
+		
+		String method = "[RequestMapping-->skatnctsexport_doFetchTopicFromTransportUppdrag.do]";
+		logger.info("Method: " + method);
+		Map model = new HashMap();
+		
+		//We must get all parameters from the enumeration since all have sequence counter number
+		String action=request.getParameter("actionGS");;
+		String avd=request.getParameter("selectedAvd");
+		String opd=request.getParameter("selectedOpd");
+		String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser DK AS
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+		}else{
+			
+			if( (extRefNr!=null && !"".equals(extRefNr)) || ( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))) ){
+				//--------------------
+				//STEP 1: CLONE record
+				//--------------------
+				logger.info("starting PROCESS record transaction...");
+				String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
+				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, extRefNr, appUser);
+				//for debug purposes in GUI
+				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+				
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE (RPG program) here
+		    	//--------------------------------------
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		    	//Debug --> 
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		jsonContainer = this.skatNctsExportSpecificTopicService.getSkatNctsExportTopicCopiedFromTransportUppdragContainer(jsonPayload);
+		    		if(jsonContainer!=null){
+		    			//Check for errors
+		    			if(jsonContainer.getErrMsg()!=null && !"".equals(jsonContainer.getErrMsg())){
+		    				logger.info("[WARN] errMsg containing: " + jsonContainer.getErrMsg());
+		    				logger.info("[WARN] redirecting to doPrepareCreate");
+		    				//Send the error message to the redirect view.
+		    				//request.setAttribute("errorMessageOnCopyFromTransportOppdrag", jsonContainer.getErrMsg());
+		    				model.put(SkatConstants.ASPECT_ERROR_MESSAGE, jsonContainer.getErrMsg());
+		    				model.put(SkatConstants.ASPECT_ERROR_META_INFO, "Vid kopiering av TransportUppdrag...");
+		    				fallbackView.addObject(SkatConstants.DOMAIN_MODEL, model);
+		    				
+		    				return fallbackView;
+		    			}
+		    		}
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+					return loginView;
+				}    
+				
+		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
+		    	//--------------------
+				//STEP 2: FETCH record
+				//--------------------
+				logger.info("starting FETCH record transaction...");
+				//---------------------------
+				//get BASE URL = RPG-PROGRAM
+	            //---------------------------
+				BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
+				//url params
+				urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, jsonContainer.getAvd(), jsonContainer.getOpd(), jsonContainer.getSign(), appUser);
+				//for debug purposes in GUI
+				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+				
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE the FETCH (RPG program) here
+		    	//--------------------------------------
+		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug --> 
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		JsonSkatNctsExportSpecificTopicContainer jsonSpecificTopicContainer = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+	    			//populate gui
+		    		this.setCodeDropDownMgr(appUser, model);	
+		    		this.setDomainObjectsInView(session, model, jsonSpecificTopicContainer);
+		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+		    		//put the doUpdate action since we are preparing the record for an update (when saving)
+		    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);	
+		    	}else{
+		    		logger.fatal("[ERROR fatal] NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+			}else{
+				logger.warn("[INFO] Opdnr is NULL. Redirecting to: skatnctsexport_edit.do?action=doPrepareCreate... ");
+				//return new ModelAndView("redirect:tdsimport_edit.do?action=doPrepareCreate");
+				return cleanNewView;
+			}			
+			return successView;
+		}
+	}
+	
 	/**
 	 * 
 	 * @param session
@@ -725,6 +846,30 @@ public class SkatNctsExportHeaderController {
 		return successView;
 	}
 	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param extRefNr
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, String extRefNr, SystemaWebUser appUser){
+		final String MODE = "GS";
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		if(opd!=null && !"".equals(opd)){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		}else if (extRefNr!=null && !"".equals(extRefNr)){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "thxref=" + extRefNr);
+		}
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sign=" + appUser.getSkatSign());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE);
+		
+		return urlRequestParamsKeys.toString();	
+	}
 	
 	/**
 	 * Generates key seeds for an upcoming update (the generation of this keys creates also a new record ready to be updated)

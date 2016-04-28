@@ -737,9 +737,9 @@ public class SkatImportHeaderController {
 			return loginView;
 		}else{
 			
-			if( (opd!=null && !"".equals(opd) || extRefNr!=null && !"".equals(extRefNr)) && (avd!=null && !"".equals(avd))){
+			if( (extRefNr!=null && !"".equals(extRefNr)) || ( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))) ){
 				//--------------------
-				//STEP 1: COPY record
+				//STEP 1: CLONE record
 				//--------------------
 				logger.info("starting PROCESS record transaction...");
 				String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
@@ -804,10 +804,10 @@ public class SkatImportHeaderController {
 		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
-		    		JsonSkatImportSpecificTopicContainer jsonTdsImportSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
+		    		JsonSkatImportSpecificTopicContainer jsonSpecificTopicContainer = this.skatImportSpecificTopicService.getSkatImportSpecificTopicContainer(jsonPayload);
 	    			//populate gui
 		    		this.setCodeDropDownMgr(appUser, model);	
-		    		this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicContainer);
+		    		this.setDomainObjectsInView(session, model, jsonSpecificTopicContainer);
 		    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
 		    		//put the doUpdate action since we are preparing the record for an update (when saving)
 		    		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);	

@@ -758,7 +758,7 @@ public class SkatExportHeaderController {
 			return loginView;
 		}else{
 			
-			if( (opd!=null && !"".equals(opd) || extRefNr!=null && !"".equals(extRefNr)) && (avd!=null && !"".equals(avd))){
+			if( (extRefNr!=null && !"".equals(extRefNr)) || ( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))) ){
 				//--------------------
 				//STEP 1: COPY record
 				//--------------------

@@ -39,7 +39,12 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatexport.do?action=doFind&sign=${model.record.dkeh_sysg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" 
+					<c:choose>
+						<c:when test="${empty model.record.dkeh_sysg}">href="skatexport.do?action=doFind&sign=${user.skatSign}"</c:when>
+						<c:otherwise>href="skatexport.do?action=doFind&sign=${model.record.dkeh_sysg}""</c:otherwise>
+					</c:choose> >
+				
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.export.list.tab"/></font>
 				</a>

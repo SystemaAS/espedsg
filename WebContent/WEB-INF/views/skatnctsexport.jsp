@@ -27,7 +27,8 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a style="display:block;" href="skatnctsexport_edit.do?action=doPrepareCreate&user=${user.user}">
+				<a style="display:block;" id="copyFromTransportUppdragLink" runat="server" href="#">
+				<%-- <a style="display:block;" href="skatnctsexport_edit.do?action=doPrepareCreate&user=${user.user}"> --%>
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.export.createnew.tab"/></font>
 					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 					
@@ -252,6 +253,57 @@
 		</td>
 		</tr>
     </c:if> 
+    
+    <tr>
+		<td>
+			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
+				<form  action="skatnctsexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
+				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
+						
+					<p class="text12" >Du kan hente en ny sag fra Eksport eller fra en Transportopdrag.
+					 	Du skal vælge&nbsp;<b>Afdeling</b>&nbsp;og&nbsp;<b>Opdragsnummer</b>.</p>
+					<p class="text12">Orden til at hente er:</p>
+					<ol class="text12" >
+						<li class="text12" >
+						    En ny opdragsnummer vil blive oprettet, hvis den fil, du input er tilgængelig i enten (a) <b>Eksport</b> eller (b) <b>Transportopdrag</b>
+						</li>
+						<br/>
+						<li class="text12" >
+							Hvis opdraget ikke er fundet hverken i den Eksport eller i Transportopdrag skal du oprette en ny angivelse. 
+							Du vil blive omdirigeret der automatisk.
+						</li>
+					</ol>
+					
+					<p class="text12" >Men hvis du ønsker at indtaste en ny angivelse, uden at køre denne rutine, forlader Titel og Opdragsnr. blank og klikke på <b>Fortsæt</b>.</p>
+					
+					<table>
+						<tr>
+							<td class="text12" align="left" >&nbsp;Afdeling</td>
+   							<td class="text12" align="left" >&nbsp;Opdragsnr.</td>
+   							<td class="text12" align="left" >&nbsp;Ext.ref.nr.</td>
+   						</tr>
+						<tr>
+							<td class="text12MediumBlue">
+								<select name="selectedAvd" id="selectedAvd">
+				            		<option value="">-vælg-</option>
+				 				  	<c:forEach var="record" items="${model.avdList}" >
+			                             	 	<option value="${record.avd}">${record.avd}</option>
+									</c:forEach> 
+								</select>
+							</td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="selectedOpd" name="selectedOpd" size="10" maxlength="35" value=''>&nbsp;
+							</td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="selectedExtRefNr" name="selectedExtRefNr" size="25" maxlength="35" value=''>&nbsp;
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</td>
+	</tr>
+    
 </table>	
 		
 <!-- ======================= footer ===========================-->

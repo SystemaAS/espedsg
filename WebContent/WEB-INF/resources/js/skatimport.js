@@ -153,6 +153,7 @@
   });
   //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
   jq(function() {
+	  /*deprecated
 	  jq("#selectedAvd").change(function() {
 		  if(jq('#selectedAvd').val()!=''){
 			  if(jq('#selectedOpd').val()!='' || jq('#selectedExtRefNr').val()!=''){
@@ -192,9 +193,17 @@
 			  applyRuleOnDialogTranspUppdragNullAvd();
 		  }
 	  });
+	  */
   });
   function applyRuleOnDialogTranspUppdragNullAvd(){
 	  if(jq('#selectedOpd').val()=='' && jq('#selectedExtRefNr').val()==''){
+		  jq("#dialogSaveTU").button("option", "disabled", false);
+	  }else{
+		  jq("#dialogSaveTU").button("option", "disabled", true);
+	  }
+  }
+  function applyRuleOnDialogTranspUppdragExtRef(){
+	  if(jq('#selectedExtRefNr').val()!=''){
 		  jq("#dialogSaveTU").button("option", "disabled", false);
 	  }else{
 		  jq("#dialogSaveTU").button("option", "disabled", true);
@@ -205,161 +214,8 @@
   //-----------------------------------------------
 
   
-  /*
-  //-----------------------------------------
-  //START Model dialog "Begäran om klarering"
-  //-----------------------------------------
-  //Initialize <div> here
-  jq(function() { 
-	  jq( ".clazz_dialogRequestClearance" ).each(function(){
-		jq(this).dialog({
-			autoOpen: false,
-			modal: true
-		});
-	  });
-  });
-  //Present dialog box onClick (href in parent JSP)
-  jq(function() {
-	  jq(".clearanceLink").click(function() {
-		  var id = this.id;
-		  counterIndex = id.replace("clearanceLink","");
-		  //setters (add more if needed)
-		  jq('#dialogRequestClearance'+counterIndex).dialog( "option", "title", "Begäran om klarering" );
-		  
-		  //deal with buttons for this modal window
-		  jq('#dialogRequestClearance'+counterIndex).dialog({
-			 buttons: [ 
-	            {
-				 id: "dialogSaveRequestClearance"+counterIndex,	
-				 text: "Gå vidare",
-				 click: function(){
-					 		jq('#requestClearanceForm'+counterIndex).submit();
-				 		}
-			 	 },
-	 	 		{
-			 	 id: "dialogCancelRequestClearance"+counterIndex,
-			 	 text: "Avbryt", 
-				 click: function(){
-				 		//back to initial state of form elements on modal dialog
-				 		jq("#dialogSaveRequestClearance"+counterIndex).button("option", "disabled", true);
-				 		jq( this ).dialog( "close" ); 
-			 		} 
-	 	 		 } ] 
-		  });
-		  
-		  //open now
-		  jq('#dialogRequestClearance'+counterIndex).dialog('open');
-		 
-	  });
-  });
-  
-  //----------------------------------------
-  //END Model dialog "Begäran om Klarering"
-  //----------------------------------------
+ 
 
-
-  //----------------------------------------------------
-  //START Model dialog "Rättelse av ej klarerad ärende"
-  //----------------------------------------------------
-  //Initialize <div> here
-  jq(function() { 
-	  jq( ".clazz_dialogCorrectionOnNonClearedTopic" ).each(function(){
-		jq(this).dialog({
-			autoOpen: false,
-			modal: true
-		});
-	  });
-  });
-  //Present dialog box onClick (href in parent JSP)
-  jq(function() {
-	  jq(".correctionOnNonClearedLink").click(function() {
-		  var id = this.id;
-		  counterIndex = id.replace("correctionOnNonClearedLink","");
-		  //setters (add more if needed)
-		  jq('#dialogCorrectionOnNonClearedTopic'+counterIndex).dialog( "option", "title", "Rättelse av ej klarerat ärende" );
-		  
-		  //deal with buttons for this modal window
-		  jq('#dialogCorrectionOnNonClearedTopic'+counterIndex).dialog({
-			 buttons: [ 
-	            {
-				 id: "dialogSaveCorrectNonClearedTopic"+counterIndex,	
-				 text: "Gå vidare",
-				 click: function(){
-					 		jq('#correctNonClearedForm'+counterIndex).submit();
-				 		}
-			 	 },
-	 	 		{
-			 	 id: "dialogCancelCorrectNonClearedTopic"+counterIndex,
-			 	 text: "Avbryt", 
-				 click: function(){
-				 		//back to initial state of form elements on modal dialog
-				 		jq("#dialogCorrectionOnNonClearedTopic"+counterIndex).button("option", "disabled", true);
-				 		jq( this ).dialog( "close" ); 
-			 		} 
-	 	 		 } ] 
-		  });
-		  
-		  //open now
-		  jq('#dialogCorrectionOnNonClearedTopic'+counterIndex).dialog('open');
-		 
-	  });
-  });
-  
-  //-------------------------------------------------
-  //END Model dialog "Rättelse av ej klarerad ärende"
-  //-------------------------------------------------
-
-  
-  //--------------------------------
-  //START Model dialog "Omprövning"
-  //--------------------------------
-  //Initialize <div> here
-  jq(function() { 
-	  jq( ".clazz_dialogReconsiderationOnTopic" ).each(function(){
-		jq(this).dialog({
-			autoOpen: false,
-			modal: true
-		});
-	  });
-  });
-  //Present dialog box onClick (href in parent JSP)
-  jq(function() {
-	  jq(".reconsiderationLink").click(function() {
-		  var id = this.id;
-		  counterIndex = id.replace("reconsiderationLink","");
-		  //setters (add more if needed)
-		  jq('#dialogReconsiderationOnTopic'+counterIndex).dialog( "option", "title", "Omprövning" );
-		  
-		  //deal with buttons for this modal window
-		  jq('#dialogReconsiderationOnTopic'+counterIndex).dialog({
-			 buttons: [ 
-	            {
-				 id: "dialogSaveReconsiderationOnTopic"+counterIndex,	
-				 text: "Gå vidare",
-				 click: function(){
-					 		jq('#reconsiderationForm'+counterIndex).submit();
-				 		}
-			 	 },
-	 	 		{
-			 	 id: "dialogCancelReconsiderationOnTopic"+counterIndex,
-			 	 text: "Avbryt", 
-				 click: function(){
-				 		//back to initial state of form elements on modal dialog
-				 		jq("#dialogReconsiderationOnTopic"+counterIndex).button("option", "disabled", true);
-				 		jq( this ).dialog( "close" ); 
-			 		} 
-	 	 		 } ] 
-		  });
-		  
-		  //open now
-		  jq('#dialogReconsiderationOnTopic'+counterIndex).dialog('open');
-		 
-	  });
-  });
-  //-------------------------------
-  //END Model dialog "Omprövning"
-  //-------------------------------
-  */
   
     
   

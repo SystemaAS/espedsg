@@ -171,6 +171,7 @@
   //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
   jq(function() {
 	  jq("#selectedAvd").change(function() {
+		  /* deprecated
 		  if(jq('#selectedAvd').val()!=''){
 			  if(jq('#selectedOpd').val()!='' || jq('#selectedExtRefNr').val()!=''){
 				  jq("#dialogSaveTU").button("option", "disabled", false);
@@ -179,9 +180,10 @@
 			  }
 		  }else{
 			  applyRuleOnDialogTranspUppdragNullAvd();
-		  }
+		  }*/
 	  });
 	  jq("#selectedOpd").blur(function() {
+		  /* deprecated
 		  if(jq('#selectedAvd').val()!=''){
 			  if(jq("#selectedOpd").val()!=''){
 				  jq('#selectedExtRefNr').val("");
@@ -193,9 +195,10 @@
 			  }
 		  }else{
 			  applyRuleOnDialogTranspUppdragNullAvd();
-		  }
+		  }*/
 	  });
 	  jq("#selectedExtRefNr").blur(function() {
+		  /*
 		  if(jq('#selectedAvd').val()!=''){
 			  if(jq("#selectedExtRefNr").val()!=''){
 				  jq('#selectedOpd').val("");
@@ -207,11 +210,18 @@
 			  }
 		  }else{
 			  applyRuleOnDialogTranspUppdragNullAvd();
-		  }
+		  }*/
 	  });
   });
   function applyRuleOnDialogTranspUppdragNullAvd(){
 	  if(jq('#selectedOpd').val()=='' && jq('#selectedExtRefNr').val()==''){
+		  jq("#dialogSaveTU").button("option", "disabled", false);
+	  }else{
+		  jq("#dialogSaveTU").button("option", "disabled", true);
+	  }
+  }
+  function applyRuleOnDialogTranspUppdragExtRef(){
+	  if(jq('#selectedExtRefNr').val()!=''){
 		  jq("#dialogSaveTU").button("option", "disabled", false);
 	  }else{
 		  jq("#dialogSaveTU").button("option", "disabled", true);

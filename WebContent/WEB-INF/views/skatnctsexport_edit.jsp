@@ -25,7 +25,12 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsexport.do?action=doFind&sign=${model.record.thsg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" 
+					<c:choose>
+						<c:when test="${empty model.record.thsg}">href="skatnctsexport.do?action=doFind&sign=${user.skatSign}"</c:when>
+						<c:otherwise>href="skatnctsexport.do?action=doFind&sign=${model.record.thsg}""</c:otherwise>
+					</c:choose> >
+					
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.export.list.tab"/></font>
 				</a>

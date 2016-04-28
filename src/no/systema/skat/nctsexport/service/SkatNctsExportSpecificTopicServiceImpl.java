@@ -10,11 +10,13 @@ import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportSpecificTopic
 import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportSpecificTopicLoggingMapper;
 import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportTopicCopiedMapper;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.archive.JsonSkatNctsExportSpecificTopicArchiveContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.logging.JsonSkatNctsExportSpecificTopicLoggingContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.logging.JsonSkatNctsExportSpecificTopicLoggingLargeTextContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.validation.JsonSkatNctsExportSpecificTopicGuaranteeValidatorContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedContainer;
+import no.systema.skat.nctsexport.mapper.jsonjackson.SkatNctsExportTopicCopiedFromTransportUppdragMapper;
 
 /**
  * 
@@ -131,5 +133,21 @@ public class SkatNctsExportSpecificTopicServiceImpl implements SkatNctsExportSpe
 		return container;
 	}
 	
+	/**
+	 * 
+	 */
+	public JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer getSkatNctsExportTopicCopiedFromTransportUppdragContainer(String utfPayload){
+		JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer container = null;
+		try{
+			SkatNctsExportTopicCopiedFromTransportUppdragMapper mapper = new SkatNctsExportTopicCopiedFromTransportUppdragMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;	
+		
+	}
+	
+
 	
 }
