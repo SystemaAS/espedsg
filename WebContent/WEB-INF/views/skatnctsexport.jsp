@@ -261,25 +261,25 @@
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
 						
 					<p class="text12" >Du kan hente en ny sag fra Eksport eller fra en Transportopdrag.
-					 	Du skal vælge&nbsp;<b>Afdeling</b>&nbsp;og&nbsp;<b>Opdragsnummer</b>.</p>
+					 	Du skal vælge&nbsp;<b>Afdeling</b>&nbsp;og&nbsp;<b>Angivelsesnr.</b>.</p>
 					<p class="text12">Orden til at hente er:</p>
 					<ol class="text12" >
 						<li class="text12" >
-						    En ny opdragsnummer vil blive oprettet, hvis den fil, du input er tilgængelig i enten (a) <b>Eksport</b> eller (b) <b>Transportopdrag</b>
+						    En ny transitering vil blive oprettet, hvis den fil, du input er tilgængelig i enten (a) <b>Eksport</b> eller (b) <b>Transportopdrag</b>
 						</li>
 						<br/>
 						<li class="text12" >
-							Hvis opdraget ikke er fundet hverken i den Eksport eller i Transportopdrag skal du oprette en ny angivelse. 
+							Hvis angivelsen ikke er fundet hverken i den Eksport eller i Transportopdrag skal du oprette en ny transitering. 
 							Du vil blive omdirigeret der automatisk.
 						</li>
 					</ol>
 					
-					<p class="text12" >Men hvis du ønsker at indtaste en ny angivelse, uden at køre denne rutine, forlader Titel og Opdragsnr. blank og klikke på <b>Fortsæt</b>.</p>
+					<p class="text12" >Men hvis du ønsker at indtaste en ny angivelse, uden at køre denne rutine, forlader Titel og Angivelsesnr. blank og klikke på <b>Fortsæt</b>.</p>
 					
 					<table>
 						<tr>
 							<td class="text12" align="left" >&nbsp;Afdeling</td>
-   							<td class="text12" align="left" >&nbsp;Opdragsnr.</td>
+   							<td class="text12" align="left" >&nbsp;Angivelsesnr.</td>
    							<td class="text12" align="left" >&nbsp;Ext.ref.nr.</td>
    						</tr>
 						<tr>

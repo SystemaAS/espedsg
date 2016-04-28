@@ -1077,6 +1077,12 @@ public class TransportDispAjaxHandlerController {
 		    String opd = request.getParameter("wsopd");
 		    String type = request.getParameter("wstype");
 		    String fileNameNew = request.getParameter("fileNameNew");
+		    //timestamps (when applicable)
+		    String userDate = request.getParameter("userDate");
+		    String userTime = request.getParameter("userTime");
+		    //logger.info("userDate:" + userDate);
+		    //logger.info("userTime:" + userTime);
+		    
 		    
 		    if (file!=null && !file.isEmpty()) {
         		String fileName = file.getOriginalFilename();
@@ -1103,7 +1109,7 @@ public class TransportDispAjaxHandlerController {
 	        	    		uploadValidationContainer.setWsopd(opd);
 	        	    		uploadValidationContainer.setWstype(type);
 	        	    		//this will check if either the wstur or wsavd/wsopd will save the upload
-	        	    		uploadValidationContainer = this.saveFileUpload(uploadValidationContainer, fileName, applicationUser);
+	        	    		uploadValidationContainer = this.saveFileUpload(uploadValidationContainer, fileName, applicationUser, userDate, userTime);
 			                if(uploadValidationContainer!=null && uploadValidationContainer.getErrMsg()==""){
 		                		String suffixMsg = "";
 		                		if(uploadValidationContainer.getWstur()!=null && !"".equals(uploadValidationContainer.getWstur())){
@@ -1189,8 +1195,10 @@ public class TransportDispAjaxHandlerController {
 			                //catch parameters
 			                uploadValidationContainer.setWstur(tur);
 	        	    		uploadValidationContainer.setWstype(type);
-	        	    		//this will check if either the wstur or wsavd/wsopd will save the upload
-	        	    		uploadValidationContainer = this.saveFileUpload(uploadValidationContainer, fileName, applicationUser);
+	        	    		
+	        	    		String userDate = null; String userTime = null;//dummies (could be real as in the uploadFileFromOrder-method) 
+	        	    		
+	        	    		uploadValidationContainer = this.saveFileUpload(uploadValidationContainer, fileName, applicationUser, userDate, userTime);
 			                if(uploadValidationContainer!=null && uploadValidationContainer.getErrMsg()==""){
 			                		String suffixMsg = "";
 			                		if(uploadValidationContainer.getWstur()!=null && !"".equals(uploadValidationContainer.getWstur())){
@@ -1252,9 +1260,11 @@ public class TransportDispAjaxHandlerController {
 		 * @param uploadValidationContainer
 		 * @param fileName
 		 * @param applicationUser
+		 * @param userDate
+		 * @param userTime
 		 * @return
 		 */
-		private JsonTransportDispFileUploadValidationContainer saveFileUpload(JsonTransportDispFileUploadValidationContainer uploadValidationContainer, String fileName, String applicationUser){
+		private JsonTransportDispFileUploadValidationContainer saveFileUpload(JsonTransportDispFileUploadValidationContainer uploadValidationContainer, String fileName, String applicationUser, String userDate, String userTime){
 			//prepare the access CGI with RPG back-end
 			String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_UPLOAD_FILE_AFTER_VALIDATION_APPROVAL_URL;
 			String absoluteFileName = uploadValidationContainer.getTmpdir() + fileName;
@@ -1273,7 +1283,10 @@ public class TransportDispAjaxHandlerController {
 			}
 			urlRequestParamsKeys.append("&wstype=" + uploadValidationContainer.getWstype());
 			urlRequestParamsKeys.append("&wsdokn=" + absoluteFileName);
-			
+			//Timestamp (if applicable)
+			if( (userDate!=null && !"".equals(userDate)) && (userTime!=null && !"".equals(userTime))){
+				urlRequestParamsKeys.append("&wsdate=" + userDate + "&wstime=" + userTime);
+			}
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);
 			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");

@@ -3,6 +3,16 @@
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
+  jq(function() {
+	  jq("#selectedDate").datepicker({ 
+		  dateFormat: 'yymmdd',
+			  onSelect: function () {
+		        this.focus();
+		      }
+	  });
+	  
+  });
+  
   //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();
@@ -294,7 +304,6 @@
 	  jq("#file").removeClass( "isa_blue" );
   }
   
-  
   jq(function() {
 	  //Triggers drag-and-drop
 	  jq('#file').hover(function(){
@@ -306,50 +315,144 @@
 	  jq('#file').change(function(){
 		  //Init by removing the class used in dragEnter
 		  jq("#file").removeClass( "isa_blue" );
-		   
-		  //grab all form data  
-		  var form = new FormData(document.getElementById('uploadFileForm'));
-		  jq.ajax({
-		  	  type: 'POST',
-		  	  url: 'uploadFileFromOrder.do',
-		  	  data: form,
-		  	  dataType: 'text',
-		  	  cache: false,
-		  	  processData: false,
-		  	  contentType: false,
-	  		  success: function(data) {
-			  	  var len = data.length;
-		  		  if(len>0){
-		  			jq("#file").val("");
-				  	//Check for errors or successfully processed
-				  	var exists = data.indexOf("ERROR");
-				  	if(exists>0){
-				  		//ERROR on back-end
-				  		jq("#file").addClass( "isa_error" );
-				  		jq("#file").removeClass( "isa_success" );
-				  	}else{
-				  		//OK
-				  		jq("#file").addClass( "isa_success" );
-				  		jq("#file").removeClass( "isa_error" );
-				  	}
-				  	//response to end user 
-				  	alert(data);
-				  	
-		  		  }
-		  	  }, 
-		  	  error: function() {
-		  		  alert('Error loading ...');
-		  		  jq("#file").val("");
-		  		  //cosmetics
-		  		  jq("#file").addClass( "isa_error" );
-		  		  jq("#file").removeClass( "isa_success" );
-			  }
-		  });
 		  
+		  if(jq("#wstype").val() == 'ZP'){
+			 showTimestampPopup();  
+		  }else{
+			 jq("#userDate").val("");
+			 jq("#userTime").val("");
+			 uploadFile();  
+		  }
+		 
 	  });
   });
+  function uploadFile(){
+	//grab all form data  
+	  var form = new FormData(document.getElementById('uploadFileForm'));
+	  
+	  jq.ajax({
+	  	  type: 'POST',
+	  	  url: 'uploadFileFromOrder.do',
+	  	  data: form,  
+	  	  dataType: 'text',
+	  	  cache: false,
+	  	  processData: false,
+	  	  contentType: false,
+  		  success: function(data) {
+		  	  var len = data.length;
+	  		  if(len>0){
+	  			jq("#file").val("");
+			  	//Check for errors or successfully processed
+			  	var exists = data.indexOf("ERROR");
+			  	if(exists>0){
+			  		//ERROR on back-end
+			  		jq("#file").addClass( "isa_error" );
+			  		jq("#file").removeClass( "isa_success" );
+			  	}else{
+			  		//OK
+			  		jq("#file").addClass( "isa_success" );
+			  		jq("#file").removeClass( "isa_error" );
+			  	}
+			  	//response to end user 
+			  	alert(data);
+			  	
+	  		  }
+	  	  }, 
+	  	  error: function() {
+	  		  alert('Error loading ...');
+	  		  jq("#file").val("");
+	  		  //cosmetics
+	  		  jq("#file").addClass( "isa_error" );
+	  		  jq("#file").removeClass( "isa_success" );
+		  }
+	  });
+	    
+	  
+  }
   //END UPLOAD ORDERS
- 
+  
+  
+  
+  //-----------------------------------------------------------------------------
+  //START Model dialog timestamp for POD documents (on file upload)
+  //---------------------------------------------------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq("#dialogTimestamp").dialog({
+		  autoOpen: false,
+		  maxWidth:500,
+          maxHeight: 400,
+          width: 400,
+          height: 300,
+		  modal: true
+	  });
+  });
+  function showTimestampPopup(){
+	  //setters (add more if needed)
+	  jq('#dialogTimestamp').dialog( "option", "title", "Dato og klokkeslett" );
+	  
+	  //deal with buttons for this modal window
+	  jq('#dialogTimestamp').dialog({
+		 buttons: [ 
+            {
+			 id: "dialogSaveTU",	
+			 text: "Fortsett",
+			 click: function(){
+            			uploadFile();
+			 		}
+		 	 },
+ 	 		{
+		 	 id: "dialogCancelTU",
+		 	 text: "Avbryt", 
+			 click: function(){
+				 		//back to initial state of form elements on modal dialog
+				 		jq("#dialogSaveTU").button("option", "disabled", true);
+				 		jq("#selectedDate").val("");
+				 		jq("#selectedTime").val("");
+				 		jq("#userDate").val("");
+				 		jq("#userTime").val("");
+				 		jq( this ).dialog( "close" ); 
+			 		} 
+ 	 		 } ] 
+	  });
+	  //init values
+	  jq("#dialogSaveTU").button("option", "disabled", true);
+	  //open now
+	  jq("#selectedDate").focus();
+	  jq('#dialogTimestamp').dialog('open');
+	  
+  }
+  //Some validation
+  jq(function() {
+	  jq("#selectedDate").blur( function(){
+		 if(jq("#selectedDate").val()!='' && jq("#selectedTime").val()!=''){
+			 jq("#dialogSaveTU").button("option", "disabled", false);
+			//set on hidden fields in upload form
+			 jq("#userDate").val(jq("#selectedDate").val());
+			 jq("#userTime").val(jq("#selectedTime").val());
+			
+		 }else{
+			 jq("#dialogSaveTU").button("option", "disabled", true);
+			 
+		 }
+	  });
+	  jq("#selectedTime").blur(function(){
+		 if(jq("#selectedDate").val()!='' && jq("#selectedTime").val()!=''){
+			 jq("#dialogSaveTU").button("option", "disabled", false);
+			 //set on hidden fields in upload form
+			 jq("#userDate").val(jq("#selectedDate").val());
+			 jq("#userTime").val(jq("#selectedTime").val());
+			
+		 }else{
+			 jq("#dialogSaveTU").button("option", "disabled", true);
+		 }
+	  });
+  });
+  //----------------------------------------------------------------
+  //END Model dialog timestamp for POD documents (on file upload)
+  //----------------------------------------------------------------
+  
+  
   
   //Overlay on tab (to mark visually a delay...)
   jq(function() {
@@ -2139,6 +2242,7 @@
 	  
   }
  
+
   
 
   

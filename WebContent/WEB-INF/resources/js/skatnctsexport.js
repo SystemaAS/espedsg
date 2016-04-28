@@ -145,7 +145,7 @@
 	 	 		 } ] 
 		  });
 		  //init values
-		  jq("#dialogSaveSU").button("option", "disabled", true);
+		  jq("#dialogSaveSU").button("option", "disabled", false);
 		  //open now
 		  jq('#dialogCopyFromTransportUppdrag').dialog('open');
 	  });

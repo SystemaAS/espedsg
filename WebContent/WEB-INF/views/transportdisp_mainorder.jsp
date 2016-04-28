@@ -165,6 +165,9 @@
 								<input type="hidden" name="applicationUserUpload" id="applicationUserUpload" value='${user.user}'>
 								<input type="hidden" name="wsavd" id="wsavd" value='${model.record.heavd}'>
 								<input type="hidden" name="wsopd" id="wsopd" value='${model.record.heopd}'>
+								<input type="hidden" name="userDate" id="userDate" value=''>
+								<input type="hidden" name="userTime" id="userTime" value=''>
+								
 									<table id="containerdatatableTable" cellspacing="2" align="left">
 										<tr>
 											<td colspan="3" class="text12Bold">&nbsp;
@@ -2097,6 +2100,30 @@
 			</form>
 		</td>
 		</tr>
+		
+		
+		<tr>
+		<td>
+			<div id="dialogTimestamp" title="Dialog">
+				 	<p class="text12" >Dato og klokkeslett som fraktbrevet ble underskrevet på er obligatoriska for POD fraktbrev. (ZP – dokument)</p>
+					<table>
+						<tr>
+							<td class="text12" align="left" >&nbsp;Dato</td>
+   							<td class="text12" align="left" >&nbsp;Klokkeslett</td>
+   						</tr>
+						<tr>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="selectedDate" name="selectedDate" size="10" maxlength="8" value=''>&nbsp;
+							</td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="selectedTime" name="selectedTime" size="5" maxlength="4" value=''>&nbsp;
+							</td>
+						</tr>
+					</table>
+			</div>
+		</td>
+	</tr>
+		
 </table>	
 		
 <!-- ======================= footer ===========================-->
