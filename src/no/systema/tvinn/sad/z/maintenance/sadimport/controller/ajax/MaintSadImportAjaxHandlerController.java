@@ -208,7 +208,7 @@ public class MaintSadImportAjaxHandlerController {
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadImportKodtlbRecord record: list){
-	        		//logger.info(record.getKlbxxx_mot());
+	        		logger.info("X"+record.getKlbxxx_mot()+"X");
 	        	}
 	        }
     	}

@@ -64,9 +64,18 @@ jq(function() {
   			jq('#klbprm').val("");jq('#klbprm').val(data[i].klbprm);
   			jq('#klbfrk').val("");jq('#klbfrk').val(data[i].klbfrk);
   			//virtual fields
-  			jq('#klbxxx_avs').val("");jq('#klbxxx_avs').val(data[i].klbxxx_avs);
-  			jq('#klbxxx_mot').val("");jq('#klbxxx_mot').val(data[i].klbxxx_mot);
-  			jq('#klbxxx_andrek').val("");jq('#klbxxx_andrek').val(data[i].klbxxx_andrek);
+  			jq('#klbxxx_avs').val("");
+  			if(data[i].klbxxx_avs!=' '){
+  				jq('#klbxxx_avs').val(data[i].klbxxx_avs);
+  			}
+  			jq('#klbxxx_mot').val("");
+  			if(data[i].klbxxx_mot!=' '){
+  				jq('#klbxxx_mot').val(data[i].klbxxx_mot);
+  			}
+  			jq('#klbxxx_andrek').val("");
+  			if(data[i].klbxxx_andrek!=' '){
+  				jq('#klbxxx_andrek').val(data[i].klbxxx_andrek);
+  			}
   			
   			
   			//for a future update

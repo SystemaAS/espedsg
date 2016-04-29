@@ -77,9 +77,7 @@ public class MaintSadImportSad012rController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_MAINTENANCE_IMPORT);
-			//session.setAttribute(TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_TVINN_SAD_MAINTENANCE, TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
-		
+			
 			//get table
 	    	List<JsonMaintSadImportKodtlbRecord> list = this.fetchList(appUser.getUser());
 	    	//set domain objets
@@ -125,7 +123,7 @@ public class MaintSadImportSad012rController {
 				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 			}else{
 				//concatenate klbxxx-fields after validation
-				recordToValidate.setKlbxxx(recordToValidate.getKlbxxx_avs() + recordToValidate.getKlbxxx_mot() + recordToValidate.getKlbxxx_andrek());
+				this.updateKlbxxxAttributes(recordToValidate);
 				
 				//------------
 				//UPDATE table
@@ -171,6 +169,26 @@ public class MaintSadImportSad012rController {
 		}
 	}
 	
+	private void updateKlbxxxAttributes(JsonMaintSadImportKodtlbRecord recordToValidate){
+		String blankSpace = " ";
+	
+		//fill up with spaces in order to comply to the db-field (klbxxx (3 chars)
+		if(recordToValidate.getKlbxxx_avs()==null || "".equals(recordToValidate.getKlbxxx_avs())){
+			if(!"".equals(recordToValidate.getKlbxxx_mot()) || !"".equals(recordToValidate.getKlbxxx_andrek()) ){
+				recordToValidate.setKlbxxx_avs(blankSpace);
+			}
+		}
+		if(recordToValidate.getKlbxxx_mot()==null || "".equals(recordToValidate.getKlbxxx_mot())){
+			if(!"".equals(recordToValidate.getKlbxxx_andrek()) ){
+				recordToValidate.setKlbxxx_mot(blankSpace);
+			}
+		}
+	
+		//final update
+		recordToValidate.setKlbxxx(recordToValidate.getKlbxxx_avs() + recordToValidate.getKlbxxx_mot() + recordToValidate.getKlbxxx_andrek());
+		
+	}
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -192,8 +210,10 @@ public class MaintSadImportSad012rController {
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadImportKodtlbRecord record : list){
-	        		//logger.info("XXX_AVS:" + record.getKlbxxx_avs());
-	        		
+	        		/*logger.info("XXX_AVS:" + record.getKlbxxx_avs());
+	        		logger.info("XXX_MOT:" + record.getKlbxxx_mot());
+	        		logger.info("XXX_ANDREK:" + record.getKlbxxx_andrek());
+	        		*/
 	        	}
 	        }
     	}

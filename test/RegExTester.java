@@ -6,13 +6,24 @@ import no.systema.main.validator.DateValidator;
 public class RegExTester {
 
 	public static void main(String[] args) {
-		RegExTester tester = new RegExTester();
+		/*RegExTester tester = new RegExTester();
 		//String expression = "A470303DK";
         //String result = tester.doIt(expression);
 		DateValidator dateValidator = new DateValidator();
 		System.out.println(dateValidator.validateDateIso203_YYYYMMDDhhmm("201408221200"));
+		*/
+		String text = "   J         ";
+		String newT = trimEnd(text);
+		System.out.println(newT);
     }
 	
+	private static String trimEnd(String s){
+	      int i = s.length()-1;
+	      while(s.charAt(i)==' '){
+	         i--;
+	      }
+	      return s.substring(0, i+1);
+	   }
 	/*
 	private boolean checkDate(String value){
 		boolean retval = true;
