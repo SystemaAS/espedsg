@@ -427,28 +427,44 @@
   jq(function() {
 	  jq("#selectedDate").blur( function(){
 		 if(jq("#selectedDate").val()!='' && jq("#selectedTime").val()!=''){
-			 jq("#dialogSaveTU").button("option", "disabled", false);
-			//set on hidden fields in upload form
-			 jq("#userDate").val(jq("#selectedDate").val());
-			 jq("#userTime").val(jq("#selectedTime").val());
-			
+			 if(!validateTimestamp()){
+				 jq("#dialogSaveTU").button("option", "disabled", true); 
+			 }
 		 }else{
 			 jq("#dialogSaveTU").button("option", "disabled", true);
-			 
 		 }
 	  });
+	  
 	  jq("#selectedTime").blur(function(){
 		 if(jq("#selectedDate").val()!='' && jq("#selectedTime").val()!=''){
-			 jq("#dialogSaveTU").button("option", "disabled", false);
-			 //set on hidden fields in upload form
-			 jq("#userDate").val(jq("#selectedDate").val());
-			 jq("#userTime").val(jq("#selectedTime").val());
-			
+			 if(!validateTimestamp()){
+				 jq("#dialogSaveTU").button("option", "disabled", true); 
+			 }
 		 }else{
 			 jq("#dialogSaveTU").button("option", "disabled", true);
 		 }
 	  });
   });
+  function validateTimestamp(){
+	 var retval = false; 
+	 //check time logical format
+	 var timeRegex = /([01]\d|2[0-3])([0-5]\d)/;
+	 var dateRegex = /(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/;
+	 var matchDate = dateRegex.test(jq("#selectedDate").val());
+     var matchTime = timeRegex.test(jq("#selectedTime").val());
+     //console.log(match ? 'matches' : 'does not match');
+     if(matchDate){
+    	 if(matchTime){
+	    	 jq("#dialogSaveTU").button("option", "disabled", false);
+	    	 //set on hidden fields in upload form
+	    	 jq("#userDate").val(jq("#selectedDate").val());
+	    	 jq("#userTime").val(jq("#selectedTime").val());
+	    	 retval = true;
+	     }	
+     }
+
+     return retval;
+  }
   //----------------------------------------------------------------
   //END Model dialog timestamp for POD documents (on file upload)
   //----------------------------------------------------------------

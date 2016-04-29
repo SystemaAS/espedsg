@@ -2113,10 +2113,10 @@
    						</tr>
 						<tr>
 							<td class="text12MediumBlue">
-								<input type="text" class="inputText" id="selectedDate" name="selectedDate" size="10" maxlength="8" value=''>&nbsp;
+								<input type="text" class="inputText" onKeyPress="return numberKey(event)" id="selectedDate" name="selectedDate" size="10" maxlength="8" value=''>&nbsp;
 							</td>
 							<td class="text12MediumBlue">
-								<input type="text" class="inputText" id="selectedTime" name="selectedTime" size="5" maxlength="4" value=''>&nbsp;
+								<input type="text" class="inputText" onKeyPress="return numberKey(event)" id="selectedTime" name="selectedTime" size="5" maxlength="4" value=''>&nbsp;
 							</td>
 						</tr>
 					</table>
