@@ -22,6 +22,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- =================  -->
 	<bean id="maintSadImportKodtlikService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikServiceImpl"/>
 	<bean id="maintSadImportKodtsiService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiServiceImpl"/>
+	<bean id="maintSadImportKodtlbService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbServiceImpl"/>
 	
     
 	

@@ -125,7 +125,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_LEVBETING");
 		object.setText("SAD012 / KODTLB");
 		object.setDbTable("KODTLB");
-		object.setStatus("Y");
+		object.setStatus("G");
+		object.setPgm("sad012r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

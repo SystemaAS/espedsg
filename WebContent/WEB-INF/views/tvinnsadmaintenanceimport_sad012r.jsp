@@ -72,7 +72,7 @@
 			                </tr>  
 			                </thead> 
 			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				              
 				               <td align="center" width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.klbsta}&nbsp;</font></td>
@@ -170,7 +170,7 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<table width="40%" cellspacing="1" border="0" align="left">
+					<table width="80%" cellspacing="1" border="0" align="left">
 					
 			    	    <tr>
 							<td class="text12" title="KLBKOD">&nbsp;<font class="text14RedBold" >*</font>Lev.kode</td>
@@ -196,7 +196,7 @@
 						</td>
 						<td ><input type="text" class="inputTextMediumBlue" name="klbprm" id="klbprm" size="4" maxlength="4" value='${model.record.klbprm}'></td>
 						<td >
-							<select class="inputTextMediumBlue" name="klbfrk" id="klbfrk">
+							<select class="inputTextMediumBlueMandatoryField" name="klbfrk" id="klbfrk">
 			            		<option value="">-velg-</option>
 			            		<option value="F" <c:if test="${ model.record.klbfrk == 'F'}"> selected </c:if> >F</option>
 			 				  	<option value="J" <c:if test="${ model.record.klbfrk == 'J'}"> selected </c:if> >Ja</option>

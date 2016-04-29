@@ -9,7 +9,6 @@
   //-----------------------
   //GET specific db-record
   //-----------------------
-  /*
   function getRecord(record){
 	var id = record.id;
   	var applicationUserParam = jq('#applicationUser').val();
@@ -33,12 +32,14 @@
   			
   			//rest of the gang
   			jq('#klbnav').val("");jq('#klbnav').val(data[i].klbnav);
-  			//jq('#ksovl').val("");jq('#ksovl').val(data[i].ksovl);
-  			//jq('#ksuser').val("");jq('#ksuser').val(data[i].ksuser);
+  			jq('#klbkt').val("");jq('#klbkt').val(data[i].klbkt);
+  			jq('#klbfok').val("");jq('#klbfok').val(data[i].klbfok);
+  			jq('#klbprm').val("");jq('#klbprm').val(data[i].klbprm);
+  			jq('#klbfrk').val("");jq('#klbfrk').val(data[i].klbfrk);
   			//jq('#ksixxx').val("");jq('#ksixxx').val(data[i].ksixxx);
   			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].ksisig);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].klbkod);
   			
   		}
   	  }, 
@@ -48,7 +49,7 @@
 	});
 		
   }
-  */
+  
 			
   //-------------------
   //Datatables jquery
