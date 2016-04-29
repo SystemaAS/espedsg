@@ -6,10 +6,29 @@
   function setBlockUI(element){
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
+  
+  
+  jq(function() {
+		//Clean values for createing new record
+		jq('#newRecordButton').click(function() {
+			jq('#ksisig').val("");
+			jq("#ksisig").prop("readonly", false);
+			jq("#ksisig").removeClass("inputTextReadOnly");
+			jq("#ksisig").addClass("inputTextMediumBlueUPPERCASEMandatoryField");
+			//rest of the gang
+			jq('#ksinav').val("");
+			jq('#ksovl').val("");
+			jq('#ksuser').val("");
+			jq('#ksixxx').val("");
+			jq('#klbfrk').val("");
+			//for update
+			jq('#updateId').val("");
+		});
+  }); 
+  
   //-----------------------
   //GET specific db-record
   //-----------------------
-  
   function getRecord(record){
 	var id = record.id;
   	var applicationUserParam = jq('#applicationUser').val();

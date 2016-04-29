@@ -124,6 +124,9 @@ public class MaintSadImportSad012rController {
 				model.put("dbTable", dbTable);
 				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 			}else{
+				//concatenate klbxxx-fields after validation
+				recordToValidate.setKlbxxx(recordToValidate.getKlbxxx_avs() + recordToValidate.getKlbxxx_mot() + recordToValidate.getKlbxxx_andrek());
+				
 				//------------
 				//UPDATE table
 				//------------
@@ -132,9 +135,9 @@ public class MaintSadImportSad012rController {
 				//UPDATE
 				if (TvinnSadMaintenanceConstants.ACTION_UPDATE.equals(action) ){
 					if(updateId!=null && !"".equals(updateId)){
-					//update
-					logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
-					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
+						//update
+						logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
 					//CREATE
 					}else{
 						//create new
@@ -188,6 +191,10 @@ public class MaintSadImportSad012rController {
     		JsonMaintSadImportKodtlbContainer container = this.maintSadImportKodtlbService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportKodtlbRecord record : list){
+	        		//logger.info("XXX_AVS:" + record.getKlbxxx_avs());
+	        		
+	        	}
 	        }
     	}
     	return list;

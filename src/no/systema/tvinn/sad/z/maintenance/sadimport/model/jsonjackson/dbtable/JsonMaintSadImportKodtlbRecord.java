@@ -53,6 +53,32 @@ public class JsonMaintSadImportKodtlbRecord extends JsonAbstractGrandFatherRecor
 	public void setKlbxxx(String value) {  this.klbxxx = value; }
 	public String getKlbxxx() { return this.klbxxx;}
 	
+	//aux
+	private String klbxxx_andrek = null;
+	public void setKlbxxx_andrek(String value) {  this.klbxxx_andrek = value; }
+	public String getKlbxxx_andrek() {
+		if(this.klbxxx!=null && this.klbxxx.length()==3){
+			this.klbxxx_andrek = this.klbxxx.substring(2);
+		}
+		return this.klbxxx_andrek;
+	}
+	private String klbxxx_avs = null;
+	public void setKlbxxx_avs(String value) {  this.klbxxx_avs = value; }
+	public String getKlbxxx_avs() {
+		if(this.klbxxx!=null && this.klbxxx.length()>=1){
+			this.klbxxx_avs = this.klbxxx.substring(0, 1);
+		}
+		return this.klbxxx_avs;
+	}
+	private String klbxxx_mot = null;
+	public void setKlbxxx_mot(String value) {  this.klbxxx_mot = value; }
+	public String getKlbxxx_mot() {
+		if(this.klbxxx!=null && this.klbxxx.length()>=2){
+			this.klbxxx_mot = this.klbxxx.substring(1, 2);
+		}
+		return this.klbxxx_mot;
+	}
+	
 	/**
 	 * 
 	 * @return

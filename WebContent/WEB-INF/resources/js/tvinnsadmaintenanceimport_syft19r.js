@@ -6,6 +6,21 @@
   function setBlockUI(element){
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
+  
+  jq(function() {
+		//Clean values for createing new record
+		jq('#newRecordButton').click(function() {
+			jq('#klikod').val("");
+			jq("#klikod").prop("readonly", false);
+			jq("#klikod").removeClass("inputTextReadOnly");
+			jq("#klikod").addClass("inputTextMediumBlueUPPERCASEMandatoryField");
+			//rest of the gang
+			jq('#klinav').val("");
+			jq('#klisto').val("");
+			//for update
+			jq('#updateId').val("");
+		});
+}); 
   //-----------------------
   //GET specific db-record
   //-----------------------

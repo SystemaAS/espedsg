@@ -6,6 +6,33 @@
   function setBlockUI(element){
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
+  
+
+
+jq(function() {
+	//Clean values for createing new record
+	jq('#newRecordButton').click(function() {
+		jq('#klbkod').val("");
+			jq("#klbkod").prop("readonly", false);
+			jq("#klbkod").removeClass("inputTextReadOnly");
+			jq("#klbkod").addClass("inputTextMediumBlueUPPERCASEMandatoryField");
+			
+			//rest of the gang
+			jq('#klbnav').val("");
+			jq('#klbkt').val("");
+			jq('#klbfok').val("");
+			jq('#klbprm').val("");
+			jq('#klbfrk').val("");
+			//virtual fields
+			jq('#klbxxx_avs').val("");
+			jq('#klbxxx_mot').val("");
+			jq('#klbxxx_andrek').val("");
+			//for update
+			jq('#updateId').val("");
+	});
+}); 
+	
+  //Varekod
   //-----------------------
   //GET specific db-record
   //-----------------------
@@ -36,7 +63,11 @@
   			jq('#klbfok').val("");jq('#klbfok').val(data[i].klbfok);
   			jq('#klbprm').val("");jq('#klbprm').val(data[i].klbprm);
   			jq('#klbfrk').val("");jq('#klbfrk').val(data[i].klbfrk);
-  			//jq('#ksixxx').val("");jq('#ksixxx').val(data[i].ksixxx);
+  			//virtual fields
+  			jq('#klbxxx_avs').val("");jq('#klbxxx_avs').val(data[i].klbxxx_avs);
+  			jq('#klbxxx_mot').val("");jq('#klbxxx_mot').val(data[i].klbxxx_mot);
+  			jq('#klbxxx_andrek').val("");jq('#klbxxx_andrek').val(data[i].klbxxx_andrek);
+  			
   			
   			//for a future update
   			jq('#updateId').val("");jq('#updateId').val(data[i].klbkod);

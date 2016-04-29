@@ -153,7 +153,10 @@
 			</c:if>
 			
 			<tr height="2"><td>&nbsp;</td></tr>
-	 	    
+	 	    <tr >
+				<td width="5%">&nbsp;</td>
+				<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
+			</tr>
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%">
