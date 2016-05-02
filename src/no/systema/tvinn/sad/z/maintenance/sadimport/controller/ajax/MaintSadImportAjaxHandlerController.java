@@ -40,7 +40,11 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeRecord;
 
+
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportCundfLikvKodeService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
@@ -72,6 +76,24 @@ public class MaintSadImportAjaxHandlerController {
 	 * @param user
 	 * @param result
 	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_syft18r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportCundfLikvKodeRecord> getRecordSyft18
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getRecordSyft18 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportCundfLikvKodeRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSyft18(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="getSpecificRecord_syft19r.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -150,6 +172,41 @@ public class MaintSadImportAjaxHandlerController {
 	        	for(JsonMaintSadImportKodtlikRecord record: list){
 	        		//logger.info(record.getKlikod());
 	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportCundfLikvKodeRecord> fetchListSyft18(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT18R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kundnr=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportCundfLikvKodeRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportCundfLikvKodeContainer container = this.maintSadImportCundfLikvKodeService.getList(jsonPayload);
+	        if(container!=null){
+	        	//list = (List)container.getList();
+	        	for(JsonMaintSadImportCundfLikvKodeRecord record : container.getList()){
+	        		//Exception case for Systema. 
+	        		if("SS".equals(record.getFirma()) ){
+	        			//do not include
+	        		}else{
+	        			list.add(record);
+	        		}
+	        	}	   
 	        }
     	}
     	return list;
@@ -247,6 +304,14 @@ public class MaintSadImportAjaxHandlerController {
 	@Required
 	public void setMaintSadImportKodtlbService (MaintSadImportKodtlbService value){ this.maintSadImportKodtlbService = value; }
 	public MaintSadImportKodtlbService getMaintSadImportKodtlbService(){ return this.maintSadImportKodtlbService; }
+	
+
+	@Qualifier ("maintSadImportCundfLikvKodeService")
+	private MaintSadImportCundfLikvKodeService maintSadImportCundfLikvKodeService;
+	@Autowired
+	@Required
+	public void setMaintSadImportCundfLikvKodeService (MaintSadImportCundfLikvKodeService value){ this.maintSadImportCundfLikvKodeService = value; }
+	public MaintSadImportCundfLikvKodeService getMaintSadImportCundfLikvKodeService(){ return this.maintSadImportCundfLikvKodeService; }
 	
 }
 
