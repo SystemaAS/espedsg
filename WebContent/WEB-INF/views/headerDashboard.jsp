@@ -54,8 +54,8 @@
 				 		</td>
 			    			<td width="30%" align="right" valign="middle">
 							<c:if test="${not empty user.systemaLogo && (user.systemaLogo=='Y')}">
-				    				<img src="resources/images/systema_logo.png" border="0" width=85px height=55px>
-								&nbsp;&nbsp; 
+				    				<img src="resources/images/systema_logo.png" border="0" width=75px height=45px>
+								&nbsp; 
 							</c:if>		
 		    				</td>
 			      		
