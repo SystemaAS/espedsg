@@ -69,7 +69,7 @@
 			                   </c:otherwise>
 			               </c:choose>
 			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="tkkode${record.tkkode}@tktxtn${record.tktxtn}@ctype${model.callerType}" >
-		               			<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.tkkode}
+		               			<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.tkkode}
 			               </td>
 		               	   <td class="text11">&nbsp;${record.tktxtn}</td>
 		               	   <td class="text11">&nbsp;${record.tkavg}</td>

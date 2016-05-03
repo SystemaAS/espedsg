@@ -70,7 +70,7 @@
 		                   	   <c:when test="${model.callerType=='dkev_402a'}">	
 					               <td nowrap style="cursor:pointer;" class="text11MediumBlue" 
 					               		id="kod${record.dkkd_kd2}${record.dkkd_kd}@ctype${model.callerType}" >
-					               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+					               		&nbsp;<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">
 					               		&nbsp;&nbsp;${record.dkkd_kd2}${record.dkkd_kd}
 					               </td>
 				               </c:when>

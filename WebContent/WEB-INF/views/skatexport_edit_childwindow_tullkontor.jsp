@@ -70,7 +70,7 @@
 			                   </c:otherwise>
 			               </c:choose>
 			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="tkkode${record.dkkd_kd}@tktxtn${record.dkkf_txt}@ctype${model.callerType}" >
-		               			<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.dkkd_kd}
+		               			<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.dkkd_kd}
 			               </td>
 		               	   <td class="text11">&nbsp;${record.dkkf_txt}</td>
 		               	   <td class="text11">&nbsp;${TODOrecord.tkavg}</td>

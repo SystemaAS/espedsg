@@ -1628,6 +1628,7 @@
 								</td>
 					            
 					            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
+					            
 					        </tr>	    
 				            <tr height="2"><td>&nbsp;</td></tr>
 				            

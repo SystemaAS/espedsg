@@ -68,7 +68,7 @@
 		                   	<c:when test="${not empty record.dkkd_kd}">
 				               <td nowrap style="cursor:pointer;" class="text11MediumBlue" 
 				               		id="kod${record.dkkd_kd}@ctype${model.callerType}" >
-				               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				               		&nbsp;<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">
 				               		&nbsp;&nbsp;${record.dkkd_kd}
 				               </td>
 			               	   <td class="text11">&nbsp;${record.dkkf_txt}</td>
@@ -76,7 +76,7 @@
 		               	   	<c:otherwise>
 	               	    		<td nowrap style="cursor:pointer;" class="text11MediumBlue" 
 				               		id="kod${record.tkkode}@ctype${model.callerType}" >
-				               		&nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				               		&nbsp;<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">
 				               		&nbsp;&nbsp;${record.tkkode}
 				               </td>
 			               	   <td class="text11">&nbsp;${record.tktxtn}</td>

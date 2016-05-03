@@ -67,7 +67,7 @@
 			               </c:choose>
 			               
 		               	   <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.dktara02}@text${record.dktara64}@ctype${model.callerType}" >
-			               		<img title="select" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.dktara02}
+			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.dktara02}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.dktara64}</td>
 			            </tr> 

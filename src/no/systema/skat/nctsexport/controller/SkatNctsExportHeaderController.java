@@ -31,6 +31,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JavaReflectionUtil;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.NumberFormatterLocaleAware;
 
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningRecord;
@@ -76,7 +77,8 @@ public class SkatNctsExportHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
-
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
+	
 	private ApplicationContext context;
 	
 	@InitBinder
@@ -262,6 +264,7 @@ public class SkatNctsExportHeaderController {
 							//We do fetch this number here in order to update the recordToValidate (for validation purposes) 
 							recordToValidate.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 							recordToValidate.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
+						
 				            
 						}else{
 							logger.info("CREATE NEW follow by UDATE transaction...");
@@ -1198,6 +1201,7 @@ public class SkatNctsExportHeaderController {
 			if(totalItemLinesObject!=null){
 				record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 				record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
+				
 			}
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
@@ -1232,6 +1236,7 @@ public class SkatNctsExportHeaderController {
 		if(totalItemLinesObject!=null){
 			record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 			record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
+			
 		}
 		//SET HEADER RECORDS  (from RPG)
 		model.put(SkatConstants.DOMAIN_RECORD, record);
@@ -1370,7 +1375,9 @@ public class SkatNctsExportHeaderController {
 	    	JsonSkatNctsExportSpecificTopicItemContainer jsonSkatNctsExportSpecificTopicItemContainer = this.getSkatNctsExportSpecificTopicItemService().getNctsExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	//now to the real logic
 	    	int antalKolli = 0;
+	    	double grossWeight = 0.0D;
 	    	int numberOfItemLines = 0;
+	    	
 	    	if(jsonSkatNctsExportSpecificTopicItemContainer!=null){
 		    	for(JsonSkatNctsExportSpecificTopicItemRecord record : jsonSkatNctsExportSpecificTopicItemContainer.getOrderList()){
 		    		numberOfItemLines++;
@@ -1410,6 +1417,14 @@ public class SkatNctsExportHeaderController {
 		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
+		    		//bruttovikt
+		    		if(record.getTvvktb()!=null && !"".equals(record.getTvvktb())){
+		    			try{
+		    				grossWeight += Double.parseDouble(record.getTvvktb());
+		    			}catch(Exception e){
+		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    			}
+		    		}
 		    	}
 	    	}
 	    	//This is to flag the fact that no antal kolli exist DESPITE the fact that there is 1 or more item lines
@@ -1419,9 +1434,11 @@ public class SkatNctsExportHeaderController {
 	    	}
 	    	totalItemLinesObject.setSumOfAntalItemLines(numberOfItemLines);
 	    	totalItemLinesObject.setSumOfAntalKolliInItemLines(antalKolli);
+	    	
 	    	//DEBUG
 	    	logger.info("AntalKolli: " + totalItemLinesObject.getSumOfAntalKolliInItemLines());
 	    	logger.info("AntalItems: " + totalItemLinesObject.getSumOfAntalItemLines());
+	    	
 	    
 	    	return totalItemLinesObject;
 	}

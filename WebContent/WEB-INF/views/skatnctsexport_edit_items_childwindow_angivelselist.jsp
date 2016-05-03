@@ -89,7 +89,7 @@
 			               <td class="text11">&nbsp;${record.avd}</td>
 			               <td class="text11">&nbsp;${record.sign}</td>
 			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="avd${record.avd}@opd${record.opd}@xref${record.dkeh_xref}@refnr${record.refnr}" >
-			               		<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.opd}
+			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.opd}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.refnr}</td>
 		               	   <td class="text11">&nbsp;${record.dkeh_xref}</td>

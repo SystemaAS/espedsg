@@ -109,7 +109,10 @@ public class SkatNctsExportItemsControllerChildWindow {
 			return this.loginView;
 			
 		}else{
-			
+			String xref = request.getParameter("xref");
+			if(xref!=null && !"".equals(xref)){
+				searchFilter.setXrefnr(xref);
+			}
 			List<JsonSkatExportTopicListRecord> list = (List)this.getAngivelseList(appUser, searchFilter);
 			model.put("angivelseList", list);
 			successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER , searchFilter);
