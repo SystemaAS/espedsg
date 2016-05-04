@@ -745,7 +745,7 @@ public class SkatNctsExportHeaderController {
 		    				return fallbackView;
 		    			}else{
 		    				//At this point we do have a cloned record ready to be presented.
-		    				//Before we do present this record we must create a quasi-item line such as the requirement demand
+		    				//Before we do present this record, we must create a default-item line such as the requirement demands
 		    				JsonSkatNctsExportSpecificTopicItemRecord nctsExportTargetItemRecord = new JsonSkatNctsExportSpecificTopicItemRecord();
 		    				this.initDefaultFirstItemLine(nctsExportTargetItemRecord, appUser.getUser(),jsonContainer.getThavd(), jsonContainer.getThtdn());
 		    				this.createDefaultFirstItemLine(nctsExportTargetItemRecord, appUser.getUser(),jsonContainer.getThavd(), jsonContainer.getThtdn());
@@ -915,8 +915,8 @@ public class SkatNctsExportHeaderController {
 		//--------------------------------------
 		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		 //Debug --> 
-		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
-		 //logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 //logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		 if(jsonPayloadFetch!=null){
 			 JsonSkatExportSpecificTopicItemContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
 			 if(container!=null){
