@@ -28,6 +28,7 @@ import org.springframework.web.bind.WebDataBinder;
 
 //application imports
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JavaReflectionUtil;
 import no.systema.main.util.JsonDebugger;
@@ -39,6 +40,15 @@ import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureRecord;
 
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicInvoiceRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemRecord;
+import no.systema.skat.skatexport.service.SkatExportSpecificTopicItemService;
+import no.systema.skat.skatexport.service.SkatExportSpecificTopicService;
+import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportTopicCopiedFromTransportUppdragContainer;
 import no.systema.skat.nctsexport.validator.SkatNctsExportHeaderValidator;
@@ -733,6 +743,12 @@ public class SkatNctsExportHeaderController {
 		    				fallbackView.addObject(SkatConstants.DOMAIN_MODEL, model);
 		    				
 		    				return fallbackView;
+		    			}else{
+		    				//At this point we do have a cloned record ready to be presented.
+		    				//Before we do present this record we must create a quasi-item line such as the requirement demand
+		    				JsonSkatNctsExportSpecificTopicItemRecord nctsExportTargetItemRecord = new JsonSkatNctsExportSpecificTopicItemRecord();
+		    				this.initDefaultFirstItemLine(nctsExportTargetItemRecord, appUser.getUser(),jsonContainer.getThavd(), jsonContainer.getThtdn());
+		    				this.createDefaultFirstItemLine(nctsExportTargetItemRecord, appUser.getUser(),jsonContainer.getThavd(), jsonContainer.getThtdn());
 		    			}
 		    		}
 		    	}else{
@@ -848,6 +864,225 @@ public class SkatNctsExportHeaderController {
 		}
 		return successView;
 	}
+	
+	/**
+	 * 
+	 * @param nctsExportTargetItemRecord
+	 * @param applicationUser
+	 * @param avd
+	 * @param opd
+	 */
+	private void initDefaultFirstItemLine(JsonSkatNctsExportSpecificTopicItemRecord nctsExportTargetItemRecord, String applicationUser, String avd, String opd){
+		//------------------------
+		//STEP(1) - Header values
+		//------------------------
+		String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
+		//url params
+		String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd; // + "&xref=" + xref;
+		//for debug purposes in GUI
+		 
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + BASE_URL);
+		logger.info("URL PARAMS: " + urlRequestParamsKeys);
+   	 	
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug --> 
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			JsonSkatExportSpecificTopicContainer container = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);
+			if(container!=null && container.getOneorder()!=null){
+				for(JsonSkatExportSpecificTopicRecord record : container.getOneorder()){
+					//Debug
+					//logger.info(record.getDkeh_17a());
+					nctsExportTargetItemRecord.setTvalk("DK");
+					nctsExportTargetItemRecord.setTvdty("830");
+					nctsExportTargetItemRecord.setTvblk(record.getDkeh_17a());
+					
+ 			  	}
+	   		}
+	   	 }
+		//---------------------------
+		//STEP(2) - Item line values
+		//---------------------------
+		BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL;
+			
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av item list... ");
+		logger.info("URL: " + BASE_URL);
+		logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		//--------------------------------------
+		//EXECUTE the FETCH (RPG program) here
+		//--------------------------------------
+		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 //Debug --> 
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+		 //logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 if(jsonPayloadFetch!=null){
+			 JsonSkatExportSpecificTopicItemContainer container = this.skatExportSpecificTopicItemService.getSkatExportSpecificTopicItemContainer(jsonPayloadFetch);
+			 if(container!=null){
+				 for(JsonSkatExportSpecificTopicItemRecord record : container.getOrderList()){
+					 //Debug
+					 nctsExportTargetItemRecord.setTvvnt(record.getDkev_331());
+					 nctsExportTargetItemRecord.setTvvt(record.getDkev_315());
+					 //logger.info("Varenr:" + nctsExportTargetItemRecord.getTvvnt());
+					 //logger.info("Varebesk.:" + nctsExportTargetItemRecord.getTvvt());
+					 nctsExportTargetItemRecord.setTvvktb(record.getDkev_35());
+					 nctsExportTargetItemRecord.setTvvktn(record.getDkev_38());
+					 break; //only the first item line (if any)
+				 }
+			 }
+		 }	
+	}
+	/**
+	 * 
+	 * @param nctsExportTargetItemRecord
+	 * @param applicationUser
+	 * @param avd
+	 * @param opd
+	 */
+	private void createDefaultFirstItemLine(JsonSkatNctsExportSpecificTopicItemRecord nctsExportTargetItemRecord, String applicationUser, String avd, String opd){
+		
+		JsonSkatNctsExportSpecificTopicItemRecord tmpRecord  = this.createNewItemKeySeeds(applicationUser, avd, opd);
+		if(tmpRecord!=null){
+			String newLineNr = tmpRecord.getTvli();
+			logger.info("[INFO] New LineNr:" + newLineNr);
+			
+			//take the rest from GUI.
+			nctsExportTargetItemRecord.setTvli(newLineNr);
+			nctsExportTargetItemRecord.setTvtdn(opd);
+			nctsExportTargetItemRecord.setTvavd(avd);
+			logger.info("[INFO] New line number (on item record):" + nctsExportTargetItemRecord.getTvli());
+            //some mandatory validation
+			this.validateDefaultNctsItemNr(nctsExportTargetItemRecord);
+            logger.info("[INFO] Varubeskrivning (on item record):" + nctsExportTargetItemRecord.getTvvt());
+            logger.info("[INFO] Varekode (on item record):" + nctsExportTargetItemRecord.getTvvnt());
+            logger.info("[INFO] Bruttov. (on item record):" + nctsExportTargetItemRecord.getTvvktb());
+			logger.info("[INFO] Nettov. (on item record):" + nctsExportTargetItemRecord.getTvvktn());
+			logger.info("[INFO] Avs.land (on item record):" + nctsExportTargetItemRecord.getTvalk());
+			logger.info("[INFO] Best.land (on item record):" + nctsExportTargetItemRecord.getTvblk());
+			logger.info("[INFO] 44.Doc.type (on item record):" + nctsExportTargetItemRecord.getTvdty());
+			//
+			String BASE_URL_UPDATE = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + applicationUser);
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + nctsExportTargetItemRecord.getTvavd().trim());
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + nctsExportTargetItemRecord.getTvtdn().trim());
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lin=" + nctsExportTargetItemRecord.getTvli().trim());
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + SkatConstants.MODE_UPDATE);
+			//execute
+			String urlRequestParamsTopicItem = this.urlRequestParameterMapper.getUrlParameterValidString((nctsExportTargetItemRecord));
+			//put the final valid param. string
+			String urlRequestParams = urlRequestParamsKeys + urlRequestParamsTopicItem;
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + BASE_URL_UPDATE);
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	//----------------------------------------------------------------------------
+	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+	    	//----------------------------------------------------------------------------
+			String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
+			//Debug --> 
+	    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+	    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+	    	RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgReturnPayload);
+	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+	    		//this.setFatalError(modelTODO, rpgReturnResponseHandler, nctsExportTargetItemRecord);
+	    		
+	    	}else{
+	    		//Update succefully done!
+	    		logger.info("[INFO] Valid default Item Line CREATE -- Record successfully updated, OK ");
+	    	}
+			
+		}else{
+			//Error here
+		}
+	}
+	
+	/**
+	 * 
+	 * @param nctsExportTargetItemRecord
+	 */
+	private void validateDefaultNctsItemNr(JsonSkatNctsExportSpecificTopicItemRecord nctsExportTargetItemRecord){
+		//Commodity code
+		if(nctsExportTargetItemRecord.getTvvnt()!=null && !"".equals(nctsExportTargetItemRecord.getTvvnt())){
+			String tmp = nctsExportTargetItemRecord.getTvvnt();
+			if(tmp.length()>6){
+				nctsExportTargetItemRecord.setTvvnt(tmp.substring(0,6));
+			}
+			//Description
+			if(nctsExportTargetItemRecord.getTvvt()!=null && !"".equals(nctsExportTargetItemRecord.getTvvt())){
+				//OK
+			}else{
+				nctsExportTargetItemRecord.setTvvt("CLONE DEFAULT");
+			}
+		}else{
+			nctsExportTargetItemRecord.setTvvnt("660000");
+			nctsExportTargetItemRecord.setTvvt("CLONE DEFAULT");
+		}
+		
+		
+		
+	}
+    
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private JsonSkatNctsExportSpecificTopicItemRecord createNewItemKeySeeds(String applicationUser, String avd, String opd){
+		
+	RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	//request variables
+	JsonSkatNctsExportSpecificTopicItemRecord jsonSkatNctsExportSpecificTopicItemRecord = new JsonSkatNctsExportSpecificTopicItemRecord();
+	
+	try{
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_URL;
+		
+		//-------------------------------------------------------------------------------------------
+		// STEP[PREPARE CREATION] --> generate new opd and tuid (if applicable) in order to be able to Add (Create)
+		//-------------------------------------------------------------------------------------------
+		logger.info("STEP[1] GET SEEDS and CREATE RECORD...");
+		String numberOfItemLinesInTopicStr = "1";
+		StringBuffer urlRequestParamsForSeed = new StringBuffer();
+		//
+		urlRequestParamsForSeed.append("user=" + applicationUser);
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lin=" + numberOfItemLinesInTopicStr);
+		urlRequestParamsForSeed.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + SkatConstants.MODE_ADD);
+		logger.info("New SEEDs URL: " + BASE_URL);
+		logger.info("PARAMS for SEED: " + urlRequestParamsForSeed.toString());
+				
+		//Get the counter from RPG (new opd Id)
+		String rpgSeedNumberPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsForSeed.toString());
+		// Map the JSON response to the new seeds (thtdn,tvli)
+		// We are not using std JSON conversion since the RPGs strings are not the same. Should be the same as
+		// the header fields. The RPG output should be changed in order to comply to the field specification...
+		rpgReturnResponseHandler.evaluateRpgResponseOnTopicItemCreateOrUpdate(rpgSeedNumberPayload);
+		
+		//we must complete the GUI-json with the value from a line nr seed here
+		if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage()) ){
+			logger.info("[ERROR] No mandatory seeds (tvli, opd) were generated correctly)! look at std output log. [errMsg]" + rpgReturnResponseHandler.getErrorMessage());
+			jsonSkatNctsExportSpecificTopicItemRecord = null;
+			
+		}else{
+			jsonSkatNctsExportSpecificTopicItemRecord.setTvtdn(rpgReturnResponseHandler.getThtdn());
+			jsonSkatNctsExportSpecificTopicItemRecord.setTvli(rpgReturnResponseHandler.getTvli());
+		}
+	
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+
+	return jsonSkatNctsExportSpecificTopicItemRecord;
+}
+	
 	
 	/**
 	 * 
@@ -1509,6 +1744,21 @@ public class SkatNctsExportHeaderController {
 	public void setSkatDropDownListPopulationService (SkatDropDownListPopulationService value){ this.skatDropDownListPopulationService=value; }
 	public SkatDropDownListPopulationService getSkatDropDownListPopulationService(){return this.skatDropDownListPopulationService;}
 	
+
+	@Qualifier ("skatExportSpecificTopicService")
+	private SkatExportSpecificTopicService skatExportSpecificTopicService;
+	@Autowired
+	@Required
+	public void setSkatExportSpecificTopicService (SkatExportSpecificTopicService value){ this.skatExportSpecificTopicService = value; }
+	public SkatExportSpecificTopicService getSkatExportSpecificTopicService(){ return this.skatExportSpecificTopicService; }
+	  
+	@Qualifier 
+	private SkatExportSpecificTopicItemService skatExportSpecificTopicItemService;
+	@Autowired
+	@Required	
+	public void setSkatExportSpecificTopicItemService(SkatExportSpecificTopicItemService value){this.skatExportSpecificTopicItemService = value;}
+	public SkatExportSpecificTopicItemService getSkatImportSpecificTopicItemService(){ return this.skatExportSpecificTopicItemService; }
+	  
 	
 }
 
