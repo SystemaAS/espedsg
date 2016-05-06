@@ -42,12 +42,17 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeRecord;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportTariContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportTariRecord;
+
 
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportCundfLikvKodeService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportTariService;
+
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 
@@ -148,6 +153,24 @@ public class MaintSadImportAjaxHandlerController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad010r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportTariRecord> getRecordSad010
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String alfa) {
+		final String METHOD = "[DEBUG] getRecordSad010 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportTariRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad010(applicationUser, id, alfa);
+    	
+    	return result;
+	
+	}
 	/**
 	 * 
 	 * @param applicationUser
@@ -274,6 +297,36 @@ public class MaintSadImportAjaxHandlerController {
 	}
 	
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportTariRecord> fetchListSad010(String applicationUser, String id, String alfa){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD010R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&tatanr=" + id + "&taalfa=" + alfa;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportTariRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportTariContainer container = this.maintSadImportTariService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportTariRecord record: list){
+	        		logger.info(record.getTatanr());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -312,6 +365,17 @@ public class MaintSadImportAjaxHandlerController {
 	@Required
 	public void setMaintSadImportCundfLikvKodeService (MaintSadImportCundfLikvKodeService value){ this.maintSadImportCundfLikvKodeService = value; }
 	public MaintSadImportCundfLikvKodeService getMaintSadImportCundfLikvKodeService(){ return this.maintSadImportCundfLikvKodeService; }
+	
+	
+	@Qualifier ("maintSadImportTariService")
+	private MaintSadImportTariService maintSadImportTariService;
+	@Autowired
+	@Required
+	public void setMaintSadImportTariService (MaintSadImportTariService value){ this.maintSadImportTariService = value; }
+	public MaintSadImportTariService getMaintSadImportTariService(){ return this.maintSadImportTariService; }
+	
+	
+	
 	
 }
 

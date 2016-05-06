@@ -135,6 +135,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_TOLLTARIFF");
 		object.setText("SAD010 / TARI");
 		object.setDbTable("TARI");
+		object.setStatus("G");
+		object.setPgm("sad010r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

@@ -67,7 +67,6 @@
 			                    <th align="center" class="tableHeaderField">&nbsp;And.K.&nbsp;</th>
 			                    <th align="center" class="tableHeaderField">&nbsp;Avs&nbsp;</th>
 			                    <th align="center" class="tableHeaderField">&nbsp;Mott.&nbsp;</th>
-			                    
 			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
