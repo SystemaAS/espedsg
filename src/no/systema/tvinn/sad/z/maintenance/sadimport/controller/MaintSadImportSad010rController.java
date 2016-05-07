@@ -116,11 +116,8 @@ public class MaintSadImportSad010rController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			if(recordToValidate.getTadtr()!=null && !"".equals(recordToValidate.getTadtr())){
-				//nothing
-			}else{
-				recordToValidate.setTadtr(recordToValidate.getTadato());
-			}
+			//adjust values
+			this.adjustSomeRecordValues(recordToValidate);
 			//Move on
 			MaintSadImportSad010rValidator validator = new MaintSadImportSad010rValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
@@ -177,6 +174,36 @@ public class MaintSadImportSad010rController {
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 */
+	private void adjustSomeRecordValues(JsonMaintSadImportTariRecord recordToValidate){
+		//--------
+		//Dates
+		//--------
+		if(recordToValidate.getTadtr()!=null && !"".equals(recordToValidate.getTadtr())){
+			//nothing
+		}else{
+			recordToValidate.setTadtr(recordToValidate.getTadato());
+		}
+		//-----------------
+		//Decimal amounts
+		//-----------------
+		if(recordToValidate.getTaordb()!=null && !"".equals(recordToValidate.getTaordb())){
+			String tmp = recordToValidate.getTaordb().replace(",", ".");
+			recordToValidate.setTaordb(tmp);
+		}
+		if(recordToValidate.getTaeftb()!=null && !"".equals(recordToValidate.getTaeftb())){
+			String tmp = recordToValidate.getTaeftb().replace(",", ".");
+			recordToValidate.setTaeftb(tmp);
+		}
+		if(recordToValidate.getTaefb()!=null && !"".equals(recordToValidate.getTaefb())){
+			String tmp = recordToValidate.getTaefb().replace(",", ".");
+			recordToValidate.setTaefb(tmp);
 		}
 	}
 	

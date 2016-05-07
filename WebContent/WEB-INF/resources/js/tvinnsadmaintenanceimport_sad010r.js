@@ -69,6 +69,17 @@
   			jq('#taalfaOrig').val("");jq('#taalfaOrig').val(data[i].taalfa);
   			jq('#tadato').val("");jq('#tadato').val(data[i].tadato);
   			jq('#tadtr').val("");jq('#tadtr').val(data[i].tadtr);
+  			jq('#taordb').val("");jq('#taordb').val(data[i].taordb);
+  			jq('#taordk').val("");jq('#taordk').val(data[i].taordk);
+  			jq('#taeftb').val("");jq('#taeftb').val(data[i].taeftb);
+  			jq('#taeftk').val("");jq('#taeftk').val(data[i].taeftk);
+  			jq('#taefb').val("");jq('#taefb').val(data[i].taefb);
+  			jq('#taefk').val("");jq('#taefk').val(data[i].taefk);
+  			//
+  			jq('#tastk').val("");jq('#tastk').val(data[i].tastk);
+  			jq('#tatxt').val("");jq('#tatxt').val(data[i].tatxt);
+  			jq('#taenhe').val("");jq('#taenhe').val(data[i].taenhe);
+  			
   			
   			//for a future update
   			jq('#updateId').val("");jq('#updateId').val(data[i].tatanr);

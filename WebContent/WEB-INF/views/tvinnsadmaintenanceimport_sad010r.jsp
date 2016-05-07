@@ -62,7 +62,7 @@
 			<tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="left">
+				<table id="containerdatatableTable" width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
@@ -71,11 +71,11 @@
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Tariffnr.&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Ordinær&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;KD&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;PVA&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;EFTA&nbsp;</th>
-			                    <th class="tableHeaderField">&nbsp;KD&nbsp;</th>
+			                    <th class="tableHeaderField">&nbsp;PVA&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;EF&nbsp;</th>
-			                    <th class="tableHeaderField">&nbsp;KD&nbsp;</th>
+			                    <th class="tableHeaderField">&nbsp;PVA&nbsp;</th>
 			                    <th class="tableHeaderField">&nbsp;Stk&nbsp;</th>
 			                    <th class="tableHeaderField">&nbsp;Søkebegrep&nbsp;</th>
 			                    <th class="tableHeaderField">&nbsp;Text&nbsp;</th>
@@ -188,23 +188,80 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="taalfaOrig" id=taalfaOrig value="">
 					
-					<table width="80%" cellspacing="1" border="0" align="left">
-					
+					<table width="50%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="TATANR">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
 							<td class="text12" title="TAALFA">&nbsp;<font class="text14RedBold" >*</font>Søkebgrep</td>
 							<td class="text12" title="TADATO">&nbsp;<font class="text14RedBold" >*</font>F.o.m dato</td>
 							<td class="text12" title="TADTR">&nbsp;Opd.dato</td>
-							
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tatanr" id="tatanr" size="9" maxlength="8" value='${model.record.tatanr}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="taalfa" id="taalfa" size="15" maxlength="15" value='${model.record.taalfa}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tadato" id="tadato" size="8" maxlength="8" value='${model.record.tadato}'></td>
-						<td ><input readOnly type="text" class="inputTextReadOnly" name="tadtr" id="tadtr" size="8" maxlength="8" value=''></td>
+						<td ><input readOnly type="text" class="inputTextReadOnly" name="tadtr" id="tadtr" size="8" maxlength="8" value='${model.record.tadtr}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>
+						</tr>
+						<tr height="3"><td>&nbsp;</td>
+					</table>
+					
+					<table width="90%" cellspacing="1" border="0" align="left">	
+						<tr>
+							<td class="text12" title="TAORDB">&nbsp;Ordinær</td>
+							<td class="text12" title="TAORDK">&nbsp;PVA</td>
+							<td class="text12" title="TAEFTB">&nbsp;EFTA</td>
+							<td class="text12" title="TAEFTK">&nbsp;PVA</td>
+							<td class="text12" title="TAEFB">&nbsp;EF</td>
+							<td class="text12" title="TAEFK">&nbsp;PVA</td>
+							<td class="text12" title="TASTK">&nbsp;Stk</td>
+							<td class="text12" title="TATXT">&nbsp;Text</td>
+							<td class="text12" title="TAENHE">&nbsp;Enhet</td>
+						</tr>
+
+						<tr>
+						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="taordb" id="taordb" size="10" maxlength="10" value='${model.record.taordb}'></td>
+						<td >
+							<select name="taordk" id="taordk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.taordk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.taordk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.taordk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.taordk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.taordk == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
+						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="taeftb" id="taeftb" size="10" maxlength="10" value='${model.record.taeftb}'></td>
+						<td >
+							<select name="taeftk" id="taeftk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.taeftk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.taeftk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.taeftk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.taeftk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.taeftk == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
+						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="taefb" id="taefb" size="10" maxlength="10" value='${model.record.taefb}'></td>
+						<td >
+							<select name="taefk" id="taefk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.taefk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.taefk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.taefk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.taefk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.taefk == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
+						<td >
+							<select name="tastk" id="tastk">
+        		    			<option value="">-velg-</option>
+							  	<option value="J"<c:if test="${ model.record.tastk == 'J'}"> selected </c:if> >Ja</option>
+							</select>
+						</td>
+						<td ><input type="text" class="inputTextMediumBlue" name="tatxt" id="tatxt" size="30" maxlength="80" value='${model.record.tatxt}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="taenhe" id="taenhe" size="3" maxlength="3" value='${model.record.taenhe}'></td>
 						</tr>
 	 	    		</table>
 	 	    		
