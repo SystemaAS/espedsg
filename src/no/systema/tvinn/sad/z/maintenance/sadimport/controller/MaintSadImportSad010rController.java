@@ -182,6 +182,7 @@ public class MaintSadImportSad010rController {
 	 * @param recordToValidate
 	 */
 	private void adjustSomeRecordValues(JsonMaintSadImportTariRecord recordToValidate){
+		final String ZERO = "0";
 		//--------
 		//Dates
 		//--------
@@ -190,20 +191,67 @@ public class MaintSadImportSad010rController {
 		}else{
 			recordToValidate.setTadtr(recordToValidate.getTadato());
 		}
+		if(recordToValidate.getTadato()!=null && !"".equals(recordToValidate.getTadato())){
+			//nothing
+		}else{
+			recordToValidate.setTadato(ZERO);
+		}
+		if(recordToValidate.getTadts()!=null && !"".equals(recordToValidate.getTadts())){
+			//nothing
+		}else{
+			recordToValidate.setTadts(ZERO);
+		}
 		//-----------------
 		//Decimal amounts
 		//-----------------
 		if(recordToValidate.getTaordb()!=null && !"".equals(recordToValidate.getTaordb())){
 			String tmp = recordToValidate.getTaordb().replace(",", ".");
 			recordToValidate.setTaordb(tmp);
+		}else{
+			recordToValidate.setTaordb(ZERO);
 		}
 		if(recordToValidate.getTaeftb()!=null && !"".equals(recordToValidate.getTaeftb())){
 			String tmp = recordToValidate.getTaeftb().replace(",", ".");
 			recordToValidate.setTaeftb(tmp);
+		}else{
+			recordToValidate.setTaeftb(ZERO);
 		}
 		if(recordToValidate.getTaefb()!=null && !"".equals(recordToValidate.getTaefb())){
 			String tmp = recordToValidate.getTaefb().replace(",", ".");
 			recordToValidate.setTaefb(tmp);
+		}else{
+			recordToValidate.setTaefb(ZERO);
+		}
+		if(recordToValidate.getTaeosb()!=null && !"".equals(recordToValidate.getTaeosb())){
+			String tmp = recordToValidate.getTaeosb().replace(",", ".");
+			recordToValidate.setTaeosb(tmp);
+		}else{
+			recordToValidate.setTaeosb(ZERO);
+		}
+		
+		if(recordToValidate.getTatsjb()!=null && !"".equals(recordToValidate.getTatsjb())){
+			String tmp = recordToValidate.getTatsjb().replace(",", ".");
+			recordToValidate.setTatsjb(tmp);
+		}else{
+			recordToValidate.setTatsjb(ZERO);
+		}
+		if(recordToValidate.getTatyrb()!=null && !"".equals(recordToValidate.getTatyrb())){
+			String tmp = recordToValidate.getTatyrb().replace(",", ".");
+			recordToValidate.setTatyrb(tmp);
+		}else{
+			recordToValidate.setTatyrb(ZERO);
+		}
+		if(recordToValidate.getTaisrb()!=null && !"".equals(recordToValidate.getTaisrb())){
+			String tmp = recordToValidate.getTaisrb().replace(",", ".");
+			recordToValidate.setTaisrb(tmp);
+		}else{
+			recordToValidate.setTaisrb(ZERO);
+		}
+		if(recordToValidate.getTaellb()!=null && !"".equals(recordToValidate.getTaellb())){
+			String tmp = recordToValidate.getTaellb().replace(",", ".");
+			recordToValidate.setTaellb(tmp);
+		}else{
+			recordToValidate.setTaellb(ZERO);
 		}
 	}
 	

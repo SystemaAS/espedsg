@@ -11,6 +11,9 @@
   	  jq("#tadato").datepicker({ 
   		  dateFormat: 'yymmdd'
   	  });
+  	  jq("#tadts").datepicker({ 
+		  dateFormat: 'yymmdd'
+	  });
   });
 
   jq(function() {
@@ -27,7 +30,18 @@
 			jq('#taalfaOrig').val("");
 			jq('#tadato').val("");
 			jq('#tadtr').val("");
-			
+			jq('#tadts').val("");
+			jq('#taordb').val("");
+  			jq('#taordk').val("");
+  			jq('#taeftb').val("");
+  			jq('#taeftk').val("");
+  			jq('#taefb').val("");
+  			jq('#taefk').val("");
+  			//
+  			jq('#tastk').val("");
+  			jq('#tatxt').val("");
+  			jq('#taenhe').val("");
+  			
 			//for update
 			jq('#updateId').val("");
 	});
@@ -69,6 +83,8 @@
   			jq('#taalfaOrig').val("");jq('#taalfaOrig').val(data[i].taalfa);
   			jq('#tadato').val("");jq('#tadato').val(data[i].tadato);
   			jq('#tadtr').val("");jq('#tadtr').val(data[i].tadtr);
+  			jq('#tadts').val("");jq('#tadts').val(data[i].tadts);
+  			
   			jq('#taordb').val("");jq('#taordb').val(data[i].taordb);
   			jq('#taordk').val("");jq('#taordk').val(data[i].taordk);
   			jq('#taeftb').val("");jq('#taeftb').val(data[i].taeftb);
@@ -79,6 +95,18 @@
   			jq('#tastk').val("");jq('#tastk').val(data[i].tastk);
   			jq('#tatxt').val("");jq('#tatxt').val(data[i].tatxt);
   			jq('#taenhe').val("");jq('#taenhe').val(data[i].taenhe);
+  			//countries
+  			jq('#taeosb').val("");jq('#taeosb').val(data[i].taeosb);
+  			jq('#taeosk').val("");jq('#taeosk').val(data[i].taeosk);
+  			jq('#tatsjb').val("");jq('#tatsjb').val(data[i].tatsjb);
+  			jq('#tatsjk').val("");jq('#tatsjk').val(data[i].tatsjk);
+  			jq('#tatyrb').val("");jq('#tatyrb').val(data[i].tatyrb);
+  			jq('#tatyrk').val("");jq('#tatyrk').val(data[i].tatyrk);
+  			jq('#taisrb').val("");jq('#taisrb').val(data[i].taisrb);
+  			jq('#taisrk').val("");jq('#taisrk').val(data[i].taisrk);
+  			jq('#taellb').val("");jq('#taellb').val(data[i].taellb);
+  			jq('#taellk').val("");jq('#taellk').val(data[i].taellk);
+  			
   			
   			
   			//for a future update
@@ -92,8 +120,7 @@
 	});
 		
   }
-  
-			
+  		
   //-------------------
   //Datatables jquery
   //-------------------
@@ -108,7 +135,7 @@
       //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
       jq('#mainList').dataTable( {
     	  "dom": '<"top">t<"bottom"flip><"clear">',
-    	  "scrollY": "300px",
+    	  "scrollY": "250px",
     	  "scrollCollapse":  false,
     	  "columnDefs": [{ "type": "num", "targets": 0 }],
     	  "lengthMenu": [ 75, 100]

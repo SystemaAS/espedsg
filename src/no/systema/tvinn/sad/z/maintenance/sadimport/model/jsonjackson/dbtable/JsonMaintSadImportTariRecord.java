@@ -106,17 +106,50 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTakdae (String value){ this.takdae = value;   }   
 	public String getTakdae (){ return this.takdae;   }              
 	
-	private String takdsae = null; 
-	public void setTakdsae (String value){ this.takdsae = value;   }   
-	public String getTakdsae (){ return this.takdsae;   }              
+	private String takdse = null; 
+	public void setTakdse (String value){ this.takdse = value;   }   
+	public String getTakdse (){ return this.takdse;   }              
 	
-	private String taeoesb = null; 
-	public void setTaeoesb (String value){ this.taeoesb = value;   }   
-	public String getTaeoesb (){ return this.taeoesb;   }              
+	private String taeosb = null; 
+	public void setTaeosb (String value){ this.taeosb = value;   }   
+	public String getTaeosb (){ return this.taeosb;   }              
 	
-	private String taeoesk = null; 
-	public void setTaeoesk (String value){ this.taeoesk = value;   }   
-	public String getTaeoesk (){ return this.taeoesk;   }              
+	private String taeosk = null; 
+	public void setTaeosk (String value){ this.taeosk = value;   }   
+	public String getTaeosk (){ return this.taeosk;   }   
+	
+	private String tatsjb = null; 
+	public void setTatsjb (String value){ this.tatsjb = value;   }   
+	public String getTatsjb (){ return this.tatsjb;   }              
+	
+	private String tatsjk = null; 
+	public void setTatsjk (String value){ this.tatsjk = value;   }   
+	public String getTatsjk (){ return this.tatsjk;   }              
+	
+	private String tatyrb = null; 
+	public void setTatyrb (String value){ this.tatyrb = value;   }   
+	public String getTatyrb (){ return this.tatyrb;   }              
+	
+	private String tatyrk = null; 
+	public void setTatyrk (String value){ this.tatyrk = value;   }   
+	public String getTatyrk (){ return this.tatyrk;   }              
+	
+	private String taisrb = null; 
+	public void setTaisrb (String value){ this.taisrb = value;   }   
+	public String getTaisrb (){ return this.taisrb;   }              
+	
+	private String taisrk = null; 
+	public void setTaisrk (String value){ this.taisrk = value;   }   
+	public String getTaisrk (){ return this.taisrk;   }              
+	
+	private String taellb = null; 
+	public void setTaellb (String value){ this.taellb = value;   }   
+	public String getTaellb (){ return this.taellb;   }              
+	
+	private String taellk = null; 
+	public void setTaellk (String value){ this.taellk = value;   }   
+	public String getTaellk (){ return this.taellk;   }              
+	
 	
 	/**
 	 * 

@@ -60,7 +60,7 @@ public class MaintSadImportSad010rValidator implements Validator {
 						if(record.getTaordb()!=null && !"".equals(record.getTaordb())){
 							//OK
 						}else{
-							errors.rejectValue("taordk", "", "PVA-code demands an  Ordinaær-value not greater than 99999.99");
+							errors.rejectValue("taordk", "", "PVA-code demands an  Ordinaær-value > 0 and <= 99999.99");
 						}
 					}
 				}
