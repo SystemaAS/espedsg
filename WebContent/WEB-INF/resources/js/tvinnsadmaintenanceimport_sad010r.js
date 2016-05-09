@@ -106,6 +106,17 @@
   			jq('#taisrk').val("");jq('#taisrk').val(data[i].taisrk);
   			jq('#taellb').val("");jq('#taellb').val(data[i].taellb);
   			jq('#taellk').val("");jq('#taellk').val(data[i].taellk);
+  			//
+  			jq('#tabulb').val("");jq('#tabulb').val(data[i].tabulb);
+  			jq('#tabulk').val("");jq('#tabulk').val(data[i].tabulk);
+  			jq('#tapolb').val("");jq('#tapolb').val(data[i].tapolb);
+  			jq('#tapolk').val("");jq('#tapolk').val(data[i].tapolk);
+  			jq('#taromb').val("");jq('#taromb').val(data[i].taromb);
+  			jq('#taromk').val("");jq('#taromk').val(data[i].taromk);
+  			jq('#tan05b').val("");jq('#tan05b').val(data[i].tan05b);
+  			jq('#tan05k').val("");jq('#tan05k').val(data[i].tan05k);
+  			jq('#tan06b').val("");jq('#tan06b').val(data[i].tan06b);
+  			jq('#tan06k').val("");jq('#tan06k').val(data[i].tan06k);
   			
   			
   			

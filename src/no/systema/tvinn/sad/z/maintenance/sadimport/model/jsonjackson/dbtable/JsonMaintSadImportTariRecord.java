@@ -151,6 +151,87 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public String getTaellk (){ return this.taellk;   }              
 	
 	
+	private String tabulb = null; 
+	public void setTabulb (String value){ this.tabulb = value;   }   
+	public String getTabulb (){ return this.tabulb;   }              
+	
+	private String tabulk = null; 
+	public void setTabulk (String value){ this.tabulk = value;   }   
+	public String getTabulk (){ return this.tabulk;   }              
+	
+	private String tapolb = null; 
+	public void setTapolb (String value){ this.tapolb = value;   }   
+	public String getTapolb (){ return this.tapolb;   }              
+	
+	private String tapolk = null; 
+	public void setTapolk (String value){ this.tapolk = value;   }   
+	public String getTapolk (){ return this.tapolk;   }              
+	
+	private String taromb = null; 
+	public void setTaromb (String value){ this.taromb = value;   }   
+	public String getTaromb (){ return this.taromb;   }              
+	
+	private String taromk = null; 
+	public void setTaromk (String value){ this.taromk = value;   }   
+	public String getTaromk (){ return this.taromk;   }              
+	
+	private String tan05b = null; 
+	public void setTan05b (String value){ this.tan05b = value;   }   
+	public String getTan05b (){ return this.tan05b;   }              
+	
+	private String tan05k = null; 
+	public void setTan05k (String value){ this.tan05k = value;   }   
+	public String getTan05k (){ return this.tan05k;   }              
+	
+	private String tan06b = null; 
+	public void setTan06b (String value){ this.tan06b = value;   }   
+	public String getTan06b (){ return this.tan06b;   }              
+	
+	private String tan06k = null; 
+	public void setTan06k (String value){ this.tan06k = value;   }   
+	public String getTan06k (){ return this.tan06k;   }              
+	
+	private String taungb = null; 
+	public void setTaungb (String value){ this.taungb = value;   }   
+	public String getTaungb (){ return this.taungb;   }              
+	
+	private String taungk = null; 
+	public void setTaungk (String value){ this.taungk = value;   }   
+	public String getTaungk (){ return this.taungk;   }              
+	
+	private String taslob = null; 
+	public void setTaslob (String value){ this.taslob = value;   }   
+	public String getTaslob (){ return this.taslob;   }              
+	
+	private String taslok = null; 
+	public void setTaslok (String value){ this.taslok = value;   }   
+	public String getTaslok (){ return this.taslok;   }              
+	
+	private String tamulb = null; 
+	public void setTamulb (String value){ this.tamulb = value;   }   
+	public String getTamulb (){ return this.tamulb;   }  
+	
+	private String tamulk = null; 
+	public void setTamulk (String value){ this.tamulk = value;   }   
+	public String getTamulk (){ return this.tamulk;   }              
+	
+	private String taoulb = null; 
+	public void setTaoulb (String value){ this.taoulb = value;   }   
+	public String getTaoulb (){ return this.taoulb;   }              
+	
+	private String taoulk = null; 
+	public void setTaoulk (String value){ this.taoulk = value;   }   
+	public String getTaoulk (){ return this.taoulk;   }              
+	
+	private String tagrlb = null; 
+	public void setTagrlb (String value){ this.tagrlb = value;   }   
+	public String getTagrlb (){ return this.tagrlb;   }              
+	
+	private String tagrlk = null; 
+	public void setTagrlk (String value){ this.tagrlk = value;   }   
+	public String getTagrlk (){ return this.tagrlk;   }              
+	
+	
 	/**
 	 * 
 	 * @return

@@ -192,7 +192,7 @@
 				<td width="100%">
 				<form action="tvinnsadmaintenanceimport_sad010r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<input type="hidden" name="updateId" id=updateId value="${model.record.tatanr}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="taalfaOrig" id=taalfaOrig value="">
 					
@@ -231,7 +231,7 @@
 					</table>
 					
 					
-					<table width="90%" cellspacing="1" border="0" align="left">	
+					<table class="tableHeaderField" width="90%" cellspacing="1" border="0" align="left">	
 						<%--
 						------------------------ 
 						 FIRST  SECONDARY LINE
@@ -288,7 +288,7 @@
 						 SECOND  SECONDARY LINE
 						------------------------ 
 						--%>
-						<tr height="3"><td></td>
+						<tr height="10"><td></td>
 						<tr>
 							<td class="text12" title="TAEOSB">&nbsp;EØS</td>
 							<td class="text12" title="TAEOSK">&nbsp;PVA</td>
@@ -355,6 +355,80 @@
 							  	<option value="P"<c:if test="${ model.record.taellk == 'P'}"> selected </c:if> >P</option>		
 							  	<option value="V"<c:if test="${ model.record.taellk == 'V'}"> selected </c:if> >V</option>
 							  	<option value="W"<c:if test="${ model.record.taellk == 'W'}"> selected </c:if> >W</option>
+								</select>
+							</td>
+						</tr>
+						<%--
+						------------------------ 
+						 3:d  SECONDARY LINE
+						------------------------ 
+						--%>
+						<tr>
+							<td class="text12" title="TABULB">&nbsp;Chile</td>
+							<td class="text12" title="TABULK">&nbsp;PVA</td>
+							<td class="text12" title="TAPOLB">&nbsp;Makedonia</td>
+							<td class="text12" title="TAPOLK">&nbsp;PVA</td>
+							<td class="text12" title="TAROMB">&nbsp;Sør-Korea</td>
+							<td class="text12" title="TAROMK">&nbsp;PVA</td>
+							<td class="text12" title="TAN05B">&nbsp;Serbia</td>
+							<td class="text12" title="TAN05K">&nbsp;PVA</td>
+							<td class="text12" title="TAN06B">&nbsp;Albania</td>
+							<td class="text12" title="TAN06K">&nbsp;PVA</td>
+						</tr>
+						<tr>
+							<td ><input type="text" class="inputTextMediumBlue" name="tabulb" id="tabulb" size="10" maxlength="10" value='${model.record.tabulb}'></td>
+							<td>
+								<select name="tabulk" id="tabulk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.tabulk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.tabulk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.tabulk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.tabulk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.tabulk == 'W'}"> selected </c:if> >W</option>
+								</select>
+							</td>
+							<td ><input type="text" class="inputTextMediumBlue" name="tapolb" id="tapolb" size="10" maxlength="10" value='${model.record.tapolb}'></td>
+							<td>
+								<select name="tapolk" id="tapolk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.tapolk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.tapolk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.tapolk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.tapolk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.tapolk == 'W'}"> selected </c:if> >W</option>
+								</select>
+							</td>
+							<td ><input type="text" class="inputTextMediumBlue" name="taromb" id="taromb" size="10" maxlength="10" value='${model.record.taromb}'></td>
+							<td>
+								<select name="taromk" id="taromk">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.taromk == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.taromk == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.taromk == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.taromk == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.taromk == 'W'}"> selected </c:if> >W</option>
+								</select>
+							</td>
+							<td ><input type="text" class="inputTextMediumBlue" name="tan05b" id="tan05b" size="10" maxlength="10" value='${model.record.tan05b}'></td>
+							<td>
+								<select name="tan05k" id="tan05k">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.tan05k == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.tan05k == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.tan05k == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.tan05k == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.tan05k == 'W'}"> selected </c:if> >W</option>
+								</select>
+							</td>
+							<td ><input type="text" class="inputTextMediumBlue" name="tan06b" id="tan06b" size="10" maxlength="10" value='${model.record.tan06b}'></td>
+							<td>
+								<select name="tan06k" id="tan06k">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.tan06k == 'A'}"> selected </c:if> >A</option>
+							  	<option value="F"<c:if test="${ model.record.tan06k == 'F'}"> selected </c:if> >F</option>
+							  	<option value="P"<c:if test="${ model.record.tan06k == 'P'}"> selected </c:if> >P</option>		
+							  	<option value="V"<c:if test="${ model.record.tan06k == 'V'}"> selected </c:if> >V</option>
+							  	<option value="W"<c:if test="${ model.record.tan06k == 'W'}"> selected </c:if> >W</option>
 								</select>
 							</td>
 						</tr>

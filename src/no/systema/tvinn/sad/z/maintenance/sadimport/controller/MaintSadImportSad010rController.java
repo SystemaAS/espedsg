@@ -253,6 +253,37 @@ public class MaintSadImportSad010rController {
 		}else{
 			recordToValidate.setTaellb(ZERO);
 		}
+		//
+		if(recordToValidate.getTabulb()!=null && !"".equals(recordToValidate.getTabulb())){
+			String tmp = recordToValidate.getTabulb().replace(",", ".");
+			recordToValidate.setTabulb(tmp);
+		}else{
+			recordToValidate.setTabulb(ZERO);
+		}
+		if(recordToValidate.getTapolb()!=null && !"".equals(recordToValidate.getTapolb())){
+			String tmp = recordToValidate.getTapolb().replace(",", ".");
+			recordToValidate.setTapolb(tmp);
+		}else{
+			recordToValidate.setTapolb(ZERO);
+		}
+		if(recordToValidate.getTaromb()!=null && !"".equals(recordToValidate.getTaromb())){
+			String tmp = recordToValidate.getTaromb().replace(",", ".");
+			recordToValidate.setTaromb(tmp);
+		}else{
+			recordToValidate.setTaromb(ZERO);
+		}
+		if(recordToValidate.getTan05b()!=null && !"".equals(recordToValidate.getTan05b())){
+			String tmp = recordToValidate.getTan05b().replace(",", ".");
+			recordToValidate.setTan05b(tmp);
+		}else{
+			recordToValidate.setTan05b(ZERO);
+		}
+		if(recordToValidate.getTan06b()!=null && !"".equals(recordToValidate.getTan06b())){
+			String tmp = recordToValidate.getTan06b().replace(",", ".");
+			recordToValidate.setTan06b(tmp);
+		}else{
+			recordToValidate.setTan06b(ZERO);
+		}
 	}
 	
 	/**
