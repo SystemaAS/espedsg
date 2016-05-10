@@ -314,6 +314,85 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTavgak (String value){ this.tavgak = value;   }   
 	public String getTavgak (){ return this.tavgak;   }              
 	
+	
+	//Libanon
+	private String tan01b = null; 
+	public void setTan01b (String value){ this.tan01b = value;   }   
+	public String getTan01b (){ return this.tan01b;   }              
+	
+	private String tan01k = null; 
+	public void setTan01k (String value){ this.tan01k = value;   }   
+	public String getTan01k (){ return this.tan01k;   }              
+	
+	//SACU
+	private String tan02b = null; 
+	public void setTan02b (String value){ this.tan02b = value;   }   
+	public String getTan02b (){ return this.tan02b;   }              
+	
+	private String tan02k = null; 
+	public void setTan02k (String value){ this.tan02k = value;   }   
+	public String getTan02k (){ return this.tan02k;   }              
+	
+	//Egypt
+	private String tan03b = null; 
+	public void setTan03b (String value){ this.tan03b = value;   }   
+	public String getTan03b (){ return this.tan03b;   }              
+	
+	private String tan03k = null; 
+	public void setTan03k (String value){ this.tan03k = value;   }   
+	public String getTan03k (){ return this.tan03k;   }              
+	
+	//Canada
+	private String tan04b = null; 
+	public void setTan04b (String value){ this.tan04b = value;   }   
+	public String getTan04b (){ return this.tan04b;   }              
+	
+	private String tan04k = null; 
+	public void setTan04k (String value){ this.tan04k = value;   }   
+	public String getTan04k (){ return this.tan04k;   }              
+	
+	//BW, NA, SZ
+	private String tan11b = null; 
+	public void setTan11b (String value){ this.tan11b = value;   }   
+	public String getTan11b (){ return this.tan11b;   }              
+	
+	private String tan11k = null; 
+	public void setTan11k (String value){ this.tan11k = value;   }   
+	public String getTan11k (){ return this.tan11k;   }              
+	
+	//Lavere MIL
+	private String tan12b = null; 
+	public void setTan12b (String value){ this.tan12b = value;   }   
+	public String getTan12b (){ return this.tan12b;   }              
+	
+	private String tan12k = null; 
+	public void setTan12k (String value){ this.tan12k = value;   }   
+	public String getTan12k (){ return this.tan12k;   }              
+	
+	private String tan13b = null; 
+	public void setTan13b (String value){ this.tan13b = value;   }   
+	public String getTan13b (){ return this.tan13b;   }              
+	
+	private String tan13k = null; 
+	public void setTan13k (String value){ this.tan13k = value;   }   
+	public String getTan13k (){ return this.tan13k;   }              
+	
+	private String tan14b = null; 
+	public void setTan14b (String value){ this.tan14b = value;   }   
+	public String getTan14b (){ return this.tan14b;   }              
+	
+	private String tan14k = null; 
+	public void setTan14k (String value){ this.tan14k = value;   }   
+	public String getTan14k (){ return this.tan14k;   }              
+	
+	private String tan15b = null; 
+	public void setTan15b (String value){ this.tan15b = value;   }   
+	public String getTan15b (){ return this.tan15b;   }              
+	
+	private String tan15k = null; 
+	public void setTan15k (String value){ this.tan15k = value;   }   
+	public String getTan15k (){ return this.tan15k;   }              
+	
 
 	/**
 	 * 

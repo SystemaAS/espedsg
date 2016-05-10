@@ -373,6 +373,62 @@ public class MaintSadImportSad010rController {
 		}else{
 			recordToValidate.setTavgab(ZERO);
 		}
+		//
+		if(recordToValidate.getTan01b()!=null && !"".equals(recordToValidate.getTan01b())){
+			String tmp = recordToValidate.getTan01b().replace(",", ".");
+			recordToValidate.setTan01b(tmp);
+		}else{
+			recordToValidate.setTan01b(ZERO);
+		}
+		if(recordToValidate.getTan02b()!=null && !"".equals(recordToValidate.getTan02b())){
+			String tmp = recordToValidate.getTan02b().replace(",", ".");
+			recordToValidate.setTan02b(tmp);
+		}else{
+			recordToValidate.setTan02b(ZERO);
+		}
+		if(recordToValidate.getTan03b()!=null && !"".equals(recordToValidate.getTan03b())){
+			String tmp = recordToValidate.getTan03b().replace(",", ".");
+			recordToValidate.setTan03b(tmp);
+		}else{
+			recordToValidate.setTan03b(ZERO);
+		}
+		if(recordToValidate.getTan04b()!=null && !"".equals(recordToValidate.getTan04b())){
+			String tmp = recordToValidate.getTan04b().replace(",", ".");
+			recordToValidate.setTan04b(tmp);
+		}else{
+			recordToValidate.setTan04b(ZERO);
+		}
+		if(recordToValidate.getTan11b()!=null && !"".equals(recordToValidate.getTan11b())){
+			String tmp = recordToValidate.getTan11b().replace(",", ".");
+			recordToValidate.setTan11b(tmp);
+		}else{
+			recordToValidate.setTan11b(ZERO);
+		}
+		if(recordToValidate.getTan12b()!=null && !"".equals(recordToValidate.getTan12b())){
+			String tmp = recordToValidate.getTan12b().replace(",", ".");
+			recordToValidate.setTan12b(tmp);
+		}else{
+			recordToValidate.setTan12b(ZERO);
+		}
+		//
+		if(recordToValidate.getTan13b()!=null && !"".equals(recordToValidate.getTan13b())){
+			String tmp = recordToValidate.getTan13b().replace(",", ".");
+			recordToValidate.setTan13b(tmp);
+		}else{
+			recordToValidate.setTan13b(ZERO);
+		}
+		if(recordToValidate.getTan14b()!=null && !"".equals(recordToValidate.getTan14b())){
+			String tmp = recordToValidate.getTan14b().replace(",", ".");
+			recordToValidate.setTan14b(tmp);
+		}else{
+			recordToValidate.setTan14b(ZERO);
+		}
+		if(recordToValidate.getTan15b()!=null && !"".equals(recordToValidate.getTan15b())){
+			String tmp = recordToValidate.getTan15b().replace(",", ".");
+			recordToValidate.setTan15b(tmp);
+		}else{
+			recordToValidate.setTan15b(ZERO);
+		}
 		
 	}
 	

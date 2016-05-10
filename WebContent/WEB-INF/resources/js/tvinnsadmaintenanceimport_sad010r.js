@@ -26,21 +26,31 @@
 			jq("#tatanr").addClass("inputTextMediumBlueMandatoryField");
 			
 			//rest of the gang
-			jq('#taalfa').val("");
-			jq('#taalfaOrig').val("");
-			jq('#tadato').val("");
-			jq('#tadtr').val("");
-			jq('#tadts').val("");
-			jq('#taordb').val("");
-  			jq('#taordk').val("");
-  			jq('#taeftb').val("");
-  			jq('#taeftk').val("");
-  			jq('#taefb').val("");
-  			jq('#taefk').val("");
+			jq('#taalfa').val(""); jq('#taalfaOrig').val(""); jq('#tadato').val(""); jq('#tadtr').val("");
+			jq('#tadts').val(""); jq('#taordb').val(""); jq('#taordk').val(""); jq('#taeftb').val("");
+  			jq('#taeftk').val(""); jq('#taefb').val(""); jq('#taefk').val("");
   			//
-  			jq('#tastk').val("");
-  			jq('#tatxt').val("");
-  			jq('#taenhe').val("");
+  			jq('#tastk').val(""); jq('#tatxt').val(""); jq('#taenhe').val("");
+  			//countries
+  			jq('#taeosb').val(""); jq('#taeosk').val(""); jq('#tatsjb').val(""); jq('#tatsjk').val("");
+  			jq('#tatyrb').val(""); jq('#tatyrk').val(""); jq('#taisrb').val(""); jq('#taisrk').val("");
+  			jq('#taellb').val(""); jq('#taellk').val(""); jq('#tabulb').val(""); jq('#tabulk').val("");
+  			jq('#tapolb').val(""); jq('#tapolk').val(""); jq('#taromb').val(""); jq('#taromk').val("");
+  			jq('#tan05b').val(""); jq('#tan05k').val(""); jq('#tan06b').val(""); jq('#tan06k').val("");
+  			jq('#tan07b').val(""); jq('#tan07k').val(""); jq('#taungb').val(""); jq('#taungk').val("");
+  			//
+  			jq('#taslob').val(""); jq('#taslok').val(""); jq('#tamulb').val(""); jq('#tamulk').val("");
+  			jq('#taoulb').val(""); jq('#taoulk').val(""); jq('#tagrlb').val(""); jq('#tagrlk').val("");
+  			jq('#taferb').val(""); jq('#taferk').val(""); jq('#taistb').val(""); jq('#taistk').val("");
+  			jq('#tamarb').val(""); jq('#tamark').val(""); jq('#tan08b').val(""); jq('#tan08k').val("");
+  			jq('#tan09b').val(""); jq('#tan09k').val(""); jq('#tan10b').val(""); jq('#tan10k').val("");
+  			jq('#tamexb').val(""); jq('#tamexk').val(""); jq('#tavgab').val(""); jq('#tavgak').val("");
+  			jq('#tan01b').val(""); jq('#tan01k').val(""); jq('#tan02b').val(""); jq('#tan02k').val("");
+  			jq('#tan03b').val(""); jq('#tan03k').val(""); jq('#tan04b').val(""); jq('#tan04k').val("");
+  			jq('#tan11b').val(""); jq('#tan11k').val(""); jq('#tan12b').val(""); jq('#tan12b').val("");
+  			//
+  			jq('#tan13b').val(""); jq('#tan13k').val(""); jq('#tan14b').val(""); jq('#tan14k').val("");
+  			jq('#tan15b').val(""); jq('#tan15k').val("");
   			
 			//for update
 			jq('#updateId').val("");
@@ -147,6 +157,26 @@
   			jq('#tamexk').val("");jq('#tamexk').val(data[i].tamexk);
   			jq('#tavgab').val("");jq('#tavgab').val(data[i].tavgab);
   			jq('#tavgak').val("");jq('#tavgak').val(data[i].tavgak);
+  			//
+  			jq('#tan01b').val("");jq('#tan01b').val(data[i].tan01b);
+  			jq('#tan01k').val("");jq('#tan01k').val(data[i].tan01k);
+  			jq('#tan02b').val("");jq('#tan02b').val(data[i].tan02b);
+  			jq('#tan02k').val("");jq('#tan02k').val(data[i].tan02k);
+  			jq('#tan03b').val("");jq('#tan03b').val(data[i].tan03b);
+  			jq('#tan03k').val("");jq('#tan03k').val(data[i].tan03k);
+  			jq('#tan04b').val("");jq('#tan04b').val(data[i].tan04b);
+  			jq('#tan04k').val("");jq('#tan04k').val(data[i].tan04k);
+  			jq('#tan11b').val("");jq('#tan11b').val(data[i].tan11b);
+  			jq('#tan11k').val("");jq('#tan11k').val(data[i].tan11k);
+  			jq('#tan12b').val("");jq('#tan12b').val(data[i].tan12b);
+  			jq('#tan12b').val("");jq('#tan12b').val(data[i].tan12b);
+  			//
+  			jq('#tan13b').val("");jq('#tan13b').val(data[i].tan13b);
+  			jq('#tan13k').val("");jq('#tan13k').val(data[i].tan13k);
+  			jq('#tan14b').val("");jq('#tan14b').val(data[i].tan14b);
+  			jq('#tan14k').val("");jq('#tan14k').val(data[i].tan14k);
+  			jq('#tan15b').val("");jq('#tan15b').val(data[i].tan15b);
+  			jq('#tan15k').val("");jq('#tan15k').val(data[i].tan15k);
   			
   			
   			
