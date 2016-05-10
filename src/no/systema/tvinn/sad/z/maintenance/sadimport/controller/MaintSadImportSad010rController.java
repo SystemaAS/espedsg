@@ -129,6 +129,10 @@ public class MaintSadImportSad010rController {
 				//ERRORS
 				logger.info("[ERROR Validation] Record does not validate)");
 				model.put("dbTable", dbTable);
+				if(updateId!=null && !"".equals(updateId)){
+					//meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
+				}
 				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 			}else{
 				
@@ -284,6 +288,92 @@ public class MaintSadImportSad010rController {
 		}else{
 			recordToValidate.setTan06b(ZERO);
 		}
+		if(recordToValidate.getTan07b()!=null && !"".equals(recordToValidate.getTan07b())){
+			String tmp = recordToValidate.getTan07b().replace(",", ".");
+			recordToValidate.setTan07b(tmp);
+		}else{
+			recordToValidate.setTan07b(ZERO);
+		}
+		if(recordToValidate.getTaungb()!=null && !"".equals(recordToValidate.getTaungb())){
+			String tmp = recordToValidate.getTaungb().replace(",", ".");
+			recordToValidate.setTaungb(tmp);
+		}else{
+			recordToValidate.setTaungb(ZERO);
+		}
+		
+		if(recordToValidate.getTaslob()!=null && !"".equals(recordToValidate.getTaslob())){
+			String tmp = recordToValidate.getTaslob().replace(",", ".");
+			recordToValidate.setTaslob(tmp);
+		}else{
+			recordToValidate.setTaslob(ZERO);
+		}
+		if(recordToValidate.getTamulb()!=null && !"".equals(recordToValidate.getTamulb())){
+			String tmp = recordToValidate.getTamulb().replace(",", ".");
+			recordToValidate.setTamulb(tmp);
+		}else{
+			recordToValidate.setTamulb(ZERO);
+		}
+		if(recordToValidate.getTaoulb()!=null && !"".equals(recordToValidate.getTaoulb())){
+			String tmp = recordToValidate.getTaoulb().replace(",", ".");
+			recordToValidate.setTaoulb(tmp);
+		}else{
+			recordToValidate.setTaoulb(ZERO);
+		}
+		if(recordToValidate.getTagrlb()!=null && !"".equals(recordToValidate.getTagrlb())){
+			String tmp = recordToValidate.getTagrlb().replace(",", ".");
+			recordToValidate.setTagrlb(tmp);
+		}else{
+			recordToValidate.setTagrlb(ZERO);
+		}
+		if(recordToValidate.getTaferb()!=null && !"".equals(recordToValidate.getTaferb())){
+			String tmp = recordToValidate.getTaferb().replace(",", ".");
+			recordToValidate.setTaferb(tmp);
+		}else{
+			recordToValidate.setTaferb(ZERO);
+		}
+		if(recordToValidate.getTaistb()!=null && !"".equals(recordToValidate.getTaistb())){
+			String tmp = recordToValidate.getTaistb().replace(",", ".");
+			recordToValidate.setTaistb(tmp);
+		}else{
+			recordToValidate.setTaistb(ZERO);
+		}
+		if(recordToValidate.getTamarb()!=null && !"".equals(recordToValidate.getTamarb())){
+			String tmp = recordToValidate.getTamarb().replace(",", ".");
+			recordToValidate.setTamarb(tmp);
+		}else{
+			recordToValidate.setTamarb(ZERO);
+		}
+		if(recordToValidate.getTan08b()!=null && !"".equals(recordToValidate.getTan08b())){
+			String tmp = recordToValidate.getTan08b().replace(",", ".");
+			recordToValidate.setTan08b(tmp);
+		}else{
+			recordToValidate.setTan08b(ZERO);
+		}
+		if(recordToValidate.getTan09b()!=null && !"".equals(recordToValidate.getTan09b())){
+			String tmp = recordToValidate.getTan09b().replace(",", ".");
+			recordToValidate.setTan09b(tmp);
+		}else{
+			recordToValidate.setTan09b(ZERO);
+		}
+		if(recordToValidate.getTan10b()!=null && !"".equals(recordToValidate.getTan10b())){
+			String tmp = recordToValidate.getTan10b().replace(",", ".");
+			recordToValidate.setTan10b(tmp);
+		}else{
+			recordToValidate.setTan10b(ZERO);
+		}
+		if(recordToValidate.getTamexb()!=null && !"".equals(recordToValidate.getTamexb())){
+			String tmp = recordToValidate.getTamexb().replace(",", ".");
+			recordToValidate.setTamexb(tmp);
+		}else{
+			recordToValidate.setTamexb(ZERO);
+		}
+		if(recordToValidate.getTavgab()!=null && !"".equals(recordToValidate.getTavgab())){
+			String tmp = recordToValidate.getTavgab().replace(",", ".");
+			recordToValidate.setTavgab(tmp);
+		}else{
+			recordToValidate.setTavgab(ZERO);
+		}
+		
 	}
 	
 	/**

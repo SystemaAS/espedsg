@@ -76,8 +76,7 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTaalfa (String value){ this.taalfa = value;   }   
 	public String getTaalfa (){ return this.taalfa;   }              
 	
-	private String taalfaOrig = ""; 
-	public String getTaalfaOrigPropertyName (){ return "taalfaOrig"; }
+	private String taalfaOrig = null; 
 	public void setTaalfaOrig (String value){ this.taalfaOrig = value;   }   
 	public String getTaalfaOrig (){ return this.taalfaOrig;   }              
 	
@@ -183,6 +182,7 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTan05k (String value){ this.tan05k = value;   }   
 	public String getTan05k (){ return this.tan05k;   }              
 	
+	//Albania
 	private String tan06b = null; 
 	public void setTan06b (String value){ this.tan06b = value;   }   
 	public String getTan06b (){ return this.tan06b;   }              
@@ -191,6 +191,16 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTan06k (String value){ this.tan06k = value;   }   
 	public String getTan06k (){ return this.tan06k;   }              
 	
+	//Ukraina
+	private String tan07b = null; 
+	public void setTan07b (String value){ this.tan07b = value;   }   
+	public String getTan07b (){ return this.tan07b;   }              
+	
+	private String tan07k = null; 
+	public void setTan07k (String value){ this.tan07k = value;   }   
+	public String getTan07k (){ return this.tan07k;   }              
+	
+	//Jordan
 	private String taungb = null; 
 	public void setTaungb (String value){ this.taungb = value;   }   
 	public String getTaungb (){ return this.taungb;   }              
@@ -199,6 +209,7 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTaungk (String value){ this.taungk = value;   }   
 	public String getTaungk (){ return this.taungk;   }              
 	
+	//Tunisia
 	private String taslob = null; 
 	public void setTaslob (String value){ this.taslob = value;   }   
 	public String getTaslob (){ return this.taslob;   }              
@@ -207,6 +218,7 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTaslok (String value){ this.taslok = value;   }   
 	public String getTaslok (){ return this.taslok;   }              
 	
+	//Min.uland
 	private String tamulb = null; 
 	public void setTamulb (String value){ this.tamulb = value;   }   
 	public String getTamulb (){ return this.tamulb;   }  
@@ -215,6 +227,7 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTamulk (String value){ this.tamulk = value;   }   
 	public String getTamulk (){ return this.tamulk;   }              
 	
+	//Ord.uland
 	private String taoulb = null; 
 	public void setTaoulb (String value){ this.taoulb = value;   }   
 	public String getTaoulb (){ return this.taoulb;   }              
@@ -231,7 +244,77 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTagrlk (String value){ this.tagrlk = value;   }   
 	public String getTagrlk (){ return this.tagrlk;   }              
 	
+	private String taferb = null; 
+	public void setTaferb (String value){ this.taferb = value;   }   
+	public String getTaferb (){ return this.taferb;   }              
 	
+	private String taferk = null; 
+	public void setTaferk (String value){ this.taferk = value;   }   
+	public String getTaferk (){ return this.taferk;   }              
+	
+	private String taistb = null; 
+	public void setTaistb (String value){ this.taistb = value;   }   
+	public String getTaistb (){ return this.taistb;   }              
+	
+	private String taistk = null; 
+	public void setTaistk (String value){ this.taistk = value;   }   
+	public String getTaistk (){ return this.taistk;   }              
+	        
+	
+	private String tamarb = null; 
+	public void setTamarb (String value){ this.tamarb = value;   }   
+	public String getTamarb (){ return this.tamarb;   }              
+	
+	private String tamark = null; 
+	public void setTamark (String value){ this.tamark = value;   }   
+	public String getTamark (){ return this.tamark;   }              
+	
+	//Peru
+	private String tan08b = null; 
+	public void setTan08b (String value){ this.tan08b = value;   }   
+	public String getTan08b (){ return this.tan08b;   }              
+	
+	private String tan08k = null; 
+	public void setTan08k (String value){ this.tan08k = value;   }   
+	public String getTan08k (){ return this.tan08k;   }              
+	
+	//Montenegro
+	private String tan09b = null; 
+	public void setTan09b (String value){ this.tan09b = value;   }   
+	public String getTan09b (){ return this.tan09b;   }              
+	
+	private String tan09k = null; 
+	public void setTan09k (String value){ this.tan09k = value;   }   
+	public String getTan09k (){ return this.tan09k;   }              
+	
+	//Hong Kong
+	private String tan10b = null; 
+	public void setTan10b (String value){ this.tan10b = value;   }   
+	public String getTan10b (){ return this.tan10b;   }              
+	
+	private String tan10k = null; 
+	public void setTan10k (String value){ this.tan10k = value;   }   
+	public String getTan10k (){ return this.tan10k;   }              
+	
+	//Mexico
+	private String tamexb = null; 
+	public void setTamexb (String value){ this.tamexb = value;   }   
+	public String getTamexb (){ return this.tamexb;   }              
+	
+	private String tamexk = null; 
+	public void setTamexk (String value){ this.tamexk = value;   }   
+	public String getTamexk (){ return this.tamexk;   }              
+	
+	//VB & GAZA
+	private String tavgab = null; 
+	public void setTavgab (String value){ this.tavgab = value;   }   
+	public String getTavgab (){ return this.tavgab;   }              
+	
+	private String tavgak = null; 
+	public void setTavgak (String value){ this.tavgak = value;   }   
+	public String getTavgak (){ return this.tavgak;   }              
+	
+
 	/**
 	 * 
 	 * @return

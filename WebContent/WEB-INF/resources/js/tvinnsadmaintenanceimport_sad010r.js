@@ -117,6 +117,37 @@
   			jq('#tan05k').val("");jq('#tan05k').val(data[i].tan05k);
   			jq('#tan06b').val("");jq('#tan06b').val(data[i].tan06b);
   			jq('#tan06k').val("");jq('#tan06k').val(data[i].tan06k);
+  			jq('#tan07b').val("");jq('#tan07b').val(data[i].tan07b);
+  			jq('#tan07k').val("");jq('#tan07k').val(data[i].tan07k);
+  			jq('#taungb').val("");jq('#taungb').val(data[i].taungb);
+  			jq('#taungk').val("");jq('#taungk').val(data[i].taungk);
+  			//
+  			jq('#taslob').val("");jq('#taslob').val(data[i].taslob);
+  			jq('#taslok').val("");jq('#taslok').val(data[i].taslok);
+  			jq('#tamulb').val("");jq('#tamulb').val(data[i].tamulb);
+  			jq('#tamulk').val("");jq('#tamulk').val(data[i].tamulk);
+  			jq('#taoulb').val("");jq('#taoulb').val(data[i].taoulb);
+  			jq('#taoulk').val("");jq('#taoulk').val(data[i].taoulk);
+  			jq('#tagrlb').val("");jq('#tagrlb').val(data[i].tagrlb);
+  			jq('#tagrlk').val("");jq('#tagrlk').val(data[i].tagrlk);
+  			jq('#taferb').val("");jq('#taferb').val(data[i].taferb);
+  			jq('#taferk').val("");jq('#taferk').val(data[i].taferk);
+  			jq('#taistb').val("");jq('#taistb').val(data[i].taistb);
+  			jq('#taistk').val("");jq('#taistk').val(data[i].taistk);
+  			//
+  			jq('#tamarb').val("");jq('#tamarb').val(data[i].tamarb);
+  			jq('#tamark').val("");jq('#tamark').val(data[i].tamark);
+  			jq('#tan08b').val("");jq('#tan08b').val(data[i].tan08b);
+  			jq('#tan08k').val("");jq('#tan08k').val(data[i].tan08k);
+  			jq('#tan09b').val("");jq('#tan09b').val(data[i].tan09b);
+  			jq('#tan09k').val("");jq('#tan09k').val(data[i].tan09k);
+  			jq('#tan10b').val("");jq('#tan10b').val(data[i].tan10b);
+  			jq('#tan10k').val("");jq('#tan10k').val(data[i].tan10k);
+  			jq('#tamexb').val("");jq('#tamexb').val(data[i].tamexb);
+  			jq('#tamexk').val("");jq('#tamexk').val(data[i].tamexk);
+  			jq('#tavgab').val("");jq('#tavgab').val(data[i].tavgab);
+  			jq('#tavgak').val("");jq('#tavgak').val(data[i].tavgak);
+  			
   			
   			
   			
