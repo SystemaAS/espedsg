@@ -447,7 +447,7 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public String getWppns4(){ return this.wppns4; }
 	
 	private String hekdpl = null;
-	public void setHekdpl(String value) {  this.hekdpl = value; }
+	public void setHekdpl(String value) {  this.hekdpl = this.toUpperCase(value); }
 	public String getHekdpl() {return this.hekdpl;}
 
 	private String hefr = null;
@@ -561,27 +561,27 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public String getHepk1() {return this.hepk1;}
 
 	private String hepk2 = null;
-	public void setHepk2(String value) {  this.hepk2 = value; }
+	public void setHepk2(String value) {  this.hepk2 = this.toUpperCase(value); }
 	public String getHepk2() {return this.hepk2;}
 
 	private String hepk3 = null;
-	public void setHepk3(String value) {  this.hepk3 = value; }
+	public void setHepk3(String value) {  this.hepk3 = this.toUpperCase(value); }
 	public String getHepk3() {return this.hepk3;}
 
 	private String hepk4 = null;
-	public void setHepk4(String value) {  this.hepk4 = value; }
+	public void setHepk4(String value) {  this.hepk4 = this.toUpperCase(value); }
 	public String getHepk4() {return this.hepk4;}
 
 	private String hepk5 = null;
-	public void setHepk5(String value) {  this.hepk5 = value; }
+	public void setHepk5(String value) {  this.hepk5 = this.toUpperCase(value); }
 	public String getHepk5() {return this.hepk5;}
 
 	private String hepk6 = null;
-	public void setHepk6(String value) {  this.hepk6 = value; }
+	public void setHepk6(String value) {  this.hepk6 = this.toUpperCase(value); }
 	public String getHepk6() {return this.hepk6;}
 
 	private String hepk7 = null;
-	public void setHepk7(String value) {  this.hepk7 = value; }
+	public void setHepk7(String value) {  this.hepk7 = this.toUpperCase(value); }
 	public String getHepk7() {return this.hepk7;}
 
 	private String hepk8 = null;
@@ -755,7 +755,7 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public String getTrfrab() {return this.trfrab;}
 
 	private String trmva = null;
-	public void setTrmva(String value) {  this.trmva = value; }
+	public void setTrmva(String value) {  this.trmva = this.toUpperCase(value); }
 	public String getTrmva() {return this.trmva;}
 
 	private String trfa11 = null;
