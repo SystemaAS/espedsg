@@ -50,7 +50,7 @@
   			jq('#tan11b').val(""); jq('#tan11k').val(""); jq('#tan12b').val(""); jq('#tan12b').val("");
   			//
   			jq('#tan13b').val(""); jq('#tan13k').val(""); jq('#tan14b').val(""); jq('#tan14k').val("");
-  			jq('#tan15b').val(""); jq('#tan15k').val("");
+  			jq('#tan15b').val(""); jq('#tan15k').val(""); jq('#tarest').val(""); jq('#takapa').val("");
   			
 			//for update
 			jq('#updateId').val("");

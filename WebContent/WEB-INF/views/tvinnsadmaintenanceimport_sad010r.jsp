@@ -196,7 +196,7 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="taalfaOrig" id=taalfaOrig value="${model.record.taalfaOrig}">
 					
-					<table width="90%" cellspacing="1" border="0" align="left">
+					<table width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="TATANR">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
 							<td class="text12" title="TAALFA">&nbsp;<font class="text14RedBold" >*</font>Søkebgrep</td>
@@ -206,7 +206,8 @@
 							<td class="text12" title="TASTK">&nbsp;Stk</td>
 							<td class="text12" title="TATXT">&nbsp;Text</td>
 							<td class="text12" title="TAENHE">&nbsp;Enhet</td>
-							
+							<td class="text12" title="TAREST">&nbsp;Regul.(NHLE)</td>
+							<td class="text12" title="TAKAPA">&nbsp;Øvrige kap.</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tatanr" id="tatanr" size="9" maxlength="8" value='${model.record.tatanr}'></td>
@@ -220,8 +221,10 @@
 							  	<option value="J"<c:if test="${ model.record.tastk == 'J'}"> selected </c:if> >Ja</option>
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="tatxt" id="tatxt" size="30" maxlength="80" value='${model.record.tatxt}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="tatxt" id="tatxt" size="25" maxlength="80" value='${model.record.tatxt}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="taenhe" id="taenhe" size="3" maxlength="3" value='${model.record.taenhe}'></td>
+						<td align="center"><input type="text" class="inputTextMediumBlue" name="tarest" id="tarest" size="2" maxlength="2" value='${model.record.tarest}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="takapa" id="takapa" size="4" maxlength="4" value='${model.record.takapa}'></td>
 						
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
