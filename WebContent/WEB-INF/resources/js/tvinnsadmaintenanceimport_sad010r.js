@@ -177,9 +177,8 @@
   			jq('#tan14k').val("");jq('#tan14k').val(data[i].tan14k);
   			jq('#tan15b').val("");jq('#tan15b').val(data[i].tan15b);
   			jq('#tan15k').val("");jq('#tan15k').val(data[i].tan15k);
-  			
-  			
-  			
+  			jq('#tarest').val("");jq('#tarest').val(data[i].tarest);
+  			jq('#takapa').val("");jq('#takapa').val(data[i].takapa);
   			
   			//for a future update
   			jq('#updateId').val("");jq('#updateId').val(data[i].tatanr);

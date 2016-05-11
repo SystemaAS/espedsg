@@ -222,9 +222,9 @@
 							</select>
 						</td>
 						<td ><input type="text" class="inputTextMediumBlue" name="tatxt" id="tatxt" size="25" maxlength="80" value='${model.record.tatxt}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="taenhe" id="taenhe" size="3" maxlength="3" value='${model.record.taenhe}'></td>
-						<td align="center"><input type="text" class="inputTextMediumBlue" name="tarest" id="tarest" size="2" maxlength="2" value='${model.record.tarest}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="takapa" id="takapa" size="4" maxlength="4" value='${model.record.takapa}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="taenhe" id="taenhe" size="4" maxlength="3" value='${model.record.taenhe}'></td>
+						<td align="center"><input type="text" class="inputTextMediumBlue" name="tarest" id="tarest" size="3" maxlength="2" value='${model.record.tarest}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="takapa" id="takapa" size="5" maxlength="4" value='${model.record.takapa}'></td>
 						
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
