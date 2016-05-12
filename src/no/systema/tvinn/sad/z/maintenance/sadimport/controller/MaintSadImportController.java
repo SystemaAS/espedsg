@@ -179,6 +179,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_SAERAVG");
 		object.setText("SAD999 / SADSD");
 		object.setDbTable("SADSD");
+		object.setStatus("G");
+		object.setPgm("sad999r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

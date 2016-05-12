@@ -53,7 +53,7 @@
 					<input type="text" class="inputTextMediumBlue" name="searchTatanr" id="searchTatanr" size="9" maxlength="8" value='${model.tatanr}'>
 					&nbsp;Søkebegrep&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
-					&nbsp;&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
 					</form>
 				</td>
 			</tr>
@@ -227,7 +227,7 @@
 						<td ><input type="text" class="inputTextMediumBlue" name="takapa" id="takapa" size="5" maxlength="4" value='${model.record.takapa}'></td>
 						
 						<td>
-							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>
 						</tr>
 						<tr height="3"><td></td>

@@ -22,11 +22,20 @@ public class DateTester {
 			System.out.println("Invalid");
 		}*/
 		
-		DateTimeManager mgr = new DateTimeManager();
+		/*DateTimeManager mgr = new DateTimeManager();
 		String tid = "1540";
 		boolean isValid = mgr.isValidForwardTime(tid, "HHmm");
 		if(isValid){
 			System.out.println("Valid time");
+		}else{
+			System.out.println("Invalid");
+		}*/
+		
+		DateTimeManager mgr = new DateTimeManager();
+		
+		boolean isValid = mgr.validTodayBetweenLimits("20160512", "yyyyMMdd");
+		if(isValid){
+			System.out.println("Valid date");
 		}else{
 			System.out.println("Invalid");
 		}
