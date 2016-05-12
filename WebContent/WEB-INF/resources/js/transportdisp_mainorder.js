@@ -329,6 +329,7 @@
   function uploadFile(){
 	//grab all form data  
 	  var form = new FormData(document.getElementById('uploadFileForm'));
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  
 	  jq.ajax({
 	  	  type: 'POST',
@@ -353,12 +354,14 @@
 			  		jq("#file").addClass( "isa_success" );
 			  		jq("#file").removeClass( "isa_error" );
 			  	}
+			  	jq.unblockUI();
 			  	//response to end user 
 			  	alert(data);
 			  	
 	  		  }
 	  	  }, 
 	  	  error: function() {
+	  		  jq.unblockUI();
 	  		  alert('Error loading ...');
 	  		  jq("#file").val("");
 	  		  //cosmetics
