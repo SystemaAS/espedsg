@@ -100,18 +100,18 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddtf}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddtt}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sdblse}&nbsp;</font></td>
-		                       <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 		                       		<c:choose> 
 			    					<c:when test="${record.sdaktk=='A'}">
-		                       			<font class="text12">&nbsp;AKTIV&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;AKTIV&nbsp;</font>
 		                       		</c:when>
 		                       		<c:otherwise>
-		                       			<font class="text12">&nbsp;INAKTIV&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;INAKTIV&nbsp;</font>
 		                       		</c:otherwise>
 		                       		</c:choose>
 		                       </td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad999r_edit.do?action=doDelete&id=${model.dbTable}&sdtnrf=${record.sdtnrf}&taalfa=${record.taalfa}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad999r_edit.do?action=doDelete&id=${model.dbTable}&sdtnrf=${record.sdtnrf}&sddtf=${record.sddtf}&sddtt=${record.sddtt}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -194,39 +194,41 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
+					<input type="hidden" name="sddtfOrig" id=sddtfOrig value="${model.record.sddtfOrig}">
+					<input type="hidden" name="sddttOrig" id=sddttOrig value="${model.record.sddttOrig}">
+					
+					
 					
 					<table width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="SDTNRF">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
 							<td class="text12" title="TAALFA">&nbsp;Beskrivelse</td>
 							<td class="text12" title="SDKDAE">&nbsp;<font class="text14RedBold" >*</font>Avg.</td>
-							<td class="text12" title="SDKDSE">&nbsp;<font class="text14RedBold" >*</font>Sekv.</td>
+							<td class="text12" title="SDKDSE">&nbsp;Sekv.</td>
 							<td class="text12" title="SDDTF">&nbsp;<font class="text14RedBold" >*</font>F.o.m dato</td>
 							<td class="text12" title="SDDTT">&nbsp;<font class="text14RedBold" >*</font>T.o.m dato</td>
-							<td class="text12" title="SDBLSE">&nbsp;<font class="text14RedBold" >*</font>Sats</td>
+							<td class="text12" title="SDBLSE">&nbsp;Sats</td>
 							<td class="text12" title="SDAKTK">&nbsp;Status</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdtnrf" id="sdtnrf" size="9" maxlength="8" value='${model.record.sdtnrf}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="taalfa" id="taalfa" size="15" maxlength="30" value='${model.record.taalfa}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdkdae" id="sdkdae" size="3" maxlength="2" value='${model.record.sdkdae}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdkdse" id="sdkdse" size="4" maxlength="3" value='${model.record.sdkdse}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="sdkdse" id="sdkdse" size="4" maxlength="3" value='${model.record.sdkdse}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtf" id="sddtf" size="9" maxlength="8" value='${model.record.sddtf}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtt" id="sddtt" size="9" maxlength="8" value='${model.record.sddtt}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdblse" id="sdblse" size="11" maxlength="10" value='${model.record.sdblse}'></td>
 						<td >
 							<select name="sdaktk" id="sdaktk">
         		    			<option value="">-velg-</option>
-							  	<option value="A"<c:if test="${ model.record.sdaktk == 'A'}"> selected </c:if> >Aktiver</option>
-							  	<option value="I"<c:if test="${ model.record.sdaktk == 'I'}"> selected </c:if> >Gjør inakt.</option>
+							  	<option value="A"<c:if test="${ model.record.sdaktk == 'A'}"> selected </c:if> >AKTIV</option>
+							  	<option value="I"<c:if test="${ model.record.sdaktk == 'I'}"> selected </c:if> >INAKTIV</option>
 						  	</select>
 						</td>
-						
-						<%--
 						<td>
 							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 						</td>
-						 --%>
+						 
 						</tr>
 						<tr height="3"><td></td>
 					</table>	

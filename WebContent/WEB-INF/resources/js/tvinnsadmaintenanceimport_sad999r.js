@@ -27,7 +27,7 @@
 			jq("#sdtnrf").addClass("inputTextMediumBlueMandatoryField");
 			
 			//rest of the gang
-			jq('#taalfa').val(""); 
+			jq('#taalfa').val("");jq('#taalfaOrig').val("");jq('#sddtfOrig').val("");jq('#sddttOrig').val("");
 			jq('#sdkdae').val(""); jq('#sdkdse').val(""); jq('#sddtf').val(""); jq('#sddtt').val("");
   			jq('#sdblse').val(""); jq('#sdaktk').val("");
   			
@@ -75,6 +75,9 @@
   			//rest of the gang
   			jq('#taalfa').val("");jq('#taalfa').val(data[i].taalfa);
   			jq('#taalfaOrig').val("");jq('#taalfaOrig').val(data[i].taalfa);
+  			jq('#sddtfOrig').val("");jq('#sddtfOrig').val(data[i].sddtf);
+  			jq('#sddttOrig').val("");jq('#sddttOrig').val(data[i].sddtt);
+  			
   			jq('#sdkdae').val("");jq('#sdkdae').val(data[i].sdkdae);
   			jq('#sdkdse').val("");jq('#sdkdse').val(data[i].sdkdse);
   			jq('#sddtf').val("");jq('#sddtf').val(data[i].sddtf);
@@ -83,7 +86,7 @@
   			jq('#sdaktk').val("");jq('#sdaktk').val(data[i].sdaktk);
   			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].tatanr);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].sdtnrf);
   			
   		}
   	  }, 

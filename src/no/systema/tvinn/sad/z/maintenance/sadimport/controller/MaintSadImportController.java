@@ -153,8 +153,8 @@ public class MaintSadImportController {
 		object.setId("7");
 		object.setSubject("Gyldige tollsteder");
 		object.setCode("SADI_GYLD_TOLLSTEDER");
-		object.setText("SYFT04 / KODTTST,KODTTSTX");
-		object.setDbTable("KODTTST,KODTTSTX");
+		object.setText("SYFT04 / KODTTST,KODTTSX");
+		object.setDbTable("KODTTST,KODTTSX");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -216,8 +216,8 @@ public class MaintSadImportController {
 		object.setId("14");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADI_STATUS_DEKL");
-		object.setText("SAD013 / SADTT,STS");
-		object.setDbTable("SADTT,STS");
+		object.setText("SAD013 / SADH,STS");
+		object.setDbTable("SADH,STS");
 		listObject.add(object);
 		
 		

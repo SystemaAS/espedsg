@@ -22,6 +22,10 @@ public class JsonMaintSadImportSadsdRecord extends JsonAbstractGrandFatherRecord
 	private String taalfa = null; 
 	public void setTaalfa (String value){ this.taalfa = value;   }   
 	public String getTaalfa (){ return this.taalfa;   }              
+	
+	private String taalfaOrig = null; 
+	public void setTaalfaOrig (String value){ this.taalfaOrig = value;   }   
+	public String getTaalfaOrig (){ return this.taalfaOrig;   }              
 
 	private String sdkdae = null;
 	public void setSdkdae (String value){ this.sdkdae = value;   }   
@@ -35,9 +39,17 @@ public class JsonMaintSadImportSadsdRecord extends JsonAbstractGrandFatherRecord
 	public void setSddtf (String value){ this.sddtf = value;   }   
 	public String getSddtf (){ return this.sddtf;   }              
 
+	private String sddtfOrig = null; 
+	public void setSddtfOrig (String value){ this.sddtfOrig = value;   }   
+	public String getSddtfOrig (){ return this.sddtfOrig;   }              
+
 	private String sddtt = null; 
 	public void setSddtt (String value){ this.sddtt = value;   }   
 	public String getSddtt (){ return this.sddtt;   }              
+
+	private String sddttOrig = null; 
+	public void setSddttOrig (String value){ this.sddttOrig = value;   }   
+	public String getSddttOrig (){ return this.sddttOrig;   }              
 
 	private String sdblse = null; 
 	public void setSdblse (String value){ this.sdblse = value;   }   

@@ -37,7 +37,7 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
-import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSad010rValidator;
+import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSad999rValidator;
 
 
 /**
@@ -123,7 +123,7 @@ public class MaintSadImportSad999rController {
 			//adjust values
 			this.adjustSomeRecordValues(recordToValidate);
 			//Move on
-			MaintSadImportSad010rValidator validator = new MaintSadImportSad010rValidator();
+			MaintSadImportSad999rValidator validator = new MaintSadImportSad999rValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
