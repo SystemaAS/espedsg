@@ -196,8 +196,8 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="sddtfOrig" id=sddtfOrig value="${model.record.sddtfOrig}">
 					<input type="hidden" name="sddttOrig" id=sddttOrig value="${model.record.sddttOrig}">
-					
-					
+					<input type="hidden" name="searchSdtnrf" id=searchSdtnrf value="${model.sdtnrf}">
+					<input type="hidden" name="searchSdkdae" id=searchSdkdae value="${model.sdkdae}">
 					
 					<table width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
@@ -207,13 +207,18 @@
 							<td class="text12" title="SDKDSE">&nbsp;Sekv.</td>
 							<td class="text12" title="SDDTF">&nbsp;<font class="text14RedBold" >*</font>F.o.m dato</td>
 							<td class="text12" title="SDDTT">&nbsp;<font class="text14RedBold" >*</font>T.o.m dato</td>
-							<td class="text12" title="SDBLSE">&nbsp;Sats</td>
+							<td class="text12" title="SDBLSE">&nbsp;<font class="text14RedBold" >*</font>Sats</td>
 							<td class="text12" title="SDAKTK">&nbsp;Status</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdtnrf" id="sdtnrf" size="9" maxlength="8" value='${model.record.sdtnrf}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="taalfa" id="taalfa" size="15" maxlength="30" value='${model.record.taalfa}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdkdae" id="sdkdae" size="3" maxlength="2" value='${model.record.sdkdae}'></td>
+						<td >
+							<input type="text" class="inputTextMediumBlueMandatoryField" name="sdkdae" id="sdkdae" size="3" maxlength="2" value='${model.record.sdkdae}'>
+							<a tabindex="-1" id="sdkdaeIdLink">
+								<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+							</a>
+						</td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sdkdse" id="sdkdse" size="4" maxlength="3" value='${model.record.sdkdse}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtf" id="sddtf" size="9" maxlength="8" value='${model.record.sddtf}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtt" id="sddtt" size="9" maxlength="8" value='${model.record.sddtt}'></td>

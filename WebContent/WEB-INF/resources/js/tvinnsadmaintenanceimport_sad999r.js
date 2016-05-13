@@ -8,12 +8,17 @@
   }
   
   jq(function() {
-  	  jq("#sddtf").datepicker({ 
+  	  jq("#sddtf").datepicker({
   		  dateFormat: 'yymmdd'
   	  });
   	  jq("#sddtt").datepicker({ 
 		  dateFormat: 'yymmdd'
 	  });
+  	  
+  	  jq('#sdkdaeIdLink').click(function() {
+  		  jq('#sdkdaeIdLink').attr('target','_blank');
+  		  window.open('tvinnsadmaintenanceimport_sad002_kodts8_childwindow_avgiftcodes.do?action=doFind&sdkdae=' + jq('#sdkdae').val() + '&ctype=sdkdae', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
   });
   
 
