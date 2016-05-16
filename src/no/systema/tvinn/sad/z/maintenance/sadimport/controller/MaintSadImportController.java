@@ -163,6 +163,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_GYLD_KODER");
 		object.setText("SAD002 / KODTS1-KODTS9,KODTSA-KODTSO");
 		object.setDbTable("KODTS1,KODTS2,KODTS3,KODTS4,KODTS5,KODTS6,KODTS7,KODTS8,KODTS9,KODTSA,KODTSB,KODTSC,KODTSD,KODTSE,KODTSO");
+		object.setStatus("G");
+		object.setPgm("sad002r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

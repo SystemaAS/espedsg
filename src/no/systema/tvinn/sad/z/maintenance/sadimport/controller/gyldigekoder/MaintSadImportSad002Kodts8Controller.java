@@ -51,9 +51,9 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.validator.gyldigekoder.Maint
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSadImportSad002rController {
+public class MaintSadImportSad002Kodts8Controller {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSadImportSad002rController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSadImportSad002Kodts8Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -73,19 +73,23 @@ public class MaintSadImportSad002rController {
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
 		String ks8avg = request.getParameter("searchKs8avg");
-		
+		logger.info("Inside method: doSadMaintImportList");
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			//get table
+			List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), ks8avg);
+			
+			/* 
 	    	List<JsonMaintSadImportKodts8Record> list = new ArrayList();
 	    	if( (ks8avg!=null && !"".equals(ks8avg)) ){
 	    		list = this.fetchList(appUser.getUser(), ks8avg);
-	    	}
+	    	}*/
+			
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	model.put("ks8avg", ks8avg);
+	    	//model.put("ks8avg", ks8avg);
 	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -225,7 +229,7 @@ public class MaintSadImportSad002rController {
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadImportKodts8Record record : list){
-	        		//logger.info("TATANR:" + record.getTatanr());
+	        		//logger.info("AVG:" + record.getKs8avg());
 	        	}
 	        }
     	}
