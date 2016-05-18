@@ -96,7 +96,7 @@
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
 					<tr class="tableHeaderField" height="20" valign="left">
 						<td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.topicNr"/>&nbsp;</td>
-						<td class="tableHeaderField">&nbsp;Interchange nr.&nbsp;</td>
+						<td class="tableHeaderField">&nbsp;Interch.nr&nbsp;</td>
 						<td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.messageNr"/>&nbsp;</td>
 					    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.sender"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.receiver"/>&nbsp;</td> 
