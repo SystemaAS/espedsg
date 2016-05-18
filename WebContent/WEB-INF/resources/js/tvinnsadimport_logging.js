@@ -23,6 +23,8 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
+  	  
+  	  
     });
   	
   	

@@ -92,7 +92,6 @@ public class SadImportHeaderLoggingController {
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
-			
 			String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL;
 			//url params
 			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(avd, opd, appUser);

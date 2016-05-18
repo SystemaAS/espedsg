@@ -21,4 +21,8 @@ public final class MainUrlDataStore {
 	static public String SYSTEMA_NOTIS_BLOCK_FETCH_ITEMLINE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE09R.pgm"; 
 	static public String SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE10R.pgm"; 
 		
+	//---------------
+	//[3] Edi ftp log 
+	//---------------
+	static public String SYSTEMA_EDI_FTP_LOG_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsEDI42R.do";
 }
