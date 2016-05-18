@@ -84,7 +84,7 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sat}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sty}&nbsp;</font></td>
 		                       <td class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOtvinnsadmaintenanceimport_sad002_kodts8r_edit.do?action=doDelete&id=${model.dbTable}&ks8avg=${record.ks8avg}&ks8skv=${record.ks8skv}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad002_kodts8r_edit.do?action=doDelete&id=${model.dbTable}&ks8avg=${record.ks8avg}&ks8skv=${record.ks8skv}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -161,9 +161,9 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="TODOtvinnsadmaintenanceimport_sad002_kodts8r_edit.do" name="formRecord" id="formRecord" method="POST" >
+				<form action="tvinnsadmaintenanceimport_sad002_kodts8r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<table width="60%" cellspacing="1" border="0" align="left">
 			    	    <tr>

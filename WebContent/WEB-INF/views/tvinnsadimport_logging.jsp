@@ -96,6 +96,7 @@
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
 					<tr class="tableHeaderField" height="20" valign="left">
 						<td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.topicNr"/>&nbsp;</td>
+						<td class="tableHeaderField">&nbsp;Interchange nr.&nbsp;</td>
 						<td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.messageNr"/>&nbsp;</td>
 					    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.sender"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.import.logging.list.label.receiver"/>&nbsp;</td> 
@@ -123,10 +124,11 @@
 		               </c:choose>
 		               
 		               <td class="tableCellFirst" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
+		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.msn}</td>
 		               <td class="tableCell">&nbsp;
 		               		<a <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if>  href="tvinnsadimport_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
-			               		&nbsp;${record.msn}
+			               		&nbsp;${record.mmn}
 	               		   	</a>
 		               </td>
 		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0004}</td>

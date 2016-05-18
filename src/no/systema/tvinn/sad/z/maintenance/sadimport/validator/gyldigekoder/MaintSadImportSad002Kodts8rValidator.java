@@ -34,16 +34,14 @@ public class MaintSadImportSad002Kodts8rValidator implements Validator {
 		JsonMaintSadImportKodts8Record record = (JsonMaintSadImportKodts8Record)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8avg", "", "Avg.kode (KS8AVG) er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8skv", "", "Sekv. (KS8SKV) er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8ftx", "", "Fritekst (KS8FTX) er obligatorisk"); 
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				/* N/A
-				if( !this.validNumber(record.TODO) ){
-					errors.rejectValue("todo", "", "my text");
+				if( !this.validNumber(record.getKs8sat()) ){
+					errors.rejectValue("ks8sat", "", "Sats value invalid. The value can not be greater than 99999.99");
 				}
-				*/
 			}
 		}
 	}
@@ -58,7 +56,7 @@ public class MaintSadImportSad002Kodts8rValidator implements Validator {
 		JsonMaintSadImportKodts8Record record = (JsonMaintSadImportKodts8Record)obj;
 		//logger.info(record.getKs8avg());
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8avg", "", "Avg.kode (KS8AVG) er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8skv", "", "Sekv. (KS8SKV) er obligatorisk"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks8skv", "", "Sekv. (KS8SKV) er obligatorisk"); 
 		
 
 	}

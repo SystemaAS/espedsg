@@ -73,13 +73,15 @@ public class MaintSadImportSad002Kodts8Controller {
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
 		String ks8avg = request.getParameter("searchKs8avg");
+		String ks8skv = request.getParameter("searchKs8skv");
+		
 		logger.info("Inside method: doSadMaintImportList");
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			//get table
-			List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), ks8avg);
+			List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), ks8avg, ks8skv);
 			
 			/* 
 	    	List<JsonMaintSadImportKodts8Record> list = new ArrayList();
@@ -149,17 +151,19 @@ public class MaintSadImportSad002Kodts8Controller {
 						//update
 						logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
-						
 					//CREATE
 					}else{
 						//create new
 						logger.info(TvinnSadMaintenanceConstants.ACTION_CREATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD, errMsg);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD, errMsg);				
 					}
+					
 				}else if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action) ){
 					//delete
 					logger.info(TvinnSadMaintenanceConstants.ACTION_DELETE);
 					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE, errMsg);
+					recordToValidate.setKs8avg(null);
+					recordToValidate.setKs8skv(null);
 				}
 				//check for Update errors
 				if( dmlRetval < 0){
@@ -172,7 +176,7 @@ public class MaintSadImportSad002Kodts8Controller {
 			//------------
 			//FETCH table
 			//------------
-	    	List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), recordToValidate.getKs8avg());
+	    	List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), recordToValidate.getKs8avg(), recordToValidate.getKs8skv());
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
@@ -204,10 +208,11 @@ public class MaintSadImportSad002Kodts8Controller {
 	/**
 	 * 
 	 * @param applicationUser
-	 * @param tatanr
+	 * @param ks8avg
+	 * @param ks8skv
 	 * @return
 	 */
-	private List<JsonMaintSadImportKodts8Record> fetchList(String applicationUser, String ks8avg){
+	private List<JsonMaintSadImportKodts8Record> fetchList(String applicationUser, String ks8avg, String ks8skv){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS8R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -216,6 +221,10 @@ public class MaintSadImportSad002Kodts8Controller {
 		if(ks8avg!=null && !"".equals(ks8avg)){
 			urlRequestParams.append("&ks8avg=" + ks8avg);
 		}
+		if(ks8skv!=null && !"".equals(ks8skv)){
+			urlRequestParams.append("&ks8skv=" + ks8skv);
+		}
+		
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));

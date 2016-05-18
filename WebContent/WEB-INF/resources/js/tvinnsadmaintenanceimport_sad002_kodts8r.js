@@ -14,9 +14,13 @@
 			jq("#ks8avg").prop("readonly", false);
 			jq("#ks8avg").removeClass("inputTextReadOnly");
 			jq("#ks8avg").addClass("inputTextMediumBlueMandatoryField");
-			//rest of the gang
+			//
 			jq('#ks8skv').val("");
-  			jq('#ks8ftx').val("");
+			jq("#ks8skv").prop("readonly", false);
+			jq("#ks8skv").removeClass("inputTextReadOnly");
+			jq("#ks8skv").addClass("inputTextMediumBlue");
+			//rest of the gang
+			jq('#ks8ftx').val("");
   			jq('#ks8sat').val("");
   			jq('#ks8sty').val("");
 			
@@ -61,6 +65,8 @@
   			jq('#ks8ftx').val("");jq('#ks8ftx').val(data[i].ks8ftx);
   			jq('#ks8sat').val("");jq('#ks8sat').val(data[i].ks8sat);
   			jq('#ks8sty').val("");jq('#ks8sty').val(data[i].ks8sty);
+  			//for a future update
+  			jq('#updateId').val("");jq('#updateId').val(data[i].ks8avg + "_" +  data[i].ks8skv);
   		}
   	  }, 
   	  error: function() {
