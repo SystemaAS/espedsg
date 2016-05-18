@@ -83,7 +83,9 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="40%" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G'}">
-					               			<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_${record.pgm}.do?id=${record.dbTable}">
+		               							<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+					               			</a>
 					               		</c:when>
 					               		<c:otherwise>
 					               			<font class="text12">&nbsp;&nbsp;${record.subject}&nbsp;</font>
