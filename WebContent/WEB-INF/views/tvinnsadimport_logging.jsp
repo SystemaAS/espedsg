@@ -125,7 +125,7 @@
 		               
 		               <td class="tableCellFirst" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
 		               <td class="tableCell">&nbsp;
-		               		<a <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> href="tvinnsadimport_logging_ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=300px,left=600px,height=600px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               		<a <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
 		               			&nbsp;${record.msn}
 		               		</a>
