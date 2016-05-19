@@ -221,7 +221,8 @@
 					<tr class="tableHeaderField" height="20" valign="left">
 					
 	                    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.topicNr"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.messageNr"/>&nbsp;</td> 
+	                    <td class="tableHeaderField">&nbsp;Interch.nr&nbsp;</td>
+						<td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.messageNr"/>&nbsp;</td> 
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.type"/>&nbsp;</td> 
 	                      
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.date"/>&nbsp;</td>
@@ -238,6 +239,12 @@
 		                   </c:otherwise>
 		               </c:choose>
 		               <td class="tableCellFirst" >&nbsp;${record.mtdn}&nbsp;&nbsp;<font class="text10">[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font></td>
+		               <td class="tableCell">&nbsp;
+		               		<a href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
+		               			&nbsp;${record.msn}
+		               		</a>
+		               	</td>
 		               <td class="tableCell" >&nbsp;
 		               		<a href="skatncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
