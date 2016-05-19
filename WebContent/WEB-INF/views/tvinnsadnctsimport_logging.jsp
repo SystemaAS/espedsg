@@ -106,7 +106,8 @@
 					<tr class="tableHeaderField" height="20" valign="left">
 					
 	                    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.topicNr"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.messageNr"/>&nbsp;</td> 
+	                    <td class="tableHeaderField">&nbsp;Interch.nr&nbsp;</td>
+						<td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.messageNr"/>&nbsp;</td> 
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.type"/>&nbsp;</td> 
 	                      
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.date"/>&nbsp;</td>
@@ -123,7 +124,14 @@
 		                   </c:otherwise>
 		               </c:choose>
 		               <td class="tableCellFirst" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;
-		               <font class="text10" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font></td>
+		               	<font class="text10" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font>
+		               </td>
+		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;
+		               		<a <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
+		               			&nbsp;${record.msn}
+		               		</a>
+		               	</td>
 		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;
 		               		<a <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> href="tvinnsadncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
