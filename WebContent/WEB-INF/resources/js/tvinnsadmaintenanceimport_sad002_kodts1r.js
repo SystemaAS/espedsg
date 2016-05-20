@@ -48,7 +48,7 @@
   			//editable fields
   			jq('#ks1ftx').val("");jq('#ks1ftx').val(data[i].ks1ftx);
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].ks8avg + "_" +  data[i].ks8skv);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].ks1typ);
   		}
   	  }, 
   	  error: function() {

@@ -108,8 +108,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Transaksjonstyper");
 		object.setText("SAD002 / KODTS3");
 		object.setDbTable("KODTS3");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts3r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts3r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();

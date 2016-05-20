@@ -158,12 +158,12 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<table width="60%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-						<td class="text12" title="KS8AVG">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
-						<td class="text12" title="KS8FTX">&nbsp;<font class="text14RedBold" >*</font>Fritekst</td>
+						<td class="text12" title="KS1TYP">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
+						<td class="text12" title="KS1FTX">&nbsp;<font class="text14RedBold" >*</font>Fritekst</td>
 						
 						</tr>
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks1typ" id="ks1typ" size="3" maxlength="2" value='${model.record.ks1typ}'></td>
+						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ks1typ" id="ks1typ" size="3" maxlength="2" value='${model.record.ks1typ}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks1ftx" id="ks1ftx" size="65" maxlength="58" value='${model.record.ks1ftx}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>

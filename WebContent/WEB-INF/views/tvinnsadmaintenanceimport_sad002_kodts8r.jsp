@@ -177,7 +177,7 @@
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks8avg" id="ks8avg" size="3" maxlength="2" value='${model.record.ks8avg}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="ks8skv" id="ks8skv" size="4" maxlength="3" value='${model.record.ks8skv}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks8ftx" id="ks8ftx" size="30" maxlength="51" value='${model.record.ks8ftx}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="ks8sat" id="ks8sat" size="10" maxlength="10" value='${model.record.ks8sat}'></td>
+						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="ks8sat" id="ks8sat" size="10" maxlength="10" value='${model.record.ks8sat}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="ks8sty" id="ks8sty" size="2" maxlength="1" value='${model.record.ks8sty}'></td>
 						
 						<td>
