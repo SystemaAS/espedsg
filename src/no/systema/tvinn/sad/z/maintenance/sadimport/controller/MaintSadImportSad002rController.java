@@ -90,8 +90,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Ekspeditionstyper (import)");
 		object.setText("SAD002 / KODTS1");
 		object.setDbTable("KODTS1");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts1r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts1r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();

@@ -26,6 +26,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportCundfLikvKodeService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportCundfLikvKodeServiceImpl"/>
 	<bean id="maintSadImportTariService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportTariServiceImpl"/>
 	<bean id="maintSadImportSadsdService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdServiceImpl"/>
+	<bean id="maintSadImportKodts1Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1ServiceImpl"/>
 	<bean id="maintSadImportKodts8Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8ServiceImpl"/>
 	
 	
