@@ -117,8 +117,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Transportmåter");
 		object.setText("SAD002 / KODTS4");
 		object.setDbTable("KODTS4");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts4r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts4r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();

@@ -37,10 +37,13 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gy
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts1Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts3Container;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts3Record;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Container;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Container;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts3Service;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8Service;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
@@ -101,6 +104,24 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 		List<JsonMaintSadImportKodts3Record> result = new ArrayList();
 	 	//get table
     	result = (List)this.fetchListKodts3(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad002_kodts4r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodts4Record>getRecordSad002_kodts4
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodts4r.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodts4Record> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListKodts4(applicationUser, id);
     	
     	return result;
 	
@@ -215,6 +236,35 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
     	return list;	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportKodts4Record> fetchListKodts4(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS4R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&ks4trm=" + id ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportKodts4Record> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportKodts4Container container = this.maintSadImportKodts4Service.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportKodts4Record record: list){
+	        		logger.info(record.getKs4trm());
+	        	}
+	        }
+    	}
+    	return list;	
+	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -239,6 +289,13 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 	@Required
 	public void setMaintSadImportKodts3Service (MaintSadImportKodts3Service value){ this.maintSadImportKodts3Service = value; }
 	public MaintSadImportKodts3Service getMaintSadImportKodts3Service(){ return this.maintSadImportKodts3Service; }
+	
+	@Qualifier ("maintSadImportKodts4Service")
+	private MaintSadImportKodts4Service maintSadImportKodts4Service;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodts4Service (MaintSadImportKodts4Service value){ this.maintSadImportKodts4Service = value; }
+	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
 	
 	
 	@Qualifier ("maintSadImportKodts8Service")
