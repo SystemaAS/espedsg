@@ -31,6 +31,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportKodts1Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1ServiceImpl"/>
 	<bean id="maintSadImportKodts3Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts3ServiceImpl"/>
 	<bean id="maintSadImportKodts4Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4ServiceImpl"/>
+	<bean id="maintSadImportKodts5Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts5ServiceImpl"/>
+	<bean id="maintSadImportKodts6Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts6ServiceImpl"/>
 	<bean id="maintSadImportKodts8Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8ServiceImpl"/>
 	
 	
