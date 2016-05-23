@@ -36,7 +36,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;SAD002 / KODTTS6</font>&nbsp;
+						<font class="tabLink">&nbsp;SAD002 / KODTS6</font>&nbsp;
 						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_sad002_kodts6r.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
 						</a>
@@ -163,8 +163,8 @@
 						
 						</tr>
 						<tr>
-						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ks6pre" id="ks6pre" size="4" maxlength="2" value='${model.record.ks6pre}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks6ftx" id="ks6ftx" size="65" maxlength="58" value='${model.record.ks6ftx}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks6pre" id="ks6pre" size="3" maxlength="1" value='${model.record.ks6pre}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks6ftx" id="ks6ftx" size="65" maxlength="57" value='${model.record.ks6ftx}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>

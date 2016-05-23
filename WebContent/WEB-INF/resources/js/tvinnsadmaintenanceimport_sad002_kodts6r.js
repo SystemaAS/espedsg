@@ -41,7 +41,7 @@
   	  success: function(data) {
 	  	var len = data.length;
   		for ( var i = 0; i < len; i++) {
-  			jq('#ks6pre').val("");jq('#ks5tln').val(data[i].ks5tln);
+  			jq('#ks6pre').val("");jq('#ks6pre').val(data[i].ks6pre);
   			jq("#ks6pre").prop("readonly", true);
   			jq("#ks6pre").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#ks6pre").addClass("inputTextReadOnly");

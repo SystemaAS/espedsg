@@ -37,6 +37,7 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gy
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts5Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts6Record;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts7Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.controller.ajax.manager.MaintSadImportGyldigeKoderAjaxHandlerManager;
 
@@ -147,6 +148,19 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 		List<JsonMaintSadImportKodts6Record> result = new ArrayList();
 	 	//get table
 		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodts6(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	
+	@RequestMapping(value="getSpecificRecord_sad002_kodts7r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodts7Record>getRecordSad002_kodts7
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodts7r.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodts7Record> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodts7(applicationUser, id);
     	
     	return result;
 	

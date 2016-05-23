@@ -144,8 +144,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("V.F.koder");
 		object.setText("SAD002 / KODTS7");
 		object.setDbTable("KODTS7");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts7r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts7r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
