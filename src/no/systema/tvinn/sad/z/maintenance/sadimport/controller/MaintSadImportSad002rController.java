@@ -126,8 +126,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Tollnedsettelser");
 		object.setText("SAD002 / KODTS5");
 		object.setDbTable("KODTS5");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts5r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts5r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
@@ -135,8 +135,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Preferanser");
 		object.setText("SAD002 / KODTS6");
 		object.setDbTable("KODTS6");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts6r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts6r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
