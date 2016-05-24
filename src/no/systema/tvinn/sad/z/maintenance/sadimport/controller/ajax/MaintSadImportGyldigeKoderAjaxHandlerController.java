@@ -39,6 +39,9 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gy
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts6Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts7Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Record;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsaRecord;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsbRecord;
+
 import no.systema.tvinn.sad.z.maintenance.sadimport.controller.ajax.manager.MaintSadImportGyldigeKoderAjaxHandlerManager;
 
 /**
@@ -180,6 +183,42 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 		List<JsonMaintSadImportKodts8Record> result = new ArrayList();
 	 	//get table
 		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodts8(applicationUser, avgId, skvId);
+    	
+    	return result;
+	
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad002_kodtsar.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodtsaRecord>getRecordSad002_kodtsa
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodtsar.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodtsaRecord> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodtsa(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad002_kodtsbr.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodtsbRecord>getRecordSad002_kodtsb
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodtsbr.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodtsbRecord> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodtsb(applicationUser, id);
     	
     	return result;
 	

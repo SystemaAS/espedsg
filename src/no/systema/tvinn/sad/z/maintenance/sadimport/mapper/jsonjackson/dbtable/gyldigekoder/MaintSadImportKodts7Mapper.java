@@ -30,10 +30,10 @@ public class MaintSadImportKodts7Mapper {
 		JsonMaintSadImportKodts7Container container = mapper.readValue(utfPayload.getBytes(), JsonMaintSadImportKodts7Container.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
-		Collection<JsonMaintSadImportKodts7Record> list = container.getList();
+		/*Collection<JsonMaintSadImportKodts7Record> list = container.getList();
 		for(JsonMaintSadImportKodts7Record record : list){
 			//logger.info(record.getKlikod());
-		}
+		}*/
 		return container;
 	}
 }

@@ -158,6 +158,7 @@ public class MaintSadImportSad002rController {
 		listObject.add(object);
 		//
 		//
+		/*
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("9");
 		object.setSubject("Ekspedisjonstyper (eksport)");
@@ -166,14 +167,15 @@ public class MaintSadImportSad002rController {
 		//object.setStatus("G");
 		//object.setPgm("sad002_kodts9r");
 		listObject.add(object);
+		*/
 		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("A");
 		object.setSubject("Enhetskoder");
 		object.setText("SAD002 / KODTSA");
 		object.setDbTable("KODTSA");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtsar");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsar");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
@@ -181,10 +183,11 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Dok./Sertifikat kode (TVINN-import)");
 		object.setText("SAD002 / KODTSB");
 		object.setDbTable("KODTSB");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtsbr");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsbr");
 		listObject.add(object);
 		//
+		/*
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("C");
 		object.setSubject("Dok./Sertifikat kode (TVINN-export)");
@@ -193,14 +196,15 @@ public class MaintSadImportSad002rController {
 		//object.setStatus("G");
 		//object.setPgm("sad002_kodtscr");
 		listObject.add(object);
+		*/
 		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("D");
 		object.setSubject("Lagringssted");
 		object.setText("SAD002 / KODTSD");
 		object.setDbTable("KODTSD");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtsdr");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsdr");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
@@ -208,8 +212,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Fylkeskoder");
 		object.setText("SAD002 / KODTSE");
 		object.setDbTable("KODTSE");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtser");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtser");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
@@ -217,8 +221,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Typetilfelle (omberegning)");
 		object.setText("SAD002 / KODTSO");
 		object.setDbTable("KODTSO");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtsor");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsor");
 		listObject.add(object);
 		
 		

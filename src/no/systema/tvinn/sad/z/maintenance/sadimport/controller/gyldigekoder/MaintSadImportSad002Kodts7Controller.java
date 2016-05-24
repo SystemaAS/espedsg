@@ -206,9 +206,9 @@ public class MaintSadImportSad002Kodts7Controller {
     		JsonMaintSadImportKodts7Container container = this.maintSadImportKodts7Service.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodts7Record record : list){
+	        	/*for(JsonMaintSadImportKodts7Record record : list){
 	        		//logger.info(TODO);
-	        	}
+	        	}*/
 	        }
     	}
     	return list;
