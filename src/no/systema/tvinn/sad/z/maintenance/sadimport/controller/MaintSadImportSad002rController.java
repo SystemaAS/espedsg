@@ -87,7 +87,7 @@ public class MaintSadImportSad002rController {
 		MaintenanceGyldigekoderListObject object = new  MaintenanceGyldigekoderListObject();
 		
 		object.setId("1");
-		object.setSubject("Ekspeditionstyper (import)");
+		object.setSubject("Ekspeditionstyper");
 		object.setText("SAD002 / KODTS1");
 		object.setDbTable("KODTS1");
 		object.setStatus("G");
@@ -180,7 +180,7 @@ public class MaintSadImportSad002rController {
 		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("B");
-		object.setSubject("Dok./Sertifikat kode (TVINN-import)");
+		object.setSubject("Dok./Sertifikat kode");
 		object.setText("SAD002 / KODTSB");
 		object.setDbTable("KODTSB");
 		object.setStatus("G");
