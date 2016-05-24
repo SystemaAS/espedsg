@@ -66,7 +66,9 @@
 								<th class="tableHeaderField" >&nbsp;Kode</th>
 			                    <th class="tableHeaderField" >&nbsp;Sekvens&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Fritekst&nbsp;</th>
-								<th class="tableHeaderField">&nbsp;Sats&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;Øre&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;M&nbsp;</th>
+			                    <th class="tableHeaderField">&nbsp;Sats&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Type&nbsp;</th>
 			                    <th class="tableHeaderField">Slett</th>
 			                </tr>  
@@ -81,8 +83,10 @@
 				               
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8skv}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8ftx}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sat}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sty}&nbsp;</font></td>
+		                       <td width="2%" align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ore}&nbsp;</font></td>
+		                       <td width="2%" align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.mil}&nbsp;</font></td>
+		                       <td width="2%" align="right" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sat}&nbsp;</font></td>
+				               <td width="2%" align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks8sty}&nbsp;</font></td>
 		                       <td align="center" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad002_kodts8r_edit.do?action=doDelete&id=${model.dbTable}&ks8avg=${record.ks8avg}&ks8skv=${record.ks8skv}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
@@ -97,7 +101,9 @@
 								<th class="tableHeaderField" >&nbsp;KS8AVG</th>
 			                    <th class="tableHeaderField" >&nbsp;KS8SKV&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;KS8FTX&nbsp;</th>
-								<th class="tableHeaderField">&nbsp;KS8SAT&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;51&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;52&nbsp;</th>
+			                    <th class="tableHeaderField">&nbsp;KS8SAT&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;KS8STY&nbsp;</th>
 			                    <th class="tableHeaderField">Slett</th>
 			                </tr>  
@@ -165,18 +171,34 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<table width="60%" cellspacing="1" border="0" align="left">
+					<table width="80%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text12" title="KS8AVG">&nbsp;<font class="text14RedBold" >*</font>Avg.kode</td>
 						<td class="text12" title="KS8SKV">&nbsp;Sekv.</td>
 						<td class="text12" title="KS8FTX">&nbsp;<font class="text14RedBold" >*</font>Fritekst</td>
+						<td class="text12" title="ORE">&nbsp;Øre</td>
+						<td class="text12" title="MIL">&nbsp;M</td>
 						<td class="text12" title="KS8SAT">&nbsp;Sats</td>
 						<td class="text12" title="KS8STY">&nbsp;Type</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks8avg" id="ks8avg" size="3" maxlength="2" value='${model.record.ks8avg}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="ks8skv" id="ks8skv" size="4" maxlength="3" value='${model.record.ks8skv}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks8ftx" id="ks8ftx" size="30" maxlength="51" value='${model.record.ks8ftx}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks8ftx" id="ks8ftx" size="50" maxlength="49" value='${model.record.ks8ftx}'></td>
+						<td>
+			 				<select class="inputTextMediumBlueMandatoryField" name="ore" id="ore" >
+			 				  <option value="">-velg-</option>
+							  <option value="*"<c:if test="${model.record.ore == '*'}"> selected </c:if> >*</option>
+							  <option value="J"<c:if test="${model.record.ore == 'J'}"> selected </c:if> >J</option>
+							</select>
+		 				</td>
+			 			<td>
+			 				<select class="inputTextMediumBlueMandatoryField" name="mil" id="mil" >
+			 				  <option value="">-velg-</option>
+							  <option value="J"<c:if test="${model.record.mil == 'J'}"> selected </c:if> >J</option>
+							  <option value="N"<c:if test="${model.record.mil == 'N'}"> selected </c:if> >N</option>
+							</select>
+		 				</td>
 						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="ks8sat" id="ks8sat" size="10" maxlength="10" value='${model.record.ks8sat}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="ks8sty" id="ks8sty" size="2" maxlength="1" value='${model.record.ks8sty}'></td>
 						

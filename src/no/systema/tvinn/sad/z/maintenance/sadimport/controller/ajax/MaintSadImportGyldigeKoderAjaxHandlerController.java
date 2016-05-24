@@ -253,6 +253,25 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad002_kodtsor.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodtsoRecord>getRecordSad002_kodtso
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodtsor.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodtsoRecord> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodtso(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	
 	
 	@Qualifier ("maintSadImportGyldigeKoderAjaxHandlerManager")
 	private MaintSadImportGyldigeKoderAjaxHandlerManager maintSadImportGyldigeKoderAjaxHandlerManager;

@@ -37,6 +37,15 @@ public class JsonMaintSadImportKodts8Record extends JsonAbstractGrandFatherRecor
 	public String getKs8sty (){ return this.ks8sty;   }              
 
 	
+	private String ore = null; 
+	public void setOre (String value){ this.ore = value;   }   
+	public String getOre(){ return this.ore;   }              
+
+	private String mil = null; 
+	public void setMil (String value){ this.mil = value;   }   
+	public String getMil(){ return this.mil;   }              
+
+	
 	/**
 	 * 
 	 * @return

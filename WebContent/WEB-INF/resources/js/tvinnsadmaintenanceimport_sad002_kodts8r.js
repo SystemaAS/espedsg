@@ -21,7 +21,9 @@
 			jq("#ks8skv").addClass("inputTextMediumBlue");
 			//rest of the gang
 			jq('#ks8ftx').val("");
-  			jq('#ks8sat').val("");
+			jq('#ore').val("");
+			jq('#mil').val("");
+			jq('#ks8sat').val("");
   			jq('#ks8sty').val("");
 			
 			//for update
@@ -63,6 +65,8 @@
   			jq("#ks8skv").addClass("inputTextReadOnly");
   			//editable fields
   			jq('#ks8ftx').val("");jq('#ks8ftx').val(data[i].ks8ftx);
+  			jq('#ore').val("");jq('#ore').val(data[i].ore);
+  			jq('#mil').val("");jq('#mil').val(data[i].mil);
   			jq('#ks8sat').val("");jq('#ks8sat').val(data[i].ks8sat);
   			jq('#ks8sty').val("");jq('#ks8sty').val(data[i].ks8sty);
   			//for a future update

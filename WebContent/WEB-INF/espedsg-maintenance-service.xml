@@ -39,6 +39,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportKodtsbService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsbServiceImpl"/>
 	<bean id="maintSadImportKodtsdService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsdServiceImpl"/>
 	<bean id="maintSadImportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtseServiceImpl"/>
+	<bean id="maintSadImportKodtsoService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsoServiceImpl"/>
 	
 	
 </beans>
