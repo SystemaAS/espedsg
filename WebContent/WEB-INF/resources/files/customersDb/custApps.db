@@ -1,7 +1,8 @@
 META;CUST;APPS -->RULE: set ZERO as a place-holder. Should be as many zeros (per customers) as the largest customer valid applications
 C30@903;0;0;0
 C100@500;600;0;0
-C101@801;802;0;0
+C101@500;600;0;0
+C110@801;802;0;0
 C200@900;0;0;0
 C300@100;200;300;400
 C301@0;0;0;0

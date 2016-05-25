@@ -83,12 +83,6 @@ public class MaintSadImportSad002Kodts8Controller {
 			//get table
 			List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), ks8avg, ks8skv);
 			
-			/* 
-	    	List<JsonMaintSadImportKodts8Record> list = new ArrayList();
-	    	if( (ks8avg!=null && !"".equals(ks8avg)) ){
-	    		list = this.fetchList(appUser.getUser(), ks8avg);
-	    	}*/
-			
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	//model.put("ks8avg", ks8avg);
@@ -176,7 +170,9 @@ public class MaintSadImportSad002Kodts8Controller {
 			//------------
 			//FETCH table
 			//------------
-	    	List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), recordToValidate.getKs8avg(), recordToValidate.getKs8skv());
+			String avg = null;// in order to get all the list
+			String skv = null;
+	    	List<JsonMaintSadImportKodts8Record> list = this.fetchList(appUser.getUser(), avg, skv);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
@@ -193,15 +189,42 @@ public class MaintSadImportSad002Kodts8Controller {
 	private void adjustSomeRecordValues(JsonMaintSadImportKodts8Record recordToValidate){
 		final String ZERO = "0";
 		
-		//-----------------
-		//Decimal amounts
-		//-----------------
+		//---------------------
+		//(1) Decimal amounts
+		//---------------------
 		if(recordToValidate.getKs8sat()!=null && !"".equals(recordToValidate.getKs8sat())){
 			String tmp = recordToValidate.getKs8sat().replace(",", ".");
 			recordToValidate.setKs8sat(tmp);
 		}else{
 			recordToValidate.setKs8sat(ZERO);
 		}
+		
+		//-----------------------------
+		//(2) START Adjust free text.
+		//-----------------------------
+		//Position 51 and 52 are reserved and must be appended
+		String SPACE = " ";
+		int PURE_FTX_UPPER_LIMIT_POSITION = 50;
+		StringBuffer str = new StringBuffer(recordToValidate.getKs8ftx());
+		int len = str.length();
+		for (int x=len+1;x<=PURE_FTX_UPPER_LIMIT_POSITION;x++){
+			str.append(SPACE);
+		}
+		//now append ore/mil into postion 51/52 respectively
+		if(recordToValidate.getOre()!=null && !"".equals(recordToValidate.getOre())){
+			str.append(recordToValidate.getOre());
+		}else{
+			str.append(SPACE);
+		}
+		if(recordToValidate.getMil()!=null && !"".equals(recordToValidate.getMil())){
+			str.append(recordToValidate.getMil());
+		}else{
+			str.append(SPACE);
+		}
+		//Update ftx
+		recordToValidate.setKs8ftx(str.toString());
+		//END - adjust free text
+		
 		
 	}
 	

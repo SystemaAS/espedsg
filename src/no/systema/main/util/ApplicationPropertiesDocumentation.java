@@ -71,6 +71,7 @@ public class ApplicationPropertiesDocumentation {
 
 		#=======================================================================================
 		#DHL - Tomcat Mgr http://165.72.19.220:8181 (AS400 = SYSTEMA/JUNI2011)
+		#Trix från Roger/Oscar när vi bytte till port 8443: http://198.141.241.224:8443/espedsg
 		#Detailed chain-of-events in AS400 
 		#--START--
 		# (1) START- Documents - DHL...ws
