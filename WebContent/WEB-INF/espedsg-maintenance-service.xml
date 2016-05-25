@@ -29,6 +29,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- Component stereotype   -->
 	<bean id="maintSadImportGyldigeKoderAjaxHandlerManager" class="no.systema.tvinn.sad.z.maintenance.sadimport.controller.ajax.manager.MaintSadImportGyldigeKoderAjaxHandlerManager"/>
 	<bean id="maintSadImportKodts1Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1ServiceImpl"/>
+	<bean id="maintSadImportKodts2Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts2ServiceImpl"/>
 	<bean id="maintSadImportKodts3Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts3ServiceImpl"/>
 	<bean id="maintSadImportKodts4Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4ServiceImpl"/>
 	<bean id="maintSadImportKodts5Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts5ServiceImpl"/>
