@@ -60,10 +60,8 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
-    	logger.info("A");
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	logger.info("B");
-		
+    	
     	//extract
     	List<JsonMaintSadImportKodts1Record> list = new ArrayList();
     	if(jsonPayload!=null){
@@ -89,14 +87,12 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	public Collection<JsonMaintSadImportKodts2Record> fetchListKodts2(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS2R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&ks1typ=" + id ;
+		String urlRequestParams = "user=" + applicationUser + "&ks2lk=" + id ;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
-    	logger.info("A");
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	logger.info("B");
-		
+    	
     	//extract
     	List<JsonMaintSadImportKodts2Record> list = new ArrayList();
     	if(jsonPayload!=null){

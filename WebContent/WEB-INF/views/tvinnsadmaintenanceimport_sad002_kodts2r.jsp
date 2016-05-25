@@ -80,12 +80,12 @@
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.ks2lk}&nbsp;</font></td>
 				               
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2ftx}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2nas}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2mo}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2pre}&nbsp;</font></td>
+				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2nas}&nbsp;</font></td>
+				               <td width="2%" align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2mo}&nbsp;</font></td>
+				               <td width="2%" align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ks2pre}&nbsp;</font></td>
 				               
 				               <td align="center" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad002_kodts1r_edit.do?action=doDelete&id=${model.dbTable}&ks2lk=${record.ks2lk}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad002_kodts2r_edit.do?action=doDelete&id=${model.dbTable}&ks2lk=${record.ks2lk}">
 					               		<img src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -166,7 +166,7 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<table width="60%" cellspacing="1" border="0" align="left">
+					<table width="70%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text12" title="KS2LK">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
 						<td class="text12" title="KS2FTX">&nbsp;<font class="text14RedBold" >*</font>Fritekst</td>
@@ -176,11 +176,18 @@
 						
 						</tr>
 						<tr>
-						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ks2lk" id="ks2lk" size="3" maxlength="2" value='${model.record.ks2lk}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2lk" id="ks2lk" size="3" maxlength="2" value='${model.record.ks2lk}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2ftx" id="ks2ftx" size="55" maxlength="55" value='${model.record.ks2ftx}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2nas" id="ks2nas" size="3" maxlength="2" value='${model.record.ks2nas}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2mo" id="ks2mo" size="2" maxlength="1" value='${model.record.ks2mo}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2pre" id="ks2pre" size="2" maxlength="1" value='${model.record.ks2pre}'></td>
+						<td>
+			 				<select class="inputTextMediumBlueMandatoryField" name="ks2mo" id="ks2mo" >
+			 				  <option value="">-velg-</option>
+							  <option value="M"<c:if test="${model.record.ks2mo == 'M'}"> selected </c:if> >M</option>
+							  <option value="O"<c:if test="${model.record.ks2mo == 'O'}"> selected </c:if> >O</option>
+							  <option value="S"<c:if test="${model.record.ks2mo == 'S'}"> selected </c:if> >S</option>
+							</select>
+		 				</td>
+		 				<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ks2pre" id="ks2pre" size="2" maxlength="1" value='${model.record.ks2pre}'></td>
 						
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
