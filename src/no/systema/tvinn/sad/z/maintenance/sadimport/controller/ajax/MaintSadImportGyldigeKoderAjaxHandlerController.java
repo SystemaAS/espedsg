@@ -73,6 +73,25 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 	/**
 	 * 
 	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad002_kodts2r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadImportKodts2Record>getRecordSad002_kodts2
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodts2r.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportKodts2Record> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodts2(applicationUser, id);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
 	 * @param avgId
 	 * @param skvId
 	 * @return

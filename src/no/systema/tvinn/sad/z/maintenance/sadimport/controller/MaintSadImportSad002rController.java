@@ -99,8 +99,8 @@ public class MaintSadImportSad002rController {
 		object.setSubject("Landkoder");
 		object.setText("SAD002 / KODTS2");
 		object.setDbTable("KODTS2");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts2r");
+		object.setStatus("G");
+		object.setPgm("sad002_kodts2r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();

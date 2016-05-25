@@ -86,6 +86,39 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	 * @param id
 	 * @return
 	 */
+	public Collection<JsonMaintSadImportKodts2Record> fetchListKodts2(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS2R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&ks1typ=" + id ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	logger.info("A");
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	logger.info("B");
+		
+    	//extract
+    	List<JsonMaintSadImportKodts2Record> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportKodts2Container container = this.maintSadImportKodts2Service.getList(jsonPayload);
+    		if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportKodts2Record record: list){
+	        		//logger.info(record.getKs2lk());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
 	public Collection<JsonMaintSadImportKodts3Record> fetchListKodts3(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS3R_GET_LIST_URL;
@@ -418,6 +451,14 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	@Required
 	public void setMaintSadImportKodts1Service (MaintSadImportKodts1Service value){ this.maintSadImportKodts1Service = value; }
 	public MaintSadImportKodts1Service getMaintSadImportKodts1Service(){ return this.maintSadImportKodts1Service; }
+	
+	
+	@Qualifier ("maintSadImportKodts2Service")
+	private MaintSadImportKodts2Service maintSadImportKodts2Service;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodts2Service (MaintSadImportKodts2Service value){ this.maintSadImportKodts2Service = value; }
+	public MaintSadImportKodts2Service getMaintSadImportKodts2Service(){ return this.maintSadImportKodts2Service; }
 	
 	
 	@Qualifier ("maintSadImportKodts3Service")
