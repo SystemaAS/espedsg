@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenanceimport_syft18r.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenanceimport_sad062r.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -29,8 +29,8 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="30%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">Kunders likvidit.koder SYFT18 / CUNDF</font>&nbsp;
-						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_syft18r.do?id=${model.dbTable}">
+						<font class="tabLink">Søkeveier til tariff SAD062 / SOKTARI</font>&nbsp;
+						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_sad062r.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
 						</a>
 					</td>
@@ -43,47 +43,62 @@
 		<td>
 		<%-- space separator --%>
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
-	 	    <tr height="20"><td>&nbsp;</td></tr>
+	 	    <tr height="30"><td>&nbsp;</td></tr>
 	 	    
+	 	    <tr >
+	 	    	<td width="5%">&nbsp;</td>
+				<td width="100%" class="text12">
+					<form action="tvinnsadmaintenanceimport_sad062r.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
+					Tariffnr&nbsp;
+					<input type="text" class="inputTextMediumBlue" name="searchTatanr" id="searchTatanr" size="9" maxlength="8" value='${model.tariff}'>
+					<%--
+					&nbsp;Søkebegrep&nbsp;
+					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
+					--%>
+					</form>
+				</td>
+			</tr>
+			
 			<%-- list component --%>
 			<tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="left">
+				<table id="containerdatatableTable" width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-							    <th align="center" class="tableHeaderFieldFirst" >&nbsp;Kundenr.&nbsp;</th>
-								<th align="center" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
-								<th align="center" class="tableHeaderField" >&nbsp;Navn</th>
-			                    <th align="center" class="tableHeaderField" >&nbsp;Adresse 1&nbsp;</th>
-			                    <th align="center" class="tableHeaderField">&nbsp;Likv.kode&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Tariffnr.&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;Beskrivelse&nbsp;</th>
+								
+			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				              
-				               <td align="center" width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.kundnr}&nbsp;</font></td>
-				               <td id="recordUpdate_${record.kundnr}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.tariff}_${record.beskr1}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.knavn}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.adr1}&nbsp;</font></td>
-		                       <td align="center"   class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sylikv}&nbsp;</font></td>
-		                       
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tariff}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.beskr1}&nbsp;</font></td>
+				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad062r_edit.do?action=doDelete&id=${model.dbTable}&tariff=${record.tariff}&beskr1=${record.beskr1}">
+					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+					               	</a>
+				               </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
 				            <tfoot>
 							<tr>
-							   <th align="center" class="tableHeaderFieldFirst" >&nbsp;KUNDNR&nbsp;</th>
-								<th align="center" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
-								<th align="center" class="tableHeaderField" >&nbsp;KNAVN</th>
-			                    <th align="center" class="tableHeaderField" >&nbsp;ADR1&nbsp;</th>
-			                    <th align="center" class="tableHeaderField">&nbsp;SYLIKV&nbsp;</th>
+							    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
+								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TARIFF</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;BESKR1&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>
@@ -134,47 +149,39 @@
 				</td>
 			</tr>
 			</c:if>
-			
-			<tr height="2"><td>&nbsp;</td></tr>
-	 	    
+			<tr height="2"><td>&nbsp;</td>
+			</tr>
+			<tr >
+				<td width="5%">&nbsp;</td>
+				<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
+			</tr>
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="tvinnsadmaintenanceimport_syft18r_edit.do" name="formRecord" id="formRecord" method="POST" >
+				<form action="tvinnsadmaintenanceimport_sad062r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-					<input type="hidden" name="updateId" id=updateId value=""> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<table width="50%" cellspacing="1" border="0" align="left">
+					<input type="hidden" name="beskr1Orig" id=beskr1Orig value="${model.record.beskr1Orig}">
 					
+					<table width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-							<td class="text12" title="KUNDNR">&nbsp;Kundenr</td>
-							<td class="text12" title="KNAVN">&nbsp;Navn</td>
-							<td class="text12" title="SYLIKV">&nbsp;Likv.kode</td>
+							<td class="text12" title="TARIFF">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
+							<td class="text12" title="BESKR1">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse</td>
 						</tr>
 						<tr>
-						<td ><input type="text" readonly class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value=''></td>
-						<td ><input type="text" readonly class="inputTextReadOnly" name="knavn" id="knavn" size="30" maxlength="30" value=''></td>
-						<td >
-							<select name="sylikv" id="sylikv">
-		            		<option value="">-velg-</option>
-		 				  	<c:forEach var="record" items="${model.likvKodeList}" >
-	                             <option value="${record.klikod}"<c:if test="${model.record.sylikv == record.klikod}"> selected </c:if> >${record.klikod}</option>
-							</c:forEach> 
-							</select>
-						</td>
-						
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tariff" id="tatanr" size="9" maxlength="8" value='${model.record.tariff}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="beskr1" id="taalfa" size="35" maxlength="31" value='${model.record.beskr1}'></td>
 						<td>
-							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>
-
 						</tr>
-						
-	 	    		</table>
-	 	    		
+						<tr height="3"><td></td>
+					</table>
 	 	    	</form>
 	 	    </tr>
 	 	    <tr height="20"><td>&nbsp;</td></tr>
-	 	    
+	 	     
 	 		</table>
 		</td>
 	</tr>
