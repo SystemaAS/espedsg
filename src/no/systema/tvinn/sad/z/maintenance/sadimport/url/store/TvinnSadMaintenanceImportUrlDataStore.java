@@ -41,6 +41,11 @@ public final class TvinnSadMaintenanceImportUrlDataStore {
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD010R.do?user=OSCAR&tatanr=2042100
 	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD010R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD010R.do";
 	
+	//SAD062R
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R.do?user=OSCAR
+	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R.do?user=OSCAR&tariff=2042100
+	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD062R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD062R.do";
+	
 	//SAD999R
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD999R.do?user=OSCAR
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD999R.do?user=OSCAR&sdtnrf=98
@@ -70,6 +75,10 @@ public final class TvinnSadMaintenanceImportUrlDataStore {
 	//SAD010R_U
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD010R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD010R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD010R_U.do";
+	
+	//SAD062R_U
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R_U.do?user=OSCAR&mode=U&<record>attributes...
+	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD062R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD062R_U.do";
 	
 	//SAD999R_U
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD999R_U.do?user=OSCAR&mode=U&<record>attributes...

@@ -29,7 +29,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="30%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">Søkeveier til tariff SAD062 / SOKTARI</font>&nbsp;
+						<font class="tabLink">Søkeveier til tariff</font>&nbsp;<font class="text12">SAD062 / SOKTARI</font>&nbsp;
 						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_sad062r.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
 						</a>
@@ -50,12 +50,13 @@
 				<td width="100%" class="text12">
 					<form action="tvinnsadmaintenanceimport_sad062r.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
 					Tariffnr&nbsp;
-					<input type="text" class="inputTextMediumBlue" name="searchTatanr" id="searchTatanr" size="9" maxlength="8" value='${model.tariff}'>
+					<input type="text" class="inputTextMediumBlue" name="searchTariff" id="searchTariff" size="9" maxlength="8" value='${model.tariff}'>
 					<%--
 					&nbsp;Søkebegrep&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
-					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
 					--%>
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
+					
 					</form>
 				</td>
 			</tr>
@@ -164,14 +165,14 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="beskr1Orig" id=beskr1Orig value="${model.record.beskr1Orig}">
 					
-					<table width="98%" cellspacing="1" border="0" align="left">
+					<table width="60%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="TARIFF">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
 							<td class="text12" title="BESKR1">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse</td>
 						</tr>
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tariff" id="tatanr" size="9" maxlength="8" value='${model.record.tariff}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="beskr1" id="taalfa" size="35" maxlength="31" value='${model.record.beskr1}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tariff" id="tariff" size="9" maxlength="8" value='${model.record.tariff}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="beskr1" id="beskr1" size="35" maxlength="31" value='${model.record.beskr1}'></td>
 						<td>
 							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>

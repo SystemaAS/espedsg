@@ -34,27 +34,8 @@ import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportTariContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportTariRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdRecord;
-
-
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportCundfLikvKodeService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportTariService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdService;
-
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.*;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.*;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 
@@ -128,10 +109,10 @@ public class MaintSadImportAjaxHandlerController {
 		logger.info(METHOD + " Inside...");
 		List<JsonMaintSadImportKodtsiRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListSyft10(applicationUser, id);
+    	result = (List)this.fetchListSyft10(applicationUser, id); 
     	
     	return result;
-	
+    	
 	}
 	
 	
@@ -169,6 +150,25 @@ public class MaintSadImportAjaxHandlerController {
 		List<JsonMaintSadImportTariRecord> result = new ArrayList();
 	 	//get table
     	result = (List)this.fetchListSad010(applicationUser, id, alfa);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad062r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportSoktariRecord> getRecordSad062
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String alfa) {
+		final String METHOD = "[DEBUG] getRecordSad062 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportSoktariRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad062(applicationUser, id, alfa);
     	
     	return result;
 	
@@ -214,6 +214,7 @@ public class MaintSadImportAjaxHandlerController {
 	        	}
 	        }
     	}
+    	
     	return list;
     	
 	}
@@ -351,6 +352,37 @@ public class MaintSadImportAjaxHandlerController {
 	 * @param alfa
 	 * @return
 	 */
+	private Collection<JsonMaintSadImportSoktariRecord> fetchListSad062(String applicationUser, String id, String alfa){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD062R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&tariff=" + id + "&beskr1=" + alfa;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportSoktariRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportSoktariContainer container = this.maintSadImportSoktariService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportSoktariRecord record: list){
+	        		logger.info(record.getTariff());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param alfa
+	 * @return
+	 */
 	private Collection<JsonMaintSadImportSadsdRecord> fetchListSad999(String applicationUser, String id, String alfa, String fdate, String tdate){
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD999R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&sdtnrf=" + id + "&sddtf=" + fdate + "&sddtt=" + tdate ;
@@ -422,12 +454,21 @@ public class MaintSadImportAjaxHandlerController {
 	public void setMaintSadImportTariService (MaintSadImportTariService value){ this.maintSadImportTariService = value; }
 	public MaintSadImportTariService getMaintSadImportTariService(){ return this.maintSadImportTariService; }
 	
+	
 	@Qualifier ("maintSadImportSadsdService")
 	private MaintSadImportSadsdService maintSadImportSadsdService;
 	@Autowired
 	@Required
 	public void setMaintSadImportSadsdService (MaintSadImportSadsdService value){ this.maintSadImportSadsdService = value; }
 	public MaintSadImportSadsdService getMaintSadImportSadsdService(){ return this.maintSadImportSadsdService; }
+	
+	
+	@Qualifier ("maintSadImportSoktariService")
+	private MaintSadImportSoktariService maintSadImportSoktariService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSoktariService (MaintSadImportSoktariService value){ this.maintSadImportSoktariService = value; }
+	public MaintSadImportSoktariService getMaintSadImportSoktariService(){ return this.maintSadImportSoktariService; }
 	
 	
 	

@@ -17,6 +17,7 @@
 			jq("#tariff").addClass("inputTextMediumBlueUPPERCASEMandatoryField");
 			//rest of the gang
 			jq('#beskr1').val("");
+			jq('#beskr1Orig').val("");
 			//for update
 			jq('#updateId').val("");
 		});
@@ -26,15 +27,20 @@
   //GET specific db-record
   //-----------------------
   function getRecord(record){
-	var id = record.id;
+	var rawId = record.id;
   	var applicationUserParam = jq('#applicationUser').val();
-  	id = id.replace("recordUpdate_", "");
-	  	
+  	
+  	rawId = rawId.replace("recordUpdate_", "");
+  	var record = rawId.split('_');
+	var tariff = record[0];
+	var beskr1 = record[1];
+	
 	jq.ajax({
   	  type: 'GET',
   	  url: 'getSpecificRecord_sad062r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  	  id : id },
+  		  	  id : tariff,
+  		  	  alfa : beskr1 },
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',
@@ -48,6 +54,7 @@
   			
   			//rest of the gang
   			jq('#beskr1').val("");jq('#beskr1').val(data[i].beskr1);
+  			jq('#beskr1Orig').val("");jq('#beskr1Orig').val(data[i].beskr1);
   			//for a future update
   			jq('#updateId').val("");jq('#updateId').val(data[i].tariff);
   			
