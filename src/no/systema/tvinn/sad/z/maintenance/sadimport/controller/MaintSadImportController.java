@@ -109,6 +109,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_KUNDVAREREG");
 		object.setText("SAD001A / SADVARE");
 		object.setDbTable("SADVARE");
+		object.setStatus("G");
+		object.setPgm("sad001ar");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -191,8 +193,8 @@ public class MaintSadImportController {
 		object.setId("11");
 		object.setSubject("Gml. kundes varereg.");
 		object.setCode("SADI_GML_KUNDVAREREG");
-		object.setText("SAD004 / SAD2");
-		object.setDbTable("SAD2");
+		object.setText("SAD004 / SADL");
+		object.setDbTable("SADL");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
