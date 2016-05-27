@@ -115,6 +115,25 @@ public class MaintSadImportAjaxHandlerController {
     	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param kundnr
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad001ar.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportSadvareRecord> getRecordSad001A
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
+		final String METHOD = "[DEBUG] getRecordSad001A ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportSadvareRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad001A(applicationUser, id, kundnr);
+    	
+    	return result;
+	
+	}
 	
 	/**
 	 * 
@@ -277,6 +296,36 @@ public class MaintSadImportAjaxHandlerController {
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadImportKodtsiRecord record: list){
 	        		//logger.info(record.getKlikod());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param levenr
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportSadvareRecord> fetchListSad001A(String applicationUser, String id, String levenr){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD001AR_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&varenr=" + id + "&levenr=" + levenr ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportSadvareRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportSadvareContainer container = this.maintSadImportSadvareService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportSadvareRecord record: list){
+	        		//logger.info("my text");
 	        	}
 	        }
     	}
@@ -470,6 +519,12 @@ public class MaintSadImportAjaxHandlerController {
 	public void setMaintSadImportSoktariService (MaintSadImportSoktariService value){ this.maintSadImportSoktariService = value; }
 	public MaintSadImportSoktariService getMaintSadImportSoktariService(){ return this.maintSadImportSoktariService; }
 	
+	@Qualifier ("maintSadImportSadvareService")
+	private MaintSadImportSadvareService maintSadImportSadvareService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSadvareService (MaintSadImportSadvareService value){ this.maintSadImportSadvareService = value; }
+	public MaintSadImportSadvareService getMaintSadImportSadvareService(){ return this.maintSadImportSadvareService; }
 	
 	
 }
