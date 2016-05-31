@@ -137,6 +137,26 @@ public class MaintSadImportAjaxHandlerController {
 	
 	/**
 	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param kundnr
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad004r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportSadlRecord> getRecordSad004
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
+		final String METHOD = "[DEBUG] getRecordSad004 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportSadlRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad004(applicationUser, id, kundnr);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
 	 * @param user
 	 * @param result
 	 * @param request
@@ -337,6 +357,37 @@ public class MaintSadImportAjaxHandlerController {
 	 * 
 	 * @param applicationUser
 	 * @param id
+	 * @param levenr
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&varenr=" + id + "&levenr=" + levenr ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportSadlRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportSadlRecord record: list){
+	        		//logger.info("my text");
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
 	 * @return
 	 */
 	private Collection<JsonMaintSadImportKodtlbRecord> fetchListSad012(String applicationUser, String id){
@@ -525,6 +576,14 @@ public class MaintSadImportAjaxHandlerController {
 	@Required
 	public void setMaintSadImportSadvareService (MaintSadImportSadvareService value){ this.maintSadImportSadvareService = value; }
 	public MaintSadImportSadvareService getMaintSadImportSadvareService(){ return this.maintSadImportSadvareService; }
+	
+	
+	@Qualifier ("maintSadImportSadlService")
+	private MaintSadImportSadlService maintSadImportSadlService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSadlService (MaintSadImportSadlService value){ this.maintSadImportSadlService = value; }
+	public MaintSadImportSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
 	
 	
 }

@@ -28,6 +28,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportSadsdService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdServiceImpl"/>
 	<bean id="maintSadImportSoktariService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSoktariServiceImpl"/>
 	<bean id="maintSadImportSadvareService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadvareServiceImpl"/>
+	<bean id="maintSadImportSadlService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadlServiceImpl"/>
+	
 	<!-- Component stereotype   -->
 	<bean id="maintSadImportGyldigeKoderAjaxHandlerManager" class="no.systema.tvinn.sad.z.maintenance.sadimport.controller.ajax.manager.MaintSadImportGyldigeKoderAjaxHandlerManager"/>
 	<!-- START Gyldige koder -->
