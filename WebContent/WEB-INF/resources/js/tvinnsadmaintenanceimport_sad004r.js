@@ -48,7 +48,7 @@
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_syft02r.do',
+  	  url: 'getSpecificRecord_sad004r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
   		  	  id : varenr,
   		  	  kundnr : levenr },
@@ -60,18 +60,20 @@
   		for ( var i = 0; i < len; i++) {
   			jq('#slalfa').val("");jq('#slalfa').val(data[i].slalfa);
   			jq("#slalfa").prop("readonly", true);
-  			jq("#slalfa").removeClass("inputTextMediumBlueUPPERCASEMandatoryField");
+  			jq("#slalfa").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#slalfa").addClass("inputTextReadOnly");
   			
   			//rest of the gang
   			jq('#sltxt').val("");jq('#sltxt').val(data[i].sltxt);
+  			jq('#r31').val("");jq('#r31').val(data[i].r31);
 			jq('#sloppl').val("");jq('#sloppl').val(data[i].sloppl);
-			jq('#slvekt').val("");jq('#slvekt').val(data[i].slvekt);
 			jq('#sltanr').val("");jq('#sltanr').val(data[i].sltanr);
-			jq('#sltar').val("");jq('#sltar').val(data[i].sltar);
+			jq('#sltn').val("");jq('#sltn').val(data[i].sltn);
+			jq('#pref').val("");jq('#pref').val(data[i].pref);
+			jq('#slvekt').val("");jq('#slvekt').val(data[i].slvekt);
 			jq('#slpva').val("");jq('#slpva').val(data[i].slpva);
 			jq('#slsats').val("");jq('#slsats').val(data[i].slsats);
-			jq('#sltn').val("");jq('#sltn').val(data[i].sltn);
+			jq('#mf').val("");jq('#mf').val(data[i].mf);
 			jq('#slkdae').val("");jq('#slkdae').val(data[i].slkdae);
 			jq('#slkdse').val("");jq('#slkdse').val(data[i].slkdse);
 			jq('#slto').val("");jq('#slto').val(data[i].slto);

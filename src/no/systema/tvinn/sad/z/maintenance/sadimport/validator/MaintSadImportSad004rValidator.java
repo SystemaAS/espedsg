@@ -33,8 +33,8 @@ public class MaintSadImportSad004rValidator implements Validator {
 	public void validate(Object obj, Errors errors) { 
 		JsonMaintSadImportSadlRecord record = (JsonMaintSadImportSadlRecord)obj;
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slknr", "", "Kundnr (SLKNR) er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sloppl", "", "Kundnr (SLOPPL) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sltanr", "", "Kundnr (SLTANR) er obligatorisk"); 
 		
@@ -55,11 +55,9 @@ public class MaintSadImportSad004rValidator implements Validator {
 	public void validateDelete(Object obj, Errors errors) { 
 		
 		JsonMaintSadImportSadlRecord record = (JsonMaintSadImportSadlRecord)obj;
-		//logger.info(record.getTariff());
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
+		//logger.info(record.getSltanr());
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slknr", "", "Kundnr (SLKNR) er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sloppl", "", "Kundnr (SLOPPL) er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sltanr", "", "Kundnr (SLTANR) er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
 		
 	}
 }

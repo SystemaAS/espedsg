@@ -363,7 +363,7 @@ public class MaintSadImportAjaxHandlerController {
 	private Collection<JsonMaintSadImportSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&varenr=" + id + "&levenr=" + levenr ;
+		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr ;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);

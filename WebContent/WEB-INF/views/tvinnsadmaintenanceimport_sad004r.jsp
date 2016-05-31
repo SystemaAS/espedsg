@@ -193,34 +193,54 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<input type="hidden" name="levenr" id=levenr value="${model.kundnr}">
+					<input type="hidden" name="slknr" id=slknr value="${model.kundnr}">
 					
-					<table width="60%" cellspacing="1" border="0" align="left">
+					<table width="99%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="SLALFA">&nbsp;<font class="text14RedBold" >*</font>Varenr.</td>
 							<td class="text12" title="SLTXT">&nbsp;Beskrivelse</td>
 							<td class="text12" title="SLTXT(21)">&nbsp;R31</td>
-							<td class="text12" title="SLOPPL">&nbsp;L/F</td>
-							<td class="text12" title="SLTANR">&nbsp;Tariffnr.</td>
+							<td class="text12" title="SLOPPL">&nbsp;<font class="text14RedBold" >*</font>L/F</td>
+							<td class="text12" title="SLTANR">&nbsp;<font class="text14RedBold" >*</font>Tariffnr.</td>
 							<td class="text12" title="SLTN">&nbsp;Tn</td>
 							<td class="text12" title="SLTXT(22)">&nbsp;Pref.</td>
 							<td class="text12" title="SLVEKT">&nbsp;Vekt</td>
 							<td class="text12" title="SLPVA">&nbsp;PVA</td>
 							<td class="text12" title="SLSATS">&nbsp;Tollsats</td>
 							<td class="text12" title="SLTXT(23)">&nbsp;MF</td>
-							<td class="text12" title="SLKDAÆ/SLKDSÆ">&nbsp;Avgift</td>
-							<td class="text12" title="SLTO">&nbsp;Till.Opplysn.</td>
-							<td class="text12" title="SLCREF">&nbsp;Ref.</td>
-							
+							<td class="text12" title="SLKDAÆ/SLKDSÆ">&nbsp;Avgift(kode/sekv)</td>
 							
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="slalfa" id="slalfa" size="28" maxlength="28" value='${model.record.slalfa}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="sltxt" id="sltxt" size="25" maxlength="25" value='${model.record.sltxt}'></td>
-						<td>
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+						<td ><input type="text" class="inputTextMediumBlue" name="sltxt" id="sltxt" size="20" maxlength="20" value='${model.record.sltxt}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="r31" id="r31" size="2" maxlength="1" value='${model.record.r31}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="9" maxlength="8" value='${model.record.sltanr}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="sltn" id="sltn" size="2" maxlength="1" value='${model.record.sltn}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="pref" id="pref" size="2" maxlength="1" value='${model.record.pref}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="slvekt" id="slvekt" size="13" maxlength="12" value='${model.record.slvekt}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="slpva" id="slpva" size="2" maxlength="1" value='${model.record.slpva}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="slsats" id="slsats" size="8" maxlength="7" value='${model.record.slsats}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="mf" id="mf" size="2" maxlength="1" value='${model.record.mf}'></td>
+						<td >
+							<input type="text" class="inputTextMediumBlue" name="slkdae" id="slkdae" size="3" maxlength="2" value='${model.record.slkdae}'>
+							<input type="text" class="inputTextMediumBlue" name="slkdse" id="slkdse" size="4" maxlength="3" value='${model.record.slkdse}'>
 						</td>
 						</tr>
+						
+						<tr>
+							<td class="text12" title="SLTO">&nbsp;Till.Opplysn.</td>
+							<td class="text12" title="SLCREF">&nbsp;Ref.</td>
+						</tr>
+						<tr>
+							<td ><input type="text" class="inputTextMediumBlue" name="slto" id="slto" size="30" maxlength="45" value='${model.record.slto}'></td>
+							<td><input type="text" class="inputTextMediumBlue" name="slcref" id="slcref" size="4" maxlength="3" value='${model.record.slcref}'></td>
+							<td>
+								<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+							</td>
+						</tr>
+						 
 						<tr height="3"><td></td>
 					</table>
 	 	    	</form>

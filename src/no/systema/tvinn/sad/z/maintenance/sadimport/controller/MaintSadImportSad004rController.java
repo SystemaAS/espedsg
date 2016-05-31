@@ -115,13 +115,15 @@ public class MaintSadImportSad004rController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			//adjust values
-			this.adjustSomeRecordValues(recordToValidate);
+			//Save for forward backup
+			String originalFreeText = recordToValidate.getSltxt();
 			//Move on
 			MaintSadImportSad004rValidator validator = new MaintSadImportSad004rValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
+				//adjust values
+				this.adjustSomeRecordValues(recordToValidate);
 				validator.validate(recordToValidate, bindingResult);
 			}
 			if(bindingResult.hasErrors()){
@@ -163,6 +165,9 @@ public class MaintSadImportSad004rController {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put("dbTable", dbTable);
 					model.put("kundnr", recordToValidate.getSlknr());
+					model.put("updateId", updateId);
+					//adjust back the free text (prior to the appends: r31, pref and mf
+					recordToValidate.setSltxt(originalFreeText);
 					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}
@@ -212,7 +217,38 @@ public class MaintSadImportSad004rController {
 		}else{
 			recordToValidate.setSlsats(ZERO);
 		}
-		
+		//-----------------------------
+		//(2) START Adjust free text.
+		//-----------------------------
+		if(recordToValidate!=null){
+			//Position 21,22,23 are reserved and must be appended
+			String SPACE = " ";
+			int PURE_FTX_UPPER_LIMIT_POSITION = 20;
+			StringBuffer str = new StringBuffer(recordToValidate.getSltxt());
+			int len = str.length();
+			for (int x=len+1;x<=PURE_FTX_UPPER_LIMIT_POSITION;x++){
+				str.append(SPACE);
+			}
+			//now append r31,pref and mf into postion 21,22,23 respectively and in order
+			if(recordToValidate.getR31()!=null && !"".equals(recordToValidate.getR31())){
+				str.append(recordToValidate.getR31());
+			}else{
+				str.append(SPACE);
+			}
+			if(recordToValidate.getPref()!=null && !"".equals(recordToValidate.getPref())){
+				str.append(recordToValidate.getPref());
+			}else{
+				str.append(SPACE);
+			}
+			if(recordToValidate.getMf()!=null && !"".equals(recordToValidate.getMf())){
+				str.append(recordToValidate.getMf());
+			}else{
+				str.append(SPACE);
+			}
+			//Update sltxt
+			recordToValidate.setSltxt(str.toString());
+			//END - adjust free text
+		}
 	}
 	
 	/**
