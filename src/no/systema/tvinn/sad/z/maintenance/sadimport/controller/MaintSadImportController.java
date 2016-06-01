@@ -227,7 +227,16 @@ public class MaintSadImportController {
 		object.setText("SAD013 / SADH,STS");
 		object.setDbTable("SADH,STS");
 		listObject.add(object);
-		
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("15");
+		object.setSubject("Tollkurser");
+		object.setCode("SADI_TOLLKURSER");
+		object.setText("SYFT02 / KODTVA");
+		object.setDbTable("KODTVA");
+		object.setStatus("G");
+		object.setPgm("syft02r");
+		listObject.add(object);
 		
 		return listObject;
 	}
