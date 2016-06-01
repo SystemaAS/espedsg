@@ -67,11 +67,11 @@ public class SystemaWebUser {
 	//---------------------------------------------
 	//Return parameters after valid login in AS400
 	//---------------------------------------------
-	private String versionEspedsg = AppConstants.VERSION_ESPSEDSG;
-	public String getVersionEspedsg() { return this.versionEspedsg;}
-	
 	private String httpProtocol = AppConstants.HTTP_PROTOCOL;
 	public String getHttpProtocol() { return this.httpProtocol;}
+	
+	private String versionEspedsg = AppConstants.VERSION_ESPSEDSG;
+	public String getVersionEspedsg() { return this.versionEspedsg;}
 	
 	private String versionSpring = AppConstants.VERSION_SPRING;
 	public String getVersionSpring() { return this.versionSpring;}
