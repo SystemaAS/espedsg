@@ -1468,7 +1468,7 @@
 						<tr height="8"><td colspan="2" ></td></tr>
 						<tr>
 							<td colspan="2">
-							<table>	
+							<table style="width:99%;" >	
 								<tr>
 									<td>
 									<table>
@@ -1534,7 +1534,7 @@
 							 			<%-------------------------- --%>
 							 			<%-- START Fraktbrev section --%>
 							 			<%-------------------------- --%>
-							 			<td style="width:60px">&nbsp;</td>
+							 			<td style="width:50px">&nbsp;</td>
 							 			<td nowrap class="text11">&nbsp;
 							 				<img onMouseOver="showPop('fraktbrev_info');" onMouseOut="hidePop('fraktbrev_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 				<span title="hepk1"><b><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev"/></b></span>
@@ -1558,12 +1558,12 @@
 		    									<img id="imgFraktbrevPdf" title="Fraktbr.PDF" style="vertical-align:middle;" src="resources/images/pdf.png" width="20" height="20" border="0" alt="Fraktbr. PDF">
 											</a>
 										</td>
-							 			<td class="text11">
+							 			<td nowrap class="text11">
 							 				<input type="checkbox" id="hepk1" name="hepk1" value="J" <c:if test="${model.record.hepk1 == 'J'}"> checked </c:if>>
 							 				<input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="hepk1RO" id="hepk1RO" value="${model.record.hepk1}">
 							 			</td>
 							 			
-							 			<td class="text11"><span title="dftoll"><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev.tollpass"/></span>
+							 			<td nowrap class="text11"><span title="dftoll"><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev.tollpass"/></span>
 							 				<a tabindex=0 id="dftollIdLink" >
 	 											<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 										</a>
@@ -1572,11 +1572,11 @@
 							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="dftoll" id="dftoll" value="${model.record.dftoll}">
 							 			</td>
 							 			<td class="text11"><span title="dfkdme"><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev.merkelapp"/></span></td>
-							 			<td class="text11">
+							 			<td nowrap class="text11">
 							 				<input type="checkbox" id="dfkdme" name="dfkdme" value="S" <c:if test="${model.record.dfkdme == 'S'}"> checked </c:if>>
 							 				<input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="dfkdmeRO" id="dfkdmeRO" value="${model.record.dfkdme}">
 						 				</td>
-							 			<td class="text11" align="left"><span title="dftran"><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev.transp"/></span>
+							 			<td nowrap class="text11" align="left"><span title="dftran"><spring:message code="systema.transportdisp.orders.form.update.label.fraktbrev.transp"/></span>
 							 				<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_transpcarrier.do?action=doInit','transpcarrierWin','top=300px,left=350px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgTruckersNrSearch" style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="12px" height="12px" border="0" alt="search">
 		 									</a>
@@ -1584,7 +1584,7 @@
 							            <td class="text11">
 							 				<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue11" size="8" maxlength="8" name="dftran" id="dftran" value="${model.record.dftran}">
 						 				</td>
-							 			<td style="width:60px">&nbsp;</td>
+							 			<td style="width:50px">&nbsp;</td>
 							 			<%------------------------ --%>
 							 			<%-- END Fraktbrev section --%>
 							 			<%------------------------ --%>

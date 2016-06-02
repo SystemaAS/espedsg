@@ -126,14 +126,16 @@
 		    jq(this).data('initialValue', jq(this).val()); 
 	  }); 
 	  jq("#fraktbrevRenderPdfLink").click(function(){ 
-		  var msg = 'Du må lagre dine endringer!'; 
-		  var isDirty = false; 
-
+		  	/* NOT WORKING - the user must save instead. Usual behavior when changing fields
+			var msg = 'Du må lagre dine endringer!'; 
+		  	var isDirty = false; 
+		  	
 		    jq(':input').each(function () { 
 		        if(jq(this).data('initialValue') != jq(this).val()){ 
 		            isDirty = true; 
 		        } 
-		    }); 
+		    });
+		    
 		    if(isDirty == true){ 
 		    	jq("#fraktbrevRenderPdfLink").removeAttr('href');
 		    		//jquery ALERT;
@@ -153,7 +155,9 @@
 		    }else{
 		    	jq("#fraktbrevRenderPdfLink").attr('href', 'transportdisp_mainorderlist_renderFraktbrev.do?user=' + jq("#applicationUser").val() +'&wsavd=' + jq("#wsavd").val() + '&wsopd=' + jq("#wsopd").val() + '&wstoll=' + jq("#dftoll").val());
 		    	
-		    }
+		    }*/
+		  	jq("#fraktbrevRenderPdfLink").attr('href', 'transportdisp_mainorderlist_renderFraktbrev.do?user=' + jq("#applicationUser").val() +'&wsavd=' + jq("#wsavd").val() + '&wsopd=' + jq("#wsopd").val() + '&wstoll=' + jq("#dftoll").val());		  
+		  
 	  });
   });
   //END Detect Form changes
