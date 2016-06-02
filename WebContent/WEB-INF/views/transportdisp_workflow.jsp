@@ -568,8 +568,8 @@
 								 				</c:choose>
 								 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="tuproJS"><b><spring:message code="systema.transportdisp.workflow.trip.list.search.label.trip"/>:</b></span>
 									 			<div style="display:inline-block;" class="clazzOrderTripTab" <c:if test="${empty model.record.tupro}">style="visibility:collapse;"</c:if> >
-													<a class="ordersTripOpen" style="display:block;" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${model.record.tuavd}&wstur=${model.record.tupro}">
-										 				<label id="tuproJS" class="text14MediumBlue">&nbsp;<font style="cursor:pointer;">${model.record.tupro}</font>&nbsp;&nbsp;&nbsp;</label>
+													<a class="ordersTripOpen" style="display:block" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${model.record.tuavd}&wstur=${model.record.tupro}">
+										 				<label id="tuproJS" class="text14MediumBlue" style="cursor:pointer;">${model.record.tupro}</label>
 										 			</a>
 									 			</div>
 									 			

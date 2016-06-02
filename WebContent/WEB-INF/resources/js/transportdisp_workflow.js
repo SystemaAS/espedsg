@@ -84,7 +84,9 @@
 		  		var len = data.length;
 		  		if(len==1){
 			  		//update = OK
-		  			reloadParentTrip(trip,avd,opd);
+		  			//Bring request NOT to reload after drop
+		  			//reloadParentTrip(trip,avd,opd);
+		  			alert("Ordre " + opd + " har blitt lagt");
 		  		}else{
 		  			//update != OK
 		  			alert("Error on order update [addTripToOrder_TransportDisp.do]...?");
@@ -94,6 +96,7 @@
 		  		  alert('Error loading ...');
 			  }
 		});
+		jq.unblockUI();
 	}
 	//---------------------------------
 	//END - Drop from Orders to Trip
