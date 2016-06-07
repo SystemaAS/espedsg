@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request;
+package no.systema.z.maintenance.mapper.url.request;
 
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
@@ -9,15 +9,12 @@ import java.net.URLEncoder;
 import org.apache.log4j.Logger;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
+import no.systema.z.maintenance.util.MaintenanceConstants;
 
 
 /**
  * @author oscardelatorre
- * @param Mar 31, 2016
+ * @param Jun 7, 2016
  */
 public class UrlRequestParameterMapper {
 	private static final Logger logger = Logger.getLogger(UrlRequestParameterMapper.class.getName());
@@ -48,7 +45,7 @@ public class UrlRequestParameterMapper {
 							//Refer to URLEncode special characters for further info)
 							value = URLEncoder.encode(value, "UTF-8");
 							
-							sb.append(TvinnSadMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+							sb.append(MaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 							sb.append(value.trim());
 						}
 					}
@@ -56,12 +53,12 @@ public class UrlRequestParameterMapper {
 					//Try Integer
 					if(field.get(object) instanceof Integer){
 						Integer value = (Integer)field.get(object); 
-						sb.append(TvinnSadMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(MaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 						sb.append(value);
 					
 					}else if(field.get(object) instanceof Double){
 						Double value = (Double)field.get(object); 
-						sb.append(TvinnSadMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(MaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 						sb.append(value);
 						
 					}else{
