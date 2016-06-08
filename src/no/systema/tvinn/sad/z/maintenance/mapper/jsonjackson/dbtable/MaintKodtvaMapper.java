@@ -1,15 +1,15 @@
 /**
  * 
  */
-package no.systema.z.maintenance.mapper.jsonjackson.dbtable;
+package no.systema.tvinn.sad.z.maintenance.mapper.jsonjackson.dbtable;
 
 //jackson library
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 //application library
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 //
 import java.util.*;
 

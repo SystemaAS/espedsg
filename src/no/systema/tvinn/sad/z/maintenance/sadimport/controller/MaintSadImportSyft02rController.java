@@ -30,15 +30,15 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-import no.systema.z.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tvinn.sad.z.maintenance.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.url.store.MaintenanceUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
+import no.systema.tvinn.sad.z.maintenance.validator.MaintSadImportSyft02rValidator;
+import no.systema.tvinn.sad.z.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
-import no.systema.z.maintenance.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 
-import no.systema.z.maintenance.url.store.MaintenanceUrlDataStore;
-import no.systema.z.maintenance.validator.MaintSadImportSyft02rValidator;
 
 /**
  *  TVINN Maintenance Import Syft02r Controller 

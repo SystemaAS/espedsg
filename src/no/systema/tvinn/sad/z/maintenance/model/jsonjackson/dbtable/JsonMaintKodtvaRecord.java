@@ -1,4 +1,4 @@
-package no.systema.z.maintenance.model.jsonjackson.dbtable;
+package no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;

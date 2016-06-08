@@ -1,10 +1,10 @@
 /**
  * 
  */
-package no.systema.z.maintenance.service;
+package no.systema.tvinn.sad.z.maintenance.service;
 
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
-import no.systema.z.maintenance.mapper.jsonjackson.dbtable.MaintKodtvaMapper;;
+import no.systema.tvinn.sad.z.maintenance.mapper.jsonjackson.dbtable.MaintKodtvaMapper;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
 
 /**
  * 

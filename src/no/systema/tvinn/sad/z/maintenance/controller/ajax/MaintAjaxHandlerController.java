@@ -1,4 +1,4 @@
-package no.systema.z.maintenance.controller.ajax;
+package no.systema.tvinn.sad.z.maintenance.controller.ajax;
 
 import java.util.*;
 
@@ -32,11 +32,11 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.*;
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tvinn.sad.z.maintenance.service.*;
+import no.systema.tvinn.sad.z.maintenance.url.store.MaintenanceUrlDataStore;
 
-import no.systema.z.maintenance.model.jsonjackson.dbtable.*;
-import no.systema.z.maintenance.service.*;
-import no.systema.z.maintenance.url.store.MaintenanceUrlDataStore;
 
 
 /**

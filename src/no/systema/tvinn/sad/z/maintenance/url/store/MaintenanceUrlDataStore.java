@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.z.maintenance.url.store;
+package no.systema.tvinn.sad.z.maintenance.url.store;
 import no.systema.main.util.AppConstants;
 /**
  * 

@@ -1,4 +1,4 @@
-package no.systema.z.maintenance.validator;
+package no.systema.tvinn.sad.z.maintenance.validator;
 
 import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
-import no.systema.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
+import no.systema.tvinn.sad.z.maintenance.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 
 /**
  * 
