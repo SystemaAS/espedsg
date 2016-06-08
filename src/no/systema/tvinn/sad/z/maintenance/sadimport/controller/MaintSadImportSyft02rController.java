@@ -104,7 +104,7 @@ public class MaintSadImportSyft02rController {
 	 */
 	@RequestMapping(value="tvinnsadmaintenanceimport_syft02r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintKodtvaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft02r_edit");
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft02r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -189,7 +189,15 @@ public class MaintSadImportSyft02rController {
 	 */
 	private void adjustSomeRecordValues(JsonMaintKodtvaRecord recordToValidate){
 		final String ZERO = "0";
-		//N/A
+		//-----------------
+		//Decimal amounts
+		//-----------------
+		if(recordToValidate.getKvakrs()!=null && !"".equals(recordToValidate.getKvakrs())){
+			String tmp = recordToValidate.getKvakrs().replace(",", ".");
+			recordToValidate.setKvakrs(tmp);
+		}else{
+			recordToValidate.setKvakrs(ZERO);
+		}
 	}
 	
 	/**
