@@ -31,8 +31,8 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
-import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportCundfLikvKodeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikContainer;

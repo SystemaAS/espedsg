@@ -9,10 +9,10 @@ import java.net.URLEncoder;
 import org.apache.log4j.Logger;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
 
 
 /**

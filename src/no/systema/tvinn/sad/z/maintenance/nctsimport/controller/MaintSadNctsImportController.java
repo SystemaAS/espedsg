@@ -30,8 +30,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
-import no.systema.tvinn.sad.z.maintenance.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 
 /**
  * TVINN Maintenance NCTS-Import Topic Controller 

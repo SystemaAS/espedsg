@@ -30,8 +30,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsdContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsdRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsdService;

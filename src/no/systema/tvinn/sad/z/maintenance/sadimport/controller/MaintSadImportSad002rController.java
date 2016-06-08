@@ -30,8 +30,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-import no.systema.tvinn.sad.z.maintenance.util.TvinnSadMaintenanceConstants;
-import no.systema.tvinn.sad.z.maintenance.model.MaintenanceGyldigekoderListObject;
+import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceGyldigekoderListObject;
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 
 /**
  * TVINN Maintenance Import SAD002 Controller 
