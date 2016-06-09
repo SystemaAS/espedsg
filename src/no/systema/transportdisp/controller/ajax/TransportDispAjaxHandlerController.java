@@ -1010,7 +1010,7 @@ public class TransportDispAjaxHandlerController {
 	    		if(container!=null){
 	    			List<JsonTransportDispCustomerRecord> list = new ArrayList();
 	    			for(JsonTransportDispCustomerRecord  record : container.getInqcustomer()){
-	    				//logger.info("supplier:" + record.getLevnr() + " " + record.getLnavn());
+	    				logger.info("customer aktkod:" + record.getAktkod());
 	    				list.add(record);
 	    			}
 	    			result = list;

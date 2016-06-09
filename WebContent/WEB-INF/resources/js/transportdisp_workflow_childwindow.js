@@ -20,6 +20,8 @@
 		  var record = id.split('@');
 		  var kundNr = record[0].replace("kundnr_", "");
 		  var customerName = record[1].replace("navn_", "");
+		  var aktkod = record[2].replace("aktkod_", "");
+		  
 		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
 		  //addressing a parent field from this child window
 		  if(jq('#ctype').val()=='s'){
@@ -36,7 +38,11 @@
 			  opener.jq('#heknk').focus();
 		  }else if(jq('#ctype').val()=='il'){
 			  //invoice line (on invoice jsp)
-			  opener.jq('#fakunr').val(kundNr);
+			  if(aktkod == 'I' && opener.jq('#fask').val() == 'X'){
+				  //Not valid. Do nothing!
+			  }else{
+				  opener.jq('#fakunr').val(kundNr);
+			  }
 		  }
 		  
 		  //close child window

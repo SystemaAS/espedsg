@@ -103,7 +103,19 @@
 			  			jq("#falevn").removeClass( "isa_error" );
 			  			jq("#submit").removeAttr("disabled");
 						for ( var i = 0; i < len; i++) { 
-							jq("#lnavn").val(data[i].lnavn);	
+							
+							if(data[i].aktkod != 'I'){
+		    					jq('#lnavn').val(data[i].navn);
+		    					jq('#falevn').removeClass ("isa_error");
+		    					jq('#lnavn').removeClass ("isa_error");
+		    					jq("#submit").removeAttr("disabled");
+		    				}else{
+		    					jq('#lnavn').val("Inaktiv Lev." + data[i].navn);
+		    					jq('#falevn').addClass( "isa_error" );
+		    					jq('#lnavn').addClass( "isa_error" );
+		    					jq("#submit").attr("disabled", true);
+		    				}
+							
 						}
 			  		}else{
 			  			if(jq("#falevn").val()!=''){
@@ -134,6 +146,7 @@
 	  			if(jq("#fakunr").val()!=''){
 	  				jq("#fakunr").addClass( "isa_error" );
 	  				jq("#submit").attr("disabled", true);
+	  				
 	  			}else{
 	  				if(jq("#fask").val()=='X'){
 	  					jq("#fakunr").addClass( "isa_error" );
@@ -172,7 +185,13 @@
 			  			jq("#fakunr").removeClass( "isa_error" );
 			  			jq("#submit").removeAttr("disabled");
 						for ( var i = 0; i < len; i++) { 
-							//NOTHING	
+							if(data[i].aktkod == 'I'){
+								if(jq("#fask").val() == 'X'){
+									jq("#fakunr").addClass( "isa_error" );
+									jq("#submit").attr("disabled", true);
+									return false;
+								}
+							}	
 						}
 						return true;
 			  		}else{

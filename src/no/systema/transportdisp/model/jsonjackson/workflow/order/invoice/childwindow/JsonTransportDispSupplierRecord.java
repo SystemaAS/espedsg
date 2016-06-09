@@ -14,6 +14,10 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonTransportDispSupplierRecord extends JsonAbstractGrandFatherRecord  {
 	
+	private String aktkod = null;
+	public void setAktkod(String value){ this.aktkod = value;}
+	public String getAktkod(){ return this.aktkod; }
+	
 	
 	private String levnr = null;
 	public void setLevnr(String value){ this.levnr = value;}

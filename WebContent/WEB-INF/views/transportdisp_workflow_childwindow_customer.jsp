@@ -43,7 +43,10 @@
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="kunpnsted" id="kunpnsted" size="15" maxlength="10" value="${model.container.kunpnsted}"></td>
 						
 							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.transportdisp.search"/>'>
+	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.transportdisp.search"/>'></td>
+	           				<td width="15px" >&nbsp;</td>
+	           				<td class="text11" style="color:#9F6000;"><label class="isa_warning" >&nbsp;&nbsp;Adressekunder&nbsp;&nbsp;</label></td>
+	           				
 		           		</tr>
 		           		
 		           		</table>
@@ -98,10 +101,23 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11MediumBlue" id="kundnr_${record.kundnr}@navn_${record.navn}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
-			               <td class="text11">&nbsp;${record.navn}</td>
-			               <td class="text11">&nbsp;${record.adr1}</td>
-			               <td class="text11">&nbsp;${record.adresse}</td>
+			               <c:choose>           
+			                   	<c:when test="${record.aktkod == 'I'}">
+			               			<td onMouseOver="showPop('kType_info${counter.count}');" onMouseOut="hidePop('kType_info${counter.count}');" class="text11MediumBlue" style="background-color:#FEEFB3;cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@aktkod_${record.aktkod}@counter_${counter.count}">&nbsp;${record.kundnr}
+			               			<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; left:0px; top:0px;" id="kType_info${counter.count}" class="popupWithInputText"  >
+											<font class="text11">Adressekund</font>	
+			               				</span>
+			               			</div>	
+			               			</td>
+			               	   	</c:when>
+			               		<c:otherwise>
+			               			<td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@aktkod_${record.aktkod}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
+			               		</c:otherwise>
+			               </c:choose>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.navn}</td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adr1}</td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adresse}</td>
 			               
 			            </tr> 
 			            </c:forEach>

@@ -40,6 +40,9 @@
 						
 							<td class="text11">&nbsp;</td>
 	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.transportdisp.search"/>'>
+	           				<td width="15px" >&nbsp;</td>
+	           				<td class="text11" style="color:#9F6000;"><label class="isa_warning" >&nbsp;&nbsp;Inaktiv&nbsp;&nbsp;</label></td>
+	           				
 		           		</tr>
 		           		
 		           		</table>
@@ -95,12 +98,27 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="cursor:pointer;" class="text11MediumBlue" id="id_${record.levnr}@navn_${record.lnavn}@counter_${counter.count}">&nbsp;${record.levnr}</td>
-			               <td class="text11">&nbsp;${record.lnavn}</td>
-			               <td class="text11">&nbsp;${record.adr1}</td>
-			               <td class="text11">&nbsp;${record.postnr} </td>
-			               <td class="text11">&nbsp;${record.sted}</td>
-			               <td class="text11">&nbsp;${record.land} </td>
+			               <c:choose>
+			               <c:when test="${record.aktkod == 'I'}">
+		               			<td onMouseOver="showPop('lType_info${counter.count}');" onMouseOut="hidePop('lType_info${counter.count}');" class="text11MediumBlue" style="background-color:#FEEFB3;cursor:pointer;" id="id_${record.levnr}@navn_${record.lnavn}@counter_${counter.count}">&nbsp;${record.levnr}
+			               			<div class="text11" style="position: relative;" align="left">
+										<span style="position:absolute; left:0px; top:0px;" id="lType_info${counter.count}" class="popupWithInputText"  >
+											<font class="text11">Inaktiv</font>	
+			               				</span>
+			               			</div>	
+		               			</td>
+		               	   	</c:when>
+		               		<c:otherwise>
+		               			<td style="cursor:pointer;" class="text11MediumBlue" id="id_${record.levnr}@navn_${record.lnavn}@counter_${counter.count}">&nbsp;${record.levnr}</td>
+			               </c:otherwise>
+			               </c:choose>
+			               
+			               
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.lnavn}</td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.adr1}</td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.postnr} </td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.sted}</td>
+			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.land} </td>
 			               
 			            </tr> 
 			            </c:forEach>

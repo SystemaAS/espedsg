@@ -1319,7 +1319,17 @@
 	    			jq('#henasf').val("");
 	    			var len = data.length;
 	    			for ( var i = 0; i < len; i++) {
-	    				jq('#henasf').val(data[i].navn);
+	    				if(data[i].aktkod != 'I'){
+	    					jq('#henasf').val(data[i].navn);
+	    					//jq('#heknsf').addClass( "inputTextMediumBlueUPPERCASE" );
+	    					jq('#heknsf').removeClass ("isa_warning");
+	    					jq('#henasf').removeClass ("isa_warning");
+	    				}else{
+	    					jq('#heknsf').addClass( "isa_warning" );
+	    					jq('#henasf').addClass( "isa_warning" );
+	    					//jq('#heknsf').removeClass ("inputTextMediumBlueUPPERCASE");
+	    					jq('#henasf').val("adr.kunde?" + data[i].navn);
+	    				}
 	    			}
 	    		});
     		}else{
@@ -1342,6 +1352,17 @@
 	    			var len = data.length;
 	    			for ( var i = 0; i < len; i++) {
 	    				jq('#henakf').val(data[i].navn);
+	    				
+	    				if(data[i].aktkod != 'I'){
+	    					jq('#henakf').val(data[i].navn);
+	    					jq('#heknkf').removeClass ("isa_warning");
+	    					jq('#henakf').removeClass ("isa_warning");
+	    				}else{
+	    					jq('#heknkf').addClass( "isa_warning" );
+	    					jq('#henakf').addClass( "isa_warning" );
+	    					jq('#henakf').val("adr.kunde?" + data[i].navn);
+	    				}
+	    				
 	    			}
 	    		});
     		}else{
