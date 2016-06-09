@@ -198,6 +198,13 @@ public class MaintSadImportSyft02rController {
 		}else{
 			recordToValidate.setKvakrs(ZERO);
 		}
+		
+		if(recordToValidate.getKvagv()!=null && !"".equals(recordToValidate.getKvagv())){
+			//N/A
+		}else{
+			recordToValidate.setKvagv(ZERO);
+		}
+		
 	}
 	
 	/**
