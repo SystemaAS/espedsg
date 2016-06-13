@@ -42,7 +42,6 @@
 				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
 				 			eSped<font style="color:#003300;">sg</font> - TVINN
-				 			
 				 		</td>
 				 		 
 			    		<td class="text12" width="10%" align="center" valign="middle" ><img src="resources/images/systema_logo.png" border="0" width=80px height=50px ></td>
@@ -162,7 +161,7 @@
 			    			<%--
 			    			<font class="headerMenuAdmin">&nbsp;<spring:message code="systema.tvinn.sad.admin.label"/>&nbsp;&nbsp;</font>
 			    			 --%>
-			    			 <%-- ------------------- --%>
+			    			<%-- ------------------- --%>
 			    			<%-- Maintenance  MENU    --%>
 			    			<%-- -------------------- --%>
 			    			<a tabindex=-1 href="tvinnsadmaintenancegate.do">

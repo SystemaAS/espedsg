@@ -20,7 +20,9 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- MAINTENANCE WIDE   -->
 	<!-- =================  -->
 	<bean id="maintKodtvaService" class="no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaServiceImpl"/>
-	
+	<bean id="maintDktvkService" class="no.systema.skat.z.maintenance.main.service.MaintDktvkServiceImpl"/>
+ 	
+ 	
 	<!-- =================  -->
 	<!-- TVINN SAD IMPORT   -->
 	<!-- =================  -->

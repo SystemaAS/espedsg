@@ -158,10 +158,17 @@
 	               			</c:choose>
 	               			>&nbsp;&nbsp;<spring:message code="systema.skat.admin.label"/>&nbsp;&nbsp;</font>
 			    			</a>
+			    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">|</font>
 			    			<%--
 			    			<font class="headerMenuAdmin">&nbsp;<spring:message code="systema.skat.admin.label"/>&nbsp;&nbsp;</font>
 			    			 --%>
-			    			 
+			    			 <%-- ------------------- --%>
+			    			<%-- Maintenance  MENU    --%>
+			    			<%-- -------------------- --%>
+			    			<a tabindex=-1 href="skatmaintenancegate.do">
+			    				&nbsp;<font class="headerMenuAdmin">
+		                   	&nbsp;&nbsp;Underhold&nbsp;&nbsp;</font>
+			    			</a>
 	      				</td>		      				
 	      				<td class="text11" width="50%" align="right">
 	      					<img valign="bottom" src="resources/images/countryFlags/Flag_DK.gif" height="12" border="0" alt="country">

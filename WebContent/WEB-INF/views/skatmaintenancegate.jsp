@@ -2,9 +2,9 @@
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header ===========================-->
-<jsp:include page="/WEB-INF/views/headerTvinnSadMaintenance.jsp" />
+<jsp:include page="/WEB-INF/views/headerSkatMaintenance.jsp" />
 <!-- =====================end header ==========================-->
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenancegate.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/skatmaintenancegate.js?ver=${user.versionEspedsg}"></SCRIPT>
  	
  	<%-- The important part of this JSP is the above view: headerTds.jsp  --%>
  	<table class="text32Bold" width="100%" border="0" cellspacing="0" cellpadding="0">
