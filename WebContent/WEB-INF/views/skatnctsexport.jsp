@@ -110,7 +110,7 @@
 				<td align="left" ><input type="text" class="inputText" name="bruttoVikt" id="bruttoVikt" size="10" maxlength="50" value='${searchFilterSkatExportNcts.bruttoVikt}'>&nbsp;</td>
 				
 				<td valign="top" align="left" >
-                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="search.label"/>'>
+                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.skat.search"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
                 </td>
 			</tr>

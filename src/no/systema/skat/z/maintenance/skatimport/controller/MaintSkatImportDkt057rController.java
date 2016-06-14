@@ -80,9 +80,7 @@ public class MaintSkatImportDkt057rController {
 		}else{
 			//get table
 	    	List<JsonMaintDktvkRecord> list = new ArrayList();
-	    	if(id!=null && !"".equals(id)){
-	    		list = this.fetchList(appUser.getUser(), id);
-	    	}
+	    	list = this.fetchList(appUser.getUser(), id);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("searchKode", id);
@@ -195,28 +193,28 @@ public class MaintSkatImportDkt057rController {
 			String tmp = recordToValidate.getDkvk_dts().replace(",", ".");
 			recordToValidate.setDkvk_dts(tmp);
 		}else{
-			recordToValidate.setDkvk_dts(ZERO);
+			//recordToValidate.setDkvk_dts(ZERO);
 		}
 		
 		if(recordToValidate.getDkvk_dte()!=null && !"".equals(recordToValidate.getDkvk_dte())){
 			String tmp = recordToValidate.getDkvk_dte().replace(",", ".");
 			recordToValidate.setDkvk_dte(tmp);
 		}else{
-			recordToValidate.setDkvk_dte(ZERO);
+			//recordToValidate.setDkvk_dte(ZERO);
 		}
 		
 		if(recordToValidate.getDkvk_omr()!=null && !"".equals(recordToValidate.getDkvk_omr())){
 			String tmp = recordToValidate.getDkvk_omr().replace(",", ".");
 			recordToValidate.setDkvk_omr(tmp);
 		}else{
-			recordToValidate.setDkvk_omr(ZERO);
+			//recordToValidate.setDkvk_omr(ZERO);
 		}
 		
 		if(recordToValidate.getDkvk_krs()!=null && !"".equals(recordToValidate.getDkvk_krs())){
 			String tmp = recordToValidate.getDkvk_krs().replace(",", ".");
 			recordToValidate.setDkvk_krs(tmp);
 		}else{
-			recordToValidate.setDkvk_krs(ZERO);
+			//recordToValidate.setDkvk_krs(ZERO);
 		}
 		
 		
@@ -237,10 +235,10 @@ public class MaintSkatImportDkt057rController {
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
 		if(id!=null && !"".equals(id)){
-			urlRequestParams.append("&kvakod=" + id);
+			urlRequestParams.append("&dkvk_kd=" + id);
 		}else{
 			//no further search. Just return an empty list
-			return new ArrayList();
+			//return new ArrayList();
 		}
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -298,9 +296,7 @@ public class MaintSkatImportDkt057rController {
 	        	}
 	        }
     	}
-    	
     	return retval;
-    
 	}
 	
 	

@@ -81,9 +81,8 @@ public class MaintSadImportSyft02rController {
 		}else{
 			//get table
 	    	List<JsonMaintKodtvaRecord> list = new ArrayList();
-	    	if(id!=null && !"".equals(id)){
-	    		list = this.fetchList(appUser.getUser(), id);
-	    	}
+	    	list = this.fetchList(appUser.getUser(), id);
+	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("searchKode", id);
@@ -223,7 +222,7 @@ public class MaintSadImportSyft02rController {
 			urlRequestParams.append("&kvakod=" + id);
 		}else{
 			//no further search. Just return an empty list
-			return new ArrayList();
+			//return new ArrayList();
 		}
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");

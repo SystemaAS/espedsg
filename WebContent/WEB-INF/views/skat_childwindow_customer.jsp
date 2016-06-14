@@ -13,7 +13,7 @@
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Søk Kunde
+			Søg Kunde
 			</td>
 		</tr>
 		<tr>
@@ -35,7 +35,7 @@
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="sonavn" id="sonavn" size="30" maxlength="50" value="${model.sonavn}"></td>
 							
 							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'></td>
+	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.skat.search"/>'></td>
 		           		</tr>
 		           		</form>
 		           		</table>
