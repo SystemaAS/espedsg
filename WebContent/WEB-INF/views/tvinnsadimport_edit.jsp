@@ -252,7 +252,14 @@
            			<select name="sisg" id="sisg">
 	            		<option value="">-velg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                             	 	<option value="${record.sign}"<c:if test="${model.record.sisg == record.sign}"> selected </c:if> >${record.sign}</option>
+                           	 	<c:choose>
+								<c:when test="${empty model.record.sisg}">
+									<option value="${record.sign}"<c:if test="${user.tvinnSadSign == record.sign}"> selected </c:if> >${record.sign}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${record.sign}"<c:if test="${model.record.sisg == record.sign}"> selected </c:if> >${record.sign}</option>
+								</c:otherwise>
+								</c:choose>
 						</c:forEach> 
 					</select>
 				</td>
@@ -1616,6 +1623,34 @@
 					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="insibvnv" id="insibvnv" size="5" maxlength="5" value="${model.record.insibvnv}">
 					            </td>
 					        </tr>
+					        
+					       <c:if test="${ model.record.sist == 'E' || model.record.sist == 'K' || model.record.sist == 'Å' || empty  model.record.sist }"> 
+						   		<c:if test="${ empty model.record.sitll }"> 
+							        <tr>
+							        	<td valign="top" class="text12" colspan="2">
+							        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			Endre Status&nbsp;
+							        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserLink" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+							        		<div class="text11" style="position: relative;" align="left">
+							            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+							           			<b>Endre Status</b>
+							           			<br/>
+							           			<p>
+							           				Statusen kan bare endres når:
+							           				<ol>
+							           				<li>Status = E, K, Å eller blank</li>
+							           				<li>Løpenr er blank</li>
+							           				
+						           					</ol>	
+							           			</p>
+											</span>
+											</div>	
+							        	</td>
+							        </tr>
+						        </c:if>
+					        </c:if>
+					        
+					        
 							<tr height="20"><td>&nbsp;</td>&nbsp;</tr>
 							<tr><td class="text12" colspan="2"><b>Varelinje totaler&nbsp;</b></td></tr>
    					        <tr>

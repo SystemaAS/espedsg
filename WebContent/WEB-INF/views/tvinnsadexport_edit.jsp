@@ -250,8 +250,17 @@
            			<select name="sesg" id="sesg" TABINDEX=2>
 	            		<option value="">-velg-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                             	 	<option value="${record.sign}"<c:if test="${model.record.sesg == record.sign}"> selected </c:if> >${record.sign}</option>
+                           	 	<c:choose>
+								<c:when test="${empty model.record.sesg}">
+									<option value="${record.sign}"<c:if test="${user.tvinnSadSign == record.sign}"> selected </c:if> >${record.sign}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${record.sign}"<c:if test="${model.record.sesg == record.sign}"> selected </c:if> >${record.sign}</option>
+								</c:otherwise>
+								</c:choose>
 						</c:forEach> 
+						
+						
 					</select>
 				</td>
 				<td>&nbsp;</td>

@@ -224,8 +224,9 @@ public class MaintSadImportController {
 		object.setId("14");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADI_STATUS_DEKL");
-		object.setText("SAD013 / SADH,STS");
+		object.setText("SAD013 / SADH,STS - Ref. GUI on SAD-Import!!");
 		object.setDbTable("SADH,STS");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
