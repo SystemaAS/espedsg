@@ -48,14 +48,14 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%" class="text12">
-					<form action="tvinnsadmaintenanceimport_syft02r.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
+					<form action="tvinnsadmaintenanceimport_syft02r.do?id=${model.dbTable}" name="formRecordSearch" id="formRecordSearch" method="POST" >
 					Kode&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchKode" id="searchKode" size="5" maxlength="3" value='${model.searchKode}'>
 					<%--
 					&nbsp;Søkebegrep&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
 					--%>
-					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søk'/>
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='Søk'/>
 					
 					</form>
 				</td>
@@ -186,14 +186,14 @@
 							<td class="text12" title="KVAGV">&nbsp;Grenseverdi</td>
 						</tr>
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="kvakod" id="kvakod" size="4" maxlength="3" value='${model.record.kvakod}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kvakod" id="kvakod" size="4" maxlength="3" value='${model.record.kvakod}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="kvaxxx" id="kvaxxx" size="30" maxlength="27" value='${model.record.kvaxxx}'></td>
-						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="kvakrs" id="kvakrs" size="15" maxlength="12" value='${model.record.kvakrs}'></td>
-						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="kvaomr" id="kvaomr" size="4" maxlength="3" value='${model.record.kvaomr}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="kvadt" id="kvadt" size="9" maxlength="8" value='${model.record.kvadt}'></td>
+						<td ><input onKeyPress="return amountKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kvakrs" id="kvakrs" size="15" maxlength="12" value='${model.record.kvakrs}'></td>
+						<td ><input onKeyPress="return numberKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kvaomr" id="kvaomr" size="4" maxlength="3" value='${model.record.kvaomr}'></td>
+						<td ><input type="text" required class="inputTextMediumBlueMandatoryField" name="kvadt" id="kvadt" size="9" maxlength="8" value='${model.record.kvadt}'></td>
 						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kvagv" id="kvagv" size="12" maxlength="11" value='${model.record.kvagv}'></td>
 						<td>
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 						</td>
 						</tr>
 						<tr height="3"><td></td>

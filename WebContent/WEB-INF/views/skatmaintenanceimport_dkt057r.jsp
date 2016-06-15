@@ -48,14 +48,14 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%" class="text12">
-					<form action="skatmaintenanceimport_dkt057r.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
+					<form action="skatmaintenanceimport_dkt057r.do?id=${model.dbTable}" name="formRecordSearch" id="formRecordSearch" method="POST" >
 					Kode&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchKode" id="searchKode" size="5" maxlength="3" value='${model.searchKode}'>
 					<%--
 					&nbsp;Søkebegrep&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
 					--%>
-					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.skat.search"/>'/>
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.skat.search"/>'/>
 					
 					</form>
 				</td>
@@ -182,13 +182,13 @@
 							<td class="text12" title="DKVK_DTE">&nbsp;Til</td>
 						</tr>
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="dkvk_kd" id="dkvk_kd" size="4" maxlength="3" value='${model.record.dkvk_kd}'></td>
-						<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkvk_krs" id="dkvk_krs" size="10" maxlength="11" value='${model.record.dkvk_krs}'></td>
-						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkvk_omr" id="dkvk_omr" size="8" maxlength="7" value='${model.record.dkvk_omr}'></td>
-						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkvk_dts" id="dkvk_dts" size="9" maxlength="8" value='${model.record.dkvk_dts}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkvk_kd" id="dkvk_kd" size="4" maxlength="3" value='${model.record.dkvk_kd}'></td>
+						<td ><input onKeyPress="return amountKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkvk_krs" id="dkvk_krs" size="10" maxlength="11" value='${model.record.dkvk_krs}'></td>
+						<td ><input onKeyPress="return numberKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkvk_omr" id="dkvk_omr" size="8" maxlength="7" value='${model.record.dkvk_omr}'></td>
+						<td ><input onKeyPress="return numberKey(event)" type="text" required class="inputTextMediumBlueMandatoryField" name="dkvk_dts" id="dkvk_dts" size="9" maxlength="8" value='${model.record.dkvk_dts}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="dkvk_dte" id="dkvk_dte" size="9" maxlength="8" value='${model.record.dkvk_dte}'></td>
 						<td>
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Spare'/>
+							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare'/>
 						</td>
 						</tr>
 						<tr height="3"><td></td>

@@ -8,6 +8,12 @@
   }
   
   jq(function() {
+	  jq("#formRecord").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+  });
+  
+  jq(function() {
 	  jq("#kvadt").datepicker({ 
 		  dateFormat: 'yymmdd'	  
 	  });
@@ -22,11 +28,16 @@
 			jq("#kvakod").prop("readonly", false);
 			jq("#kvakod").removeClass("inputTextReadOnly");
 			jq("#kvakod").addClass("inputTextMediumBlueMandatoryField");
+			//
+			jq('#kvadt').val("");
+			jq("#kvadt").prop("readonly", false);
+			jq("#kvadt").removeClass("inputTextReadOnly");
+			jq("#kvadt").addClass("inputTextMediumBlueMandatoryField");
+			
 			//rest of the gang
 			jq('#kvaxxx').val("");
 			jq('#kvakrs').val("");
 			jq('#kvaomr').val("");
-			jq('#kvadt').val("");
 			jq('#kvagv').val("");
 			
 			//for update
@@ -62,12 +73,15 @@
   			jq("#kvakod").prop("readonly", true);
   			jq("#kvakod").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#kvakod").addClass("inputTextReadOnly");
-  			
+  			//
+  			jq('#kvadt').val("");jq('#kvadt').val(data[i].kvadt);
+  			jq("#kvadt").prop("readonly", true);
+  			jq("#kvadt").removeClass("inputTextMediumBlueMandatoryField");
+  			jq("#kvadt").addClass("inputTextReadOnly");
   			//rest of the gang
   			jq('#kvaxxx').val("");jq('#kvaxxx').val(data[i].kvaxxx);
   			jq('#kvakrs').val("");jq('#kvakrs').val(data[i].kvakrs);
   			jq('#kvaomr').val("");jq('#kvaomr').val(data[i].kvaomr);
-  			jq('#kvadt').val("");jq('#kvadt').val(data[i].kvadt);
   			jq('#kvagv').val("");jq('#kvagv').val(data[i].kvagv);
   			
   			//for a future update

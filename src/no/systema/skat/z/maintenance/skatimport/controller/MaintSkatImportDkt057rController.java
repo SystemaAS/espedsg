@@ -186,6 +186,7 @@ public class MaintSkatImportDkt057rController {
 	 */
 	private void adjustSomeRecordValues(JsonMaintDktvkRecord recordToValidate){
 		final String ZERO = "0";
+		final String DATE_DUMMY = "99999999";
 		//-----------------
 		//Decimal amounts
 		//-----------------
@@ -200,7 +201,7 @@ public class MaintSkatImportDkt057rController {
 			String tmp = recordToValidate.getDkvk_dte().replace(",", ".");
 			recordToValidate.setDkvk_dte(tmp);
 		}else{
-			//recordToValidate.setDkvk_dte(ZERO);
+			recordToValidate.setDkvk_dte(DATE_DUMMY);
 		}
 		
 		if(recordToValidate.getDkvk_omr()!=null && !"".equals(recordToValidate.getDkvk_omr())){

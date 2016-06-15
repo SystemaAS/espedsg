@@ -8,8 +8,17 @@
   }
   
   jq(function() {
+	  jq("#formRecord").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+  });
+  
+  jq(function() {
 	  jq("#dkvk_dts").datepicker({ 
-		  dateFormat: 'yymmdd'	  
+		  dateFormat: 'yymmdd',
+		  onSelect: function() {
+			    $(this).change();
+			  }
 	  });
 	  jq("#dkvk_dte").datepicker({ 
 		  dateFormat: 'yymmdd'	  
