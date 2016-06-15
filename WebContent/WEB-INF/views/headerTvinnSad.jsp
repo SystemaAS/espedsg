@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp" %> <!-- generally you will include this in a header.jsp -->
 
 <html>
 	<head>
+		
 		<link href="resources/espedsg.css?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
 		<link href="resources/jquery.calculator.css" rel="stylesheet" type="text/css"/>
 		<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/overcast/jquery-ui.css" rel="stylesheet">
