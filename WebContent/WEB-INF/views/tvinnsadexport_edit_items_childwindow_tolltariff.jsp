@@ -30,7 +30,7 @@
 							<td class="text11">&nbsp;Varenr.</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="vkod" id="vkod" size="10" maxlength="10" value="${model.vkod}"></td>
 							
-							<td class="text11">&nbsp;Beskrivning</td>
+							<td class="text11">&nbsp;Vareslag</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="tekst" id="tekst" size="30" maxlength="50" value="${model.tekst}"></td>
 							
 							<td class="text11">&nbsp;</td>
@@ -51,7 +51,9 @@
 						<thead>
 						<tr style="background-color:#EEEEEE">
 							<th class="text11" title="adunnr">&nbsp;Varenr.&nbsp;</th>
+		                    <th class="text11" title="adembg">&nbsp;Vareslag&nbsp;</th>
 		                    <th class="text11" title="adembg">&nbsp;Beskrivelse&nbsp;</th>
+		                    
 		                </tr> 
 		                </thead>
 		                
@@ -65,10 +67,12 @@
 			                       <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.tatanr}@text${record.beskr1}" >
+			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.tatanr}@text${record.taalfa}" >
 			               		<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.tatanr}
 			               	</td>
+		               	   <td class="text11">&nbsp;${record.taalfa}</td>
 		               	   <td class="text11">&nbsp;${record.beskr1}</td>
+		               	   
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

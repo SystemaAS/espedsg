@@ -38,8 +38,8 @@ public final class TvinnSadUrlDataStore {
 	//FETCH VARUKODER-TOLLTARIFF (ITEM LINES)
 	static public String TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG006R.pgm";
 	//http://gw.systema.no/sycgip/TNOG006R.pgm?user=OSCAR&ie=I&kod=8514 (alt. ie=E)
-	static public String TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_FROM_DESC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/todoTNOG023R.pgm";
-	//http://gw.systema.no/sycgip/todoTNOG023R.pgm?user=OSCAR&ie=I&sok=Beskrivelse (alt. ie=E)
+	static public String TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_FROM_DESC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG023R.pgm";
+	//http://gw.systema.no/sycgip/TNOG023R.pgm?user=OSCAR&ie=I&sok=Beskrivelse (alt. ie=E)
 	
 	//CURRENCY RATES
 	static public String TVINN_SAD_FETCH_CURRENCY_RATE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG007R.pgm"; //?user=OSCAR&kod=SEK...		

@@ -350,10 +350,7 @@
 							               <td class="tableCell" >&nbsp;${record.nvdref}</td>
 							               <td class="tableCell" >&nbsp;${record.nveh}</td>
 							               <td class="tableCell" >&nbsp;${record.nvnt}</td>
-							               
-							               	
-							               
-							               
+
 								           </tr>
 								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
