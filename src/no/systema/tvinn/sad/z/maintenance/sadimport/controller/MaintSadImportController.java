@@ -115,7 +115,7 @@ public class MaintSadImportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Løpenummer/dato");
+		object.setSubject("Løpenummer");
 		object.setCode("SADI_LOPE");
 		object.setText("SAD006 / SADH,HEADF");
 		object.setDbTable("SADH,HEADF");

@@ -96,19 +96,19 @@ public class MaintSadExportController {
 		List<MaintenanceMainListObject> listObject = new ArrayList<MaintenanceMainListObject>();
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 		object.setId("1");
-		object.setSubject("Status");
+		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADE_STATUS");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Avd-utførsel");
+		object.setSubject("Avdelinger");
 		object.setCode("SADE_AVD");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Løpenr. utførsel");
+		object.setSubject("Løpenummer");
 		object.setCode("SADE_LOPE");
 		listObject.add(object);
 		//
@@ -120,8 +120,8 @@ public class MaintSadExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("5");
-		object.setSubject("Kundens varekatalog");
-		object.setCode("SADE_KUNDVAREK");
+		object.setSubject("Kunders vareregister");
+		object.setCode("SADE_KUNDVAREREG");
 		listObject.add(object);
 		
 		return listObject;
