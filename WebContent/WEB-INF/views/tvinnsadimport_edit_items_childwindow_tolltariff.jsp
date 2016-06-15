@@ -29,12 +29,12 @@
 						<tr>
 							<td class="text11">&nbsp;Varenr.</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="vkod" id="vkod" size="10" maxlength="10" value="${model.vkod}"></td>
-							<%-- 
+							
 							<td class="text11">&nbsp;Beskrivning</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="tekst" id="tekst" size="30" maxlength="50" value="${model.tekst}"></td>
-							--%>
+							
 							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'></td>
+	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.search"/>'></td>
 		           		</tr>
 		           		</form>
 		           		</table>

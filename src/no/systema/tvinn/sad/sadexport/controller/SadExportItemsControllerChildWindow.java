@@ -151,7 +151,7 @@ public class SadExportItemsControllerChildWindow {
 			  
 			List<JsonTvinnSadTolltariffVarukodRecord> list = new ArrayList();
 			if(text!=null && !"".equals(text)){
-				//TODO (CB) list = this.getTulltaxaListFromDesc(appUser, text, ieMode);
+				list = this.getTulltaxaListFromDesc(appUser, text, ieMode);
 				model.put("tekst", text);
 			}else{
 				list = this.getTolltariffList(appUser, varuKod, ieMode);
@@ -330,6 +330,43 @@ public class SadExportItemsControllerChildWindow {
 		return list;
 	}
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param description
+	 * @param ieMode
+	 * @return
+	 */
+	private List<JsonTvinnSadTolltariffVarukodRecord> getTulltaxaListFromDesc(SystemaWebUser appUser, String description, String ieMode){
+		List<JsonTvinnSadTolltariffVarukodRecord> list = new ArrayList<JsonTvinnSadTolltariffVarukodRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_FROM_DESC_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser() + "&ie=" + ieMode);
+		urlRequestParams.append("&sok=" + description);
+		
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+		
+		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info(jsonPayload);
+		JsonTvinnSadTolltariffVarukodContainer container = null;
+		try{
+			if(jsonPayload!=null){
+				container = this.tvinnSadTolltariffVarukodService.getContainer(jsonPayload);
+				if(container!=null){
+					for(JsonTvinnSadTolltariffVarukodRecord  record : container.getTariclist()){
+						list.add(record);
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 
 	//SERVICES

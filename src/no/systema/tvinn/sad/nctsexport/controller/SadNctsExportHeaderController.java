@@ -1130,6 +1130,7 @@ public class SadNctsExportHeaderController {
 			JsonTvinnSadAvdelningContainer container = this.tvinnSadDropDownListPopulationService.getAvdelningContainer(url);
 			List<JsonTvinnSadAvdelningRecord> list = new ArrayList();
 			for(JsonTvinnSadAvdelningRecord record: container.getAvdelningar()){
+				logger.info("Avd:" + record.getAvd());
 				list.add(record);
 			}
 			model.put(TvinnSadConstants.RESOURCE_MODEL_KEY_AVD_LIST, list);

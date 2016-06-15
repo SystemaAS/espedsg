@@ -151,7 +151,7 @@ public class SadImportItemsControllerChildWindow {
 			  
 			List<JsonTvinnSadTolltariffVarukodRecord> list = new ArrayList();
 			if(text!=null && !"".equals(text)){
-				//TODO (CB) list = this.getTulltaxaListFromDesc(appUser, text, ieMode);
+				list = this.getTulltaxaListFromDesc(appUser, text, ieMode);
 				model.put("tekst", text);
 			}else{
 				list = this.getTolltariffList(appUser, varuKod, ieMode);
@@ -286,12 +286,12 @@ public class SadImportItemsControllerChildWindow {
 	 * @param ieMode
 	 * @return
 	 */
-	/*
+	
 	private List<JsonTvinnSadTolltariffVarukodRecord> getTulltaxaListFromDesc(SystemaWebUser appUser, String description, String ieMode){
 		List<JsonTvinnSadTolltariffVarukodRecord> list = new ArrayList<JsonTvinnSadTolltariffVarukodRecord>();
 		
 		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_URL;
+		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_FROM_DESC_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser() + "&ie=" + ieMode);
 		urlRequestParams.append("&sok=" + description);
@@ -317,7 +317,7 @@ public class SadImportItemsControllerChildWindow {
 		}
 		return list;
 	}
-	*/
+	
 	/**
 	 * 
 	 * 	1=Ekspedisjonstyper(import)

@@ -203,7 +203,7 @@ public class SadNctsExportController {
 		String TYPE_IE = "X"; //NCTS Export ... ie=N (for NCTS Import)
 		
 		try{
-			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_AVDELNINGAR_URL;
+			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_AVDELNINGAR_NCTS_URL;
 			StringBuffer urlRequestParamsKeys = new StringBuffer();
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "ie=" + TYPE_IE);
@@ -235,7 +235,7 @@ public class SadNctsExportController {
 		String TYPE_IE = "N"; //NCTS ==> ie=N 
 		
 		try{
-			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_SIGNATURE_URL;
+			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_SIGNATURE_NCTS_URL;
 			StringBuffer urlRequestParamsKeys = new StringBuffer();
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "ie=" + TYPE_IE);

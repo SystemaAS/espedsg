@@ -33,7 +33,7 @@
 	           				<td class="text11">&nbsp;Kundenr.(Mottaker)</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="recId" id="recId" size="10" maxlength="20" value="${model.recId}"></td>
 							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'></td>
+	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.search"/>'></td>
            				</tr>
 		           		</form>
 		           		</table>
