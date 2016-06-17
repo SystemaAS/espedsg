@@ -902,17 +902,17 @@ public class SadNctsExportHeaderController {
 		logger.info("### thtdn from RPG PROGRAM: " + rpgReturnResponseHandler.getThtdn());
 		logger.info("### thtuid from RPG PROGRAM: " + rpgReturnResponseHandler.getThtuid());
 		
-		//we must complete the GUI-json sypo and tuid with the value from a seedTuid here
-		if(rpgReturnResponseHandler.getThtdn()!=null && rpgReturnResponseHandler.getThtuid()!=null){
+		//we must complete the GUI-json thtdn
+		if(rpgReturnResponseHandler.getThtdn()!=null){
 			jsonNctsExportSpecificTopicRecord.setThtdn(rpgReturnResponseHandler.getThtdn().trim());
-			jsonNctsExportSpecificTopicRecord.setThtuid(rpgReturnResponseHandler.getThtuid().trim());
-			jsonNctsExportSpecificTopicRecord.setLrnNr(rpgReturnResponseHandler.getThtuid().trim());
+			//jsonNctsExportSpecificTopicRecord.setThtuid(rpgReturnResponseHandler.getThtuid().trim());
+			//jsonNctsExportSpecificTopicRecord.setLrnNr(rpgReturnResponseHandler.getThtuid().trim());
 			jsonNctsExportSpecificTopicRecord.setThavd(avdIdForCreate);
 			jsonNctsExportSpecificTopicRecord.setThsg(signatureForCreate);
 			
 			
 		}else{
-			logger.info("[ERROR] No mandatory seeds (lrn/mrn, opd) were generated correctly)! look at std output log. [errMsg]" + rpgReturnResponseHandler.getErrorMessage());
+			logger.info("[ERROR] No mandatory seeds (opd,avd,sg?) were generated correctly)! look at std output log. [errMsg]" + rpgReturnResponseHandler.getErrorMessage());
 			jsonNctsExportSpecificTopicRecord = null;
 		}
         
@@ -1224,6 +1224,7 @@ public class SadNctsExportHeaderController {
 			dateThdtaNO = this.dateFormatter.convertToDate_NO(record.getThdta());
 			record.setThdta(dateThdtaNO);
 		}
+		
 	}
 	/**
 	 * 
