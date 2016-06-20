@@ -68,7 +68,7 @@
 							<thead>
 							<tr>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Tolldistrik&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Tolldistrikt&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Tollsted&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Postnr.&nbsp;</th>
 								<th align="center" class="tableHeaderField">Slett</th>
@@ -165,7 +165,7 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="ktxkod" id=ktxkod value="todo">
 					
-					<table width="60%" cellspacing="1" border="0" align="left">
+					<table width="50%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="SITDN">&nbsp;<font class="text14RedBold" >*</font>Tolldistrikt</td>
 							<td class="text12" title="SINAK">&nbsp;<font class="text14RedBold" >*</font>Tollsted</td>
@@ -178,12 +178,14 @@
 							<select class="inputTextMediumBlue" name="ktxpnr" id="ktxpnr">
 			            		<option value="">-velg-</option>
 			 				  	<c:forEach var="record" items="${Xmodel.postnrList}" >
-                             		<option value="${record.ktxpnr}"<c:if test="${model.record.ktxpnr == record.ktxpnr}"> selected </c:if> >${record.ktxpnr}</option>
+                             		<option value="${record.ktxkod}"<c:if test="${model.record.ktxpnr == record.ktxpnr}"> selected </c:if> >${record.ktxpnr}</option>
 								</c:forEach>
 							</select>
 						</td>
 						<td>
+							<%--TODO
 							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+							 --%>
 						</td>
 						</tr>
 						<tr height="3"><td></td>

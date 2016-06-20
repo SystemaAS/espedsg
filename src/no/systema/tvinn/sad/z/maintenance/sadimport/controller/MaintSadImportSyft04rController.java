@@ -87,7 +87,7 @@ public class MaintSadImportSyft04rController {
 	    	}
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	model.put("searchKtspnr", ktspnr);
+	    	model.put("ktspnr", ktspnr);
 	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
