@@ -157,6 +157,26 @@ public class MaintSadImportAjaxHandlerController {
 	
 	/**
 	 * 
+	 * @param applicationUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad006r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadImportSadhHeadfRecord> getRecordSad006
+	  	(@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd) {
+		final String METHOD = "[DEBUG] getRecordSad006 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadImportSadhHeadfRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad006(applicationUser, avd, opd);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
 	 * @param user
 	 * @param result
 	 * @param request
@@ -387,6 +407,38 @@ public class MaintSadImportAjaxHandlerController {
 	/**
 	 * 
 	 * @param applicationUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private Collection<JsonMaintSadImportSadhHeadfRecord> fetchListSad006(String applicationUser, String avd, String opd){
+		
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD006R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&siavd=" + avd + "&sitdn=" + opd ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadImportSadhHeadfRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportSadhHeadfContainer container = this.maintSadImportSadhHeadfService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportSadhHeadfRecord record: list){
+	        		logger.info(record.getSitdn());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	
+	/**
+	 * 
+	 * @param applicationUser
 	 * @param id
 	 * @return
 	 */
@@ -584,6 +636,14 @@ public class MaintSadImportAjaxHandlerController {
 	@Required
 	public void setMaintSadImportSadlService (MaintSadImportSadlService value){ this.maintSadImportSadlService = value; }
 	public MaintSadImportSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
+	
+	
+	@Qualifier ("maintSadImportSadhHeadfService")
+	private MaintSadImportSadhHeadfService maintSadImportSadhHeadfService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSadhHeadfService (MaintSadImportSadhHeadfService value){ this.maintSadImportSadhHeadfService = value; }
+	public MaintSadImportSadhHeadfService getMaintSadImportSadhHeadfService(){ return this.maintSadImportSadhHeadfService; }
 	
 	
 }

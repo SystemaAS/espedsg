@@ -119,6 +119,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_LOPE");
 		object.setText("SAD006 / SADH,HEADF");
 		object.setDbTable("SADH,HEADF");
+		object.setStatus("G");
+		object.setPgm("sad006r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -157,6 +159,8 @@ public class MaintSadImportController {
 		object.setCode("SADI_GYLD_TOLLSTEDER");
 		object.setText("SYFT04 / KODTTST,KODTTSX");
 		object.setDbTable("KODTTST,KODTTSX");
+		object.setStatus("G");
+		object.setPgm("syft04r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
