@@ -98,30 +98,49 @@ public class MaintSadExportController {
 		object.setId("1");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADE_STATUS");
+		object.setText("SAD029 / SAEH,STS,KODTSI");
+		object.setDbTable("SAEH");
 		listObject.add(object);
+		
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("Avdelinger");
 		object.setCode("SADE_AVD");
+		object.setText("SYFTAE / STANDE,CUNDF,FIRM,KODTA,EDII");
+		object.setDbTable("STANDE");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Løpenummer");
 		object.setCode("SADE_LOPE");
+		object.setText("SAD024 / SAEH,HEADF");
+		object.setDbTable("SAEH-HEADF");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("4");
 		object.setSubject("Fiskeavgifter");
 		object.setCode("SADE_FISKAVG");
+		object.setText("SAD015 / SADAVGE,TARI");
+		object.setDbTable("SADAVGE");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("5");
 		object.setSubject("Kunders vareregister");
 		object.setCode("SADE_KUNDVAREREG");
+		object.setText("SAD004 / SADL,FIRM,KODTSE,KODTSB,KODTS2,TARI,CUNDF");
+		object.setDbTable("SADL");
+		listObject.add(object);
+		
+		object = new  MaintenanceMainListObject();
+		object.setId("6");
+		object.setSubject("Koder funksjonsfeil");
+		object.setCode("SADE_FUNKFEIL");
+		object.setText("TVI99R / TVINE");
+		object.setDbTable("TVINE");
 		listObject.add(object);
 		
 		return listObject;
