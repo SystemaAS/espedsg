@@ -31,14 +31,13 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodttsContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodttsRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodttsService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.html.dropdown.MaintSadImportDropDownListPopulationService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSyft04rValidator;
-
 
 /**
  *  TVINN Maintenance Import Syft04r Controller 
@@ -58,7 +57,7 @@ public class MaintSadImportSyft04rController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	
+	private MaintSadImportDropDownListPopulationService dropDownService = new MaintSadImportDropDownListPopulationService();
 	/**
 	 * 
 	 * @param user
@@ -85,6 +84,8 @@ public class MaintSadImportSyft04rController {
 	    	}else{
 	    		list = this.fetchList(appUser.getUser(), null);
 	    	}
+	    	//get dropdowns
+	    	this.getDropdowns(appUser.getUser(), model);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("ktspnr", ktspnr);
@@ -172,6 +173,8 @@ public class MaintSadImportSyft04rController {
 			//FETCH table
 			//------------
 	    	List<JsonMaintSadImportKodttsRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getKtspnr());
+	    	//get dropdowns
+	    	this.getDropdowns(appUser.getUser(), model);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
@@ -266,6 +269,24 @@ public class MaintSadImportSyft04rController {
     	
     	return retval;
     
+	}
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	private void getDropdowns(String applicationUser, Map model){
+		
+		try{
+			//(1) POSTNR list
+			List<JsonMaintSadImportKodttsRecord> postnrList = this.dropDownService.getPostnrKodttsContainer(this.urlCgiProxyService, applicationUser);
+			model.put("postnrList", postnrList);
+			//(2) put next here...
+			//TODO
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	

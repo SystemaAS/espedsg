@@ -165,11 +165,11 @@
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="ktxkod" id=ktxkod value="todo">
 					
-					<table width="50%" cellspacing="1" border="0" align="left">
+					<table width="35%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-							<td class="text12" title="SITDN">&nbsp;<font class="text14RedBold" >*</font>Tolldistrikt</td>
-							<td class="text12" title="SINAK">&nbsp;<font class="text14RedBold" >*</font>Tollsted</td>
-							<td class="text12" title="SITLL">&nbsp;Postnr</td>
+							<td class="text12" title="KTSPNR">&nbsp;<font class="text14RedBold" >*</font>Tolldistrikt</td>
+							<td class="text12" title="KTSNAV">&nbsp;<font class="text14RedBold" >*</font>Tollsted</td>
+							<td class="text12" title="KTXPNR">&nbsp;Postnr</td>
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ktspnr" id="ktspnr" size="5" maxlength="4" value='${model.record.ktspnr}'></td>
@@ -177,8 +177,8 @@
 						<td >
 							<select class="inputTextMediumBlue" name="ktxpnr" id="ktxpnr">
 			            		<option value="">-velg-</option>
-			 				  	<c:forEach var="record" items="${Xmodel.postnrList}" >
-                             		<option value="${record.ktxkod}"<c:if test="${model.record.ktxpnr == record.ktxpnr}"> selected </c:if> >${record.ktxpnr}</option>
+			 				  	<c:forEach var="record" items="${model.postnrList}" >
+                             		<option value="${record.ktxpnr}"<c:if test="${model.record.ktxpnr == record.ktxpnr}"> selected </c:if> >${record.ktxpnr}</option>
 								</c:forEach>
 							</select>
 						</td>

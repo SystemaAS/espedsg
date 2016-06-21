@@ -120,5 +120,10 @@ public final class TvinnSadMaintenanceImportUrlDataStore {
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD999R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD999R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD999R_U.do";
 	
+	//--------------------------
+	//[3] GUI lists drop downs
+	//--------------------------
+	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_DROPDOWN_SYFT04R_GET_POSTNR_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT04R_guipostnr.do";
+	
 	
 }

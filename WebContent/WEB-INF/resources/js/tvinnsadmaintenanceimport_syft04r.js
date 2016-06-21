@@ -7,6 +7,26 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  jq(function() {
+		//Clean values for createing new record
+		jq('#newRecordButton').click(function() {
+			jq('#ktspnr').val("");
+			jq("#ktspnr").prop("readonly", false);
+			jq("#ktspnr").removeClass("inputTextReadOnly");
+			jq("#ktspnr").addClass("inputTextMediumBlueMandatoryField");
+			//
+			jq('#ktsnav').val("");
+			jq("#ktsnav").prop("readonly", false);
+			jq("#ktsnav").removeClass("inputTextReadOnly");
+			jq("#ktsnav").addClass("inputTextMediumBlueMandatoryField");
+			
+			//rest of the gang
+			jq('#ktxpnr').val("");
+			//for update
+			jq('#updateId').val("");
+		});
+  }); 
+
   //-----------------------
   //GET specific db-record
   //-----------------------
