@@ -159,6 +159,7 @@ public class MaintSadImportSyft04rController {
 					//delete
 					logger.info(TvinnSadMaintenanceConstants.ACTION_DELETE);
 					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE, errMsg);
+					recordToValidate.setKtspnr(null);
 				}
 				//check for Update errors
 				if( dmlRetval < 0){
