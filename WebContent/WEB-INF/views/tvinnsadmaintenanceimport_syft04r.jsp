@@ -85,7 +85,7 @@
 				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.ktsnav}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.ktxpnr}&nbsp;</font></td>
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft04r_edit.do?action=doDelete&id=${model.dbTable}&ktspnr=${record.ktspnr}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft04r_edit.do?action=doDelete&id=${model.dbTable}&ktspnr=${record.ktspnr}&ktsnav=${record.ktsnav}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -176,16 +176,14 @@
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ktsnav" id="ktsnav" size="16" maxlength="15" value='${model.record.ktsnav}'></td>
 						<td >
 							<select class="inputTextMediumBlue" name="ktxpnr" id="ktxpnr">
-			            		<option value="">-velg-</option>
+			            		<option value="0">-velg-</option>
 			 				  	<c:forEach var="record" items="${model.postnrList}" >
                              		<option value="${record.ktxpnr}"<c:if test="${model.record.ktxpnr == record.ktxpnr}"> selected </c:if> >${record.ktxpnr}</option>
 								</c:forEach>
 							</select>
 						</td>
 						<td>
-							<%--TODO
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
-							 --%>
+							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>							
 						</td>
 						</tr>
 						<tr height="3"><td></td>
