@@ -259,6 +259,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- EBOOKING          			   -->
 	<!-- ============================  -->
 	<bean id="ebookingChildWindowService" class="no.systema.ebooking.service.EbookingChildWindowServiceImpl"/>
+	<bean id="ebookingMainOrderListService" class="no.systema.ebooking.service.EbookingMainOrderListServiceImpl"/>
 	
     
 	<!-- ==============================  -->

@@ -112,38 +112,38 @@
 				<table id="containerdatatableTable" width="100%" cellspacing="2" align="left" >
 				<tr>
    				    <form name="searchForm" id="searchForm" action="ebooking_mainorderlist.do?action=doFind" method="post" >
-					<input type="hidden" name="userAvd" id="userAvd" value='${model.userAvd}'>
+					<input type="hidden" name="userAvd" id="userAvd" value=''>
 			    	<td> 
 			    	<table width="100%">
 			    		<tr> 
 			    		<td>	
-			        		&nbsp;<font title="opd" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.ordernr"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${XsearchFilter.opd}'>
+			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.ordernr"/></font>
+			        		&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.orderNr}'>
 				        </td>
 				        <td>	
-			        		&nbsp;<font title="opdType" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.date"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="date" id="date" size="10" maxlength="15" value='${XsearchFilter.opdType}'>
+			        		&nbsp;<font title="date" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.date"/></font>
+				        	&nbsp;<input type="text" class="inputText" name="date" id="date" size="10" maxlength="15" value='${searchFilter.date}'>
 				        </td>
 				        <td>	
-			        		&nbsp;<font title="fromDateF/fromDateT" class="text12"></font>
-				        	&nbsp;<input type="text" class="inputText" name="fromDateF" id="fromDateF" size="9" maxlength="8" value='${XsearchFilter.fromDateF}'>
-				        	-<input type="text" class="inputText" name="fromDateT" id="fromDateT" size="9" maxlength="8" value='${XsearchFilter.fromDateT}'>
+			        		&nbsp;<font title="fromDate/fromDate" class="text12"></font>
+				        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilter.fromDate}'>
+				        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>
 				        </td>
 				        <td>	
-			        		&nbsp;<font title="sign" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${XsearchFilter.sign}'>
+			        		&nbsp;<font title="sender" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender"/></font>
+				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.sender}'>
 				        </td>
 			        	<td>	
-			        		&nbsp;<font title="sign" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${XsearchFilter.sign}'>
+			        		&nbsp;<font title="receiver" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver"/></font>
+				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.receiver}'>
 				        </td>
 			        	<td>	
 			        		&nbsp;<font title="from" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.from"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${XsearchFilter.from}'>
+				        	&nbsp;<input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'>
 				        </td>
 				        <td>	
 				        	&nbsp;<font title="to" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.to"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${XsearchFilter.to}'>&nbsp;&nbsp;&nbsp;
+				        	&nbsp;<input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;&nbsp;&nbsp;
 				        </td>
 				        <td>	
 				        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.search"/>'>
@@ -190,28 +190,28 @@
 	                <tbody >
 		            <c:forEach items="${listOpenOrders}" var="record" varStatus="counter">  
 		            <tr class="tex11" >
-		               <td class="text11MediumBlue" id="avd_${record.heavd}@opd_${record.heopd}@${counter.count}" >
-			           		<div id="davd${record.heavd}_dopd${record.heopd}_linkcontainer${counter.count}" >
-			           		<a style="cursor:pointer;" id="heavd_${record.heavd}@heopd_${record.heopd}@alinkOpenOrdersListId_${counter.count}" onClick="goToSpecificOrder(this);">
+		               <td class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
+			           		<div id="opd${record.hereff}_linkcontainer${counter.count}" >
+			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}" onClick="TODOgoToSpecificOrder(this);">
     		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-    		    				<font class="text11MediumBlue">${record.heavd}/${record.heopd}</font>
+    		    				<font class="text11MediumBlue">${record.hereff}</font>
     		    			</a>
     		    			</div>
 			           </td>
-			           <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.todo}</td>
+			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.henas}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.henak}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.xfralk}${record.hesdf}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
 		               
 		               <td align="center" class="text11MediumBlue">
-            		  	 	<a sytle="cursor:pointer;" id="avd_${record.heavd}@opd_${record.heopd}" title="delete" onClick="doPermanentlyDeleteOrder(this)" tabindex=-1>
+            		  	 	<a sytle="cursor:pointer;" id="opd_${record.hereff}" title="delete" onClick="TODOdoPermanentlyDeleteOrder(this)" tabindex=-1>
 			               		<img src="resources/images/delete.gif" border="0" alt="remove">
 			               	</a>&nbsp;
 					   </td>

@@ -37,27 +37,13 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 
-//TRANSPDISP
-import no.systema.transportdisp.util.RpgReturnResponseHandler;
-import no.systema.transportdisp.service.TransportDispWorkflowListService;
-import no.systema.transportdisp.service.TransportDispWorkflowShippingPlanningOrdersListService;
-import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
-import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevPdfContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningCurrentOrdersListContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningCurrentOrdersListRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord;
-import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.transportdisp.util.TransportDispConstants;
-import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
-import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
+//EBOOKING
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderListContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderListRecord;
+import no.systema.ebooking.filter.SearchFilterEbookingMainList;
+import no.systema.ebooking.service.EbookingMainOrderListService;
+import no.systema.ebooking.url.store.EbookingUrlDataStore;
+import no.systema.ebooking.util.EbookingConstants;
 
 /**
  * ebooking Order List Controller 
@@ -76,8 +62,6 @@ public class EbookingMainOrderListController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
-	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
-	private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -92,15 +76,11 @@ public class EbookingMainOrderListController {
 	 * @return
 	 */
 	@RequestMapping(value="ebooking_mainorderlist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterEbookingMainList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		this.context = TdsAppContext.getApplicationContext();
-		Collection<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord> outputListOpenOrders = new ArrayList<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord>();
-		String wstur = request.getParameter("wstur");
-		String wssavd = request.getParameter("wssavd");
-		if(wssavd!=null && !"".equals(wssavd)){ recordToValidate.setAvd(wssavd); }
-		if(wstur!=null && !"".equals(wstur)){ recordToValidate.setTur(wstur); }
-		
+		Collection<JsonMainOrderListRecord> outputListOpenOrders = new ArrayList<JsonMainOrderListRecord>();
+
 		
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
@@ -133,30 +113,28 @@ public class EbookingMainOrderListController {
 				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
+				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+	    		successView.addObject(EbookingConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
+	    		successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
 	    		successView.addObject("searchFilter", recordToValidate);
 				return successView;
 	    		
 		    }else{
 				//STEP [1]
 		    	StringBuffer userAvd = new StringBuffer();
-	    		outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model, userAvd);
-	    		model.put("userAvd", userAvd.toString());
-	    		
+	    		outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model);
 	    		
 	   		 	//--------------------------------------
 				//Final successView with domain objects
 				//--------------------------------------
 				//drop downs
 				//this.setCodeDropDownMgr(appUser, model);
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+				successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
 	    		//domain and search filter
-				successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
+				successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
 				//Put list for upcomming view (PDF, Excel, etc)
 				if(outputListOpenOrders!=null){
-					session.setAttribute(session.getId() + TransportDispConstants.SESSION_LIST, outputListOpenOrders);
+					session.setAttribute(session.getId() + EbookingConstants.SESSION_LIST, outputListOpenOrders);
 				}
 				successView.addObject("searchFilter", recordToValidate);
 				
@@ -344,28 +322,26 @@ public class EbookingMainOrderListController {
 	 * @param wssavd
 	 * @return
 	 */
-	private Collection<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord> getListOpenOrders(SystemaWebUser appUser, SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, Map model, StringBuffer userAvd){
-		Collection<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord> outputListOpenOrders = new ArrayList();
+	private Collection<JsonMainOrderListRecord> getListOpenOrders(SystemaWebUser appUser, SearchFilterEbookingMainList recordToValidate, Map model){
+		Collection<JsonMainOrderListRecord> outputListOpenOrders = new ArrayList();
 		//------------------------------------
         //[STEP 2] get Open Orders BASE URL
     		//------------------------------------
-			/*
-    		final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_LIST_ORDERS_NOT_ON_TRIP_URL;
+			
+    		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_MAIN_ORDER_LIST_URL;
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
-    		if(!"".equals(recordToValidate.getAvd())&& recordToValidate.getAvd()!=null ){ urlRequestParams.append("&wssavd=" + recordToValidate.getAvd()); }
-    		if(!"".equals(recordToValidate.getOpd())&& recordToValidate.getOpd()!=null ){ urlRequestParams.append("&wssopd=" + recordToValidate.getOpd()); }
-    		if(!"".equals(recordToValidate.getOpdType())&& recordToValidate.getOpdType()!=null ){ urlRequestParams.append("&wssot=" + recordToValidate.getOpdType()); }
-    		if(!"".equals(recordToValidate.getSign())&& recordToValidate.getSign()!=null ){ urlRequestParams.append("&wsssg=" + recordToValidate.getSign()); }
+    		if(!"".equals(recordToValidate.getOrderNr())&& recordToValidate.getOrderNr()!=null ){ urlRequestParams.append("&hereff=" + recordToValidate.getOrderNr()); }
+    		if(!"".equals(recordToValidate.getDate())&& recordToValidate.getDate()!=null ){ urlRequestParams.append("&hedtop=" + recordToValidate.getDate()); }
+    		if(!"".equals(recordToValidate.getFromDate())&& recordToValidate.getFromDate()!=null ){ urlRequestParams.append("&todoFromDate=" + recordToValidate.getFromDate()); }
+    		if(!"".equals(recordToValidate.getToDate())&& recordToValidate.getToDate()!=null ){ urlRequestParams.append("&todoToDate=" + recordToValidate.getToDate()); }
     		//From and dates
-    		if(!"".equals(recordToValidate.getFrom())&& recordToValidate.getFrom()!=null ){ urlRequestParams.append("&wssdf=" + recordToValidate.getFrom()); }
-    		if(!"".equals(recordToValidate.getFromDateF())&& recordToValidate.getFromDateF()!=null ){ urlRequestParams.append("&wopdtf=" + recordToValidate.getFromDateF()); }
-    		if(!"".equals(recordToValidate.getFromDateT())&& recordToValidate.getFromDateT()!=null ){ urlRequestParams.append("&wopdtf2=" + recordToValidate.getFromDateT()); }
+    		if(!"".equals(recordToValidate.getSender())&& recordToValidate.getSender()!=null ){ urlRequestParams.append("&henas=" + recordToValidate.getSender()); }
+    		if(!"".equals(recordToValidate.getReceiver())&& recordToValidate.getReceiver()!=null ){ urlRequestParams.append("&henak=" + recordToValidate.getReceiver()); }
+    		if(!"".equals(recordToValidate.getFrom())&& recordToValidate.getFrom()!=null ){ urlRequestParams.append("&hesdf=" + recordToValidate.getFrom()); }
     		//To and dates
-    		if(!"".equals(recordToValidate.getTo())&& recordToValidate.getTo()!=null ){ urlRequestParams.append("&wssdt=" + recordToValidate.getTo()); }
-    		if(!"".equals(recordToValidate.getToDateF())&& recordToValidate.getToDateF()!=null ){ urlRequestParams.append("&wopdtt=" + recordToValidate.getToDateF()); }
-    		if(!"".equals(recordToValidate.getToDateT())&& recordToValidate.getToDateT()!=null ){ urlRequestParams.append("&wopdtt2=" + recordToValidate.getToDateT()); }
+    		if(!"".equals(recordToValidate.getTo())&& recordToValidate.getTo()!=null ){ urlRequestParams.append("&hesdt=" + recordToValidate.getTo()); }
     		
     		
     		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
@@ -377,41 +353,24 @@ public class EbookingMainOrderListController {
 	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
-	    		JsonTransportDispWorkflowShippingPlanningOpenOrdersListContainer jsonOpenOrdersListContainer = this.transportDispWorkflowShippingPlanningOrdersListService.getOpenOrdersListContainer(jsonPayload);
-	    		model.put(TransportDispConstants.DOMAIN_CONTAINER_OPEN_ORDERS, jsonOpenOrdersListContainer);
-	    		if(jsonOpenOrdersListContainer!=null){
-		    		outputListOpenOrders = jsonOpenOrdersListContainer.getOrderlistlandled();
-		    		if(userAvd!=null){
-			    		if(jsonOpenOrdersListContainer.getWssavd()!=null && !"".equals(jsonOpenOrdersListContainer.getWssavd())){
-			    			userAvd.append(jsonOpenOrdersListContainer.getWssavd());
-			    			
-			    		}else if(jsonOpenOrdersListContainer.getStdavd()!=null && !"".equals(jsonOpenOrdersListContainer.getStdavd())){
-			    			Integer stdAvd = 0;
-			    			try{ stdAvd = Integer.valueOf(jsonOpenOrdersListContainer.getStdavd());}
-			    			catch(Exception e){ logger.info("ERROR in this line!!!"); }
-			    			userAvd.append(String.valueOf(stdAvd));
-			    			
-			    		}else{
-			    			logger.debug("[ERROR] in this line... ?");
-			    		}
-		    		}
+	    		JsonMainOrderListContainer orderListContainer = this.ebookingMainOrderListService.getMainListContainer(jsonPayload);
+	    		model.put(EbookingConstants.DOMAIN_CONTAINER_OPEN_ORDERS, orderListContainer);
+	    		if(orderListContainer!=null){
+		    		outputListOpenOrders = orderListContainer.getOrderList();
 	    		}
 	    	}		
-	    	*/
+
 		return outputListOpenOrders;
 	}
-	
-	
-	
 	
 	/**
 	 * 
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, SearchFilterTransportDispWorkflowShippingPlanningOrdersList record){
+	private void setDomainObjectsInView(Map model, SearchFilterEbookingMainList record){
 		//SET HEADER RECORDS  (from RPG)
-		model.put(TransportDispConstants.DOMAIN_RECORD, record);
+		model.put(EbookingConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -435,26 +394,12 @@ public class EbookingMainOrderListController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("transportDispWorkflowListService")
-	private TransportDispWorkflowListService transportDispWorkflowListService;
+	@Qualifier ("ebookingMainOrderListService")
+	private EbookingMainOrderListService ebookingMainOrderListService;
 	@Autowired
 	@Required
-	public void setTransportDispWorkflowListService (TransportDispWorkflowListService value){ this.transportDispWorkflowListService = value; }
-	public TransportDispWorkflowListService getTransportDispWorkflowListService(){ return this.transportDispWorkflowListService; }
-	
-	
-	@Qualifier ("transportDispWorkflowShippingPlanningOrdersListService")
-	private TransportDispWorkflowShippingPlanningOrdersListService transportDispWorkflowShippingPlanningOrdersListService;
-	@Autowired
-	public void setTransportDispWorkflowShippingPlanningOrdersListService (TransportDispWorkflowShippingPlanningOrdersListService value){ this.transportDispWorkflowShippingPlanningOrdersListService=value; }
-	public TransportDispWorkflowShippingPlanningOrdersListService getTransportDispWorkflowShippingPlanningOrdersListService(){return this.transportDispWorkflowShippingPlanningOrdersListService;}
-	
-	@Qualifier 
-	private TransportDispWorkflowSpecificTripService transportDispWorkflowSpecificTripService;
-	@Autowired
-	@Required	
-	public void setTransportDispWorkflowSpecificTripService(TransportDispWorkflowSpecificTripService value){this.transportDispWorkflowSpecificTripService = value;}
-	public TransportDispWorkflowSpecificTripService getTransportDispWorkflowSpecificTripService(){ return this.transportDispWorkflowSpecificTripService; }
+	public void setEbookingMainOrderListService (EbookingMainOrderListService value){ this.ebookingMainOrderListService = value; }
+	public EbookingMainOrderListService getEbookingMainOrderListService(){ return this.ebookingMainOrderListService; }
 	
 	
 }
