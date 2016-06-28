@@ -20,6 +20,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 //models
+import no.systema.z.main.maintenance.model.MainMaintenanceMainListObject;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
 
@@ -50,7 +51,7 @@ public class MainMaintenanceGateController {
 	public ModelAndView tvinnsadmaintenancegate(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancegate");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		
+		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
@@ -63,6 +64,17 @@ public class MainMaintenanceGateController {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
 			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 			
+			List list = this.populateMaintenanceMainList();
+			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+			//this.setCodeDropDownMgr(appUser, model);
+			//init filter with users signature (for starters)
+			//searchFilter.setSg(appUser.getTvinnSadSign());
+			//successView.addObject("searchFilter" , searchFilter);
+			//init the rest
+			model.put("list", list);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    
 			return successView;
@@ -70,6 +82,36 @@ public class MainMaintenanceGateController {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	private List<MainMaintenanceMainListObject> populateMaintenanceMainList(){
+		List<MainMaintenanceMainListObject> listObject = new ArrayList<MainMaintenanceMainListObject>();
+		MainMaintenanceMainListObject object = new  MainMaintenanceMainListObject();
+		        
+		
+		object.setId("1");
+		object.setSubject("Avdelinger");
+		object.setCode("AVD");
+		object.setText("SYFA14 / KODTA, NAVAVD, KODTSF, KODTD, KODTASID, FIRM, CUNDF");
+		object.setDbTable("KODTA");
+		object.setStatus("Y");
+		object.setPgm("syfa14r");
+		listObject.add(object);
+		//
+		object = new  MainMaintenanceMainListObject();
+		object.setId("2");
+		object.setSubject("TODO");
+		object.setCode("TODO");
+		object.setText("X / Y");
+		object.setDbTable("TODO");
+		//object.setStatus("G");
+		//object.setPgm("todo");
+		listObject.add(object);
+		//
+		return listObject;
+	}
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
