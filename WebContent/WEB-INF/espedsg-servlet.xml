@@ -98,6 +98,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 				<value>/WEB-INF/messagesfraktkalkulator</value>
 				<value>/WEB-INF/messagesefaktura</value>
 				<value>/WEB-INF/messagesebooking</value>
+				<value>/WEB-INF/messagesmainmaintenance</value>
 			</list>
 	  </property>
 	</bean>

@@ -268,12 +268,14 @@
 	//--------------------------------------------------------------------------------------
 	jq(function() { 
 	    jq('#thkns').blur(function() {
+	    	
+	    	if(jq('#thkns').val() != ''){
 	    		jq.getJSON('searchCustomer_Skat.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : jq('#thkns').val(),
 				ajax : 'true'
-			}, function(data) {
+	    		}, function(data) {
 				//alert("Hello");
 				var len = data.length;
 				for ( var i = 0; i < len; i++) {
@@ -312,7 +314,8 @@
 					jq('#thpss').val("");
 					jq('#thlks').val("");
 				}
-			});
+	    		});
+	    	}
 		});
 	});
 	
@@ -422,12 +425,13 @@
 	//--------------------------------------------------------------------------------------
 	jq(function() { 
 	    jq('#thknk').blur(function() {
+	    	if(jq('#thknk').val() != ''){
 	    		jq.getJSON('searchCustomer_Skat.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : jq('#thknk').val(),
 				ajax : 'true'
-			}, function(data) {
+	    		}, function(data) {
 				//alert("Hello");
 				var len = data.length;
 				for ( var i = 0; i < len; i++) {
@@ -467,7 +471,8 @@
 					jq('#thpsk').val("");
 					jq('#thlkk').val("");
 				}
-			});
+	    		});
+	    	}
 		});
 	});
 
