@@ -54,8 +54,7 @@
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
-							<tr>
-							                                                                
+							<tr>							                                                                
 								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
 								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
 			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
