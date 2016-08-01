@@ -795,7 +795,6 @@
 			jq('#startItemLineNr').focus();
 		}
 		
-		
 		//Initialize Dialog for KundensVareregister here
   		jq(function() { 
   		  jq("#dialogKundensVareregister").dialog({
@@ -807,6 +806,9 @@
   			  modal: true
   		  });
   		});
+  		
+  		
+  		
 	});
   	
 	
@@ -899,13 +901,9 @@
 		  }else{
 			  jq("#dialogSaveTU").button("option", "disabled", true);
 		  }
-	  });
-  	  
+	  }); 
     });
   	
-  	
-	
-	
 	//-------------------
     //Datatables jquery
     //-------------------
@@ -919,14 +917,14 @@
       	jq('#tblItemLines_filter').val()
       ).draw();
     }
-	
-	jq(document).ready(function() {
-	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+   
+    jq(document).ready(function(){
+    	//init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
 	      jq('#tblItemLinesAll').dataTable( {
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "800px",
 	    	  "scrollCollapse":  true,
-	  		  "order": [[ 14, "desc" ]],
+	  		  "order": [[ 13, "desc" ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
@@ -934,7 +932,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
-	  		  "order": [[ 15, "desc" ], [ 1, 'asc' ]],
+	  		  "order": [[ 14, "desc" ], [ 1, 'asc' ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      
@@ -946,9 +944,5 @@
 	      jq('input.tblItemLinesAll_filter').on( 'keyup click', function () {
 	      		filterGlobal();
 	      });
-	  	
     });
-  	
-	
-
 	

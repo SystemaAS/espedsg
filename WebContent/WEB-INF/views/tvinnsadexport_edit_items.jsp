@@ -405,7 +405,7 @@
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 		 						<input type="hidden" name="selkbCountryCode" id="selkbCountryCode" value="${recordTopicTvinnSad.selkb}">
 				 					
-								<table id="containerdatatableTable" cellspacing="2" align="left" >
+								<table id="containerdatatableTable" cellspacing="2" align="left" width="100%" >
 								<tr>
 								<td class="text11">
 							

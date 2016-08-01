@@ -415,11 +415,11 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 		
-								<table id="containerdatatableTable" cellspacing="2" align="left" >
+								<table id="containerdatatableTable" cellspacing="2" align="left" width="100%">
 								<tr>
 								<td class="text11">
 							
-								<table id="tblItemLines" class="display compact cell-border" >
+								<table id="tblItemLines" class="display compact cell-border">
 									<thead>
 									<tr style="background-color:#DDDDDD">
 									    <th class="text12">&nbsp;Lin.&nbsp;</th> 
