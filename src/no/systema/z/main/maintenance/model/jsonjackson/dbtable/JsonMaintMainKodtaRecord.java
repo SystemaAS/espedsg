@@ -46,6 +46,10 @@ public class JsonMaintMainKodtaRecord extends JsonAbstractGrandFatherRecord {
 	public void setKoaiat (String value){ this.koaiat = value;   }   
 	public String getKoaiat (){ return this.koaiat;   }              
 
+	private String koaia2 = null;  
+	public void setKoaia2 (String value){ this.koaia2 = value;   }   
+	public String getKoaia2 (){ return this.koaia2;   }              
+
 	private String koaie = null;  
 	public void setKoaie (String value){ this.koaie = value;   }   
 	public String getKoaie (){ return this.koaie;   }              

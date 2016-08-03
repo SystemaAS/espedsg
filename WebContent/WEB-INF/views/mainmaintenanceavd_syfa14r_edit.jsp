@@ -71,71 +71,121 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavdopptur.do?id=${model.dbTable}">
-							<font class="tabDisabledLink">&nbsp;Oppd.nr og tur</font>&nbsp;
+							<font class="tabDisabledLink">&nbsp;Oppnr og tur</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
-					<td width="3%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="1%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>
 	</tr>
+	
+	
+	
+	
 	<tr>
 		<td>
 		<%-- space separator --%>
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
-	 	    <tr>
-				<td width="5%">&nbsp;</td>
-				<td >UPDATE fields: TODO right here!</td>
-			</tr>	
 	 	    
-			<%-- list component 
+	 	    <%-- Validation errors --%>
+			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
 				<td width="5%">&nbsp;</td>
-				<td width="100%">
-				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="left">
-			    	    <tr>
-						<td class="text11">
-						<table width="100%" id="mainList" class="display compact cell-border" >
-							<thead>
-							<tr>
-							                                                                
-								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Avd&nbsp;</th>
-								<th width="15%" class="tableHeaderField" align="center" >&nbsp;Avd.navn</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Firma&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Kundenr.&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Bære&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Sted&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;IATA Kode&nbsp;</th>
-			                </tr>  
-			                </thead> 
-			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
-				               <tr class="tableRow" height="20" >
-				              
-				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="TODOtvinnsadmaintenanceimport_${record.pgm}.do?id=${record.dbTable}">
-	               						<img src="resources/images/update.gif" border="0" alt="edit">
-				               		</a>
-				               </td>
-				               <td width="15%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.todo}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.todo}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.todo}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.todo}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.todo}&nbsp;</font></td>
-		                       
-				            </tr> 
-				            </c:forEach>
-				            </tbody>
-			            </table>
-					</td>	
+				<td >
+		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
+		           	<tr >
+		           	<td >					
+			            <ul class="isa_error text12" >
+			            <c:forEach var="error" items="${errors.allErrors}">
+			                <li >
+			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
+			                </li>
+			            </c:forEach>
+			            </ul>
+					</td>
 					</tr>
-				</table>
+					</table>
+				</td>
+			</tr>
+			</spring:hasBindErrors>
+			
+			<%-- Other errors (none validation errors) --%>
+			<c:if test="${not empty model.errorMessage}">
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td >
+		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
+				 		<tr>
+				 			<td >
+				 				<ul class="isa_error text12" >
+		                                  <li>[ERROR on Update] - Server return code: ${model.errorMessage}</li>                                    
+		                              </ul>
+				 			</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			</c:if>
+	 	    
+	 	   
+	 	    
+	 	    <tr>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+					<form action="mainmaintenanceavd_syfa14r_edit.do" name="formRecord" id="formRecord" method="POST" >
+						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+						<%-- <input type="hidden" name="updateId" id=updateId value=""> this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+						<input type="hidden" name="action" id=action value="doUpdate">
+						<table cellspacing="1" border="0" align="left">
+				    	    <tr>
+								<td class="text12" title="KOAAVD">&nbsp;<font class="text14RedBold" >*</font>Avd.</td>
+								<td class="text12" title="KOANVN">&nbsp;<font class="text14RedBold" >*</font>Avd.navn</td>
+								<td class="text12" title="KOAFIR">&nbsp;<font class="text14RedBold" >*</font>Firma</td>
+								<td class="text12" title="KOAKNR">&nbsp;<font class="text14RedBold" >*</font>Kundenr.</td>
+							</tr>
+							<tr>
+								<td ><input readonly type="text" class="inputTextReadOnly" name="koaavd" id="koaavd" size="5" maxlength="4" value='${model.record.koaavd}'></td>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koanvn" id="koanvn" size="35" maxlength="33" value='${model.record.koanvn}'></td>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koafir" id="koafir" size="30" maxlength="59" value='${model.record.koafir}'></td>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koaknr" id="koaknr" size="9" maxlength="8" value='${model.record.koaknr}'></td>
+							</tr>
+							<tr height="3"><td>&nbsp;</td></tr>
+						</table>
+						<table width="55%" 	cellspacing="1" border="0" align="left">
+				    	    <tr>
+								<td class="text12" title="KOABÆR">&nbsp;Bærer</td>
+								<td class="text12" title="KOAKON">&nbsp;Sted</td>
+								<td class="text12" title="KOAIAT">&nbsp;IATA kode</td>
+								<td class="text12" title="KOAIA2">&nbsp;IATA kode 2</td>
+								<td class="text12" title="KOAPOS">&nbsp;Pnr.fraktb.</td>
+								<td class="text12" title="KOAIE">&nbsp;Imp/Eks.</td>
+								<td class="text12" title="KOALK">&nbsp;Kun land</td>
+								<td class="text12" title="NAVSG">&nbsp;Attesterer</td>
+
+							</tr>
+							<tr>
+								<td ><input type="text" class="inputTextMediumBlue" name="koabaer" id="koabaer" size="5" maxlength="4" value='${model.record.koabaer}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="koakon" id="koakon" size="5" maxlength="4" value='${model.record.koakon}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="koaiat" id="koaiat" size="8" maxlength="7" value='${model.record.koaiat}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="koaia2" id="koaia2" size="5" maxlength="4" value='${model.record.koaia2}'></td>
+								
+								<td ><input type="text" class="inputTextMediumBlue" name="koapos" id="koapos" size="2" maxlength="1" value='${model.record.koapos}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="koaie" id="koaie" size="2" maxlength="1" value='${model.record.koaie}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="koalk" id="koalk" size="3" maxlength="2" value='${model.record.koalk}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="navsg" id="navsg" size="4" maxlength="3" value='${model.record.navsg}'></td>
+								<td>
+									<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+								</td>
+							</tr>
+						</table>
+	 	    		</form>
 				</td>
 			</tr>	
-			--%>	    
+	 	    
+			    
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 		</table>
 		</td>
