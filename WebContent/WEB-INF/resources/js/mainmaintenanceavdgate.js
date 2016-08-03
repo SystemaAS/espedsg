@@ -4,10 +4,7 @@
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
   
-  jq(function() {
-	  //General Header Menus
-	  jq('#alinkTopicListMenuMaintenance').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	  });
-  });
+  function setBlockUI(element){
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  }
   

@@ -21,57 +21,61 @@
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
-					<td width="14%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
 						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tabDisabled" align="center">
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Gen.Avd</font>&nbsp;
-						<font class="text11MediumBlue">(${model.avd})</font>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdSyfa14r" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r.do">
+							<font class="tabDisabledLink">&nbsp;Gen.Avd</font>&nbsp;
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 						</a>
 					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tab" align="center">
+						<font class="tabLink">&nbsp;Avd</font>&nbsp;
+						<font class="text11MediumBlue">(${model.avd})</font>
+					</td>
 					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tabDisabled" align="center">
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdFasteData" onClick="setBlockUI(this);" href="mainmaintenanceavdfastedata.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Faste data</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tabDisabled" align="center">
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavdhodedok.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Hode på dok.</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tabDisabled" align="center">
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavdlisthode.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Listehode</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="14%" valign="bottom" class="tabDisabled" align="center">
+					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavdopptur.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Oppd.nr og tur</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
-					<td width="2%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="3%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>

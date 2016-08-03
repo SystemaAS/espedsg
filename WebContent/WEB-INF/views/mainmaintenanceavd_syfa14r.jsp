@@ -51,12 +51,12 @@
 	 	    
 			<%-- list component --%>
 			<tr>
-				<td width="5%">&nbsp;</td>
+				<td width="3%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="90%" cellspacing="1" border="0" align="left">
+				<table id="containerdatatableTable" width="99%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11">
-						<table width="100%" id="mainList" class="display compact cell-border" >
+						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Endre&nbsp;</th>                                                            
@@ -67,6 +67,12 @@
 			                    <th class="tableHeaderField" align="center" >&nbsp;Bære&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Sted&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;IATA Kode&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Pnr Fraktb.&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Imp / Eks&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Kun land&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Attest.&nbsp;</th>
+			                    
+			                    
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -84,6 +90,10 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koabaer}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koakon}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koaiat}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koapos}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koaie}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koalk}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.navsg}&nbsp;</font></td>
 		                       
 				            </tr> 
 				            </c:forEach>
