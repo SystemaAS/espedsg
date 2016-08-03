@@ -16,9 +16,9 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="currencyRateService" class="no.systema.main.service.general.CurrencyRateServiceImpl"/>
 	<bean id="notisblockService" class="no.systema.main.service.general.notisblock.NotisblockServiceImpl"/>
 	
-	<!-- =================  -->
-	<!-- MAINTENANCE WIDE   -->
-	<!-- =================  -->
+	<!-- ============================  -->
+	<!-- MAINTENANCE WIDE per module   -->
+	<!-- ============================  -->
 	<bean id="maintKodtvaService" class="no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaServiceImpl"/>
 	<bean id="maintDktvkService" class="no.systema.skat.z.maintenance.main.service.MaintDktvkServiceImpl"/>
  	
@@ -56,5 +56,12 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtseServiceImpl"/>
 	<bean id="maintSadImportKodtsoService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsoServiceImpl"/>
 	<!-- END Gyldige koder -->
+	
+	
+	<!-- ===================  -->
+	<!-- MAINTENANCE GENERAL  -->
+	<!-- ===================  -->
+	<bean id="maintMainKodtaService" class="no.systema.z.main.maintenance.service.MaintMainKodtaServiceImpl"/>
+	
 	
 </beans>

@@ -19,6 +19,7 @@ import no.systema.main.service.UrlCgiProxyService;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 //models
 import no.systema.z.main.maintenance.model.MainMaintenanceMainListObject;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -38,6 +39,7 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceAvdGateController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	
 	/**
 	 * 

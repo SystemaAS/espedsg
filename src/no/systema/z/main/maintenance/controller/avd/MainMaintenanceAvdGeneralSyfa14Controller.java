@@ -19,10 +19,14 @@ import no.systema.main.service.UrlCgiProxyService;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 //models
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.model.MainMaintenanceMainListObject;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 
 /**
  * Gateway to the Main Maintenance Application
@@ -38,6 +42,7 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceAvdGeneralSyfa14Controller {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdGeneralSyfa14Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	
 	/**
 	 * 
@@ -64,7 +69,8 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
 			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 			
-			List list = this.populateDummyList(); //TEST
+			
+	 		List list = this.fetchList(appUser.getUser());
 			
 			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
@@ -148,6 +154,34 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 		return listObject;
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @return
+	 */
+	private List<JsonMaintMainKodtaRecord> fetchList(String applicationUser){
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	List<JsonMaintMainKodtaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	return list;
+    	
+	}
+	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -155,6 +189,15 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	@Required
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
+	
+	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
+	
 	
 	
 		
