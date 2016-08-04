@@ -98,7 +98,8 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
 		String action = request.getParameter("action");
-		boolean updateValid = false;
+		String updateId = request.getParameter("updateId");
+		
 		
 		if(appUser==null){
 			return this.loginView;
@@ -111,9 +112,12 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 			
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
 			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
-			//UPDATE
+			//--------------
+			//UPDATE record
+			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				avd = recordToValidate.getKoaavd();
+				
 				//Validate
 				MaintMainKodtaValidator validator = new MaintMainKodtaValidator();
 				validator.validate(recordToValidate, bindingResult);
@@ -127,16 +131,48 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 					//Update table
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
-					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					if(updateId!=null && !"".equals(updateId)){
+						//update
+						logger.info(MainMaintenanceConstants.MODE_UPDATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					}else{
+						//create new
+						logger.info(MainMaintenanceConstants.MODE_ADD);
+						this.populateNullNumericFields(recordToValidate);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						
+					}
 					
 					//check for Update errors
 					if( dmlRetval < 0){
 						logger.info("[ERROR Validation] Record does not validate)");
-						//model.put("dbTable", dbTable);
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-						
+					}else{
+						//post successful update operations
+						updateId = recordToValidate.getKoaavd();
 					}
+				}
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				
+				
+			//DELETE	
+			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				
+				logger.info(MainMaintenanceConstants.MODE_DELETE);
+				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}else{
+					//post successful update operations
+					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa14r.do?id=KODTA");
+					
 				}
 			}else{
 				//-------------
@@ -148,17 +184,42 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				//this.setCodeDropDownMgr(appUser, model);
 				
-				//only if update = OK
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
+			
+			//populate model
+			if(action==null || "".equals(action)){
+				action = "doUpdate";
+			}
+			model.put("action", action);
 			model.put("avd", avd);
+			model.put("updateId", updateId);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    
 			return successView;
 			
+		}
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 */
+	private void populateNullNumericFields (JsonMaintMainKodtaRecord recordToValidate){
+		String ZERO = "0";
+		if(recordToValidate.getKoabaer()==null || "".equals(recordToValidate.getKoabaer()) ){
+			recordToValidate.setKoabaer(ZERO);			
+		}
+		if(recordToValidate.getKoaiat()==null || "".equals(recordToValidate.getKoaiat()) ){
+			recordToValidate.setKoaiat(ZERO);			
+		}
+		if(recordToValidate.getKoaia2()==null || "".equals(recordToValidate.getKoaia2()) ){
+			recordToValidate.setKoaia2(ZERO);			
+		}
+		if(recordToValidate.getKoakon()==null || "".equals(recordToValidate.getKoakon()) ){
+			recordToValidate.setKoakon(ZERO);			
 		}
 	}
 

@@ -36,10 +36,17 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Gen.Avd</font>&nbsp;
+						<font class="tabLink">&nbsp;Gen. avd.</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 					</td>
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="13%" valign="bottom" class="tabDisabled" align="center">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r_edit.do">
+							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
+							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
+						</a>
+					</td>
+					<td width="47%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>
@@ -72,6 +79,7 @@
 			                    <th class="tableHeaderField" align="center" >&nbsp;Imp / Eks&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Kun land&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Attest.&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Slett&nbsp;</th>
 			                    
 			                    
 			                </tr>  
@@ -80,7 +88,7 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r_edit.do?avd=${record.koaavd}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r_edit.do?avd=${record.koaavd}&updateId=${record.koaavd}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
@@ -95,7 +103,11 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koaie}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koalk}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.navsg}&nbsp;</font></td>
-		                       
+		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa14r_edit.do?action=doDelete&koaavd=${record.koaavd}">
+					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+					               	</a>
+				               </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
