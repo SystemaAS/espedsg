@@ -23,10 +23,10 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 //models
-import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.service.MaintMainFirmService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
@@ -180,6 +180,7 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//-------------
 				JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), avd);
 				
+				FIRM field fetch here
 				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				//this.setCodeDropDownMgr(appUser, model);
@@ -339,6 +340,14 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	@Required
 	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
 	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
+	
+	
+	@Qualifier ("maintMainFirmService")
+	private MaintMainFirmService maintMainFirmService;
+	@Autowired
+	@Required
+	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
+	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
 	
 	
 	

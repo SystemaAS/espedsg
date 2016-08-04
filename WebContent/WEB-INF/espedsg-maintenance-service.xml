@@ -62,6 +62,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- MAINTENANCE GENERAL  -->
 	<!-- ===================  -->
 	<bean id="maintMainKodtaService" class="no.systema.z.main.maintenance.service.MaintMainKodtaServiceImpl"/>
+	<bean id="maintMainFirmService" class="no.systema.z.main.maintenance.service.MaintMainFirmServiceImpl"/>
 	
 	
 </beans>

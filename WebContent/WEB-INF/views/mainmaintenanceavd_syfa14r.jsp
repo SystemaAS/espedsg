@@ -67,20 +67,20 @@
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-							    <th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Endre&nbsp;</th>                                                            
-								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Avd&nbsp;</th>
-								<th width="15%" class="tableHeaderField" align="center" >&nbsp;Avd.navn</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Firma&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Kundenr.&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Bære&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Sted&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;IATA Kode&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Pnr Fraktb.&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Imp / Eks&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Kun land&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Attest.&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Slett&nbsp;</th>
-			                    
+							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
+								<th width="2%" class="tableHeaderField" align="center" >Avd&</th>
+								<th width="15%" class="tableHeaderField" align="center" >Avd.navn</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;Firma</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;Kundenr.</th>
+			                    <th class="tableHeaderField" align="center" >Bære</th>
+			                    <th class="tableHeaderField" align="center" >Sted</th>
+			                    <th class="tableHeaderField" align="center" >IATA Kode</th>
+			                    <th class="tableHeaderField" align="center" >Pnr Fraktb.</th>
+			                    <th class="tableHeaderField" align="center" >Imp / Eks</th>
+			                    <th class="tableHeaderField" align="center" >Kun land</th>
+			                    <th class="tableHeaderField" align="center" >Attest.</th>
+			                    <th class="tableHeaderField" align="center" >DUP</th>
+			                    <th class="tableHeaderField" align="center" >Slett</th>
 			                    
 			                </tr>  
 			                </thead> 
@@ -94,15 +94,18 @@
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.koaavd}</td>
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koafir}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koaknr}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koabaer}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koakon}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koaiat}&nbsp;${record.koaia2}</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koapos}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koaie}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koalk}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.navsg}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koafir}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koaknr}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koabaer}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koakon}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.koaiat}&nbsp;${record.koaia2}</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koapos}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koaie}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.koalk}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${record.navsg}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
+		                       		<c:if test="${record.dup}"><img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0"></c:if>
+		                       </td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa14r_edit.do?action=doDelete&koaavd=${record.koaavd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">

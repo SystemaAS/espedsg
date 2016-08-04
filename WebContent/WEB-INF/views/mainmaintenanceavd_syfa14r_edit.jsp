@@ -191,12 +191,12 @@
 									</c:choose>
 								</td>
 								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koanvn" id="koanvn" size="35" maxlength="33" value='${model.record.koanvn}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koafir" id="koafir" size="30" maxlength="59" value='${model.record.koafir}'></td>
+								<td ><input readonly type="text" class="inputTextReadOnly" name="koafir" id="koafir" size="30" maxlength="59" value='${model.record.koafir}'></td>
 								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koaknr" id="koaknr" size="9" maxlength="8" value='${model.record.koaknr}'></td>
 							</tr>
 							<tr height="3"><td>&nbsp;</td></tr>
 						</table>
-						<table width="55%" 	cellspacing="1" border="0" align="left">
+						<table width="60%" 	cellspacing="1" border="0" align="left">
 				    	    <tr>
 								<td class="text12" title="KOABÆR">&nbsp;Bærer</td>
 								<td class="text12" title="KOAKON">&nbsp;Sted</td>
@@ -222,6 +222,29 @@
 									<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 								</td>
 							</tr>
+							<tr height="5"><td >&nbsp;</td></tr>
+						</table>
+						<table class="formFrameHeader" width="60%" 	cellspacing="1" border="0" align="left">
+							<tr><td colspan="15" class="text12White" >&nbsp;Brukere som skal motta melding om overførte "DUP"-oppdrag(tr.modul)</td></tr>
+						</table>
+						<table class="formFrame" width="60%" cellspacing="1" border="0" align="left">	
+				    	    <tr>
+								<td class="text12" title="KODUS1">&nbsp;Brukere1</td>
+								<td class="text12" title="KODUS2">&nbsp;Brukere2</td>
+								<td class="text12" title="KODUS3">&nbsp;Brukere3</td>
+								<td class="text12" title="KODUS4">&nbsp;Brukere4</td>
+								<td class="text12" title="KODUS5">&nbsp;Brukere5</td>
+								<td class="text12" title="KODUS6">&nbsp;Brukere6</td>
+							</tr>
+							<tr>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus1" id="kodus1" size="13" maxlength="10" value='${model.record.kodus1}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus2" id="kodus2" size="13" maxlength="10" value='${model.record.kodus2}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus3" id="kodus3" size="13" maxlength="10" value='${model.record.kodus3}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus4" id="kodus4" size="13" maxlength="10" value='${model.record.kodus4}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus5" id="kodus5" size="13" maxlength="10" value='${model.record.kodus5}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="kodus6" id="kodus6" size="13" maxlength="10" value='${model.record.kodus6}'></td>
+							</tr>
+							
 						</table>
 	 	    		</form>
 				</td>
