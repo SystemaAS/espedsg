@@ -140,7 +140,6 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
-						this.populateNullNumericFields(recordToValidate);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 						
 					}
@@ -181,12 +180,8 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//Fetch record
 				//-------------
 				JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), avd);
-				
+
 				this.populateDefaultFirmValues(appUser.getUser(), record, avd);
-				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				//this.setCodeDropDownMgr(appUser, model);
-				
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -204,26 +199,6 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 		    
 			return successView;
 			
-		}
-	}
-	
-	/**
-	 * 
-	 * @param recordToValidate
-	 */
-	private void populateNullNumericFields (JsonMaintMainKodtaRecord recordToValidate){
-		String ZERO = "0";
-		if(recordToValidate.getKoabaer()==null || "".equals(recordToValidate.getKoabaer()) ){
-			recordToValidate.setKoabaer(ZERO);			
-		}
-		if(recordToValidate.getKoaiat()==null || "".equals(recordToValidate.getKoaiat()) ){
-			recordToValidate.setKoaiat(ZERO);			
-		}
-		if(recordToValidate.getKoaia2()==null || "".equals(recordToValidate.getKoaia2()) ){
-			recordToValidate.setKoaia2(ZERO);			
-		}
-		if(recordToValidate.getKoakon()==null || "".equals(recordToValidate.getKoakon()) ){
-			recordToValidate.setKoakon(ZERO);			
 		}
 	}
 
