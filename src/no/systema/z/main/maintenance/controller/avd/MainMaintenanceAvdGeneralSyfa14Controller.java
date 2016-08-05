@@ -29,6 +29,8 @@ import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.service.MaintMainFirmService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.MaintMainKodtaValidator;
 
@@ -180,7 +182,7 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//-------------
 				JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), avd);
 				
-				FIRM field fetch here
+				this.populateDefaultFirmValues(appUser.getUser(), record, avd);
 				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				//this.setCodeDropDownMgr(appUser, model);
@@ -204,6 +206,7 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 			
 		}
 	}
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -323,6 +326,49 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	        }
     	}    	
     	return retval;
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param avd
+	 */
+	private void populateDefaultFirmValues (String applicationUser, JsonMaintMainKodtaRecord record, String avd ){
+		if(avd!=null && !"".equals(avd)){
+			//nothing
+		}else{
+			//get default
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser;
+			String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+			//put the final valid param. string
+			urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	
+	    	//extract
+	    	if(jsonPayload!=null){
+				//lists
+	    		JsonMaintMainFirmContainer container = this.maintMainFirmService.getList(jsonPayload);
+		        if(container!=null){
+		        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+		        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+		        			//TODO something or let go ... 
+		        			//errMsg.append(container.getErrMsg());
+		        		}
+		        	}else{
+		        		for(JsonMaintMainFirmRecord firmRecord : container.getList()){
+		        			record.setKoafir(firmRecord.getFifirm());
+		        		}
+		        	}
+		        }
+	    	}
+	    	
+		}
 	}
 	
 	//Wired - SERVICES
