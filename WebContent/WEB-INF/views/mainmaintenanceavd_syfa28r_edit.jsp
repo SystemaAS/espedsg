@@ -141,135 +141,282 @@
 						
 						<table width="99%" 	cellspacing="1" border="0" align="left">
 							<tr>
-								<td valign="top" width="50%">
+								<td valign="top" width="90%">
 									<table	cellspacing="1" border="0" align="left">
 									 	<tr>
 											<td class="text12" >Prosjektregnskap</td>
-											<td class="text12" title="todo">
+											<td class="text12" title="kovpro">
 												<select name="kovpro" id="kovpro" >
 			 					  					<option value="">-velg-</option>
-			 					  					<option value="J"<c:if test="${ Xmodel.record.kovpro == 'J'}"> selected </c:if> >J</option>
-								  					<option value="N"<c:if test="${ Xmodel.record.kovpro == 'N'}"> selected </c:if> >N</option>
+			 					  					<option value="J"<c:if test="${ model.record.kovpro == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ model.record.kovpro == 'N'}"> selected </c:if> >Nej</option>
+								  				</select>	
+											</td>
+											<td width="100px" class="text12" >&nbsp;</td>
+											<td class="text12" >Fet skr. på fly.fb</td>
+											<td class="text12" title="kowxxx0">
+												<select name="kowxxx0" id="kowxxx0" >
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'N'}"> selected </c:if> >Nej</option>
 								  				</select>	
 											</td>
 										</tr>	
 										<tr>
 											<td class="text12" >Fr.brev/TP, R28.Belast</td>
-											<td class="text12" title="todo">
+											<td class="text12" title="kovxxxFrBrev">
 												<select name="kovxxxFrBrev" id="kovxxxFrBrev" >
 			 					  					<option value="">-velg-</option>
-			 					  					<option value="S"<c:if test="${ Xmodel.record.kovxxxFrBrev == 'S'}"> selected </c:if> >S</option>
-								  					<option value="M"<c:if test="${ Xmodel.record.kovxxxFrBrev == 'M'}"> selected </c:if> >M</option>
+			 					  					<option value="S"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'S'}"> selected </c:if> >S</option>
+								  					<option value="M"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'M'}"> selected </c:if> >M</option>
 								  				</select>	
 											</td>
+											<td width="100px" class="text12" >&nbsp;</td>
+											<td class="text12" >Fritekstkode R38 FB/TP</td>
+											<td class="text12" title="todo">
+												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode1" id="kovxxxFrTextKode1" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 5, 7)}">
+												/
+												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode2" id="kovxxxFrTextKode2" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 1, 3)}">	
+											</td>
+
 										</tr>	
 										<tr>
 											<td class="text12" >Skriv fr.brev ved EDI</td>
-											<td class="text12" title="todo">
+											<td class="text12" title="kowxxxFrbrevEdi">
+												<select name="kovtodo" id="kowxxxFrbrevEdi" >
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nej</option>
+								  				</select>	
+											</td>
+											<td width="100px" class="text12" >&nbsp;</td>
+											<td class="text12" >Skriv Tollpass ved EDI</td>
+											<td class="text12" title="kovxxxTollpassEdi">
 												<select name="kovtodo" id="kovtodo" >
 			 					  					<option value="">-velg-</option>
-			 					  					<option value="J"<c:if test="${ Xmodel.record.kovtodo == 'J'}"> selected </c:if> >J</option>
-								  					<option value="N"<c:if test="${ Xmodel.record.kovtodo == 'N'}"> selected </c:if> >N</option>
+			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nej</option>
 								  				</select>	
 											</td>
 										</tr>	
 										<tr>
 											<td class="text12" >Godslinjer på faktura</td>
-											<td class="text12" title="todo">
-												<select name="kovtodo" id="kovtodo" >
-			 					  					<option value="">-velg-</option>
-			 					  					<option value="J"<c:if test="${ Xmodel.record.kovtodo == 'J'}"> selected </c:if> >J</option>
-								  					<option value="N"<c:if test="${ Xmodel.record.kovtodo == 'N'}"> selected </c:if> >N</option>
-								  				</select>	
-											</td>
-										</tr>		
-									</table>
-								
-								</td>
-								<td valign="top" width="50%">
-									<table cellspacing="1" border="0" align="left">
-									 	<tr>
-											<td class="text12" >Fet skr. på fly.fb</td>
-											<td class="text12" title="todo">
-												<select name="todo" id="todo" >
-			 					  					<option value="">-velg-</option>
-			 					  					<option value="J"<c:if test="${ Xmodel.record.todo == 'J'}"> selected </c:if> >J</option>
-								  					<option value="N"<c:if test="${ Xmodel.record.todo == 'N'}"> selected </c:if> >N</option>
-								  				</select>	
-											</td>
-										</tr>	
-										<tr>
-											<td class="text12" >Fritekstkode R38 FB/TP</td>
-											<td class="text12" title="todo">
-												<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value='${Xmodel.record.todo}'>
-												/
-												<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value='${Xmodel.record.todo}'>	
-											</td>
-										</tr>	
-										<tr>
-											<td class="text12" >Skriv Tollpass ved EDI</td>
-											<td class="text12" title="todo">
-												<select name="kovtodo" id="kovtodo" >
-			 					  					<option value="">-velg-</option>
-			 					  					<option value="J"<c:if test="${ Xmodel.record.kovtodo == 'J'}"> selected </c:if> >J</option>
-								  					<option value="N"<c:if test="${ Xmodel.record.kovtodo == 'N'}"> selected </c:if> >N</option>
-								  				</select>	
-											</td>
-										</tr>	
-										<tr>
+											<td class="text12" title="kowxxx1">
+												<input type="text" class="inputTextMediumBlue" name="kowxxx1" id="kowxxx1" size="3" maxlength="1" value='${ fn:substring(model.record.kowxxx, 1, 2) }' />
+											<td width="100px" class="text12" >&nbsp;</td>
 											<td class="text12" >Std OpdType (TR.modul)</td>
-											<td class="text12" title="todo">
-												<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value='${Xmodel.record.todo}'>	
+											<td class="text12" title="kowxxx2">
+												<input type="text" class="inputTextMediumBlue" name="kowxxx2" id="kowxxx2" size="3" maxlength="2" value='${ fn:substring(model.record.kowxxx, 2, 4) }' />	
 											</td>
+											
+										</tr>
+										<tr>
+											<td class="text12" >Omr.faktor 1 Lastemeter</td>
+											<td class="text12" title="kovlkg">
+												<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovlkg" id="kovlkg" size="6" maxlength="5" value='${model.record.kovlkg}'>&nbsp;Kg.	
+											</td>
+											<td width="100px" class="text12" >&nbsp;</td>
+											<td class="text12" >Omr.faktor 1 M3</td>
+											<td class="text12" title="kovkkg">
+												<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovkkg" id="kovkkg" size="6" maxlength="5" value='${model.record.kovkkg}'>&nbsp;Kg.
+											</td>
+										</tr>
+										
+										<tr>
+											<td class="text12" >Overstyre avrund.</td>
+											<td class="text12" title="kovavr">
+												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
+											</td>
+											<%-- TEST on JSTL --%>
+											<td class="text12" title="kovxxxT">
+												<input type="text" class="inputTextMediumBlue" name="kovxxx" id="kovxxx" size="8" maxlength="5" value="${model.record.kovxxx}">
+											</td>
+											<td class="text12" title="kowxxxT">
+												<input type="text" class="inputTextMediumBlue" name="kowxxx" id="kowxxx" size="8" maxlength="5" value="${model.record.kowxxx}">
+											</td>
+											
 										</tr>		
 									</table>
 								</td>
 							</tr>
-							<tr height="5"><td >&nbsp;TODO more here!</td></tr>
+							<tr height="5"><td >&nbsp;</td></tr>
 						</table>
-						<table class="formFrameHeader" width="90%" 	cellspacing="1" border="0" align="left">
+						<table class="formFrameHeader" width="60%" 	cellspacing="1" border="0" align="left">
 							<tr>
-								<td colspan="2" class="text12White" >&nbsp;Forteller til og med vekter i de enkelte frakt grupper - intervaller.&nbsp;&nbsp;En F under kiloene betyr at fast pris gjelder i intervallet
+								<td colspan="2" class="text12White" >&nbsp;Forteller til og med vekter i de enkelte frakt grupper - intervaller.
 								</td>
 							</tr>							
 						</table>
-						<table class="formFrame" width="90%" cellspacing="1" border="0" align="left">	
+						<table class="formFrame" width="60%" cellspacing="1" border="0" align="left">	
 				    	    <tr>
-								<td class="text12" title="KOVK1">&nbsp;1</td>
-								<td class="text12" title="KOVK2">&nbsp;2</td>
-								<td class="text12" title="KOVK3">&nbsp;3</td>
-								<td class="text12" title="KOVK4">&nbsp;4</td>
-								<td class="text12" title="KOVK5">&nbsp;5</td>
-								<td class="text12" title="KOVK6">&nbsp;6</td>
-								<td class="text12" title="KOVK7">&nbsp;7</td>
-								<td class="text12" title="KOVK8">&nbsp;8</td>
-								<td class="text12" title="KOVK9">&nbsp;9</td>
-								<td class="text12" title="KOVK10">&nbsp;10</td>
-								<td class="text12" title="KOVK11">&nbsp;11</td>
-								<td class="text12" title="TODO?">&nbsp;12</td>
+								<td class="text12" title="kovk1/kowf1" >&nbsp;<b>1</b></td>
+								<td class="text12" title="kovk2/kowf2" >&nbsp;<b>2</b></td>
+								<td class="text12" title="kovk3/kowf3" >&nbsp;<b>3</b></td>
+								<td class="text12" title="kovk4/kowf4" >&nbsp;<b>4</b></td>
+								<td class="text12" title="kovk5/kowf5" >&nbsp;<b>5</b></td>
+								<td class="text12" title="kovk6/kowf6" >&nbsp;<b>6</b></td>
+								<td class="text12" title="kovk7/kowf7" >&nbsp;<b>7</b></td>
+								<td class="text12" title="kovk8/kowf8" >&nbsp;<b>8</b></td>
 							</tr>
 							<tr>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk1" id="kovk1" size="6" maxlength="5" value='${Xmodel.record.kovk1}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk2" id="kovk2" size="6" maxlength="5" value='${Xmodel.record.kovk2}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk3" id="kovk3" size="6" maxlength="5" value='${Xmodel.record.kovk3}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk4" id="kovk4" size="6" maxlength="5" value='${Xmodel.record.kovk4}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk5" id="kovk5" size="6" maxlength="5" value='${Xmodel.record.kovk5}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk6" id="kovk6" size="6" maxlength="5" value='${Xmodel.record.kovk6}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk7" id="kovk7" size="6" maxlength="5" value='${Xmodel.record.kovk7}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk8" id="kovk8" size="6" maxlength="5" value='${Xmodel.record.kovk8}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value='${Xmodel.record.kovk9}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value='${Xmodel.record.kovk10}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value='${Xmodel.record.kovk11}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value='${Xmodel.record.todo}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk1" id="kovk1" size="6" maxlength="5" value='${model.record.kovk1}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk2" id="kovk2" size="6" maxlength="5" value='${model.record.kovk2}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk3" id="kovk3" size="6" maxlength="5" value='${model.record.kovk3}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk4" id="kovk4" size="6" maxlength="5" value='${model.record.kovk4}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk5" id="kovk5" size="6" maxlength="5" value='${model.record.kovk5}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk6" id="kovk6" size="6" maxlength="5" value='${model.record.kovk6}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk7" id="kovk7" size="6" maxlength="5" value='${model.record.kovk7}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk8" id="kovk8" size="6" maxlength="5" value='${model.record.kovk8}'></td>
+							</tr>
+							<tr>
+								<td ><input type="checkbox" name="kowf1" id="kowf1" value="F" <c:if test="${model.record.kowf1 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf2" id="kowf2" value="F" <c:if test="${model.record.kowf2 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf3" id="kowf3" value="F" <c:if test="${model.record.kowf3 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf4" id="kowf4" value="F" <c:if test="${model.record.kowf4 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf5" id="kowf5" value="F" <c:if test="${model.record.kowf5 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf6" id="kowf6" value="F" <c:if test="${model.record.kowf6 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf7" id="kowf7" value="F" <c:if test="${model.record.kowf7 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf8" id="kowf8" value="F" <c:if test="${model.record.kowf8 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								
+							</tr>
+							<tr>
+								<td class="text12" title="kovk9/kowf9" >&nbsp;<b>9</b></td>
+								<td class="text12" title="kovk10/kowf10" >&nbsp;<b>10</b></td>
+								<td class="text12" title="kovk11/kowf11" >&nbsp;<b>11</b></td>
+								<td class="text12" title="todo?/kowf12" >&nbsp;<b>12</b></td>
+							</tr>
+							<tr>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value='${model.record.kovk9}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value='${model.record.kovk10}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value='${model.record.kovk11}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value='${Xmodel.record.todo}'></td>
+							</tr>
+							<tr>
+								<td ><input type="checkbox" name="kowf9" id="kowf9" value="F" <c:if test="${model.record.kowf9 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf10" id="kowf10" value="F" <c:if test="${model.record.kowf10 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf11" id="kowf11" value="F" <c:if test="${model.record.kowf11 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf12" id="kowf12" value="F" <c:if test="${model.record.kowf12 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								
 							</tr>
 							
+							<tr height="3"><td >&nbsp;</td></tr>
+							<tr>
+								<td colspan="12" > 
+									<table cellspacing="1" border="0" align="left">
+									<tr>
+										<td class="text12" ><img onMouseOver="showPop('kovomr_info');" onMouseOut="hidePop('kovomr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+											Pr.per ? kg&nbsp;
+											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovomr" id="kovomr" size="4" maxlength="3" value='${model.record.kovomr}'>
+											
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px" id="kovomr_info" class="popupWithInputText text11"  >	
+							           			<b>i</b> intervaller uten F skal pris være pr ?? kg
+											</span>
+											</div>
+										</td>
+										<td class="text12" width="20px" ></td>
+										<td class="text12"><img onMouseOver="showPop('kowmm_info');" onMouseOut="hidePop('kowmm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+											Intervall-type&nbsp;
+											<select name="kowmm" id="kowmm" >
+		 					  					<option value="">-velg-</option>
+		 					  					<option value="0"<c:if test="${ model.record.kowmm == '0'}"> selected </c:if> >0</option>
+							  					<option value="1"<c:if test="${ model.record.kowmm == '1'}"> selected </c:if> >1</option>
+							  					<option value="2"<c:if test="${ model.record.kowmm == '2'}"> selected </c:if> >2</option>
+										  	</select>
+										  	
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute;top:2px;width:300px;" id="kowmm_info" class="popupWithInputText text11"  >	
+							           			<ul>
+								           			<li><b>0</b>&nbsp;=&nbsp;Ren intevall-pris</li>
+							           				<li><b>1</b>&nbsp;=&nbsp;...dog ikke under maks i foregående interv.</li>
+							           				<li><b>2</b>&nbsp;=&nbsp;...dog ikke over minimum i neste intervall</li>
+							           			</ul>
+											</span>
+											</div>
+										
+										</td>
+									</tr>
+									</table>
+								</td>
+							</tr>	
 						</table>
+						<table width="99%" 	cellspacing="1" border="0" align="left">
+							<tr height="3"><td >&nbsp;</td></tr>
+							<tr>
+								<td valign="top" width="90%">
+									<table	cellspacing="1" border="0" align="left">
+										<tr>
+											<td class="text12" title="kovk9/kowf9" >&nbsp;Kombinert giro</td>
+											<td >
+												<select name="kowkom" id="kowkom" >
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="J"<c:if test="${ model.record.kowkom == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ model.record.kowkom == 'N'}"> selected </c:if> >Nej</option>
+								  				</select>
+											</td>
+											<td class="text12" title="kowbbs" >&nbsp;
+												<img onMouseOver="showPop('kowbbs_info');" onMouseOut="hidePop('kowbbs_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												Printer typer BBS
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kowbbs_info" class="popupWithInputText text11"  >	
+								           			<ul>
+									           			<li><b>A</b>&nbsp;=&nbsp;4214/5224/5225</li>
+								           				<li><b>B</b>&nbsp;=&nbsp;4224</li>
+								           				<li><b>C</b>&nbsp;=&nbsp;OCR-belte</li>
+								           			</ul>
+												</span>
+												</div>
+											</td>
+											<td >
+												<select name="kowbbs" id="kowbbs" >
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="A"<c:if test="${ model.record.kowbbs == 'A'}"> selected </c:if> >A</option>
+								  					<option value="B"<c:if test="${ model.record.kowbbs == 'B'}"> selected </c:if> >B</option>
+								  					<option value="C"<c:if test="${ model.record.kowbbs == 'C'}"> selected </c:if> >C</option>
+								  				</select>
+											</td>
+											<td class="text12" title="kowawb" >&nbsp;
+												<img onMouseOver="showPop('kowawb_info');" onMouseOut="hidePop('kowawb_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												Delt faktura/giro
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px;width:200px" id="kowawb_info" class="popupWithInputText text11"  >	
+								           			<ul>
+									           			<li><b>J</b>&nbsp;=&nbsp;72 delt</li>
+								           				<li><b>N</b>&nbsp;=&nbsp;72 m/giro</li>
+								           				<li><b>S</b>&nbsp;=&nbsp;96 m/giro</li>
+								           				<li><b>K</b>&nbsp;=&nbsp;72M/Kid</li>
+								           			</ul>
+												</span>
+												</div>
+											</td>
+											<td >
+												<select name="kowawb" id="kowawb" >
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="J"<c:if test="${ model.record.kowawb == 'J'}"> selected </c:if> >J</option>
+								  					<option value="N"<c:if test="${ model.record.kowawb == 'N'}"> selected </c:if> >N</option>
+								  					<option value="S"<c:if test="${ model.record.kowawb == 'S'}"> selected </c:if> >S</option>
+								  					<option value="K"<c:if test="${ model.record.kowawb == 'K'}"> selected </c:if> >K</option>
+								  				</select>
+											</td>
+										</tr>
+										<tr>
+											<td class="text12" title="kowhod" >&nbsp;Hode på fakt.</td>
+											<td ><input type="text" class="inputTextMediumBlue" name="kowhod" id="kowhod" size="2" maxlength="1" value='${model.record.kowhod}'></td>
+											<td class="text12" title="kowlas" >&nbsp;&nbsp;&nbsp;&nbsp;H/AWB-tab</td>
+											<td ><input type="text" class="inputTextMediumBlue" name="kowlas" id="todo" size="2" maxlength="1" value='${model.record.kowlas}'></td>
+											<td class="text12" title="avutpr" >&nbsp;&nbsp;&nbsp;&nbsp;Utl.pro.</td>
+											<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="avutpr" id="avutpr" size="6" maxlength="5" value='${model.record.avutpr}'></td>
+											<td class="text12" title="avutmi" >&nbsp;Utl.minb.</td>
+											<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="avutmi" id="avutmi" size="6" maxlength="4" value='${model.record.avutmi}'></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>		
 	 	    		</form>
 				</td>
 			</tr>	
-	 	    
-			    
+	 	    			    
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 		</table>
 		</td>

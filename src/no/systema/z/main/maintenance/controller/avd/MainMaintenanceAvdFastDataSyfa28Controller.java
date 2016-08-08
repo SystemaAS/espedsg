@@ -240,7 +240,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		JsonMaintMainKodtvKodtwRecord record = new JsonMaintMainKodtvKodtwRecord();
     	
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&koaavd=" + id;
+		String urlRequestParams = "user=" + applicationUser + "&kovavd=" + id;
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
