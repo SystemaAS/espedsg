@@ -429,7 +429,7 @@
 	 	    		</form>
 				</td>
 			</tr>	 				    
-	 	    <tr height="15"><td>&nbsp;</td></tr>
+	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	    
 	 	    <%-- list component --%>
 			<tr>
