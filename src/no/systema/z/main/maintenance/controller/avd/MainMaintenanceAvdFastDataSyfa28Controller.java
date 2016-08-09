@@ -26,8 +26,12 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
+import no.systema.z.main.maintenance.service.MaintMainKodtpUtskrsService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsRecord;
+
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.MaintMainKodtvKodtwValidator;
 
@@ -176,10 +180,14 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				}
 				*/
 			}else{
-				//-------------
-				//Fetch record
-				//-------------
+				//---------------------------
+				//Fetch record and child list
+				//---------------------------
 				JsonMaintMainKodtvKodtwRecord record = this.fetchRecord(appUser.getUser(), avd);
+				record.setChildList(this.fetchChildList(appUser.getUser(), avd));
+				/* DEBUG -->>for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
+					logger.info(cRecord.getKopnvn());
+				}*/
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -264,6 +272,37 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
     	return record;
     	
 	}
+	/**
+	 * Gets the children list of the child section (FASTE DATA Del-2)
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private List<JsonMaintMainKodtpUtskrsRecord> fetchChildList(String applicationUser, String id){
+		List <JsonMaintMainKodtpUtskrsRecord> list = new ArrayList<JsonMaintMainKodtpUtskrsRecord>();
+    	
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_GET_CHILDREN_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kopavd=" + id;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtpUtskrsContainer container = this.getMaintMainKodtpUtskrsService().getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	return list;
+    	
+	}
 	
 	/**
 	 * 
@@ -320,6 +359,15 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	@Required
 	public void setMaintMainKodtvKodtwService (MaintMainKodtvKodtwService value){ this.maintMainKodtvKodtwService = value; }
 	public MaintMainKodtvKodtwService getMaintMainKodtvKodtwService(){ return this.maintMainKodtvKodtwService; }
+	
+	
+	@Qualifier ("maintMainKodtpUtskrsService")
+	private MaintMainKodtpUtskrsService maintMainKodtpUtskrsService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtpUtskrsService (MaintMainKodtpUtskrsService value){ this.maintMainKodtpUtskrsService = value; }
+	public MaintMainKodtpUtskrsService getMaintMainKodtpUtskrsService(){ return this.maintMainKodtpUtskrsService; }
+	
 	
 
 		

@@ -2,6 +2,7 @@ package no.systema.z.main.maintenance.model.jsonjackson.dbtable;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
@@ -190,6 +191,11 @@ public class JsonMaintMainKodtvKodtwRecord extends JsonAbstractGrandFatherRecord
 	public void setKowkom (String value){ this.kowkom = value;   }   
 	public String getKowkom (){ return this.kowkom;   }              
 
+	//Child list
+	private Collection<JsonMaintMainKodtpUtskrsRecord> childList;
+	public void setChildList(Collection<JsonMaintMainKodtpUtskrsRecord> value){ this.childList = value; }
+	public Collection<JsonMaintMainKodtpUtskrsRecord> getChildList(){ return childList; }
+	
 	/**
 	 * 
 	 * @return
