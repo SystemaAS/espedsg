@@ -185,10 +185,12 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				//---------------------------
 				JsonMaintMainKodtvKodtwRecord record = this.fetchRecord(appUser.getUser(), avd);
 				record.setChildList(this.fetchChildList(appUser.getUser(), avd));
-				/* DEBUG -->>for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
-					logger.info(cRecord.getKopnvn());
+				//DEBUG
+				/*for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
+					logger.info(cRecord.getKoplnr());
 				}*/
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+				
 			}
 			
 			

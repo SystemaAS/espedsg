@@ -227,36 +227,40 @@
 											<td class="text12" title="kovavr">
 												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
 											</td>
-											<%-- TEST on JSTL --%>
+											<%-- TEST on JSTL 
 											<td class="text12" title="kovxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kovxxx" id="kovxxx" size="8" maxlength="5" value="${model.record.kovxxx}">
 											</td>
 											<td class="text12" title="kowxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kowxxx" id="kowxxx" size="8" maxlength="5" value="${model.record.kowxxx}">
 											</td>
-											
+											--%>
 										</tr>		
 									</table>
 								</td>
 							</tr>
 							<tr height="5"><td >&nbsp;</td></tr>
 						</table>
-						<table class="formFrameHeader" width="60%" 	cellspacing="1" border="0" align="left">
+						<table class="formFrameHeader" width="95%" 	cellspacing="1" border="0" align="left">
 							<tr>
 								<td colspan="2" class="text12White" >&nbsp;Forteller til og med vekter i de enkelte frakt grupper - intervaller.
 								</td>
 							</tr>							
 						</table>
-						<table class="formFrame" width="60%" cellspacing="1" border="0" align="left">	
+						<table class="formFrame" width="95%" cellspacing="1" border="0" align="left">	
 				    	    <tr>
-								<td class="text12" title="kovk1/kowf1" >&nbsp;<b>1</b></td>
-								<td class="text12" title="kovk2/kowf2" >&nbsp;<b>2</b></td>
-								<td class="text12" title="kovk3/kowf3" >&nbsp;<b>3</b></td>
-								<td class="text12" title="kovk4/kowf4" >&nbsp;<b>4</b></td>
-								<td class="text12" title="kovk5/kowf5" >&nbsp;<b>5</b></td>
-								<td class="text12" title="kovk6/kowf6" >&nbsp;<b>6</b></td>
-								<td class="text12" title="kovk7/kowf7" >&nbsp;<b>7</b></td>
-								<td class="text12" title="kovk8/kowf8" >&nbsp;<b>8</b></td>
+								<td class="text12" title="kovk1/kowf1" align="center" ><b>1</b></td>
+								<td class="text12" title="kovk2/kowf2" align="center" ><b>2</b></td>
+								<td class="text12" title="kovk3/kowf3" align="center" ><b>3</b></td>
+								<td class="text12" title="kovk4/kowf4" align="center" ><b>4</b></td>
+								<td class="text12" title="kovk5/kowf5" align="center" ><b>5</b></td>
+								<td class="text12" title="kovk6/kowf6" align="center" ><b>6</b></td>
+								<td class="text12" title="kovk7/kowf7" align="center" ><b>7</b></td>
+								<td class="text12" title="kovk8/kowf8" align="center" ><b>8</b></td>
+								<td class="text12" title="kovk9/kowf9" align="center" ><b>9</b></td>
+								<td class="text12" title="kovk10/kowf10" align="center" ><b>10</b></td>
+								<td class="text12" title="kovk11/kowf11" align="center" ><b>11</b></td>
+								<td class="text12" title="todo?/kowf12" align="center" ><b>12</b></td>
 							</tr>
 							<tr>
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk1" id="kovk1" size="6" maxlength="5" value='${model.record.kovk1}'></td>
@@ -267,6 +271,10 @@
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk6" id="kovk6" size="6" maxlength="5" value='${model.record.kovk6}'></td>
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk7" id="kovk7" size="6" maxlength="5" value='${model.record.kovk7}'></td>
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk8" id="kovk8" size="6" maxlength="5" value='${model.record.kovk8}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value='${model.record.kovk9}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value='${model.record.kovk10}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value='${model.record.kovk11}'></td>
+								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value='${Xmodel.record.todo}'></td>
 							</tr>
 							<tr>
 								<td ><input type="checkbox" name="kowf1" id="kowf1" value="F" <c:if test="${model.record.kowf1 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
@@ -277,8 +285,13 @@
 								<td ><input type="checkbox" name="kowf6" id="kowf6" value="F" <c:if test="${model.record.kowf6 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								<td ><input type="checkbox" name="kowf7" id="kowf7" value="F" <c:if test="${model.record.kowf7 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								<td ><input type="checkbox" name="kowf8" id="kowf8" value="F" <c:if test="${model.record.kowf8 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf9" id="kowf9" value="F" <c:if test="${model.record.kowf9 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf10" id="kowf10" value="F" <c:if test="${model.record.kowf10 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf11" id="kowf11" value="F" <c:if test="${model.record.kowf11 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
+								<td ><input type="checkbox" name="kowf12" id="kowf12" value="F" <c:if test="${model.record.kowf12 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								
 							</tr>
+							<%-- 
 							<tr>
 								<td class="text12" title="kovk9/kowf9" >&nbsp;<b>9</b></td>
 								<td class="text12" title="kovk10/kowf10" >&nbsp;<b>10</b></td>
@@ -298,7 +311,7 @@
 								<td ><input type="checkbox" name="kowf12" id="kowf12" value="F" <c:if test="${model.record.kowf12 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								
 							</tr>
-							
+							--%>
 							<tr height="3"><td >&nbsp;</td></tr>
 							<tr>
 								<td colspan="12" > 
@@ -415,9 +428,72 @@
 						</table>		
 	 	    		</form>
 				</td>
-			</tr>	
-	 	    			    
+			</tr>	 				    
+	 	    <tr height="15"><td>&nbsp;</td></tr>
+	 	    
+	 	    <%-- list component --%>
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+				<table id="containerdatatableTable" width="95%" cellspacing="1" border="0" align="left">
+			    	    <tr>
+						<td class="text11">
+						<table id="childList" class="display compact cell-border" >
+							<thead>
+							<tr>
+							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
+								<th width="2%" class="tableHeaderFieldFirst" align="center" >Lnr</th>                                                            
+								<th width="25%" class="tableHeaderField" align="left" >Beskrivelse</th>
+								<th class="tableHeaderField" align="left" >Papirtype</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Anl.</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;Ank.</th>
+			                    <th class="tableHeaderField" align="center" >Printer</th>
+			                    <th class="tableHeaderField" align="center" >H</th>
+			                    <th class="tableHeaderField" align="center" >L</th>
+			                    <th class="tableHeaderField" align="center" >8</th>
+			                    <th class="tableHeaderField" align="center" >Strin.</th>
+			                    <th class="tableHeaderField" align="center" >Sk.</th>
+			                    <th class="tableHeaderField" align="center" >Kop.</th>
+			                    <th class="tableHeaderField" align="center" >Slett</th>
+			                </tr>  
+			                </thead> 
+			                <tbody >  
+				            <c:forEach var="childRecord" items="${model.record.childList}" varStatus="counter">   
+				               <tr class="tableRow" height="20" >
+				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="TODOmainmaintenanceavd_syfa14r_edit.do?avd=${childRecord.kopavd}&updateId=${childRecord.kopavd}">
+	               						<img src="resources/images/update.gif" border="0" alt="edit">
+				               		</a>
+				               </td>
+				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${childRecord.koplnr}</td>
+				               <td width="25%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${childRecord.utptxt}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpty}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpl}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpk}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.kopnvn}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.kophea}</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.koplas}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.koplpi}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopfm}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopdraw}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopcopi}&nbsp;</td>
+		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOmainmaintenanceavd_syfa14r_edit.do?action=doDelete&koaavd=${childRecord.kopavd}">
+					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+					               	</a>
+				               </td>
+				            </tr> 
+				            </c:forEach>
+				            </tbody>
+			            </table>
+					</td>	
+					</tr>
+				</table>
+				</td>
+			</tr>		    
+	 	   
 	 	    <tr height="20"><td>&nbsp;</td></tr>
+
 	 		</table>
 		</td>
 	</tr>
