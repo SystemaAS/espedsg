@@ -333,7 +333,7 @@
 								</td>
 							</tr>	
 						</table>
-						<table width="99%" 	cellspacing="1" border="0" align="left">
+						<table width="99%" 	cellspacing	="1" border="0" align="left">
 							<tr height="3"><td >&nbsp;</td></tr>
 							<tr>
 								<td valign="top" width="90%">
@@ -441,7 +441,7 @@
 				            <c:forEach var="childRecord" items="${model.record.childList}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" target="_blank" href="mainmaintenanceavd_syfa28r_edit_childwindow.do?kopavd=${childRecord.kopavd}&koplnr=${childRecord.koplnr}&updateId=${childRecord.kopavd}_${childRecord.koplnr}" onClick="window.open(this.href,'targetWindowSyfa28','top=400px,left=400px,height=250px,width=620px,scrollbars=no,status=no,location=no'); return false;">
+					               	<a id="alinkRecordId_${counter.count}" target="_blank" href="mainmaintenanceavd_syfa28r_edit_childwindow.do?kopavd=${childRecord.kopavd}&koplnr=${childRecord.koplnr}&updateId=${childRecord.kopavd}_${childRecord.koplnr}" onClick="window.open(this.href,'targetWindowSyfa28','top=400px,left=400px,height=300px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>

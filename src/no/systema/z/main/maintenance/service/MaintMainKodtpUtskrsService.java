@@ -16,4 +16,5 @@ public interface MaintMainKodtpUtskrsService {
 	public JsonMaintMainKodtpUtskrsContainer getList(String utfPayload);
 	public JsonMaintMainKodtpUtskrsContainer doUpdate(String utfPayload);
 	
+	
 }

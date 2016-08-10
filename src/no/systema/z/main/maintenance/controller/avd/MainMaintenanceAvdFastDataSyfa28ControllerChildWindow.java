@@ -35,8 +35,10 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
 import no.systema.z.main.maintenance.service.MaintMainKodtpUtskrsService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -59,9 +61,8 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 	
 	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdFastDataSyfa28ControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
-	
 	private ModelAndView loginView = new ModelAndView("login");
-	private ApplicationContext context;
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 	
 	@PostConstruct
@@ -85,8 +86,9 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 		
 		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa28r_edit_childwindow");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		
 		Map model = new HashMap();
+		String updateId = request.getParameter("updateId");
+		
 		String urlRequestParamsKeys = null;
 		//Catch required action (doFetch or doUpdate)
 		String action = request.getParameter("action");
@@ -95,38 +97,71 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			//Keys and header information
-			//String avd = request.getParameter("avd");
-			//String lnr = request.getParameter("lnr");
-			
-			//this fragment gets some header fields needed for the validator
-			//JsonTdsExportSpecificTopicRecord headerRecord = (JsonTdsExportSpecificTopicRecord)session.getAttribute(TdsConstants.DOMAIN_RECORD_TOPIC);
-			//String invoiceTotalAmount = headerRecord.getSveh_fabl();
-			
-			//FETCH the ITEM
-			//---------------------------
-			//get BASE URL = RPG-PROGRAM
-            //---------------------------
-			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_GET_CHILDREN_LIST_URL;
-			String urlRequestParams = "user=" + appUser.getUser() + "&kopavd=" + recordToValidate.getKopavd() + "&koplnr=" + recordToValidate.getKoplnr();
-			
-			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-	    	logger.info("URL PARAMS: " + urlRequestParams);
-	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-	    	//DEBUG
-	    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
-	    	//extract
-	    	
-	    	if(jsonPayload!=null){
-				//lists
-	    		JsonMaintMainKodtpUtskrsContainer container = this.getMaintMainKodtpUtskrsService().getList(jsonPayload);
-		        if(container!=null){
-		        	for(JsonMaintMainKodtpUtskrsRecord record : container.getList()){
-		        		model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-		        	}
-		        }
-	    	}
+			//--------------
+			//UPDATE record
+			//--------------
+			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
+				//Update table
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				if(updateId!=null && !"".equals(updateId)){
+					//update
+					logger.info(MainMaintenanceConstants.MODE_UPDATE);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+				}else{
+					//create new
+					/*
+					logger.info(MainMaintenanceConstants.MODE_ADD);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					*/
+				}
+				
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}else{
+					//post successful update operations
+					updateId = recordToValidate.getKopavd();
+				}
+				
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				
+				
+			//DELETE	
+			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
+				/*
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				
+				logger.info(MainMaintenanceConstants.MODE_DELETE);
+				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}else{
+					//post successful update operations
+					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa28r_TODO.do?id=KODTA");
+					
+				}
+				*/
+			}else{
+				//---------------
+				//Fetch record 
+				//---------------
+				this.fetchRecord(appUser.getUser(), recordToValidate, model);
+				
+			}
+			//populate model
+			if(action==null || "".equals(action)){
+				action = "doUpdate";
+			}
+			model.put("action", action);
+			model.put("updateId", updateId);
 	    	successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL,model);
 			
 	    	logger.info("END of method");
@@ -134,7 +169,76 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 */
+	private void fetchRecord(String applicationUser, JsonMaintMainKodtpUtskrsRecord recordToValidate, Map model){
+		//FETCH the ITEM
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_GET_CHILDREN_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kopavd=" + recordToValidate.getKopavd() + "&koplnr=" + recordToValidate.getKoplnr();
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtpUtskrsContainer container = this.getMaintMainKodtpUtskrsService().getList(jsonPayload);
+	        if(container!=null){
+	        	for(JsonMaintMainKodtpUtskrsRecord record : container.getList()){
+	        		model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+	        	}
+	        }
+    	}
+	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateRecord(String applicationUser, JsonMaintMainKodtpUtskrsRecord record, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_DML_UPDATE_CHILD_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtpUtskrsContainer container = this.maintMainKodtpUtskrsService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	}   
+
+    	return retval;
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
