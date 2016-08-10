@@ -2151,13 +2151,14 @@ END override jQuery elements
 	-moz-border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	font-family: verdana, Arial, Helvetica, sans-serif; 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
     font-size: 11px;  
-    color: #4E78A0; 
+    color: #000000; 
     background-color:#FFFFFF;
     border-style: solid; 
-    border-width: 1px 2px 2px 1px; 
-    border-color: #4E78A0;
+    border-width: 1px 1px 1px 1px; 
+    border-color: #FF6600;
+    
 }
 
 .tableBorderWithRoundCornersGray {  

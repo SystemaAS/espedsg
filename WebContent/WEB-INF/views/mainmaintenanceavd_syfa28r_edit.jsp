@@ -144,8 +144,8 @@
 								<td valign="top" width="90%">
 									<table	cellspacing="1" border="0" align="left">
 									 	<tr>
-											<td class="text12" >Prosjektregnskap</td>
-											<td class="text12" title="kovpro">
+											<td class="text12" title="kovpro">Prosjektregnskap</td>
+											<td class="text12" >
 												<select name="kovpro" id="kovpro" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kovpro == 'J'}"> selected </c:if> >Ja</option>
@@ -153,8 +153,8 @@
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" >Fet skr. på fly.fb</td>
-											<td class="text12" title="kowxxx0">
+											<td class="text12" title="kowxxx0">Fet skr. på fly.fb</td>
+											<td class="text12" >
 												<select name="kowxxx0" id="kowxxx0" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'J'}"> selected </c:if> >Ja</option>
@@ -163,17 +163,17 @@
 											</td>
 										</tr>	
 										<tr>
-											<td class="text12" >Fr.brev/TP, R28.Belast</td>
-											<td class="text12" title="kovxxxFrBrev">
+											<td class="text12" title="kovxxxFrBrev">Fr.brev/TP, R28.Belast</td>
+											<td class="text12">
 												<select name="kovxxxFrBrev" id="kovxxxFrBrev" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="S"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'S'}"> selected </c:if> >S</option>
 								  					<option value="M"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'M'}"> selected </c:if> >M</option>
 								  				</select>	
 											</td>
-											<td width="100px" class="text12" >&nbsp;</td>
+											<td width="100px" class="text12" title="kovxxxFrTextKode1">&nbsp;</td>
 											<td class="text12" >Fritekstkode R38 FB/TP</td>
-											<td class="text12" title="todo">
+											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode1" id="kovxxxFrTextKode1" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 5, 7)}">
 												/
 												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode2" id="kovxxxFrTextKode2" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 1, 3)}">	
@@ -181,18 +181,18 @@
 
 										</tr>	
 										<tr>
-											<td class="text12" >Skriv fr.brev ved EDI</td>
-											<td class="text12" title="kowxxxFrbrevEdi">
-												<select name="kovtodo" id="kowxxxFrbrevEdi" >
+											<td class="text12" title="kowxxxFrbrevEdi">Skriv fr.brev ved EDI</td>
+											<td class="text12"> 
+												<select name="kowxxxFrbrevEdi" id="kowxxxFrbrevEdi" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nej</option>
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" >Skriv Tollpass ved EDI</td>
-											<td class="text12" title="kovxxxTollpassEdi">
-												<select name="kovtodo" id="kovtodo" >
+											<td class="text12" title="kovxxxTollpassEdi">Skriv Tollpass ved EDI</td>
+											<td class="text12" >
+												<select name="kovxxxTollpassEdi" id="kovxxxTollpassEdi" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nej</option>
@@ -200,31 +200,31 @@
 											</td>
 										</tr>	
 										<tr>
-											<td class="text12" >Godslinjer på faktura</td>
-											<td class="text12" title="kowxxx1">
+											<td class="text12" title="kowxxx1">Godslinjer på faktura</td>
+											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kowxxx1" id="kowxxx1" size="3" maxlength="1" value='${ fn:substring(model.record.kowxxx, 1, 2) }' />
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" >Std OpdType (TR.modul)</td>
-											<td class="text12" title="kowxxx2">
+											<td class="text12" title="kowxxx2">Std OpdType (TR.modul)</td>
+											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kowxxx2" id="kowxxx2" size="3" maxlength="2" value='${ fn:substring(model.record.kowxxx, 2, 4) }' />	
 											</td>
 											
 										</tr>
 										<tr>
-											<td class="text12" >Omr.faktor 1 Lastemeter</td>
-											<td class="text12" title="kovlkg">
+											<td class="text12" title="kovlkg">Omr.faktor 1 Lastemeter</td>
+											<td class="text12" >
 												<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovlkg" id="kovlkg" size="6" maxlength="5" value='${model.record.kovlkg}'>&nbsp;Kg.	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" >Omr.faktor 1 M3</td>
-											<td class="text12" title="kovkkg">
+											<td class="text12" title="kovkkg">Omr.faktor 1 M3</td>
+											<td class="text12" >
 												<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovkkg" id="kovkkg" size="6" maxlength="5" value='${model.record.kovkkg}'>&nbsp;Kg.
 											</td>
 										</tr>
 										
 										<tr>
-											<td class="text12" >Overstyre avrund.</td>
-											<td class="text12" title="kovavr">
+											<td class="text12" title="kovavr">Overstyre avrund.</td>
+											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
 											</td>
 											<%-- TEST on JSTL 
@@ -291,34 +291,14 @@
 								<td ><input type="checkbox" name="kowf12" id="kowf12" value="F" <c:if test="${model.record.kowf12 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
 								
 							</tr>
-							<%-- 
-							<tr>
-								<td class="text12" title="kovk9/kowf9" >&nbsp;<b>9</b></td>
-								<td class="text12" title="kovk10/kowf10" >&nbsp;<b>10</b></td>
-								<td class="text12" title="kovk11/kowf11" >&nbsp;<b>11</b></td>
-								<td class="text12" title="todo?/kowf12" >&nbsp;<b>12</b></td>
-							</tr>
-							<tr>
-								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value='${model.record.kovk9}'></td>
-								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value='${model.record.kovk10}'></td>
-								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value='${model.record.kovk11}'></td>
-								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value='${Xmodel.record.todo}'></td>
-							</tr>
-							<tr>
-								<td ><input type="checkbox" name="kowf9" id="kowf9" value="F" <c:if test="${model.record.kowf9 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
-								<td ><input type="checkbox" name="kowf10" id="kowf10" value="F" <c:if test="${model.record.kowf10 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
-								<td ><input type="checkbox" name="kowf11" id="kowf11" value="F" <c:if test="${model.record.kowf11 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
-								<td ><input type="checkbox" name="kowf12" id="kowf12" value="F" <c:if test="${model.record.kowf12 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
-								
-							</tr>
-							--%>
+							
 							<tr height="3"><td >&nbsp;</td></tr>
 							<tr>
 								<td colspan="12" > 
 									<table cellspacing="1" border="0" align="left">
 									<tr>
 										<td class="text12" ><img onMouseOver="showPop('kovomr_info');" onMouseOut="hidePop('kovomr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-											Pr.per ? kg&nbsp;
+											<span title="kovomr">Pr.per ? kg&nbsp;</span>
 											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovomr" id="kovomr" size="4" maxlength="3" value='${model.record.kovomr}'>
 											
 											<div class="text11" style="position: relative;" align="left">
@@ -329,7 +309,7 @@
 										</td>
 										<td class="text12" width="20px" ></td>
 										<td class="text12"><img onMouseOver="showPop('kowmm_info');" onMouseOut="hidePop('kowmm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-											Intervall-type&nbsp;
+											<span title="kowmm">Intervall-type&nbsp;</span>
 											<select name="kowmm" id="kowmm" >
 		 					  					<option value="">-velg-</option>
 		 					  					<option value="0"<c:if test="${ model.record.kowmm == '0'}"> selected </c:if> >0</option>
@@ -451,7 +431,7 @@
 			                    <th class="tableHeaderField" align="center" >H</th>
 			                    <th class="tableHeaderField" align="center" >L</th>
 			                    <th class="tableHeaderField" align="center" >8</th>
-			                    <th class="tableHeaderField" align="center" >Strin.</th>
+			                    <th class="tableHeaderField" align="center" >Stringk</th>
 			                    <th class="tableHeaderField" align="center" >Sk.</th>
 			                    <th class="tableHeaderField" align="center" >Kop.</th>
 			                    <th class="tableHeaderField" align="center" >Slett</th>
@@ -461,13 +441,13 @@
 				            <c:forEach var="childRecord" items="${model.record.childList}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="TODOmainmaintenanceavd_syfa14r_edit.do?avd=${childRecord.kopavd}&updateId=${childRecord.kopavd}">
+					               	<a id="alinkRecordId_${counter.count}" target="_blank" href="mainmaintenanceavd_syfa28r_edit_childwindow.do?kopavd=${childRecord.kopavd}&koplnr=${childRecord.koplnr}&updateId=${childRecord.kopavd}_${childRecord.koplnr}" onClick="window.open(this.href,'targetWindowSyfa28','top=400px,left=400px,height=250px,width=620px,scrollbars=no,status=no,location=no'); return false;">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${childRecord.koplnr}</td>
 				               <td width="25%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${childRecord.utptxt}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpty}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.kopty}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpl}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.utpk}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${childRecord.kopnvn}&nbsp;</td>
