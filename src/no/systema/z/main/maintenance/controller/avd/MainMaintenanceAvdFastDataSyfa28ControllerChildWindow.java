@@ -110,10 +110,7 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 				}else{
 					//create new
-					/*
-					logger.info(MainMaintenanceConstants.MODE_ADD);
-					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-					*/
+					//N/A
 				}
 				
 				//check for Update errors
@@ -128,27 +125,6 @@ public class MainMaintenanceAvdFastDataSyfa28ControllerChildWindow {
 				
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				
-				
-			//DELETE	
-			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-				/*
-				StringBuffer errMsg = new StringBuffer();
-				int dmlRetval = 0;
-				
-				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				
-				//check for Update errors
-				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
-					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				}else{
-					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa28r_TODO.do?id=KODTA");
-					
-				}
-				*/
 			}else{
 				//---------------
 				//Fetch record 
