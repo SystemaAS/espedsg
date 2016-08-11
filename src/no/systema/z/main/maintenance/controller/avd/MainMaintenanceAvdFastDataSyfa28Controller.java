@@ -217,7 +217,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	 * 
 	 * @param recordToValidate
 	 */
-	private void populateKovxxxField(JsonMaintMainKodtvKodtwRecord recordToValidate){
+	public void populateKovxxxField(JsonMaintMainKodtvKodtwRecord recordToValidate){
 		String SPACE = " ";
 		//(0, 1-char)
 		if(recordToValidate.getKovxxx0()!=null && !"".equals(recordToValidate.getKovxxx0())){
@@ -229,28 +229,28 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		//(1, 2-chars)
 		if(recordToValidate.getKovxxx1()!=null && !"".equals(recordToValidate.getKovxxx1())){
 			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx1();
-			recordToValidate.setKovxxx(strManager.paddingString(tmp, 2));
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 3));
 		}else{
 			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE + SPACE);
 		}
 		//(3, 1-char)
 		if(recordToValidate.getKovxxx3()!=null && !"".equals(recordToValidate.getKovxxx3())){
 			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx3();
-			recordToValidate.setKovxxx(strManager.paddingString(tmp, 1));
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 4));
 		}else{
 			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE);
 		}
 		//(4, 1-char)
 		if(recordToValidate.getKovxxx4()!=null && !"".equals(recordToValidate.getKovxxx4())){
 			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx4();
-			recordToValidate.setKovxxx(strManager.paddingString(tmp, 1));
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 5));
 		}else{
 			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE);
 		}
 		//(5, 2-char)
 		if(recordToValidate.getKovxxx5()!=null && !"".equals(recordToValidate.getKovxxx5())){
 			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx5();
-			recordToValidate.setKovxxx(strManager.paddingString(tmp, 2));
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 7));
 		}else{
 			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE + SPACE);
 		}
