@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.service.UrlCgiProxyService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
@@ -51,7 +52,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	
+	private StringManager strManager = new StringManager();
 	/**
 	 * 
 	 * @param user
@@ -119,7 +120,6 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			//UPDATE record
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				/*
 				avd = recordToValidate.getKovavd();
 				
 				//Validate
@@ -135,6 +135,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 					//Update table
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
+					this.populateKovxxxField(recordToValidate);
+					logger.info(recordToValidate.getKovxxx());
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
@@ -157,7 +159,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 					}
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				*/
+				
 				
 			//DELETE	
 			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
@@ -210,6 +212,50 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		}
 	}
 
+	/**
+	 * We must populate the kovxxx field from all html fields since this field saves values in different positions
+	 * 
+	 * @param recordToValidate
+	 */
+	private void populateKovxxxField(JsonMaintMainKodtvKodtwRecord recordToValidate){
+		String SPACE = " ";
+		//(0, 1-char)
+		if(recordToValidate.getKovxxx0()!=null && !"".equals(recordToValidate.getKovxxx0())){
+			String tmp = recordToValidate.getKovxxx0();
+			recordToValidate.setKovxxx(tmp);
+		}else{
+			recordToValidate.setKovxxx(SPACE);
+		}
+		//(1, 2-chars)
+		if(recordToValidate.getKovxxx1()!=null && !"".equals(recordToValidate.getKovxxx1())){
+			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx1();
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 2));
+		}else{
+			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE + SPACE);
+		}
+		//(3, 1-char)
+		if(recordToValidate.getKovxxx3()!=null && !"".equals(recordToValidate.getKovxxx3())){
+			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx3();
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 1));
+		}else{
+			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE);
+		}
+		//(4, 1-char)
+		if(recordToValidate.getKovxxx4()!=null && !"".equals(recordToValidate.getKovxxx4())){
+			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx4();
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 1));
+		}else{
+			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE);
+		}
+		//(5, 2-char)
+		if(recordToValidate.getKovxxx5()!=null && !"".equals(recordToValidate.getKovxxx5())){
+			String tmp = recordToValidate.getKovxxx() + recordToValidate.getKovxxx5();
+			recordToValidate.setKovxxx(strManager.paddingString(tmp, 2));
+		}else{
+			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE + SPACE);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -316,8 +362,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	 */
 	private int updateRecord(String applicationUser, JsonMaintMainKodtvKodtwRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
-		/* TODO
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_DML_UPDATE_URL;
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -331,7 +377,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.doUpdate(jsonPayload);
+    		JsonMaintMainKodtvKodtwContainer container = this.maintMainKodtvKodtwService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -341,7 +387,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	        	}
 	        }
     	}   
-    	*/ 	
+    	
     	return retval;
 	}
 	

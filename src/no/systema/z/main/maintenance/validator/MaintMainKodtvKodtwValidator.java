@@ -38,10 +38,10 @@ public class MaintMainKodtvKodtwValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				/*
-				if( !this.validNumber(record.getKs1typ()) ){
-					errors.rejectValue("ks1typ", "", "Kode value invalid. The value can not be greater than 99");
-				}*/
+				
+				if( !this.validNumber(record.getAvutpr(), 99.99) ){
+					errors.rejectValue("avutpr", "", "Utl pro. value invalid. The value can not be greater than 99.99");
+				}
 			}
 		}
 		
@@ -57,6 +57,51 @@ public class MaintMainKodtvKodtwValidator implements Validator {
 		JsonMaintMainKodtvKodtwRecord record = (JsonMaintMainKodtvKodtwRecord)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kovavd", "", "Avd. er obligatorisk"); 
 		
+	}
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private boolean validNumber(String value, int limit){
+		final Integer UPPER_LIMIT = limit;
+		boolean retval = true;
+		if (value!=null && !"".equals(value)){
+			String tmp = value.replace(",", ".");
+			try{
+				Double tmpDbl = Double.parseDouble(tmp);
+				if(tmpDbl>UPPER_LIMIT){
+					retval = false;
+				}
+			}catch(Exception e){
+				retval = false;
+			}
+		}
+		
+		return retval;
+	}
+	/**
+	 * 
+	 * @param value
+	 * @param limit
+	 * @return
+	 */
+	private boolean validNumber(String value, double limit){
+		final Double UPPER_LIMIT = limit;
+		boolean retval = true;
+		if (value!=null && !"".equals(value)){
+			String tmp = value.replace(",", ".");
+			try{
+				Double tmpDbl = Double.parseDouble(tmp);
+				if(tmpDbl>UPPER_LIMIT){
+					retval = false;
+				}
+			}catch(Exception e){
+				retval = false;
+			}
+		}
+		
+		return retval;
 	}
 	
 }

@@ -51,7 +51,7 @@
 							
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="12%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdFasteData" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa28r_edit.do?avd=${model.avd}">
+								<a id="alinkMainMaintAvdFasteData" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa28r_edit.do?avd=${model.avd}&updateId=${model.avd}">
 									<font class="tabDisabledLink">&nbsp;Faste data</font>&nbsp;
 									<font class="text11MediumBlue">(${model.avd})</font>
 								</a>

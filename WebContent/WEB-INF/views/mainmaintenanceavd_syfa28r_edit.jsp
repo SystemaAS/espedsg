@@ -134,10 +134,12 @@
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-					<form action="mainmaintenanceavd_syfa14r_edit.do" name="formRecord" id="formRecord" method="POST" >
+					<form action="mainmaintenanceavd_syfa28r_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
 						<input type="hidden" name="action" id=action value="${model.action}">
+						<input type="hidden" name="avd" id="avd" value="${model.avd}">
+						<input type="hidden" name="kovavd" id="kovavd" value="${model.record.kovavd}">
 						
 						<table width="99%" 	cellspacing="1" border="0" align="left">
 							<tr>
@@ -163,36 +165,36 @@
 											</td>
 										</tr>	
 										<tr>
-											<td class="text12" title="kovxxxFrBrev">Fr.brev/TP, R28.Belast</td>
+											<td class="text12" title="kovxxx0">Fr.brev/TP, R28.Belast</td>
 											<td class="text12">
-												<select name="kovxxxFrBrev" id="kovxxxFrBrev" >
+												<select name="kovxxx0" id="kovxxx0" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="S"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'S'}"> selected </c:if> >S</option>
 								  					<option value="M"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'M'}"> selected </c:if> >M</option>
 								  				</select>	
 											</td>
-											<td width="100px" class="text12" title="kovxxxFrTextKode1">&nbsp;</td>
-											<td class="text12" >Fritekstkode R38 FB/TP</td>
+											<td width="100px" class="text12" >&nbsp;</td>
+											<td class="text12" title="kovxxx5/kovxxx1">Fritekstkode R38 FB/TP</td>
 											<td class="text12" >
-												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode1" id="kovxxxFrTextKode1" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 5, 7)}">
+												<input type="text" class="inputTextMediumBlue" name="kovxxx5" id="kovxxx5" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 5, 7)}">
 												/
-												<input type="text" class="inputTextMediumBlue" name="kovxxxFrTextKode2" id="kovxxxFrTextKode2" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 1, 3)}">	
+												<input type="text" class="inputTextMediumBlue" name="kovxxx1" id="kovxxx1" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 1, 3)}">	
 											</td>
 
 										</tr>	
 										<tr>
-											<td class="text12" title="kowxxxFrbrevEdi">Skriv fr.brev ved EDI</td>
+											<td class="text12" title="kovxxx3">Skriv fr.brev ved EDI</td>
 											<td class="text12"> 
-												<select name="kowxxxFrbrevEdi" id="kowxxxFrbrevEdi" >
+												<select name="kovxxx3" id="kovxxx3" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nej</option>
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" title="kovxxxTollpassEdi">Skriv Tollpass ved EDI</td>
+											<td class="text12" title="kovxxx4">Skriv Tollpass ved EDI</td>
 											<td class="text12" >
-												<select name="kovxxxTollpassEdi" id="kovxxxTollpassEdi" >
+												<select name="kovxxx4" id="kovxxx4" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nej</option>
@@ -227,14 +229,15 @@
 											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
 											</td>
-											<%-- TEST on JSTL 
+											
+											<%-- TEST on JSTL --%>
 											<td class="text12" title="kovxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kovxxx" id="kovxxx" size="8" maxlength="5" value="${model.record.kovxxx}">
 											</td>
 											<td class="text12" title="kowxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kowxxx" id="kowxxx" size="8" maxlength="5" value="${model.record.kowxxx}">
 											</td>
-											--%>
+											
 										</tr>		
 									</table>
 								</td>
@@ -274,7 +277,7 @@
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value='${model.record.kovk9}'></td>
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value='${model.record.kovk10}'></td>
 								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value='${model.record.kovk11}'></td>
-								<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value='${Xmodel.record.todo}'></td>
+								<td ><input readonly onKeyPress="return numberKey(event)" type="text" class="inputTextReadOnly" name="todo" id="todo" size="6" maxlength="5" value='99999'></td>
 							</tr>
 							<tr>
 								<td ><input type="checkbox" name="kowf1" id="kowf1" value="F" <c:if test="${model.record.kowf1 == 'F'}"> checked </c:if>  ><font class="text11">fast pris</font></td>
@@ -339,7 +342,7 @@
 								<td valign="top" width="90%">
 									<table	cellspacing="1" border="0" align="left">
 										<tr>
-											<td class="text12" title="kovk9/kowf9" >&nbsp;Kombinert giro</td>
+											<td class="text12" title="kowkom" >&nbsp;Kombinert giro</td>
 											<td >
 												<select name="kowkom" id="kowkom" >
 			 					  					<option value="">-velg-</option>
@@ -401,9 +404,14 @@
 											<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="avutpr" id="avutpr" size="6" maxlength="5" value='${model.record.avutpr}'></td>
 											<td class="text12" title="avutmi" >&nbsp;Utl.minb.</td>
 											<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="avutmi" id="avutmi" size="6" maxlength="4" value='${model.record.avutmi}'></td>
+											<td width="50px">&nbsp;</td>
+											<td >
+												<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+											</td>
 										</tr>
 									</table>
 								</td>
+								
 							</tr>
 						</table>		
 	 	    		</form>
