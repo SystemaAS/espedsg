@@ -1,40 +1,32 @@
 package no.systema.tvinn.sad.z.maintenance.sadexport.controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-//application imports
-import no.systema.main.context.TdsAppContext;
-import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.validator.LoginValidator;
-import no.systema.main.util.AppConstants;
-import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
+import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.util.AppConstants;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 
 /**
- * TVINN Maintenance Export Topic Controller 
+ * TVINN Maintenance Export Topic Controller
  * 
  * @author oscardelatorre
  * @date Mar 26, 2016
@@ -45,65 +37,52 @@ import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class MaintSadExportController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintSadExportController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private ApplicationContext context;
-	private LoginValidator loginValidator = new LoginValidator();
-	
+
 	/**
-	 * OBSOLETE - doFind method is used now as default.
 	 * 
 	 * @param user
 	 * @param result
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceexport.do", method=RequestMethod.GET)
-	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
+	@RequestMapping(value = "tvinnsadmaintenanceexport.do", method = RequestMethod.GET)
+	public ModelAndView doExportList(HttpSession session, HttpServletRequest request) {
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport");
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
-		
+		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+
 		Map model = new HashMap();
-		if(appUser==null){
+		if (appUser == null) {
 			return this.loginView;
-		}else{
+		} else {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_MAINTENANCE_EXPORT);
-			session.setAttribute(TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_TVINN_SAD_MAINTENANCE, TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
-		
-			//lists
+			session.setAttribute(TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_TVINN_SAD_MAINTENANCE,
+					TvinnSadMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE);
 			List list = this.populateMaintenanceMainList();
-			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-			//this.setCodeDropDownMgr(appUser, model);
-			//init filter with users signature (for starters)
-			//searchFilter.setSg(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
-			//init the rest
 			model.put("list", list);
-			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
-			//successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
-			
-	    	return successView;
+			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL, model);
+
+			return successView;
 		}
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	private List<MaintenanceMainListObject> populateMaintenanceMainList(){
+	private List<MaintenanceMainListObject> populateMaintenanceMainList() {
 		List<MaintenanceMainListObject> listObject = new ArrayList<MaintenanceMainListObject>();
-		MaintenanceMainListObject object = new  MaintenanceMainListObject();
+		MaintenanceMainListObject object = new MaintenanceMainListObject();
 		object.setId("1");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADE_STATUS");
 		object.setText("SAD029 / SAEH,STS,KODTSI");
 		object.setDbTable("SAEH");
 		listObject.add(object);
-		
+
 		//
-		object = new  MaintenanceMainListObject();
+		object = new MaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("Avdelinger");
 		object.setCode("SADE_AVD");
@@ -111,7 +90,7 @@ public class MaintSadExportController {
 		object.setDbTable("STANDE");
 		listObject.add(object);
 		//
-		object = new  MaintenanceMainListObject();
+		object = new MaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Løpenummer");
 		object.setCode("SADE_LOPE");
@@ -119,7 +98,7 @@ public class MaintSadExportController {
 		object.setDbTable("SAEH-HEADF");
 		listObject.add(object);
 		//
-		object = new  MaintenanceMainListObject();
+		object = new MaintenanceMainListObject();
 		object.setId("4");
 		object.setSubject("Fiskeavgifter");
 		object.setCode("SADE_FISKAVG");
@@ -127,33 +106,39 @@ public class MaintSadExportController {
 		object.setDbTable("SADAVGE");
 		listObject.add(object);
 		//
-		object = new  MaintenanceMainListObject();
+		object = new MaintenanceMainListObject();
 		object.setId("5");
 		object.setSubject("Kunders vareregister");
 		object.setCode("SADE_KUNDVAREREG");
 		object.setText("SAD004 / SADL,FIRM,KODTSE,KODTSB,KODTS2,TARI,CUNDF");
 		object.setDbTable("SADL");
 		listObject.add(object);
-		
-		object = new  MaintenanceMainListObject();
+
+		object = new MaintenanceMainListObject();
 		object.setId("6");
 		object.setSubject("Koder funksjonsfeil");
 		object.setCode("SADE_FUNKFEIL");
-		object.setText("TVI99R / TVINE");
+		object.setText("TVI99D / TVINE");
 		object.setDbTable("TVINE");
+		object.setPgm("tvi99d");
+		object.setStatus("G");
 		listObject.add(object);
-		
+
 		return listObject;
 	}
-	
-	//SERVICES
-	@Qualifier ("urlCgiProxyService")
+
+	// SERVICES
+	@Qualifier("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
+
 	@Autowired
 	@Required
-	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
-	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
-	
+	public void setUrlCgiProxyService(UrlCgiProxyService value) {
+		this.urlCgiProxyService = value;
+	}
+
+	public UrlCgiProxyService getUrlCgiProxyService() {
+		return this.urlCgiProxyService;
+	}
 
 }
-
