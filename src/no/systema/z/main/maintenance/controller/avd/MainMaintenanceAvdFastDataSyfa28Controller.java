@@ -136,7 +136,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
 					this.populateKovxxxField(recordToValidate);
-					logger.info(recordToValidate.getKovxxx());
+					//logger.info(recordToValidate.getKovxxx());
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
