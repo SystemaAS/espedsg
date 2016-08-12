@@ -136,7 +136,9 @@
 				<td width="100%">
 					<form action="mainmaintenanceavd_syfa28r_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
+						<c:if test="${not empty model.record.kovavd}">
+							<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
+						</c:if>
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<input type="hidden" name="avd" id="avd" value="${model.avd}">
 						<input type="hidden" name="kovavd" id="kovavd" value="${model.record.kovavd}">
@@ -406,12 +408,18 @@
 											<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="avutmi" id="avutmi" size="6" maxlength="4" value='${model.record.avutmi}'></td>
 											<td width="50px">&nbsp;</td>
 											<td >
-												<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+												<c:choose>
+													<c:when test="${not empty model.record.kovavd}">
+														<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+													</c:when>
+													<c:otherwise>
+														<input class="inputFormSubmit" type="submit" name="submit" value='Lage ny'/>
+													</c:otherwise>
+												</c:choose>
 											</td>
 										</tr>
 									</table>
 								</td>
-								
 							</tr>
 						</table>		
 	 	    		</form>
@@ -442,7 +450,7 @@
 			                    <th class="tableHeaderField" align="center" >Stringk</th>
 			                    <th class="tableHeaderField" align="center" >Sk.</th>
 			                    <th class="tableHeaderField" align="center" >Kop.</th>
-			                    <th class="tableHeaderField" align="center" >Slett</th>
+			                   
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -465,11 +473,7 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopfm}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopdraw}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopcopi}&nbsp;</td>
-		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOmainmaintenanceavd_syfa14r_edit.do?action=doDelete&koaavd=${childRecord.kopavd}">
-					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
-					               	</a>
-				               </td>
+		                       
 				            </tr> 
 				            </c:forEach>
 				            </tbody>

@@ -122,6 +122,11 @@ public class JsonMaintMainKodtaRecord extends JsonAbstractGrandFatherRecord {
 		return this.dup;   
 	}              
     
+	public boolean fasteDataExists = true;
+	public void setFasteDataExists (boolean value){ this.fasteDataExists = value;   }   
+	public boolean isFasteDataExists(){ return this.fasteDataExists; } 
+	
+	
 	/**
 	 * 
 	 * @return

@@ -28,12 +28,15 @@ import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.service.MaintMainFirmService;
+import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.MaintMainKodtaValidator;
+
 
 /**
  * Gateway to the Main Maintenance Application
@@ -181,7 +184,14 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//Fetch record
 				//-------------
 				JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), avd);
-
+				JsonMaintMainKodtvKodtwRecord recordFasteData = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
+				if(recordFasteData!=null){
+					if(recordFasteData.getKovavd()!=null && !"".equals(recordFasteData.getKovavd())){
+						//exists
+					}else{
+						record.setFasteDataExists(false);
+					}
+				}
 				this.populateDefaultFirmValues(appUser.getUser(), record, avd);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
@@ -371,6 +381,13 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
 	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
 	
+	
+	@Qualifier ("maintMainKodtvKodtwService")
+	private MaintMainKodtvKodtwService maintMainKodtvKodtwService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtvKodtwService (MaintMainKodtvKodtwService value){ this.maintMainKodtvKodtwService = value; }
+	public MaintMainKodtvKodtwService getMaintMainKodtvKodtwService(){ return this.maintMainKodtvKodtwService; }
 	
 	
 		

@@ -23,9 +23,17 @@ public class FixLimitStringTester {
 		recordToValidate.setKovxxx3("");
 		recordToValidate.setKovxxx4("");
 		recordToValidate.setKovxxx5("CC");
+		//
+		recordToValidate.setKowxxx0("J");
+		recordToValidate.setKowxxx1("9");
+		recordToValidate.setKowxxx2("27");
+		
 		MainMaintenanceAvdFastDataSyfa28Controller controller = new MainMaintenanceAvdFastDataSyfa28Controller();
 		controller.populateKovxxxField(recordToValidate);
-		System.out.println(recordToValidate.getKovxxx());
+		controller.populateKowxxxField(recordToValidate);
+		
+		//System.out.println(recordToValidate.getKovxxx());
+		System.out.println(recordToValidate.getKowxxx());
 	}
 	
 	

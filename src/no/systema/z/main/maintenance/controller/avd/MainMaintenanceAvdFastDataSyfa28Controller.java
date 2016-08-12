@@ -115,37 +115,60 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
+			logger.info("avd" + avd);
+			logger.info("action" + action);
+			
 			
 			//--------------
 			//UPDATE record
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				avd = recordToValidate.getKovavd();
 				
+				//---------
 				//Validate
+				//---------
 				MaintMainKodtvKodtwValidator validator = new MaintMainKodtvKodtwValidator();
-				validator.validate(recordToValidate, bindingResult);
+				boolean createNew = false;
+				//this step is required to pass validation in a CREATE NEW use case. It will be blanked after passed validation
+				if(recordToValidate.getKovavd()==null || "".equals(recordToValidate.getKovavd())){
+					createNew = true;
+					recordToValidate.setKovavd(avd);
+					validator.validate(recordToValidate, bindingResult);
+				}else{
+					avd = recordToValidate.getKovavd();
+					validator.validate(recordToValidate, bindingResult);
+				}
+				
 				if(bindingResult.hasErrors()){
 					//ERRORS
 					logger.info("[ERROR Validation] Record does not validate)");
 					//model.put("dbTable", dbTable);
+					if(createNew){
+						recordToValidate.setKovavd(null);
+					}
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					
 				}else{
 					//Update table
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
+					//adjust complex fields (kovxxx/kowxxx) before updates
 					this.populateKovxxxField(recordToValidate);
+					this.populateKowxxxField(recordToValidate);
+					
 					//logger.info(recordToValidate.getKovxxx());
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					}else{
+						
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						
+						if( dmlRetval>0){
+								
+						}
 					}
 					
 					//check for Update errors
@@ -158,6 +181,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 						updateId = recordToValidate.getKovavd();
 					}
 				}
+				recordToValidate.setChildList(this.fetchChildList(appUser.getUser(), avd));
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				
 				
@@ -185,7 +209,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				//---------------------------
 				//Fetch record and child list
 				//---------------------------
-				JsonMaintMainKodtvKodtwRecord record = this.fetchRecord(appUser.getUser(), avd);
+				JsonMaintMainKodtvKodtwRecord record = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
 				record.setChildList(this.fetchChildList(appUser.getUser(), avd));
 				//DEBUG
 				/*for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
@@ -255,36 +279,36 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			recordToValidate.setKovxxx(recordToValidate.getKovxxx() + SPACE + SPACE);
 		}
 	}
-	
 	/**
+	 * We must populate the kovxxx field from all html fields since this field saves values in different positions
 	 * 
-	 * @param applicationUser
-	 * @return
+	 * @param recordToValidate
 	 */
-	/* N/A TODO
-	private List<JsonMaintMainKodtaRecord> fetchList(String applicationUser){
-		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser;
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//DEBUG
-    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
-    	//extract
-    	List<JsonMaintMainKodtaRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        }
-    	}
-    	return list;
-    	
+	public void populateKowxxxField(JsonMaintMainKodtvKodtwRecord recordToValidate){
+		String SPACE = " ";
+		//(0, 1-char)
+		if(recordToValidate.getKowxxx0()!=null && !"".equals(recordToValidate.getKowxxx0())){
+			String tmp = recordToValidate.getKowxxx0();
+			recordToValidate.setKowxxx(tmp);
+		}else{
+			recordToValidate.setKowxxx(SPACE);
+		}
+		//(1, 1-char)
+		if(recordToValidate.getKowxxx1()!=null && !"".equals(recordToValidate.getKowxxx1())){
+			String tmp = recordToValidate.getKowxxx() + recordToValidate.getKowxxx1();
+			recordToValidate.setKowxxx(strManager.paddingString(tmp, 2));
+		}else{
+			recordToValidate.setKowxxx(recordToValidate.getKowxxx() + SPACE);
+		}
+		//(2, 2-char)
+		if(recordToValidate.getKowxxx2()!=null && !"".equals(recordToValidate.getKowxxx2())){
+			String tmp = recordToValidate.getKowxxx() + recordToValidate.getKowxxx2();
+			recordToValidate.setKowxxx(strManager.paddingString(tmp, 4));
+		}else{
+			recordToValidate.setKowxxx(recordToValidate.getKowxxx() + SPACE + SPACE);
+		}
 	}
-	*/
+	
 	
 	/**
 	 * 
@@ -292,6 +316,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	 * @param id
 	 * @return
 	 */
+	/*
 	private JsonMaintMainKodtvKodtwRecord fetchRecord(String applicationUser, String id){
 		JsonMaintMainKodtvKodtwRecord record = new JsonMaintMainKodtvKodtwRecord();
     	
@@ -318,8 +343,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	        }
     	}
     	return record;
-    	
 	}
+	*/
 	/**
 	 * Gets the children list of the child section (FASTE DATA Del-2)
 	 * 
