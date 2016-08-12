@@ -410,10 +410,10 @@
 											<td >
 												<c:choose>
 													<c:when test="${not empty model.record.kovavd}">
-														<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+														<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 													</c:when>
 													<c:otherwise>
-														<input class="inputFormSubmit" type="submit" name="submit" value='Lage ny'/>
+														<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lage ny'/>
 													</c:otherwise>
 												</c:choose>
 											</td>

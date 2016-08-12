@@ -212,9 +212,9 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				JsonMaintMainKodtvKodtwRecord record = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
 				record.setChildList(this.fetchChildList(appUser.getUser(), avd));
 				//DEBUG
-				/*for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
-					logger.info(cRecord.getKoplnr());
-				}*/
+				for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
+					//logger.info(cRecord.getKoplnr());
+				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				
 			}
@@ -368,9 +368,12 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
     	
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtpUtskrsContainer container = this.getMaintMainKodtpUtskrsService().getList(jsonPayload);
+    		JsonMaintMainKodtpUtskrsContainer container = this.maintMainKodtpUtskrsService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
+	        	for (JsonMaintMainKodtpUtskrsRecord rec : list){
+	        		//logger.info(rec.getUtpty());
+	        	}
 	        }
     	}
     	return list;

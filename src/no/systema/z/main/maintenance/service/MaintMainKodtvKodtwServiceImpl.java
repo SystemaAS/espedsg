@@ -88,6 +88,7 @@ public class MaintMainKodtvKodtwServiceImpl implements MaintMainKodtvKodtwServic
 	        	list = (List)container.getList();
 	        	for(JsonMaintMainKodtvKodtwRecord tmp : list){
 	        		record = tmp;
+	        		
 	        	}
 	        }
     	}
