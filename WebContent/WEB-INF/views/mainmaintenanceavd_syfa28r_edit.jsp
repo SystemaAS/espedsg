@@ -232,13 +232,14 @@
 												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
 											</td>
 											
-											<%-- TEST on JSTL --%>
+											<%-- TEST on JSTL
 											<td class="text12" title="kovxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kovxxx" id="kovxxx" size="8" maxlength="5" value="${model.record.kovxxx}">
 											</td>
 											<td class="text12" title="kowxxxT">
 												<input type="text" class="inputTextMediumBlue" name="kowxxx" id="kowxxx" size="8" maxlength="5" value="${model.record.kowxxx}">
 											</td>
+											 --%>
 											
 										</tr>		
 									</table>
