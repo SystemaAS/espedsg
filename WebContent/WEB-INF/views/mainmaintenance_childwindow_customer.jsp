@@ -55,7 +55,7 @@
 						<tr style="background-color:#EEEEEE">
 							<th class="text11" >&nbsp;Kundenr.&nbsp;</th>
 		                    <th class="text11" >&nbsp;Navn&nbsp;</th>
-		                    <th class="text11" >&nbsp;TIN/CVR/SE-nr&nbsp;</th>
+		                    <th class="text11" >&nbsp;TIN / CVR/SE-nr&nbsp;</th>
 		                    <th class="text11" >&nbsp;Adresse&nbsp;</th>
 		                    <th class="text11" >&nbsp;Postadresse&nbsp;</th>
 		                    <th class="text11" >&nbsp;Postnr&nbsp;</th>
