@@ -192,7 +192,12 @@
 								</td>
 								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koanvn" id="koanvn" size="35" maxlength="33" value='${model.record.koanvn}'></td>
 								<td ><input readonly type="text" class="inputTextReadOnly" name="koafir" id="koafir" size="30" maxlength="59" value='${model.record.koafir}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="koaknr" id="koaknr" size="9" maxlength="8" value='${model.record.koaknr}'></td>
+								<td >
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="koaknr" id="koaknr" size="9" maxlength="8" value='${model.record.koaknr}'>
+									<a tabindex="-1" id="koaknrIdLink">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
+								</td>
 							</tr>
 							<tr height="3"><td>&nbsp;</td></tr>
 						</table>
