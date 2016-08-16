@@ -60,7 +60,7 @@
 		                    <th class="text11" >&nbsp;Postadresse&nbsp;</th>
 		                    <th class="text11" >&nbsp;Postnr&nbsp;</th>
 		                    <th class="text11" >&nbsp;Land&nbsp;</th>
-		                    <%--<th class="text11" >&nbsp;Tollkredit&nbsp;</th>  --%>
+		                    <th class="text11" >&nbsp;Tollkredit&nbsp;</th>
 		                </tr> 
 		                </thead>
 		                
@@ -83,6 +83,7 @@
 		               	   <td class="text11">&nbsp;${record.adr3}</td>
 		               	   <td class="text11">&nbsp;${record.postnr}</td>
 		               	   <td class="text11">&nbsp;${record.syland}</td>
+		               	   <td class="text11">&nbsp;${record.syfr02}&nbsp;${record.sykont}</td>
 		               	   
 			            </tr> 
 			            </c:forEach>

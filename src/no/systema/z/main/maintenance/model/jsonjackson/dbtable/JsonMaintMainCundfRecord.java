@@ -44,6 +44,14 @@ public class JsonMaintMainCundfRecord extends JsonAbstractGrandFatherRecord {
 	public void setSyland (String value){ this.syland = value;   }   
 	public String getSyland (){ return this.syland;   }              
 
+	private String sykont = null;                                
+	public void setSykont (String value){ this.sykont = value;   }   
+	public String getSykont (){ return this.sykont;   }              
+
+	private String syfr02 = null;                                
+	public void setSyfr02 (String value){ this.syfr02 = value;   }   
+	public String getSyfr02 (){ return this.syfr02;   }              
+
 	/**
 	 * 
 	 * @return
