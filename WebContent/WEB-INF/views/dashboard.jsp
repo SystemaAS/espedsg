@@ -55,34 +55,6 @@
 	 										</a>
 										</font>
 										</li>
-										<li style="line-height:20px;">
-						 				<font class="text14">
-							 				<a class="text14" href="mainmaintenancegate.do?lang=${user.usrLang}" > 	
-			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">Vedlikehold</font>
-	 										</a>
-										</font>
-										</li>
-										
-						 			</c:if>
-						 			<c:if test="${user.user == 'DEMO'}">
-						 				<li style="line-height:20px;">
-						 				<font class="text14">
-							 				<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
-			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">ebooking eSpedsg</font>
-	 										</a>
-										</font>
-										</li>
-										<li style="line-height:20px;">
-						 				<font class="text14">
-							 				<a class="text14" href="mainmaintenancegate.do?lang=${user.usrLang}" > 	
-			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">Vedlikehold</font>
-	 										</a>
-										</font>
-										</li>
-										
 						 			</c:if>
 			 						<c:forEach items="${list}" var="record" varStatus="counter"> 
 						 				<c:if test="${ fn:contains(record.prog, 'TOMCAT') }">
@@ -124,6 +96,14 @@
 			 										</a>
 												</font>
 						 					</c:if>
+						 					<c:if test="${fn:contains(record.prog,'-VEDLIKEHOLD') }">
+							 					<font class="text14">
+								 				<a class="text14" href="mainmaintenancegate.do?lang=${user.usrLang}" > 	
+				 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
+				 									<font class="text14NavyBlue">${record.prTxt}</font>
+		 										</a>
+												</font>
+											</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-TVINN') }">
 				 								<a class="text14" href="tvinnsadgate.do" onMouseOver="showPop('infoTVINN');" onMouseOut="hidePop('infoTVINN');" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
