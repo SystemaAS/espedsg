@@ -313,12 +313,25 @@
 				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${recordTopicTvinnSad.tidtf}"></td>
 			            </tr>
 			            
-			            <tr height="10"><td>&nbsp;</td></tr>
+			            <tr height="5"><td></td></tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td class="text12" ><span title="tinaa">Hovedans.</span></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinaa" id="tinaa" size="20" maxlength="35" value="${model.record.tinaa}"></td>
+			            </tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td class="text12" ><span title="tinas">Avsender</span>&nbsp;</td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinas" id="tinas" size="20" maxlength="35" value="${model.record.tinas}"></td>
+				            <td class="text12" ><span title="tinak">Mottaker</span>&nbsp;</td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinak" id="tinak" size="20" maxlength="35" value="${model.record.tinak}"></td>
+			            </tr>
 			            
+			            <tr height="10"><td>&nbsp;</td></tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td class="text12" ><span title="tialsk">Avt.lag.sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialsk" id="tialsk" size="17" maxlength="17" value="${recordTopicTvinnSad.tialsk}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialsk" id="tialsk" size="20" maxlength="17" value="${recordTopicTvinnSad.tialsk}"></td>
 				            <td class="text12" ><span title="tialss">Språkkode</span>&nbsp;</td>
 				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialss" id="tialss" size="2" maxlength="2" value="${recordTopicTvinnSad.tialss}"></td>
 			            </tr>
@@ -331,12 +344,12 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td class="text12" ><span title="tiglsk">Godkj.lag.sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${recordTopicTvinnSad.tiglsk}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiglsk" id="tiglsk" size="20" maxlength="17" value="${recordTopicTvinnSad.tiglsk}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td class="text12" ><span title="tiacts">Contr.sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiacts" id="tiacts" size="17" maxlength="17" value="${recordTopicTvinnSad.tiacts}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiacts" id="tiacts" size="20" maxlength="17" value="${recordTopicTvinnSad.tiacts}"></td>
 			            </tr>
 			            
 			            <tr height="2"><td>&nbsp;</td></tr>

@@ -276,6 +276,35 @@
 				            <td ><input readonly type="text" class="inputText" name="tialk" id="tialk" size="2" maxlength="2" value="${recordTopicSkat.tialk}"></td>
 				            <td >&nbsp;</td>
 			            </tr>
+			            
+			            <tr height="2"><td>&nbsp;</td></tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td ><span title="titsb">Best.toldsted</span></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="titsb" id="titsb" size="10" maxlength="8" value="${recordTopicSkat.titsb}"></td>
+				            <td ><span title="tiskb">Sprogkode&nbsp;</span></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiskb" id="tiskb" size="2" maxlength="2" value="${recordTopicSkat.tiskb}"></td>
+				            
+			            </tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td ><span title="tidtf">Frigivelsesdato</span></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${recordTopicSkat.tidtf}"></td>
+			            </tr>
+			            <tr height="5"><td></td></tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td class="text12" ><span title="tinaa">Hovedans.</span></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinaa" id="tinaa" size="20" maxlength="35" value="${model.record.tinaa}"></td>
+			            </tr>
+			            <tr>
+				            <td >&nbsp;</td>
+				            <td class="text12" ><span title="tinas">Avsender</span>&nbsp;</td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinas" id="tinas" size="20" maxlength="35" value="${model.record.tinas}"></td>
+				            <td class="text12" ><span title="tinak">Mottaker</span>&nbsp;</td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tinak" id="tinak" size="20" maxlength="35" value="${model.record.tinak}"></td>
+			            </tr>
+			            
 			            <tr height="10"><td>&nbsp;</td></tr>
 			            <tr>
 				            <td >&nbsp;</td>
@@ -300,21 +329,7 @@
 				            <td ><span title="tiacts">Kontrol sted (kode)</span></td>
 				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiacts" id="tiacts" size="17" maxlength="17" value="${recordTopicSkat.tiacts}"></td>
 			            </tr>
-			            <tr height="2"><td>&nbsp;</td></tr>
-			            <tr>
-				            <td >&nbsp;</td>
-				            <td ><span title="titsb">Best.toldsted</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="titsb" id="titsb" size="10" maxlength="8" value="${recordTopicSkat.titsb}"></td>
-				            <td ><span title="tiskb">Sprogkode&nbsp;</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiskb" id="tiskb" size="2" maxlength="2" value="${recordTopicSkat.tiskb}"></td>
-				            
-			            </tr>
-			            <tr>
-				            <td >&nbsp;</td>
-				            <td ><span title="tidtf">Frigivelsesdato</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${recordTopicSkat.tidtf}"></td>
-			            </tr>
-			            
+			            	
 			            <tr height="2"><td>&nbsp;</td></tr>
 			            </table>
 				        </td>
