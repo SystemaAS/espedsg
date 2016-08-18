@@ -26,9 +26,9 @@ import no.systema.main.service.UrlCgiProxyService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.MaintMainKodtaHodel1Service;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodel1Container;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodel1Record;
+import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsRecord;
 
@@ -60,7 +60,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @return
 	 */
 	@RequestMapping(value="mainmaintenanceavd_syfa63r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa14r_edit(@ModelAttribute ("record") JsonMaintMainKodtaHodel1Record recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavd_syfa14r_edit(@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -167,7 +167,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 				//-------------
 				//Fetch record 
 				//-------------
-				List<JsonMaintMainKodtaHodel1Record> list = this.fetchList(appUser.getUser(), avd);
+				List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
 				model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 				
 			}
@@ -195,8 +195,8 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @param avd
 	 * @return
 	 */
-	private List<JsonMaintMainKodtaHodel1Record> fetchList(String applicationUser, String avd){
-		List <JsonMaintMainKodtaHodel1Record> list = new ArrayList<JsonMaintMainKodtaHodel1Record>();
+	private List<JsonMaintMainKodtaHodeRecord> fetchList(String applicationUser, String avd){
+		List <JsonMaintMainKodtaHodeRecord> list = new ArrayList<JsonMaintMainKodtaHodeRecord>();
     	
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA63R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&koaavd=" + avd;
@@ -211,10 +211,10 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
     	
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaHodel1Container container = this.maintMainKodtaHodel1Service.getList(jsonPayload);
+    		JsonMaintMainKodtaHodeContainer container = this.maintMainKodtaHodeService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for (JsonMaintMainKodtaHodel1Record rec : list){
+	        	for (JsonMaintMainKodtaHodeRecord rec : list){
 	        		logger.info(rec.getKoanvn());
 	        	}
 	        }
@@ -231,7 +231,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintMainKodtaHodel1Record record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintMainKodtaHodeRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_DML_UPDATE_URL;
@@ -248,7 +248,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaHodel1Container container = this.maintMainKodtaHodel1Service.doUpdate(jsonPayload);
+    		JsonMaintMainKodtaHodeContainer container = this.maintMainKodtaHodeService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -272,12 +272,12 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainKodtaHodel1Service")
-	private MaintMainKodtaHodel1Service maintMainKodtaHodel1Service;
+	@Qualifier ("maintMainKodtaHodeService")
+	private MaintMainKodtaHodeService maintMainKodtaHodeService;
 	@Autowired
 	@Required
-	public void setMaintMainKodtaHodel1Service (MaintMainKodtaHodel1Service value){ this.maintMainKodtaHodel1Service = value; }
-	public MaintMainKodtaHodel1Service getMaintMainKodtaHodel1Service(){ return this.maintMainKodtaHodel1Service; }
+	public void setMaintMainKodtaHodeService (MaintMainKodtaHodeService value){ this.maintMainKodtaHodeService = value; }
+	public MaintMainKodtaHodeService getMaintMainKodtaHodeService(){ return this.maintMainKodtaHodeService; }
 	
 		
 }

@@ -73,7 +73,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		<property name="urlCgiProxyService"><ref bean="urlCgiProxyService"/></property>
 	</bean>	
 	<bean id="maintMainKodtpUtskrsService" class="no.systema.z.main.maintenance.service.MaintMainKodtpUtskrsServiceImpl"/>
-	<bean id="maintMainKodtaHodel1Service" class="no.systema.z.main.maintenance.service.MaintMainKodtaHodel1ServiceImpl"/>
+	<bean id="maintMainKodtaHodeService" class="no.systema.z.main.maintenance.service.MaintMainKodtaHodeServiceImpl"/>
 	
 	
 </beans>
