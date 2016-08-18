@@ -24,16 +24,15 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
 import no.systema.main.service.UrlCgiProxyService;
 //models
+import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsRecord;
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.MaintMainKodtvKodtwValidator;
+import no.systema.z.main.maintenance.validator.MaintMainKodtaHodeValidator;
 
 /**
  * Gateway to the Main Maintenance Application
@@ -53,6 +52,33 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private StringManager strManager = new StringManager();
 	
+	
+	@RequestMapping(value="mainmaintenanceavd_syfa63r.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String avd = request.getParameter("avd");
+		
+		
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			
+			//-------------
+			//Fetch record 
+			//-------------
+			List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
+			
+			model.put("avd", avd);
+			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+			return successView;
+		}
+	
+	}
+	
 	/**
 	 * 
 	 * @param session
@@ -60,11 +86,11 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @return
 	 */
 	@RequestMapping(value="mainmaintenanceavd_syfa63r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa14r_edit(@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavd_syfa63r_edit(@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String avd = request.getParameter("avd");
+		String avd = recordToValidate.getKoaavd();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -72,86 +98,52 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu("INIT");
-			logger.info("Inside method: mainmaintenanceavd_syfa63r_edit");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			logger.info("avd" + avd);
-			logger.info("action" + action);
 			
-			
-			//--------------
-			//UPDATE record
-			//--------------
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				
-				//---------
-				//Validate
-				//---------
-				MaintMainKodtvKodtwValidator validator = new MaintMainKodtvKodtwValidator();
-				boolean createNew = false;
-				//this step is required to pass validation in a CREATE NEW use case. It will be blanked after passed validation
-				if(recordToValidate.getKoaavd()==null || "".equals(recordToValidate.getKoaavd())){
-					createNew = true;
-					recordToValidate.setKoaavd(avd);
-					validator.validate(recordToValidate, bindingResult);
-				}else{
-					avd = recordToValidate.getKoaavd();
-					validator.validate(recordToValidate, bindingResult);
-				}
-				
-				if(bindingResult.hasErrors()){
-					//ERRORS
-					logger.info("[ERROR Validation] Record does not validate)");
-					//model.put("dbTable", dbTable);
-					if(createNew){
-						recordToValidate.setKoaavd(null);
-					}
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					
-				}else{
-					//Update table
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-					
-					//logger.info(recordToValidate.getKovxxx());
-					if(updateId!=null && !"".equals(updateId)){
-						//update
-						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-					}else{
-						
-						//create new
-						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						if( dmlRetval>0){
-								
-						}
-					}
-					
-					//check for Update errors
-					if( dmlRetval < 0){
-						logger.info("[ERROR Validation] Record does not validate)");
-						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					}else{
-						//post successful update operations
-						updateId = recordToValidate.getKoaavd();
-					}
+			//---------
+			//Validate
+			//---------
+			MaintMainKodtaHodeValidator validator = new MaintMainKodtaHodeValidator();
+			if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
+				validator.validateDelete(recordToValidate, bindingResult);
+			}else{
+				validator.validate(recordToValidate, bindingResult);
+			}
+			if(bindingResult.hasErrors()){
+				//ERRORS
+				logger.info("[ERROR Validation] Record does not validate)");
+				if(updateId!=null && !"".equals(updateId)){
+					//meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				
-				
-			//DELETE	
-			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-				/*
+			}else{
+				//------------
+				//UPDATE table
+				//------------
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
-				
-				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				
+				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
+					if(updateId!=null && !"".equals(updateId)){
+						//update
+						logger.info(MainMaintenanceConstants.ACTION_UPDATE);
+						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						
+					//CREATE	
+					}else{
+						//create new
+						logger.info(MainMaintenanceConstants.ACTION_CREATE);
+						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					}
+					
+				}else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)){
+					if("N".equals(recordToValidate.getHonet()) ){
+						String SPACE = " ";
+						recordToValidate.setHonet(SPACE);
+					}
+					logger.info(MainMaintenanceConstants.ACTION_DELETE);
+					//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+					
+				}
 				//check for Update errors
 				if( dmlRetval < 0){
 					logger.info("[ERROR Validation] Record does not validate)");
@@ -159,31 +151,19 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa28r_TODO.do?id=KODTA");
-					
+					//updateId = recordToValidate.getKoaavd();
 				}
-				*/
-			}else{
-				//-------------
-				//Fetch record 
-				//-------------
-				List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
-				model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
-				
 			}
 			
-			
-			//populate model
-			if(action==null || "".equals(action)){
-				action = "doUpdate";
-			}
+			//-------------
+			//Fetch record 
+			//-------------
+			List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
+			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			model.put("action", action);
 			model.put("avd", avd);
-			model.put("updateId", updateId);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
 			return successView;
 			
 		}
@@ -213,9 +193,13 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 			//lists
     		JsonMaintMainKodtaHodeContainer container = this.maintMainKodtaHodeService.getList(jsonPayload);
 	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for (JsonMaintMainKodtaHodeRecord rec : list){
-	        		logger.info(rec.getKoanvn());
+	        	for (JsonMaintMainKodtaHodeRecord rec : container.getList()){
+	        		if(rec.getHoavd()!=null && !"null".equals(rec.getHoavd()) && !"".equals(rec.getHoavd()) ){
+	        			if(!"T".equals(rec.getHonet()) && !"E".equals(rec.getHonet())){
+	        				rec.setHonet("N");
+	        			}
+	        		}
+	        		list.add(rec);
 	        	}
 	        }
     	}

@@ -55,7 +55,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r_edit.do?avd=${model.avd}&updateId=${model.avd}">
+						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
 							<font class="tabDisabledLink">&nbsp;Hode på dok.</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>

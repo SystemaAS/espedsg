@@ -89,7 +89,66 @@
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	    
-	 	    <%-- Validation errors --%>
+	 	    
+	 	    <%-- list component --%>
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+				<table id="containerdatatableTable" width="95%" cellspacing="1" border="0" align="left">
+			    	    <tr>
+						<td class="text11">
+						<table id="mainList" class="display compact cell-border" >
+							<thead>
+							<tr>
+							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
+								<th width="2%" class="tableHeaderFieldFirst" align="center" >Avd</th>                                                            
+								<th width="25%" class="tableHeaderField" align="left" >Navn</th>
+								<th class="tableHeaderField" align="left" >Språk</th>
+			                    <th class="tableHeaderField" align="center" >FriTxt Kode</th>
+			                    <th class="tableHeaderField" align="center" >Slett</th>
+			                </tr>  
+			                </thead> 
+			                <tbody >  
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
+				               <tr class="tableRow" height="20" >
+				               <c:choose>
+				               <c:when test="${record.hoavd != 'null' && not empty record.hoavd}">
+					               <td class="tableCellFirst" width="2%" id="recordUpdate_${record.koaavd}_${record.hoavd}_${record.honet}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+			               				<img src="resources/images/update.gif" border="0" alt="edit">
+					               </td>
+				               </c:when>
+				               <c:otherwise>
+				               		<td class="tableCellFirst" width="2%" id="nonrecordUpdate_" align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+			               				<img src="resources/images/lock.gif" border="0" alt="edit">
+					               </td>
+				               </c:otherwise>
+				               </c:choose>
+				               
+				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.koaavd}</td>
+				               <td width="25%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.honet}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.hostfr}&nbsp;</td>
+		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		                       		<c:if test="${record.hoavd != 'null' && not empty record.hoavd}">
+		                       			<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa63r_edit.do?action=doDelete&koaavd=${record.koaavd}&honet=${record.honet}">
+						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+						               	</a>
+					               	</c:if>
+				               </td>
+				            </tr> 
+				            </c:forEach>
+				            </tbody>
+			            </table>
+					</td>	
+					</tr>
+				</table>
+				</td>
+			</tr>		    
+	 	    <tr height="20"><td>&nbsp;</td></tr>
+			
+			<%-- ----------------- --%>
+			<%-- Validation errors --%>
+			<%-- ----------------- --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
 				<td width="5%">&nbsp;</td>
@@ -128,52 +187,108 @@
 				</td>
 			</tr>
 			</c:if>
-	 	    
-
-	 	    
-	 	    <%-- list component --%>
+			
 			<tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="95%" cellspacing="1" border="0" align="left">
+				<form action="mainmaintenanceavd_syfa63r_edit.do" name="formRecord" id="formRecord" method="POST" >
+					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
+					<input type="hidden" name="action" id=action value="doUpdate">
+					
+				<table width="95%" cellspacing="1" border="0" align="left">
+						<tr height="5"><td></td></tr>
+						<tr >
+							<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
+						</tr>
+						<tr height="20"><td></td></tr>
+						
+						<tr>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="koaavd">Avd.&nbsp;</span>
+								<input readonly type="text" class="inputTextReadOnly" name="koaavd" id="koaavd" size="5" maxlength="4" value='${model.avd}'>
+							
+								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="honet">Språk&nbsp;</span>
+								<select name="honet" id="honet" class="inputTextMediumBlueMandatoryField">
+				  					<option value="">-velg-</option>
+				  					<option value="+"<c:if test="${ model.record.honet == '+'}"> selected </c:if> >Norsk</option>
+				  					<option value="E"<c:if test="${ model.record.honet == 'E'}"> selected </c:if> >Engelsk</option>
+				  					<option value="T"<c:if test="${ model.record.honet == 'T'}"> selected </c:if> >Tysk</option>
+							  	</select>
+								
+ 	    						&nbsp;&nbsp;&nbsp;<span title="hostfr">Std.faktura fritekstkode</span>
+ 	    						<input type="text" class="inputTextMediumBlue" name="hostfr" id="hostfr" size="3" maxlength="2" value="${model.record.hostfr}" />
+ 	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+						
+ 	    					</td>
+		    	    	<tr>
+		    	    	
+						<tr height="10"><td></td></tr>
+						<tr>
+	 	    			<td class="text12" title="hoht1-hoht7">Headinglayout</td>
+	 	    			</tr>
 			    	    <tr>
-						<td class="text11">
-						<table id="mainList" class="display compact cell-border" >
-							<thead>
-							<tr>
-							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th width="2%" class="tableHeaderFieldFirst" align="center" >Avd</th>                                                            
-								<th width="25%" class="tableHeaderField" align="left" >Navn</th>
-								<th class="tableHeaderField" align="left" >Språk</th>
-			                    <th class="tableHeaderField" align="center" >FriTxt Kode</th>
-			                    
-			                </tr>  
-			                </thead> 
-			                <tbody >  
-				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
-				               <tr class="tableRow" height="20" >
-				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" target="_blank" href="mainmaintenanceavd_syfa28r_edit_childwindow.do?koaavd=${record.koaavd}&updateId=${record.koaavd}" onClick="window.open(this.href,'targetWindowSyfa28','top=400px,left=400px,height=300px,width=700px,scrollbars=no,status=no,location=no'); return false;">
-	               						<img src="resources/images/update.gif" border="0" alt="edit">
-				               		</a>
-				               </td>
-				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.koaavd}</td>
-				               <td width="25%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.honet}&nbsp;</td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.hostfr}&nbsp;</td>
-		                       
-				            </tr> 
-				            </c:forEach>
-				            </tbody>
-			            </table>
-					</td>	
-					</tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht1" id="hoht1" size="85" maxlength="79" value="${model.record.hoht1}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht2" id="hoht2" size="85" maxlength="79" value="${model.record.hoht2}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht3" id="hoht3" size="85" maxlength="79" value="${model.record.hoht3}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht4" id="hoht4" size="85" maxlength="79" value="${model.record.hoht4}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht5" id="hoht5" size="85" maxlength="79" value="${model.record.hoht5}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht6" id="hoht6" size="85" maxlength="79" value="${model.record.hoht6}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hoht7" id="hoht7" size="85" maxlength="79" value="${model.record.hoht7}">
+							</td>
+						</tr>
+						
+						<tr height="5"><td></td></tr>
+						<tr>
+		 	    			<td class="text12" title="hobt1-hobt3">Bunntekst på faktura</td>
+		 	    		</tr>
+		 	    		<tr>		
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hobt1" id="hobt1" size="85" maxlength="79" value="${model.record.hobt1}">
+							</td>
+						</tr>
+						<tr>	
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hobt2" id="hobt2" size="85" maxlength="79" value="${model.record.hobt2}">
+							</td>
+						</tr>
+						<tr>	
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="hobt3" id="hobt3" size="85" maxlength="79" value="${model.record.hobt3}">
+							</td>
+						</tr>
+						
+						<tr height="20"><td></td></tr>
 				</table>
+				</form>
 				</td>
-			</tr>		    
-	 	   
-	 	    <tr height="20"><td>&nbsp;</td></tr>
-
+			</tr>
+					
 	 		</table>
 		</td>
 	</tr>
