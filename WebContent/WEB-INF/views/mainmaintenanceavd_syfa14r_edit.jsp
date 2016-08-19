@@ -65,7 +65,7 @@
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="12%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavdlisthode.do?id=${model.dbTable}">
+								<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}">
 									<font class="tabDisabledLink">&nbsp;Listehode</font>&nbsp;
 									<font class="text11MediumBlue">(${model.avd})</font>
 								</a>

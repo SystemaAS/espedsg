@@ -26,39 +26,38 @@ import no.systema.main.service.UrlCgiProxyService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeRecord;
+import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.MaintMainKodtaHodeValidator;
+import no.systema.z.main.maintenance.validator.MaintMainKodtaKodthValidator;
 
 /**
  * Gateway to the Main Maintenance Application
  * 
  * 
  * @author oscardelatorre
- * @date Aug 17, 2016
+ * @date Aug 19, 2016
  * 
  * 	
  */
 
 @Controller
-public class MainMaintenanceAvdHoddokSyfa63Controller {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdHoddokSyfa63Controller.class.getName());
+public class MainMaintenanceAvdHoddokSyfa68Controller {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdHoddokSyfa68Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private StringManager strManager = new StringManager();
 	
 	
-	@RequestMapping(value="mainmaintenanceavd_syfa63r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");
+	@RequestMapping(value="mainmaintenanceavd_syfa68r.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaKodthRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa68r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
-		
 		
 		if(appUser==null){
 			return this.loginView;
@@ -67,7 +66,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 			//-------------
 			//Fetch record 
 			//-------------
-			List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
+			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
 			
 			model.put("avd", avd);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
@@ -84,12 +83,12 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="mainmaintenanceavd_syfa63r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa63r_edit(@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");
+	@RequestMapping(value="mainmaintenanceavd_syfa68r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa63r_edit(@ModelAttribute ("record") JsonMaintMainKodtaKodthRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa68r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String avd = recordToValidate.getKoaavd();
+		String avd = recordToValidate.getKohavd();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -101,7 +100,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 			//---------
 			//Validate
 			//---------
-			MaintMainKodtaHodeValidator validator = new MaintMainKodtaHodeValidator();
+			MaintMainKodtaKodthValidator validator = new MaintMainKodtaKodthValidator();
 			if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
@@ -122,10 +121,6 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
 				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-					if("N".equals(recordToValidate.getHonet()) ){
-						String SPACE = " ";
-						recordToValidate.setHonet(SPACE);
-					}
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.ACTION_UPDATE);
@@ -139,10 +134,6 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 					}
 					
 				}else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-					if("N".equals(recordToValidate.getHonet()) ){
-						String SPACE = " ";
-						recordToValidate.setHonet(SPACE);
-					}
 					logger.info(MainMaintenanceConstants.ACTION_DELETE);
 					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 					
@@ -161,7 +152,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 			//-------------
 			//Fetch record 
 			//-------------
-			List<JsonMaintMainKodtaHodeRecord> list = this.fetchList(appUser.getUser(), avd);
+			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			model.put("action", action);
 			model.put("avd", avd);
@@ -178,11 +169,11 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @param avd
 	 * @return
 	 */
-	private List<JsonMaintMainKodtaHodeRecord> fetchList(String applicationUser, String avd){
-		List <JsonMaintMainKodtaHodeRecord> list = new ArrayList<JsonMaintMainKodtaHodeRecord>();
+	private List<JsonMaintMainKodtaKodthRecord> fetchList(String applicationUser, String avd){
+		List <JsonMaintMainKodtaKodthRecord> list = new ArrayList<JsonMaintMainKodtaKodthRecord>();
     	
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA63R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&koaavd=" + avd;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kohavd=" + avd;
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -194,16 +185,12 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
     	
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaHodeContainer container = this.maintMainKodtaHodeService.getList(jsonPayload);
+    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.getList(jsonPayload);
 	        if(container!=null){
-	        	for (JsonMaintMainKodtaHodeRecord rec : container.getList()){
-	        		if(rec.getHoavd()!=null && !"null".equals(rec.getHoavd()) && !"".equals(rec.getHoavd()) ){
-	        			if(!"T".equals(rec.getHonet()) && !"E".equals(rec.getHonet())){
-	        				rec.setHonet("N");
-	        			}
-	        		}
-	        		list.add(rec);
+	        	for (JsonMaintMainKodtaKodthRecord rec : container.getList()){
+	        		//DEBUG
 	        	}
+	        	list = (List)container.getList();
 	        }
     	}
     	return list;
@@ -218,10 +205,10 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintMainKodtaHodeRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA63R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -235,7 +222,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaHodeContainer container = this.maintMainKodtaHodeService.doUpdate(jsonPayload);
+    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -259,12 +246,12 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainKodtaHodeService")
-	private MaintMainKodtaHodeService maintMainKodtaHodeService;
+	@Qualifier ("maintMainKodtaKodthService")
+	private MaintMainKodtaKodthService maintMainKodtaKodthService;
 	@Autowired
 	@Required
-	public void setMaintMainKodtaHodeService (MaintMainKodtaHodeService value){ this.maintMainKodtaHodeService = value; }
-	public MaintMainKodtaHodeService getMaintMainKodtaHodeService(){ return this.maintMainKodtaHodeService; }
+	public void setMaintMainKodtaKodthService (MaintMainKodtaKodthService value){ this.maintMainKodtaKodthService = value; }
+	public MaintMainKodtaKodthService getMaintMainKodtaKodthService(){ return this.maintMainKodtaKodthService; }
 	
 		
 }

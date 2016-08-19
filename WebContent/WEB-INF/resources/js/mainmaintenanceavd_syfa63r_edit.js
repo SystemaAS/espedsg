@@ -12,11 +12,6 @@
 	    document.getElementById('honet').disabled= "";
   }
   
-  jq(function() {
-	  jq(".aLinkRemove").click(function() {
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	  });
-  });
   
   jq(function() {
 		//Clean values for createing new record
