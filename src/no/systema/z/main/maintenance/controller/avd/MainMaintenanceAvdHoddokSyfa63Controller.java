@@ -123,16 +123,20 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
 				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
+					if("N".equals(recordToValidate.getHonet()) ){
+						String SPACE = " ";
+						recordToValidate.setHonet(SPACE);
+					}
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.ACTION_UPDATE);
-						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 						
 					//CREATE	
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.ACTION_CREATE);
-						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					}
 					
 				}else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)){
@@ -141,7 +145,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 						recordToValidate.setHonet(SPACE);
 					}
 					logger.info(MainMaintenanceConstants.ACTION_DELETE);
-					//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 					
 				}
 				//check for Update errors
@@ -218,7 +222,7 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	private int updateRecord(String applicationUser, JsonMaintMainKodtaHodeRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA63R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string

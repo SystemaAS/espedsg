@@ -126,11 +126,19 @@
 				               
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.koaavd}</td>
 				               <td width="25%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.honet}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;
+				               		<c:choose>
+					               		<c:when test="">
+					               		</c:when>
+					               		<c:otherwise>
+					               		</c:otherwise>
+				               		</c:choose>
+				               		${record.honet}&nbsp;
+				               	</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.hostfr}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		                       		<c:if test="${record.hoavd != 'null' && not empty record.hoavd}">
-		                       			<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa63r_edit.do?action=doDelete&koaavd=${record.koaavd}&honet=${record.honet}">
+		                       			<a class="aLinkRemove" id="aLinkRemove${counter.count}" onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa63r_edit.do?action=doDelete&koaavd=${record.koaavd}&hoavd=${record.hoavd}&honet=${record.honet}">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 						               	</a>
 					               	</c:if>
@@ -191,10 +199,11 @@
 			<tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="mainmaintenanceavd_syfa63r_edit.do" name="formRecord" id="formRecord" method="POST" >
+				<form action="mainmaintenanceavd_syfa63r_edit.do" name="formRecord" id="formRecord" method="POST" onSubmit="enableDisabledFields();">
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
+					<input type="hidden" name="hoavd" id=hoavd value="${model.avd}">
 					
 				<table width="95%" cellspacing="1" border="0" align="left">
 						<tr height="5"><td></td></tr>
@@ -210,7 +219,7 @@
 								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="honet">Språk&nbsp;</span>
 								<select name="honet" id="honet" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
-				  					<option value="+"<c:if test="${ model.record.honet == '+'}"> selected </c:if> >Norsk</option>
+				  					<option value="N"<c:if test="${ model.record.honet == 'N'}"> selected </c:if> >Norsk</option>
 				  					<option value="E"<c:if test="${ model.record.honet == 'E'}"> selected </c:if> >Engelsk</option>
 				  					<option value="T"<c:if test="${ model.record.honet == 'T'}"> selected </c:if> >Tysk</option>
 							  	</select>
@@ -218,7 +227,7 @@
  	    						&nbsp;&nbsp;&nbsp;<span title="hostfr">Std.faktura fritekstkode</span>
  	    						<input type="text" class="inputTextMediumBlue" name="hostfr" id="hostfr" size="3" maxlength="2" value="${model.record.hostfr}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
 						
  	    					</td>
 		    	    	<tr>

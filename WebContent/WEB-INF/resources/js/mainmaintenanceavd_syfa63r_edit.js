@@ -7,20 +7,33 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  //called from form-submit, otherwise the select-disabled won't send the value
+  function enableDisabledFields() {
+	    document.getElementById('honet').disabled= "";
+  }
+  
+  jq(function() {
+	  jq(".aLinkRemove").click(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
+  });
   
   jq(function() {
 		//Clean values for createing new record
 		jq('#newRecordButton').click(function() {
-			
 			jq('#honet').val("");
+			jq('#honet').attr('disabled', false);
+			jq("#honet").removeClass("inputTextReadOnly");
+			jq("#honet").addClass("inputTextMediumBlueMandatoryField");
+			//
 			jq('#hostfr').val("");
 			jq('#hoht1').val("");
-			jq('#hoht1').val("");
-			jq('#hoht1').val("");
-			jq('#hoht1').val("");
-			jq('#hoht1').val("");
-			jq('#hoht1').val("");
-			jq('#hoht1').val("");
+			jq('#hoht2').val("");
+			jq('#hoht3').val("");
+			jq('#hoht4').val("");
+			jq('#hoht5').val("");
+			jq('#hoht6').val("");
+			jq('#hoht7').val("");
 			//
 			jq('#hobt1').val("");
 			jq('#hobt2').val("");
@@ -43,9 +56,9 @@
 	var hoavd = record[1];
 	var honet = record[2];
 	
-	if(honet!='E' && honet!='T'){
+	if(honet =='N'){
 		if(hoavd!=null && hoavd!='' && hoavd!='null'){
-			honet = '+';
+			honet = '+'; //space in url-post
 		}
 	}
 		
@@ -66,10 +79,15 @@
 	  			//editable fields
   				//Special treatment for honet when empty since we must map to space-Html representation: meaning = '+'
   				var sHonet = data[i].honet;
-  				if (sHonet!='T' && sHonet!='E'){sHonet = '+';}
+  				if (sHonet!='T' && sHonet!='E'){sHonet = 'N';}
   				
 	  			jq('#honet').val("");jq('#honet').val(sHonet);
+	  			jq('#honet').attr('disabled', true);
+	  			jq("#honet").removeClass("inputTextMediumBlueMandatoryField");
+				jq("#honet").addClass("inputTextReadOnly");
+	  			//
 	  			jq('#hostfr').val("");jq('#hostfr').val(data[i].hostfr);
+	  			jq('#hoavd').val("");jq('#hoavd').val(data[i].hoavd);
 	  			
 	  			jq('#hoht1').val("");jq('#hoht1').val(data[i].hoht1);
 	  			jq('#hoht2').val("");jq('#hoht2').val(data[i].hoht2);
@@ -83,6 +101,7 @@
 	  			jq('#hobt3').val("");jq('#hobt3').val(data[i].hobt3);
 	  			//for a future update
 	  			jq('#updateId').val("");jq('#updateId').val(data[i].koaavd);
+	  			
   			}else{
   				//N/A   DEBUG->alert("hoavd = NULL ?");
   			}
