@@ -3,8 +3,8 @@
  */
 package no.systema.z.main.maintenance.service;
 
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
-import no.systema.z.main.maintenance.mapper.jsonjackson.dbtable.MaintMainKodtaKodthMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
+import no.systema.z.main.maintenance.mapper.jsonjackson.dbtable.MaintMainKodtaTellMapper;
 
 /**
  * 
@@ -17,10 +17,10 @@ public class MaintMainKodtaTellServiceImpl implements MaintMainKodtaTellService 
 	/**
 	 * 
 	 */
-	public JsonMaintMainKodtaKodthContainer getList(String utfPayload) {
-		JsonMaintMainKodtaKodthContainer container = null;
+	public JsonMaintMainKodtaTellContainer getList(String utfPayload) {
+		JsonMaintMainKodtaTellContainer container = null;
 		try{
-			MaintMainKodtaKodthMapper mapper = new MaintMainKodtaKodthMapper();
+			MaintMainKodtaTellMapper mapper = new MaintMainKodtaTellMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -34,10 +34,10 @@ public class MaintMainKodtaTellServiceImpl implements MaintMainKodtaTellService 
 	 * @param utfPayload
 	 * @return
 	 */
-	public JsonMaintMainKodtaKodthContainer doUpdate(String utfPayload) {
-		JsonMaintMainKodtaKodthContainer container = null;
+	public JsonMaintMainKodtaTellContainer doUpdate(String utfPayload) {
+		JsonMaintMainKodtaTellContainer container = null;
 		try{
-			MaintMainKodtaKodthMapper mapper = new MaintMainKodtaKodthMapper();
+			MaintMainKodtaTellMapper mapper = new MaintMainKodtaTellMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();

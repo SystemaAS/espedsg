@@ -26,19 +26,19 @@ import no.systema.main.service.UrlCgiProxyService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
+import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.MaintMainKodtaKodthValidator;
+import no.systema.z.main.maintenance.validator.MaintMainKodtaTellValidator;
 
 /**
- * Gateway to the Main Maintenance Application
+ * Controller 
  * 
  * 
  * @author oscardelatorre
- * @date Aug 19, 2016
+ * @date Aug 22, 2016
  * 
  * 	
  */
@@ -51,10 +51,17 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private StringManager strManager = new StringManager();
 	
-	
-	@RequestMapping(value="mainmaintenanceavd_syfa68r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaKodthRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa68r_edit");
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenanceavd_syfa26r.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaTellRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa26r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
@@ -66,7 +73,7 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 			//-------------
 			//Fetch record 
 			//-------------
-			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
+			List<JsonMaintMainKodtaTellRecord> list = this.fetchList(appUser.getUser(), avd);
 			
 			model.put("avd", avd);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
@@ -83,12 +90,12 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="mainmaintenanceavd_syfa68r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa63r_edit(@ModelAttribute ("record") JsonMaintMainKodtaKodthRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa68r_edit");
+	@RequestMapping(value="mainmaintenanceavd_syfa26r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa63r_edit(@ModelAttribute ("record") JsonMaintMainKodtaTellRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa26r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String avd = recordToValidate.getKohavd();
+		String avd = recordToValidate.getTeavd();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -100,7 +107,7 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 			//---------
 			//Validate
 			//---------
-			MaintMainKodtaKodthValidator validator = new MaintMainKodtaKodthValidator();
+			MaintMainKodtaTellValidator validator = new MaintMainKodtaTellValidator();
 			if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
@@ -152,7 +159,7 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 			//-------------
 			//Fetch record 
 			//-------------
-			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
+			List<JsonMaintMainKodtaTellRecord> list = this.fetchList(appUser.getUser(), avd);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			model.put("action", action);
 			model.put("avd", avd);
@@ -169,11 +176,11 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 	 * @param avd
 	 * @return
 	 */
-	private List<JsonMaintMainKodtaKodthRecord> fetchList(String applicationUser, String avd){
-		List <JsonMaintMainKodtaKodthRecord> list = new ArrayList<JsonMaintMainKodtaKodthRecord>();
+	private List<JsonMaintMainKodtaTellRecord> fetchList(String applicationUser, String avd){
+		List <JsonMaintMainKodtaTellRecord> list = new ArrayList<JsonMaintMainKodtaTellRecord>();
     	
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&kohavd=" + avd;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&teavd=" + avd;
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -185,9 +192,9 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
     	
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.getList(jsonPayload);
+    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.getList(jsonPayload);
 	        if(container!=null){
-	        	for (JsonMaintMainKodtaKodthRecord rec : container.getList()){
+	        	for (JsonMaintMainKodtaTellRecord rec : container.getList()){
 	        		//DEBUG
 	        	}
 	        	list = (List)container.getList();
@@ -205,10 +212,10 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintMainKodtaTellRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -222,7 +229,7 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.doUpdate(jsonPayload);
+    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -246,12 +253,12 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainKodtaKodthService")
-	private MaintMainKodtaKodthService maintMainKodtaKodthService;
+	@Qualifier ("maintMainKodtaTellService")
+	private MaintMainKodtaTellService maintMainKodtaTellService;
 	@Autowired
 	@Required
-	public void setMaintMainKodtaKodthService (MaintMainKodtaKodthService value){ this.maintMainKodtaKodthService = value; }
-	public MaintMainKodtaKodthService getMaintMainKodtaKodthService(){ return this.maintMainKodtaKodthService; }
+	public void setMaintMainKodtaTellService (MaintMainKodtaTellService value){ this.maintMainKodtaTellService = value; }
+	public MaintMainKodtaTellService getMaintMainKodtaTellService(){ return this.maintMainKodtaTellService; }
 	
 		
 }

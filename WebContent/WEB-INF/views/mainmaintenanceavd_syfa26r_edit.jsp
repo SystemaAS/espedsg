@@ -57,22 +57,22 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
+						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
 							<font class="tabDisabledLink">&nbsp;H.på dok.</font>
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Listehode</font>&nbsp;
-						<font class="text11MediumBlue">(${model.avd})</font>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavdopptur.do?id=${model.dbTable}">
-							<font class="tabDisabledLink">&nbsp;Oppnr og tur</font>&nbsp;
+						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}">
+							<font class="tabDisabledLink">&nbsp;Listehode</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tab" align="center">
+						<font class="tabLink">&nbsp;Oppnr og tur</font>&nbsp;
+						<font class="text11MediumBlue">(${model.avd})</font>
 					</td>
 					<td width="1%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
@@ -180,146 +180,39 @@
 			<tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="mainmaintenanceavd_syfa68r_edit.do" name="formRecord" id="formRecord" method="POST" onSubmit="enableDisabledFields();">
+				<form action="mainmaintenanceavd_syfa26r_edit.do" name="formRecord" id="formRecord" method="POST" onSubmit="enableDisabledFields();">
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
 					
-				<table width="95%" cellspacing="1" border="0" align="left">
+				<table cellspacing="1" border="0" align="left">
 						
 						<tr height="20"><td></td></tr>
 						<tr>
-							<td class="text12" ><font class="text14RedBold" >*</font><span title="koaavd">Avd.&nbsp;</span></td>
-							<td class="text12" align="center"><span title="kohfak">Fak</span></td>
-							<td class="text12" align="center"><span title="kohlas">Las</span></td>
-							<td class="text12" align="center"><span title="kohgod">God</span></td>
-							<td class="text12" align="center"><span title="kohbou">Bou</span></td>
-							<td class="text12" align="center"><span title="kohkk">KK</span></td>
-							<td class="text12" align="center"><span title="kohlos">Los</span></td>
-							<td class="text12" align="center"><span title="kohman">Man</span></td>
-							<td class="text12" align="center"><span title="kohls1">Last</span></td>
-							<td class="text12" align="center"><span title="koh421">421</span></td>
-							<td class="text12" align="center"><span title="kohls2">God</span></td>
-							<td class="text12" align="center"><span title="koh422">422</span></td>
-							<td class="text12" align="center"><span title="kohls3">Los</span></td>
-							<td class="text12" align="center"><span title="koh423">423</span></td>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="teavd">&nbsp;Avd.</span></td>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="teopdn">&nbsp;Oppnr.</span></td>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="teturn">&nbsp;Turnr.</span></td>
+							<td class="text12" ><span title="tetmin">&nbsp;Minim.turnr.</span></td>
 							
 						</tr>		
  	    				<tr>
 							<td class="text12" >
-								<input readonly type="text" class="inputTextReadOnly" name="kohavd" id="kohavd" size="5" maxlength="4" value='${model.avd}'>
+								<input readonly type="text" class="inputTextReadOnly" name="teavd" id="teavd" size="5" maxlength="4" value='${model.avd}'>
 							</td>
 							<td class="text12" >
-								<select name="kohfak" id="kohfak" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohfak == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohfak == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
+								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="teopdn" id="teopdn" size="10" maxlength="7" value='${model.record.teopdn}'>
 							</td>
 							<td class="text12" >
-								<select name="kohlas" id="kohlas" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohlas == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohlas == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
+								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="teturn" id="teturn" size="10" maxlength="8" value='${model.record.teturn}'>
 							</td>
 							<td class="text12" >
-								<select name="kohgod" id="kohgod" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohgod == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohgod == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
+								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="tetmin" id="tetmin" size="10" maxlength="8" value='${model.record.tetmin}'>
 							</td>
-							<td class="text12" >
-								<select name="kohbou" id="kohbou" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohbou == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohbou == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohkk" id="kohkk" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohkk == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohkk == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohlos" id="kohlos" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohlos == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohlos == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohman" id="kohman" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.kohman == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohman == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohls1" id="kohls1" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="L"<c:if test="${ model.record.kohls1 == 'L'}"> selected </c:if> >L</option>
-				  					<option value="S"<c:if test="${ model.record.kohls1 == 'S'}"> selected </c:if> >S</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="koh421" id="koh421" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.koh421 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh421 == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohls2" id="kohls2" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="L"<c:if test="${ model.record.kohls2 == 'L'}"> selected </c:if> >L</option>
-				  					<option value="S"<c:if test="${ model.record.kohls2 == 'S'}"> selected </c:if> >S</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="koh422" id="koh422" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.koh422 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh422 == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="kohls3" id="kohls3" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="L"<c:if test="${ model.record.kohls3 == 'L'}"> selected </c:if> >L</option>
-				  					<option value="S"<c:if test="${ model.record.kohls3 == 'S'}"> selected </c:if> >S</option>
-				  					
-							  	</select>
-							</td>
-							<td class="text12" >
-								<select name="koh423" id="koh423" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.koh423 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh423 == 'N'}"> selected </c:if> >Nej</option>
-				  					
-							  	</select>
-							</td>	
-		    	    	</tr>
-		    	    	
-		    	    	<tr>
 							<td class="text12" >
 		    	    			<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
 							</td>
-						</tr>
+		    	    	</tr>
+		    	    	
 		    	    	
 						<tr height="20"><td></td></tr>
 				</table>

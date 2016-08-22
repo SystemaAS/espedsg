@@ -57,7 +57,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
+						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
 							<font class="tabDisabledLink">&nbsp;H.på dok.</font>
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
@@ -69,7 +69,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavdopptur.do?id=${model.dbTable}">
+						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa26r.do?avd=${model.avd}">
 							<font class="tabDisabledLink">&nbsp;Oppnr og tur</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>

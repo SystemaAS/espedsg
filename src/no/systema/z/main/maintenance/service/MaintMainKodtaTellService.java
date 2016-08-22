@@ -3,7 +3,7 @@
  */
 package no.systema.z.main.maintenance.service;
 
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
 
 /**
  * 
@@ -13,8 +13,8 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
  *
  */
 public interface MaintMainKodtaTellService {
-	public JsonMaintMainKodtaKodthContainer getList(String utfPayload);
-	public JsonMaintMainKodtaKodthContainer doUpdate(String utfPayload);
+	public JsonMaintMainKodtaTellContainer getList(String utfPayload);
+	public JsonMaintMainKodtaTellContainer doUpdate(String utfPayload);
 	
 	
 }

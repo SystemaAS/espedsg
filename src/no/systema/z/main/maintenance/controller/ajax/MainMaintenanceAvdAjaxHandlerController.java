@@ -36,7 +36,8 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaHodeRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
 
 import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
@@ -130,9 +131,14 @@ public class MainMaintenanceAvdAjaxHandlerController {
     	return list;
 	
 	}
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param teavd
+	 * @return
+	 */
 	@RequestMapping(value="getSpecificRecord_syfa26r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List <JsonMaintMainKodtaKodthRecord>getRecordSyfa26 (@RequestParam String applicationUser, @RequestParam String teavd ) {
+	public @ResponseBody List <JsonMaintMainKodtaTellRecord>getRecordSyfa26 (@RequestParam String applicationUser, @RequestParam String teavd ) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syfa26r.do ";
 		logger.info(METHOD + " Inside...");
 		List<JsonMaintMainKodtaHodeRecord> result = new ArrayList();
@@ -145,14 +151,14 @@ public class MainMaintenanceAvdAjaxHandlerController {
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	
     	//extract
-    	List<JsonMaintMainKodtaKodthRecord> list = new ArrayList();
+    	List<JsonMaintMainKodtaTellRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.getList(jsonPayload);
+    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.getList(jsonPayload);
     		if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintMainKodtaKodthRecord record: list){
-	        		//logger.info(record.getKohavd());
+	        	for(JsonMaintMainKodtaTellRecord record: list){
+	        		//logger.info(record.getTeavd());
 	        	}
 	        }
     	}

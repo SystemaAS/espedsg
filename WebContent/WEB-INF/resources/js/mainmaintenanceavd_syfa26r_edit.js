@@ -20,7 +20,7 @@
   	  type: 'GET',
   	  url: 'getSpecificRecord_syfa26r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  	  kohavd : rawId },
+  		  	  teavd : rawId },
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',
@@ -32,7 +32,7 @@
   			jq('#teturn').val("");jq('#teturn').val(data[i].teturn);
   			jq('#tetmin').val("");jq('#tetmin').val(data[i].tetmin);
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].kohavd);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].teavd);
 	  			
   			
   		}
