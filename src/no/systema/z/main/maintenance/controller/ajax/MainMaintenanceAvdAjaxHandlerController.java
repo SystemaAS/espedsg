@@ -40,6 +40,7 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
 
 import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
+import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
 
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
@@ -130,6 +131,35 @@ public class MainMaintenanceAvdAjaxHandlerController {
 	
 	}
 	
+	@RequestMapping(value="getSpecificRecord_syfa26r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintMainKodtaKodthRecord>getRecordSyfa26 (@RequestParam String applicationUser, @RequestParam String teavd ) {
+		final String METHOD = "[DEBUG] getSpecificRecord_syfa26r.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintMainKodtaHodeRecord> result = new ArrayList();
+	 	//get table
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&teavd=" + teavd;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	List<JsonMaintMainKodtaKodthRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.getList(jsonPayload);
+    		if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintMainKodtaKodthRecord record: list){
+	        		//logger.info(record.getKohavd());
+	        	}
+	        }
+    	}
+    	return list;
+	
+	}
+	
 	
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -154,6 +184,13 @@ public class MainMaintenanceAvdAjaxHandlerController {
 	public void setMaintMainKodtaKodthService (MaintMainKodtaKodthService value){ this.maintMainKodtaKodthService = value; }
 	public MaintMainKodtaKodthService getMaintMainKodtaKodthService(){ return this.maintMainKodtaKodthService; }
 	
+	
+	@Qualifier ("maintMainKodtaTellService")
+	private MaintMainKodtaTellService maintMainKodtaTellService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaTellService (MaintMainKodtaTellService value){ this.maintMainKodtaTellService = value; }
+	public MaintMainKodtaTellService getMaintMainKodtaTellService(){ return this.maintMainKodtaTellService; }
 	
 	
 }

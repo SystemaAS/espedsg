@@ -44,8 +44,8 @@ import no.systema.z.main.maintenance.validator.MaintMainKodtaKodthValidator;
  */
 
 @Controller
-public class MainMaintenanceAvdHoddokSyfa68Controller {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdHoddokSyfa68Controller.class.getName());
+public class MainMaintenanceAvdListHodSyfa68Controller {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdListHodSyfa68Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
