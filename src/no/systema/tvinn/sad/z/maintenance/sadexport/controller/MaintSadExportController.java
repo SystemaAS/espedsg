@@ -104,6 +104,9 @@ public class MaintSadExportController {
 		object.setCode("SADE_FISKAVG");
 		object.setText("SAD015 / SADAVGE,TARI");
 		object.setDbTable("SADAVGE");
+		object.setPgm("sad015");
+		object.setStatus("G");
+
 		listObject.add(object);
 		//
 		object = new MaintenanceMainListObject();

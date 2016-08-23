@@ -23,6 +23,13 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 */
 	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D.do";
 	
+	/**
+	 * SAD015
+	 * 
+	 * /syjservicestn/syjsSAD015.do
+	 */
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015.do";
+
 	
 	//----------------------------------
 	//[1] UPDATE DB record
@@ -36,6 +43,14 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 * 
 	 */
 	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D_U.do";
+
+	/**
+	 * SAD015_U
+	 * 
+	 * /syjservicestn/syjsSAD015_U.do
+	 * 
+	 */
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015_U.do";
 	
 	
 	//--------------------------

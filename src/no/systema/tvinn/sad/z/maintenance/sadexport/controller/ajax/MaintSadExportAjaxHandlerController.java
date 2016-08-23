@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeContainer;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportTvineContainer;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportTvineRecord;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadavgeService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportTvineService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 
@@ -41,13 +44,7 @@ public class MaintSadExportAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintSadExportAjaxHandlerController.class.getName());
 	
-	/**
-	 * 
-	 * @param user
-	 * @param result
-	 * @param request
-	 * @return
-	 */
+
 	@RequestMapping(value="getSpecificRecord_tvi99d.do", method={RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody List<JsonMaintSadExportTvineRecord> getRecordTvi99d
 	  	(@RequestParam String applicationUser, @RequestParam String id) {
@@ -60,12 +57,22 @@ public class MaintSadExportAjaxHandlerController {
     	return result;
 	
 	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
+
+
+	@RequestMapping(value="getSpecificRecord_sad015.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadExportSadavgeRecord> getRecordSad015
+	  	(@RequestParam String applicationUser, @RequestParam String agtanr, @RequestParam String agakd, @RequestParam String agskv) {
+		final String METHOD = "[DEBUG] getRecordSad015 ";
+		logger.info(METHOD + " applicationUser"+applicationUser+", agtanr="+agtanr+",agakd "+agakd+", agskv "+agskv);
+		List<JsonMaintSadExportSadavgeRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchSpecificSad015(applicationUser, agtanr, agakd, agskv);
+    	
+    	return result;
+	
+	}
+		
+	
 	private Collection<JsonMaintSadExportTvineRecord> fetchListTvi99d(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_GET_LIST_URL;
@@ -89,6 +96,34 @@ public class MaintSadExportAjaxHandlerController {
     	return list;
     	
 	}
+
+	
+	private Collection<JsonMaintSadExportSadavgeRecord> fetchSpecificSad015(String applicationUser, String agtanr, String agakd, String agskv){
+		
+		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&agtanr=" + agtanr + "&agakd=" + agakd + "&agskv="+ agskv;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadExportSadavgeRecord> list = new ArrayList();
+		if (jsonPayload != null) {
+			// lists
+			JsonMaintSadExportSadavgeContainer container = this.maintSadExportSadavgeService.getList(jsonPayload);
+			if (container != null) {
+				// list = (List)container.getList();
+				for (JsonMaintSadExportSadavgeRecord record : container.getList()) {
+					list.add(record);
+				}
+			}
+		}
+    	return list;
+    	
+	}	
+	
+	
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -105,6 +140,14 @@ public class MaintSadExportAjaxHandlerController {
 	@Required
 	public void setMaintSadExportTvineService (MaintSadExportTvineService value){ this.maintSadExportTvineService = value; }
 	public MaintSadExportTvineService getMaintSadExportTvineService(){ return this.maintSadExportTvineService; }
+	
+	@Qualifier ("maintSadExportSadavgeService")
+	private MaintSadExportSadavgeService maintSadExportSadavgeService;
+	@Autowired
+	@Required
+	public void setMaintSadExportSadavgeService (MaintSadExportSadavgeService value){ this.maintSadExportSadavgeService = value; }
+	public MaintSadExportSadavgeService getMaintSadExportSadavgeService(){ return this.maintSadExportSadavgeService; }
+
 	
 	
 }
