@@ -67,7 +67,7 @@
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
 				               	<c:choose>
 				               		<c:when test="${record.status == 'G' || record.status == 'Y'}">
-					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavd_${record.pgm}.do?id=${record.dbTable}">
+					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="${record.code}_${record.pgm}.do?id=${record.dbTable}">
 		               						<img src="resources/images/update.gif" border="0" alt="edit">
 					               		</a>
 				               		</c:when>
@@ -79,7 +79,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="40%" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G' || record.status == 'Y'}">
-					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavd_${record.pgm}.do?id=${record.dbTable}">
+					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="${record.code}_${record.pgm}.do?id=${record.dbTable}">
 		               							<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
 					               			</a>
 					               		</c:when>

@@ -77,6 +77,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainKodtaHodeService" class="no.systema.z.main.maintenance.service.MaintMainKodtaHodeServiceImpl"/>
 	<bean id="maintMainKodtaKodthService" class="no.systema.z.main.maintenance.service.MaintMainKodtaKodthServiceImpl"/>
 	<bean id="maintMainKodtaTellService" class="no.systema.z.main.maintenance.service.MaintMainKodtaTellServiceImpl"/>
-	
+	<!-- SAD avd maintenance -->
+	<bean id="maintMainStandiService" class="no.systema.z.main.maintenance.service.sad.MaintMainStandiServiceImpl"/>
 	
 </beans>

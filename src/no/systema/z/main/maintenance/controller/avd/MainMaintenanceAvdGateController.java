@@ -95,7 +95,7 @@ public class MainMaintenanceAvdGateController {
 		
 		object.setId("1");
 		object.setSubject("Generelle Avd");
-		object.setCode("AVD");
+		object.setCode("mainmaintenanceavd"); //JSP page prefix
 		object.setText("SYFA14 / KODTA, NAVAVD, KODTSF, KODTD, KODTASID, FIRM, CUNDF");
 		object.setDbTable("KODTA");
 		object.setStatus("Y");
@@ -105,11 +105,11 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("TVINN - SAD Import");
-		object.setCode("SADI-AVD");
+		object.setCode("mainmaintenanceavdsadimport"); //JSP page prefix
 		object.setText("SYFTAAA / STANDI");
 		object.setDbTable("STANDI");
 		object.setStatus("Y");
-		object.setPgm("syftaaa");
+		object.setPgm("syftaaar");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();

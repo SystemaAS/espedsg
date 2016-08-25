@@ -167,6 +167,7 @@ public class MainMaintenanceAvdAjaxHandlerController {
 	}
 	
 	
+	
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
 	@Autowired
