@@ -57,7 +57,6 @@ public class MainMaintenanceAvdGateController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu("INIT");
 			logger.info("Inside method: mainmaintenanceavdgate");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());

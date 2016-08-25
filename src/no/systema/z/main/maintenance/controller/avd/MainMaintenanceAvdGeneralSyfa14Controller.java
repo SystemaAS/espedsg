@@ -71,14 +71,10 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu("INIT");
 			logger.info("Inside method: mainmaintenanceavd_syfa14r");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
-			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 			
 			//Get list
 	 		List list = this.fetchList(appUser.getUser());

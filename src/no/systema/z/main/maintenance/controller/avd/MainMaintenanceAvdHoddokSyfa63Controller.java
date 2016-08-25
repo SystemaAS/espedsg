@@ -52,6 +52,14 @@ public class MainMaintenanceAvdHoddokSyfa63Controller {
 	private StringManager strManager = new StringManager();
 	
 	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="mainmaintenanceavd_syfa63r.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenanceavd_syfa63r (@ModelAttribute ("record") JsonMaintMainKodtaHodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa63r_edit");

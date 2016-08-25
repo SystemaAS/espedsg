@@ -110,7 +110,6 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu("INIT");
 			logger.info("Inside method: mainmaintenanceavd_syfa28r_edit");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
