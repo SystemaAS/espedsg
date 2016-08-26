@@ -301,7 +301,7 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							
-								<table id="containerdatatableTable" cellspacing="2" align="left" >
+								<table width="100%" id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 							

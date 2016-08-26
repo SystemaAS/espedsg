@@ -283,7 +283,7 @@
 					<tr>
 						<%-- LEFT SIDE  --%>
 						<td width="50%" >
-						<table width="100%" cellspacing="1" border="1" align="left">
+						<table width="100%" cellspacing="1" border="0" align="left">
 						<tr>
 				 			<td >		
 				 				<%-- SENDER --%>
@@ -572,8 +572,8 @@
 				 				</tr>
 			 				</table>
 			 			</td>
-			 		</tr>
-			 		<tr>
+			 			</tr>
+			 			<tr>
 			            <td >	
 							<%-- create record --%>
 						 	<table width="95%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
@@ -598,14 +598,9 @@
 								 <tr height="15"><td></td></tr>
 						 	</table>
 	            		</td>
-		           	</tr>
-		           	<tr height="20"><td></td></tr>
-					 	
-					 	
-					 	
-					 	
-					 	
-					 		
+		           		</tr>
+		           		<tr height="20"><td></td></tr>
+
 						</table>
 						</td>
 						
@@ -621,22 +616,13 @@
 					           			<b>15. Avs/utf.land</b>
 					           			<br/><br/>
 					           			Med avsenderland forstås det land hvorfra varen er sendt til Norge uten mellomliggende handelstransaksjon (omlasting undderveis endrer ikke forholdet)
-										
 								</span>	
 								</div>
 									
 					             </td>
 					            <td >
-				            		<select class="inputTextMediumBlue" name="silka" id="silka">
-				 						<option value="">-velg-</option>
-					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					 				  		<option value="${country.zkod}"<c:if test="${model.record.silka == country.zkod}"> selected </c:if> >${country.zkod}</option>
-										</c:forEach>  
-									</select>
-									<a tabindex="-1" id="silkaIdLink">
-									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-									</a>
-																																	 			
+					            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="4" maxlength="2" value="${model.record.silka}">
+				            																										 			
 								</td>
 							</tr>
 							<tr height="8"><td class="text"></td> </tr>
@@ -689,7 +675,7 @@
 					            </td>
 					            
 				                 <td >
-						            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="21" maxlength="20" value="${model.record.sitrid}">
+					            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="21" maxlength="20" value="${model.record.sitrid}">
 								</td>
 							</tr>
 							
@@ -712,16 +698,8 @@
 								</td>
 									
 								<td>
-				            		<select name="silkt" id="silkt">
-			 						<option value="">-velg-</option>
-				 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-				 				  		<option value="${country.zkod}"<c:if test="${model.record.silkt == country.zkod}"> selected </c:if> >${country.zkod}</option>
-									</c:forEach>  
-									</select>
-									<a tabindex="-1" id="silktIdLink">
-									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-									</a>
-									</td>
+									<input type="text" class="inputTextMediumBlue" name="silkt" id="silkt" size="4" maxlength="2" value="${model.record.silkt}">
+								</td>
 					        </tr>
 							
 							
@@ -743,12 +721,7 @@
 								
 								</td>	
 					            <td class="text12" >
-			           				<select name="sitrm" id="sitrm">
-				 						<option value="">-velg-</option>
-					 				  	<c:forEach var="record" items="${model.transportmaterCodeList}" >
-					 				  		<option value="${record.zkod}"<c:if test="${model.record.sitrm == record.zkod}"> selected </c:if> >${record.zkod}</option>
-										</c:forEach>  
-									</select>
+					            	<input type="text" class="inputTextMediumBlue" name="sitrm" id="sitrm" size="4" maxlength="2" value="${model.record.sitrm}">
 			           			</td>
 							</tr>
 							
@@ -792,13 +765,240 @@
 								
 								</td>
 								<td class="text12" align="left" ><span title="sipos">Posisjon</span>
-					            		&nbsp;<input type="text" class="inputTextMediumBlue" name="sipos" id="sipos" size="15" maxlength="9" value="${model.record.sipos}">
+					            	&nbsp;<input type="text" class="inputTextMediumBlue" name="sipos" id="sipos" size="15" maxlength="9" value="${model.record.sipos}">
 					            </td>
 					        </tr>
-							
 							<tr height="5"><td class="text"></td></tr>
 							
+							<tr>
+				            <td class="text12" align="left" >
+				            <img onMouseOver="showPop('20_1_info');" onMouseOut="hidePop('20_1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		 					<b>20.1</b><span title="silv">Leveringksvilkår kode</span>
+				            <div class="text11" style="position: relative;" align="left">
+				            <span style="position:absolute; top:2px; width:250px;" id="20_1_info" class="popupWithInputText text11"  >
+				           			<b>Leveringksvilkår kode</b>
+				           			<p>
+				           			Kode for leveringsvilkår:
+				           			</p>
+				           			
+							</span>
+							</div>	
+							</td>	
+				            <td >
+				            	<input type="text" class="inputTextMediumBlue"  name="silv" id="silv" size="4" maxlength="3" value="${model.record.silv}">
+							</td>
+							</tr>
+			 			
+			 				<tr>
+					            <td class="text12" align="left" >
+					            <img onMouseOver="showPop('20_2_info');" onMouseOut="hidePop('20_2_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+			 					<b>20.2</b>
+			 					<span title="silvt">Leveringksvilkår sted</span>&nbsp;
+					            <div class="text11" style="position: relative;" align="left">
+					            <span style="position:absolute; top:2px; width:250px;" id="20_2_info" class="popupWithInputText text11"  >
+					           			<b>Leveringksvilkår sted</b>
+					           			<p>
+					           			Stedet leveringsvilkåret gjelder til/fra. 
+					           			</p>
+								</span>	
+								</div>
+								</td>
+					            <td >
+					            	<input type="text" class="inputTextMediumBlue"  name="silvt" id="silvt" size="20" maxlength="17" value="${model.record.silvt}">
+								</td>
+							</tr>
+							<tr height="5"><td></td></tr>
 							
+							
+							<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
+			 				<tr height="5"><td class="text">&nbsp;</td> </tr>
+			 				<tr>
+			            		<td class="text12" align="left" >
+					            <img onMouseOver="showPop('30_1_info');" onMouseOut="hidePop('30_1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <b>30.1&nbsp;</b><span title="sikdls">Lagringssted kode</span></td>
+					            <td >
+						          <input type="text" class="inputTextMediumBlue"  name="sikdls" id="sikdls" size="4" maxlength="2" value="${model.record.sikdls}">  
+					            
+					            <div class="text11" style="position: relative;" align="left">
+					            <span style="position:absolute; top:2px; width:250px;" id="30_1_info" class="popupWithInputText text11"  >
+				           			<b>30. Lagringssted kode</b>
+				           			<br/><br/>
+				           			Varenes lagringssted oppgis med kode. Rubrikken skal fylles ut med gyldig kode for lagringssted.
+				           			<br/><br/>
+				           			
+								</span>	
+								</div>
+								</td>
+        					</tr>
+	        					
+        					<tr>
+			            		<td class="text12" align="left" >
+			            		<img onMouseOver="showPop('30_2_info');" onMouseOut="hidePop('30_2_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <b>30.2&nbsp;</b><span title="sils">Lagringssted tekst</span>
+					            <div class="text11" style="position: relative;" align="left">
+					            <span style="position:absolute; top:2px; width:250px;" id="30_2_info" class="popupWithInputText text11"  >
+					           			<b>30. Lagringssted tekst</b>
+					           			<br/><br/>
+					           			Selve tekstfeltet oppdateres automatisk når man taster / plukker en gyldig kode.
+								</span>	
+								</div>
+								</td>
+					            <td ><input type="text" class="inputTextMediumBlue" name="sils" id="sils" size="20" maxlength="16" value="${model.record.sils}"></td>
+
+        					</tr>
+        					<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
+				            <tr height="20"><td class="text">&nbsp;</td> </tr>
+							
+							
+							<tr>
+			 					<td class="text12" colspan="2" >
+			 					<img onMouseOver="showPop('12_info');" onMouseOut="hidePop('12_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				<b>12.&nbsp;Verdiopplysninger&nbsp;</b>
+				 				<div class="text11" style="position: relative;" align="left">
+				 				<span style="position:absolute; top:2px; width:250px;" id="12_info" class="popupWithInputText text11"  >
+					           			<b>12. Verdiopplysninger</b>&nbsp;
+					           			<br/><br/>
+					           			Oppgi fraktomkostningene (til norsk grense) for hele ekspedisjonen når disse ikke inngår i fakturaprisen.
+										<br/><br/>
+										OVERFØRES AUTOMATISK FRA OPPDRAGET DERSOM DET ER KRAV TIL FRAKT PÅ
+										TASTET FRANKATUR. 
+										<br/><br/>
+										BELØPET KAN TASTES I ØNSKET VALUTA. OMREGNES OG SKRIVES UT I NOK
+								</span>
+								</div>
+								</td>
+							</tr> 
+							
+							<tr>
+								<td class="text12" align="left" >
+								<img onMouseOver="showPop('andraKostPM_info');" onMouseOut="hidePop('andraKostPM_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				<span title="siftg2">+/-&nbsp;(P/M)</span>
+				 				<div class="text11" style="position: relative;" align="left">
+				 				<span style="position:absolute; top:2px; width:250px;" id="andraKostPM_info" class="popupWithInputText text11"  >
+					           			<b>Andre kostnader +/- (P/M)</b>&nbsp;
+					           			<p>
+											HVIS MAN IKKE ØNSKER AT RUBR. 22 SKAL PÅVIRKES KAN MAN BENYTTE KODENE
+											<b>M</b>(-) ELLER <b>P</b>(+)
+											<br/><br/>
+											Når man taster M eller P i feltet vil totalt fakturabeløp i rubr. 22 ikke påvirkes / endres, men det blir gjort fratrekk i "Statistisk verdi" som er grunnlaget for beregning av toll og avgifter.
+										</p>
+								</span>
+								</div>
+				 				</td>
+			 					<td class="text12">
+			 						<input type="text" class="inputTextMediumBlue" name="siftg2" id="siftg2" size="1" maxlength="1" value="${model.record.siftg2}">
+			 					</td>
+							</tr>
+							<tr>
+								<td class="text12" ><span title="sibel1/sival1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beløp tollb.frakt</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${model.record.sibel1}">
+			 						<select name="sival1" id="sival1">
+				 						<option value="">-velg-</option>
+					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
+					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival1 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+										</c:forEach>  
+									</select>
+									<a tabindex="-1" id="sival1IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>
+									
+			 					</td>
+							</tr>	
+							<tr>
+								<td class="text12" >
+								<img onMouseOver="showPop('andraKost_info');" onMouseOut="hidePop('andraKost_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				<span title="sibel2/sival2">Beløp andre kost.</span>
+				 				
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; top:2px; width:250px;" id="andraKost_info" class="popupWithInputText text11">
+					           			<b>Beløp andre kostnader +/- (P/M)</b>&nbsp;
+					           			<br/><br/>
+										Oppgi summen av eventuelle tillegg og/eller fradrag. Dersom det er mer å trekke fra enn å legge til fakturabeløpet, blir det et negativt beløp her.
+										<br/><br/>
+										<b>Eksempel på tillegg:</b> Provisjon,royalty,Innpakk..
+										<br/><br/>
+										<b>Eksempel på fradrag:</b> Diverse rabatter som er gitt i tilknyttning til de innførte varer.
+										<br/><br/>
+										HER KAN DET TASTES I ØNSKET VALUTA MED <b>+</b> ELLER <b>-</b>. DET TASTEDE BELØP
+										GJELDER FOR HELE SENDINGEN. SYSTEMET BESØRGER FORDELINGEN PR.VARELINJE.
+										<p>	
+											Vær oppmerksom på at verdien i rubr. 22 "Fakturert valuta og totalbeløp" vil bli justert tilsvarende når man benytter +/-.
+											Dette vises ikke i selve skjermbildet, men vil være den verdien som blir skrevet i rubr. 22 ved sending til TVINN og også ved utskrift av deklarasjonen.
+										</p>
+										<p>	
+											Verdien man taster i rubr. 22 i SKJERMBILDET vil være grunnlaget man deklarer mot på varelinjenivå (i neste skjermbilde ).
+											For å unngå differanse mellom vareverdi og deklarert verdi ved avsluttning av deklarasjonen, justeres ikke rubr. 22 med andre kostnader før ved sending/utskrift.
+										</p>
+										<p>
+											HVIS MAN IKKE ØNSKER AT RUBR. 22 SKAL PÅVIRKES KAN MAN BENYTTE KODENE
+											<b>M</b>(-) ELLER <b>P</b>(+)
+											<br/><br/>
+											Når man taster M eller P i feltet vil totalt fakturabeløp i rubr. 22 ikke påvirkes / endres, men det blir gjort fratrekk i "Statistisk verdi" som er grunnlaget for beregning av toll og avgifter.
+										</p>
+								</span>
+								</div>
+								</td>
+			 					
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2}">
+			 						<select name="sival2" id="sival2">
+				 						<option value="">-velg-</option>
+					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
+					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival2 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+										</c:forEach>  
+									</select>
+									<a tabindex="-1" id="sival2IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+									</a>
+									
+			 					</td>
+							</tr>
+							
+							<tr>						
+								<td class="text12" ><span title="sirab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rabatt</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sirab" id="sirab" size="12" maxlength="5" value="${model.record.sirab}">
+								</td>
+							</tr>					        
+							<tr height="25"><td class="text">&nbsp;</td> </tr>	
+				            
+					        <tr>
+					            <td class="text12" align="left" >
+					            <img onMouseOver="showPop('brut_info');" onMouseOut="hidePop('brut_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <span title="sivkb">Bruttovekt</span>
+					            <div class="text11" style="position: relative;" align="left">
+					            <span style="position:absolute; top:2px; width:250px;" id="brut_info" class="popupWithInputText text11"  >
+					           			<b>Bruttovekt</b>
+								</span>	
+								</div>
+								</td>
+					            <td >
+				            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="sivkb" id="sivkb" size="10" maxlength="9" value="${model.record.sivkb}">
+					            </td>
+					        </tr>
+				            <tr>
+					            <td class="text12" align="left" >
+					            <img onMouseOver="showPop('6_info');" onMouseOut="hidePop('6_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <b>&nbsp;6.&nbsp;</b><span title="sintk">Antall Kolli</span>
+					            <div class="text11" style="position: relative;" align="left">
+					            <span style="position:absolute; top:2px; width:250px;" id="6_info" class="popupWithInputText text11"  >
+					           			<b>6. Antall Kolli</b>
+					           			<br/><br/>
+					           			Opplysningene overføres fra oppdragsregistreringen. 
+					           			<p>
+					           			KRAV TIL FELTET
+					           			</p>
+								</span>	
+								</div>
+								</td>
+					            <td >
+					            	<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="sintk" id="sintk" size="8" maxlength="7" value="${model.record.sintk}">
+					            </td>
+					        </tr>
+   					        <tr height="10"><td class="text">&nbsp;</td> </tr>
+					        
+
 						</table>
 						</td>
 					</tr>

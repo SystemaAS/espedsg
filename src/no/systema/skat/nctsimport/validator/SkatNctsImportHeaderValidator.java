@@ -46,7 +46,6 @@ public class SkatNctsImportHeaderValidator implements Validator {
 		System.out.print("Inside SkatNctsImportHeaderValidator");
 		
 		//Check for Mandatory fields first
-		/* TODO - COVI activate after testing
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tiavd", "systema.skat.ncts.import.header.error.null.tiavd"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tisg", "systema.skat.ncts.import.header.error.null.tisg"); 
@@ -59,7 +58,6 @@ public class SkatNctsImportHeaderValidator implements Validator {
 		//ansvarig
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tina", "systema.skat.ncts.import.header.error.null.tina"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titin", "systema.skat.ncts.import.header.error.null.titin"); 
-		*/
 		
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){

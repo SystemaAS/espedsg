@@ -437,6 +437,11 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public void setSiekst (String value){ this.siekst = value;   }   
 	public String getSiekst (){ return this.siekst;   }  
 	
+	//Rabatt (other table)
+	private String sirab = null; 
+	public void setSirab (String value){ this.sirab = value;   }   
+	public String getSirab (){ return this.sirab;   }              
+    
 	
 	//DUP
 	private String kodus1 = null; 
