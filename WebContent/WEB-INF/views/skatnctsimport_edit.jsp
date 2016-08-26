@@ -506,47 +506,6 @@
 				            		<a id="titsbIdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
 				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 				            		</a>
-					            	<%--
-					            	<img id="imgTullkontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontor_Dialog');">
-		            				 ============================================================= --%>
-					            	<%-- Here we have the search Transittullkontor 01 popup window   --%>
-					            	<%-- ============================================================= 
-					            	<span style="position:absolute; left:800px; top:250px; width:300px; height:250px;" id="searchTullkontor_Dialog" class="popupWithInputText"  >
-					           		<div class="text10" align="left">
-					           			<table>
-					           				<tr>
-												<td class="text11">&nbsp;Tolsted</td>
-												<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa" id="search_sveh_utfa" size="18" maxlength="8" value=""></td>
-											</tr>
-						           			<tr>
-												<td class="text11">&nbsp;Kode</td>
-												<td class="text11">&nbsp;<input type="text" class="inputText" name="search_sveh_utfa_Code" id="search_sveh_utfa_Code" size="18" maxlength="35" value=""></td>
-											</tr>
-						           			<tr>
-						           				<td class="text11">&nbsp;</td>
-							           			<td align="right">&nbsp;<button name="searchTullkontor" class="buttonGray" type="button" onClick="searchAvgangTullkontorOwnWindow();"><spring:message code="systema.skat.search"/></button></td>
-							           		</tr>
-							           		<tr height="4"><td ></td></tr>
-							           		<tr>
-						           				<td class="text11">&nbsp;Udvalg</td>
-							           			<td>&nbsp;</td>
-							           		</tr>
-							           		<tr>
-												<td colspan="2">&nbsp;
-													<select class="text11" id="tullkontorList" name="tullkontorList" size="3" onDblClick="hidePop('searchTullkontor_Dialog');">
-	 													<option selected value="">-vælg-</option>
-	 							 					</select>
-												</td>
-											</tr>
-					           			</table>
-										<table width="100%" align="left" border="0">
-											<tr align="left" >
-												<td >&nbsp;<button name="searchTullkontor_Close" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTullkontor_Dialog');"><spring:message code="systema.skat.ok"/></button></td>
-											</tr>
-										</table>
-									</div>
-								</span>
-								--%>
 				            </td>
 				            <td ><span title="tiskb">Sprogkode</span>&nbsp;</td>
 				            <td >

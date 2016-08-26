@@ -473,9 +473,9 @@
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nvctsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach>
 											</select>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-							            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-							            		</a>
+											<a tabindex="-1" id="nvctskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 										<td colspan="4" class="text12" align="left" >
 							        			<input type="text" class="inputText" name="nvctb" id="nvctb" size="71" maxlength="70" value="${model.record.nvctb}">
@@ -556,9 +556,6 @@
 
 							            <td nowrap class="text12" align="left" valign="bottom">
 											&nbsp;<span title="nvvtsk" >Sprogkode</span>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-							            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-							            		</a>
 										</td>
 										<td class="text12" align="left">
 							            		&nbsp;&nbsp;<span title="nvvktb" >Brut.vægt(kg)</span>
@@ -584,6 +581,9 @@
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nvvtsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach>
 											</select>
+											<a tabindex="-1" id="nvvtskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 										<td class="text12" align="left" >
 							        			<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="nvvktb" id="nvvktb" size="9" maxlength="9" value="${model.record.nvvktb}">
@@ -607,12 +607,7 @@
 							 			<td colspan="2" class="text12" align="left">
 							            		&nbsp;<b>44.</b>&nbsp;<span title="nvdref" >Dok.ref.</span>
 							            </td>
-										<td class="text12" align="left" valign="bottom">
-											<b>44.</b>&nbsp;<span title="nvdsk" >Dok.sprog</span>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-							            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-							            		</a>
-										</td>
+										<td class="text12" align="left" valign="bottom"><b>44.</b>&nbsp;<span title="nvdsk" >Dok.sprog</span></td>
 										
 										<td class="text12" align="left">
 							            		&nbsp;<b>44.</b>&nbsp;<span title="nvdo" >Met information</span>
@@ -644,6 +639,9 @@
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nvdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach>
 											</select>
+											<a tabindex="-1" id="nvdskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 										<td class="text12" align="left" >
 							        			<input type="text" class="inputText" name="nvdo" id="nvdo" size="26" maxlength="26" value="${model.record.nvdo}">
@@ -656,6 +654,9 @@
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nvdosk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach>
 											</select>
+											<a tabindex="-1" id="nvdoskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 							        </tr>
 							        
@@ -663,12 +664,7 @@
 							 			<td colspan="3" class="text12" align="left" valign="bottom">
 							 				&nbsp;<b>31.</b>&nbsp;<font class="text16RedBold" >*</font><span title="nvmn" >Mærke og nr.</span>
 							 			</td>
-							 			<td nowrap class="text12" align="left" valign="bottom">
-											<b>31.</b>&nbsp;<span title="nvmnsk" >Godsm.sprog</span>
-											<a tabindex="-1" class="text14" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-							            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-							            		</a>
-										</td>
+							 			<td nowrap class="text12" align="left" valign="bottom"><b>31.</b>&nbsp;<span title="nvmnsk" >Godsm.sprog</span></td>
 										<td class="text12" align="left">
 							            		&nbsp;<b>31.</b>&nbsp;<span title="nvcnr" >Container</span>
 							            </td>
@@ -693,6 +689,9 @@
 			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.nvmnsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 												</c:forEach>
 											</select>
+											<a tabindex="-1" id="nvmnskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 										<td class="text12" align="left" >
 							        			<input type="text" class="inputText" name="nvcnr" id="nvcnr" size="20" maxlength="17" value="${model.record.nvcnr}">
