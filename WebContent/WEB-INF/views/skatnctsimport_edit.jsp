@@ -368,11 +368,7 @@
 			 				</tr>
 			 				<tr >
 					 			<td class="text12">&nbsp;<span title="tiad1">Adresse</span></td>
-					 			<td class="text12">&nbsp;<span title="tisk">Sprogkode</span>
-					 				<a tabindex="-1" class="text12" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-					            		</a>
-					 			</td>
+					 			<td class="text12">&nbsp;<span title="tisk">Sprogkode</span></td>
 			 				</tr>
 			 				<tr >
 					 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="tiad1" id="tiad1" size="30" maxlength="30" value="${model.record.tiad1}"></td>
@@ -383,6 +379,9 @@
 					                             <option value="${code.tkkode}"<c:if test="${model.record.tisk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 											</c:forEach> 
 									</select>
+									<a tabindex="-1" id="tiskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 					 			</td>
 			 				</tr>
 			 				<tr >
@@ -394,21 +393,20 @@
 					 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="tipn" id="tipn" size="9" maxlength="9" value="${model.record.tipn}"></td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12">&nbsp;<span title="tilk">Landkode</span>
-						 			<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-					            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-					            		</a>
-					 			</td>
+					 			<td class="text12">&nbsp;<span title="tilk">Landkode</span></td>
 					 			<td class="text12">&nbsp</td>
 			 				</tr>
 			 				<tr >
 					 			<td>
 					 				<select name="tilk" id="tilk">
-						            		<option value="">-vælg-</option>
+					            		<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tilk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 										</c:forEach> 
 									</select>
+									<a tabindex="-1" id="tilkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 				 				</td>
 					 			<td class="text12">
 					 				&nbsp;
@@ -441,9 +439,9 @@
 				                             <option value="${code.tkkode}"<c:if test="${model.record.tignsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 								</select>
-				 				<a tabindex="-1" class="text12" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>
+				 				<a tabindex="-1" id="tignskIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 				            </td>
 			            </tr>
 			            <tr>
@@ -456,14 +454,14 @@
 				            <td ><font class="text16RedBold" >*</font><span title="tialk">Afs.land</span>&nbsp;</td>
 				            <td >
 					            <select class="inputTextMediumBlueMandatoryField" name="tialk" id="tialk">
-					            		<option value="">-vælg-</option>
+				            		<option value="">-vælg-</option>
 				 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 		                              	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.tialk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
 									</c:forEach> 
 								</select>
-					 			<a tabindex="-1" class="text14" target="_blank" href="${model.skatLandCodesURL.value}" onclick="${model.skatLandCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>							
+					 			<a tabindex="-1" id="tialkIdLink" OnClick="triggerChildWindowCountryCodes(this)">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>							
 				            </td>
 			            </tr>
 			            <tr height="10"><td>&nbsp;</td></tr>
@@ -479,9 +477,9 @@
 				                             <option value="${code.tkkode}"<c:if test="${model.record.tialss == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 								</select>
-								<a tabindex="-1" class="text12" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>
+								<a tabindex="-1" id="tialssIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 				            </td>
 			            </tr>
 			            <tr>
@@ -505,10 +503,14 @@
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="titsb">Best.toldsted</span></td>
 				            <td ><input type="text" class="inputTextMediumBlueMandatoryField" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
+				            		<a id="titsbIdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
+				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+				            		</a>
+					            	<%--
 					            	<img id="imgTullkontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontor_Dialog');">
-		            				<%-- ============================================================= --%>
+		            				 ============================================================= --%>
 					            	<%-- Here we have the search Transittullkontor 01 popup window   --%>
-					            	<%-- ============================================================= --%>
+					            	<%-- ============================================================= 
 					            	<span style="position:absolute; left:800px; top:250px; width:300px; height:250px;" id="searchTullkontor_Dialog" class="popupWithInputText"  >
 					           		<div class="text10" align="left">
 					           			<table>
@@ -544,6 +546,7 @@
 										</table>
 									</div>
 								</span>
+								--%>
 				            </td>
 				            <td ><span title="tiskb">Sprogkode</span>&nbsp;</td>
 				            <td >
@@ -553,9 +556,9 @@
 				                             <option value="${code.tkkode}"<c:if test="${model.record.tiskb == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 										</c:forEach> 
 								</select>
-				 				<a tabindex="-1" class="text12" target="_blank" href="${model.isoLanguageCodesURL.value}" onclick="${model.isoLanguageCodesURL.windowOpenDimensions}" >
-				            			<img style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-				            		</a>
+				 				<a tabindex="-1" id="tiskbIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
+										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+									</a>
 				            </td>
 			            </tr>
 			            <tr>

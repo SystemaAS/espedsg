@@ -504,16 +504,15 @@
 							        <tr>
 							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
 							            <td class="text12" align="left" >
-							            		&nbsp;<select class="inputTextMediumBlue" name="thsks" id="thsks">
-								            		<option value="">-vælg-</option>
-								 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-				                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-													</c:forEach> 
+						            		&nbsp;<select class="inputTextMediumBlue" name="thsks" id="thsks">
+							            		<option value="">-vælg-</option>
+							 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
+			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+												</c:forEach> 
 											</select>
 											<a tabindex="-1" id="thsksIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 											</a>
-							            
 										</td>
 							        </tr>
 							        <tr>
