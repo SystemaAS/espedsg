@@ -69,10 +69,11 @@
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
 								<th width="2%" class="tableHeaderField" align="center" >Avd</th>
-								<th width="2%" class="tableHeaderField" align="center" >Avd.navn</th>
-								<th width="15%" class="tableHeaderField" align="center" >Ekspen</th>
-								<th width="15%" class="tableHeaderField" align="center" >Interchnr. Sender</th>
-								<th width="15%" class="tableHeaderField" align="center" >Foretaksnr</th>
+								<th class="tableHeaderField" align="center" >Avd.navn</th>
+								<th class="tableHeaderField" align="center" >Ekspen</th>
+								<th class="tableHeaderField" align="center" >Interchnr. Sender</th>
+								<th class="tableHeaderField" align="center" >Foretaksnr</th>
+								<th class="tableHeaderField" align="center" >DUP</th>
 			                    <th class="tableHeaderField" align="center" >Slett</th>
 			                    
 			                </tr>  
@@ -90,6 +91,9 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;todo&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.s0004}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.sirg}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
+		                       		<c:if test="${record.dup}"><img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0"></c:if>
+		                       </td>
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdsadimport_syftaaar_edit.do?action=doDelete&siavd=${record.siavd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">

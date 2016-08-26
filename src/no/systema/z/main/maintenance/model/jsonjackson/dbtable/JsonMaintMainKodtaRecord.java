@@ -98,7 +98,16 @@ public class JsonMaintMainKodtaRecord extends JsonAbstractGrandFatherRecord {
 	public String getKodus6 (){ return this.kodus6;   }              
     
 	public boolean dup = false;
-	public void setDup (boolean value){ this.dup = value;   }   
+	public void setDup (boolean value){ this.dup = value;   }
+	public boolean isDup(){
+		if(this.koanvn!=null && !"".equals(koanvn)){ 
+			if(this.koanvn.toUpperCase().contains("DUP")){
+				dup = true;
+			}
+		}
+		return this.dup;
+	}
+	/* OBSOLETE ?
 	public boolean isDup(){ 
 		if(this.kodus1!=null && !"".equals(kodus1)){ 
 			dup = true;
@@ -121,7 +130,8 @@ public class JsonMaintMainKodtaRecord extends JsonAbstractGrandFatherRecord {
 		
 		return this.dup;   
 	}              
-    
+    */
+	
 	public boolean fasteDataExists = true;
 	public void setFasteDataExists (boolean value){ this.fasteDataExists = value;   }   
 	public boolean isFasteDataExists(){ return this.fasteDataExists; } 

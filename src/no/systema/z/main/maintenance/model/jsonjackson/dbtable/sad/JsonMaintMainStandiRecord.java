@@ -438,6 +438,66 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public String getSiekst (){ return this.siekst;   }  
 	
 	
+	//DUP
+	private String kodus1 = null; 
+	public void setKodus1 (String value){ this.kodus1 = value;   }   
+	public String getKodus1 (){ return this.kodus1;   }              
+    
+	private String kodus2 = null; 
+	public void setKodus2 (String value){ this.kodus2 = value;   }   
+	public String getKodus2 (){ return this.kodus2;   }              
+    
+	private String kodus3 = null; 
+	public void setKodus3 (String value){ this.kodus3 = value;   }   
+	public String getKodus3 (){ return this.kodus3;   }              
+    
+	private String kodus4 = null; 
+	public void setKodus4 (String value){ this.kodus4 = value;   }   
+	public String getKodus4 (){ return this.kodus4;   }              
+    
+	private String kodus5 = null; 
+	public void setKodus5 (String value){ this.kodus5 = value;   }   
+	public String getKodus5 (){ return this.kodus5;   }              
+    
+	private String kodus6 = null; 
+	public void setKodus6 (String value){ this.kodus6 = value;   }   
+	public String getKodus6 (){ return this.kodus6;   }              
+    
+	public boolean dup = false;
+	public void setDup (boolean value){ this.dup = value;   }
+	public boolean isDup(){
+		if(this.koanvn!=null && !"".equals(koanvn)){ 
+			if(this.koanvn.toUpperCase().contains("DUP")){
+				dup = true;
+			}
+		}
+		return this.dup;
+	}
+	/* OBSOLETE ?
+	public boolean isDup(){ 
+		if(this.kodus1!=null && !"".equals(kodus1)){ 
+			dup = true;
+		}
+		if(this.kodus2!=null && !"".equals(kodus2)){ 
+			dup = true;
+		}
+		if(this.kodus3!=null && !"".equals(kodus3)){ 
+			dup = true;
+		}
+		if(this.kodus4!=null && !"".equals(kodus4)){ 
+			dup = true;
+		}
+		if(this.kodus5!=null && !"".equals(kodus5)){ 
+			dup = true;
+		}
+		if(this.kodus6!=null && !"".equals(kodus6)){ 
+			dup = true;
+		}
+		
+		return this.dup;   
+	}              
+    */
+	
 	/**
 	 * 
 	 * @return
