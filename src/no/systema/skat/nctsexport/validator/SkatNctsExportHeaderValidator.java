@@ -87,15 +87,15 @@ public class SkatNctsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtaid", "systema.skat.ncts.export.header.error.null.thtaid");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtalk", "systema.skat.ncts.export.header.error.null.thtalk");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtgid", "systema.skat.ncts.export.header.error.null.thtgid");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtglk", "systema.skat.ncts.export.header.error.null.thtglk");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtgid", "systema.skat.ncts.export.header.error.null.thtgid");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtglk", "systema.skat.ncts.export.header.error.null.thtglk");
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtrm", "systema.skat.ncts.export.header.error.null.thtrm");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thcats", "systema.skat.ncts.export.header.error.null.thcats");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thskfd", "systema.skat.ncts.export.header.error.null.thskfd");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdst", "systema.skat.ncts.export.header.error.null.thdst");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thdsk", "systema.skat.ncts.export.header.error.null.thdsk");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsd1", "systema.skat.ncts.export.header.error.null.thtsd1");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsd1", "systema.skat.ncts.export.header.error.null.thtsd1");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtsb", "systema.skat.ncts.export.header.error.null.thtsb");
 		
 		

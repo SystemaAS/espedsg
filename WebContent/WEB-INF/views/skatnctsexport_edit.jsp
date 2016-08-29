@@ -775,7 +775,7 @@
 							        	<td class="text12" align="left" >
 							        	&nbsp;<img onMouseOver="showPop('51_info');" onMouseOut="hidePop('51_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							        
-							        	<b>51.</b><font class="text16RedBold" >*</font><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder og lande&nbsp;</span>
+							        	<b>51.</b><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder og lande&nbsp;</span>
 							        	<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="51_info" class="popupWithInputText text11"  >	
 	           	
@@ -798,7 +798,7 @@
 							            		<tr>
 							            			
 							            			<td class="text12" >
-							            			1.<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
+							            			1.<input type="text" class="inputTextMediumBlue" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
 									            		<a id="thtsd1IdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
 									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 									            		</a>
@@ -1305,7 +1305,7 @@
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					            <b>21.</b>
-					            <font class="text16RedBold" >*</font><span title="thtgid">Det grænseoverskridende aktive transportmiddels identitet og nationalitet</span>
+					            <span title="thtgid">Det grænseoverskridende aktive transportmiddels identitet og nationalitet</span>
 					            <div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >
 					           			Enter the appropriate code for the type (lorry, ship, railway wagon, aircraft, etc.) and
@@ -1328,15 +1328,15 @@
 					        </tr>
 				            <tr>
 				            	<td >
-				            		<input type="text" class="inputTextMediumBlueMandatoryField" name="thtgid" id="thtgid" size="25" maxlength="35" value="${model.record.thtgid}">
+				            		<input type="text" class="inputTextMediumBlue" name="thtgid" id="thtgid" size="25" maxlength="35" value="${model.record.thtgid}">
 				            	</td>
 				            	<td class="text">&nbsp;</td>
 	        				</tr>
 	        				<tr>
 				            	<td class="text12">
-				            		<font class="text16RedBold" >*</font><span title="thtglk">Nationalitet</span>
+				            		<span title="thtglk">Nationalitet</span>
 				            		
-				            		<select class="inputTextMediumBlueMandatoryField" name="thtglk" id="thtglk">
+				            		<select class="inputTextMediumBlue" name="thtglk" id="thtglk">
 				 						<option value="">-vælg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 	                                	 	<option value="${country.dkkd_kd}"<c:if test="${model.record.thtglk == country.dkkd_kd}"> selected </c:if> >${country.dkkd_kd}</option>
