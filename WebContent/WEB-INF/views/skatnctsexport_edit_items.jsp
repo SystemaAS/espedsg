@@ -939,70 +939,12 @@
  							        
  							        <tr height="10"><td class="text" align="left" colspan="9"><hr></td></tr>
 									<tr>
-										<td class="text12" align="left">
-										<img onMouseOver="showPop('deklTodoTyp_info');" onMouseOut="hidePop('deklTodoTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-										<b>40</b><span title="todo" >&nbsp;T.dok&nbsp;</span>
-							            <div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute;top:2px; width:250px;" id="deklTodoTyp_info" class="popupWithInputText text11"  >
-							           			<ul>
-							           				<li>
-							           				 	<b>T-</b>&nbsp;for the transportation of mixed consignments of T1 and T2 goods. In this case, the
-															goods will be specified in separate SAD-BIS forms or loading lists for each
-															status category of goods. The blank space after the symbol T should be struck
-															through to prevent the insertion of any additional digits or numbers.
-							           				</li>	
-													<li>
-							           				 	<b>T1</b>&nbsp;to cover the movement of non-Community goods within the Community and
-															to/from the Community and the EFTA countries, as well as between the EFTA
-															countries themselves. T1 is also used to cover the movement of Community goods in
-															certain circumstances..
-							           				</li>
-							           				<li>
-							           				 	<b>T2</b>&nbsp;for the transportation of Community goods where required.
-							           				</li>
-							           				<li>
-							           				 	<b>T2F</b>&nbsp;
-							           				 	for Community goods consigned to/from/between the non-fiscal territories of the Community
-							           				 	E.g. Åland och Kanarieöarna
-							           				</li>
-							           				
-							           				<li>
-							           				 	<b>T2SM</b>&nbsp;SE T2 + SAN MARINO (Gäller inte NCTS Sverige [ref. NCTS Manual sida 174].)
-							           				</li>
-							           				<li>
-							           				 	<b>TIR</b>Transport Internationaux Routiers (Gäller inte NCTS Sverige [ref. NCTS Manual sida 174].)
-							           				</li>
-							           				
-							           				<li>
-							           				 	<b>SS</b>Förhandsanmälan
-							           				</li>
-							           				<li>
-							           				 	<b>T2L</b>TEST
-							           				</li>
-							           				
-							           			</ul>
-							           			Note: where the symbols T1, T2, T2F, T1bis, T2bis, T2Fbis, as appropriate, have been
-												omitted the goods shall be deemed to have been placed under the T1 procedure.
-							           			<br/>
-							           			Procedurernas syfte är att visa vad ditt gods har för tullstatus det vill säga om det är en gemenskapsvara eller icke-gemenskapsvara.
-												<br/>Transiterar du en icke-gemenskapsvara ska du alltid använda T1 proceduren. Om du istället transiterar en gemenskapsvara kan du oftast använda T2 proceduren.						           			
-										</span>	
-										</div>
-							            
-							            
-							            </td>
-				 						<td class="text12" align="left" colspan="2">
-							            <b>40</b><span title="todo" >&nbsp;T.dok.ref&nbsp;</span>
-							            </td>
-				 						<td class="text12" align="left">
-							            <b>40</b><span title="todo" >&nbsp;Sprog&nbsp;</span>
-							            </td>
-				 						
 										<td class="text12" align="left" colspan="2">
 							            <img onMouseOver="showPop('31_gods_info');" onMouseOut="hidePop('31_gods_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.</b><span title="tvmn" >Kolli mærke&nbsp;</span>
-							            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							            &nbsp;&nbsp;&nbsp;<b>31.</b><span title="tvmnsk" >Sprog&nbsp;</span>
+							            </td>
+							            <td class="text12" align="left" >
+							            <b>31.</b><span title="tvmnsk" >Sprog&nbsp;</span>
 							            <div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="31_gods_info" class="popupWithInputText text11"  >
 						           			<b>Kolli mærke</b>
@@ -1016,31 +958,11 @@
 										
 							        </tr>
 							        <tr>
-							        	<td >
-											<select class="inputTextMediumBlue" name="todo" id="todo">
-							 				  <option value="">-vælg-</option>
-							 				  	<c:forEach var="code" items="${model.ncts031_DeklType_CodeList}" >
-			                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-												</c:forEach> 
-											</select>									           				
-										</td>
 							        	<td class="text11" colspan="2">
-											&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="35" maxlength="35" value='${Xmodel.record.tvmn}'>
+											&nbsp;<input type="text" class="inputText" name="tvmn" id="tvmn" size="30" maxlength="42" value='${model.record.tvmn}'>
 										</td>
-										<td >
-											<select name="todo" id="todo">
-							            			<option value="">-vælg-</option>
-							 				  	<c:forEach var="record" items="${model.ncts012_Sprak_CodeList}" >
-			                                	 	<option value="${record.tkkode}"<c:if test="${model.record.todo == record.tkkode}"> selected </c:if> >${record.tkkode}</option>
-												</c:forEach>
-											</select>										           				
-						            		<a tabindex="-1" id="todoIdLink" OnClick="triggerChildWindowLanguageCodes(this)">
-												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
-											</a>
-										</td>
-							        	<td class="text11" colspan="2">
-											&nbsp;<input type="text" class="inputText" name="tvmn" id="tvmn" size="20" maxlength="17" value='${model.record.tvmn}'>
-											&nbsp;&nbsp;&nbsp;<select name="tvmnsk" id="tvmnsk">
+										<td class="text11"> 
+										<select name="tvmnsk" id="tvmnsk">
 							            			<option value="">-vælg-</option>
 							 				  	<c:forEach var="record" items="${model.ncts012_Sprak_CodeList}" >
 			                                	 	<option value="${record.tkkode}"<c:if test="${model.record.tvmsk == record.tkkode}"> selected </c:if> >${record.tkkode}</option>
@@ -1050,8 +972,7 @@
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 											</a>
 										</td>
-										
-					           			<td>&nbsp;</td>
+							        	<td>&nbsp;</td>
 										
 							            <td align="left">
 											<c:choose>	

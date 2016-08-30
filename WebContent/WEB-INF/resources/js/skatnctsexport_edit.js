@@ -1667,12 +1667,13 @@
 		//--------------------------------------------------------------------------------------
 		jq(function() { 
 		    jq('#thknss').blur(function() {
+		    	if(jq('#thknss').val() != ''){
 		    		jq.getJSON('searchCustomer_Skat.do', {
 					applicationUser : jq('#applicationUser').val(),
 					customerName : "",
 					customerNumber : jq('#thknss').val(),
 					ajax : 'true'
-				}, function(data) {
+		    		}, function(data) {
 					//alert("Hello");
 					var len = data.length;
 					for ( var i = 0; i < len; i++) {
@@ -1711,8 +1712,10 @@
 						jq('#thpsss').val("");
 						jq('#thlkss').val("");
 					}
-				});
+					});
+		    	}
 			});
+		    
 		});
 		
 	//------------------------------------------------------------
@@ -1720,12 +1723,13 @@
   	//------------------------------------------------------------
 	function searchModtdagerSikkerhedOwnWindow() {
 			jq(function() {
+				
 				jq.getJSON('searchCustomer_Skat.do', {
 					applicationUser : jq('#applicationUser').val(),
 					customerName : jq('#search_thnaks').val(),
 					customerNumber : jq('#search_thknks').val(),
 					ajax : 'true'
-				}, function(data) {
+					}, function(data) {
 					//alert("Hello");
 					var html = '<option selected value="">-Select-</option>';
 					var len = data.length;
@@ -1748,7 +1752,8 @@
 					}
 					//now that we have our options, give them to our select
 					jq('#modtagerSikkerhedList').html(html);
-				});
+					});
+				
 			});
 		}
 		//onChange sender list
@@ -1821,12 +1826,13 @@
 		//--------------------------------------------------------------------------------------
 		jq(function() { 
 		    jq('#thknks').blur(function() {
+		    	if(jq('#thknks').val() != ''){
 		    		jq.getJSON('searchCustomer_Skat.do', {
 					applicationUser : jq('#applicationUser').val(),
 					customerName : "",
 					customerNumber : jq('#thknks').val(),
 					ajax : 'true'
-				}, function(data) {
+		    		}, function(data) {
 					//alert("Hello");
 					var len = data.length;
 					for ( var i = 0; i < len; i++) {
@@ -1865,7 +1871,8 @@
 						jq('#thpsks').val("");
 						jq('#thlkks').val("");
 					}
-				});
+		    		});
+		    	}
 			});
 		});
 
@@ -1975,12 +1982,13 @@
 			//--------------------------------------------------------------------------------------
 			jq(function() { 
 			    jq('#thknt').blur(function() {
+			    	if(jq('#thknt').val() != ''){
 			    		jq.getJSON('searchCustomer_Skat.do', {
 						applicationUser : jq('#applicationUser').val(),
 						customerName : "",
 						customerNumber : jq('#thknt').val(),
 						ajax : 'true'
-					}, function(data) {
+			    		}, function(data) {
 						//alert("Hello");
 						var len = data.length;
 						for ( var i = 0; i < len; i++) {
@@ -2019,7 +2027,8 @@
 							jq('#thpst').val("");
 							jq('#thlkt').val("");
 						}
-					});
+			    		});
+			    	}	
 				});
 			});
 

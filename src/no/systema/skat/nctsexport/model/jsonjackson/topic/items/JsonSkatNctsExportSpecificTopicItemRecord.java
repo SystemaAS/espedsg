@@ -393,6 +393,7 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setTvmnsk(String value) {  this.tvmnsk = value; }
 	public String getTvmnsk() { return this.tvmnsk;}
 	
+	
 	private String tveh = null;
 	public void setTveh(String value) {  this.tveh = value; }
 	public String getTveh() { return this.tveh;}

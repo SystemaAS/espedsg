@@ -495,13 +495,16 @@ public class SkatNctsExportHeaderValidator implements Validator {
 	   * @return
 	   */
 	  private boolean isValidSenderEori(String value){
+		  boolean retval = true;
+		  //Removed for DACHSER test
+		  /*
 			boolean retval = false;
 			if( value!=null && !"".equals(value) ){ 
 				if(value.startsWith("DK")){
 					retval = true;
 				}
 			}
-			
+		*/	
 			return retval;
 		}
 	  

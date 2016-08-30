@@ -103,6 +103,8 @@ public class SkatNctsExportItemsController {
 		//Catch required action (doFetch or doUpdate)
 		String action = request.getParameter("action");
 		logger.info("ACTION: " + action);
+		//logger.info("TVFV: " + recordToValidate.getTvfv());
+		//logger.info("TVFVNT: " + recordToValidate.getTvfvnt());
 		
 		if(appUser==null){
 			return this.loginView;
@@ -200,8 +202,15 @@ public class SkatNctsExportItemsController {
 			            jsonSkatNctsExportSpecificTopicItemRecord.setTvavd(avd);
 			            jsonSkatNctsExportSpecificTopicItemRecord.setTvtdn(opd);
 			            //put back the values of sensitive goods
+			            //logger.info("TVFV-2:" + recordToValidate.getTvfv());
+			            //logger.info("TVFVNT-2:" + recordToValidate.getTvfvnt());
+			            
 			            jsonSkatNctsExportSpecificTopicItemRecord.setTvfv(recordToValidate.getTvfv());
 			            jsonSkatNctsExportSpecificTopicItemRecord.setTvfvnt(recordToValidate.getTvfvnt());
+			            
+			            //logger.info("TVFV-3:" + jsonSkatNctsExportSpecificTopicItemRecord.getTvfv());
+			            //logger.info("TVFVNT-3:" + jsonSkatNctsExportSpecificTopicItemRecord.getTvfvnt());
+			            
 			            
 			            logger.info("[DEBUG] UPDATE on Line nr: " + jsonSkatNctsExportSpecificTopicItemRecord.getTvli().trim());
 			            logger.info("[DEBUG] UPDATE on Opd: " + jsonSkatNctsExportSpecificTopicItemRecord.getTvtdn());

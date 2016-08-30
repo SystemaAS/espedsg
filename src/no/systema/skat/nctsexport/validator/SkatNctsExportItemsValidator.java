@@ -263,7 +263,9 @@ public class SkatNctsExportItemsValidator implements Validator {
 				//------------------------------------------------------------
 				//Känsliga varor must always check for mandatory input or none
 				//-------------------------------------------------------------
+				
 				if(record.getTvvnt()!=null && !"".equals(record.getTvvnt()) ){
+					/* removed for DACHSER TEST
 					if(this.isVarukodWithSensitiveGoodsFlag(record)){
 						if(record.getTvfvnt()!=null && !"".equals(record.getTvfvnt())){
 							//nothing since it has been filled in
@@ -274,6 +276,7 @@ public class SkatNctsExportItemsValidator implements Validator {
 						//back to default values
 						record.setTvfvnt(null);
 					}
+					*/
 				}
 				
 				//-----------------------------------------------
@@ -362,6 +365,8 @@ public class SkatNctsExportItemsValidator implements Validator {
 	private boolean isVarukodWithSensitiveGoodsFlag(JsonSkatNctsExportSpecificTopicItemRecord record){
 		String method = "isVarukodWithSensitiveGoodsFlag";
 	 	logger.info("Inside " + method);
+	 	boolean retval = true;
+	 	/*removed for TEST DACHSER
 	 	boolean retval = false;
 	 	String FOLSOMMEVARE_CODE = "064";
 	 	logger.info("VALIDATION of Sensitive Goods...");
@@ -396,6 +401,7 @@ public class SkatNctsExportItemsValidator implements Validator {
 					}	
 					//if no match erase kode/antal
 					if(!retval){
+						
 						record.setTvfv(null);
 						record.setTvfvnt(null);
 					}
@@ -404,6 +410,7 @@ public class SkatNctsExportItemsValidator implements Validator {
 				
 			}
 		}
+		*/
 		return retval;
 	}
 	
