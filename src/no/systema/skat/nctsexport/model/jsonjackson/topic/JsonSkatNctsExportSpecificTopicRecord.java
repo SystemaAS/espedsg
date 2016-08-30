@@ -45,11 +45,17 @@ public class JsonSkatNctsExportSpecificTopicRecord extends JsonAbstractGrandFath
 		return this.sumOfAntalItemLinesStr;
 	}
 	
-	
 	//test indicator
 	private String dkxh_0035 = null;
 	public void setDkxh_0035(String value) {  this.dkxh_0035 = value; }
 	public String getDkxh_0035() {return this.dkxh_0035;}
+	
+	//test avdelning
+	private String testAvd = null;
+	public void setTestAvd(String value) {  this.testAvd = value; }
+	public String getTestAvd() {return this.testAvd;}
+	
+	
 		
 	//thavd Avdeling 
 	private String thavd = null;
