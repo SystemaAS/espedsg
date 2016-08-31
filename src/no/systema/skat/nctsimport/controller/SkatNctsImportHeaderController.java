@@ -109,7 +109,7 @@ public class SkatNctsImportHeaderController {
 			
             //add gui lists here
 	    		this.setCodeDropDownMgr(appUser, model);
-			this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+	    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 	    		this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 	    		//domain
 	    		successView.addObject("model", model);
@@ -189,12 +189,12 @@ public class SkatNctsImportHeaderController {
 				    	
 				    	if(jsonPayload!=null){
 				    		
-				    		JsonSkatNctsImportSpecificTopicContainer jsonSkatNctsImportSpecificTopicContainer = this.skatNctsImportSpecificTopicService.getNctsImportSpecificTopicContainer(jsonPayload);
+				    	JsonSkatNctsImportSpecificTopicContainer jsonSkatNctsImportSpecificTopicContainer = this.skatNctsImportSpecificTopicService.getNctsImportSpecificTopicContainer(jsonPayload);
 			            //add gui lists here
-				    		this.setCodeDropDownMgr(appUser, model);
+				    	this.setCodeDropDownMgr(appUser, model);
 
-				    		this.setDomainObjectsInView(session, model, jsonSkatNctsImportSpecificTopicContainer);
-				    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+				    	this.setDomainObjectsInView(session, model, jsonSkatNctsImportSpecificTopicContainer);
+				    	successView.addObject(SkatConstants.DOMAIN_MODEL, model);
 						//put the doUpdate action since we are preparing the record for an update (when saving)
 						successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
 				    		
@@ -226,7 +226,10 @@ public class SkatNctsImportHeaderController {
 						recordToValidate.setTisg(sign);
 						
 					}
-					validator.validate(recordToValidate, bindingResult);
+					
+					if(!this.isTestMode(recordToValidate)){
+						validator.validate(recordToValidate, bindingResult);
+					}
 					//test indicator in validation field
 					recordToValidate.setDknh_0035(dknh_0035);
 
@@ -835,6 +838,21 @@ public class SkatNctsImportHeaderController {
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_301_STATUS_KODER, null, null);
 		
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @return
+	 */
+	private boolean isTestMode(JsonSkatNctsImportSpecificTopicRecord recordToValidate){
+		boolean retval = false;
+		//test flag via test avd
+		if(recordToValidate.getTestAvd()!=null && "1".equals(recordToValidate.getTestAvd()) ){
+			retval = true;
+		}
+		
+		return retval;
 	}
 	
 	//SERVICES

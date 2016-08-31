@@ -19,7 +19,6 @@ public class JsonSkatNctsImportSpecificTopicItemRecord extends JsonAbstractGrand
 	private String applicationUser = null;
 	public void setApplicationUser(String value) {  this.applicationUser = value; }
 	public String getApplicationUser() {return this.applicationUser;}
-		
 	
 	private String tvavd = null;
 	public void setTvavd(String value) {  this.tvavd = value; }

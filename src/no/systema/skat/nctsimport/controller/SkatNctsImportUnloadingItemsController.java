@@ -50,6 +50,7 @@ import no.systema.skat.nctsimport.service.html.dropdown.SkatNctsImportDropDownLi
 import no.systema.skat.nctsimport.url.store.SkatNctsImportUrlDataStore;
 import no.systema.skat.nctsimport.util.RpgReturnResponseHandler;
 import no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicUnloadingItemService;
+import no.systema.skat.nctsimport.model.jsonjackson.topic.JsonSkatNctsImportSpecificTopicRecord;
 import no.systema.skat.nctsimport.model.jsonjackson.topic.unloading.JsonSkatNctsImportSpecificTopicUnloadingRecord;
 import no.systema.skat.nctsimport.model.jsonjackson.topic.unloading.items.JsonSkatNctsImportSpecificTopicUnloadingItemContainer;
 import no.systema.skat.nctsimport.model.jsonjackson.topic.unloading.items.JsonSkatNctsImportSpecificTopicUnloadingItemRecord;
@@ -101,6 +102,8 @@ public class SkatNctsImportUnloadingItemsController {
 		ModelAndView successView = new ModelAndView("skatnctsimport_unloading_edit_items");
 		
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
 		//Get the header record in order to use some values in the validator
 		JsonSkatNctsImportSpecificTopicUnloadingRecord headerUnloadingRecord = (JsonSkatNctsImportSpecificTopicUnloadingRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_UNLOADING);
 		JsonSkatNctsImportSpecificTopicUnloadingItemRecord jsonNctsImportSpecificTopicUnloadingItemRecord = null;
@@ -169,10 +172,12 @@ public class SkatNctsImportUnloadingItemsController {
 				*/
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable
 				//setHeader_dkeh_aart(headerRecord.getDkeh_aart());
-				recordToValidate.setHeader_nikonf(headerUnloadingRecord.getNikonf());   
+				recordToValidate.setHeader_nikonf(headerUnloadingRecord.getNikonf());
+				
 				//bind to validator
 				validator.validate(recordToValidate, bindingResult);
-			    
+				
+				
 			    //check for ERRORS
 				if(bindingResult.hasErrors()){
 					recordToValidate.setTvli(null);
@@ -593,6 +598,7 @@ public class SkatNctsImportUnloadingItemsController {
 		
 		
 	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

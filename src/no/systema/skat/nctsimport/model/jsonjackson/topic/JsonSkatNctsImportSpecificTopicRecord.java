@@ -25,6 +25,11 @@ public class JsonSkatNctsImportSpecificTopicRecord extends JsonAbstractGrandFath
 	public void setDknh_0035(String value) {  this.dknh_0035 = value; }
 	public String getDknh_0035() {return this.dknh_0035;}
 	
+	//test avdelning
+	private String testAvd = null;
+	public void setTestAvd(String value) {  this.testAvd = value; }
+	public String getTestAvd() {return this.testAvd;}
+	
 	//thavd Avdeling 
 	private String tiavd = null;
 	public void setTiavd(String value) {  this.tiavd = value; }

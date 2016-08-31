@@ -138,6 +138,8 @@ public class SkatNctsImportUnloadingHeaderController {
 		ModelAndView successView = new ModelAndView("skatnctsimport_unloading_edit");
 		String method = "doNctsImportEdit [RequestMapping-->skatnctsimport_unloading_edit.do]";
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		logger.info("Method: " + method);
 		//---------------------------------
@@ -162,7 +164,7 @@ public class SkatNctsImportUnloadingHeaderController {
 
 		}else{
 			if(action!=null){
-			    	//----------------------------
+		    	//----------------------------
 				//UPDATE RECORD
 				//----------------------------	
 				if(SkatConstants.ACTION_UPDATE.equals(action)){
@@ -171,19 +173,21 @@ public class SkatNctsImportUnloadingHeaderController {
 					//---------------------
 					SkatNctsImportUnloadingValidator validator = new SkatNctsImportUnloadingValidator();
 					logger.info("VALIDATING...");
+					
 					validator.validate(recordToValidate, bindingResult);
+					
 					
 				    //check for ERRORS
 					if(bindingResult.hasErrors()){
-					    	logger.info("[ERROR Validation] Record does not validate)");
-					    	origin="list";
-					    	//put domain objects and do go back to the original view...
+				    	logger.info("[ERROR Validation] Record does not validate)");
+				    	origin="list";
+				    	//put domain objects and do go back to the original view...
 					    //recordToValidate.setTiavd(avd);
-					    	//recordToValidate.setTisg(sign);
-					    //	this.setDomainObjectsInView(session, model, recordToValidate);
+				    	//recordToValidate.setTisg(sign);
+					    //this.setDomainObjectsInView(session, model, recordToValidate);
 					    	
 				    }else{
-				    		JsonSkatNctsImportSpecificTopicUnloadingRecord jsonNctsImportSpecificTopicUnloadingRecord = null;
+			    		JsonSkatNctsImportSpecificTopicUnloadingRecord jsonNctsImportSpecificTopicUnloadingRecord = null;
 						String tuid = null;
 						
 						if(opd!=null && !"".equals(opd)){
@@ -490,7 +494,7 @@ public class SkatNctsImportUnloadingHeaderController {
 			logger.info("nidfkd:" + record.getNidfkd());
 			//set default current date as unloading date ...
 			if(record.getNidtl()==null || "".equals(record.getNidtl())){
-				record.setNidtl(this.dateTimeManager.getCurrentDate_ISO());
+				//OBSOLETE --> record.setNidtl(this.dateTimeManager.getCurrentDate_ISO());
 			}
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
@@ -622,6 +626,7 @@ public class SkatNctsImportUnloadingHeaderController {
 		
 		
 	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

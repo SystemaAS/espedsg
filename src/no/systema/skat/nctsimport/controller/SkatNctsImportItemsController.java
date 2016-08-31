@@ -32,7 +32,9 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicRecord;
 import no.systema.skat.nctsimport.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.skat.nctsimport.model.jsonjackson.topic.JsonSkatNctsImportSpecificTopicRecord;
 import no.systema.skat.nctsimport.model.jsonjackson.topic.items.JsonSkatNctsImportSpecificTopicItemContainer;
 import no.systema.skat.nctsimport.model.jsonjackson.topic.items.JsonSkatNctsImportSpecificTopicItemRecord;
 import no.systema.skat.nctsimport.service.SkatNctsImportSpecificTopicItemService;
@@ -94,6 +96,9 @@ public class SkatNctsImportItemsController {
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		JsonSkatNctsImportSpecificTopicItemRecord jsonSkatNctsImportSpecificTopicItemRecord = null;
 		
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		//logger.info("Avd:" + recordTopicHeader.getTiavd());
+		//logger.info("testAvd:" + recordTopicHeader.getTestAvd());
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		Map model = new HashMap();
@@ -160,8 +165,9 @@ public class SkatNctsImportItemsController {
 					}
 				}*/
 				
-				validator.validate(recordToValidate, bindingResult);
-			    
+				if(!this.isTestMode(recordTopicHeader)){
+					validator.validate(recordToValidate, bindingResult);
+				}
 				
 			    //check for ERRORS
 				if(bindingResult.hasErrors()){
@@ -615,6 +621,21 @@ public class SkatNctsImportItemsController {
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_301_STATUS_KODER, null, null);
 		
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @return
+	 */
+	private boolean isTestMode(JsonSkatNctsImportSpecificTopicRecord recordHeader){
+		boolean retval = false;
+		//test flag via test avd
+		if(recordHeader.getTestAvd()!=null && "1".equals(recordHeader.getTestAvd()) ){
+			retval = true;
+		}
+		
+		return retval;
 	}
 	
 	//SERVICES
