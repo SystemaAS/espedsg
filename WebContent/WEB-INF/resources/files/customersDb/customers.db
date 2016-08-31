@@ -2,8 +2,8 @@ META;ID;NAME
 C30;Bring@http://139.114.151.52:8080/espedsg@8.0
 C100;DHL@http://165.72.19.220:8443/espedsg@6.0 / v.10
 C101;DHL(external)@http://198.141.241.224:8443/espedsg@6.0 / v.10
-C110;DACHSER NO - ASP24@http://10.13.1.22:8181/espedsg@8.0
-C111;DACHSER DK - ASP25@http://10.13.1.22:8383/espedsg@8.0
+C110;DACHSER NO - ASP24@http://gw.systema.no:8181/espedsg@8.0
+C111;DACHSER DK - ASP25@http://gw.systema.no:8383/espedsg@8.0
 C200;DSV@http://10.47.16.52:8080/espedsg@6.0 / old OS
 C300;KINGSRØD DK@http://10.20.4.2:8181/espedsg@6.0
 C301;KINGSRØD NO@http://10.20.4.2:8181/espedsg@6.0
