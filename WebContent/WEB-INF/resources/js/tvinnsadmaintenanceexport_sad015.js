@@ -83,8 +83,10 @@
   			jq('#taalfa').val("");jq('#taalfa').val(data[i].taalfa);
   			jq('#agakd').val("");jq('#agakd').val(data[i].agakd);
   			jq('#agskv').val("");jq('#agskv').val(data[i].agskv);
+  			jq("#agskv").prop("readonly", true);
+  			jq("#agskv").removeClass("inputTextMediumBlueMandatoryField");
+  			jq("#agskv").addClass("inputTextReadOnly");
   			jq('#agdtf').val("");jq('#agdtf').val(data[i].agdtf);
-  			
   			jq('#agdtt').val("");jq('#agdtt').val(data[i].agdtt);
   			jq('#agkd').val("");jq('#agkd').val(data[i].agkd);
   			jq('#agpp').val("");jq('#agpp').val(data[i].agpp);

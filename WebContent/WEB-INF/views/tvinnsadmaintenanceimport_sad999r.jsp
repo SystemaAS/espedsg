@@ -84,7 +84,6 @@
 			                    <th class="tableHeaderField">&nbsp;Sats&nbsp;</th>
 			                    <th class="tableHeaderField">&nbsp;Status&nbsp;</th>
 			                    
-			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -110,11 +109,6 @@
 		                       		</c:otherwise>
 		                       		</c:choose>
 		                       </td>
-		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad999r_edit.do?action=doDelete&id=${model.dbTable}&sdtnrf=${record.sdtnrf}&sddtf=${record.sddtf}&sddtt=${record.sddtt}">
-					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
-					               	</a>
-				               </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
@@ -130,7 +124,6 @@
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SDBLSE&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;SDAKTK&nbsp;</th>
 			                    
-			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>

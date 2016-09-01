@@ -7,21 +7,11 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
-  
   jq(function() {
-		//Clean values for createing new record
-		jq('#newRecordButton').click(function() {
-			jq('#e9705').val("");
-			jq("#e9705").prop("readonly", false);
-			jq("#e9705").removeClass("inputTextReadOnly");
-			jq("#e9705").addClass("inputTextMediumBlueUPPERCASEMandatoryField");
-			//rest of the gang
-			jq('#e4440').val("");
-			
-			//for update
-			jq('#updateId').val("");
-		});
-  }); 
+	  jq("#sedtg").datepicker({ 
+		  dateFormat: 'yymmdd' 	  
+	  });
+  });
   
   //-----------------------
   //GET specific db-record
@@ -32,29 +22,33 @@
   	
   	rawId = rawId.replace("recordUpdate_", "");
   	var record = rawId.split('_');
-	var e9705 = record[0];
+	var avd = record[0];
+	var opd = record[1];
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_tvi99d.do',
+  	  url: 'getSpecificRecord_sad024.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  	  id : e9705
-  		  	 },
+  		  	  avd : avd,
+  		  	  opd : opd },
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',
   	  success: function(data) {
 	  	var len = data.length;
   		for ( var i = 0; i < len; i++) {
-  			jq('#e9705').val("");jq('#e9705').val(data[i].e9705);
-  			jq("#e9705").prop("readonly", true);
-  			jq("#e9705").removeClass("inputTextMediumBlueUPPERCASEMandatoryField");
-  			jq("#e9705").addClass("inputTextReadOnly");
-  			
+  			jq('#seavd').val("");jq('#seavd').val(data[i].seavd);
   			//rest of the gang
-  			jq('#e4440').val("");jq('#e4440').val(data[i].e4440);
+  			jq('#setdn').val("");jq('#setdn').val(data[i].setdn);
+  			jq('#setll').val("");jq('#setll').val(data[i].setll);
+  			jq('#setle').val("");jq('#setle').val(data[i].setle);
+  			jq('#sedtg').val("");jq('#sedtg').val(data[i].sedtg);
+  			jq('#senas').val("");jq('#senas').val(data[i].senas);
+  			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].e9705);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].setdn);
+  			//enable submit
+  			jq("#submit").prop("disabled", false);
   			
   		}
   	  }, 
@@ -83,7 +77,6 @@
     	  "scrollY": "250px",
     	  "scrollCollapse":  false,
     	  "columnDefs": [{ "type": "num", "targets": 0 }],
-    	  "order": [[ 1, "asc" ]],
     	  "lengthMenu": [ 75, 100]
   	  });
       

@@ -20,7 +20,7 @@ public class DateValidator {
 	//Java and Apache mechanisms do not include any nice library to avoid this issue, therefore we do not implement any logical control on date, ONLY in time.
 	private final String DATE_ISO_203_YYYYMMDDHHmm = "^\\d{4}\\d{2}\\d{2}(([0-1]?[0-9])|(2[0-3]))[0-5][0-9]$";
 	//private final String DATE_ISO_YYYYMMDD = "^\\d{4}\\d{2}\\d{2}$";
-	private final String DATE_ISO_YYYYMMDD = "^(19|20)\\d\\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$";
+	private final String DATE_ISO_YYYYMMDD = "^(19|20|99)\\d\\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$";
 	//HHmm only
 	private final String TIME_HHmm = "(([0-1]?[0-9])|(2[0-3]))[0-5][0-9]"; //OK HH:mm
 	

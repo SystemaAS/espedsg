@@ -96,6 +96,9 @@ public class MaintSadExportController {
 		object.setCode("SADE_LOPE");
 		object.setText("SAD024 / SAEH,HEADF");
 		object.setDbTable("SAEH-HEADF");
+		object.setPgm("sad024");
+		object.setStatus("G");
+
 		listObject.add(object);
 		//
 		object = new MaintenanceMainListObject();

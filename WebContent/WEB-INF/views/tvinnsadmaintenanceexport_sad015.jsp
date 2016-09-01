@@ -79,7 +79,6 @@
 			                    <th class="tableHeaderField">&nbsp;Sats&nbsp;</th>
 			                    <th class="tableHeaderField">&nbsp;Status&nbsp;</th>
 			                    
-			                    <th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -109,11 +108,6 @@
 			                       		</c:otherwise>
 			                       		</c:choose>
 			                       </td>
-			                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-			               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceexport_sad015_edit.do?action=doDelete&id=${model.dbTable}&agtanr=${record.agtanr}&agakd=${record.agakd}&agskv=${record.agskv}">
-						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
-						               	</a>
-					               </td>
    					            </tr> 
 				            </c:forEach>
 		
@@ -132,7 +126,6 @@
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;AGSATS&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11">&nbsp;AGAKTK&nbsp;</th>
 			                    
-			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>
@@ -216,7 +209,7 @@
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agtanr" id="agtanr" size="9" maxlength="8" value='${model.record.agtanr}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="taalfa" id="taalfa" size="15" maxlength="30" value='${model.record.taalfa}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="agakd" id="agakd" size="3" maxlength="2" value='${model.record.agakd}'></td>				
-						<td ><input readonly type="text" class="inputTextReadOnly" name="agskv" id="agskv" size="4" maxlength="3" value='${model.record.agskv}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField"" name="agskv" id="agskv" size="4" maxlength="3" value='${model.record.agskv}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdtf" id="agdtf" size="9" maxlength="8" value='${model.record.agdtf}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdtt" id="agdtt" size="9" maxlength="8" value='${model.record.agdtt}'></td>					
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agkd" id="agkd" size="2" maxlength="1" value='${model.record.agkd}'></td>	

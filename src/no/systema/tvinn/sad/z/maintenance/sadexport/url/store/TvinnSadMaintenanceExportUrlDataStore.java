@@ -16,19 +16,28 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	//[1] FETCH DB Table list or Specific record
 	//--------------------------------------------
 	
+
 	/**
 	 * TVI99D
 	 * 
 	 * /syjservicestn/syjsTVI99D.do
 	 */
-	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D.do";
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D.do";
 	
 	/**
 	 * SAD015
 	 * 
 	 * /syjservicestn/syjsSAD015.do
 	 */
-	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015.do";
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015.do";
+
+
+	/**
+	 * SAD024
+	 * 
+	 * /syjservicestn/syjsSAD024.do
+	 */	
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD024_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD024.do";
 
 	
 	//----------------------------------
@@ -42,7 +51,7 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 * /syjservicestn/syjsTVI99D_U.do
 	 * 
 	 */
-	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D_U.do";
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTVI99D_U.do";
 
 	/**
 	 * SAD015_U
@@ -50,7 +59,16 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 * /syjservicestn/syjsSAD015_U.do
 	 * 
 	 */
-	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015_U.do";
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD015_U.do";
+	
+	/**
+	 * SAD024_U
+	 * 
+	 * /syjservicestn/syjsSAD024_U.do
+	 * 
+	 */
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD024_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD024_U.do";
+	
 	
 	
 	//--------------------------

@@ -1,11 +1,12 @@
 package no.systema.tvinn.sad.z.maintenance.sadimport.validator;
 
 import org.apache.log4j.Logger;
-import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.validator.DateValidator;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdRecord;
 
 /**
@@ -16,6 +17,7 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
  *
  */
 public class MaintSadImportSad999rValidator implements Validator {
+	private DateValidator dateValidator = new DateValidator();
 	private static final Logger logger = Logger.getLogger(MaintSadImportSad999rValidator.class.getName());
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	/**
@@ -42,14 +44,17 @@ public class MaintSadImportSad999rValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				/* put your rules here
-				if( !this.validNumber(record.getTODO()) ){
-					errors.rejectValue("todo", "", "TODO my text");
-				}*/
-				
-				
+				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getSddtf())){
+					logger.error("record.getSddtf()="+record.getSddtf());
+					errors.rejectValue("sddtf", "systema.tvinn.sad.export.error.rule.invalidFromDate"); 
+				}
+				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getSddtt())){
+					logger.error("record.getSddtt()="+record.getSddtt());
+					errors.rejectValue("sddtt", "systema.tvinn.sad.export.error.rule.invalidToDate");
+				}
 			}
-		}
+		}	
+
 	}
 	/**
 	 * 

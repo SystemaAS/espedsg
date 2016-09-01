@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenanceimport_sad006r.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadmaintenanceexport_sad024.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -22,15 +22,15 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkSadMaintImportGate" tabindex=-1 style="display:block;" href="tvinnsadmaintenanceimport.do">
+						<a id="alinkSadMaintImportGate" tabindex=-1 style="display:block;" href="tvinnsadmaintenanceexport.do">
 						<font class="tabDisabledLink">&nbsp;TVINN - Vedlikehold</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="30%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">Løpenummer</font>&nbsp;<font class="text12">SAD006 / SADH-HEADF</font>&nbsp;
-						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceimport_sad006r.do?id=${model.dbTable}">
+						<font class="tabLink">Løpenummer</font>&nbsp;<font class="text12">SAD024 / SAEH-HEADF</font>&nbsp;
+						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenanceexport_sad024.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
 						</a>
 					</td>
@@ -48,7 +48,7 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%" class="text12">
-					<form action="tvinnsadmaintenanceimport_sad006r.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
+					<form action="tvinnsadmaintenanceexport_sad024.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
 						<font class="text14RedBold" >*</font>Avd&nbsp;
 						<input type="text" class="inputTextMediumBlue" name="searchAvd" id="searchAvd" size="6" maxlength="6" value='${model.avd}'>
 						Tolldekl.nr.&nbsp;
@@ -77,46 +77,33 @@
 								<th class="tableHeaderField" >&nbsp;Eksp.nr&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Dato&nbsp;</th>
 								
-								<%--  
-			                    <th align="center" class="tableHeaderField">Slett</th>
-			                     --%>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.siavd}_${record.sitdn}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.seavd}_${record.setdn}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td width="5%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.siavd}&nbsp;</font></td>
-				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.sitdn}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sinak}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sitll}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sitle}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sidtg}&nbsp;</font></td>
-				               <%--
-				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad006r_edit.do?action=doDelete&id=${model.dbTable}&tariff=${record.tariff}&beskr1=${record.beskr1}">
-					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
-					               	</a>
-				               </td>
-				                --%>
+				               <td width="5%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.seavd}&nbsp;</font></td>
+				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.setdn}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.senas}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.setll}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.setle}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sedtg}&nbsp;</font></td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
 				            <tfoot>
 							<tr>
 							    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
-							    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SIAVD</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SITDN</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SINAK&nbsp;</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SITLL</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SITLE</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SIDTG</th>
+							    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SEAVD</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SETDN</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SENAS&nbsp;</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SETLL</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SETLE</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;SEDTG</th>
 			                    
-			                    <%--
-			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
-			                     --%>
 			                </tr>  
 			                </tfoot> 
 			            </table>
@@ -169,38 +156,32 @@
 			</c:if>
 			<tr height="2"><td>&nbsp;</td>
 			</tr>
-			<%-- N/A 
-			<tr >
-				<td width="5%">&nbsp;</td>
-				<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
-			</tr>
-			--%>
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="tvinnsadmaintenanceimport_sad006r_edit.do" name="formRecord" id="formRecord" method="POST" >
+				<form action="tvinnsadmaintenanceexport_sad024_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<input type="hidden" name="siavd" id=siavd value="${model.record.siavd}">
+					<input type="hidden" name="seavd" id=seavd value="${model.record.seavd}">
 					
 					<table width="60%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-							<td class="text12" title="SITDN">&nbsp;<font class="text14RedBold" >*</font>Tolldekl.nr.</td>
-							<td class="text12" title="SINAK">&nbsp;Mottak.navn</td>
-							<td class="text12" title="SITLL">&nbsp;Løpenr.</td>
-							<td class="text12" title="SITLE">&nbsp;Eksp.nr</td>
-							<td class="text12" title="SIDTG">&nbsp;Dato</td>
+							<td class="text12" title="SETDN">&nbsp;<font class="text14RedBold" >*</font>Tolldekl.nr.</td>
+							<td class="text12" title="SENAS">&nbsp;Mottak.navn</td>
+							<td class="text12" title="SETLL">&nbsp;Løpenr.</td>
+							<td class="text12" title="SETLE">&nbsp;Eksp.nr</td>
+							<td class="text12" title="SEDTG">&nbsp;Dato</td>
 						</tr>
 						<tr>
-						<td ><input readonly type="text" class="inputTextReadOnly" name="sitdn" id="sitdn" size="8" maxlength="7" value='${model.record.sitdn}'></td>
-						<td ><input readonly type="text" class="inputTextReadOnly" name="sinak" id="sinak" size="25" maxlength="30" value='${model.record.sinak}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="sitll" id="sitll" size="11" maxlength="10" value='${model.record.sitll}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="sitle" id="sitle" size="11" maxlength="6" value='${model.record.sitle}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="sidtg" id="sidtg" size="9" maxlength="8" value='${model.record.sidtg}'></td>
+						<td ><input readonly type="text" class="inputTextReadOnly" name="setdn" id="setdn" size="8" maxlength="7" value='${model.record.setdn}'></td>
+						<td ><input readonly type="text" class="inputTextReadOnly" name="senas" id="senas" size="25" maxlength="30" value='${model.record.senas}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="setll" id="setll" size="11" maxlength="10" value='${model.record.setll}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="setle" id="setle" size="11" maxlength="6" value='${model.record.setle}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="sedtg" id="sedtg" size="9" maxlength="8" value='${model.record.sedtg}'></td>
 						
 						<td>
-							<input <c:if test="${ empty model.record.sitdn}"> disabled </c:if> onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+							<input <c:if test="${ empty model.record.setdn}"> disabled </c:if> onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 						</td>
 						</tr>
 						<tr height="3"><td></td>
