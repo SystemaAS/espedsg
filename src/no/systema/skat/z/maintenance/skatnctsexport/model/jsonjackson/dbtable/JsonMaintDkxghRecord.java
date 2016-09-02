@@ -15,7 +15,7 @@ import java.util.List;
  * 
  */
 public class JsonMaintDkxghRecord extends JsonAbstractGrandFatherRecord {
-
+	
 	private String tgst = null;                                
 	public void setTgst (String value){ this.tgst = value;   }   
 	public String getTgst (){ return this.tgst;   }  
