@@ -22,7 +22,7 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkSadMaintImportGate" tabindex=-1 style="display:block;" href="skatmaintenanceimport.do">
+						<a id="alinkSadMaintNctsExportGate" tabindex=-1 style="display:block;" href="skatmaintenancenctsexport.do">
 						<font class="tabDisabledLink">&nbsp;SKAT - Underhold</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
