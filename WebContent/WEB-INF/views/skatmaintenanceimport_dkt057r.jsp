@@ -28,7 +28,7 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="30%" valign="bottom" class="tab" align="center">
+					<td width="20%" valign="bottom" class="tab" align="center">
 						<font class="tabLink">Valutakurser</font>&nbsp;<font class="text12">DKT057 / DKTVK</font>&nbsp;
 						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="skatmaintenanceimport_dkt057r.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">

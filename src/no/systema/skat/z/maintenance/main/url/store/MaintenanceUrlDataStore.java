@@ -30,5 +30,4 @@ public final class MaintenanceUrlDataStore {
 	static public String MAINTENANCE_BASE_DKT057R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKT057R_U.do";
 	
 	
-	
 }

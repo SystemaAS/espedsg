@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatimport.controller;
+package no.systema.skat.z.maintenance.skatnctsexport.controller;
 
 import java.util.*;
 
@@ -31,28 +31,28 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
-import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
+import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghContainer;
+import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghRecord;
+import no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghService;
+import no.systema.skat.z.maintenance.skatnctsexport.validator.MaintSkatExportDkx030rValidator;
+import no.systema.skat.z.maintenance.skatnctsexport.url.store.MaintenanceNctsExportUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
-import no.systema.skat.z.maintenance.main.validator.MaintSkatImportDkt057rValidator;
 
 
 /**
- *  SKAT Maintenance Import Syft02r Controller 
+ *  SKAT Maintenance NCTS Export Dkx030r Controller 
  * 
  * @author oscardelatorre
- * @date Jun 13, 2016
+ * @date Sep 2, 2016
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatImportDkt057rController {
+public class MaintSkatNctsExportDkx030rController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatImportDkt057rController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatNctsExportDkx030rController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -65,13 +65,13 @@ public class MaintSkatImportDkt057rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceimport_dkt057r.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="skatmaintenancenctsexport_dkx030r.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkt057r");
+		ModelAndView successView = new ModelAndView("skatmaintenancenctsexport_dkx030r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
-		String id = request.getParameter("searchKode");
+		String id = request.getParameter("searchGaranti");
 		
 		
 		Map model = new HashMap();
@@ -79,11 +79,11 @@ public class MaintSkatImportDkt057rController {
 			return this.loginView;
 		}else{
 			//get table
-	    	List<JsonMaintDktvkRecord> list = new ArrayList();
+	    	List<JsonMaintDkxghRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), id);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	model.put("searchKode", id);
+	    	model.put("searchGaranti", id);
 	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -99,9 +99,9 @@ public class MaintSkatImportDkt057rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceimport_dkt057r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktvkRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkt057r");
+	@RequestMapping(value="skatmaintenancenctsexport_dkx030r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDkxghRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("skatmaintenancenctsexport_dkx030r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -115,7 +115,7 @@ public class MaintSkatImportDkt057rController {
 			//adjust values
 			this.adjustSomeRecordValues(recordToValidate);
 			//Move on
-			MaintSkatImportDkt057rValidator validator = new MaintSkatImportDkt057rValidator();
+			MaintSkatExportDkx030rValidator validator = new MaintSkatExportDkx030rValidator();
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
@@ -169,9 +169,9 @@ public class MaintSkatImportDkt057rController {
 			//------------
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action) || SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
 				//this in order to present the complete list to the end user after a DML-operation
-				recordToValidate.setDkvk_kd(null);
+				//recordToValidate.setTggnr(null);
 			}
-			List<JsonMaintDktvkRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getDkvk_kd());
+			List<JsonMaintDkxghRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getTggnr());
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
@@ -185,7 +185,8 @@ public class MaintSkatImportDkt057rController {
 	 * 
 	 * @param recordToValidate
 	 */
-	private void adjustSomeRecordValues(JsonMaintDktvkRecord recordToValidate){
+	private void adjustSomeRecordValues(JsonMaintDkxghRecord recordToValidate){
+		/*
 		final String ZERO = "0";
 		final String DATE_DUMMY = "99999999";
 		//-----------------
@@ -219,9 +220,7 @@ public class MaintSkatImportDkt057rController {
 			//recordToValidate.setDkvk_krs(ZERO);
 		}
 		
-		
-		
-		
+		*/
 	}
 	
 	/**
@@ -231,13 +230,13 @@ public class MaintSkatImportDkt057rController {
 	 * @param levenr
 	 * @return
 	 */
-	private List<JsonMaintDktvkRecord> fetchList(String applicationUser, String id){
+	private List<JsonMaintDkxghRecord> fetchList(String applicationUser, String id){
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_GET_LIST_URL;
+		String BASE_URL = MaintenanceNctsExportUrlDataStore.MAINTENANCE_BASE_DKX030R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
 		if(id!=null && !"".equals(id)){
-			urlRequestParams.append("&dkvk_kd=" + id);
+			urlRequestParams.append("&tggnr=" + id);
 		}else{
 			//no further search. Just return an empty list
 			//return new ArrayList();
@@ -248,14 +247,14 @@ public class MaintSkatImportDkt057rController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
-    	List<JsonMaintDktvkRecord> list = new ArrayList();
+    	List<JsonMaintDkxghRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktvkContainer container = this.maintDktvkService.getList(jsonPayload);
+    		JsonMaintDkxghContainer container = this.maintDkxghService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintDktvkRecord record : list){
-	        		//logger.info("LEVENR:" + record.getLevenr());
+	        	for(JsonMaintDkxghRecord record : list){
+	        		//logger.info("TGGNR:" + record.getTggnr());
 	        	}
 	        }
     	}
@@ -271,10 +270,10 @@ public class MaintSkatImportDkt057rController {
 	 * @param mode
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintDktvkRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintDkxghRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceNctsExportUrlDataStore.MAINTENANCE_BASE_DKX030R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -288,7 +287,7 @@ public class MaintSkatImportDkt057rController {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktvkContainer container = this.maintDktvkService.doUpdate(jsonPayload);
+    		JsonMaintDkxghContainer container = this.maintDkxghService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -311,12 +310,12 @@ public class MaintSkatImportDkt057rController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintDktvkService")
-	private MaintDktvkService maintDktvkService;
+	@Qualifier ("maintDkxghService")
+	private MaintDkxghService maintDkxghService;
 	@Autowired
 	@Required
-	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
-	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
+	public void setMaintDkxghService (MaintDkxghService value){ this.maintDkxghService = value; }
+	public MaintDkxghService getMaintDkxghService(){ return this.maintDkxghService; }
 	
 }
 

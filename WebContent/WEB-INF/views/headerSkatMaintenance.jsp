@@ -103,7 +103,7 @@
 			    			<%-- -------------------------- --%>
 			    			<%-- SKAT NCTS EXPORT MENU --%>
 			    			<%-- -------------------------- --%>
-			    			<a id="alinkTopicListMenuNctsExp" tabindex=-1 href="skatmaintenance_nctsexport.do?">
+			    			<a id="alinkTopicListMenuNctsExp" tabindex=-1 href="skatmaintenancenctsexport.do?">
 			    				&nbsp;<font
 			    				<c:choose>           
 	                   			<c:when test="${user.activeMenu=='SKAT_MAINTENANCE_NCTS_EXPORT'}">

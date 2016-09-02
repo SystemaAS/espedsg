@@ -65,6 +65,12 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- END Gyldige koder -->
 	
 	
+	
+	<!-- =================  -->
+	<!-- SKAT NCTS EXPORT   -->
+	<!-- =================  -->
+	<bean id="maintDkxghService" class="no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghServiceImpl"/>
+	
 	<!-- ===================  -->
 	<!-- MAINTENANCE GENERAL  -->
 	<!-- ===================  -->
