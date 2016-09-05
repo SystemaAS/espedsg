@@ -26,6 +26,7 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
@@ -51,6 +52,9 @@ public class MaintSadExportSad015Controller {
 	private static final Logger logger = Logger.getLogger(MaintSadExportSad015Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
+
 	
 	/**
 	 * 
@@ -114,7 +118,8 @@ public class MaintSadExportSad015Controller {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-
+			adjustFields(recordToValidate);
+			logger.info("recordToValidate="+recordToValidate.toString());
 			MaintSadExportSad015Validator validator = new MaintSadExportSad015Validator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
@@ -189,7 +194,6 @@ public class MaintSadExportSad015Controller {
 	
 
 	private List<JsonMaintSadExportSadavgeRecord> fetchList(String applicationUser, String agtanr){
-		
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
@@ -204,20 +208,12 @@ public class MaintSadExportSad015Controller {
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-    	//extract
     	List<JsonMaintSadExportSadavgeRecord> list = new ArrayList();
     	if(jsonPayload!=null){
-			//lists
     		JsonMaintSadExportSadavgeContainer container = this.maintSadExportSadavgeService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintSadExportSadavgeRecord record : list){
-	        		//logger.info("SDTNRF:" + record.getSdtnrf());
-	        	}
-	        }
+    		list=  (List<JsonMaintSadExportSadavgeRecord>) container.getList();
     	}
     	return list;
-    	
 	}
 	
 	/**
@@ -230,14 +226,13 @@ public class MaintSadExportSad015Controller {
 	 * @return
 	 */
 	private int updateRecord(String applicationUser, JsonMaintSadExportSadavgeRecord record, String mode, StringBuffer errMsg){
-		int retval = 0;
-		
+		int retval = 0;    	
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD015_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
-		
+
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
@@ -262,6 +257,13 @@ public class MaintSadExportSad015Controller {
 	}
 
 	
+	private void adjustFields(JsonMaintSadExportSadavgeRecord record) {
+		logger.info("record.getAgdtfNO()="+record.getAgdtfNO());
+		logger.info("dateFormatter.convertToDate_ISO(record.getAgdtfNO()="+dateFormatter.convertToDate_ISO(record.getAgdtfNO()));
+		record.setAgdtf(dateFormatter.convertToDate_ISO(record.getAgdtfNO()));
+		record.setAgdtt(dateFormatter.convertToDate_ISO(record.getAgdttNO()));
+	}
+
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

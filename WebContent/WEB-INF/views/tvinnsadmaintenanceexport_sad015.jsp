@@ -93,8 +93,8 @@
 					               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taalfa}&nbsp;</font></td>
 					               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agakd}&nbsp;</font></td>
 			                       <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agskv}&nbsp;</font></td>
-					               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agdtf}&nbsp;</font></td>
-			                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agdtt}&nbsp;</font></td>
+					               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agdtfNO}&nbsp;</font></td>
+			                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agdttNO}&nbsp;</font></td>
 			                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agkd}&nbsp;</font></td>
 			                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agpp}&nbsp;</font></td>				                       
 			                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.agsats}&nbsp;</font></td>
@@ -210,8 +210,8 @@
 						<td ><input readonly type="text" class="inputTextReadOnly" name="taalfa" id="taalfa" size="15" maxlength="30" value='${model.record.taalfa}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="agakd" id="agakd" size="3" maxlength="2" value='${model.record.agakd}'></td>				
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField"" name="agskv" id="agskv" size="4" maxlength="3" value='${model.record.agskv}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdtf" id="agdtf" size="9" maxlength="8" value='${model.record.agdtf}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdtt" id="agdtt" size="9" maxlength="8" value='${model.record.agdtt}'></td>					
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdtfNO" id="agdtfNO" size="9" maxlength="8" value='${model.record.agdtfNO}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agdttNO" id="agdttNO" size="9" maxlength="8" value='${model.record.agdttNO}'></td>					
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agkd" id="agkd" size="2" maxlength="1" value='${model.record.agkd}'></td>	
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agpp" id="agpp" size="2" maxlength="1" value='${model.record.agpp}'></td>						
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="agsats" id="agsats" size="6" maxlength="5" value='${model.record.agsats}'></td>

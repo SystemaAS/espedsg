@@ -3,10 +3,12 @@
  */
 package no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable;
 
-import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
-
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+
+import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 
 /**
  * @author Fredrik Möller
@@ -14,7 +16,8 @@ import java.util.*;
  *
  */
 public class JsonMaintSadExportSadavgeRecord extends JsonAbstractGrandFatherRecord {
-	
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
 	private String agtanr = null;                            
 	public void setAgtanr (String value){ this.agtanr = value;   }   
 	public String getAgtanr (){ return this.agtanr;   }  
@@ -32,12 +35,31 @@ public class JsonMaintSadExportSadavgeRecord extends JsonAbstractGrandFatherReco
 	public String getAgskv (){ return this.agskv;   }  
 	
 	private String agdtf = null;                                
-	public void setAgdtf (String value){ this.agdtf = value;   }   
-	public String getAgdtf (){ return this.agdtf;   }  
+	public void setAgdtf(String value) {this.agdtf = value;}
+	public String getAgdtf() {return this.agdtf;}
+	
+	private String agdtfNO = null;
+	public void setAgdtfNO(String value) {this.agdtfNO = value;}
+	public String getAgdtfNO() {
+		if (agdtfNO != null) {  //from UI
+			return agdtfNO;
+		} else {				//from DB
+			return dateFormatter.convertToDate_NO(this.agdtf);
+		}
+	}
 	
 	private String agdtt = null;                                
 	public void setAgdtt (String value){ this.agdtt = value;   }   
 	public String getAgdtt (){ return this.agdtt;   }  
+
+	private String agdttNO = null;
+	public void setAgdttNO (String value){ this.agdttNO = value;   }   
+	public String getAgdttNO() {
+		if (agdttNO != null) {  //from UI
+			return agdttNO;
+		} else {				//from DB
+			return dateFormatter.convertToDate_NO(this.agdtt);
+		}	}		
 	
 	private String agkd = null;                                
 	public void setAgkd (String value){ this.agkd = value;   }   
@@ -66,5 +88,21 @@ public class JsonMaintSadExportSadavgeRecord extends JsonAbstractGrandFatherReco
 		
 		return list;
 	}
+	
+	@Override
+	public String toString()  {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName() + " [ ");
+		try {
+			for (Field f : getFields()) {
+				String fName = f.getName();
+				sb.append("(" + f.getType() + ") " + fName + " = " + f.get(this) + ", ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return sb.toString();
+	}
+	
 }

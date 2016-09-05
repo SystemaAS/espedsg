@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSaehContainer;
@@ -46,7 +47,8 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanc
 public class MaintSadExportAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintSadExportAjaxHandlerController.class.getName());
-	
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
 
 	@RequestMapping(value = "getSpecificRecord_tvi99d.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintSadExportTvineRecord> getRecordTvi99d(@RequestParam String applicationUser,
@@ -112,16 +114,10 @@ public class MaintSadExportAjaxHandlerController {
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
     	List<JsonMaintSadExportSadavgeRecord> list = new ArrayList();
-		if (jsonPayload != null) {
-			// lists
-			JsonMaintSadExportSadavgeContainer container = this.maintSadExportSadavgeService.getList(jsonPayload);
-			if (container != null) {
-				// list = (List)container.getList();
-				for (JsonMaintSadExportSadavgeRecord record : container.getList()) {
-					list.add(record);
-				}
-			}
-		}
+    	if(jsonPayload!=null){
+    		JsonMaintSadExportSadavgeContainer container = this.maintSadExportSadavgeService.getList(jsonPayload);
+    		list=  (List<JsonMaintSadExportSadavgeRecord>) container.getList();
+    	}
     	return list;
 	}	
 	

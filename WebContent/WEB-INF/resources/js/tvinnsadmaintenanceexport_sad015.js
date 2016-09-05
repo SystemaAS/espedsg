@@ -8,11 +8,11 @@
   }
   
   jq(function() {
-  	  jq("#agdtf").datepicker({
-  		  dateFormat: 'yymmdd'
+  	  jq("#agdtfNO").datepicker({
+  		dateFormat: 'ddmmy' 
   	  });
-  	  jq("#agdtt").datepicker({ 
-		  dateFormat: 'yymmdd'
+  	  jq("#agdttNO").datepicker({ 
+  		dateFormat: 'ddmmy' 
 	  });
   	  
   });
@@ -34,8 +34,8 @@
 			jq("#agskv").prop("readonly", false);
 			jq("#agskv").removeClass("inputTextReadOnly");
 			jq("#agskv").addClass("inputTextMediumBlueMandatoryField");						
-			jq('#agdtf').val("");
-			jq('#agdtt').val(""); 
+			jq('#agdtfNO').val("");
+			jq('#agdttNO').val(""); 
 			jq('#agkd').val(""); 
 			jq('#agpp').val(""); 
 			jq('#agsats').val("");
@@ -86,8 +86,8 @@
   			jq("#agskv").prop("readonly", true);
   			jq("#agskv").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#agskv").addClass("inputTextReadOnly");
-  			jq('#agdtf').val("");jq('#agdtf').val(data[i].agdtf);
-  			jq('#agdtt').val("");jq('#agdtt').val(data[i].agdtt);
+  			jq('#agdtfNO').val("");jq('#agdtfNO').val(data[i].agdtfNO);
+  			jq('#agdttNO').val("");jq('#agdttNO').val(data[i].agdttNO);
   			jq('#agkd').val("");jq('#agkd').val(data[i].agkd);
   			jq('#agpp').val("");jq('#agpp').val(data[i].agpp);
   			jq('#agsats').val("");jq('#agsats').val(data[i].agsats);

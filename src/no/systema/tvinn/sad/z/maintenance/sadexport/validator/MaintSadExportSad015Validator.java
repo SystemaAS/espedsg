@@ -1,10 +1,12 @@
 package no.systema.tvinn.sad.z.maintenance.sadexport.validator;
 
+import org.apache.log4j.Logger;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import no.systema.main.validator.DateValidator;
+import no.systema.tvinn.sad.z.maintenance.sadexport.controller.ajax.MaintSadExportAjaxHandlerController;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 
 /**
@@ -16,6 +18,8 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.Js
  */
 public class MaintSadExportSad015Validator implements Validator {
 	private DateValidator dateValidator = new DateValidator();
+	private static final Logger logger = Logger.getLogger(MaintSadExportSad015Validator.class.getName());
+
 	/**
 	 * 
 	 */
@@ -42,9 +46,11 @@ public class MaintSadExportSad015Validator implements Validator {
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
 				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getAgdtf())){
+					logger.error("agdtf har wrong format"+record.getAgdtf());
 					errors.rejectValue("agdtf", "systema.tvinn.sad.export.error.rule.invalidFromDate"); 
 				}
 				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getAgdtt())){
+					logger.error("agdtt har wrong format"+record.getAgdtt());
 					errors.rejectValue("agdtt", "systema.tvinn.sad.export.error.rule.invalidToDate");
 				}
 				
