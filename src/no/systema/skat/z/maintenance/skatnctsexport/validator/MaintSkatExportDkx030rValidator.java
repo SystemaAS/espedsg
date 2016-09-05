@@ -34,6 +34,18 @@ public class MaintSkatExportDkx030rValidator implements Validator {
 		JsonMaintDkxghRecord record = (JsonMaintDkxghRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggnr", "", "Garantinr er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtina", "", "Foretagsnr er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgnaa", "", "Navn er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgpna", "", "Postnr. er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgpsa", "", "Postadr. er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tglka", "", "Landkode er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtsd", "", "Garantitoldkont. er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggty", "", "Garantityp er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgakny", "", "Ny tillg.kode er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgakgm", "", "Gml. tillg.kode er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggbl", "", "Garantibeløb er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggvk", "", "Valuta er obligatorisk"); 
+		
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
@@ -56,26 +68,5 @@ public class MaintSkatExportDkx030rValidator implements Validator {
 		
 	}
 	
-	/**
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private boolean validNumber(String value){
-		final Double UPPER_LIMIT = 9999.999999;
-		boolean retval = true;
-		if (value!=null && !"".equals(value)){
-			String tmp = value.replace(",", ".");
-			try{
-				Double tmpDbl = Double.parseDouble(tmp);
-				if(tmpDbl>UPPER_LIMIT){
-					retval = false;
-				}
-			}catch(Exception e){
-				retval = false;
-			}
-		}
-		
-		return retval;
-	}
+	
 }
