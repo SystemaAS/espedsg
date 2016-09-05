@@ -33,9 +33,13 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghContainer;
 import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghRecord;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
 import no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghService;
 import no.systema.skat.z.maintenance.skatnctsexport.validator.MaintSkatExportDkx030rValidator;
 import no.systema.skat.z.maintenance.skatnctsexport.url.store.MaintenanceNctsExportUrlDataStore;
+import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
 
 
@@ -82,6 +86,7 @@ public class MaintSkatNctsExportDkx030rController {
 	    	List<JsonMaintDkxghRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), id);
 	    	//set domain objets
+	    	model.put("currencyList", this.populateDropDownCurrency(appUser.getUser()) );
 	    	model.put("dbTable", dbTable);
 	    	model.put("searchGaranti", id);
 	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
@@ -169,10 +174,11 @@ public class MaintSkatNctsExportDkx030rController {
 			//------------
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action) || SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
 				//this in order to present the complete list to the end user after a DML-operation
-				//recordToValidate.setTggnr(null);
+				recordToValidate.setTggnr(null);
 			}
 			List<JsonMaintDkxghRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getTggnr());
 	    	//set domain objets
+			model.put("currencyList", this.populateDropDownCurrency(appUser.getUser()) );
 	    	model.put("dbTable", dbTable);
 	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);
@@ -300,6 +306,38 @@ public class MaintSkatNctsExportDkx030rController {
     	return retval;
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private List<JsonMaintDktvkRecord> populateDropDownCurrency(String applicationUser){
+		
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser);
+		
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintDktvkRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintDktvkContainer container = this.maintDktvkService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintDktvkRecord record : list){
+	        		//logger.info("your text");
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -317,5 +355,12 @@ public class MaintSkatNctsExportDkx030rController {
 	public void setMaintDkxghService (MaintDkxghService value){ this.maintDkxghService = value; }
 	public MaintDkxghService getMaintDkxghService(){ return this.maintDkxghService; }
 	
+	
+	@Qualifier ("maintDktvkService")
+	private MaintDktvkService maintDktvkService;
+	@Autowired
+	@Required
+	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
+	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
 }
 

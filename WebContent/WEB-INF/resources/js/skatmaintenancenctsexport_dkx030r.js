@@ -25,30 +25,40 @@
 		  dateFormat: 'yymmdd'	  
 	  });
   });
-  
+  */
   
   jq(function() {
 		//Clean values for createing new record
 		jq('#newRecordButton').click(function() {
-			jq('#dkvk_kd').val("");
-			jq("#dkvk_kd").prop("readonly", false);
-			jq("#dkvk_kd").removeClass("inputTextReadOnly");
-			jq("#dkvk_kd").addClass("inputTextMediumBlueMandatoryField");
-			//
-			jq('#dkvk_dts').val("");
-			jq("#dkvk_dts").prop("readonly", false);
-			jq("#dkvk_dts").removeClass("inputTextReadOnly");
-			jq("#dkvk_dts").addClass("inputTextMediumBlueMandatoryField");
+			jq('#tggnr').val("");
+			jq("#tggnr").prop("readonly", false);
+			jq("#tggnr").removeClass("inputTextReadOnly");
+			jq("#tggnr").addClass("inputTextMediumBlueMandatoryField");
 			
 			//rest of the gang
-			jq('#dkvk_krs').val("");
-			jq('#dkvk_omr').val("");
-			jq('#dkvk_dte').val("");
+			jq('#tgkna').val("");
+			jq('#tgtina').val("");
+			jq('#tgnaa').val("");
+			jq('#tgada1').val("");
+			jq('#tgpna').val("");
+			jq('#tgpsa').val("");
+			jq('#tglka').val("");
+			//Garanti
+			jq('#tgtsd').val("");
+			jq('#tggty').val("");
+			jq('#tggfv').val("");
+			jq('#tgakny').val("");
+			jq('#tgakgm').val("");
+			jq('#tggbl').val("");
+			jq('#tggblb').val("");
+			jq('#tggvk').val("");
+			jq('#tgprm').val("");
 			
 			//for update
 			jq('#updateId').val("");
 		});
   }); 
+
   
   //-----------------------
   //GET specific db-record
@@ -59,39 +69,49 @@
   	
   	rawId = rawId.replace("recordUpdate_", "");
   	var record = rawId.split('_');
-	var kvakod = record[0];
-	var kvadt = record[1];
+	var tggnr = record[0];
+	var moreToCome = record[1];
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_dkt057r.do',
+  	  url: 'getSpecificRecord_dkx030r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  	  id : kvakod,
-  		  	  date : kvadt},
+  		  	  id : tggnr },
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',
   	  success: function(data) {
 	  	var len = data.length;
   		for ( var i = 0; i < len; i++) {
-  			jq('#dkvk_kd').val("");jq('#dkvk_kd').val(data[i].dkvk_kd);
-  			jq("#dkvk_kd").prop("readonly", true);
-  			jq("#dkvk_kd").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#dkvk_kd").addClass("inputTextReadOnly");
   			
-  			jq('#dkvk_dts').val("");jq('#dkvk_dts').val(data[i].dkvk_dts);
-  			jq("#dkvk_dts").prop("readonly", true);
-  			jq("#dkvk_dts").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#dkvk_dts").addClass("inputTextReadOnly");
+  			jq('#tggnr').val("");jq('#tggnr').val(data[i].tggnr);
+  			jq("#tggnr").prop("readonly", true);
+  			jq("#tggnr").removeClass("inputTextMediumBlueMandatoryField");
+  			jq("#tggnr").addClass("inputTextReadOnly");
+  			
   			
   			//rest of the gang
-  			jq('#dkvk_krs').val("");jq('#dkvk_krs').val(data[i].dkvk_krs);
-  			jq('#dkvk_omr').val("");jq('#dkvk_omr').val(data[i].dkvk_omr);
-  			jq('#dkvk_dte').val("");jq('#dkvk_dte').val(data[i].dkvk_dte);
-  			
+  			jq('#tgkna').val("");jq('#tgkna').val(data[i].tgkna);
+			jq('#tgtina').val("");jq('#tgtina').val(data[i].tgtina);
+			jq('#tgnaa').val("");jq('#tgnaa').val(data[i].tgnaa);
+			jq('#tgada1').val("");jq('#tgada1').val(data[i].tgada1);
+			jq('#tgpna').val("");jq('#tgpna').val(data[i].tgpna);
+			jq('#tgpsa').val("");jq('#tgpsa').val(data[i].tgpsa);
+			jq('#tglka').val("");jq('#tglka').val(data[i].tglka);
+			//Garanti
+			jq('#tgtsd').val("");jq('#tgtsd').val(data[i].tgtsd);
+			jq('#tggty').val("");jq('#tggty').val(data[i].tggty);
+			jq('#tggfv').val("");jq('#tggfv').val(data[i].tggfv);
+			jq('#tgakny').val("");jq('#tgakny').val(data[i].tgakny);
+			jq('#tgakgm').val("");jq('#tgakgm').val(data[i].tgakgm);
+			jq('#tggbl').val("");jq('#tggbl').val(data[i].tggbl);
+			jq('#tggblb').val("");jq('#tggblb').val(data[i].tggblb);
+			jq('#tggvk').val("");jq('#tggvk').val(data[i].tggvk);
+			jq('#tgprm').val("");jq('#tgprm').val(data[i].tgprm);
+			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].dkvk_kd);
-  			
+  			jq('#updateId').val("");jq('#updateId').val(data[i].tggnr);
+
   		}
   	  }, 
   	  error: function() {
@@ -100,7 +120,7 @@
 	});
 		
   }
-  */
+ 
 			
   //-------------------
   //Datatables jquery
