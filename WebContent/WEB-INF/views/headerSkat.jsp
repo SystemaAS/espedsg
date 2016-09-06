@@ -167,7 +167,7 @@
 			    			<%-- -------------------- --%>
 			    			<a tabindex=-1 href="skatmaintenancegate.do">
 			    				&nbsp;<font class="headerMenuAdmin">
-		                   	&nbsp;&nbsp;Underhold&nbsp;&nbsp;</font>
+		                   	&nbsp;&nbsp;Vedligehold&nbsp;&nbsp;</font>
 			    			</a>
 	      				</td>		      				
 	      				<td class="text11" width="50%" align="right">

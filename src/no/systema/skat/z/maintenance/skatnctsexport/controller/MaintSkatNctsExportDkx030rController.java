@@ -112,13 +112,13 @@ public class MaintSkatNctsExportDkx030rController {
 		String dbTable = request.getParameter("id");
 		String updateId = request.getParameter("updateId");
 		String action = request.getParameter("action");
+		boolean validationError = false;
+		int dmlRetval = 0;
 		
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			//adjust values
-			this.adjustSomeRecordValues(recordToValidate);
 			//Move on
 			MaintSkatExportDkx030rValidator validator = new MaintSkatExportDkx030rValidator();
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
@@ -128,6 +128,7 @@ public class MaintSkatNctsExportDkx030rController {
 			}
 			if(bindingResult.hasErrors()){
 				//ERRORS
+				validationError = true;
 				logger.info("[ERROR Validation] Record does not validate)");
 				model.put("dbTable", dbTable);
 				if(updateId!=null && !"".equals(updateId)){
@@ -141,7 +142,7 @@ public class MaintSkatNctsExportDkx030rController {
 				//UPDATE table
 				//------------
 				StringBuffer errMsg = new StringBuffer();
-				int dmlRetval = 0;
+				dmlRetval = 0;
 				//UPDATE
 				if (SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
 					if(updateId!=null && !"".equals(updateId)){
@@ -173,8 +174,10 @@ public class MaintSkatNctsExportDkx030rController {
 			//FETCH table
 			//------------
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action) || SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
-				//this in order to present the complete list to the end user after a DML-operation
-				recordToValidate.setTggnr(null);
+				if(!validationError && dmlRetval >= 0){
+					//this in order to present the complete list to the end user after a DML-operation
+					recordToValidate.setTggnr(null);
+				}
 			}
 			List<JsonMaintDkxghRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getTggnr());
 	    	//set domain objets
@@ -187,47 +190,6 @@ public class MaintSkatNctsExportDkx030rController {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param recordToValidate
-	 */
-	private void adjustSomeRecordValues(JsonMaintDkxghRecord recordToValidate){
-		/*
-		final String ZERO = "0";
-		final String DATE_DUMMY = "99999999";
-		//-----------------
-		//Decimal amounts
-		//-----------------
-		if(recordToValidate.getDkvk_dts()!=null && !"".equals(recordToValidate.getDkvk_dts())){
-			String tmp = recordToValidate.getDkvk_dts().replace(",", ".");
-			recordToValidate.setDkvk_dts(tmp);
-		}else{
-			//recordToValidate.setDkvk_dts(ZERO);
-		}
-		
-		if(recordToValidate.getDkvk_dte()!=null && !"".equals(recordToValidate.getDkvk_dte())){
-			String tmp = recordToValidate.getDkvk_dte().replace(",", ".");
-			recordToValidate.setDkvk_dte(tmp);
-		}else{
-			recordToValidate.setDkvk_dte(DATE_DUMMY);
-		}
-		
-		if(recordToValidate.getDkvk_omr()!=null && !"".equals(recordToValidate.getDkvk_omr())){
-			String tmp = recordToValidate.getDkvk_omr().replace(",", ".");
-			recordToValidate.setDkvk_omr(tmp);
-		}else{
-			//recordToValidate.setDkvk_omr(ZERO);
-		}
-		
-		if(recordToValidate.getDkvk_krs()!=null && !"".equals(recordToValidate.getDkvk_krs())){
-			String tmp = recordToValidate.getDkvk_krs().replace(",", ".");
-			recordToValidate.setDkvk_krs(tmp);
-		}else{
-			//recordToValidate.setDkvk_krs(ZERO);
-		}
-		
-		*/
-	}
 	
 	/**
 	 * 

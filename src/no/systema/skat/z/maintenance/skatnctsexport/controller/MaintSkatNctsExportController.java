@@ -89,7 +89,7 @@ public class MaintSkatNctsExportController {
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 		        
 		object.setId("1");
-		object.setSubject("Underhold af firmaoppl.");
+		object.setSubject("Vedligeholdelse af firmaoppl.");
 		object.setCode("SKAT_FIRMOPP");
 		//object.setText("TODO / TODO");
 		//object.setDbTable("TODO");
@@ -97,7 +97,7 @@ public class MaintSkatNctsExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Underhold af avd.oppl.");
+		object.setSubject("Vedligeholdelse af avd.oppl.");
 		object.setCode("SKAT_AVD");
 		//object.setText("TODO / TODO");
 		//object.setDbTable("TODO");
@@ -105,7 +105,7 @@ public class MaintSkatNctsExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Underhold af sagsbehandler");
+		object.setSubject("Vedligeholdelse af sagsbehandler");
 		object.setCode("SKAT_SAGSBEH");
 		//object.setText("TODO / TODO");
 		//object.setDbTable("TODO");
@@ -113,7 +113,7 @@ public class MaintSkatNctsExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("4");
-		object.setSubject("Underhold af koder");
+		object.setSubject("Vedligeholdelse af koder");
 		object.setCode("SKAT_KODER");
 		//object.setText("TODO");
 		//object.setDbTable("TODO");
@@ -121,7 +121,7 @@ public class MaintSkatNctsExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("5");
-		object.setSubject("Underhold af garanti");
+		object.setSubject("Vedligeholdelse af garanti");
 		object.setCode("SKAT_GARANTI");
 		object.setText("DKXGH / ...");
 		object.setDbTable("DKXGH");
