@@ -30,14 +30,44 @@ public class JsonMaintSadImportTariRecord extends JsonAbstractGrandFatherRecord 
 	public void setTadato (String value){ this.tadato = value;   }   
 	public String getTadato (){ return this.tadato;   }              
 
+	private String tadatoNO = null;
+	public void setTadatoNO (String value){ this.tadatoNO = value;   }   
+	public String getTadatoNO() {
+		if (tadatoNO != null) { // from UI
+			return tadatoNO;
+		} else { 				// from DB
+			return dateFormatter.convertToDate_NO(this.tadato);
+		}
+	}
+	
 	private String tadts = null;
 	public void setTadts (String value){ this.tadts = value;   }   
 	public String getTadts (){ return this.tadts;   }              
 
+	private String tadtsNO = null;
+	public void setTadtsNO (String value){ this.tadtsNO = value;   }   
+	public String getTadtsNO (){
+		if (tadtsNO != null) { // from UI
+			return tadtsNO;
+		} else { 				// from DB
+			return dateFormatter.convertToDate_NO(this.tadts);
+		}
+	}              
+	
 	private String tadtr = null; 
 	public void setTadtr (String value){ this.tadtr = value;   }   
 	public String getTadtr (){ return this.tadtr;   }              
 
+	private String tadtrNO = null; 
+	public void setTadtrNO (String value){ this.tadtrNO = value;   }   
+	public String getTadtrNO() {
+		if (tadtrNO != null) { // from UI
+			return tadtrNO;
+		} else { 				// from DB
+			return dateFormatter.convertToDate_NO(this.tadtr);
+		}
+	}
+	
 	private String taordk = null; 
 	public void setTaordk (String value){ this.taordk = value;   }   
 	public String getTaordk (){ return this.taordk;   }              

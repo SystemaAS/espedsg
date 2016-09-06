@@ -46,11 +46,9 @@ public class MaintSadExportSad015Validator implements Validator {
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
 				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getAgdtf())){
-					logger.error("agdtf har wrong format"+record.getAgdtf());
 					errors.rejectValue("agdtf", "systema.tvinn.sad.export.error.rule.invalidFromDate"); 
 				}
 				if(!dateValidator.validateDateIso203_YYYYMMDD(record.getAgdtt())){
-					logger.error("agdtt har wrong format"+record.getAgdtt());
 					errors.rejectValue("agdtt", "systema.tvinn.sad.export.error.rule.invalidToDate");
 				}
 				

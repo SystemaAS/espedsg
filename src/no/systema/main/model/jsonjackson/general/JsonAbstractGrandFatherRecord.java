@@ -6,6 +6,10 @@ package no.systema.main.model.jsonjackson.general;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
+
 /**
  * All subclasses should implement this method in order to handle reflection
  * 
@@ -21,7 +25,19 @@ import java.util.List;
  * 
  */
 public abstract class JsonAbstractGrandFatherRecord {
+	protected TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 
 	public abstract List<Field> getFields() throws Exception;
 
+	/**
+	 * Convenience method when debugging, exposing JSON record values.
+	 * 
+	 * @return JSON record name and values
+	 */
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this);
+	}
+	
 }

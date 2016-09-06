@@ -39,6 +39,16 @@ public class JsonMaintSadImportSadsdRecord extends JsonAbstractGrandFatherRecord
 	public void setSddtf (String value){ this.sddtf = value;   }   
 	public String getSddtf (){ return this.sddtf;   }              
 
+	private String sddtfNO = null; 
+	public void setSddtfNO (String value){ this.sddtfNO = value;   }   
+	public String getSddtfNO() {
+		if (sddtfNO != null) { // from UI
+			return sddtfNO;
+		} else { 				// from DB
+			return dateFormatter.convertToDate_NO(this.sddtf);
+		}
+	}
+
 	private String sddtfOrig = null; 
 	public void setSddtfOrig (String value){ this.sddtfOrig = value;   }   
 	public String getSddtfOrig (){ return this.sddtfOrig;   }              
@@ -46,6 +56,16 @@ public class JsonMaintSadImportSadsdRecord extends JsonAbstractGrandFatherRecord
 	private String sddtt = null; 
 	public void setSddtt (String value){ this.sddtt = value;   }   
 	public String getSddtt (){ return this.sddtt;   }              
+
+	private String sddttNO = null; 
+	public void setSddttNO (String value){ this.sddttNO = value;   }   
+	public String getSddttNO() {
+		if (sddttNO != null) { // from UI
+			return sddttNO;
+		} else { // from DB
+			return dateFormatter.convertToDate_NO(this.sddtt);
+		}
+	}
 
 	private String sddttOrig = null; 
 	public void setSddttOrig (String value){ this.sddttOrig = value;   }   
@@ -72,5 +92,5 @@ public class JsonMaintSadImportSadsdRecord extends JsonAbstractGrandFatherRecord
 		
 		return list;
 	}
-
+	
 }

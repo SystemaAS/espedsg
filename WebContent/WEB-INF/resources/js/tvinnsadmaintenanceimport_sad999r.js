@@ -8,11 +8,11 @@
   }
   
   jq(function() {
-  	  jq("#sddtf").datepicker({
-  		  dateFormat: 'yymmdd'
+  	  jq("#sddtfNO").datepicker({
+  		  dateFormat: 'ddmmy' 
   	  });
-  	  jq("#sddtt").datepicker({ 
-		  dateFormat: 'yymmdd'
+  	  jq("#sddttNO").datepicker({ 
+  		  dateFormat: 'ddmmy' 
 	  });
   	  
   	  jq('#sdkdaeIdLink').click(function() {
@@ -33,7 +33,7 @@
 			
 			//rest of the gang
 			jq('#taalfa').val("");jq('#taalfaOrig').val("");jq('#sddtfOrig').val("");jq('#sddttOrig').val("");
-			jq('#sdkdae').val(""); jq('#sdkdse').val(""); jq('#sddtf').val(""); jq('#sddtt').val("");
+			jq('#sdkdae').val(""); jq('#sdkdse').val(""); jq('#sddtfNO').val(""); jq('#sddttNO').val("");
   			jq('#sdblse').val(""); jq('#sdaktk').val("");
   			
 			//for update
@@ -85,8 +85,8 @@
   			
   			jq('#sdkdae').val("");jq('#sdkdae').val(data[i].sdkdae);
   			jq('#sdkdse').val("");jq('#sdkdse').val(data[i].sdkdse);
-  			jq('#sddtf').val("");jq('#sddtf').val(data[i].sddtf);
-  			jq('#sddtt').val("");jq('#sddtt').val(data[i].sddtt);
+  			jq('#sddtfNO').val("");jq('#sddtfNO').val(data[i].sddtfNO);
+  			jq('#sddttNO').val("");jq('#sddttNO').val(data[i].sddttNO);
   			jq('#sdblse').val("");jq('#sdblse').val(data[i].sdblse);
   			jq('#sdaktk').val("");jq('#sdaktk').val(data[i].sdaktk);
   			

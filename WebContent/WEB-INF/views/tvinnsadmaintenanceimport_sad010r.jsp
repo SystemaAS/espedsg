@@ -103,8 +103,8 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taalfa}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tatxt}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taenhe}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tadato}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tadts}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tadatoNO}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tadtsNO}&nbsp;</font></td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad010r_edit.do?action=doDelete&id=${model.dbTable}&tatanr=${record.tatanr}&taalfa=${record.taalfa}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
@@ -212,9 +212,9 @@
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tatanr" id="tatanr" size="9" maxlength="8" value='${model.record.tatanr}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="taalfa" id="taalfa" size="15" maxlength="15" value='${model.record.taalfa}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tadato" id="tadato" size="8" maxlength="8" value='${model.record.tadato}'></td>
-						<td ><input readOnly type="text" class="inputTextReadOnly" name="tadtr" id="tadtr" size="8" maxlength="8" value='${model.record.tadtr}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="tadts" id="tadts" size="8" maxlength="8" value='${model.record.tadts}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tadatoNO" id="tadatoNO" size="8" maxlength="8" value='${model.record.tadatoNO}'></td>
+						<td ><input readOnly type="text" class="inputTextReadOnly" name="tadtrNO" id="tadtrNO" size="8" maxlength="8" value='${model.record.tadtrNO}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="tadtsNO" id="tadtsNO" size="8" maxlength="8" value='${model.record.tadtsNO}'></td>
 						<td >
 							<select name="tastk" id="tastk">
         		    			<option value="">-velg-</option>

@@ -39,6 +39,16 @@ public class JsonMaintKodtvaRecord extends JsonAbstractGrandFatherRecord {
 	public void setKvadt (String value){ this.kvadt = value;   }   
 	public String getKvadt (){ return this.kvadt;   }              
 
+	private String kvadtNO = null; 
+	public void setKvadtNO (String value){ this.kvadtNO = value;   }   
+	public String getKvadtNO() {
+		if (kvadtNO != null) { // from UI
+			return kvadtNO;
+		} else { 				// from DB
+			return dateFormatter.convertToDate_NO(this.kvadt);
+		}
+	}	
+	
 	private String kvagkr = null; 
 	public void setKvagkr (String value){ this.kvagkr = value;   }   
 	public String getKvagkr (){ return this.kvagkr;   }              

@@ -84,18 +84,18 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.kvakod}_${record.kvadt}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.kvakod}_${record.kvadtNO}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.kvakod}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvaxxx}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvakrs}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvaomr}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvadt}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvadtNO}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.kvagv}&nbsp;</font></td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft02r_edit.do?action=doDelete&id=${model.dbTable}&kvakod=${record.kvakod}&kvadt=${record.kvadt}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_syft02r_edit.do?action=doDelete&id=${model.dbTable}&kvakod=${record.kvakod}&kvadt=${record.kvadtNO}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -190,7 +190,7 @@
 						<td ><input type="text" class="inputTextMediumBlue" name="kvaxxx" id="kvaxxx" size="30" maxlength="27" value='${model.record.kvaxxx}'></td>
 						<td ><input onKeyPress="return amountKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kvakrs" id="kvakrs" size="15" maxlength="12" value='${model.record.kvakrs}'></td>
 						<td ><input onKeyPress="return numberKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kvaomr" id="kvaomr" size="4" maxlength="3" value='${model.record.kvaomr}'></td>
-						<td ><input type="text" required class="inputTextMediumBlueMandatoryField" name="kvadt" id="kvadt" size="9" maxlength="8" value='${model.record.kvadt}'></td>
+						<td ><input type="text" required class="inputTextMediumBlueMandatoryField" name="kvadtNO" id="kvadtNO" size="9" maxlength="8" value='${model.record.kvadtNO}'></td>
 						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kvagv" id="kvagv" size="12" maxlength="11" value='${model.record.kvagv}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>

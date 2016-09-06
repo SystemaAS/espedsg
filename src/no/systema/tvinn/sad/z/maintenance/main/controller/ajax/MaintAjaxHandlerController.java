@@ -1,46 +1,35 @@
 package no.systema.tvinn.sad.z.maintenance.main.controller.ajax;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
-
-//application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.main.model.SystemaWebUser;
-
-import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.*;
-import no.systema.tvinn.sad.z.maintenance.main.service.*;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
+import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
+import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
+import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.main.url.store.MaintenanceUrlDataStore;
-import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 
 
 
 /**
- * Maintenance Syft02r Controller 
+ * Maintenance Syft02r Controller - Tollkurser
  * 
  * @author oscardelatorre
  * @date Jun 7, 2016
@@ -53,10 +42,8 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlReques
 public class MaintAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintAjaxHandlerController.class.getName());
-	private ModelAndView loginView = new ModelAndView("login");
-	private ApplicationContext context;
-	private LoginValidator loginValidator = new LoginValidator();
-	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
 	
 	/**
 	 * 
@@ -78,19 +65,11 @@ public class MaintAjaxHandlerController {
 	
 	}
 	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @param date
-	 * 
-	 * @return
-	 * 
-	 */
+
 	private Collection<JsonMaintKodtvaRecord> fetchListSyft02(String applicationUser, String id, String date){
-		
+		String dateISO = dateFormatter.convertToDate_ISO(date);
 		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SYFT02R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&kvakod=" + id + "&kvadt=" + date;
+		String urlRequestParams = "user=" + applicationUser + "&kvakod=" + id + "&kvadt=" + dateISO;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);

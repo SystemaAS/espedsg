@@ -31,6 +31,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportTariContainer;
@@ -58,6 +59,8 @@ public class MaintSadImportSad010rController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
 	
 	/**
 	 * 
@@ -190,18 +193,18 @@ public class MaintSadImportSad010rController {
 		//--------
 		//Dates
 		//--------
-		if(recordToValidate.getTadtr()!=null && !"".equals(recordToValidate.getTadtr())){
-			//nothing
+		if(recordToValidate.getTadtrNO()!=null && !"".equals(recordToValidate.getTadtrNO())){
+			recordToValidate.setTadtr(dateFormatter.convertToDate_ISO(recordToValidate.getTadtrNO()));
 		}else{
 			recordToValidate.setTadtr(recordToValidate.getTadato());
 		}
-		if(recordToValidate.getTadato()!=null && !"".equals(recordToValidate.getTadato())){
-			//nothing
+		if(recordToValidate.getTadatoNO()!=null && !"".equals(recordToValidate.getTadatoNO())){
+			recordToValidate.setTadato(dateFormatter.convertToDate_ISO(recordToValidate.getTadatoNO()));
 		}else{
 			recordToValidate.setTadato(ZERO);
 		}
-		if(recordToValidate.getTadts()!=null && !"".equals(recordToValidate.getTadts())){
-			//nothing
+		if(recordToValidate.getTadtsNO()!=null && !"".equals(recordToValidate.getTadtsNO())){
+			recordToValidate.setTadts(dateFormatter.convertToDate_ISO(recordToValidate.getTadtsNO()));
 		}else{
 			recordToValidate.setTadts(ZERO);
 		}

@@ -31,8 +31,10 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdService;
@@ -59,6 +61,8 @@ public class MaintSadImportSad999rController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+
 	
 	/**
 	 * 
@@ -125,6 +129,7 @@ public class MaintSadImportSad999rController {
 		}else{
 			//adjust values
 			this.adjustSomeRecordValues(recordToValidate);
+			logger.info("recordToValidate="+recordToValidate);
 			//Move on
 			MaintSadImportSad999rValidator validator = new MaintSadImportSad999rValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
@@ -215,17 +220,9 @@ public class MaintSadImportSad999rController {
 			recordToValidate.setSddtt(ZERO);
 		}
 		
-		//-----------------
-		//Decimal amounts
-		//-----------------
-		/*
-		if(recordToValidate.getTaordb()!=null && !"".equals(recordToValidate.getTaordb())){
-			String tmp = recordToValidate.getTaordb().replace(",", ".");
-			recordToValidate.setTaordb(tmp);
-		}else{
-			recordToValidate.setTaordb(ZERO);
-		}
-		*/
+		recordToValidate.setSddtf(dateFormatter.convertToDate_ISO(recordToValidate.getSddtfNO()));
+		recordToValidate.setSddtt(dateFormatter.convertToDate_ISO(recordToValidate.getSddttNO()));
+
 		
 	}
 	
@@ -326,6 +323,12 @@ public class MaintSadImportSad999rController {
     	model.put("sdkdae", sdkdae);
     	
 	}
+	
+	private void adjustFields(JsonMaintSadImportSadsdRecord record) {
+		record.setSddtf(dateFormatter.convertToDate_ISO(record.getSddtfNO()));
+		record.setSddtt(dateFormatter.convertToDate_ISO(record.getSddttNO()));
+	}
+
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

@@ -96,8 +96,8 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taalfa}&nbsp;</font></td>
 				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sdkdae}&nbsp;</font></td>
 		                       <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sdkdse}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddtf}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddtt}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddtfNO}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sddttNO}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sdblse}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 		                       		<c:choose> 
@@ -213,8 +213,8 @@
 							</a>
 						</td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sdkdse" id="sdkdse" size="4" maxlength="3" value='${model.record.sdkdse}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtf" id="sddtf" size="9" maxlength="8" value='${model.record.sddtf}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtt" id="sddtt" size="9" maxlength="8" value='${model.record.sddtt}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddtfNO" id="sddtfNO" size="9" maxlength="8" value='${model.record.sddtfNO}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sddttNO" id="sddttNO" size="9" maxlength="8" value='${model.record.sddttNO}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sdblse" id="sdblse" size="11" maxlength="10" value='${model.record.sdblse}'></td>
 						<td >
 							<select name="sdaktk" id="sdaktk">

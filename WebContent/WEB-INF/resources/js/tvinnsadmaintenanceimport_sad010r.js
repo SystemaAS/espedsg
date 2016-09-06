@@ -8,11 +8,11 @@
   }
   
   jq(function() {
-  	  jq("#tadato").datepicker({ 
-  		  dateFormat: 'yymmdd'
+  	  jq("#tadatoNO").datepicker({ 
+  		  dateFormat: 'ddmmy'
   	  });
-  	  jq("#tadts").datepicker({ 
-		  dateFormat: 'yymmdd'
+  	  jq("#tadtsNO").datepicker({ 
+  		  dateFormat: 'ddmmy'
 	  });
   });
 
@@ -26,8 +26,8 @@
 			jq("#tatanr").addClass("inputTextMediumBlueMandatoryField");
 			
 			//rest of the gang
-			jq('#taalfa').val(""); jq('#taalfaOrig').val(""); jq('#tadato').val(""); jq('#tadtr').val("");
-			jq('#tadts').val(""); jq('#taordb').val(""); jq('#taordk').val(""); jq('#taeftb').val("");
+			jq('#taalfa').val(""); jq('#taalfaOrig').val(""); jq('#tadatoNO').val(""); jq('#tadtr').val("");
+			jq('#tadtsNO').val(""); jq('#taordb').val(""); jq('#taordk').val(""); jq('#taeftb').val("");
   			jq('#taeftk').val(""); jq('#taefb').val(""); jq('#taefk').val("");
   			//
   			jq('#tastk').val(""); jq('#tatxt').val(""); jq('#taenhe').val("");
@@ -91,9 +91,9 @@
   			//rest of the gang
   			jq('#taalfa').val("");jq('#taalfa').val(data[i].taalfa);
   			jq('#taalfaOrig').val("");jq('#taalfaOrig').val(data[i].taalfa);
-  			jq('#tadato').val("");jq('#tadato').val(data[i].tadato);
-  			jq('#tadtr').val("");jq('#tadtr').val(data[i].tadtr);
-  			jq('#tadts').val("");jq('#tadts').val(data[i].tadts);
+  			jq('#tadatoNO').val("");jq('#tadatoNO').val(data[i].tadatoNO);
+  			jq('#tadtrNO').val("");jq('#tadtrNO').val(data[i].tadtrNO);
+  			jq('#tadtsNO').val("");jq('#tadtsNO').val(data[i].tadtsNO);
   			
   			jq('#taordb').val("");jq('#taordb').val(data[i].taordb);
   			jq('#taordk').val("");jq('#taordk').val(data[i].taordk);

@@ -14,8 +14,8 @@
   });
   
   jq(function() {
-	  jq("#kvadt").datepicker({ 
-		  dateFormat: 'yymmdd'	  
+	  jq("#kvadtNO").datepicker({ 
+		  dateFormat: 'ddmmy'
 	  });
 	  
   });
@@ -29,11 +29,11 @@
 			jq("#kvakod").removeClass("inputTextReadOnly");
 			jq("#kvakod").addClass("inputTextMediumBlueMandatoryField");
 			//
-			jq('#kvadt').val("");
-			jq("#kvadt").prop("readonly", false);
-			jq("#kvadt").removeClass("inputTextReadOnly");
-			jq("#kvadt").addClass("inputTextMediumBlueMandatoryField");
-			
+			jq('#kvadtNO').val("");
+			jq("#kvadtNO").prop("readonly", false);
+			jq("#kvadtNO").removeClass("inputTextReadOnly");
+			jq("#kvadtNO").addClass("inputTextMediumBlueMandatoryField"); 
+ 			 			
 			//rest of the gang
 			jq('#kvaxxx').val("");
 			jq('#kvakrs').val("");
@@ -74,10 +74,11 @@
   			jq("#kvakod").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#kvakod").addClass("inputTextReadOnly");
   			//
-  			jq('#kvadt').val("");jq('#kvadt').val(data[i].kvadt);
-  			jq("#kvadt").prop("readonly", true);
-  			jq("#kvadt").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#kvadt").addClass("inputTextReadOnly");
+  			jq('#kvadtNO').val("");jq('#kvadtNO').val(data[i].kvadtNO);
+  			jq("#kvadtNO").prop("readonly", true);
+  			jq("#kvadtNO").removeClass("inputTextMediumBlueMandatoryField");
+  			jq("#kvadtNO").addClass("inputTextReadOnly"); 			
+ 			
   			//rest of the gang
   			jq('#kvaxxx').val("");jq('#kvaxxx').val(data[i].kvaxxx);
   			jq('#kvakrs').val("");jq('#kvakrs').val(data[i].kvakrs);

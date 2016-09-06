@@ -54,12 +54,14 @@ public class JsonMaintSadExportSadavgeRecord extends JsonAbstractGrandFatherReco
 
 	private String agdttNO = null;
 	public void setAgdttNO (String value){ this.agdttNO = value;   }   
+
 	public String getAgdttNO() {
-		if (agdttNO != null) {  //from UI
+		if (agdttNO != null) { // from UI
 			return agdttNO;
-		} else {				//from DB
+		} else { // from DB
 			return dateFormatter.convertToDate_NO(this.agdtt);
-		}	}		
+		}
+	}
 	
 	private String agkd = null;                                
 	public void setAgkd (String value){ this.agkd = value;   }   

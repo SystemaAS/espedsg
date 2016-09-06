@@ -258,8 +258,6 @@ public class MaintSadExportSad015Controller {
 
 	
 	private void adjustFields(JsonMaintSadExportSadavgeRecord record) {
-		logger.info("record.getAgdtfNO()="+record.getAgdtfNO());
-		logger.info("dateFormatter.convertToDate_ISO(record.getAgdtfNO()="+dateFormatter.convertToDate_ISO(record.getAgdtfNO()));
 		record.setAgdtf(dateFormatter.convertToDate_ISO(record.getAgdtfNO()));
 		record.setAgdtt(dateFormatter.convertToDate_ISO(record.getAgdttNO()));
 	}
