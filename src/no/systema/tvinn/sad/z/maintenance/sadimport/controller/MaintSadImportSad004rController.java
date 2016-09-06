@@ -33,10 +33,9 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadlContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadlRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadlService;
-
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSad004rValidator;
 
@@ -80,7 +79,7 @@ public class MaintSadImportSad004rController {
 			return this.loginView;
 		}else{
 			//get table
-	    	List<JsonMaintSadImportSadlRecord> list = new ArrayList();
+	    	List<JsonMaintSadSadlRecord> list = new ArrayList();
 	    	if( (kundnr!=null && !"".equals(kundnr)) ){
 	    		list = this.fetchList(appUser.getUser(), null, kundnr); //to accomplish wild card search
 	    	}
@@ -103,7 +102,7 @@ public class MaintSadImportSad004rController {
 	 * @return
 	 */
 	@RequestMapping(value="tvinnsadmaintenanceimport_sad004r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadImportSadlRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadSadlRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_sad004r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
@@ -179,7 +178,7 @@ public class MaintSadImportSad004rController {
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action) ){
 				recordToValidate.setSlalfa(null);
 			}
-			List<JsonMaintSadImportSadlRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getSlalfa(), recordToValidate.getSlknr());
+			List<JsonMaintSadSadlRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getSlalfa(), recordToValidate.getSlknr());
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("kundnr", recordToValidate.getSlknr());
@@ -194,7 +193,7 @@ public class MaintSadImportSad004rController {
 	 * 
 	 * @param recordToValidate
 	 */
-	private void adjustSomeRecordValues(JsonMaintSadImportSadlRecord recordToValidate){
+	private void adjustSomeRecordValues(JsonMaintSadSadlRecord recordToValidate){
 		final String ZERO = "0";
 		//-----------------
 		//Decimal amounts
@@ -258,7 +257,7 @@ public class MaintSadImportSad004rController {
 	 * @param levenr
 	 * @return
 	 */
-	private List<JsonMaintSadImportSadlRecord> fetchList(String applicationUser, String id, String levenr){
+	private List<JsonMaintSadSadlRecord> fetchList(String applicationUser, String id, String levenr){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -279,13 +278,13 @@ public class MaintSadImportSad004rController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
-    	List<JsonMaintSadImportSadlRecord> list = new ArrayList();
+    	List<JsonMaintSadSadlRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
+    		JsonMaintSadSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportSadlRecord record : list){
+	        	for(JsonMaintSadSadlRecord record : list){
 	        		//logger.info("VARENR:" + record.getSlalfa());
 	        	}
 	        }
@@ -302,7 +301,7 @@ public class MaintSadImportSad004rController {
 	 * @param mode
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintSadImportSadlRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintSadSadlRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_DML_UPDATE_URL;
@@ -319,7 +318,7 @@ public class MaintSadImportSad004rController {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.doUpdate(jsonPayload);
+    		JsonMaintSadSadlContainer container = this.maintSadImportSadlService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -345,11 +344,11 @@ public class MaintSadImportSad004rController {
 	
 	
 	@Qualifier ("maintSadImportSadlService")
-	private MaintSadImportSadlService maintSadImportSadlService;
+	private MaintSadSadlService maintSadImportSadlService;
 	@Autowired
 	@Required
-	public void setMaintSadImportSadlService (MaintSadImportSadlService value){ this.maintSadImportSadlService = value; }
-	public MaintSadImportSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
+	public void setMaintSadImportSadlService (MaintSadSadlService value){ this.maintSadImportSadlService = value; }
+	public MaintSadSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
 	
 }
 

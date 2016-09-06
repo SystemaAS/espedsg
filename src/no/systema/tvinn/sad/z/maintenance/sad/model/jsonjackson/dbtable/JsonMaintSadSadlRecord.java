@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable;
+package no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
@@ -13,7 +13,7 @@ import java.util.*;
  * @date May 27, 2016
  *
  */
-public class JsonMaintSadImportSadlRecord extends JsonAbstractGrandFatherRecord {
+public class JsonMaintSadSadlRecord extends JsonAbstractGrandFatherRecord {
 	
 	private String slstat = null;                                
 	public void setSlstat (String value){ this.slstat = value;   }   

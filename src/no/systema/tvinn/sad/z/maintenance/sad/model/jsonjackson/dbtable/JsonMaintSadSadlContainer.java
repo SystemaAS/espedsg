@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable;
+package no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable;
 
 import java.util.Collection;
 
@@ -10,7 +10,7 @@ import java.util.Collection;
  * @date May 31, 2016
  *
  */
-public class JsonMaintSadImportSadlContainer {
+public class JsonMaintSadSadlContainer {
 	private String user = null;
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}
@@ -20,8 +20,8 @@ public class JsonMaintSadImportSadlContainer {
 	public String getErrMsg() { return this.errMsg;}
 	
 	
-	private Collection<JsonMaintSadImportSadlRecord> list;
-	public void setList(Collection<JsonMaintSadImportSadlRecord> value){ this.list = value; }
-	public Collection<JsonMaintSadImportSadlRecord> getList(){ return list; }
+	private Collection<JsonMaintSadSadlRecord> list;
+	public void setList(Collection<JsonMaintSadSadlRecord> value){ this.list = value; }
+	public Collection<JsonMaintSadSadlRecord> getList(){ return list; }
 	
 }

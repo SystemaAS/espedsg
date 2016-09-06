@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadlRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class MaintSadImportSad004rValidator implements Validator {
 	 * 
 	 */
 	public boolean supports(Class clazz) {
-		return JsonMaintSadImportSadlRecord.class.isAssignableFrom(clazz); 
+		return JsonMaintSadSadlRecord.class.isAssignableFrom(clazz); 
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class MaintSadImportSad004rValidator implements Validator {
 	 * 
 	 */
 	public void validate(Object obj, Errors errors) { 
-		JsonMaintSadImportSadlRecord record = (JsonMaintSadImportSadlRecord)obj;
+		JsonMaintSadSadlRecord record = (JsonMaintSadSadlRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slknr", "", "Kundnr (SLKNR) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
@@ -54,7 +54,7 @@ public class MaintSadImportSad004rValidator implements Validator {
 	
 	public void validateDelete(Object obj, Errors errors) { 
 		
-		JsonMaintSadImportSadlRecord record = (JsonMaintSadImportSadlRecord)obj;
+		JsonMaintSadSadlRecord record = (JsonMaintSadSadlRecord)obj;
 		//logger.info(record.getSltanr());
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slknr", "", "Kundnr (SLKNR) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 

@@ -31,7 +31,9 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.*;
@@ -162,11 +164,11 @@ public class MaintSadImportAjaxHandlerController {
 	 * @return
 	 */
 	@RequestMapping(value="getSpecificRecord_sad004r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintSadImportSadlRecord> getRecordSad004
+	public @ResponseBody List<JsonMaintSadSadlRecord> getRecordSad004
 	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
 		final String METHOD = "[DEBUG] getRecordSad004 ";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintSadImportSadlRecord> result = new ArrayList();
+		List<JsonMaintSadSadlRecord> result = new ArrayList();
 	 	//get table
     	result = (List)this.fetchListSad004(applicationUser, id, kundnr);
     	
@@ -428,7 +430,7 @@ public class MaintSadImportAjaxHandlerController {
 	 * @param levenr
 	 * @return
 	 */
-	private Collection<JsonMaintSadImportSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
+	private Collection<JsonMaintSadSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
 		
 		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr ;
@@ -437,13 +439,13 @@ public class MaintSadImportAjaxHandlerController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
-    	List<JsonMaintSadImportSadlRecord> list = new ArrayList();
+    	List<JsonMaintSadSadlRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
+    		JsonMaintSadSadlContainer container = this.maintSadSadlService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportSadlRecord record: list){
+	        	for(JsonMaintSadSadlRecord record: list){
 	        		//logger.info("my text");
 	        	}
 	        }
@@ -678,12 +680,12 @@ public class MaintSadImportAjaxHandlerController {
 	public MaintSadImportSadvareService getMaintSadImportSadvareService(){ return this.maintSadImportSadvareService; }
 	
 	
-	@Qualifier ("maintSadImportSadlService")
-	private MaintSadImportSadlService maintSadImportSadlService;
+	@Qualifier ("maintSadSadlService")
+	private MaintSadSadlService maintSadSadlService;
 	@Autowired
 	@Required
-	public void setMaintSadImportSadlService (MaintSadImportSadlService value){ this.maintSadImportSadlService = value; }
-	public MaintSadImportSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
+	public void setMaintSadImportSadlService (MaintSadSadlService value){ this.maintSadSadlService = value; }
+	public MaintSadSadlService getMaintSadImportSadlService(){ return this.maintSadSadlService; }
 	
 	
 	@Qualifier ("maintSadImportSadhHeadfService")

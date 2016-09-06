@@ -21,6 +21,8 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSaehContainer;
@@ -31,6 +33,7 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadavg
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSaehService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportTvineService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 
 
 /**
@@ -141,6 +144,61 @@ public class MaintSadExportAjaxHandlerController {
 	        }
     	}
     	return list;
+	}	
+
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param kundnr
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad004.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadSadlRecord> getRecordSad004
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
+		final String METHOD = "[DEBUG] getRecordSad004 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadSadlRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad004(applicationUser, id, kundnr);
+    	
+    	return result;
+	
+	}	
+	
+
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param levenr
+	 * @return
+	 */
+	private Collection<JsonMaintSadSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
+		//TODO change url store host
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadSadlRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		//TODO Refactor service
+    		//TODO Refactore container and record
+ /*   		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportSadlRecord record: list){
+	        		//logger.info("my text");
+	        	}
+	        }
+  */  	}
+    	return list;
+    	
 	}	
 	
 	
