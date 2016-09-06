@@ -48,7 +48,7 @@
 							<thead>
 							<tr>
 								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
-								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
+								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Opdater</th>
 			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
 								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>

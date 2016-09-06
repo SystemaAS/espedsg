@@ -71,7 +71,7 @@
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Ændre&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Opdater&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Sort&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Kurs&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Faktor&nbsp;</th>
