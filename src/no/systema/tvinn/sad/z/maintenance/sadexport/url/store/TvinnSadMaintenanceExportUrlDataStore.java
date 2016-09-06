@@ -40,6 +40,14 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD024_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD024.do";
 
 	
+	/**
+	 * SAD004
+	 * 
+	 * /syjservicestn/syjsSAD004R.do
+	 * 
+	 */
+	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD004R.do";
+	
 	//----------------------------------
 	//[1] UPDATE DB record
 	// mode = (U)pdate, (A)dd, (D)elete
@@ -68,8 +76,10 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 * 
 	 */
 	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD024_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD024_U.do";
-	
-	
+
+
+
+		
 	
 	//--------------------------
 	//[3] GUI lists drop downs

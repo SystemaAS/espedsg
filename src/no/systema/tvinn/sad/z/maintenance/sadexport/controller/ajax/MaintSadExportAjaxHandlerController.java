@@ -23,6 +23,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeContainer;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSadavgeRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportSaehContainer;
@@ -176,8 +177,7 @@ public class MaintSadExportAjaxHandlerController {
 	 * @return
 	 */
 	private Collection<JsonMaintSadSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
-		//TODO change url store host
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_GET_LIST_URL;
+		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr ;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -185,20 +185,18 @@ public class MaintSadExportAjaxHandlerController {
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
     	List<JsonMaintSadSadlRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		//TODO Refactor service
-    		//TODO Refactore container and record
- /*   		JsonMaintSadImportSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportSadlRecord record: list){
-	        		//logger.info("my text");
-	        	}
-	        }
-  */  	}
-    	return list;
-    	
+		if (jsonPayload != null) {
+			// lists
+			JsonMaintSadSadlContainer container = this.maintSadSadlService.getList(jsonPayload);
+			if (container != null) {
+				list = (List) container.getList();
+				for (JsonMaintSadSadlRecord record : list) {
+					// logger.info("my text");
+				}
+			}
+		}
+		return list;
+ 	
 	}	
 	
 	
@@ -230,6 +228,14 @@ public class MaintSadExportAjaxHandlerController {
 	@Required
 	public void setMaintSadExportSaehService (MaintSadExportSaehService value){ this.maintSadExportSaehService = value; }
 	public MaintSadExportSaehService getMaintSadExportSaehService(){ return this.maintSadExportSaehService; }
+	
+	@Qualifier ("maintSadSadlService")
+	private MaintSadSadlService maintSadSadlService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSadlService (MaintSadSadlService value){ this.maintSadSadlService = value; }
+	public MaintSadSadlService getMaintSadImportSadlService(){ return this.maintSadSadlService; }
+	
 
 }
 

@@ -118,6 +118,9 @@ public class MaintSadExportController {
 		object.setCode("SADE_KUNDVAREREG");
 		object.setText("SAD004 / SADL,FIRM,KODTSE,KODTSB,KODTS2,TARI,CUNDF");
 		object.setDbTable("SADL");
+		object.setPgm("sad004");
+		object.setStatus("G");
+
 		listObject.add(object);
 
 		object = new MaintenanceMainListObject();
