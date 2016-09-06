@@ -22,7 +22,7 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;SKAT - Underhold</font>&nbsp;
+						<font class="tabLink">&nbsp;SKAT - Vedligehold</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -49,7 +49,7 @@
 							<tr>
 								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
 								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
-			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
 								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
@@ -72,7 +72,7 @@
 				               		</c:otherwise>
 				               	</c:choose>	
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="40%" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G'}">
 					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="skatmaintenanceimport_${record.pgm}.do?id=${record.dbTable}">

@@ -23,7 +23,7 @@
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkSadMaintImportGate" tabindex=-1 style="display:block;" href="skatmaintenanceimport.do">
-						<font class="tabDisabledLink">&nbsp;SKAT - Underhold</font>
+						<font class="tabDisabledLink">&nbsp;SKAT - Vedligehold</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
