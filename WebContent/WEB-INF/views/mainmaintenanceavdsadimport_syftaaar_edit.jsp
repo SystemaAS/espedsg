@@ -667,9 +667,34 @@
 							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>
 						 			</tr>
 									<tr height="5"><td></td></tr>
-						 			
+									<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
+				        			<tr height="10"><td class="text">&nbsp;</td> </tr>
 								</table>
 								</td>
+						</tr>
+						
+						<tr>
+							<td >
+				                <table width="95%" align="left" border="0" cellspacing="0" cellpadding="0">
+							 		<tr>
+							 			<td class="text12"><b>&nbsp;31.</b><span title="sift1" >Fritekst&nbsp;</span></td>
+							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift1" id="sift1" size="40" maxlength="45" value="${model.record.sift1}"></td>
+						 			</tr>
+						 			<tr>
+							 			<td class="text12"><span title="sift2" >&nbsp;</span></td>
+							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift2" id="sift2" size="40" maxlength="45" value="${model.record.sift2}"></td>
+						 			</tr>
+						 			<tr height="3"><td></td></tr>
+						 			<tr>
+							 			<td class="text12"><b>&nbsp;44.</b><span title="sift3" >Fritekst&nbsp;</span></td>
+							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift3" id="sift3" size="40" maxlength="45" value="${model.record.sift3}"></td>
+						 			</tr>
+						 			<tr>
+							 			<td class="text12"><span title="sift4" >&nbsp;</span></td>
+							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift4" id="sift4" size="40" maxlength="45" value="${model.record.sift4}"></td>
+						 			</tr>
+							 	</table>		
+							</td>						
 						</tr>
 		           		<tr height="20"><td></td></tr>
 
@@ -1070,6 +1095,30 @@
 					        </tr>
    					        <tr height="10"><td class="text">&nbsp;</td> </tr>
 					        
+					        <tr>						
+								<td class="text12" ><span title="sikdh">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Havn</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikdh" id="sikdh" size="5" maxlength="4" value="${model.record.sikdh}">
+								</td>
+							</tr>
+							<tr>						
+								<td class="text12" ><span title="sidtg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dato</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sidtg" id="sidtg" size="12" maxlength="10" value="${model.record.sidtg}">
+								</td>
+							</tr>	
+							<tr>						
+								<td class="text12" ><span title="sitll">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Løpenr</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sitll" id="sitll" size="6" maxlength="5" value="${model.record.sitll}">
+								</td>
+							</tr>	
+							<tr>						
+								<td class="text12" ><span title="sitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eksp.</span></td>
+			 					<td class="text12">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sitle" id="sitle" size="5" maxlength="4" value="${model.record.sitle}">
+								</td>
+							</tr>	
 
 						</table>
 						</td>
