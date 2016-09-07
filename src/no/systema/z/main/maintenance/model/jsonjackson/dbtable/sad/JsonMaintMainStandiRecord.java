@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
-
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 /**
@@ -15,6 +15,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * 
  */
 public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	
 	private String sist = null;                             
 	public void setSist (String value){ this.sist = value;   }   
@@ -119,6 +120,16 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public void setSibel1 (String value){ this.sibel1 = value;   }   
 	public String getSibel1 (){ return this.sibel1;   }  
 	
+	private String sibel1NO = null;                                
+	public void setSibel1NO (String value){ this.sibel1NO = value;   }   
+	public String getSibel1NO (){
+		if(this.sibel1!=null && !"".equals(this.sibel1)){
+			this.sibel1NO = this.numberFormatter.getFormattedEU(this.sibel1);
+		}
+		return this.sibel1NO;  
+	}  
+	
+	
 	private String sival2 = null;                                
 	public void setSival2 (String value){ this.sival2 = value;   }   
 	public String getSival2 (){ return this.sival2;   }  
@@ -126,6 +137,15 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	private String sibel2 = null;                                
 	public void setSibel2 (String value){ this.sibel2 = value;   }   
 	public String getSibel2 (){ return this.sibel2;   }  
+	
+	private String sibel2NO = null;                                
+	public void setSibel2NO (String value){ this.sibel2NO = value;   }   
+	public String getSibel2NO (){
+		if(this.sibel2!=null && !"".equals(this.sibel2)){
+			this.sibel2NO = this.numberFormatter.getFormattedEU(this.sibel2);
+		}
+		return this.sibel2NO;  
+	}  
 	
 	private String siftg2 = null;                                
 	public void setSiftg2 (String value){ this.siftg2 = value;   }   
@@ -169,9 +189,28 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public void setSibel3 (String value){ this.sibel3 = value;   }   
 	public String getSibel3 (){ return this.sibel3;   }  
 	
+	
+	private String sibel3NO = null;                                
+	public void setSibel3NO (String value){ this.sibel3NO = value;   }   
+	public String getSibel3NO (){
+		if(this.sibel3!=null && !"".equals(this.sibel3)){
+			this.sibel3NO = this.numberFormatter.getFormattedEU(this.sibel3);
+		}
+		return this.sibel3NO;  
+	}  
+	
 	private String sivku = null;                                
 	public void setSivku (String value){ this.sivku = value;   }   
 	public String getSivku (){ return this.sivku;   }  
+	
+	private String sivkuNO = null;                                
+	public void setSivkuNO (String value){ this.sivkuNO = value;   }   
+	public String getSivkuNO (){
+		if(this.sivku!=null && !"".equals(this.sivku)){
+			this.sivkuNO = this.numberFormatter.getFormattedEU(this.sivku);
+		}
+		return this.sivkuNO;  
+	}  
 	
 	private String sitst = null;                                
 	public void setSitst (String value){ this.sitst = value;   }   

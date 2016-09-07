@@ -599,14 +599,86 @@
 						 	</table>
 	            		</td>
 		           		</tr>
+		           		<tr height="10"><td></td></tr>
+		           		
+		           		<tr>
+				            <td >
+				                <table width="95%" align="left" border="0" cellspacing="0" cellpadding="0">
+							 		<tr>
+							 			<td class="text12">
+							 				<b>&nbsp;22.</b>
+							 				<span title="sibel3" id="v_sibel3" class="validation">Fakturasum&nbsp;</span>
+							 			</td>
+							 			<td align="left" >
+							 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue"  name="sibel3" id="sibel3" size="20" maxlength="13" value="${model.record.sibel3NO}">				 				
+							 			</td>
+							 			<td class="text12" align="left">
+							 				&nbsp;
+							 				<span title="sival3" id="v_sival3" class="validation">Valuta</span>
+							 				<%-- Note: onChange event in jQuery for this currency list --%>
+							 				<select class="inputTextMediumBlue" name="sival3" id="sival3" >
+							 				  <option value="">-velg-</option>	
+							 				  <c:forEach var="record" items="${model.currencyCodeList}" >
+						 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival3 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
+											  </c:forEach>  
+											</select>
+											<a tabindex="-1" id="sival3IdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
+											
+						 				</td>
+					 				</tr>
+					 				<tr>
+						 				<td class="text12">
+						 					<b>&nbsp;23.</b><span title="sivku">Kurs&nbsp;</span>
+							 			</td>
+							 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue"  name="sivku" id="sivku" size="10" maxlength="7" value="${model.record.sivkuNO}"></td>
+							 			
+							 			<td class="text12" align="left" >&nbsp;
+							 				<img onMouseOver="showPop('24_info');" onMouseOut="hidePop('24_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 				<b>24.</b><span title="sitst">Tr.type</span>
+							 				<select class="inputTextMediumBlueMandatoryField" name="sitst" id="sitst" >
+							 				  <option value="">-velg-</option>	
+							 				  <option value="1" <c:if test="${model.record.sitst == '1'}"> selected </c:if> >1</option>	
+							 				  <option value="2" <c:if test="${model.record.sitst == '2'}"> selected </c:if> >2</option>	
+							 				  <option value="3" <c:if test="${model.record.sitst == '3'}"> selected </c:if> >3</option>	
+							 				  <option value="9" <c:if test="${model.record.sitst == '9'}"> selected </c:if> >9</option>	
+							 				</select>
+							 				<div class="text11" style="position: relative;" align="left">
+							 				<span style="position:absolute; top:2px; width:250px;" id="24_info" class="popupWithInputText text11"  >
+								           		<b>24.&nbsp;Transaksjonstype</b><br/><br/>
+												Oppgi med kode:
+												<ul>
+													<li><b>1</b>&nbsp;Kjøp i fast regning</li>
+													<li><b>2</b>&nbsp;Konsignasjon/Kommisjon</li>
+													<li><b>3</b>&nbsp;Leie (herunder leasing)Lån</li>
+													<li><b>9</b>&nbsp;Annet</li>
+												</ul>
+											</span>
+											</div>
+										</td>
+					 				</tr>
+					 				<tr height="5"><td></td></tr>
+					 				<tr>
+						 				<td class="text12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						 					<span title="factor">Faktor&nbsp;</span>
+							 			</td>
+							 			<%-- this field is only used via Ajax since there is no database field. It is used to disclosed a factor when changing the currency --%>
+							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>
+						 			</tr>
+									<tr height="5"><td></td></tr>
+						 			
+								</table>
+								</td>
+						</tr>
 		           		<tr height="20"><td></td></tr>
 
 						</table>
 						</td>
 						
-						<%-- RIGH SIDE  --%>
+						<%-- RIGHT SIDE  --%>
 						<td width="50%" valign="top">
-						<table width="100%" cellspacing="1" border="1" align="left">
+						<table width="100%" cellspacing="1" border="0" align="left">
 							<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('15_info');" onMouseOut="hidePop('15_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -892,12 +964,12 @@
 							<tr>
 								<td class="text12" ><span title="sibel1/sival1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beløp tollb.frakt</span></td>
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${model.record.sibel1}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${model.record.sibel1NO}">
 			 						<select name="sival1" id="sival1">
 				 						<option value="">-velg-</option>
-					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival1 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
-										</c:forEach>  
+					 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
+					 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival1 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
+									  	</c:forEach>  
 									</select>
 									<a tabindex="-1" id="sival1IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
@@ -944,9 +1016,9 @@
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2}">
 			 						<select name="sival2" id="sival2">
 				 						<option value="">-velg-</option>
-					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival2 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
-										</c:forEach>  
+					 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
+					 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival2 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
+									  	</c:forEach> 
 									</select>
 									<a tabindex="-1" id="sival2IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >

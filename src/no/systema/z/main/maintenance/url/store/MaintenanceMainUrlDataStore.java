@@ -67,7 +67,7 @@ public final class MaintenanceMainUrlDataStore {
 	//--------------------------
 	//[3] GUI lists drop downs
 	//--------------------------
-	//static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA14R_GET_TODOPOSTNR_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA14R_guipostnr.do";
+	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT02R.do";
 	
 	
 }

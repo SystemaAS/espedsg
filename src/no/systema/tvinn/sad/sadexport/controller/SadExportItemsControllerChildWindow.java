@@ -178,12 +178,14 @@ public class SadExportItemsControllerChildWindow {
 			return this.loginView;
 			
 		}else{
-			String vkod = request.getParameter("vkod");  
+			String vkod = request.getParameter("vkod"); 
+			
 			List<JsonSadExportTolltariffKundensRegisterVarukodRecord> list = new ArrayList<JsonSadExportTolltariffKundensRegisterVarukodRecord>();
 			if("POST".equals(request.getMethod())){
-				if(vkod!=null && !"".equals(vkod)){
+				//Otherwise could be millions of records. NOTE: wildcard on vkod should be implemented on the service side
+				//COVI TODO ta bort efter demo if((vkod!=null && !"".equals(vkod)) && (senderId!=null && !"".equals(senderId)) ){
 					list = this.getKundVareRegList(appUser, senderId, vkod);
-				}
+				//}
 			}
 			model.put("kundensVareRegList", list);
 			model.put("vkod", vkod);

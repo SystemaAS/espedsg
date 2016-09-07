@@ -110,6 +110,33 @@ public class NumberFormatterLocaleAware {
 	  * @param sourceNumber
 	  * @return
 	  */
+	 public String getFormattedEU(String sourceNumber){
+		String retval = sourceNumber;
+		
+		if(sourceNumber!=null && !"".equals(sourceNumber)){
+			 retval = sourceNumber.replace(".", ",");
+		}
+		 return retval;
+	 }
+	 /**
+	  * 
+	  * @param sourceNumber
+	  * @return
+	  */
+	 public String getFormattedUSA(String sourceNumber){
+		String retval = sourceNumber;
+		
+		if(sourceNumber!=null && !"".equals(sourceNumber)){
+			 retval = sourceNumber.replace(",", ".");
+		}
+		 return retval;
+	 }
+	 
+	 /**
+	  * 
+	  * @param sourceNumber
+	  * @return
+	  */
 	 public Integer getInteger(String sourceNumber){
 		 Integer retval = 0;
 		 try{

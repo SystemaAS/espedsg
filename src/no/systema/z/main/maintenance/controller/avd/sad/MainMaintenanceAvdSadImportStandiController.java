@@ -27,15 +27,16 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainStandiService;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
+
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.MaintMainKodtaValidator;
 import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
 
+import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
+import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
+import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 /**
  * Gateway to the Main Maintenance Application
@@ -53,7 +54,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	/**
 	 * 
 	 * @param user
@@ -183,6 +184,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
 			}
+			this.populateDropDowns(model, appUser.getUser());
 			model.put("action", action);
 			model.put("avd", avd);
 			model.put("updateId", updateId);
@@ -193,6 +195,16 @@ public class MainMaintenanceAvdSadImportStandiController {
 			return successView;
 			
 		}
+	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @param applicationUser
+	 */
+	private void populateDropDowns(Map model, String applicationUser){
+		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		
 	}
 	
 	/**
@@ -251,6 +263,9 @@ public class MainMaintenanceAvdSadImportStandiController {
 	        	list = (List)container.getList();
 	        	for(JsonMaintMainStandiRecord tmp : list){
 	        		record = tmp;
+	        		logger.info("sibel3:" + record.getSibel3());
+	        		logger.info("sibel3NO:" + record.getSibel3NO());
+	        		
 	        	}
 	        }
     	}
@@ -296,6 +311,38 @@ public class MainMaintenanceAvdSadImportStandiController {
     	return retval;
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @return
+	 */
+	private List<JsonMaintKodtvaRecord> populateDropDownCurrency(String applicationUser){
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser + "&distinct=1");
+		
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintKodtvaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintKodtvaContainer container = this.maintKodtvaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintKodtvaRecord record : list){
+	        		//logger.info("A" + record.getKvakod());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -311,6 +358,14 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintMainStandiService (MaintMainStandiService value){ this.maintMainStandiService = value; }
 	public MaintMainStandiService getMaintMainStandiService(){ return this.maintMainStandiService; }
+	
+	
+	@Qualifier ("maintKodtvaService")
+	private MaintKodtvaService maintKodtvaService;
+	@Autowired
+	@Required
+	public void setMaintKodtvaService (MaintKodtvaService value){ this.maintKodtvaService = value; }
+	public MaintKodtvaService getMaintKodtvaService(){ return this.maintKodtvaService; }
 	
 		
 }
