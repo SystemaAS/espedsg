@@ -667,13 +667,23 @@
 							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>
 						 			</tr>
 									<tr height="5"><td></td></tr>
-									<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
-				        			<tr height="10"><td class="text">&nbsp;</td> </tr>
 								</table>
 								</td>
 						</tr>
 						
-						<tr>
+						<tr height="2">
+						<td>
+						<table width="95%" align="left" border="0" cellspacing="0" cellpadding="0">
+				 		<tr>
+							<td style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> 
+						
+						</tr>
+						<tr height="10"><td class="text">&nbsp;</td> </tr>
+						</table>
+						</td>
+						</tr>
+						
+	        			<tr>
 							<td >
 				                <table width="95%" align="left" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
