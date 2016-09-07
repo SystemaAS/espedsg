@@ -63,7 +63,6 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD IMPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_SYFTAAAR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAR_U.do";
 	
-	
 	//--------------------------
 	//[3] GUI lists drop downs
 	//--------------------------

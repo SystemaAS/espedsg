@@ -88,5 +88,7 @@ public final class MainMaintenanceConstants {
 	public static final String ASPECT_ERROR_META_INFO = "errorInfo";
 	
 
+	//
+	public static final String CODE_MGR_CURRENCY_LIST = "currencyCodeList";
 	   
 }

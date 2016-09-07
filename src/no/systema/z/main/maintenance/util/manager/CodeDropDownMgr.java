@@ -9,6 +9,8 @@ import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMai
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+
 
 import org.apache.log4j.Logger;
 
@@ -52,7 +54,7 @@ public class CodeDropDownMgr {
 	        	}
 	        }
     	}
-    	model.put("currencyCodeList", list); 	
+    	model.put(MainMaintenanceConstants.CODE_MGR_CURRENCY_LIST, list); 	
 	}
 	
 }

@@ -32,11 +32,10 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMain
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
+import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
-import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
-import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
+
 
 /**
  * Gateway to the Main Maintenance Application
@@ -310,38 +309,7 @@ public class MainMaintenanceAvdSadImportStandiController {
     	}    	
     	return retval;
 	}
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @return
-	 */
-	private List<JsonMaintKodtvaRecord> populateDropDownCurrency(String applicationUser){
-		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL;
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user="+ applicationUser + "&distinct=1");
-		
-		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-    	//extract
-    	List<JsonMaintKodtvaRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintKodtvaContainer container = this.maintKodtvaService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintKodtvaRecord record : list){
-	        		//logger.info("A" + record.getKvakod());
-	        	}
-	        }
-    	}
-    	return list;
-    	
-	}
+
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
