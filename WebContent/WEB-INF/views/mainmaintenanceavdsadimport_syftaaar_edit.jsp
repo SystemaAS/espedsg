@@ -209,17 +209,15 @@
 							</td>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
 							<td class="text12">
-								<select name="s3039e" id="s3039e" class="inputTextMediumBlueMandatoryField">
-				  					<option value="">-velg-</option>				  					
-							  	</select>
+								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039e" id="s3039e" size="6" maxlength="6" value='${model.record.s3039e}'>
 							</td>	
 							<td class="text12" title="s3039eo1">SO:</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="s3039eo1" id="s3039eo1" size="6" maxlength="5" value='${model.record.s3039eo1}'>
+								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo1" id="s3039eo1" size="6" maxlength="6" value='${model.record.s3039eo1}'>
 							</td>
 							<td class="text12" title="s3039eo2">EB/RE:</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="s3039eo2" id="s3039eo2" size="6" maxlength="5" value='${model.record.s3039eo2}'>
+								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo2" id="s3039eo2" size="6" maxlength="6" value='${model.record.s3039eo2}'>
 							</td>
 						</tr>
 						<tr>	
@@ -237,7 +235,6 @@
 				  					<option value="">-velg-</option>
 				  					<option value="1"<c:if test="${ model.record.s0035 == '1'}"> selected </c:if> >1</option>
 				  					<option value="2"<c:if test="${ model.record.s0035 == '2'}"> selected </c:if> >2</option>
-				  					
 							  	</select>
 							</td>
 						</tr>
@@ -260,10 +257,12 @@
 								<input type="text" class="inputTextMediumBlue" name="s0010" id="s0010" size="20" maxlength="35" value='${model.record.s0010}'>
 							</td>
 						
-							<td colspan="2" class="text12" title="todo"><font class="text12RedBold" >*</font>Skriv tollkvittering ved utleveringsattest</td>
+							<td colspan="2" class="text12" title="silv2"><font class="text12RedBold" >*</font>Skriv tollkvittering ved utleveringsattest</td>
 							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
-				  					
+								<select name="silv2" id="silv2" class="inputTextMediumBlueMandatoryField">
+				  					<option value="">-velg-</option>
+				  					<option value="J"<c:if test="${ model.record.silv2 == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ model.record.silv2 == 'N'}"> selected </c:if> >Nej</option>
 							  	</select>
 							</td>
 						</tr>
