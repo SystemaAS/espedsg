@@ -1276,7 +1276,7 @@ END override jQuery elements
 	-webkit-appearance: none;
 }
 .formFrameTitaniumWhite{
-	border: 1px solid #4169E1;
+	border: 1px solid #FF6600;
 	/*border: 0px solid #ccc;*/
 	-webkit-border-bottom-right-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
@@ -1299,7 +1299,7 @@ END override jQuery elements
 }
 
 .formFrameTitaniumWhiteRoundBottom{
-	border: 0.5px solid #4169E1;
+	border: 0.5px solid #FF6600;
 	/*border: 0px solid #ccc;*/
 	-webkit-border-bottom-right-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
@@ -1309,7 +1309,7 @@ END override jQuery elements
 	border-bottom-left-radius: 5px;
 	padding: 2px 4px;
 	/*background-color:#FCFFF0;*/
-	background-color:#FFFFFF;
+	background-color:#FEFCFF;
 	outline: 0;
 	-webkit-appearance: none;
 	

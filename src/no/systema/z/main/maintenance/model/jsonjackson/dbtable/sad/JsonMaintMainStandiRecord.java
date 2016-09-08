@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
-import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 /**
@@ -15,7 +14,6 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * 
  */
 public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
-	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	
 	private String sist = null;                             
 	public void setSist (String value){ this.sist = value;   }   
@@ -34,12 +32,10 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public String getSitdn (){ return this.sitdn;   }  
 	
 	private String sidty = null;                                
-	public String getSidtyPropertyName (){ return "sidty"; }
 	public void setSidty (String value){ this.sidty = value;   }   
 	public String getSidty (){ return this.sidty;   }  
 	
 	private String sidp = null;                                
-	public String getSidpPropertyName (){ return "sidp"; }
 	public void setSidp (String value){ this.sidp = value;   }   
 	public String getSidp (){ return this.sidp;   }  
 	
@@ -314,6 +310,18 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	private String sidt = null;                                
 	public void setSidt (String value){ this.sidt = value;   }   
 	public String getSidt (){ return this.sidt;   }  
+	
+	
+	private String sidtNO = null; 
+	public void setSidtNO (String value){ this.sidtNO = value;   }   
+	public String getSidtNO() {
+		if (sidtNO != null) { // from UI
+			return sidtNO;
+		} else { 				// from DB
+			return this.dateFormatter.convertToDate_NO(this.sidt);
+		}
+	}
+	
 	
 	private String sibel5 = null;                                
 	public void setSibel5 (String value){ this.sibel5 = value;   }   

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 
 /**
@@ -26,11 +27,12 @@ import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
  */
 public abstract class JsonAbstractGrandFatherRecord {
 	protected TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
-
+	protected NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware(); //surprise pofit ;-)
+	
 	public abstract List<Field> getFields() throws Exception;
 
 	/**
-	 * Convenience method when debugging, exposing JSON record values.
+	 * Convenient method when debugging, exposing JSON record values.
 	 * 
 	 * @return JSON record name and values
 	 */

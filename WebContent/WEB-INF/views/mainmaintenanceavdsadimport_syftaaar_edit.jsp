@@ -134,9 +134,7 @@
 				</td>
 			</tr>
 			</c:if>
-	 	    
-	 	   
-	 	    
+	 	     
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
@@ -146,7 +144,8 @@
 						<input type="hidden" name="action" id=action value="${Xmodel.action}">
 						<table cellspacing="1" border="0" align="left">
 				    	    <tr>
-								<td class="text12" title="sidl"><font class="text12RedBold" >*</font>Bruke dataliste
+								<td class="text12" title="sidl"><font class="text12RedBold" >*</font>Bruk dataliste</td>
+								<td class="text12" >
 									<select name="sidl" id="sidl" class="inputTextMediumBlueMandatoryField">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.sidl == 'J'}"> selected </c:if> >Ja</option>
@@ -154,24 +153,21 @@
 					  					<option value="1"<c:if test="${ model.record.sidl == '1'}"> selected </c:if> >1</option>
 								  	</select>
 								</td>
-								<td class="text12" title="sia4">&nbsp;&nbsp;Format A4
+								<td class="text12" title="sia4">&nbsp;&nbsp;Format A4</td>
+								<td class="text12" >
 									<select name="sia4" id="sia4" class="inputTextMediumBlue">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.sia4 == 'J'}"> selected </c:if> >Ja</option>
 					  					<option value="N"<c:if test="${ model.record.sia4 == 'N'}"> selected </c:if> >Nej</option>
 								  	</select>
 								</td>	
-								<td class="text12" title="sitdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nrt.teller intern ref.
+								<td class="text12" title="sitdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nrt.teller intern ref.</td>
+								<td class="text12" >
 									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sitdn" id="sitdn" size="10" maxlength="7" value='${model.record.sitdn}'>
 								</td>
-								<td class="text12" title="sitolk">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Bruk kommunikasjon
-									<select name="sitolk" id="sitolk" class="inputTextMediumBlueMandatoryField">
-					  					<option value="">-velg-</option>
-					  					<option value="J"<c:if test="${ model.record.sitolk == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.sitolk == 'N'}"> selected </c:if> >Nej</option>
-								  	</select>
-								</td>
-								<td class="text12" title="siekst">&nbsp;&nbsp;Importere eksterne data
+								
+								<td class="text12" title="siekst">&nbsp;&nbsp;Importere eksterne data</td>
+								<td class="text12" >
 									<select name="siekst" id="siekst" class="inputTextMediumBlue">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.siekst == 'J'}"> selected </c:if> >Ja</option>
@@ -180,99 +176,193 @@
 								  	</select>
 								</td>
 							</tr>
-							
 							<tr>
-				 			<td class="text12" align="left">
-				 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>1.1</b><span title="sidty">Dekl.type&nbsp;</span>
-			 					<input type="text" class="inputTextMediumBlue" name="sidty" id="sidty" size="4" maxlength="2" value="${model.record.sidty}">
-			 					
-			 					<div class="text11" style="position: relative;" align="left">
-			 					<span style="position:absolute; top:2px; width:250px;" id="1_1_info" class="popupWithInputText text11"  >
-					           			<b>1.1 Dekl.type</b>
-					           			<ul>
-					           				<li><b>EU</b> innførsel fra et EØS,EFTA eller EU-land</li>
-					           				<li><b>IM</b> innførsel fra land som ikke er tilknyttet EØS, EFTA eller EU (tredjeland).
-					           				</li>
-					           			</ul>
-					           			<p>
-					           			KODEN KAN LEGGES INN SOM STANDARDVERDI PR.AVDELING. 
-					           			KAN OVERSTYRES UNDER DEKLARERINGEN.
-					           			</p>
-								</span>	
-								</div>	
-				 				
-			 				</td>
-			 				
-			 				<td class="text12" colspan="2">
-				 				<img onMouseOver="showPop('prosedyr_info');" onMouseOut="hidePop('prosedyr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				<b>1.2</b><span title="sidp">&nbsp;Eksped.type</span>
-				 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="sidp" id="sidp" size="4" maxlength="2" value="${model.record.sidp}">
-					 			
-					 			<div class="text11" style="position: relative;display:inline;" align="left">
-				 				<span style="position:absolute; top:5px; left:-130px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
-					           		<ul>
-					           			<li>todo</li>
-					           		</ul>
-								</span>
-								</div>
-			 				</td>
-			 			</tr>
-			 			<tr>
-			 				<td class="text12" align="center">
-					 				<span title="siski" id="v_siski" class="validation">Toll/Mva</span>
-					 				<select name="siski" id="siski" >
-				 						<option value="">-velg-</option>
-								  		<option value="S"<c:if test="${ model.record.siski == 'S'}"> selected </c:if> >S</option>
-								  		<option value="K"<c:if test="${ model.record.siski == 'K'}"> selected </c:if> >K</option>
-								  		<option value="I"<c:if test="${ model.record.siski == 'I'}"> selected </c:if> >I</option>
-									</select>
-					 				<div class="text11" style="position: relative;" align="left">
-					 				<span style="position:absolute; top:2px; width:250px;" id="tollMva_info" class="popupWithInputText text11" >
-					           			<b>Toll/Mva</b>
-					           			<br/><br/>
-					           			Dersom systemet ikke finner tollkreditt på det tastede kundenummeret, så må man angi hvem som skal betale TOLL/MVA.
-						           		<ul>
-						           			<li><b>S</b> = på faktura mot selger/avsender siden (flyttes autom. over på faktura)</li>
-					           				<li><b>K</b> = på faktura mot kjøper</li>
-						           			<li><b>I</b> = Ingen (Kunden kommer selv med sjekk på utlegget</li>
-						           		</ul>
-						           		<p>
-						           		KRAV TIL FELTET dersom kunde ikke har tollkreditt.
-						           		</p>
-									</span>
-									</div>
+								<td class="text12" title="sitolk"><font class="text12RedBold" >*</font>Bruk kommunikasjon</td>
+								<td class="text12" >
+									<select name="sitolk" id="sitolk" class="inputTextMediumBlueMandatoryField">
+					  					<option value="">-velg-</option>
+					  					<option value="J"<c:if test="${ model.record.sitolk == 'J'}"> selected </c:if> >Ja</option>
+					  					<option value="N"<c:if test="${ model.record.sitolk == 'N'}"> selected </c:if> >Nej</option>
+								  	</select>
 								</td>
-			 				
-				 				<td class="text12" colspan="2">
-				 					<img onMouseOver="showPop('ens_flag_info');" onMouseOut="hidePop('ens_flag_info'); "style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 					<span title="sikddk">&nbsp;Dagsopp./Kontant</span>
-					 				<select name="sikddk" id="sikddk" >
-					 				  <option selected value="">-velg-</option>
-									  <option value="D"<c:if test="${model.record.sikddk == 'D'}"> selected </c:if> >D</option>
-									  <option value="K"<c:if test="${model.record.sikddk == 'K'}"> selected </c:if> >K</option>
-									</select>
-					 				
-					 				<div class="text11" style="position: relative;" align="left">
-					 				<span style="position:absolute; top:2px; width:250px;" id="ens_flag_info" class="popupWithInputText text11"  >
-							           		<b>Dagsoppgjør/Kontant</b>
-							           		<p>
-							           		Kodevalg for hvilke tekst man ønsker på deklarasj. dersom S/K/I er brukt.
-							           		</p>
-							           		<ul>
-							           			<li><b>D</b> = Dagsoppgjør</li>
-							           			<li><b>K</b> = Kontant</li>						           			
-							           		</ul>
-									</span>
-									</div>
-				 				</td>
-			 			
-			 			
-			 			</tr>
-							
-						<tr height="3"><td>&nbsp;</td></tr>
-							
+							</tr>
+							<tr height="5"><td></td></tr>
 						</table>
+				</td>
+			</tr>
+			
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+					
+					<table class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
+						<tr><td class="text12"><b>Kommunikasjon </b></td></tr>
+						<tr height="5"><td></td></tr>
+			    	    <tr>
+							<td class="text12" title="todo">Vente med å skrive ut melding </td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlue">
+				  					<option value="">-velg-</option>
+				  					<option value="J"<c:if test="${ model.record.sidl == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ model.record.sidl == 'N'}"> selected </c:if> >Nej</option>
+							  	</select>
+							</td>
+							<td class="text12" title="todo"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
+				  					<option value="">-velg-</option>				  					
+							  	</select>
+							</td>	
+							<td class="text12" title="todo">SO:</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+							</td>
+							<td class="text12" title="todo">EB/RE:</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+							</td>
+						</tr>
+						<tr>	
+							<td class="text12" title="todo">Foretaksnummer</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+							</td>
+						
+							<td class="text12" title="todo"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning </td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
+				  					
+							  	</select>
+							</td>
+						
+							<td class="text12" title="todo"><font class="text12RedBold" >*</font>UtvekslingsId Tollvesenet </td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
+				  					
+							  	</select>
+							</td>
+							
+							<td class="text12" title="todo">Applikasjonsreferanse</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+							</td>
+							<td class="text12" title="todo">Testindikator</td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlue">
+				  					
+							  	</select>
+							</td>
+						</tr>
+						<tr>
+							
+						
+							<td colspan="2" class="text12" title="todo"><font class="text12RedBold" >*</font>Skriv tollkvittering ved utleveringsattest</td>
+							<td class="text12">
+								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
+				  					
+							  	</select>
+							</td>
+						</tr>
+						<tr height="5"><td></td></tr>
+					</table>
+				</td>
+			</tr>
+			<tr height="20"><td></td></tr>
+			
+			<tr>
+				<td width="5%">&nbsp;</td>
+				<td>
+				<table width="45%" cellspacing="1" border="0" align="left">
+				<tr>
+	 				<td class="text12" >
+	 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+ 					<b>1.1</b><span title="sidty">Dekl.type&nbsp;</span>
+ 					</td>
+ 					<td class="text12" >
+ 					<input type="text" class="inputTextMediumBlue" name="sidty" id="sidty" size="4" maxlength="2" value="${model.record.sidty}">
+ 					
+ 					<div class="text11" style="position: relative;" align="left">
+ 					<span style="position:absolute; top:2px; width:250px;" id="1_1_info" class="popupWithInputText text11"  >
+		           			<b>1.1 Dekl.type</b>
+		           			<ul>
+		           				<li><b>EU</b> innførsel fra et EØS,EFTA eller EU-land</li>
+		           				<li><b>IM</b> innførsel fra land som ikke er tilknyttet EØS, EFTA eller EU (tredjeland).
+		           				</li>
+		           			</ul>
+		           			
+					</span>	
+					</div>	
+	 				
+	 				</td>
+	 				
+	 				<td class="text12">
+		 				<img onMouseOver="showPop('prosedyr_info');" onMouseOut="hidePop('prosedyr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		 				<b>1.2</b><span title="sidp">&nbsp;Eksped.type</span>
+		 			</td>
+		 			<td>	
+		 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="sidp" id="sidp" size="4" maxlength="2" value="${model.record.sidp}">
+			 			
+			 			<div class="text11" style="position: relative;display:inline;" align="left">
+		 				<span style="position:absolute; top:5px; left:-130px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
+			           		<ul>
+			           			<li>todo</li>
+			           		</ul>
+						</span>
+						</div>
+	 				</td>
+	 			</tr>
+ 				<tr>
+ 					<td class="text12">&nbsp;&nbsp;&nbsp;
+		 				<span title="siski" id="v_siski" class="validation">Toll/Mva</span>
+		 			</td>
+		 			<td class="text12" >	
+		 				<select name="siski" id="siski" >
+	 						<option value="">-velg-</option>
+					  		<option value="S"<c:if test="${ model.record.siski == 'S'}"> selected </c:if> >S</option>
+					  		<option value="K"<c:if test="${ model.record.siski == 'K'}"> selected </c:if> >K</option>
+					  		<option value="I"<c:if test="${ model.record.siski == 'I'}"> selected </c:if> >I</option>
+						</select>
+		 				<div class="text11" style="position: relative;" align="left">
+		 				<span style="position:absolute; top:2px; width:250px;" id="tollMva_info" class="popupWithInputText text11" >
+		           			<b>Toll/Mva</b>
+		           			<br/><br/>
+		           			Dersom systemet ikke finner tollkreditt på det tastede kundenummeret, så må man angi hvem som skal betale TOLL/MVA.
+			           		<ul>
+			           			<li><b>S</b> = på faktura mot selger/avsender siden (flyttes autom. over på faktura)</li>
+		           				<li><b>K</b> = på faktura mot kjøper</li>
+			           			<li><b>I</b> = Ingen (Kunden kommer selv med sjekk på utlegget</li>
+			           		</ul>
+			
+						</span>
+						</div>
+					</td>
+ 				
+	 				<td class="text12" >
+	 					<img onMouseOver="showPop('ens_flag_info');" onMouseOut="hidePop('ens_flag_info'); "style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+	 					<span title="sikddk">&nbsp;Dagsopp./Kontant</span>
+	 				</td>
+	 				<td class="text12" >	
+		 				<select name="sikddk" id="sikddk" >
+		 				  <option selected value="">-velg-</option>
+						  <option value="D"<c:if test="${model.record.sikddk == 'D'}"> selected </c:if> >D</option>
+						  <option value="K"<c:if test="${model.record.sikddk == 'K'}"> selected </c:if> >K</option>
+						</select>
+		 				
+		 				<div class="text11" style="position: relative;" align="left">
+		 				<span style="position:absolute; top:2px; width:250px;" id="ens_flag_info" class="popupWithInputText text11"  >
+				           		<b>Dagsoppgjør/Kontant</b>
+				           		<p>
+				           		Kodevalg for hvilke tekst man ønsker på deklarasj. dersom S/K/I er brukt.
+				           		</p>
+				           		<ul>
+				           			<li><b>D</b> = Dagsoppgjør</li>
+				           			<li><b>K</b> = Kontant</li>						           			
+				           		</ul>
+						</span>
+						</div>
+	 				</td>
+ 				</tr>
+				</table>
 				</td>
 			</tr>
 			
@@ -591,6 +681,18 @@
 									            <td align="left"><input  type="text" class="inputTextMediumBlue" name="sinad" id="sinad" size="35" maxlength="30" value="${model.record.sinad}"></td>
 									            <td align="left"><input  type="text" class="inputTextMediumBlue" name="sitlf" id="sitlf" size="15" maxlength="12" value="${model.record.sitlf}"></td>
 									        </tr>
+									        <tr height="10"><td></td></tr>
+									        <tr>
+									            <td class="text12" align="left" >&nbsp;&nbsp;
+									            <span title="sidst">Sted</span></td>
+									            <td class="text12" align="left" >&nbsp;&nbsp;
+									            <span title="sidt">Reg.dato</span></td>
+									        </tr>
+									        <tr>
+									            <td align="left"><input  type="text" class="inputTextMediumBlue" name="sidst" id="sidst" size="16" maxlength="15" value="${model.record.sidst}"></td>
+									            <td align="left"><input readonly type="text" class="inputTextReadOnly" name="sidt" id="sidt" size="8" maxlength="6" value="${model.record.sidtNO}"></td>
+									        </tr>
+									        
 									        
 								        </table>
 							      	</td>
@@ -1111,6 +1213,7 @@
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikdh" id="sikdh" size="5" maxlength="4" value="${model.record.sikdh}">
 								</td>
 							</tr>
+							<%-- N/A (ref. samtal med Trond )
 							<tr>						
 								<td class="text12" ><span title="sidtg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dato</span></td>
 			 					<td class="text12">
@@ -1129,7 +1232,7 @@
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sitle" id="sitle" size="5" maxlength="4" value="${model.record.sitle}">
 								</td>
 							</tr>	
-
+							 --%>
 						</table>
 						</td>
 					</tr>
