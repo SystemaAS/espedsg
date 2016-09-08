@@ -195,7 +195,7 @@
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
 					
-					<table class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
+					<table width="95%" class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
 						<tr><td class="text12"><b>Kommunikasjon </b></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    <tr>
@@ -207,54 +207,58 @@
 				  					<option value="N"<c:if test="${ model.record.sidl == 'N'}"> selected </c:if> >Nej</option>
 							  	</select>
 							</td>
-							<td class="text12" title="todo"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
+							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
 							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
+								<select name="s3039e" id="s3039e" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>				  					
 							  	</select>
 							</td>	
-							<td class="text12" title="todo">SO:</td>
+							<td class="text12" title="s3039eo1">SO:</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+								<input type="text" class="inputTextMediumBlue" name="s3039eo1" id="s3039eo1" size="6" maxlength="5" value='${model.record.s3039eo1}'>
 							</td>
-							<td class="text12" title="todo">EB/RE:</td>
+							<td class="text12" title="s3039eo2">EB/RE:</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+								<input type="text" class="inputTextMediumBlue" name="s3039eo2" id="s3039eo2" size="6" maxlength="5" value='${model.record.s3039eo2}'>
 							</td>
 						</tr>
 						<tr>	
-							<td class="text12" title="todo">Foretaksnummer</td>
+							<td class="text12" title="sirg">Foretaksnummer</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
+								<input readonly type="text" class="inputTextReadOnly" name="sirg" id="sirg" size="11" maxlength="10" value='${model.record.sirg}'>
 							</td>
-						
-							<td class="text12" title="todo"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning </td>
+							<td class="text12" title="s0026">Applikasjonsreferanse</td>
 							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
-				  					
-							  	</select>
+								<input type="text" class="inputTextMediumBlue" name="s0026" id="s0026" size="11" maxlength="10" value='${model.record.s0026}'>
 							</td>
-						
-							<td class="text12" title="todo"><font class="text12RedBold" >*</font>UtvekslingsId Tollvesenet </td>
+							<td class="text12" title="s0035">Testindikator</td>
 							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlueMandatoryField">
-				  					
-							  	</select>
-							</td>
-							
-							<td class="text12" title="todo">Applikasjonsreferanse</td>
-							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="11" maxlength="10" value='${Xmodel.record.todo}'>
-							</td>
-							<td class="text12" title="todo">Testindikator</td>
-							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlue">
+								<select name="s0035" id="s0035" class="inputTextMediumBlue">
+				  					<option value="">-velg-</option>
+				  					<option value="1"<c:if test="${ model.record.s0035 == '1'}"> selected </c:if> >1</option>
+				  					<option value="2"<c:if test="${ model.record.s0035 == '2'}"> selected </c:if> >2</option>
 				  					
 							  	</select>
 							</td>
 						</tr>
 						<tr>
-							
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning 
+								<a tabindex="-1" id="s0004IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="s0004" id="s0004" size="20" maxlength="35" value='${model.record.s0004}'>
+							</td>
+						
+							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtvekslingsId Tollvesenet 
+								<a tabindex="-1" id="s0010IdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
+							<td class="text12">
+								<input type="text" class="inputTextMediumBlue" name="s0010" id="s0010" size="20" maxlength="35" value='${model.record.s0010}'>
+							</td>
 						
 							<td colspan="2" class="text12" title="todo"><font class="text12RedBold" >*</font>Skriv tollkvittering ved utleveringsattest</td>
 							<td class="text12">

@@ -42,7 +42,7 @@
   	var applicationUserParam = jq('#applicationUser').val();
   	
   	rawId = rawId.replace("recordUpdate_", "");
-  	var record = rawId.split('_');
+  	var record = rawId.split('@');
 	var varenr = record[0];
 	var levenr = record[1];
 	

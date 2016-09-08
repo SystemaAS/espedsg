@@ -452,21 +452,21 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public void setS0035 (String value){ this.s0035 = value;   }   
 	public String getS0035 (){ return this.s0035;   }  
 	
-	private String s3039D = null;                                
-	public void setS3039D (String value){ this.s3039D = value;   }   
-	public String getS3039D (){ return this.s3039D;   }  
+	private String s3039d = null;                                
+	public void setS3039d (String value){ this.s3039d = value;   }   
+	public String getS3039d (){ return this.s3039d;   }  
 	
-	private String s3039E = null;                                
-	public void setS3039E (String value){ this.s3039E = value;   }   
-	public String getS3039E (){ return this.s3039E;   }  
+	private String s3039e = null;                                
+	public void setS3039e (String value){ this.s3039e = value;   }   
+	public String getS3039e (){ return this.s3039e;   }  
 	
-	private String s3039E01 = null;                                
-	public void setS3039E01 (String value){ this.s3039E01 = value;   }   
-	public String getS3039E01 (){ return this.s3039E01;   }  
+	private String s3039eo1 = null;                                
+	public void setS3039eo1 (String value){ this.s3039eo1 = value;   }   
+	public String getS3039eo1 (){ return this.s3039eo1;   }  
 	
-	private String s3039E02 = null;                                
-	public void setS3039E02 (String value){ this.s3039E02 = value;   }   
-	public String getS3039E02 (){ return this.s3039E02;   }  
+	private String s3039eo2 = null;                                
+	public void setS3039eo2 (String value){ this.s3039eo2 = value;   }   
+	public String getS3039eo2 (){ return this.s3039eo2;   }  
 	
 	private String sia4 = null;                                
 	public void setSia4 (String value){ this.sia4 = value;   }   

@@ -41,8 +41,14 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiRecord;
+
+
+
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
@@ -141,6 +147,67 @@ public class MainMaintenanceControllerChildWindow {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenance_childwindow_edi.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView searchEdi(HttpSession session, HttpServletRequest request){
+		logger.info("Inside searchEdi");
+		
+		ModelAndView successView = new ModelAndView("mainmaintenance_childwindow_edi");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		logger.info(callerType);
+		String name = request.getParameter("navn");
+		String id = request.getParameter("id");
+		
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		if(appUser==null){
+			return this.loginView;
+				
+		}else{
+			Collection<JsonMaintMainEdiiRecord> list = new ArrayList<JsonMaintMainEdiiRecord>();
+			//prepare the access CGI with RPG back-end
+			
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL;
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchEdi(appUser.getUser(), id, name);
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//debugger
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonMaintMainEdiiContainer container = this.maintMainEdiiService.getList(jsonPayload);
+	    		if(container!=null){
+	    			list = container.getList();
+	    			for(JsonMaintMainEdiiRecord  record : list){
+	    				
+	    			}
+	    		}
+	    	}
+
+			
+			model.put("list", list);
+			
+			model.put("id", id);
+			model.put("navn", name);
+			model.put("ctype", callerType);
+			
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;	
+		  	
+		}
+		
+	}
+	
  	
 	/**
 	 * 
@@ -169,6 +236,29 @@ public class MainMaintenanceControllerChildWindow {
 		  return sb.toString();
 	  }
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param name
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForSearchEdi(String applicationUser, String id, String name){
+		  StringBuffer sb = new StringBuffer();
+		  sb.append("user=" + applicationUser);
+		  if(id!=null && !"".equals(id) && name!=null && !"".equals(name)){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "inid=" + id );
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "inna=" + name );
+			  
+		  }else if (id!=null && !"".equals(id)){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "inid=" + id );
+		  }else if (name!=null && !"".equals(name)){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "inna=" + name );
+		  }
+		  
+		  return sb.toString();
+	  }
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -184,6 +274,14 @@ public class MainMaintenanceControllerChildWindow {
 	@Required	
 	public void setMaintMainCundfService(MaintMainCundfService value){this.maintMainCundfService = value;}
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
+	
+	
+	@Qualifier 
+	private MaintMainEdiiService maintMainEdiiService;
+	@Autowired
+	@Required	
+	public void setMaintMainEdiiService(MaintMainEdiiService value){this.maintMainEdiiService = value;}
+	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
 }
 
