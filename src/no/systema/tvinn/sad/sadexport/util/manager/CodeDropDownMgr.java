@@ -3,7 +3,10 @@
  */
 package no.systema.tvinn.sad.sadexport.util.manager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,16 +14,18 @@ import org.apache.log4j.Logger;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
-
+import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.model.external.url.UrlTvinnSadTolltariffenObject;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
-import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.sadexport.util.SadExportConstants;
-import no.systema.tvinn.sad.sadimport.util.SadImportConstants;
-
-import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
+import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Container;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Record;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
+import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 
 
 /**
@@ -57,6 +62,8 @@ import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulation
 
 public class CodeDropDownMgr {
 	private static final Logger logger = Logger.getLogger(CodeDropDownMgr.class.getName());
+	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+
 	//
 	
 	public static final String CODE_1_EKSPEDISJONSTYPER_IMPORT = "1";
@@ -244,4 +251,40 @@ public class CodeDropDownMgr {
 		model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST, list);
 		
 	}
+	
+	/**
+	 * Populate model with available country codes, derived from @see {@link TvinnSadMaintenanceExportUrlDataStore}
+	 * 
+	 * model attribute: countryCodeList
+	 * 
+	 * @param urlCgiProxyService
+	 * @param maintSadExportKodts6Service
+	 * @param model
+	 * @param applicationUser
+	 */
+	public void populateCurrencyCodesHtmlDropDownsSadExport(UrlCgiProxyService urlCgiProxyService, MaintSadExportKodts6Service maintSadExportKodts6Service, Map model, String applicationUser ){
+		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTS6R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser);
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintSadExportKodts6Record> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadExportKodts6Container container = maintSadExportKodts6Service.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadExportKodts6Record record : list){
+//	        		logger.info("record.getKs6pre()="+record.getKs6pre());
+	        	}
+	        }
+    	}
+    	model.put("countryCodeList", list); 	
+	}	
+	
+	
 }

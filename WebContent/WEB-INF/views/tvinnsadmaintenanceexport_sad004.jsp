@@ -218,7 +218,14 @@
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="9" maxlength="8" value='${model.record.sltanr}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sltn" id="sltn" size="2" maxlength="1" value='${model.record.sltn}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="pref" id="pref" size="2" maxlength="1" value='${model.record.pref}'></td>
+						<td >
+		            		<select class="inputTextMediumBlueMandatoryField" name="pref" id="pref">
+		 						<option value="">-velg-</option>
+			 				  	<c:forEach var="record" items="${model.countryCodeList}" >
+			 				  		<option value="${record.ks6pre}"<c:if test="${model.record.ks6pre == record.ks6pre}"> selected </c:if> >${record.ks6pre}</option>
+								</c:forEach>  
+							</select>
+						</td>											
 						<td ><input type="text" class="inputTextMediumBlue" name="slvekt" id="slvekt" size="13" maxlength="12" value='${model.record.slvekt}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="slpva" id="slpva" size="2" maxlength="1" value='${model.record.slpva}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="slsats" id="slsats" size="8" maxlength="7" value='${model.record.slsats}'></td>

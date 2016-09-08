@@ -5,6 +5,7 @@ package no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -13,8 +14,10 @@ import java.util.*;
  * @date May 27, 2016
  *
  */
-public class JsonMaintSadSadlRecord extends JsonAbstractGrandFatherRecord {
+public class JsonMaintSadSadlRecord extends JsonAbstractGrandFatherRecord implements Serializable{
 	
+	private static final long serialVersionUID = -2102828510223358217L;
+		
 	private String slstat = null;                                
 	public void setSlstat (String value){ this.slstat = value;   }   
 	public String getSlstat (){ return this.slstat;   }  

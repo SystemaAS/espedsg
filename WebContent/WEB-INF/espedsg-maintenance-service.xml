@@ -21,6 +21,11 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- ============================  -->
 	<bean id="maintKodtvaService" class="no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaServiceImpl"/>
 	<bean id="maintDktvkService" class="no.systema.skat.z.maintenance.main.service.MaintDktvkServiceImpl"/>
+
+	<!-- =================  -->
+	<!-- TVINN SAD EXPORT   -->
+	<!-- =================  -->
+	<bean id="maintSadSadlService" class="no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlServiceImpl"/>
  	
 
 	<!-- =================  -->
@@ -29,6 +34,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadExportTvineService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportTvineServiceImpl"/>
 	<bean id="maintSadExportSadavgeService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadavgeServiceImpl"/>
 	<bean id="maintSadExportSaehService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSaehServiceImpl"/>
+	<bean id="maintSadExportKodts6Service" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6ServiceImpl"/>
+
 			
 	<!-- =================  -->
 	<!-- TVINN SAD IMPORT   -->
@@ -41,7 +48,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportSadsdService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadsdServiceImpl"/>
 	<bean id="maintSadImportSoktariService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSoktariServiceImpl"/>
 	<bean id="maintSadImportSadvareService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadvareServiceImpl"/>
-	<bean id="maintSadSadlService" class="no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlServiceImpl"/>
 	<bean id="maintSadImportSadhHeadfService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadhHeadfServiceImpl"/>
 	<bean id="maintSadImportKodttsService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodttsServiceImpl"/>
 	

@@ -85,6 +85,17 @@ public class MaintSadExportAjaxHandlerController {
     	return (List)this.fetchListSad024(applicationUser, avd, opd);
 	}
 	
+
+	@RequestMapping(value="getSpecificRecord_sad004.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadSadlRecord> getRecordSad004
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
+		List<JsonMaintSadSadlRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad004(applicationUser, id, kundnr);
+    	
+    	return result;
+	
+	}	
 	
 	private Collection<JsonMaintSadExportTvineRecord> fetchListTvi99d(String applicationUser, String id){
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_TVI99D_GET_LIST_URL;
@@ -139,33 +150,12 @@ public class MaintSadExportAjaxHandlerController {
     		JsonMaintSadExportSaehContainer container = this.maintSadExportSaehService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadExportSaehRecord record: list){
+/*	        	for(JsonMaintSadExportSaehRecord record: list){
 	        		logger.info(record.getSetdn());
 	        	}
-	        }
+*/	        }
     	}
     	return list;
-	}	
-
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @param kundnr
-	 * @return
-	 */
-	@RequestMapping(value="getSpecificRecord_sad004.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintSadSadlRecord> getRecordSad004
-	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String kundnr) {
-		final String METHOD = "[DEBUG] getRecordSad004 ";
-		logger.info(METHOD + " Inside...");
-		List<JsonMaintSadSadlRecord> result = new ArrayList();
-	 	//get table
-    	result = (List)this.fetchListSad004(applicationUser, id, kundnr);
-    	
-    	return result;
-	
 	}	
 	
 
@@ -190,10 +180,10 @@ public class MaintSadExportAjaxHandlerController {
 			JsonMaintSadSadlContainer container = this.maintSadSadlService.getList(jsonPayload);
 			if (container != null) {
 				list = (List) container.getList();
-				for (JsonMaintSadSadlRecord record : list) {
+/*				for (JsonMaintSadSadlRecord record : list) {
 					// logger.info("my text");
 				}
-			}
+*/			}
 		}
 		return list;
  	

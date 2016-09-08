@@ -47,6 +47,16 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 * 
 	 */
 	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD004R.do";
+
+	/**
+	 * KODTS6
+	 * 
+	 * /syjservicestn/syjsSAD002_KODTS6R.do
+	 * 
+	 */
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTS6R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTS6R.do";
+
+	
 	
 	//----------------------------------
 	//[1] UPDATE DB record

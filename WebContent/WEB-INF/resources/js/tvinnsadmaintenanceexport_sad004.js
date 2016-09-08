@@ -48,7 +48,7 @@
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_sad004r.do',
+  	  url: 'getSpecificRecord_sad004.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
   		  	  id : varenr,
   		  	  kundnr : levenr },
