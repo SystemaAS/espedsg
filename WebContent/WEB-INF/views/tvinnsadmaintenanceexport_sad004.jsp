@@ -214,15 +214,24 @@
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="slalfa" id="slalfa" size="28" maxlength="28" value='${model.record.slalfa}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sltxt" id="sltxt" size="20" maxlength="20" value='${model.record.sltxt}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="r31" id="r31" size="2" maxlength="1" value='${model.record.r31}'></td>
+						
+						<td>
+		            		<select class="inputTextMediumBlueMandatoryField" name="r31" id="r31">
+		 						<option value="">-velg-</option>
+			 				  	<c:forEach var="r31" items="${model.r31List}" >
+			 				  		<option value="${r31}"<c:if test="${model.record.r31 == r31}"> selected </c:if> >${r31}</option>
+								</c:forEach>  
+							</select>
+						</td>
+						
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="9" maxlength="8" value='${model.record.sltanr}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sltn" id="sltn" size="2" maxlength="1" value='${model.record.sltn}'></td>
 						<td >
 		            		<select class="inputTextMediumBlueMandatoryField" name="pref" id="pref">
 		 						<option value="">-velg-</option>
-			 				  	<c:forEach var="record" items="${model.countryCodeList}" >
-			 				  		<option value="${record.ks6pre}"<c:if test="${model.record.ks6pre == record.ks6pre}"> selected </c:if> >${record.ks6pre}</option>
+			 				  	<c:forEach var="pref" items="${model.prefCodeList}" >
+			 				  		<option value="${pref.ks6pre}"<c:if test="${model.record.ks6pre == pref.ks6pre}"> selected </c:if> >${pref.ks6pre}</option>
 								</c:forEach>  
 							</select>
 						</td>											
