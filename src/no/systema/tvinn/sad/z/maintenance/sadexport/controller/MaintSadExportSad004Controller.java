@@ -200,7 +200,8 @@ public class MaintSadExportSad004Controller {
 	}
 	
 	private void populateDropDowns(Map model, String applicationUser){
-		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser);
+		codeDropDownMgr.populatePrefCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser);
+		codeDropDownMgr.populateR31HtmlDropDownsSadExport( model);
 		
 	}
 		

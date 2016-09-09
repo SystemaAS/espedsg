@@ -253,16 +253,16 @@ public class CodeDropDownMgr {
 	}
 	
 	/**
-	 * Populate model with available country codes, derived from @see {@link TvinnSadMaintenanceExportUrlDataStore}
+	 * Populate model with available pref codes, derived from @see {@link TvinnSadMaintenanceExportUrlDataStore}
 	 * 
-	 * model attribute: countryCodeList
+	 * model attribute: prefCodeList
 	 * 
 	 * @param urlCgiProxyService
 	 * @param maintSadExportKodts6Service
 	 * @param model
 	 * @param applicationUser
 	 */
-	public void populateCurrencyCodesHtmlDropDownsSadExport(UrlCgiProxyService urlCgiProxyService, MaintSadExportKodts6Service maintSadExportKodts6Service, Map model, String applicationUser ){
+	public void populatePrefCodesHtmlDropDownsSadExport(UrlCgiProxyService urlCgiProxyService, MaintSadExportKodts6Service maintSadExportKodts6Service, Map model, String applicationUser ){
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTS6R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
@@ -283,8 +283,19 @@ public class CodeDropDownMgr {
 	        	}
 	        }
     	}
-    	model.put("countryCodeList", list); 	
-	}	
-	
+    	model.put("prefCodeList", list); 	
+	}
+
+	/**
+	 * Populate r31List with J, N
+	 * 
+	 * model attribute: r31List
+	 * 
+	 * @param model
+	 */
+	public void populateR31HtmlDropDownsSadExport(Map model) {
+		String[] r31List = {"J","N"};
+		model.put("r31List", r31List);
+	}
 	
 }
