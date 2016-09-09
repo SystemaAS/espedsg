@@ -94,7 +94,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	 */
 	
 	@RequestMapping(value="mainmaintenanceavdsadimport_syftaaar_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa14r_edit(@ModelAttribute ("record") JsonMaintMainStandiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdsadimport_syftaaar_edit(@ModelAttribute ("record") JsonMaintMainStandiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdsadimport_syftaaar_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -167,7 +167,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa14r.do?id=KODTA");
+					successView = new ModelAndView("redirect:mainmaintenanceavdsadimport_syftaaar.do");
 					
 				}
 			}else{

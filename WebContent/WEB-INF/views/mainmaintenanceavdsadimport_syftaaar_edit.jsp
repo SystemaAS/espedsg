@@ -91,7 +91,7 @@
 	<tr>
 		<td>
 		<%-- space separator --%>
-			<form action="mainmaintenanceavd_syfa14r_edit.do" name="formRecord" id="formRecord" method="POST" >
+			<form action="mainmaintenanceavdsadimport_syftaaar_edit.do" name="formRecord" id="formRecord" method="POST" >
 	 	    <table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 		<tr height="20"><td>&nbsp;</td></tr>
 	 	    
@@ -138,10 +138,10 @@
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-					
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<input type="hidden" name="updateId" id=updateId value="${Xmodel.updateId}">
-						<input type="hidden" name="action" id=action value="${Xmodel.action}">
+						<input type="hidden" name="siavd" id=siavd value="${model.avd}">
+						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
+						<input type="hidden" name="action" id=action value="${model.action}">
 						<table cellspacing="1" border="0" align="left">
 				    	    <tr>
 								<td class="text12" title="sidl"><font class="text12RedBold" >*</font>Bruk dataliste</td>
@@ -1216,6 +1216,7 @@
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikdh" id="sikdh" size="5" maxlength="4" value="${model.record.sikdh}">
 								</td>
 							</tr>
+							
 							<%-- N/A (ref. samtal med Trond )
 							<tr>						
 								<td class="text12" ><span title="sidtg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dato</span></td>
@@ -1236,6 +1237,14 @@
 								</td>
 							</tr>	
 							 --%>
+						 	<tr height="15"><td class="text">&nbsp;</td> </tr>
+							<tr>
+							<td class="text12">&nbsp;</td>
+							<td class="text12" >
+		    	    			<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
+							</td>
+							</tr>
+							 
 						</table>
 						</td>
 					</tr>
