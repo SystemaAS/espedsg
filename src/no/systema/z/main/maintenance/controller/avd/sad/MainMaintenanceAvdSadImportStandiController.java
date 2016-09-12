@@ -34,7 +34,6 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMain
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
-import no.systema.z.main.maintenance.validator.sad.backend.MaintMainStandiValidatorBackend;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;

@@ -148,7 +148,11 @@
 					    	    		<input type="hidden" name="siavd" id=siavd value="${model.avd}">
 					    	    	</c:when>
 					    	    	<c:otherwise>
-					    	    		<td class="text12" title="siavd"><font class="text12RedBold" >*</font>Avdeling</td>
+					    	    		<td class="text12" title="siavd"><font class="text12RedBold" >*</font>Avdeling
+					    	    			<a tabindex="-1" id="siavdIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
+					    	    		</td>
 										<td class="text12" >
 										<select name="siavd" id="siavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-velg-</option>
@@ -156,9 +160,7 @@
 						 				  		<option value="${record.X}"<c:if test="${ model.record.siavd == record.X}"> selected </c:if> >${record.X}</option>
 											  </c:forEach>  
 											</select>
-											<a tabindex="-1" id="sival3IdLink">
-												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-											</a>
+											
 									  	</select>
 										</td>	
 					    	    	</c:otherwise>
