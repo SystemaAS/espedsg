@@ -525,30 +525,7 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 		}
 		return this.dup;
 	}
-	/* OBSOLETE ?
-	public boolean isDup(){ 
-		if(this.kodus1!=null && !"".equals(kodus1)){ 
-			dup = true;
-		}
-		if(this.kodus2!=null && !"".equals(kodus2)){ 
-			dup = true;
-		}
-		if(this.kodus3!=null && !"".equals(kodus3)){ 
-			dup = true;
-		}
-		if(this.kodus4!=null && !"".equals(kodus4)){ 
-			dup = true;
-		}
-		if(this.kodus5!=null && !"".equals(kodus5)){ 
-			dup = true;
-		}
-		if(this.kodus6!=null && !"".equals(kodus6)){ 
-			dup = true;
-		}
-		
-		return this.dup;   
-	}              
-    */
+	    
 	
 	/**
 	 * 

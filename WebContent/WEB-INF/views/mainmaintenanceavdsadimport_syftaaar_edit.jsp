@@ -139,11 +139,32 @@
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<input type="hidden" name="siavd" id=siavd value="${model.avd}">
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<table cellspacing="1" border="0" align="left">
 				    	    <tr>
+				    	    	<c:choose>
+					    	    	<c:when test="${not empty model.updateId}">
+					    	    		<input type="hidden" name="siavd" id=siavd value="${model.avd}">
+					    	    	</c:when>
+					    	    	<c:otherwise>
+					    	    		<td class="text12" title="siavd"><font class="text12RedBold" >*</font>Avdeling</td>
+										<td class="text12" >
+										<select name="siavd" id="siavd" class="inputTextMediumBlueMandatoryField">
+						  					<option value="">-velg-</option>
+						  					<c:forEach var="record" items="${model.avdList}" >
+						 				  		<option value="${record.X}"<c:if test="${ model.record.siavd == record.X}"> selected </c:if> >${record.X}</option>
+											  </c:forEach>  
+											</select>
+											<a tabindex="-1" id="sival3IdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
+									  	</select>
+										</td>	
+					    	    	</c:otherwise>
+				    	    	</c:choose>
+				    	    	
+				    	    	
 								<td class="text12" title="sidl"><font class="text12RedBold" >*</font>Bruk dataliste</td>
 								<td class="text12" >
 									<select name="sidl" id="sidl" class="inputTextMediumBlueMandatoryField">
@@ -180,9 +201,8 @@
 								<td class="text12" title="sitolk"><font class="text12RedBold" >*</font>Bruk kommunikasjon</td>
 								<td class="text12" >
 									<select name="sitolk" id="sitolk" class="inputTextMediumBlueMandatoryField">
-					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.sitolk == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.sitolk == 'N'}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.sitolk == 'N' || empty model.record.sitolk}"> selected </c:if> >Nej</option>
 								  	</select>
 								</td>
 							</tr>
@@ -196,7 +216,7 @@
 				<td width="100%">
 					
 					<table width="95%" class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
-						<tr><td class="text12"><b>Kommunikasjon </b></td></tr>
+						<tr><td colspan="2" class="text12"><b>Kommunikasjon </b><font class="text11" >&nbsp;( Kun hvis kommunikasjonen er valgt )</font></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    <tr>
 							<td class="text12" title="todo">Vente med å skrive ut melding </td>
@@ -209,7 +229,7 @@
 							</td>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
 							<td class="text12">
-								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039e" id="s3039e" size="6" maxlength="6" value='${model.record.s3039e}'>
+								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlueMandatoryField" name="s3039e" id="s3039e" size="6" maxlength="6" value='${model.record.s3039e}'>
 							</td>	
 							<td class="text12" title="s3039eo1">SO:</td>
 							<td class="text12">
@@ -221,9 +241,9 @@
 							</td>
 						</tr>
 						<tr>	
-							<td class="text12" title="sirg">Foretaksnummer</td>
+							<td class="text12" title="sirgX"><font class="text12RedBold" >*</font>Foretaksnummer</td>
 							<td class="text12">
-								<input readonly type="text" class="inputTextReadOnly" name="sirg" id="sirg" size="11" maxlength="10" value='${model.record.sirg}'>
+								<input readonly type="text" class="inputTextReadOnly" name="sirgX" id="sirgX" size="11" maxlength="10" value='${model.record.sirg}'>
 							</td>
 							<td class="text12" title="s0026">Applikasjonsreferanse</td>
 							<td class="text12">
@@ -245,7 +265,7 @@
 								</a>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="s0004" id="s0004" size="20" maxlength="35" value='${model.record.s0004}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0004" id="s0004" size="20" maxlength="35" value='${model.record.s0004}'>
 							</td>
 						
 							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtvekslingsId Tollvesenet 
@@ -254,7 +274,7 @@
 								</a>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="s0010" id="s0010" size="20" maxlength="35" value='${model.record.s0010}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0010" id="s0010" size="20" maxlength="35" value='${model.record.s0010}'>
 							</td>
 						
 							<td colspan="2" class="text12" title="silv2"><font class="text12RedBold" >*</font>Skriv tollkvittering ved utleveringsattest</td>

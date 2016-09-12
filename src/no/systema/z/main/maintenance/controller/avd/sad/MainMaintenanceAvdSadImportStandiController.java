@@ -27,11 +27,14 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainStandiService;
+import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
+import no.systema.z.main.maintenance.validator.sad.backend.MaintMainStandiValidatorBackend;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
@@ -109,7 +112,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
+			boolean isValidOnUpdate = true;
 			//--------------
 			//UPDATE record
 			//--------------
@@ -119,34 +122,44 @@ public class MainMaintenanceAvdSadImportStandiController {
 				MaintMainStandiValidator validator = new MaintMainStandiValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
+					isValidOnUpdate = false;
 					//ERRORS
 					logger.info("[ERROR Validation] Record does not validate)");
 					//model.put("dbTable", dbTable);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					
 				}else{
-					//Update table
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-					if(updateId!=null && !"".equals(updateId)){
-						//update
-						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-					}else{
-						//create new
-						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					//Validate backend values
+					MaintMainStandiValidatorBackend validatorBackend = new MaintMainStandiValidatorBackend(this.urlCgiProxyService, this.maintMainEdiiService);
+					boolean isValidBackend = validatorBackend.validate(appUser.getUser(), recordToValidate); 
+					if(isValidBackend){
+						//Update table
+						StringBuffer errMsg = new StringBuffer();
+						int dmlRetval = 0;
+						if(updateId!=null && !"".equals(updateId)){
+							//update
+							logger.info(MainMaintenanceConstants.MODE_UPDATE);
+							dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						}else{
+							//create new
+							logger.info(MainMaintenanceConstants.MODE_ADD);
+							dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+							
+						}
 						
-					}
-					
-					//check for Update errors
-					if( dmlRetval < 0){
-						logger.info("[ERROR Validation] Record does not validate)");
-						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+						//check for Update errors
+						if( dmlRetval < 0){
+							logger.info("[ERROR Validation] Record does not validate)");
+							model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+							model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+						}else{
+							//post successful update operations
+							updateId = recordToValidate.getSiavd();
+						}
 					}else{
-						//post successful update operations
-						updateId = recordToValidate.getSiavd();
+						isValidOnUpdate = false;
+						logger.info("[ERROR Validation] Record does not validate)");
+						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, validatorBackend.getErrMsgBackend().toString());
 					}
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
@@ -170,14 +183,14 @@ public class MainMaintenanceAvdSadImportStandiController {
 					successView = new ModelAndView("redirect:mainmaintenanceavdsadimport_syftaaar.do");
 					
 				}
-			}else{
-				//-------------
-				//Fetch record
-				//-------------
+			}
+			//-------------
+			//Fetch record
+			//-------------
+			if(isValidOnUpdate){
 				JsonMaintMainStandiRecord record = this.fetchRecord(appUser.getUser(), avd);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
-			
 			
 			//populate model
 			if(action==null || "".equals(action)){
@@ -335,6 +348,14 @@ public class MainMaintenanceAvdSadImportStandiController {
 	public void setMaintKodtvaService (MaintKodtvaService value){ this.maintKodtvaService = value; }
 	public MaintKodtvaService getMaintKodtvaService(){ return this.maintKodtvaService; }
 	
+	
+	@Qualifier ("maintMainEdiiService")
+	private MaintMainEdiiService maintMainEdiiService;
+	@Autowired
+	@Required
+	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
+	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 		
+	
 }
 
