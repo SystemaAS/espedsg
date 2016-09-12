@@ -129,38 +129,30 @@ public class MainMaintenanceAvdSadImportStandiController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					
 				}else{
-					//Validate backend values
-					MaintMainStandiValidatorBackend validatorBackend = new MaintMainStandiValidatorBackend(this.urlCgiProxyService, this.maintMainEdiiService);
-					boolean isValidBackend = validatorBackend.validate(appUser.getUser(), recordToValidate); 
-					if(isValidBackend){
-						//Update table
-						StringBuffer errMsg = new StringBuffer();
-						int dmlRetval = 0;
-						if(updateId!=null && !"".equals(updateId)){
-							//update
-							logger.info(MainMaintenanceConstants.MODE_UPDATE);
-							dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-						}else{
-							//create new
-							logger.info(MainMaintenanceConstants.MODE_ADD);
-							dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-							
-						}
-						
-						//check for Update errors
-						if( dmlRetval < 0){
-							logger.info("[ERROR Validation] Record does not validate)");
-							model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-							model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-						}else{
-							//post successful update operations
-							updateId = recordToValidate.getSiavd();
-						}
+					//Update table
+					StringBuffer errMsg = new StringBuffer();
+					int dmlRetval = 0;
+					if(updateId!=null && !"".equals(updateId)){
+						//update
+						logger.info(MainMaintenanceConstants.MODE_UPDATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					}else{
-						isValidOnUpdate = false;
-						logger.info("[ERROR Validation] Record does not validate)");
-						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, validatorBackend.getErrMsgBackend().toString());
+						//create new
+						logger.info(MainMaintenanceConstants.MODE_ADD);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						
 					}
+					
+					//check for Update errors
+					if( dmlRetval < 0){
+						logger.info("[ERROR Validation] Record does not validate)");
+						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					}else{
+						//post successful update operations
+						updateId = recordToValidate.getSiavd();
+					}
+					
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				
