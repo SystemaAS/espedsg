@@ -37,7 +37,7 @@ import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
  * Gateway to the Main Maintenance Application
@@ -207,6 +207,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
 		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser);
 		
 	}
 	
@@ -338,6 +339,14 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintKodtvaService (MaintKodtvaService value){ this.maintKodtvaService = value; }
 	public MaintKodtvaService getMaintKodtvaService(){ return this.maintKodtvaService; }
+	
+	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
 	
 	
 	@Qualifier ("maintMainEdiiService")

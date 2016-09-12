@@ -156,8 +156,8 @@
 										<td class="text12" >
 										<select name="siavd" id="siavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-velg-</option>
-						  					<c:forEach var="record" items="${model.avdList}" >
-						 				  		<option value="${record.X}"<c:if test="${ model.record.siavd == record.X}"> selected </c:if> >${record.X}</option>
+						  					<c:forEach var="record" items="${model.avdGeneralList}" >
+						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.siavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 											

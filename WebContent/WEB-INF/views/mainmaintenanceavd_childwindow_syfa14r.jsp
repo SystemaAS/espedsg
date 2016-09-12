@@ -7,13 +7,13 @@
 
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/mainmaintenance_childwindow_edi.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/mainmaintenanceavd_childwindow_syfa14r.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Søk Utveksling
+			Søk Avdeling &nbsp;<font class="text12" >(kun avd som er tilgjengelige)</font>
 			</td>
 		</tr>
 		<tr>
@@ -21,15 +21,18 @@
 		
 		  		<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
 			 	the cosmetic frame will not follow the whole datatable grid including the search field... --%>
+			 	
 				<table id="containerdatatableTable" cellspacing="2" align="left" width="100%" >
+					<%--
 					<tr>
 					<td>
 						<table>
-						<form name="ediForm" id="customerForm" action="mainmaintenance_childwindow_edi.do?action=doFind" method="post">
+						<form name="ediForm" id="form" action="mainmaintenanceavd_childwindow_syfa14r.do?action=doFind" method="post">
 						<input type="hidden" name="ctype" id="ctype" value="${model.ctype}">
+						<input type="hidden" name="sialist" id="sialist" value="1">
 						
 						<tr>
-							<td class="text11">&nbsp;UtvekslingsId</td>
+							<td class="text11">&nbsp;Avd</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="id" id="id" size="10" maxlength="10" value="${model.id}"></td>
 							<td class="text11">&nbsp;</td>
 							<td class="text11">&nbsp;Navn</td>
@@ -42,7 +45,7 @@
 		           		</table>
 					</td>
 					</tr>
-					 
+					 --%> 
 													           		
 	           		<tr height="10"><td></td></tr>
 					
@@ -52,10 +55,10 @@
 					<table id="mainList" class="display compact cell-border" width="100%" >
 						<thead>
 						<tr style="background-color:#EEEEEE">
-							<th class="text11" >&nbsp;UtvekslingsId.&nbsp;</th>
-		                    <th class="text11" >&nbsp;Navn&nbsp;</th>
-		                    <th class="text11" >&nbsp;Network&nbsp;</th>
-		                    <th class="text11" >&nbsp;Internal / External&nbsp;</th>
+							<th width="2%" class="tableHeaderField" align="center" >Avd</th>
+							<th width="40%" class="tableHeaderField" align="center" >Avd.navn</th>
+		                    <th class="tableHeaderField" align="left" >&nbsp;Firma</th>
+		                    <th class="tableHeaderField" align="left" >&nbsp;Kundenr.</th>
 		                    
 		                </tr> 
 		                </thead>
@@ -70,12 +73,12 @@
 			                       <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="cursor:pointer;" class="text11MediumBlue" id="inid${record.inid}@inna${record.inna}@ctype${model.ctype}" >
-			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.inid}
+			               <td style="cursor:pointer;" class="text11MediumBlue" id="avd${record.koaavd}@ctype${model.ctype}" >
+			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.koaavd}
 			               	</td>
-		               	   <td class="text11">&nbsp;${record.inna}</td>
-		               	   <td class="text11">&nbsp;${record.innetw}</td>
-		               	   <td class="text11">&nbsp;${record.inex}</td>
+		               	   <td class="text11">&nbsp;${record.koanvn}</td>
+		               	   <td class="text11">&nbsp;${record.koafir}</td>
+		               	   <td class="text11">&nbsp;${record.koaknr}</td>
 		               	    
 			            </tr> 
 			            </c:forEach>

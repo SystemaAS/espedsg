@@ -8,8 +8,15 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
+
+
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+
 
 
 import org.apache.log4j.Logger;
@@ -23,7 +30,6 @@ import org.apache.log4j.Logger;
 public class CodeDropDownMgr {
 	private static final Logger logger = Logger.getLogger(CodeDropDownMgr.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	
 	/**
 	 * 
 	 * @param urlCgiProxyService
@@ -56,5 +62,41 @@ public class CodeDropDownMgr {
     	}
     	model.put(MainMaintenanceConstants.CODE_MGR_CURRENCY_LIST, list); 	
 	}
+	
+	/**
+	 * 
+	 * @param urlCgiProxyService
+	 * @param maintMainKodtaService
+	 * @param model
+	 * @param applicationUser
+	 * 
+	 */
+	public void populateAvdListHtmlDropDownsSadImport(UrlCgiProxyService urlCgiProxyService,  MaintMainKodtaService maintMainKodtaService, Map model, String applicationUser ){
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser + "&sialist=1" ); //sialist in order to return not-yet-used avd from general avdelningar
+		
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintMainKodtaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaContainer container = maintMainKodtaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintMainKodtaRecord record : list){
+	        		//logger.info("A" + record.getKoaavd());
+	        	}
+	        }
+    	}
+    	model.put(MainMaintenanceConstants.CODE_MGR_AVD_GENERAL_LIST, list); 	
+	}
+	
+	
 	
 }

@@ -68,7 +68,7 @@
 							<thead>
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th width="2%" class="tableHeaderField" align="center" >Avd&</th>
+								<th width="2%" class="tableHeaderField" align="center" >Avd</th>
 								<th width="15%" class="tableHeaderField" align="center" >Avd.navn</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Firma</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kundenr.</th>
