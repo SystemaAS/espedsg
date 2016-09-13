@@ -21,32 +21,32 @@
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
-					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
 						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="13%" valign="bottom" class="tabDisabled" align="center">
+					<td width="15%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
 							<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="13%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Gen. avd.</font>&nbsp;
+					<td width="15%" valign="bottom" class="tab" align="center">
+						<font class="tabLink">&nbsp;Generella avd.</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="13%" valign="bottom" class="tabDisabled" align="center">
+					<td width="15%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r_edit.do">
 							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
 					</td>
-					<td width="47%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>

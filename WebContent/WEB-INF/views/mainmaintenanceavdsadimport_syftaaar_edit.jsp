@@ -225,8 +225,8 @@
 							<td class="text12">
 								<select name="todo" id="todo" class="inputTextMediumBlue">
 				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ model.record.sidl == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.sidl == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="J"<c:if test="${ Xmodel.record.X == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ Xmodel.record.X == 'N'}"> selected </c:if> >Nej</option>
 							  	</select>
 							</td>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
@@ -243,9 +243,9 @@
 							</td>
 						</tr>
 						<tr>	
-							<td class="text12" title="sirgX"><font class="text12RedBold" >*</font>Foretaksnummer</td>
+							<td class="text12" title="syrg"><font class="text12RedBold" >*</font>Foretaksnummer</td>
 							<td class="text12">
-								<input readonly type="text" class="inputTextReadOnly" name="sirgX" id="sirgX" size="11" maxlength="10" value='${model.record.sirg}'>
+								<input readonly type="text" class="inputTextReadOnly" name="syrg" id="syrg" size="11" maxlength="10" value='${model.record.syrg}'>
 							</td>
 							<td class="text12" title="s0026">Applikasjonsreferanse</td>
 							<td class="text12">
@@ -814,7 +814,7 @@
 							<td >
 				                <table width="95%" align="left" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td class="text12"><b>&nbsp;31.</b><span title="sift1" >Fritekst&nbsp;</span></td>
+							 			<td class="text12"><b>&nbsp;31.</b><span title="sift1/sift2" >Fritekst&nbsp;</span></td>
 							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift1" id="sift1" size="40" maxlength="45" value="${model.record.sift1}"></td>
 						 			</tr>
 						 			<tr>
@@ -823,7 +823,7 @@
 						 			</tr>
 						 			<tr height="3"><td></td></tr>
 						 			<tr>
-							 			<td class="text12"><b>&nbsp;44.</b><span title="sift3" >Fritekst&nbsp;</span></td>
+							 			<td class="text12"><b>&nbsp;44.</b><span title="sift3/sift4" >Fritekst&nbsp;</span></td>
 							 			<td align="left" ><input type="text" class="inputTextMediumBlue"  name="sift3" id="sift3" size="40" maxlength="45" value="${model.record.sift3}"></td>
 						 			</tr>
 						 			<tr>
@@ -855,7 +855,7 @@
 									
 					             </td>
 					            <td >
-					            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="4" maxlength="2" value="${model.record.silka}">
+					            	<input type="text" class="inputTextMediumBlue" name="silka" id="silka" size="4" maxlength="2" value="${model.record.silka}">
 				            																										 			
 								</td>
 							</tr>
@@ -1175,7 +1175,7 @@
 								</td>
 			 					
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2NO}">
 			 						<select name="sival2" id="sival2">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
@@ -1190,9 +1190,9 @@
 							</tr>
 							
 							<tr>						
-								<td class="text12" ><span title="sirab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rabatt</span></td>
+								<td class="text12" ><span title="si07">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rabatt</span></td>
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sirab" id="sirab" size="12" maxlength="5" value="${model.record.sirab}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="si07" id="si07" size="12" maxlength="5" value="${model.record.si07}">
 								</td>
 							</tr>					        
 							<tr height="25"><td class="text">&nbsp;</td> </tr>	
@@ -1235,7 +1235,7 @@
 					        <tr>						
 								<td class="text12" ><span title="sikdh">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Havn</span></td>
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikdh" id="sikdh" size="5" maxlength="4" value="${model.record.sikdh}">
+			 						<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikdh" id="sikdh" size="5" maxlength="4" value="${model.record.sikdh}">
 								</td>
 							</tr>
 							

@@ -179,13 +179,16 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//-------------
 				//Fetch record
 				//-------------
-				JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), avd);
-				JsonMaintMainKodtvKodtwRecord recordFasteData = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
-				if(recordFasteData!=null){
-					if(recordFasteData.getKovavd()!=null && !"".equals(recordFasteData.getKovavd())){
-						//exists
-					}else{
-						record.setFasteDataExists(false);
+				JsonMaintMainKodtaRecord record = new JsonMaintMainKodtaRecord();
+				if(avd!=null && !"".equals(avd)){
+					record = this.fetchRecord(appUser.getUser(), avd);
+					JsonMaintMainKodtvKodtwRecord recordFasteData = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
+					if(recordFasteData!=null){
+						if(recordFasteData.getKovavd()!=null && !"".equals(recordFasteData.getKovavd())){
+							//exists
+						}else{
+							record.setFasteDataExists(false);
+						}
 					}
 				}
 				this.populateDefaultFirmValues(appUser.getUser(), record, avd);

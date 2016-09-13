@@ -27,6 +27,14 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	public void setKoanvn (String value){ this.koanvn = value;   }   
 	public String getKoanvn (){ return this.koanvn;   }  
 	
+	private String koaknr = null;                                
+	public void setKoaknr (String value){ this.koaknr = value;   }   
+	public String getKoaknr (){ return this.koaknr;   }  
+	
+	private String syrg = null;                                
+	public void setSyrg (String value){ this.syrg = value;   }   
+	public String getSyrg (){ return this.syrg;   }  
+	
 	private String sitdn = null;                                
 	public void setSitdn (String value){ this.sitdn = value;   }   
 	public String getSitdn (){ return this.sitdn;   }  
@@ -342,6 +350,11 @@ public class JsonMaintMainStandiRecord extends JsonAbstractGrandFatherRecord {
 	private String sibel9 = null;                                
 	public void setSibel9 (String value){ this.sibel9 = value;   }   
 	public String getSibel9 (){ return this.sibel9;   }  
+	
+	private String sibela = null;                                
+	public void setSibela (String value){ this.sibela = value;   }   
+	public String getSibela (){ return this.sibela;   }  
+	
 	
 	private String sibel8a = null;                                
 	public void setSibel8a (String value){ this.sibel8a = value;   }   

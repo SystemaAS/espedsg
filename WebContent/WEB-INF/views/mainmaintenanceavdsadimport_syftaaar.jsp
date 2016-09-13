@@ -71,7 +71,7 @@
 								<th width="2%" class="tableHeaderField" align="center" >Avd</th>
 								<th class="tableHeaderField" align="center" >Avd.navn</th>
 								<th class="tableHeaderField" align="center" >Ekspen</th>
-								<th class="tableHeaderField" align="center" >Interchnr. Sender</th>
+								<th class="tableHeaderField" align="center" >UtvekslingsId Sender</th>
 								<th class="tableHeaderField" align="center" >Foretaksnr</th>
 								<th class="tableHeaderField" align="center" >DUP</th>
 			                    <th class="tableHeaderField" align="center" >Slett</th>
@@ -90,7 +90,7 @@
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;todo&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.s0004}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.sirg}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.syrg}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
 		                       		<c:if test="${record.dup}"><img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0"></c:if>
 		                       </td>

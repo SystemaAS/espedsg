@@ -37,9 +37,9 @@
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="12%" valign="bottom" class="tabDisabled" align="center">
+							<td width="14%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintAvdSyfa14r" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r.do">
-									<font class="tabDisabledLink">&nbsp;Gen. avd.</font>&nbsp;
+									<font class="tabDisabledLink">&nbsp;Generella avd.</font>&nbsp;
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 								</a>
 							</td>
@@ -80,32 +80,32 @@
 							<td width="1%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						</c:when>
 						<c:otherwise>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
+							<td width="14%" valign="bottom" class="tabDisabled" align="center" nowrap>
 								<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
 								<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
 								<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center">
+							<td width="14%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
 									<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center">
+							<td width="14%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintAvdSyfa14r" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa14r.do">
-									<font class="tabDisabledLink">&nbsp;Gen. avd.</font>&nbsp;
+									<font class="tabDisabledLink">&nbsp;Generella avd.</font>&nbsp;
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="13%" valign="bottom" class="tab" align="center">
+							<td width="14%" valign="bottom" class="tab" align="center">
 								<font class="tabLink">&nbsp;Lage ny avd.</font>&nbsp;
 								<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 							</td>
-							<td width="47%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+							<td width="44%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>

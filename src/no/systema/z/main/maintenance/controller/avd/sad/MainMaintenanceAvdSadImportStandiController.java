@@ -22,6 +22,8 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.DateTimeManager;
+
 
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
@@ -37,6 +39,7 @@ import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
@@ -56,6 +59,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	/**
 	 * 
 	 * @param user
@@ -118,16 +122,18 @@ public class MainMaintenanceAvdSadImportStandiController {
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				avd = recordToValidate.getSiavd();
 				//Validate
+				this. adjustSomeRecordValues(recordToValidate);
+				
 				MaintMainStandiValidator validator = new MaintMainStandiValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
-					isValidOnUpdate = false;
 					//ERRORS
 					logger.info("[ERROR Validation] Record does not validate)");
 					//model.put("dbTable", dbTable);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					
+					isValidOnUpdate = false;
 				}else{
+					
 					//Update table
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
@@ -147,9 +153,11 @@ public class MainMaintenanceAvdSadImportStandiController {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+						isValidOnUpdate = false;
 					}else{
 						//post successful update operations
 						updateId = recordToValidate.getSiavd();
+						
 					}
 					
 				}
@@ -178,7 +186,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 			//-------------
 			//Fetch record
 			//-------------
-			if(isValidOnUpdate){
+			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
 				JsonMaintMainStandiRecord record = this.fetchRecord(appUser.getUser(), avd);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
@@ -314,7 +322,82 @@ public class MainMaintenanceAvdSadImportStandiController {
     	}    	
     	return retval;
 	}
-
+	/**
+	 * 
+	 * @param recordToValidate
+	 */
+	private void adjustSomeRecordValues(JsonMaintMainStandiRecord recordToValidate){
+		final String ZERO = "0";
+		//-----------------
+		//Decimal amounts
+		//-----------------
+		if(recordToValidate.getSibel1()!=null && !"".equals(recordToValidate.getSibel1())){
+			String tmp = recordToValidate.getSibel1().replace(",", ".");
+			recordToValidate.setSibel1(tmp);
+		}else{
+			recordToValidate.setSibel1(ZERO);	
+		}
+		if(recordToValidate.getSibel2()!=null && !"".equals(recordToValidate.getSibel2())){
+			String tmp = recordToValidate.getSibel2().replace(",", ".");
+			recordToValidate.setSibel2(tmp);
+		}else{
+			recordToValidate.setSibel2(ZERO);	
+		}
+		if(recordToValidate.getSibel3()!=null && !"".equals(recordToValidate.getSibel3())){
+			String tmp = recordToValidate.getSibel3().replace(",", ".");
+			recordToValidate.setSibel3(tmp);
+		}else{
+			recordToValidate.setSibel3(ZERO);	
+		}
+		if(recordToValidate.getSivku()!=null && !"".equals(recordToValidate.getSivku())){
+			String tmp = recordToValidate.getSivku().replace(",", ".");
+			recordToValidate.setSivku(tmp);
+		}else{
+			recordToValidate.setSivku(ZERO);
+		}
+		if(recordToValidate.getSias()!=null && !"".equals(recordToValidate.getSias())){
+			String tmp = recordToValidate.getSias().replace(",", ".");
+			recordToValidate.setSias(tmp);
+		}else{
+			recordToValidate.setSias(ZERO);
+		}
+		if(recordToValidate.getSibel8()!=null && !"".equals(recordToValidate.getSibel8())){
+			String tmp = recordToValidate.getSibel8().replace(",", ".");
+			recordToValidate.setSibel8(tmp);
+		}else{
+			recordToValidate.setSibel8(ZERO);
+		}
+		if(recordToValidate.getSibel9()!=null && !"".equals(recordToValidate.getSibel9())){
+			String tmp = recordToValidate.getSibel9().replace(",", ".");
+			recordToValidate.setSibel9(tmp);
+		}else{
+			recordToValidate.setSibel9(ZERO);
+		}
+		if(recordToValidate.getSibelb()!=null && !"".equals(recordToValidate.getSibelb())){
+			String tmp = recordToValidate.getSibelb().replace(",", ".");
+			recordToValidate.setSibelb(tmp);
+		}else{
+			recordToValidate.setSibelb(ZERO);
+		}
+		if(recordToValidate.getSibelr()!=null && !"".equals(recordToValidate.getSibelr())){
+			String tmp = recordToValidate.getSibelr().replace(",", ".");
+			recordToValidate.setSibelr(tmp);
+		}else{
+			recordToValidate.setSibelr(ZERO);
+		}
+		//----------
+		//Dates
+		//----------
+		if(recordToValidate.getSidt()!=null && !"".equals(recordToValidate.getSidt()) ){
+			if(recordToValidate.getSidt().length()< 6){
+				recordToValidate.setSidt(this.dateTimeMgr.getCurrentDate_ISO());
+			}
+		}else{
+			recordToValidate.setSidt(this.dateTimeMgr.getCurrentDate_ISO());
+		}
+			
+		
+	}
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -355,7 +438,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
-		
 	
+
 }
 
