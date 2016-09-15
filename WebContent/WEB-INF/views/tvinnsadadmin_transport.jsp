@@ -20,13 +20,20 @@
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<tr height="2"><td></td></tr>
-		<tr height="25"> 
-			<td width="20%" valign="bottom" class="tab" align="center" nowrap>
+		<tr height="25">
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a style="display:block;" id="avgiftsgrunnlagLink" href="tvinnsadadmin_avggrunnlag.do">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.avggrunnlag.list.tab"/></font>
+					<img valign="bottom" src="resources/images/list.gif" border="0" alt="avg.grunnlag">
+				</a>
+			</td>
+		 	<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
 				<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.tab"/></font>
 				<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+			<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
 	</td>
@@ -37,7 +44,7 @@
 	<%-- search filter component --%>
 		
  		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
- 	        <tr height="3"><td></td></tr>
+ 	        <tr height="10"><td></td></tr>
  	        <form name="sadAdminTransportSearchForm" id="sadAdminTransportSearchForm" action="tvinnsadadmin_transport?action=doFind" method="post" >
  	        <tr>	
  	        		<td class="text12" align="left" >&nbsp;&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.avd"/></td>
@@ -75,7 +82,6 @@
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
-                   <img src="resources/images/find.png" border="0" alt="">
                 </td>
 			</tr>
 			</form>

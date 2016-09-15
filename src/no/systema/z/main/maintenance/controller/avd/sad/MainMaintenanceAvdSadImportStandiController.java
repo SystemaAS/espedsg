@@ -39,7 +39,6 @@ import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**

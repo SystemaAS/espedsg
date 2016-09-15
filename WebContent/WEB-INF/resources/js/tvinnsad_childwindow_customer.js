@@ -71,7 +71,16 @@
 				  opener.jq('#sikta').val(wskta);
 				  opener.jq('#siktb').val(wsktb);
 				  opener.jq('#sinak').focus();
+
+			  //=========================
+			  //TVINN SAD Admin Module 
+			  //=========================  
+			  }else if(callerType == 'avggcustid'){
+				  opener.jq('#avggCustomerId').val(knr);
+				  opener.jq('#avggCustomerName').val(knavn);
+				  opener.jq('#avggCustomerId').focus();
 			  }
+			  
 			  //close child window
 			  window.close();
 		  });

@@ -30,6 +30,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.validator.UserValidator;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.DateTimeManager;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
@@ -51,10 +52,10 @@ import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportL
 
 /**
  * 
- * SAD Admin Transport Controller 
+ * Avg.grunnlag Controller 
  * 
  * @author oscardelatorre
- * @date May 26, 2014
+ * @date Sep 14, 2016
  * 
  * 
  */
@@ -62,12 +63,13 @@ import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportL
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class SadAdminTransportController {
+public class SadAdminAvgiftsgrunnlagController {
 	
-	private static final Logger logger = Logger.getLogger(SadAdminTransportController.class.getName());
+	private static final Logger logger = Logger.getLogger(SadAdminAvgiftsgrunnlagController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	
 	/**
 	 * 
@@ -76,9 +78,9 @@ public class SadAdminTransportController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadadmin_transport.do", method=RequestMethod.GET)
+	@RequestMapping(value="tvinnsadadmin_avggrunnlag.do", method=RequestMethod.GET)
 	public ModelAndView doSkatExportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadadmin_transport");
+		ModelAndView successView = new ModelAndView("tvinnsadadmin_avggrunnlag");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		SearchFilterSadAdminTransportList searchFilter = new SearchFilterSadAdminTransportList();
 		
@@ -88,12 +90,9 @@ public class SadAdminTransportController {
 		}else{
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_ADMIN);
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
-			//lists
-			this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-			this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 			//init filter with users signature (for starters)
-			searchFilter.setSign(appUser.getTvinnSadSign());
-			successView.addObject("searchFilter" , searchFilter);
+			//searchFilter.setSign(appUser.getTvinnSadSign());
+			//successView.addObject("searchFilter" , searchFilter);
 			//init the rest
 			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
 			successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
@@ -108,6 +107,7 @@ public class SadAdminTransportController {
 	 * @param request
 	 * @return
 	 */
+	/*
 	@RequestMapping(value="tvinnsadadmin_transport", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterSadAdminTransportList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
@@ -197,6 +197,7 @@ public class SadAdminTransportController {
 		}
 		
 	}
+	*/
 
 	/**
 	 * 
@@ -273,6 +274,9 @@ public class SadAdminTransportController {
 	private String getRequestUrlKeyParameters(SearchFilterSadAdminTransportList searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		//String action = request.getParameter("action");
+		
+		//Adjust dates NO to ISO
+		searchFilter.setDatum(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getDatum(), "ddmmyy"));
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		if(searchFilter.getAvd()!=null && !"".equals(searchFilter.getAvd())){

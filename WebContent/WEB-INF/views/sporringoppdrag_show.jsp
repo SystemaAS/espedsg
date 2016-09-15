@@ -79,7 +79,7 @@
 	        <%-- FORM DETAIL --%>
 		    <tr>
 		    		<td>
-		    			<table style="width:85%;" align="center" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+	    			<table style="width:85%;" align="center" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="18"><td >&nbsp;</td></tr>
 			 		<tr>
 						<td width="99%" valign="top">

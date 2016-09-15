@@ -147,7 +147,7 @@
 			    			<%-- -------------- --%>
 			    			<%-- ADMIN  MENU    --%>
 			    			<%-- -------------- --%>
-			    			<a tabindex=-1 href="tvinnsadadmin_transport.do">
+			    			<a tabindex=-1 href="tvinnsadadmin_avggrunnlag.do">
 			    				&nbsp;<font
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='TVINN_SAD_ADMIN'}">
