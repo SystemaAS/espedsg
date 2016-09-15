@@ -17,7 +17,7 @@
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-		<title>eSpedsg - Inquire about Orders</title>
+		<title>eSpedsg - TVINN Avgiftsgrunnlag</title>
 	</head>
 	<body>
 	<%-- include som javascript functions --%>
@@ -44,7 +44,7 @@
 				 	<tr>
 				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
-				 			eSped<font style="color:#003300;">sg</font> - <spring:message code="systema.fraktkalkulator.main.label"/>
+				 			eSped<font style="color:#003300;">sg</font> - TVINN Avgiftsgrunnlag
 				 			
 				 		</td>
 				 		 
@@ -66,14 +66,13 @@
     			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
-			    			<%-- --------------------------- --%>
-			    			<%-- Spørring på Oppdrag MENU    --%>
-			    			<%-- --------------------------- 
-			    			<a tabindex=-1 href="sporringoppdrag_mainlist.do?action=doFind&sg=${Xuser.tvinnSadSign}"> --%>
-			    			<a tabindex=-1 href="fraktkalkulator.do?action=doInit">
+			    			<%-- -------------------------------- --%>
+			    			<%-- TVINN Avgiftsgrunnlag external   --%>
+			    			<%-- -------------------------------- --%>
+			    			<a tabindex=-1 href="tvinnsadadmin_avggrunnlag_external.do">
 			    				&nbsp;<font 
 			    				<c:choose>           
-		                   			<c:when test="${user.activeMenu=='FRAKTKALKULATOR'}">
+		                   			<c:when test="${user.activeMenu=='TVINN_SAD_AVGGRUNNLAG_EXTERNAL'}">
 		                       			class="headerMenuMediumGreen"
 		                   			</c:when>
 		                   			<c:otherwise>   
@@ -81,7 +80,7 @@
 		                   			</c:otherwise>
 		               			</c:choose>
 			    				
-			    				>&nbsp;<spring:message code="systema.fraktkalkulator.main.label"/>&nbsp;</font>
+			    				>&nbsp;TVINN Avgiftsgrunnlag&nbsp;</font>
 			    			</a>
 			    			
 	      				</td>		      				
@@ -116,7 +115,7 @@
 						        </span>   		
 			    				<font style="color:#000000" >${user.user}&nbsp;</font>${user.usrLang}</font>
 			    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
-				    			<a tabindex=-1 href="logoutFraktKalkulator.do">
+				    			<a tabindex=-1 href="logoutAvggrunnlagExternal.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
 				    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>

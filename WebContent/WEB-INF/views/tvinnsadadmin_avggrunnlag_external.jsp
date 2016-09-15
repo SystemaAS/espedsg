@@ -1,9 +1,9 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
-<!-- ======================= header ===========================-->
-<jsp:include page="/WEB-INF/views/headerTvinnSad.jsp" />
-<!-- =====================end header ==========================-->
+<!-- ======================= header =================================== -->
+<jsp:include page="/WEB-INF/views/headerTvinnSadAvggrunnlagExternal.jsp" />
+<!-- =====================end header ================================== -->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tvinnsadglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
@@ -22,20 +22,11 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25">
 			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
-				
-					<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.avggrunnlag.list.tab"/></font>
-					<img valign="bottom" src="resources/images/list.gif" border="0" alt="avg.grunnlag">
-				</a>
-			</td>
-		 	<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a style="display:block;" id="avgiftsgrunnlagLink" href="tvinnsadadmin_transport.do">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.tab"/></font>
-					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-				</a>
+				<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.avggrunnlag.list.tab"/></font>
+				<img valign="bottom" src="resources/images/list.gif" border="0" alt="avg.grunnlag">
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+			<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
 	</td>
@@ -70,7 +61,7 @@
 						<table align="center" style="width:80%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="1" cellpadding="0">
 						<tr>
 							<td>
-							<form name="sadAdminAvggrunnlagForm" id="sadAdminAvggrunnlagForm" action="tvinnsadadmin_avggrunnlag.do?action=doCalculate" method="post" >
+							<form name="sadAdminAvggrunnlagForm" id="sadAdminAvggrunnlagForm" action="tvinnsadadmin_avggrunnlag_external.do?action=doCalculate" method="post" >
 							<table align="left" style="width:90%" cellspacing="1" cellpadding="0"> 
 					 			<tr height="8"><td >&nbsp;</td></tr>
  	        					<tr>

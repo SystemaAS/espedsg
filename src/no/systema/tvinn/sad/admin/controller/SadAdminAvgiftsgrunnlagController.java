@@ -25,25 +25,20 @@ import org.springframework.web.bind.WebDataBinder;
 
 
 //application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
-import no.systema.main.validator.UserValidator;
+
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
-import no.systema.tvinn.sad.admin.filter.SearchFilterSadAdminTransportList;
-import no.systema.tvinn.sad.admin.validator.SadAdminTransportListValidator;
-import no.systema.tvinn.sad.admin.url.store.SadAdminUrlDataStore;
+import no.systema.tvinn.sad.admin.filter.SearchFilterSadAdminAvggrunnlag;
+
 
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
-import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadAvdelningContainer;
-import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadAvdelningRecord;
-import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadSignatureContainer;
-import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadSignatureRecord;
+
 //
 import no.systema.tvinn.sad.admin.service.SadAdminTransportService;
 import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportListContainer;
@@ -72,27 +67,65 @@ public class SadAdminAvgiftsgrunnlagController {
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	
 	/**
+	 * This link is accessed from within the TVINN ADMIN menu
 	 * 
 	 * @param user
 	 * @param result
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadadmin_avggrunnlag.do", method=RequestMethod.GET)
-	public ModelAndView doSkatExportList(HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tvinnsadadmin_avggrunnlag.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doAvggrunnlag(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag searchFilter, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tvinnsadadmin_avggrunnlag");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		SearchFilterSadAdminTransportList searchFilter = new SearchFilterSadAdminTransportList();
+		String action = request.getParameter("action");
+		
+		//logger.info(searchFilter.getFromDate());
 		
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
+			
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_ADMIN);
+			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
+		
+			//init filter with users signature (for starters)
+			//searchFilter.setSign(appUser.getTvinnSadSign());
+			//successView.addObject("searchFilter" , searchFilter);
+			
+			//init the rest
+			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+			successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
+			
+	    	return successView;
+		}
+	}
+	/**
+	 * This is targeted to external customers (our customer's customer). 
+	 * This link is accessed from within the DASHBOARD 
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadadmin_avggrunnlag_external.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doAvggrunnlagExternal(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag searchFilter, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadadmin_avggrunnlag_external");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		String action = request.getParameter("action");
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_AVGGRUNNLAG_EXTERNAL);
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
 			//init filter with users signature (for starters)
 			//searchFilter.setSign(appUser.getTvinnSadSign());
 			//successView.addObject("searchFilter" , searchFilter);
+			
 			//init the rest
 			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
 			successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
@@ -199,71 +232,8 @@ public class SadAdminAvgiftsgrunnlagController {
 	}
 	*/
 
-	/**
-	 * 
-	 * @param model
-	 * @param appUser
-	 */
 	
-	private void populateAvdelningHtmlDropDownsFromJsonString(Map model, SystemaWebUser appUser){
-		//fill in html lists here
-		String UPPDRAG_TYPE = "A"; //All avd in the company (for Transportuppdrag)
-		try{
-			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_AVDELNINGAR_URL;
-			StringBuffer urlRequestParamsKeys = new StringBuffer();
-			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "ie=" + UPPDRAG_TYPE);
-			//Now build the URL and send to the back end via the drop down service
-			String url = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
-			logger.info("AVD BASE_URL:" + BASE_URL);
-			logger.info("AVD BASE_PARAMS:" + urlRequestParamsKeys.toString());
-			
-			JsonTvinnSadAvdelningContainer container = this.tvinnSadDropDownListPopulationService.getAvdelningContainer(url);
-			List<JsonTvinnSadAvdelningRecord> list = new ArrayList();
-			for(JsonTvinnSadAvdelningRecord record: container.getAvdelningar()){
-				list.add(record);
-			}
-			model.put(TvinnSadConstants.RESOURCE_MODEL_KEY_AVD_LIST, list);
-			
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}	
 	
-	/**
-	 * 
-	 * @param model
-	 * @param appUser
-	 */
-	
-	private void populateSignatureHtmlDropDownsFromJsonString(Map model, SystemaWebUser appUser){
-		//fill in html lists here
-		String UPPDRAG_TYPE = "F"; //TDS (TODO for Transportuppdrag ?) 
-		
-		try{
-			String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_FETCH_SIGNATURE_URL;
-			StringBuffer urlRequestParamsKeys = new StringBuffer();
-			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "ie=" + UPPDRAG_TYPE);
-			//Now build the URL and send to the back end via the drop down service
-			String url = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
-			logger.info("SIGN BASE_URL:" + BASE_URL);
-			logger.info("SIGN BASE_PARAMS:" + urlRequestParamsKeys.toString());
-			
-			JsonTvinnSadSignatureContainer container = this.tvinnSadDropDownListPopulationService.getSignatureContainer(url);
-			List<JsonTvinnSadSignatureRecord> list = new ArrayList();
-			for(JsonTvinnSadSignatureRecord record: container.getSignaturer()){
-				list.add(record);
-			}
-			model.put(TvinnSadConstants.RESOURCE_MODEL_KEY_SIGN_LIST, list);
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}	
 	
 	/**
 	 * 
@@ -271,31 +241,23 @@ public class SadAdminAvgiftsgrunnlagController {
 	 * @param appUser
 	 * @return
 	 */
-	private String getRequestUrlKeyParameters(SearchFilterSadAdminTransportList searchFilter, SystemaWebUser appUser){
+	private String getRequestUrlKeyParameters(SearchFilterSadAdminAvggrunnlag searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		//String action = request.getParameter("action");
 		
 		//Adjust dates NO to ISO
-		searchFilter.setDatum(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getDatum(), "ddmmyy"));
+		searchFilter.setFromDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getFromDate(), "ddmmyy"));
+		searchFilter.setToDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getToDate(), "ddmmyy"));
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		if(searchFilter.getAvd()!=null && !"".equals(searchFilter.getAvd())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + searchFilter.getAvd());
+		if(searchFilter.getAvggCustomerId()!=null && !"".equals(searchFilter.getAvggCustomerId())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "custId=" + searchFilter.getAvggCustomerId());
 		}
-		if(searchFilter.getSign()!=null && !"".equals(searchFilter.getSign())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sign=" + searchFilter.getSign());
+		if(searchFilter.getFromDate()!=null && !"".equals(searchFilter.getFromDate())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fDate=" + searchFilter.getFromDate());
 		}
-		if(searchFilter.getOpd()!=null && !"".equals(searchFilter.getOpd())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + searchFilter.getOpd());
-		}
-		if(searchFilter.getAvsNavn()!=null && !"".equals(searchFilter.getAvsNavn())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avsNavn=" + searchFilter.getAvsNavn());
-		}
-		if(searchFilter.getMotNavn()!=null && !"".equals(searchFilter.getMotNavn())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "motNavn=" + searchFilter.getMotNavn());
-		}
-		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
+		if(searchFilter.getToDate()!=null && !"".equals(searchFilter.getToDate())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tDate=" + searchFilter.getToDate());
 		}
 		
 		return urlRequestParamsKeys.toString();
