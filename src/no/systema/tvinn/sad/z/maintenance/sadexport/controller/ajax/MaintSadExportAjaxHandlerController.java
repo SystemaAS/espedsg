@@ -150,10 +150,7 @@ public class MaintSadExportAjaxHandlerController {
     		JsonMaintSadExportSaehContainer container = this.maintSadExportSaehService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-/*	        	for(JsonMaintSadExportSaehRecord record: list){
-	        		logger.info(record.getSetdn());
-	        	}
-*/	        }
+	        }
     	}
     	return list;
 	}	
@@ -168,26 +165,23 @@ public class MaintSadExportAjaxHandlerController {
 	 */
 	private Collection<JsonMaintSadSadlRecord> fetchListSad004(String applicationUser, String id, String levenr){
 		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr ;
+		String urlRequestParams = "user=" + applicationUser + "&slalfa=" + id + "&slknr=" + levenr;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//extract
-    	List<JsonMaintSadSadlRecord> list = new ArrayList();
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		// extract
+		List<JsonMaintSadSadlRecord> list = new ArrayList();
 		if (jsonPayload != null) {
 			// lists
 			JsonMaintSadSadlContainer container = this.maintSadSadlService.getList(jsonPayload);
 			if (container != null) {
 				list = (List) container.getList();
-/*				for (JsonMaintSadSadlRecord record : list) {
-					// logger.info("my text");
-				}
-*/			}
+			}
 		}
 		return list;
- 	
-	}	
+
+	}
 	
 	
 	//SERVICES

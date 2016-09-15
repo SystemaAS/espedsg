@@ -55,7 +55,14 @@ public class MaintSadExportSad004Validator implements Validator {
 						errors.rejectValue("mf", "", "Tasted momsfritak er feil."); // F=momsfritak
 					}
 				}
-
+				//Check valid kode/sekv combination
+				if (record.getSlkdae() != null && !"".equals(record.getSlkdae())) {
+					if (record.getSlkdse() != null && !"".equals(record.getSlkdse())) {
+						// OK
+					} else {
+						errors.rejectValue("slkdse", "", "Tasted kode/avg er feil."); 
+					}
+				}
 			}
 		}
 	}
@@ -68,7 +75,6 @@ public class MaintSadExportSad004Validator implements Validator {
 	public void validateDelete(Object obj, Errors errors) { 
 		
 		JsonMaintSadSadlRecord record = (JsonMaintSadSadlRecord)obj;
-		//logger.info(record.getSltanr());
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slknr", "", "Kundnr (SLKNR) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "slalfa", "", "Varenr. (SLALFA) er obligatorisk"); 
 		

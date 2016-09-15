@@ -35,6 +35,8 @@ import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMain
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodtseService;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadsdService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadexport.validator.MaintSadExportSad004Validator;
 import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
@@ -56,13 +58,10 @@ public class MaintSadExportSad004Controller {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintSadExportSad004Controller.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private ApplicationContext context;
-	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 
 
-	
 	/**
 	 * 
 	 * @param user
@@ -134,7 +133,7 @@ public class MaintSadExportSad004Controller {
 			}
 			if(bindingResult.hasErrors()){
 				//ERRORS
-				logger.info("[ERROR Validation] Record does not validate)");
+				logger.info("[BINDING ERROR Validation] Record does not validate)");
 				model.put("dbTable", dbTable);
 				if(updateId!=null && !"".equals(updateId)){
 					//meaning bounced in an Update and not a Create new
@@ -170,14 +169,15 @@ public class MaintSadExportSad004Controller {
 				//check for Update errors
 				if( dmlRetval < 0){
 					logger.info("[ERROR Validation] Record does not validate)");
-					this.populateDropDowns(model, appUser.getUser());
+					logger.info("errMsg.toString():"+errMsg.toString());
 					model.put("dbTable", dbTable);
 					model.put("kundnr", recordToValidate.getSlknr());
 					model.put("updateId", updateId);
 					//adjust back the free text (prior to the appends: r31, pref and mf
 					recordToValidate.setSltxt(originalFreeText);
 					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidateOrg);
+					
 				}
 				
 			}
@@ -189,20 +189,21 @@ public class MaintSadExportSad004Controller {
 			}
 			List<JsonMaintSadSadlRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getSlalfa(), recordToValidate.getSlknr());
 	    	//set domain objets
-			this.populateDropDowns(model, appUser.getUser());
 	    	model.put("dbTable", dbTable);
 	    	model.put("kundnr", recordToValidate.getSlknr());
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+			this.populateDropDowns(model, appUser.getUser()); 
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
+		
 			
 	    	return successView;
 		}
 	}
 	
 	private void populateDropDowns(Map model, String applicationUser){
-		codeDropDownMgr.populatePrefCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser);
+		codeDropDownMgr.populatePrefCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser); 
 		codeDropDownMgr.populateR31HtmlDropDownsSadExport( model);
-		
+		codeDropDownMgr.populateMfHtlDropDownSadExport(model);
 	}
 		
 	/**
@@ -363,11 +364,16 @@ public class MaintSadExportSad004Controller {
 	private MaintSadExportKodts6Service maintSadExportKodts6Service;
 	@Autowired
 	@Required
-	public void setMaintKodtvaService (MaintSadExportKodts6Service value){ this.maintSadExportKodts6Service = value; }
-	public MaintSadExportKodts6Service getMaintKodtvaService(){ return this.maintSadExportKodts6Service; }
+	public void setMaintSadExportKodts6Service (MaintSadExportKodts6Service value){ this.maintSadExportKodts6Service = value; }
+	public MaintSadExportKodts6Service getMaintSadExportKodts6Service(){ return this.maintSadExportKodts6Service; }
+
 	
-
-
-
+	@Qualifier ("maintSadExportKodtseService")
+	private MaintSadExportKodtseService maintSadExportKodtseService;
+	@Autowired
+	@Required
+	public void setMaintSadExportKodtseService (MaintSadExportKodtseService value){ this.maintSadExportKodtseService = value; }
+	public MaintSadExportKodtseService getMaintKodtseService(){ return this.maintSadExportKodtseService; }	
+		
 }
 

@@ -112,7 +112,9 @@
 					               	</a>
 				               </td>
 				            </tr> 
+				            				            
 				            </c:forEach>
+				            				            
 				            </tbody>
 				            <tfoot>
 							<tr>
@@ -227,18 +229,26 @@
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="9" maxlength="8" value='${model.record.sltanr}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="sltn" id="sltn" size="2" maxlength="1" value='${model.record.sltn}'></td>
+						
 						<td >
-		            		<select class="inputTextMediumBlueMandatoryField" name="pref" id="pref">
+							<select class="inputTextMediumBlueMandatoryField" name="pref" id="pref">
 		 						<option value="">-velg-</option>
-			 				  	<c:forEach var="pref" items="${model.prefCodeList}" >
-			 				  		<option value="${pref.ks6pre}"<c:if test="${model.record.ks6pre == pref.ks6pre}"> selected </c:if> >${pref.ks6pre}</option>
+			 				  	<c:forEach var="kalle" items="${model.kalle}" >
+			 				  		<option value="${kalle.ks6pre}"<c:if test="${model.record.pref == kalle.ks6pre}"> selected </c:if> >${kalle.ks6pre}</option>
 								</c:forEach>  
-							</select>
+							</select>						
 						</td>											
 						<td ><input type="text" class="inputTextMediumBlue" name="slvekt" id="slvekt" size="13" maxlength="12" value='${model.record.slvekt}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="slpva" id="slpva" size="2" maxlength="1" value='${model.record.slpva}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="slsats" id="slsats" size="8" maxlength="7" value='${model.record.slsats}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="mf" id="mf" size="2" maxlength="1" value='${model.record.mf}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="slsats" id="slsats" size="8" maxlength="7" value='${model.record.slsats}'></td>						
+						<td >
+		            		<select class="inputTextMediumBlueMandatoryField" name="mf" id="mf">
+		 						<option value="">-velg-</option>
+			 				  	<c:forEach var="mf" items="${model.mfList}" >
+			 				  		<option value="${mf}"<c:if test="${model.record.mf == mf}"> selected </c:if> >${mf}</option>
+								</c:forEach>  
+							</select>
+						</td>																	
 						<td >
 							<input type="text" class="inputTextMediumBlue" name="slkdae" id="slkdae" size="3" maxlength="2" value='${model.record.slkdae}'>
 							<input type="text" class="inputTextMediumBlue" name="slkdse" id="slkdse" size="4" maxlength="3" value='${model.record.slkdse}'>

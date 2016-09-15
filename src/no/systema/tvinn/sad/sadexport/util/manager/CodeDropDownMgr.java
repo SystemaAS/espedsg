@@ -25,7 +25,10 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Container;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Record;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadsdService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadsdRecord;
 
 
 /**
@@ -278,14 +281,13 @@ public class CodeDropDownMgr {
     		JsonMaintSadExportKodts6Container container = maintSadExportKodts6Service.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadExportKodts6Record record : list){
-//	        		logger.info("record.getKs6pre()="+record.getKs6pre());
-	        	}
 	        }
     	}
-    	model.put("prefCodeList", list); 	
+    	
+    	model.put("kalle", list);  
+    	
 	}
-
+	
 	/**
 	 * Populate r31List with J, N
 	 * 
@@ -297,5 +299,19 @@ public class CodeDropDownMgr {
 		String[] r31List = {"J","N"};
 		model.put("r31List", r31List);
 	}
+	
+	
+	/**
+	 * Populate mfList with F
+	 * 
+	 * model attribute: mfList
+	 * 
+	 * @param model
+	 */
+	public void populateMfHtlDropDownSadExport(Map model) {
+		String[] mfList = {"F"};
+		model.put("mfList", mfList);
+	}
+
 	
 }

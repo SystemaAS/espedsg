@@ -23,7 +23,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintDktvkService" class="no.systema.skat.z.maintenance.main.service.MaintDktvkServiceImpl"/>
 
 	<!-- =================  -->
-	<!-- TVINN SAD EXPORT   -->
+	<!-- TVINN SAD		    -->
 	<!-- =================  -->
 	<bean id="maintSadSadlService" class="no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlServiceImpl"/>
  	
@@ -35,7 +35,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadExportSadavgeService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadavgeServiceImpl"/>
 	<bean id="maintSadExportSaehService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSaehServiceImpl"/>
 	<bean id="maintSadExportKodts6Service" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6ServiceImpl"/>
-
+	<bean id="maintSadExportSadsdService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadsdServiceImpl"/>
+	<bean id="maintSadExportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodtseServiceImpl"/>			
 			
 	<!-- =================  -->
 	<!-- TVINN SAD IMPORT   -->
