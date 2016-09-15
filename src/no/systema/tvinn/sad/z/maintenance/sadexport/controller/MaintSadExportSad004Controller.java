@@ -37,7 +37,6 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodtseService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadexport.validator.MaintSadExportSad004Validator;
-import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 
 
 /**
@@ -310,8 +309,7 @@ public class MaintSadExportSad004Controller {
 	 */
 	private int updateRecord(String applicationUser, JsonMaintSadSadlRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
-		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD004R_DML_UPDATE_URL;
+		String BASE_URL = TvinnSadMaintenanceExportUrlDataStore.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string

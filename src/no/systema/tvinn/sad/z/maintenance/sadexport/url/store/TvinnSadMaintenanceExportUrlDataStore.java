@@ -106,9 +106,14 @@ public final class TvinnSadMaintenanceExportUrlDataStore {
 	 */
 	static public final String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD024_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD024_U.do";
 
+	/**
+	 * SAD004R_U
+	 * 
+	 * /syjservicestn/syjsSAD004R_U.do
+	 * 
+	 */
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD004R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD004R_U.do";
 
-
-		
 	
 	//--------------------------
 	//[3] GUI lists drop downs
