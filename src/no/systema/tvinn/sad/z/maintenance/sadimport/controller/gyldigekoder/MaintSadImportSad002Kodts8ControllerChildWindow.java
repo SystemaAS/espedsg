@@ -39,18 +39,9 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
-//import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
-//import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
-//import no.systema.tvinn.sad.sadimport.service.SadImportGeneralCodesChildWindowService;
-
-//import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
-//import no.systema.tvinn.sad.util.TvinnSadConstants;
-
-
-import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
+import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Container;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts8Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8Service;

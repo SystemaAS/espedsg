@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tvinn.sad.z.maintenance.sadimport.mapper.url.request;
+package no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request;
 
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
