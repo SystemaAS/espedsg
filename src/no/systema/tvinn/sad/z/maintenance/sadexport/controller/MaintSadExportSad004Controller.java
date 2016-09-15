@@ -362,13 +362,5 @@ public class MaintSadExportSad004Controller {
 	public void setMaintSadExportKodts6Service (MaintSadExportKodts6Service value){ this.maintSadExportKodts6Service = value; }
 	public MaintSadExportKodts6Service getMaintSadExportKodts6Service(){ return this.maintSadExportKodts6Service; }
 
-	
-	@Qualifier ("maintSadExportKodtseService")
-	private MaintSadExportKodtseService maintSadExportKodtseService;
-	@Autowired
-	@Required
-	public void setMaintSadExportKodtseService (MaintSadExportKodtseService value){ this.maintSadExportKodtseService = value; }
-	public MaintSadExportKodtseService getMaintKodtseService(){ return this.maintSadExportKodtseService; }	
-		
 }
 

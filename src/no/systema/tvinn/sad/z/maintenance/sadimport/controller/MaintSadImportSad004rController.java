@@ -1,46 +1,45 @@
 package no.systema.tvinn.sad.z.maintenance.sadimport.controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Logger;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
+import org.apache.commons.lang3.SerializationUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-//application imports
-import no.systema.main.context.TdsAppContext;
+import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.main.model.SystemaWebUser;
-import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
+import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadimport.validator.MaintSadImportSad004rValidator;
 
 
 /**
- *  TVINN Maintenance Import Sad001ar Controller 
+ *  TVINN Maintenance Import Sad001ar Controller - Gml. Kunders vareregister
  * 
  * @author oscardelatorre
  * @date May 31, 2016
@@ -54,10 +53,9 @@ public class MaintSadImportSad004rController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintSadImportSad004rController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private ApplicationContext context;
-	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+
 	/**
 	 * 
 	 * @param user
@@ -83,6 +81,7 @@ public class MaintSadImportSad004rController {
 	    		list = this.fetchList(appUser.getUser(), null, kundnr); //to accomplish wild card search
 	    	}
 	    	//set domain objets
+			this.populateDropDowns(model, appUser.getUser());
 	    	model.put("dbTable", dbTable);
 	    	model.put("kundnr", kundnr);
 	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
@@ -117,10 +116,12 @@ public class MaintSadImportSad004rController {
 			String originalFreeText = recordToValidate.getSltxt();
 			//Move on
 			MaintSadImportSad004rValidator validator = new MaintSadImportSad004rValidator();
+			JsonMaintSadSadlRecord recordToValidateOrg = null; 
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
 				//adjust values
+				recordToValidateOrg=SerializationUtils.clone(recordToValidate); //keep due to advanced adjustments between UI and DB
 				this.adjustSomeRecordValues(recordToValidate);
 				validator.validate(recordToValidate, bindingResult);
 			}
@@ -132,7 +133,7 @@ public class MaintSadImportSad004rController {
 					//meaning bounced in an Update and not a Create new
 					model.put("updateId", updateId);
 				}
-				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidateOrg);
 			}else{
 				
 				//------------
@@ -167,7 +168,7 @@ public class MaintSadImportSad004rController {
 					//adjust back the free text (prior to the appends: r31, pref and mf
 					recordToValidate.setSltxt(originalFreeText);
 					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidateOrg);
 				}
 				
 			}
@@ -182,11 +183,19 @@ public class MaintSadImportSad004rController {
 	    	model.put("dbTable", dbTable);
 	    	model.put("kundnr", recordToValidate.getSlknr());
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+			this.populateDropDowns(model, appUser.getUser()); 
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
 		}
 	}
+
+	private void populateDropDowns(Map model, String applicationUser){
+		codeDropDownMgr.populatePrefCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser); 
+		codeDropDownMgr.populateR31HtmlDropDownsSadExport( model);
+		codeDropDownMgr.populateMfHtlDropDownSadExport(model);
+	}	
+	
 	
 	/**
 	 * 
@@ -280,7 +289,7 @@ public class MaintSadImportSad004rController {
     	List<JsonMaintSadSadlRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadSadlContainer container = this.maintSadImportSadlService.getList(jsonPayload);
+    		JsonMaintSadSadlContainer container = this.maintSadSadlService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadSadlRecord record : list){
@@ -317,7 +326,7 @@ public class MaintSadImportSad004rController {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadSadlContainer container = this.maintSadImportSadlService.doUpdate(jsonPayload);
+    		JsonMaintSadSadlContainer container = this.maintSadSadlService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -342,12 +351,20 @@ public class MaintSadImportSad004rController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintSadImportSadlService")
-	private MaintSadSadlService maintSadImportSadlService;
+	@Qualifier ("maintSadSadlService")
+	private MaintSadSadlService maintSadSadlService;
 	@Autowired
 	@Required
-	public void setMaintSadImportSadlService (MaintSadSadlService value){ this.maintSadImportSadlService = value; }
-	public MaintSadSadlService getMaintSadImportSadlService(){ return this.maintSadImportSadlService; }
+	public void setMaintSadImportSadlService (MaintSadSadlService value){ this.maintSadSadlService = value; }
+	public MaintSadSadlService getMaintSadImportSadlService(){ return this.maintSadSadlService; }
 	
+	@Qualifier ("maintSadExportKodts6Service")
+	private MaintSadExportKodts6Service maintSadExportKodts6Service;
+	@Autowired
+	@Required
+	public void setMaintSadExportKodts6Service (MaintSadExportKodts6Service value){ this.maintSadExportKodts6Service = value; }
+	public MaintSadExportKodts6Service getMaintSadExportKodts6Service(){ return this.maintSadExportKodts6Service; }
+
+
 }
 
