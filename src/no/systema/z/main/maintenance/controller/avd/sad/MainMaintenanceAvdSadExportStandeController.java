@@ -213,8 +213,8 @@ public class MainMaintenanceAvdSadExportStandeController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		//this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
-		//this.codeDropDownMgr.populateAvdListHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser);
+		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "sealist");
 		
 	}
 	

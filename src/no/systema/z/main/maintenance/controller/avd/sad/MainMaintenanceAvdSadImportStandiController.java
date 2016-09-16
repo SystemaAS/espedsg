@@ -29,7 +29,6 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainStandiService;
-import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiContainer;
@@ -213,8 +212,8 @@ public class MainMaintenanceAvdSadImportStandiController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
-		this.codeDropDownMgr.populateAvdListHtmlDropDownsSadImport(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser);
+		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "sialist");
 		
 	}
 	
@@ -326,64 +325,6 @@ public class MainMaintenanceAvdSadImportStandiController {
 	 * @param recordToValidate
 	 */
 	private void adjustSomeRecordValues(JsonMaintMainStandiRecord recordToValidate){
-		final String ZERO = "0";
-		//-----------------
-		//Decimal amounts
-		//-----------------
-		if(recordToValidate.getSibel1()!=null && !"".equals(recordToValidate.getSibel1())){
-			String tmp = recordToValidate.getSibel1().replace(",", ".");
-			recordToValidate.setSibel1(tmp);
-		}else{
-			recordToValidate.setSibel1(ZERO);	
-		}
-		if(recordToValidate.getSibel2()!=null && !"".equals(recordToValidate.getSibel2())){
-			String tmp = recordToValidate.getSibel2().replace(",", ".");
-			recordToValidate.setSibel2(tmp);
-		}else{
-			recordToValidate.setSibel2(ZERO);	
-		}
-		if(recordToValidate.getSibel3()!=null && !"".equals(recordToValidate.getSibel3())){
-			String tmp = recordToValidate.getSibel3().replace(",", ".");
-			recordToValidate.setSibel3(tmp);
-		}else{
-			recordToValidate.setSibel3(ZERO);	
-		}
-		if(recordToValidate.getSivku()!=null && !"".equals(recordToValidate.getSivku())){
-			String tmp = recordToValidate.getSivku().replace(",", ".");
-			recordToValidate.setSivku(tmp);
-		}else{
-			recordToValidate.setSivku(ZERO);
-		}
-		if(recordToValidate.getSias()!=null && !"".equals(recordToValidate.getSias())){
-			String tmp = recordToValidate.getSias().replace(",", ".");
-			recordToValidate.setSias(tmp);
-		}else{
-			recordToValidate.setSias(ZERO);
-		}
-		if(recordToValidate.getSibel8()!=null && !"".equals(recordToValidate.getSibel8())){
-			String tmp = recordToValidate.getSibel8().replace(",", ".");
-			recordToValidate.setSibel8(tmp);
-		}else{
-			recordToValidate.setSibel8(ZERO);
-		}
-		if(recordToValidate.getSibel9()!=null && !"".equals(recordToValidate.getSibel9())){
-			String tmp = recordToValidate.getSibel9().replace(",", ".");
-			recordToValidate.setSibel9(tmp);
-		}else{
-			recordToValidate.setSibel9(ZERO);
-		}
-		if(recordToValidate.getSibelb()!=null && !"".equals(recordToValidate.getSibelb())){
-			String tmp = recordToValidate.getSibelb().replace(",", ".");
-			recordToValidate.setSibelb(tmp);
-		}else{
-			recordToValidate.setSibelb(ZERO);
-		}
-		if(recordToValidate.getSibelr()!=null && !"".equals(recordToValidate.getSibelr())){
-			String tmp = recordToValidate.getSibelr().replace(",", ".");
-			recordToValidate.setSibelr(tmp);
-		}else{
-			recordToValidate.setSibelr(ZERO);
-		}
 		//----------
 		//Dates
 		//----------
@@ -429,14 +370,6 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
 	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
-	
-	
-	@Qualifier ("maintMainEdiiService")
-	private MaintMainEdiiService maintMainEdiiService;
-	@Autowired
-	@Required
-	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
-	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
 
 }

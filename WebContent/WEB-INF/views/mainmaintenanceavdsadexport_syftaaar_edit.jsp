@@ -132,8 +132,8 @@
 										<td class="text12" >
 										<select name="seavd" id="seavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-velg-</option>
-						  					<c:forEach var="record" items="${Xmodel.avdGeneralList}" >
-						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.seavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
+						  					<c:forEach var="record" items="${model.avdGeneralList}" >
+						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.seavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 											
@@ -666,8 +666,8 @@
 							 				<%-- Note: onChange event in jQuery for this currency list --%>
 							 				<select class="inputTextMediumBlue" name="seval1" id="seval1" >
 							 				  <option value="">-velg-</option>	
-							 				  <c:forEach var="record" items="${Xmodel.currencyCodeList}" >
-						 				  		<option value="${record.kvakod}"<c:if test="${ Xmodel.record.seval1 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
+							 				  <c:forEach var="record" items="${model.currencyCodeList}" >
+						 				  		<option value="${record.kvakod}"<c:if test="${ model.record.seval1 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
 											  </c:forEach>  
 											</select>
 											<a tabindex="-1" id="seval1IdLink">
@@ -1096,9 +1096,7 @@
 							<tr>
 							<td class="text12">&nbsp;</td>
 							<td class="text12" >
-								<%--
 		    	    			<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
-		    	    			 --%>
 							</td>
 							</tr>
 							 

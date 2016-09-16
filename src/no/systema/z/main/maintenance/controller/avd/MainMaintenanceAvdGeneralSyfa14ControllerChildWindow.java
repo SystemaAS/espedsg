@@ -61,7 +61,7 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 	
 	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdGeneralSyfa14ControllerChildWindow.class.getName());
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(200);
 	private ModelAndView loginView = new ModelAndView("login");
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private LoginValidator loginValidator = new LoginValidator();
@@ -91,6 +91,7 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 		Map model = new HashMap();
 		String callerType = request.getParameter("ctype");
 		String sialist = request.getParameter("sialist");
+		String sealist = request.getParameter("sealist");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -104,7 +105,10 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
 			String urlRequestParamsKeys = "user=" + appUser.getUser();
 			if(sialist!=null && !"".equals(sialist)){
-				urlRequestParamsKeys = urlRequestParamsKeys + "&sialist=1"; //only the available avd.
+				urlRequestParamsKeys = urlRequestParamsKeys + "&sialist=1"; //only the available avd. (sad import)
+			}
+			if(sealist!=null && !"".equals(sealist)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&sealist=1"; //only the available avd. (sad export)
 			}
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);

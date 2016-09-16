@@ -15,6 +15,9 @@
 			  if(callerType == 'siavd'){
 				  opener.jq('#siavd').val(avd);
 				  
+			  }else if(callerType == 'seavd'){
+				  opener.jq('#seavd').val(avd);
+				  
 			  }  
 			  //close child window
 			  window.close();

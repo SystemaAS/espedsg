@@ -37,7 +37,7 @@ public class CodeDropDownMgr {
 	 * @param model
 	 * @param applicationUser
 	 */
-	public void populateCurrencyCodesHtmlDropDownsSadImport(UrlCgiProxyService urlCgiProxyService, MaintKodtvaService maintKodtvaService, Map model, String applicationUser ){
+	public void populateCurrencyCodesHtmlDropDownsSad(UrlCgiProxyService urlCgiProxyService, MaintKodtvaService maintKodtvaService, Map model, String applicationUser ){
 	
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -69,13 +69,13 @@ public class CodeDropDownMgr {
 	 * @param maintMainKodtaService
 	 * @param model
 	 * @param applicationUser
-	 * 
+	 * @param sadType (SAD Import or Export parameter: sialist/sealist
 	 */
-	public void populateAvdListHtmlDropDownsSadImport(UrlCgiProxyService urlCgiProxyService,  MaintMainKodtaService maintMainKodtaService, Map model, String applicationUser ){
+	public void populateAvdListHtmlDropDownsSad(UrlCgiProxyService urlCgiProxyService,  MaintMainKodtaService maintMainKodtaService, Map model, String applicationUser, String sadType ){
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user="+ applicationUser + "&sialist=1" ); //sialist in order to return not-yet-used avd from general avdelningar
+		urlRequestParams.append("user="+ applicationUser + "&" + sadType + "=1" ); //sialist or sealist in order to return not-yet-used avd from general avdelningar
 		
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -96,7 +96,6 @@ public class CodeDropDownMgr {
     	}
     	model.put(MainMaintenanceConstants.CODE_MGR_AVD_GENERAL_LIST, list); 	
 	}
-	
-	
+
 	
 }
