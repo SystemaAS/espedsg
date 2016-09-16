@@ -21,72 +21,48 @@
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
+					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
+						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="13%" valign="bottom" class="tabDisabled" align="center">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
+							<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
+							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="16%" valign="bottom" class="tabDisabled" align="center">
+						<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadimport_syftaaar.do">
+							<font class="tabDisabledLink">&nbsp;TVINN SAD Import.</font>&nbsp;
+							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
+						</a>
+					</td>
 					<c:choose>
 						<c:when test="${not empty model.updateId}">
-							<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
-								<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-								<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
-								<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
-								</a>
-							</td>
-							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
-									<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
-									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
-								</a>
-							</td>
-							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="16%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadimport_syftaaar.do">
-									<font class="tabDisabledLink">&nbsp;TVINN SAD Import.</font>&nbsp;
-									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
-								</a>
-							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="16%" valign="bottom" class="tab" align="center">
 								<font class="tabLink">&nbsp;Avd.</font>&nbsp;
 								<font class="text11MediumBlue">(${model.avd})</font>
 							</td>
-							
-							<td width="45%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						</c:when>
 						<c:otherwise>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
-								<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-								<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
-								<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
-								</a>
-							</td>
-							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="13%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
-									<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
-									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
-								</a>
-							</td>
-							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-							<td width="16%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadimport_syftaaar.do">
-									<font class="tabDisabledLink">&nbsp;TVINN SAD Import.</font>&nbsp;
-									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
-								</a>
-							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="16%" valign="bottom" class="tab" align="center">
 								<font class="tabLink">&nbsp;Lage ny avd.</font>&nbsp;
 								<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 							</td>
-							<td width="45%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+							
 						</c:otherwise>
 					</c:choose>
+					<td width="45%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>
 	</tr>
-	
-	
-	
 	
 	<tr>
 		<td>
@@ -447,27 +423,7 @@
 										        	
 										            <td class="text12" align="left" >&nbsp;&nbsp;
 											            <span title="sikns">Kundenummer</span>
-											            <img title="Spørring på fritekster for kunder" id="senderFreeTextImg" onMouseOver="showPop('senderFtxtinfo');" onMouseOut="hidePop('senderFtxtinfo');" onClick="showPop('senderInfoFreeTextDialog');" style="vertical-align:top;" width="18px" height="18px" src="resources/images/largeTextContent.png" border="0" alt="info">
-											 			<div class="text11" style="position: relative;" align="left">
-														<span style="position:absolute; top:2px; width:250px;" id="senderFtxtinfo" class="popupWithInputText"  >
-											           		<font class="text11" >Spørring på fritekster for kunder</font>
-														</span>
-														</div>
-														
-											 			<span style="position:absolute; left:300px; top:300px; width:400px; height:500px;" id="senderInfoFreeTextDialog" class="popupWithInputText"  >
-											           		<div class="text11" align="left">
-											           		Spørring på fritekster for kunder
-											           		<p>
-											           			<textarea rows="20" cols="40" class="inputText" name="senderInfoTextArea" id="senderInfoTextArea" maxlength="1000"></textarea>
-											           		</p>
-											           		<p>
-											           			&nbsp;&nbsp;<button name="senderInfoFreeTextDialogCloseOk" id="senderInfoFreeTextDialogCloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('senderInfoFreeTextDialog');"><spring:message code="systema.tvinn.sad.import.ok"/></button>
-											           		</p>
-											           		</div>
-														</span>
-														
-														
-														
+											            
 										            </td>
 										            <td class="text12" align="left" >&nbsp;&nbsp;
 										            <span title="sinas" id="v_sinas" class="validation">Navn&nbsp;</span>
@@ -569,26 +525,7 @@
 										        	
 										            <td class="text12" align="left" >&nbsp;&nbsp;
 										            <span title="siknk">Kundenummer</span>
-										            		<img id="receiverFreeTextImg" onMouseOver="showPop('receiverFtxtinfo');" onMouseOut="hidePop('receiverFtxtinfo');" onClick="showPop('receiverInfoFreeTextDialog');" style="vertical-align:top;" width="18px" height="18px" src="resources/images/largeTextContent.png" border="0" alt="info" title="Spørring på fritekster for kunder" >
-											 			<div class="text11" style="position: relative;" align="left">
-														<span style="position:absolute; top:2px; width:250px;" id="receiverFtxtinfo" class="popupWithInputText"  >
-											           		<font class="text11" >Spørring på fritekster for kunder</font>
-														</span>
-														</div>
-														
-														<span style="position:absolute; left:300px; top:450px; width:400px; height:500px;" id="receiverInfoFreeTextDialog" class="popupWithInputText"  >
-											           		<div class="text11" align="left">
-											           		Spørring på fritekster for kunder
-											           		<p>
-											           			<textarea rows="20" cols="40" class="inputText" name="receiverInfoTextArea" id="receiverInfoTextArea" maxlength="1000"></textarea>
-											           		</p>
-											           		<p>
-											           			&nbsp;&nbsp;<button name="receiverInfoFreeTextDialogCloseOk" id="receiverInfoFreeTextDialogCloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('receiverInfoFreeTextDialog');"><spring:message code="systema.tvinn.sad.import.ok"/></button>
-											           		</p>
-											           		</div>
-														</span>
-														
-														
+										            	
 										            </td>
 										            <td class="text12" align="left" >&nbsp;&nbsp;
 										            <span title="sinak" id="v_sinak" class="validation">Navn&nbsp;</span>

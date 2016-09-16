@@ -114,11 +114,11 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("TVINN - SAD Eksport");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
+		object.setCode("mainmaintenanceavdsadexport"); //JSP page prefix
+		object.setText("SYFTAAA / STANDE");
+		object.setDbTable("STANDE");
 		object.setStatus("Y");
-		object.setPgm("todo");
+		object.setPgm("syftaaar");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();

@@ -32,6 +32,9 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD IMPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSYFTAAAR.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_SYFTAAAR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAR.do";
+	//AVD SAD EXPORT ON GENERAL MAINT
+	//http://gw.systema.no:8080/syjservicesbcore/syjsSYFTAAAER.do?user=OSCAR
+	static public String MAINTENANCE_MAIN_BASE_SYFTAAAER_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAER.do";
 	
 	
 	//CHILDREN List on SYFA28 --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333
@@ -66,6 +69,8 @@ public final class MaintenanceMainUrlDataStore {
 	
 	//AVD SAD IMPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_SYFTAAAR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAR_U.do";
+	//AVD SAD EXPORT ON GENERAL MAINT
+	static public String MAINTENANCE_MAIN_BASE_SYFTAAAER_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAER_U.do";
 	
 	//--------------------------
 	//[3] GUI lists drop downs
