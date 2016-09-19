@@ -81,7 +81,6 @@ public class MaintSadExportSad015Controller {
 	    		list = this.fetchList(appUser.getUser(), agtanr);
 	    	} 
 	    		    	
-	    	logger.info("doSadMaintExportList, dbTable=" + dbTable + " and agtanr="+agtanr+" gives list.size()="+list.size());
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("agtanr", agtanr);

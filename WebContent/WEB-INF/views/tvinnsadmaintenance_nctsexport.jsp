@@ -91,8 +91,10 @@
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
 				               		<c:choose>
-					               		<c:when test="${record.status == 'G'}">
-					               			<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+					               		<c:when test="${record.status == 'G' && not empty record.pgm}">
+					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenance_nctsexport_${record.pgm}.do?id=${record.dbTable}">
+		               							<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
+		               						</a>
 					               		</c:when>
 					               		<c:otherwise>
 					               			<font class="text12">&nbsp;&nbsp;${record.subject}&nbsp;</font>
