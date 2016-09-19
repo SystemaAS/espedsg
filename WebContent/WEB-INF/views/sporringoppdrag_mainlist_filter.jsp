@@ -159,11 +159,11 @@
 										</c:forEach> 
 									</select>
 									--%>
-									<select name="wsfri1" id="wsfri1">
+									<select name="fscd" id="fscd">
 							        	<option value=""><spring:message code="systema.sporringoppdrag.mainlist.form.search.label.select"/>
-							        	<option value="IFB" <c:if test="${searchFilter.wsfri1 == 'IFB'}"> selected </c:if> >Fraktbrevref.	
-							         	<option value="TLØ" <c:if test="${searchFilter.wsfri1 == 'TLØ'}"> selected </c:if> >Sad/Tvin løpenr (hele el deler eks 2010027  )
-							         	<option value="ORD" <c:if test="${searchFilter.wsfri1 == 'ORD'}"> selected </c:if> >Ordrenummer
+							        	<option value="IFB" <c:if test="${searchFilter.fscd == 'IFB'}"> selected </c:if> >Fraktbrevref.	
+							         	<option value="TLØ" <c:if test="${searchFilter.fscd == 'TLØ'}"> selected </c:if> >Sad/Tvin løpenr (hele el deler eks 2010027  )
+							         	<option value="ORD" <c:if test="${searchFilter.fscd == 'ORD'}"> selected </c:if> >Ordrenummer
 						         	</select>
 					    			</td>
 						    	</tr>
