@@ -234,7 +234,7 @@
 								<select name="kohfak" id="kohfak" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohfak == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohfak == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohfak == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -242,7 +242,7 @@
 								<select name="kohlas" id="kohlas" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohlas == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohlas == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohlas == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -250,7 +250,7 @@
 								<select name="kohgod" id="kohgod" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohgod == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohgod == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohgod == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -258,7 +258,7 @@
 								<select name="kohbou" id="kohbou" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohbou == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohbou == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohbou == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -266,7 +266,7 @@
 								<select name="kohkk" id="kohkk" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohkk == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohkk == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohkk == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -274,7 +274,7 @@
 								<select name="kohlos" id="kohlos" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohlos == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohlos == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohlos == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -282,7 +282,7 @@
 								<select name="kohman" id="kohman" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.kohman == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.kohman == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.kohman == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -298,7 +298,7 @@
 								<select name="koh421" id="koh421" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.koh421 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh421 == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.koh421 == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -314,7 +314,7 @@
 								<select name="koh422" id="koh422" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.koh422 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh422 == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.koh422 == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>
@@ -330,7 +330,7 @@
 								<select name="koh423" id="koh423" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.koh423 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.koh423 == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.koh423 == 'N'}"> selected </c:if> >Nei</option>
 				  					
 							  	</select>
 							</td>	

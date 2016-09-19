@@ -350,7 +350,7 @@
 												<select name="kowkom" id="kowkom" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kowkom == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ model.record.kowkom == 'N'}"> selected </c:if> >Nej</option>
+								  					<option value="N"<c:if test="${ model.record.kowkom == 'N'}"> selected </c:if> >Nei</option>
 								  				</select>
 											</td>
 											<td class="text12" title="kowbbs" >&nbsp;

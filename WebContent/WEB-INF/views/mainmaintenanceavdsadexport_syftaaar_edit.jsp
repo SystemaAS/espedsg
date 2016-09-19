@@ -148,7 +148,7 @@
 									<select name="sedl" id="sedl" class="inputTextMediumBlueMandatoryField">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.sedl == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.sedl == 'N'}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.sedl == 'N'}"> selected </c:if> >Nei</option>
 					  					<option value="1"<c:if test="${ model.record.sedl == '1'}"> selected </c:if> >1</option>
 								  	</select>
 								</td>
@@ -157,7 +157,7 @@
 									<select name="sea4" id="sea4" class="inputTextMediumBlue">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.sea4 == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.sea4 == 'N'}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.sea4 == 'N'}"> selected </c:if> >Nei</option>
 								  	</select>
 								</td>	
 								<td class="text12" title="setdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nrt.teller intern ref.</td>
@@ -170,7 +170,7 @@
 									<select name="seekst" id="seekst" class="inputTextMediumBlue">
 					  					<option value="">-velg-</option>
 					  					<option value="J"<c:if test="${ model.record.seekst == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.seekst == 'N'}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.seekst == 'N'}"> selected </c:if> >Nei</option>
 					  					<option value="R"<c:if test="${ model.record.seekst == 'R'}"> selected </c:if> >R</option>
 								  	</select>
 								</td>
@@ -180,7 +180,7 @@
 								<td class="text12" >
 									<select name="setolk" id="setolk" class="inputTextMediumBlueMandatoryField">
 					  					<option value="J"<c:if test="${ model.record.setolk == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.setolk == 'N' || empty model.record.setolk}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.setolk == 'N' || empty model.record.setolk}"> selected </c:if> >Nei</option>
 								  	</select>
 								</td>
 							</tr>
@@ -202,7 +202,7 @@
 								<select name="todo" id="todo" class="inputTextMediumBlue">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ XXmodel.record.X == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ XXmodel.record.X == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ XXmodel.record.X == 'N'}"> selected </c:if> >Nei</option>
 							  	</select>
 							</td>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
@@ -260,7 +260,7 @@
 								<select name="selv2" id="selv2" class="inputTextMediumBlueMandatoryField">
 				  					<option value="">-velg-</option>
 				  					<option value="J"<c:if test="${ model.record.selv2 == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ model.record.selv2 == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="N"<c:if test="${ model.record.selv2 == 'N'}"> selected </c:if> >Nei</option>
 							  	</select>
 							</td>
 						</tr>
