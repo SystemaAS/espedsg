@@ -61,6 +61,8 @@
 		                    <th class="text11" >&nbsp;Postnr&nbsp;</th>
 		                    <th class="text11" >&nbsp;Land&nbsp;</th>
 		                    <th class="text11" >&nbsp;Tollkredit&nbsp;</th>
+		                    <th class="text11" >&nbsp;Firma&nbsp;</th>
+		                    
 		                </tr> 
 		                </thead>
 		                
@@ -74,7 +76,7 @@
 			                       <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${Xrecord.syland}@keori${Xrecord.eori}@ctype${model.ctype}@kadr2${record.adr2}" >
+			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${Xrecord.syland}@keori${record.syrg}@ctype${model.ctype}@kadr2${record.adr2}" >
 			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.kundnr}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.knavn}</td>
@@ -84,6 +86,7 @@
 		               	   <td class="text11">&nbsp;${record.postnr}</td>
 		               	   <td class="text11">&nbsp;${record.syland}</td>
 		               	   <td class="text11">&nbsp;${record.syfr02}&nbsp;${record.sykont}</td>
+		               	   <td class="text11">&nbsp;${record.firma}</td>
 		               	   
 			            </tr> 
 			            </c:forEach>

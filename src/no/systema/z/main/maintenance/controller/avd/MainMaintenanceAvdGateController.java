@@ -97,7 +97,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("mainmaintenanceavd"); //JSP page prefix
 		object.setText("SYFA14 / KODTA, NAVAVD, KODTSF, KODTD, KODTASID, FIRM, CUNDF");
 		object.setDbTable("KODTA");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("syfa14r");
 		listObject.add(object);
 		//
@@ -107,7 +107,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("mainmaintenanceavdsadimport"); //JSP page prefix
 		object.setText("SYFTAAA / STANDI");
 		object.setDbTable("STANDI");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("syftaaar");
 		listObject.add(object);
 		//
@@ -117,7 +117,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("mainmaintenanceavdsadexport"); //JSP page prefix
 		object.setText("SYFTAAA / STANDE");
 		object.setDbTable("STANDE");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("syftaaar");
 		listObject.add(object);
 		//
@@ -147,7 +147,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -157,7 +157,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -167,7 +167,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -177,7 +177,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -187,7 +187,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -197,7 +197,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -207,7 +207,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		//
@@ -217,7 +217,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("TODO");
 		object.setText("X / Y");
 		object.setDbTable("TODO");
-		object.setStatus("Y");
+		//object.setStatus("Y");
 		object.setPgm("todo");
 		listObject.add(object);
 		

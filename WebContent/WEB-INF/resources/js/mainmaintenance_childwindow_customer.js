@@ -18,8 +18,40 @@
 			  var callerType = record[7].replace("ctype", "");
 			  var adr2 = record[8].replace("kadr2", "");
 			  //addressing a parent field from this child window
-			  
+			  //default on Generella Avd
 			  opener.jq('#koaknr').val(knr);
+			  
+			  
+			  //SAD Import - AVD
+			  if(callerType == 'sinak'){
+				  opener.jq('#siknk').val(knr);
+				  opener.jq('#sinak').val(knavn);
+				  opener.jq('#sirg').val(eori);
+				  opener.jq('#siadk1').val(adr1);
+				  opener.jq('#siadk2').val(adr2);
+				  opener.jq('#siadk3').val(adr3);
+			  }else if(callerType == 'sinas'){
+				  opener.jq('#sikns').val(knr);
+				  opener.jq('#sinas').val(knavn);
+				  opener.jq('#siads1').val(adr1);
+				  opener.jq('#siads2').val(adr2);
+				  opener.jq('#siads3').val(adr3);
+			  
+			  //SAD Export - AVD
+			  }else if(callerType == 'senak'){
+				  opener.jq('#seknk').val(knr);
+				  opener.jq('#senak').val(knavn);
+				  opener.jq('#serg').val(eori);
+				  opener.jq('#seadk1').val(adr1);
+				  opener.jq('#seadk2').val(adr2);
+				  opener.jq('#seadk3').val(adr3);
+			  }else if(callerType == 'senas'){
+				  opener.jq('#sekns').val(knr);
+				  opener.jq('#senas').val(knavn);
+				  opener.jq('#seads1').val(adr1);
+				  opener.jq('#seads2').val(adr2);
+				  opener.jq('#seads3').val(adr3);
+			  }
 				  
 			  //close child window
 			  window.close();

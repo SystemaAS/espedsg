@@ -98,9 +98,10 @@ public class MainMaintenanceControllerChildWindow {
 		Map model = new HashMap();
 		String callerType = request.getParameter("ctype");
 		String firma = request.getParameter("firma");
-		logger.info(callerType);
 		String customerName = request.getParameter("sonavn");
 		String customerNr = request.getParameter("knr");
+		logger.info("callerType:" + callerType);
+		logger.info("customerName:" + customerName);
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -223,14 +224,20 @@ public class MainMaintenanceControllerChildWindow {
 		  if(customerName!=null && !"".equals(customerName) && customerNumber!=null && !"".equals(customerNumber)){
 			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "knavn=" + customerName );
 			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kundnr=" + customerNumber );
-			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  if(firma!=null && !"".equals(firma)){
+				  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  }
 			  
 		  }else if (customerName!=null && !"".equals(customerName)){
 			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "knavn=" + customerName );
-			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  if(firma!=null && !"".equals(firma)){
+				  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  }
 		  }else if (customerNumber!=null && !"".equals(customerNumber)){
 			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kundnr=" + customerNumber );
-			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  if(firma!=null && !"".equals(firma)){
+				  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + firma );
+			  }
 		  }
 		  
 		  return sb.toString();

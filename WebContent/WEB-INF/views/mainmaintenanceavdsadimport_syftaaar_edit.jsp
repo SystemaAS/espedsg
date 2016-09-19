@@ -686,10 +686,11 @@
 						 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival3 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
 											  </c:forEach>  
 											</select>
+											<%--
 											<a tabindex="-1" id="sival3IdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
-											
+											 --%>
 						 				</td>
 					 				</tr>
 					 				<tr>

@@ -24,18 +24,16 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.DateTimeManager;
 
-
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainStandeService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
-
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandeContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandeRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
+import no.systema.z.main.maintenance.validator.sad.MaintMainStandeValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
@@ -123,7 +121,7 @@ public class MainMaintenanceAvdSadExportStandeController {
 				//Validate
 				this. adjustSomeRecordValues(recordToValidate);
 				
-				MaintMainStandiValidator validator = new MaintMainStandiValidator();
+				MaintMainStandeValidator validator = new MaintMainStandeValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS

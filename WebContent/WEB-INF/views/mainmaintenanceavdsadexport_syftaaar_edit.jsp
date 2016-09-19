@@ -180,7 +180,7 @@
 								<td class="text12" >
 									<select name="setolk" id="setolk" class="inputTextMediumBlueMandatoryField">
 					  					<option value="J"<c:if test="${ model.record.setolk == 'J'}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ model.record.setolk == 'N' || empty Xmodel.record.setolk}"> selected </c:if> >Nej</option>
+					  					<option value="N"<c:if test="${ model.record.setolk == 'N' || empty model.record.setolk}"> selected </c:if> >Nej</option>
 								  	</select>
 								</td>
 							</tr>
@@ -277,7 +277,7 @@
 				<tr>
 	 				<td class="text12" >
 	 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
- 					<b>1.1</b><span title="sidty">Dekl.type&nbsp;</span>
+ 					<b>1.1</b><span title="sedty">Dekl.type&nbsp;</span>
  					</td>
  					<td class="text12" >
  					<input type="text" class="inputTextMediumBlue" name="sedty" id="sedty" size="4" maxlength="2" value="${model.record.sedty}">
@@ -433,7 +433,7 @@
 										            </td>
 										        </tr>
 										        <tr>
-										            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="sekns" id="sekns" size="9" maxlength="8" value="${model.record.seknk}"></td>
+										            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="seknk" id="seknk" size="9" maxlength="8" value="${model.record.seknk}"></td>
 										            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="senak" id="senak" size="31" maxlength="30" value="${model.record.senak}"></td>
 										        </tr>
 										        <tr>
@@ -538,7 +538,7 @@
 										            </td>
 										            <td class="text12" align="left" >&nbsp;&nbsp;
 										            <span title="senas" id="v_senas" class="validation">Navn&nbsp;</span>
-										            	<a tabindex="-1" id="sinakIdLink">
+										            	<a tabindex="-1" id="senasIdLink">
 															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 														</a>			
 										            </td>
@@ -670,10 +670,11 @@
 						 				  		<option value="${record.kvakod}"<c:if test="${ model.record.seval1 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
 											  </c:forEach>  
 											</select>
+											<%--
 											<a tabindex="-1" id="seval1IdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
-											
+											 --%>
 						 				</td>
 					 				</tr>
 					 				<tr>
@@ -939,7 +940,7 @@
 								
 								</td>
 								<td class="text12" align="left" ><span title="sepos">Posisjon</span>
-					            	&nbsp;<input type="text" class="inputTextMediumBlue" name="sepos" id="sepos" size="15" maxlength="9" value="${model.record.sepos}">
+					            	&nbsp;<input type="text" class="inputTextMediumBlue" name="sepos" id="sepos" size="15" maxlength="8" value="${model.record.sepos}">
 					            </td>
 					        </tr>
 							<tr height="5"><td class="text"></td></tr>
