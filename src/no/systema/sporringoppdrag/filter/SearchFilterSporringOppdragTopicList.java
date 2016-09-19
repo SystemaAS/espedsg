@@ -77,6 +77,10 @@ public class SearchFilterSporringOppdragTopicList {
 	public void setFscd(String value) {  this.fscd = value; }
 	public String getFscd() { return this.fscd;}
 	
+	private String wsfri1 = null;
+	public void setWsfri1(String value) {  this.wsfri1 = value; }
+	public String getWsfri1() { return this.wsfri1;}
+
 	private String wsfri2 = null;
 	public void setWsfri2(String value) {  this.wsfri2 = value; }
 	public String getWsfri2() { return this.wsfri2;}

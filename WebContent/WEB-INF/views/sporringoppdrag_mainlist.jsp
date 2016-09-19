@@ -171,21 +171,29 @@
 						    	</tr>
 						    	
 					    		<tr>
-						    		<td class="text11" nowrap title="fscd/wsfri2">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.andreRef"/></td>
+						    		<td class="text11" nowrap title="wsfri1/wsfri2">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.andreRef"/></td>
 						    		<td class="text11" colspan="2">
-						    			<%--
+						    			<%-- 99 values
 						    			<select name="fscd" id="fscd">
 			            					<option value="">-velg-</option>
 			 				  			<c:forEach var="record" items="${model.TODOList}" >
 		                             		<option value="${record.TODO}"<c:if test="${model.record.fscd == record.TODO}"> selected </c:if> >${record.TODO}</option>
 										</c:forEach> 
 									</select>
-									 --%>
+									//fscd was used before changing it to wsfri1 (CB/OT/Bring) 
 									<select name="fscd" id="fscd">
 							        		<option value=""><spring:message code="systema.sporringoppdrag.mainlist.form.search.label.select"/>
 							         	<option value="TLØ" <c:if test="${searchFilter.fscd == 'TLØ'}"> selected </c:if> >Sad/Tvin løpenr (hele el deler eks 2010027  )
 							         	<option value="ORD" <c:if test="${searchFilter.fscd == 'ORD'}"> selected </c:if> >Ordrenummer
 						         	</select> 
+						         	--%>
+						         	<select name="wsfri1" id="wsfri1">
+							        	<option value=""><spring:message code="systema.sporringoppdrag.mainlist.form.search.label.select"/>
+							        	<option value="IFB" <c:if test="${searchFilter.wsfri1 == 'IFB'}"> selected </c:if> >Fraktbrevref.	
+							         	<option value="TLØ" <c:if test="${searchFilter.wsfri1 == 'TLØ'}"> selected </c:if> >Sad/Tvin løpenr (hele el deler eks 2010027  )
+							         	<option value="ORD" <c:if test="${searchFilter.wsfri1 == 'ORD'}"> selected </c:if> >Ordrenummer
+						         	</select> 
+						         	
 					    			</td>
 						    	</tr>
 						    	<tr>

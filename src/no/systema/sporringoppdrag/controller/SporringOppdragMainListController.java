@@ -240,8 +240,8 @@ public class SporringOppdragMainListController {
 		if(searchFilter.getWsmrk1()!=null && !"".equals(searchFilter.getWsmrk1())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsmrk1=" + searchFilter.getWsmrk1());
 		}
-		if(searchFilter.getFscd()!=null && !"".equals(searchFilter.getFscd())){
-			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fscd=" + searchFilter.getFscd());
+		if(searchFilter.getWsfri1()!=null && !"".equals(searchFilter.getWsfri1())){
+			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsfri1=" + searchFilter.getWsfri1());
 		}
 		if(searchFilter.getWsfri2()!=null && !"".equals(searchFilter.getWsfri2())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsfri2=" + searchFilter.getWsfri2());
