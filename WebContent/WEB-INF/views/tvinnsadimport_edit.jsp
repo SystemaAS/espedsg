@@ -1623,7 +1623,7 @@
 					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="insibvnv" id="insibvnv" size="5" maxlength="5" value="${model.record.insibvnv}">
 					            </td>
 					        </tr>
-					        
+					       <tr height="2"><td></td></tr> 
 					       <c:if test="${ model.record.sist == 'E' || model.record.sist == 'K' || model.record.sist == 'Å' || empty  model.record.sist }"> 
 						   		<c:if test="${ empty model.record.sitll }"> 
 							        <tr>
@@ -1651,7 +1651,7 @@
 					        </c:if>
 					        
 					        
-							<tr height="20"><td>&nbsp;</td>&nbsp;</tr>
+							<tr height="20"><td>&nbsp;</td></tr>
 							<tr><td class="text12" colspan="2"><b>Varelinje totaler&nbsp;</b></td></tr>
    					        <tr>
 				        		<td class="text12Gray" align="left" ><span title="sumOfAntalKolliInItemLines" >Kolli&nbsp;</span></td>

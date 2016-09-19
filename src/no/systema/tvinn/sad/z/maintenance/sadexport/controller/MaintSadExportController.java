@@ -77,8 +77,9 @@ public class MaintSadExportController {
 		object.setId("1");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADE_STATUS");
-		object.setText("SAD029 / SAEH,STS,KODTSI");
+		object.setText("SAD029 / SAEH,STS,KODTSI - Ref. GUI on SAD-Eksport");
 		object.setDbTable("SAEH");
+		object.setStatus("G");
 		listObject.add(object);
 
 		//
@@ -86,8 +87,9 @@ public class MaintSadExportController {
 		object.setId("2");
 		object.setSubject("Avdelinger");
 		object.setCode("SADE_AVD");
-		object.setText("SYFTAE / STANDE,CUNDF,FIRM,KODTA,EDII");
+		object.setText("SYFTAE / STANDE - Ref.til Generelle Avd");
 		object.setDbTable("STANDE");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new MaintenanceMainListObject();

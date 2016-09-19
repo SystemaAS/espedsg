@@ -762,38 +762,45 @@
 		  
 	  });
 	  
-	  //Present dialog box onClick (href in parent JSP)
+	  //----------------------------
+	  //Present dialog box onClick 
+	  //----------------------------
 	  jq(function() {
 		  jq("#updateStatusLink").click(function() {
-			  //setters (add more if needed)
-			  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
-			  //deal with buttons for this modal window
-			  jq('#dialogUpdateStatus').dialog({
-				 buttons: [ 
-		            {
-					 id: "dialogSaveTU",	
-					 text: "Ok",
-					 click: function(){
-						 		jq('#updateStatusForm').submit();
-					 		}
-				 	 },
-		 	 		{
-				 	 id: "dialogCancelTU",
-				 	 text: "Cancel", 
-					 click: function(){
-						 		//back to initial state of form elements on modal dialog
-						 		jq("#dialogSaveSU").button("option", "disabled", true);
-						 		jq("#selectedStatus").val("");
-						 		jq( this ).dialog( "close" ); 
-					 		} 
-		 	 		 } ] 
-			  });
-			  //init values
-			  jq("#dialogSaveSU").button("option", "disabled", true);
-			  //open now
-			  jq('#dialogUpdateStatus').dialog('open');
-			  
+			  presentChangeStatusDialog();
 		  });
+		  jq("#updateStatusByUserImg").click(function() {
+			  presentChangeStatusDialog();
+		  });
+		  
 	  });
-	  
+	  function presentChangeStatusDialog(){
+		  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
+		  //deal with buttons for this modal window
+		  jq('#dialogUpdateStatus').dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSaveTU",	
+				 text: "Ok",
+				 click: function(){
+					 		jq('#updateStatusForm').submit();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancelTU",
+			 	 text: "Cancel", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		jq("#dialogSaveSU").button("option", "disabled", true);
+					 		jq("#selectedStatus").val("");
+					 		jq( this ).dialog( "close" ); 
+				 		} 
+	 	 		 } ] 
+		  });
+		  //init values
+		  jq("#dialogSaveSU").button("option", "disabled", true);
+		  //open now
+		  jq('#dialogUpdateStatus').dialog('open');
+		  
+	  }
 	  	

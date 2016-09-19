@@ -99,9 +99,11 @@ public class MaintSadImportController {
 		object.setId("1");
 		object.setSubject("Avdelinger");
 		object.setCode("SADI_AVD");
-		object.setText("SKFTAAA / STANDI");
+		object.setText("SKFTAAA / STANDI - Ref.til Generelle Avd");
 		object.setDbTable("STANDI");
+		object.setStatus("G");
 		listObject.add(object);
+		
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
@@ -228,7 +230,7 @@ public class MaintSadImportController {
 		object.setId("14");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADI_STATUS_DEKL");
-		object.setText("SAD013 / SADH,STS - Ref. GUI on SAD-Import!!");
+		object.setText("SAD013 / SADH,STS - Ref. GUI on SAD-Import");
 		object.setDbTable("SADH,STS");
 		object.setStatus("G");
 		listObject.add(object);

@@ -388,6 +388,13 @@
 				 			<td class="text12" align="left" colspan="2">
 				 				<input type="text" class="inputText" name="h_xref" id="h_xref" size="15" maxlength="35" value="${model.record.h_xref}">
 			 				</td>
+			 					
+				 			<td class="text12">&nbsp;
+		 						<span title="setll" id="v_setll" >Løpenr.&nbsp;</span>
+			 				</td>
+			 				<td class="text12" align="left">
+		            			<input readonly type="text" class="inputTextReadOnly" name="setll" id="setll" size="12" maxlength="10" value="${model.record.setll}">
+	            			</td>
 				 		</tr>
 	 				</table>
  				</td>
@@ -1555,6 +1562,35 @@
 					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sefvk" id="sefvk" size="5" maxlength="6" value="${model.record.sefvk}">
 					            </td>
 					        </tr>
+					        <tr height="2"><td></td></tr>
+					        <c:if test="${ model.record.sest == 'E' || model.record.sest == 'K' || model.record.sest == 'Å' || empty  model.record.sest }"> 
+						   		<c:if test="${ empty model.record.setll }">
+							        <tr>
+							        	<td valign="top" class="text12" colspan="2">
+							        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			Endre Status&nbsp;
+							        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+							        		<div class="text11" style="position: relative;" align="left">
+							            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+							           			<b>Endre Status</b>
+							           			<br/>
+							           			<p>
+							           				Statusen kan bare endres når:
+							           				<ol>
+							           				<li>Status = E, K, Å eller blank</li>
+							           				<li>Løpenr er blank</li>
+							           				
+						           					</ol>	
+							           			</p>
+											</span>
+											</div>	
+							        	</td>
+							        </tr>
+						       </c:if>
+					        </c:if>
+					        
+					        
+					        
 							<tr height="20"><td>&nbsp;</td>&nbsp;</tr>
 							<tr><td class="text12" colspan="2"><b>Varelinje totaler&nbsp;</b></td></tr>
 							<tr>
