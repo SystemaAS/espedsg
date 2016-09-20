@@ -71,7 +71,7 @@
 								<th width="2%" class="tableHeaderField" align="center" >Avd</th>
 								<th class="tableHeaderField" align="center" >Avd.navn</th>
 								<th class="tableHeaderField" align="center" >Ekspen</th>
-								<th class="tableHeaderField" align="center" >UtvekslingsId Sender</th>
+								<th class="tableHeaderField" align="center" >Utvekslingsid avs.</th>
 								<th class="tableHeaderField" align="center" >Foretaksnr</th>
 								<th class="tableHeaderField" align="center" >Slett</th>
 			                    

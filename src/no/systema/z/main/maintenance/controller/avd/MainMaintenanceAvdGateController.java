@@ -124,11 +124,11 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("4");
 		object.setSubject("TVINN - NCTS Import");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
+		object.setCode("mainmaintenanceavdsadnctsimport");
+		object.setText("TR053R / TRISTD");
+		object.setDbTable("TRISTD");
 		object.setStatus("Y");
-		object.setPgm("todo");
+		object.setPgm("tr053r");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();

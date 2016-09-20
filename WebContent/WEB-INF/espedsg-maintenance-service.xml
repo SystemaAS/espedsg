@@ -101,5 +101,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- SAD avd maintenance -->
 	<bean id="maintMainStandiService" class="no.systema.z.main.maintenance.service.sad.MaintMainStandiServiceImpl"/>
 	<bean id="maintMainStandeService" class="no.systema.z.main.maintenance.service.sad.MaintMainStandeServiceImpl"/>
+	<bean id="maintMainTristdService" class="no.systema.z.main.maintenance.service.sad.MaintMainTristdServiceImpl"/>
 	
 </beans>

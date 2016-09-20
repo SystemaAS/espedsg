@@ -92,6 +92,8 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 		String callerType = request.getParameter("ctype");
 		String sialist = request.getParameter("sialist");
 		String sealist = request.getParameter("sealist");
+		String nialist = request.getParameter("nialist");
+		String nealist = request.getParameter("nealist");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -109,6 +111,12 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 			}
 			if(sealist!=null && !"".equals(sealist)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&sealist=1"; //only the available avd. (sad export)
+			}
+			if(nialist!=null && !"".equals(nialist)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&nialist=1"; //only the available avd. (sad ncts import)
+			}
+			if(nealist!=null && !"".equals(nealist)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&nealist=1"; //only the available avd. (sad ncts export)
 			}
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);

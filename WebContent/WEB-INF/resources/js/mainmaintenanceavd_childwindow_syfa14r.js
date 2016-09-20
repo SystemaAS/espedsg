@@ -18,7 +18,10 @@
 			  }else if(callerType == 'seavd'){
 				  opener.jq('#seavd').val(avd);
 				  
-			  }  
+			  }else if(callerType == 'tiavd'){
+				  opener.jq('#tiavd').val(avd);
+				  
+			  }   
 			  //close child window
 			  window.close();
 		  });
