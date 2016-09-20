@@ -199,11 +199,10 @@ public class MaintSadNctsExportTr030rController {
     		JsonMaintNctsTrughContainer container = this.maintNctsExportTrughService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintNctsTrughRecord record : list){
-	        	//	logger.info("TGGNR:" + record.getTggnr());
+/*	        	for(JsonMaintNctsTrughRecord record : list){
 	        		logger.info("JsonMaintNctsTrughRecord::"+record);
 	        	}
-	        }
+*/	        }
     	}
     	return list;
     	

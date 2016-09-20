@@ -26,6 +26,7 @@ public class JsonMaintNctsTrughRecord extends JsonAbstractGrandFatherRecord {
 	private String tgtina = null;
 	private String tgnaa = null;
 	private String tgada1 = null;
+	private String tgpna = null;
 	private String tgpsa = null;
 	private String tglka = null;
 	private String tgtsd = null;
@@ -117,6 +118,14 @@ public class JsonMaintNctsTrughRecord extends JsonAbstractGrandFatherRecord {
 
 	public void setTgada1(String tgada1) {
 		this.tgada1 = tgada1;
+	}
+
+	public String getTgpna() {
+		return tgpna;
+	}
+
+	public void setTgpna(String tgpna) {
+		this.tgpna = tgpna;
 	}
 
 	public String getTgpsa() {

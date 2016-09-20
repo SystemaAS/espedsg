@@ -7,25 +7,6 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
-  /*
-  jq(function() {
-	  jq("#formRecord").submit(function() {
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
-	  });
-  });
-  
-  jq(function() {
-	  jq("#dkvk_dts").datepicker({ 
-		  dateFormat: 'yymmdd',
-		  onSelect: function() {
-			    $(this).change();
-			  }
-	  });
-	  jq("#dkvk_dte").datepicker({ 
-		  dateFormat: 'yymmdd'	  
-	  });
-  });
-  */
   
   jq(function() {
 		//Clean values for createing new record
@@ -70,11 +51,10 @@
   	rawId = rawId.replace("recordUpdate_", "");
   	var record = rawId.split('_');
 	var tggnr = record[0];
-	var moreToCome = record[1];
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_dkx030r.do',
+  	  url: 'getSpecificRecord_tr030r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
   		  	  id : tggnr },
   	  dataType: 'json',

@@ -85,7 +85,7 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.tggnr}_${Xrecord.dkvk_dts}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.tggnr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tggnr}&nbsp;</font></td>
@@ -188,11 +188,11 @@
 							<td width="50%" valign="top">
 								<table width="100%" cellspacing="1" border="0" align="left">
 									<tr>
-										<td class="text12" title="tgkna">&nbsp;Hovedansvarlige</td>
+										<td class="text12" title="tgkna">&nbsp;Hovedansvarlig</td>
 										<td ><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tgkna" id="tgkna" size="9" maxlength="8" value='${model.record.tgkna}'></td>
 									</tr>
 									<tr>	
-										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Firma nr.</td>
+										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Foretaks nr.</td>
 										<td ><input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}'></td>
 									</tr>
 									<tr>
@@ -222,18 +222,18 @@
 							<td width="50%" valign="top">
 								<table width="100%" cellspacing="1" border="0" align="left">
 									<tr>
-										<td class="text12" title="tgtsd">&nbsp;<font class="text14RedBold" >*</font>Garanti toldsted:</td>
+										<td class="text12" title="tgtsd">&nbsp;<font class="text14RedBold" >*</font>Garanti tollsted:</td>
 										<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgtsd" id="tgtsd" size="9" maxlength="8" value='${model.record.tgtsd}'></td>
 									</tr>
 									<tr>	
-										<td class="text12" title="tggty/tggnr">&nbsp;<font class="text14RedBold" >*</font>Garanti typ/Garanti nr.</td>
+										<td class="text12" title="tggty/tggnr">&nbsp;<font class="text14RedBold" >*</font>Garanti typ/Garanti nr.:</td>
 										<td >
 											<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tggty" id="tggty" size="2" maxlength="1" value='${model.record.tggty}'>
 											<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tggnr" id="tggnr" size="25" maxlength="24" value='${model.record.tggnr}'>
 										</td>
 									</tr>
 									<tr>	
-										<td class="text12" title="tggfv">&nbsp;Gjeld f.vare</td>
+										<td class="text12" title="tggfv">&nbsp;Gjeld følsom vare:</td>
 										<td class="text12" >
 											<select name="tggfv" id="tggfv" >
 		 					  					<option value="">-velg-</option>
@@ -243,18 +243,18 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" title="tgakny">&nbsp;<font class="text14RedBold" >*</font>Ny tillg.kode</td>
+										<td class="text12" title="tgakny">&nbsp;<font class="text14RedBold" >*</font>Ny adg.kode:</td>
 										<td class="text12" >
 											<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgakny" id="tgakny" size="5" maxlength="4" value='${model.record.tgakny}'>
-											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tgakgm">Gml. tillg.kode</span>
+											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tgakgm">Gml. adg.kode:</span>
 											<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgakgm" id="tgakgm" size="5" maxlength="4" value='${model.record.tgakgm}'>
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" title="tggbl">&nbsp;<font class="text14RedBold" >*</font>Garanti beløb</td>
+										<td class="text12" title="tggbl">&nbsp;<font class="text14RedBold" >*</font>Garanti beløp:</td>
 										<td class="text12" >
 											<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tggbl" id="tggbl" size="12" maxlength="11" value='${model.record.tggbl}'>
-											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tggvk">Valuta</span>
+											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tggvk">Valuta:</span>
 											<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tggvk" id="tggvk" >
 		 					  					<option value="">-velg-</option>
 												<c:forEach var="record" items="${model.currencyList}" >
@@ -265,16 +265,16 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" title="tggblb">&nbsp;Førb. garantibeløb</td>
+										<td class="text12" title="tggblb">&nbsp;Brukt garantibeløp:</td>
 										<td >
 											<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tggblb" id="tggblb" size="12" maxlength="11" value='${model.record.tggblb}'>
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" title="tgprm">&nbsp;Advarsel</td>
+										<td class="text12" title="tgprm">&nbsp;Varsling:</td>
 										<td >
 											<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tgprm" id="tgprm" size="4" maxlength="3" value='${model.record.tgprm}'>
-											&nbsp;<font class="text11">(Når der er anvendt mere end X %)</font>
+											&nbsp;<font class="text11">(Ved over X % er brukt opp)</font>
 										</td>
 									</tr>	
 								</table>

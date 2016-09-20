@@ -107,7 +107,7 @@ public class MaintSadNctsExportController {
 		object.setText("TR030R / TRUGH,KODTVA,CUNDF,KODTS2,TRKODF,...");
 		object.setDbTable("TRUGH");
 		object.setPgm("tr030r");
-		object.setStatus("G");
+		object.setStatus("Y");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
