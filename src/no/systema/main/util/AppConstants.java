@@ -71,6 +71,8 @@ public final class AppConstants {
 	public static final String DOCUMENTTYPE_JPG = "jpg";
 	public static final String DOCUMENTTYPE_DOC = "doc";
 	public static final String DOCUMENTTYPE_XLS = "xls";
+	public static final String DOCUMENTTYPE_CSV = "csv";
+	
 	
 	//TDS-Login
 	public static final String TDS_AUTHORIZATION_NUMBER_OF_TRIES = "tdsAuthorizationNumberOfTries";

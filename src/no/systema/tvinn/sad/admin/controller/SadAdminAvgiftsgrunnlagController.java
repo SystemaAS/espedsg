@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -31,6 +32,7 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.main.util.io.PayloadContentFlusher;
 
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
 import no.systema.tvinn.sad.admin.filter.SearchFilterSadAdminAvggrunnlag;
@@ -40,9 +42,10 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 
 //
-import no.systema.tvinn.sad.admin.service.SadAdminTransportService;
-import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportListContainer;
-
+import no.systema.tvinn.sad.admin.url.store.SadAdminUrlDataStore;
+import no.systema.tvinn.sad.admin.service.SadAdminAvggrunnlagService;
+import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminAvggrunnlagListContainer;
+import no.systema.tvinn.sad.admin.validator.SadAdminAvggrunnlagListValidator;
 
 
 /**
@@ -65,6 +68,7 @@ public class SadAdminAvgiftsgrunnlagController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
+	private PayloadContentFlusher payloadContentFlusher = new PayloadContentFlusher();
 	
 	/**
 	 * This link is accessed from within the TVINN ADMIN menu
@@ -90,10 +94,6 @@ public class SadAdminAvgiftsgrunnlagController {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_ADMIN);
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
-			//init filter with users signature (for starters)
-			//searchFilter.setSign(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
-			
 			//init the rest
 			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
 			successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
@@ -122,10 +122,6 @@ public class SadAdminAvgiftsgrunnlagController {
 			
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_AVGGRUNNLAG_EXTERNAL);
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
-			//init filter with users signature (for starters)
-			//searchFilter.setSign(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
-			
 			//init the rest
 			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
 			successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
@@ -140,15 +136,15 @@ public class SadAdminAvgiftsgrunnlagController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="tvinnsadadmin_transport", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterSadAdminTransportList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
+	
+	@RequestMapping(value="tvinnsadadmin_avggrunnlag.do", params="action=doCalculate",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		//this.context = TdsAppContext.getApplicationContext();
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		
-		ModelAndView successView = new ModelAndView("tvinnsadadmin_transport");
+		ModelAndView successView = new ModelAndView("tvinnsadadmin_avggrunnlag");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		if(appUser==null){
@@ -160,17 +156,17 @@ public class SadAdminAvgiftsgrunnlagController {
 			//-----------
 			//Validation
 			//-----------
-			SadAdminTransportListValidator validator = new SadAdminTransportListValidator();
+			SadAdminAvggrunnlagListValidator validator = new SadAdminAvggrunnlagListValidator();
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    validator.validate(recordToValidate, bindingResult);
 		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
-				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
+				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 		    	
 				successView.addObject(TvinnSadConstants.DOMAIN_LIST, new ArrayList());
@@ -181,43 +177,36 @@ public class SadAdminAvgiftsgrunnlagController {
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
-		    		SearchFilterSadAdminTransportList searchFilter = new SearchFilterSadAdminTransportList();
-				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
-	            //binder.registerCustomEditor(...); // if needed
-	            binder.bind(request);
-	            
+		    	
 	            //get BASE URL
-		    		final String BASE_URL = SadAdminUrlDataStore.TVINN_SAD_ADMIN_BASE_TRANSPORT_LIST_URL;
-		    		//add URL-parameters
-		    		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+	    		final String BASE_URL = SadAdminUrlDataStore.TVINN_SAD_ADMIN_BASE_AVGGRUNNLAG_LIST_URL;
+	    		//add URL-parameters
+	    		String urlRequestParams = this.getRequestUrlKeyParameters(recordToValidate, appUser);
 				session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-			    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
 			    	
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
 				//Debug --> 
 				logger.info(jsonPayload);
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		JsonSadAdminTransportListContainer jsonSkatAdminTransportListContainer = this.sadAdminTransportService.getSadAdminTransportListContainer(jsonPayload);
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		JsonSadAdminAvggrunnlagListContainer jsonSadAdminAvggrunnlagListContainer = this.sadAdminAvggrunnlagService.getSadAdminAvggrunnlagListContainer(jsonPayload);
 					//-----------------------------------------------------------
 					//now filter the topic list with the search filter (if applicable)
 					//-----------------------------------------------------------
-					outputList = jsonSkatAdminTransportListContainer.getOrderList();
+					outputList = jsonSadAdminAvggrunnlagListContainer.getOrderMVAreport();
 
 					
 					//--------------------------------------
 					//Final successView with domain objects
 					//--------------------------------------
-					//drop downs
-					this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-					this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+					model.put(TvinnSadConstants.DOMAIN_LIST,outputList);
 					successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
-			    		//domain and search filter
-					successView.addObject(TvinnSadConstants.DOMAIN_LIST,outputList);
-					successView.addObject("searchFilter", searchFilter);
+		    		//domain and search filter
+					successView.addObject("searchFilter", recordToValidate);
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 			    	
 					return successView;
@@ -230,11 +219,62 @@ public class SadAdminAvgiftsgrunnlagController {
 		}
 		
 	}
-	*/
+	
+	
+	
+	@RequestMapping(value="tvinnsadadmin_renderArchive.do", method={ RequestMethod.GET })
+	public ModelAndView doRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		logger.info("Inside doRenderArchive...");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			
+			//session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
+			String filePath = request.getParameter("fp");
+			
+			if(filePath!=null && !"".equals(filePath)){
+				
+                String absoluteFilePath = filePath;
+                
+                //must know the file type in order to put the correct content type on the Servlet response.
+                String fileType = this.payloadContentFlusher.getFileType(filePath);
+                if(AppConstants.DOCUMENTTYPE_PDF.equals(fileType)){
+                		response.setContentType(AppConstants.HTML_CONTENTTYPE_PDF);
+                }else if(AppConstants.DOCUMENTTYPE_TIFF.equals(fileType) || AppConstants.DOCUMENTTYPE_TIF.equals(fileType)){
+            			response.setContentType(AppConstants.HTML_CONTENTTYPE_TIFF);
+                }else if(AppConstants.DOCUMENTTYPE_JPEG.equals(fileType) || AppConstants.DOCUMENTTYPE_JPG.equals(fileType)){
+                		response.setContentType(AppConstants.HTML_CONTENTTYPE_JPEG);
+                }else if(AppConstants.DOCUMENTTYPE_TXT.equals(fileType)){
+            			response.setContentType(AppConstants.HTML_CONTENTTYPE_TEXTHTML);
+                }else if(AppConstants.DOCUMENTTYPE_DOC.equals(fileType)){
+            			response.setContentType(AppConstants.HTML_CONTENTTYPE_WORD);
+                }else if(AppConstants.DOCUMENTTYPE_XLS.equals(fileType)){
+            			response.setContentType(AppConstants.HTML_CONTENTTYPE_EXCEL);
+                }else if(AppConstants.DOCUMENTTYPE_CSV.equals(fileType)){
+            			response.setContentType(AppConstants.HTML_CONTENTTYPE_EXCEL);
+                }
+                //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");
+                response.setHeader ("Content-disposition", "filename=\"archiveDocument." + fileType + "\"");
+                
+                logger.info("Start flushing file payload...");
+                //send the file output to the ServletOutputStream
+                try{
+                		this.payloadContentFlusher.flushServletOutput(response, absoluteFilePath);
+                		//payloadContentFlusher.flushServletOutput(response, "plain text test...".getBytes());
+                	
+                }catch (Exception e){
+                		e.printStackTrace();
+                }
+            }
+			//this to present the output in an independent window
+            return(null);
+		}	
+	}	
 
-	
-	
-	
+
 	/**
 	 * 
 	 * @param searchFilter
@@ -251,17 +291,23 @@ public class SadAdminAvgiftsgrunnlagController {
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		if(searchFilter.getAvggCustomerId()!=null && !"".equals(searchFilter.getAvggCustomerId())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "custId=" + searchFilter.getAvggCustomerId());
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "siknk=" + searchFilter.getAvggCustomerId());
 		}
 		if(searchFilter.getFromDate()!=null && !"".equals(searchFilter.getFromDate())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fDate=" + searchFilter.getFromDate());
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datof=" + searchFilter.getFromDate());
 		}
 		if(searchFilter.getToDate()!=null && !"".equals(searchFilter.getToDate())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tDate=" + searchFilter.getToDate());
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datot=" + searchFilter.getToDate());
 		}
 		
 		return urlRequestParamsKeys.toString();
 	}
+	
+	
+	
+	
+	
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -277,12 +323,13 @@ public class SadAdminAvgiftsgrunnlagController {
 	public void setTvinnSadDropDownListPopulationService (TvinnSadDropDownListPopulationService value){ this.tvinnSadDropDownListPopulationService=value; }
 	public TvinnSadDropDownListPopulationService getTvinnSadDropDownListPopulationService(){return this.tvinnSadDropDownListPopulationService;}
 	
-	@Qualifier ("sadAdminTransportService")
-	private SadAdminTransportService sadAdminTransportService;
+	
+	@Qualifier ("sadAdminAvggrunnlagService")
+	private SadAdminAvggrunnlagService sadAdminAvggrunnlagService;
 	@Autowired
 	@Required
-	public void setSadAdminTransportService (SadAdminTransportService value){ this.sadAdminTransportService = value; }
-	public SadAdminTransportService getSadAdminTransportService(){ return this.sadAdminTransportService; }
+	public void setSadAdminAvggrunnlagService (SadAdminAvggrunnlagService value){ this.sadAdminAvggrunnlagService = value; }
+	public SadAdminAvggrunnlagService getSadAdminAvggrunnlagService(){ return this.sadAdminAvggrunnlagService; }
 	
 	
 }

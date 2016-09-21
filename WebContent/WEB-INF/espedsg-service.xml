@@ -209,6 +209,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN-SAD ADMIN    -->
 	<!-- =================  -->
 	<bean id="sadAdminTransportService" class="no.systema.tvinn.sad.admin.service.SadAdminTransportServiceImpl"/>
+	<bean id="sadAdminAvggrunnlagService" class="no.systema.tvinn.sad.admin.service.SadAdminAvggrunnlagServiceImpl"/>
 	
 	<!-- ============================  -->
 	<!-- OVERVIEW UFORTOLLEDE OPPDRAG  -->
