@@ -103,6 +103,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
+		String avdNavn = request.getParameter("avdnavn");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -115,6 +116,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
 			logger.info("avd" + avd);
+			logger.info("avdnavn" + avdNavn);
+			
 			logger.info("action" + action);
 			
 			
@@ -225,6 +228,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			}
 			model.put("action", action);
 			model.put("avd", avd);
+			model.put("avdnavn", avdNavn);
+			
 			model.put("updateId", updateId);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			

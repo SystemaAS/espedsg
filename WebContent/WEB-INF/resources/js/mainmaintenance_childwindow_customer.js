@@ -51,6 +51,16 @@
 				  opener.jq('#seads1').val(adr1);
 				  opener.jq('#seads2').val(adr2);
 				  opener.jq('#seads3').val(adr3);
+				  
+			  //SAD NCTS Import	  
+			  }else if(callerType == 'tina'){
+				  opener.jq('#tikn').val(knr);
+				  opener.jq('#tina').val(knavn);
+				  opener.jq('#titin').val(eori);
+				  opener.jq('#tiad1').val(adr1);
+				  opener.jq('#tips').val(adr3);
+				  opener.jq('#tipn').val(postnr);
+				  opener.jq('#tilk').val(land);
 			  }
 				  
 			  //close child window

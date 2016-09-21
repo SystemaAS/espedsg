@@ -50,7 +50,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdFasteData" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa28r_edit.do?avd=${model.avd}&updateId=${model.avd}">
+						<a id="alinkMainMaintAvdFasteData" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa28r_edit.do?avd=${model.avd}&updateId=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Faste data</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
@@ -62,14 +62,14 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}">
+						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Listehode</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa26r.do?avd=${model.avd}">
+						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa26r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Oppnr og tur</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
@@ -89,7 +89,12 @@
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	    
-	 	    
+	 	    <tr >
+	 	    	<td width="5%">&nbsp;</td>
+				<td colspan="4" class="text14MediumBlue" title=".">Avd.navn&nbsp;&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.avdnavn}">
+				</td>
+			</tr>
+			<tr height="5"><td >&nbsp;</td></tr>
 	 	    <%-- list component --%>
 			<tr>
 				<td width="5%">&nbsp;</td>
@@ -138,7 +143,7 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.hostfr}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		                       		<c:if test="${record.hoavd != 'null' && not empty record.hoavd}">
-		                       			<a class="aLinkRemove" id="aLinkRemove${counter.count}" onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa63r_edit.do?action=doDelete&koaavd=${record.koaavd}&hoavd=${record.hoavd}&honet=${record.honet}">
+		                       			<a class="aLinkRemove" id="aLinkRemove${counter.count}" onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavd_syfa63r_edit.do?action=doDelete&koaavd=${record.koaavd}&hoavd=${record.hoavd}&honet=${record.honet}&avdnavn=${model.avdnavn}">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 						               	</a>
 					               	</c:if>
@@ -204,6 +209,7 @@
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
 					<input type="hidden" name="hoavd" id=hoavd value="${model.avd}">
+					<input type="hidden" name="avdnavn" id=avdnavn value="${model.avdnavn}">
 					
 				<table width="95%" cellspacing="1" border="0" align="left">
 						<tr height="5"><td></td></tr>

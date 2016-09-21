@@ -28,7 +28,6 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainStandeService;
-import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandeContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandeRecord;
@@ -368,14 +367,6 @@ public class MainMaintenanceAvdSadExportStandeController {
 	@Required
 	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
 	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
-	
-	
-	@Qualifier ("maintMainEdiiService")
-	private MaintMainEdiiService maintMainEdiiService;
-	@Autowired
-	@Required
-	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
-	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
 
 }

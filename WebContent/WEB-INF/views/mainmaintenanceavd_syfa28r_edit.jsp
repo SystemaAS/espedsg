@@ -55,21 +55,21 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}">
+						<a id="alinkAvdHodeDok" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa63r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Hode på dok.</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}">
+						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Listehode</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa26r.do?avd=${model.avd}">
+						<a id="alinkAvdOppdTur" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa26r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
 							<font class="tabDisabledLink">&nbsp;Oppnr og tur</font>&nbsp;
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
@@ -142,11 +142,17 @@
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<input type="hidden" name="avd" id="avd" value="${model.avd}">
 						<input type="hidden" name="kovavd" id="kovavd" value="${model.record.kovavd}">
+						<input type="hidden" name="avdnavn" id=avdnavn value="${model.avdnavn}">
 						
 						<table width="99%" 	cellspacing="1" border="0" align="left">
 							<tr>
 								<td valign="top" width="90%">
 									<table	cellspacing="1" border="0" align="left">
+										<tr >
+											<td colspan="4" class="text14MediumBlue" title=".">Avd.navn&nbsp;&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.avdnavn}">
+											</td>
+										</tr>
+										<tr height="5"><td >&nbsp;</td></tr>	
 									 	<tr>
 											<td class="text12" title="kovpro">Prosjektregnskap</td>
 											<td class="text12" >

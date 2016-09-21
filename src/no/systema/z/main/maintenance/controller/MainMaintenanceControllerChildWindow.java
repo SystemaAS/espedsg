@@ -193,8 +193,6 @@ public class MainMaintenanceControllerChildWindow {
 	    			}
 	    		}
 	    	}
-
-			
 			model.put("list", list);
 			
 			model.put("id", id);
@@ -265,6 +263,7 @@ public class MainMaintenanceControllerChildWindow {
 		  
 		  return sb.toString();
 	  }
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

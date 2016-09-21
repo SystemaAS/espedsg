@@ -26,7 +26,14 @@
 				<img valign="bottom" src="resources/images/list.gif" border="0" alt="avg.grunnlag">
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a style="display:block;" id="transportLink" href="tvinnsadadmin_transport.do">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.tab"/></font>
+					<img valign="bottom" src="resources/images/list.gif" border="0" alt="transport general list">
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
 	</td>

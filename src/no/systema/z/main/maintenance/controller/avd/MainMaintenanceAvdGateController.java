@@ -127,7 +127,7 @@ public class MainMaintenanceAvdGateController {
 		object.setCode("mainmaintenanceavdsadnctsimport");
 		object.setText("TR053R / TRISTD");
 		object.setDbTable("TRISTD");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("tr053r");
 		listObject.add(object);
 		//

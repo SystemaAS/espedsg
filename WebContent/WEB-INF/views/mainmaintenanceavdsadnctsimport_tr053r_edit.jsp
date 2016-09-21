@@ -267,8 +267,8 @@
 										 			</td>
 								 				</tr>
 								 				<tr >
-										 			<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" name="titin" id="titin" size="17" maxlength="17" value="${model.record.titin}"></td>
-										 			<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" name="tina" id="tina" size="30" maxlength="30" value="${model.record.tina}"></td>
+										 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="titin" id="titin" size="17" maxlength="17" value="${model.record.titin}"></td>
+										 			<td class="text12"><input type="text" class="inputTextMediumBlue" name="tina" id="tina" size="30" maxlength="30" value="${model.record.tina}"></td>
 								 				</tr>
 								 				<tr >
 										 			<td class="text12">&nbsp;<span title="tiad1">Adresse</span></td>
@@ -296,7 +296,7 @@
 								 				</tr>
 								 				<tr >
 										 			<td>
-										 				<input type="text" class="inputText" name="tilk" id="tilk" size="3" maxlength="2" value="${model.record.tilk}">
+										 				<input type="text" class="inputTextMediumBlue" name="tilk" id="tilk" size="3" maxlength="2" value="${model.record.tilk}">
 									 				</td>
 										 			<td class="text12">
 										 				&nbsp;

@@ -65,6 +65,8 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
+		String avdNavn = request.getParameter("avdnavn");
+		
 		
 		if(appUser==null){
 			return this.loginView;
@@ -76,6 +78,8 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 			List<JsonMaintMainKodtaTellRecord> list = this.fetchList(appUser.getUser(), avd);
 			
 			model.put("avd", avd);
+			model.put("avdnavn", avdNavn);
+			
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -96,6 +100,8 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = recordToValidate.getTeavd();
+		String avdNavn = request.getParameter("avdnavn");
+		
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -163,6 +169,8 @@ public class MainMaintenanceAvdOppnrSyfa26Controller {
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			model.put("action", action);
 			model.put("avd", avd);
+			model.put("avdnavn", avdNavn);
+			
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
 			return successView;
