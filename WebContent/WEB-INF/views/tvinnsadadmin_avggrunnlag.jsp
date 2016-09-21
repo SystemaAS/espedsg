@@ -68,9 +68,7 @@
 			</tr>
 			</spring:hasBindErrors>	
  			
- 			
- 			
- 			
+
  	        <tr>
  	        	<td width="50%" valign="top">
  	        		<table style="width:100%;" align="center" class="XformFrame" border="0" cellspacing="0" cellpadding="0">

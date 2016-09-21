@@ -138,7 +138,7 @@ public class SadAdminAvgiftsgrunnlagController {
 	 */
 	
 	@RequestMapping(value="tvinnsadadmin_avggrunnlag.do", params="action=doCalculate",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doCalculate(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		//this.context = TdsAppContext.getApplicationContext();
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
@@ -152,7 +152,6 @@ public class SadAdminAvgiftsgrunnlagController {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-	    	
 			//-----------
 			//Validation
 			//-----------
@@ -164,64 +163,95 @@ public class SadAdminAvgiftsgrunnlagController {
 			if(bindingResult.hasErrors()){
 	    		logger.info("[ERROR Validation] search-filter does not validate)");
 	    		//put domain objects and do go back to the successView from here
-	    		//drop downs
-				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
-		    	
-				successView.addObject(TvinnSadConstants.DOMAIN_LIST, new ArrayList());
+	    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
+		    	successView.addObject(TvinnSadConstants.DOMAIN_LIST, new ArrayList());
 				successView.addObject("searchFilter", recordToValidate);
 				return successView;
 	    		
 		    }else{
-				//----------------------------------------------
-				//get Search Filter and populate (bind) it here
-				//----------------------------------------------
-		    	
-	            //get BASE URL
-	    		final String BASE_URL = SadAdminUrlDataStore.TVINN_SAD_ADMIN_BASE_AVGGRUNNLAG_LIST_URL;
-	    		//add URL-parameters
-	    		String urlRequestParams = this.getRequestUrlKeyParameters(recordToValidate, appUser);
-				session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParams);
-			    	
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				
+		    	outputList = this.getList(appUser, recordToValidate);
 
-				//Debug --> 
-				logger.info(jsonPayload);
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		JsonSadAdminAvggrunnlagListContainer jsonSadAdminAvggrunnlagListContainer = this.sadAdminAvggrunnlagService.getSadAdminAvggrunnlagListContainer(jsonPayload);
-					//-----------------------------------------------------------
-					//now filter the topic list with the search filter (if applicable)
-					//-----------------------------------------------------------
-					outputList = jsonSadAdminAvggrunnlagListContainer.getOrderMVAreport();
-
-					
-					//--------------------------------------
-					//Final successView with domain objects
-					//--------------------------------------
-					model.put(TvinnSadConstants.DOMAIN_LIST,outputList);
-					successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
-		    		//domain and search filter
-					successView.addObject("searchFilter", recordToValidate);
-					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-			    	
-					return successView;
-					
-				}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
+				//--------------------------------------
+				//Final successView with domain objects
+				//--------------------------------------
+				model.put(TvinnSadConstants.DOMAIN_LIST,outputList);
+				successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+	    		//domain and search filter
+				successView.addObject("searchFilter", recordToValidate);
+				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");			    	
+				return successView;
+			
 		    }
 		}
 		
 	}
 	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadadmin_avggrunnlag_external.do", params="action=doCalculate",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doCalculateExternal(@ModelAttribute ("record") SearchFilterSadAdminAvggrunnlag recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		//this.context = TdsAppContext.getApplicationContext();
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
+		
+		ModelAndView successView = new ModelAndView("tvinnsadadmin_avggrunnlag_external");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			//-----------
+			//Validation
+			//-----------
+			SadAdminAvggrunnlagListValidator validator = new SadAdminAvggrunnlagListValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
+		    	successView.addObject(TvinnSadConstants.DOMAIN_LIST, new ArrayList());
+				successView.addObject("searchFilter", recordToValidate);
+				return successView;
+	    		
+		    }else{
+				
+		    	outputList = this.getList(appUser, recordToValidate);
+
+				//--------------------------------------
+				//Final successView with domain objects
+				//--------------------------------------
+				model.put(TvinnSadConstants.DOMAIN_LIST,outputList);
+				successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+	    		//domain and search filter
+				successView.addObject("searchFilter", recordToValidate);
+				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");			    	
+				return successView;
+			
+		    }
+		}
+		
+	}
 	
-	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="tvinnsadadmin_renderArchive.do", method={ RequestMethod.GET })
 	public ModelAndView doRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		logger.info("Inside doRenderArchive...");
@@ -303,8 +333,35 @@ public class SadAdminAvgiftsgrunnlagController {
 		return urlRequestParamsKeys.toString();
 	}
 	
-	
-	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @return
+	 */
+	private List getList(SystemaWebUser appUser, SearchFilterSadAdminAvggrunnlag recordToValidate){
+		Collection list = new ArrayList();
+        //get BASE URL
+		final String BASE_URL = SadAdminUrlDataStore.TVINN_SAD_ADMIN_BASE_AVGGRUNNLAG_LIST_URL;
+		//add URL-parameters
+		String urlRequestParams = this.getRequestUrlKeyParameters(recordToValidate, appUser);
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+
+		//Debug --> 
+		logger.info(jsonPayload);
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSadAdminAvggrunnlagListContainer jsonSadAdminAvggrunnlagListContainer = this.sadAdminAvggrunnlagService.getSadAdminAvggrunnlagListContainer(jsonPayload);
+			if(jsonSadAdminAvggrunnlagListContainer!=null && jsonSadAdminAvggrunnlagListContainer.getOrderMVAreport()!=null){
+				list = jsonSadAdminAvggrunnlagListContainer.getOrderMVAreport();
+			}
+    	}
+    	return (List)list;
+	}
 	
 	
 	

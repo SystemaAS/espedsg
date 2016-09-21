@@ -39,6 +39,27 @@
  		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
  			<tr height="20"><td></td></tr>
  			
+ 			<%-- Validation errors --%>
+			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+			<tr>
+				<td>
+		           	<table width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+		           	<tr>
+					<td class="textError">					
+			            <ul>
+			            <c:forEach var="error" items="${errors.allErrors}">
+			                <li >
+			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
+			                </li>
+			            </c:forEach>
+			            </ul>
+					</td>
+					</tr>
+					</table>
+				</td>
+			</tr>
+			</spring:hasBindErrors>	
+ 			
  	        <tr>
  	        	<td width="50%" valign="top">
  	        		<table style="width:100%;" align="center" class="XformFrame" border="0" cellspacing="0" cellpadding="0">
@@ -71,8 +92,8 @@
 					            </tr>
 					            <tr>
 					            	<td>&nbsp;</td>
-					 	        	<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="fromDate" id="fromDate" size="10" maxlength="6" value='${searchFilter.fromDate}'>&nbsp;</td>
-									<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="toDate" id="toDate" size="10" maxlength="6" value='${searchFilter.toDate}'>&nbsp;</td>
+					 	        	<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="fromDate" id="fromDate" size="10" maxlength="6" value='${searchFilter.fromDateNO}'>&nbsp;</td>
+									<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="toDate" id="toDate" size="10" maxlength="6" value='${searchFilter.toDateNO}'>&nbsp;</td>
 									
 								</tr>
 								
@@ -90,10 +111,10 @@
 					 	        <tr>
 					 	        	<td>&nbsp;</td>
 					 	        	<td >
-										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${searchFilter.avggCustomerId}'>&nbsp;
+										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${user.custNr}'>&nbsp;
 									</td>
 									<td >	
-										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value=''>
+										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value='${user.custName}'>
 									</td>
 									<td valign="top" align="left" >
 					                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lage'>
@@ -124,18 +145,20 @@
 			    		</tr>
 	    				<tr height="2"><td></td></tr>
 						<tr class="tableHeaderField" height="20" valign="left">
-		                    <td class="tableHeaderFieldFirst">&nbsp;Dato&nbsp;</td> 
 		                    <td class="tableHeaderField">&nbsp;Dokument&nbsp;</td>
 		                    
 		               </tr> 
 		              
-		               	<c:forEach var="record" items="${model.documentList}" varStatus="counter">    
+		               	<c:forEach var="record" items="${model.list}" varStatus="counter">    
 			               <tr class="tableRow" height="20" >
-			               <td class="tableCell">&nbsp;${Xrecord.date}&nbsp;</td>
-			               <td class="tableCell">&nbsp;${Xrecord.link}&nbsp;</td>
-			               	
+			               <td class="tableCellFirst">&nbsp;&nbsp;
+			               		<a href="tvinnsadadmin_renderArchive.do?fp=${record.filnam}" target="_new">
+			               			<img title="select" style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.filnam}
+			               		</a>
+			               </td>
 			            </tr> 
 			            </c:forEach>
+			            	
 			             
 		            </table>
 				</td>
@@ -147,28 +170,8 @@
 		</table>
 
 	<tr height="3"><td></td></tr>
-	<%-- Validation errors --%>
-	<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
-	<tr>
-		<td>
-           	<table width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
-           	<tr>
-			<td class="textError">					
-	            <ul>
-	            <c:forEach var="error" items="${errors.allErrors}">
-	                <li >
-	                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
-	                </li>
-	            </c:forEach>
-	            </ul>
-			</td>
-			</tr>
-			</table>
-		</td>
-	</tr>
-	</spring:hasBindErrors>		
-		
-<!-- ======================= footer ===========================-->
-<jsp:include page="/WEB-INF/views/footer.jsp" />
-<!-- =====================end footer ==========================-->
+			
+	<!-- ======================= footer ===========================-->
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	<!-- =====================end footer ==========================-->
 
