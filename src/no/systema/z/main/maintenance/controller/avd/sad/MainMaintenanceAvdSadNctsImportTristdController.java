@@ -207,17 +207,6 @@ public class MainMaintenanceAvdSadNctsImportTristdController {
 	
 	/**
 	 * 
-	 * @param model
-	 * @param applicationUser
-	 */
-	private void populateDropDowns(Map model, String applicationUser){
-		//this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
-		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nialist");
-		
-	}
-	
-	/**
-	 * 
 	 * @param applicationUser
 	 * @return
 	 */
@@ -336,6 +325,19 @@ public class MainMaintenanceAvdSadNctsImportTristdController {
 		*/	
 		
 	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @param applicationUser
+	 */
+	private void populateDropDowns(Map model, String applicationUser){
+		//this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nialist");
+		
+	}
+	
+	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

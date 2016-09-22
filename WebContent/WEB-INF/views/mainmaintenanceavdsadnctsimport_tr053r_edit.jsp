@@ -136,8 +136,6 @@
 						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.tiavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
-											
-									  	</select>
 										</td>	
 					    	    	</c:otherwise>
 				    	    	</c:choose>

@@ -9,11 +9,11 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/mainmaintenanceavd_syfa28r_edit_childwindow.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
-	<table width="90%" height="200px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="1" border="0" cellpadding="0">
+	<table width="99%" height="200px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="1" border="0" cellpadding="0">
 		<tr>
 			<td colspan="10" class="text14Bold">&nbsp;&nbsp;&nbsp;
 				<img title="search" valign="bottom" src="resources/images/update.gif" width="16px" height="16px" border="0" alt="search">
-				Vedlikehold av avdelings faste data (Del -2)
+				Vedlikehold av avdelings faste data (Dokumenter)
 			</td>
 		</tr>
 		<tr>
@@ -34,38 +34,51 @@
 						<td class="text12" title="utptxt">&nbsp;Beskrivelse</td>
 						<td class="text12" title="kopty">&nbsp;Papirtype</td>
 						<td class="text12" title="kopnvn">&nbsp;Printernavn</td>
-						<td class="text12" title="kophea">&nbsp;H</td>
-						<td class="text12" title="koplas">
+						<td class="text12" title="kophea">&nbsp;Hode på dok.</td>
+						<td class="text12" >
 							<img onMouseOver="showPop('koplas_info');" onMouseOut="hidePop('koplas_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							L
+							<span title="koplas"></span>Laser
 							<div class="text11" style="position: relative;" align="left">
 							<span style="position:absolute;top:2px" id="koplas_info" class="popupWithInputText text11"  >	
 			           			<ul>
-				           			<li><b>J</b>&nbsp;=&nbsp;Laser</li>
-			           				<li><b>A</b>&nbsp;=&nbsp;Avansert laser</li>
-			           				<li><b>P</b>&nbsp;=&nbsp;PDF direkte</li>
-			           				<li><b>F</b>&nbsp;=&nbsp;AFP-print</li>
-			           				<li><b>D</b>&nbsp;=&nbsp;Duplex(2sidig)</li>			           				
+				           			<li><b>J</b>&nbsp;=&nbsp;Justerer sidelengde</li>
+			           				<li><b>A</b>&nbsp;=&nbsp; Avansert, kun faktura, legger inn PCL5-koder i utskriften. Krever at utkøen er definert med Systemas PCL5-driver.</li>
+			           				<li><b>P</b>&nbsp;=&nbsp;PDF direkte. Krever at skriveren kan skrive ut PDF-dokumenter direkte</li>		           				
 			           			</ul>
 							</span>
 							</div>
 						</td>
-						<td class="text12" title="koplpi">&nbsp;8</td>
+						<td class="text12" title="koplpi">&nbsp;
+							<img onMouseOver="showPop('koplpi_info');" onMouseOut="hidePop('koplpi_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							<span title="koplpi">8</span>
+							<div class="text11" style="position: relative;" align="left">
+							<span style="position:absolute;top:2px" id="koplpi_info" class="popupWithInputText text11"  >
+								<p>	
+			           			<b>8</b>&nbsp;=&nbsp;8 linjer pr tomme, <b>kun faktura</b>. Denne koden gir plass til flere fakturalinjer ved laserutskrift med kvitteringsdel.
+			           			</p>           				
+							</span>
+							</div>
+						</td>
 	           		</tr>
 	           		<tr>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="koplnr" id="koplnr" size="5" value='${model.record.koplnr}'></td>
 						<td ><input readonly type="text" class="inputTextReadOnly" name="utptxt" id="utptxt" size="30" value='${model.record.utptxt}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="kopty" id="kopty" size="11" maxlength="10" value='${model.record.kopty}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="kopnvn" id="kopnvn" size="11" maxlength="10" value='${model.record.kopnvn}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="kophea" id="kophea" size="2" maxlength="1" value='${model.record.kophea}'></td>
+						<td >
+							<select name="kophea" id="kophea" >
+			  					<option value="">-velg-</option>
+			  					<option value="J"<c:if test="${ model.record.kophea == 'J'}"> selected </c:if> >Ja</option>
+			  					<option value="N"<c:if test="${ model.record.kophea == 'N'}"> selected </c:if> >Nei</option>
+			  				</select>							
+						</td>
 						<td >
 							<select name="koplas" id="koplas" >
 			  					<option value="">-velg-</option>
 			  					<option value="J"<c:if test="${ model.record.koplas == 'J'}"> selected </c:if> >J</option>
 			  					<option value="A"<c:if test="${ model.record.koplas == 'A'}"> selected </c:if> >A</option>
 			  					<option value="P"<c:if test="${ model.record.koplas == 'P'}"> selected </c:if> >P</option>
-			  					<option value="F"<c:if test="${ model.record.koplas == 'F'}"> selected </c:if> >F</option>
-			  					<option value="D"<c:if test="${ model.record.koplas == 'D'}"> selected </c:if> >D</option>
+			  					
 			  				</select>
 						</td>
 						<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="koplpi" id="koplpi" size="2" maxlength="1" value='${model.record.koplpi}'></td>

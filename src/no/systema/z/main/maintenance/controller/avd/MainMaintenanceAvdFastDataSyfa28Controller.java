@@ -26,8 +26,11 @@ import no.systema.main.service.UrlCgiProxyService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 import no.systema.z.main.maintenance.service.MaintMainKodtpUtskrsService;
+import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
+
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtpUtskrsContainer;
@@ -53,44 +56,9 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private StringManager strManager = new StringManager();
-	/**
-	 * 
-	 * @param user
-	 * @param result
-	 * @param request
-	 * @return
-	 * 
-	 */
-	/* N/A TODO
-	@RequestMapping(value="mainmaintenanceavd_syfa28r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_syfa14r(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavd_syfa28r");
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		Map model = new HashMap();
-		if(appUser==null){
-			return this.loginView;
-		}else{
-			appUser.setActiveMenu("INIT");
-			logger.info("Inside method: mainmaintenanceavd_syfa14r");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
-			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
-			
-			//Get list
-	 		List list = this.fetchList(appUser.getUser());
-			model.put("list", list);
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
-			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
-			return successView;
-			
-		}
-	}
-	*/
+	
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	
 	/**
 	 * 
 	 * @param session
@@ -112,15 +80,10 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			return this.loginView;
 		}else{
 			logger.info("Inside method: mainmaintenanceavd_syfa28r_edit");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
 			logger.info("avd" + avd);
 			logger.info("avdnavn" + avdNavn);
-			
 			logger.info("action" + action);
-			
-			
+		
 			//--------------
 			//UPDATE record
 			//--------------
@@ -189,7 +152,7 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				
 			//DELETE	
 			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-				/*
+				/* N/A
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
 				
@@ -218,10 +181,10 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 					//logger.info(cRecord.getKoplnr());
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				
 			}
 			
-			
+			//Drop downs
+			this.populateDropDowns(model, appUser.getUser());
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
@@ -313,42 +276,6 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 		}
 	}
 	
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	/*
-	private JsonMaintMainKodtvKodtwRecord fetchRecord(String applicationUser, String id){
-		JsonMaintMainKodtvKodtwRecord record = new JsonMaintMainKodtvKodtwRecord();
-    	
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&kovavd=" + id;
-		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//DEBUG
-    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
-    	//extract
-    	List<JsonMaintMainKodtvKodtwRecord> list = new ArrayList();
-    	
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintMainKodtvKodtwContainer container = this.maintMainKodtvKodtwService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintMainKodtvKodtwRecord tmp : list){
-	        		record = tmp;
-	        	}
-	        }
-    	}
-    	return record;
-	}
-	*/
 	/**
 	 * Gets the children list of the child section (FASTE DATA Del-2)
 	 * 
@@ -424,6 +351,16 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	}
 	
 	
+	/**
+	 * 
+	 * @param model
+	 * @param applicationUser
+	 */
+	private void populateDropDowns(Map model, String applicationUser){
+		this.codeDropDownMgr.populateOppdragsTypeHtmlDropDowns(this.urlCgiProxyService, this.maintMainKodtot2Service, model, applicationUser);
+	}
+	
+	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -447,6 +384,13 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 	@Required
 	public void setMaintMainKodtpUtskrsService (MaintMainKodtpUtskrsService value){ this.maintMainKodtpUtskrsService = value; }
 	public MaintMainKodtpUtskrsService getMaintMainKodtpUtskrsService(){ return this.maintMainKodtpUtskrsService; }
+	
+	@Qualifier ("maintMainKodtot2Service")
+	private MaintMainKodtot2Service maintMainKodtot2Service;
+	@Autowired
+	@Required
+	public void setMaintMainKodtot2Service (MaintMainKodtot2Service value){ this.maintMainKodtot2Service = value; }
+	public MaintMainKodtot2Service getMaintMainKodtot2Service(){ return this.maintMainKodtot2Service; }
 	
 	
 

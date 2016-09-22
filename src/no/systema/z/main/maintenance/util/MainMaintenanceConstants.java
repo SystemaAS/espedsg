@@ -91,6 +91,8 @@ public final class MainMaintenanceConstants {
 	//
 	public static final String CODE_MGR_CURRENCY_LIST = "currencyCodeList";
 	public static final String CODE_MGR_AVD_GENERAL_LIST = "avdGeneralList";
+	public static final String CODE_MGR_OPP_TYPE_LIST = "oppTypeList";
+	
 	
 	   
 }

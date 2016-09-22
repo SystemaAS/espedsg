@@ -114,7 +114,7 @@
 			                    <th class="tableHeaderField" align="center" >KK</th>
 			                    <th class="tableHeaderField" align="center" >Los</th>
 			                    <th class="tableHeaderField" align="center" >Man</th>
-			                    <th class="tableHeaderField" align="center" >Last (L/S)</th>
+			                    <th class="tableHeaderField" align="center" >A4 (L/S)</th>
 			                    <th class="tableHeaderField" align="center" >421</th>
 			                    <th class="tableHeaderField" align="center" >God (L/S)</th>
 			                    <th class="tableHeaderField" align="center" >422</th>
@@ -217,18 +217,18 @@
 						<tr height="20"><td></td></tr>
 						<tr>
 							<td class="text12" ><font class="text14RedBold" >*</font><span title="koaavd">Avd.&nbsp;</span></td>
-							<td class="text12" align="center"><span title="kohfak">Fak</span></td>
-							<td class="text12" align="center"><span title="kohlas">Las</span></td>
-							<td class="text12" align="center"><span title="kohgod">God</span></td>
-							<td class="text12" align="center"><span title="kohbou">Bou</span></td>
-							<td class="text12" align="center"><span title="kohkk">KK</span></td>
-							<td class="text12" align="center"><span title="kohlos">Los</span></td>
-							<td class="text12" align="center"><span title="kohman">Man</span></td>
-							<td class="text12" align="center"><span title="kohls1">Last</span></td>
+							<td class="text12" align="center"><span title="kohfak">Faktura</span></td>
+							<td class="text12" align="center"><span title="kohlas">Lasteliste</span></td>
+							<td class="text12" align="center"><span title="kohgod">Godsliste</span></td>
+							<td class="text12" align="center"><span title="kohbou">Bourderau</span></td>
+							<td class="text12" align="center"><span title="kohkk">Kjørekvit.</span></td>
+							<td class="text12" align="center"><span title="kohlos">Losselista</span></td>
+							<td class="text12" align="center"><span title="kohman">Manifest</span></td>
+							<td class="text12" align="center"><span title="kohls1">A4 L/S</span></td>
 							<td class="text12" align="center"><span title="koh421">421</span></td>
-							<td class="text12" align="center"><span title="kohls2">God</span></td>
+							<td class="text12" align="center"><span title="kohls2">Godsliste</span></td>
 							<td class="text12" align="center"><span title="koh422">422</span></td>
-							<td class="text12" align="center"><span title="kohls3">Los</span></td>
+							<td class="text12" align="center"><span title="kohls3">Losselista</span></td>
 							<td class="text12" align="center"><span title="koh423">423</span></td>
 							
 						</tr>		

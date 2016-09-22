@@ -6,6 +6,21 @@
   function setBlockUI(element){
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
+  
+  jq(function() {
+	  //----------------
+	  //OPP.TYPE search
+	  //----------------
+	  jq('#kowxxx2IdLink').click(function() {
+		  jq('#kowxxx2IdLink').attr('target','_blank');
+		  window.open("mainmaintenance_childwindow_opptype.do?action=doFind&ko2kod=" + jq('#kowxxx2').val() + '&ctype=kowxxx2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#kowxxx2IdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#kowxxx2IdLink').click();
+		  }
+	  });
+  });
  
 //-------------------
   //Datatables jquery

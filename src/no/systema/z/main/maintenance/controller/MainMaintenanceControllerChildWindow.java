@@ -42,12 +42,14 @@ import no.systema.main.model.SystemaWebUser;
 
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
+
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiRecord;
-
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Container;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Record;
 
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -207,6 +209,55 @@ public class MainMaintenanceControllerChildWindow {
 		
 	}
 	
+	@RequestMapping(value="mainmaintenance_childwindow_opptype.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView searchOppType(HttpSession session, HttpServletRequest request){
+		logger.info("Inside searchOppType");
+		
+		ModelAndView successView = new ModelAndView("mainmaintenance_childwindow_opptype");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		logger.info(callerType);
+		String id = request.getParameter("id");
+		
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		if(appUser==null){
+			return this.loginView;
+				
+		}else{
+			Collection<JsonMaintMainKodtot2Record> list = new ArrayList<JsonMaintMainKodtot2Record>();
+			//prepare the access CGI with RPG back-end
+			
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL;
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchOpptype(appUser.getUser(), id);
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//debugger
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonMaintMainKodtot2Container container = this.maintMainKodtot2Service.getList(jsonPayload);
+	    		if(container!=null){
+	    			list = container.getList();
+	    			for(JsonMaintMainKodtot2Record  record : list){
+	    			 //debug	
+	    			}
+	    		}
+	    	}
+			model.put("list", list);
+			model.put("id", id);
+			model.put("ctype", callerType);
+			
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;	
+		  	
+		}
+		
+	}
+	
  	
 	/**
 	 * 
@@ -262,6 +313,22 @@ public class MainMaintenanceControllerChildWindow {
 		  }
 		  
 		  return sb.toString();
+	 }
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForSearchOpptype(String applicationUser, String id){
+		  StringBuffer sb = new StringBuffer();
+		  sb.append("user=" + applicationUser);
+		  if(id!=null && !"".equals(id) ){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "ko2kod=" + id.toUpperCase() );
+		  }
+
+		  return sb.toString();
 	  }
 	
 	
@@ -288,6 +355,17 @@ public class MainMaintenanceControllerChildWindow {
 	@Required	
 	public void setMaintMainEdiiService(MaintMainEdiiService value){this.maintMainEdiiService = value;}
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
+	
+	
+	@Qualifier 
+	private MaintMainKodtot2Service maintMainKodtot2Service;
+	@Autowired
+	@Required	
+	public void setMaintMainKodtot2Service(MaintMainKodtot2Service value){this.maintMainKodtot2Service = value;}
+	public MaintMainKodtot2Service getMaintMainKodtot2Service(){ return this.maintMainKodtot2Service; }
+	
+	
+	
 	
 }
 

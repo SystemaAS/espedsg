@@ -152,28 +152,54 @@
 											<td colspan="4" class="text14MediumBlue" title=".">Avd.navn&nbsp;&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.avdnavn}">
 											</td>
 										</tr>
-										<tr height="5"><td >&nbsp;</td></tr>	
+										<tr height="5"><td >&nbsp;</td></tr>
+											
 									 	<tr>
-											<td class="text12" title="kovpro">Prosjektregnskap</td>
+											<td class="text12"><img onMouseOver="showPop('kovpro_info');" onMouseOut="hidePop('kovpro_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kovpro">Prosjektregnskap</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovpro_info" class="popupWithInputText text11"  >	
+								           			Tast J eller N. Dersom J, går alle turer inn i regnskap som prosjekt. Turnr blir prosjektnr.
+												</span>
+												</div>
+											</td>
 											<td class="text12" >
 												<select name="kovpro" id="kovpro" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kovpro == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ model.record.kovpro == 'N'}"> selected </c:if> >Nej</option>
+								  					<option value="N"<c:if test="${ model.record.kovpro == 'N'}"> selected </c:if> >Nei</option>
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" title="kowxxx0">Fet skr. på fly.fb</td>
+											<td class="text12" ><img onMouseOver="showPop('kowxxx0_info');" onMouseOut="hidePop('kowxxx0_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kowxxx0">Fet skrift på flygfrakstbrev</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kowxxx0_info" class="popupWithInputText text11"  >	
+								           			Benyttes ikke lengre, er en styrekode til IBM Twinax-skrivere
+												</span>
+												</div>
+											
+											</td>
 											<td class="text12" >
 												<select name="kowxxx0" id="kowxxx0" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'N'}"> selected </c:if> >Nej</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'N'}"> selected </c:if> >Nei</option>
 								  				</select>	
 											</td>
+											
+											
 										</tr>	
 										<tr>
-											<td class="text12" title="kovxxx0">Fr.brev/TP, R28.Belast</td>
+											<td class="text12" ><img onMouseOver="showPop('kovxxx0_info');" onMouseOut="hidePop('kovxxx0_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">										
+												<span title="kovxxx0">Fraktbrev/TP, R28.Belast</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovxxx0_info" class="popupWithInputText text11"  >	
+								           			<p>Tast S eller M hvis du vil at det på fraktbrev og tollpass skal være ferdigutfylt (som forslag) i</p>
+													<p>R.28 at Selger evt Mottaker skal belastes frakt og omkostninger. Ved BLANK kommer inget forslag og saksbehandler MÅ velge manuelt. A=Andre er ikke tillatt som standardverdi.</p>
+												</span>
+												</div>
+											</td>
 											<td class="text12">
 												<select name="kovxxx0" id="kovxxx0" >
 			 					  					<option value="">-velg-</option>
@@ -182,7 +208,18 @@
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" title="kovxxx5/kovxxx1">Fritekstkode R38 FB/TP</td>
+											<td class="text12" ><img onMouseOver="showPop('kovxxx5_info');" onMouseOut="hidePop('kovxxx5_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kovxxx5/kovxxx1">Fritekstkode R38 FB/TP</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovxxx5_info" class="popupWithInputText text11"  >	
+								           			<p>Her kan tastes en kode for fritekst som automatisk skal hentes og skrives i rub.38 hvis tollpass.
+														Det vanlige vil være f.eks en ekstra påminning om at godset ikke må tas i bruk og gjerne også
+														navn/adresse som ruckattest skal sendes til.</p>
+													<p>Første felt gjelder fraktbrev, andre felt gjelder tollpass</p>
+												</span>
+												</div>
+											
+											</td>
 											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kovxxx5" id="kovxxx5" size="3" maxlength="2" value="${fn:substring(model.record.kovxxx, 5, 7)}">
 												/
@@ -191,21 +228,38 @@
 
 										</tr>	
 										<tr>
-											<td class="text12" title="kovxxx3">Skriv fr.brev ved EDI</td>
+											<td class="text12" ><img onMouseOver="showPop('kovxxx3_info');" onMouseOut="hidePop('kovxxx3_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kovxxx3">Skriv fraktbrev ved EDI</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovxxx3_info" class="popupWithInputText text11"  >	
+								           			<p>Står det blank her (eller N) gjelder programpakkens standard:
+														VED EDI SKRIVES DET IKKE UT NOE PÅ PRINTER (men merkelapper  kommer selvsagt hvis en har bedt om det). </p>                  
+										            <p>"J" vil gi utskrift som når en ikke sender EDI.              
+														"1" er en spesialverdi som kan være aktuell (når en benytter laser) SKRIV ut, men kun 1 eksemplar.</p>
+												</span>
+												</div>
+											</td>
 											<td class="text12"> 
 												<select name="kovxxx3" id="kovxxx3" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nej</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nei</option>
 								  				</select>	
 											</td>
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" title="kovxxx4">Skriv Tollpass ved EDI</td>
+											<td class="text12" ><img onMouseOver="showPop('kovxxx4_info');" onMouseOut="hidePop('kovxxx4_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kovxxx4">Skriv Tollpass ved EDI</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovxxx4_info" class="popupWithInputText text11"  >	
+								           			<p>...</p>                  										        
+												</span>
+												</div>													
+											</td>
 											<td class="text12" >
 												<select name="kovxxx4" id="kovxxx4" >
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nej</option>
+								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nei</option>
 								  				</select>	
 											</td>
 										</tr>	
@@ -213,12 +267,20 @@
 											<td class="text12" title="kowxxx1">Godslinjer på faktura</td>
 											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kowxxx1" id="kowxxx1" size="3" maxlength="1" value='${ fn:substring(model.record.kowxxx, 1, 2) }' />
+											</td>	
 											<td width="100px" class="text12" >&nbsp;</td>
 											<td class="text12" title="kowxxx2">Std OpdType (TR.modul)</td>
 											<td class="text12" >
-												<input type="text" class="inputTextMediumBlue" name="kowxxx2" id="kowxxx2" size="3" maxlength="2" value='${ fn:substring(model.record.kowxxx, 2, 4) }' />	
+												<select name="kowxxx2" id="kowxxx2" class="inputTextMediumBlue">
+							  					<option value="">-velg-</option>
+							  					<c:forEach var="record" items="${model.oppTypeList}" >
+							 				  		<option value="${record.ko2kod}"<c:if test="${ fn:substring(model.record.kowxxx, 2, 4) == record.ko2kod}"> selected </c:if> >${record.ko2kod}</option>
+												  </c:forEach>  
+												</select>
+												<a tabindex="-1" id="kowxxx2IdLink">
+													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+												</a>
 											</td>
-											
 										</tr>
 										<tr>
 											<td class="text12" title="kovlkg">Omr.faktor 1 Lastemeter</td>
@@ -233,7 +295,23 @@
 										</tr>
 										
 										<tr>
-											<td class="text12" title="kovavr">Overstyre avrund.</td>
+											<td class="text12" title="kovavr"><img onMouseOver="showPop('kovavr_info');" onMouseOut="hidePop('kovavr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kovavr">Overstyre avrund.</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kovavr_info" class="popupWithInputText text11"  >	
+								           			<p>
+								           			Tast <b>J</b> om det ikke ønskes opprunding av vekt/fakt.vekt
+										            (Alt annet enn 'J' blir tatt for 'N'-> vanlig avrunding).      
+													Vanlig avrunding=                                          
+													Opp til nærmeste 100  når fakt.vekt er over 1000kg og pris er gitt pr 10kg eller mer.
+													Opp til nærmeste 10  når fakt.vekt er er under 1000kg og når fakt.vekt er over 1000 men
+													pris er gitt pr 2-9 kg.</p>
+													<p>   
+													INGEN AVRUNDING når pris er gitt PR.1 kg. 
+								           			</p>                  										        
+												</span>
+												</div>		
+											</td>
 											<td class="text12" >
 												<input type="text" class="inputTextMediumBlue" name="kovavr" id="kovavr" size="2" maxlength="1" value="${model.record.kovavr}">
 											</td>
@@ -310,7 +388,7 @@
 									<table cellspacing="1" border="0" align="left">
 									<tr>
 										<td class="text12" ><img onMouseOver="showPop('kovomr_info');" onMouseOut="hidePop('kovomr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-											<span title="kovomr">Pr.per ? kg&nbsp;</span>
+											<span title="kovomr">Pris / kg&nbsp;</span>
 											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="kovomr" id="kovomr" size="4" maxlength="3" value='${model.record.kovomr}'>
 											
 											<div class="text11" style="position: relative;" align="left">
@@ -351,7 +429,14 @@
 								<td valign="top" width="90%">
 									<table	cellspacing="1" border="0" align="left">
 										<tr>
-											<td class="text12" title="kowkom" >&nbsp;Kombinert giro</td>
+											<td class="text12" ><img onMouseOver="showPop('kowkom_info');" onMouseOut="hidePop('kowkom_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kowkom" >Kombinert giro</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px" id="kowkom_info" class="popupWithInputText text11"  >	
+								           			<p>Skriv Ja hvis dere benytter den gule giroen som både gjelder bank og postverket.</p> 
+												</span>
+												</div>
+											</td>
 											<td >
 												<select name="kowkom" id="kowkom" >
 			 					  					<option value="">-velg-</option>
@@ -405,11 +490,46 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="text12" title="kowhod" >&nbsp;Hode på fakt.</td>
+											<td class="text12"  ><img onMouseOver="showPop('kowhod_info');" onMouseOut="hidePop('kowhod_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kowhod">Hode på fakt.</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px;width:200px" id="kowhod_info" class="popupWithInputText text11"  >	
+								           			<p>Tast  J  dersom du ønsker at systemet skal skrive ut fakturahode og bunntekst som definert for
+													avdelingen i fakturahoderegisteret (MENU VEDL3, valg3).</p>                   
+													<p>Kode  T  eller  B  gir kun  Topp  respektive  Bunn-tekst.</p>
+													<p>    
+													Denne styringen gjelder kun faktura. Styring av øvrige dokumenthoder finnes under MENU VEDL3, valg5. (Kun faktura får bunnteksten.)                                            
+													Dersom en benytter kode N i dette feltet, så skrives faktura på 72 linjer ( Benytter IKKE bankgiro) 
+													</p>          
+												</span>
+												</div>
+											
+											</td>
 											<td ><input type="text" class="inputTextMediumBlue" name="kowhod" id="kowhod" size="2" maxlength="1" value='${model.record.kowhod}'></td>
-											<td class="text12" title="kowlas" >&nbsp;&nbsp;&nbsp;&nbsp;H/AWB-tab</td>
+											<td class="text12" title="kowlas" >&nbsp;
+												<img onMouseOver="showPop('kowlas_info');" onMouseOut="hidePop('kowlas_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="kowlas">H/AWB-tab</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px;width:200px" id="kowlas_info" class="popupWithInputText text11"  >	
+								           			<p>Hvis man har egne telleverk på awb/hawb-nummer for denne avdeling tastes koden for telleverk.
+													Denne kode kan man legge inn eget telleverk på for det enkelte flyselskap.</p>                   
+													          
+												</span>
+												</div>
+											</td>
 											<td ><input type="text" class="inputTextMediumBlue" name="kowlas" id="todo" size="2" maxlength="1" value='${model.record.kowlas}'></td>
-											<td class="text12" title="avutpr" >&nbsp;&nbsp;&nbsp;&nbsp;Utl.pro.</td>
+											<td class="text12" title="avutpr" >&nbsp;
+												<img onMouseOver="showPop('avutpr_info');" onMouseOut="hidePop('avutpr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												<span title="avutpr">Utl.pro.</span>
+												<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px;width:200px" id="avutpr_info" class="popupWithInputText text11"  >
+													<b>Utleggsprovisjon</b>	
+								           			<p>Har avdelingen avvik fra satsene i firmaopplysningen legges dette inn her. Det legges inn sats og
+														minimumsbeløp. Obs: 99,99 i sats betyr at avdelingen ikke har utleggsprovisjon.          
+													</p>
+												</span>
+												</div>
+											</td>
 											<td ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="avutpr" id="avutpr" size="6" maxlength="5" value='${model.record.avutpr}'></td>
 											<td class="text12" title="avutmi" >&nbsp;Utl.minb.</td>
 											<td ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="avutmi" id="avutmi" size="6" maxlength="4" value='${model.record.avutmi}'></td>
@@ -451,8 +571,8 @@
 			                    <th class="tableHeaderField" align="center" >&nbsp;Anl.</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Ank.</th>
 			                    <th class="tableHeaderField" align="center" >Printer</th>
-			                    <th class="tableHeaderField" align="center" >H</th>
-			                    <th class="tableHeaderField" align="center" >L</th>
+			                    <th class="tableHeaderField" align="center" >Hode på dok.</th>
+			                    <th class="tableHeaderField" align="center" >Laser</th>
 			                    <th class="tableHeaderField" align="center" >8</th>
 			                    <th class="tableHeaderField" align="center" >Stringk</th>
 			                    <th class="tableHeaderField" align="center" >Sk.</th>
