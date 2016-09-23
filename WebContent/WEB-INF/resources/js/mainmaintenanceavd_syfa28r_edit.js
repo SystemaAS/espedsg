@@ -21,8 +21,87 @@
 		  }
 	  });
   });
+  
+//--------------------------------
+  //START Model dialog "Dupliser"
+  //------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq( ".clazz_dialog" ).each(function(){
+		jq(this).dialog({
+			autoOpen: false,
+			modal: true
+		});
+	  });
+  });
+  //Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq(".copyLink").click(function() {
+		  var id = this.id;
+		  counterIndex = id.replace("copyLink","");
+		  //setters (add more if needed)
+		  //jq('#dialog'+counterIndex).dialog( "option", "width", 400);
+		  jq('#dialog'+counterIndex).dialog( "option", "title", "Kopier " + "Avd: " + jq('#originalAvd'+counterIndex).val() + " Lnr: " +  jq('#originalLnr'+counterIndex).val());
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialog'+counterIndex).dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSave"+counterIndex,	
+				 text: "Fortsett",
+				 click: function(){
+	            	 		if(jq("#dialog"+counterIndex).find('.fromAvd').val()!='' && jq("#dialog"+counterIndex).find('.toAvd').val()!=''){
+	            	 			jq('#copyForm'+counterIndex).submit();
+	            	 		}	
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancel"+counterIndex,
+			 	 text: "Avbryt", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+					 		jq("#fromAvd"+counterIndex).val("");
+					 		jq("#toAvd"+counterIndex).val("");
+							jq( this ).dialog( "close" ); 
+					 		  
+				 		} 
+	 	 		 } ] 
+			  
+		  });
+		  //init values
+		  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  
+		  //open now
+		  jq('#dialog'+counterIndex).dialog('open');
+		 
+	  });
+  });
+  //Events for the drop downs (some kind of "implicit validation" since all input values are mandatory)
+  jq(function() {
+	  jq(".fromAvd").blur(function() {
+		  if(jq("#dialog"+counterIndex).find('.fromAvd').val()!='' && jq("#dialog"+counterIndex).find('.toAvd').val()!=''){
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+	  jq(".toAvd").blur(function() {
+		  if(jq("#dialog"+counterIndex).find('.fromAvd').val()!='' && jq("#dialog"+counterIndex).find('.toAvd').val()!=''){
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  }
+	  });
+  });
+  //----------------------------
+  //END Model dialog "Dupliser"
+  //----------------------------
+	
  
-//-------------------
+  //-------------------
   //Datatables jquery
   //-------------------
   //private function

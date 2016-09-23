@@ -269,7 +269,7 @@
 												<input type="text" class="inputTextMediumBlue" name="kowxxx1" id="kowxxx1" size="3" maxlength="1" value='${ fn:substring(model.record.kowxxx, 1, 2) }' />
 											</td>	
 											<td width="100px" class="text12" >&nbsp;</td>
-											<td class="text12" title="kowxxx2">Std OpdType (TR.modul)</td>
+											<td class="text12" title="kowxxx2">Std Oppd.type (TR.modul)</td>
 											<td class="text12" >
 												<select name="kowxxx2" id="kowxxx2" class="inputTextMediumBlue">
 							  					<option value="">-velg-</option>
@@ -574,9 +574,11 @@
 			                    <th class="tableHeaderField" align="center" >Hode på dok.</th>
 			                    <th class="tableHeaderField" align="center" >Laser</th>
 			                    <th class="tableHeaderField" align="center" >8</th>
-			                    <th class="tableHeaderField" align="center" >Stringk</th>
-			                    <th class="tableHeaderField" align="center" >Sk.</th>
-			                    <th class="tableHeaderField" align="center" >Kop.</th>
+			                    <th class="tableHeaderField" align="center" >String</th>
+			                    <th class="tableHeaderField" align="center" >Skuff I/U</th>
+			                    <th class="tableHeaderField" align="center" >Kopi</th>
+			                    <th class="tableHeaderField" align="center" >Dupliser print</th>
+			                    
 			                   
 			                </tr>  
 			                </thead> 
@@ -600,6 +602,57 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopfm}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopdraw}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;${childRecord.kopcopi}&nbsp;</td>
+		                       <td nowrap class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">&nbsp;
+		                       		<a class="copyLink" id="copyLink${counter.count}" runat="server" href="#">
+										<img src="resources/images/copy.png" border="0" alt="copy">
+										&nbsp;Dupliser
+									</a>
+									<div style="display: none;" class="clazz_dialog" id="dialog${counter.count}" title="Dialog">
+										<form  action="mainmaintenanceavd_syfa28DuplicatePrintr_edit.do" name="copyForm${counter.count}" id="copyForm${counter.count}" method="post">
+										 	<input type="hidden" name="action${counter.count}" id="action${counter.count}" value='doUpdate'/>
+											<input type="hidden" name="originalAvd${counter.count}" id="originalAvd${counter.count}" value='${childRecord.kopavd}'/>
+						 					<input type="hidden" name="originalLnr${counter.count}" id="originalLnr${counter.count}" value='${childRecord.koplnr}'/>
+						 					<input type="hidden" name="oAvdNavn${counter.count}" id="oAvdNavn${counter.count}" value='${ model.avdnavn }'/>
+						 						
+											<p class="text12" ><b>Kopier printerstyring til andre avd</b></p>
+											<p class="text12" >Printerstyring (inkludert stringkoder) kopieres fra gjeldende avdeling til alle avd angitt under.</p>
+											<table>
+												
+												<tr>
+													<td class="text12" align="left" >&nbsp;Fra og med avd:</td>
+													<td class="text12MediumBlue">
+			 											<input type="text" class="inputTextMediumBlue fromAvd" name="fromAvd" id="fromAvd" size="5" maxlength="4" value="">
+			 										</td>
+		                							
+		                						</tr>
+			 									<tr>
+			 										<td class="text12" align="left" >&nbsp;Til og med avd:</td>
+			 										<td class="text12MediumBlue">
+			 											<input type="text" class="inputTextMediumBlue toAvd" name="toAvd" id="toAvd" size="5" maxlength="4" value="">	
+			 										</td>
+			 										<%--
+													<td class="text12MediumBlue">
+														<select class="fromAvd" name="fromAvd${counter.count}" id="fromAvd${counter.count}">
+										            		<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.avdList}" >
+									                             <option value="${record.avd}">${record.avd}</option>
+															</c:forEach> 
+														</select>
+													</td>
+													<td class="text12MediumBlue">
+														<select class="toAvd" name="toAvd${counter.count}" id="toAvd${counter.count}">
+										            		<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.signList}" >
+							                             	 	<option value="${record.sign}">${record.sign}</option>
+															</c:forEach> 
+														</select>
+													</td>
+													 --%>
+												</tr>
+											</table>
+										</form>
+									</div>
+		                       </td>
 		                       
 				            </tr> 
 				            </c:forEach>

@@ -152,24 +152,8 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 				
 			//DELETE	
 			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-				/* N/A
-				StringBuffer errMsg = new StringBuffer();
-				int dmlRetval = 0;
-				
-				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				
-				//check for Update errors
-				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
-					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				}else{
-					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavd_syfa28r_TODO.do?id=KODTA");
-					
-				}
-				*/
+				//N/A
+
 			}else{
 				//---------------------------
 				//Fetch record and child list
@@ -202,6 +186,118 @@ public class MainMaintenanceAvdFastDataSyfa28Controller {
 			
 		}
 	}
+
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenanceavd_syfa28DuplicatePrintr_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavd_syfa14DuplicatePrintr_edit(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = null;
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String modelAndViewStr = null;
+		StringBuffer errMsg = new StringBuffer();
+		boolean isError = false;
+	
+		String originalAvd = null;
+		String originalLnr = null;
+		String fromAvd = null;
+		String toAvd = null;
+		String avdNavn = null;
+
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			if (paramName.contains("originalAvd")){
+				originalAvd = request.getParameter(paramName);
+			}else if (paramName.contains("originalLnr")){
+				originalLnr = request.getParameter(paramName);
+			}else if (paramName.contains("fromAvd")){
+				fromAvd = request.getParameter(paramName);
+			}else if (paramName.contains("toAvd")){
+				toAvd = request.getParameter(paramName);
+			}else if (paramName.contains("oAvdNavn")){
+				avdNavn = request.getParameter(paramName);
+			}
+		}
+		//DEBUG -->logger.info(originalAvd); logger.info(originalLnr);logger.info(fromAvd); logger.info(toAvd);logger.info(avdNavn);
+
+		if(appUser==null){
+			return this.loginView;
+		}else{
+
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA28DPTAvdR_DML_UPDATE_CHILD_URL;
+			StringBuffer urlRequestParams = new StringBuffer();
+			urlRequestParams.append("user=" + appUser.getUser() + "&mode=U");
+			urlRequestParams.append("&originalAvd=" + originalAvd);
+			urlRequestParams.append("&originalLnr=" + originalLnr);
+			urlRequestParams.append("&fromAvd=" + fromAvd);
+			urlRequestParams.append("&toAvd=" + toAvd);
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+	    	//DEBUG
+	    	jsonDebugger.debugJsonPayload(jsonPayload, 500);
+	    	
+	    	//extract
+	    	if(jsonPayload!=null){
+				//lists
+	    		JsonMaintMainKodtvKodtwContainer container = this.maintMainKodtvKodtwService.doUpdate(jsonPayload);
+		        if(container!=null){
+		        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+		        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+		        			errMsg.append(container.getErrMsg());
+		        			isError = true;
+		        		}
+		        	}
+		        }
+	    	} 
+	    	
+	    	//check for Update errors
+			if( isError ){
+				logger.info("[ERROR ] Transaction UPDATE not valid ...)");
+				model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+				//View
+				modelAndViewStr = "mainmaintenanceavd_syfa28r_edit";
+				//---------------------------
+				//Fetch record and child list
+				//---------------------------
+				JsonMaintMainKodtvKodtwRecord record = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), originalAvd);
+				record.setChildList(this.fetchChildList(appUser.getUser(), originalAvd));
+				//DEBUG
+				for (JsonMaintMainKodtpUtskrsRecord cRecord : record.getChildList()){
+					//logger.info(cRecord.getKoplnr());
+				}
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+				//Drop downs
+				this.populateDropDowns(model, appUser.getUser());
+				model.put("action", "doUpdate");
+				model.put("avd", originalAvd);
+				model.put("avdnavn", avdNavn);
+				model.put("updateId", originalAvd);
+				
+			}else{
+				//OK then reload through redirection
+				modelAndViewStr = "redirect:mainmaintenanceavd_syfa28r_edit.do?avd=" + originalAvd + "&updateId=" + originalAvd + "&avdnavn=" + avdNavn;
+				
+			}
+			
+			successView = new ModelAndView(modelAndViewStr);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+			    
+			return successView;
+			
+		}
+		
+	}
+	
 
 	/**
 	 * We must populate the kovxxx field from all html fields since this field saves values in different positions
