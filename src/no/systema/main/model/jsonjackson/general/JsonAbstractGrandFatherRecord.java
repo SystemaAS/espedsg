@@ -27,7 +27,7 @@ import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
  */
 public abstract class JsonAbstractGrandFatherRecord {
 	protected TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
-	protected NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware(); //surprise pofit ;-)
+	protected NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware(); //Kilroy was here ;-)
 	
 	public abstract List<Field> getFields() throws Exception;
 
