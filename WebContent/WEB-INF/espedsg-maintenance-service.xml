@@ -26,8 +26,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN SAD		    -->
 	<!-- =================  -->
 	<bean id="maintSadSadlService" class="no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlServiceImpl"/>
- 	
-
+	<bean id="brregEnhetsRegisteretService" class="no.systema.tvinn.sad.kundekontroll.brreg.service.BrregEnhetsRegisteretServiceImpl"/>
+	
 	<!-- =================  -->
 	<!-- TVINN SAD EXPORT   -->
 	<!-- =================  -->

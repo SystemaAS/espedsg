@@ -54,6 +54,10 @@ public final class TvinnSadMaintenanceConstants {
 	//domain objects for model-view passing values
 	public static final String DOMAIN_MODEL = "model";
 	public static final String DOMAIN_RECORD = "record";
+	/**
+	 * list
+	 * 
+	 */
 	public static final String DOMAIN_LIST = "list";
 	public static final String DOMAIN_LIST_SIZE = "listSize";
 	

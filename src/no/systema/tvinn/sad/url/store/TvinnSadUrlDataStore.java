@@ -90,4 +90,12 @@ public final class TvinnSadUrlDataStore {
 	//static public String SKAT_FETCH_SIGNATURE_NAME_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVG017R.pgm"; 
 	
 	
+	/**
+	 * Return invalid kunder for firma where mismatch against data.brreg.no. <br><br>
+	 * 
+	 * /syjservicestn/brregKundeDataKontroll.do
+	 */
+	public static final String TVINN_SAD_BRREG_GET_KUNDEDATA_KONTROLL_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/brregKundeDataKontroll.do";
+	
+	
 }

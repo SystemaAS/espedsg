@@ -54,7 +54,6 @@
 			 									<font class="text14NavyBlue">ebooking eSpedsg</font>
 	 										</a>
 										</font>
-										</li>
 						 			</c:if>
 			 						<c:forEach items="${list}" var="record" varStatus="counter"> 
 						 				<c:if test="${ fn:contains(record.prog, 'TOMCAT') }">
@@ -108,6 +107,14 @@
 								 			<c:if test="${fn:contains(record.prog,'-TAVGG') }">
 								 				<font class="text14">
 									 				<a class="text14" href="tvinnsadadmin_avggrunnlag_external.do?lang=${user.usrLang}" > 	
+					 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
+					 									<font class="text14NavyBlue">${record.prTxt}</font>
+			 										</a>
+												</font>
+								 			</c:if>
+								 			<c:if test="${fn:contains(record.prog,'-TBRREG') }">
+								 				<font class="text14">
+									 				<a class="text14" href="tvinnsad_brreg_kundekontroll.do?lang=${user.usrLang}" > 	
 					 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
