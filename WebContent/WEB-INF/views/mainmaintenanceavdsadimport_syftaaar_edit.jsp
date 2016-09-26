@@ -839,9 +839,7 @@
 					           			<p>
 					           			Oppgi det aktive transportmidlets identitet ved innpassering til Norge. 
 					           			</p>
-										<p>
-										KRAV ved de fleste transportmåter.
-										</p>
+										
 								</span>		
 					            </div>
 					            </td>
@@ -1158,9 +1156,7 @@
 					           			<b>6. Antall Kolli</b>
 					           			<br/><br/>
 					           			Opplysningene overføres fra oppdragsregistreringen. 
-					           			<p>
-					           			KRAV TIL FELTET
-					           			</p>
+					           			
 								</span>	
 								</div>
 								</td>

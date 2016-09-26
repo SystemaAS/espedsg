@@ -240,7 +240,7 @@
 		    	    	
 						<tr height="10"><td></td></tr>
 						<tr>
-	 	    			<td class="text12" title="hoht1-hoht7">Topoptekster</td>
+	 	    			<td class="text12" title="hoht1-hoht7">Topptekster</td>
 	 	    			</tr>
 			    	    <tr>
 							<td class="text12">

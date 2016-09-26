@@ -851,9 +851,7 @@
 					           			<p>
 					           			Oppgi det aktive transportmidlets identitet ved innpassering til Norge. 
 					           			</p>
-										<p>
-										KRAV ved de fleste transportmåter.
-										</p>
+										
 								</span>		
 					            </div>
 					            </td>

@@ -319,7 +319,26 @@
 								<table border="0" cellspacing="1" cellpadding="0">
 								<tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tign">Godsnr</span></td>
+						            <td class="text12" >
+						            	<img onMouseOver="showPop('tign_info');" onMouseOut="hidePop('tign_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            	<span title="tign">Godsnr</span>
+						            	<div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="tign_info" class="popupWithInputText text11"  >
+							           			<b>Godsnr</b>
+							           			<p>
+							           			 	Legg inn sendingens godsnr.
+										            Oppbygging av godsnr.:
+										            <ul>
+										            <li><b>1.- 4.</b> karakter: Årstall for registrering</li>
+										            <li><b>5.- 6.</b> karakter: Tolldistriktskode</li>
+										            <li><b>7.- 9.</b> karakter:Tollagerkode</li>
+										            <li><b>10.-12.</b> karakter: Lossedag, kalenderens dagnr.</li>
+										            <li><b>13.-15.</b> karakter: lossenr, fortløpende listenr, pr. tollager og dag.</li>
+										            </ul>
+							           			</p>
+										</span>		
+							            </div>
+						            </td>
 						            <td colspan="3" ><input type="text" class="inputTextMediumBlue" name="tign" id="tign" size="36" maxlength="35" value="${model.record.tign}"></td>
 					            </tr>
 								<tr>
@@ -331,7 +350,22 @@
 					            </tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="titrnr">MRN-nr</span></td>
+						            <td class="text12" >
+						            	<img onMouseOver="showPop('titrnr_info');" onMouseOut="hidePop('titrnr_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            	<span title="titrnr">MRN-nr</span>
+						            	<div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="titrnr_info" class="popupWithInputText text11"  >
+							           			<b>Oppgi MRN-nr. for sendingen.</b>
+							           			<p> 			 	 
+										            MRN-nr. (Movement Reference Number) er bygd opp av.:
+										            årstallets siste 2 siffer (YY),
+										            tollstedets referansenr. (eks.NO11091B)
+										            et 7-sifret løpenr. og kontrollsiffer.
+										            Dette er referansen som følger transitteringen helt til den er avsluttet.
+							           			</p>
+										</span>		
+							            </div>
+						            </td>
 						            <td colspan="3" ><input type="text" class="inputTextMediumBlue" name="titrnr" id="titrnr" size="36" maxlength="18" value="${model.record.titrnr}"></td>
 					            </tr>
 					            <tr>
