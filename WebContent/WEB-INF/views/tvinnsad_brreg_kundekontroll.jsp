@@ -19,7 +19,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;TVINN Kundedata kontroll</font>
+				<font class="tabLink">&nbsp;Kundedata kontroll</font>
 				<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -127,18 +127,11 @@
             		<tr>
             		<td colspan="4" class="text12">
 	            		<table align="left" class="tabThinBorderWhite">
-					<tr>
-						<td>	
-							<a href="sporringOppdragMainListExcelView.do" target="_new">
-			                		<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
-			                		<font class="text12MediumBlue">&nbsp;Excel</font>
-			 	        		</a>
-			 	        		&nbsp;
-		 	        		</td>
-		 	        		<td>		            		
-			 	        		<a href="todo.do" target="_new">
-			                		<img valign="bottom" id="printer" src="resources/images/printer.png" width="14" height="14" border="0" alt="print">
-			                		<font class="text12MediumBlue">&nbsp;Print</font>
+					    <tr>
+							<td>	
+								<a href="invalidaKunderMainListExcelView.do" target="_new">
+			                			<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
+			                			<font class="text12MediumBlue">&nbsp;Excel</font>
 			 	        		</a>
 			 	        		&nbsp;
 		 	        		</td>

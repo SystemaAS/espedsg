@@ -42,6 +42,10 @@
 	<!-- EHF faktura -->
     <bean id="efakturaListExcelView" class="no.systema.efaktura.view.EfakturaListExcelBuilder" />
     
+     <!-- Kunde kontroll vy mot brreg.no -->
+    <bean id="invalidaKunderMainListExcelView" class="no.systema.tvinn.sad.kundekontroll.brreg.controller.MainListExcelBuilder" />
+    
+    
 	
 
 

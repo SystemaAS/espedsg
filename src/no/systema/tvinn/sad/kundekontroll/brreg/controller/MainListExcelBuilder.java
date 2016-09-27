@@ -1,0 +1,99 @@
+package no.systema.tvinn.sad.kundekontroll.brreg.controller;
+
+import java.util.*;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.servlet.view.document.AbstractExcelView;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+
+import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragTopicListRecord;
+import no.systema.sporringoppdrag.util.SporringOppdragConstants;
+import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckRecord;
+import no.systema.main.context.TdsAppContext;
+/**
+ * Creates a excel view on invalide kunder checked against data.brreg.no
+ * 
+ * 
+ * @author Fredrik Möller
+ * @date Sep 27, 2016
+ * 
+ */
+public class MainListExcelBuilder extends AbstractExcelView {
+	private ApplicationContext context;
+	
+	public MainListExcelBuilder(){
+		this.context = TdsAppContext.getApplicationContext();
+	}
+	
+	protected void buildExcelDocument(Map<String, Object> model,
+        HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // get data model which is passed by the Spring Container via our own Controller implementation
+        List<JsonEnhetsRegisteretDataCheckRecord> itemList = (List<JsonEnhetsRegisteretDataCheckRecord>) model.get(SporringOppdragConstants.DOMAIN_LIST);
+         
+        // create a new Excel sheet
+        HSSFSheet sheet = workbook.createSheet("invalide kunder list");
+        sheet.setDefaultColumnWidth(30);
+         
+        // create style for header cells
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setFontName("Arial");
+        style.setFillForegroundColor(HSSFColor.BLUE.index);
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        font.setColor(HSSFColor.WHITE.index);
+        style.setFont(font);
+
+        //Note: the locale must be fetched from the response since we are working with the Spring Interceptor.
+        HSSFRow header = sheet.createRow(0);
+
+        header.createCell(0).setCellValue("Kundnr");
+        header.getCell(0).setCellStyle(style);
+         
+        header.createCell(1).setCellValue("Kundenavn");
+        header.getCell(1).setCellStyle(style);
+        
+        header.createCell(2).setCellValue("Org.nr");
+        header.getCell(2).setCellStyle(style);
+        
+        header.createCell(3).setCellValue("Enhetsregisteret");
+        header.getCell(3).setCellStyle(style);
+         
+        header.createCell(4).setCellValue("Konkurs");
+        header.getCell(4).setCellStyle(style);
+        
+        header.createCell(5).setCellValue("Merverdi");
+        header.getCell(5).setCellStyle(style);
+        
+        header.createCell(6).setCellValue("Under avvikling");
+        header.getCell(6).setCellStyle(style);
+        
+        header.createCell(7).setCellValue("Under tvangsavvikling");
+        header.getCell(7).setCellStyle(style);
+                
+        
+        // create data rows
+        int rowCount = 1;
+         
+        for (JsonEnhetsRegisteretDataCheckRecord record : itemList) {
+            HSSFRow aRow = sheet.createRow(rowCount++);
+           aRow.createCell(0).setCellValue(record.getKundenr());
+            
+            aRow.createCell(1).setCellValue(record.getKundenavn());
+            aRow.createCell(2).setCellValue(record.getOrgnr());
+            aRow.createCell(3).setCellValue(record.getExistsinregister());
+            aRow.createCell(4).setCellValue(record.getKonkurs());
+            aRow.createCell(5).setCellValue(record.getRegistrertimvaregisteret());
+            aRow.createCell(6).setCellValue(record.getUnderavvikling());
+            aRow.createCell(7).setCellValue(record.getUndertvangsavviklingellertvangsopplosning());
+        }
+    }
+	
+}

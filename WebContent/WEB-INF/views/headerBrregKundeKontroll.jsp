@@ -7,17 +7,13 @@
 		<link href="resources/espedsg.css?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
 		<link href="resources/jquery.calculator.css" rel="stylesheet" type="text/css"/>
 		<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/overcast/jquery-ui.css" rel="stylesheet">
-		<%--<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css" rel="stylesheet"> --%>
-		
 		<%-- datatables grid CSS --%>
 		<link type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css" rel="stylesheet">
-		<%-- <link type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css" rel="stylesheet">--%>
-		
 		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-		<title>eSpedsg - Inquire about Orders</title>
+		<title>Kundedata kontroll</title>
 	</head>
 	<body>
 	<%-- include som javascript functions --%>
@@ -44,7 +40,7 @@
 				 	<tr>
 				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
-				 			eSped<font style="color:#003300;">sg</font> - TVINN Kundedata kontroll
+				 			eSped<font style="color:#003300;">sg</font> - Kundedata kontroll
 				 			
 				 		</td>
 				 		 
@@ -66,10 +62,6 @@
     			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
-			    			<%-- --------------------------- --%>
-			    			<%-- Spørring på Oppdrag MENU    --%>
-			    			<%-- --------------------------- 
-			    			<a tabindex=-1 href="sporringoppdrag_mainlist.do?action=doFind&sg=${Xuser.tvinnSadSign}"> --%>
 			    			<a tabindex=-1 href="tvinnsad_brreg_kundekontroll.do?action=doFind">
 			    				&nbsp;<font 
 			    				<c:choose>           
@@ -81,7 +73,7 @@
 		                   			</c:otherwise>
 		               			</c:choose>
 			    				
-			    				>&nbsp;TVINN Kundedata kontroll&nbsp;</font>
+			    				>&nbsp;Kundedata kontroll&nbsp;</font>
 			    			</a>
 			    			
 	      				</td>		      				
@@ -116,7 +108,7 @@
 						        </span>   		
 			    				<font style="color:#000000" >${user.user}&nbsp;</font>${user.usrLang}</font>
 			    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
-				    			<a tabindex=-1 href="logoutSporringOppdrag.do">
+				    			<a tabindex=-1 href="logoutBrregKontroll.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
 				    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>

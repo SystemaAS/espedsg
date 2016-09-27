@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -24,6 +25,8 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragTopicListRecord;
+import no.systema.sporringoppdrag.util.SporringOppdragConstants;
 import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckContainer;
 import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckRecord;
 import no.systema.tvinn.sad.kundekontroll.brreg.service.BrregEnhetsRegisteretService;
@@ -76,11 +79,47 @@ public class TvinnSadBrregKontrollController {
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+			
+			session.setAttribute(session.getId() + SporringOppdragConstants.SESSION_LIST, list);
+
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
 		}
 	}
+	
+
+	/**
+	 * 
+	 * @param user
+	 * @param result
+	 * @param request
+	 * @return
+	 * 
+	 */
+	@RequestMapping(value="invalidaKunderMainListExcelView.do", method={RequestMethod.GET})
+	public ModelAndView getItemListExcelView(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		//this name is the one configured in /WEB-INF/views.xml
+		final String EXCEL_VIEW = "invalidaKunderMainListExcelView";
+		
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		List<JsonEnhetsRegisteretDataCheckRecord> list = null;
+		
+        //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");
+        response.setHeader ("Content-disposition", "filename=\"" + EXCEL_VIEW + ".xls\"");
+
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			list = (List)session.getAttribute(session.getId() + SporringOppdragConstants.SESSION_LIST);
+		}	
+		
+		return new ModelAndView(EXCEL_VIEW, SporringOppdragConstants.DOMAIN_LIST, list);
+	}	
+	
+	
+	
+	
 	
 	private List<JsonEnhetsRegisteretDataCheckRecord> fetchList(String applicationUser, String firmaKode){
 		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_BRREG_GET_KUNDEDATA_KONTROLL_URL;
