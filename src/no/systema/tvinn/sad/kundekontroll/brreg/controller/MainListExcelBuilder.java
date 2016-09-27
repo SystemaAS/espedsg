@@ -1,22 +1,23 @@
 package no.systema.tvinn.sad.kundekontroll.brreg.controller;
 
-import java.util.*;
-import java.util.Locale;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
-import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.hssf.util.*;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.servlet.view.document.AbstractExcelView;
 
-import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragTopicListRecord;
-import no.systema.sporringoppdrag.util.SporringOppdragConstants;
-import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckRecord;
 import no.systema.main.context.TdsAppContext;
+import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckRecord;
 /**
  * Creates a excel view on invalide kunder checked against data.brreg.no
  * 
@@ -35,10 +36,10 @@ public class MainListExcelBuilder extends AbstractExcelView {
 	protected void buildExcelDocument(Map<String, Object> model,
         HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // get data model which is passed by the Spring Container via our own Controller implementation
-        List<JsonEnhetsRegisteretDataCheckRecord> itemList = (List<JsonEnhetsRegisteretDataCheckRecord>) model.get(SporringOppdragConstants.DOMAIN_LIST);
+        List<JsonEnhetsRegisteretDataCheckRecord> itemList = (List<JsonEnhetsRegisteretDataCheckRecord>) model.get("list");
          
         // create a new Excel sheet
-        HSSFSheet sheet = workbook.createSheet("invalide kunder list");
+        HSSFSheet sheet = workbook.createSheet("invalide kunder");
         sheet.setDefaultColumnWidth(30);
          
         // create style for header cells

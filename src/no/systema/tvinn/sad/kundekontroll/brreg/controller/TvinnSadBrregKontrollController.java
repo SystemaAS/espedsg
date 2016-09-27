@@ -65,17 +65,12 @@ public class TvinnSadBrregKontrollController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		String dbTable = request.getParameter("id");
 		
-		//String firmaKode = request.getParameter("firmakode");
-		String firmaKode= null;
-		
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			logger.info("Hardcoded firmakode = SY");
-			firmaKode = "SY";
 			//get table
-	    	List<JsonEnhetsRegisteretDataCheckRecord> list = this.fetchList(appUser.getUser(),firmaKode);
+	    	List<JsonEnhetsRegisteretDataCheckRecord> list = this.fetchList(appUser.getUser());
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
@@ -105,25 +100,24 @@ public class TvinnSadBrregKontrollController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		List<JsonEnhetsRegisteretDataCheckRecord> list = null;
 		
-        //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");
         response.setHeader ("Content-disposition", "filename=\"" + EXCEL_VIEW + ".xls\"");
 
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			list = (List)session.getAttribute(session.getId() + SporringOppdragConstants.SESSION_LIST);
+			list = (List)session.getAttribute(session.getId() + "sessionList");
 		}	
 		
-		return new ModelAndView(EXCEL_VIEW, SporringOppdragConstants.DOMAIN_LIST, list);
+		return new ModelAndView(EXCEL_VIEW, "list", list);
 	}	
 	
 	
 	
 	
 	
-	private List<JsonEnhetsRegisteretDataCheckRecord> fetchList(String applicationUser, String firmaKode){
+	private List<JsonEnhetsRegisteretDataCheckRecord> fetchList(String applicationUser){
 		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_BRREG_GET_KUNDEDATA_KONTROLL_URL;
-		String urlRequestParams = "user=" + applicationUser + "&firmakode="+firmaKode;
+		String urlRequestParams = "user=" + applicationUser;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);

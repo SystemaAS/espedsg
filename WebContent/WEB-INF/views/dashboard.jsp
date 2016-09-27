@@ -113,18 +113,7 @@
 												</font>
 								 			</c:if>
 								 			<c:if test="${fn:contains(record.prog,'-TBRREG') }">
-
-											<%--
-								 				<font class="text14">
-									 				<a class="text14" href="tvinnsad_brreg_kundekontroll.do?lang=${user.usrLang}" > 	
-					 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-					 									<font class="text14NavyBlue">${record.prTxt}</font>
-			 										</a>
-												</font>
-											 --%>
-
-
-				 								<a class="text14" href="tvinnsad_brreg_kundekontroll.do" onMouseOver="showPop('infoTBRREG');" onMouseOut="hidePop('infoTBRREG');" >
+				 								<a class="text14" href="tvinnsad_brreg_kundekontroll.do" onMouseOver="showPop('infoTBRREG');" onMouseOut="hidePop('infoTBRREG');" onClick="setBlockUI(this);" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 	 												<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
@@ -136,7 +125,7 @@
 									           			<table border = "0">
 									           				<tr>
 																<td align="left" class="text12" >
-																	<b>Kundedata kontroll</b>, validerere alle kunder mot åpne data fra Brønnøysundregisteret.<br/>
+																	<b>Kundedata kontroll</b>, validerer alle kunder mot åpne data fra Brønnøysundregisteret.<br/>
 																	<br/>Kontroll skjer med oppslag mot <b>Brønnøysundregisterets</b> data i Enhetsregisteret.
 																	Informasjon som kontrolleres:
 																	<br/>- Organisasjonsnummer
@@ -147,7 +136,11 @@
 																</td>
 															</tr>
 															<tr>
-																<td align="left" class="text10" ><br/><br/><br/><i>Powered by:</i><br/>
+																<td align="left" class="text12">
+																	<br/><b>Note:</b> Utførelse av denne funksjonen kan ta litt tid.</tr>
+																</td>
+															<tr>
+																<td align="left" class="text10"><i>Powered by:</i><br/>
 																	<img src="http://scf.brreg.no/bilder/brreg_logo.svg" width="150px" height="25px" align="left">
 																</td>
 															</tr>

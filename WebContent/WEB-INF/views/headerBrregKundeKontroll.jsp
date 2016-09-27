@@ -20,11 +20,10 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js""></script>
 	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
-
+	
 	<%--datatables grid JS --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<%--<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script> --%>
-	
+	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
 	
     <table class="noBg" width="1100" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
@@ -62,7 +61,7 @@
     			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
-			    			<a tabindex=-1 href="tvinnsad_brreg_kundekontroll.do?action=doFind">
+			    			<a tabindex=-1 href="tvinnsad_brreg_kundekontroll.do?action=doFind" onClick="setBlockUI(this);">
 			    				&nbsp;<font 
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='BRREG_KUNDE_KONTROLL'}">

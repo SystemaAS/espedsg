@@ -68,7 +68,7 @@
 				<tr>
 				<td class="ownScrollableSubWindow" style="width:100%; height:60em;">
 				<%-- this is the datatables grid (content) --%>
-				<table id="oppdragMainList" class="display compact cell-border">
+				<table id="invalideKunderList" class="display compact cell-border">
 					<thead>
 					<tr style="background-color:#EEEEEE">
 					    <th class="text12">Kundnr</th>   
