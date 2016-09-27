@@ -638,8 +638,10 @@
 						 			<td class="text12" >&nbsp;&nbsp;&nbsp;<span title="nidfst">Status:</span>&nbsp;</td>
 						 			<td class="text12">
 					           			<select class="text11" name="nidfst" id="nidfst">
+					           				<option value="">-velg-</option>
+					           				<option value="0"<c:if test="${model.record.nidfst == '0'}"> selected </c:if> >Ikke Ok</option>
 					           				<option value="1"<c:if test="${model.record.nidfst == '1'}"> selected </c:if> >Ok</option>
-										  	<option value=""<c:if test="${model.record.nidfst == '0' || empty model.record.nidfst }"> selected </c:if> >Ikke Ok</option>
+										  	
 										</select>
 									</td>
 								</tr>

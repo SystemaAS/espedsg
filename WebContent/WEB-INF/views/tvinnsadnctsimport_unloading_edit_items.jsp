@@ -706,7 +706,7 @@
 			 			            		</td>
 							        		
 							        
-						            		<%-- only status = U,H are allowed  --%>
+						            		<%-- only status = U,H are allowed  
 					 				    <c:choose>
 						 				    <c:when test="${ recordTopicTvinnSad.tist == 'U' ||  recordTopicTvinnSad.tist == 'H' }">
 						 				    		<c:choose>
@@ -721,6 +721,19 @@
 									 				    	</td>	
 									 				</c:otherwise>
 								 				</c:choose>
+						 				    </c:when>
+						 				    <c:otherwise>
+							 				    <td  align="center" class="text9BlueGreen" valign="bottom"  >
+							 				    		&nbsp;&nbsp;&nbsp;<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value="<spring:message code="systema.tvinn.sad.submit.not.editable"/>"/>
+							 				    	</td>	
+						 				    </c:otherwise>	
+					 				    </c:choose>
+					 				    --%>
+					 				    <c:choose>
+						 				    <c:when test="${ recordTopicTvinnSad.tist == 'U' ||  recordTopicTvinnSad.tist == 'H' }">
+							 				    <td  align="center" class="text9BlueGreen" valign="bottom"  >
+							 				    		&nbsp;&nbsp;&nbsp;<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value="<spring:message code="systema.tvinn.sad.submit.not.editable"/>"/>
+						 				    	</td>	
 						 				    </c:when>
 						 				    <c:otherwise>
 							 				    <td  align="center" class="text9BlueGreen" valign="bottom"  >

@@ -228,8 +228,10 @@
 							 				<span style="position:absolute; top:2px; width:250px;" id="nliv_info" class="popupWithInputText text11"  >
 								           		<b>Næringsliv / Ansvarlig</b>
 								           		<p>
-								           		todo 
-								           		</p>
+								           		Næringslivets representant (Speditøren)Den som personlig eller gjennom en autorisert representant 
+								           		søker tillatelse til å utføre en transittering og dermed stiller seg ansvarlig overfor tollmyndighetene for at transitteringen skjer i samsvar med bestemmelsene.
+            									Legges vanligvis inn som standardverdi på avdelingen.
+            									</p>
 								           		
 											</span>
 											</div>
@@ -343,7 +345,7 @@
 					            </tr>
 								<tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tignsk">Språkkode</span>&nbsp;</td>
+						            <td class="text12" >&nbsp;&nbsp;<span title="tignsk">Språkkode</span>&nbsp;</td>
 						            <td >
 							             <input type="text" class="inputText" name="tignsk" id="tignsk" size="3" maxlength="2" value="${model.record.tignsk}">
 						            </td>
@@ -370,7 +372,7 @@
 					            </tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tialk">Avs.land</span>&nbsp;</td>
+						            <td class="text12" >&nbsp;&nbsp;<span title="tialk">Avs.land</span>&nbsp;</td>
 						            <td >
 							            <input type="text" class="inputText" name="tialk" id="tialk" size="3" maxlength="2" value="${model.record.tialk}">
 						            </td>
@@ -378,7 +380,20 @@
 					            <tr height="2"><td>&nbsp;</td></tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="titsb">Freml.tollsted</span></td>
+						            <td class="text12" ><img onMouseOver="showPop('titsb_info');" onMouseOut="hidePop('titsb_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            <span title="titsb">Freml.tollsted</span>
+						            <div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="titsb_info" class="popupWithInputText text11"  >
+							           			<b>Fremleggings tollsted</b>
+							           			<p> 			 	 
+										             Fremleggings tollsted Kode for mottagende tollsted. 
+										             Merk at dette er tollstedskoden som er knyttet opp mot Ansvarlig's organisasjonsnr., ikke nødvendigvis stedet varene kommer til.
+							           			</p>
+										</span>		
+						            </div>
+						            
+						            
+						            </td>
 						            <td ><input type="text" class="inputTextMediumBlue" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
 						            	<a tabindex="-1" id="titsbIdLink">
 											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
@@ -393,7 +408,14 @@
 					            <tr height="10"><td>&nbsp;</td></tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tialsk">Avt.lag.sted (kode)</span></td>
+						            <td class="text12" ><img onMouseOver="showPop('tialsk_info');" onMouseOut="hidePop('tialsk_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            <span title="tialsk">Avt.lagringssted (kode)</span>
+						            <div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="tialsk_info" class="popupWithInputText text11"  >
+							           			<b>Avtalt lagringssted kode</b>
+										</span>		
+						            </div>
+						            </td>
 						            <td ><input type="text" class="inputText" name="tialsk" id="tialsk" size="17" maxlength="17" value="${model.record.tialsk}"></td>
 						            <td class="text12" ><span title="tialss">Språkkode</span>&nbsp;</td>
 						            <td >
@@ -402,18 +424,36 @@
 					            </tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tials">Avt.lag.sted</span></td>
+						            <td class="text12" >&nbsp;&nbsp;<span title="tials">Avt.lagringssted</span></td>
 						            <td ><input type="text" class="inputText" name="tials" id="tials" size="20" maxlength="35" value="${model.record.tials}"></td>
 					            </tr>
 					            <tr height="2"><td>&nbsp;</td></tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tiglsk">Godk.lag.sted (kode)</span></td>
+						            <td class="text12" ><img onMouseOver="showPop('tiglsk_info');" onMouseOut="hidePop('tiglsk_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            <span title="tiglsk">Godk.lagringssted (kode)</span>
+						            <div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="tiglsk_info" class="popupWithInputText text11"  >
+							           			<b>Godkjent lagringssted</b>
+										</span>		
+						            </div>
+						            
+						            </td>
 						            <td ><input type="text" class="inputText" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${model.record.tiglsk}"></td>
 					            </tr>
 					            <tr>
 						            <td >&nbsp;</td>
-						            <td class="text12" ><span title="tiacts">Contr.sted (kode)</span></td>
+						            <td class="text12" ><img onMouseOver="showPop('tiacts_info');" onMouseOut="hidePop('tiacts_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            <span title="tiacts">Contr.sted (kode)</span>
+						            <div class="text11" style="position: relative;" align="left">
+					 					<span style="position:absolute; top:2px; width:250px;" id="tiacts_info" class="popupWithInputText text11"  >
+							           			<b>Control sted</b>
+							           			<p>
+												Disse feltene er foreløpig ikke i bruk, men skal tas i bruk i en framtidig versjon av NCTS/TET.
+												</p>
+										</span>		
+						            </div>
+						            </td>
 						            <td ><input type="text" class="inputText" name="tiacts" id="tiacts" size="17" maxlength="17" value="${model.record.tiacts}"></td>
 					            </tr>
 					            <tr>
