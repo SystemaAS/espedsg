@@ -465,7 +465,7 @@
 									</td>			 			
 						 			<td class="text12">
 										<select class="inputTextMediumBlueMandatoryField" name="nikonf" id="nikonf">
-						            			<option value="0"<c:if test="${model.record.nikonf == '0' || empty model.record.nikonf}}"> selected </c:if> >0</option>
+						            		<option value="0"<c:if test="${model.record.nikonf == '0' || empty model.record.nikonf}}"> selected </c:if> >0</option>
 					 					  	<option value="1"<c:if test="${model.record.nikonf == '1'}"> selected </c:if> >1</option>
 										</select>
 									</td>

@@ -459,12 +459,25 @@
 							        </tr>
 							        <tr>
 							        		<td class="text12" align="left">
-											<select class="inputTextMediumBlueMandatoryField" name="nvct" id="nvct">
-												<option value=""<c:if test="${model.record.nvct == ''}"> selected </c:if> >-vælg-</option>
-											  	<option value="DI"<c:if test="${model.record.nvct == 'DI'}"> selected </c:if> >DI</option>
-											  	<option value="NE"<c:if test="${model.record.nvct == 'NE'}"> selected </c:if> >NE</option>
-											  	<option value="OT"<c:if test="${model.record.nvct == 'OT'}"> selected </c:if> >OT</option>
-											</select>
+							        		<c:choose>
+							        		<c:when test="${recordTopicSkatUnloading.nikonf != '1'}">
+												<select class="inputTextMediumBlueMandatoryField" name="nvct" id="nvct">
+													<option value=""<c:if test="${model.record.nvct == ''}"> selected </c:if> >-vælg-</option>
+												  	<option value="DI"<c:if test="${model.record.nvct == 'DI'}"> selected </c:if> >DI</option>
+												  	<option value="NE"<c:if test="${model.record.nvct == 'NE'}"> selected </c:if> >NE</option>
+												  	<option value="OT"<c:if test="${model.record.nvct == 'OT'}"> selected </c:if> >OT</option>
+												</select>
+											</c:when >
+											<c:otherwise>
+												<select class="inputTextMediumBlue" name="nvct" id="nvct">
+													<option value=""<c:if test="${model.record.nvct == ''}"> selected </c:if> >-vælg-</option>
+												  	<option value="DI"<c:if test="${model.record.nvct == 'DI'}"> selected </c:if> >DI</option>
+												  	<option value="NE"<c:if test="${model.record.nvct == 'NE'}"> selected </c:if> >NE</option>
+												  	<option value="OT"<c:if test="${model.record.nvct == 'OT'}"> selected </c:if> >OT</option>
+												</select>
+											</c:otherwise>
+											</c:choose>
+											
 			 			            		</td>
 							        		<td >
 											<select name="nvctsk" id="nvctsk">
@@ -743,27 +756,18 @@
 							        		
 							        
 						            		<%-- only status = U,H are allowed  --%>
-					 				    <c:choose>
+					 				    	<c:choose>
 						 				    <c:when test="${ recordTopicSkat.tist == 'U' ||  recordTopicSkat.tist == 'H' }">
-						 				    		<c:choose>
-						 				    			<c:when test="${ recordTopicSkatUnloading.nikonf != '1'}">
-									 				    <td align="center" class="text9BlueGreen" valign="bottom"  >
-										 				    &nbsp;&nbsp;&nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit_items.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
-										 				</td>    	
-									 				</c:when>
-									 				<c:otherwise>
-									 				    <td  align="center" class="text9BlueGreen" valign="bottom"  >
-									 				    		&nbsp;&nbsp;&nbsp;<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value="<spring:message code="systema.skat.submit.not.editable"/>"/>
-									 				    	</td>	
-									 				</c:otherwise>
-								 				</c:choose>
+							 				    <td align="center" class="text9BlueGreen" valign="bottom"  >
+								 				    &nbsp;&nbsp;&nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit_items.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
+								 				</td>    	
 						 				    </c:when>
 						 				    <c:otherwise>
 							 				    <td  align="center" class="text9BlueGreen" valign="bottom"  >
-							 				    		&nbsp;&nbsp;&nbsp;<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value="<spring:message code="systema.skat.submit.not.editable"/>"/>
-							 				    	</td>	
+						 				    		&nbsp;&nbsp;&nbsp;<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value="<spring:message code="systema.skat.submit.not.editable"/>"/>
+						 				    	</td>	
 						 				    </c:otherwise>	
-					 				    </c:choose>
+					 				    	</c:choose>
 							        </form>
  							        <tr height="5"><td></td></tr>
 				        	        </table>

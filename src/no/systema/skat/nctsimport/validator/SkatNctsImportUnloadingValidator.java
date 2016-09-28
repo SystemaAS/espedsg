@@ -46,21 +46,21 @@ public class SkatNctsImportUnloadingValidator implements Validator {
 		logger.info("Inside module...");
 		
 		//Check for Mandatory fields first
-		/*	
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tiavd", "systema.skat.ncts.import.header.error.null.tiavd"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tisg", "systema.skat.ncts.import.header.error.null.tisg"); 
-		*/
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nidtl", "systema.skat.ncts.import.header.error.null.unloading.conform.nidtl"); 
 		
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
 				//Konform
 				if( "0".equals(record.getNikonf())){
-					/* TODO Covi: activate after talks with YBC,CB and BOG 
 					if(!this.isValidKonformMandatoryFields(record)){
 						errors.rejectValue("nikonf", "systema.skat.ncts.import.header.error.null.unloading.conform.nikonf");
 					}
-					*/
+				}else{
+					//with konform = 1; OT&DI must be empty 
+					if(this.isValidKonformMandatoryFields(record)){
+						errors.rejectValue("nikonf", "systema.skat.ncts.import.header.error.notnull.unloading.conform.nikonf");
+					}
 				}
 			}
 		}
@@ -75,9 +75,11 @@ public class SkatNctsImportUnloadingValidator implements Validator {
 	private boolean isValidKonformMandatoryFields(JsonSkatNctsImportSpecificTopicUnloadingRecord record){
 		boolean retval = false;
 		if( (record.getNictb()!=null && !"".equals(record.getNictb()) ) || (record.getNictb2()!=null && !"".equals(record.getNictb2()) ) ){
+			retval = true;
+			/*
 			if(record.getNictsk()!=null &&!"".equals(record.getNictsk())){
 				retval = true;
-			}
+			}*/
 			
 		}
 		

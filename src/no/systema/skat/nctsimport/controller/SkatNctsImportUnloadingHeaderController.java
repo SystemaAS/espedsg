@@ -156,6 +156,7 @@ public class SkatNctsImportUnloadingHeaderController {
 		logger.info("Action:" + action);
 		logger.info("Opd:" + opd);
 		logger.info("Origo:" + origin);
+		boolean isValid = true;
 		
 		Map model = new HashMap();
 		
@@ -173,14 +174,13 @@ public class SkatNctsImportUnloadingHeaderController {
 					//---------------------
 					SkatNctsImportUnloadingValidator validator = new SkatNctsImportUnloadingValidator();
 					logger.info("VALIDATING...");
-					
 					validator.validate(recordToValidate, bindingResult);
-					
 					
 				    //check for ERRORS
 					if(bindingResult.hasErrors()){
 				    	logger.info("[ERROR Validation] Record does not validate)");
 				    	origin="list";
+				    	isValid = false;
 				    	//put domain objects and do go back to the original view...
 					    //recordToValidate.setTiavd(avd);
 				    	//recordToValidate.setTisg(sign);
@@ -254,35 +254,39 @@ public class SkatNctsImportUnloadingHeaderController {
 				session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 				
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	//--------------------------------------
-			    	//EXECUTE the FETCH (RPG program) here
-			    	//--------------------------------------
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-					//Debug --> 
-			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		JsonSkatNctsImportSpecificTopicUnloadingContainer jsonNctsImportSpecificTopicUnloadingContainer = this.skatNctsImportSpecificTopicUnloadingService.getNctsImportSpecificTopicUnloadingContainer(jsonPayload);
-			    		//add drop-downs
-			    		this.setCodeDropDownMgr(appUser, model);
-    					this.setDomainObjectsInView(session, model, jsonNctsImportSpecificTopicUnloadingContainer);
-			    		
-			    		//We must fetch the parent topic record when the end user is coming from the list of topics and not from the topic view
-			    		if(origin!=null && origin.equals("list")){
-			    			logger.info("Fetching the specific topic from origin=list...");
-			    			this.getSpecificTopicRecord(session,avd,opd,sign,appUser);
-			    		}
-			    		
-			    		
-			    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
-					//put the doUpdate action since we are preparing the record for an update (when saving)
-					successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
-			    		
-			    	}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE the FETCH (RPG program) here
+		    	//--------------------------------------
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug --> 
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		JsonSkatNctsImportSpecificTopicUnloadingContainer jsonNctsImportSpecificTopicUnloadingContainer = this.skatNctsImportSpecificTopicUnloadingService.getNctsImportSpecificTopicUnloadingContainer(jsonPayload);
+		    		//add drop-downs
+		    		this.setCodeDropDownMgr(appUser, model);
+		    		//only when validation = OK
+		    		if(isValid){
+		    			this.setDomainObjectsInView(session, model, jsonNctsImportSpecificTopicUnloadingContainer);
+		    		}else{
+		    			model.put(SkatConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+		    		//We must fetch the parent topic record when the end user is coming from the list of topics and not from the topic view
+		    		if(origin!=null && origin.equals("list")){
+		    			logger.info("Fetching the specific topic from origin=list...");
+		    			this.getSpecificTopicRecord(session,avd,opd,sign,appUser);
+		    		}
+		    		
+		    		
+	    		successView.addObject(SkatConstants.DOMAIN_MODEL, model);
+				//put the doUpdate action since we are preparing the record for an update (when saving)
+				successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+		    		
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
 				}    	
 				
 			}
