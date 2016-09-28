@@ -28,123 +28,122 @@
 	</table>
 	</td>
 	</tr>
-		<tr>
-		<td>
-			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
-			<table id="wrapperTable" class="tabThinBorderWhite" width="100%" cellspacing="1">
-			<tr height="10"><td></td></tr> 
-		
-			<%-- Validation errors --%>
-			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
-				<td>
-		           	<table style="width:99%" align="left" border="0" cellspacing="0" cellpadding="0">
-		           	<tr>
-					<td class="textError">					
-			            <ul>
-			            <c:forEach var="error" items="${errors.allErrors}">
-			                <li >
-			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
-			                </li>
-			            </c:forEach>
-			            </ul>
-					</td>
-					</tr>
-					</table>
-				</td>
-			</tr>
-			</spring:hasBindErrors>	
-			<%-- -------------------- --%>
-			<%-- Datatables component --%>
-			<%-- -------------------- --%>
+			<td>
+				<%-- this table wrapper is necessary to apply the css class with the thin border --%>
+				<table id="wrapperTable" class="tabThinBorderWhite" width="100%" cellspacing="1">
+				<tr height="10"><td></td></tr> 
 			
-			<%-- list component --%>
-			<tr>
-            <tr>
-				<td>
-				<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
-					 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
-				<table id="containerdatatableTable" style="width:100%" cellspacing="3" align="left">
+				<%-- Validation errors --%>
+				<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 				<tr>
-				<td class="ownScrollableSubWindow" style="width:100%; height:60em;">
-				<%-- this is the datatables grid (content) --%>
-				<table id="invalideKunderList" class="display compact cell-border">
-					<thead>
-					<tr style="background-color:#EEEEEE">
-					    <th class="text12">Kundnr</th>   
-	                    <th class="text12">Kundenavn</th>
-	                    <th class="text12">Org.nr</th>
-	                    <th class="text12">Enhetsregisteret</th>
-	                    <th class="text12">Konkurs</th>
-	                    <th class="text12">Merverdi</th>
-	                    <th class="text12">Under avvikling</th>
-	                    <th class="text12">Under tvangsavvikling</th>
-	                </tr> 
-	                </thead>
-	                
-	                <tbody>
-		            <c:forEach items="${model.list}" var="record" varStatus="counter">    
-		               <c:choose>           
-		                   <c:when test="${counter.count%2==0}">
-		                       <tr >
-		                   </c:when>
-		                   <c:otherwise>   
-		                       <tr >
-		                   </c:otherwise>
-		               </c:choose>
-
-        		       <td class="text11">&nbsp;${record.kundenr}</td>
-            		   <td class="text11">&nbsp;${record.kundenavn}</td>
-            		   <td class="text11">&nbsp;${record.orgnr}</td>
-            		   <td class="text11">&nbsp;${record.existsinregister}</td>
-            		   <td class="text11">&nbsp;${record.konkurs}</td>
-		               <td class="text11">&nbsp;${record.registrertimvaregisteret}</td>
-            		   <td class="text11">&nbsp;${record.underavvikling}</td>
-		               <td class="text11">&nbsp;${record.undertvangsavviklingellertvangsopplosning}</td>
-		               
-		            </tr> 
-		            </c:forEach>
-		            <tfoot>
-					<tr style="background-color:#EEEEEE">
-						<c:if test="${not empty cw}">
-							<th width="5%" class="text12">Hente Ordre</th>
-						</c:if>
-					    <th class="text12">Kundnr</th>   
-	                    <th class="text12">Kundenavn</th>
-	                    <th class="text12">Org.nr</th>
-	                    <th class="text12">Enhetsregisteret</th>
-	                    <th class="text12">Konkurs</th>
-	                    <th class="text12">Merverdi</th>
-	                    <th class="text12">Under avvikling</th>
-	                    <th class="text12">Under tvangsavvikling</th>
-	                </tr> 
-	                </tfoot>
-		            </tbody>
-	            </table>
+					<td>
+			           	<table style="width:99%" align="left" border="0" cellspacing="0" cellpadding="0">
+			           	<tr>
+						<td class="textError">					
+				            <ul>
+				            <c:forEach var="error" items="${errors.allErrors}">
+				                <li >
+				                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
+				                </li>
+				            </c:forEach>
+				            </ul>
+						</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</spring:hasBindErrors>	
+				<%-- -------------------- --%>
+				<%-- Datatables component --%>
+				<%-- -------------------- --%>
+				
+				<%-- list component --%>
+				<tr>
+	            <tr>
+					<td>
+					<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
+						 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
+					<table id="containerdatatableTable" style="width:100%" cellspacing="3" align="left" border="0">
+					<tr>
+						<td class="ownScrollableSubWindow" style="width:100%; height:60em;">
+						<%-- this is the datatables grid (content) --%>
+							<table id="invalideKunderList" class="display compact cell-border" border="0">
+								<thead>
+								<tr style="background-color:#EEEEEE">
+								    <th class="text12">Kundnr</th>   
+				                    <th class="text12">Kundenavn</th>
+				                    <th class="text12">Org.nr</th>
+				                    <th class="text12">Enhetsregisteret</th>
+				                    <th class="text12">Konkurs</th>
+				                    <th class="text12">Merverdi</th>
+				                    <th class="text12">Under avvikling</th>
+				                    <th class="text12">Under tvangsavvikling</th>
+				                </tr> 
+				                </thead>
+				                
+				                <tbody>
+					            <c:forEach items="${model.list}" var="record" varStatus="counter">    
+					               <c:choose>           
+					                   <c:when test="${counter.count%2==0}">
+					                       <tr >
+					                   </c:when>
+					                   <c:otherwise>   
+					                       <tr >
+					                   </c:otherwise>
+					               </c:choose>
+			
+			        		       <td class="text11">&nbsp;${record.kundenr}</td>
+			            		   <td class="text11">&nbsp;${record.kundenavn}</td>
+			            		   <td class="text11">&nbsp;${record.orgnr}</td>
+			            		   <td class="text11">&nbsp;${record.existsinregister}</td>
+			            		   <td class="text11">&nbsp;${record.konkurs}</td>
+					               <td class="text11">&nbsp;${record.registrertimvaregisteret}</td>
+			            		   <td class="text11">&nbsp;${record.underavvikling}</td>
+					               <td class="text11">&nbsp;${record.undertvangsavviklingellertvangsopplosning}</td>
+					               
+					            </tr> 
+					            </c:forEach>
+					            <tfoot>
+								<tr style="background-color:#EEEEEE">
+									<c:if test="${not empty cw}">
+										<th width="5%" class="text12">Hente Ordre</th>
+									</c:if>
+								    <th class="text12">Kundnr</th>   
+				                    <th class="text12">Kundenavn</th>
+				                    <th class="text12">Org.nr</th>
+				                    <th class="text12">Enhetsregisteret</th>
+				                    <th class="text12">Konkurs</th>
+				                    <th class="text12">Merverdi</th>
+				                    <th class="text12">Under avvikling</th>
+				                    <th class="text12">Under tvangsavvikling</th>
+				                </tr> 
+				                </tfoot>
+					            </tbody>
+				            </table>
+				        </td>
+		            </tr>
+	           		<tr>
+	            		<td colspan="4" class="text12">
+		            		<table align="left" class="tabThinBorderWhite">
+						    <tr>
+								<td>	
+									<a href="invalidaKunderMainListExcelView.do" target="_new">
+				                			<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
+				                			<font class="text12MediumBlue">&nbsp;Excel</font>
+				 	        		</a>
+				 	        		&nbsp;
+			 	        		</td>
+		 	        		</tr>
+		 	        		</table>
+			 			</td>
+	         		</tr>
+	            </table> <%--containerdatatableTable END --%>
 	            </td>
-            		</tr>
-            		<tr height="3"><td></td></tr>
-            		<tr>
-            		<td colspan="4" class="text12">
-	            		<table align="left" class="tabThinBorderWhite">
-					    <tr>
-							<td>	
-								<a href="invalidaKunderMainListExcelView.do" target="_new">
-			                			<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
-			                			<font class="text12MediumBlue">&nbsp;Excel</font>
-			 	        		</a>
-			 	        		&nbsp;
-		 	        		</td>
-	 	        		</tr>
-	 	        		</table>
-		 		</td>
-	         	</tr>
-            		</table> <%--containerdatatableTable END --%>
-            		</td>
-            </tr>
-			</table> <%--wrapperTable END --%>
-         </td>
-         </tr>
+	            </tr>
+				</table> <%--wrapperTable END --%>
+	         </td>
+	         </tr>
          <tr height="10"><td>&nbsp;</td></tr>
 </table>	
 		
