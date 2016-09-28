@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,13 +27,19 @@ import no.systema.main.util.JsonDebugger;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.service.MaintMainFirmService;
+import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
 import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.MaintMainKodtaValidator;
@@ -119,6 +126,10 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				avd = recordToValidate.getKoaavd();
+				//bind child records
+				JsonMaintMainKodtaKodthRecord listeHodeRecord = this.bindChildListeHode(request);
+				JsonMaintMainKodtaTellRecord oppnrTurRecord = this.bindChildOppnrTur(request);
+				
 				
 				//Validate
 				MaintMainKodtaValidator validator = new MaintMainKodtaValidator();
@@ -126,21 +137,35 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				if(bindingResult.hasErrors()){
 					//ERRORS
 					logger.info("[ERROR Validation] Record does not validate)");
-					//model.put("dbTable", dbTable);
+					//reload children
+					recordToValidate.setListeHodeRecord(listeHodeRecord);
+					recordToValidate.setOppnrTurRecord(oppnrTurRecord);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					
 				}else{
 					//Update table
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
+					
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						//------------------------
+						//now update all children
+						//------------------------
+						//UPDATE children
+						dmlRetval = this.updateChilden(appUser.getUser(), recordToValidate, listeHodeRecord, oppnrTurRecord, errMsg);
+						
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						//------------------------
+						//now create all children
+						//------------------------
+						//Create Children
+						dmlRetval = this.createChilden(appUser.getUser(), recordToValidate, listeHodeRecord, oppnrTurRecord, errMsg);
 						
 					}
 					
@@ -152,9 +177,11 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 					}else{
 						//post successful update operations
 						updateId = recordToValidate.getKoaavd();
+						//refresh
+						JsonMaintMainKodtaRecord record = this.fetchRecord(appUser.getUser(), recordToValidate.getKoaavd());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				
 				
 			//DELETE	
@@ -181,7 +208,10 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 				//-------------
 				JsonMaintMainKodtaRecord record = new JsonMaintMainKodtaRecord();
 				if(avd!=null && !"".equals(avd)){
+					//get record including children records (listehode & oppdnrTur)
 					record = this.fetchRecord(appUser.getUser(), avd);
+					
+					//check if fastedate exists
 					JsonMaintMainKodtvKodtwRecord recordFasteData = this.maintMainKodtvKodtwService.fetchRecord(appUser.getUser(), avd);
 					if(recordFasteData!=null){
 						if(recordFasteData.getKovavd()!=null && !"".equals(recordFasteData.getKovavd())){
@@ -211,7 +241,30 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 			
 		}
 	}
-
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private JsonMaintMainKodtaKodthRecord bindChildListeHode (HttpServletRequest request){
+		JsonMaintMainKodtaKodthRecord record = new JsonMaintMainKodtaKodthRecord();
+		ServletRequestDataBinder binder = new ServletRequestDataBinder(record);
+		binder.bind(request);
+		return record;
+	}
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private JsonMaintMainKodtaTellRecord bindChildOppnrTur (HttpServletRequest request){
+		JsonMaintMainKodtaTellRecord record = new JsonMaintMainKodtaTellRecord();
+		ServletRequestDataBinder binder = new ServletRequestDataBinder(record);
+		binder.bind(request);
+		return record;
+	}
+	
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -271,10 +324,80 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	        	}
 	        }
     	}
+    	//get children
+    	record.setListeHodeRecord(this.fetchListeHodeRecord(applicationUser, id));
+    	record.setOppnrTurRecord(this.fetchOppnrOgTur(applicationUser, id));
+    	
     	return record;
     	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param avd
+	 * @return
+	 */
+	private JsonMaintMainKodtaKodthRecord fetchListeHodeRecord(String applicationUser, String avd){
+		JsonMaintMainKodtaKodthRecord record = new JsonMaintMainKodtaKodthRecord();
+    	
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kohavd=" + avd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.getList(jsonPayload);
+	        if(container!=null){
+	        	for (JsonMaintMainKodtaKodthRecord rec : container.getList()){
+	        		record = rec;
+	        	}
+	        }
+    	}
+    	return record;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param avd
+	 * @return
+	 */
+	private JsonMaintMainKodtaTellRecord fetchOppnrOgTur(String applicationUser, String avd){
+		JsonMaintMainKodtaTellRecord record = new JsonMaintMainKodtaTellRecord();
+    	
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&teavd=" + avd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.getList(jsonPayload);
+	        if(container!=null){
+	        	for (JsonMaintMainKodtaTellRecord rec : container.getList()){
+	        		record = rec;
+	        	}
+	        }
+    	}
+    	
+    	return record;
+    	
+	}
 	/**
 	 * 
 	 * @param applicationUser
@@ -356,6 +479,137 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	public int updateChildRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	}   
+    	
+    	return retval;
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateChildRecord(String applicationUser, JsonMaintMainKodtaTellRecord record, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	}   
+    	
+    	return retval;
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 * @param listeHodeRecord
+	 * @param oppnrTurRecord
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateChilden(String applicationUser, JsonMaintMainKodtaRecord recordToValidate, JsonMaintMainKodtaKodthRecord listeHodeRecord, JsonMaintMainKodtaTellRecord oppnrTurRecord,  StringBuffer errMsg){
+		int dmlRetval = 0;
+		if(listeHodeRecord!=null && oppnrTurRecord!=null){
+			//UPDATE ListeHode
+			if(listeHodeRecord.getKohavd()!=null && !"".equals(listeHodeRecord.getKohavd())){
+				//DEBUG -->logger.info("UPDATE child: listeHode...");
+				dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+			}else{
+				listeHodeRecord.setKohavd(recordToValidate.getKoaavd());
+				dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
+			}
+			//UPDATE OppnrTur
+			if(oppnrTurRecord.getTeavd()!=null && !"".equals(oppnrTurRecord.getTeavd())){
+				//DEBUG -->logger.info("UPDATE child: listeHode...");
+				dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+			}else{
+				oppnrTurRecord.setTeavd(recordToValidate.getKoaavd());
+				dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
+			}
+		}
+		return dmlRetval;
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 * @param listeHodeRecord
+	 * @param oppnrTurRecord
+	 * @param errMsg
+	 * @return
+	 */
+	private int createChilden(String applicationUser, JsonMaintMainKodtaRecord recordToValidate, JsonMaintMainKodtaKodthRecord listeHodeRecord, JsonMaintMainKodtaTellRecord oppnrTurRecord,  StringBuffer errMsg){
+		int dmlRetval = 0;
+		if(listeHodeRecord!=null && oppnrTurRecord!=null){
+			//(1)
+			listeHodeRecord.setKohavd(recordToValidate.getKoaavd());
+			dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
+			//(2)
+			oppnrTurRecord.setTeavd(recordToValidate.getKoaavd());
+			dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
+		}
+		return dmlRetval;
+	}	
+	
+	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -388,6 +642,21 @@ public class MainMaintenanceAvdGeneralSyfa14Controller {
 	public void setMaintMainKodtvKodtwService (MaintMainKodtvKodtwService value){ this.maintMainKodtvKodtwService = value; }
 	public MaintMainKodtvKodtwService getMaintMainKodtvKodtwService(){ return this.maintMainKodtvKodtwService; }
 	
+	//Child record
+	@Qualifier ("maintMainKodtaKodthService")
+	private MaintMainKodtaKodthService maintMainKodtaKodthService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaKodthService (MaintMainKodtaKodthService value){ this.maintMainKodtaKodthService = value; }
+	public MaintMainKodtaKodthService getMaintMainKodtaKodthService(){ return this.maintMainKodtaKodthService; }
+	
+	//Child record
+	@Qualifier ("maintMainKodtaTellService")
+	private MaintMainKodtaTellService maintMainKodtaTellService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaTellService (MaintMainKodtaTellService value){ this.maintMainKodtaTellService = value; }
+	public MaintMainKodtaTellService getMaintMainKodtaTellService(){ return this.maintMainKodtaTellService; }
 	
 		
 }

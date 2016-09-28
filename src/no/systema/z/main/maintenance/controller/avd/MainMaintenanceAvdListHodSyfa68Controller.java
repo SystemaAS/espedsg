@@ -75,7 +75,12 @@ public class MainMaintenanceAvdListHodSyfa68Controller {
 			//Fetch record 
 			//-------------
 			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
-			
+			if(list!=null && list.size()>0){
+				for(JsonMaintMainKodtaKodthRecord record : list){
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+					model.put("updateId", avd);
+				}
+			}
 			model.put("avd", avd);
 			model.put("avdnavn", avdNavn);
 			
@@ -100,7 +105,6 @@ public class MainMaintenanceAvdListHodSyfa68Controller {
 		Map model = new HashMap();
 		String avd = recordToValidate.getKohavd();
 		String avdNavn = request.getParameter("avdnavn");
-		
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -165,6 +169,12 @@ public class MainMaintenanceAvdListHodSyfa68Controller {
 			//Fetch record 
 			//-------------
 			List<JsonMaintMainKodtaKodthRecord> list = this.fetchList(appUser.getUser(), avd);
+			if(list!=null && list.size()>0){
+				for(JsonMaintMainKodtaKodthRecord record : list){
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+					model.put("updateId", avd);
+				}
+			}
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			model.put("action", action);
 			model.put("avd", avd);
@@ -219,7 +229,7 @@ public class MainMaintenanceAvdListHodSyfa68Controller {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
+	public int updateRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL;

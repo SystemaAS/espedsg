@@ -2,6 +2,7 @@ package no.systema.z.main.maintenance.model.jsonjackson.dbtable;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
@@ -107,34 +108,34 @@ public class JsonMaintMainKodtaRecord extends JsonAbstractGrandFatherRecord {
 		}
 		return this.dup;
 	}
-	/* OBSOLETE ?
-	public boolean isDup(){ 
-		if(this.kodus1!=null && !"".equals(kodus1)){ 
-			dup = true;
-		}
-		if(this.kodus2!=null && !"".equals(kodus2)){ 
-			dup = true;
-		}
-		if(this.kodus3!=null && !"".equals(kodus3)){ 
-			dup = true;
-		}
-		if(this.kodus4!=null && !"".equals(kodus4)){ 
-			dup = true;
-		}
-		if(this.kodus5!=null && !"".equals(kodus5)){ 
-			dup = true;
-		}
-		if(this.kodus6!=null && !"".equals(kodus6)){ 
-			dup = true;
-		}
-		
-		return this.dup;   
-	}              
-    */
 	
 	public boolean fasteDataExists = true;
 	public void setFasteDataExists (boolean value){ this.fasteDataExists = value;   }   
 	public boolean isFasteDataExists(){ return this.fasteDataExists; } 
+	
+	//Listehode-record
+	private JsonMaintMainKodtaKodthRecord listeHodeRecord;
+	public void setListeHodeRecord(JsonMaintMainKodtaKodthRecord value){ this.listeHodeRecord = value; }
+	public JsonMaintMainKodtaKodthRecord getListeHodeRecord(){ return listeHodeRecord; }
+	
+	//Oppd.nr og tur - record
+	private JsonMaintMainKodtaTellRecord oppnrTurRecord;
+	public void setOppnrTurRecord(JsonMaintMainKodtaTellRecord value){ this.oppnrTurRecord = value; }
+	public JsonMaintMainKodtaTellRecord getOppnrTurRecord(){ return oppnrTurRecord; }
+	
+	//these fields are ONLY for validation purposes. Refer to the child record otherwise
+	private String teopdn = null;                                
+	public void setTeopdn (String value){ this.teopdn = value;   }   
+	public String getTeopdn (){ return this.teopdn;   }  
+	
+	private String teturn = null;                                
+	public void setTeturn (String value){ this.teturn = value;   }   
+	public String getTeturn (){ return this.teturn;   }  
+	
+	private String tetmin = null;                                
+	public void setTetmin (String value){ this.tetmin = value;   }   
+	public String getTetmin (){ return this.tetmin;   }  
+	
 	
 	
 	/**

@@ -60,6 +60,7 @@
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
+					<%--
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkAvdListHode" onClick="setBlockUI(this);" href="mainmaintenanceavd_syfa68r.do?avd=${model.avd}&avdnavn=${model.avdnavn}">
@@ -74,7 +75,8 @@
 							<font class="text11MediumBlue">(${model.avd})</font>
 						</a>
 					</td>
-					<td width="1%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					--%>
+					<td width="24%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>

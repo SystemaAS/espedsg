@@ -127,8 +127,13 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
+				               <%--
 				               <td class="tableCellFirst" width="2%" id="recordUpdate_${record.kohavd}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 	               					<img src="resources/images/update.gif" border="0" alt="edit">
+				               </td>
+				                --%>
+				               <td class="tableCellFirst" width="2%" id="recordUpdate_${record.kohavd}" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+	    
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.kohavd}</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.kohfak}&nbsp;</td>
