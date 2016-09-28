@@ -63,7 +63,7 @@
 	            <tr>
 					<td>
 					<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
-						 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
+						 the cosmetic frame will not follow the whole datatable grid including the search field.... --%>
 					<table id="containerdatatableTable" style="width:100%" cellspacing="3" align="left" border="0">
 					<tr>
 						<td class="ownScrollableSubWindow" style="width:100%; height:60em;">
