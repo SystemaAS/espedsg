@@ -227,12 +227,13 @@
 	                      
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.date"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.time"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.sentReceive"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.import.logging.list.label.text"/>&nbsp;</td>
 	               </tr>     
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
-		                   <c:when test="${counter.count%2==0}">
-		                       <tr class="tableRow" height="20" >
+		                   <c:when test="${record.msr == 'R'}">
+		                       <tr class="tableRow" style="background-color:#EEEEEE;" height="20" >
 		                   </c:when>
 		                   <c:otherwise>   
 		                       <tr class="tableOddRow" height="20" >
@@ -240,13 +241,13 @@
 		               </c:choose>
 		               <td class="tableCellFirst" >&nbsp;${record.mtdn}&nbsp;&nbsp;<font class="text10">[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font></td>
 		               <td class="tableCell">&nbsp;
-		               		<a href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
 		               			&nbsp;${record.msn}
 		               		</a>
 		               	</td>
 		               <td class="tableCell" >&nbsp;
-		               		<a href="skatncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
+		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="skatncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
 			               		&nbsp;${record.mmn}
 	               		   	</a>
@@ -263,9 +264,10 @@
 		               </c:choose>
 		               </td>
 		               
-		               <td class="tableCell" >&nbsp;${record.mdt}</td>
-		               <td class="tableCell" >&nbsp;${record.mtm}</td>
-		               <td class="tableCell" >&nbsp;${record.wtxt}
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mdt}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtm}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.msr}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.wtxt}
 		               		<c:if test="${record.wmore == 'X'}">
 		               			&nbsp;&nbsp;
 		               			<a href="skatncts_import_renderLargeText.do?fmn=${record.mmn}" target="_blank" onClick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=700,height=500'); return false;">
