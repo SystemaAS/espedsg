@@ -24,6 +24,6 @@ public final class MainUrlDataStore {
 	//---------------
 	//[3] Edi ftp log 
 	//---------------
-	static public String SYSTEMA_EDI_FTP_LOG_EDI42R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsEDI42R.do";
-	static public String SYSTEMA_EDI_FTP_LOG_EDI43R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsEDI43R.do";
+	static public String SYSTEMA_EDI_FTP_LOG_EDI42R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsEDI42R.do";
+	static public String SYSTEMA_EDI_FTP_LOG_EDI43R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsEDI43R.do";
 }

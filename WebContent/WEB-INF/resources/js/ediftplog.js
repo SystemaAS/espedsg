@@ -37,7 +37,8 @@
   	  //-----------------------
     	  jq('#mainList').dataTable( {
     		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-    		  "order": [[ 3, "desc" ], [ 1, 'asc' ]],
+    		  "columnDefs": [{ "type": "num", "targets": [0,1,2] }],
+    		  "order": [[ 0, "asc" ], [ 1, 'asc' ], [ 2, 'asc' ]],
     		  "lengthMenu": [ 75, 100, 200, 500]
     		                  
     	  });
