@@ -214,21 +214,22 @@
 								        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 							           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
 							           			<nav>
-							           			<table width="95%" border="0" align="left" cellspacing="2">
+							           			<table width="100%" border="0" align="left" cellspacing="2">
 							           			<tr>
 								           			<td colspan="3" class="text14"><b>Hændelser</b></td>
 								           		</tr>
 									           	<tr>	
 													<td >
-													<table width="95%" cellspacing="0" border="0" cellpadding="0">
+													<table width="100%" cellspacing="0" border="0" cellpadding="0">
 														<tr class="tableHeaderField" height="20" valign="left">
 														    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-														    <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">
-										                    	<td align="center" class="tableHeaderField">Fjern</td>
-										                    </c:if> 
+														     
 														    <td class="tableHeaderField">&nbsp;Sted&nbsp;</td> 
 														    <td class="tableHeaderField">&nbsp;Hændelse&nbsp;</td>   
 										                    <td class="tableHeaderField">&nbsp;Omladning&nbsp;</td>
+										                    <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">
+										                    	<td align="center" class="tableHeaderField">Fjern</td>
+										                    </c:if>
 										               	</tr> 
 											           <c:forEach items="${model.list}" var="record" varStatus="counter">    
 											               <c:choose>           
@@ -240,13 +241,7 @@
 											                   </c:otherwise>
 											               </c:choose>
 											               <td width="2%" class="tableCellFirst" align="center">&nbsp;${record.tvli}</td>
-											               <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">	
-												               <td class="tableCell" align="center" nowrap>&nbsp;
-												               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-												               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-												               	</a>	
-												               </td>
-											               </c:if>
+											               
 											               <td class="tableCell" >&nbsp;${record.tvst}</td>
 											               <td class="tableCell" >
 											               		&nbsp;${record.tvinf1}
@@ -255,7 +250,13 @@
 											               		</c:if>
 											               </td>
 											               <td class="tableCell" >&nbsp;${record.tvtaid}</td>
-											                
+											               <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">	
+												               <td class="tableCell" align="center" nowrap>&nbsp;
+												               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+												               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+												               	</a>	
+												               </td>
+											               </c:if> 
 												           </tr>
 											        		   <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
 													       <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
@@ -284,16 +285,16 @@
 							</form>
 						</tr> 
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:1050px; height:10em;">
+							<td class="ownScrollableSubWindow" style="width:1150px; height:10em;">
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-									    <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">
-					                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
-					                    </c:if> 
 									    <td class="tableHeaderField">&nbsp;Sted&nbsp;</td> 
 									    <td class="tableHeaderField">&nbsp;Hændelse&nbsp;</td>   
 					                    <td class="tableHeaderField">&nbsp;Omladning&nbsp;</td>
+					                    <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">
+					                    		<td align="center" class="tableHeaderField" nowrap>Fjern</td>
+					                    </c:if>
 					               </tr> 
 					               
 					               <form name="formItemList" id="formItemList" method="POST" >
@@ -316,13 +317,7 @@
 					               					<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 							               </td>
-							               <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">	
-								               <td class="tableCell" align="center" nowrap>&nbsp;
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	
-								               </td>
-							               </c:if>
+							               
 							               <td class="tableCell" >&nbsp;${record.tvst}</td>
 							               <td class="tableCell" >
 							               		&nbsp;${record.tvinf1}
@@ -331,6 +326,13 @@
 							               		</c:if>
 							               </td>
 							               <td class="tableCell" >&nbsp;${record.tvtaid}</td>
+							               <c:if test="${model.status == 'F' || model.status == 'M' || empty model.status}">	
+								               <td class="tableCell" align="center" nowrap>&nbsp;
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+								               	</a>	
+								               </td>
+							               </c:if>
 								           </tr>
 							        		   <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
 									       <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />

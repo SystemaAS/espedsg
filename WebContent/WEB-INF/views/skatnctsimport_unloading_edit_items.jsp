@@ -212,17 +212,16 @@
 							        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1100px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 						           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
 						           			<nav>
-						           			<table width="95%" border="0" align="left" cellspacing="2">
+						           			<table width="100%" border="0" align="left" cellspacing="2">
 						           			<tr>
 							           			<td colspan="3" class="text14"><b>Varelinjer</b></td>
 							           		</tr>
 								           	<tr>	
 												<td >
-												<table width="95%" cellspacing="0" border="0" cellpadding="0">
+												<table width="100%" cellspacing="0" border="0" cellpadding="0">
 													<tr class="tableHeaderField" height="20" valign="left">
 													    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>   
-													    <td align="center" class="tableHeaderField" nowrap>Fjern</td>
-									                    <td class="tableHeaderField">&nbsp;Varekode&nbsp;</td>   
+													    <td class="tableHeaderField">&nbsp;Varekode&nbsp;</td>   
 									                    <td class="tableHeaderField">&nbsp;Dok.type&nbsp;</td>
 									                    <td class="tableHeaderField">&nbsp;Dok.ref&nbsp;</td>
 									                    <td class="tableHeaderField">&nbsp;Bruttovægt&nbsp;</td>
@@ -230,6 +229,7 @@
 									                    <td class="tableHeaderField">&nbsp;Kollislag</td>
 									                    <td class="tableHeaderField">&nbsp;Kolliantal</td>
 									                    <td class="tableHeaderField">&nbsp;Varebeskrivelse&nbsp;</td>
+									                    <td align="center" class="tableHeaderField" nowrap>Fjern</td>
 									                    	
 									               </tr>  
 										           <c:forEach items="${model.list}" var="record" varStatus="counter">    
@@ -243,11 +243,7 @@
 										               </c:choose>
 										               <%-- <td class="tableCellFirst" width="2%">&nbsp;${counter.count}</td> --%>
 										               <td width="2%" class="tableCellFirst" align="center">&nbsp;${record.tvli}</td>
-										               <td class="tableCell" align="center" nowrap>&nbsp;
-										               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_unloading_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-										               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-										               	</a>	
-										               </td>
+										               
 										               <td class="tableCell" >&nbsp;${record.nvvnt}</td>
 										               <td class="tableCell" >&nbsp;${record.nvdty}</td>
 										               <td class="tableCell" >&nbsp;${record.nvdref}</td>
@@ -255,11 +251,12 @@
 										               <td class="tableCell" align="right" >&nbsp;${record.nvvktn}&nbsp;</td>
 										               <td class="tableCell" >&nbsp;${record.nveh}</td>
 										               <td class="tableCell" >&nbsp;${record.nvnt}</td>
-										               
 										               <td width="40%" class="tableCell" width="100" >&nbsp;${record.nvvt}</td>
-										               	
-										               
-										               
+										               <td class="tableCell" align="center" nowrap>&nbsp;
+										               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_unloading_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+										               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+										               	</a>	
+										               </td>	
 											           </tr>
 											        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
 											        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
@@ -288,11 +285,10 @@
 							</form>
 						</tr> 
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:1050px; height:10em;">
+							<td class="ownScrollableSubWindow" style="width:1150px; height:10em;">
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-									    	<td align="center" class="tableHeaderField" nowrap>Fjern</td>   
 					                    <td class="tableHeaderField">&nbsp;Varekode&nbsp;</td>   
 					                    <td class="tableHeaderField">&nbsp;Dok.type&nbsp;</td>
 					                    <td class="tableHeaderField">&nbsp;Dok.ref&nbsp;</td>
@@ -301,6 +297,7 @@
 					                    <td class="tableHeaderField">&nbsp;Kollislag</td>
 					                    <td class="tableHeaderField">&nbsp;Kolliantal</td>
 					                    <td class="tableHeaderField">&nbsp;Varebeskrivelse&nbsp;</td>
+					                    <td align="center" class="tableHeaderField" nowrap>Fjern</td>
 					               </tr> 
 					               
 					               <form name="formItemList" id="formItemList" method="POST" >
@@ -324,11 +321,7 @@
 							               		</a>
 								               	
 						               	   </td>
-							               <td class="tableCell" align="center" nowrap>&nbsp;
-							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_unloading_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-							               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-							               	</a>	
-							               </td>	
+							               	
 							               <td class="tableCell" >&nbsp;${record.nvvnt}</td>
 							               <td class="tableCell" >&nbsp;${record.nvdty}</td>
 							               <td class="tableCell" >&nbsp;${record.nvdref}</td>
@@ -338,7 +331,11 @@
 							               <td class="tableCell" >&nbsp;${record.nvnt}</td>
 							               
 							               <td class="tableCell" ><div style="width:120px">&nbsp;${record.nvvt}</div></td>
-							               	
+							               <td class="tableCell" align="center" nowrap>&nbsp;
+							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsimport_unloading_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
+							               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+							               	</a>	
+							               </td>	
 							               
 							               
 								           </tr>
