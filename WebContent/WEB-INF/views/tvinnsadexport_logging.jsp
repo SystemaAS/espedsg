@@ -107,12 +107,12 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.logging.list.label.eksp"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.logging.list.label.s"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.logging.list.label.sent"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.logging.list.label.sentReceive"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.logging.list.label.text"/>&nbsp;</td>
-	                    
 	               </tr>     
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
-		                   <c:when test="${record.m0065 == 'CUSRES'}">
+		                   <c:when test="${record.msr == 'R'}">
 		                       <tr class="tableRow" style="background-color:#EEEEEE;" height="20" >
 		                   </c:when>
 		                   <c:otherwise>   
@@ -121,29 +121,30 @@
 		               </c:choose>
 		               <td class="tableCellFirst" >&nbsp;${model.mtdn}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
 		               <td class="tableCell">&nbsp;
-		               		<a <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
 		               			&nbsp;${record.msn}
 		               		</a>
 		               	</td>
 		               <td class="tableCell" >&nbsp;
-		               		<a  <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> href="tvinnsadexport_renderEdifact.do?fp=${record.wurl}" target="_new" >
+		               		<a  <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="tvinnsadexport_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
 			               		&nbsp;${record.mmn}
 	               		   	</a>
 		               </td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0004}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0010}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0035}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0065}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m1n07}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068a}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068b}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068c}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m3039e}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mst}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mdt}-${record.mtm}</td>
-		               <td class="tableCell" <c:if test="${record.m0065 == 'CUSRES'}">style="color:#9F6000;"</c:if> >&nbsp;${record.wtxt}
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0004}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0010}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0035}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0065}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m1n07}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068a}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068b}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m0068c}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.m3039e}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mst}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mdt}-${record.mtm}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.msr}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.wtxt}
 		               		<c:if test="${record.wmore == 'X'}">
 		               			&nbsp;&nbsp;
 		               			<a href="tvinnsadexport_renderLargeText.do?fmn=${record.mmn}" target="_blank" onClick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=700,height=500'); return false;">

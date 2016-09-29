@@ -112,47 +112,49 @@
 	                      
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.date"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.time"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.sentReceive"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.logging.list.label.text"/>&nbsp;</td>
 	               </tr>     
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
-		                   <c:when test="${record.m1225 != '007' && record.m1225 != '044'}">
+		                   <c:when test="${record.msr == 'R'}">
 		                       <tr class="tableRow" style="background-color:#EEEEEE;" height="20" >
 		                   </c:when>
 		                   <c:otherwise>   
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;
-		               	<font class="text10" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font>
+		               <td class="tableCellFirst" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;
+		               	<font class="text10" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >[${model.sign}]&nbsp;-&nbsp;${model.mrnNr}</font>
 		               </td>
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;
-		               		<a <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;
+		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >
 		               			&nbsp;${record.msn}
 		               		</a>
 		               	</td>
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;
-		               		<a <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> href="tvinnsadncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;
+		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="tvinnsadncts_import_renderEdifact.do?fp=${record.wurl}" target="_new" >
 			               		<img src="resources/images/list.gif" border="0" width="12px" height="12px" alt="Visa Edifact" >
 			               		&nbsp;${record.mmn}
 	               		   	</a>
 		               </td>
 		               
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;
 		               <c:choose>
 		               		<c:when test="${record.m1225 == '058' || record.m1225 == '008'}" >
 		               			<font class="text11Red">${record.m1225}</font>
 		               		</c:when>
 		               		<c:otherwise>
-		               			<font <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >${record.m1225}</font>
+		               			<font <c:if test="${record.msr == 'R' }">style="color:#9F6000;"</c:if> >${record.m1225}</font>
 	                		</c:otherwise>
 		               </c:choose>
 		               </td>
 		               
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mdt}</td>
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtm}</td>
-		               <td class="tableCell" <c:if test="${record.m1225 != '007' && record.m1225 != '044'}">style="color:#9F6000;"</c:if> >&nbsp;${record.wtxt}
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mdt}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtm}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.msr}</td>
+		               <td class="tableCell" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.wtxt}
 		               		<c:if test="${record.wmore == 'X'}">
 		               			&nbsp;&nbsp;
 		               			<a href="tvinnsadncts_import_renderLargeText.do?fmn=${record.mmn}" target="_blank" onClick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=700,height=500'); return false;">
