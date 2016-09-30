@@ -41,7 +41,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="TODOmainmaintenanceavdsadexport_syftaaar_edit.do">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="TODOmainmaintenanceavdsadnctsexport_tr003r_edit.do">
 							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
@@ -70,11 +70,10 @@
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
 								<th width="2%" class="tableHeaderField" align="center" >Avd</th>
 								<th class="tableHeaderField" align="center" >Avd.navn</th>
-								<th class="tableHeaderField" align="center" >Ekspen</th>
-								<th class="tableHeaderField" align="center" >Utvekslingsid avs.</th>
+								<th class="tableHeaderField" align="center" >Freml.t.sted</th>
+								<th class="tableHeaderField" align="center" >Utveklingsid avs.</th>
 								<th class="tableHeaderField" align="center" >Foretaksnr</th>
 								<th class="tableHeaderField" align="center" >Slett</th>
-			                    
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -87,9 +86,9 @@
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.thavd}</td>
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;todo&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.thcats}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.s0004}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.syrg}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.thtina}&nbsp;</td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOmainmaintenanceavdsadnctsexport_tr003r_edit.do?action=doDelete&thavd=${record.thavd}">
