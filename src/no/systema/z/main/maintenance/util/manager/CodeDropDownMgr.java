@@ -75,13 +75,13 @@ public class CodeDropDownMgr {
 	 * @param maintMainKodtaService
 	 * @param model
 	 * @param applicationUser
-	 * @param sadType (SAD Import or Export parameter: sialist/sealist
+	 * @param sadType (SAD Import or Export parameter: sialist/sealist; NCTS Import/Eksport: nialist/nealist
 	 */
 	public void populateAvdListHtmlDropDownsSad(UrlCgiProxyService urlCgiProxyService,  MaintMainKodtaService maintMainKodtaService, Map model, String applicationUser, String sadType ){
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user="+ applicationUser + "&" + sadType + "=1" ); //sialist or sealist in order to return not-yet-used avd from general avdelningar
+		urlRequestParams.append("user="+ applicationUser + "&" + sadType + "=1" ); //sialist or sealist/nialist or nealist in order to return not-yet-used avd from general avdelningar
 		
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
