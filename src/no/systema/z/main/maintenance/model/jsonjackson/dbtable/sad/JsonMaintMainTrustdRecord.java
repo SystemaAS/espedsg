@@ -2,6 +2,7 @@ package no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
@@ -588,6 +589,12 @@ public class JsonMaintMainTrustdRecord extends JsonAbstractGrandFatherRecord  {
 	public String getThekstPropertyName (){ return "thekst"; }
 	public void setThekst (String value){ this.thekst = value;   }   
 	public String getThekst (){ return this.thekst;   }  
+	
+	private JsonMaintMainTrustdfvRecord sikkerhedChildRecord;
+	public void setSikkerhedChildRecord(JsonMaintMainTrustdfvRecord value){ this.sikkerhedChildRecord = value; }
+	public JsonMaintMainTrustdfvRecord getSikkerhedChildRecord(){ return sikkerhedChildRecord; }
+	
+	
 	
 	/**
 	 * 

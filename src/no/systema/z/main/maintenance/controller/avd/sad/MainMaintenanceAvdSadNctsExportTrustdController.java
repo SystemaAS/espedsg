@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,12 +31,16 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdfvRecord;
+
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.sad.MaintMainTrustdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
+import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -50,13 +55,14 @@ import no.systema.z.main.maintenance.service.MaintMainKodtaService;
  */
 
 @Controller
-public class MainMaintenanceAvdSadNctsImportTrustdController {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdSadNctsImportTrustdController.class.getName());
+public class MainMaintenanceAvdSadNctsExportTrustdController {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdSadNctsExportTrustdController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
+	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	/**
 	 * 
 	 * @param user
@@ -118,9 +124,12 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				avd = recordToValidate.getThavd();
+				//bind child record
+				JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
+				//Adjust
+				this. adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
+				recordToValidate.setSikkerhedChildRecord(sikkerhedChildRecord);
 				//Validate
-				this. adjustSomeRecordValues(recordToValidate);
-				
 				MaintMainTrustdValidator validator = new MaintMainTrustdValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
@@ -309,20 +318,23 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 	/**
 	 * 
 	 * @param recordToValidate
+	 * @param sikkerhedChildRecord
 	 */
-	private void adjustSomeRecordValues(JsonMaintMainTrustdRecord recordToValidate){
+	private void adjustSomeRecordValues(JsonMaintMainTrustdRecord recordToValidate, JsonMaintMainTrustdfvRecord sikkerhedChildRecord){
 		//----------
 		//Dates
 		//----------
-		/*
-		if(recordToValidate.getSidt()!=null && !"".equals(recordToValidate.getSidt()) ){
-			if(recordToValidate.getSidt().length()< 6){
-				recordToValidate.setSidt(this.dateTimeMgr.getCurrentDate_ISO());
+		if(recordToValidate.getThddt()!=null && !"".equals(recordToValidate.getThddt()) ){
+			if(recordToValidate.getThddt().length()== 6){
+				recordToValidate.setThddt(dateFormatter.convertToDate_ISO(recordToValidate.getThddt()));
 			}
-		}else{
-			recordToValidate.setSidt(this.dateTimeMgr.getCurrentDate_ISO());
 		}
-		*/	
+		
+		if(sikkerhedChildRecord.getThdta()!=null && !"".equals(sikkerhedChildRecord.getThdta()) ){
+			if(sikkerhedChildRecord.getThdta().length()== 6){
+				sikkerhedChildRecord.setThdta(dateFormatter.convertToDate_ISO(sikkerhedChildRecord.getThdta()));
+			}
+		}
 		
 	}
 	
@@ -337,6 +349,17 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private JsonMaintMainTrustdfvRecord bindChildSikkerhed (HttpServletRequest request){
+		JsonMaintMainTrustdfvRecord record = new JsonMaintMainTrustdfvRecord();
+		ServletRequestDataBinder binder = new ServletRequestDataBinder(record);
+		binder.bind(request);
+		return record;
+	}
 	
 	
 	//Wired - SERVICES

@@ -7,10 +7,10 @@ import java.util.Collection;
 
 /**
  * @author oscardelatorre
- * @date Sep 30, 2016
+ * @date Oct 3, 2016
  *
  */
-public class JsonMaintMainTrustdContainer {
+public class JsonMaintMainTrustdfvContainer {
 	private String user = null;
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}
@@ -19,9 +19,8 @@ public class JsonMaintMainTrustdContainer {
 	public void setErrMsg(String value) {  this.errMsg = value; }
 	public String getErrMsg() { return this.errMsg;}
 	
-	private Collection<JsonMaintMainTrustdRecord> list;
-	public void setList(Collection<JsonMaintMainTrustdRecord> value){ this.list = value; }
-	public Collection<JsonMaintMainTrustdRecord> getList(){ return list; }
-	
+	private Collection<JsonMaintMainTrustdfvRecord> list;
+	public void setList(Collection<JsonMaintMainTrustdfvRecord> value){ this.list = value; }
+	public Collection<JsonMaintMainTrustdfvRecord> getList(){ return list; }
 	
 }
