@@ -66,7 +66,7 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 	 * 
 	 */
 	@RequestMapping(value="mainmaintenanceavdsadnctsexport_tr003r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdsadnctsimport_tr053r (HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdsadnctsimport_tr003r (HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdsadnctsexport_tr003r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -97,7 +97,7 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 	 */
 	
 	@RequestMapping(value="mainmaintenanceavdsadnctsexport_tr003r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdsadnctsimport_tr053_edit(@ModelAttribute ("record") JsonMaintMainTrustdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdsadnctsimport_tr003_edit(@ModelAttribute ("record") JsonMaintMainTrustdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdsadnctsexport_tr003r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -332,7 +332,7 @@ public class MainMaintenanceAvdSadNctsImportTrustdController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		//this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
+		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
 		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nealist");
 		
 	}

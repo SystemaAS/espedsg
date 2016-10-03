@@ -121,36 +121,52 @@
 				    	    <tr>
 				    	    	<c:choose>
 					    	    	<c:when test="${not empty model.updateId}">
-					    	    		<input type="hidden" name="tiavd" id="tiavd" value="${model.avd}">
+					    	    		<input type="hidden" name="thavd" id="thavd" value="${model.avd}">
 					    	    	</c:when>
 					    	    	<c:otherwise>
-					    	    		<td class="text12" title="tiavd"><font class="text12RedBold" >*</font>Avdeling
-					    	    			<a tabindex="-1" id="tiavdIdLink">
+					    	    		<td class="text12" title="thavd"><font class="text12RedBold" >*</font>Avdeling
+					    	    			<a tabindex="-1" id="thavdIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
 					    	    		</td>
 										<td class="text12" >
-										<select name="tiavd" id="tiavd" class="inputTextMediumBlueMandatoryField">
+										<select name="thavd" id="thavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-velg-</option>
 						  					<c:forEach var="record" items="${model.avdGeneralList}" >
-						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.tiavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
+						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 										</td>	
 					    	    	</c:otherwise>
 				    	    	</c:choose>
 				    	    	
-				    	    	
-								<td class="text12" title="tienkl"><font class="text12RedBold" >*</font>Prosedyre</td>
+				    	    	<td class="text12" title="thnttd"><font class="text12RedBold" >*</font>Antall eksemplar følgeseddel</td>
 								<td class="text12" >
-									<select name="tienkl" id="tienkl" class="inputTextMediumBlueMandatoryField">
-					  					<option value="J"<c:if test="${ Xmodel.record.tienkl == 'J' || empty Xmodel.record.tienkl}"> selected </c:if> >Forenklet</option>
-					  					<option value="N"<c:if test="${ Xmodel.record.tienkl == 'N'}"> selected </c:if> >Normal</option>
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thnttd" id="thnttd" size="2" maxlength="1" value='${Xmodel.record.thnttd}'>
+								</td>
+								<td class="text12" title="thntll"><font class="text12RedBold" >*</font>Antall eksemplar lasteliste</td>
+								<td class="text12" >
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thntll" id="thntll" size="2" maxlength="1" value='${Xmodel.record.thntll}'>
+								</td>
+								<td class="text12" title="thfmll"><font class="text12RedBold" >*</font>Trykk lastelisteformular</td>
+								<td class="text12" >
+									<select name="thfmll" id="thfmll" class="inputTextMediumBlueMandatoryField">
+					  					<option value="J"<c:if test="${ Xmodel.record.thfmll == 'J' || empty Xmodel.record.thfmll}"> selected </c:if> >Forenklet</option>
+					  					<option value="N"<c:if test="${ Xmodel.record.thfmll == 'N'}"> selected </c:if> >Normal</option>
 								  	</select>
 								</td>
-								<td class="text12" title="titdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nr.teller intern ref.</td>
+							</tr>
+							<tr>	
+								<td class="text12" title="thenkl"><font class="text12RedBold" >*</font>Prosedyre</td>
 								<td class="text12" >
-									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="titdn" id="titdn" size="10" maxlength="7" value='${Xmodel.record.titdn}'>
+									<select name="thenkl" id="thenkl" class="inputTextMediumBlueMandatoryField">
+					  					<option value="J"<c:if test="${ Xmodel.record.thenkl == 'J' || empty Xmodel.record.thenkl}"> selected </c:if> >Forenklet</option>
+					  					<option value="N"<c:if test="${ Xmodel.record.thenkl == 'N'}"> selected </c:if> >Normal</option>
+								  	</select>
+								</td>
+								<td class="text12" title="thtdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nr.teller intern ref.</td>
+								<td class="text12" >
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thtdn" id="thtdn" size="10" maxlength="7" value='${Xmodel.record.thtdn}'>
 								</td>
 							
 							</tr>
@@ -195,9 +211,17 @@
 							<td class="text12" title="s0035">Testindikator</td>
 							<td class="text12">
 								<select name="s0035" id="s0035" class="inputTextMediumBlue">
+				  					<option value="1"<c:if test="${ Xmodel.record.s0035 == '1'}"> selected </c:if> >Test</option>
+				  					<option value=""<c:if test="${ empty Xmodel.record.s0035}"> selected </c:if> >Prod</option>
+							  	</select>
+							</td>
+							<td class="text12" title="thekst">Importeres eksterne data</td>
+							<td class="text12">
+								<select name="thekst" id="thekst" class="inputTextMediumBlue">
 				  					<option value="">-velg-</option>
-				  					<option value="1"<c:if test="${ Xmodel.record.s0035 == '1'}"> selected </c:if> >1</option>
-				  					<option value="2"<c:if test="${ Xmodel.record.s0035 == '2'}"> selected </c:if> >2</option>
+				  					<option value="J"<c:if test="${ Xmodel.record.thekst == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ Xmodel.record.thekst == 'N'}"> selected </c:if> >Nej</option>
+				  					<option value="R"<c:if test="${ Xmodel.record.thekst == 'R'}"> selected </c:if> >R</option>
 							  	</select>
 							</td>
 						</tr>
@@ -255,14 +279,14 @@
 											        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 											        		 back original value)																--%> 
 											        	<%-- ================================================================================== --%>
-											        	<input type="hidden" name="orig_thkns" id="orig_thkns" value='${model.record.thkns}'>
-											        	<input type="hidden" name="orig_thnas" id="orig_thnas" value='${model.record.thnas}'>
-											        	<input type="hidden" name="orig_thtins" id="orig_thtins" value='${model.record.thtins}'>
-											        	<input type="hidden" name="orig_thads1" id="orig_thads1" value='${model.record.thads1}'>
-											        	<input type="hidden" name="orig_thpns" id="orig_thpns" value='${model.record.thpns}'>
-											        	<input type="hidden" name="orig_thpss" id="orig_thpss" value='${model.record.thpss}'>
-											        	<input type="hidden" name="orig_thlks" id="orig_thlks" value='${model.record.thlks}'>
-											        	<input type="hidden" name="orig_thsks" id="orig_thsks" value='${model.record.thsks}'>
+											        	<input type="hidden" name="orig_thkns" id="orig_thkns" value='${Xmodel.record.thkns}'>
+											        	<input type="hidden" name="orig_thnas" id="orig_thnas" value='${Xmodel.record.thnas}'>
+											        	<input type="hidden" name="orig_thtins" id="orig_thtins" value='${Xmodel.record.thtins}'>
+											        	<input type="hidden" name="orig_thads1" id="orig_thads1" value='${Xmodel.record.thads1}'>
+											        	<input type="hidden" name="orig_thpns" id="orig_thpns" value='${Xmodel.record.thpns}'>
+											        	<input type="hidden" name="orig_thpss" id="orig_thpss" value='${Xmodel.record.thpss}'>
+											        	<input type="hidden" name="orig_thlks" id="orig_thlks" value='${Xmodel.record.thlks}'>
+											        	<input type="hidden" name="orig_thsks" id="orig_thsks" value='${Xmodel.record.thsks}'>
 											        	
 											        	
 											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thkns">Kundenummer</span></td>
@@ -273,8 +297,8 @@
 											            </td>
 											        </tr>
 											        <tr>
-											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thkns" id="thkns" size="8" maxlength="8" value="${model.record.thkns}"></td>
-											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnas" id="thnas" size="30" maxlength="35" value="${model.record.thnas}"></td>
+											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thkns" id="thkns" size="8" maxlength="8" value="${Xmodel.record.thkns}"></td>
+											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnas" id="thnas" size="30" maxlength="35" value="${Xmodel.record.thnas}"></td>
 											            
 											        </tr>
 											        
@@ -283,7 +307,7 @@
 											            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 											        </tr>
 											        <tr>
-											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtins" id="thtins" size="20" maxlength="17" value="${model.record.thtins}"></td>
+											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtins" id="thtins" size="20" maxlength="17" value="${Xmodel.record.thtins}"></td>
 											            <td align="left">&nbsp;</td>
 											        </tr>
 											        <tr height="4"><td>&nbsp;</td></tr>
@@ -293,17 +317,10 @@
 											            </td>
 											        </tr>
 											        <tr>
-											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
-											            <td align="left" >
-									            		&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thsks" id="thsks">
-										            		<option value="">-velg-</option>
-										 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-						                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thsks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-															</c:forEach> 
-															</select>
-															<a tabindex="-1" id="thsksIdLink">
-																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-															</a>
+											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thads1" id="thads1" size="30" maxlength="35" value="${Xmodel.record.thads1}"></td>
+											            <td align="left" >&nbsp;
+											            	<input type="text" class="inputTextMediumBlue" name="thsks" id="thsks" size="3" maxlength="2" value="${Xmodel.record.thsks}">
+									            		
 														</td>
 											        </tr>
 											        <tr>
@@ -315,7 +332,7 @@
 												            	</tr>
 												        		<tr>
 												            		<td align="left">
-												       				<input type="text" class="inputTextMediumBlueMandatoryField" name="thpss" id="thpss" size="30" maxlength="35" value="${model.record.thpss}">
+												       				<input type="text" class="inputTextMediumBlueMandatoryField" name="thpss" id="thpss" size="30" maxlength="35" value="${Xmodel.record.thpss}">
 											            			</td> 
 												            		<td align="left">&nbsp;</td>
 												        		</tr>    	
@@ -330,17 +347,10 @@
 												            		</td>
 												            	</tr>
 												        		<tr >
-												        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpns" id="thpns" size="10" maxlength="9" value="${model.record.thpns}"></td> 
+												        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpns" id="thpns" size="10" maxlength="9" value="${Xmodel.record.thpns}"></td> 
 												            		<td align="left">
-												            			<select class="inputTextMediumBlueMandatoryField" name="thlks" id="thlks">
-														            		<option value="">-velg-</option>
-													 				  		<c:forEach var="country" items="${model.countryCodeList}" >
-									                                	 		<option value="${country.zkod}"<c:if test="${model.record.thlks == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																			</c:forEach> 
-																		</select>
-																		<a tabindex="-1" id="thlksIdLink">
-																			<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																		</a>
+												            			<input type="text" class="inputTextMediumBlue" name="thlks" id="thlks" size="3" maxlength="2" value="${Xmodel.record.thlks}">
+												            			
 												            		</td> 
 												        		</tr>  
 												            	</table>
@@ -396,14 +406,14 @@
 										        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 										        		 back original value)																--%> 
 										        	<%-- ================================================================================== --%>
-										        	<input type="hidden" name="orig_thknk" id="orig_thknk" value='${model.record.thknk}'>
-										        	<input type="hidden" name="orig_thnak" id="orig_thnak" value='${model.record.thnak}'>
-										        	<input type="hidden" name="orig_thtink" id="orig_thtink" value='${model.record.thtink}'>
-										        	<input type="hidden" name="orig_thadk1" id="orig_thadk1" value='${model.record.thadk1}'>
-										        	<input type="hidden" name="orig_thpnk" id="orig_thpnk" value='${model.record.thpnk}'>
-										        	<input type="hidden" name="orig_thpsk" id="orig_thpsk" value='${model.record.thpsk}'>
-										        	<input type="hidden" name="orig_thlkk" id="orig_thlkk" value='${model.record.thlkk}'>
-										        	<input type="hidden" name="orig_thskk" id="orig_thskk" value='${model.record.thskk}'>
+										        	<input type="hidden" name="orig_thknk" id="orig_thknk" value='${Xmodel.record.thknk}'>
+										        	<input type="hidden" name="orig_thnak" id="orig_thnak" value='${Xmodel.record.thnak}'>
+										        	<input type="hidden" name="orig_thtink" id="orig_thtink" value='${Xmodel.record.thtink}'>
+										        	<input type="hidden" name="orig_thadk1" id="orig_thadk1" value='${Xmodel.record.thadk1}'>
+										        	<input type="hidden" name="orig_thpnk" id="orig_thpnk" value='${Xmodel.record.thpnk}'>
+										        	<input type="hidden" name="orig_thpsk" id="orig_thpsk" value='${Xmodel.record.thpsk}'>
+										        	<input type="hidden" name="orig_thlkk" id="orig_thlkk" value='${Xmodel.record.thlkk}'>
+										        	<input type="hidden" name="orig_thskk" id="orig_thskk" value='${Xmodel.record.thskk}'>
 										        	
 										            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknk">Kundenummer</span></td>
 										            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="thnak">Navn&nbsp;</span>
@@ -413,8 +423,8 @@
 													</td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thknk" id="thknk" size="8" maxlength="8" value="${model.record.thknk}"></td>
-										            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnak" id="thnak" size="30" maxlength="35" value="${model.record.thnak}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thknk" id="thknk" size="8" maxlength="8" value="${Xmodel.record.thknk}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnak" id="thnak" size="30" maxlength="35" value="${Xmodel.record.thnak}"></td>
 										        </tr>
 			
 										        <tr>
@@ -422,7 +432,7 @@
 										            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtink" id="thtink" size="20" maxlength="17" value="${model.record.thtink}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtink" id="thtink" size="20" maxlength="17" value="${Xmodel.record.thtink}"></td>
 										            <td align="left">&nbsp;</td>
 										        </tr>
 										        <tr height="4"><td>&nbsp;</td></tr>
@@ -433,17 +443,10 @@
 										            </td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thadk1" id="thadk1" size="30" maxlength="35" value="${model.record.thadk1}"></td>
-										            <td class="text12" align="left" >
-							            				&nbsp;<select class="inputTextMediumBlueMandatoryField" name="thskk" id="thskk">
-										            		<option value="">-velg-</option>
-										 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-						                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thskk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-															</c:forEach> 
-														</select>
-														<a tabindex="-1" id="thskkIdLink">
-															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-														</a>	
+										            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thadk1" id="thadk1" size="30" maxlength="35" value="${Xmodel.record.thadk1}"></td>
+										            <td class="text12" align="left" >&nbsp;
+										            	<input type="text" class="inputTextMediumBlue" name="thskk" id="thskk" size="3" maxlength="2" value="${Xmodel.record.thskk}">
+										            
 													</td>
 										        </tr>
 										        <tr>
@@ -455,7 +458,7 @@
 											            	</tr>
 											        		<tr>
 											            		<td align="left">
-											       				<input type="text" class="inputTextMediumBlueMandatoryField" name="thpsk" id="thpsk" size="30" maxlength="35" value="${model.record.thpsk}">
+											       				<input type="text" class="inputTextMediumBlueMandatoryField" name="thpsk" id="thpsk" size="30" maxlength="35" value="${Xmodel.record.thpsk}">
 										            			</td> 
 											            		<td align="left">&nbsp;</td>
 											        		</tr>    	
@@ -470,17 +473,10 @@
 											            		</td>
 											            	</tr>
 											        		<tr >
-											        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpnk" id="thpnk" size="10" maxlength="9" value="${model.record.thpnk}"></td> 
+											        			<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thpnk" id="thpnk" size="10" maxlength="9" value="${Xmodel.record.thpnk}"></td> 
 											            		<td align="left">
-											            			<select class="inputTextMediumBlueMandatoryField" name="thlkk" id="thlkk">
-													            		<option value="">-velg-</option>
-												 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-								                                	 	<option value="${country.zkod}"<c:if test="${model.record.thlkk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																	</c:forEach> 
-																</select>
-																<a tabindex="-1" id="thlkkIdLink">
-																	<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																</a>
+											            			<input type="text" class="inputTextMediumBlue" name="thlkk" id="thlkk" size="3" maxlength="2" value="${Xmodel.record.thlkk}">
+											            			
 											            		</td> 
 											        		</tr>  
 											            	</table>
@@ -556,7 +552,7 @@
 											            		<tr>
 											            			
 										            			<td>
-										            				<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
+										            				<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${Xmodel.record.thtsd1}">
 											            			<a tabindex="-1" id="thtsd1IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -564,7 +560,7 @@
 																<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${model.record.thtsd2}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${Xmodel.record.thtsd2}'>
 											            			<a tabindex="-1" id="thtsd2IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -574,7 +570,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${model.record.thtsd3}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${Xmodel.record.thtsd3}'>
 											            			<a tabindex="-1" id="thtsd3IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -584,7 +580,7 @@
 											            		
 											            		<tr>
 											            			<td>
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${model.record.thtsd4}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${Xmodel.record.thtsd4}'>
 											            			<a tabindex="-1" id="thtsd4IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -593,7 +589,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${model.record.thtsd5}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${Xmodel.record.thtsd5}'>
 											            			<a tabindex="-1" id="thtsd5IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -602,7 +598,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${model.record.thtsd6}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${Xmodel.record.thtsd6}'>
 											            			<a tabindex="-1" id="thtsd6IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -610,7 +606,7 @@
 											            		</tr>
 											            		<tr>
 											            			<td>
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${model.record.thtsd7}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${Xmodel.record.thtsd7}'>
 											            			<a tabindex="-1" id="thtsd7IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -620,7 +616,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${model.record.thtsd8}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${Xmodel.record.thtsd8}'>
 											            			<a tabindex="-1" id="thtsd8IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -659,7 +655,7 @@
 															</td>		
 												        	
 										            		<td >
-										            			<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsb" id="thtsb" size="10" maxlength="8" value="${model.record.thtsb}">
+										            			<input type="text" class="inputTextMediumBlueMandatoryField" name="thtsb" id="thtsb" size="10" maxlength="8" value="${Xmodel.record.thtsb}">
 																<a tabindex="-1" id="thtsbIdLink">
 																	<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																</a>
@@ -721,18 +717,18 @@
 											            			<td>
 											            				<select class="inputTextMediumBlue" name="thgkd" id="thgkd" >
 														 				  <option value="">-velg-</option>
-																		  <option value="0"<c:if test="${model.record.thgkd == '0'}"> selected </c:if> >0</option>
-																		  <option value="1"<c:if test="${model.record.thgkd == '1'}"> selected </c:if> >1</option>
-																		  <option value="2"<c:if test="${model.record.thgkd == '2'}"> selected </c:if> >2</option>
-																		  <option value="3"<c:if test="${model.record.thgkd == '3'}"> selected </c:if> >3</option>
-																		  <option value="4"<c:if test="${model.record.thgkd == '4'}"> selected </c:if> >4</option>
-																		  <option value="6"<c:if test="${model.record.thgkd == '6'}"> selected </c:if> >6</option>
-																		  <option value="7"<c:if test="${model.record.thgkd == '7'}"> selected </c:if> >7</option>
+																		  <option value="0"<c:if test="${Xmodel.record.thgkd == '0'}"> selected </c:if> >0</option>
+																		  <option value="1"<c:if test="${Xmodel.record.thgkd == '1'}"> selected </c:if> >1</option>
+																		  <option value="2"<c:if test="${Xmodel.record.thgkd == '2'}"> selected </c:if> >2</option>
+																		  <option value="3"<c:if test="${Xmodel.record.thgkd == '3'}"> selected </c:if> >3</option>
+																		  <option value="4"<c:if test="${Xmodel.record.thgkd == '4'}"> selected </c:if> >4</option>
+																		  <option value="6"<c:if test="${Xmodel.record.thgkd == '6'}"> selected </c:if> >6</option>
+																		  <option value="7"<c:if test="${Xmodel.record.thgkd == '7'}"> selected </c:if> >7</option>
 																		  
 																		</select>
 											            			</td>
-											            			<td><input type="text" class="inputTextMediumBlue" name="thgft1" id="thgft1" size="24" maxlength="24" value="${model.record.thgft1}"></td>
-											            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${model.record.thgadk}"></td>
+											            			<td><input type="text" class="inputTextMediumBlue" name="thgft1" id="thgft1" size="24" maxlength="24" value="${Xmodel.record.thgft1}"></td>
+											            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${Xmodel.record.thgadk}"></td>
 											            		</tr>
 											            		<tr>
 											            			
@@ -743,17 +739,13 @@
 											            		<tr>
 											            			<td>
 												            			<select name="thgbgi" id="thgbgi" >
-													 				  <option value="0"<c:if test="${model.record.thgbgi == '0'}"> selected </c:if> >0</option>
-																	  <option value="1"<c:if test="${model.record.thgbgi == '1'}"> selected </c:if> >1</option>
+													 				  <option value="0"<c:if test="${Xmodel.record.thgbgi == '0'}"> selected </c:if> >0</option>
+																	  <option value="1"<c:if test="${Xmodel.record.thgbgi == '1'}"> selected </c:if> >1</option>
 																	</select>
 											            			</td>
 											            			<td align="left">
-												            			<select name="thgbgu" id="thgbgu">
-														            		<option value="">-velg-</option>
-													 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-									                                	 	<option value="${country.zkod}"<c:if test="${model.record.thgbgu == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																		</c:forEach> 
-																	</select>
+											            				<input type="text" class="inputTextMediumBlue" name="thgbgu" id="thgbgu" size="3" maxlength="2" value="${Xmodel.record.thgbgu}">
+												            			
 													            	</td>
 													            	<td>&nbsp;</td> 
 											            		</tr>
@@ -762,7 +754,7 @@
 											            			<td colspan="3" class="text12">&nbsp;<span title="thgkd">Annen Garanti</span></td>
 											            		</tr>
 											            		<tr>
-											            			<td colspan="3"><input type="text" class="inputTextMediumBlue" name="thgft2" id="thgft2" size="35" maxlength="35" value="${model.record.thgft2}"></td>
+											            			<td colspan="3"><input type="text" class="inputTextMediumBlue" name="thgft2" id="thgft2" size="35" maxlength="35" value="${Xmodel.record.thgft2}"></td>
 											            		</tr>
 											            		<tr height="2"><td></td></tr>
 											            	</table>
@@ -776,13 +768,13 @@
 											                <table align="left" border="0" cellspacing="0" cellpadding="0">
 														 		<tr>
 														 			<td class="text12"><b><span title="thgbl">Garantibeløp&nbsp;</span></b></td>
-														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${model.record.thgbl}"></td>
+														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${Xmodel.record.thgbl}"></td>
 														 			<td class="text12">&nbsp;<span title="thgvk">Valuta</span>
 														 				<%-- Note: onChange event in jQuery for this currency list --%>
 														 				<select name="thgvk" id="thgvk" >
 														 				  <option value="">-velg-</option>	
-														 				  	<c:forEach var="code" items="${model.currencyCodeList}" >
-										                                	 	<option value="${code.zkod}"<c:if test="${model.record.thgvk == code.zkod}"> selected </c:if> >${code.zkod}</option>
+														 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
+										                                	 	<option value="${record.kvakod}"<c:if test="${model.record.thgvk == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
 																			</c:forEach> 
 																		</select>
 																		<a tabindex="-1" id="thgvkIdLink">
@@ -839,15 +831,8 @@
 												</div>	
 									            </td>
 									            <td >
-									            	<select class="inputTextMediumBlue" name="thalk" id="thalk">
-								 						<option value="">-velg-</option>
-									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thalk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-														</c:forEach> 
-													</select>
-									            	<a tabindex="-1" id="thalkIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>	
+									            	<input type="text" class="inputTextMediumBlue" name="thalk" id="thalk" size="3" maxlength="2" value="${Xmodel.record.thalk}">
+									            	
 												</td>
 							 				</tr>
 							 				
@@ -866,15 +851,8 @@
 									            </td>
 									            
 									            <td >
-									            	<select class="inputTextMediumBlue" name="thblk" id="thblk">
-								 						<option value="">-velg-</option>
-									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thblk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-														</c:forEach> 
-													</select>
-									            	<a tabindex="-1" id="thblkIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>	
+									            	<input type="text" class="inputTextMediumBlue" name="thblk" id="thblk" size="3" maxlength="2" value="${Xmodel.record.thblk}">
+									            	
 												</td>
 									        </tr>
 									        <tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
@@ -910,28 +888,13 @@
 					        				<tr>
 								            	<td class="text12" align="left">
 								            		&nbsp;<span title="thtalk">Nasjonalitet</span>
-								            		
-								            		<select class="inputTextMediumBlue" name="thtalk" id="thtalk">
-								 						<option value="">-velg-</option>
-									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thtalk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-														</c:forEach> 
-													</select>
-													<a tabindex="-1" id="thtalkIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>
+								            		<input type="text" class="inputTextMediumBlue" name="thtalk" id="thtalk" size="3" maxlength="2" value="${Xmodel.record.thtalk}">
+								            	
 												</td>
 												<td class="text12">	
 													<span title="thtask">Språk</span>
-													<select name="thtask" id="thtask">
-							            				<option value="">-velg-</option>
-							 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-				                               	 			<option value="${code.tkkode}"<c:if test="${Xmodel.record.thtask == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-														</c:forEach> 
-													</select>
-													<a tabindex="-1" id="thtaskIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>
+													<input type="text" class="inputTextMediumBlue" name="thtask" id="thtask" size="3" maxlength="2" value="${Xmodel.record.thtask}">
+													
 								            	</td>
 					        				</tr>
 					        				<tr height="5"><td class="text">&nbsp;</td> </tr>
@@ -966,28 +929,13 @@
 					        				<tr>
 								            	<td class="text12" align="left">
 								            		&nbsp;<span title="thtglk">Nasjonalitet</span>
-								            		<select class="inputTextMediumBlue" name="thtglk" id="thtglk">
-								 						<option value="">-velg-</option>
-									 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thtglk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-														</c:forEach> 
-													</select>
-													<a tabindex="-1" id="thtglkIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>
+								            		<input type="text" class="inputTextMediumBlue" name="thtglk" id="thtglk" size="3" maxlength="2" value="${Xmodel.record.thtglk}">
+								            		
 												</td>
 												<td class="text12">	
 													<span title="thtgsk">Språk</span>
-										            <select name="thtgsk" id="thtgsk">
-							            				<option value="">-velg-</option>
-							 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-				                               	 			<option value="${code.tkkode}"<c:if test="${Xmodel.record.thtgsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-														</c:forEach> 
-													</select>
-													<a tabindex="-1" id="thtgskIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>
-													
+													<input type="text" class="inputTextMediumBlue" name="thtgsk" id="thtgsk" size="3" maxlength="2" value="${Xmodel.record.thtgsk}">
+										            
 								            	</td>
 					        				</tr>
 					        				<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
@@ -1106,16 +1054,8 @@
 											</div>
 											</td>
 								            <td align="left">
-				            					<select class="inputTextMediumBlue" name="thskfd" id="thskfd">
-						            				<option value="">-velg-</option>
-						 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-			                               	 			<option value="${code.tkkode}"<c:if test="${Xmodel.record.thskfd == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-													</c:forEach> 
-											</select>
-						            		<a tabindex="-1" id="thskfdIdLink">
-												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-											</a>
-										
+								            	<input type="text" class="inputTextMediumBlue" name="thskfd" id="thskfd" size="3" maxlength="2" value="${Xmodel.record.thskfd}">
+				            					
 											</td> 
 										</tr>
 										<tr height="2"><td>&nbsp;</td></tr>
@@ -1150,16 +1090,9 @@
 								            <td class="text12" >
 								            	&nbsp;&nbsp;<span title="thdsk">Dekl.språk</span>
 								            </td>
-								            <td class="text12" >	
-								            	<select class="inputTextMediumBlueMandatoryField" name="thdsk" id="thdsk">
-						            				<option value="">-velg-</option>
-						 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-			                               	 			<option value="${code.tkkode}"<c:if test="${Xmodel.record.thdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-													</c:forEach> 
-												</select>
-								            	<a tabindex="-1" id="thdskIdLink">
-													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-												</a>
+								            <td class="text12" >
+								            	<input type="text" class="inputTextMediumBlue" name="thdsk" id="thdsk" size="3" maxlength="2" value="${Xmodel.record.thdsk}">	
+								            	
 								            </td>
 								        </tr>
 										<tr height="15"><td>&nbsp;</td></tr>
@@ -1311,7 +1244,7 @@
 				<%-- ---------------------------- --%>
 				<%-- tab area container SECONDARY --%>
 				<%-- ---------------------------- --%>
-				<table width="95%" class="secondarySectionHeader" border="0" cellspacing="0" cellpadding="0">
+				<table width="98%" class="secondarySectionHeader" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="18">
 						<td class="text14WhiteBold">
 			 				<b>&nbsp;&nbsp;&nbsp;&nbsp;Supplerende oplysninger&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
@@ -1327,7 +1260,7 @@
 				<tr>
 					<td width="5%">&nbsp;</td>
 					<td colspan="2" >
-					<table width="95%" class="secondarySectionFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="98%" class="secondarySectionFrame" border="0" cellspacing="0" cellpadding="0">
 						<tr height="10"><td colspan="2"></td></tr>
 						<tr>
 						<td width="50%" valign="top">
@@ -1387,13 +1320,13 @@
 											        		 back original value)																--%> 
 											        	<%-- ================================================================================== --%>
 											        	<input type="hidden" name="orig_sveh_dkkn" id="orig_sveh_dkkn" value='${dkkn}'>
-											        	<input type="hidden" name="orig_thnaa" id="orig_thnaa" value='${model.record.thnaa}'>
-											        	<input type="hidden" name="orig_thtina" id="orig_thtina" value='${model.record.thtina}'>
-											        	<input type="hidden" name="orig_thada1" id="orig_thada1" value='${model.record.thada1}'>
-											        	<input type="hidden" name="orig_thpna" id="orig_thpna" value='${model.record.thpna}'>
-											        	<input type="hidden" name="orig_thpsa" id="orig_thpsa" value='${model.record.thpsa}'>
-											        	<input type="hidden" name="orig_thlka" id="orig_thlka" value='${model.record.thlka}'>
-											        	<input type="hidden" name="orig_thska" id="orig_thska" value='${model.record.thska}'>
+											        	<input type="hidden" name="orig_thnaa" id="orig_thnaa" value='${Xmodel.record.thnaa}'>
+											        	<input type="hidden" name="orig_thtina" id="orig_thtina" value='${Xmodel.record.thtina}'>
+											        	<input type="hidden" name="orig_thada1" id="orig_thada1" value='${Xmodel.record.thada1}'>
+											        	<input type="hidden" name="orig_thpna" id="orig_thpna" value='${Xmodel.record.thpna}'>
+											        	<input type="hidden" name="orig_thpsa" id="orig_thpsa" value='${Xmodel.record.thpsa}'>
+											        	<input type="hidden" name="orig_thlka" id="orig_thlka" value='${Xmodel.record.thlka}'>
+											        	<input type="hidden" name="orig_thska" id="orig_thska" value='${Xmodel.record.thska}'>
 									        				<td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="thtina">TIN</span></td>
 											            <td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="thnaa">Navn</span>
 											            	<a tabindex="-1" id="thnaaIdLink">
@@ -1403,8 +1336,8 @@
 											            
 											        </tr>
 											        <tr>
-											        		<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtina" id="thtina" size="20" maxlength="17" value="${model.record.thtina}"></td>
-											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnaa" id="thnaa" size="30" maxlength="35" value="${model.record.thnaa}"></td>
+											        		<td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thtina" id="thtina" size="20" maxlength="17" value="${Xmodel.record.thtina}"></td>
+											            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField" name="thnaa" id="thnaa" size="30" maxlength="35" value="${Xmodel.record.thnaa}"></td>
 											            
 											        </tr>
 		
@@ -1416,17 +1349,10 @@
 											            </td>
 											        </tr>
 											        <tr>
-											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thada1" id="thada1" size="30" maxlength="35" value="${model.record.thada1}"></td>
-											            <td class="text12" align="left" >
-											            		&nbsp;<select name="thska" id="thska">
-												            		<option value="">-velg-</option>
-												 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-								                                	 	<option value="${code.tkkode}"<c:if test="${model.record.thska == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																	</c:forEach> 
-															</select>
-															<a tabindex="-1" id="thskaIdLink">
-																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-															</a>
+											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thada1" id="thada1" size="30" maxlength="35" value="${Xmodel.record.thada1}"></td>
+											            <td class="text12" align="left" >&nbsp;
+											            	<input type="text" class="inputTextMediumBlue" name="thska" id="thska" size="3" maxlength="2" value="${Xmodel.record.thska}">
+											            	
 														</td>
 											        </tr>
 											        <tr>
@@ -1438,7 +1364,7 @@
 												            	</tr>
 												        		<tr>
 												            		<td align="left">
-												       				<input type="text" class="inputTextMediumBlue" name="thpsa" id="thpsa" size="30" maxlength="35" value="${model.record.thpsa}">
+												       				<input type="text" class="inputTextMediumBlue" name="thpsa" id="thpsa" size="30" maxlength="35" value="${Xmodel.record.thpsa}">
 											            			</td> 
 												            		<td align="left">&nbsp;</td>
 												        		</tr>    	
@@ -1453,17 +1379,10 @@
 												            		</td>
 												            	</tr>
 												        		<tr >
-												        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpna" id="thpna" size="10" maxlength="9" value="${model.record.thpna}"></td> 
+												        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpna" id="thpna" size="10" maxlength="9" value="${Xmodel.record.thpna}"></td> 
 												            		<td align="left">
-												            			<select class="inputTextMediumBlueMandatoryField" name="thlka" id="thlka">
-														            		<option value="">-velg-</option>
-													 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-									                                	 	<option value="${country.zkod}"<c:if test="${model.record.thlka == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																		</c:forEach> 
-																	</select>
-																	<a tabindex="-1" id="thlkaIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																	</a>
+												            			<input type="text" class="inputTextMediumBlue" name="thlka" id="thlka" size="3" maxlength="2" value="${Xmodel.record.thlka}">
+												            			
 												            		</td> 
 												        		</tr>  
 												            	</table>
@@ -1509,7 +1428,7 @@
 														</div>
 														</td>
 											           	<td class="text12" align="left">
-											           		<input type="text" class="inputTextMediumBlue" name="thdfkd" id="thdfkd" size="20" maxlength="20" value="${model.record.thdfkd}">
+											           		<input type="text" class="inputTextMediumBlue" name="thdfkd" id="thdfkd" size="20" maxlength="20" value="${Xmodel.record.thdfkd}">
 											           	</td>
 										           	</tr>
 										           	<tr>
@@ -1517,7 +1436,7 @@
 											            		<span title="thdant">Forseglings-antall&nbsp;</span>
 											            </td>
 						 								<td class="text12" align="left">
-											           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thdant" id="thdant" size="4" maxlength="4" value="${model.record.thdant}">
+											           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thdant" id="thdant" size="4" maxlength="4" value="${Xmodel.record.thdant}">
 											           	</td>
 										           	</tr>
 										           	<tr>
@@ -1525,12 +1444,7 @@
 											            		<span title="thdfsk">Forseglings-språkkode</span>
 										            		</td>
 						 								<td class="text12" align="left">
-											           		<select name="thdfsk" id="thdfsk">
-									            				<option value="">-velg-</option>
-									 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-						                               	 			<option value="${code.tkkode}"<c:if test="${model.record.thdfsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																</c:forEach> 
-															</select>
+						 									<input type="text" class="inputTextMediumBlue" name="thdfsk" id="thdfsk" size="3" maxlength="2" value="${Xmodel.record.thdfsk}">
 											           		&nbsp;
 											           	</td>
 										           	</tr>
@@ -1553,10 +1467,10 @@
 														</td>
 														
 											           	<td class="text12" align="left">
-											           		<input readonly type="text" class="inputTextReadOnly" name="thdats" id="thdats" size="20" maxlength="8" value="${model.record.thdats}">
+											           		<input readonly type="text" class="inputTextReadOnly" name="thdats" id="thdats" size="20" maxlength="8" value="${Xmodel.record.thdats}">
 											           	</td>
 											           	<td class="text12" align="left">	
-											           		<input readonly type="text" class="inputTextReadOnly" name="thddtk" id="thddtk" size="20" maxlength="8" value="${model.record.thddtk}">
+											           		<input readonly type="text" class="inputTextReadOnly" name="thddtk" id="thddtk" size="20" maxlength="8" value="${Xmodel.record.thddtk}">
 											           		&nbsp;
 											           	</td>
 										           	</tr>
@@ -1572,16 +1486,16 @@
 														</td>
 								 			
 										 				<td class="text12">
-										 					<input readonly type="text" class="inputTextReadOnly" name="thtsn1" id="thtsn1" size="20" maxlength="35" value="${model.record.thtsn1}">
+										 					<input readonly type="text" class="inputTextReadOnly" name="thtsn1" id="thtsn1" size="20" maxlength="35" value="${Xmodel.record.thtsn1}">
 										 				</td>
 										 				<td class="text12">
-										 					<input readonly type="text" class="inputTextReadOnly" name="thtsn2" id="thtsn2" size="20" maxlength="35" value="${model.record.thtsn2}">
+										 					<input readonly type="text" class="inputTextReadOnly" name="thtsn2" id="thtsn2" size="20" maxlength="35" value="${Xmodel.record.thtsn2}">
 										 				</td>
 									 				</tr>
 									 				<tr>
 										 				<td nowrap class="text12">&nbsp;</td>
 							 							<td class="text12">
-										 					<input readonly type="text" class="inputTextMediumBlue" name="thtslk" id="thtslk" size="2" maxlength="2" value="${model.record.thtslk}">
+										 					<input readonly type="text" class="inputTextMediumBlue" name="thtslk" id="thtslk" size="2" maxlength="2" value="${Xmodel.record.thtslk}">
 										 				</td>
 									 				</tr>
 								 				</table>
@@ -1668,7 +1582,7 @@
 														</span>
 													</div>
 						            				</td>
-							            			<td class="text12">
+							            			<td class="text12" nowrap>
 							            				<img onMouseOver="showPop('betalmade_info');" onMouseOut="hidePop('betalmade_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							            				<span title="thtkbm">Transp.kost/Betal.måte</span>&nbsp;
 							            				<select name="thtkbm" id="thtkbm">
@@ -1689,20 +1603,12 @@
 							            			</td>
 							            		</tr>
 							            		<tr>
-							            			<td class="text12">&nbsp;&nbsp;<span title="thlosd">Lossested</span>
+							            			<td class="text12" nowrap>&nbsp;&nbsp;<span title="thlosd">Lossested</span>
 							            				<input type="text" class="inputTextMediumBlue" name="thlosd" id="thlosd" size="30" maxlength="35" value="${Xmodel.record.thlosd}">
 							            			</td>
 							            			<td class="text12">&nbsp;&nbsp;<span title="thlosdsk">Lossested språkkode</span>
-							            				<select name="thlosdsk" id="thlosdsk">
-							            				<option value="">-velg-</option>
-							 				  			<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-						                             	 			<option value="${code.tkkode}"<c:if test="${Xmodel.record.thlosdsk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-														</c:forEach> 
-													</select>
-													<a tabindex="-1" id="thlosdskIdLink">
-														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-													</a>
-													
+							            				<input type="text" class="inputTextMediumBlue" name="thlosdsk" id="thlosdsk" size="3" maxlength="2" value="${Xmodel.record.thlosdsk}">
+							            				
 							            			</td>
 							            		</tr>
 							            		<tr>
@@ -1716,71 +1622,31 @@
 							            				</tr>
 							            				<tr>
 								            				<td>
-								            				<select name="thlkr1" id="thlkr1">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr1 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
-														</td>
-														<td>
-								            				<select name="thlkr2" id="thlkr2">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr2 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
-														</td>
-														<td>
-								            				<select name="thlkr3" id="thlkr3">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr3 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
-														</td>
-														<td>
-														<select name="thlkr4" id="thlkr4">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr4 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
+									            				<input type="text" class="inputTextMediumBlue" name="thlkr1" id="thlkr1" size="3" maxlength="2" value="${Xmodel.record.thlkr1}">
+															</td>
+															<td>
+																<input type="text" class="inputTextMediumBlue" name="thlkr2" id="thlkr2" size="3" maxlength="2" value="${Xmodel.record.thlkr2}">
+															</td>
+															<td>
+																<input type="text" class="inputTextMediumBlue" name="thlkr3" id="thlkr3" size="3" maxlength="2" value="${Xmodel.record.thlkr3}">
+															</td>
+															<td>
+																<input type="text" class="inputTextMediumBlue" name="thlkr4" id="thlkr4" size="3" maxlength="2" value="${Xmodel.record.thlkr4}">
 								            				</td>
 							            				</tr>
 							            				<tr>	
 								            				<td>
-								            				<select name="thlkr5" id="thlkr5">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr5 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
+								            					<input type="text" class="inputTextMediumBlue" name="thlkr5" id="thlkr5" size="3" maxlength="2" value="${Xmodel.record.thlkr5}">
 								            				</td>
 								            				<td>
-								            				<select name="thlkr6" id="thlkr6">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr6 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
+									            				<input type="text" class="inputTextMediumBlue" name="thlkr6" id="thlkr6" size="3" maxlength="2" value="${Xmodel.record.thlkr6}">
 								            				</td>
 								            				<td>
-								            				<select name="thlkr7" id="thlkr7">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr7 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
-														</td>
-														<td>
-								            				<select name="thlkr8" id="thlkr8">
-											            		<option value="">-velg-</option>
-										 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkr8 == country.zkod}"> selected </c:if> >${country.zkod}</option>
-															</c:forEach> 
-														</select>
-														</td>
+									            				<input type="text" class="inputTextMediumBlue" name="thlkr7" id="thlkr7" size="3" maxlength="2" value="${Xmodel.record.thlkr7}">
+															</td>
+															<td>
+																<input type="text" class="inputTextMediumBlue" name="thlkr8" id="thlkr8" size="3" maxlength="2" value="${Xmodel.record.thlkr8}">
+															</td>
 													</tr>
 													</table>
 							            			</td>
@@ -1853,16 +1719,8 @@
 															        </tr>
 															        <tr>
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadss1" id="thadss1" size="30" maxlength="30" value="${Xmodel.record.thadss1}"></td>
-															            <td class="text12" align="left" >
-															            		&nbsp;<select name="thskss" id="thskss">
-																            		<option value="">-velg-</option>
-																 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-												                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.thskss == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																					</c:forEach> 
-																			</select>
-																			<a tabindex="-1" id="thskssIdLink">
-																				<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																			</a>
+															            <td class="text12" align="left" >&nbsp;
+														            		<input type="text" class="inputTextMediumBlue" name="thskss" id="thskss" size="3" maxlength="2" value="${Xmodel.record.thskss}">
 																		</td>
 															        </tr>
 															        <tr>
@@ -1891,15 +1749,7 @@
 																        		<tr >
 																        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnss" id="thpnss" size="10" maxlength="8" value="${Xmodel.record.thpnss}"></td> 
 																            		<td align="left">
-																            			<select name="thlkss" id="thlkss">
-																		            		<option value="">-velg-</option>
-																	 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-													                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkss == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																						</c:forEach> 
-																					</select>
-																					<a tabindex="-1" id="thlkssIdLink">
-																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																					</a>
+																            			<input type="text" class="inputTextMediumBlue" name="thlkss" id="thlkss" size="3" maxlength="2" value="${Xmodel.record.thlkss}">
 																            		</td> 
 																        		</tr>  
 																            	</table>
@@ -1983,16 +1833,8 @@
 															        </tr>
 															        <tr>
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadt1" id="thadt1" size="30" maxlength="30" value="${Xmodel.record.thadt1}"></td>
-															            <td class="text12" align="left" >
-															            		&nbsp;<select name="thskt" id="thskt">
-																            		<option value="">-velg-</option>
-																 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-												                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.thskt == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																					</c:forEach> 
-																			</select>
-																			<a tabindex="-1" id="thsktIdLink">
-																				<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																			</a>
+															            <td class="text12" align="left" >&nbsp;
+															            	<input type="text" class="inputTextMediumBlue" name="thskt" id="thskt" size="3" maxlength="2" value="${Xmodel.record.thskt}">
 																		</td>
 															        </tr>
 															        <tr>
@@ -2021,16 +1863,8 @@
 																        		<tr >
 																        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnt" id="thpnt" size="10" maxlength="8" value="${Xmodel.record.thpnt}"></td> 
 																            		<td align="left">
-															            			<select name="thlkt" id="thlkt">
-																	            		<option value="">-velg-</option>
-																 					  	<c:forEach var="country" items="${model.countryCodeList}" >
-												                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkt == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																						</c:forEach> 
-																					</select>
-																					<a tabindex="-1" id="thlktIdLink">
-																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																					</a>
-																            		</td> 
+																            			<input type="text" class="inputTextMediumBlue" name="thlkt" id="thlkt" size="3" maxlength="2" value="${Xmodel.record.thlkt}">
+															            			</td> 
 																        		</tr>  
 																            	</table>
 															            </td>
@@ -2111,16 +1945,8 @@
 															        </tr>
 															        <tr>
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadks1" id="thadks1" size="30" maxlength="30" value="${Xmodel.record.thadks1}"></td>
-															            <td class="text12" align="left" >
-															            		&nbsp;<select name="thskks" id="thskks">
-																            		<option value="">-velg-</option>
-																 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
-												                                	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.thskks == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
-																					</c:forEach> 
-																			</select>
-																			<a tabindex="-1" id="thskksIdLink">
-																				<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																			</a>
+															            <td class="text12" align="left" >&nbsp;
+															            	<input type="text" class="inputTextMediumBlue" name="thskks" id="thskks" size="3" maxlength="2" value="${Xmodel.record.thskks}">
 																		</td>
 															        </tr>
 															        <tr>
@@ -2149,15 +1975,7 @@
 																        		<tr >
 																        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnks" id="thpnks" size="10" maxlength="8" value="${Xmodel.record.thpnks}"></td> 
 																            		<td align="left">
-																            			<select name="thlkks" id="thlkks">
-																		            		<option value="">-velg-</option>
-																	 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-													                                	 	<option value="${country.zkod}"<c:if test="${Xmodel.record.thlkks == country.zkod}"> selected </c:if> >${country.zkod}</option>
-																						</c:forEach> 
-																					</select>
-																					<a tabindex="-1" id="thlkksIdLink">
-																						<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-																					</a>
+																            			<input type="text" class="inputTextMediumBlue" name="thlkks" id="thlkks" size="3" maxlength="2" value="${Xmodel.record.thlkks}">
 																            		</td> 
 																        		</tr>  
 																            	</table>

@@ -62,7 +62,7 @@ public class CodeDropDownMgr {
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintKodtvaRecord record : list){
-	        		//logger.info("A" + record.getKvakod());
+	        		//logger.info("VALUTA:" + record.getKvakod());
 	        	}
 	        }
     	}
