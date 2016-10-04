@@ -416,6 +416,15 @@ public class JsonMaintMainTrustdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setThgpr (String value){ this.thgpr = value;   }   
 	public String getThgpr (){ return this.thgpr;   }
 	
+	private String thgprNO = null;                                
+	public void setThgprNO (String value){ this.thgprNO = value;   }   
+	public String getThgprNO (){
+		if(this.thgpr!=null && !"".equals(this.thgpr)){
+			this.thgprNO = this.numberFormatter.getFormattedEU(this.thgpr);
+		}
+		return this.thgprNO;  
+	}
+	
 	private String thgvk = null;                                
 	public String getThgvkPropertyName (){ return "thgvk"; }
 	public void setThgvk (String value){ this.thgvk = value;   }   

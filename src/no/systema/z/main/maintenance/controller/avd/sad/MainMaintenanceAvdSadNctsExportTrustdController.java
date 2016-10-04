@@ -29,11 +29,13 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdService;
+import no.systema.z.main.maintenance.service.sad.MaintMainTrustdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdfvContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrustdfvRecord;
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
@@ -194,6 +196,8 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			//-------------
 			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
 				JsonMaintMainTrustdRecord record = this.fetchRecord(appUser.getUser(), avd);
+				JsonMaintMainTrustdfvRecord childRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
+				record.setSikkerhedChildRecord(childRecord);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -269,6 +273,41 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintMainTrustdRecord tmp : list){
+	        		record = tmp;
+
+	        	}
+	        }
+    	}
+    	return record;
+    	
+	}
+	/**
+	 * Sikkerhed child record 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private JsonMaintMainTrustdfvRecord fetchChildRecordSikkerhed(String applicationUser, String id){
+		JsonMaintMainTrustdfvRecord record = new JsonMaintMainTrustdfvRecord();
+    	
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003fvR_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&thavd=" + id;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	List<JsonMaintMainTrustdfvRecord> list = new ArrayList();
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainTrustdfvContainer container = this.maintMainTrustdfvService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintMainTrustdfvRecord tmp : list){
 	        		record = tmp;
 
 	        	}
@@ -377,6 +416,13 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	@Required
 	public void setMaintMainTrustdService (MaintMainTrustdService value){ this.maintMainTrustdService = value; }
 	public MaintMainTrustdService getMaintMainTrustdService(){ return this.maintMainTrustdService; }
+	
+	@Qualifier ("maintMainTrustdfvService")
+	private MaintMainTrustdfvService maintMainTrustdfvService;
+	@Autowired
+	@Required
+	public void setMaintMainTrustdfvService (MaintMainTrustdfvService value){ this.maintMainTrustdfvService = value; }
+	public MaintMainTrustdfvService getMaintMainTrustdfvService(){ return this.maintMainTrustdfvService; }
 	
 	
 	@Qualifier ("maintKodtvaService")

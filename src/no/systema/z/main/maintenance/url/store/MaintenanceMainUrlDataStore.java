@@ -41,7 +41,9 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD NCTS EKSPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTR003R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003R.do";
+	static public String MAINTENANCE_MAIN_BASE_TR003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003fvR.do";
 	
+		
 	
 	//CHILDREN List on SYFA28 --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333
 	//ONE CHILD on SYFA28 --> http://localhost:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333&koplnr=4

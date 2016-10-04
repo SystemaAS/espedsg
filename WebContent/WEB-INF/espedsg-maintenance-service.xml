@@ -105,5 +105,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainTristdService" class="no.systema.z.main.maintenance.service.sad.MaintMainTristdServiceImpl"/>
 	<bean id="maintMainTrkodl01Service" class="no.systema.z.main.maintenance.service.sad.MaintMainTrkodl01ServiceImpl"/>
 	<bean id="maintMainTrustdService" class="no.systema.z.main.maintenance.service.sad.MaintMainTrustdServiceImpl"/>
+	<bean id="maintMainTrustdfvService" class="no.systema.z.main.maintenance.service.sad.MaintMainTrustdfvServiceImpl"/>
 	
 </beans>
