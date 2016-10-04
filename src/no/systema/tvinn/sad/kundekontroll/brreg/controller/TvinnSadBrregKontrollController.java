@@ -25,8 +25,6 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragTopicListRecord;
-import no.systema.sporringoppdrag.util.SporringOppdragConstants;
 import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckContainer;
 import no.systema.tvinn.sad.kundekontroll.brreg.jsonjackson.JsonEnhetsRegisteretDataCheckRecord;
 import no.systema.tvinn.sad.kundekontroll.brreg.service.BrregEnhetsRegisteretService;
@@ -50,7 +48,6 @@ public class TvinnSadBrregKontrollController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(TvinnSadBrregKontrollController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 	/**
 	 * 
@@ -75,7 +72,7 @@ public class TvinnSadBrregKontrollController {
 	    	model.put("dbTable", dbTable);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 			
-			session.setAttribute(session.getId() + SporringOppdragConstants.SESSION_LIST, list);
+			session.setAttribute(session.getId() + TvinnSadMaintenanceConstants.SESSION_LIST, list);
 
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -105,10 +102,10 @@ public class TvinnSadBrregKontrollController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			list = (List)session.getAttribute(session.getId() + "sessionList");
+			list = (List)session.getAttribute(session.getId() + TvinnSadMaintenanceConstants.SESSION_LIST);
 		}	
 		
-		return new ModelAndView(EXCEL_VIEW, "list", list);
+		return new ModelAndView(EXCEL_VIEW, TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 	}	
 	
 	

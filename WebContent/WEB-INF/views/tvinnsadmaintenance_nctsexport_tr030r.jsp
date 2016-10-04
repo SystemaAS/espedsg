@@ -29,7 +29,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">Garanti</font>&nbsp;<font class="text12">TR030R</font>&nbsp;
+						<font class="tabLink">Garantiref.</font>&nbsp;<font class="text12">TR030R</font>&nbsp;
 						<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenance_nctsexport_tr030r.do?id=${model.dbTable}">
 							<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="8px" height="8px" alt="db table">
 						</a>
@@ -97,7 +97,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgakgm}&nbsp;</font></td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="tvinnsadmaintenance_nctsexport_tr030_edit.do?action=doDelete&id=${model.dbTable}&tggnr=${record.tggnr}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="tvinnsadmaintenance_nctsexport_tr030r_edit.do?action=doDelete&id=${model.dbTable}&tggnr=${record.tggnr}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -257,8 +257,8 @@
 											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tggvk">Valuta:</span>
 											<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tggvk" id="tggvk" >
 		 					  					<option value="">-velg-</option>
-												<c:forEach var="record" items="${model.currencyList}" >
-							 				  		<option value="${record.dkvk_kd}"<c:if test="${model.record.tggvk == record.dkvk_kd}"> selected </c:if> >${record.dkvk_kd}</option>
+												<c:forEach var="record" items="${model.currencyCodeList}" >
+							 				  		<option value="${record.kvakod}"<c:if test="${model.record.tggvk == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
 												</c:forEach> 
 							  					
 							  				</select>

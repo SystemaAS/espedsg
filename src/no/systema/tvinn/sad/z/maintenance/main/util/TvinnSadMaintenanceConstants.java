@@ -59,6 +59,8 @@ public final class TvinnSadMaintenanceConstants {
 	 * 
 	 */
 	public static final String DOMAIN_LIST = "list";
+	public static final String SESSION_LIST = "sessionList";
+
 	public static final String DOMAIN_LIST_SIZE = "listSize";
 	
 	/*
