@@ -35,6 +35,15 @@ public class JsonMaintMainTrustdfvRecord extends JsonAbstractGrandFatherRecord  
 	public void setThdta (String value){ this.thdta = value;   }   
 	public String getThdta (){ return this.thdta;   }  
 	
+	private String thdtaNO = null; 
+	public void setThdtaNO (String value){ this.thdtaNO = value;   }   
+	public String getThdtaNO() {
+		if (thdtaNO != null) { // from UI
+			return thdtaNO;
+		} else { 				// from DB
+			return this.dateFormatter.convertToDate_NO(this.thdta);
+		}
+	}
 	private String thtma = "";                                
 	public String getThtmaPropertyName (){ return "thtma"; }
 	public void setThtma (String value){ this.thtma = value;   }   
@@ -132,7 +141,7 @@ public class JsonMaintMainTrustdfvRecord extends JsonAbstractGrandFatherRecord  
 	
 	private String thpsss = "";                                
 	public String getThpsssPropertyName (){ return "thpsss"; }
-	public void sethpsss (String value){ this.thpsss = value;   }   
+	public void setThpsss (String value){ this.thpsss = value;   }   
 	public String getThpsss (){ return this.thpsss;   }  
 	
 	private String thlkss = "";                                

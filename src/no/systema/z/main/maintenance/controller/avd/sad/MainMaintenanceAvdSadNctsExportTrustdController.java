@@ -28,6 +28,7 @@ import no.systema.main.util.DateTimeManager;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.service.sad.MaintMainTrkodl01Service;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdService;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
@@ -112,6 +113,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String avd = request.getParameter("avd");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
+		JsonMaintMainTrustdfvRecord dbChildRecord = null;
 		
 		if(appUser==null){
 			return this.loginView;
@@ -125,11 +127,12 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			//UPDATE record
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
+				
 				avd = recordToValidate.getThavd();
-				//bind child record
+				//bind child record (only for validation purposes)
 				JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
 				//Adjust
-				this. adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
+				this.adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
 				recordToValidate.setSikkerhedChildRecord(sikkerhedChildRecord);
 				//Validate
 				MaintMainTrustdValidator validator = new MaintMainTrustdValidator();
@@ -149,11 +152,31 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						if(dmlRetval >= 0){
+							//check if this child record exists
+							dbChildRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
+							if(dbChildRecord!=null && (dbChildRecord.getThavd()!=null && !"".equals(dbChildRecord.getThavd())) ){
+								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_UPDATE, errMsg);
+							}else{
+								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_ADD, errMsg);
+							}
+						}
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						
+						if(dmlRetval >= 0){
+							//check if this child record exists (it should NOT)
+							dbChildRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
+							if(dbChildRecord!=null && (dbChildRecord.getThavd()!=null && !"".equals(dbChildRecord.getThavd())) ){
+								//something is wrong (corrupt record)
+								//TODO ...
+							}else{
+								//should be the default behavior
+								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_ADD, errMsg);
+							}
+						}
+							
 					}
 					
 					//check for Update errors
@@ -197,7 +220,11 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
 				JsonMaintMainTrustdRecord record = this.fetchRecord(appUser.getUser(), avd);
 				JsonMaintMainTrustdfvRecord childRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
-				record.setSikkerhedChildRecord(childRecord);
+				if(childRecord!=null){
+					record.setSikkerhedChildRecord(childRecord);
+				}else{
+					record.setSikkerhedChildRecord(new JsonMaintMainTrustdfvRecord());
+				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -258,12 +285,12 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&thavd=" + id;
 		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//DEBUG
-    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
     	//extract
     	List<JsonMaintMainTrustdRecord> list = new ArrayList();
     	
@@ -293,12 +320,12 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003fvR_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&thavd=" + id;
 		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//DEBUG
-    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
     	//extract
     	List<JsonMaintMainTrustdfvRecord> list = new ArrayList();
     	
@@ -334,7 +361,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		//put the final valid param. string
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
@@ -343,6 +370,44 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
     	if(jsonPayload!=null){
 			//lists
     		JsonMaintMainTrustdContainer container = this.maintMainTrustdService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	}    	
+    	return retval;
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateChildRecord(String applicationUser, JsonMaintMainTrustdfvRecord record, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003fvR_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainTrustdfvContainer container = this.maintMainTrustdfvService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -385,7 +450,9 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	private void populateDropDowns(Map model, String applicationUser){
 		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
 		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nealist");
-		
+		//Code lists
+		this.codeDropDownMgr.populateSikkerhedCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_SPES_OMSTAND);
+		this.codeDropDownMgr.populateSikkerhedCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_TRANSP_KOST_BETAL_MATE);
 	}
 	
 	/**
@@ -448,6 +515,14 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
-
+	
+	@Qualifier ("maintMainTrkodl01Service")
+	private MaintMainTrkodl01Service maintMainTrkodl01Service;
+	@Autowired
+	@Required
+	public void setMaintMainTrkodl01Service (MaintMainTrkodl01Service value){ this.maintMainTrkodl01Service = value; }
+	public MaintMainTrkodl01Service getMaintMainTrkodl01Service(){ return this.maintMainTrkodl01Service; }
+	
+	
 }
 

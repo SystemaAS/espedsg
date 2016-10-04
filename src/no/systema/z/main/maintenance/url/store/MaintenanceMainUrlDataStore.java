@@ -38,9 +38,11 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD NCTS IMPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTR053R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_TR053R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR053R.do";
+	
 	//AVD SAD NCTS EKSPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTR003R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003R.do";
+	//CHILD RECORD - Sikkerhet -->http://gw.systema.no:8080/syjservicesbcore/syjsTR003fvR.do?user=OSCAR&thavd=1
 	static public String MAINTENANCE_MAIN_BASE_TR003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003fvR.do";
 	
 		
@@ -92,6 +94,7 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_TR053R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR053R_U.do";
 	//AVD SAD NCTS EKSPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_TR003R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003R_U.do";
+	static public String MAINTENANCE_MAIN_BASE_TR003fvR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003fvR_U.do";
 	
 	
 	//--------------------------
@@ -99,6 +102,7 @@ public final class MaintenanceMainUrlDataStore {
 	//--------------------------
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT02R.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA61R.do";
+	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODL01R.do";
 	
 	
 }
