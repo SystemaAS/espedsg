@@ -31,6 +31,7 @@ public final class SadNctsExportConstants {
 	=========================
 	2= Landekoder, R15
 	V= Valutakoder
+	4= Transportmater
 	*/
 	
 	//code lists (Kolli(017), Dokumentkod(013), etc.

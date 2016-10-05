@@ -133,7 +133,7 @@
 										<select name="thavd" id="thavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-velg-</option>
 						  					<c:forEach var="record" items="${model.avdGeneralList}" >
-						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
+						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 										</td>	
@@ -951,8 +951,8 @@
 						            			<td class="text12">	
 								            		<select class="inputTextMediumBlue" name="thtrm" id="thtrm">
 							 						<option value="">-velg-</option>
-								 				  	<c:forEach var="code" items="${Xmodel.transportmaterCodeList}" >
-								 				  		<option value="${code.zkod}"<c:if test="${Xmodel.record.thtrm == code.zkod}"> selected </c:if> >${code.zkod}</option>
+								 				  	<c:forEach var="code" items="${model.transportmaterCodeList}" >
+								 				  		<option value="${code.ks4trm}"<c:if test="${model.record.thtrm == code.ks4trm}"> selected </c:if> >${code.ks4trm}</option>
 													</c:forEach> 
 													</select>
 									            	<div class="text11" style="position: relative;" align="left">
@@ -963,8 +963,8 @@
 														Koden kan legges inn som standardverdi for avdelingen.
 														</p>		
 														<ul>
-									           				<c:forEach var="code" items="${Xmodel.transportmaterCodeList}" >
-										 				  		<li><b>${code.zkod}</b>&nbsp;${code.ztxt}</li>
+									           				<c:forEach var="code" items="${model.transportmaterCodeList}" >
+										 				  		<li><b>${code.ks4trm}</b>&nbsp;${code.ks4ftx}</li>
 									 				  		</c:forEach>	
 									           			</ul>
 													</span>

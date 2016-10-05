@@ -45,6 +45,7 @@ import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
@@ -115,6 +116,10 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String updateId = request.getParameter("updateId");
 		JsonMaintMainTrustdfvRecord dbChildRecord = null;
 		
+		//bind child record (only for validation purposes, even in back-end)
+		JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
+		
+		
 		if(appUser==null){
 			return this.loginView;
 		}else{
@@ -129,8 +134,6 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				
 				avd = recordToValidate.getThavd();
-				//bind child record (only for validation purposes)
-				JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
 				//Adjust
 				this.adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
 				recordToValidate.setSikkerhedChildRecord(sikkerhedChildRecord);
@@ -199,9 +202,12 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
-				
 				logger.info(MainMaintenanceConstants.MODE_DELETE);
 				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				//remove child record
+				if(dmlRetval >= 0){
+					dmlRetval = this.updateChildRecord(appUser.getUser(), sikkerhedChildRecord, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				}
 				
 				//check for Update errors
 				if( dmlRetval < 0){
@@ -210,7 +216,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavdsadnctsimport_tr003r.do");
+					successView = new ModelAndView("redirect:mainmaintenanceavdsadnctsexport_tr003r.do");
 					
 				}
 			}
@@ -450,9 +456,11 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	private void populateDropDowns(Map model, String applicationUser){
 		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
 		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nealist");
-		//Code lists
-		this.codeDropDownMgr.populateSikkerhedCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_SPES_OMSTAND);
-		this.codeDropDownMgr.populateSikkerhedCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_TRANSP_KOST_BETAL_MATE);
+		//Code lists in NCTS domain
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
+		//Borrowed from TVINN domain
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
 	}
 	
 	/**
@@ -522,6 +530,13 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	@Required
 	public void setMaintMainTrkodl01Service (MaintMainTrkodl01Service value){ this.maintMainTrkodl01Service = value; }
 	public MaintMainTrkodl01Service getMaintMainTrkodl01Service(){ return this.maintMainTrkodl01Service; }
+	
+	@Qualifier ("maintSadImportKodts4Service")
+	private MaintSadImportKodts4Service maintSadImportKodts4Service;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodts4Service (MaintSadImportKodts4Service value){ this.maintSadImportKodts4Service = value; }
+	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
 	
 	
 }

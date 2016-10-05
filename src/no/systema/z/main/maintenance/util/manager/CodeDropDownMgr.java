@@ -9,6 +9,11 @@ import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMai
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Record;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Container;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
+import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
+
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
@@ -147,14 +152,16 @@ public class CodeDropDownMgr {
 	 * @param applicationUser
 	 * @param code
 	 */
-	public void populateSikkerhedCodesHtmlDropDownsSad (UrlCgiProxyService urlCgiProxyService, MaintMainTrkodl01Service maintMainTrkodl01Service, Map model, String applicationUser, String code){
+	public void populateGeneralCodesHtmlDropDownsNcts(UrlCgiProxyService urlCgiProxyService, MaintMainTrkodl01Service maintMainTrkodl01Service, Map model, String applicationUser, String code){
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_LIST_URL;
+		
+		
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser + "&tkunik=" + code);
 		
 		
-		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	//logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL + " PARAMS:" + urlRequestParams));
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL + " PARAMS:" + urlRequestParams));
     	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
     	List<JsonMaintMainTrkodl01Record> list = new ArrayList();
@@ -168,12 +175,43 @@ public class CodeDropDownMgr {
 	        	}
 	        }
     	}
-    	if(code.equals(MainMaintenanceConstants.CODE_NCTS_SIKKERHET_SPES_OMSTAND)){
+    	if(code.equals(MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND)){
     		model.put(MainMaintenanceConstants.CODE_MGR_CODE_NCTS_096_LIST, list);
-    	}else if (code.equals(MainMaintenanceConstants.CODE_NCTS_SIKKERHET_TRANSP_KOST_BETAL_MATE)){
+    	}else if (code.equals(MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE)){
     		model.put(MainMaintenanceConstants.CODE_MGR_CODE_NCTS_116_LIST, list);
     	}
     	 	
+	}
+	/**
+	 * Other domain tables OUTSIDE bcore structure BUT within TVINN
+	 * @param urlCgiProxyService
+	 * @param maintSadImportKodts4Service
+	 * @param model
+	 * @param applicationUser
+	 * @param code
+	 */
+	public void populateGeneralCodesHtmlDropDownsSadKodts4 (UrlCgiProxyService urlCgiProxyService, MaintSadImportKodts4Service maintSadImportKodts4Service, Map model, String applicationUser, String code){
+		//Default
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS4R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser + "&tkunik=" + code);
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL + " PARAMS:" + urlRequestParams));
+    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintSadImportKodts4Record> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportKodts4Container container = maintSadImportKodts4Service.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadImportKodts4Record record : list){
+	        		//logger.info(TODO);
+	        	}
+	        }
+    	}
+    	model.put(MainMaintenanceConstants.CODE_MGR_CODE_SAD_4_TRANSPORTMATER_LIST, list);	
 	}
 	
 }

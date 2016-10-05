@@ -43,11 +43,16 @@ public class MaintMainTrustdValidator implements Validator {
 		JsonMaintMainTrustdRecord record = (JsonMaintMainTrustdRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thavd", "", "Avd er obligatorisk"); 
-		/*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tienkl", "", "Prosedyre er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titdn", "", "Nrt.teller intern ref. er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thnttd", "", "Antall eksemplar følgeseddel er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thntll", "", "Antall eksemplar lasteliste er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thfmll", "", "Trykk lastelisteformular er obligatorisk."); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thenkl", "", "Prosedyre er obligatorisk."); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thtdn", "", "Nr.teller intern ref. er obligatorisk."); 
+		//
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "s0004", "", "UtvekslingsId Avdelning er obligatorisk."); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "s0010", "", "UtvekslingsId Tollvesenet er obligatorisk."); 
-		*/
+		
+		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
@@ -61,7 +66,6 @@ public class MaintMainTrustdValidator implements Validator {
 	 * @param obj
 	 * @param errors
 	 */
-	
 	public void validateDelete(Object obj, Errors errors) { 
 		JsonMaintMainTrustdRecord record = (JsonMaintMainTrustdRecord)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "thavd", "", "Avd er obligatorisk");
