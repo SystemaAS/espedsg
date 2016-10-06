@@ -38,6 +38,8 @@ import no.systema.z.main.maintenance.validator.sad.MaintMainStandiValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -217,6 +219,10 @@ public class MainMaintenanceAvdSadImportStandiController {
 		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "sialist");
 		//Borrowed from TVINN domain
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
+		//Incoterms
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad012Incoterms (this.urlCgiProxyService, this.maintSadImportKodtlbService, model, applicationUser);
+		//EkspedTyper
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002Ekspeditionstyper(urlCgiProxyService, maintSadImportKodts1Service, model, applicationUser) ;
 	}
 	
 	/**
@@ -379,6 +385,20 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintSadImportKodts4Service (MaintSadImportKodts4Service value){ this.maintSadImportKodts4Service = value; }
 	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
+	
+	@Qualifier ("maintSadImportKodtlbService")
+	private MaintSadImportKodtlbService maintSadImportKodtlbService;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodtsiService (MaintSadImportKodtlbService value){ this.maintSadImportKodtlbService = value; }
+	public MaintSadImportKodtlbService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtlbService; }
+	
+	@Qualifier ("maintSadImportKodts1Service")
+	private MaintSadImportKodts1Service maintSadImportKodts1Service;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodts1Service (MaintSadImportKodts1Service value){ this.maintSadImportKodts1Service = value; }
+	public MaintSadImportKodts1Service getMaintSadImportKodts1Service(){ return this.maintSadImportKodts1Service; }
 	
 
 }

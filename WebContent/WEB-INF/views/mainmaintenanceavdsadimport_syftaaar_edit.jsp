@@ -280,7 +280,11 @@
  					<b>1.1</b><span title="sidty">Dekl.type&nbsp;</span>
  					</td>
  					<td class="text12" >
- 					<input type="text" class="inputTextMediumBlue" name="sidty" id="sidty" size="4" maxlength="2" value="${model.record.sidty}">
+ 					<select class="inputTextMediumBlue" name="sidty" id="sidty" >
+	 				  <option value="">-velg-</option>
+					  <option value="EU"<c:if test="${model.record.sidty == 'EU'}"> selected </c:if> >EU</option>
+					  <option value="IM"<c:if test="${model.record.sidty == 'IM'}"> selected </c:if> >IM</option>
+					</select>
  					
  					<div class="text11" style="position: relative;" align="left">
  					<span style="position:absolute; top:2px; width:250px;" id="1_1_info" class="popupWithInputText text11"  >
@@ -300,13 +304,20 @@
 		 				<img onMouseOver="showPop('prosedyr_info');" onMouseOut="hidePop('prosedyr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		 				<b>1.2</b><span title="sidp">&nbsp;Eksped.type</span>
 		 			</td>
-		 			<td>	
-		 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="sidp" id="sidp" size="4" maxlength="2" value="${model.record.sidp}">
-			 			
+		 			<td>
+		 				<select class="inputTextMediumBlue" name="sidp" id="sidp" >
+		 				  <option value="">-velg-</option>
+			 				  	<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
+			 				  		<option value="${record.ks1typ}"<c:if test="${model.record.sidp == record.ks1typ}"> selected </c:if> >${record.ks1typ}</option>
+								</c:forEach>  
+						</select>	
+		 				
 			 			<div class="text11" style="position: relative;display:inline;" align="left">
 		 				<span style="position:absolute; top:5px; left:-130px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
 			           		<ul>
-			           			<li>todo</li>
+			           			<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
+			           			<li><b>${record.ks1typ}</b>&nbsp;${record.ks1ftx}</li>
+			           			</c:forEach>
 			           		</ul>
 						</span>
 						</div>
@@ -317,7 +328,7 @@
 		 				<span title="siski" id="v_siski" class="validation">Toll/Mva</span>
 		 			</td>
 		 			<td class="text12" >	
-		 				<select name="siski" id="siski" >
+		 				<select class="inputTextMediumBlue" name="siski" id="siski" >
 	 						<option value="">-velg-</option>
 					  		<option value="S"<c:if test="${ model.record.siski == 'S'}"> selected </c:if> >S</option>
 					  		<option value="K"<c:if test="${ model.record.siski == 'K'}"> selected </c:if> >K</option>
@@ -343,7 +354,7 @@
 	 					<span title="sikddk">&nbsp;Dagsopp./Kontant</span>
 	 				</td>
 	 				<td class="text12" >	
-		 				<select name="sikddk" id="sikddk" >
+		 				<select class="inputTextMediumBlue" name="sikddk" id="sikddk" >
 		 				  <option selected value="">-velg-</option>
 						  <option value="D"<c:if test="${model.record.sikddk == 'D'}"> selected </c:if> >D</option>
 						  <option value="K"<c:if test="${model.record.sikddk == 'K'}"> selected </c:if> >K</option>
@@ -702,7 +713,7 @@
 							 			<td class="text12" align="left" >&nbsp;
 							 				<img onMouseOver="showPop('24_info');" onMouseOut="hidePop('24_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 				<b>24.</b><span title="sitst">Tr.type</span>
-							 				<select class="inputTextMediumBlueMandatoryField" name="sitst" id="sitst" >
+							 				<select class="inputTextMediumBlue" name="sitst" id="sitst" >
 							 				  <option value="">-velg-</option>	
 							 				  <option value="1" <c:if test="${model.record.sitst == '1'}"> selected </c:if> >1</option>	
 							 				  <option value="2" <c:if test="${model.record.sitst == '2'}"> selected </c:if> >2</option>	
@@ -821,7 +832,7 @@
 								</td>
 									
 					            <td class="text12" >
-			           				<select name="sikdc" id="sikdc">
+			           				<select class="inputTextMediumBlue" name="sikdc" id="sikdc">
 				 						<option value="0" <c:if test="${model.record.sikdc == '0'}"> selected </c:if> >0</option>
 				 						<option value="1" <c:if test="${model.record.sikdc == '1'}"> selected </c:if> >1</option>								 				  	  
 									</select>
@@ -957,12 +968,21 @@
 				           			<p>
 				           			Kode for leveringsvilkår:
 				           			</p>
-				           			
+				           			<ul>
+				           				<c:forEach var="record" items="${model.incotermsCodeList}" >
+				           					<li><b>${record.klbkod}</b>&nbsp;${record.klbkt}</li>
+				           				</c:forEach>				           									           									           									           									           									           				
+				           			</ul>
 							</span>
 							</div>	
 							</td>	
 				            <td >
-				            	<input type="text" class="inputTextMediumBlue"  name="silv" id="silv" size="4" maxlength="3" value="${model.record.silv}">
+				            	<select class="inputTextMediumBlue" name="silv" id="silv">
+			 						<option value="">-velg-</option>
+					 				  	<c:forEach var="record" items="${model.incotermsCodeList}" >
+					 				  		<option value="${record.klbkod}"<c:if test="${model.record.silv == record.klbkod}"> selected </c:if> >${record.klbkod}</option>
+										</c:forEach>  
+								</select>
 							</td>
 							</tr>
 			 			
@@ -1070,7 +1090,7 @@
 								<td class="text12" ><span title="sibel1/sival1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beløp tollb.frakt</span></td>
 			 					<td class="text12">
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${model.record.sibel1NO}">
-			 						<select name="sival1" id="sival1">
+			 						<select class="inputTextMediumBlue" name="sival1" id="sival1">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
 					 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival1 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
@@ -1119,7 +1139,7 @@
 			 					
 			 					<td class="text12">
 			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2NO}">
-			 						<select name="sival2" id="sival2">
+			 						<select class="inputTextMediumBlue" name="sival2" id="sival2">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
 					 				  		<option value="${record.kvakod}"<c:if test="${ model.record.sival2 == record.kvakod}"> selected </c:if> >${record.kvakod}</option>

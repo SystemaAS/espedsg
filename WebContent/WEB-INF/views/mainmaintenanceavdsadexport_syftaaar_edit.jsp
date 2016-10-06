@@ -280,6 +280,11 @@
  					<b>1.1</b><span title="sedty">Dekl.type&nbsp;</span>
  					</td>
  					<td class="text12" >
+ 					<select class="inputTextMediumBlue" name="sedty" id="sedty" >
+		 				  <option value="">-velg-</option>
+						  <option value="EU"<c:if test="${model.record.sedty == 'EU'}"> selected </c:if> >EU</option>
+						  <option value="EX"<c:if test="${model.record.sedty == 'EX'}"> selected </c:if> >EX</option>
+					</select>
  					<input type="text" class="inputTextMediumBlue" name="sedty" id="sedty" size="4" maxlength="2" value="${model.record.sedty}">
  					
  					<div class="text11" style="position: relative;" align="left">
@@ -301,12 +306,18 @@
 		 				<b>1.2</b><span title="sedp">&nbsp;Eksped.type</span>
 		 			</td>
 		 			<td>	
-		 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="sedp" id="sedp" size="4" maxlength="2" value="${model.record.sedp}">
-			 			
+		 				<select class="inputTextMediumBlue" name="sedp" id="sedp" >
+		 				  <option value="">-velg-</option>
+			 				  	<c:forEach var="record" items="${Xmodel.ekspedisjonstyperExportCodeList}" >
+			 				  		<option value="${record.zkod}"<c:if test="${model.record.sedp == record.zkod}"> selected </c:if> >${record.zkod}</option>
+								</c:forEach>  
+						</select>
 			 			<div class="text11" style="position: relative;display:inline;" align="left">
 		 				<span style="position:absolute; top:5px; left:-130px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
 			           		<ul>
-			           			<li>todo</li>
+			           			<c:forEach var="record" items="${Xmodel.ekspedisjonstyperExportCodeList}" >
+			           			<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
+			           			</c:forEach>
 			           		</ul>
 						</span>
 						</div>
