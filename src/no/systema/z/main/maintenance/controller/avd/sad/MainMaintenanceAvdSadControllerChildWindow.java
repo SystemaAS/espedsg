@@ -40,9 +40,9 @@ import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodl01Container;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodl01Record;
-import no.systema.z.main.maintenance.service.sad.MaintMainTrkodl01Service;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodfRecord;
+import no.systema.z.main.maintenance.service.sad.MaintMainTrkodfService;
 
 
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
@@ -108,10 +108,10 @@ public class MainMaintenanceAvdSadControllerChildWindow {
 				return this.loginView;
 					
 			}else{
-				Collection<JsonMaintMainTrkodl01Record> list = new ArrayList<JsonMaintMainTrkodl01Record>();
+				Collection<JsonMaintMainTrkodfRecord> list = new ArrayList<JsonMaintMainTrkodfRecord>();
 				//prepare the access CGI with RPG back-end
 				
-				String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CODES_TRKODL01R_GET_LIST_URL;
+				String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CODES_TRKODFR_GET_LIST_URL;
 				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchCodes(appUser.getUser(), tkunik, tkkode);
 				logger.info("URL: " + BASE_URL);
 				logger.info("PARAMS: " + urlRequestParamsKeys);
@@ -121,10 +121,10 @@ public class MainMaintenanceAvdSadControllerChildWindow {
 				logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	if(jsonPayload!=null){
-		    		JsonMaintMainTrkodl01Container container = this.maintMainTrkodl01Service.getList(jsonPayload);
+		    		JsonMaintMainTrkodfContainer container = this.maintMainTrkodfService.getList(jsonPayload);
 		    		if(container!=null){
 		    			list = container.getList();
-		    			for(JsonMaintMainTrkodl01Record  record : list){
+		    			for(JsonMaintMainTrkodfRecord  record : list){
 		    				
 		    			}
 		    		}
@@ -171,12 +171,12 @@ public class MainMaintenanceAvdSadControllerChildWindow {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainTrkodl01Service")
-	private MaintMainTrkodl01Service maintMainTrkodl01Service;
+	@Qualifier ("maintMainTrkodfService")
+	private MaintMainTrkodfService maintMainTrkodfService;
 	@Autowired
 	@Required	
-	public void setMaintMainTrkodl01Service(MaintMainTrkodl01Service value){this.maintMainTrkodl01Service = value;}
-	public MaintMainTrkodl01Service getMaintMainTrkodl01Service(){ return this.maintMainTrkodl01Service; }
+	public void setMaintMainTrkodfService(MaintMainTrkodfService value){this.maintMainTrkodfService = value;}
+	public MaintMainTrkodfService getMaintMainTrkodfService(){ return this.maintMainTrkodfService; }
 	
 }
 

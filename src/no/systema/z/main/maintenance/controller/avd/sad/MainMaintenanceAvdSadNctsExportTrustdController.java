@@ -28,7 +28,7 @@ import no.systema.main.util.DateTimeManager;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.sad.MaintMainTrkodl01Service;
+import no.systema.z.main.maintenance.service.sad.MaintMainTrkodfService;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdService;
 import no.systema.z.main.maintenance.service.sad.MaintMainTrustdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
@@ -457,8 +457,8 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
 		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nealist");
 		//Code lists in NCTS domain
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodl01Service, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
 		//Borrowed from TVINN domain
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
 	}
@@ -524,12 +524,12 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
 	
-	@Qualifier ("maintMainTrkodl01Service")
-	private MaintMainTrkodl01Service maintMainTrkodl01Service;
+	@Qualifier ("maintMainTrkodfService")
+	private MaintMainTrkodfService maintMainTrkodfService;
 	@Autowired
 	@Required
-	public void setMaintMainTrkodl01Service (MaintMainTrkodl01Service value){ this.maintMainTrkodl01Service = value; }
-	public MaintMainTrkodl01Service getMaintMainTrkodl01Service(){ return this.maintMainTrkodl01Service; }
+	public void setMaintMainTrkodfService (MaintMainTrkodfService value){ this.maintMainTrkodfService = value; }
+	public MaintMainTrkodfService getMaintMainTrkodfService(){ return this.maintMainTrkodfService; }
 	
 	@Qualifier ("maintSadImportKodts4Service")
 	private MaintSadImportKodts4Service maintSadImportKodts4Service;

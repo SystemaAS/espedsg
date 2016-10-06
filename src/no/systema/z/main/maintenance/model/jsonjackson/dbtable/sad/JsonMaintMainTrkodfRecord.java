@@ -15,7 +15,7 @@ import no.systema.main.util.*;
  * @date Sep 21, 2016
  * 
  */
-public class JsonMaintMainTrkodl01Record extends JsonAbstractGrandFatherRecord {
+public class JsonMaintMainTrkodfRecord extends JsonAbstractGrandFatherRecord {
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	
 	private String tkunik = "";                             

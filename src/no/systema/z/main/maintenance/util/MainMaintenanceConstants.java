@@ -95,7 +95,7 @@ public final class MainMaintenanceConstants {
 	public static final String CODE_MGR_CODE_SAD_4_TRANSPORTMATER_LIST = "transportmaterCodeList";
 	public static final String CODE_MGR_CODE_NCTS_096_LIST = "ncts096_SpecOmst_CodeList";
 	public static final String CODE_MGR_CODE_NCTS_116_LIST = "ncts116_BetalningTransport_CodeList";
-	//CODE TABLE TRKODL01 (SAD-NCTS)
+	//CODE TABLE TRKODF (SAD-NCTS)
 	public static final String CODE_NCTS_SIKKERHET_096_SPES_OMSTAND = "096";
 	public static final String CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE = "116";
 	public static final String CODE_SAD_4_TRANSPORTMATE = "4";

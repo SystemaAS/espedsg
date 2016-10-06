@@ -60,8 +60,8 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYEDIIR.do";
 	
 	//SAD GENERAL CODES (Language, Country, Tollsted (tullkontor))
-	//http://gw.systema.no:8080/syjservicesbcore/syjsTRKODL01R.do?user=OSCAR
-	static public String MAINTENANCE_MAIN_BASE_CODES_TRKODL01R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODL01R.do";
+	//http://gw.systema.no:8080/syjservicesbcore/syjsTRKODFR.do?user=OSCAR
+	static public String MAINTENANCE_MAIN_BASE_CODES_TRKODFR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODFR.do";
 	
 	//----------------------------------
 	//[1] UPDATE DB record
@@ -102,7 +102,7 @@ public final class MaintenanceMainUrlDataStore {
 	//--------------------------
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFT02R_GET_CURRENCY_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT02R.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA61R.do";
-	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODL01R.do";
+	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODFR.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_SERVICESTN_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTS4R.do";
 	
 	
