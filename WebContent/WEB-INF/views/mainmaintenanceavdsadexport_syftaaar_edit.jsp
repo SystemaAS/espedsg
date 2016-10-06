@@ -892,23 +892,28 @@
 					            <span title="setrm" id="v_setrm" class="validation">Transportmåte ved grensen</span>
 					            <div class="text11" style="position: relative;" align="left">
 					            <span style="position:absolute; top:2px; width:250px;" id="25_info" class="popupWithInputText text11"  >
-					           			<b>25. Transportmåte</b>
-					           			<br/><br/>
-					           			Oppgi med kode transportmåten utpassering fra Norge.
-										Koden kan legges inn som standardverdi for avdelingen
-										<ul>
-										<%--
-				           				<c:forEach var="record" items="${model.transportmaterCodeList}" >
-				           					<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
-				           				</c:forEach>
-				           				 --%>				           									           									           									           									           									           				
-				           				</ul>
+					           			<b>25. Transp.måte ved utpass.</b>
+				           			<p>
+									Oppgi med kode transportmåten ved utpassering fra Norge.<br/>
+									Koden kan legges inn som standardverdi for avdelingen.
+									</p>		
+									<ul>
+				           				<c:forEach var="code" items="${model.transportmaterCodeList}" >
+					 				  		<li><b>${code.ks4trm}</b>&nbsp;${code.ks4ftx}</li>
+				 				  		</c:forEach>	
+				           			</ul>
 								</span>	
 								</div>
 								
 								</td>	
 					            <td class="text12" >
-					            	<input type="text" class="inputTextMediumBlue" name="setrm" id="setrm" size="4" maxlength="2" value="${model.record.setrm}">
+					            	<select class="inputTextMediumBlue" name="setrm" id="setrm">
+			 						<option value="">-velg-</option>
+				 				  	<c:forEach var="code" items="${model.transportmaterCodeList}" >
+				 				  		<option value="${code.ks4trm}"<c:if test="${model.record.setrm == code.ks4trm}"> selected </c:if> >${code.ks4trm}</option>
+									</c:forEach> 
+									</select>
+					            	
 			           			</td>
 							</tr>
 							
