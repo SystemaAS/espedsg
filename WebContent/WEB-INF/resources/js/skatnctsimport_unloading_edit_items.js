@@ -175,11 +175,11 @@
   	jq(function() { 
 	    jq('#nvvktb').blur(function() {
 		  //init field(s)
-	    	  var grossWeight = jq('#nvvktb').val().replace(".","");
-	    	  grossWeight = grossWeight.replace(",",".");
+    	  var grossWeight = jq('#nvvktb').val().replace(".","");
+    	  grossWeight = grossWeight.replace(",",".");
 	    	  
-		  var netWeight = jq('#nvvktn').val("");
-		  if(netWeight!=null){
+		  var netWeight = jq('#nvvktn').val();
+		  if(jq('#nvvktn').val()=='' ){
 			  var netWeightRaw = Math.round(grossWeight * 0.8);
 			  jq('#nvvktn').val(netWeightRaw);
 		  }
