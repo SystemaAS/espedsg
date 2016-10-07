@@ -123,25 +123,25 @@
 									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTBRREG" class="popupPlain"  >
 									           		<div align="center">
 									           			<table border = "0">
+															<tr>
+																<td align="left" class="text10"><i>Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av:</i><br/>
+																	<img src="http://scf.brreg.no/bilder/brreg_logo.svg" width="150px" height="25px" align="left">
+																</td>
+															</tr>
 									           				<tr>
 																<td align="left" class="text12" >
-																	<b>Kundedata kontroll</b>, validerer alle kunder mot åpne data fra Brønnøysundregisteret.<br/>
-																	<br/>Kontroll skjer med oppslag mot <b>Brønnøysundregisterets</b> data i Enhetsregisteret.
-																	Informasjon som kontrolleres:
-																	<br/>- Organisasjonsnummer
-																	<br/>- Under konkursbehandling
-																	<br/>- Merverdiavgiftsregisteret
-																	<br/>- Under avvikling
-																	<br/>- Tvangsavvikling/tvangsoppløsning
+																	<br/><b>Kundedata kontroll</b>, validerer alle kunder mot åpne data fra Enhetsregisteret.<br/>
+																	Resultatet er en liste over kunder, hvor:
+																	<br/>- Organisasjonsnummer ikke finnes
+																	<br/>- Er i konkurs
+																	<br/>- Ikke registrert i Merverdiavgiftsregisteret
+																	<br/>- Er under avvikling
+																	<br/>- Er under tvangsavvikling/tvangsoppløsning
 																</td>
 															</tr>
 															<tr>
 																<td align="left" class="text12">
-																	<br/><b>Note:</b> Utførelse av denne funksjonen kan ta litt tid.</tr>
-																</td>
-															<tr>
-																<td align="left" class="text10"><i>Powered by:</i><br/>
-																	<img src="http://scf.brreg.no/bilder/brreg_logo.svg" width="150px" height="25px" align="left">
+																	<br/><b>Note:</b> Utførelse av denne funksjonen kan ta litt tid.
 																</td>
 															</tr>
 									           		</table>

@@ -157,7 +157,7 @@
 				 		<tr>
 				 			<td >
 				 				<ul class="isa_error text12" >
-                                    <li>[ERROR on Update] - Server return code: ${model.errorMessage}</li>                                    
+                                    <li>${model.errorMessage}</li>                                    
                                 </ul>
 				 			</td>
 						</tr>
@@ -166,8 +166,6 @@
 			</tr>
 			<tr height="2"><td>&nbsp;</td></tr>
 			</c:if>
-
-			</tr>
 			<tr >
 				<td width="5%">&nbsp;</td>
 				<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
@@ -281,14 +279,11 @@
 							</td>
 						</tr>
 						<tr>
-						<td>
-							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
-						</td>
+							<td>
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+							</td>
 						</tr>
-						<tr height="3"><td></td>
-						
-						
-						
+						<tr height="3"><td></td></tr>
 						
 					</table>
 	 	    	</form>

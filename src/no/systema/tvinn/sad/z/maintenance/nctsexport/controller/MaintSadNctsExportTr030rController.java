@@ -150,6 +150,10 @@ public class MaintSadNctsExportTr030rController {
 					model.put("dbTable", dbTable);
 					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					if(updateId!=null && !"".equals(updateId)){
+						//meaning bounced in an Update and not a Create new
+						model.put("updateId", updateId);
+					}
 				}
 				
 			}
@@ -223,15 +227,21 @@ public class MaintSadNctsExportTr030rController {
     	if(jsonPayload!=null){
 			//lists
     		JsonMaintNctsTrughContainer container = this.maintNctsExportTrughService.doUpdate(jsonPayload);
+    		logger.info("container.getErrMsg()="+container.getErrMsg());
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	 //       		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
 	        			errMsg.append(container.getErrMsg());
 	        			retval = TvinnSadMaintenanceConstants.ERROR_CODE;
-	        		}
+	//        		}
 	        	}
 	        }
     	}
+    	
+    	
+    	logger.info("errMsg="+errMsg.toString());
+    	logger.info("retval="+retval);
+    	
     	return retval;
 	}
 	
