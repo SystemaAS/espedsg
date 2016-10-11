@@ -168,7 +168,7 @@
 						<tr height="5"><td></td></tr>
 			    	    
 						<tr>
-							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning 
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdeling 
 								<a tabindex="-1" id="s0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>

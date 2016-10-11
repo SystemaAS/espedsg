@@ -209,11 +209,11 @@
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlueMandatoryField" name="s3039e" id="s3039e" size="6" maxlength="6" value='${model.record.s3039e}'>
 							</td>	
-							<td class="text12" title="s3039eo1">SO:</td>
+							<td class="text12" title="s3039eo1">Statistisk Oppretting:</td>
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo1" id="s3039eo1" size="6" maxlength="6" value='${model.record.s3039eo1}'>
 							</td>
-							<td class="text12" title="s3039eo2">EB/RE:</td>
+							<td class="text12" title="s3039eo2">Etterberegning/Refusjon:</td>
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo2" id="s3039eo2" size="6" maxlength="6" value='${model.record.s3039eo2}'>
 							</td>
@@ -237,7 +237,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning 
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdeling 
 								<a tabindex="-1" id="s0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>

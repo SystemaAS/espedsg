@@ -197,6 +197,7 @@
 						<tr><td colspan="2" class="text12"><b>Kommunikasjon </b><font class="text11" >&nbsp;( Kun hvis kommunikasjonen er valgt )</font></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    <tr>
+			    	    	<%-- OBSOLETE ? AS400 SCREEN ... ta en titt
 							<td class="text12" title="todo">Vente med å skrive ut melding </td>
 							<td class="text12">
 								<select name="todo" id="todo" class="inputTextMediumBlue">
@@ -205,15 +206,16 @@
 				  					<option value="N"<c:if test="${ XXmodel.record.X == 'N'}"> selected </c:if> >Nei</option>
 							  	</select>
 							</td>
+							 --%>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlueMandatoryField" name="s3039e" id="s3039e" size="6" maxlength="6" value='${model.record.s3039e}'>
 							</td>	
-							<td class="text12" title="s3039eo1">SO:</td>
+							<td class="text12" title="s3039eo1">Statistisk Oppretting:</td>
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo1" id="s3039eo1" size="6" maxlength="6" value='${model.record.s3039eo1}'>
 							</td>
-							<td class="text12" title="s3039eo2">EB/RE:</td>
+							<td class="text12" title="s3039eo2">Etterberegning/Refusjon:</td>
 							<td class="text12">
 								<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="s3039eo2" id="s3039eo2" size="6" maxlength="6" value='${model.record.s3039eo2}'>
 							</td>
@@ -237,7 +239,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdelning 
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdeling 
 								<a tabindex="-1" id="s0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
@@ -285,7 +287,6 @@
 						  <option value="EU"<c:if test="${model.record.sedty == 'EU'}"> selected </c:if> >EU</option>
 						  <option value="EX"<c:if test="${model.record.sedty == 'EX'}"> selected </c:if> >EX</option>
 					</select>
- 					<input type="text" class="inputTextMediumBlue" name="sedty" id="sedty" size="4" maxlength="2" value="${model.record.sedty}">
  					
  					<div class="text11" style="position: relative;" align="left">
  					<span style="position:absolute; top:2px; width:250px;" id="1_1_info" class="popupWithInputText text11"  >
@@ -308,15 +309,15 @@
 		 			<td>	
 		 				<select class="inputTextMediumBlue" name="sedp" id="sedp" >
 		 				  <option value="">-velg-</option>
-			 				  	<c:forEach var="record" items="${Xmodel.ekspedisjonstyperExportCodeList}" >
-			 				  		<option value="${record.zkod}"<c:if test="${model.record.sedp == record.zkod}"> selected </c:if> >${record.zkod}</option>
+			 				  	<c:forEach var="record" items="${model.ekspedisjonstyperExportCodeList}" >
+			 				  		<option value="${record.ks9typ}"<c:if test="${model.record.sedp == record.ks9typ}"> selected </c:if> >${record.ks9typ}</option>
 								</c:forEach>  
 						</select>
 			 			<div class="text11" style="position: relative;display:inline;" align="left">
-		 				<span style="position:absolute; top:5px; left:-130px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
+		 				<span style="position:absolute; top:5px; left:-130px;" id="prosedyr_info" class="popupWithInputText text11">
 			           		<ul>
-			           			<c:forEach var="record" items="${Xmodel.ekspedisjonstyperExportCodeList}" >
-			           			<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
+			           			<c:forEach var="record" items="${model.ekspedisjonstyperExportCodeList}" >
+			           			<li><b>${record.ks9typ}</b>&nbsp;${record.ks9ftx}</li>
 			           			</c:forEach>
 			           		</ul>
 						</span>
@@ -1006,12 +1007,22 @@
 				           			<p>
 				           			Kode for leveringsvilkår:
 				           			</p>
+				           			<ul>
+				           				<c:forEach var="record" items="${model.incotermsCodeList}" >
+				           					<li><b>${record.klbkod}</b>&nbsp;${record.klbkt}</li>
+				           				</c:forEach>				           									           									           									           									           									           				
+				           			</ul>
 				           			
 							</span>
 							</div>	
 							</td>	
 				            <td >
-				            	<input type="text" class="inputTextMediumBlue"  name="selv" id="selv" size="4" maxlength="3" value="${model.record.selv}">
+				            	<select class="inputTextMediumBlue" name="selv" id="selv">
+			 						<option value="">-velg-</option>
+					 				  	<c:forEach var="record" items="${model.incotermsCodeList}" >
+					 				  		<option value="${record.klbkod}"<c:if test="${model.record.selv == record.klbkod}"> selected </c:if> >${record.klbkod}</option>
+										</c:forEach>  
+								</select>
 							</td>
 							</tr>
 			 			

@@ -95,6 +95,7 @@ public final class MainMaintenanceConstants {
 	public static final String CODE_MGR_CODE_SAD_4_TRANSPORTMATER_LIST = "transportmaterCodeList";
 	public static final String CODE_MGR_CODE_SAD_INCOTERMS_LIST = "incotermsCodeList";
 	public static final String CODE_MGR_CODE_SAD_IMPORT_EKSPEDTYPER_LIST = "ekspedisjonstyperImportCodeList";
+	public static final String CODE_MGR_CODE_SAD_EXPORT_EKSPEDTYPER_LIST = "ekspedisjonstyperExportCodeList";
 	
 	
 	public static final String CODE_MGR_CODE_NCTS_096_LIST = "ncts096_SpecOmst_CodeList";

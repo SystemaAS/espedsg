@@ -38,6 +38,8 @@ import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts9Service;
+
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
@@ -218,6 +220,8 @@ public class MainMaintenanceAvdSadExportStandeController {
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
 		//Incoterms
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad012Incoterms (this.urlCgiProxyService, this.maintSadImportKodtlbService, model, applicationUser);
+		//
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002EkspedtyperExport(urlCgiProxyService, this.maintSadImportKodts9Service, model, applicationUser);
 	}
 	
 	/**
@@ -386,6 +390,14 @@ public class MainMaintenanceAvdSadExportStandeController {
 	@Required
 	public void setMaintSadImportKodtsiService (MaintSadImportKodtlbService value){ this.maintSadImportKodtlbService = value; }
 	public MaintSadImportKodtlbService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtlbService; }
+	
+	@Qualifier ("maintSadImportKodts9Service")
+	private MaintSadImportKodts9Service maintSadImportKodts9Service;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodts9Service (MaintSadImportKodts9Service value){ this.maintSadImportKodts9Service = value; }
+	public MaintSadImportKodts9Service getMaintSadImportKodts1Service(){ return this.maintSadImportKodts9Service; }
+	
 	
 
 }

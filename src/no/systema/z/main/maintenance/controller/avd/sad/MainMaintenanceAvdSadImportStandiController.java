@@ -41,6 +41,7 @@ import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts1Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts9Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
@@ -221,8 +222,8 @@ public class MainMaintenanceAvdSadImportStandiController {
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
 		//Incoterms
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad012Incoterms (this.urlCgiProxyService, this.maintSadImportKodtlbService, model, applicationUser);
-		//EkspedTyper
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002Ekspeditionstyper(urlCgiProxyService, maintSadImportKodts1Service, model, applicationUser) ;
+		//EkspedTyper (IMP)
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002EkspedtyperImport(urlCgiProxyService, maintSadImportKodts1Service, model, applicationUser) ;
 	}
 	
 	/**
@@ -399,6 +400,7 @@ public class MainMaintenanceAvdSadImportStandiController {
 	@Required
 	public void setMaintSadImportKodts1Service (MaintSadImportKodts1Service value){ this.maintSadImportKodts1Service = value; }
 	public MaintSadImportKodts1Service getMaintSadImportKodts1Service(){ return this.maintSadImportKodts1Service; }
+	
 	
 
 }

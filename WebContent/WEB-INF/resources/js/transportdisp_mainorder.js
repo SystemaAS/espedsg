@@ -358,9 +358,18 @@
 			  		jq("#file").addClass( "isa_success" );
 			  		jq("#file").removeClass( "isa_error" );
 			  	}
-			  	jq.unblockUI();
 			  	//response to end user 
 			  	alert(data);
+			  	if(data.indexOf('[OK') == 0) {
+				  	var trip = '';
+				  	var avd = jq("#wsavd").val();
+				  	var opd = jq("#wsopd").val();
+				  	//reload
+				  	reloadCallerParentOrder('',avd,opd);
+			  	}
+			  	//unblock
+			  	jq.unblockUI();
+			  	
 			  	
 	  		  }
 	  	  }, 
