@@ -28,16 +28,15 @@ public class MaintNctsExportTr030rValidator implements Validator {
 		JsonMaintNctsTrughRecord record = (JsonMaintNctsTrughRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggnr", "", "Garantinr er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtina", "", "Foretagsnr er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtina", "", "Organisasjonnr er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgnaa", "", "Navn er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgpna", "", "Postnr. er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgpsa", "", "Postadr. er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tglka", "", "Landkode er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtsd", "", "Garantitoldkont. er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgtsd", "", "Garanti tollsted er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggty", "", "Garantityp er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgakny", "", "Ny tillg.kode er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgakgm", "", "Gml. tillg.kode er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggbl", "", "Garantibeløb er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tgakny", "", "Adgangskode er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggbl", "", "Garantibeløp er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tggvk", "", "Valuta er obligatorisk"); 
 		
 		

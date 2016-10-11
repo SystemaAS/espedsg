@@ -34,9 +34,13 @@
 			jq('#tggblb').val("");
 			jq('#tggvk').val("");
 			jq('#tgprm').val("");
+			jq('#tgst').val("");
 			
 			//for update
 			jq('#updateId').val("");
+			
+	  		jq("#editRowTable").find("*").attr("disabled", false);
+
 		});
   }); 
 
@@ -62,46 +66,122 @@
   	  contentType: 'application/json',
   	  success: function(data) {
 	  	var len = data.length;
+	  	
   		for ( var i = 0; i < len; i++) {
-  			
-  			jq('#tggnr').val("");jq('#tggnr').val(data[i].tggnr);
-  			jq("#tggnr").prop("readonly", true);
-  			jq("#tggnr").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#tggnr").addClass("inputTextReadOnly");
-  			
-  			
-  			//rest of the gang
-  			jq('#tgkna').val("");jq('#tgkna').val(data[i].tgkna);
-			jq('#tgtina').val("");jq('#tgtina').val(data[i].tgtina);
-			jq('#tgnaa').val("");jq('#tgnaa').val(data[i].tgnaa);
-			jq('#tgada1').val("");jq('#tgada1').val(data[i].tgada1);
-			jq('#tgpna').val("");jq('#tgpna').val(data[i].tgpna);
-			jq('#tgpsa').val("");jq('#tgpsa').val(data[i].tgpsa);
-			jq('#tglka').val("");jq('#tglka').val(data[i].tglka);
-			//Garanti
-			jq('#tgtsd').val("");jq('#tgtsd').val(data[i].tgtsd);
-			jq('#tggty').val("");jq('#tggty').val(data[i].tggty);
-			jq('#tggfv').val("");jq('#tggfv').val(data[i].tggfv);
-			jq('#tgakny').val("");jq('#tgakny').val(data[i].tgakny);
-			jq('#tgakgm').val("");jq('#tgakgm').val(data[i].tgakgm);
-			jq('#tggbl').val("");jq('#tggbl').val(data[i].tggbl);
-			jq('#tggblb').val("");jq('#tggblb').val(data[i].tggblb);
-			jq('#tggvk').val("");jq('#tggvk').val(data[i].tggvk);
-			jq('#tgprm').val("");jq('#tgprm').val(data[i].tgprm);
-			
-  			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].tggnr);
-
+ 				
+	  			jq('#tggnr').val("");jq('#tggnr').val(data[i].tggnr);
+	  			jq("#tggnr").prop("readonly", true);
+	  			jq("#tggnr").removeClass("inputTextMediumBlueMandatoryField");
+	  			jq("#tggnr").addClass("inputTextReadOnly");
+	  			
+	  			//rest of the gang
+	  			jq('#tgkna').val("");jq('#tgkna').val(data[i].tgkna);
+				jq('#tgtina').val("");jq('#tgtina').val(data[i].tgtina);
+				jq('#tgnaa').val("");jq('#tgnaa').val(data[i].tgnaa);
+				jq('#tgada1').val("");jq('#tgada1').val(data[i].tgada1);
+				jq('#tgpna').val("");jq('#tgpna').val(data[i].tgpna);
+				jq('#tgpsa').val("");jq('#tgpsa').val(data[i].tgpsa);
+				jq('#tglka').val("");jq('#tglka').val(data[i].tglka);
+				//Garanti
+				jq('#tgtsd').val("");jq('#tgtsd').val(data[i].tgtsd);
+				jq('#tggty').val("");jq('#tggty').val(data[i].tggty);
+				jq('#tggfv').val("");jq('#tggfv').val(data[i].tggfv);
+				jq('#tgakny').val("");jq('#tgakny').val(data[i].tgakny);
+				jq('#tgakgm').val("");jq('#tgakgm').val(data[i].tgakgm);
+				jq('#tggbl').val("");jq('#tggbl').val(data[i].tggbl);
+				jq('#tggblb').val("");jq('#tggblb').val(data[i].tggblb);
+				jq('#tggvk').val("");jq('#tggvk').val(data[i].tggvk);
+				jq('#tgprm').val("");jq('#tgprm').val(data[i].tgprm);
+				jq('#tgst').val("");jq('#tgst').val(data[i].tgst);
+	
+	  			//for a future update
+	  			jq('#updateId').val("");jq('#updateId').val(data[i].tggnr);
+	  			
+ 				
   		}
+  		
+  		
+		if(jq('#tgst').val() =='S'){  //Soft deleted
+ 	  			
+	  		jq("#editRowTable").find("*").attr("disabled", true);
+	  				
+	  	} else {
+	  
+	  		jq("#editRowTable").find("*").attr("disabled", false);
+	  				
+	  	}
+ 		
   	  }, 
+ 
   	  error: function() {
   		  alert('Error loading ...');
   	  }
+
 	});
-		
+	
   }
  
-			
+
+jq(function() { 
+    jq('#tgkna').blur(function() {
+    		var customerNr = jq('#tgkna').val();
+    		var orgNr =  jq('#tgtina').val();
+    		var name = jq('#tgnaa').val();
+		    var address = jq('#tgada1').val();
+		    
+    		if(customerNr!="" && (orgNr=='' && name=='' && address=='')){
+	    		jq.getJSON('searchCustomer_TvinnSadNcts.do', {
+				applicationUser : jq('#applicationUser').val(),
+				customerNumber : jq('#tgkna').val(),
+				ajax : 'true'
+			}, function(data) {
+				//alert("Hello, data fetched");
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					//html += '<option value="' + data[i].kundnr + '">' + data[i].knavn + '</option>';
+					customer = new Object();
+					customer.kundnr = data[i].kundnr;
+					customer.knavn = data[i].knavn;
+					customer.eori = data[i].eori;
+					customer.adr1 = data[i].adr1;
+					customer.adr2 = data[i].adr2;
+					customer.adr3 = data[i].adr3;
+					customer.postnr = data[i].postnr;
+					customer.syrg = data[i].syrg;
+					customer.tlf = data[i].tlf;
+					customer.syland = data[i].syland;
+				  	//put the object in map now with customerNumber as key
+					//map[customer.kundnr] = customer;
+				}
+				if(len > 0){
+					jq('#tgtina').val(customer.syrg);
+					jq('#tgnaa').val(customer.knavn);
+					jq('#tgada1').val(customer.adr1);
+					jq('#tgpna').val(customer.postnr);
+					jq('#tgpsa').val(customer.adr3);
+					jq('#tglka').val(customer.syland);
+				}else{
+					//init fields
+					jq('#tgtina').val("");
+					jq('#tgnaa').val("");
+					jq('#tgada1').val("");
+					jq('#tgpna').val("");
+					jq('#tgpsa').val("");
+					jq('#tglka').val("");
+					
+				}
+			});
+    		}
+	});
+}); 
+  
+  
+  
+  
+  
+  
+  
+  
   //-------------------
   //Datatables jquery
   //-------------------

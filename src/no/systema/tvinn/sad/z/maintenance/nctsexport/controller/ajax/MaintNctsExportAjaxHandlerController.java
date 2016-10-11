@@ -3,6 +3,7 @@ package no.systema.tvinn.sad.z.maintenance.nctsexport.controller.ajax;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,6 +25,8 @@ import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.J
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrughRecord;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrughService;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 
 
 /**
@@ -51,6 +54,24 @@ public class MaintNctsExportAjaxHandlerController {
 		return (List) this.fetchSpecificTr030r(applicationUser, id);
 	}
 	
+	/**
+	 * Primary used in ajax-call as support for user when register Garantiref. 
+	 * Getting kundedata
+	 * 
+	 * @param applicationUser
+	 * @param id, kundnr
+	 * @return 
+	 */
+	@RequestMapping(value = "searchCustomer_TvinnSadNcts.do", method = RequestMethod.GET)
+	public @ResponseBody List<JsonMaintNctsTrughRecord> searchCustomer(@RequestParam String applicationUser, @RequestParam String customerNumber) {
+		final String METHOD = "[DEBUG] searchCustomer_TvinnSadNcts ";
+		logger.info(METHOD + " applicationUser" + applicationUser + "id=" + customerNumber);
+		List<JsonMaintMainCundfRecord> result = new ArrayList();
+		// get table
+		return (List) this.fetchSpecificCustomer(applicationUser, customerNumber);
+	}
+	
+	
 	
 	private Collection<JsonMaintNctsTrughRecord> fetchSpecificTr030r(String applicationUser, String tggnr){
 		String BASE_URL = TvinnNctsMaintenanceExportUrlDataStore.TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR030R_GET_LIST_URL;
@@ -68,6 +89,31 @@ public class MaintNctsExportAjaxHandlerController {
     	return list;
 	}	
 		
+
+	private Collection<JsonMaintMainCundfRecord> fetchSpecificCustomer(String applicationUser, String kundnr){
+		String BASE_URL = TvinnNctsMaintenanceExportUrlDataStore.TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR030R_GET_CUSTOMER_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kundnr=" + kundnr;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintMainCundfRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+ 
+    		JsonMaintMainCundfContainer container = this.maintNctsExportTrughService.getCustomer(jsonPayload);
+    		list=  (List<JsonMaintMainCundfRecord>) container.getList();
+    		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+				JsonMaintMainCundfRecord jsonMaintMainCundfRecord = (JsonMaintMainCundfRecord) iterator.next();
+				logger.info("jsonMaintMainCundfRecord="+jsonMaintMainCundfRecord.toString());
+				
+			}
+    		
+    	}
+    	return list;
+	}		
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

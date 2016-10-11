@@ -5,6 +5,8 @@ package no.systema.tvinn.sad.z.maintenance.nctsexport.service;
 
 import no.systema.tvinn.sad.z.maintenance.nctsexport.mapper.jsonjackson.dbtable.MaintNctsExportTrughMapper;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrughContainer;
+import no.systema.z.main.maintenance.mapper.jsonjackson.dbtable.MaintMainCundfMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 
 /**
  * 
@@ -14,9 +16,8 @@ import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.J
  * 
  */
 public class MaintNctsExportTrughServiceImpl implements MaintNctsExportTrughService {
-	/**
-	 * 
-	 */
+
+	@Override
 	public JsonMaintNctsTrughContainer getList(String utfPayload) {
 		JsonMaintNctsTrughContainer container = null;
 		try{
@@ -29,11 +30,8 @@ public class MaintNctsExportTrughServiceImpl implements MaintNctsExportTrughServ
 		return container;
 		
 	}
-	/**
-	 * 
-	 * @param utfPayload
-	 * @return
-	 */
+	
+	@Override
 	public JsonMaintNctsTrughContainer doUpdate(String utfPayload) {
 		JsonMaintNctsTrughContainer container = null;
 		try{
@@ -45,6 +43,19 @@ public class MaintNctsExportTrughServiceImpl implements MaintNctsExportTrughServ
 		
 		return container;
 		
+	}
+	@Override
+	public JsonMaintMainCundfContainer getCustomer(String utfPayload) {
+		JsonMaintMainCundfContainer container =  null;
+		
+		try {
+			MaintMainCundfMapper mapper = new MaintMainCundfMapper();
+			container = mapper.getContainer(utfPayload);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return container;
 	}
 
 }

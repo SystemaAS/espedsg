@@ -72,14 +72,12 @@
 							<thead>
 							<tr>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Garanti nr.&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Garantinr.&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Tollsted&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Send dato&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Organisasjonnr.&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Adgandskode&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Status&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Foretagsnr.&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Ny Adg.kode&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Gml. Adg.kode&nbsp;</th>
-								<th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -91,16 +89,18 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tggnr}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgtsd}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgdtNO}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgst}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgtina}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgakny}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tgakgm}&nbsp;</font></td>
-				               
-				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="tvinnsadmaintenance_nctsexport_tr030r_edit.do?action=doDelete&id=${model.dbTable}&tggnr=${record.tggnr}">
-					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
-					               	</a>
-				               </td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+		                       		<c:choose> 
+			    					<c:when test="${record.tgst=='S'}">
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;INAKTIV&nbsp;</font>
+		                       		</c:when>
+		                       		<c:otherwise>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;AKTIV&nbsp;</font>
+		                       		</c:otherwise>
+		                       		</c:choose>
+		                       </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
@@ -110,11 +110,9 @@
 								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGGNR</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGTSD&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGDT&nbsp;</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGST&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGTINA&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGAKNY&nbsp;</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGAKGM&nbsp;</th>
-			                    <th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
+			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGST&nbsp;</th>
 			                </tr>  
 			                </tfoot> 
 			            </table>
@@ -179,18 +177,18 @@
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
 					
-					<table class="tableHeaderField" width="98%" cellspacing="1" border="0" align="left">
+					<table id="editRowTable" class="tableHeaderField" width="98%" cellspacing="1" border="0" align="left" border="1">
 						<tr height="5"><td>&nbsp;</td></tr>
 						<tr>
 							<%-- LEFT CELL --%>
 							<td width="50%" valign="top">
 								<table width="100%" cellspacing="1" border="0" align="left">
 									<tr>
-										<td class="text12" title="tgkna">&nbsp;Hovedansvarlig</td>
+										<td class="text12" title="tgkna">&nbsp;Hovedansvarlig, kundenr.</td>
 										<td ><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tgkna" id="tgkna" size="9" maxlength="8" value='${model.record.tgkna}'></td>
 									</tr>
 									<tr>	
-										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Foretaks nr.</td>
+										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Organisasjonsnr.</td>
 										<td ><input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}'></td>
 									</tr>
 									<tr>
@@ -241,12 +239,12 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" title="tgakny">&nbsp;<font class="text14RedBold" >*</font>Ny adg.kode:</td>
+										<td class="text12" title="tgakny">&nbsp;<font class="text14RedBold" >*</font>Adgangskode:</td>
+										
 										<td class="text12" >
 											<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgakny" id="tgakny" size="5" maxlength="4" value='${model.record.tgakny}'>
-											&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="tgakgm">Gml. adg.kode:</span>
-											<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgakgm" id="tgakgm" size="5" maxlength="4" value='${model.record.tgakgm}'>
 										</td>
+										
 									</tr>
 									<tr>
 										<td class="text12" title="tggbl">&nbsp;<font class="text14RedBold" >*</font>Garanti beløp:</td>
@@ -274,7 +272,17 @@
 											<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tgprm" id="tgprm" size="4" maxlength="3" value='${model.record.tgprm}'>
 											&nbsp;<font class="text11">(Ved over X % er brukt opp)</font>
 										</td>
+										
 									</tr>	
+									<tr>
+										<td class="text12" title="tgst">&nbsp;Status:</td>
+										<td class="text12" >
+											<select name="tgst" id="tgst" >
+							  					<option value="S"<c:if test="${model.record.tgst == 'S'}"> selected </c:if> >INAKTIV</option>
+							  					<option value=""<c:if test="${empty model.record.tgst}"> selected </c:if> >AKTIV</option>
+							  				</select>
+										</td>
+									</tr>
 								</table>
 							</td>
 						</tr>
