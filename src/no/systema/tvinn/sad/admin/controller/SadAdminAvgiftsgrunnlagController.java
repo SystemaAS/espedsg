@@ -316,8 +316,9 @@ public class SadAdminAvgiftsgrunnlagController {
 		//String action = request.getParameter("action");
 		
 		//Adjust dates NO to ISO
-		searchFilter.setFromDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getFromDate(), "ddmmyy"));
-		searchFilter.setToDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getToDate(), "ddmmyy"));
+		searchFilter.setFromDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getFromDate(), "ddMMyy"));
+		searchFilter.setToDate(this.dateTimeMgr.getDateFormatted_ISO(searchFilter.getToDate(), "ddMMyy"));
+		
 		
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
 		if(searchFilter.getAvggCustomerId()!=null && !"".equals(searchFilter.getAvggCustomerId())){
