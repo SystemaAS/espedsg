@@ -96,8 +96,9 @@
   	
   	//this drag function is used when the list of current order LIST on allocated TRIP is the TARGET of a drag and not the source
     function dropX(ev) {
-	    ev.preventDefault();
-	    jq("#"+ev.target.id).removeClass('isa_blue');
+    	ev.preventDefault();
+    	
+    	jq("#"+ev.target.id).removeClass('isa_blue');
 	    
 	    var data = ev.dataTransfer.getData("text");
 	    //alert(data);
@@ -132,6 +133,7 @@
 	    }
 	    //N/A
 	    //ev.target.appendChild(document.getElementById(data));
+	    
 	}
     //Connect order with trip
   	//if = OK then go to trip list (GUI)
@@ -150,6 +152,7 @@
 		  		if(len==1){
 			  		//update = OK
 		  			reloadParentTrip(trip,avd,opd);
+		  			
 		  		}else{
 		  			//update != OK
 		  			alert("Error on order update [addTripToOrder_TransportDisp.do]...?");
@@ -348,7 +351,10 @@
 	  var hepro = record[0];
 	  var heavd = record[1];
 	  var heopd = record[2];
-	  hepro = hepro.replace("hepro_",""); heavd = heavd.replace("heavd_",""); heopd = heopd.replace("heopd_","");
+	  hepro = hepro.replace("hepro_",""); 
+	  heavd = heavd.replace("heavd_",""); 
+	  heopd = heopd.replace("heopd_","");
+	  //request till Ajax
 	  var requestString = "&heavd="+ heavd + "&heopd=" + heopd;
 	  //DEBUG --> 
 	  //alert(requestString);
@@ -385,7 +391,7 @@
 	  			}else{
 	  				//proceed to the redirect for validate=OK
 	  				jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	  				window.location = "transportdisp_mainorder.do?user=" + jq('#applicationUser').val() + "&heavd=" + heavd + "&heopd=" + heopd;
+	  				window.location = "transportdisp_mainorder.do?user=" + jq('#applicationUser').val() + "&hepro=" + hepro + "&heavd=" + heavd + "&heopd=" + heopd;
 	  			}
 	  		}
 	  	  },

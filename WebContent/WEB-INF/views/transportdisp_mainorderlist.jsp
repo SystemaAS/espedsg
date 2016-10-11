@@ -477,10 +477,20 @@
             		   
             		   <td class="text11MediumBlue" style="width: 110px;" >
 			           		<div id="davd${record.heavd}_dopd${record.heopd}_linkcontainer${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
-			           		<a style="cursor:pointer;" id="hepro_${searchFilter.tur}@heavd_${record.heavd}@heopd_${record.heopd}@alinkOpenOrdersListId_${counter.count}" onClick="goToSpecificOrder(this);">
-    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-    		    				<font class="text11MediumBlue">${record.heavd}/${record.heopd}</font>
-    		    			</a>
+			           		<c:choose>
+				           		<c:when test="${empty searchFilter.tur && not empty searchFilter.opd}">
+					           		<a style="cursor:pointer;" id="hepro_${record.hepro}@heavd_${record.heavd}@heopd_${record.heopd}@alinkOpenOrdersListId_${counter.count}" onClick="goToSpecificOrder(this);">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				<font class="text11MediumBlue">${record.heavd}/${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:when>
+	    		    			<c:otherwise>
+	    		    				<a style="cursor:pointer;" id="hepro_${searchFilter.tur}@heavd_${record.heavd}@heopd_${record.heopd}@alinkOpenOrdersListId_${counter.count}" onClick="goToSpecificOrder(this);">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				<font class="text11MediumBlue">${record.heavd}/${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:otherwise>
+    		    			</c:choose>
     		    			</div>
 			           </td>
 			           <c:if test="${empty searchFilter.tur}">
