@@ -37,6 +37,35 @@
 	    
 	    var data = ev.dataTransfer.getData("text");
 	    //DEBUG alert(data);
+	    
+	    var record = data.split("@");
+	    var opd = record[1].replace("opd_","");
+	    var existentTripNr = record[2].replace("tripnr_","");
+	    
+	    //meaning the trip is valid (valid opd and no trip previously attached)
+	    if(opd.indexOf("_") == -1 && existentTripNr == ""){ 
+		    //DEBUG alert("event.target.id:" + event.target.id);
+		    //get target ids
+		    var recordTarget;var avd; var trip;
+		    if( (event.target.id.indexOf("onlist") > -1) || (event.target.id.indexOf("onlistA") > -1) ){ //meaning droping in the trip on list
+		    	recordTarget = event.target.id.split("_");
+		    	avd = recordTarget[0].replace("dtuavd","");
+		    	trip = recordTarget[1].replace("dtupro","");
+		    }else{ //dropping in the form area
+		    	avd = jq("#tuavd").val();
+		    	trip = jq("#tupro").val();
+		    }
+		    //DEBUG alert(trip + "XX" + avd + "XX" + opd);
+		    if(trip!='' && avd!='' && opd!=''){
+		    	setTripOnOrder(trip, avd, opd);
+		    }else{
+		    	alert("Ordre/tur/avd mangler?");
+		    }
+	    }else{
+	    	alert("Ordre har tur:" + existentTripNr + " allerede");
+	    }
+	    
+	    /*
 	    var record = data.split("@");
 	    var opd = record[1].replace("opd_","");
 	    var existentTripNr = record[2].replace("tripnr_","");
@@ -46,7 +75,7 @@
 		    //DEBUG alert(event.target.id);
 		    //get target ids
 		    var recordTarget;var avd; var trip;
-		    if(event.target.id.indexOf("onlist") > -1){ //meaning droping in the trip on list
+		    if( (event.target.id.indexOf("onlist") > -1) || (event.target.id.indexOf("onlistA") > -1) ){ //meaning droping in the trip on list
 		    	recordTarget = event.target.id.split("_");
 		    	avd = recordTarget[0].replace("dtuavd","");
 		    	trip = recordTarget[1].replace("dtupro","");
@@ -65,6 +94,7 @@
 	    }
 	    //N/A
 	    //ev.target.appendChild(document.getElementById(data));
+	    */
 	}
 	
 	//Connect trip with order

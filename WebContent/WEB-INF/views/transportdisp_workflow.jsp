@@ -292,12 +292,14 @@
 			               <td align="center" class="text11 tableCellGray">
 			               		${record.tuavd}
 			               </td>
-			               <td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray">
+			               <td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@statusA_${record.turclose}@${counter.count}">
 				               <c:choose>
-				               <c:when test="${record.turclose=='close'}">  
+				               <c:when test="${record.turclose=='close'}"> 
 			        		       <a id="alinkTripListId_${counter.count}" onClick="setBlockUI(this);" style="display:block;" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${record.tuavd}&wstur=${record.tupro}">
+										<div style="line-height: 25px;line-width: 100px;" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlistA${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" > 
 										<img title="Trip planning" src="resources/images/math.png" width="14px" height="14px" border="0" alt="planning">
 										<font class="text11MediumBlue">${record.tupro}</font>
+										</div>
 			            	       </a>
 				               </c:when>
 				               <c:otherwise>
@@ -306,8 +308,8 @@
 				               </c:choose>
 			               </td>
 			               	
-			               <td style="width: 50px;" draggable="true" ondragstart="drag(event)" align="center" nowrap style="cursor:pointer;" class="text11 tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@status_${record.turclose}@${counter.count}">
-			               		<div style="display:block;" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlist${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
+			               <td style="width: 50px;" align="center" nowrap style="cursor:pointer;" class="text11 tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@status_${record.turclose}@${counter.count}">
+			               		<div style="line-height: 25px;line-width: 50px;" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlist${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" >
 			               		&nbsp;&nbsp;<img title="Edit trip ${record.tupro}" style="vertical-align:middle;cursor:pointer;" src="resources/images/update.gif" border="0" alt="edit">
 			               		<%--<font class="text11MediumBlue"><spring:message code="systema.transportdisp.workflow.trip.list.search.label.edit"/></font> --%>
 			               		</div>
