@@ -45,7 +45,7 @@ public class MaintNctsExportAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(MaintNctsExportAjaxHandlerController.class.getName());
 
 	@RequestMapping(value = "getSpecificRecord_tr030r.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody List<JsonMaintNctsTrughRecord> getRecordTvi99d(@RequestParam String applicationUser,
+	public @ResponseBody List<JsonMaintNctsTrughRecord> getRecordTr030r(@RequestParam String applicationUser,
 			@RequestParam String id) {
 		final String METHOD = "[DEBUG] getRecordTr030r ";
 		logger.info(METHOD + " applicationUser" + applicationUser + "id=" + id);
@@ -82,11 +82,11 @@ public class MaintNctsExportAjaxHandlerController {
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
     	List<JsonMaintNctsTrughRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-    		JsonMaintNctsTrughContainer container = this.maintNctsExportTrughService.getList(jsonPayload);
-    		list=  (List<JsonMaintNctsTrughRecord>) container.getList();
-    	}
-    	return list;
+		if (jsonPayload != null) {
+			JsonMaintNctsTrughContainer container = this.maintNctsExportTrughService.getList(jsonPayload);
+			list = (List<JsonMaintNctsTrughRecord>) container.getList();
+		}
+	   	return list;
 	}	
 		
 
@@ -100,15 +100,8 @@ public class MaintNctsExportAjaxHandlerController {
     	//extract
     	List<JsonMaintMainCundfRecord> list = new ArrayList();
     	if(jsonPayload!=null){
- 
     		JsonMaintMainCundfContainer container = this.maintNctsExportTrughService.getCustomer(jsonPayload);
     		list=  (List<JsonMaintMainCundfRecord>) container.getList();
-    		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-				JsonMaintMainCundfRecord jsonMaintMainCundfRecord = (JsonMaintMainCundfRecord) iterator.next();
-				logger.info("jsonMaintMainCundfRecord="+jsonMaintMainCundfRecord.toString());
-				
-			}
-    		
     	}
     	return list;
 	}		

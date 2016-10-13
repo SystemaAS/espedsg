@@ -66,7 +66,7 @@
   	  contentType: 'application/json',
   	  success: function(data) {
 	  	var len = data.length;
-	  	
+	  	var status;
   		for ( var i = 0; i < len; i++) {
  				
 	  			jq('#tggnr').val("");jq('#tggnr').val(data[i].tggnr);
@@ -93,15 +93,15 @@
 				jq('#tggvk').val("");jq('#tggvk').val(data[i].tggvk);
 				jq('#tgprm').val("");jq('#tgprm').val(data[i].tgprm);
 				jq('#tgst').val("");jq('#tgst').val(data[i].tgst);
-	
+				
+				status = data[i].tgst;
+				
 	  			//for a future update
 	  			jq('#updateId').val("");jq('#updateId').val(data[i].tggnr);
-	  			
  				
   		}
   		
-  		
-		if(jq('#tgst').val() =='S'){  //Soft deleted
+		if(status =='S'){  //Soft deleted
  	  			
 	  		jq("#editRowTable").find("*").attr("disabled", true);
 	  				
@@ -174,11 +174,6 @@ jq(function() {
     		}
 	});
 }); 
-  
-  
-  
-  
-  
   
   
   

@@ -107,7 +107,7 @@ public class MaintSadNctsExportController {
 		object.setText("TR030R / TRUGH,KODTVA,CUNDF,KODTS2,TRKODF,...");
 		object.setDbTable("TRUGH");
 		object.setPgm("tr030r");
-		object.setStatus("Y");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -120,6 +120,7 @@ public class MaintSadNctsExportController {
 		object.setId("4");
 		object.setSubject("Koderegister");
 		object.setCode("SADET_KODEREG");
+		object.setStatus("Y");
 		listObject.add(object);
 		
 		return listObject;

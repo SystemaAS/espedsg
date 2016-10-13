@@ -76,7 +76,7 @@
 			                    <th class="tableHeaderField" >&nbsp;Tollsted&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Send dato&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Organisasjonnr.&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Adgandskode&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Adgangskode&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Status&nbsp;</th>
 			                </tr>  
 			                </thead> 
@@ -104,6 +104,7 @@
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
+<!--  
 				            <tfoot>
 							<tr>
 							    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
@@ -115,6 +116,7 @@
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGST&nbsp;</th>
 			                </tr>  
 			                </tfoot> 
+-->
 			            </table>
 					</td>	
 					</tr>
@@ -132,7 +134,7 @@
 	            	<table align="left" border="0" cellspacing="0" cellpadding="0">
 	            	<tr >
 					<td >					
-			            <ul class="isa_error text12" >
+			            <ul class="isa_error text12" > 
 			            <c:forEach var="error" items="${errors.allErrors}">
 			                <li >
 			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
@@ -177,14 +179,20 @@
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
 					
-					<table id="editRowTable" class="tableHeaderField" width="98%" cellspacing="1" border="0" align="left" border="1">
-						<tr height="5"><td>&nbsp;</td></tr>
+					<table id="editRowTable" class="tableHeaderFieldXXX" width="98%" cellspacing="1" border="0" align="left">
 						<tr>
 							<%-- LEFT CELL --%>
 							<td width="50%" valign="top">
-								<table width="100%" cellspacing="1" border="0" align="left">
+								<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0"> 
+							 		<tr height="15">
+							 			<td class="text12White">
+								 			&nbsp;Hovedansvarlig&nbsp;
+						 				</td>
+					 				</tr>
+				 				</table>
+								<table width="90%" class="formFrame" cellspacing="1" border="0" align="left">
 									<tr>
-										<td class="text12" title="tgkna">&nbsp;Hovedansvarlig, kundenr.</td>
+										<td class="text12" title="tgkna">&nbsp;Kundenr.</td>
 										<td ><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="tgkna" id="tgkna" size="9" maxlength="8" value='${model.record.tgkna}'></td>
 									</tr>
 									<tr>	
@@ -282,12 +290,14 @@
 							  					<option value=""<c:if test="${empty model.record.tgst}"> selected </c:if> >AKTIV</option>
 							  				</select>
 										</td>
+										
 									</tr>
 								</table>
 							</td>
 						</tr>
 						<tr>
-							<td>
+						    <td>&nbsp;</td>
+							<td align="right">
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 							</td>
 						</tr>
