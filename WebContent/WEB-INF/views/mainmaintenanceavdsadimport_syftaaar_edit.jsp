@@ -197,12 +197,12 @@
 						<tr><td colspan="2" class="text12"><b>Kommunikasjon </b><font class="text11" >&nbsp;( Kun hvis kommunikasjonen er valgt )</font></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    <tr>
-							<td class="text12" title="todo">Vente med å skrive ut melding </td>
+							<td class="text12" title="sist">Vente med å skrive ut melding </td>
 							<td class="text12">
-								<select name="todo" id="todo" class="inputTextMediumBlue">
+								<select name="sist" id="sist" class="inputTextMediumBlue">
 				  					<option value="">-velg-</option>
-				  					<option value="J"<c:if test="${ Xmodel.record.X == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ Xmodel.record.X == 'N'}"> selected </c:if> >Nei</option>
+				  					<option value="J"<c:if test="${ model.record.sist == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ model.record.sist == 'N'}"> selected </c:if> >Nei</option>
 							  	</select>
 							</td>
 							<td class="text12" title="s3039e"><font class="text12RedBold" >*</font>Til ekspedisjonsenhet</td>
