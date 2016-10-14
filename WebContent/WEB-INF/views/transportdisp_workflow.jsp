@@ -281,14 +281,8 @@
 		                </thead>
 		                <tbody>
 		                 <c:forEach items="${list}" var="record" varStatus="counter">    
-			               <c:choose>           
-			                   <c:when test="${counter.count%2==0}">
-			                       <tr class="text11 tableRow" >
-			                   </c:when>
-			                   <c:otherwise>   
-			                       <tr class="text11 tableRow" >
-			                   </c:otherwise>
-			               </c:choose>
+			               <tr class="text11 tableRow" >
+			             
 			               <td align="center" class="text11 tableCellGray">
 			               		${record.tuavd}
 			               </td>

@@ -105,6 +105,7 @@ public class MainMaintenanceAvdSadExportStandeController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
+		String avdnavn = request.getParameter("avdnavn");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
@@ -198,6 +199,7 @@ public class MainMaintenanceAvdSadExportStandeController {
 			this.populateDropDowns(model, appUser.getUser());
 			model.put("action", action);
 			model.put("avd", avd);
+			model.put("avdnavn", avdnavn);
 			model.put("updateId", updateId);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			

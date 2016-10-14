@@ -118,6 +118,13 @@
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<table cellspacing="1" border="0" align="left">
+							<tr >
+								<td colspan="4" class="text14MediumBlue" title=".">Avd.navn&nbsp;&nbsp;&nbsp;
+									<input readonly class="inputTextReadOnly" id="avdnavn" name="avdnavn" type="text" size="45" value="${model.avdnavn}">
+								</td>
+							</tr>
+							<tr height="5"><td >&nbsp;</td></tr>
+						
 				    	    <tr>
 				    	    	<c:choose>
 					    	    	<c:when test="${not empty model.updateId}">
