@@ -120,7 +120,7 @@
 				               <tr class="tableRow" height="20" >
 				               <c:choose>
 				               <c:when test="${record.hoavd != 'null' && not empty record.hoavd}">
-					               <td class="tableCellFirst" width="2%" id="recordUpdate_${record.koaavd}_${record.hoavd}_${record.honet}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+					               <td class="tableCellFirst" id="recordUpdate_${record.koaavd}_${record.hoavd}_${record.honet}" onClick="getRecord(this);" align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 			               				<img src="resources/images/update.gif" border="0" alt="edit">
 					               </td>
 				               </c:when>

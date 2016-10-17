@@ -29,6 +29,12 @@ public final class MaintenanceMainUrlDataStore {
 	//ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFIRMR.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFIRMR.do";
 	
+	//SIGNATURER-->ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA60R.do?user=OSCAR
+	//SIGNATURER-->ONE --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA60R.do?user=OSCAR&kosfsi=OT
+	static public String MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA60R.do";
+	
+	
+	
 	//AVD SAD IMPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSYFTAAAR.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_SYFTAAAR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAR.do";
@@ -80,11 +86,13 @@ public final class MaintenanceMainUrlDataStore {
 	//SYFA28DPTAvdR_U /Dupliser (Kopiera)
 	//http://localhost:8080/syjservicesbcore/syjsSYFA28DPTAvdR_U.do?user=OSCAR&originalAvd=1&originalLnr=2&fromAvd=333&toAvd=334&mode=U
 	static public String MAINTENANCE_MAIN_BASE_SYFA28DPTAvdR_DML_UPDATE_CHILD_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA28DPTAvdR_U.do";
-	
 	//SYFA63R_U
 	static public String MAINTENANCE_MAIN_BASE_SYFA63R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA63R_U.do";
 	//SYFA68R_U
 	static public String MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA68R_U.do";
+	//SYFA60R_U (SAKSBEHANDLERE)
+	static public String MAINTENANCE_MAIN_BASE_SYFA60R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA60R_U.do";
+	
 	
 	//AVD SAD IMPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_SYFTAAAR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFTAAAR_U.do";

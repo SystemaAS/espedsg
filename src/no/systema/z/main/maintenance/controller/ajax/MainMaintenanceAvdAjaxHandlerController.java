@@ -38,10 +38,15 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
+
 
 import no.systema.z.main.maintenance.service.MaintMainKodtaHodeService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
+import no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfService;
+
 
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
@@ -166,6 +171,41 @@ public class MainMaintenanceAvdAjaxHandlerController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param teavd
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_syfa60r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintMainKodtsfSyparfRecord>getRecordSyfa60 (@RequestParam String applicationUser, @RequestParam String kosfsi ) {
+		final String METHOD = "[DEBUG] getSpecificRecord_syfa60r.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintMainKodtsfSyparfRecord> result = new ArrayList();
+	 	//get table
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kosfsi=" + kosfsi;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	List<JsonMaintMainKodtsfSyparfRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtsfSyparfContainer container = this.maintMainKodtsfSyparfService.getList(jsonPayload);
+    		if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintMainKodtsfSyparfRecord record: list){
+	        		logger.info(record.getKosfsi());
+	        	}
+	        }
+    	}
+    	return list;
+	
+	}
+	
 	
 	
 	@Qualifier ("urlCgiProxyService")
@@ -198,6 +238,16 @@ public class MainMaintenanceAvdAjaxHandlerController {
 	@Required
 	public void setMaintMainKodtaTellService (MaintMainKodtaTellService value){ this.maintMainKodtaTellService = value; }
 	public MaintMainKodtaTellService getMaintMainKodtaTellService(){ return this.maintMainKodtaTellService; }
+	
+	
+	@Qualifier ("maintMainKodtsfSyparfService")
+	private MaintMainKodtsfSyparfService maintMainKodtsfSyparfService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtsfSyparfService (MaintMainKodtsfSyparfService value){ this.maintMainKodtsfSyparfService = value; }
+	public MaintMainKodtsfSyparfService getMaintMainKodtsfSyparfService(){ return this.maintMainKodtsfSyparfService; }
+	
+	
 	
 	
 }

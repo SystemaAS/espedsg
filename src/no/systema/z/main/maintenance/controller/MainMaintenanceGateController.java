@@ -93,21 +93,21 @@ public class MainMaintenanceGateController {
 		
 		object.setId("1");
 		object.setSubject("Avdelinger");
-		object.setCode("AVD");
+		object.setCode("mainmaintenanceavdgate");
 		object.setText("SYFA14 / KODTA, NAVAVD, KODTSF, KODTD, KODTASID, FIRM, CUNDF");
 		object.setDbTable("KODTA");
-		object.setStatus("Y");
-		object.setPgm("syfa14r");
+		object.setStatus("G");
+		//object.setPgm("syfa14r");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("TODO");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
-		//object.setStatus("G");
-		//object.setPgm("todo");
+		object.setSubject("Saksbehandlere");
+		object.setCode("mainmaintenancesign");
+		object.setText("SYFA60 / KODTSF, SYPARF");
+		object.setDbTable("KODTSF");
+		object.setStatus("Y");
+		object.setPgm("syfa60r");
 		listObject.add(object);
 		//
 		return listObject;

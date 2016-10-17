@@ -58,20 +58,20 @@
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;" align="center" ><font class="text12">&nbsp;${record.id}&nbsp;</font></td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
 				               	<c:choose>
-				               		<c:when test="${record.status == 'G' || record.status == 'Y' && not empty record.pgm}">
-					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${record.dbTable}">
+				               		<c:when test="${(record.status == 'G' || record.status == 'Y') && not empty record.code}">
+					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="${record.code}<c:if test="${(record.status == 'G' || record.status == 'Y') && not empty record.pgm}">_${record.pgm}</c:if>.do?id=${record.dbTable}">
 		               						<img src="resources/images/update.gif" border="0" alt="edit">
 					               		</a>
 				               		</c:when>
 				               		<c:otherwise>
-											<img src="resources/images/lock.gif" border="0" alt="edit">				               		
+										<img src="resources/images/lock.gif" border="0" alt="edit">				               		
 				               		</c:otherwise>
 				               	</c:choose>	
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
 				               		<c:choose>
-					               		<c:when test="${record.status == 'G' || record.status == 'Y' && not empty record.pgm}">
-					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${record.dbTable}">
+					               		<c:when test="${(record.status == 'G' || record.status == 'Y') && not empty record.code}">
+					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="${record.code}<c:if test="${(record.status == 'G' || record.status == 'Y') && not empty record.pgm}">_${record.pgm}</c:if>.do?id=${record.dbTable}">
 		               							<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
 		               						</a>
 					               		</c:when>

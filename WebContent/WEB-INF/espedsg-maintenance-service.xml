@@ -99,6 +99,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainKodtaTellService" class="no.systema.z.main.maintenance.service.MaintMainKodtaTellServiceImpl"/>
 	<bean id="maintMainEdiiService" class="no.systema.z.main.maintenance.service.MaintMainEdiiServiceImpl"/>
 	<bean id="maintMainKodtot2Service" class="no.systema.z.main.maintenance.service.MaintMainKodtot2ServiceImpl"/>
+	<bean id="maintMainKodtsfSyparfService" class="no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfServiceImpl"/>
 	
 	<!-- SAD avd maintenance -->
 	<bean id="maintMainStandiService" class="no.systema.z.main.maintenance.service.sad.MaintMainStandiServiceImpl"/>
@@ -107,5 +108,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainTrkodfService" class="no.systema.z.main.maintenance.service.sad.MaintMainTrkodfServiceImpl"/>
 	<bean id="maintMainTrustdService" class="no.systema.z.main.maintenance.service.sad.MaintMainTrustdServiceImpl"/>
 	<bean id="maintMainTrustdfvService" class="no.systema.z.main.maintenance.service.sad.MaintMainTrustdfvServiceImpl"/>
+	
 	
 </beans>
