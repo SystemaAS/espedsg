@@ -12,6 +12,10 @@ import org.apache.log4j.Logger;
 
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTransitKodeTypeContainer;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTransitKodeTypeRecord;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Container;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Record;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
@@ -94,5 +98,38 @@ public class CodeDropDownMgr {
 		model.put("mfList", mfList);
 	}
 
+
+	/**
+	 * Populate all transit code for NCTS
+	 * 
+	 * model attribute: transitCodeList
+	 * 
+	 * @param urlCgiProxyService
+	 * @param maintNctsExportTrkodfService
+	 * @param model, put in to transitCodeList
+	 * @param applicationUser
+	 */
+	public void populateTransitKoder(UrlCgiProxyService urlCgiProxyService, MaintNctsExportTrkodfService maintNctsExportTrkodfService, Map model,
+			String applicationUser) {
+		String BASE_URL = TvinnNctsMaintenanceExportUrlDataStore.TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR001R_GET_KODE_TYPER_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser);
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintNctsTransitKodeTypeRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintNctsTransitKodeTypeContainer container = maintNctsExportTrkodfService.getTransitKoderList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	
+    	model.put("transitCodeList", list);
+	}	
 	
 }

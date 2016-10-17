@@ -42,6 +42,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN SAD NCTS EXPORT-->
 	<!-- ===================  -->
 	<bean id="maintNctsExportTrughService" class="no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrughServiceImpl"/>		
+	<bean id="maintNctsExportTrkodfService" class="no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfServiceImpl"/>		
 	
 	<!-- =================  -->
 	<!-- TVINN SAD IMPORT   -->

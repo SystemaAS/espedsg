@@ -34,6 +34,26 @@ public final class TvinnNctsMaintenanceExportUrlDataStore {
 	static public final String TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR030R_GET_CUSTOMER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsCustomerRecord.do";
 	
 	
+	/**
+	 * TR001R
+	 * 
+	 * /syjservicestn/syjsTR001R.do
+	 */
+	static public final String TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR001R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTR001R.do";
+	
+	/**
+	 * TR001R
+	 * 
+	 * Kodetyper
+	 * 
+	 * /syjservicestn/syjsTR001R_Kodetyper.do
+	 */
+	static public final String TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR001R_GET_KODE_TYPER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTR001R_Kodetyper.do";
+
+	
+	
+	
+	
 	//----------------------------------
 	//[1] UPDATE DB record
 	// mode = (U)pdate, (A)dd, (D)elete
