@@ -34,7 +34,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenancesign_syfa60r_edit.do">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="TODOmainmaintenancesign_syfa60r_edit.do">
 							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
@@ -155,8 +155,14 @@
 						<tr height="20"><td></td></tr>
 						<tr>
 							<td class="text12" ><font class="text14RedBold" >*</font><span title="kosfsi">Signatur&nbsp;</span>
-								<input <c:if test="${not empty model.updateId}">readonly</c:if> type="text" class="inputTextMediumBlueMandatoryField" name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
-							
+								<c:choose>
+									<c:when test="${not empty model.updateId}">
+										<input readonly type="text" class="inputTextReadOnly"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
+									</c:when>
+									<c:otherwise>
+										<input type="text" class="inputTextMediumBlueMandatoryField"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
+									</c:otherwise>
+								</c:choose>
 								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="kosfnv">Navn&nbsp;</span>
 								<input type="text" class="inputTextMediumBlueMandatoryField" name="kosfnv" id="kosfnv" size="20" maxlength="16" value='${model.record.kosfnv}'>
 								
