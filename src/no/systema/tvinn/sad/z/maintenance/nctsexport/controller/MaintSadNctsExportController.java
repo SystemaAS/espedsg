@@ -120,6 +120,8 @@ public class MaintSadNctsExportController {
 		object.setId("4");
 		object.setSubject("Koderegister");
 		object.setCode("SADET_KODEREG");
+		object.setDbTable("TRKODF");
+		object.setPgm("tr001r");
 		object.setStatus("Y");
 		listObject.add(object);
 		
