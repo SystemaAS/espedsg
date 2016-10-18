@@ -32,6 +32,7 @@
 						<font class="tabLink">&nbsp;Saksbehandlere</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="sign general list">
 					</td>
+					<%--
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="TODOmainmaintenancesign_syfa60r_edit.do">
@@ -39,7 +40,8 @@
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
 					</td>
-					<td width="55%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					 --%>
+					<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</tr>
 		</table>
 		</td>

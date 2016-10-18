@@ -149,7 +149,7 @@ public class MainMaintenanceSignSyfa60Controller {
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 						//------------------------
 						//now update all children
 						//------------------------
@@ -315,9 +315,6 @@ public class MainMaintenanceSignSyfa60Controller {
 	        	}
 	        }
     	}
-    	//get children
-    	//record.setListeHodeRecord(this.fetchListeHodeRecord(applicationUser, id));
-    	//record.setOppnrTurRecord(this.fetchOppnrOgTur(applicationUser, id));
     	
     	return record;
     	
@@ -333,11 +330,11 @@ public class MainMaintenanceSignSyfa60Controller {
 	 * @param errMsg
 	 * @return
 	 */
-	/*
-	private int updateRecord(String applicationUser, JsonMaintMainKodtaRecord record, String mode, StringBuffer errMsg){
+	
+	private int updateRecord(String applicationUser, JsonMaintMainKodtsfSyparfRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -351,7 +348,7 @@ public class MainMaintenanceSignSyfa60Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.doUpdate(jsonPayload);
+    		JsonMaintMainKodtsfSyparfContainer container = this.maintMainKodtsfSyparfService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -363,7 +360,7 @@ public class MainMaintenanceSignSyfa60Controller {
     	}    	
     	return retval;
 	}
-	*/
+	
 	
 	
 	
