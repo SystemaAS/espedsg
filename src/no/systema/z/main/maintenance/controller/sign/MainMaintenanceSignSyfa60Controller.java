@@ -150,21 +150,11 @@ public class MainMaintenanceSignSyfa60Controller {
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-						//------------------------
-						//now update all children
-						//------------------------
-						//UPDATE children
-						//dmlRetval = this.updateChilden(appUser.getUser(), recordToValidate, listeHodeRecord, oppnrTurRecord, errMsg);
 						
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
-						//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						//------------------------
-						//now create all children
-						//------------------------
-						//Create Children
-						//dmlRetval = this.createChilden(appUser.getUser(), recordToValidate, listeHodeRecord, oppnrTurRecord, errMsg);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 						
 					}
 					
@@ -192,7 +182,7 @@ public class MainMaintenanceSignSyfa60Controller {
 				int dmlRetval = 0;
 				
 				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				//dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				
 				//check for Update errors
 				if( dmlRetval < 0){
