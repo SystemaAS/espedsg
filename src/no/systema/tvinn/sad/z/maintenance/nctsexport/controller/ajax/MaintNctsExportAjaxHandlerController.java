@@ -3,7 +3,6 @@ package no.systema.tvinn.sad.z.maintenance.nctsexport.controller.ajax;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,8 +20,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfContainer;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfRecord;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrughContainer;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrughRecord;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrughService;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
@@ -71,6 +73,17 @@ public class MaintNctsExportAjaxHandlerController {
 		return (List) this.fetchSpecificCustomer(applicationUser, customerNumber);
 	}
 	
+	@RequestMapping(value = "getSpecificRecord_tr001r.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JsonMaintNctsTrughRecord> getRecordTr001r(@RequestParam String applicationUser,
+			@RequestParam String tkunik, @RequestParam String tkkode) {
+		final String METHOD = "[DEBUG] getRecordTr001r ";
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", tkunik=" + tkunik+ ", tkkode="+tkkode);
+		List<JsonMaintNctsTrkodfRecord> result = new ArrayList();
+
+		return (List) this.fetchSpecificTr001r(applicationUser, tkunik, tkkode);
+	}
+	
+	
 	
 	
 	private Collection<JsonMaintNctsTrughRecord> fetchSpecificTr030r(String applicationUser, String tggnr){
@@ -107,6 +120,25 @@ public class MaintNctsExportAjaxHandlerController {
 	}		
 	
 	
+	private Collection<JsonMaintNctsTrkodfRecord> fetchSpecificTr001r(String applicationUser, String tkunik, String tkkode){
+		String BASE_URL = TvinnNctsMaintenanceExportUrlDataStore.TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR001R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser +  "&tkunik="+ tkunik + "&tkkode=" + tkkode;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	logger.info("jsonPayload="+jsonPayload);
+    	//extract
+    	List<JsonMaintNctsTrkodfRecord> list = new ArrayList();
+		if (jsonPayload != null) {
+			JsonMaintNctsTrkodfContainer container = this.maintNctsExportTrkodfService.getList(jsonPayload);
+			list = (List<JsonMaintNctsTrkodfRecord>) container.getList();
+		}
+	   	return list;
+	}		
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -121,7 +153,14 @@ public class MaintNctsExportAjaxHandlerController {
 	@Required
 	public void setMaintNctsExportTrughService (MaintNctsExportTrughService value){ this.maintNctsExportTrughService = value; }
 	public MaintNctsExportTrughService getMaintNctsExportTrughService(){ return this.maintNctsExportTrughService; }
-	
+
+	@Qualifier ("maintNctsExportTrkodfService")
+	private MaintNctsExportTrkodfService maintNctsExportTrkodfService;
+	@Autowired
+	@Required
+	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
+	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
+		
 
 }
 

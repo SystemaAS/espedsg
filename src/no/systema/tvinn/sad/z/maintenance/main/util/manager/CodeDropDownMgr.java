@@ -131,5 +131,23 @@ public class CodeDropDownMgr {
     	
     	model.put("transitCodeList", list);
 	}	
+
+	
+	/**
+	 * Populate Tollsteds type; tkavg, tkank, tktrs with J, N
+	 * 
+	 * model attribute: tkavgList, tkankList, tktrsList
+	 * 
+	 * @param model
+	 */
+	public void populateTollstedstypeHtmlDropDownsNctsExport(Map model) {
+		String[] yesNo = {"J","N"};
+		model.put("tkavgList", yesNo);
+		model.put("tkankList", yesNo);
+		model.put("tktrsList", yesNo);
+		
+	}
+	
+	
 	
 }

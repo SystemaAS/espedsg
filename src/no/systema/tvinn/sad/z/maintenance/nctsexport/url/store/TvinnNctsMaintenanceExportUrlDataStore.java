@@ -52,8 +52,6 @@ public final class TvinnNctsMaintenanceExportUrlDataStore {
 
 	
 	
-	
-	
 	//----------------------------------
 	//[1] UPDATE DB record
 	// mode = (U)pdate, (A)dd, (D)elete
@@ -67,6 +65,13 @@ public final class TvinnNctsMaintenanceExportUrlDataStore {
 	 */
 	static public final String TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR030R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTR030R_U.do";
 
+	/**
+	 * TR001R_U
+	 * 
+	 * /syjservicestn/syjsTR001R_U.do
+	 * 
+	 */
+	static public final String TVINN_NCTS_MAINTENANCE_EXPORT_BASE_TR001R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsTR001R_U.do";
 
 	
 }

@@ -49,16 +49,16 @@
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%" class="text12">
 					<form action="tvinnsadmaintenance_nctsexport_tr001r.do?id=${model.dbTable}" name="formRecordSearch" id="formRecordSearch" method="POST" >
-						<font class="text14RedBold" >*</font><span title="tkunik">Kodetype</span>
-						<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tkunik" id="tkunik" >
+						<font class="text14RedBold" >*</font><span title="searchTkunik">Kodetype</span>
+						<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="searchTkunik" id="searchTkunik" >
 							<c:forEach var="record" items="${model.transitCodeList}" >
-		 				  		<option value="${record.tkunik}"<c:if test="${model.tkunik == record.tkunik}"> selected </c:if> >${record.description}(${record.tkunik})</option>
+		 				  		<option value="${record.tkunik}"<c:if test="${model.searchTkunik == record.tkunik}"> selected </c:if> >${record.description}(${record.tkunik})</option>
 							</c:forEach> 
 		  				</select>
 						Kode&nbsp;
-						<input type="text" class="inputTextMediumBlue" name="tkkode" id="tkkode" size="11" maxlength="10" value='${model.tkkode}'>
+						<input type="text" class="inputTextMediumBlue" name="searchTkkode" id="searchTkkode" size="11" maxlength="10" value='${model.searchTkkode}'>
 						&nbsp;Beskrivelse(norsk)&nbsp;
-						<input type="text" class="inputTextMediumBlue" name="tktxtn" id="tktxtn" size="25" maxlength="35" value='${model.tktxtn}'>
+						<input type="text" class="inputTextMediumBlue" name="searchTktxtn" id="searchTktxtn" size="25" maxlength="35" value='${model.searchTktxtn}'>
 						&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='Søk'/>
 					</form>
 				</td>
@@ -78,30 +78,39 @@
 								<th class="tableHeaderField" >&nbsp;Kode&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Beskrivelse(norsk)&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Beskrivelse(engelsk)&nbsp;</th>
+								<th align="center" class="tableHeaderField">Slett</th>
+								
 			                </tr>  
 			                </thead> 
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.tkkode}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${model.searchTkunik}_${record.tkkode}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tkkode}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tktxtn}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tktxte}&nbsp;</font></td>
+							   <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenance_nctsexport_tr001r_edit.do?action=doDelete&id=${model.dbTable}&tkunik=${model.searchTkunik}&tkkode=${record.tkkode}">
+					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
+					               	</a>
+							   </td>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
-  
+  <!--  
 				            <tfoot>
 							<tr>
 							    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Endre&nbsp;</th>
 								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TKKODE</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TKTXTN&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TKTXTE&nbsp;</th>
+			                 	<th align="center" class="tableHeaderFieldWhiteBg11">Slett</th>
+			                    
 			                </tr>  
 			                </tfoot> 
-
+ -->
 			            </table>
 					</td>	
 					</tr>
@@ -161,26 +170,63 @@
 				<td width="100%">
 				<form action="tvinnsadmaintenance_nctsexport_tr001r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					<input type="hidden" name="tkunik" id=tkunik value="${model.searchTkunik}"> 
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					
 						<table width="60%" cellspacing="1" border="0" align="left">
-			    	    <tr>
-							<td class="text12" title="VARENR">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
-							<td class="text12" title="VAREBE">&nbsp;Beskrivelse(norsk)</td>
-							<td class="text12" title="VAREBE">&nbsp;Beskrivelse(engelsk)</td>
-						</tr>
-						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tkkode" id="tkkode" size="20" maxlength="10" value='${model.record.tkkode}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="tktxtn" id="tktxtn" size="50" maxlength="35" value='${model.record.tktxtn}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="50" maxlength="35" value='${model.record.tktxte}'></td>
-						<td>
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
-						</td>
-						</tr>
-						<tr height="3"><td></td>
-					</table>
- 	    	</form>
+				    	    <tr>
+								<td class="text12" title="Kode">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
+								<td class="text12" title="Beskrivelse(norsk)">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse(norsk)</td>
+								<td class="text12" title="Beskrivelse(engelsk)">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse(engelsk)</td>
+								<c:if test="${model.searchTkunik == '106'}">
+								<td class="text12" title="Avgang">&nbsp;Avgang</td>
+								<td class="text12" title="Ankomst">&nbsp;Ankomst</td>
+								<td class="text12" title="Transit">&nbsp;Transit</td>
+								</c:if>
+							</tr>
+							<tr>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tkkode" id="tkkode" size="15" maxlength="10" value='${model.record.tkkode}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="tktxtn" id="tktxtn" size="40" maxlength="35" value='${model.record.tktxtn}'></td>
+								<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="40" maxlength="35" value='${model.record.tktxte}'></td>
+								
+								<c:if test="${model.searchTkunik == '106'}">
+								<td >
+				            		<select class="inputTextMediumBlue" name="tkavg" id="tkavg">
+				 						<option value="">-velg-</option>
+					 				  	<c:forEach var="tkavg" items="${model.tkavgList}" >
+					 				  		<option value="${tkavg}"<c:if test="${model.record.tkavg == tkavg}"> selected </c:if> >${tkavg}</option>
+										</c:forEach>  
+									</select>
+								</td>																	
+
+								<td >
+				            		<select class="inputTextMediumBlue" name="tkank" id="tkank">
+				 						<option value="">-velg-</option>
+					 				  	<c:forEach var="tkank" items="${model.tkankList}" >
+					 				  		<option value="${tkank}"<c:if test="${model.record.tkank == tkank}"> selected </c:if> >${tkank}</option>
+										</c:forEach>  
+									</select>
+								</td>																	
+	
+								<td >
+				            		<select class="inputTextMediumBlue" name="tktrs" id="tktrs">
+				 						<option value="">-velg-</option>
+					 				  	<c:forEach var="tktrs" items="${model.tktrsList}" >
+					 				  		<option value="${tktrs}"<c:if test="${model.record.tktrs == tktrs}"> selected </c:if> >${tktrs}</option>
+										</c:forEach>  
+									</select>
+								</td>																	
+								</c:if>
+								
+								<td>
+									<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
+								</td>
+							</tr>
+							<tr height="3">
+								<td></td>
+							</tr>
+					    </table>
+ 	    	    </form>
 	 	    </tr>
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	     
