@@ -73,16 +73,9 @@ public class MaintSadNctsExportController {
 		
 			//lists
 			List list = this.populateMaintenanceMainList();
-			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-			//this.setCodeDropDownMgr(appUser, model);
-			//init filter with users signature (for starters)
-			//searchFilter.setSg(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
 			//init the rest
 			model.put("list", list);
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
-			//successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
 			
 	    	return successView;
 		}
@@ -104,7 +97,7 @@ public class MaintSadNctsExportController {
 		object.setId("2");
 		object.setSubject("Garantiref.");
 		object.setCode("SADET_GARANTIREF");
-		object.setText("TR030R / TRUGH,KODTVA,CUNDF,KODTS2,TRKODF,...");
+		object.setText("TR030R / TRUGH,KODTVA,CUNDF,KODTS2,TRKODF");
 		object.setDbTable("TRUGH");
 		object.setPgm("tr030r");
 		object.setStatus("G");
@@ -120,9 +113,10 @@ public class MaintSadNctsExportController {
 		object.setId("4");
 		object.setSubject("Koderegister");
 		object.setCode("SADET_KODEREG");
+		object.setText("TR001R / TRKODF");
 		object.setDbTable("TRKODF");
 		object.setPgm("tr001r");
-		object.setStatus("Y");
+		object.setStatus("G");
 		listObject.add(object);
 		
 		return listObject;
