@@ -107,6 +107,7 @@ public class MaintSadNctsExportController {
 		object.setId("3");
 		object.setSubject("Avd.- NCTS Eksport");
 		object.setCode("SADET_AVD_NCTSEX");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
