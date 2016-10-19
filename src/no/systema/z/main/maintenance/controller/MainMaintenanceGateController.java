@@ -106,7 +106,7 @@ public class MainMaintenanceGateController {
 		object.setCode("mainmaintenancesign");
 		object.setText("SYFA60 / KODTSF, SYPARF");
 		object.setDbTable("KODTSF");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("syfa60r");
 		listObject.add(object);
 		//
