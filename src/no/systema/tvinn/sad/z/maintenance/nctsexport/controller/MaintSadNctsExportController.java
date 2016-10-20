@@ -91,6 +91,7 @@ public class MaintSadNctsExportController {
 		object.setId("1");
 		object.setSubject("Endre Status - NCTS Eksport");
 		object.setCode("SADET_STATUS");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

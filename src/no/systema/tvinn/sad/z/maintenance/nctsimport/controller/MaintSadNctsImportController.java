@@ -98,12 +98,14 @@ public class MaintSadNctsImportController {
 		object.setId("1");
 		object.setSubject("Avd. - NCTS Import");
 		object.setCode("SADIT_AVD");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("Endre Status - Forh.varsling");
 		object.setCode("SADIT_STATUS");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

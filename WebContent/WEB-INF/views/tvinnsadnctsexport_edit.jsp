@@ -1466,6 +1466,38 @@
 					            
 					            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
 					        </tr>
+					        
+					        <tr height="2"><td></td></tr> 
+					        <%-- <c:if test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}"> --%>
+					        <c:if test="${ model.record.thst == 'E' || model.record.thst == 'K' || model.record.thst == 'Å' || empty  model.record.thst }">
+					       	 	<c:if test="${ empty model.record.thtrnr }"> 
+							        <tr height="10"><td></td></tr>
+							        <tr>
+							        	<td valign="top" class="text12" colspan="2">
+							        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			Endre Status&nbsp;
+							        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+							        		<div class="text11" style="position: relative;" align="left">
+							            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+							           			<b>Endre Status</b>
+							           			<br/>
+							           			<p>
+							           				Statusen kan bare endres når:
+							           				<ol>
+							           				<li>Status = E, K, Å eller blank</li>
+							           				<li>MRN er blank</li>
+						           					</ol>	
+							           			</p>
+											</span>
+											</div>	
+							        	</td>
+							        </tr>
+						        </c:if>
+					        </c:if>
+					        
+					        
+					        
+					        
 					     	<tr height="10"><td>&nbsp;</td></tr>
 		     	            	<tr>
 					            <td class="text12" align="left">
@@ -1554,7 +1586,7 @@
 				            <tr >	
 			            		<td class="text">&nbsp;</td> 
 			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
-			 				    	<%-- only status = M or emtpy status is allowed --%>
+			 				    	<%-- only some status are allowed --%>
 				 				    <c:choose>
 					 				    <c:when test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}">
 						 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tvinnsadnctsexport_edit.do';" value='<spring:message code="systema.tvinn.sad.ncts.export.createnew.submit"/>'/>
