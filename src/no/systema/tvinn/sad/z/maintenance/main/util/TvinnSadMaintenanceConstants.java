@@ -62,33 +62,12 @@ public final class TvinnSadMaintenanceConstants {
 	public static final String SESSION_LIST = "sessionList";
 
 	public static final String DOMAIN_LIST_SIZE = "listSize";
-	
-	/*
-	public static final String DOMAIN_SEARCH_FILTER = "searchFilter";
-	public static final String SESSION_SEARCH_FILTER = "searchFilter";
-	//filter per module
-	public static final String DOMAIN_SEARCH_FILTER_SADIMPORT = "searchFilterSadImport";
-	public static final String DOMAIN_SEARCH_FILTER_SADEXPORT = "searchFilterSadExport";
-	public static final String DOMAIN_SEARCH_FILTER_SADIMPORT_NCTS = "searchFilterSadImportNcts";
-	public static final String DOMAIN_SEARCH_FILTER_SADEXPORT_NCTS = "searchFilterSadExportNcts";
-	public static final String SESSION_SEARCH_FILTER_SADIMPORT = "searchFilterSadImport";
-	public static final String SESSION_SEARCH_FILTER_SADEXPORT = "searchFilterSadExport";
-	public static final String SESSION_SEARCH_FILTER_SADIMPORT_NCTS = "searchFilterSadImportNcts";
-	public static final String SESSION_SEARCH_FILTER_SADEXPORT_NCTS = "searchFilterSadExportNcts";
-	
-	
-	public static final String DOMAIN_RECORD_TOPIC_TVINN_SAD = "recordTopicTvinnSad";
-	public static final String DOMAIN_RECORD_TOPIC_TVINN_SAD_UNLOADING = "recordTopicTvinnSadUnloading";
-	
-	public static final String DOMAIN_LIST = "list";
-	public static final String DOMAIN_LIST_SIZE = "listSize";
-	
-	public static final String DOMAIN_RECORD_ITEM_CONTAINER_TOPIC = "recordItemContainerTopic";
-	public static final String DOMAIN_RECORD_ITEM_CONTAINER_FINANS_OPPLYSNINGER_TOPIC = "recordItemContainerFinansOpplysningerTopic";
-	public static final String SESSION_LIST = "sessionList";
-	public static final String ITEM_LIST = "itemList";
-	*/
-	
+	/**
+	 * searchFilterNctsExportKoderegister
+	 * 
+	 */
+	public static final String DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER = "searchFilterNctsExportKoderegister";
+
 	//aspects in view (sucha as errors, logs, other
 	public static final String ASPECT_ERROR_MESSAGE = "errorMessage";
 	public static final String ASPECT_ERROR_META_INFO = "errorInfo";

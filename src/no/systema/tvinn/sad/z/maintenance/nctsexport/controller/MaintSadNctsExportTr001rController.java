@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,8 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.sadimport.filter.SearchFilterSadImportTopicList;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfContainer;
@@ -54,38 +58,44 @@ public class MaintSadNctsExportTr001rController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	
+	
 	@RequestMapping(value="tvinnsadmaintenance_nctsexport_tr001r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doNctsKoderRegisterList(HttpSession session, HttpServletRequest request){
+	public ModelAndView doNctsKoderRegisterList(@ModelAttribute ("searchRecord") SearchFilterTransitKoder searchRecord, HttpSession session, HttpServletRequest request, BindingResult bindingResult){
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenance_nctsexport_tr001r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		String dbTable = request.getParameter("id");
-		String searchTkunik = request.getParameter("searchTkunik");
-		String searchTkkode = request.getParameter("searchTkkode");
-		String searchTktxtn = request.getParameter("searchTktxtn");
+		String searchTkunik = searchRecord.getSearchTkunik();
+		String searchTkkode = searchRecord.getSearchTkkode();
+		String searchTktxtn = searchRecord.getSearchTktxtn();
+		MaintNctsExportTr001rValidator validator = new MaintNctsExportTr001rValidator();
 		
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
+
+	    	validator.restrictOnMandatorySearchFields(searchRecord ,bindingResult);
+
 			//get table
 	    	List<JsonMaintNctsTrkodfRecord> list = new ArrayList();
-	    	if (searchTkunik != null) {
+	    	if (!bindingResult.hasErrors() && searchRecord.getSearchTkunik() != null) {
 	    		list = this.fetchList(appUser.getUser(), searchTkunik, searchTkkode, searchTktxtn);	
 	    	} else {
 	    		searchTkunik = "012"; //default tkunik=012, Språkkode
 	    	}
 	    	
 		    this.populateDropDowns(model, appUser.getUser());
-		    
 	    	model.put("dbTable", dbTable);
-	    	model.put("searchTkunik", searchTkunik);
+/*	    	model.put("searchTkunik", searchTkunik);
 			if (searchTkkode != null) {
 				model.put("searchTkkode", searchTkkode);
 			}
 			if (searchTktxtn !=null){
 				model.put("searchTktxtn", searchTktxtn);
 			}
-	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+*/	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+
+			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER, searchRecord);    	
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
@@ -101,8 +111,20 @@ public class MaintSadNctsExportTr001rController {
 		String dbTable = request.getParameter("id");
 		String updateId = request.getParameter("updateId");
 		String action = request.getParameter("action");
-		String tkunik = request.getParameter("tkunik");
-		recordToValidate.setTkunik(tkunik);
+		String searchTkunik = request.getParameter("searchTkunik");
+		String searchTkkode = request.getParameter("searchTkkode");
+		String searchTktxtn = request.getParameter("searchTktxtn");
+		recordToValidate.setTkunik(searchTkunik);
+		//recordToValidate.setTkkode(searchTkkode);
+		
+		logger.info("searchTkunik="+searchTkunik);
+		logger.info("searchTkkode="+searchTkkode);
+		logger.info("searchTktxtn="+searchTktxtn);
+		
+		SearchFilterTransitKoder searchRecord = new SearchFilterTransitKoder();
+		searchRecord.setSearchTkunik(searchTkunik);
+		searchRecord.setSearchTkkode(searchTkkode);
+		searchRecord.setSearchTktxtn(searchTktxtn);
 		
 		int dmlRetval = 0;
 		
@@ -167,12 +189,14 @@ public class MaintSadNctsExportTr001rController {
 			//FETCH table
 			//------------
 
-			List<JsonMaintNctsTrkodfRecord> list = this.fetchList(appUser.getUser(), tkunik, null, null);
+			List<JsonMaintNctsTrkodfRecord> list = this.fetchList(appUser.getUser(),  searchTkunik, searchTkkode, searchTktxtn);
 	
 			this.populateDropDowns(model, appUser.getUser());
 			model.put("dbTable", dbTable);
-	    	model.put("searchTkunik", tkunik);
+	  //  	model.put("searchTkunik", searchTkunik);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+
+			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER, searchRecord);    	
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
