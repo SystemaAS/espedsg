@@ -1839,7 +1839,8 @@
 		  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
 		  //deal with buttons for this modal window
 		  jq('#dialogUpdateStatus').dialog({
-			   buttons: [ 
+			  
+				 buttons: [ 
 		            {
 					 id: "dialogSaveTU",	
 					 text: "Ok",
@@ -1857,11 +1858,11 @@
 						 		jq( this ).dialog( "close" ); 
 					 		} 
 		 	 		 } ] 
-		  });
-		  //init values
-		  jq("#dialogSaveSU").button("option", "disabled", true);
-		  //open now
-		  jq('#dialogUpdateStatus').dialog('open');
+			  });
+			  //init values
+			  jq("#dialogSaveSU").button("option", "disabled", true);
+			  //open now
+			  jq('#dialogUpdateStatus').dialog('open');
 
 	  };
 

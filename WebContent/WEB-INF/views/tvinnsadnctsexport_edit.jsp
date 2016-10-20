@@ -1469,8 +1469,8 @@
 					        
 					        <tr height="2"><td></td></tr> 
 					        <%-- <c:if test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}"> --%>
-					        <c:if test="${ model.record.thst == 'E' || model.record.thst == 'K' || model.record.thst == 'Å' || empty  model.record.thst }">
-					       	 	<c:if test="${ empty model.record.thtrnr }"> 
+					        <c:if test="${ model.record.thst == 'E' || model.record.thst == 'K' || model.record.thst == 'Å' || empty  model.record.thst }" >
+					       	 	<%-- <c:if test="${ empty model.record.thtrnr }"> --%> 
 							        <tr height="10"><td></td></tr>
 							        <tr>
 							        	<td valign="top" class="text12" colspan="2">
@@ -1492,11 +1492,8 @@
 											</div>	
 							        	</td>
 							        </tr>
-						        </c:if>
+						        <%-- </c:if> --%>
 					        </c:if>
-					        
-					        
-					        
 					        
 					     	<tr height="10"><td>&nbsp;</td></tr>
 		     	            	<tr>

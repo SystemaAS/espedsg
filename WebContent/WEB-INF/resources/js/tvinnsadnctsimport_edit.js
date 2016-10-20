@@ -445,14 +445,25 @@
 			  modal: true
 		  });
 	  });
-	  //Present dialog box onClick (href in parent JSP)
+	  
+	//----------------------------
+	  //Present dialog box onClick 
+	  //----------------------------
 	  jq(function() {
 		  jq("#updateStatusLink").click(function() {
-			  //setters (add more if needed)
-			  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
-			  
-			  //deal with buttons for this modal window
-			  jq('#dialogUpdateStatus').dialog({
+			  presentChangeStatusDialog();
+		  });
+		  jq("#updateStatusByUserImg").click(function() {
+			  presentChangeStatusDialog();
+		  });
+		  
+	  });
+	  //Present dialog box onClick (href in parent JSP)
+	  function presentChangeStatusDialog(){
+		  //setters (add more if needed)
+		  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
+		  //deal with buttons for this modal window
+		  jq('#dialogUpdateStatus').dialog({
 				 buttons: [ 
 		            {
 					 id: "dialogSaveTU",	
@@ -472,12 +483,11 @@
 					 		} 
 		 	 		 } ] 
 			  });
-			  //init values
-			  jq("#dialogSaveSU").button("option", "disabled", true);
-			  //open now
-			  jq('#dialogUpdateStatus').dialog('open');
-		  });
-	  });
+		  //init values
+		  jq("#dialogSaveSU").button("option", "disabled", true);
+		  //open now
+		  jq('#dialogUpdateStatus').dialog('open');
+	  };
 
 	
 	

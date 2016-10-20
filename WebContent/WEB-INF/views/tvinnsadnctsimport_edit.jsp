@@ -538,11 +538,39 @@
 				            <td class="text12" ><span title="tials">Avt.lag.sted</span></td>
 				            <td ><input type="text" class="inputText" name="tials" id="tials" size="20" maxlength="35" value="${model.record.tials}"></td>
 			            </tr>
+			            
+		                
+			            
 			            <tr height="2"><td>&nbsp;</td></tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td class="text12" ><span title="tiglsk">Godk.lag.sted (kode)</span></td>
 				            <td ><input type="text" class="inputText" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${model.record.tiglsk}"></td>
+				            
+				            
+				            <c:if test="${ model.record.tist == 'E' || model.record.tist == 'K' || model.record.tist == 'Å' || empty  model.record.tist }">
+				       	 	<%-- <c:if test="${ empty model.record.titrnr }"> --%> 
+						        
+					        	<td valign="top" class="text12" colspan="2">
+					        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+			            			Endre Status&nbsp;
+					        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+					        		<div class="text11" style="position: relative;" align="left">
+					            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+					           			<b>Endre Status</b>
+					           			<br/>
+					           			<p>
+					           				Statusen kan bare endres når:
+					           				<ol>
+					           				<li>Status = E, K, Å eller blank</li>
+					           				</ol>	
+					           			</p>
+									</span>
+									</div>	
+					        	</td>
+					       	<%-- </c:if> --%> 
+				        	</c:if>
+				            
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
