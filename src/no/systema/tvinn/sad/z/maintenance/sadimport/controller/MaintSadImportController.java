@@ -145,6 +145,7 @@ public class MaintSadImportController {
 		object.setPgm("sad010r");
 		listObject.add(object);
 		//
+		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("6");
 		object.setSubject("Gyldige tariffører");
@@ -154,6 +155,7 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		object.setPgm("syft10r");
 		listObject.add(object);
+		*/
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("7");

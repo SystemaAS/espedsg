@@ -4,7 +4,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtsiRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class MaintSadExportTvi99dValidator implements Validator {
 	 * 
 	 */
 	public boolean supports(Class clazz) {
-		return JsonMaintSadImportKodtsiRecord.class.isAssignableFrom(clazz);
+		return JsonMaintSadFellesKodtsiRecord.class.isAssignableFrom(clazz);
 	}
 
 	/**

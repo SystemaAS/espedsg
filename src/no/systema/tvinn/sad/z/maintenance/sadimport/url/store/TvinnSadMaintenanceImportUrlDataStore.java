@@ -21,11 +21,6 @@ public final class TvinnSadMaintenanceImportUrlDataStore {
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSYFT04R.do?user=OSCAR...
 	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT04R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT04R.do";
 	
-	//SYFT10R
-	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSYFT10R.do?user=OSCAR
-	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSYFT10R.do?user=OSCAR&klikod=D
-	static public String TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT10R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSYFT10R.do";
-	
 	//SYFT18R
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSYFT18R.do?user=OSCAR
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSYFT18R.do?user=OSCAR&kundnr=1

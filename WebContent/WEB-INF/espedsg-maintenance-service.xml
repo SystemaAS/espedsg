@@ -29,6 +29,12 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="brregEnhetsRegisteretService" class="no.systema.tvinn.sad.kundekontroll.brreg.service.BrregEnhetsRegisteretServiceImpl"/>
 	
 	<!-- =================  -->
+	<!-- TVINN SAD FELLES   -->
+	<!-- =================  -->
+	<bean id="maintSadFellesKodtsiService" class="no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiServiceImpl"/>
+	
+	
+	<!-- =================  -->
 	<!-- TVINN SAD EXPORT   -->
 	<!-- =================  -->
 	<bean id="maintSadExportTvineService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportTvineServiceImpl"/>
@@ -48,7 +54,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN SAD IMPORT   -->
 	<!-- =================  -->
 	<bean id="maintSadImportKodtlikService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikServiceImpl"/>
-	<bean id="maintSadImportKodtsiService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtsiServiceImpl"/>
 	<bean id="maintSadImportKodtlbService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbServiceImpl"/>
 	<bean id="maintSadImportCundfLikvKodeService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportCundfLikvKodeServiceImpl"/>
 	<bean id="maintSadImportTariService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportTariServiceImpl"/>

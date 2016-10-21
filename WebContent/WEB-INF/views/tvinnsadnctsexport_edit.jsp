@@ -1469,8 +1469,9 @@
 					        
 					        <tr height="2"><td></td></tr> 
 					        <%-- <c:if test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}"> --%>
-					        <c:if test="${ model.record.thst == 'E' || model.record.thst == 'K' || model.record.thst == 'Å' || empty  model.record.thst }" >
-					       	 	<%-- <c:if test="${ empty model.record.thtrnr }"> --%> 
+					        <c:choose>
+					        <c:when test="${ model.record.thblk != 'NO' }" >
+					        	<c:if test="${ model.record.thdk == 'SS' || model.record.thdk == 'ENTRY' || model.record.thdk == 'EXIT' }" >
 							        <tr height="10"><td></td></tr>
 							        <tr>
 							        	<td valign="top" class="text12" colspan="2">
@@ -1492,8 +1493,34 @@
 											</div>	
 							        	</td>
 							        </tr>
-						        <%-- </c:if> --%>
-					        </c:if>
+							      </c:if> 
+					        </c:when>
+					        <c:otherwise>
+					        	<c:if test="${ model.record.thdk != 'SS' && model.record.thdk != 'ENTRY' && model.record.thdk != 'EXIT' }" >
+							        <tr height="10"><td></td></tr>
+							        <tr>
+							        	<td valign="top" class="text12" colspan="2">
+							        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			Endre Status&nbsp;
+							        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+							        		<div class="text11" style="position: relative;" align="left">
+							            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+							           			<b>Endre Status</b>
+							           			<br/>
+							           			<p>
+							           				Statusen kan bare endres når:
+							           				<ol>
+							           				<li>Status = E, K, Å eller blank</li>
+							           				<li>MRN er blank</li>
+						           					</ol>	
+							           			</p>
+											</span>
+											</div>	
+							        	</td>
+							        </tr>
+							       </c:if> 
+					        </c:otherwise>
+					        </c:choose>
 					        
 					     	<tr height="10"><td>&nbsp;</td></tr>
 		     	            	<tr>

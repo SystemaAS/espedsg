@@ -548,29 +548,25 @@
 				            <td ><input type="text" class="inputText" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${model.record.tiglsk}"></td>
 				            
 				            
-				            <c:if test="${ model.record.tist == 'E' || model.record.tist == 'K' || model.record.tist == 'Å' || empty  model.record.tist }">
-				       	 	<%-- <c:if test="${ empty model.record.titrnr }"> --%> 
-						        
-					        	<td valign="top" class="text12" colspan="2">
-					        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			            			Endre Status&nbsp;
-					        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
-					        		<div class="text11" style="position: relative;" align="left">
-					            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
-					           			<b>Endre Status</b>
-					           			<br/>
-					           			<p>
-					           				Statusen kan bare endres når:
-					           				<ol>
-					           				<li>Status = E, K, Å eller blank</li>
-					           				</ol>	
-					           			</p>
-									</span>
-									</div>	
-					        	</td>
-					       	<%-- </c:if> --%> 
-				        	</c:if>
-				            
+				                
+				        	<td valign="top" class="text12" colspan="2">
+				        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		            			Endre Status&nbsp;
+				        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
+				        		<div class="text11" style="position: relative;" align="left">
+				            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
+				           			<b>Endre Status</b>
+				           			<br/>
+				           			<p>
+				           				Statusen kan bare endres når:
+				           				<ol>
+				           				<li>Status = E, K, Å eller blank</li>
+				           				</ol>	
+				           			</p>
+								</span>
+								</div>	
+				        	</td>
+
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>

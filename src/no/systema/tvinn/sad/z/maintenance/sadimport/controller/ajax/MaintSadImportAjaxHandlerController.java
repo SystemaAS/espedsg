@@ -31,6 +31,9 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
@@ -39,6 +42,7 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.*;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.*;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
 
 
 /**
@@ -96,24 +100,6 @@ public class MaintSadImportAjaxHandlerController {
     	
     	return result;
 	
-	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value="getSpecificRecord_syft10r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintSadImportKodtsiRecord> getRecordSyft10
-	  	(@RequestParam String applicationUser, @RequestParam String id) {
-		final String METHOD = "[DEBUG] getRecordSyft10 ";
-		logger.info(METHOD + " Inside...");
-		List<JsonMaintSadImportKodtsiRecord> result = new ArrayList();
-	 	//get table
-    	result = (List)this.fetchListSyft10(applicationUser, id); 
-    	
-    	return result;
-    	
 	}
 	
 	/**
@@ -333,35 +319,6 @@ public class MaintSadImportAjaxHandlerController {
     	
 	}
 	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	private Collection<JsonMaintSadImportKodtsiRecord> fetchListSyft10(String applicationUser, String id){
-		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT10R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&ksisig=" + id;
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//extract
-    	List<JsonMaintSadImportKodtsiRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintSadImportKodtsiContainer container = this.maintSadImportKodtsiService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodtsiRecord record: list){
-	        		//logger.info(record.getKlikod());
-	        	}
-	        }
-    	}
-    	return list;
-    	
-	}
 	
 	/**
 	 * 
@@ -625,11 +582,11 @@ public class MaintSadImportAjaxHandlerController {
 	public MaintSadImportKodtlikService getMaintSadImportKodtlikService(){ return this.maintSadImportKodtlikService; }
 	
 	@Qualifier ("maintSadImportKodtsiService")
-	private MaintSadImportKodtsiService maintSadImportKodtsiService;
+	private MaintSadFellesKodtsiService maintSadImportKodtsiService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsiService (MaintSadImportKodtsiService value){ this.maintSadImportKodtsiService = value; }
-	public MaintSadImportKodtsiService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtsiService; }
+	public void setMaintSadImportKodtsiService (MaintSadFellesKodtsiService value){ this.maintSadImportKodtsiService = value; }
+	public MaintSadFellesKodtsiService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtsiService; }
 
 
 	@Qualifier ("maintSadImportKodtlbService")
