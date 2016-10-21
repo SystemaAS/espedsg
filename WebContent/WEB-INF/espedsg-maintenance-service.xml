@@ -32,6 +32,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN SAD FELLES   -->
 	<!-- =================  -->
 	<bean id="maintSadFellesKodtsiService" class="no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiServiceImpl"/>
+	<bean id="maintSadFellesKodtlbService" class="no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbServiceImpl"/>
 	
 	
 	<!-- =================  -->
