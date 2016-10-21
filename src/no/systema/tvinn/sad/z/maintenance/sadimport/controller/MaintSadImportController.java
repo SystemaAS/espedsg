@@ -126,16 +126,6 @@ public class MaintSadImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("4");
-		object.setSubject("Leveringsbetingelser");
-		object.setCode("SADI_LEVBETING");
-		object.setText("SAD012 / KODTLB");
-		object.setDbTable("KODTLB");
-		object.setStatus("G");
-		object.setPgm("sad012r");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
 		object.setId("5");
 		object.setSubject("Tolltariff");
 		object.setCode("SADI_TOLLTARIFF");
@@ -144,18 +134,6 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		object.setPgm("sad010r");
 		listObject.add(object);
-		//
-		/*
-		object = new  MaintenanceMainListObject();
-		object.setId("6");
-		object.setSubject("Gyldige tariffører");
-		object.setCode("SADI_GYLD_TARIFFOR");
-		object.setText("SYFT10 / KODTSI");
-		object.setDbTable("KODTSI");
-		object.setStatus("G");
-		object.setPgm("syft10r");
-		listObject.add(object);
-		*/
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("7");

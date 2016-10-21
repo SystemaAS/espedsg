@@ -44,8 +44,8 @@ import no.systema.z.main.maintenance.validator.sad.MaintMainTrustdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 

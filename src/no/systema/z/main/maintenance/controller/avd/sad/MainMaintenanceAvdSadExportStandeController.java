@@ -35,8 +35,8 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 import no.systema.z.main.maintenance.validator.sad.MaintMainStandeValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts9Service;
 
@@ -387,11 +387,11 @@ public class MainMaintenanceAvdSadExportStandeController {
 	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
 	
 	@Qualifier ("maintSadImportKodtlbService")
-	private MaintSadImportKodtlbService maintSadImportKodtlbService;
+	private MaintSadFellesKodtlbService maintSadImportKodtlbService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsiService (MaintSadImportKodtlbService value){ this.maintSadImportKodtlbService = value; }
-	public MaintSadImportKodtlbService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtlbService; }
+	public void setMaintSadImportKodtsiService (MaintSadFellesKodtlbService value){ this.maintSadImportKodtlbService = value; }
+	public MaintSadFellesKodtlbService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtlbService; }
 	
 	@Qualifier ("maintSadImportKodts9Service")
 	private MaintSadImportKodts9Service maintSadImportKodts9Service;

@@ -97,8 +97,6 @@ public class MaintSadFellesController {
 		        
 		
 		//
-		
-		//
 		object = new  MaintenanceMainListObject();
 		object.setId("1");
 		object.setSubject("Gyldige tariffører");
@@ -108,6 +106,17 @@ public class MaintSadFellesController {
 		object.setStatus("G");
 		object.setPgm("syft10r");
 		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("2");
+		object.setSubject("Leveringsbetingelser");
+		object.setCode("SADI_LEVBETING");
+		object.setText("SAD012 / KODTLB");
+		object.setDbTable("KODTLB");
+		object.setStatus("G");
+		object.setPgm("sad012r");
+		listObject.add(object);
+		
 		//
 		/*
 		object = new  MaintenanceMainListObject();

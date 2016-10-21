@@ -31,17 +31,13 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
-import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
-import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
-import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.*;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.*;
-
-import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
 
 
@@ -85,7 +81,25 @@ public class MaintSadFellesAjaxHandlerController {
     	
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad012r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadFellesKodtlbRecord> getRecordSad012
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getRecordSad012 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadFellesKodtlbRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad012(applicationUser, id);
+    	
+    	return result;
 	
+	}
 	
 	
 	
@@ -108,7 +122,7 @@ public class MaintSadFellesAjaxHandlerController {
     	List<JsonMaintSadFellesKodtsiRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadFellesKodtsiContainer container = this.maintSadImportKodtsiService.getList(jsonPayload);
+    		JsonMaintSadFellesKodtsiContainer container = this.maintSadFellesKodtsiService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadFellesKodtsiRecord record: list){
@@ -120,6 +134,37 @@ public class MaintSadFellesAjaxHandlerController {
     	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSadFellesKodtlbRecord> fetchListSad012(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&klbkod=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadFellesKodtlbRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadFellesKodtlbContainer container = this.maintSadFellesKodtlbService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadFellesKodtlbRecord record: list){
+	        		logger.info("X"+record.getKlbxxx_mot()+"X");
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -130,13 +175,20 @@ public class MaintSadFellesAjaxHandlerController {
 	
 	
 	
-	@Qualifier ("maintSadImportKodtsiService")
-	private MaintSadFellesKodtsiService maintSadImportKodtsiService;
+	@Qualifier ("maintSadFellesKodtsiService")
+	private MaintSadFellesKodtsiService maintSadFellesKodtsiService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsiService (MaintSadFellesKodtsiService value){ this.maintSadImportKodtsiService = value; }
-	public MaintSadFellesKodtsiService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtsiService; }
+	public void setMaintSadFellesKodtsiService (MaintSadFellesKodtsiService value){ this.maintSadFellesKodtsiService = value; }
+	public MaintSadFellesKodtsiService getMaintSadFellesKodtsiService(){ return this.maintSadFellesKodtsiService; }
 
+	@Qualifier ("maintSadFellesKodtlbService")
+	private MaintSadFellesKodtlbService maintSadFellesKodtlbService;
+	@Autowired
+	@Required
+	public void setMaintSadFellesKodtlbService (MaintSadFellesKodtlbService value){ this.maintSadFellesKodtlbService = value; }
+	public MaintSadFellesKodtlbService getMaintSadFellesKodtlbService(){ return this.maintSadFellesKodtlbService; }
+	
 
 }
 

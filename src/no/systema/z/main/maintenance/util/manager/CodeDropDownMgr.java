@@ -5,12 +5,13 @@ import java.util.*;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlbRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts1Container;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts1Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Record;
@@ -22,7 +23,7 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSa
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts9Service;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlbService;
+import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
 
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
@@ -232,21 +233,21 @@ public class CodeDropDownMgr {
 	 * @param applicationUser
 	 * @param code
 	 */
-	public void populateGeneralCodesHtmlDropDownsSad012Incoterms (UrlCgiProxyService urlCgiProxyService, MaintSadImportKodtlbService maintSadImportKodtlbService, Map model, String applicationUser){
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD012R_GET_LIST_URL;
+	public void populateGeneralCodesHtmlDropDownsSad012Incoterms (UrlCgiProxyService urlCgiProxyService, MaintSadFellesKodtlbService maintSadImportKodtlbService, Map model, String applicationUser){
+		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
-    	List<JsonMaintSadImportKodtlbRecord> list = new ArrayList();
+    	List<JsonMaintSadFellesKodtlbRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadImportKodtlbContainer container = maintSadImportKodtlbService.getList(jsonPayload);
+    		JsonMaintSadFellesKodtlbContainer container = maintSadImportKodtlbService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodtlbRecord record : list){
+	        	for(JsonMaintSadFellesKodtlbRecord record : list){
 	        		//DEBUG
 	        	}
 	        }
