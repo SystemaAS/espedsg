@@ -32,13 +32,18 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSoktariService;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesTariContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesTariRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesTariService;
 import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
+
 
 
 /**
@@ -79,6 +84,27 @@ public class MaintSadFellesAjaxHandlerController {
     	
     	return result;
     	
+	}
+	
+	
+
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad010r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadFellesTariRecord> getRecordSad010
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String alfa) {
+		final String METHOD = "[DEBUG] getRecordSad010 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadFellesTariRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad010(applicationUser, id, alfa);
+    	
+    	return result;
+	
 	}
 	
 	/**
@@ -140,6 +166,36 @@ public class MaintSadFellesAjaxHandlerController {
 	 * @param id
 	 * @return
 	 */
+	private Collection<JsonMaintSadFellesTariRecord> fetchListSad010(String applicationUser, String id, String alfa){
+		
+		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD010R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&tatanr=" + id + "&taalfa=" + alfa;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadFellesTariRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadFellesTariContainer container = this.maintSadFellesTariService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadFellesTariRecord record: list){
+	        		logger.info(record.getTatanr());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
 	private Collection<JsonMaintSadFellesKodtlbRecord> fetchListSad012(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_GET_LIST_URL;
@@ -188,6 +244,13 @@ public class MaintSadFellesAjaxHandlerController {
 	@Required
 	public void setMaintSadFellesKodtlbService (MaintSadFellesKodtlbService value){ this.maintSadFellesKodtlbService = value; }
 	public MaintSadFellesKodtlbService getMaintSadFellesKodtlbService(){ return this.maintSadFellesKodtlbService; }
+	
+	@Qualifier ("maintSadFellesTariService")
+	private MaintSadFellesTariService maintSadFellesTariService;
+	@Autowired
+	@Required
+	public void setMaintSadFellesTariService (MaintSadFellesTariService value){ this.maintSadFellesTariService = value; }
+	public MaintSadFellesTariService getMaintSadFellesTariService(){ return this.maintSadFellesTariService; }
 	
 
 }

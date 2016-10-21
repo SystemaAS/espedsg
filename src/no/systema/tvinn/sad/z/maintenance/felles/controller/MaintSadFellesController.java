@@ -94,8 +94,6 @@ public class MaintSadFellesController {
 	private List<MaintenanceMainListObject> populateMaintenanceMainList(){
 		List<MaintenanceMainListObject> listObject = new ArrayList<MaintenanceMainListObject>();
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
-		        
-		
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("1");
@@ -116,11 +114,9 @@ public class MaintSadFellesController {
 		object.setStatus("G");
 		object.setPgm("sad012r");
 		listObject.add(object);
-		
 		//
-		/*
 		object = new  MaintenanceMainListObject();
-		object.setId("2");
+		object.setId("3");
 		object.setSubject("Tolltariff");
 		object.setCode("SADI_TOLLTARIFF");
 		object.setText("SAD010 / TARI");
@@ -129,6 +125,7 @@ public class MaintSadFellesController {
 		object.setPgm("sad010r");
 		listObject.add(object);
 		
+		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("7");
 		object.setSubject("Gyldige tollsteder");

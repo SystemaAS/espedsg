@@ -29,12 +29,12 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesTariService;
 import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSoktariContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSoktariRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportTariService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSoktariService;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
@@ -283,11 +283,11 @@ public class MaintSadImportSad062rController {
 	
 	
 	@Qualifier ("maintSadImportTariService")
-	private MaintSadImportTariService maintSadImportTariService;
+	private MaintSadFellesTariService maintSadImportTariService;
 	@Autowired
 	@Required
-	public void setMaintSadImportTariService (MaintSadImportTariService value){ this.maintSadImportTariService = value; }
-	public MaintSadImportTariService getMaintSadImportTariService(){ return this.maintSadImportTariService; }
+	public void setMaintSadImportTariService (MaintSadFellesTariService value){ this.maintSadImportTariService = value; }
+	public MaintSadFellesTariService getMaintSadImportTariService(){ return this.maintSadImportTariService; }
 	
 	
 	@Qualifier ("maintSadImportSoktariService")

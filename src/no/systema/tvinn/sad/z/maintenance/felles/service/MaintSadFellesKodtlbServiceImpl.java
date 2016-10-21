@@ -3,8 +3,8 @@
  */
 package no.systema.tvinn.sad.z.maintenance.felles.service;
 
+import no.systema.tvinn.sad.z.maintenance.felles.mapper.jsonjackson.dbtable.MaintSadFellesKodtlbMapper;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.mapper.jsonjackson.dbtable.MaintSadImportKodtlbMapper;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class MaintSadFellesKodtlbServiceImpl implements MaintSadFellesKodtlbServ
 	public JsonMaintSadFellesKodtlbContainer getList(String utfPayload) {
 		JsonMaintSadFellesKodtlbContainer container = null;
 		try{
-			MaintSadImportKodtlbMapper mapper = new MaintSadImportKodtlbMapper();
+			MaintSadFellesKodtlbMapper mapper = new MaintSadFellesKodtlbMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -37,7 +37,7 @@ public class MaintSadFellesKodtlbServiceImpl implements MaintSadFellesKodtlbServ
 	public JsonMaintSadFellesKodtlbContainer doUpdate(String utfPayload) {
 		JsonMaintSadFellesKodtlbContainer container = null;
 		try{
-			MaintSadImportKodtlbMapper mapper = new MaintSadImportKodtlbMapper();
+			MaintSadFellesKodtlbMapper mapper = new MaintSadFellesKodtlbMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
