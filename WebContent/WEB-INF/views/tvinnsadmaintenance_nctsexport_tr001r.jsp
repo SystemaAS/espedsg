@@ -44,26 +44,45 @@
 		<%-- space separator --%>
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="30"><td>&nbsp;</td></tr>
-	 	    
-	 	    <tr >
+	 	    <tr>
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%" class="text12">
 					<form action="tvinnsadmaintenance_nctsexport_tr001r.do?id=${model.dbTable}" name="formRecordSearch" id="formRecordSearch" method="POST" >
-						<font class="text14RedBold" >*</font><span title="searchTkunik">Kodetype</span>
-						<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="searchTkunik" id="searchTkunik" >
-							<c:forEach var="record" items="${model.transitCodeList}" >
-		 				  		<option value="${record.tkunik}"<c:if test="${model.searchTkunik == record.tkunik}"> selected </c:if> >${record.description}(${record.tkunik})</option>
-							</c:forEach> 
-		  				</select>
-						Kode&nbsp;
-						<input type="text" class="inputTextMediumBlue" name="searchTkkode" id="searchTkkode" size="11" maxlength="10" value='${model.searchTkkode}'>
-						&nbsp;Beskrivelse(norsk)&nbsp;
-						<input type="text" class="inputTextMediumBlue" name="searchTktxtn" id="searchTktxtn" size="25" maxlength="35" value='${model.searchTktxtn}'>
-						&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='Søk'/>
+							<font class="text14RedBold" >*</font><span title="searchTkunik">Kodetype</span>
+							<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="searchTkunik" id="searchTkunik" >
+								<c:forEach var="record" items="${model.transitCodeList}" >
+			 				  		<option value="${record.tkunik}"<c:if test="${searchFilterNctsExportKoderegister.searchTkunik == record.tkunik}"> selected </c:if> >${record.description}(${record.tkunik})</option>
+								</c:forEach> 
+			  				</select>
+							Kode&nbsp;
+							<input type="text" class="inputTextMediumBlue" name="searchTkkode" id="searchTkkode" size="11" maxlength="10" value='${searchFilterNctsExportKoderegister.searchTkkode}'>
+							&nbsp;Beskrivelse(norsk)&nbsp;
+							<input type="text" class="inputTextMediumBlue" name="searchTktxtn" id="searchTktxtn" size="25" maxlength="35" value='${searchFilterNctsExportKoderegister.searchTktxtn}'>
+							&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='Søk'/>
 					</form>
 				</td>
 			</tr>
-			
+	
+			<%-- Search Validation errors --%>
+			<spring:hasBindErrors name="searchRecord"> <%-- name must equal the command object name in the Controller --%>
+				<td width="5%">&nbsp;</td>
+				<td width="100%">
+	            	<table align="left" border="0" cellspacing="0" cellpadding="0">
+	            	<tr >
+					<td >					
+			            <ul class="isa_error text12" > 
+			            <c:forEach var="error" items="${errors.allErrors}">
+			                <li >
+			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
+			                </li>
+			            </c:forEach>
+			            </ul>
+					</td>
+					</tr>
+					</table>
+				</td>
+			</spring:hasBindErrors>
+	
 			<%-- list component --%>
 			<tr>
 				<td width="5%">&nbsp;</td>
@@ -85,7 +104,7 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${model.searchTkunik}_${record.tkkode}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${searchFilterNctsExportKoderegister.searchTkunik}_${record.tkkode}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tkkode}&nbsp;</font></td>
@@ -119,7 +138,7 @@
 			</tr>
 		    
 	 	    <tr height="15"><td>&nbsp;</td></tr>
-	 	    
+
 	 	    <%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
@@ -170,7 +189,9 @@
 				<td width="100%">
 				<form action="tvinnsadmaintenance_nctsexport_tr001r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-					<input type="hidden" name="tkunik" id=tkunik value="${model.searchTkunik}"> 
+					<input type="hidden" name="searchTkunik" id="searchTkunik" value="${searchFilterNctsExportKoderegister.searchTkunik}"> 
+					<input type="hidden" name="searchTkkode" id="searchTkkode" value="${searchFilterNctsExportKoderegister.searchTkkode}"> 
+					<input type="hidden" name="searchTktxtn" id="searchTktxtn" value="${searchFilterNctsExportKoderegister.searchTktxtn}"> 
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
 						<table width="60%" cellspacing="1" border="0" align="left">
@@ -178,10 +199,10 @@
 								<td class="text12" title="Kode">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
 								<td class="text12" title="Beskrivelse(norsk)">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse(norsk)</td>
 								<td class="text12" title="Beskrivelse(engelsk)">&nbsp;<font class="text14RedBold" >*</font>Beskrivelse(engelsk)</td>
-								<c:if test="${model.searchTkunik == '106'}">
-								<td class="text12" title="Avgang">&nbsp;Avgang</td>
-								<td class="text12" title="Ankomst">&nbsp;Ankomst</td>
-								<td class="text12" title="Transit">&nbsp;Transit</td>
+								<c:if test="${searchFilterNctsExportKoderegister.searchTkunik == '106'}">
+									<td class="text12" title="Avgang">&nbsp;Avgang</td>
+									<td class="text12" title="Ankomst">&nbsp;Ankomst</td>
+									<td class="text12" title="Transit">&nbsp;Transit</td>
 								</c:if>
 							</tr>
 							<tr>
@@ -189,7 +210,7 @@
 								<td ><input type="text" class="inputTextMediumBlue" name="tktxtn" id="tktxtn" size="40" maxlength="35" value='${model.record.tktxtn}'></td>
 								<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="40" maxlength="35" value='${model.record.tktxte}'></td>
 								
-								<c:if test="${model.searchTkunik == '106'}">
+								<c:if test="${searchFilterNctsExportKoderegister.searchTkunik == '106'}">
 								<td >
 				            		<select class="inputTextMediumBlue" name="tkavg" id="tkavg">
 				 						<option value="">-velg-</option>
