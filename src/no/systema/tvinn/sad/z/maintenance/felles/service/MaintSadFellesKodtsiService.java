@@ -8,7 +8,7 @@ import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonM
 /**
  * 
  * @author oscardelatorre
- * @date Apr 9, 2016
+ * @date Okt 20, 2016
  * 
  *
  */
