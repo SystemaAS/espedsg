@@ -697,8 +697,10 @@ public class SadImportItemsController {
 		  if(container!=null){
 			  if(container.getTariclist()!=null){
 				  for(JsonTvinnSadTolltariffVarukodRecord record : container.getTariclist()){
-					  //logger.info("MATCH on VAREKOD. !!!!: " + record.getTatanr());
-					  //logger.info("MATCH on VAREBESKRIV. !!!!: " + record.getBeskr1());
+					  if( taricVarukod.equals(record.getTatanr()) ){
+						  //logger.info("MATCH on VAREKOD. !!!!: " + record.getTatanr());
+						  //logger.info("MATCH on VAREBESKRIV. !!!!: " + record.getBeskr1());
+					  }	  
 					  retval = record;
 				  }	
 			  }

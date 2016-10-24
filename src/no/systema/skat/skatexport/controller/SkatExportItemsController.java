@@ -718,8 +718,10 @@ public class SkatExportItemsController {
 		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  logger.info("MATCH on VARUKOD !!!!: " + record.getDktara02());
-				  retval = this.MATCH;
+				  if(taricVarukod!=null && taricVarukod.equals(record.getDktara02())){
+					  //logger.info("MATCH on VARUKOD !!!!: " + record.getDktara02());
+					  retval = this.MATCH;
+				  }
 			  }	
 		  }
 		}catch(Exception e){

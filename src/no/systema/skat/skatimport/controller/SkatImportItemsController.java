@@ -734,17 +734,19 @@ public class SkatImportItemsController {
 		logger.info("Inside getTaricVarukod()");
 		String retval = null;
 		
-		String IMPORT_IE = "I";
+		String TYPE_IE = "I";
 		try{
 		  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
-		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + IMPORT_IE + "&kod=" + taricVarukod;
+		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod;
 		  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
-				  logger.info("MATCH on VARUKOD !!!!: " + record.getDktara02());
-				  retval = this.MATCH;
+				  if( taricVarukod.equals(record.getDktara02()) ){
+					  //logger.info("MATCH on VARUKOD !!!!: " + record.getDktara02());
+					  retval = this.MATCH;
+				  }
 			  }	
 		  }
 		}catch(Exception e){
