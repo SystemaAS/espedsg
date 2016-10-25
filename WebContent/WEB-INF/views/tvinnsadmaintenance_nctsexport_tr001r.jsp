@@ -207,8 +207,8 @@
 							</tr>
 							<tr>
 								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tkkode" id="tkkode" size="15" maxlength="10" value='${model.record.tkkode}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="tktxtn" id="tktxtn" size="40" maxlength="35" value='${model.record.tktxtn}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="40" maxlength="35" value='${model.record.tktxte}'></td>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tktxtn" id="tktxtn" size="40" maxlength="35" value='${model.record.tktxtn}'></td>
+								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="tktxte" id="tktxte" size="40" maxlength="35" value='${model.record.tktxte}'></td>
 								
 								<c:if test="${searchFilterNctsExportKoderegister.searchTkunik == '106'}">
 								<td >

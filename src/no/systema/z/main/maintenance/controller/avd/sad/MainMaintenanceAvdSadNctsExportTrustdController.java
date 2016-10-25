@@ -80,6 +80,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	public ModelAndView mainmaintenanceavdsadnctsimport_tr003r (HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdsadnctsexport_tr003r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		String id = request.getParameter("id");
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
@@ -92,6 +93,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			//Get list
 	 		List list = this.fetchList(appUser.getUser());
 			model.put("list", list);
+			model.put("id", id);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -117,6 +119,10 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		JsonMaintMainTrustdfvRecord dbChildRecord = null;
+		String id = request.getParameter("id");
+		
+		
+		logger.info("id="+id+"updateId="+updateId);
 		
 		//bind child record (only for validation purposes, even in back-end)
 		JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
@@ -245,6 +251,8 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			model.put("avd", avd);
 			model.put("avdnavn", avdnavn);
 			model.put("updateId", updateId);
+			model.put("id", id);
+			
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -464,7 +472,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
 		//Borrowed from TVINN domain
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
-		
+		this.codeDropDownMgr.populateDeklarationsTyperHtmlDropDown(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser);
 	}
 	
 	/**

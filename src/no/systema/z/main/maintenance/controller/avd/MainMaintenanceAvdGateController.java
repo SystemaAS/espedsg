@@ -143,6 +143,16 @@ public class MainMaintenanceAvdGateController {
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("6");
+		object.setSubject("TVINN - NCTS Forhåndsvarsling");
+		object.setCode("mainmaintenanceavdsadnctsexport");
+		object.setText("TR003R / TRUSTD");
+		object.setDbTable("TRUSTD_FHV");
+		object.setStatus("Y");
+		object.setPgm("tr003r");
+		listObject.add(object);
+		//
+		object = new  MainMaintenanceMainListObject();
+		object.setId("7");
 		object.setSubject("TDS - Import");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -152,7 +162,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("7");
+		object.setId("8");
 		object.setSubject("TDS - Export");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -162,7 +172,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("8");
+		object.setId("9");
 		object.setSubject("TDS - NCTS Import");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -172,7 +182,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("9");
+		object.setId("10");
 		object.setSubject("TDS - NCTS Export");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -182,7 +192,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("10");
+		object.setId("11");
 		object.setSubject("SKAT - Import");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -192,7 +202,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("11");
+		object.setId("12");
 		object.setSubject("SKAT - Eksport");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -202,7 +212,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("12");
+		object.setId("13");
 		object.setSubject("SKAT - NCTS Import");
 		object.setCode("TODO");
 		object.setText("X / Y");
@@ -212,7 +222,7 @@ public class MainMaintenanceAvdGateController {
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
-		object.setId("13");
+		object.setId("14");
 		object.setSubject("SKAT - NCTS Eksport");
 		object.setCode("TODO");
 		object.setText("X / Y");

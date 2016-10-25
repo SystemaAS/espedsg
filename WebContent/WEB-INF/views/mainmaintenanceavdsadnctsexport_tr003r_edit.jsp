@@ -37,7 +37,14 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="18%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do">
-							<font class="tabDisabledLink">&nbsp;TVINN NCTS Eksport</font>&nbsp;
+							<c:choose> 
+		    					<c:when test="${model.id=='TRUSTD'}">
+	                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
+	                       		</c:when>
+	                       		<c:otherwise> <!-- TRUST_FHV = NCTS Forhåndsvarsling -->
+	                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+	                      		</c:otherwise>
+			                 </c:choose>
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 						</a>
 					</td>
@@ -116,6 +123,8 @@
 				<td width="100%">
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
+						<input type="hidden" name="id" id=updateId value="${model.id}">
+						
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<table cellspacing="1" border="0" align="left">
 							<tr >
@@ -237,7 +246,22 @@
 					</table>
 				</td>
 			</tr>
-			<tr height="20"><td></td></tr>
+			<tr height="10"><td></td></tr>
+			
+			<tr>
+				<td width="5%">&nbsp;</td>
+	 			<td class="text12" title="thdk">&nbsp;&nbsp;Deklarasjonstype&nbsp;
+	 				<select name="thdk" id="thdk" class="inputTextMediumBlue" TABINDEX=1>
+	 				  <option value="">-velg-</option>
+	 				  	<c:forEach var="code" items="${model.deklarasjonsTypeCodeList}" >
+                             	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+						</c:forEach> 
+					</select>
+ 				</td>
+			</tr>
+			
+			<tr height="10"><td></td></tr>
+			
 			
 			<tr>
 			<td width="5%">&nbsp;</td>

@@ -36,7 +36,14 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="18%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;TVINN NCTS Eksport.</font>&nbsp;
+						<c:choose> 
+	    					<c:when test="${model.id=='TRUSTD'}">
+                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
+                       		</c:when>
+                       		<c:otherwise> <!-- TRUST_FHV = NCTS Forhåndsvarsling -->
+                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+                      		</c:otherwise>
+		                 </c:choose>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -80,7 +87,7 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
