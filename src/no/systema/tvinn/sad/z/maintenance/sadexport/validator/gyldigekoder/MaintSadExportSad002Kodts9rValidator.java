@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.validator.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sadexport.validator.gyldigekoder;
 
 import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
@@ -6,23 +6,23 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts9Record;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadExportKodts9Record;
 
 /**
  * 
  * @author oscardelatorre
- * @date Oct 6, 2016
+ * @date Oct 25, 2016
  * 
  *
  */
-public class MaintSadImportSad002Kodts9rValidator implements Validator {
-	private static final Logger logger = Logger.getLogger(MaintSadImportSad002Kodts9rValidator.class.getName());
+public class MaintSadExportSad002Kodts9rValidator implements Validator {
+	private static final Logger logger = Logger.getLogger(MaintSadExportSad002Kodts9rValidator.class.getName());
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	/**
 	 * 
 	 */
 	public boolean supports(Class clazz) {
-		return JsonMaintSadImportKodts9Record.class.isAssignableFrom(clazz); 
+		return JsonMaintSadExportKodts9Record.class.isAssignableFrom(clazz); 
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class MaintSadImportSad002Kodts9rValidator implements Validator {
 	 * 
 	 */
 	public void validate(Object obj, Errors errors) { 
-		JsonMaintSadImportKodts9Record record = (JsonMaintSadImportKodts9Record)obj;
+		JsonMaintSadExportKodts9Record record = (JsonMaintSadExportKodts9Record)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks9typ", "", "Kode (KS9TYP) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks9ftx", "", "Fritekst (KS9FTX) er obligatorisk"); 
@@ -53,7 +53,7 @@ public class MaintSadImportSad002Kodts9rValidator implements Validator {
 	
 	public void validateDelete(Object obj, Errors errors) { 
 		
-		JsonMaintSadImportKodts9Record record = (JsonMaintSadImportKodts9Record)obj;
+		JsonMaintSadExportKodts9Record record = (JsonMaintSadExportKodts9Record)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ks9typ", "", "Kode (KS9TYP) er obligatorisk"); 
 		
 	}

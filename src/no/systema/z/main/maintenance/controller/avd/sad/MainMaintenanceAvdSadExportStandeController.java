@@ -38,7 +38,7 @@ import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts9Service;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodts9Service;
 
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -223,7 +223,7 @@ public class MainMaintenanceAvdSadExportStandeController {
 		//Incoterms
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad012Incoterms (this.urlCgiProxyService, this.maintSadImportKodtlbService, model, applicationUser);
 		//
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002EkspedtyperExport(urlCgiProxyService, this.maintSadImportKodts9Service, model, applicationUser);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSad002EkspedtyperExport(urlCgiProxyService, this.maintSadExportKodts9Service, model, applicationUser);
 	}
 	
 	/**
@@ -393,12 +393,12 @@ public class MainMaintenanceAvdSadExportStandeController {
 	public void setMaintSadImportKodtsiService (MaintSadFellesKodtlbService value){ this.maintSadImportKodtlbService = value; }
 	public MaintSadFellesKodtlbService getMaintSadImportKodtsiService(){ return this.maintSadImportKodtlbService; }
 	
-	@Qualifier ("maintSadImportKodts9Service")
-	private MaintSadImportKodts9Service maintSadImportKodts9Service;
+	@Qualifier ("maintSadExportKodts9Service")
+	private MaintSadExportKodts9Service maintSadExportKodts9Service;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodts9Service (MaintSadImportKodts9Service value){ this.maintSadImportKodts9Service = value; }
-	public MaintSadImportKodts9Service getMaintSadImportKodts1Service(){ return this.maintSadImportKodts9Service; }
+	public void setMaintSadExportKodts9Service (MaintSadExportKodts9Service value){ this.maintSadExportKodts9Service = value; }
+	public MaintSadExportKodts9Service getMaintSadExportKodts9Service(){ return this.maintSadExportKodts9Service; }
 	
 	
 
