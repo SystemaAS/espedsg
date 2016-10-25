@@ -86,14 +86,7 @@ public class MaintSadNctsExportTr001rController {
 	    	
 		    this.populateDropDowns(model, appUser.getUser());
 	    	model.put("dbTable", dbTable);
-/*	    	model.put("searchTkunik", searchTkunik);
-			if (searchTkkode != null) {
-				model.put("searchTkkode", searchTkkode);
-			}
-			if (searchTktxtn !=null){
-				model.put("searchTktxtn", searchTktxtn);
-			}
-*/	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
+	    	model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER, searchRecord);    	
 	    	successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
@@ -115,11 +108,6 @@ public class MaintSadNctsExportTr001rController {
 		String searchTkkode = request.getParameter("searchTkkode");
 		String searchTktxtn = request.getParameter("searchTktxtn");
 		recordToValidate.setTkunik(searchTkunik);
-		//recordToValidate.setTkkode(searchTkkode);
-		
-		logger.info("searchTkunik="+searchTkunik);
-		logger.info("searchTkkode="+searchTkkode);
-		logger.info("searchTktxtn="+searchTktxtn);
 		
 		SearchFilterTransitKoder searchRecord = new SearchFilterTransitKoder();
 		searchRecord.setSearchTkunik(searchTkunik);
@@ -193,7 +181,6 @@ public class MaintSadNctsExportTr001rController {
 	
 			this.populateDropDowns(model, appUser.getUser());
 			model.put("dbTable", dbTable);
-	  //  	model.put("searchTkunik", searchTkunik);
 			model.put(TvinnSadMaintenanceConstants.DOMAIN_LIST, list);
 
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER, searchRecord);    	

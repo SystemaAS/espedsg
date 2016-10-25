@@ -80,7 +80,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	public ModelAndView mainmaintenanceavdsadnctsimport_tr003r (HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdsadnctsexport_tr003r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		String id = request.getParameter("id");
+		String id = request.getParameter("id");  //TRUST or TRUST_FHV, for correct selection
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
@@ -91,7 +91,7 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
 			
 			//Get list
-	 		List list = this.fetchList(appUser.getUser());
+	 		List list = this.fetchList(appUser.getUser(), id);
 			model.put("list", list);
 			model.put("id", id);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
@@ -120,9 +120,6 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 		String updateId = request.getParameter("updateId");
 		JsonMaintMainTrustdfvRecord dbChildRecord = null;
 		String id = request.getParameter("id");
-		
-		
-		logger.info("id="+id+"updateId="+updateId);
 		
 		//bind child record (only for validation purposes, even in back-end)
 		JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
@@ -267,10 +264,10 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
 	 * @param applicationUser
 	 * @return
 	 */
-	private List<JsonMaintMainTrustdRecord> fetchList(String applicationUser){
+	private List<JsonMaintMainTrustdRecord> fetchList(String applicationUser, String id){
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser;
+		String urlRequestParams = "user=" + applicationUser + "&id="+id;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
@@ -290,17 +287,11 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
     	
 	}
 	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	private JsonMaintMainTrustdRecord fetchRecord(String applicationUser, String id){
+	private JsonMaintMainTrustdRecord fetchRecord(String applicationUser, String avd){
 		JsonMaintMainTrustdRecord record = new JsonMaintMainTrustdRecord();
     	
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&thavd=" + id;
+		String urlRequestParams = "user=" + applicationUser + "&thavd=" + avd;
 		
 		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -325,17 +316,18 @@ public class MainMaintenanceAvdSadNctsExportTrustdController {
     	return record;
     	
 	}
+	
 	/**
 	 * Sikkerhed child record 
 	 * @param applicationUser
-	 * @param id
+	 * @param avd
 	 * @return
 	 */
-	private JsonMaintMainTrustdfvRecord fetchChildRecordSikkerhed(String applicationUser, String id){
+	private JsonMaintMainTrustdfvRecord fetchChildRecordSikkerhed(String applicationUser, String avd){
 		JsonMaintMainTrustdfvRecord record = new JsonMaintMainTrustdfvRecord();
     	
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TR003fvR_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&thavd=" + id;
+		String urlRequestParams = "user=" + applicationUser + "&thavd=" + avd;
 		
 		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));

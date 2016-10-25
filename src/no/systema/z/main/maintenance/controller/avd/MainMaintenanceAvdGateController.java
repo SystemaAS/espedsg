@@ -135,7 +135,7 @@ public class MainMaintenanceAvdGateController {
 		object.setId("5");
 		object.setSubject("TVINN - NCTS Export");
 		object.setCode("mainmaintenanceavdsadnctsexport");
-		object.setText("TR003R / TRUSTD");
+		object.setText("TR003R / TRUSTD not (ENTRY, EXIT, SS)");
 		object.setDbTable("TRUSTD");
 		object.setStatus("G");
 		object.setPgm("tr003r");
@@ -145,9 +145,9 @@ public class MainMaintenanceAvdGateController {
 		object.setId("6");
 		object.setSubject("TVINN - NCTS Forhåndsvarsling");
 		object.setCode("mainmaintenanceavdsadnctsexport");
-		object.setText("TR003R / TRUSTD");
+		object.setText("TR003R / TRUSTD (ENTRY, EXIT, SS)");
 		object.setDbTable("TRUSTD_FHV");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("tr003r");
 		listObject.add(object);
 		//
