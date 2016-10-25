@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.main.validator;
+package no.systema.tvinn.sad.z.maintenance.felles.validator;
 
 import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
@@ -15,8 +15,8 @@ import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMai
  * 
  *
  */
-public class MaintSadImportSyft02rValidator implements Validator {
-	private static final Logger logger = Logger.getLogger(MaintSadImportSyft02rValidator.class.getName());
+public class MaintSadFellesSyft02rValidator implements Validator {
+	private static final Logger logger = Logger.getLogger(MaintSadFellesSyft02rValidator.class.getName());
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	/**
 	 * 

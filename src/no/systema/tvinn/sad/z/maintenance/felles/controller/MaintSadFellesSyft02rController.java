@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.controller;
+package no.systema.tvinn.sad.z.maintenance.felles.controller;
 
 import java.util.*;
 
@@ -30,30 +30,29 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
+import no.systema.tvinn.sad.z.maintenance.felles.validator.MaintSadFellesSyft02rValidator;
 import no.systema.tvinn.sad.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaContainer;
 import no.systema.tvinn.sad.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintKodtvaRecord;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
-import no.systema.tvinn.sad.z.maintenance.main.validator.MaintSadImportSyft02rValidator;
 
 
 /**
- *  TVINN Maintenance Import Syft02r Controller 
+ *  TVINN Maintenance Felles Syft02r Controller 
  * 
  * @author oscardelatorre
- * @date Jun 7, 2016
+ * @date Okt 25, 2016
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSadImportSyft02rController {
+public class MaintSadFellesSyft02rController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSadImportSyft02rController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSadFellesSyft02rController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -69,9 +68,9 @@ public class MaintSadImportSyft02rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_syft02r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft02r");
+	@RequestMapping(value="tvinnsadmaintenancefelles_syft02r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintFellesList(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenancefelles_syft02r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
@@ -104,9 +103,9 @@ public class MaintSadImportSyft02rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_syft02r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintKodtvaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_syft02r");
+	@RequestMapping(value="tvinnsadmaintenancefelles_syft02r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintFellesEdit(@ModelAttribute ("record") JsonMaintKodtvaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenancefelles_syft02r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -122,7 +121,7 @@ public class MaintSadImportSyft02rController {
 			logger.info("About to print JsonMaintKodtvaRecord via grandfather");
 			logger.info("recordToValidate.toString="+recordToValidate.toString());
 			//Move on
-			MaintSadImportSyft02rValidator validator = new MaintSadImportSyft02rValidator();
+			MaintSadFellesSyft02rValidator validator = new MaintSadFellesSyft02rValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{

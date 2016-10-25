@@ -208,6 +208,7 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		listObject.add(object);
 		//
+		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("12");
 		object.setSubject("Tollkurser");
@@ -217,7 +218,7 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		object.setPgm("syft02r");
 		listObject.add(object);
-		
+		*/
 		return listObject;
 	}
 	

@@ -134,6 +134,16 @@ public class MaintSadFellesController {
 		object.setStatus("G");
 		object.setPgm("sad062r");
 		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("5");
+		object.setSubject("Tollkurser");
+		object.setCode("SADI_TOLLKURSER");
+		object.setText("SYFT02 / KODTVA");
+		object.setDbTable("KODTVA");
+		object.setStatus("G");
+		object.setPgm("syft02r");
+		listObject.add(object);
 		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("7");
@@ -215,15 +225,7 @@ public class MaintSadFellesController {
 		object.setStatus("G");
 		listObject.add(object);
 		//
-		object = new  MaintenanceMainListObject();
-		object.setId("15");
-		object.setSubject("Tollkurser");
-		object.setCode("SADI_TOLLKURSER");
-		object.setText("SYFT02 / KODTVA");
-		object.setDbTable("KODTVA");
-		object.setStatus("G");
-		object.setPgm("syft02r");
-		listObject.add(object);
+		
 		
 		*/
 		return listObject;
