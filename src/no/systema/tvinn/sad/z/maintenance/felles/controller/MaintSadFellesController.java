@@ -124,7 +124,16 @@ public class MaintSadFellesController {
 		object.setStatus("G");
 		object.setPgm("sad010r");
 		listObject.add(object);
-		
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("4");
+		object.setSubject("Søkeveier til tariff");
+		object.setCode("SADI_SOKEVEI_TARIFF");
+		object.setText("SAD062R / SOKTARI");
+		object.setDbTable("SOKTARI");
+		object.setStatus("G");
+		object.setPgm("sad062r");
+		listObject.add(object);
 		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("7");

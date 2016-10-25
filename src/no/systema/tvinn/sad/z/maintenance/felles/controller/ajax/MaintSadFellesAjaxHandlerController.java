@@ -18,30 +18,26 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
 
 //application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSoktariService;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtlbRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesSoktariContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesSoktariRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesTariContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesTariRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesTariService;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesSoktariService;
 import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
 
 
@@ -127,6 +123,56 @@ public class MaintSadFellesAjaxHandlerController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param alfa
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_sad062r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSadFellesSoktariRecord> getRecordSad062
+	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String alfa) {
+		final String METHOD = "[DEBUG] getRecordSad062 ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadFellesSoktariRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListSad062(applicationUser, id, alfa);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @param alfa
+	 * @return
+	 */
+	private Collection<JsonMaintSadFellesSoktariRecord> fetchListSad062(String applicationUser, String id, String alfa){
+		
+		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD062R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&tariff=" + id + "&beskr1=" + alfa;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadFellesSoktariRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadFellesSoktariContainer container = this.maintSadImportSoktariService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadFellesSoktariRecord record: list){
+	        		logger.info(record.getTariff());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
 	
 	
 	
@@ -251,6 +297,15 @@ public class MaintSadFellesAjaxHandlerController {
 	@Required
 	public void setMaintSadFellesTariService (MaintSadFellesTariService value){ this.maintSadFellesTariService = value; }
 	public MaintSadFellesTariService getMaintSadFellesTariService(){ return this.maintSadFellesTariService; }
+	
+	
+	@Qualifier ("maintSadImportSoktariService")
+	private MaintSadFellesSoktariService maintSadImportSoktariService;
+	@Autowired
+	@Required
+	public void setMaintSadImportSoktariService (MaintSadFellesSoktariService value){ this.maintSadImportSoktariService = value; }
+	public MaintSadFellesSoktariService getMaintSadImportSoktariService(){ return this.maintSadImportSoktariService; }
+	
 	
 
 }

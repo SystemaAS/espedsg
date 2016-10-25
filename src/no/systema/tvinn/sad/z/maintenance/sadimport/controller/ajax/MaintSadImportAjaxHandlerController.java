@@ -33,9 +33,12 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiContainer;
 import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesKodtsiRecord;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesSoktariContainer;
+import no.systema.tvinn.sad.z.maintenance.felles.model.jsonjackson.dbtable.JsonMaintSadFellesSoktariRecord;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesTariService;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesSoktariService;
 import no.systema.tvinn.sad.z.maintenance.sad.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
@@ -184,24 +187,7 @@ public class MaintSadImportAjaxHandlerController {
 	}
 
 	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value="getSpecificRecord_sad062r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintSadImportSoktariRecord> getRecordSad062
-	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String alfa) {
-		final String METHOD = "[DEBUG] getRecordSad062 ";
-		logger.info(METHOD + " Inside...");
-		List<JsonMaintSadImportSoktariRecord> result = new ArrayList();
-	 	//get table
-    	result = (List)this.fetchListSad062(applicationUser, id, alfa);
-    	
-    	return result;
 	
-	}
 	
 	@RequestMapping(value="getSpecificRecord_sad999r.do", method={RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody List<JsonMaintSadImportSadsdRecord> getRecordSad999
@@ -405,37 +391,6 @@ public class MaintSadImportAjaxHandlerController {
     	
 	}
 	
-
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @param alfa
-	 * @return
-	 */
-	private Collection<JsonMaintSadImportSoktariRecord> fetchListSad062(String applicationUser, String id, String alfa){
-		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD062R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&tariff=" + id + "&beskr1=" + alfa;
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//extract
-    	List<JsonMaintSadImportSoktariRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintSadImportSoktariContainer container = this.maintSadImportSoktariService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportSoktariRecord record: list){
-	        		logger.info(record.getTariff());
-	        	}
-	        }
-    	}
-    	return list;
-    	
-	}
 	
 	/**
 	 * 
@@ -517,11 +472,11 @@ public class MaintSadImportAjaxHandlerController {
 	
 	
 	@Qualifier ("maintSadImportSoktariService")
-	private MaintSadImportSoktariService maintSadImportSoktariService;
+	private MaintSadFellesSoktariService maintSadImportSoktariService;
 	@Autowired
 	@Required
-	public void setMaintSadImportSoktariService (MaintSadImportSoktariService value){ this.maintSadImportSoktariService = value; }
-	public MaintSadImportSoktariService getMaintSadImportSoktariService(){ return this.maintSadImportSoktariService; }
+	public void setMaintSadImportSoktariService (MaintSadFellesSoktariService value){ this.maintSadImportSoktariService = value; }
+	public MaintSadFellesSoktariService getMaintSadImportSoktariService(){ return this.maintSadImportSoktariService; }
 	
 	@Qualifier ("maintSadImportSadvareService")
 	private MaintSadImportSadvareService maintSadImportSadvareService;

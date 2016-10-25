@@ -30,6 +30,11 @@ public final class TvinnSadMaintenanceFellesUrlDataStore {
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD012R.do?user=OSCAR&klbkod=D
 	static public String TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD012R.do";
 	
+	//SAD062R
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R.do?user=OSCAR
+	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R.do?user=OSCAR&tariff=2042100
+	static public String TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD062R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD062R.do";
+	
 	
 	//----------------------------------
 	//[1] UPDATE DB record
@@ -47,6 +52,11 @@ public final class TvinnSadMaintenanceFellesUrlDataStore {
 	//SAD012R_U
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD012R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD012R_U.do";
+	
+
+	//SAD062R_U
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD062R_U.do?user=OSCAR&mode=U&<record>attributes...
+	static public String TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD062R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD062R_U.do";
 	
 	
 }

@@ -11,7 +11,7 @@ import java.util.*;
 
 /**
  * @author oscardelatorre
- * @date Okt 21, 2016
+ * @date Okt 25, 2016
  *
  */
 public class JsonMaintSadFellesTariRecord extends JsonAbstractGrandFatherRecord {
