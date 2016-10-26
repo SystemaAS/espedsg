@@ -35,20 +35,27 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="18%" valign="bottom" class="tab" align="center">
-						<c:choose> 
-	    					<c:when test="${model.id=='TRUSTD'}">
-                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
-                       		</c:when>
-                       		<c:otherwise> <!-- TRUST_FHV = NCTS Forhåndsvarsling -->
-                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
-                      		</c:otherwise>
-		                 </c:choose>
-						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
-					</td>
+
+					<c:choose> 
+		    			<c:when test="${model.id=='TRUSTD'}">
+							<td width="18%" valign="bottom" class="tabDisabled" align="center">
+								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
+			                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
+								</a>
+							</td>
+	                    </c:when>
+	                    <c:otherwise> <!--  TRUST_FHV = NCTS Forhåndsvarsling -->
+							<td width="22%" valign="bottom" class="tabDisabled" align="center">
+								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
+			                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+								</a>
+							</td>
+	                    </c:otherwise>
+			         </c:choose>
+
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?id=${model.id}">
 							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>

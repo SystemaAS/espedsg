@@ -35,19 +35,24 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="18%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do">
-							<c:choose> 
-		    					<c:when test="${model.id=='TRUSTD'}">
-	                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
-	                       		</c:when>
-	                       		<c:otherwise> <!-- TRUST_FHV = NCTS Forhåndsvarsling -->
-	                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
-	                      		</c:otherwise>
-			                 </c:choose>
-							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
-						</a>
-					</td>
+
+					<c:choose> 
+		    			<c:when test="${model.id=='TRUSTD'}">
+							<td width="18%" valign="bottom" class="tabDisabled" align="center">
+								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
+			                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
+								</a>
+							</td>
+	                    </c:when>
+	                    <c:otherwise> <!--  TRUST_FHV = NCTS Forhåndsvarsling -->
+							<td width="22%" valign="bottom" class="tabDisabled" align="center">
+								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
+			                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+								</a>
+							</td>
+	                    </c:otherwise>
+			         </c:choose>
+
 					<c:choose>
 						<c:when test="${not empty model.updateId}">
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -74,7 +79,7 @@
 	<tr>
 		<td>
 		<%-- space separator --%>
-			<form action="mainmaintenanceavdsadnctsexport_tr003r_edit.do" name="formRecord" id="formRecord" method="POST" >
+			<form action="mainmaintenanceavdsadnctsexport_tr003r_edit.do?id=${model.id}" name="formRecord" id="formRecord" method="POST" >
 	 	    <table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 		<tr height="20"><td>&nbsp;</td></tr>
 	 	    
@@ -123,7 +128,7 @@
 				<td width="100%">
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
-						<input type="hidden" name="id" id=updateId value="${model.id}">
+						<input type="hidden" name="id" id=id value="${model.id}">
 						
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<table cellspacing="1" border="0" align="left">
