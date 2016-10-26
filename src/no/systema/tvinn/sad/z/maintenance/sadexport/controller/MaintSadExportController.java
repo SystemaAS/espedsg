@@ -134,7 +134,7 @@ public class MaintSadExportController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("7");
-		object.setSubject("Gyldige koder(SAD)");
+		object.setSubject("Gyldige koder (SAD)");
 		object.setCode("SADI_GYLD_KODER");
 		object.setText("SAD002 / KODTS9...");
 		object.setDbTable("KODTS9...");
