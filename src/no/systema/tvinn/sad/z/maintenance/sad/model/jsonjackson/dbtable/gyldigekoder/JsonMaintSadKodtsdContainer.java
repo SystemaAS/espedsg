@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder;
 
 import java.util.Collection;
 
@@ -10,7 +10,7 @@ import java.util.Collection;
  * @date May 24, 2016
  *
  */
-public class JsonMaintSadImportKodtsdContainer {
+public class JsonMaintSadKodtsdContainer {
 	private String user = null;
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}
@@ -19,8 +19,8 @@ public class JsonMaintSadImportKodtsdContainer {
 	public void setErrMsg(String value) {  this.errMsg = value; }
 	public String getErrMsg() { return this.errMsg;}
 	
-	private Collection<JsonMaintSadImportKodtsdRecord> list;
-	public void setList(Collection<JsonMaintSadImportKodtsdRecord> value){ this.list = value; }
-	public Collection<JsonMaintSadImportKodtsdRecord> getList(){ return list; }
+	private Collection<JsonMaintSadKodtsdRecord> list;
+	public void setList(Collection<JsonMaintSadKodtsdRecord> value){ this.list = value; }
+	public Collection<JsonMaintSadKodtsdRecord> getList(){ return list; }
 	
 }

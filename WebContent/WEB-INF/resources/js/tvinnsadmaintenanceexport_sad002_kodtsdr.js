@@ -32,7 +32,7 @@
   	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecordImport_sad002_kodtsdr.do',
+  	  url: 'getSpecificRecordExport_sad002_kodtsdr.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
   		  	  id : rawId },
   	  dataType: 'json',

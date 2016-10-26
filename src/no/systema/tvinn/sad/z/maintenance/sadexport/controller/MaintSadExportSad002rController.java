@@ -113,7 +113,16 @@ public class MaintSadExportSad002rController {
 		object.setStatus("G");
 		object.setPgm("sad002_kodtscr");
 		listObject.add(object);
-		
+		//
+		//
+		object = new  MaintenanceGyldigekoderListObject();
+		object.setId("D");
+		object.setSubject("Lagringssted");
+		object.setText("SAD002 / KODTSD");
+		object.setDbTable("KODTSD");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsdr");
+		listObject.add(object);
 		
 		return listObject;
 	}

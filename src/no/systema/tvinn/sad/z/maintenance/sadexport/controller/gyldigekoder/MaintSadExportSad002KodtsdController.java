@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.controller.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sadexport.controller.gyldigekoder;
 
 import java.util.*;
 
@@ -39,19 +39,19 @@ import no.systema.tvinn.sad.z.maintenance.sad.validator.gyldigekoder.MaintSadSad
 import no.systema.tvinn.sad.z.maintenance.sad.url.store.TvinnSadMaintenanceUrlDataStoreGyldigeKoder;
 
 /**
- *  TVINN Maintenance Import Sad002r Controller 
+ *  TVINN Maintenance Export Sad002r Controller 
  * 
  * @author oscardelatorre
- * @date May 24, 2017
+ * @date Okt 26, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSadImportSad002KodtsdController {
+public class MaintSadExportSad002KodtsdController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSadImportSad002KodtsdController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSadExportSad002KodtsdController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -64,14 +64,14 @@ public class MaintSadImportSad002KodtsdController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_sad002_kodtsdr.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_sad002_kodtsdr");
+	@RequestMapping(value="tvinnsadmaintenanceexport_sad002_kodtsdr.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintExportList(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad002_kodtsdr");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
 		
-		logger.info("Inside method: doSadMaintImportList");
+		logger.info("Inside method: doSadMaintExportList");
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
@@ -98,9 +98,9 @@ public class MaintSadImportSad002KodtsdController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_sad002_kodtsdr_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadKodtsdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_sad002_kodtsdr");
+	@RequestMapping(value="tvinnsadmaintenanceexport_sad002_kodtsdr_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintExportEdit(@ModelAttribute ("record") JsonMaintSadKodtsdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad002_kodtsdr");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -201,7 +201,7 @@ public class MaintSadImportSad002KodtsdController {
     	List<JsonMaintSadKodtsdRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadKodtsdContainer container = this.maintSadImportKodtsdService.getList(jsonPayload);
+    		JsonMaintSadKodtsdContainer container = this.maintSadKodtsdService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        	/*for(JsonMaintSadImportKodtsdRecord record : list){
@@ -238,7 +238,7 @@ public class MaintSadImportSad002KodtsdController {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadKodtsdContainer container = this.maintSadImportKodtsdService.doUpdate(jsonPayload);
+    		JsonMaintSadKodtsdContainer container = this.maintSadKodtsdService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -263,12 +263,12 @@ public class MaintSadImportSad002KodtsdController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintSadImportKodtsdService")
-	private MaintSadKodtsdService maintSadImportKodtsdService;
+	@Qualifier ("maintSadKodtsdService")
+	private MaintSadKodtsdService maintSadKodtsdService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsdService (MaintSadKodtsdService value){ this.maintSadImportKodtsdService = value; }
-	public MaintSadKodtsdService getMaintSadImportKodtsdService(){ return this.maintSadImportKodtsdService; }
+	public void setMaintSadKodtsdService (MaintSadKodtsdService value){ this.maintSadKodtsdService = value; }
+	public MaintSadKodtsdService getMaintSadKodtsdService(){ return this.maintSadKodtsdService; }
 	
 }
 

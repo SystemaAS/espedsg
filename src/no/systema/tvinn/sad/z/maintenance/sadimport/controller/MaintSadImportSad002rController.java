@@ -187,17 +187,6 @@ public class MaintSadImportSad002rController {
 		object.setPgm("sad002_kodtsbr");
 		listObject.add(object);
 		//
-		/*
-		object = new  MaintenanceGyldigekoderListObject();
-		object.setId("C");
-		object.setSubject("Dok./Sertifikat kode (TVINN-export)");
-		object.setText("SAD002 / KODTSC");
-		object.setDbTable("KODTSC");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodtscr");
-		listObject.add(object);
-		*/
-		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("D");
 		object.setSubject("Lagringssted");
