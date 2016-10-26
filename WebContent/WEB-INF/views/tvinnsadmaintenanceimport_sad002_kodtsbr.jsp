@@ -164,7 +164,7 @@
 						</tr>
 						<tr>
 						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ksbkd" id="ksbkd" size="4" maxlength="3" value='${model.record.ksbkd}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ksbft" id="ksbft" size="50" maxlength="60" value='${model.record.ksbft}'></td>
+						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="ksbft" id="ksbft" size="61" maxlength="60" value='${model.record.ksbft}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" value='Lagre'/>
 						</td>

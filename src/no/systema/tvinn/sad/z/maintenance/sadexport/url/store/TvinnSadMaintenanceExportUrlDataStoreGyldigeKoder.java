@@ -21,6 +21,11 @@ public final class TvinnSadMaintenanceExportUrlDataStoreGyldigeKoder {
 	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD002_KODTS1R.do?user=OSCAR&ks1...
 	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTS9R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTS9R.do";
 	
+	//SAD002_KODTSCR
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD002_KODTSCR.do?user=OSCAR
+	//ONE --> http://gw.systema.no:8080/syjservicestn/syjsSAD002_KODTSCR.do?user=OSCAR&ksckd...
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTSCR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTSCR.do";
+	
 	
 	//----------------------------------
 	//[1] UPDATE DB record
@@ -30,6 +35,10 @@ public final class TvinnSadMaintenanceExportUrlDataStoreGyldigeKoder {
 	//SAD002R_KODTS9R_U
 	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD002_KODTS1R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTS9R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTS9R_U.do";
+	//SAD002_KODTSCR_U
+	//ALL --> http://gw.systema.no:8080/syjservicestn/syjsSAD002_KODTSCR_U.do?user=OSCAR&mode=U&<record>attributes...
+	static public String TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTSCR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTSCR_U.do";
+	
 	
 	
 }

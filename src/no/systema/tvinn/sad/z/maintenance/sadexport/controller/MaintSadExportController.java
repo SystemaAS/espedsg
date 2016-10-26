@@ -100,7 +100,6 @@ public class MaintSadExportController {
 		object.setDbTable("SAEH-HEADF");
 		object.setPgm("sad024");
 		object.setStatus("G");
-
 		listObject.add(object);
 		//
 		object = new MaintenanceMainListObject();
@@ -111,7 +110,6 @@ public class MaintSadExportController {
 		object.setDbTable("SADAVGE");
 		object.setPgm("sad015");
 		object.setStatus("G");
-
 		listObject.add(object);
 		//
 		object = new MaintenanceMainListObject();
@@ -122,9 +120,8 @@ public class MaintSadExportController {
 		object.setDbTable("SADL");
 		object.setPgm("sad004");
 		object.setStatus("G");
-
 		listObject.add(object);
-
+		//
 		object = new MaintenanceMainListObject();
 		object.setId("6");
 		object.setSubject("Koder funksjonsfeil");
@@ -134,7 +131,17 @@ public class MaintSadExportController {
 		object.setPgm("tvi99d");
 		object.setStatus("G");
 		listObject.add(object);
-
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("7");
+		object.setSubject("Gyldige koder(SAD)");
+		object.setCode("SADI_GYLD_KODER");
+		object.setText("SAD002 / KODTS9...");
+		object.setDbTable("KODTS9...");
+		object.setStatus("G");
+		object.setPgm("sad002r");
+		listObject.add(object);
+		
 		return listObject;
 	}
 

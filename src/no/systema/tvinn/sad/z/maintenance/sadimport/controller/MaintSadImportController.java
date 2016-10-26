@@ -124,7 +124,6 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		object.setPgm("sad006r");
 		listObject.add(object);
-		
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("4");
@@ -146,20 +145,8 @@ public class MaintSadImportController {
 		object.setPgm("sad002r");
 		listObject.add(object);
 		//
-		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("6");
-		object.setSubject("Søkeveier til tariff");
-		object.setCode("SADI_SOKEVEI_TARIFF");
-		object.setText("SAD062R / SOKTARI");
-		object.setDbTable("SOKTARI");
-		object.setStatus("G");
-		object.setPgm("sad062r");
-		listObject.add(object);
-		*/
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("7");
 		object.setSubject("Særavgifter");
 		object.setCode("SADI_SAERAVG");
 		object.setText("SAD999 / SADSD");
@@ -169,7 +156,7 @@ public class MaintSadImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("8");
+		object.setId("7");
 		object.setSubject("Gml. kunders varereg.");
 		object.setCode("SADI_GML_KUNDVAREREG");
 		object.setText("SAD004 / SADL");
@@ -179,18 +166,17 @@ public class MaintSadImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("9");
+		object.setId("8");
 		object.setSubject("Gyldige likvidit.koder");
 		object.setCode("SADI_GYLD_LIKV_KODER");
 		object.setText("SYFT19 / KODTLIK");
 		object.setDbTable("KODTLIK");
 		object.setStatus("G");
 		object.setPgm("syft19r");
-		
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("10");
+		object.setId("9");
 		object.setSubject("Kunders likvidit.koder");
 		object.setCode("SADI_KUNDGYLD_LIKV_KODER");
 		object.setText("SYFT18 / CUNDF");
@@ -200,7 +186,7 @@ public class MaintSadImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("11");
+		object.setId("10");
 		object.setSubject("Forendre Status på dekl.");
 		object.setCode("SADI_STATUS_DEKL");
 		object.setText("SAD013 / SADH,STS - Ref. GUI on SAD-Import");
@@ -208,17 +194,7 @@ public class MaintSadImportController {
 		object.setStatus("G");
 		listObject.add(object);
 		//
-		/*
-		object = new  MaintenanceMainListObject();
-		object.setId("12");
-		object.setSubject("Tollkurser");
-		object.setCode("SADI_TOLLKURSER");
-		object.setText("SYFT02 / KODTVA");
-		object.setDbTable("KODTVA");
-		object.setStatus("G");
-		object.setPgm("syft02r");
-		listObject.add(object);
-		*/
+		
 		return listObject;
 	}
 	
