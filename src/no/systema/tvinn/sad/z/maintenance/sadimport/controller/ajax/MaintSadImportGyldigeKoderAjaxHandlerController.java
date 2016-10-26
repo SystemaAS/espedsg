@@ -32,6 +32,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.*;
 import no.systema.tvinn.sad.z.maintenance.sadimport.controller.ajax.manager.MaintSadImportGyldigeKoderAjaxHandlerManager;
 
@@ -203,12 +204,12 @@ public class MaintSadImportGyldigeKoderAjaxHandlerController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="getSpecificRecord_sad002_kodtsar.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List <JsonMaintSadImportKodtsaRecord>getRecordSad002_kodtsa
+	@RequestMapping(value="getSpecificRecordImport_sad002_kodtsar.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadKodtsaRecord>getRecordSad002_kodtsa
 	  	(@RequestParam String applicationUser, @RequestParam String id) {
-		final String METHOD = "[DEBUG] getSpecificRecord_sad002_kodtsar.do ";
+		final String METHOD = "[DEBUG] getSpecificRecordImport_sad002_kodtsar.do ";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintSadImportKodtsaRecord> result = new ArrayList();
+		List<JsonMaintSadKodtsaRecord> result = new ArrayList();
 	 	//get table
 		result = (List)this.maintSadImportGyldigeKoderAjaxHandlerManager.fetchListKodtsa(applicationUser, id);
     	

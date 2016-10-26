@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * @date May 24, 2017
  * 
  */
-public class JsonMaintSadImportKodtsaRecord extends JsonAbstractGrandFatherRecord  {
+public class JsonMaintSadKodtsaRecord extends JsonAbstractGrandFatherRecord  {
 	
 	private String ksakd = null; 
 	public void setKsakd (String value){ this.ksakd = value;   }   

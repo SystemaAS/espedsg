@@ -27,10 +27,14 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.*;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.*;
 
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
+import no.systema.tvinn.sad.z.maintenance.sad.url.store.TvinnSadMaintenanceUrlDataStoreGyldigeKoder;
 
 
 /**
@@ -288,22 +292,22 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	 * @param id
 	 * @return
 	 */
-	public Collection<JsonMaintSadImportKodtsaRecord> fetchListKodtsa(String applicationUser, String id){
+	public Collection<JsonMaintSadKodtsaRecord> fetchListKodtsa(String applicationUser, String id){
 		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTSAR_GET_LIST_URL;
+		String BASE_URL = TvinnSadMaintenanceUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_BASE_SAD002_KODTSAR_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&ksakd=" + id;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
-    	List<JsonMaintSadImportKodtsaRecord> list = new ArrayList();
+    	List<JsonMaintSadKodtsaRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintSadImportKodtsaContainer container = this.maintSadImportKodtsaService.getList(jsonPayload);
+    		JsonMaintSadKodtsaContainer container = this.maintSadKodtsaService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodtsaRecord record: list){
+	        	for(JsonMaintSadKodtsaRecord record: list){
 	        		logger.info(record.getKsakd());
 	        	}
 	        }
@@ -501,12 +505,12 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	public MaintSadImportKodts8Service getMaintSadImportKodts8Service(){ return this.maintSadImportKodts8Service; }
 	
 	
-	@Qualifier ("maintSadImportKodtsaService")
-	private MaintSadImportKodtsaService maintSadImportKodtsaService;
+	@Qualifier ("maintSadKodtsaService")
+	private MaintSadKodtsaService maintSadKodtsaService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsaService (MaintSadImportKodtsaService value){ this.maintSadImportKodtsaService = value; }
-	public MaintSadImportKodtsaService getMaintSadImportKodtsaService(){ return this.maintSadImportKodtsaService; }
+	public void setMaintSadKodtsaService (MaintSadKodtsaService value){ this.maintSadKodtsaService = value; }
+	public MaintSadKodtsaService getMaintSadKodtsaService(){ return this.maintSadKodtsaService; }
 	
 	
 	@Qualifier ("maintSadImportKodtsbService")

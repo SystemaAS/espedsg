@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.validator.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sad.validator.gyldigekoder;
 
 import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsaRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
 
 /**
  * 
@@ -15,14 +15,14 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gy
  * 
  *
  */
-public class MaintSadImportSad002KodtsarValidator implements Validator {
-	private static final Logger logger = Logger.getLogger(MaintSadImportSad002KodtsarValidator.class.getName());
+public class MaintSadSad002KodtsarValidator implements Validator {
+	private static final Logger logger = Logger.getLogger(MaintSadSad002KodtsarValidator.class.getName());
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	/**
 	 * 
 	 */
 	public boolean supports(Class clazz) {
-		return JsonMaintSadImportKodtsaRecord.class.isAssignableFrom(clazz); 
+		return JsonMaintSadKodtsaRecord.class.isAssignableFrom(clazz); 
 	}
 	
 	/**
@@ -31,7 +31,7 @@ public class MaintSadImportSad002KodtsarValidator implements Validator {
 	 * 
 	 */
 	public void validate(Object obj, Errors errors) { 
-		JsonMaintSadImportKodtsaRecord record = (JsonMaintSadImportKodtsaRecord)obj;
+		JsonMaintSadKodtsaRecord record = (JsonMaintSadKodtsaRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ksakd", "", "Kode (KSAKD) er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ksaft", "", "Fritekst (KSAFT) er obligatorisk"); 
@@ -51,7 +51,7 @@ public class MaintSadImportSad002KodtsarValidator implements Validator {
 	
 	public void validateDelete(Object obj, Errors errors) { 
 		
-		JsonMaintSadImportKodtsaRecord record = (JsonMaintSadImportKodtsaRecord)obj;
+		JsonMaintSadKodtsaRecord record = (JsonMaintSadKodtsaRecord)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ksakd", "", "Kode (KSAKD) er obligatorisk"); 
 		
 	}

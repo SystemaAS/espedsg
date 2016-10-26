@@ -27,6 +27,10 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsaService;
+import no.systema.tvinn.sad.z.maintenance.sad.url.store.TvinnSadMaintenanceUrlDataStoreGyldigeKoder;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.*;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.*;
 
@@ -71,6 +75,36 @@ public class MaintSadExportGyldigeKoderAjaxHandlerManager {
 	        	list = (List)container.getList();
 	        	for(JsonMaintSadExportKodts9Record record: list){
 	        		logger.info(record.getKs9typ());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	public Collection<JsonMaintSadKodtsaRecord> fetchListKodtsa(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_BASE_SAD002_KODTSAR_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&ksakd=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSadKodtsaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadKodtsaContainer container = this.maintSadKodtsaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadKodtsaRecord record: list){
+	        		logger.info(record.getKsakd());
 	        	}
 	        }
     	}
@@ -134,6 +168,13 @@ public class MaintSadExportGyldigeKoderAjaxHandlerManager {
 	public void setMaintSadExportKodtscService (MaintSadExportKodtscService value){ this.maintSadExportKodtscService = value; }
 	public MaintSadExportKodtscService getMaintSadExportKodtscService(){ return this.maintSadExportKodtscService; }
 	
+	
+	@Qualifier ("maintSadKodtsaService")
+	private MaintSadKodtsaService maintSadKodtsaService;
+	@Autowired
+	@Required
+	public void setMaintSadKodtsaService (MaintSadKodtsaService value){ this.maintSadKodtsaService = value; }
+	public MaintSadKodtsaService getMaintSadKodtsaService(){ return this.maintSadKodtsaService; }
 	
 	
 }

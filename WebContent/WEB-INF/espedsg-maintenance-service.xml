@@ -26,7 +26,9 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TVINN SAD		    -->
 	<!-- =================  -->
 	<bean id="maintSadSadlService" class="no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlServiceImpl"/>
+	<bean id="maintSadKodtsaService" class="no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsaServiceImpl"/>
 	<bean id="brregEnhetsRegisteretService" class="no.systema.tvinn.sad.kundekontroll.brreg.service.BrregEnhetsRegisteretServiceImpl"/>
+	
 	
 	<!-- =================  -->
 	<!-- TVINN SAD FELLES   -->
@@ -79,7 +81,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportKodts6Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts6ServiceImpl"/>
 	<bean id="maintSadImportKodts7Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts7ServiceImpl"/>
 	<bean id="maintSadImportKodts8Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8ServiceImpl"/>
-	<bean id="maintSadImportKodtsaService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsaServiceImpl"/>
 	<bean id="maintSadImportKodtsbService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsbServiceImpl"/>
 	<bean id="maintSadImportKodtsdService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsdServiceImpl"/>
 	<bean id="maintSadImportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtseServiceImpl"/>
