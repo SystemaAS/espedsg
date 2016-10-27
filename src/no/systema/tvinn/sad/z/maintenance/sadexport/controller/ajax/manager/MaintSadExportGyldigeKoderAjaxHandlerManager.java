@@ -209,6 +209,35 @@ public class MaintSadExportGyldigeKoderAjaxHandlerManager {
 		
 	}
 
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	public Collection<JsonMaintSadExportKodtseRecord> fetchListKodtse(String applicationUser, String id){
+		
+		String BASE_URL = TvinnSadMaintenanceExportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_EXPORT_BASE_SAD002_KODTSER_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&ksefyl=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		//extract
+		List<JsonMaintSadExportKodtseRecord> list = new ArrayList();
+		if(jsonPayload!=null){
+			//lists
+			JsonMaintSadExportKodtseContainer container = this.maintSadExportKodtseService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintSadExportKodtseRecord record: list){
+	        		logger.info(record.getKsefyl());
+	        	}
+	        }
+		}
+		return list;
+		
+	}
 	
 
 	//SERVICES
@@ -250,6 +279,14 @@ public class MaintSadExportGyldigeKoderAjaxHandlerManager {
 	@Required
 	public void setMaintSadKodtsaService (MaintSadKodtsaService value){ this.maintSadKodtsaService = value; }
 	public MaintSadKodtsaService getMaintSadKodtsaService(){ return this.maintSadKodtsaService; }
+	
+	
+	@Qualifier ("maintSadExportKodtseService")
+	private MaintSadExportKodtseService maintSadExportKodtseService;
+	@Autowired
+	@Required
+	public void setMaintSadExportKodtseService (MaintSadExportKodtseService value){ this.maintSadExportKodtseService = value; }
+	public MaintSadExportKodtseService getMaintSadExportKodtseService(){ return this.maintSadExportKodtseService; }
 	
 	
 	@Qualifier ("maintSadKodtsoService")

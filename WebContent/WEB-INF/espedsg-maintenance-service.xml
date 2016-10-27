@@ -49,10 +49,10 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadExportSaehService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSaehServiceImpl"/>
 	<bean id="maintSadExportKodts6Service" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6ServiceImpl"/>
 	<bean id="maintSadExportSadsdService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportSadsdServiceImpl"/>
-	<bean id="maintSadExportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodtseServiceImpl"/>		
 	<!-- START Gyldige koder -->
 	<bean id="maintSadExportKodts9Service" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodts9ServiceImpl"/>
 	<bean id="maintSadExportKodtscService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodtscServiceImpl"/>
+	<bean id="maintSadExportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodtseServiceImpl"/>		
 	<!-- END Gyldige koder -->
 	
 	<!-- ===================  -->
@@ -84,7 +84,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintSadImportKodts7Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts7ServiceImpl"/>
 	<bean id="maintSadImportKodts8Service" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts8ServiceImpl"/>
 	<bean id="maintSadImportKodtsbService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtsbServiceImpl"/>
-	<bean id="maintSadImportKodtseService" class="no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodtseServiceImpl"/>
 	<!-- END Gyldige koder -->
 	
 	

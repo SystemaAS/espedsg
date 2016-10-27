@@ -36,6 +36,8 @@ import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigek
 import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsoService;
 import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsdService;
 import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsaService;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadExportKodtseContainer;
+import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadExportKodtseRecord;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.*;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.*;
 
@@ -388,36 +390,6 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	 * @param id
 	 * @return
 	 */
-	public Collection<JsonMaintSadImportKodtseRecord> fetchListKodtse(String applicationUser, String id){
-		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTSER_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&ksdls=" + id;
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		logger.info("URL PARAMS: " + urlRequestParams);
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-		//extract
-		List<JsonMaintSadImportKodtseRecord> list = new ArrayList();
-		if(jsonPayload!=null){
-			//lists
-			JsonMaintSadImportKodtseContainer container = this.maintSadImportKodtseService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodtseRecord record: list){
-	        		logger.info(record.getKsefyl());
-	        	}
-	        }
-		}
-		return list;
-		
-	}
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
 	public Collection<JsonMaintSadKodtsoRecord> fetchListKodtso(String applicationUser, String id){
 		
 		String BASE_URL = TvinnSadMaintenanceUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_BASE_SAD002_KODTSOR_GET_LIST_URL;
@@ -533,14 +505,6 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	@Required
 	public void setMaintSadKodtsdService (MaintSadKodtsdService value){ this.maintSadKodtsdService = value; }
 	public MaintSadKodtsdService getMaintSadKodtsdService(){ return this.maintSadKodtsdService; }
-	
-	
-	@Qualifier ("maintSadImportKodtseService")
-	private MaintSadImportKodtseService maintSadImportKodtseService;
-	@Autowired
-	@Required
-	public void setMaintSadImportKodtseService (MaintSadImportKodtseService value){ this.maintSadImportKodtseService = value; }
-	public MaintSadImportKodtseService getMaintSadImportKodtseService(){ return this.maintSadImportKodtseService; }
 	
 	
 	@Qualifier ("maintSadKodtsoService")

@@ -34,7 +34,7 @@ import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMain
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
-import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodtseService;
+import no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodtseService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadexport.validator.MaintSadExportSad004Validator;
 

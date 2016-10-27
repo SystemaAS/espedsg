@@ -124,6 +124,15 @@ public class MaintSadExportSad002rController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceGyldigekoderListObject();
+		object.setId("E");
+		object.setSubject("Fylkeskoder");
+		object.setText("SAD002 / KODTSE");
+		object.setDbTable("KODTSE");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtser");
+		listObject.add(object);
+		//
+		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("O");
 		object.setSubject("Typetilfelle (omberegning)");
 		object.setText("SAD002 / KODTSO");
