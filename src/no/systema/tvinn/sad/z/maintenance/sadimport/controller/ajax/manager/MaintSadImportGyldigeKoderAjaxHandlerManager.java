@@ -27,10 +27,13 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsoContainer;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsoRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsdContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsdRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaContainer;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsoService;
 import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsdService;
 import no.systema.tvinn.sad.z.maintenance.sad.service.gyldigekoder.MaintSadKodtsaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.*;
@@ -415,22 +418,22 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	 * @param id
 	 * @return
 	 */
-	public Collection<JsonMaintSadImportKodtsoRecord> fetchListKodtso(String applicationUser, String id){
+	public Collection<JsonMaintSadKodtsoRecord> fetchListKodtso(String applicationUser, String id){
 		
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTSOR_GET_LIST_URL;
+		String BASE_URL = TvinnSadMaintenanceUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_BASE_SAD002_KODTSOR_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&ksokd=" + id;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 		//extract
-		List<JsonMaintSadImportKodtsoRecord> list = new ArrayList();
+		List<JsonMaintSadKodtsoRecord> list = new ArrayList();
 		if(jsonPayload!=null){
 			//lists
-			JsonMaintSadImportKodtsoContainer container = this.maintSadImportKodtsoService.getList(jsonPayload);
+			JsonMaintSadKodtsoContainer container = this.maintSadKodtsoService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintSadImportKodtsoRecord record: list){
+	        	for(JsonMaintSadKodtsoRecord record: list){
 	        		logger.info(record.getKsokd());
 	        	}
 	        }
@@ -540,12 +543,12 @@ public class MaintSadImportGyldigeKoderAjaxHandlerManager {
 	public MaintSadImportKodtseService getMaintSadImportKodtseService(){ return this.maintSadImportKodtseService; }
 	
 	
-	@Qualifier ("maintSadImportKodtsoService")
-	private MaintSadImportKodtsoService maintSadImportKodtsoService;
+	@Qualifier ("maintSadKodtsoService")
+	private MaintSadKodtsoService maintSadKodtsoService;
 	@Autowired
 	@Required
-	public void setMaintSadImportKodtsoService (MaintSadImportKodtsoService value){ this.maintSadImportKodtsoService = value; }
-	public MaintSadImportKodtsoService getMaintSadImportKodtsoService(){ return this.maintSadImportKodtsoService; }
+	public void setMaintSadKodtsoService (MaintSadKodtsoService value){ this.maintSadKodtsoService = value; }
+	public MaintSadKodtsoService getMaintSadKodtsoService(){ return this.maintSadKodtsoService; }
 	
 }
 

@@ -34,6 +34,7 @@ import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsaRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsdRecord;
+import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadKodtsoRecord;
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.*;
 import no.systema.tvinn.sad.z.maintenance.sadexport.controller.ajax.manager.MaintSadExportGyldigeKoderAjaxHandlerManager;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodtsbRecord;
@@ -130,6 +131,24 @@ public class MaintSadExportGyldigeKoderAjaxHandlerController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecordExport_sad002_kodtsor.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List <JsonMaintSadKodtsoRecord>getRecordSad002_kodtso
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecordExport_sad002_kodtsor.do ";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintSadKodtsoRecord> result = new ArrayList();
+	 	//get table
+		result = (List)this.maintSadExportGyldigeKoderAjaxHandlerManager.fetchListKodtso(applicationUser, id);
+    	
+    	return result;
+	
+	}
 	
 	@Qualifier ("maintSadExportGyldigeKoderAjaxHandlerManager")
 	private MaintSadExportGyldigeKoderAjaxHandlerManager maintSadExportGyldigeKoderAjaxHandlerManager;

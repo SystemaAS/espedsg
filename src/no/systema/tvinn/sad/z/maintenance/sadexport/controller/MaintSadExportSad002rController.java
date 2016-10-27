@@ -114,7 +114,6 @@ public class MaintSadExportSad002rController {
 		object.setPgm("sad002_kodtscr");
 		listObject.add(object);
 		//
-		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("D");
 		object.setSubject("Lagringssted");
@@ -123,8 +122,17 @@ public class MaintSadExportSad002rController {
 		object.setStatus("G");
 		object.setPgm("sad002_kodtsdr");
 		listObject.add(object);
-		
+		//
+		object = new  MaintenanceGyldigekoderListObject();
+		object.setId("O");
+		object.setSubject("Typetilfelle (omberegning)");
+		object.setText("SAD002 / KODTSO");
+		object.setDbTable("KODTSO");
+		object.setStatus("G");
+		object.setPgm("sad002_kodtsor");
+		listObject.add(object);
 		return listObject;
+		
 	}
 	
 	//SERVICES

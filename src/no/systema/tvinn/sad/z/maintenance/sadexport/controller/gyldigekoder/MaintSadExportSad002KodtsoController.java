@@ -1,4 +1,4 @@
-package no.systema.tvinn.sad.z.maintenance.sadimport.controller.gyldigekoder;
+package no.systema.tvinn.sad.z.maintenance.sadexport.controller.gyldigekoder;
 
 import java.util.*;
 
@@ -39,19 +39,19 @@ import no.systema.tvinn.sad.z.maintenance.sad.validator.gyldigekoder.MaintSadSad
 import no.systema.tvinn.sad.z.maintenance.sad.url.store.TvinnSadMaintenanceUrlDataStoreGyldigeKoder;
 
 /**
- *  TVINN Maintenance Import Sad002r Controller 
+ *  TVINN Maintenance Export Sad002r Controller 
  * 
  * @author oscardelatorre
- * @date May 24, 2017
+ * @date Okt 26, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSadImportSad002KodtsoController {
+public class MaintSadExportSad002KodtsoController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSadImportSad002KodtsoController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSadExportSad002KodtsoController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -64,14 +64,14 @@ public class MaintSadImportSad002KodtsoController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_sad002_kodtsor.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_sad002_kodtsor");
+	@RequestMapping(value="tvinnsadmaintenanceexport_sad002_kodtsor.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintExportList(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad002_kodtsor");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
 		
-		logger.info("Inside method: doSadMaintImportList");
+		logger.info("Inside method: doSadMaintExportList");
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
@@ -98,14 +98,15 @@ public class MaintSadImportSad002KodtsoController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadmaintenanceimport_sad002_kodtsor_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadKodtsoRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceimport_sad002_kodtsor");
+	@RequestMapping(value="tvinnsadmaintenanceexport_sad002_kodtsor_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintExportEdit(@ModelAttribute ("record") JsonMaintSadKodtsoRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad002_kodtsor");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
 		String updateId = request.getParameter("updateId");
 		String action = request.getParameter("action");
+		logger.info("updateId:" + updateId);
 		
 		Map model = new HashMap();
 		if(appUser==null){

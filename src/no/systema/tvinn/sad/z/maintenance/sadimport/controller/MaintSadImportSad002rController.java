@@ -157,18 +157,6 @@ public class MaintSadImportSad002rController {
 		object.setPgm("sad002_kodts8r");
 		listObject.add(object);
 		//
-		//
-		/*
-		object = new  MaintenanceGyldigekoderListObject();
-		object.setId("9");
-		object.setSubject("Ekspedisjonstyper (eksport)");
-		object.setText("SAD002 / KODTS9");
-		object.setDbTable("KODTS9");
-		//object.setStatus("G");
-		//object.setPgm("sad002_kodts9r");
-		listObject.add(object);
-		*/
-		//
 		object = new  MaintenanceGyldigekoderListObject();
 		object.setId("A");
 		object.setSubject("Enhetskoder");
