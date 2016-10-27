@@ -88,7 +88,7 @@ public class MaintSadExportSad002rController {
 		
 		//
 		object = new  MaintenanceGyldigekoderListObject();
-		object.setId("1");
+		object.setId("9");
 		object.setSubject("Ekspedisjonstyper");
 		object.setText("SAD002 / KODTS9");
 		object.setDbTable("KODTS9");
