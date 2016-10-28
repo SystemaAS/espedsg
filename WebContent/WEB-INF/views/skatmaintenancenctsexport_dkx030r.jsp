@@ -72,6 +72,7 @@
 							<thead>
 							<tr>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Opdater&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Garanti type&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Garanti nr.&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Toldsted&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Send dato&nbsp;</th>
@@ -88,6 +89,7 @@
 				               <td id="recordUpdate_${record.tggnr}_${Xrecord.dkvk_dts}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tggty}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tggnr}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tgtsd}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tgdt}&nbsp;</font></td>
@@ -107,6 +109,7 @@
 				            <tfoot>
 							<tr>
 							    <th align="center" width="2%" class="tableHeaderFieldWhiteBg11" >&nbsp;Opdater&nbsp;</th>
+							    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGGTY</th>
 								<th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGGNR</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGTSD&nbsp;</th>
 			                    <th align="center" class="tableHeaderFieldWhiteBg11" >&nbsp;TGDT&nbsp;</th>
@@ -193,11 +196,11 @@
 									</tr>
 									<tr>	
 										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Firma nr.</td>
-										<td ><input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}'></td>
+										<td ><input type="text" required  oninvalid="this.setCustomValidity('Obligatoriskt')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}' /></td>
 									</tr>
 									<tr>
 										<td class="text12" title="tgnaa">&nbsp;<font class="text14RedBold" >*</font>Navn</td>
-										<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgnaa" id="tgnaa" size="31" maxlength="30" value='${model.record.tgnaa}'></td>
+										<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgnaa" id="tgnaa" size="31" maxlength="30" value='${model.record.tgnaa}' /></td>
 									</tr>
 									<tr>	
 										<td class="text12" title="tgada1">&nbsp;Adresse 1</td>
