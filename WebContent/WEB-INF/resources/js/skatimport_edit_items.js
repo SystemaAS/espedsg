@@ -83,7 +83,7 @@
   	//-----------------------------------------------
   	jq(function() {
   		jq('#dkiv_42').blur(function() {
-  			if(jq('#dkiv_35').val()==''){
+  			if(jq('#dkiv_35').val()==''){ 
 	  			//(1) Calc. aprox Gross weight (proposal to the user)
 	  			var unitPrice = jq('#dkiv_42').val().replace(".",""); //must clean all US notation
 	  			unitPrice = unitPrice.replace(",","."); //now we replace EU notation with US in order to use Math
@@ -485,7 +485,8 @@
 				jq('#dkiv_t25d').val(""); jq('#dkiv_t25d').val(data[i].dkiv_t25d);
 				//debug information on Fetch item
 				jq('#debugPrintlnAjaxItemFetchInfo').text(data[i].debugPrintlnAjax);
-				
+				//focus
+				jq("#dkiv_331").focus();
 			}
 	  	  },
 	  	  error: function() {
@@ -608,15 +609,16 @@
   	//calculate a net weight from the gross weight
   	jq(function() { 
 	    jq('#dkiv_35').blur(function() {
-	    	if(jq('#dkiv_38').val()==''){	
-	    		//init field(s)
-	    		var grossWeight = jq('#dkiv_35').val();
-	    		grossWeight = grossWeight.replace(",",".");
-	    		var netWeight = jq('#dkiv_38').val("");
-	    		var netWeightRaw = Math.round(grossWeight * 0.8);
-	    		jq('#dkiv_38').val(netWeightRaw);
+	    	if(jq('#dkiv_35').val()!=''){
+	    		if (jq('#dkiv_38').val()==''){	
+		    		//init field(s)
+		    		var grossWeight = jq('#dkiv_35').val();
+		    		grossWeight = grossWeight.replace(",",".");
+		    		var netWeight = jq('#dkiv_38').val("");
+		    		var netWeightRaw = Math.round(grossWeight * 0.8);
+		    		jq('#dkiv_38').val(netWeightRaw);
+	    		}
 	    	}
-		  
 		});
 	});
   	

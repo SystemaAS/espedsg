@@ -186,6 +186,7 @@
 					
 					<table class="tableHeaderField" width="98%" cellspacing="1" border="0" align="left">
 						<tr height="5"><td>&nbsp;</td></tr>
+						
 						<tr>
 							<%-- LEFT CELL --%>
 							<td width="50%" valign="top">

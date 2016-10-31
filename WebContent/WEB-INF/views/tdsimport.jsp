@@ -273,7 +273,7 @@
 		               <td nowrap class="tableCell" align="center">
 		               		<c:choose>
 		               	   		<c:when test="${empty topic.status || topic.status=='M'}">
-			               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tdsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.tullId}&syst=${topic.status}&sydt=${topic.datum}">
+			               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tdsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.tullid}&syst=${topic.status}&sydt=${topic.datum}">
 			               				<img title="Uppdatera ärende" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 		            					</a>
 		               			</c:when>
@@ -306,7 +306,7 @@
 		 						<input type="hidden" name="originalOpd${counter.count}" id="originalOpd${counter.count}" value='${topic.opd}'/>
 		 						<input type="hidden" name="originalAvd${counter.count}" id="originalAvd${counter.count}" value='${topic.avd}'/>
 			 						
-			 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullId}</font></p>
+			 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullid}</font></p>
 				 				<p class="text12" >Är du säker på att du vill rätta detta ej klarerat ärende ? </p>
 					 			<p class="text12" >Meddelandetyp kommer att ändras automatiskt från <font class="text12BoldGray">${topic.mtyp}</font> till
 					 				<c:choose>
@@ -343,7 +343,7 @@
 		 						<input type="hidden" name="originalOpd${counter.count}" id="originalOpd${counter.count}" value='${topic.opd}'/>
 		 						<input type="hidden" name="originalAvd${counter.count}" id="originalAvd${counter.count}" value='${topic.avd}'/>
 			 						
-			 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullId}</font></p>
+			 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullid}</font></p>
 				 				<p class="text12" >Är du säker på att du vill ompröva ärendet ? </p>
 					 			<p class="text12" >Meddelandetyp kommer att ändras automatiskt från <font class="text12BoldGray">${topic.mtyp}</font> till
 				 					<b>OMP</b>&nbsp;<code>[Ansökan om omprövning]</code>
@@ -352,11 +352,11 @@
 							</form>
 						</div>
                		   <td class="tableCell" >&nbsp;
-               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tdsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.tullId}&syst=${topic.status}&sydt=${topic.datum}">
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tdsimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.tullid}&syst=${topic.status}&sydt=${topic.datum}">
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>
-		               <td class="tableCell" >&nbsp;${topic.tullId}</td>
+		               <td class="tableCell" >&nbsp;${topic.tullid}</td>
 		               <td class="tableCell" >&nbsp;${topic.mtyp}</td>
 		               <td class="tableCell" >&nbsp;${topic.datum}</td>
 		               <td class="tableCell" >&nbsp;<b>${topic.status}</b></td>
@@ -377,7 +377,7 @@
 											<input type="hidden" name="originalOpd${counter.count}" id="originalOpd${counter.count}" value='${topic.opd}'/>
 					 						<input type="hidden" name="originalAvd${counter.count}" id="originalAvd${counter.count}" value='${topic.avd}'/>
 
-					 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullId}</font></p>
+					 					<p class="text14" >Tullid: <font class="text14Bold">${topic.tullid}</font></p>
 						 				<p class="text12" >Är du säker på att du vill skicka en begära om klarering för detta ärende? </p>
 							 			<p class="text12" >Meddelandetyp kommer att ändras automatiskt från <font class="text12BoldGray">${topic.mtyp}</font> till
 							 				<c:choose>

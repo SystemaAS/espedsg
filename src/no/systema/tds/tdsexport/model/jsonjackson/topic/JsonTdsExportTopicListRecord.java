@@ -28,6 +28,10 @@ public class JsonTdsExportTopicListRecord extends JsonAbstractGrandFatherRecord 
 	public void setTullId(String value) {  this.tullId = value; }
 	public String getTullId() { return this.tullId;}
 	
+	private String tullid = null;
+	public void setTullid(String value) {  this.tullid = value; }
+	public String getTullid() { return this.tullid;}
+	
 	private String sign = null;
 	public void setSign(String value) {  this.sign = value; }
 	public String getSign() { return this.sign;}

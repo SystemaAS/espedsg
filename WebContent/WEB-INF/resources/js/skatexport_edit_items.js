@@ -304,6 +304,8 @@
 				
 				//debug information on Fetch item
 				jq('#debugPrintlnAjaxItemFetchInfo').text(data[i].debugPrintlnAjax);
+				//focus
+				jq("#dkev_331").focus();
 			}
 	  	  },
 	  	  error: function() {
@@ -458,15 +460,16 @@
   	//calculate a net weight from the gross weight
   	jq(function() { 
 	    jq('#dkev_35').blur(function() {
-    	if(jq('#dkev_38').val()==''){
-    		//init field(s)
-    		var grossWeight = jq('#dkev_35').val();
-    		grossWeight = grossWeight.replace(",",".");
-    		var netWeight = jq('#dkev_38').val("");
-    		var netWeightRaw = Math.round(grossWeight * 0.8);
-    		jq('#dkev_38').val(netWeightRaw);
-		  }
-		  
+	    	if(jq('#dkev_35').val()!=''){
+		    	if(jq('#dkev_38').val()==''){
+		    		//init field(s)
+		    		var grossWeight = jq('#dkev_35').val();
+		    		grossWeight = grossWeight.replace(",",".");
+		    		var netWeight = jq('#dkev_38').val("");
+		    		var netWeightRaw = Math.round(grossWeight * 0.8);
+		    		jq('#dkev_38').val(netWeightRaw);
+				  }
+	    	}
 		});
 	});
   	
