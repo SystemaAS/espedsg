@@ -2158,6 +2158,27 @@ END override jQuery elements
     border-width: 1px 2px 2px 1px; 
     border-color: #4E78A0;
 }
+.tableBorderGrayWithRoundCorners3D {  
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-right-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 11px;  
+    color: #4E78A0; 
+    background-color:#FFFFFF;
+    border-style: solid; 
+    border-width: 1px 2px 2px 1px; 
+    border-color: #778899;
+}
 .tableBorderWithRoundCornersLightYellow3D {  
 	-webkit-border-top-right-radius: 5px;
 	-webkit-border-top-left-radius: 5px;
