@@ -3,6 +3,8 @@
  */
 package no.systema.tvinn.sad.z.maintenance.main.util;
 
+import no.systema.z.main.maintenance.controller.kund.KundeSessionParams;
+
 /**
  * All type of system constants for TVINN-SAD in general
  * 
@@ -24,9 +26,21 @@ public final class TvinnSadMaintenanceConstants {
 	public static final String EDIT_ACTION_ON_TOPIC = "editActionOnTopic";
 	public static final String EDIT_ACTION_ON_TOPIC_ITEM = "editActionOnTopicItem";
 	
+	/**
+	 * doFetch
+	 */
 	public static final String ACTION_FETCH = "doFetch";
+	/**
+	 * doUpdate
+	 */
 	public static final String ACTION_UPDATE = "doUpdate";
+	/**
+	 * doCreate
+	 */
 	public static final String ACTION_CREATE = "doCreate";
+	/**
+	 * doDelete
+	 */
 	public static final String ACTION_DELETE = "doDelete";
 	public static final String ACTION_SEND = "doSend";
 	
@@ -67,6 +81,13 @@ public final class TvinnSadMaintenanceConstants {
 	 * 
 	 */
 	public static final String DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER = "searchFilterNctsExportKoderegister";
+	
+	/**
+	 * Cast to {@link KundeSessionParams}
+	 * 
+	 */
+	public static final String KUNDE_SESSION_PARAMS = "kundeSessionParams";
+	
 
 	//aspects in view (sucha as errors, logs, other
 	public static final String ASPECT_ERROR_MESSAGE = "errorMessage";

@@ -110,6 +110,15 @@ public class MainMaintenanceGateController {
 		object.setPgm("syfa60r");
 		listObject.add(object);
 		//
+		object = new  MainMaintenanceMainListObject();
+		object.setId("2");
+		object.setSubject("Kunderegister");
+		object.setCode("mainmaintenancecundf");
+		object.setText("VKUND / CUNDF, CUNDC, FRATXT, SYPARF, CUNDMAF,....");
+		object.setDbTable("CUNDF");
+		object.setStatus("Y");
+		object.setPgm("vkund");
+		listObject.add(object);
 		return listObject;
 	}
 	
