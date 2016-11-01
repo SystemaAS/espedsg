@@ -110,6 +110,7 @@ public class MainMaintenanceGateController {
 		object.setPgm("syfa60r");
 		listObject.add(object);
 		//
+		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Kunderegister");
 		object.setCode("mainmaintenancecundf");
