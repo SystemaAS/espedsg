@@ -110,8 +110,17 @@ public class MainMaintenanceGateController {
 		object.setPgm("syfa60r");
 		listObject.add(object);
 		//
-		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
+		object.setSubject("Kunderegister");
+		object.setCode("mainmaintenancecundf");
+		object.setText("VKUND / CUNDF, CUNDC, FRATXT, SYPARF, CUNDMAF,....");
+		object.setDbTable("CUNDF");
+		object.setStatus("Y");
+		object.setPgm("vkund");
+		listObject.add(object);
+		//
+		object = new  MainMaintenanceMainListObject();
+		object.setId("4");
 		object.setSubject("Firma opplysninger");
 		object.setCode("mainmaintenancefirm");
 		object.setText("SYFA30 / FIRM,FIRFB,FIRKOS,FIRKU,FIRSTA,FIRTR");
@@ -119,6 +128,7 @@ public class MainMaintenanceGateController {
 		object.setStatus("Y");
 		object.setPgm("syfa30r");
 		listObject.add(object);
+		
 		return listObject;
 	}
 	

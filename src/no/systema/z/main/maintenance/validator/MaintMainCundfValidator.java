@@ -1,0 +1,50 @@
+package no.systema.z.main.maintenance.validator;
+
+import org.apache.log4j.Logger;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+
+/**
+ * 
+ * @author Fredrik Möller
+ * @date Okt 28, 2016
+ * 
+ *
+ */
+public class MaintMainCundfValidator implements Validator {
+	private static final Logger logger = Logger.getLogger(MaintMainCundfValidator.class.getName());
+
+	@SuppressWarnings("rawtypes")
+	public boolean supports(Class clazz) {
+		return JsonMaintMainCundfRecord.class.isAssignableFrom(clazz); 
+	}
+	
+	public void validate(Object obj, Errors errors) { 
+		JsonMaintMainCundfRecord record = (JsonMaintMainCundfRecord)obj;
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firma", "systema.maint.kunderegister.error.firma"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kundnr", "systema.maint.kunderegister.error.kundnr");
+
+		//TODO: continue...
+		
+		//Logical (RULES) controls if we passed the NOT NULL errors
+		if(!errors.hasFieldErrors()){
+			if(record!=null){
+					//TODO: maybe
+				}
+		}
+		
+	}
+	
+	public void validateDelete(Object obj, Errors errors) { 
+		JsonMaintMainCundfRecord record = (JsonMaintMainCundfRecord)obj;
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firma", "systema.maint.kunderegister.error.firma"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kundnr", "systema.maint.kunderegister.error.kundnr");
+		
+		
+	}
+	
+}

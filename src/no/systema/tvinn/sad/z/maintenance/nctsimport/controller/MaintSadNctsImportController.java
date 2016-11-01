@@ -111,7 +111,8 @@ public class MaintSadNctsImportController {
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Avd.- Forh.varsling");
-		object.setCode("SADIT_AVD_FORHANDSVARS");
+		object.setCode("SADIT_AVD_FORHANDSVARS. Ref. Vedlikeholds Firmanivå");
+		object.setStatus("G");
 		listObject.add(object);
 		
 		return listObject;
