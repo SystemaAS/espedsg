@@ -316,9 +316,9 @@
 					<table>
 						<tr>
 							<td class="text12" align="left" >&nbsp;Avdeling</td>
-    							<td class="text12" align="left" >&nbsp;Oppdragsnr.</td>
-    							<td class="text12" align="left" >&nbsp;Ext.ref.nr.</td>
-    						</tr>
+   							<td class="text12" align="left" >&nbsp;Oppdragsnr.</td>
+   							<td class="text12" align="left" >&nbsp;Ext.ref.nr.</td>
+   						</tr>
 						<tr>
 							<td class="text12MediumBlue">
 								<select name="selectedAvd" id="selectedAvd">
