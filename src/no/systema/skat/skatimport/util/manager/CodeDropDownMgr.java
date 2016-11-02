@@ -89,6 +89,7 @@ public class CodeDropDownMgr {
 				urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kode3=" + paramKODE3);
 				*/
 			}
+			
 			if(CODE_017_TRANSPORTDOK_SUMMARISKA_R40.equalsIgnoreCase(paramTYP)){
 				if(map !=null && map.size()>0){
 					String dkih_25 = (String)map.get("dkih_25");
@@ -101,6 +102,7 @@ public class CodeDropDownMgr {
 					}
 				}
 			}
+			
 			//Debug
 			//logger.info("CODES_URL:" + CODES_URL);
 			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
@@ -120,6 +122,7 @@ public class CodeDropDownMgr {
 					String prefix = codeRecord.getDkkd_kd2();
 					String record = prefix + codeRecord.getDkkd_kd();
 					codeRecord.setDkkd_kd(record);
+					//logger.info("(1)" + codeRecord.getDkkd_kd());
 					list.add(codeRecord);
 				}else if(CODE_019_VAB_CERTIFIKAT_R44_3.equalsIgnoreCase(paramTYP)){
 					hashSet_019.add(codeRecord.getDkkd_kd());

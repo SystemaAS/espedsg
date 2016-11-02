@@ -371,18 +371,7 @@ public class SkatExportItemsController {
 			    //logger.info("(B)##### lastSelectedItemLineNumber:" + lastSelectedItemLineNumber);
 	    	}
 	    	//drop downs populated from back-end
-	    	String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT);
-	    	if(codeMgrExists!=null){
-	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
-	    	}else{
-	    		this.setCodeDropDownMgr(appUser, model, headerRecord);
-	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
-	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT );
-	    	}
-	    	
-	    	
-	    	
-	    	
+	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
     		//drop downs populated from a txt file
     		model.put(SkatConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.skatExportDropDownListPopulationService.getBerakningsEnheterList());
     		this.setDomainObjectsForListInView(session, model, jsonSkatExportSpecificTopicItemContainer);

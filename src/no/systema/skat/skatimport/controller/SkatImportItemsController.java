@@ -401,6 +401,9 @@ public class SkatImportItemsController {
 	    	
 	    	//drop downs populated from back-end
 	    	//This is done to boost performance
+	    	this.setCodeDropDownMgr(appUser, model, headerRecord);
+	    	
+	    	/* OBSOLETE - Not safe
 	    	String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT);
 	    	if(codeMgrExists!=null){
 	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
@@ -409,6 +412,7 @@ public class SkatImportItemsController {
 	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
 	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATIMPORT );
 	    	}
+	    	*/
 	    	//logger.debug("BB");
     		//drop downs populated from a txt file
     		model.put(SkatConstants.RESOURCE_MODEL_KEY_BERAKNINGSENHET_LIST, this.skatImportDropDownListPopulationService.getBerakningsEnheterList());
