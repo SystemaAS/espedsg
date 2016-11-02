@@ -107,7 +107,7 @@
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
 
-					<table class="formFrameHeader" width="95%" class="text11" cellspacing="0" border="0" cellpadding="0">
+					<table class="formFrameTitaniumGrayRoundBottom" width="95%" class="text11" cellspacing="0" border="0" cellpadding="0">
 						<tr><td colspan="15" class="text12White" >&nbsp;Kunde informasjon</td></tr>
 						<tr height="2"><td></td></tr>
 							<tr height="25"> 

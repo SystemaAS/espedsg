@@ -1,8 +1,6 @@
 package no.systema.z.main.maintenance.controller.kund;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -31,132 +29,63 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
-import no.systema.z.main.maintenance.service.MaintMainFirmService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
-import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
 
 
 /**
- * Gateway for Kunderegister
- * 
- * Listing of Kunder
- * 
- * Edit and create new
+ * Dummy for elaborating GUI...
  * 
  * 
  * @author Fredrik Möller
- * @date Okt 26, 2016
+ * @date Nov 2, 2016
  * 
  * 	
  */
 
 @Controller
-public class MainMaintenanceCundfVkundController {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVkundController.class.getName());
+public class MainMaintenanceCundfxXxController {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfxXxController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
-	@RequestMapping(value="mainmaintenancecundf_vkund.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vkund");
+
+	@RequestMapping(value="mainmaintenancecundf_xxx_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenancecundf_vkund_edit(@ModelAttribute ("record") JsonMaintMainCundfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenancecundf_xxx_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		
 		Map model = new HashMap();
+		String action = request.getParameter("action");
+		
+		KundeSessionParams kundeSessionParams = null;
+		kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+
 		if (appUser == null) {
 			return this.loginView;
 		} else {
 
-			Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
-			list = this.fetchList(appUser.getUser(), null, null);
-			model.put("list", list);
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-
-			return successView;
-
-		}
-	}
-
-
-	@RequestMapping(value="mainmaintenancecundf_vkund_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_vkund_edit(@ModelAttribute ("record") JsonMaintMainCundfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kunde_edit"); //NOTE: not name correlated jsp, default to Kunde tab
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		Map model = new HashMap();
-		String action = request.getParameter("action");
-		String updateId = request.getParameter("updateId");
-		String kundnr = request.getParameter("kundnr");
-		String knavn = request.getParameter("knavn");
-		String firma = request.getParameter("firma");
-		
-		
-		logger.info("recordToValidate="+recordToValidate.toString());
-		
-		//Setting kundnr and firma in session to simplify access when navigating in children
-		KundeSessionParams kundeSessionParams = new KundeSessionParams();
-		if (kundnr != null && firma != null) {
-			kundeSessionParams.setKundnr(kundnr);
-			kundeSessionParams.setKnavn(knavn);
-			kundeSessionParams.setFirma(firma);
-			action = MainMaintenanceConstants.ACTION_UPDATE;
-			kundeSessionParams.setAction(action);  //Here we are in update of existing
-		}
-		
-		session.setAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
-		
-		if(appUser==null){
-			return this.loginView;
-		}else{
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				
-				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			
-			} 
-			
-			model.put("action", action);
-			model.put("kundnr", kundnr);
-			model.put("firma", firma);
-			model.put("updateId", updateId);
+			model.put("action", kundeSessionParams.getAction());
+			model.put("kundnr", kundeSessionParams.getKundnr());
+			model.put("firma", kundeSessionParams.getFirma());
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 
 			return successView;
+
 		}
 
 	}
 	
 
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
-		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord();
-		Collection<JsonMaintMainCundfRecord> recordList = fetchList(applicationUser, kundnr, firma);
-		if (recordList.size() > 1) {
-			// abort
-			logger.info("Incorrect data when searching for specific CUNDF object, on params kundnr=" + kundnr
-					+ ", firma=" + firma);
-			return null;
-		}
-		for (Iterator<JsonMaintMainCundfRecord> iterator = recordList.iterator(); iterator.hasNext();) {
-			record = (JsonMaintMainCundfRecord) iterator.next();
-
-		}
-
-		return record;
-
-	}
-	
-	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
 		urlRequestParams.append("user=" + applicationUser);
-		if (kundnr != null && firma != null) {
-			urlRequestParams.append("&kundnr=" + kundnr);
-			urlRequestParams.append("&firma=" + firma);
-		}
+		urlRequestParams.append("&kundnr=" + kundnr);
+		urlRequestParams.append("&firma=" + firma);
 
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
@@ -165,19 +94,57 @@ public class MainMaintenanceCundfVkundController {
 		// debugger
 		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		logger.info(Calendar.getInstance().getTime() + " CGI-end timestamp");
-		Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
-
+		JsonMaintMainCundfRecord record = null;
 		if (jsonPayload != null) {
 			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
-				list = container.getList();
+	
+				for (Iterator<JsonMaintMainCundfRecord> iterator = container.getList().iterator(); iterator.hasNext();) {
+					record = (JsonMaintMainCundfRecord) iterator.next();
+
+				}
+		
 			}
+
 		}
 
-		return list;
+		return record;
 	}
+	
 
+	private int updateRecord(String applicationUser, JsonMaintMainCundfRecord record, String mode,
+			StringBuffer errMsg) {
+		int retval = 0;
+
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		// put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+
+		// extract
+		if (jsonPayload != null) {
+			// lists
+			JsonMaintMainCundfContainer container = this.maintMainCundfService.doUpdate(jsonPayload);
+			if (container != null) {
+				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
+					if (container.getErrMsg().toUpperCase().startsWith("ERROR")) {
+						errMsg.append(container.getErrMsg());
+						retval = MainMaintenanceConstants.ERROR_CODE;
+					}
+				}
+			}
+		}
+		
+		return retval;
+	}
+	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

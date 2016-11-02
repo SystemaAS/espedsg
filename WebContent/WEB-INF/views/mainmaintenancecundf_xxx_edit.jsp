@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_kunde_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_vkund_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -99,10 +99,10 @@
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
-									<a id="alinkMainMaintxxxGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Fane xxx</font>&nbsp;	
-									</a>
+								<td width="80" valign="bottom" class="tab" align="center" title="xXx...">
+
+										<font class="tabLinkMinor">&nbsp;Fane xxx</font>&nbsp;						
+
 								</td>
 
 								<td width="80" valign="bottom" class="tabDisabled" align="center">
@@ -142,8 +142,10 @@
 
 						<tr height="20"> 
 
-								<td width="80" valign="bottom" class="tab" align="center" nowrap>
-									<font class="tabLinkMinor">&nbsp;Kunde</font>
+								<td width="80" valign="bottom" class="tabDisabled" align="center">
+									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kunde_edit.do">
+										<font class="tabDisabledLinkMinor">&nbsp;Kunde</font>&nbsp;						
+									</a>
 								</td>
 
 
@@ -196,10 +198,9 @@
  
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-					<form action="mainmaintenancecundf_kunde_edit.do" name="formRecord" id="formRecord" method="POST" >
+					<form action="mainmaintenancecundf_xxx_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="action" id=action value="doUpdate">
-						<input type="hidden" name="dirty" id=dirty value="">
 						<table class="tabThinBorderWhite" width="95%" cellspacing="0" border="0" align="left">
 							<tr height="3">
 								<td>&nbsp;</td>
@@ -208,58 +209,22 @@
 				    	    <tr>
 				    	    	<td width="3%">&nbsp;</td>
 								<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr</td>
-								<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn</td>
-								<td class="text12" title="syrg">&nbsp;<font class="text14RedBold" >*</font>TIN / CVR/SE-nr</td>
-								<td class="text12" title="adr1">&nbsp;<font class="text14RedBold" >*</font>Adresse</td>
-								<td class="text12" title="adr1">&nbsp;Adresse2</td>
-								
 							</tr>
 							<tr>
 								<td width="3%">&nbsp;</td>
-								<td ><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="syrg" id="syrg" size="30" maxlength="14" value='${model.record.syrg}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr1" id="adr1" size="30" maxlength="30" value='${model.record.adr1}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="adr2" id="adr2" size="30" maxlength="30" value='${model.record.adr2}'></td>
-								
+								<td ><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.kundnr}'></td>
 							</tr>	
 							<tr>
 								<td width="3%">&nbsp;</td>
-								<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>Postadresse</td>
-								<td class="text12" title="postnr">&nbsp;<font class="text14RedBold" >*</font>Postnr(NO)</td>
-								<td class="text12" title="syland">&nbsp;<font class="text14RedBold" >*</font>Land</td>
 								<td class="text12" title="firma">&nbsp;<font class="text14RedBold" >*</font>Firma</td>
 							</tr>	
 							<tr>
 								<td width="3%">&nbsp;</td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.adr3}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="postnr" id="postnr" size="10" maxlength="4" value='${model.record.postnr}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="syland" id="syland" size="5" maxlength="2" value='${model.record.syland}'></td>
-								<td ><input readonly type="text" class="inputTextReadOnly" name="firma" id="firma" size="5" maxlength="2" value='${model.record.firma}'></td>
-							</tr>
+								<td ><input readonly type="text" class="inputTextReadOnly" name="firma" id="firma" size="5" maxlength="2" value='${model.firma}'></td>
 
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td class="text12" title="adr3">&nbsp;Syland</td>
-								<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>Sykont</td>
-								<td class="text12" title="postnr">&nbsp;<font class="text14RedBold" >*</font>Syfr02</td>
-							</tr>	
-
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td ><input type="text" class="inputTextMediumBlue" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.syland}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.sykont}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="postnr" id="postnr" size="10" maxlength="4" value='${model.record.syfr02}'></td>
-
-								<td>
-									<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
-								</td>
-		
-							</tr>
-							
-
-
-
+							<td>
+								<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+							</td>
 
 							</tr>
 							<tr height="3"><td>&nbsp;</td></tr>
