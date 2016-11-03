@@ -87,8 +87,6 @@
 			</tr>
 			</c:if>
 	 	    
-	 	   
-	 	    
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
@@ -102,25 +100,29 @@
 						<input type="hidden" name="kovavd" id="kovavd" value="${Xmodel.record.kovavd}">
 						<input type="hidden" name="avdnavn" id=avdnavn value="${model.avdnavn}">
 						
-						<table width="99%" 	cellspacing="1" border="0" align="left">
+						<table width="99%" 	cellspacing="0" border="0" align="left">
 							<tr>
 								<td valign="top">
-									<table width="100%" cellspacing="1" border="0" align="left">
+									<table width="100%" cellspacing="0" border="0" align="left">
 										<tr >
-											<td colspan="8" class="text14MediumBlue" title=".">
-											Firmakode&nbsp;&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
+											<td colspan="8" class="text14MediumBlue" >
+											<span title="fifirm">Firmakode&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
 											&nbsp;&nbsp;&nbsp;
-											Firmanavn&nbsp;&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
+											<span  title="fift">Firmanavn&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
+											&nbsp;&nbsp;&nbsp;
+											<span  title="fikrtn">Kortnavn&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="30" value="${model.record.fikrtn}"/>
+											
 											</td>
 										</tr>
-										<tr height="5"><td >&nbsp;</td></tr>
+										<tr height="3"><td >&nbsp;</td></tr>
 											
 									 	<tr>
 									 		<td>
 									 			<table class="tableBorderGrayWithRoundCorners3D" width="100%" cellspacing="0" border="0" align="left">
+									 			<tr height="3"><td >&nbsp;</td></tr>
 									 			<tr>
-									 				<td  valign="top" width="33%">
-									 					<table align="left" cellspacing="1" border="0" >
+									 				<td  valign="top" width="25%">
+									 					<table align="left" cellspacing="2" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('filibf_info');" onMouseOut="hidePop('filibf_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="filibf">Filbibliotek Produksjon</span>
@@ -138,7 +140,7 @@
 									 							<td class="text12"><img onMouseOver="showPop('filibo_info');" onMouseOut="hidePop('filibo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="filibo">Filbibliotek Historikk</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="kfilibo_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="filibo_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
@@ -193,7 +195,7 @@
 									 						
 									 						</tr>
 									 						<tr>
-									 							<td class="text12">&nbsp;&nbsp;<img onMouseOver="showPop('kfistft_info');" onMouseOut="hidePop('fistft_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+									 							<td class="text12">&nbsp;&nbsp;<img onMouseOver="showPop('fistft_info');" onMouseOut="hidePop('fistft_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fistft">Tysk</span>
 																	<div class="text11" style="position: relative;" align="left">
 																	<span style="position:absolute;top:2px" id="fistft_info" class="popupWithInputText text11"  >	
@@ -206,6 +208,12 @@
 																</td>
 									 						
 									 						</tr>
+									 						
+									 					</table>
+									 					
+									 				</td>
+									 				<td valign="top" width="25%">
+									 					<table align="left" cellspacing="2" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fiups_info');" onMouseOut="hidePop('fiups_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fiups">Utl.prov standard</span>
@@ -216,33 +224,34 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="fiups" id="fiups" size="6" maxlength="5" value="${model.record.fiups}">
+																	<input type="text" class="inputTextMediumBlue" name="fiups" id="fiups" size="6" maxlength="5" value="${model.record.fiupsNO}">
 																</td>
 									 						</tr>
+									 						
 									 						<tr>
-									 							<td class="text12"><img onMouseOver="showPop('kovpro_info');" onMouseOut="hidePop('kovpro_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="kovpro">Fakturanr.</span>
+									 							<td class="text12"><img onMouseOver="showPop('todo_info');" onMouseOut="hidePop('todo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="todo">Fakturanr.</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="kovpro_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="todo_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="8" maxlength="7" value="${Xmodel.record.todo}">
+																	<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="8" maxlength="7" value="${Xmodel.record.todo}TODO">
 																</td>
 									 						</tr>
 									 						<tr>
-									 							<td class="text12"><img onMouseOver="showPop('kovpro_info');" onMouseOut="hidePop('kovpro_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="kovpro">KID=8</span>
+									 							<td class="text12"><img onMouseOver="showPop('todo_info');" onMouseOut="hidePop('todo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="todo">KID=8</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="kovpro_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="todo_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="1" maxlength="1" value="${Xmodel.record.todo}">
+																	<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="1" maxlength="1" value="${Xmodel.record.todo}TODO">
 																</td>
 									 						</tr>
 									 						<tr>
@@ -258,11 +267,6 @@
 																	<input type="text" class="inputTextMediumBlue" name="filand" id="filand" size="3" maxlength="2" value="${model.record.filand}">
 																</td>
 									 						</tr>
-									 					</table>
-									 					
-									 				</td>
-									 				<td valign="top" width="33%">
-									 					<table align="left" cellspacing="1" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fiupm_info');" onMouseOut="hidePop('fiupm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fiupm">Min.bel.utl.pro</span>
@@ -289,6 +293,11 @@
 																	<input type="text" class="inputTextMediumBlue" name="ficurr" id="ficurr" size="4" maxlength="3" value="${model.record.ficurr}">
 																</td>
 									 						</tr>
+									 						
+									 					</table>	
+									 				</td>
+									 				<td valign="top" width="25%">
+									 					<table align="left" cellspacing="2" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fideci_info');" onMouseOut="hidePop('fideci_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fideci">Desimaler</span>
@@ -315,6 +324,7 @@
 																	<input type="text" class="inputTextMediumBlue" name="fidtfm" id="fidtfm" size="2" maxlength="1" value="${model.record.fidtfm}">
 																</td>
 									 						</tr>
+									 						
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fitax_info');" onMouseOut="hidePop('fitax_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fitax">Momssats i %</span>
@@ -325,7 +335,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="fitax" id="fitax" size="6" maxlength="5" value="${model.record.fitax}">
+																	<input type="text" class="inputTextMediumBlue" name="fitax" id="fitax" size="6" maxlength="5" value="${model.record.fitaxNO}">
 																</td>
 									 						</tr>
 									 						<tr>
@@ -338,7 +348,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="fitaxd" id="fitaxd" size="7" maxlength="6" value="${model.record.fitaxd}">
+																	<input type="text" class="inputTextMediumBlue" name="fitaxd" id="fitaxd" size="7" maxlength="6" value="${model.record.fitaxdNO}">
 																</td>
 									 						</tr>
 									 						<tr>
@@ -351,7 +361,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="fitax2" id="fitax2" size="6" maxlength="5" value="${model.record.fitax2}">
+																	<input type="text" class="inputTextMediumBlue" name="fitax2" id="fitax2" size="6" maxlength="5" value="${model.record.fitax2NO}">
 																</td>
 									 						</tr>
 									 						<tr>
@@ -371,7 +381,12 @@
 													  				</select>
 																</td>
 									 						</tr>
-									 						<tr>
+									 						</table>
+														</td>
+														
+								 						<td valign="top" width="25%">
+								 							<table align="left" cellspacing="2" border="0" >
+								 							<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fiecon_info');" onMouseOut="hidePop('fiecon_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fiecon">Økonomisystem</span>
 																	<div class="text11" style="position: relative;" align="left">
@@ -397,13 +412,9 @@
 																	<input type="text" class="inputTextMediumBlue" name="fiavte" id="fiavte" size="2" maxlength="1" value="${model.record.fiavte}">
 																</td>
 									 						</tr>
-									 					</table>	
-									 				</td>
-									 				<td valign="top" width="34%">
-									 					<table align="left" cellspacing="1" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fivalk_info');" onMouseOut="hidePop('fivalk_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="fivalk">Valutakurser vedlikeholdes i</span>
+																	<span title="fivalk">Valutakurser vedlikehol.i</span>
 																	<div class="text11" style="position: relative;" align="left">
 																	<span style="position:absolute;top:2px" id="fivalk_info" class="popupWithInputText text11"  >	
 													           			todo
@@ -435,9 +446,6 @@
 													  				</select>	
 																</td>
 									 						</tr>
-									 						<tr height="15"><td></td></tr>
-									 						
-									 						
 									 					</table>		
 									 				</td>
 									 			</tr>
@@ -456,68 +464,69 @@
 													<td class="text11" colspan="4" >	
 														<table width="35%" class="formFrame" cellspacing="0" border="0" align="left">
 															<tr>
-									 							<td colspan="3" class="text12"><img onMouseOver="showPop('todo_info');" onMouseOut="hidePop('todo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="todo">Tollpass - tildel send.nr</span>
+									 							<td colspan="3" class="text12"><img onMouseOver="showPop('fitpnr_info');" onMouseOut="hidePop('fitpnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fitpnr">Tollpass - tildel send.nr</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="kovpro_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="fitpnr_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
 																</td>
 																<td colspan="2" class="text11">
-																	<select name="todo" id="todo" >
+																	<select name="fitpnr" id="fitpnr" >
 								 					  					<option value="">-velg-</option>
-								 					  					<option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >J</option>
-													  					<option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >N</option>
-													  					<option value="U"<c:if test="${Xmodel.record.todo == 'U'}"> selected </c:if> >U</option>
+								 					  					<option value="J"<c:if test="${model.record.fitpnr == 'J'}"> selected </c:if> >J</option>
+													  					<option value="N"<c:if test="${model.record.fitpnr == 'N'}"> selected </c:if> >N</option>
+													  					<option value="U"<c:if test="${model.record.fitpnr == 'U'}"> selected </c:if> >U</option>
 													  				</select>	
 																</td>
 									 						</tr>
 									 						<tr>
-									 							<td colspan="3" class="text11"><img onMouseOver="showPop('todo_info');" onMouseOut="hidePop('todo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="todo">Fr.brev - tildel send.nr</span>
+									 							<td colspan="3" class="text11"><img onMouseOver="showPop('fifbnr_info');" onMouseOut="hidePop('fifbnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fifbnr">Fr.brev - tildel send.nr</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="todo_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="fifbnr_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
 																</td>
 																<td colspan="2" class="text11">
-																	<select name="todo" id="todo" >
+																	<select name="fifbnr" id="fifbnr" >
 								 					  					<option value="">-velg-</option>
-								 					  					<option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >J</option>
-													  					<option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >N</option>
-													  					<option value="U"<c:if test="${Xmodel.record.todo == 'U'}"> selected </c:if> >U</option>
+								 					  					<option value="J"<c:if test="${model.record.fifbnr == 'J'}"> selected </c:if> >J</option>
+													  					<option value="N"<c:if test="${model.record.fifbnr == 'N'}"> selected </c:if> >N</option>
+													  					<option value="U"<c:if test="${model.record.fifbnr == 'U'}"> selected </c:if> >U</option>
 													  				</select>	
 																</td>
 									 						</tr>
 															<tr height="10"><td></td></tr>
 															<tr>
 																<td class="text11">&nbsp;</td>
-																<td class="text11">La</td>
-																<td class="text11">Lever</td>
-																<td class="text11">Sist brukt</td>
-																<td class="text11">Max nr.</td>
+																<td class="text11" title="fisnla/fiidla">La</td>
+																<td class="text11" title="fisnle/fiidle">Lever</td>
+																<td class="text11" title="firecn/fiidnr">Sist brukt</td>
+																<td class="text11" title="firecm/fiidmx">Max nr.</td>
 															</tr>
 															<tr>
 																<td class="text11">Sendingsnr.</td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="10" maxlength="9" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="10" maxlength="9" value="${Xmodel.record.todo}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnla" id="fisnla" size="3" maxlength="2" value="${model.record.fisnla}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnle" id="fisnle" size="6" maxlength="5" value="${model.record.fisnle}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecn" id="firecn" size="10" maxlength="9" value="${model.record.firecn}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecm" id="firecm" size="10" maxlength="9" value="${model.record.firecm}"/></td>
 															</tr>
+															<tr height="10"><td></td></tr>
 															<tr>
-																<td class="text11">Kolli-ID&nbsp;${Xmodel.record.todo}</td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="6" maxlength="5" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="10" maxlength="9" value="${Xmodel.record.todo}"/></td>
-																<td class="text11"><input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="10" maxlength="9" value="${Xmodel.record.todo}"/></td>
+																<td class="text11">Kolli-ID&nbsp;<b>3</b></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidla" id="fiidla" size="3" maxlength="2" value="${model.record.fiidla}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidle" id="fiidle" size="6" maxlength="5" value="${model.record.fiidle}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidnr" id="fiidnr" size="10" maxlength="9" value="${model.record.fiidnr}"/></td>
+																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidmx" id="fiidmx" size="10" maxlength="9" value="${model.record.fiidmx}"/></td>
 															</tr>
+															<tr height="5"><td></td></tr>
 														</table>
 													</td>
 						 						</tr>
 						 						<tr height="10"><td></td></tr>
-									 			
 									 			
 									 			<tr>
 													<td colspan="8">
@@ -526,120 +535,135 @@
 														</table>
 														<table class="formFrame"  width="95%" cellspacing="1" border="0" align="left">
 																<tr>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Land-import</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Land-eksport</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Fly-import</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Fly-eksport</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Fly-innland</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Tr.disp</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;SAD-import</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;SAD-eksport</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Båt-import</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Båt-eksport</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;Track&/Tracing</span></td>
-																	<td class="text11" align="left"><span title="todo">&nbsp;TdV IS</span></td>
-																	
+																	<td class="text11" align="left"><span title="fiuli">&nbsp;Land-import</span></td>
+																	<td class="text11" align="left"><span title="fiule">&nbsp;Land-eksport</span></td>
+																	<td class="text11" align="left"><span title="fiurfi">&nbsp;Fly-import</span></td>
+																	<td class="text11" align="left"><span title="fiurfe">&nbsp;Fly-eksport</span></td>
+																	<td class="text11" align="left"><span title="firufl">&nbsp;Fly-innland</span></td>
+																	<td class="text11" align="left"><span title="fitran">&nbsp;Tr.disp</span></td>
+																	<td class="text11" align="left"><span title="fiursi">&nbsp;SAD-import</span></td>
+																	<td class="text11" align="left"><span title="fiurse">&nbsp;SAD-eksport</span></td>
+																	<td class="text11" align="left"><span title="fiurbi">&nbsp;Båt-import</span></td>
+																	<td class="text11" align="left"><span title="fiurbe">&nbsp;Båt-eksport</span></td>
+																	<td class="text11" align="left"><span title="fiurbl">&nbsp;Track&/Tracing</span></td>
+																	<td class="text11" align="left"><span title="fitdvi">&nbsp;TdV IS</span></td>
 																</tr>		
 										 	    				<tr>
-																	<input type="hidden" name="kohavd" id="kohavd" value='${Xmodel.record.listeHodeRecord.kohavd}'>
 																	<td class="text12" >
-																		<select name="kohfak" id="kohfak" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurli" id="fiurli" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohfak == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohfak == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurli == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurli == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohlas" id="kohlas" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurle" id="fiurle" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohlas == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohlas == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurle == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurle == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohgod" id="kohgod" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurfi" id="fiurfi" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohgod == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohgod == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurfi == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurfi == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohbou" id="kohbou" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurfe" id="fiurfe" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohbou == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohbou == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurfe == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurfe == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohkk" id="kohkk" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurfl" id="fiurfl" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohkk == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohkk == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurfl == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurfl == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohlos" id="kohlos" class="inputTextMediumBlueMandatoryField">
+																		<select name="fitran" id="fitran" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohlos == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohlos == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fitran == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fitran == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohman" id="kohman" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiursi" id="fiursi" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.kohman == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.kohman == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiursi == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiursi == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohls1" id="kohls1" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurse" id="fiurse" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="L"<c:if test="${ Xmodel.record.listeHodeRecord.kohls1 == 'L'}"> selected </c:if> >L</option>
-														  					<option value="S"<c:if test="${ Xmodel.record.listeHodeRecord.kohls1 == 'S'}"> selected </c:if> >S</option>
+														  					<option value="J"<c:if test="${ model.record.fiurse == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurse == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="koh421" id="koh421" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurbi" id="fiurbi" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.koh421 == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.koh421 == 'N'}"> selected </c:if> >Nei</option>
+														  					<option value="J"<c:if test="${ model.record.fiurbi == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurbi == 'N'}"> selected </c:if> >Nei</option>
 														  					
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohls2" id="kohls2" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurbe" id="fiurbe" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="L"<c:if test="${ Xmodel.record.listeHodeRecord.kohls2 == 'L'}"> selected </c:if> >L</option>
-														  					<option value="S"<c:if test="${ Xmodel.record.listeHodeRecord.kohls2 == 'S'}"> selected </c:if> >S</option>
-														  					
+														  					<option value="J"<c:if test="${ model.record.fiurbe == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurbe == 'N'}"> selected </c:if> >Nei</option>
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="koh422" id="koh422" class="inputTextMediumBlueMandatoryField">
+																		<select name="fiurbl" id="fiurbl" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="J"<c:if test="${ Xmodel.record.listeHodeRecord.koh422 == 'J'}"> selected </c:if> >Ja</option>
-														  					<option value="N"<c:if test="${ Xmodel.record.listeHodeRecord.koh422 == 'N'}"> selected </c:if> >Nei</option>
-														  					
+														  					<option value="J"<c:if test="${ model.record.fiurbl == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fiurbl == 'N'}"> selected </c:if> >Nei</option>
 																	  	</select>
 																	</td>
 																	<td class="text12" >
-																		<select name="kohls3" id="kohls3" class="inputTextMediumBlueMandatoryField">
+																		<select name="fitdvi" id="fitdvi" class="inputTextMediumBlue">
 														  					<option value="">-velg-</option>
-														  					<option value="L"<c:if test="${ Xmodel.record.listeHodeRecord.kohls3 == 'L'}"> selected </c:if> >L</option>
-														  					<option value="S"<c:if test="${ Xmodel.record.listeHodeRecord.kohls3 == 'S'}"> selected </c:if> >S</option>
-														  					
+														  					<option value="J"<c:if test="${ model.record.fitdvi == 'J'}"> selected </c:if> >Ja</option>
+														  					<option value="N"<c:if test="${ model.record.fitdvi == 'N'}"> selected </c:if> >Nei</option>
 																	  	</select>
 																	</td>
 
 												    	    	</tr>	
+												    	    	<tr height="10"><td></td></tr>
+												    	    	<tr>
+																	<td colspan="12" class="text12" align="left">
+																	<table>
+																		<tr>
+																			<td class="text12" align="left">
+																			<span title="f">&nbsp;Skriv ut melding om manuell behandling på TVINN</span>
+																			</td>
+																			<td class="text12" >
+																				<select name="file31" id="file31" class="inputTextMediumBlue">
+																  					<option value="">-velg-</option>
+																  					<option value="J"<c:if test="${ model.record.file31 == 'J'}"> selected </c:if> >Ja</option>
+																  					<option value="N"<c:if test="${ model.record.file31 == 'N'}"> selected </c:if> >Nei</option>
+																			  	</select>
+																			</td>
+																	</table>
+																	</td>
+																</tr>
+																<tr height="5"><td></td></tr>
+												    	    	
 															</table>
 														</td>
 													</tr>

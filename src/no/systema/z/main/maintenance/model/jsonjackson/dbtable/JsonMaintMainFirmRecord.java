@@ -40,6 +40,15 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public void setFiups (String value){ this.fiups = value;   }   
 	public String getFiups (){ return this.fiups;   }  
 	
+	private String fiupsNO = null;                                
+	public void setFiupsNO (String value){ this.fiupsNO = value;   }   
+	public String getFiupsNO (){
+		if(this.fiups!=null && !"".equals(this.fiups)){
+			this.fiupsNO = this.numberFormatter.getFormattedEU(this.fiups);
+		}
+		return this.fiupsNO;  
+	}
+	
 	private String fiupm = null;                                
 	public void setFiupm (String value){ this.fiupm = value;   }   
 	public String getFiupm (){ return this.fiupm;   }  
@@ -107,6 +116,18 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	private String fitax = null;                                
 	public void setFitax (String value){ this.fitax = value;   }   
 	public String getFitax (){ return this.fitax;   }  
+	
+	private String fitaxNO = null;                                
+	public void setFitaxNO (String value){ this.fitaxNO = value;   }   
+	public String getFitaxNO (){
+		if(this.fitax!=null && !"".equals(this.fitax)){
+			String tmpUSA = this.fitax.replace(",", ".");
+			Double tmp = Double.valueOf(tmpUSA) * 100;
+			this.fitaxNO = String.valueOf(tmp);
+			this.fitaxNO = this.numberFormatter.getFormattedEU(this.fitaxNO);
+		}
+		return this.fitaxNO;  
+	} 
 	
 	private String fidtfm = null;                                
 	public void setFidtfm (String value){ this.fidtfm = value;   }   
@@ -182,12 +203,33 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	
 	private String fitax2 = null;                                
 	public void setFitax2 (String value){ this.fitax2 = value;   }   
-	public String getFitax2 (){ return this.fitax2;   }  
+	public String getFitax2 (){ return this.fitax2; }  
 	
+	private String fitax2NO = null;                                
+	public void setFitax2NO (String value){ this.fitax2NO = value;   }   
+	public String getFitax2NO (){
+		if(this.fitax2!=null && !"".equals(this.fitax2)){
+			String tmpUSA = this.fitax2.replace(",", ".");
+			Double tmp = Double.valueOf(tmpUSA) * 100;
+			this.fitax2NO = String.valueOf(tmp);
+			this.fitax2NO = this.numberFormatter.getFormattedEU(this.fitax2NO);
+		}
+		return this.fitax2NO;  
+	} 
 
 	private String fitaxd = null;                                
 	public void setFitaxd (String value){ this.fitaxd = value;   }   
 	public String getFitaxd (){ return this.fitaxd;   }  
+	
+	private String fitaxdNO = null; 
+	public void setFitaxdNO (String value){ this.fitaxdNO = value;   }   
+	public String getFitaxdNO() {
+		if (fitaxdNO != null) { // from UI
+			return fitaxdNO;
+		} else { 				// from DB
+			return this.dateFormatter.convertToDate_NO(this.fitaxd);
+		}
+	}
 	
 	private String fisadk = null;                                
 	public void setFisadk (String value){ this.fisadk = value;   }   
@@ -209,6 +251,62 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public void setZipcod (String value){ this.zipcod = value;   }   
 	public String getZipcod (){ return this.zipcod;   }  
 	
+	//--------------
+	//FIRFB -table
+	//--------------
+	private String fifbnr = "";                                
+	public String getFifbnrPropertyName (){ return "fifbnr"; }
+	public void setFifbnr (String value){ this.fifbnr = value;   }   
+	public String getFifbnr (){ return this.fifbnr;   }  
+	
+	private String fitpnr = "";                                
+	public String getFitpnrPropertyName (){ return "fitpnr"; }
+	public void setFitpnr (String value){ this.fitpnr = value;   }   
+	public String getFitpnr (){ return this.fitpnr;   }  
+	
+	private String firecn = "";                                
+	public String getFirecnPropertyName (){ return "firecn"; }
+	public void setFirecn (String value){ this.firecn = value;   }   
+	public String getFirecn (){ return this.firecn;   }  
+	
+	private String firecm = "";                                
+	public String getFirecmPropertyName (){ return "firecm"; }
+	public void setFirecm (String value){ this.firecm = value;   }   
+	public String getFirecm (){ return this.firecm;   }  
+	
+	private String fisnla = "";                                
+	public String getFisnlaPropertyName (){ return "fisnla"; }
+	public void setFisnla (String value){ this.fisnla = value;   }   
+	public String getFisnla (){ return this.fisnla;   }  
+	
+	private String fisnle = "";                                
+	public String getFisnlePropertyName (){ return "fisnle"; }
+	public void setFisnle (String value){ this.fisnle = value;   }   
+	public String getFisnle (){ return this.fisnle;   }  
+	
+	private String fiidla = "";                                
+	public String getFiidlaPropertyName (){ return "fiidla"; }
+	public void setFiidla (String value){ this.fiidla = value;   }   
+	public String getFiidla (){ return this.fiidla;   }  
+	
+	private String fiidle = "";                                
+	public String getFiidlePropertyName (){ return "fiidle"; }
+	public void setFiidle (String value){ this.fiidle = value;   }   
+	public String getFiidle (){ return this.fiidle;   }  
+	
+	private String fiidnr = "";                                
+	public String getFiidnrPropertyName (){ return "fiidnr"; }
+	public void setFiidnr (String value){ this.fiidnr = value;   }   
+	public String getFiidnr (){ return this.fiidnr;   }  
+	
+	private String fiidmx = "";                                
+	public String getFiidmxPropertyName (){ return "fiidmx"; }
+	public void setFiidmx (String value){ this.fiidmx = value;   }   
+	public String getFiidmx (){ return this.fiidmx;   }  
+	
+	//--------------
+	//END FIRFB-table
+	//--------------
 
     
 	/**
