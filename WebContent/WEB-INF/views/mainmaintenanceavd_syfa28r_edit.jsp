@@ -166,7 +166,7 @@
 												</div>
 											</td>
 											<td class="text12" >
-												<select name="kovpro" id="kovpro" >
+												<select name="kovpro" id="kovpro" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kovpro == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ model.record.kovpro == 'N'}"> selected </c:if> >Nei</option>
@@ -183,7 +183,7 @@
 											
 											</td>
 											<td class="text12" >
-												<select name="kowxxx0" id="kowxxx0" >
+												<select name="kowxxx0" id="kowxxx0" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kowxxx, 0, 1) == 'N'}"> selected </c:if> >Nei</option>
@@ -203,7 +203,7 @@
 												</div>
 											</td>
 											<td class="text12">
-												<select name="kovxxx0" id="kovxxx0" >
+												<select name="kovxxx0" id="kovxxx0" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="S"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'S'}"> selected </c:if> >S</option>
 								  					<option value="M"<c:if test="${ fn:substring(model.record.kovxxx, 0, 1) == 'M'}"> selected </c:if> >M</option>
@@ -242,7 +242,7 @@
 												</div>
 											</td>
 											<td class="text12"> 
-												<select name="kovxxx3" id="kovxxx3" >
+												<select name="kovxxx3" id="kovxxx3" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 3, 4) == 'N'}"> selected </c:if> >Nei</option>
@@ -258,7 +258,7 @@
 												</div>													
 											</td>
 											<td class="text12" >
-												<select name="kovxxx4" id="kovxxx4" >
+												<select name="kovxxx4" id="kovxxx4" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ fn:substring(model.record.kovxxx, 4, 5) == 'N'}"> selected </c:if> >Nei</option>
@@ -402,7 +402,7 @@
 										<td class="text12" width="20px" ></td>
 										<td class="text12"><img onMouseOver="showPop('kowmm_info');" onMouseOut="hidePop('kowmm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 											<span title="kowmm">Intervall-type&nbsp;</span>
-											<select name="kowmm" id="kowmm" >
+											<select name="kowmm" id="kowmm" class="inputTextMediumBlue">
 		 					  					<option value="">-velg-</option>
 		 					  					<option value="0"<c:if test="${ model.record.kowmm == '0'}"> selected </c:if> >0</option>
 							  					<option value="1"<c:if test="${ model.record.kowmm == '1'}"> selected </c:if> >1</option>
@@ -440,7 +440,7 @@
 												</div>
 											</td>
 											<td >
-												<select name="kowkom" id="kowkom" >
+												<select name="kowkom" id="kowkom" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kowkom == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ model.record.kowkom == 'N'}"> selected </c:if> >Nei</option>
@@ -460,7 +460,7 @@
 												</div>
 											</td>
 											<td >
-												<select name="kowbbs" id="kowbbs" >
+												<select name="kowbbs" id="kowbbs" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="A"<c:if test="${ model.record.kowbbs == 'A'}"> selected </c:if> >A</option>
 								  					<option value="B"<c:if test="${ model.record.kowbbs == 'B'}"> selected </c:if> >B</option>
@@ -482,7 +482,7 @@
 												</div>
 											</td>
 											<td >
-												<select name="kowawb" id="kowawb" >
+												<select name="kowawb" id="kowawb" class="inputTextMediumBlue">
 			 					  					<option value="">-velg-</option>
 			 					  					<option value="J"<c:if test="${ model.record.kowawb == 'J'}"> selected </c:if> >J</option>
 								  					<option value="N"<c:if test="${ model.record.kowawb == 'N'}"> selected </c:if> >N</option>

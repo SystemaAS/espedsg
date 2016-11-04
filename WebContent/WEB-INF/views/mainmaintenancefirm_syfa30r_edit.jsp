@@ -106,11 +106,11 @@
 									<table width="100%" cellspacing="0" border="0" align="left">
 										<tr >
 											<td colspan="8" class="text14MediumBlue" >
-											<span title="fifirm">Firmakode&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
+											<span title="fifirm">Firmakode&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
 											&nbsp;&nbsp;&nbsp;
-											<span  title="fift">Firmanavn&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
+											<span  title="fift">Firmanavn&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
 											&nbsp;&nbsp;&nbsp;
-											<span  title="fikrtn">Kortnavn&nbsp;</span>&nbsp;&nbsp;<input readonly class="inputTextReadOnly" type="text" size="30" value="${model.record.fikrtn}"/>
+											<span  title="fikrtn">Kortnavn&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="30" value="${model.record.fikrtn}"/>
 											
 											</td>
 										</tr>
@@ -159,7 +159,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<select name="fikdul" id="fikdul" >
+																	<select name="fikdul" id="fikdul" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
 								 					  					<option value="J"<c:if test="${model.record.fikdul == 'J'}"> selected </c:if> >Ja</option>
 													  					<option value="N"<c:if test="${model.record.fikdul == 'N'}"> selected </c:if> >Nei</option>
@@ -374,7 +374,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<select name="fikdt" id="fikdt" >
+																	<select name="fikdt" id="fikdt" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
 								 					  					<option value="1"<c:if test="${model.record.fikdt == '1'}"> selected </c:if> >Ja</option>
 													  					<option value="0"<c:if test="${model.record.fikdt == '0'}"> selected </c:if> >Nei</option>
@@ -422,7 +422,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<select name="fivalk" id="fivalk" >
+																	<select name="fivalk" id="fivalk" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
 								 					  					<option value="S"<c:if test="${model.record.fivalk == 'S'}"> selected </c:if> >Spedisjon</option>
 													  					<option value="Ø"<c:if test="${model.record.fivalk == 'Ø'}"> selected </c:if> >Økonomi</option>
@@ -439,7 +439,7 @@
 																	</div>
 																</td>
 																<td class="text12">
-																	<select name="filfb" id="filfb" >
+																	<select name="filfb" id="filfb" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
 								 					  					<option value="S"<c:if test="${model.record.filfb == 'S'}"> selected </c:if> >S</option>
 													  					<option value="M"<c:if test="${model.record.filfb == 'M'}"> selected </c:if> >M</option>
@@ -451,89 +451,319 @@
 									 			</tr>
 									 			<tr height="12"><td></td></tr>
 									 			<tr>
-						 							<td class="text11" colspan="4" >
-						 								<table width="35%" class="formFrameHeader" cellspacing="0" border="0" align="left">
+						 							<td class="text11" width="40%" colspan="2">
+						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="center">
 															<tr>
-																<td colspan="4" class="text12White" >&nbsp;Sendingsnr.
-																</td>
+																<td colspan="4" class="text12White" >&nbsp;Sendingsnr</td>
+															</tr>							
+														</table>
+													</td>	
+													
+													<td class="text11" width="40%" colspan="2" >
+						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="left">
+															<tr>
+																<td colspan="4" class="text12White" >&nbsp;Suppl.info</td>
 															</tr>							
 														</table>
 													</td>	
 												</tr>
 												<tr>	
-													<td class="text11" colspan="4" >	
-														<table width="35%" class="formFrame" cellspacing="0" border="0" align="left">
+													<td valign="top" class="text11" width="40%" colspan="2" >	
+														<table width="90%" class="formFrame" cellspacing="0" border="0" align="center">
 															<tr>
-									 							<td colspan="3" class="text12"><img onMouseOver="showPop('fitpnr_info');" onMouseOut="hidePop('fitpnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="fitpnr">Tollpass - tildel send.nr</span>
+																<td>
+																<table width="55%" cellspacing="0" border="0" >
+																	<tr>
+											 							<td class="text12"><img onMouseOver="showPop('fitpnr_info');" onMouseOut="hidePop('fitpnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																			<span title="fitpnr">Tollpass - tildel send.nr</span>
+																			<div class="text11" style="position: relative;" align="left">
+																			<span style="position:absolute;top:2px" id="fitpnr_info" class="popupWithInputText text11"  >	
+															           			todo
+																			</span>
+																			</div>
+																		</td>
+																		<td class="text11">
+																			<select name="fitpnr" id="fitpnr" class="inputTextMediumBlue">
+										 					  					<option value="">-velg-</option>
+										 					  					<option value="J"<c:if test="${model.record.fitpnr == 'J'}"> selected </c:if> >J</option>
+															  					<option value="N"<c:if test="${model.record.fitpnr == 'N'}"> selected </c:if> >N</option>
+															  					<option value="U"<c:if test="${model.record.fitpnr == 'U'}"> selected </c:if> >U</option>
+															  				</select>	
+																		</td>
+											 						</tr>
+											 						<tr>
+											 							<td class="text12"><img onMouseOver="showPop('fifbnr_info');" onMouseOut="hidePop('fifbnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																			<span title="fifbnr">Fr.brev - tildel send.nr</span>
+																			<div class="text11" style="position: relative;" align="left">
+																			<span style="position:absolute;top:2px" id="fifbnr_info" class="popupWithInputText text11"  >	
+															           			todo
+																			</span>
+																			</div>
+																		</td>
+																		<td class="text11">
+																			<select name="fifbnr" id="fifbnr" class="inputTextMediumBlue">
+										 					  					<option value="">-velg-</option>
+										 					  					<option value="J"<c:if test="${model.record.fifbnr == 'J'}"> selected </c:if> >J</option>
+															  					<option value="N"<c:if test="${model.record.fifbnr == 'N'}"> selected </c:if> >N</option>
+															  					<option value="U"<c:if test="${model.record.fifbnr == 'U'}"> selected </c:if> >U</option>
+															  				</select>	
+																		</td>
+											 						</tr>
+																</table>
+																</td>
+															</tr>
+															<tr height="10"><td></td></tr>
+															
+															<tr>
+															 <td>
+															 	<table align="left" cellspacing="1" border="0" >
+															 		<tr>
+																		<td class="text12">&nbsp;</td>
+																		<td class="text12" title="fisnla/fiidla">La</td>
+																		<td class="text12" title="fisnle/fiidle">Lever</td>
+																		<td class="text12" title="firecn/fiidnr">Sist brukt</td>
+																		<td class="text12" title="firecm/fiidmx">Max nr.</td>
+																	</tr>
+																	<tr>
+																		<td class="text12">&nbsp;&nbsp;&nbsp;Sendingsnr.</td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnla" id="fisnla" size="3" maxlength="2" value="${model.record.fisnla}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnle" id="fisnle" size="6" maxlength="5" value="${model.record.fisnle}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecn" id="firecn" size="10" maxlength="9" value="${model.record.firecn}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecm" id="firecm" size="10" maxlength="9" value="${model.record.firecm}"/></td>
+																	</tr>
+																	<tr>
+																		<td class="text12">&nbsp;&nbsp;&nbsp;Kolli-ID&nbsp;&nbsp;<b>3</b></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidla" id="fiidla" size="3" maxlength="2" value="${model.record.fiidla}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidle" id="fiidle" size="6" maxlength="5" value="${model.record.fiidle}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidnr" id="fiidnr" size="10" maxlength="9" value="${model.record.fiidnr}"/></td>
+																		<td class="text12"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidmx" id="fiidmx" size="10" maxlength="9" value="${model.record.fiidmx}"/></td>
+																	</tr>
+															 	</table>
+															 </td>
+															</tr>
+															<tr height="13"><td></td></tr>
+														</table>
+													</td>
+													
+													<td valign="top" class="text11" width="40%" colspan="2" >	
+														<table width="90%" class="formFrame" cellspacing="0" border="0" align="left">
+															<tr>
+									 							<td class="text12"><img onMouseOver="showPop('fisadk_info');" onMouseOut="hidePop('fisadk_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fisadk">Sumposter (Fakturajour.)til hovedbok</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="fitpnr_info" class="popupWithInputText text11"  >	
-													           			todo
+																	<span style="position:absolute;top:2px" id="fisadk_info" class="popupWithInputText text11"  >	
+													           			<p>
+													           			<ul>
+													           				<li>Nei: Faktnr -> Bilagsnr</li>
+													           				<li>Ja: Systemgen.Bil.nr</li>
+													           			</ul>
+													           			</p>
 																	</span>
 																	</div>
 																</td>
-																<td colspan="2" class="text11">
-																	<select name="fitpnr" id="fitpnr" >
+																<td class="text12">
+																	<select name="fisadk" id="fisadk" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
-								 					  					<option value="J"<c:if test="${model.record.fitpnr == 'J'}"> selected </c:if> >J</option>
-													  					<option value="N"<c:if test="${model.record.fitpnr == 'N'}"> selected </c:if> >N</option>
-													  					<option value="U"<c:if test="${model.record.fitpnr == 'U'}"> selected </c:if> >U</option>
+								 					  					<option value="J"<c:if test="${model.record.fisadk == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.fisadk == 'N'}"> selected </c:if> >Nei</option>
+													  					
 													  				</select>	
 																</td>
 									 						</tr>
 									 						<tr>
-									 							<td colspan="3" class="text11"><img onMouseOver="showPop('fifbnr_info');" onMouseOut="hidePop('fifbnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="fifbnr">Fr.brev - tildel send.nr</span>
+									 							<td class="text12"><img onMouseOver="showPop('file41_info');" onMouseOut="hidePop('file41_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="file41">Switche MVA-kode etter Kto-type.....</span>
 																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="fifbnr_info" class="popupWithInputText text11"  >	
+																	<span style="position:absolute;top:2px" id="file41_info" class="popupWithInputText text11"  >	
 													           			todo
 																	</span>
 																	</div>
 																</td>
-																<td colspan="2" class="text11">
-																	<select name="fifbnr" id="fifbnr" >
+																<td class="text11">
+																	<select name="file41" id="file41" class="inputTextMediumBlue">
 								 					  					<option value="">-velg-</option>
-								 					  					<option value="J"<c:if test="${model.record.fifbnr == 'J'}"> selected </c:if> >J</option>
-													  					<option value="N"<c:if test="${model.record.fifbnr == 'N'}"> selected </c:if> >N</option>
-													  					<option value="U"<c:if test="${model.record.fifbnr == 'U'}"> selected </c:if> >U</option>
+								 					  					<option value="J"<c:if test="${model.record.file41 == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.file41 == 'N'}"> selected </c:if> >Nei</option>
+													  					
 													  				</select>	
 																</td>
 									 						</tr>
-															<tr height="10"><td></td></tr>
+									 						<tr height="8"><td></td></tr>
 															<tr>
-																<td class="text11">&nbsp;</td>
-																<td class="text11" title="fisnla/fiidla">La</td>
-																<td class="text11" title="fisnle/fiidle">Lever</td>
-																<td class="text11" title="firecn/fiidnr">Sist brukt</td>
-																<td class="text11" title="firecm/fiidmx">Max nr.</td>
-															</tr>
+									 							<td class="text11">&nbsp;</td>
+									 							<td class="text12"><span title="file11">&nbsp;Fakt.</span></td>
+																<td class="text12"><span title="file21">&nbsp;Kost.bilag</span></td>
+									 						</tr>
+									 						<tr>
+									 							<td class="text12"><img onMouseOver="showPop('file11_info');" onMouseOut="hidePop('file11_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="file11/file21">Automatisk overføring i nattrutine av:</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="file11_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text11">
+																	<select name="file11" id="file11" class="inputTextMediumBlue" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.file11 == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.file11 == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+																<td class="text11">
+																	<select name="file21" id="file21" class="inputTextMediumBlue">
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.file21 == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.file21 == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+									 						</tr>
+															<tr height="8"><td></td></tr>
 															<tr>
-																<td class="text11">Sendingsnr.</td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnla" id="fisnla" size="3" maxlength="2" value="${model.record.fisnla}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fisnle" id="fisnle" size="6" maxlength="5" value="${model.record.fisnle}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecn" id="firecn" size="10" maxlength="9" value="${model.record.firecn}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="firecm" id="firecm" size="10" maxlength="9" value="${model.record.firecm}"/></td>
-															</tr>
-															<tr height="10"><td></td></tr>
-															<tr>
-																<td class="text11">Kolli-ID&nbsp;<b>3</b></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidla" id="fiidla" size="3" maxlength="2" value="${model.record.fiidla}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="fiidle" id="fiidle" size="6" maxlength="5" value="${model.record.fiidle}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidnr" id="fiidnr" size="10" maxlength="9" value="${model.record.fiidnr}"/></td>
-																<td class="text11"><input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fiidmx" id="fiidmx" size="10" maxlength="9" value="${model.record.fiidmx}"/></td>
-															</tr>
+									 							<td class="text12"><img onMouseOver="showPop('tillat_info');" onMouseOut="hidePop('tillat_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="tillat">Tillate periodsplitt kostnadsbilag</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="tillat_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text11">
+																	<select name="tillat" id="tillat" class="inputTextMediumBlue">
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.tillat == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.tillat == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+									 						</tr>
+									 						<tr>
+									 							<td class="text12">&nbsp;&nbsp;&nbsp;<img onMouseOver="showPop('interr_info');" onMouseOut="hidePop('interr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="interr">Interimskonto</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="interr_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text11">
+																	<select name="interr" id="interr" class="inputTextMediumBlue">
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.interr == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.interr == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+									 						</tr>
 															<tr height="5"><td></td></tr>
 														</table>
 													</td>
 						 						</tr>
+						 						
+						 			
+						 						<%-- Supplerende Del 2 --%>
+						 						<tr height="8"><td></td></tr>
+						 						<tr>
+						 						<td class="text11" width="40%" colspan="2" >
+						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="center">
+															<tr>
+																<td colspan="4" class="text12White" >&nbsp;Suppl.info - 2</td>
+															</tr>							
+														</table>
+													</td>	
+												</tr>
+						 						<tr>
+						 						<td valign="top" class="text11" width="40%" colspan="2" >	
+														<table width="90%" class="formFrame" cellspacing="0" border="0" align="center">
+															<tr>
+									 							<td class="text12"><img onMouseOver="showPop('innutl_info');" onMouseOut="hidePop('innutl_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="innutl">Innlandsfraktbrev på utlandsfraktbrev</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="innutl_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text11">
+																	<select name="innutl" id="innutl" class="inputTextMediumBlue">
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.innutl == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.innutl == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+									 						</tr>
+															<tr>
+									 							<td class="text12"><img onMouseOver="showPop('zipcod_info');" onMouseOut="hidePop('zipcod_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="zipcod">Benyttes ZIP-kode i stedsregister</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="zipcod_info" class="popupWithInputText text11"  >	
+													           			
+																	</span>
+																	</div>
+																</td>
+																<td class="text11">
+																	<select name="zipcod" id="zipcod" class="inputTextMediumBlue">
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.zipcod == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${model.record.zipcod == 'N'}"> selected </c:if> >Nei</option>
+													  					
+													  				</select>	
+																</td>
+									 						</tr>
+									 						<tr height="8"><td></td></tr>
+									 						<tr>
+									 							<td class="text12">&nbsp;</td>
+									 							<td class="text12"><span title="fikufr">&nbsp;Fra</span></td>
+																<td class="text12"><span title="fikuti">&nbsp;Till</span></td>
+									 						</tr>
+									 						<tr>
+									 							<td class="text12"><img onMouseOver="showPop('fikufr_info');" onMouseOut="hidePop('fikufr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fikufr/fikuti">Adressekunder kundenummer</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="fikufr_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text12">
+																	<input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fikufr" id="fikufr" size="10" maxlength="8" value="${model.record.fikufr}"/>
+																</td>
+																<td class="text12">
+																	<input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fikuti" id="fikuti" size="10" maxlength="8" value="${model.record.fikuti}"/>
+																</td>
+									 						</tr>
+									 						<tr>
+									 							<td class="text12"><img onMouseOver="showPop('fikune_info');" onMouseOut="hidePop('fikune_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fikune">Adressekunder neste nummer for tildeling</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="fikune_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text12">
+																	<input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="fikune" id="fikune" size="10" maxlength="8" value="${model.record.fikune}"/>	
+																</td>
+													
+									 						</tr>
+														
+															<tr height="5"><td></td></tr>
+														</table>
+													</td>
+						 						</tr>
+						 						
+						 						
+						 						
 						 						<tr height="10"><td></td></tr>
-									 			
 									 			<tr>
 													<td colspan="8">
-														<table class="formFrameHeader" width="95%" 	cellspacing="0" border="0" align="left">
+														<table class="formFrameHeader" width="95%" 	cellspacing="0" border="0" align="center">
 															<tr><td colspan="15" class="text12White" >&nbsp;Avkryss benyttede systemer</td></tr>
 														</table>
-														<table class="formFrame"  width="95%" cellspacing="1" border="0" align="left">
+														<table class="formFrame"  width="95%" cellspacing="1" border="0" align="center">
 																<tr>
 																	<td class="text11" align="left"><span title="fiuli">&nbsp;Land-import</span></td>
 																	<td class="text11" align="left"><span title="fiule">&nbsp;Land-eksport</span></td>
@@ -642,7 +872,6 @@
 														  					<option value="N"<c:if test="${ model.record.fitdvi == 'N'}"> selected </c:if> >Nei</option>
 																	  	</select>
 																	</td>
-
 												    	    	</tr>	
 												    	    	<tr height="10"><td></td></tr>
 												    	    	<tr>
@@ -653,7 +882,7 @@
 																			<span title="f">&nbsp;Skriv ut melding om manuell behandling på TVINN</span>
 																			</td>
 																			<td class="text12" >
-																				<select name="file31" id="file31" class="inputTextMediumBlue">
+																					<select name="file31" id="file31" class="inputTextMediumBlue">
 																  					<option value="">-velg-</option>
 																  					<option value="J"<c:if test="${ model.record.file31 == 'J'}"> selected </c:if> >Ja</option>
 																  					<option value="N"<c:if test="${ model.record.file31 == 'N'}"> selected </c:if> >Nei</option>

@@ -336,7 +336,7 @@
 		 				<span title="seski" id="v_seski" class="validation">Toll/Mva</span>
 		 			</td>
 		 			<td class="text12" >	
-		 				<select name="seski" id="seski" >
+		 				<select name="seski" id="seski" class="inputTextMediumBlue">
 	 						<option value="">-velg-</option>
 					  		<option value="S"<c:if test="${ model.record.seski == 'S'}"> selected </c:if> >S</option>
 					  		<option value="K"<c:if test="${ model.record.seski == 'K'}"> selected </c:if> >K</option>

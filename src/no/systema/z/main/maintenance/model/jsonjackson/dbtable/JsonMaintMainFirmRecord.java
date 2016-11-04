@@ -254,60 +254,77 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	//--------------
 	//FIRFB -table
 	//--------------
-	private String fifbnr = "";                                
-	public String getFifbnrPropertyName (){ return "fifbnr"; }
+	private String fifbnr = null;                                
 	public void setFifbnr (String value){ this.fifbnr = value;   }   
 	public String getFifbnr (){ return this.fifbnr;   }  
 	
-	private String fitpnr = "";                                
-	public String getFitpnrPropertyName (){ return "fitpnr"; }
+	private String fitpnr = null;                                
 	public void setFitpnr (String value){ this.fitpnr = value;   }   
 	public String getFitpnr (){ return this.fitpnr;   }  
 	
-	private String firecn = "";                                
-	public String getFirecnPropertyName (){ return "firecn"; }
+	private String firecn = null;                                
 	public void setFirecn (String value){ this.firecn = value;   }   
 	public String getFirecn (){ return this.firecn;   }  
 	
-	private String firecm = "";                                
-	public String getFirecmPropertyName (){ return "firecm"; }
+	private String firecm = null;                                
 	public void setFirecm (String value){ this.firecm = value;   }   
 	public String getFirecm (){ return this.firecm;   }  
 	
-	private String fisnla = "";                                
-	public String getFisnlaPropertyName (){ return "fisnla"; }
+	private String fisnla = null;                                
 	public void setFisnla (String value){ this.fisnla = value;   }   
 	public String getFisnla (){ return this.fisnla;   }  
 	
-	private String fisnle = "";                                
-	public String getFisnlePropertyName (){ return "fisnle"; }
+	private String fisnle = null;                                
 	public void setFisnle (String value){ this.fisnle = value;   }   
 	public String getFisnle (){ return this.fisnle;   }  
 	
-	private String fiidla = "";                                
-	public String getFiidlaPropertyName (){ return "fiidla"; }
+	private String fiidla = null;                                
 	public void setFiidla (String value){ this.fiidla = value;   }   
 	public String getFiidla (){ return this.fiidla;   }  
 	
-	private String fiidle = "";                                
-	public String getFiidlePropertyName (){ return "fiidle"; }
+	private String fiidle = null;                                
 	public void setFiidle (String value){ this.fiidle = value;   }   
 	public String getFiidle (){ return this.fiidle;   }  
 	
-	private String fiidnr = "";                                
-	public String getFiidnrPropertyName (){ return "fiidnr"; }
+	private String fiidnr = null;                                
 	public void setFiidnr (String value){ this.fiidnr = value;   }   
 	public String getFiidnr (){ return this.fiidnr;   }  
 	
-	private String fiidmx = "";                                
-	public String getFiidmxPropertyName (){ return "fiidmx"; }
+	private String fiidmx = null;                                
 	public void setFiidmx (String value){ this.fiidmx = value;   }   
 	public String getFiidmx (){ return this.fiidmx;   }  
+	//END FIRFB-table
+
+
+	//--------------
+	//FIRMKOS -table
+	//--------------
+	private String tillat = null;                                
+	public void setTillat (String value){ this.tillat = value;   }   
+	public String getTillat (){ return this.tillat;   }  
+	
+	private String interr = null;                                
+	public void setInterr (String value){ this.interr = value;   }   
+	public String getInterr (){ return this.interr;   }  
+	//END FIRMKOS
 	
 	//--------------
-	//END FIRFB-table
+	//FIRKU -table
 	//--------------
-
+	private String fikufr = null;                                
+	public void setFikufr (String value){ this.fikufr = value;   }   
+	public String getFikufr (){ return this.fikufr;   }  
+	
+	private String fikuti = null;                                
+	public void setFikuti (String value){ this.fikuti = value;   }   
+	public String getFikuti (){ return this.fikuti;   } 
+	
+	private String fikune = null;                                
+	public void setFikune (String value){ this.fikune = value;   }   
+	public String getFikune (){ return this.fikune;   } 
+	//END FIRKU
+	
+	
     
 	/**
 	 * 
