@@ -323,6 +323,66 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public void setFikune (String value){ this.fikune = value;   }   
 	public String getFikune (){ return this.fikune;   } 
 	//END FIRKU
+
+	
+	//--------------
+	//KODTV -table
+	//--------------
+	private String kovavd = null;  
+	public void setKovavd (String value){ this.kovavd = value;   }   
+	public String getKovavd (){ return this.kovavd;   } 
+	
+	private String kovlkg = null;  
+	public void setKovlkg (String value){ this.kovlkg = value;   }   
+	public String getKovlkg (){ return this.kovlkg;   } 
+	
+	private String kovkkg = null;  
+	public void setKovkkg (String value){ this.kovkkg = value;   }   
+	public String getKovkkg (){ return this.kovkkg;   } 
+	
+	private String kovk1 = null;  
+	public void setKovk1 (String value){ this.kovk1 = value;   }   
+	public String getKovk1 (){ return this.kovk1;   } 
+	
+	private String kovk2 = null;  
+	public void setKovk2 (String value){ this.kovk2 = value;   }   
+	public String getKovk2 (){ return this.kovk2;   } 
+	
+	private String kovk3 = null;  
+	public void setKovk3 (String value){ this.kovk3 = value;   }   
+	public String getKovk3 (){ return this.kovk3;   } 
+	
+	private String kovk4 = null;  
+	public void setKovk4 (String value){ this.kovk4 = value;   }   
+	public String getKovk4 (){ return this.kovk4;   } 
+	
+	private String kovk5 = null;  
+	public void setKovk5 (String value){ this.kovk5 = value;   }   
+	public String getKovk5 (){ return this.kovk5;   } 
+	
+	private String kovk6 = null;  
+	public void setKovk6 (String value){ this.kovk6 = value;   }   
+	public String getKovk6 (){ return this.kovk6;   } 
+	
+	private String kovk7 = null;  
+	public void setKovk7 (String value){ this.kovk7 = value;   }   
+	public String getKovk7 (){ return this.kovk7;   } 
+	
+	private String kovk8 = null;  
+	public void setKovk8 (String value){ this.kovk8 = value;   }   
+	public String getKovk8 (){ return this.kovk8;   } 
+	
+	private String kovk9 = null;  
+	public void setKovk9 (String value){ this.kovk9 = value;   }   
+	public String getKovk9 (){ return this.kovk9;   } 
+	
+	private String kovk10 = null;  
+	public void setKovk10 (String value){ this.kovk10 = value;   }   
+	public String getKovk10 (){ return this.kovk10;   } 
+	
+	private String kovk11 = null;  
+	public void setKovk11 (String value){ this.kovk11 = value;   }   
+	public String getKovk11 (){ return this.kovk11;   } 
 	
 	
     

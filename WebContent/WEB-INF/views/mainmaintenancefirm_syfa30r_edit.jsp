@@ -122,7 +122,7 @@
 									 			<tr height="3"><td >&nbsp;</td></tr>
 									 			<tr>
 									 				<td  valign="top" width="25%">
-									 					<table align="left" cellspacing="2" border="0" >
+									 					<table align="center" cellspacing="2" border="0" >
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('filibf_info');" onMouseOut="hidePop('filibf_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="filibf">Filbibliotek Produksjon</span>
@@ -459,13 +459,6 @@
 														</table>
 													</td>	
 													
-													<td class="text11" width="40%" colspan="2" >
-						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="left">
-															<tr>
-																<td colspan="4" class="text12White" >&nbsp;Suppl.info</td>
-															</tr>							
-														</table>
-													</td>	
 												</tr>
 												<tr>	
 													<td valign="top" class="text11" width="40%" colspan="2" >	
@@ -545,8 +538,31 @@
 														</table>
 													</td>
 													
-													<td valign="top" class="text11" width="40%" colspan="2" >	
-														<table width="90%" class="formFrame" cellspacing="0" border="0" align="left">
+						 						</tr>
+						 						
+						 			
+						 						<%-- Supplerende Del 2 --%>
+						 						<tr height="8"><td></td></tr>
+						 						<tr>
+						 							<td class="text11" width="40%" colspan="2" >
+						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="center">
+															<tr>
+																<td colspan="4" class="text12White" >&nbsp;Suppl.info</td>
+															</tr>							
+														</table>
+													</td>
+							 						<td class="text11" width="40%" colspan="2" >
+						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="left">
+															<tr>
+																<td colspan="4" class="text12White" >&nbsp;Suppl.info - 2</td>
+															</tr>							
+														</table>
+													</td>	
+												</tr>
+						 						
+						 						<tr>
+						 						<td valign="top" class="text11" width="40%" colspan="2" >	
+														<table width="90%" class="formFrame" cellspacing="0" border="0" align="center">
 															<tr>
 									 							<td class="text12"><img onMouseOver="showPop('fisadk_info');" onMouseOut="hidePop('fisadk_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="fisadk">Sumposter (Fakturajour.)til hovedbok</span>
@@ -649,34 +665,15 @@
 																	</div>
 																</td>
 																<td class="text11">
-																	<select name="interr" id="interr" class="inputTextMediumBlue">
-								 					  					<option value="">-velg-</option>
-								 					  					<option value="J"<c:if test="${model.record.interr == 'J'}"> selected </c:if> >Ja</option>
-													  					<option value="N"<c:if test="${model.record.interr == 'N'}"> selected </c:if> >Nei</option>
-													  					
-													  				</select>	
+																	<input onKeyPress="return numberKey(event)" align="right" type="text" class="inputTextMediumBlue" name="interr" id="interr" size="6" maxlength="5" value="${model.record.interr}"/>	
 																</td>
 									 						</tr>
-															<tr height="5"><td></td></tr>
+															<tr height="2"><td></td></tr>
 														</table>
 													</td>
-						 						</tr>
 						 						
-						 			
-						 						<%-- Supplerende Del 2 --%>
-						 						<tr height="8"><td></td></tr>
-						 						<tr>
-						 						<td class="text11" width="40%" colspan="2" >
-						 								<table width="90%" class="formFrameHeader" cellspacing="0" border="0" align="center">
-															<tr>
-																<td colspan="4" class="text12White" >&nbsp;Suppl.info - 2</td>
-															</tr>							
-														</table>
-													</td>	
-												</tr>
-						 						<tr>
-						 						<td valign="top" class="text11" width="40%" colspan="2" >	
-														<table width="90%" class="formFrame" cellspacing="0" border="0" align="center">
+						 							<td valign="top" class="text11" width="40%" colspan="2" >	
+														<table width="90%" class="formFrame" cellspacing="0" border="0" align="left">
 															<tr>
 									 							<td class="text12"><img onMouseOver="showPop('innutl_info');" onMouseOut="hidePop('innutl_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="innutl">Innlandsfraktbrev på utlandsfraktbrev</span>
@@ -713,7 +710,7 @@
 													  				</select>	
 																</td>
 									 						</tr>
-									 						<tr height="8"><td></td></tr>
+									 						<tr height="10"><td></td></tr>
 									 						<tr>
 									 							<td class="text12">&nbsp;</td>
 									 							<td class="text12"><span title="fikufr">&nbsp;Fra</span></td>
@@ -749,15 +746,12 @@
 																</td>
 													
 									 						</tr>
-														
-															<tr height="5"><td></td></tr>
+															<tr height="25"><td></td></tr>
 														</table>
 													</td>
 						 						</tr>
-						 						
-						 						
-						 						
-						 						<tr height="10"><td></td></tr>
+
+						 						<tr height="8"><td></td></tr>
 									 			<tr>
 													<td colspan="8">
 														<table class="formFrameHeader" width="95%" 	cellspacing="0" border="0" align="center">
@@ -896,13 +890,206 @@
 															</table>
 														</td>
 													</tr>
-													
+												
+													<tr height="8"><td></td></tr>
+										 			<tr>
+														<td colspan="8">
+															<table class="formFrameHeader" width="95%" 	cellspacing="0" border="0" align="center">
+																<tr><td colspan="15" class="text12White" >&nbsp;STATISTIKK - Vektgrupper for stat.oppdateringer OG statistikkbegrep som ønskes akkumulert</td></tr>
+															</table>
+															<table class="formFrame"  width="95%" cellspacing="1" border="0" align="center">
+																	<tr>
+																		<td class="text11" align="center"><span title="kovk1">1</span></td>
+																		<td class="text11" align="center"><span title="kovk2">2</span></td>
+																		<td class="text11" align="center"><span title="kovk3">3</span></td>
+																		<td class="text11" align="center"><span title="kovk4">4</span></td>
+																		<td class="text11" align="center"><span title="kovk5">5</span></td>
+																		<td class="text11" align="center"><span title="kovk6">6</span></td>
+																		<td class="text11" align="center"><span title="kovk7">7</span></td>
+																		<td class="text11" align="center"><span title="kovk8">8</span></td>
+																		<td class="text11" align="center"><span title="kovk9">9</span></td>
+																		<td class="text11" align="center"><span title="kovk10">10</span></td>
+																		<td class="text11" align="center"><span title="kovk11">11</span></td>
+																		<td class="text11" align="center"><span title="nada">12</span></td>
+																	</tr>		
+											 	    				<tr>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk1" id="kovk1" size="6" maxlength="5" value="${model.record.kovk1}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk2" id="kovk2" size="6" maxlength="5" value="${model.record.kovk2}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk3" id="kovk3" size="6" maxlength="5" value="${model.record.kovk3}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk4" id="kovk4" size="6" maxlength="5" value="${model.record.kovk4}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk5" id="kovk5" size="6" maxlength="5" value="${model.record.kovk5}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk6" id="kovk6" size="6" maxlength="5" value="${model.record.kovk6}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk7" id="kovk7" size="6" maxlength="5" value="${model.record.kovk7}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk8" id="kovk8" size="6" maxlength="5" value="${model.record.kovk8}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk9" id="kovk9" size="6" maxlength="5" value="${model.record.kovk9}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk10" id="kovk10" size="6" maxlength="5" value="${model.record.kovk10}"/>
+																		</td>
+																		<td class="text12" >
+																			<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="kovk11" id="kovk11" size="6" maxlength="5" value="${model.record.kovk11}"/>
+																		</td>
+																		<td class="text12" >
+																			<input tabindex=-1 readonly style="text-align: right;" type="text" class="inputTextReadOnly" size="6" maxlength="5" value="99999"/>
+																		</td>
+													    	    	</tr>	
+													    	    	<tr height="10"><td></td></tr>
+													    	    	
+													    	    	<tr>
+																		<td colspan="12" class="text12" align="left">
+																		<table width="90%">
+																			<tr>
+																				<td valign="top" width="25%" class="text12" align="left">
+																					<table width="100%">
+																						<tr>
+																							<td ><input type="checkbox" name="fista" id="fista" value="X" <c:if test="${Xmodel.record.fista == 'F'}"> checked </c:if>  ><font class="text12" title="fista">A = Agent</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistb" id="fistb" value="X" <c:if test="${Xmodel.record.fistb == 'F'}"> checked </c:if>  ><font class="text12" title="fistb">B = Avdeling</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistc" id="fistc" value="X" <c:if test="${Xmodel.record.fistc == 'F'}"> checked </c:if>  ><font class="text12" title="fistc">C = Rundtur</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistd" id="fistd" value="X" <c:if test="${Xmodel.record.fistd == 'F'}"> checked </c:if>  ><font class="text12" title="fistd">D = Fakt kunde/opd.typ</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fiste" id="fiste" value="X" <c:if test="${Xmodel.record.fiste == 'F'}"> checked </c:if>  ><font class="text12" title="fiste">E = Agent/frankatur</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistf" id="fistf" value="X" <c:if test="${Xmodel.record.fistf == 'F'}"> checked </c:if>  ><font class="text12" title="fistf">F = Frankatur</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistg" id="fistg" value="X" <c:if test="${Xmodel.record.fistg == 'F'}"> checked </c:if>  ><font class="text12" title="fistg">G = Fakt.mott./frank</font></td>
+																						</tr>
+																						
+																					</table>
+																				</td>
+																				<td valign="top" width="25%" class="text12" align="left">
+																					<table width="100%">
+																						<tr>
+																							<td ><input type="checkbox" name="fisth" id="fisth" value="X" <c:if test="${Xmodel.record.fisth == 'X'}"> checked </c:if>  ><font class="text12" title="fisth">H = Fakt.mott./frasted</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fisti" id="fisti" value="X" <c:if test="${Xmodel.record.fisti == 'X'}"> checked </c:if>  ><font class="text12" title="fisti">I = Fakt.mott./tilsted</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistj" id="fistj" value="X" <c:if test="${Xmodel.record.fistj == 'X'}"> checked </c:if>  ><font class="text12" title="fistj">J = Kunder som "part"</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistk" id="fistk" value="X" <c:if test="${Xmodel.record.fistk == 'X'}"> checked </c:if>  ><font class="text12" title="fistk">K = Fakt. kunde</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistl" id="fistl" value="X" <c:if test="${Xmodel.record.fistl == 'X'}"> checked </c:if>  ><font class="text12" title="fistl">L = Fra/til landkode</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistm" id="fistm" value="X" <c:if test="${Xmodel.record.fistm == 'X'}"> checked </c:if>  ><font class="text12" title="fistm">M = Fra/til region</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistn" id="fistn" value="X" <c:if test="${Xmodel.record.fistn == 'X'}"> checked </c:if>  ><font class="text12" title="fistn">N = Fra/til sted</font></td>
+																						</tr>
+																						
+																					</table>
+																				
+																				</td>
+																				<td valign="top" width="25%" class="text12" align="left">
+																					<table width="100%">
+																						<tr>
+																							<td ><input type="checkbox" name="fisto" id="fisto" value="X" <c:if test="${Xmodel.record.fisto == 'X'}"> checked </c:if>  ><font class="text12" title="fisto">O = Oppdragstype</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistp" id="fistp" value="X" <c:if test="${Xmodel.record.fistp == 'X'}"> checked </c:if>  ><font class="text12" title="fistp">P = Sted fra</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistq" id="fistq" value="X" <c:if test="${Xmodel.record.fistq == 'X'}"> checked </c:if>  ><font class="text12" title="fistq">Q = Sted til</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistr" id="fistr" value="X" <c:if test="${Xmodel.record.fistr == 'X'}"> checked </c:if>  ><font class="text12" title="fistr">R = Tur</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fists" id="fists" value="X" <c:if test="${Xmodel.record.fists == 'X'}"> checked </c:if>  ><font class="text12" title="fists">S = Saksbehandler</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistt" id="fistt" value="X" <c:if test="${Xmodel.record.fistt == 'X'}"> checked </c:if>  ><font class="text12" title="fistt">T = Transportør</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistu" id="fistu" value="X" <c:if test="${Xmodel.record.fistu == 'X'}"> checked </c:if>  ><font class="text12" title="fistu">U = Fakt kunde/land</font></td>
+																						</tr>
+																						
+																					</table>
+																				
+																				</td>
+																				<td valign="top" width="25%" class="text12" align="left">
+																					<table width="100%">
+																						<tr>
+																							<td ><input type="checkbox" name="fistv" id="fistv" value="X" <c:if test="${Xmodel.record.fistv == 'X'}"> checked </c:if>  ><font class="text12" title="fistv">V = Fakt kunde/agent</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistw" id="fistw" value="X" <c:if test="${Xmodel.record.fistw == 'X'}"> checked </c:if>  ><font class="text12" title="fistw">W = Vareavs./mottaker</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistx" id="fistx" value="X" <c:if test="${Xmodel.record.fistx == 'X'}"> checked </c:if>  ><font class="text12" title="fistx">X = Kunde/landkode</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fisty" id="fisty" value="X" <c:if test="${Xmodel.record.fisty == 'X'}"> checked </c:if>  ><font class="text12" title="fisty">Y = Bilnummer......(*)</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistz" id="fistz" value="X" <c:if test="${Xmodel.record.fistz == 'X'}"> checked </c:if>  ><font class="text12" title="fistz">Z = Bilkode........(*)</font></td>
+																						</tr>
+																						
+																					</table>
+																				
+																				</td>
+																			</tr>	
+																		</table>
+																		</td>
+																	</tr>
+													    	    	<tr>
+																		<td colspan="12" class="text12" align="left">
+																		<table>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="fistnr">&nbsp;Løpenummer for statistikk poster</span>
+																				</td>
+																				<td class="text12" >
+																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fistnr" id="fistnr" size="12" maxlength="11" value="${Xmodel.record.fistnr}"/>
+																				</td>
+																		</table>
+																		</td>
+																	</tr>
+																	<tr height="5"><td></td></tr>
+													    	    	
+																</table>
+															</td>
+														</tr>
+														<tr height="10"><td></td></tr>
+										 				</table>
+										 			</td>
+												</tr>
+										
 												<%-- bottom space towards frame bottom --%>	
 												<tr height="10"><td></td></tr>
-									 			</table>
-									 		</td>
+								 				</table>
+								 			</td>
 										</tr>
-										
+
 							<tr height="5"><td >&nbsp;</td></tr>
 						</table>
 
