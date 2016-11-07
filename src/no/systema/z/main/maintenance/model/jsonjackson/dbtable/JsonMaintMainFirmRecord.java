@@ -385,7 +385,144 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public String getKovk11 (){ return this.kovk11;   } 
 	
 	
-    
+	//--------------
+	//FIRSTA -table
+	//--------------
+	private String fista = null;  
+	public void setFista (String value){ this.fista = value;   }   
+	public String getFista (){ return this.fista;   }
+	
+	private String fistb = null;  
+	public void setFistb (String value){ this.fistb = value;   }   
+	public String getFistb (){ return this.fistb;   }
+	
+	private String fistc = null;  
+	public void setFistc (String value){ this.fistc = value;   }   
+	public String getFistc (){ return this.fistc;   }
+	
+	private String fistd = null;  
+	public void setFistd (String value){ this.fistd = value;   }   
+	public String getFistd (){ return this.fistd;   }
+	
+	private String fiste = null;  
+	public String getFistePropertyName (){ return "fiste"; }
+	public void setFiste (String value){ this.fiste = value;   }   
+	public String getFiste (){ return this.fiste;   }
+	
+	private String fistf = null;  
+	public void setFistf (String value){ this.fistf = value;   }   
+	public String getFistf (){ return this.fistf;   }
+	
+	private String fistg = null;  
+	public void setFistg (String value){ this.fistg = value;   }   
+	public String getFistg (){ return this.fistg;   }
+	
+	private String fisth = null;  
+	public void setFisth (String value){ this.fisth = value;   }   
+	public String getFisth (){ return this.fisth;   }
+	
+	private String fisti = null;  
+	public void setFisti (String value){ this.fisti = value;   }   
+	public String getFisti (){ return this.fisti;   }
+	
+	private String fistj = null;  
+	public void setFistj (String value){ this.fistj = value;   }   
+	public String getFistj (){ return this.fistj;   }
+	
+	private String fistk = null;  
+	public void setFistk (String value){ this.fistk = value;   }   
+	public String getFistk (){ return this.fistk;   }
+	
+	private String fistl = null;  
+	public void setFistl (String value){ this.fistl = value;   }   
+	public String getFistl (){ return this.fistl;   }
+	
+	private String fistm = null;  
+	public void setFistm (String value){ this.fistm = value;   }   
+	public String getFistm (){ return this.fistm;   }
+	
+	private String fistn = null;  
+	public void setFistn (String value){ this.fistn = value;   }   
+	public String getFistn (){ return this.fistn;   }
+	
+	private String fisto = null;  
+	public void setFisto (String value){ this.fisto = value;   }   
+	public String getFisto (){ return this.fisto;   }
+	
+	private String fistp = null;  
+	public void setFistp (String value){ this.fistp = value;   }   
+	public String getFistp (){ return this.fistp;   }
+	
+	private String fistq = null;  
+	public void setFistq (String value){ this.fistq = value;   }   
+	public String getFistq (){ return this.fistq;   }
+	
+	private String fistr = null;  
+	public void setFistr (String value){ this.fistr = value;   }   
+	public String getFistr (){ return this.fistr;   }
+	
+	private String fists = null;  
+	public void setFists (String value){ this.fists = value;   }   
+	public String getFists (){ return this.fists;   }
+	
+	private String fistt = null;  
+	public void setFistt (String value){ this.fistt = value;   }   
+	public String getFistt (){ return this.fistt;   }
+	
+	private String fistu = null;  
+	public void setFistu (String value){ this.fistu = value;   }   
+	public String getFistu (){ return this.fistu;   }
+	
+	private String fistv = null;  
+	public void setFistv (String value){ this.fistv = value;   }   
+	public String getFistv (){ return this.fistv;   }
+	
+	private String fistw = null;  
+	public void setFistw (String value){ this.fistw = value;   }   
+	public String getFistw (){ return this.fistw;   }
+	
+	private String fistx = null;  
+	public void setFistx (String value){ this.fistx = value;   }   
+	public String getFistx (){ return this.fistx;   }
+	
+	private String fisty = null;  
+	public void setFisty (String value){ this.fisty = value;   }   
+	public String getFisty (){ return this.fisty;   }
+	
+	private String fistz = null;  
+	public void setFistz (String value){ this.fistz = value;   }   
+	public String getFistz (){ return this.fistz;   }
+	
+	private String fistnr = null;  
+	public void setFistnr (String value){ this.fistnr = value;   }   
+	public String getFistnr (){ return this.fistnr;   }
+	//END FIRSTA
+	
+	
+	//-------------
+	//FIRTR table
+	//-------------
+	private String favreg = null;  
+	public void setFavreg (String value){ this.favreg = value;   }   
+	public String getFavreg (){ return this.favreg;   }
+	
+	private String fibise = null;  
+	public void setFibise (String value){ this.fibise = value;   }   
+	public String getFibise (){ return this.fibise;   }
+	
+	private String fferk = null;  
+	public void setFferk (String value){ this.fferk = value;   }   
+	public String getFferk (){ return this.fferk;   }
+	
+	private String fibrut = null;  
+	public void setFibrut (String value){ this.fibrut = value;   }   
+	public String getFibrut (){ return this.fibrut;   }
+	
+	private String fikonv = null;  
+	public void setFikonv(String value){ this.fikonv = value;   }   
+	public String getFikonv (){ return this.fikonv;   }
+	
+	
 	/**
 	 * 
 	 * @return

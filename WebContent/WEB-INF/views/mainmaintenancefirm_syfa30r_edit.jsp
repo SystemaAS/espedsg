@@ -876,7 +876,7 @@
 																			<span title="f">&nbsp;Skriv ut melding om manuell behandling på TVINN</span>
 																			</td>
 																			<td class="text12" >
-																					<select name="file31" id="file31" class="inputTextMediumBlue">
+																				<select name="file31" id="file31" class="inputTextMediumBlue">
 																  					<option value="">-velg-</option>
 																  					<option value="J"<c:if test="${ model.record.file31 == 'J'}"> selected </c:if> >Ja</option>
 																  					<option value="N"<c:if test="${ model.record.file31 == 'N'}"> selected </c:if> >Nei</option>
@@ -894,10 +894,10 @@
 													<tr height="8"><td></td></tr>
 										 			<tr>
 														<td colspan="8">
-															<table class="formFrameHeader" width="95%" 	cellspacing="0" border="0" align="center">
-																<tr><td colspan="15" class="text12White" >&nbsp;STATISTIKK - Vektgrupper for stat.oppdateringer OG statistikkbegrep som ønskes akkumulert</td></tr>
+															<table class="formFrameHeaderPeachWithBorder" width="95%" 	cellspacing="0" border="0" align="center">
+																<tr><td colspan="15" class="text12" >&nbsp;STATISTIKK - Vektgrupper for stat.oppdateringer OG statistikkbegrep som ønskes akkumulert</td></tr>
 															</table>
-															<table class="formFrame"  width="95%" cellspacing="1" border="0" align="center">
+															<table class="formFramePeachGrayRoundBottom"  width="95%" cellspacing="1" border="0" align="center">
 																	<tr>
 																		<td class="text11" align="center"><span title="kovk1">1</span></td>
 																		<td class="text11" align="center"><span title="kovk2">2</span></td>
@@ -959,25 +959,25 @@
 																				<td valign="top" width="25%" class="text12" align="left">
 																					<table width="100%">
 																						<tr>
-																							<td ><input type="checkbox" name="fista" id="fista" value="X" <c:if test="${Xmodel.record.fista == 'F'}"> checked </c:if>  ><font class="text12" title="fista">A = Agent</font></td>
+																							<td ><input type="checkbox" name="fista" id="fista" value="X" <c:if test="${model.record.fista == 'X'}"> checked </c:if>  ><font class="text12" title="fista">A = Agent</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistb" id="fistb" value="X" <c:if test="${Xmodel.record.fistb == 'F'}"> checked </c:if>  ><font class="text12" title="fistb">B = Avdeling</font></td>
+																							<td ><input type="checkbox" name="fistb" id="fistb" value="X" <c:if test="${model.record.fistb == 'X'}"> checked </c:if>  ><font class="text12" title="fistb">B = Avdeling</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistc" id="fistc" value="X" <c:if test="${Xmodel.record.fistc == 'F'}"> checked </c:if>  ><font class="text12" title="fistc">C = Rundtur</font></td>
+																							<td ><input type="checkbox" name="fistc" id="fistc" value="X" <c:if test="${model.record.fistc == 'X'}"> checked </c:if>  ><font class="text12" title="fistc">C = Rundtur</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistd" id="fistd" value="X" <c:if test="${Xmodel.record.fistd == 'F'}"> checked </c:if>  ><font class="text12" title="fistd">D = Fakt kunde/opd.typ</font></td>
+																							<td ><input type="checkbox" name="fistd" id="fistd" value="X" <c:if test="${model.record.fistd == 'X'}"> checked </c:if>  ><font class="text12" title="fistd">D = Fakt kunde/opd.typ</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fiste" id="fiste" value="X" <c:if test="${Xmodel.record.fiste == 'F'}"> checked </c:if>  ><font class="text12" title="fiste">E = Agent/frankatur</font></td>
+																							<td ><input type="checkbox" name="fiste" id="fiste" value="X" <c:if test="${model.record.fiste == 'X'}"> checked </c:if>  ><font class="text12" title="fiste">E = Agent/frankatur</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistf" id="fistf" value="X" <c:if test="${Xmodel.record.fistf == 'F'}"> checked </c:if>  ><font class="text12" title="fistf">F = Frankatur</font></td>
+																							<td ><input type="checkbox" name="fistf" id="fistf" value="X" <c:if test="${model.record.fistf == 'X'}"> checked </c:if>  ><font class="text12" title="fistf">F = Frankatur</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistg" id="fistg" value="X" <c:if test="${Xmodel.record.fistg == 'F'}"> checked </c:if>  ><font class="text12" title="fistg">G = Fakt.mott./frank</font></td>
+																							<td ><input type="checkbox" name="fistg" id="fistg" value="X" <c:if test="${model.record.fistg == 'X'}"> checked </c:if>  ><font class="text12" title="fistg">G = Fakt.mott./frank</font></td>
 																						</tr>
 																						
 																					</table>
@@ -985,52 +985,25 @@
 																				<td valign="top" width="25%" class="text12" align="left">
 																					<table width="100%">
 																						<tr>
-																							<td ><input type="checkbox" name="fisth" id="fisth" value="X" <c:if test="${Xmodel.record.fisth == 'X'}"> checked </c:if>  ><font class="text12" title="fisth">H = Fakt.mott./frasted</font></td>
+																							<td ><input type="checkbox" name="fisth" id="fisth" value="X" <c:if test="${model.record.fisth == 'X'}"> checked </c:if>  ><font class="text12" title="fisth">H = Fakt.mott./frasted</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fisti" id="fisti" value="X" <c:if test="${Xmodel.record.fisti == 'X'}"> checked </c:if>  ><font class="text12" title="fisti">I = Fakt.mott./tilsted</font></td>
+																							<td ><input type="checkbox" name="fisti" id="fisti" value="X" <c:if test="${model.record.fisti == 'X'}"> checked </c:if>  ><font class="text12" title="fisti">I = Fakt.mott./tilsted</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistj" id="fistj" value="X" <c:if test="${Xmodel.record.fistj == 'X'}"> checked </c:if>  ><font class="text12" title="fistj">J = Kunder som "part"</font></td>
+																							<td ><input type="checkbox" name="fistj" id="fistj" value="X" <c:if test="${model.record.fistj == 'X'}"> checked </c:if>  ><font class="text12" title="fistj">J = Kunder som "part"</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistk" id="fistk" value="X" <c:if test="${Xmodel.record.fistk == 'X'}"> checked </c:if>  ><font class="text12" title="fistk">K = Fakt. kunde</font></td>
+																							<td ><input type="checkbox" name="fistk" id="fistk" value="X" <c:if test="${model.record.fistk == 'X'}"> checked </c:if>  ><font class="text12" title="fistk">K = Fakt. kunde</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistl" id="fistl" value="X" <c:if test="${Xmodel.record.fistl == 'X'}"> checked </c:if>  ><font class="text12" title="fistl">L = Fra/til landkode</font></td>
+																							<td ><input type="checkbox" name="fistl" id="fistl" value="X" <c:if test="${model.record.fistl == 'X'}"> checked </c:if>  ><font class="text12" title="fistl">L = Fra/til landkode</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistm" id="fistm" value="X" <c:if test="${Xmodel.record.fistm == 'X'}"> checked </c:if>  ><font class="text12" title="fistm">M = Fra/til region</font></td>
+																							<td ><input type="checkbox" name="fistm" id="fistm" value="X" <c:if test="${model.record.fistm == 'X'}"> checked </c:if>  ><font class="text12" title="fistm">M = Fra/til region</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistn" id="fistn" value="X" <c:if test="${Xmodel.record.fistn == 'X'}"> checked </c:if>  ><font class="text12" title="fistn">N = Fra/til sted</font></td>
-																						</tr>
-																						
-																					</table>
-																				
-																				</td>
-																				<td valign="top" width="25%" class="text12" align="left">
-																					<table width="100%">
-																						<tr>
-																							<td ><input type="checkbox" name="fisto" id="fisto" value="X" <c:if test="${Xmodel.record.fisto == 'X'}"> checked </c:if>  ><font class="text12" title="fisto">O = Oppdragstype</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fistp" id="fistp" value="X" <c:if test="${Xmodel.record.fistp == 'X'}"> checked </c:if>  ><font class="text12" title="fistp">P = Sted fra</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fistq" id="fistq" value="X" <c:if test="${Xmodel.record.fistq == 'X'}"> checked </c:if>  ><font class="text12" title="fistq">Q = Sted til</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fistr" id="fistr" value="X" <c:if test="${Xmodel.record.fistr == 'X'}"> checked </c:if>  ><font class="text12" title="fistr">R = Tur</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fists" id="fists" value="X" <c:if test="${Xmodel.record.fists == 'X'}"> checked </c:if>  ><font class="text12" title="fists">S = Saksbehandler</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fistt" id="fistt" value="X" <c:if test="${Xmodel.record.fistt == 'X'}"> checked </c:if>  ><font class="text12" title="fistt">T = Transportør</font></td>
-																						</tr>
-																						<tr>
-																							<td ><input type="checkbox" name="fistu" id="fistu" value="X" <c:if test="${Xmodel.record.fistu == 'X'}"> checked </c:if>  ><font class="text12" title="fistu">U = Fakt kunde/land</font></td>
+																							<td ><input type="checkbox" name="fistn" id="fistn" value="X" <c:if test="${model.record.fistn == 'X'}"> checked </c:if>  ><font class="text12" title="fistn">N = Fra/til sted</font></td>
 																						</tr>
 																						
 																					</table>
@@ -1039,19 +1012,46 @@
 																				<td valign="top" width="25%" class="text12" align="left">
 																					<table width="100%">
 																						<tr>
-																							<td ><input type="checkbox" name="fistv" id="fistv" value="X" <c:if test="${Xmodel.record.fistv == 'X'}"> checked </c:if>  ><font class="text12" title="fistv">V = Fakt kunde/agent</font></td>
+																							<td ><input type="checkbox" name="fisto" id="fisto" value="X" <c:if test="${model.record.fisto == 'X'}"> checked </c:if>  ><font class="text12" title="fisto">O = Oppdragstype</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistw" id="fistw" value="X" <c:if test="${Xmodel.record.fistw == 'X'}"> checked </c:if>  ><font class="text12" title="fistw">W = Vareavs./mottaker</font></td>
+																							<td ><input type="checkbox" name="fistp" id="fistp" value="X" <c:if test="${model.record.fistp == 'X'}"> checked </c:if>  ><font class="text12" title="fistp">P = Sted fra</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistx" id="fistx" value="X" <c:if test="${Xmodel.record.fistx == 'X'}"> checked </c:if>  ><font class="text12" title="fistx">X = Kunde/landkode</font></td>
+																							<td ><input type="checkbox" name="fistq" id="fistq" value="X" <c:if test="${model.record.fistq == 'X'}"> checked </c:if>  ><font class="text12" title="fistq">Q = Sted til</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fisty" id="fisty" value="X" <c:if test="${Xmodel.record.fisty == 'X'}"> checked </c:if>  ><font class="text12" title="fisty">Y = Bilnummer......(*)</font></td>
+																							<td ><input type="checkbox" name="fistr" id="fistr" value="X" <c:if test="${model.record.fistr == 'X'}"> checked </c:if>  ><font class="text12" title="fistr">R = Tur</font></td>
 																						</tr>
 																						<tr>
-																							<td ><input type="checkbox" name="fistz" id="fistz" value="X" <c:if test="${Xmodel.record.fistz == 'X'}"> checked </c:if>  ><font class="text12" title="fistz">Z = Bilkode........(*)</font></td>
+																							<td ><input type="checkbox" name="fists" id="fists" value="X" <c:if test="${model.record.fists == 'X'}"> checked </c:if>  ><font class="text12" title="fists">S = Saksbehandler</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistt" id="fistt" value="X" <c:if test="${model.record.fistt == 'X'}"> checked </c:if>  ><font class="text12" title="fistt">T = Transportør</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistu" id="fistu" value="X" <c:if test="${model.record.fistu == 'X'}"> checked </c:if>  ><font class="text12" title="fistu">U = Fakt kunde/land</font></td>
+																						</tr>
+																						
+																					</table>
+																				
+																				</td>
+																				<td valign="top" width="25%" class="text12" align="left">
+																					<table width="100%">
+																						<tr>
+																							<td ><input type="checkbox" name="fistv" id="fistv" value="X" <c:if test="${model.record.fistv == 'X'}"> checked </c:if>  ><font class="text12" title="fistv">V = Fakt kunde/agent</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistw" id="fistw" value="X" <c:if test="${model.record.fistw == 'X'}"> checked </c:if>  ><font class="text12" title="fistw">W = Vareavs./mottaker</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistx" id="fistx" value="X" <c:if test="${model.record.fistx == 'X'}"> checked </c:if>  ><font class="text12" title="fistx">X = Kunde/landkode</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fisty" id="fisty" value="X" <c:if test="${model.record.fisty == 'X'}"> checked </c:if>  ><font class="text12" title="fisty">Y = Bilnummer......(*)</font></td>
+																						</tr>
+																						<tr>
+																							<td ><input type="checkbox" name="fistz" id="fistz" value="X" <c:if test="${model.record.fistz == 'X'}"> checked </c:if>  ><font class="text12" title="fistz">Z = Bilkode........(*)</font></td>
 																						</tr>
 																						
 																					</table>
@@ -1069,8 +1069,21 @@
 																				<span title="fistnr">&nbsp;Løpenummer for statistikk poster</span>
 																				</td>
 																				<td class="text12" >
-																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fistnr" id="fistnr" size="12" maxlength="11" value="${Xmodel.record.fistnr}"/>
+																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fistnr" id="fistnr" size="12" maxlength="11" value="${model.record.fistnr}"/>
 																				</td>
+																				<td class="text12" align="left" width="20px">&nbsp;</td>
+																				<td class="text12" align="left">
+																				<span title="todo">&nbsp;Periodisering av statistikk</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="todo" id="todo" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="B"<c:if test="${ Xmodel.record.todo == 'B'}"> selected </c:if> >Begge</option>
+																  						<option value="F"<c:if test="${ Xmodel.record.todo == 'F'}"> selected </c:if> >Fakturaperiode</option>
+																  						<option value="O"<c:if test="${ Xmodel.record.todo == 'O'}"> selected </c:if> >Etter oppdragsdato</option>
+																			  		</select>
+																				</td>
+																				
 																		</table>
 																		</td>
 																	</tr>
@@ -1079,6 +1092,91 @@
 																</table>
 															</td>
 														</tr>
+														
+														<tr height="8"><td></td></tr>
+										 				<tr>
+															<td colspan="8">
+															<table class="formFrameHeaderPeachWithBorder" width="95%" 	cellspacing="0" border="0" align="center">
+																<tr><td colspan="15" class="text12" >&nbsp;TRANSPORT OG LØSNING 1 PARAMETERE</td></tr>
+															</table>
+															<table class="formFramePeachGrayRoundBottom"  width="95%" cellspacing="1" border="0" align="center">
+																	<tr>
+																		<td class="text12" align="left">
+																		<table>
+																			<tr>
+																				<td class="text12" align="left"><b>&nbsp;Transportparametere</b></td>
+																			</tr>	
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="favreg">&nbsp;Avregning via kunde/leverandør-reskontro</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="favreg" id="favreg" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="K"<c:if test="${ Xmodel.record.favreg == 'K'}"> selected </c:if> >K</option>
+																  						<option value="L"<c:if test="${ Xmodel.record.favreg == 'L'}"> selected </c:if> >L</option>
+																			  		</select>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="fibise">&nbsp;Bilagsserie for tr.avregn (når via L-resk.)</span>
+																				</td>
+																				<td class="text12" >
+																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fibise" id="fibise" size="2" maxlength="1" value="${Xmodel.record.fibise}"/>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="fferk">&nbsp;Medta ferjekostnad i transportøravregning (J/N)</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="fferk" id="fferk" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="J"<c:if test="${ Xmodel.record.fferk == 'J'}"> selected </c:if> >Ja</option>
+																  						<option value="N"<c:if test="${ Xmodel.record.fferk == 'N'}"> selected </c:if> >Nei</option>
+																			  		</select>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="fibrut">&nbsp;Brutto internpris (N=Netto,m/aut prov.påslag)</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="fibrut" id="fibrut" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="B"<c:if test="${ Xmodel.record.fibrut == 'B'}"> selected </c:if> >Brutto</option>
+																  						<option value="N"<c:if test="${ Xmodel.record.fibrut == 'N'}"> selected </c:if> >Netto</option>
+																			  		</select>
+																				</td>
+																			</tr>
+																			<tr height="8"><td></td></tr>
+																			<tr>
+																				<td class="text12" align="left"><b>&nbsp;Øvrige transportparametere</b></td>
+																			</tr>	
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="fikonv">&nbsp;Type turkonvolutt</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="fikonv" id="fikonv" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="G"<c:if test="${ Xmodel.record.fikonv == 'G'}"> selected </c:if> >Godsliste</option>
+																  						<option value="N"<c:if test="${ Xmodel.record.fikonv == 'N'}"> selected </c:if> >Normal</option>
+																			  		</select>
+																				</td>
+																			</tr>		
+																		</table>
+																		</td>
+																	</tr>
+																	<tr height="5"><td></td></tr>
+													    	    	
+																</table>
+															</td>
+														</tr>
+														
+														
+														
 														<tr height="10"><td></td></tr>
 										 				</table>
 										 			</td>

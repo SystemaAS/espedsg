@@ -1608,11 +1608,11 @@
 											in question shall be entered here
 				           				</li>
 				           			</ul>
-				           			Feltet er blokeret. Beregnes automatisk fra vareposter.
+				           			Beregnes automatisk fra vareposter men kan øverstyres.
 								</span>	
 								</div>
 								</td>
-					            <td ><input readonly onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thntk" id="thntk" size="8" maxlength="7" value="${model.record.thntk}"></td>
+					            <td ><input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="thntk" id="thntk" size="8" maxlength="7" value="${model.record.thntk}"></td>
 					        </tr>
 					        <tr>
 					            <td class="text12" align="left" >
@@ -1623,12 +1623,12 @@
 				           			<ul>
 				           				<li>Sending samlede bruttovægt.</li>
 				           			</ul>
-				           			Feltet er blokeret. Beregnes automatisk fra vareposter.
+				           			Beregnes automatisk fra vareposter men kan øverstyres.
 								</span>	
 								</div>
 								</td>
 					            
-					            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
+					            <td ><input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="thvkb" id="thvkb" size="10" maxlength="9" value="${model.record.thvkb}"></td>
 					            
 					        </tr>	    
 				            <tr height="2"><td>&nbsp;</td></tr>
