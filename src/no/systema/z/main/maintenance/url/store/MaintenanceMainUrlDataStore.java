@@ -67,8 +67,15 @@ public final class MaintenanceMainUrlDataStore {
 	//GET Kontaktpersoner (cundc)
 	/**
 	 * ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsCUNDC.do?user=OSCAR&cfirma=SY&ccompn=1
+	 * 
+	 * 
 	 */
 	static public String MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsCUNDC.do";
+
+	/**
+	 * /syjservicesbcore/syjsCUNDC_C.do
+	 */
+	static public String MAINTENANCE_MAIN_BASE_CUNDC_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsCUNDC_U.do";
 	
 	/**
 	 * Adding/deleting/updating in CUNDF

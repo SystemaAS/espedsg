@@ -118,7 +118,7 @@
 								</td>
 
 								<td width="8%" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
-									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_edit.do">
+									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_list.do">
 										<font class="tabDisabledLink">&nbsp;Kontakter</font>&nbsp;						
 									</a>
 								</td>

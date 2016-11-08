@@ -3,7 +3,6 @@ package no.systema.z.main.maintenance.controller.kund;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +29,11 @@ import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundcService;
-import no.systema.z.main.maintenance.service.MaintMainCundfService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.validator.MaintMainCundcValidator;
 
 
 /**
@@ -57,12 +54,42 @@ public class MainMaintenanceCundfKontaktpersonerController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 
+	@RequestMapping(value = "mainmaintenancecundf_kontaktpersoner_list.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doKontaktPersonerList(HttpSession session, HttpServletRequest request) {
+		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kontaktpersoner_edit");
+		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+
+		if (appUser == null) {
+			return this.loginView;
+		} else {
+			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+			String firma = kundeSessionParams.getFirma();
+			String kundnr = kundeSessionParams.getKundnr();
+
+			List<JsonMaintMainCundcRecord> list = new ArrayList();
+			list = this.fetchList(appUser.getUser(), firma, kundnr);
+
+			model.put("kundnr", kundnr);
+			model.put("firma", firma);
+			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
+
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+
+			return successView;
+
+		}
+	}
+	
+	
+	
 	@RequestMapping(value="mainmaintenancecundf_kontaktpersoner_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_kontaktpersoner_edit(@ModelAttribute ("record") JsonMaintMainCundfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenancecundf_kontaktpersoner_edit(@ModelAttribute ("record") JsonMaintMainCundcRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kontaktpersoner_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
+		String updateId = request.getParameter("updateId");
 		
 		if (appUser == null) {
 			return this.loginView;
@@ -71,10 +98,68 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			String firma = kundeSessionParams.getFirma();
 			String kundnr = kundeSessionParams.getKundnr();
 
+			adjustRecordToValidate(recordToValidate, kundeSessionParams);
+			
+			MaintMainCundcValidator validator = new MaintMainCundcValidator();
+			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
+				validator.validateDelete(recordToValidate, bindingResult);
+			}else{
+				validator.validate(recordToValidate, bindingResult);
+			}
+			if(bindingResult.hasErrors()){
+				//ERRORS
+				logger.info("[ERROR Validation] Record does not validate)");
+				if(updateId!=null && !"".equals(updateId)){
+					//meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
+					
+				}
+				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+			}else{
+				
+				//------------
+				//UPDATE table
+				//------------
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				//UPDATE
+				if (TvinnSadMaintenanceConstants.ACTION_UPDATE.equals(action) ){
+					if(updateId!=null && !"".equals(updateId)){
+						//update
+						logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
+						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
+						
+					//CREATE
+					}else{
+						//create new
+						logger.info(TvinnSadMaintenanceConstants.ACTION_CREATE);
+						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD, errMsg);
+					}
+				}else if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action) ){
+					//delete
+					logger.info(TvinnSadMaintenanceConstants.ACTION_DELETE);
+					dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE, errMsg);
+				}
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					if(updateId!=null && !"".equals(updateId)){
+						//meaning bounced in an Update and not a Create new
+						model.put("updateId", updateId);
+					}
+					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}
+				
+			}
+			//------------
+			//FETCH table
+			//------------
+
 			List<JsonMaintMainCundcRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), firma, kundnr); 
 	
-	    	model.put("action", kundeSessionParams.getAction());
+	    	//model.put("action", kundeSessionParams.getAction());
 			model.put("kundnr", kundnr);
 			model.put("firma", firma);
 	    	model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
@@ -87,6 +172,12 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 	}
 	
+	//Dont know to put from jsp, here here, explicit hardwired
+	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {
+		recordToValidate.setCfirma(kundeSessionParams.getFirma());
+		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
+	}
+
 	private List<JsonMaintMainCundcRecord> fetchList(String applicationUser, String cfirma, String ccompn){
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
@@ -105,58 +196,28 @@ public class MainMaintenanceCundfKontaktpersonerController {
     		JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintMainCundcRecord record : list){
+/*	        	for(JsonMaintMainCundcRecord record : list){
 	        	  logger.info("record:" + record.toString());
 	        	}
-	        }
+*/	        }
     	}
     	return list;
     	
 	}
 	
-	private JsonMaintMainCundcRecord fetchRecord(String applicationUser, String kundnr, String firma) {
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
-		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + applicationUser);
-		urlRequestParams.append("&kundnr=" + kundnr);
-		urlRequestParams.append("&firma=" + firma);
-
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		// debugger
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() + " CGI-end timestamp");
-		JsonMaintMainCundcRecord record = null;
-		if (jsonPayload != null) {
-			JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
-			if (container != null) {
-				for (Iterator<JsonMaintMainCundcRecord> iterator = container.getList().iterator(); iterator.hasNext();) {
-					record = (JsonMaintMainCundcRecord) iterator.next();
-				}
-
-			}
-		}
-
-		return record;
-	}
 	
-//TODO
 	private int updateRecord(String applicationUser, JsonMaintMainCundcRecord record, String mode, StringBuffer errMsg) {
 		int retval = 0;
 
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
-		// put the final valid param. string
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-
 		// extract
 		if (jsonPayload != null) {
 			// lists
@@ -172,8 +233,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 		}
 
 		return retval;
-	}
-	
+	}	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

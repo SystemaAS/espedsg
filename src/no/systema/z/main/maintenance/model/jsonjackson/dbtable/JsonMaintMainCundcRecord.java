@@ -11,6 +11,7 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	private String ccompn = null; // key
 	private String cfirma = null; // key
 	private String cconta = null; // key
+	private String ccontaorg = null; 
 	private String ctype = null;
 	private String cphone = null;
 	private String cmobil = null;
@@ -48,6 +49,14 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public void setCconta(String cconta) {
 		this.cconta = cconta;
+	}
+
+	public String getCcontaorg() {
+		return ccontaorg;
+	}
+
+	public void setCcontaorg(String ccontaorg) {
+		this.ccontaorg = ccontaorg;
 	}
 
 	public String getCtype() {

@@ -94,7 +94,7 @@ public class MainMaintenanceCundfVkundController {
 		String firma = request.getParameter("firma");
 		
 		
-		logger.info("recordToValidate="+recordToValidate.toString());
+//		logger.info("recordToValidate="+recordToValidate.toString());
 		
 		//Setting kundnr and firma in session to simplify access when navigating in children
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
@@ -102,7 +102,7 @@ public class MainMaintenanceCundfVkundController {
 			kundeSessionParams.setKundnr(kundnr);
 			kundeSessionParams.setKnavn(knavn);
 			kundeSessionParams.setFirma(firma);
-			action = MainMaintenanceConstants.ACTION_UPDATE;
+			action = MainMaintenanceConstants.ACTION_UPDATE;  //TODO, se över action, kanske ta bort lite malplacerad...
 			kundeSessionParams.setAction(action);  //Here we are in update of existing
 		}
 		
