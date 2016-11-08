@@ -1073,14 +1073,14 @@
 																				</td>
 																				<td class="text12" align="left" width="20px">&nbsp;</td>
 																				<td class="text12" align="left">
-																				<span title="todo">&nbsp;Periodisering av statistikk</span>
+																				<span title="kovpro">&nbsp;Periodisering av statistikk</span>
 																				</td>
 																				<td class="text12" >
-																					<select name="todo" id="todo" class="inputTextMediumBlue">
+																					<select name="kovpro" id="kovpro" class="inputTextMediumBlue">
 																  						<option value="">-velg-</option>
-																  						<option value="B"<c:if test="${ Xmodel.record.todo == 'B'}"> selected </c:if> >Begge</option>
-																  						<option value="F"<c:if test="${ Xmodel.record.todo == 'F'}"> selected </c:if> >Fakturaperiode</option>
-																  						<option value="O"<c:if test="${ Xmodel.record.todo == 'O'}"> selected </c:if> >Etter oppdragsdato</option>
+																  						<option value="B"<c:if test="${ model.record.kovpro == 'B'}"> selected </c:if> >Begge</option>
+																  						<option value="F"<c:if test="${ model.record.kovpro == 'F'}"> selected </c:if> >Fakturaperiode</option>
+																  						<option value="O"<c:if test="${ model.record.kovpro == 'O'}"> selected </c:if> >Etter oppdragsdato</option>
 																			  		</select>
 																				</td>
 																				
@@ -1101,7 +1101,7 @@
 															</table>
 															<table class="formFramePeachGrayRoundBottom"  width="95%" cellspacing="1" border="0" align="center">
 																	<tr>
-																		<td class="text12" align="left">
+																		<td width="50%" class="text12" align="left">
 																		<table>
 																			<tr>
 																				<td class="text12" align="left"><b>&nbsp;Transportparametere</b></td>
@@ -1113,8 +1113,8 @@
 																				<td class="text12" >
 																					<select name="favreg" id="favreg" class="inputTextMediumBlue">
 																  						<option value="">-velg-</option>
-																  						<option value="K"<c:if test="${ Xmodel.record.favreg == 'K'}"> selected </c:if> >K</option>
-																  						<option value="L"<c:if test="${ Xmodel.record.favreg == 'L'}"> selected </c:if> >L</option>
+																  						<option value="K"<c:if test="${ model.record.favreg == 'K'}"> selected </c:if> >K</option>
+																  						<option value="L"<c:if test="${ model.record.favreg == 'L'}"> selected </c:if> >L</option>
 																			  		</select>
 																				</td>
 																			</tr>
@@ -1123,7 +1123,7 @@
 																				<span title="fibise">&nbsp;Bilagsserie for tr.avregn (når via L-resk.)</span>
 																				</td>
 																				<td class="text12" >
-																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fibise" id="fibise" size="2" maxlength="1" value="${Xmodel.record.fibise}"/>
+																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fibise" id="fibise" size="2" maxlength="1" value="${model.record.fibise}"/>
 																				</td>
 																			</tr>
 																			<tr>
@@ -1133,8 +1133,8 @@
 																				<td class="text12" >
 																					<select name="fferk" id="fferk" class="inputTextMediumBlue">
 																  						<option value="">-velg-</option>
-																  						<option value="J"<c:if test="${ Xmodel.record.fferk == 'J'}"> selected </c:if> >Ja</option>
-																  						<option value="N"<c:if test="${ Xmodel.record.fferk == 'N'}"> selected </c:if> >Nei</option>
+																  						<option value="J"<c:if test="${ model.record.fferk == 'J'}"> selected </c:if> >Ja</option>
+																  						<option value="N"<c:if test="${ model.record.fferk == 'N'}"> selected </c:if> >Nei</option>
 																			  		</select>
 																				</td>
 																			</tr>
@@ -1145,8 +1145,8 @@
 																				<td class="text12" >
 																					<select name="fibrut" id="fibrut" class="inputTextMediumBlue">
 																  						<option value="">-velg-</option>
-																  						<option value="B"<c:if test="${ Xmodel.record.fibrut == 'B'}"> selected </c:if> >Brutto</option>
-																  						<option value="N"<c:if test="${ Xmodel.record.fibrut == 'N'}"> selected </c:if> >Netto</option>
+																  						<option value="B"<c:if test="${ model.record.fibrut == 'B'}"> selected </c:if> >Brutto</option>
+																  						<option value="N"<c:if test="${ model.record.fibrut == 'N'}"> selected </c:if> >Netto</option>
 																			  		</select>
 																				</td>
 																			</tr>
@@ -1161,11 +1161,49 @@
 																				<td class="text12" >
 																					<select name="fikonv" id="fikonv" class="inputTextMediumBlue">
 																  						<option value="">-velg-</option>
-																  						<option value="G"<c:if test="${ Xmodel.record.fikonv == 'G'}"> selected </c:if> >Godsliste</option>
-																  						<option value="N"<c:if test="${ Xmodel.record.fikonv == 'N'}"> selected </c:if> >Normal</option>
+																  						<option value="G"<c:if test="${ model.record.fikonv == 'G'}"> selected </c:if> >Godsliste</option>
+																  						<option value="N"<c:if test="${ model.record.fikonv == 'N'}"> selected </c:if> >Normal</option>
 																			  		</select>
 																				</td>
 																			</tr>		
+																		</table>
+																		</td>
+																		<td valign="top" width="50%" class="text12" align="left">
+																		<table>
+																			<tr>
+																				<td class="text12" align="left"><b>&nbsp;Løsning 1 parametre</b></td>
+																			</tr>	
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="l1kjor">&nbsp;Er løsning 1 i aktivt bruk hos kunden</span>
+																				</td>
+																				<td class="text12" >
+																					<select name="l1kjor" id="l1kjor" class="inputTextMediumBlue">
+																  						<option value="">-velg-</option>
+																  						<option value="J"<c:if test="${ model.record.l1kjor == 'J'}"> selected </c:if> >Ja</option>
+																  						<option value="N"<c:if test="${ model.record.l1kjor == 'N'}"> selected </c:if> >Nei</option>
+																  						<option value="G"<c:if test="${ model.record.l1kjor == 'G'}"> selected </c:if> >Gammel</option>
+																  						
+																			  		</select>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="l1stdn">&nbsp;Navn på L1 <b>STD</b>-bibliotek</span>
+																				</td>
+																				<td class="text12" >
+																					<input type="text" class="inputTextMediumBlue" name="l1stdn" id="l1stdn" size="11" maxlength="10" value="${model.record.l1stdn}"/>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td class="text12" align="left">
+																				<span title="l1datn">&nbsp;Navn på L1 <b>DAT</b>-bibliotek</span>
+																				</td>
+																				<td class="text12" >
+																					<input type="text" class="inputTextMediumBlue" name="l1datn" id="l1datn" size="11" maxlength="10" value="${model.record.l1datn}"/>
+																				</td>
+																			</tr>
+																				
 																		</table>
 																		</td>
 																	</tr>

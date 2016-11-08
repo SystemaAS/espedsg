@@ -384,6 +384,13 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public void setKovk11 (String value){ this.kovk11 = value;   }   
 	public String getKovk11 (){ return this.kovk11;   } 
 	
+	private String kovomr = null;  
+	public void setKovomr (String value){ this.kovomr = value;   }   
+	public String getKovomr (){ return this.kovomr;   } 
+	
+	private String kovpro = null;  
+	public void setKovpro (String value){ this.kovpro = value;   }   
+	public String getKovpro (){ return this.kovpro;   }
 	
 	//--------------
 	//FIRSTA -table
@@ -521,6 +528,27 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	private String fikonv = null;  
 	public void setFikonv(String value){ this.fikonv = value;   }   
 	public String getFikonv (){ return this.fikonv;   }
+	//END FIRTR
+	
+	//-----------
+	//FIRML1
+	//-----------
+	private String l1firm = null;  
+	public void setL1firm(String value){ this.l1firm = value;   }   
+	public String getL1firm (){ return this.l1firm;   }
+	
+	private String l1kjor = null;  
+	public void setL1kjor(String value){ this.l1kjor = value;   }   
+	public String getL1kjor (){ return this.l1kjor;   }
+	
+	private String l1stdn = null;  
+	public void setL1stdn(String value){ this.l1stdn = value;   }   
+	public String getL1stdn (){ return this.l1stdn;   }
+	
+	private String l1datn = null;  
+	public void setL1datn(String value){ this.l1datn = value;   }   
+	public String getL1datn (){ return this.l1datn;   }
+	//END FIRML1
 	
 	
 	/**
