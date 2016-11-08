@@ -49,7 +49,13 @@
 		  			for ( var i = 0; i < len; i++) { 
 		  				jq('#readyMarkInvoice').text("");
 		  				if(data[i].status!=''){
+		  					jq('#readyMarkInvoice').removeClass( "isa_error" );
 		  					jq('#readyMarkInvoice').text("[Status: " + data[i].status + "]");
+		  				}else{ 
+		  					if(data[i].errMsg!=''){
+		  						jq('#readyMarkInvoice').addClass( "isa_error" );
+		  						jq('#readyMarkInvoice').text("[ERROR: " + data[i].errMsg + "]");
+	  						}
 		  				}
 					}
 		  			  //Start dialog
