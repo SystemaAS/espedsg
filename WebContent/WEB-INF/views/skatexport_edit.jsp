@@ -249,7 +249,7 @@
 	            	<table align="left" border="0" cellspacing="0" cellpadding="0">
 	            			<tr>
 				 			<td class="text12">
-				 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				<img onMouseOver="showPop('1_1_info');" onMouseOut="hidePop('1_1_info');" style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 			 					<b>1.1</b><span title="dkeh_r011" id="v_dkeh_r011" class="validation">Ang.type&nbsp;</span>
 			 					
 					           	<div class="text11" style="position: relative;" align="left">

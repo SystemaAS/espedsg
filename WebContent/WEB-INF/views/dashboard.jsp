@@ -58,18 +58,36 @@
 			 						<c:forEach items="${list}" var="record" varStatus="counter"> 
 						 				<c:if test="${ fn:contains(record.prog, 'TOMCAT') }">
 						 					<c:set var="imgSrcTomcat" scope="session" value="resources/images/bulletGreen.png"/>
+						 					<c:set var="imgSrcTomcatRed" scope="session" value="resources/images/bulletRed.png"/>
+						 					
 											<li style="line-height:20px;">
 					 						<font class="text14">
 					 						<c:if test="${fn:contains(record.prog,'-WRKTRIPS') }">
-							 					<font class="text14">
-							 						<%-- uncomment this line IF more menu choices appear...
-									 					<a class="text14" href="transportdispgate.do" >
-									 				 --%>
-									 				<a class="text14" href="transportdisp_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
-					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
-					 									<font class="text14NavyBlue">${record.prTxt}</font>
-			 										</a>
-												</font>
+					 							<c:choose>
+						 							<c:when test="${not empty user.userAS400}">
+									 					<font class="text14">
+									 						<%-- uncomment this line IF more menu choices appear...
+											 					<a class="text14" href="transportdispgate.do" >
+											 				 --%>
+											 				<a class="text14" href="transportdisp_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
+							 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
+							 									<font class="text14NavyBlue">${record.prTxt}</font>
+					 										</a>
+														</font>
+													</c:when>
+													<c:otherwise>
+														<%-- userAS400 = ASUSR parameter i AS400 is mandatory in order to use -WRKTRIPS --%>
+														<font class="text14SlateGray" onMouseOver="showPop('wrktrips_info');" onMouseOut="hidePop('wrktrips_info');">
+									 						<img src="${imgSrcTomcatRed}" width="10px" height="10px" border="0">&nbsp;
+						 									${record.prTxt}
+						 								</font>
+						 								<div class="text11" style="position: relative;" align="left" >
+														<span style="position:absolute;top:1px;" id="wrktrips_info" class="popupWithInputText text12"  >		
+											           		Din <b>esped User er IKKE koblet</b> mot en Server-userId (<b>ASUSR</b>-parameter). Kontakt systemansvarlig
+														</span>		
+									 					</div>
+													</c:otherwise>
+												</c:choose>
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-eFaktura') }">
 							 					<font class="text14">

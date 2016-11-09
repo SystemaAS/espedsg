@@ -77,14 +77,21 @@ public class SkatNctsExportItemsValidator implements Validator {
 				}else if ("VQ".equals(record.getTveh()) || "VG".equals(record.getTveh()) ||
 					"VL".equals(record.getTveh()) || "VY".equals(record.getTveh()) ||
 					"VR".equals(record.getTveh()) || "VO".equals(record.getTveh())){
-					
+					/* Bulk codes must allow null or 1 */
 					if( record.getTvnt()!=null && !"".equals(record.getTvnt()) && record.getTvnteh()!=null && !"".equals(record.getTvnteh()) ){
-						errors.rejectValue("tvnt", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						if(!"1".equals(record.getTvnt()) || !"1".equals(record.getTvnteh()) ){
+							errors.rejectValue("tvnt", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						}
 					}else if( record.getTvnt()!=null && !"".equals(record.getTvnt()) ){
-						errors.rejectValue("tvnt", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						if(!"1".equals(record.getTvnt()) ){
+							errors.rejectValue("tvnt", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						}
 					}else if( record.getTvnteh()!=null && !"".equals(record.getTvnteh()) ){
-						errors.rejectValue("tvnteh", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						if(!"1".equals(record.getTvnteh()) ){
+							errors.rejectValue("tvnteh", "systema.skat.ncts.export.header.error.rule.item.tvntAndtvnteh.mustBeNull");
+						}
 					}
+					
 				//These codes MUST have only the "Kolliantal" (tvnt) alternativ. Nothing else.	
 				}else{
 					if( record.getTvnt()!=null && !"".equals(record.getTvnt()) && record.getTvnteh()!=null && !"".equals(record.getTvnteh()) ){

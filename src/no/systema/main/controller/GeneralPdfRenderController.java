@@ -94,7 +94,7 @@ public class GeneralPdfRenderController {
             			response.setContentType(AppConstants.HTML_CONTENTTYPE_TEXTHTML);
                 }else if(AppConstants.DOCUMENTTYPE_DOC.equals(fileType)){
             			response.setContentType(AppConstants.HTML_CONTENTTYPE_WORD);
-                }else if(AppConstants.DOCUMENTTYPE_XLS.equals(fileType)){
+                }else if(AppConstants.DOCUMENTTYPE_XLS.equals(fileType) || AppConstants.DOCUMENTTYPE_XLSX.equals(fileType)){
             			response.setContentType(AppConstants.HTML_CONTENTTYPE_EXCEL);
                 }
                 //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");

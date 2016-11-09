@@ -201,7 +201,14 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.logging.list.label.date"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.logging.list.label.time"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.logging.list.label.sentReceive"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.logging.list.label.text"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.ncts.export.logging.list.label.text"/>&nbsp;
+	                    	&nbsp;&nbsp;&nbsp;&nbsp;
+			 				<font class="text10">Rules and Conditions</font>
+			 				<%-- SKAT_EDI_EDIFACT_rules and conditions v4.xlsx --%>
+			 				<a tabindex=-1 href="renderLocalPdf.do?fn=SKAT_EDI_EDIFACT_rules_and_conditions_v4.xlsx" target="_blank">
+			 					<img valign="bottom" width="14px" height="14px" src="resources/images/pdf.png" border="0" alt="pdf">
+			 				</a>
+	                    </td>
 	               </tr>     
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
