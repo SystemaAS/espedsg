@@ -219,7 +219,7 @@
 					               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cmobil}&nbsp;</font></td>
 					               <td width="30%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cemail}&nbsp;</font></td>
 			                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-			               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_kontaktpersoner_edit.do?action=doDelete&cfirma=${record.cfirma}&ccompn=${record.ccompn}&cconta=${record.cconta}">
+			               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_kontaktpersoner_edit.do?action=doDelete&cfirma=${record.cfirma}&ccompn=${record.ccompn}&cconta=${record.cconta}&ctype=${record.ctype}">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 						               	</a>
 					               </td>
@@ -291,29 +291,26 @@
 										<td class="text12" title="ctype">&nbsp;Funksjon</td>
 										<td class="text12" title="cphone">&nbsp;Telefon</td>
 										<td class="text12" title="cmobil">&nbsp;Mobil</td>
-										<td class="text12" title="cfax">&nbsp;Fax</td>
+										<td class="text12" title="cfax">&nbsp;abc</td>
 									</tr>
 									<tr>
 										<td><input type="text" class="inputTextMediumBlue" name="cconta" id="cconta" size="31" maxlength="30" value='${model.record.cconta}'></td>
-<!--  
-										<td><input type="text" class="inputTextMediumBlue" name="ccontaorg" id="ccontaorg" size="31" maxlength="30" value='${model.record.ccontaorg}'></td>
--->
 										<td><input type="text" class="inputTextMediumBlue" name="ctype" id="ctype" size="31" maxlength="30" value='${model.record.ctype}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="16" maxlength="15" value='${model.record.cphone}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="16" maxlength="15" value='${model.record.cmobil}'></td>				
-										<td><input type="text" class="inputTextMediumBlue"" name="cfax" id="cfax" size="16" maxlength="15" value='${model.record.cfax}'></td>
+										<td><input type="text" class="inputTextMediumBlue"" name="abc" id="abc" size="16" maxlength="15" value=''></td>
 									</tr>
 									<tr>	
 										<td colspan="2"  class="text12" title="cemail">&nbsp;E-mail</td>
 										<td class="text12" title="clive">&nbsp;Link</td>
 										<td class="text12" title="cprint">&nbsp;Print</td>
-										<td class="text12" title="sonavn">&nbsp;Søknavn</td>
+										<td class="text12" title="xxx">&nbsp;xxx</td>
 									</tr>
 									<tr>	
 										<td colspan="2"><input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="71	" maxlength="70" value='${model.record.cemail}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="clive" id="clive" size="1" maxlength="1" value='${model.record.clive}'></td>					
 										<td><input type="text" class="inputTextMediumBlue" name="cprint" id="cprint" size="1" maxlength="1" value='${model.record.cprint}'></td>	
-										<td><input readonly type="text" class="inputTextReadOnly" name="sonavn" id="sonavn" size="16" maxlength="10" value='${model.record.sonavn}'></td>						
+										<td><input type="text" class="inputTextMediumBlue" name="xx" id="xx" size="16" maxlength="10" value=''></td>						
 									</tr>
 									<tr>
 										<td colspan="5" class="text12" title="cemne">&nbsp;E-mail emne</td>
@@ -322,10 +319,21 @@
 										<td colspan="3">
 											<input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="81" maxlength="80" value='${model.record.cemne}'>
 										</td>
+	
+									</tr>
+
+						    	    <tr>
+										<td class="text12" title="b">&nbsp;<font class="text14RedBold" >*</font>abc</td>
+										<td class="text12" title="b">&nbsp;dfg</td>
+										<td class="text12" title="b">&nbsp;ghj</td>
+										<td class="text12" title="b">&nbsp;jkl</td>
 										<td>
 											<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 										</td>
+
 									</tr>
+
+
 									<tr height="3"><td>&nbsp;</td></tr>
 								</table>
 			 	    		</form>

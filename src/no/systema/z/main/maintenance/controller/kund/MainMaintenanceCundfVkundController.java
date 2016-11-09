@@ -27,15 +27,9 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
-import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
-import no.systema.z.main.maintenance.service.MaintMainFirmService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
-import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -89,12 +83,12 @@ public class MainMaintenanceCundfVkundController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		String kundnr = request.getParameter("kundnr");
-		String knavn = request.getParameter("knavn");
-		String firma = request.getParameter("firma");
+		String kundnr = recordToValidate.getKundnr();
+		String knavn = recordToValidate.getKnavn();
+		String firma = recordToValidate.getFirma();
 		
 		
-//		logger.info("recordToValidate="+recordToValidate.toString());
+		logger.info("recordToValidate="+recordToValidate.toString());
 		
 		//Setting kundnr and firma in session to simplify access when navigating in children
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
@@ -102,6 +96,7 @@ public class MainMaintenanceCundfVkundController {
 			kundeSessionParams.setKundnr(kundnr);
 			kundeSessionParams.setKnavn(knavn);
 			kundeSessionParams.setFirma(firma);
+			kundeSessionParams.setSonavn(recordToValidate.getSonavn());
 			action = MainMaintenanceConstants.ACTION_UPDATE;  //TODO, se över action, kanske ta bort lite malplacerad...
 			kundeSessionParams.setAction(action);  //Here we are in update of existing
 		}
@@ -172,6 +167,11 @@ public class MainMaintenanceCundfVkundController {
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
 				list = container.getList();
+				
+		        for(JsonMaintMainCundfRecord record : list){
+	        	  logger.info("record:" + record.toString());
+	        	}	
+				
 			}
 		}
 

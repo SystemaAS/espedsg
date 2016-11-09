@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Object for transfeering data between sjp in Kunderegister
+ * Object for transfering data between jsp in Kunderegister
  * 
  * @author Fredrik Möller
  * @date Okt 31, 2016
@@ -19,7 +19,7 @@ public class KundeSessionParams implements Serializable {
 	private String knavn;
 	private String firma;
 	private String action;
-	
+	private String sonavn;
 	
 	public String getKnavn() {
 		return knavn;
@@ -32,6 +32,12 @@ public class KundeSessionParams implements Serializable {
 	}
 	public void setAction(String action) {
 		this.action = action;
+	}
+	public String getSonavn() {
+		return sonavn;
+	}
+	public void setSonavn(String sonavn) {
+		this.sonavn = sonavn;
 	}
 	public String getKundnr() {
 		return kundnr;

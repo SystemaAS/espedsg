@@ -176,6 +176,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setCfirma(kundeSessionParams.getFirma());
 		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
+		recordToValidate.setSonavn(kundeSessionParams.getSonavn());
 	}
 
 	private List<JsonMaintMainCundcRecord> fetchList(String applicationUser, String cfirma, String ccompn){
