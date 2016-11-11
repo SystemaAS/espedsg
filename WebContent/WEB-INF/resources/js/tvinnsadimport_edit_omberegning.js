@@ -9,13 +9,11 @@
     jq(function() {
       jq('#alinkTopicList').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });
-      jq('#alinkOmberegning').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });
+  	  });	
+  	  
   	  jq('#alinkInvoices').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
   	  jq('#alinkItemLines').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   	  });
@@ -23,6 +21,9 @@
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
   	  jq('#alinkArchive').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
+  	jq('#alinkOmberegningItemLinesSubTab').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
   	
@@ -38,6 +39,9 @@
   		}
 	  });
     });
+    
+    
+    /*
     
     //General functions
   	jq(function() {
@@ -723,8 +727,12 @@
 			}
 		});
 	}
-	
-	
+	*/
+    
+    
+    
+    
+	//HAS BEEN UNCOMMENTED
 	//--------------------------------------------------------------------------
   	//onChange-VALIDATION on-demand event
 	//This section should always be exactly the same as in the Spring Validator
@@ -808,7 +816,7 @@
 	});
 	*/
 	
-	
+
 	  //-------------------------------------------
 	  //START Model dialog ADMIN: "Update status"
 	  //-------------------------------------------
@@ -864,6 +872,6 @@
 		  //open now
 		  jq('#dialogUpdateStatus').dialog('open');
 	  }
-	  
+
 
 	

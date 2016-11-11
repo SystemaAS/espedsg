@@ -1867,6 +1867,38 @@ END override jQuery elements
     margin: 2px;
     padding: 2px      
 }
+
+.tabSub { 
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 10px 10px 0px 0px;
+	font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 11px; 
+    color: #4E78A0; 
+    background-color:#FFFFFF;
+    border-style: solid; 
+    border-width: 1px 1px 0px 1px; 
+    border-color: #4E78A0; 
+    margin: 2px;
+    padding: 2px     
+}
+.tabDisabledSub { 
+	border: 1px solid #ccc;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 10px 10px 0px 0px;
+	font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 11px; 
+    color: #4E78A0; 
+    background-color: #FFFFCC;
+    border-style: solid; 
+    border-width: 1px 1px 1px 1px; 
+    border-color: #4E78A0; 
+    margin: 2px;
+    padding: 2px   
+}
+
 .tabSeparator {
 	font-family: verdana, Arial, Helvetica, sans-serif; 
     font-size: 10px;
@@ -1878,8 +1910,7 @@ END override jQuery elements
     margin: 2px;
     padding: 2px
 }
-.tabFantomSpace {  
-	
+.tabFantomSpace {
     font-family: verdana, Arial, Helvetica, sans-serif; 
     font-size: 10px; 
     background-color:#FFFFFF;

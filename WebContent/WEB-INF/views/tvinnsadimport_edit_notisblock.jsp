@@ -35,7 +35,7 @@
 		<tr height="25"> 
 			<c:choose>
 				<c:when test="${not empty model.orig && 'topic'==model.orig}">
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkTopicList" style="display:block;" 
 							<c:choose>
 								<c:when test="${empty model.sign}">href="tvinnsadimport.do?action=doFind&sg=${user.tvinnSadSign}"</c:when>
@@ -46,7 +46,7 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkHeader" style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 								&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
@@ -57,7 +57,16 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+													&opd=${ model.opd}&status=${model.status}">
+							<font class="tabDisabledLink">
+								&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+							</font>
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
 													&opd=${ model.opd}&status=${ model.status}&fabl=">
 							<font class="tabDisabledLink">
@@ -66,12 +75,12 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="10%" valign="bottom" class="tab" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/></font>
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="notisblock">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
 													&opd=${ model.opd}&status=${ model.status}&fabl=">
 							<font class="tabDisabledLink">
@@ -81,7 +90,7 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkLogging" style="display:block;" href="tvinnsadimport_logging.do?avd=${ model.avd}&sign=${ model.sign}&opd=${model.opd}&status=${model.status}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.logging.tab"/>
@@ -90,7 +99,7 @@
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkArchive" style="display:block;" href="tvinnsadimport_archive.do?avd=${model.avd}&sign=${model.sign}
 													&opd=${model.opd}&status=${model.status}">
 							<font class="tabDisabledLink">
@@ -102,7 +111,7 @@
 					<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:when>
 				<c:otherwise>
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a style="display:block;" href="tvinnsadimport.do?action=doFind&sg=${model.sign}">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
 							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
@@ -114,7 +123,7 @@
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="notisblock">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="65%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				
 				</c:otherwise>
 			</c:choose>

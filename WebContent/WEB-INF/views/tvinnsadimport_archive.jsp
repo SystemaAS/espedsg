@@ -13,14 +13,14 @@
 		<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 			<tr height="25"> 
-				<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkTopicList" tabindex=-1 style="display:block;" href="tvinnsadimport.do?action=doFind&sg=${model.sign}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkHeader" tabindex=-1 style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
@@ -29,9 +29,18 @@
 							<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 						</c:if>
 					</a>
+				</td>
+				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+												&opd=${ model.opd}&status=${model.status}">
+						<font class="tabDisabledLink">
+							&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+						</font>
+					</a>
 				</td>	
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkInvoices" tabindex=-1 style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
 												&opd=${ model.opd}
 												&status=${ model.status}&fabl=${ XX.dkih_222}">
@@ -41,7 +50,7 @@
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="10%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a tabindex=-1 style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
 												&opd=${ model.opd}">
 						<font class="tabDisabledLink">
@@ -50,7 +59,7 @@
 					</a>
 				</td>			
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkItemLines" tabindex=-1 style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
 												&status=${model.status}&datum=${model.datum}&fabl=${recordTopic.svih_fabl}">
@@ -63,7 +72,7 @@
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkLogging" tabindex=-1 style="display:block;" href="tvinnsadimport_logging.do?avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
 												&status=${model.status}&datum=${model.datum}">
@@ -75,10 +84,11 @@
 				</td>
 					
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="15%" valign="bottom" class="tab" align="center" nowrap>
+				<td width="12%" valign="bottom" class="tab" align="center" nowrap>
 					<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/></font>
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 				</td>
+				<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			</tr>
 			<tr height="3"><td></td></tr>
 		</table>

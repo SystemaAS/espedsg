@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/tvinnsadglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadimport_edit_items.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadimport_edit_omberegning_items.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -57,13 +57,10 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-											&opd=${ model.opd}&status=${model.status}">
-					<font class="tabDisabledLink">
-						&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
-					</font>
-				</a>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+				</font>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -85,12 +82,15 @@
 			</td>
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/></font>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+												&opd=${model.opd}&tullId=${model.tullId}
+												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicTvinnSad.sibel3}">
+				<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/></font>
 				<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
 					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 				</c:if>
-				
+				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -115,12 +115,38 @@
 			<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
+		
+		
+		
 	<%-- -------------------------------- --%>	
  	<%-- tab area container MASTER TOPIC  --%>
 	<%-- -------------------------------- --%>
  	<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
-		<tr height="15"><td colspan="2">&nbsp;</td></tr>	
+ 		<tr height="6">
+			<td colspan="2">&nbsp;</td>
+		</tr>	
+		<%-- sub-tabs --%>
+		<tr>
+			<td colspan="2">
+				<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+				<tr>
+				<td width="2px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+					<a id="alinkOmberegningSubTab" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+											&opd=${ model.opd}&status=${model.status}">
+						<font class="text11Gray">Hode</font>
+					</a>	
+				</td>
+				<td width="8%" valign="bottom" class="tabSub" align="center" nowrap>
+					<font class="text11"><b>Varelinjer</b></font>
+				</td>
+				<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
 		
+		<tr height="10"><td colspan="2">&nbsp;</td></tr>	
 		<tr>
 		<td >
 		<table border="0" width="95%" align="center">
@@ -365,9 +391,11 @@
 													</table>
 													</div>
 								   				</span>
+								   			<%-- Not for omberegning ?
 											<c:if test="${model.status == 'M' || empty model.status}">		
 												&nbsp;<button title="Kontrollera varelinjer" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varelinje kontroll</button>
 											</c:if>
+											 --%>	
 										</td>
 									</tr>
 									<tr>
@@ -1066,22 +1094,18 @@
 											</select>
 										</td>
 										<td align="left" >
+												<%-- TODO 
 												<c:choose>	
 													<c:when test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
 														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit_items.do';" value='<spring:message code="systema.tvinn.sad.import.item.createnew.submit"/>'>
 														&nbsp;&nbsp;
-														
-														<%-- SEND button: is causing some issues in the Stat.värde calculation
-															 We shall have the send button ONLY at one place (so far) and that is at the header level
-									 				    	<c:if test="${not empty totalNumberOfItemLines && '0' != totalNumberOfItemLines}">
-									 				    		<input tabindex=-1 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatimport_send.do';" value='<spring:message code="systema.skat.import.createnew.send"/>'/>
-									 				    	</c:if>
-									 				  	 --%>
 													</c:when>
 													<c:otherwise>
 							 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 							 				    	</c:otherwise>	
-						 				    	</c:choose>	
+						 				    	</c:choose>
+						 				    	--%>	
+						 				    	<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 										</td>		
 										
  							        </tr>
@@ -1353,10 +1377,11 @@
 										        </td>
 												<%-- <c:if test="${empty model.record.svli}">  only with new lines? --%>
 										        <td class="text11" colspan="5">
+										        		<%--
 										        		<button style="white-space: nowrap;" name="avgCalculation" id="avgCalculation" class="buttonGrayWithGreenFrame" type="button" onClick="getAvgifterBeforeCalculation(); showPop('avgCalculationDialog');">Beregne Avg.</button>
 										            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font style="vertical-align:middle;" >Slett Avg.</font>&nbsp;
 										            	<img id="removeAvgifterImg" onClick="removeAllAvgifter();" style="vertical-align:middle;" width="16px" height="16px" src="resources/images/remove.png" border="0" alt="info">
-										            	
+										            	 --%>
 										            	
 										            	<%-- =====================================================  --%>
 										            	<%-- Here we have the avgifts calculation popup window      --%>
