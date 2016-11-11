@@ -100,6 +100,10 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 			
+			
+			logger.info("recordToValidate="+recordToValidate);
+			
+			
 			MaintMainCundcValidator validator = new MaintMainCundcValidator();
 			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);

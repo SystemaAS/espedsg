@@ -281,6 +281,7 @@
 							<form action="mainmaintenancecundf_kontaktpersoner_edit.do" name="formRecord" id="formRecord" method="POST" >
 								<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
+								<input type="hidden" name="ccontaorg" id="ccontaorg" value="${model.record.ccontaorg}"> 
 								<input type="hidden" name="action" id="action" value="doUpdate">
 								<table id="kontakpersonerDetails" width="100%" cellspacing="0" border="0" align="left">
 									<tr >
@@ -291,47 +292,67 @@
 										<td class="text12" title="ctype">&nbsp;Funksjon</td>
 										<td class="text12" title="cphone">&nbsp;Telefon</td>
 										<td class="text12" title="cmobil">&nbsp;Mobil</td>
-										<td class="text12" title="cfax">&nbsp;abc</td>
 									</tr>
 									<tr>
-										<td><input type="text" class="inputTextMediumBlue" name="cconta" id="cconta" size="31" maxlength="30" value='${model.record.cconta}'></td>
+										<td><input type="text" class="inputTextMediumBlueMandatoryField" name="cconta" id="cconta" size="31" maxlength="30" value='${model.record.cconta}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="ctype" id="ctype" size="31" maxlength="30" value='${model.record.ctype}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="16" maxlength="15" value='${model.record.cphone}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="16" maxlength="15" value='${model.record.cmobil}'></td>				
-										<td><input type="text" class="inputTextMediumBlue"" name="abc" id="abc" size="16" maxlength="15" value=''></td>
 									</tr>
 									<tr>	
 										<td colspan="2"  class="text12" title="cemail">&nbsp;E-mail</td>
 										<td class="text12" title="clive">&nbsp;Link</td>
 										<td class="text12" title="cprint">&nbsp;Print</td>
-										<td class="text12" title="xxx">&nbsp;xxx</td>
 									</tr>
 									<tr>	
 										<td colspan="2"><input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="71	" maxlength="70" value='${model.record.cemail}'></td>
 										<td><input type="text" class="inputTextMediumBlue" name="clive" id="clive" size="1" maxlength="1" value='${model.record.clive}'></td>					
 										<td><input type="text" class="inputTextMediumBlue" name="cprint" id="cprint" size="1" maxlength="1" value='${model.record.cprint}'></td>	
-										<td><input type="text" class="inputTextMediumBlue" name="xx" id="xx" size="16" maxlength="10" value=''></td>						
 									</tr>
+
 									<tr>
-										<td colspan="5" class="text12" title="cemne">&nbsp;E-mail emne</td>
+										<td colspan="4" class="text12" title="cemne">&nbsp;E-mail emne</td>
 									</tr>
 									<tr>	
-										<td colspan="3">
+										<td colspan="4">
 											<input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="81" maxlength="80" value='${model.record.cemne}'>
 										</td>
 	
 									</tr>
 
+									<tr>
+										<td colspan="2" class="text12" title="cavd">&nbsp;Avdeling</td>
+										<td colspan="2" class="text12" title="cavdio">&nbsp;Ink/Omit avdeling</td>
+									</tr>
+									<tr>	
+										<td colspan="2">
+											<input type="text" class="inputTextMediumBlue" name="cavd" id="cavd" size="81" maxlength="80" value='${model.record.cavd}'>
+										</td>
+										<td colspan="2">
+											<input type="text" class="inputTextMediumBlue" name="cavdio" id="cavdio" size="1" maxlength="1" value='${model.record.cavdio}'>
+										</td>
+	
+									</tr>
+
 						    	    <tr>
-										<td class="text12" title="b">&nbsp;<font class="text14RedBold" >*</font>abc</td>
-										<td class="text12" title="b">&nbsp;dfg</td>
-										<td class="text12" title="b">&nbsp;ghj</td>
-										<td class="text12" title="b">&nbsp;jkl</td>
+										<td colspan="2" class="text12" title="copd">&nbsp;Ordertyper</td>
+										<td class="text12" title="copdio">&nbsp;Ink/Omit ordertyper</td>
+										<td class="text12" title="cmerge">&nbsp;Tillat PDF</td>
+									</tr>
+												
+									
+									<tr>
+										<td colspan="2" ><input type="text" class="inputTextMediumBlue" name="copd" id="copd" size="11" maxlength="10" value='${model.record.copd}'></td>
+										<td><input type="text" class="inputTextMediumBlue" name="copdio" id="copdio" size="1" maxlength="1" value='${model.record.copdio}'></td>
+										<td><input type="text" class="inputTextMediumBlue" name="cmerge" id="cmerge" size="1" maxlength="1" value='${model.record.cmerge}'></td>		
+
 										<td>
 											<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 										</td>
-
+									
+									
 									</tr>
+									
 
 
 									<tr height="3"><td>&nbsp;</td></tr>

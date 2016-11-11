@@ -55,6 +55,11 @@ jq(function() {
 		jq('#cprint').val("");
 		jq('#sonavn').val("");
 		jq('#cemne').val("");
+		jq('#cavd').val("");
+		jq('#cavdio').val("");
+		jq('#copd').val("");
+		jq('#copdio').val("");
+		jq('#cmerge').val("");
 
 		//for update
 		jq('#updateId').val("");
@@ -100,6 +105,11 @@ function getRecord(record){
 			jq('#cprint').val("");jq('#cprint').val(data[i].cprint);
 			jq('#sonavn').val("");jq('#sonavn').val(data[i].sonavn);
 			jq('#cemne').val("");jq('#cemne').val(data[i].cemne);
+			jq('#cavd').val("");jq('#cavd').val(data[i].cavd);
+			jq('#cavdio').val(""); jq('#cavdio').val(data[i].cavdio);
+			jq('#copd').val("");jq('#copd').val(data[i].copd);
+			jq('#copdio').val("");jq('#copdio').val(data[i].copdio);
+			jq('#cmerge').val("");jq('#cmerge').val(data[i].cmerge);
 			
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].cconta);
