@@ -331,7 +331,7 @@
 			 				<div class="text11" style="position: relative;display:inline;" align="left">
 			 				<span style="position:absolute; top:2px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
 				           		<ul>
-				           			<c:forEach var="record" items="${Xmodel.ekspedisjonstyperImportCodeList}" >
+				           			<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
 				           			<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
 				           			</c:forEach>
 				           		</ul>
@@ -342,7 +342,7 @@
 				 			<td>
 				 				<select class="inputTextMediumBlueMandatoryField" name="sidp" id="sidp" >
 				 				  <option value="">-velg-</option>
-					 				  	<c:forEach var="record" items="${Xmodel.ekspedisjonstyperImportCodeList}" >
+					 				  	<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
 					 				  		<option value="${record.zkod}"<c:if test="${model.record.sidp == record.zkod}"> selected </c:if> >${record.zkod}</option>
 										</c:forEach>  
 								</select>
@@ -532,11 +532,11 @@
 							        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 							        		 back original value)																--%> 
 							        	<%-- ================================================================================== --%>
-							        	<input type="hidden" name="orig_sikns" id="orig_sikns" value='${Xmodel.record.sikns}'>
-							        	<input type="hidden" name="orig_sinas" id="orig_sinas" value='${Xmodel.record.sinas}'>
-							        	<input type="hidden" name="orig_siads1" id="orig_siads1" value='${Xmodel.record.siads1}'>
-							        	<input type="hidden" name="orig_siads2" id="orig_siads2" value='${Xmodel.record.siads2}'>
-							        	<input type="hidden" name="orig_siads3" id="orig_siads3" value='${Xmodel.record.siads3}'>
+							        	<input type="hidden" name="orig_sikns" id="orig_sikns" value='${model.record.sikns}'>
+							        	<input type="hidden" name="orig_sinas" id="orig_sinas" value='${model.record.sinas}'>
+							        	<input type="hidden" name="orig_siads1" id="orig_siads1" value='${model.record.siads1}'>
+							        	<input type="hidden" name="orig_siads2" id="orig_siads2" value='${model.record.siads2}'>
+							        	<input type="hidden" name="orig_siads3" id="orig_siads3" value='${model.record.siads3}'>
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;
 								            <span title="sikns">Kundenummer</span>
@@ -570,8 +570,8 @@
 							            </td>
 							        </tr>
 							        <tr>
-							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="sikns" id="sikns" size="9" maxlength="8" value="${Xmodel.record.sikns}"></td>
-							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sinas" id="sinas" size="31" maxlength="30" value="${Xmodel.record.sinas}"></td>
+							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="sikns" id="sikns" size="9" maxlength="8" value="${model.record.sikns}"></td>
+							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sinas" id="sinas" size="31" maxlength="30" value="${model.record.sinas}"></td>
 							        </tr>
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>
@@ -580,7 +580,7 @@
 							            <td>&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="siads1" id="siads1" size="40" maxlength="30" value="${Xmodel.record.siads1}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="siads1" id="siads1" size="40" maxlength="30" value="${model.record.siads1}"></td>
     							            
 							        </tr>
 							        <tr>
@@ -589,7 +589,7 @@
     							            <td>&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siads2" id="siads2" size="40" maxlength="30" value="${Xmodel.record.siads2}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siads2" id="siads2" size="40" maxlength="30" value="${model.record.siads2}"></td>
    							            
 							        </tr>
 							        <tr>
@@ -598,7 +598,7 @@
    							            <td>&nbsp;</td>							            
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siads3" id="siads3" size="40" maxlength="30" value="${Xmodel.record.siads3}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siads3" id="siads3" size="40" maxlength="30" value="${model.record.siads3}"></td>
    							        </tr>
 							        <tr height="15">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
@@ -655,12 +655,12 @@
 							        		 These original values will be used when the user clicks "Cancel" buttons (puttting
 							        		 back original value)																--%> 
 							        	<%-- ================================================================================== --%>
-							        	<input type="hidden" name="orig_siknk" id="orig_siknk" value='${Xmodel.record.siknk}'>
-							        	<input type="hidden" name="orig_sinak" id="orig_sinak" value='${Xmodel.record.sinak}'>
-							        	<input type="hidden" name="orig_sirg" id="orig_sirg" value='${Xmodel.record.sirg}'>
-							        	<input type="hidden" name="orig_siadk1" id="orig_siadk1" value='${Xmodel.record.siadk1}'>
-							        	<input type="hidden" name="orig_siadk2" id="orig_siadk2" value='${Xmodel.record.siadk2}'>
-							        	<input type="hidden" name="orig_siadk3" id="orig_siadk3" value='${Xmodel.record.siadk3}'>
+							        	<input type="hidden" name="orig_siknk" id="orig_siknk" value='${model.record.siknk}'>
+							        	<input type="hidden" name="orig_sinak" id="orig_sinak" value='${model.record.sinak}'>
+							        	<input type="hidden" name="orig_sirg" id="orig_sirg" value='${model.record.sirg}'>
+							        	<input type="hidden" name="orig_siadk1" id="orig_siadk1" value='${model.record.siadk1}'>
+							        	<input type="hidden" name="orig_siadk2" id="orig_siadk2" value='${model.record.siadk2}'>
+							        	<input type="hidden" name="orig_siadk3" id="orig_siadk3" value='${model.record.siadk3}'>
 							        	
 							            <td class="text12" align="left" >&nbsp;&nbsp;
 							            <span title="siknk">Kundenummer</span>
@@ -693,8 +693,8 @@
 							            </td>
 							        </tr>
 							        <tr>
-							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="siknk" id="siknk" size="9" maxlength="8" value="${Xmodel.record.siknk}"></td>
-							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sinak" id="sinak" size="31" maxlength="30" value="${Xmodel.record.sinak}"></td>
+							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="siknk" id="siknk" size="9" maxlength="8" value="${model.record.siknk}"></td>
+							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sinak" id="sinak" size="31" maxlength="30" value="${model.record.sinak}"></td>
 							        </tr>
 							        <tr height="10"><td></td></tr>
 							        
@@ -716,11 +716,11 @@
 										</td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sirg" id="sirg" size="20" maxlength="11" value="${Xmodel.record.sirg}"></td>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sirg" id="sirg" size="20" maxlength="11" value="${model.record.sirg}"></td>
 							            <td align="left">
-							            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktc" id="siktc" size="1" maxlength="1" value="${Xmodel.record.siktc}">
-											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikta" id="sikta" size="5" maxlength="5" value="${Xmodel.record.sikta}">
-											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktb" id="siktb" size="2" maxlength="2" value="${Xmodel.record.siktb}">
+							            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktc" id="siktc" size="1" maxlength="1" value="${model.record.siktc}">
+											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikta" id="sikta" size="5" maxlength="5" value="${model.record.sikta}">
+											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktb" id="siktb" size="2" maxlength="2" value="${model.record.siktb}">
 										</td>	
 							        </tr>
 							         
@@ -731,7 +731,7 @@
 							            <td>&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk1" id="siadk1" size="40" maxlength="30" value="${Xmodel.record.siadk1}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk1" id="siadk1" size="40" maxlength="30" value="${model.record.siadk1}"></td>
     							            
 							        </tr>
 							        <tr>
@@ -740,7 +740,7 @@
     							            <td>&nbsp;</td>
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk2" id="siadk2" size="40" maxlength="30" value="${Xmodel.record.siadk2}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk2" id="siadk2" size="40" maxlength="30" value="${model.record.siadk2}"></td>
    							            
 							        </tr>
 							        <tr>
@@ -749,7 +749,7 @@
    							            <td>&nbsp;</td>							            
 							        </tr>
 							        <tr>
-							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk3" id="siadk3" size="40" maxlength="30" value="${Xmodel.record.siadk3}"></td>
+							            <td colspan="2" align="left"><input type="text" class="inputTextMediumBlue" name="siadk3" id="siadk3" size="40" maxlength="30" value="${model.record.siadk3}"></td>
    							        </tr>
 							        <tr height="15">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
@@ -801,8 +801,8 @@
 							            <span title="sitlf"><font class="text16RedBold" >*</font>Telefon</span></td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input readonly type="text" class="inputTextReadOnly" name="sinad" id="sinad" size="35" maxlength="30" value="${Xmodel.record.sinad}"></td>
-							            <td align="left"><input readonly type="text" class="inputTextReadOnly" name="sitlf" id="sitlf" size="15" maxlength="12" value="${Xmodel.record.sitlf}"></td>
+							            <td align="left"><input readonly type="text" class="inputTextReadOnly" name="sinad" id="sinad" size="35" maxlength="30" value="${model.record.sinad}"></td>
+							            <td align="left"><input readonly type="text" class="inputTextReadOnly" name="sitlf" id="sitlf" size="15" maxlength="12" value="${model.record.sitlf}"></td>
 							            
 							        </tr>
 							        
@@ -850,9 +850,9 @@
 							        <tr>
 							            <td class="text12" align="left" >&nbsp;
 							            <font class="text16RedBold" >*</font><span title="sifif">Fakt.nr.&nbsp;</span>
-							            <input type="text" class="inputTextMediumBlueMandatoryField"  name="sifif" id="sifif" size="18" maxlength="17" value='${ Xmodel.record.sifif}'></td>
+							            <input type="text" class="inputTextMediumBlueMandatoryField"  name="sifif" id="sifif" size="18" maxlength="17" value='${ model.record.sifif}'></td>
 							            <td class="text12">&nbsp;&nbsp;&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="sifid">Fakt.dato</span>
-			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sifid" id="sifid" size="9" maxlength="6" value="${Xmodel.record.sifid}">
+			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sifid" id="sifid" size="9" maxlength="6" value="${model.record.sifid}">
 			 							</td>
 							        </tr>
 							        <%--
@@ -892,7 +892,7 @@
 				 				<span title="sibel3" id="v_sibel3" class="validation">Fakturasum&nbsp;</span>
 				 			</td>
 				 			<td align="left" >
-				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sibel3" id="sibel3" size="20" maxlength="13" value="${Xmodel.record.sibel3}">				 				
+				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sibel3" id="sibel3" size="20" maxlength="13" value="${model.record.sibel3}">				 				
 				 				<%--
 				 				<c:choose>
 					 				<c:when test="${Xmodel.record.finansOpplysningarExist==true}">
@@ -911,7 +911,7 @@
 				 				<select class="inputTextMediumBlueMandatoryField" name="sival3" id="sival3" >
 				 				  <option value="">-velg-</option>	
 				 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
-			 				  		<option value="${currency.zkod}"<c:if test="${ Xmodel.record.sival3 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+			 				  		<option value="${currency.zkod}"<c:if test="${ model.record.sival3 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
 								  </c:forEach>  
 								</select>
 								<a tabindex="-1" id="sival3IdLink">
@@ -942,17 +942,17 @@
 			 				<td class="text12">
 			 					<b>&nbsp;23.</b><font class="text16RedBold" >*</font><span title="sivku">Kurs&nbsp;</span>
 				 			</td>
-				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sivku" id="sivku" size="10" maxlength="7" value="${Xmodel.record.sivku}"></td>
+				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sivku" id="sivku" size="10" maxlength="7" value="${model.record.sivku}"></td>
 				 			
 				 			<td class="text12" align="left" >&nbsp;
 				 				<img onMouseOver="showPop('24_info');" onMouseOut="hidePop('24_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				<b>24.</b><font class="text16RedBold" >*</font><span title="sitst">Tr.type</span>
 				 				<select class="inputTextMediumBlueMandatoryField" name="sitst" id="sitst" >
 				 				  <option value="">-velg-</option>	
-				 				  <option value="1" <c:if test="${Xmodel.record.sitst == '1'}"> selected </c:if> >1</option>	
-				 				  <option value="2" <c:if test="${Xmodel.record.sitst == '2'}"> selected </c:if> >2</option>	
-				 				  <option value="3" <c:if test="${Xmodel.record.sitst == '3'}"> selected </c:if> >3</option>	
-				 				  <option value="9" <c:if test="${Xmodel.record.sitst == '9'}"> selected </c:if> >9</option>	
+				 				  <option value="1" <c:if test="${model.record.sitst == '1'}"> selected </c:if> >1</option>	
+				 				  <option value="2" <c:if test="${model.record.sitst == '2'}"> selected </c:if> >2</option>	
+				 				  <option value="3" <c:if test="${model.record.sitst == '3'}"> selected </c:if> >3</option>	
+				 				  <option value="9" <c:if test="${model.record.sitst == '9'}"> selected </c:if> >9</option>	
 				 				</select>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute; top:2px; width:250px;" id="24_info" class="popupWithInputText text11"  >
@@ -1013,7 +1013,7 @@
 				            		<select class="inputTextMediumBlueMandatoryField" name="silka" id="silka">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					 				  		<option value="${country.zkod}"<c:if test="${Xmodel.record.silka == country.zkod}"> selected </c:if> >${country.zkod}</option>
+					 				  		<option value="${country.zkod}"<c:if test="${model.record.silka == country.zkod}"> selected </c:if> >${country.zkod}</option>
 										</c:forEach>  
 									</select>
 									<a tabindex="-1" id="silkaIdLink">
@@ -1071,8 +1071,8 @@
 									
 					            <td class="text12" >
 			           				<select name="sikdc" id="sikdc">
-				 						<option value="0" <c:if test="${Xmodel.record.sikdc == '0'}"> selected </c:if> >0</option>
-				 						<option value="1" <c:if test="${Xmodel.record.sikdc == '1'}"> selected </c:if> >1</option>								 				  	  
+				 						<option value="0" <c:if test="${model.record.sikdc == '0'}"> selected </c:if> >0</option>
+				 						<option value="1" <c:if test="${model.record.sikdc == '1'}"> selected </c:if> >1</option>								 				  	  
 									</select>
 			           			</td>
 							</tr>
@@ -1095,7 +1095,7 @@
 					            </td>
 					            
 				                 <td >
-						            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="21" maxlength="20" value="${Xmodel.record.sitrid}">
+						            	<input type="text" class="inputTextMediumBlue" name="sitrid" id="sitrid" size="21" maxlength="20" value="${model.record.sitrid}">
 								</td>
 							</tr>
 							
@@ -1129,7 +1129,7 @@
 					            		<select name="silkt" id="silkt">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-					 				  		<option value="${country.zkod}"<c:if test="${Xmodel.record.silkt == country.zkod}"> selected </c:if> >${country.zkod}</option>
+					 				  		<option value="${country.zkod}"<c:if test="${model.record.silkt == country.zkod}"> selected </c:if> >${country.zkod}</option>
 										</c:forEach>  
 									</select>
 									<a tabindex="-1" id="silktIdLink">
@@ -1189,7 +1189,7 @@
 			           				<select name="sitrm" id="sitrm">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="record" items="${model.transportmaterCodeList}" >
-					 				  		<option value="${record.zkod}"<c:if test="${Xmodel.record.sitrm == record.zkod}"> selected </c:if> >${record.zkod}</option>
+					 				  		<option value="${record.zkod}"<c:if test="${model.record.sitrm == record.zkod}"> selected </c:if> >${record.zkod}</option>
 										</c:forEach>  
 									</select>
 			           			</td>
@@ -1203,7 +1203,7 @@
 		            <td class="text12" align="left" >
 		            <img onMouseOver="showPop('49_info');" onMouseOut="hidePop('49_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
 		            <b>49.&nbsp;</b><span title="sign"><font class="text16RedBold" >*</font>Godsnr</span>
-		            &nbsp;<input type="text" class="inputTextMediumBlueMandatoryField"  name="sign" id="sign" size="20" maxlength="15" value="${Xmodel.record.sign}">
+		            &nbsp;<input type="text" class="inputTextMediumBlueMandatoryField"  name="sign" id="sign" size="20" maxlength="15" value="${model.record.sign}">
 		            <div class="text11" style="position: relative;" align="left">
 		            <span style="position:absolute; top:2px; width:250px;" id="49_info" class="popupWithInputText text11"  >
 		           			<b>49. Godsnr</b><br/>
@@ -1241,7 +1241,7 @@
 		        <tr>
 		        		<td width="2">&nbsp;</td>
 		            <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="sipos">Posisjon</span>
-		            		&nbsp;<input type="text" class="inputTextMediumBlue" name="sipos" id="sipos" size="15" maxlength="9" value="${Xmodel.record.sipos}">
+		            		&nbsp;<input type="text" class="inputTextMediumBlue" name="sipos" id="sipos" size="15" maxlength="9" value="${model.record.sipos}">
 		            </td>
 		        </tr>
 				<tr height="5"><td class="text"></td></tr>
@@ -1271,7 +1271,7 @@
 					            	<select class="inputTextMediumBlueMandatoryField" name="silv" id="silv">
 			 						<option value="">-velg-</option>
 					 				  	<c:forEach var="record" items="${model.incotermsCodeList}" >
-					 				  		<option value="${record.zkod}"<c:if test="${Xmodel.record.silv == record.zkod}"> selected </c:if> >${record.zkod}</option>
+					 				  		<option value="${record.zkod}"<c:if test="${model.record.silv == record.zkod}"> selected </c:if> >${record.zkod}</option>
 										</c:forEach>  
 								</select>
 							</td>
@@ -1292,7 +1292,7 @@
 								</div>
 								</td>
 					            <td >
-					            		&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField"  name="silvt" id="silvt" size="20" maxlength="17" value="${Xmodel.record.silvt}">
+					            		&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField"  name="silvt" id="silvt" size="20" maxlength="17" value="${model.record.silvt}">
 								</td>
 							</tr>
 							<tr height="5"><td></td></tr>
@@ -1314,7 +1314,7 @@
 					            <td >
 						            <select name="sikdls" id="sikdls">
 					 				  	<c:forEach var="record" items="${model.lagringsstedCodeList}" >
-					 				  		<option value="${record.zkod}"<c:if test="${Xmodel.record.sikdls == record.zkod}"> selected </c:if> >${record.zkod}</option>
+					 				  		<option value="${record.zkod}"<c:if test="${model.record.sikdls == record.zkod}"> selected </c:if> >${record.zkod}</option>
 										</c:forEach>
 									</select>
 					            
@@ -1346,7 +1346,7 @@
 								</span>	
 								</div>
 								</td>
-					            <td ><input type="text" class="inputTextMediumBlue" name="sils" id="sils" size="20" maxlength="16" value="${Xmodel.record.sils}"></td>
+					            <td ><input type="text" class="inputTextMediumBlue" name="sils" id="sils" size="20" maxlength="16" value="${model.record.sils}"></td>
 					            
 					            
 	        					</tr>
@@ -1388,17 +1388,17 @@
 								</div>
 				 				</td>
 			 					<td class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="siftg2" id="siftg2" size="1" maxlength="1" value="${Xmodel.record.siftg2}">
+			 						<input type="text" class="inputTextMediumBlue" name="siftg2" id="siftg2" size="1" maxlength="1" value="${model.record.siftg2}">
 			 					</td>
 							</tr>
 							<tr>
 								<td class="text12" ><span title="sibel1/sival1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beløp tollb.frakt</span></td>
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${Xmodel.record.sibel1}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel1" id="sibel1" size="12" maxlength="11" value="${model.record.sibel1}">
 			 						<select name="sival1" id="sival1">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-					 				  		<option value="${currency.zkod}"<c:if test="${Xmodel.record.sival1 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival1 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
 										</c:forEach>  
 									</select>
 									<a tabindex="-1" id="sival1IdLink">
@@ -1462,11 +1462,11 @@
 								</td>
 			 					
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${Xmodel.record.sibel2}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sibel2" id="sibel2" size="12" maxlength="11" value="${model.record.sibel2}">
 			 						<select name="sival2" id="sival2">
 				 						<option value="">-velg-</option>
 					 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-					 				  		<option value="${currency.zkod}"<c:if test="${Xmodel.record.sival2 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+					 				  		<option value="${currency.zkod}"<c:if test="${model.record.sival2 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
 										</c:forEach>  
 									</select>
 									<a tabindex="-1" id="sival2IdLink">
@@ -1498,7 +1498,7 @@
 							<tr>						
 								<td class="text12" ><span title="sirab">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rabatt</span></td>
 			 					<td class="text12">
-			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sirab" id="sirab" size="12" maxlength="5" value="${Xmodel.record.sirab}">
+			 						<input onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sirab" id="sirab" size="12" maxlength="5" value="${model.record.sirab}">
 								</td>
 							</tr>					        
 							<tr height="25"><td class="text">&nbsp;</td> </tr>	
@@ -1514,7 +1514,7 @@
 								</div>
 								</td>
 					            <td >
-					            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlueMandatoryField"  name="sivkb" id="sivkb" size="10" maxlength="9" value="${Xmodel.record.sivkb}">
+					            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlueMandatoryField"  name="sivkb" id="sivkb" size="10" maxlength="9" value="${model.record.sivkb}">
 					            </td>
 					        </tr>
 				            <tr>
@@ -1533,7 +1533,7 @@
 								</div>
 								</td>
 					            <td >
-					            	<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlueMandatoryField"  name="sintk" id="sintk" size="8" maxlength="7" value="${Xmodel.record.sintk}">
+					            	<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlueMandatoryField"  name="sintk" id="sintk" size="8" maxlength="7" value="${model.record.sintk}">
 					            </td>
 					        </tr>
    					        <tr height="10"><td class="text">&nbsp;</td> </tr>
@@ -1593,7 +1593,7 @@
 									</div>	
 					            	</td>
 					            <td >
-					            		<input type="text" class="inputTextMediumBlue" name="insivf" id="insivf" size="2" maxlength="1" value="${Xmodel.record.insivf}">
+					            		<input type="text" class="inputTextMediumBlue" name="insivf" id="insivf" size="2" maxlength="1" value="${model.record.insivf}">
 					            </td>
 					        </tr>
 							<tr>
@@ -1611,7 +1611,7 @@
 									</div>
 				            	</td>
 					            <td >
-					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="insibvnv" id="insibvnv" size="5" maxlength="5" value="${Xmodel.record.insibvnv}">
+					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="insibvnv" id="insibvnv" size="5" maxlength="5" value="${model.record.insibvnv}">
 					            </td>
 					        </tr>
 					        <%--

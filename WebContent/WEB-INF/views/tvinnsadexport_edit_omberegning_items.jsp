@@ -88,7 +88,7 @@
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
 					</font>
-					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" height="16" border="0" alt="show log">
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -98,7 +98,7 @@
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
 					</font>
-					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" height="16" border="0" alt="show archive">
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
