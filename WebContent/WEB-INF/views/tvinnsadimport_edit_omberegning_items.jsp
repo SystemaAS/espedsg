@@ -41,7 +41,6 @@
 				<a id="alinkTopicList" style="display:block;" href="tvinnsadimport.do?action=doFind&sg=${model.sign}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-					
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>

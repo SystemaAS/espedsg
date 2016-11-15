@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/tvinnsadglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadexport_edit_items.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadexport_edit_omberegning_items.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -41,14 +41,12 @@
 				<a id="alinkTopicList" style="display:block;" href="tvinnsadexport.do?action=doFind&sg=${model.sign}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-					
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkHeader" style="display:block;" href="tvinnsadexport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
 						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}">
-					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${model.opd}]</font>
 					<c:if test="${model.status == 'M' || empty model.status}">
@@ -57,13 +55,10 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sysg=${model.sign}
-											&opd=${ model.opd}&syst=${model.status}">
-					<font class="tabDisabledLink">
-						&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
-					</font>
-				</a>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
+				</font>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -115,7 +110,30 @@
  	<%-- tab area container MASTER TOPIC  --%>
 	<%-- -------------------------------- --%>
  	<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
-		<tr height="15"><td colspan="2">&nbsp;</td></tr>	
+ 		<tr height="6">
+			<td colspan="2">&nbsp;</td>
+		</tr>	
+		<%-- sub-tabs --%>
+		<tr>
+			<td colspan="2">
+				<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+				<tr>
+				<td width="2px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+					<a id="alinkOmberegningSubTab" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
+											&opd=${ model.opd}&status=${model.status}">
+						<font class="text11Gray">Hode</font>
+					</a>	
+				</td>
+				<td width="8%" valign="bottom" class="tabSub" align="center" nowrap>
+					<font class="text11"><b>Varelinjer</b></font>
+				</td>
+				<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr height="10"><td colspan="2">&nbsp;</td></tr>	
 		
 		<tr>
 		<td >

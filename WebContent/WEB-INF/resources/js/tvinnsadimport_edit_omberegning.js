@@ -23,7 +23,7 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
-  	jq('#alinkOmberegningItemLinesSubTab').click(function() { 
+  	  jq('#alinkOmberegningItemLinesSubTab').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
   	

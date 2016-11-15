@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/tvinnsadglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tvinnsadexport_edit.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tvinnsadexport_edit_omberegning.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -47,86 +47,72 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<c:choose> 
-			    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
-					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">
-							&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/>
-						</font>
-						<font class="text12MediumBlue">[${model.record.setdn}]</font>
-						<c:if test="${ model.record.sest == 'M' || empty  model.record.sest}">
-							<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
-						</c:if>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-									&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${model.record.setdn}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.notisblock.createnew.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${ model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkLogging" style="display:block;" href="tvinnsadexport_logging.do?avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
-							</font>
-							<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkArchive" style="display:block;" href="tvinnsadexport_archive.do?avd=${model.record.seavd}&sign=${model.record.sesg}
-							&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
-							</font>
-							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
-						</a>
-					</td>
-					<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				</c:when>
-				<c:otherwise>
-					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.export.createnew.tab"/></font>
-						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
-						
-					</td>
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				</c:otherwise>
-			</c:choose>
-			
-			
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkHeader" style="display:block;" href="tvinnsadexport_edit.do?action=doFetch&avd=${model.record.seavd}&opd=${model.record.setdn}
+						&sign=${model.record.sesg}&tuid=${refnr}&status=${model.record.sest}&sydt=${model.datum}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/>
+					</font>
+					<font class="text12MediumBlue">[${model.record.setdn}]</font>
+					<c:if test="${ model.record.sest == 'M' || empty  model.record.sest}">
+						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+					</c:if>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
+				</font>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
+							&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
+					</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${ model.record.seavd}&sign=${ model.record.sesg}
+											&opd=${model.record.setdn}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.notisblock.createnew.tab"/>
+					</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
+											&opd=${ model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/>
+					</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkLogging" style="display:block;" href="tvinnsadexport_logging.do?avd=${ model.record.seavd}&sign=${ model.record.sesg}
+											&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
+					</font>
+					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkArchive" style="display:block;" href="tvinnsadexport_archive.do?avd=${model.record.seavd}&sign=${model.record.sesg}
+					&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
+					</font>
+					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+				</a>
+			</td>
+			<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
 	</td>
@@ -152,7 +138,7 @@
 			<input type="hidden" name="sedst" id="sedst" value='${model.record.sedst}'>
 			<input type="hidden" name="setarf" id="setarf" value='${model.record.setarf}'>
 			
-		<tr height="4">
+		<tr height="6">
 			<td colspan="2">&nbsp;
 				<%-- test indicator /per avdelning --%> 
 				<c:forEach var="record" items="${avdListSessionTestFlag}" >
@@ -164,6 +150,29 @@
 				</c:forEach>		
 			</td>
 		</tr>
+		
+		<%-- sub-tabs --%>
+		<tr>
+			<td colspan="2">
+				<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
+				<tr>
+				<td width="2px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="8%" valign="bottom" class="tabSub" align="center" nowrap>
+						<font class="text11"><b>Hode</b></font>
+				</td>
+				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+					<a id="alinkOmberegningItemLinesSubTab" style="display:block;" href="tvinnsadexport_edit_omberegning_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
+											&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${model.record.sebel1}">
+					<font class="text11Gray">Varelinjer</font>
+					</a>
+				</td>
+				<td width="85%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr height="5"><td colspan="2"></td></tr>
+		
 		
 		<c:choose>
 		<%-- UPDATE MODE --%> 

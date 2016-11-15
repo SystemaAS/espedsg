@@ -22,6 +22,9 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
+  	  jq('#alinkOmberegningSubTab').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
     });
   	
   	//Auto control - autoförtullning

@@ -67,8 +67,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-											&opd=${ model.record.sitdn}
-											&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
+											&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 					</font>
@@ -186,14 +185,14 @@
 			
 			<tr >
 				<td align="left" class="text12MediumBlue" >
-					&nbsp;&nbsp;&nbsp;&nbsp;<span title="siavd">Avdeling:</span>&nbsp;<b>${Xmodel.record.siavd}</b>&nbsp;&nbsp;<span title="sitdn">Tolldeknr:&nbsp;</span><b>${Xmodel.record.sitdn}</b>
-					&nbsp;&nbsp;<span title="sisg">Sign:</span>&nbsp;<b>${Xmodel.record.sisg}</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;<span title="siavd">Avdeling:</span>&nbsp;<b>${model.record.siavd}</b>&nbsp;&nbsp;<span title="sitdn">Tolldeknr:&nbsp;</span><b>${model.record.sitdn}</b>
+					&nbsp;&nbsp;<span title="sisg">Sign:</span>&nbsp;<b>${model.record.sisg}</b>
 					&nbsp;&nbsp;
 					<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					Stat<a tabindex=-1 id="updateStatusLink" name="updateStatusLink" runat="server" href="#"><font class="text12MediumBlue">u</font></a>s:
 					<b>
 						<c:choose>
-							<c:when test="${empty Xmodel.record.sist}">
+							<c:when test="${empty model.record.sist}">
 								&nbsp;
 							</c:when>
 							<c:otherwise>
@@ -201,7 +200,7 @@
 							</c:otherwise>
 						</c:choose>
 					</b>
-					&nbsp;<span title="sidt">Opprettelsesdato:</span>&nbsp;<b>${Xmodel.record.sidt}</b>
+					&nbsp;<span title="sidt">Opprettelsesdato:</span>&nbsp;<b>${model.record.sidt}</b>
 					<div class="text11" style="position: relative;" align="left">
 					<span style="position:absolute; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
 						<br/>
@@ -231,7 +230,7 @@
 					
 				</td>
 				<td align="right" valign="top" >
-					<a tabindex=-1 href="tvinnsadimport_edit_printTopic.do?avd=${Xmodel.record.siavd}&opd=${Xmodel.record.sitdn}">
+					<a tabindex=-1 href="tvinnsadimport_edit_printTopic.do?avd=${model.record.siavd}&opd=${model.record.sitdn}">
 					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 						&nbsp;&nbsp;&nbsp;
 					</a>
@@ -239,8 +238,8 @@
 			</tr>
 			<tr >
 				<td align="left" class="text12MediumBlue" >
-					&nbsp;&nbsp;&nbsp;&nbsp;<span title="sidst">Tarifferingsted:</span>&nbsp;<b>${Xmodel.record.sidst}</b>
-					&nbsp;&nbsp;<span title="sitarf">Tariffør:</span>&nbsp;<b>${Xmodel.record.sitarf}</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;<span title="sidst">Tarifferingsted:</span>&nbsp;<b>${model.record.sidst}</b>
+					&nbsp;&nbsp;<span title="sitarf">Tariffør:</span>&nbsp;<b>${model.record.sitarf}</b>
 					
 				</td>
 			</tr>

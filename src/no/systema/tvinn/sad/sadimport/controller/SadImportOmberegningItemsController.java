@@ -105,7 +105,7 @@ public class SadImportOmberegningItemsController {
 	@RequestMapping(value="tvinnsadimport_edit_omberegning_items.do")
 	public ModelAndView sadImportEditItemOmberegning(@ModelAttribute ("record") JsonSadImportSpecificTopicItemRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		boolean bindingErrorsExist = false;
-		logger.info("Inside: sadImportEditItem");
+		logger.info("Inside: sadImportEditItemOmberegning");
 		
 		ModelAndView successView = new ModelAndView("tvinnsadimport_edit_omberegning_items");
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();

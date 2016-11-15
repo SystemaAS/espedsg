@@ -9,10 +9,7 @@
     jq(function() {
       jq('#alinkTopicList').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });
-      jq('#alinkOmberegning').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  	  });      
+  	  });     
   	  jq('#alinkInvoices').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
@@ -25,6 +22,10 @@
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  });
+  	  jq('#alinkOmberegningItemLinesSubTab').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  });
+  	  
   	  jq('#getFinansOpplSumButton').click(function() { 
   		if(jq('#finansOpplysningarTotSum').val()!='' && jq('#finansOpplysningarTotValidCurrency').val()!='' ){  
 	  		jq('#sebel1').val(jq('#finansOpplysningarTotSum').val());

@@ -1,12 +1,12 @@
 META;ID;NAME
-C30;Bring@http://139.114.151.52:8080/espedsg@8.0
-C100;DHL@http://165.72.19.220:8443/espedsg@8.0
-C101;DHL(external)@http://198.141.241.224:8443/espedsg@8.0
-C110;DACHSER NO - ASP24@http://gw.systema.no:8181/espedsg@8.0
-C111;DACHSER DK - ASP25@http://gw.systema.no:8383/espedsg@8.0
+C30;Bring@http://139.114.151.52:8080/espedsg@8.0 / V11
+C100;DHL@http://165.72.19.220:8443/espedsg@8.0 / <b>V12</b>
+C101;DHL(external)@http://198.141.241.224:8443/espedsg@8.0 / <b>V12</b>
+C110;DACHSER NO - ASP24@http://gw.systema.no:8181/espedsg@8.0 / V11
+C111;DACHSER DK - ASP25@http://gw.systema.no:8383/espedsg@8.0 / V11
 C200;DSV@http://10.47.16.52:8080/espedsg@6.0 / old OS
-C300;KINGSRØD DK@http://10.20.4.2:8383/espedsg@8.0
-C301;KINGSRØD NO@http://10.20.4.2:8282/espedsg@8.0
-C400;NORTRAIL@http://193.69.249.50:8080/espedsg@6.0
-C500;POSTNORD@http://192.108.100.247:8080/espedsg@6.0
+C300;KINGSRØD DK@http://10.20.4.2:8383/espedsg@8.0 / <b>V12</b>
+C301;KINGSRØD NO@http://10.20.4.2:8282/espedsg@8.0 / <b>V12</b>
+C400;NORTRAIL@http://193.69.249.50:8080/espedsg@6.0 / V11
+C500;POSTNORD@http://192.108.100.247:8080/espedsg@6.0 / V11
 C600;TOTEN TRANS@http://cust.toten.as:8080/espedsg@6.0 / old OS
