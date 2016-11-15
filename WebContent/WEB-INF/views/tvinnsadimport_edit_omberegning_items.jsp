@@ -55,12 +55,7 @@
 					</c:if>
 				</a>
 			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">
-					&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
-				</font>
-			</td>
+			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
@@ -110,6 +105,12 @@
 					</font>
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+				</font>
 			</td>
 			<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>

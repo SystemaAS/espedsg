@@ -33,15 +33,6 @@
 				
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sysg=${model.sign}
-												&opd=${ model.opd}&syst=${model.status}">
-						<font class="tabDisabledLink">
-							&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
-						</font>
-					</a>
-				</td>	
-				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}&opd=${ model.opd}&status=${ model.status}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
@@ -87,6 +78,15 @@
 					<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/></font>
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 				</td>
+				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sysg=${model.sign}
+												&opd=${ model.opd}&syst=${model.status}">
+						<font class="tabDisabledLink">
+							&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
+						</font>
+					</a>
+				</td>	
 				<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			</tr>
 			<tr height="3"><td></td></tr>

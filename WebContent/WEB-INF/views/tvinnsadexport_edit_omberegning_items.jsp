@@ -54,12 +54,7 @@
 					</c:if>
 				</a>
 			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">
-					&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
-				</font>
-			</td>
+			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${model.avd}&sign=${model.sign}&opd=${model.opd}">
@@ -77,11 +72,14 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/></font>
-				<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
-					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
-				</c:if>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${ model.sign}
+									&opd=${model.opd}&status=${ model.status}&fabl=">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/></font>
+					<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
+						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
+					</c:if>
+				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -102,6 +100,12 @@
 					</font>
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
+				</font>
 			</td>
 			<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>

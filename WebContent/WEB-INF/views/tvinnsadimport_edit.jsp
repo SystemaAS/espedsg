@@ -59,15 +59,6 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
 													&opd=${ model.record.sitdn}
 													&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
@@ -112,6 +103,15 @@
 								&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/>
 							</font>
 							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
+													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
+							<font class="tabDisabledLink">
+								&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+							</font>
 						</a>
 					</td>
 					<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>

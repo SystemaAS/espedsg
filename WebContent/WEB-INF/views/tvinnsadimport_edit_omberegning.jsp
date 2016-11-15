@@ -52,18 +52,13 @@
 						&sysg=${model.record.sisg}&tuid=${refnr}&syst=${model.record.sist}&sydt=${model.datum}">
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
-					<font class="text12MediumBlue">[${model.record.sitdn}}]</font>
+					<font class="text12MediumBlue">[${model.record.sitdn}]</font>
 					<c:if test="${model.record.sist == 'M' || empty model.record.sist}">
 						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 					</c:if>
 				</a>
 			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<font class="tabLink">
-					&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
-				</font>
-			</td>
+			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
@@ -111,6 +106,12 @@
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 				</a>
 			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<font class="tabLink">
+					&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
+				</font>
+			</td>
 			<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
@@ -128,21 +129,21 @@
 			<%-- general (from user profile) --%>
 			<input type="hidden" name="action" id="action" value='doUpdate'>
 			<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-			<input type="hidden" name="opd" id="opd" value='${Xmodel.record.sitdn}'>
+			<input type="hidden" name="opd" id="opd" value='${model.record.sitdn}'>
 			<%-- topic specific (syop and refnr) --%>
-			<input type="hidden" name="siavd" id="siavd" value='${Xmodel.record.siavd}'>
-			<input type="hidden" name="sitdn" id="sitdn" value='${Xmodel.record.sitdn}'>
-			<input type="hidden" name="sist" id="sist" value='${Xmodel.record.sist}'>
-			<input type="hidden" name="sidt" id="sidt" value='${Xmodel.record.sidt}'>
-			<input type="hidden" name="sidst" id="sidst" value='${Xmodel.record.sidst}'>
-			<input type="hidden" name="sitarf" id="sitarf" value='${Xmodel.record.sitarf}'>
+			<input type="hidden" name="siavd" id="siavd" value='${model.record.siavd}'>
+			<input type="hidden" name="sitdn" id="sitdn" value='${model.record.sitdn}'>
+			<input type="hidden" name="sist" id="sist" value='${model.record.sist}'>
+			<input type="hidden" name="sidt" id="sidt" value='${model.record.sidt}'>
+			<input type="hidden" name="sidst" id="sidst" value='${model.record.sidst}'>
+			<input type="hidden" name="sitarf" id="sitarf" value='${model.record.sitarf}'>
 			
 			
 		<tr height="6">
 			<td colspan="2">&nbsp;
 				<%-- test indicator /per avdelning --%> 
 				<c:forEach var="record" items="${avdListSessionTestFlag}" >
-					<c:if test="${record.avd == Xmodel.record.siavd}">	
+					<c:if test="${record.avd == model.record.siavd}">	
 						<c:if test="${record.tst == '2'}">&nbsp;&nbsp;	
 							<c:set var="isTestAvd" value="2" scope="request" />
 						</c:if>
@@ -177,11 +178,11 @@
 		<c:choose>
 		<%-- UPDATE MODE --%> 
 	    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
-	    	<input type="hidden" name="avd" id="avd" value='${Xmodel.record.siavd}'>
-			<input type="hidden" name="sisg" id="sisg" value='${Xmodel.record.sisg}'>
-			<input type="hidden" name="sibel4" id="sibel4" value='${Xmodel.record.sibel4}'>
-			<input type="hidden" name="sibelr" id="sibelr" value='${Xmodel.record.sibelr}'>
-			<input type="hidden" name="sibels" id="sibels" value='${Xmodel.record.sibels}'>
+	    	<input type="hidden" name="avd" id="avd" value='${model.record.siavd}'>
+			<input type="hidden" name="sisg" id="sisg" value='${model.record.sisg}'>
+			<input type="hidden" name="sibel4" id="sibel4" value='${model.record.sibel4}'>
+			<input type="hidden" name="sibelr" id="sibelr" value='${model.record.sibelr}'>
+			<input type="hidden" name="sibels" id="sibels" value='${model.record.sibels}'>
 			
 			<tr >
 				<td align="left" class="text12MediumBlue" >
@@ -196,7 +197,7 @@
 								&nbsp;
 							</c:when>
 							<c:otherwise>
-								${Xmodel.record.sist}
+								${model.record.sist}
 							</c:otherwise>
 						</c:choose>
 					</b>
@@ -261,26 +262,26 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="siavd"><font class="text16RedBold" >*</font>Avdeling:&nbsp;
            			<select name="avd" id="avd">
 	            		<option value="">-velg-</option>
-	 				  	<c:forEach var="record" items="${model.avdList}" >
-                             <option value="${record.avd}"<c:if test="${Xmodel.record.siavd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '2'}">&nbsp;(test)</c:if></option>
+	 				  	<c:forEach var="record" items="${Xmodel.avdList}" >
+                             <option value="${record.avd}"<c:if test="${model.record.siavd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '2'}">&nbsp;(test)</c:if></option>
 						</c:forEach> 
 					</select>
 					&nbsp;<span title="sisg"><font class="text16RedBold" >*</font>Sign:</span>&nbsp;
            			<select name="sisg" id="sisg">
 	            		<option value="">-velg-</option>
-	 				  	<c:forEach var="record" items="${model.signList}" >
+	 				  	<c:forEach var="record" items="${Xmodel.signList}" >
                            	 	<c:choose>
-								<c:when test="${empty Xmodel.record.sisg}">
+								<c:when test="${empty model.record.sisg}">
 									<option value="${record.sign}"<c:if test="${user.tvinnSadSign == record.sign}"> selected </c:if> >${record.sign}</option>
 								</c:when>
 								<c:otherwise>
-									<option value="${record.sign}"<c:if test="${Xmodel.record.sisg == record.sign}"> selected </c:if> >${record.sign}</option>
+									<option value="${record.sign}"<c:if test="${model.record.sisg == record.sign}"> selected </c:if> >${record.sign}</option>
 								</c:otherwise>
 								</c:choose>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="right"><input type="checkbox" name="simi" id="simi" value="I" <c:if test="${Xmodel.record.simi == 'I'}"> checked </c:if> >
+				<td align="right"><input type="checkbox" name="simi" id="simi" value="I" <c:if test="${model.record.simi == 'I'}"> checked </c:if> >
 				<font class="text12MediumBlue"><b>Foreløpig</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					
 				</td>
@@ -321,8 +322,8 @@
 				 			<td>
 				 				<select class="inputTextMediumBlueMandatoryField" name="sidty" id="sidty" >
 				 				  <option value="">-velg-</option>
-								  <option value="EU"<c:if test="${Xmodel.record.sidty == 'EU'}"> selected </c:if> >EU</option>
-								  <option value="IM"<c:if test="${Xmodel.record.sidty == 'IM'}"> selected </c:if> >IM</option>
+								  <option value="EU"<c:if test="${model.record.sidty == 'EU'}"> selected </c:if> >EU</option>
+								  <option value="IM"<c:if test="${model.record.sidty == 'IM'}"> selected </c:if> >IM</option>
 								</select>
 			 				</td>
 			 				<td class="text12">
@@ -330,7 +331,7 @@
 			 				<div class="text11" style="position: relative;display:inline;" align="left">
 			 				<span style="position:absolute; top:2px; width:250px;" id="prosedyr_info" class="popupWithInputText text11">
 				           		<ul>
-				           			<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
+				           			<c:forEach var="record" items="${Xmodel.ekspedisjonstyperImportCodeList}" >
 				           			<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
 				           			</c:forEach>
 				           		</ul>
@@ -341,8 +342,8 @@
 				 			<td>
 				 				<select class="inputTextMediumBlueMandatoryField" name="sidp" id="sidp" >
 				 				  <option value="">-velg-</option>
-					 				  	<c:forEach var="record" items="${model.ekspedisjonstyperImportCodeList}" >
-					 				  		<option value="${record.zkod}"<c:if test="${Xmodel.record.sidp == record.zkod}"> selected </c:if> >${record.zkod}</option>
+					 				  	<c:forEach var="record" items="${Xmodel.ekspedisjonstyperImportCodeList}" >
+					 				  		<option value="${record.zkod}"<c:if test="${model.record.sidp == record.zkod}"> selected </c:if> >${record.zkod}</option>
 										</c:forEach>  
 								</select>
 				 			</td>
@@ -378,9 +379,9 @@
 				 			<td>
 				 				<select name="siski" id="siski" >
 				 					<option value="">-velg-</option>
-								  <option value="S"<c:if test="${ Xmodel.record.siski == 'S'}"> selected </c:if> >S</option>
-								  <option value="K"<c:if test="${ Xmodel.record.siski == 'K'}"> selected </c:if> >K</option>
-								  <option value="I"<c:if test="${ Xmodel.record.siski == 'I'}"> selected </c:if> >I</option>
+								  <option value="S"<c:if test="${ model.record.siski == 'S'}"> selected </c:if> >S</option>
+								  <option value="K"<c:if test="${ model.record.siski == 'K'}"> selected </c:if> >K</option>
+								  <option value="I"<c:if test="${ model.record.siski == 'I'}"> selected </c:if> >I</option>
 								</select>
 			 				</td>
 			 				<td class="text12">
@@ -402,8 +403,8 @@
 			 				<td>
 				 				<select name="sikddk" id="sikddk" >
 				 				  <option selected value="">-velg-</option>
-								  <option value="D"<c:if test="${Xmodel.record.sikddk == 'D'}"> selected </c:if> >D</option>
-								  <option value="K"<c:if test="${Xmodel.record.sikddk == 'K'}"> selected </c:if> >K</option>
+								  <option value="D"<c:if test="${model.record.sikddk == 'D'}"> selected </c:if> >D</option>
+								  <option value="K"<c:if test="${model.record.sikddk == 'K'}"> selected </c:if> >K</option>
 								</select>
 			 				</td>
 		 				</tr>
@@ -413,13 +414,13 @@
 		 						<span title="h_xref">Ext.referanse&nbsp;</span>
 				 			</td>
 				 			<td class="text12" align="left">
-				 				<input type="text" class="inputText" name="h_xref" id="h_xref" size="15" maxlength="35" value="${Xmodel.record.h_xref}">
+				 				<input type="text" class="inputText" name="h_xref" id="h_xref" size="15" maxlength="35" value="${model.record.h_xref}">
 			 				</td>
 				 			<td class="text12" >&nbsp;
 		 						<span title="sidtg" id="v_sidtg" class="validation">Dekl. godj.dato&nbsp;</span>
 				 			</td>
 			 				<td class="text12" align="left">
-			 					<input readonly type="text" class="inputTextReadOnly" name="sidtg" id="sidtg" size="12" maxlength="8" value="${Xmodel.record.sidtg}">
+			 					<input readonly type="text" class="inputTextReadOnly" name="sidtg" id="sidtg" size="12" maxlength="8" value="${model.record.sidtg}">
 		            			</td>
 				 		</tr>
 				 		<tr>	
@@ -427,13 +428,13 @@
 		 						<span title="sitll" id="v_sitll" >Løpenr.&nbsp;</span>
 			 				</td>
 			 				<td class="text12" align="left">
-			            			<input readonly type="text" class="inputTextReadOnly" name="sitll" id="sitll" size="12" maxlength="10" value="${Xmodel.record.sitll}">
+			            			<input readonly type="text" class="inputTextReadOnly" name="sitll" id="sitll" size="12" maxlength="10" value="${model.record.sitll}">
 		            			</td>
 		            			<td class="text12">&nbsp;
 		 						<span title="sitle" id="v_sitle" >Ekspsted&nbsp;</span>
 			 				</td>
 			 				<td class="text12" align="left">
-			            			<input readonly type="text" class="inputTextReadOnly" name="sitle" id="sitle" size="12" maxlength="6" value="${Xmodel.record.sitle}">
+			            			<input readonly type="text" class="inputTextReadOnly" name="sitle" id="sitle" size="12" maxlength="6" value="${model.record.sitle}">
 		            			</td>
 		            			
 		 				</tr>	
