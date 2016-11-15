@@ -1400,6 +1400,15 @@ END override jQuery elements
     background-color: #3D3D3D;
     
 }
+.text12BoldLightGreenForItemLinenrBlueBg{  
+    font-weight:bold ; 
+    border: 0px solid #4E78A0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color: #7cbf4c; 
+    background-color: #4E78A0;;
+    
+}
 .text12BoldRedForItemLinenr{  
     font-weight:bold ; 
     border: 0px solid #4E78A0;
@@ -1407,6 +1416,15 @@ END override jQuery elements
 	font-size: 12px; 
 	color: #FF0000; 
     background-color: #3D3D3D;
+    
+}
+.text12BoldRedForItemLinenrBlueBg{  
+    font-weight:bold ; 
+    border: 0px solid #4E78A0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color: #FF0000; 
+    background-color: #4E78A0;
     
 }
 

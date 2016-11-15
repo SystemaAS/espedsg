@@ -492,7 +492,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >		
 	 				<%-- SENDER --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -519,7 +519,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td width="100%">
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -615,7 +615,7 @@
 	 		<tr>
 	 			<td width="5">&nbsp;</td>
 	            <td >		
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -642,7 +642,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td width="100%">
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -765,7 +765,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >		
 	 				<%-- DEKLARANT --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="18px">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('14_b_info');" onMouseOut="hidePop('14_b_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -788,7 +788,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -817,7 +817,7 @@
 				<td width="5">&nbsp;</td>
 	            <td >
 					<%-- Special section --%>
-					<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+					<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('28_info');" onMouseOut="hidePop('28_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -839,7 +839,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >
 	 				<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td>
 						 		<table align="left" border="0" cellspacing="0" cellpadding="0">
@@ -854,6 +854,7 @@
 			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="sifid" id="sifid" size="9" maxlength="6" value="${Xmodel.record.sifid}">
 			 							</td>
 							        </tr>
+							        <%--
 							        <tr height="5">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
@@ -867,6 +868,7 @@
 							            <input type="hidden" name="finansOpplysningarTotKurs" id="finansOpplysningarTotKurs" value='${ Xmodel.record.finansOpplysningarTotKurs}'>
 							            </td>
 							        </tr>
+							         --%>
 							        <tr height="5">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
@@ -1611,8 +1613,9 @@
 					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="insibvnv" id="insibvnv" size="5" maxlength="5" value="${Xmodel.record.insibvnv}">
 					            </td>
 					        </tr>
-					       <tr height="2"><td></td></tr> 
-					       <c:if test="${ Xmodel.record.sist == 'E' || Xmodel.record.sist == 'K' || Xmodel.record.sist == 'Å' || empty  Xmodel.record.sist }"> 
+					        <%--
+					       	<tr height="2"><td></td></tr> 
+					       	<c:if test="${ Xmodel.record.sist == 'E' || Xmodel.record.sist == 'K' || Xmodel.record.sist == 'Å' || empty  Xmodel.record.sist }"> 
 						   		<c:if test="${ empty Xmodel.record.sitll }"> 
 							        <tr>
 							        	<td valign="top" class="text12" colspan="2">
@@ -1636,10 +1639,10 @@
 							        	</td>
 							        </tr>
 						        </c:if>
-					        </c:if>
+					         </c:if>
+					         --%>
 					        
-					        
-							<tr height="20"><td>&nbsp;</td></tr>
+					        <tr height="20"><td>&nbsp;</td></tr>
 							<tr><td class="text12" colspan="2"><b>Varelinje totaler&nbsp;</b></td></tr>
    					        <tr>
 				        		<td class="text12Gray" align="left" ><span title="sumOfAntalKolliInItemLines" >Kolli&nbsp;</span></td>

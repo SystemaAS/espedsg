@@ -585,7 +585,7 @@
 				 	<input type="hidden" name="lastSelectedItemLineNumber" id="lastSelectedItemLineNumber" value="${model.recordItemContainerTopic.lastSelectedItemLineNumber}" />
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="100%" align="center" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="100%" align="center" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;
@@ -609,40 +609,39 @@
 				 				&nbsp;&nbsp;&nbsp;
 				 				<c:choose>
 					 				<c:when test="${not empty model.record.svln}">
-						 				<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenr" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${model.record.svln}">
+						 				<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${model.record.svln}">
 									</c:when>
 									<c:otherwise>
-				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenr" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${svln_SESSION}">
+				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${svln_SESSION}">
 									</c:otherwise>
 								</c:choose>
 				 				<c:choose>
 					 				<c:when test="${not empty model.record.svli}">								
-										<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenr" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${model.record.svli}">
+										<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenrBlueBg" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${model.record.svli}">
 									</c:when>
 									<c:otherwise>
-				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenr" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${svli_SESSION}">
+				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenrBlueBg" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${svli_SESSION}">
 									</c:otherwise>
 								</c:choose>
 			 				</td>
-			 				<td class="text12White" align="right">Forhold B/N-vekt:&nbsp;
+			 				<td class="text12" align="right"><font class="text12White">Forhold B/N-vekt:&nbsp;</font>
 			 					<c:choose>
 					 				<c:when test="${not empty recordTopicTvinnSad.insibvnv}">
-						 				<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenr" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="${recordTopicTvinnSad.insibvnv}">
+						 				<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="${recordTopicTvinnSad.insibvnv}">
 						 			</c:when>
 						 			<c:otherwise>
-										<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenr" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="0,90">														 			
+										<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="0,90">														 			
 						 			</c:otherwise>
 					 			</c:choose>	
 						 	</td>
 		 				</tr>
 	 				</table>
-					<table width="100%" align="center" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" align="center" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td>&nbsp;</td>
 							 			<td class="text12" align="left">&nbsp;
 							 			<img onMouseOver="showPop('svvf_info');" onMouseOut="hidePop('svvf_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>43.</b>&nbsp;<font class="text16RedBold" >*</font><span title="svvf">VF</span>
@@ -690,66 +689,6 @@
 										</span>
 										</div>
 										
-							            	<%--
-							            	<img id="imgTaricVarukodSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTaricCodesDialog');">
-							            	<%-- ======================================================== --%>
-						            		<%-- Here we have the search Taric codes popup window --%>
-						            		<%-- ========================================================
-						            		<span style="position:absolute; left:400px; top:450px; width:500px; height:210px;" id="searchTaricCodesDialog" class="popupWithInputText"  >
-							           		<div class="text10" align="left">
-							           			<table>
-								           			<tr>
-								           			<td>
-									           			<table>
-									           				<tr>
-																<td class="text11" style="vertical-align:bottom;">&nbsp;Varenr.</td>
-																<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svvnt" id="search_svvnt" size="10" maxlength="10" value="">
-																	<a tabindex="-1" class="text12" target="_blank" href="${model.tolltariffenURL.value}" onclick="${model.tolltariffenURL.windowOpenDimensions}" >
-					            											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tolltariffen 
-					            											&nbsp;<img width="25px" height="35px" style="cursor:pointer;" src="resources/images/logoTollNorway.jpg" border="0" alt="search">
-					            										</a>
-																</td>
-															</tr>
-										           			<tr>
-										           				<td align="right">&nbsp;<button name="searchTaricCode" id="searchTaricCode" class="buttonGray" type="button" onClick="searchTaricVarukod();"><spring:message code="systema.tvinn.sad.import.search"/></button></td>
-										           				<td class="text11">&nbsp;</td>
-											           		</tr>
-											           		<tr height="4"><td ></td></tr>
-										           		</table>
-									           		</td>
-									           		</tr>
-													
-													<tr>
-								           			<td>
-									           			<table>							           		
-											           		<tr>
-										           				<td class="text11">&nbsp;&nbsp;Liste</td>
-											           			<td>&nbsp;</td>
-											           		</tr>
-											           		<tr>
-																<td colspan="2">
-																	<select class="text11" id="taricVarukodList" name="taricVarukodList" size="5" onDblClick="hidePop('searchTaricCodesDialog');">
-					 													<option selected value="">-velg-</option>
-					 							 					</select>
-																</td>
-															</tr>
-									           			</table>
-								           			</td>
-								           			</tr>
-														
-													<tr>
-								           			<td>								           			
-														<table width="100%" align="left" border="0">
-															<tr align="left" >
-																<td >&nbsp;<button name="searchTaricCodesClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTaricCodesDialog');"><spring:message code="systema.tvinn.sad.import.ok"/></button></td>
-															</tr>
-														</table>
-													</td>
-													</tr>
-												</table>
-											</div>
-										</span>	
-										 --%>
 							            </td>
 							            
 							            <td class="text12" align="left">
@@ -830,7 +769,9 @@
 							            
 							        </tr>
 							        <tr>
+							        	<%--
 						        		<td>&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Søk i kund.varereg.</button></td>
+						        		 --%>
 							        		<td align="left" nowrap>
 							        			<c:choose>
 							        			<c:when test="${ not empty model.record.svvf}">

@@ -224,10 +224,12 @@
 					</div>											
 				</td>
 				<td align="right" valign="top" >
+					<%--
 					<input tabindex=-1 type="checkbox" name="semi" id="semi" value="I" <c:if test="${model.record.semi == 'I'}"> checked </c:if> ><font class="text12MediumBlue"><b>Foreløpig</b></font>&nbsp;&nbsp;&nbsp;
 					<c:if test="${'2' != isTestAvd}">
 						<input tabindex=-1 type="checkbox" name="se0035" id="se0035" value="2" <c:if test="${model.record.se0035 == '2'}"> checked </c:if> ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;						
 					</c:if>
+					--%>
 					<a tabindex=-1 href="tvinnsadexport_edit_printTopic.do?avd=${model.record.seavd}&opd=${model.record.setdn}">
 					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 						&nbsp;&nbsp;&nbsp;
@@ -467,7 +469,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >		
 	 				<%-- SENDER --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -494,7 +496,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td width="100%">
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -615,7 +617,7 @@
 	 		<tr>
 	 			<td width="5">&nbsp;</td>
 	            <td >		
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -642,7 +644,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td width="100%">
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -736,7 +738,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >		
 	 				<%-- DEKLARANT --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="18px">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('14_b_info');" onMouseOut="hidePop('14_b_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -762,7 +764,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >	
 					<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -789,7 +791,7 @@
 				<td width="5">&nbsp;</td>
 	            <td >
 					<%-- Special section --%>
-					<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+					<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White">
 				 				&nbsp;<img onMouseOver="showPop('28_info');" onMouseOut="hidePop('28_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -810,7 +812,7 @@
 	 			<td width="5">&nbsp;</td>
 	            <td >
 	 				<%-- create record --%>
-				 	<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
 					 		<td>
 						 		<table align="left" border="0" cellspacing="0" cellpadding="0">
@@ -826,6 +828,7 @@
 			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sefid" id="sefid" size="9" maxlength="6" value="${model.record.sefid}">
 			 							</td>
 							        </tr>
+							        <%--
 							        <tr height="15">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
@@ -839,6 +842,7 @@
 							            <input type="hidden" name="finansOpplysningarTotKurs" id="finansOpplysningarTotKurs" value='${ model.record.finansOpplysningarTotKurs}'>
 							            </td>
 							        </tr>
+							         --%>
 							        <tr height="5">
 							            <td class="text12Bold" align="left" >&nbsp;</td> 
 							        </tr>
@@ -1476,68 +1480,44 @@
 					        <tr height="10"><td class="text">&nbsp;</td> </tr>
 					        
 					        <tr>
-		 						<td class="text12" colspan="2" >
-			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>31.&nbsp;</b><span title="seft1/seft2">Beskrivelse</span>&nbsp;</b>
-				 				<div class="text11" style="position: relative;" align="left">
-				 				<span style="position:absolute;top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
-				           			<b>31. Beskrivelse</b>&nbsp;
-				           			<br/><br/>
-				           			Benyttes ved Foreløpig deklarasjon(”Innstikk”) og dataliste
-				           			<br/><br/>
-				           			<ol>
-									<li><b>Foreløpig deklarasjon(”Innstikk”)</b><br/>
-										Skriv inn godsmerking antall,kollitype og vareslag.
-										<br/>	
-										Ved TVINN er det kun VARESLAG som skal skriver her (max 15 første bokstaver).
-										(Som merking sendes ADR, Kolli hentes fra SAD, i type sendes KLL).
-									</li>
-									<li><b>Dataliste</b><br/>
-										Når en har flere varelinjer på dataliste, kan en her taste en samlende varebeskrivelse for rubrikk 31 på hovedarket.
-										(R.31 skal ikke rapporteres på hver linje på datalista.)
-									</li>
-				           			</ol>
-								</span>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="seft1" id="seft1" size="55" maxlength="45" value="${model.record.seft1}">
-			 					</td>
-							</tr>	
-							<tr>
-								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="seft2" id="seft2" size="55" maxlength="45" value="${model.record.seft2}">
-			 					</td>
-							</tr>
-							<tr height="10"><td class="text"></td></tr>	 
-							<tr>
 			 					<td class="text12" colspan="2" >
-			 					<img onMouseOver="showPop('44_info');" onMouseOut="hidePop('44_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>44.&nbsp;</b><span title="seft3">Fritekst/Tillegsopplysning</span>&nbsp;</b>
+			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				&nbsp;<b>31.&nbsp;</b><span title="todo">Årsak</span>&nbsp;</b>
 				 				<div class="text11" style="position: relative;" align="left">
-				 				<span style="position:absolute;top:2px; width:250px;" id="44_info" class="popupWithInputText text11"  >
-				           			<b>44. Fritekst/Tillegsopplysning</b>&nbsp;
-				           			<br/><br/>
-				           			Benyttes ved Foreløpig deklarasjon(”Innstikk”) og dataliste
-				           			<br/><br/>
-									Nytt fra 1.12.01:<br/>
-									Ved innførsel kreves tillatelse dersom frist for oppgjør er på over 10 dager. Ved foreløpig deklarasjon som ikke krever tillatelse skal ikke referansekoden FOR oppgis.
-									Hvis tillatelse kreves, skriv FOR <tillatelsen journalnr.>
-									<br/><br/>
-									Ved <b>Dataliste</b>
-									Når en har flere varelinjer på listepapir er det enkelte tollsteder som ønsker/krever tekst "Se dataliste".
-									(Spesielt dersom det forekommer preferanse e.l. på linjene).				           			
+				 				<span style="position:absolute; top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
+					           			<b>31. Årsak</b>&nbsp;
+					           			<br/><br/>
+					           			Todo
+					           			
 								</span>
 								</div>
 								</td>
-							</tr> 
+							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="seft3" id="seft3" size="55" maxlength="45" value="${model.record.seft3}">
+			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
 			 					</td>
 							</tr>	
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 					</td>
+							</tr>
 							<tr height="25"><td>&nbsp;</td></tr>
 							<tr>
 					            <td class="text12" align="left" >
@@ -1579,6 +1559,8 @@
 					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sefvk" id="sefvk" size="5" maxlength="6" value="${model.record.sefvk}">
 					            </td>
 					        </tr>
+					        
+					        <%--
 					        <tr height="2"><td></td></tr>
 					        <c:if test="${ model.record.sest == 'E' || model.record.sest == 'K' || model.record.sest == 'Å' || empty  model.record.sest }"> 
 						   		<c:if test="${ empty model.record.setll }">
@@ -1605,7 +1587,7 @@
 							        </tr>
 						       </c:if>
 					        </c:if>
-					        
+					         --%>
 					        
 					        
 							<tr height="20"><td>&nbsp;</td>&nbsp;</tr>

@@ -369,10 +369,11 @@
 														</table>
 												    	</div>
 											    </span> 
+											<%--    
 										    <c:if test="${model.status == 'M' || empty model.status}">		
 												&nbsp;<button title="Kontrollera varelinjer" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varelinje kontroll</button>
 											</c:if>
-											          		
+											 --%>          		
 										</td>
 									</tr>
 									<tr>
@@ -550,7 +551,7 @@
 				 	<input type="hidden" name="lastSelectedItemLineNumber" id="lastSelectedItemLineNumber" value="${model.recordItemContainerTopic.lastSelectedItemLineNumber}" />
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="100%" align="center" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="100%" align="center" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
@@ -577,40 +578,39 @@
 				 				&nbsp;&nbsp;&nbsp;
 				 				<c:choose>
 					 				<c:when test="${not empty model.record.svln}">
-						 				<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenr" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${model.record.svln}">
+						 				<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${model.record.svln}">
 									</c:when>
 									<c:otherwise>
-				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenr" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${svln_SESSION}">
+				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="lineSvln" id="lineSvln" size="4" value="${svln_SESSION}">
 									</c:otherwise>
 								</c:choose>
 				 				<c:choose>
 					 				<c:when test="${not empty model.record.svli}">								
-										<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenr" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${model.record.svli}">
+										<input title="from model" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenrBlueBg" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${model.record.svli}">
 									</c:when>
 									<c:otherwise>
-				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenr" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${svli_SESSION}">
+				 						<input title="from session" tabindex=-1 style="text-align:center;" class="text12BoldRedForItemLinenrBlueBg" readonly type="text" name="lineSvli" id="lineSvli" size="4" value="${svli_SESSION}">
 									</c:otherwise>
 								</c:choose>
 			 				</td>
 			 				<td class="text12White" align="right">Forhold B/N-vekt:&nbsp;
 			 					<c:choose>
 					 				<c:when test="${not empty recordTopicTvinnSad.sefvk}">
-						 				<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenr" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="${recordTopicTvinnSad.sefvk}">
+						 				<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="${recordTopicTvinnSad.sefvk}">
 						 			</c:when>
 						 			<c:otherwise>
-										<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenr" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="0,90">														 			
+										<input style="text-align:center;" tabindex=-1 class="text12BoldLightGreenForItemLinenrBlueBg" readonly type="text" name="grossNetFactor" id="grossNetFactor" size="5" value="0,90">														 			
 						 			</c:otherwise>
 					 			</c:choose>	
 						 	</td>
 		 				</tr>
 	 				</table>
-					<table width="100%" align="center" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" align="center" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td>&nbsp;</td>
 							 			<td class="text12" align="left">
 							 			<img onMouseOver="showPop('fk_info');" onMouseOut="hidePop('fk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<font class="text16RedBold" >*</font>
@@ -689,67 +689,7 @@
 											Tast varens 8 siffrede trariffnummer. Gyldigheten testes mot toll-tariffen.
 										</span>
 										</div>
-				 						<%--
-							            <img id="imgTaricVarukodSearch" style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" onClick="showPop('searchTaricCodesDialog');">
-							            <%-- ======================================================== --%>
-						            		<%-- Here we have the search Taric codes popup window --%>
-						            		<%-- ======================================================== 
-						            		<span style="position:absolute; left:300px; top:450px; width:500px; height:210px;" id="searchTaricCodesDialog" class="popupWithInputText"  >
-							           		<div class="text10" align="left">
-							           			<table>
-								           			<tr>
-								           			<td>
-									           			<table>
-									           				<tr>
-																<td class="text11" style="vertical-align:bottom;" >&nbsp;Varenr.</td>
-																<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svvnt" id="search_svvnt" size="10" maxlength="10" value="">
-																	<a tabindex="-1" class="text12" target="_blank" href="${model.tolltariffenURL.value}" onclick="${model.tolltariffenURL.windowOpenDimensions}" >
-					            											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tolltariffen 
-					            											&nbsp;<img width="25px" height="35px" style="cursor:pointer;" src="resources/images/logoTollNorway.jpg" border="0" alt="search">
-					            										</a>
-																</td>
-															</tr>
-										           			<tr>
-										           				<td align="right">&nbsp;<button name="searchTaricCode" id="searchTaricCode" class="buttonGray" type="button" onClick="searchTaricVarukod();"><spring:message code="systema.tvinn.sad.export.search"/></button></td>
-										           				<td class="text11">&nbsp;</td>
-											           			
-											           		</tr>
-											           		<tr height="4"><td ></td></tr>
-										           		</table>
-									           		</td>
-									           		</tr>
-													
-													<tr>
-								           			<td>
-									           			<table>							           		
-											           		<tr>
-										           				<td class="text11">&nbsp;&nbsp;Liste</td>
-											           			<td>&nbsp;</td>
-											           		</tr>
-											           		<tr>
-																<td colspan="2">
-																	<select class="text11" id="taricVarukodList" name="taricVarukodList" size="5" onDblClick="hidePop('searchTaricCodesDialog');">
-					 													<option selected value="">-velg-</option>
-					 							 					</select>
-																</td>
-															</tr>
-									           			</table>
-								           			</td>
-								           			</tr>
-														
-													<tr>
-								           			<td>								           			
-														<table width="100%" align="left" border="0">
-															<tr align="left" >
-																<td >&nbsp;<button name="searchTaricCodesClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTaricCodesDialog');"><spring:message code="systema.tvinn.sad.export.ok"/></button></td>
-															</tr>
-														</table>
-													</td>
-													</tr>
-												</table>
-											</div>
-										</span>	
-										 --%>
+				 						
 							            </td>
 							            
 							            <td class="text12" align="left">
@@ -847,7 +787,9 @@
 																		
 							        </tr>
 							        <tr>
+							        	<%--
 							        	<td align="center" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Søk i kund.varereg.</button></td>
+							        	 --%>
 						        		<td align="left" nowrap>
 							            	<c:choose>
 											<c:when test="${recordTopicTvinnSad.sedp=='02' || recordTopicTvinnSad.sedp=='04' || recordTopicTvinnSad.sedp=='18' 
@@ -917,7 +859,7 @@
 							        </tr>
 									<tr height="10"><td class="text" align="left" colspan="12"><hr></td></tr>
 									<tr>
-										<td class="text12" align="center">
+										<td class="text12" align="left">
 								            <img onMouseOver="showPop('tollsats_info');" onMouseOut="hidePop('tollsats_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 						<span title="svavtp">Sats&nbsp;</span>
 								            <div class="text11" style="position: relative;" align="left">
@@ -982,7 +924,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="text12" align="center" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svavtp" id="svavtp" size="8" maxlength="7" value="${model.record.svavtp}"></td>
+										<td class="text12" align="left" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svavtp" id="svavtp" size="8" maxlength="7" value="${model.record.svavtp}"></td>
 				            			<td class="text12" align="left" >
 											<select name="svavts" id="svavts">
 						        		    			<option value="">-velg-</option>
