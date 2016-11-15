@@ -56,6 +56,54 @@ public class JsonMaintMainCundfRecord extends JsonAbstractGrandFatherRecord {
 	public void setSonavn (String value){ this.sonavn = value;   }   
 	public String getSonavn (){ return this.sonavn;   }              
 
+	private String sypoge = null;                                
+	public void setSypoge (String value){ this.sypoge = value;   }   
+	public String getSypoge (){ return this.sypoge;   }              
+
+	private String spraak = null;                                
+	public void setSpraak (String value){ this.spraak = value;   }   
+	public String getSpraak (){ return this.spraak;   }              
+
+	private String eori = null;                                
+	public void setEori (String value){ this.eori = value;   }   
+	public String getEori (){ return this.eori;   }    
+	
+	private String pnpbku = null;                                
+	public void setPnpbku (String value){ this.pnpbku = value;   }   
+	public String getPnpbku(){ return this.pnpbku;   }    
+
+	private String kpers = null;                                
+	public void setKpers (String value){ this.kpers = value;   }   
+	public String getKpers(){ return this.kpers;   }    	
+	
+	private String tlf = null;                                
+	public void setTlf (String value){ this.tlf = value;   }   
+	public String getTlf(){ return this.tlf;   }    	
+
+	private String syepos = null;                                
+	public void setSyepos (String value){ this.syepos = value;   }   
+	public String getSyepos(){ return this.syepos;   }    	
+
+	private String systat = null;                                
+	public void setSystat (String value){ this.systat = value;   }   
+	public String getSystat(){ return this.systat;   }    	
+
+	private String valkod = null;                                
+	public void setValkod (String value){ this.valkod = value;   }   
+	public String getValkod(){ return this.valkod;   }    	
+
+	private String kundgr = null;                                
+	public void setKundgr (String value){ this.kundgr = value;   }   
+	public String getKundgr(){ return this.kundgr;   }    	
+
+	private String adr21 = null;                                
+	public void setAdr21 (String value){ this.adr21 = value;   }   
+	public String getAdr21(){ return this.adr21;   }    	
+	
+	private String fmot = null;                                
+	public void setFmot (String value){ this.fmot = value;   }   
+	public String getFmot(){ return this.fmot;   }    	
+
 	
 	/**
 	 * 

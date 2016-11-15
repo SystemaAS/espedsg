@@ -138,7 +138,7 @@
  	   	 	<tr> <!-- Second tab row... -->
  	   	 		<td width="5%">&nbsp;</td>
  	   	 	    <td>
- 					<table class="formFrameHeaderTransparent" width="1000" cellspacing="0" border="0" cellpadding="0">
+ 					<table class="formFrameHeaderTransparent" style="width:990px" cellspacing="0" border="0" cellpadding="0">
 
 						<tr height="20"> 
 
@@ -179,9 +179,9 @@
 									</a>
 								</td>
 
-								<td width="50" class="tabDisabledTrailingEnd"></td>
+								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
 
-							 	<td width="475" class="tabFantomSpace" align="center" nowrap></td>
+							 	<td width="466" class="tabFantomSpace" align="center" nowrap></td>
 
 
 						</tr>
@@ -201,70 +201,111 @@
 						<input type="hidden" name="action" id=action value="doUpdate">
 						<input type="hidden" name="dirty" id=dirty value="">
 						<table class="tabThinBorderWhite" width="95%" cellspacing="0" border="0" align="left">
-							<tr height="3">
-								<td>&nbsp;</td>
-								<td width="3%">&nbsp;</td>
-							</tr>
-				    	    <tr>
-				    	    	<td width="3%">&nbsp;</td>
-								<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr</td>
-								<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn</td>
-								<td class="text12" title="syrg">&nbsp;<font class="text14RedBold" >*</font>TIN / CVR/SE-nr</td>
-								<td class="text12" title="adr1">&nbsp;<font class="text14RedBold" >*</font>Adresse</td>
-								<td class="text12" title="adr1">&nbsp;Adresse2</td>
-								
-							</tr>
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td ><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="syrg" id="syrg" size="30" maxlength="14" value='${model.record.syrg}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr1" id="adr1" size="30" maxlength="30" value='${model.record.adr1}'></td>
-								<td ><input type="text" class="inputTextMediumBlue" name="adr2" id="adr2" size="30" maxlength="30" value='${model.record.adr2}'></td>
-								
-							</tr>	
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>Postadresse</td>
-								<td class="text12" title="postnr">&nbsp;<font class="text14RedBold" >*</font>Postnr(NO)</td>
-								<td class="text12" title="syland">&nbsp;<font class="text14RedBold" >*</font>Land</td>
-								<td class="text12" title="firma">&nbsp;<font class="text14RedBold" >*</font>Firma</td>
-							</tr>	
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.adr3}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="postnr" id="postnr" size="10" maxlength="4" value='${model.record.postnr}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="syland" id="syland" size="5" maxlength="2" value='${model.record.syland}'></td>
-								<td ><input readonly type="text" class="inputTextReadOnly" name="firma" id="firma" size="5" maxlength="2" value='${model.record.firma}'></td>
+							<tr height="3"> <!-- rad 1 -->
+								<td width="50%" >&nbsp;
+									<table border="0">
+										<tr>
+											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr:</td>
+											<td><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+											<td class="text12" title="syrg">&nbsp;Org.nr:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
+										</tr>
+										<tr>
+											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn:</td>
+											<td><input type="text" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
+											<td class="text12" title="eori">&nbsp;Eorinr:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="eori" id="eori" size="15" maxlength="17" value='${model.record.eori}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="adr1">&nbsp;Adresse:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="adr1" id="adr1" size="30" maxlength="30" value='${model.record.adr1}'></td>
+											<td class="text12" title="spraak">&nbsp;Språk:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="spraak" id="spraak" size="1" maxlength="1" value='${model.record.spraak}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="postnr">&nbsp;Postnr(norsk):</td>
+											<td><input type="text" class="inputTextMediumBlue" name="postnr" id="postnr" size="5" maxlength="4" value='${model.record.postnr}'></td>
+											<td class="text12" title="adr2">&nbsp;Postboks:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="adr2" id="adr2" size="20" maxlength="30" value='${model.record.adr2}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="sypoge">&nbsp;Postnr(utlendsk):</td>
+											<td><input type="text" class="inputTextMediumBlue" name="sypoge" id="sypoge" size="10" maxlength="9" value='${model.record.sypoge}'></td>
+											<td class="text12" title="syland">&nbsp;Land:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="syland" id="syland" size="2" maxlength="2" value='${model.record.syland}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="adr3">&nbsp;Postadresse:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="adr3" id="adr3" size="25" maxlength="24" value='${model.record.adr3}'></td>
+											<td class="text12" title="pnpbku">&nbsp;Postboksnr:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="pnpbku" id="pnpbku" size="10" maxlength="10" value='${model.record.pnpbku}'></td>
+										</tr>
+									</table>
+								</td>
+								<td width="50%" valign="top">&nbsp;
+									<table border="0">
+										<tr>
+											<td class="text12" title="adr21">&nbsp;Adresse 3:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="adr21" id="adr21" size="25" maxlength="30" value='${model.record.adr21}'></td>
+											<td class="text12" title="systat">&nbsp;State:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="systat" id="systat" size="3" maxlength="3" value='${model.record.systat}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="kpers">&nbsp;Kontaktperson:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="kpers" id="kpers" size="25" maxlength="30" value='${model.record.kpers}'></td>
+											<td class="text12" title="tlf">&nbsp;Telefon:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="tlf" id="tlf" size="10" maxlength="8" value='${model.record.tlf}'></td>
+										</tr>
+										<tr>
+											<td class="text12" title="syepos">&nbsp;E-mail:</td>
+											<td colspan="3"><input type="text" class="inputTextMediumBlue" name="syepos" id="syepos" size="40" maxlength="70" value='${model.record.syepos}'></td>
+
+										</tr>
+										<tr>
+											<td class="text12" title="valkod">&nbsp;Valutakod:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="valkod" id="valkod" size="3" maxlength="3" value='${model.record.valkod}'></td>
+											<td class="text12" title="kundgr">&nbsp;Kundegruppe:</td>
+											<td><input type="text" class="inputTextMediumBlue" name="kundgr" id="kundgr" size="2" maxlength="2" value='${model.record.kundgr}'></td>
+										</tr>
+										<tr>
+											<td class="text12" title="sonavn">&nbsp;Söknavn:</td>
+											<td><input readonly type="text" class="inputTextReadOnly" name="sonavn" id="sonavn" size="15" maxlength="15" value='${model.record.sonavn}'></td>
+										</tr>
+										<tr>
+											<td colspan="4">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td class="text12" title="adr3">&nbsp;Syland</td>
-								<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>Sykont</td>
-								<td class="text12" title="postnr">&nbsp;<font class="text14RedBold" >*</font>Syfr02</td>
+							<tr> <!-- rad 2 -->
+								<td colspan="2" >&nbsp;</td>
 							</tr>	
 
-							<tr>
-								<td width="3%">&nbsp;</td>
-								<td ><input type="text" class="inputTextMediumBlue" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.syland}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="30" maxlength="30" value='${model.record.sykont}'></td>
-								<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="postnr" id="postnr" size="10" maxlength="4" value='${model.record.syfr02}'></td>
 
-								<td>
+							<tr> <!-- rad 3 -->
+								<td colspan="2" >&nbsp;</td>
+							</tr>	
+
+							<tr> <!-- rad4 -->
+								<td colspan="2" >&nbsp;</td>
+							</tr>
+
+							<tr> <!-- rad5 -->
+								<td >&nbsp;</td>
+								<td align="right">
 									<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 								</td>
-		
 							</tr>
-							
 
-
-
-
+							<tr height="3">
+								<td>&nbsp;</td>
 							</tr>
-							<tr height="3"><td>&nbsp;</td></tr>
-						
-							
 						</table>
 						
 	 	    		</form>

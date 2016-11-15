@@ -8,11 +8,11 @@
 	  //jq("#dialog").dialog("open");  
 	  //Funkar inte att anropas rått. Behöver <div> alt .click
 	  
-	  if(jq("#dirty").val() =="isDirty") {
-
-		  alert("Du har ändra, utan att spara. Vill du gå vidare.....");
-
-	  }
+//	  if(jq("#dirty").val() =="isDirty") {
+//
+//		  alert("Du har ändra, utan att spara. Vill du gå vidare.....");
+//
+//	  }
 
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }

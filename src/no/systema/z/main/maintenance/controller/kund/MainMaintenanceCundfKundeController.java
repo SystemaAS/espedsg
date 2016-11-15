@@ -26,6 +26,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
@@ -60,14 +61,18 @@ public class MainMaintenanceCundfKundeController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		
-		logger.info("recordToValidate="+recordToValidate.toString());
+		logger.info("init:recordToValidate="+recordToValidate.toString());
 		
-		KundeSessionParams kundeSessionParams = null;
-		kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
-
 		if (appUser == null) {
 			return this.loginView;
 		} else {
+
+			KundeSessionParams kundeSessionParams = null;
+			kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+		
+			adjustRecordToValidate(recordToValidate, kundeSessionParams);
+
+			logger.info("adjust:recordToValidate="+recordToValidate.toString());
 
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Update
 				// Validate
@@ -177,6 +182,14 @@ public class MainMaintenanceCundfKundeController {
 		}
 		
 		return retval;
+	}
+	
+	
+	//Dont know to put from jsp, here here, explicit hardwired
+	private void adjustRecordToValidate(JsonMaintMainCundfRecord recordToValidate, KundeSessionParams kundeSessionParams) {
+		recordToValidate.setFirma(kundeSessionParams.getFirma());
+		recordToValidate.setKundnr(kundeSessionParams.getKundnr());
+		recordToValidate.setSonavn(kundeSessionParams.getSonavn());
 	}
 	
 	
