@@ -82,9 +82,9 @@
 			</tr>
 			</c:if>
 	 	    
-	 	    
+<!-- 	 	    
 	 	    <tr>
-	 	   		<td width="25%">&nbsp;</td> <!-- this fix the overall width -->
+	 	   		<td width="25%">&nbsp;</td> 
 	 	   		<td>
 					<table id="firstTabRow" class="formFrameHeaderTransparent" width="1000" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
@@ -130,49 +130,57 @@
 					</table>
 				</td>
  	   	 	</tr>
- 	   	 	
- 	   	 	<tr> <!-- Second tab row... -->
- 	   	 		<td width="5%">&nbsp;</td>
+ 	
+  -->   	 	
+ 	   	 	<tr> 
+ 	   	 		<td>&nbsp;</td>
  	   	 	    <td>
- 					<table id= "secondTabRow" class="formFrameHeaderTransparent" width="1000" cellspacing="0" border="0" cellpadding="0">
+ 					<table id= "secondTabRow" class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-							<td width="80" valign="bottom" class="tabDisabled" align="center">
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kunde_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;Kunde</font>&nbsp;						
 								</a>
 							</td>
 
-							<td width="80" valign="bottom" class="tab" align="center" title="Kontakt personer...">
+							<td width="80" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;Kontakter</font>&nbsp;						
 							</td>
 
-							<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;Varer(import)</font>&nbsp;						
 								</a>
 							</td>
 
-							<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareExpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;Varer(export)</font>&nbsp;						
 								</a>
 							</td>
 
-							<td width="80" valign="bottom" class="tabDisabled" align="center">
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center">
 								<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;Fritext</font>&nbsp;						
 								</a>
 							</td>
 
-							<td width="80" valign="bottom" class="tabDisabled" align="center">
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;Parametrar</font>&nbsp;						
 								</a>
 							</td>
-
+							
+							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
+									<font class="tabDisabledLinkMinor">&nbsp;Miljøavgift</font>&nbsp;						
+								</a>
+							</td>							
+							
+<!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
-
-						 	<td width="475" class="tabFantomSpace" align="center" nowrap></td>
+ -->
+						 	<td width="540" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>
@@ -182,13 +190,13 @@
  	   	 	
  	   	 	<tr height="30">
  	   	 		<td>&nbsp;</td>
- 	   	 		<td width="50%">
+ 	   	 		<td width="100%">
  	   	 		 <table id="mainArea" class="tabThinBorderWhite" width="100%" cellspacing="0" border="0" align="left">
  	   	 		 	<tr id="smallFiller">
- 	   	 		 		<td rowspan="10" width="2%">
+ 	   	 		 		<td rowspan="10">
  	   	 		 			&nbsp;
  	   	 		 		</td>
- 	   	 		 		<td width="98%">
+ 	   	 		 		<td>
  	   	 		 			&nbsp;
  	   	 		 		</td>
  
@@ -365,7 +373,7 @@
  	   	 		
  	   	 		</td>
  
- 	   	 		<td width="20%">
+ 	   	 		<td width="30">
  	   	 			&nbsp;
  	   	 		</td>
  	   	 		
@@ -376,8 +384,6 @@
 			</tr>
 			
 			<tr height="25"><td>&nbsp;</td></tr>
-			
-
 			
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	

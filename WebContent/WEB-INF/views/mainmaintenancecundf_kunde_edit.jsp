@@ -83,7 +83,7 @@
 			</tr>
 			</c:if>
 	 	    
-	 	    
+<!-- 	 	    
 	 	    <tr>
 	 	   		<td width="5%">&nbsp;</td>
 	 	   		<td>
@@ -134,54 +134,57 @@
 					</table>
 				</td>
  	   	 	</tr>
- 	   	 	
+  -->	   	 	
  	   	 	<tr> <!-- Second tab row... -->
- 	   	 		<td width="5%">&nbsp;</td>
+ 	   	 		<td>&nbsp;</td>
  	   	 	    <td>
- 					<table class="formFrameHeaderTransparent" style="width:990px" cellspacing="0" border="0" cellpadding="0">
-
+ 					<table class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-
-								<td width="80" valign="bottom" class="tab" align="center" nowrap>
+								<td width="80" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;Kunde</font>
 								</td>
 
-
-								<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_list.do">
 										<font class="tabDisabledLinkMinor">&nbsp;Kontakter</font>&nbsp;						
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;Varer(import)</font>&nbsp;						
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabled" align="center" title="Kontakt personer...">
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareExpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;Varer(export)</font>&nbsp;						
 									</a>
 								</td>
 
-
-
-								<td width="80" valign="bottom" class="tabDisabled" align="center">
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;Fritext</font>&nbsp;						
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabled" align="center">
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;Parametrar</font>&nbsp;						
 									</a>
 								</td>
-
+								
+								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+									<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
+										<font class="tabDisabledLinkMinor">&nbsp;Miljøavgift</font>&nbsp;						
+									</a>
+								</td>
+								
+								
+<!--  
 								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
-
-							 	<td width="466" class="tabFantomSpace" align="center" nowrap></td>
+-->
+							 	<td width="520" class="tabFantomSpace" align="center" nowrap></td>
 
 
 						</tr>
@@ -191,17 +194,15 @@
  	   	 	
  	   	 	</tr> <!-- End second tab row -->
  
- 
  	    	<tr>
- 
-				<td width="5%">&nbsp;</td>
+				<td>&nbsp;</td>
 				<td width="100%">
 					<form action="mainmaintenancecundf_kunde_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="action" id=action value="doUpdate">
 						<input type="hidden" name="dirty" id=dirty value="">
-						<table class="tabThinBorderWhite" width="95%" cellspacing="0" border="0" align="left">
-							<tr height="3"> <!-- rad 1 -->
+						<table class="tabThinBorderWhite" width="100%" cellspacing="0" border="0" align="left">
+							<tr> <!-- rad 1 -->
 								<td width="50%" >&nbsp;
 									<table border="0">
 										<tr>
@@ -263,7 +264,7 @@
 										</tr>
 										<tr>
 											<td class="text12" title="syepos">&nbsp;E-mail:</td>
-											<td colspan="3"><input type="text" class="inputTextMediumBlue" name="syepos" id="syepos" size="40" maxlength="70" value='${model.record.syepos}'></td>
+											<td colspan="4"><input type="text" class="inputTextMediumBlue" name="syepos" id="syepos" size="50" maxlength="70" value='${model.record.syepos}'></td>
 
 										</tr>
 										<tr>
@@ -273,7 +274,7 @@
 											<td><input type="text" class="inputTextMediumBlue" name="kundgr" id="kundgr" size="2" maxlength="2" value='${model.record.kundgr}'></td>
 										</tr>
 										<tr>
-											<td class="text12" title="sonavn">&nbsp;Söknavn:</td>
+											<td class="text12" title="sonavn">&nbsp;Søknavn:</td>
 											<td><input readonly type="text" class="inputTextReadOnly" name="sonavn" id="sonavn" size="15" maxlength="15" value='${model.record.sonavn}'></td>
 										</tr>
 										<tr>
@@ -284,16 +285,197 @@
 							</tr>
 
 							<tr> <!-- rad 2 -->
-								<td colspan="2" >&nbsp;</td>
+								<td colspan="2" >&nbsp;
+									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
+										<tr>
+											<td class="text12Bold">
+												&nbsp;Faktura 
+											</td>
+										</tr>
+									</table>
+									<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+										<tr> 
+											<td width="50%" >
+												<table border="0">
+													<tr>
+														<td class="text12" title="bankg">&nbsp;Bankgiro:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="bankg" id="bankg" size="20" maxlength="15" value='${model.record.bankg}'></td>
+														<td class="text12" title="betbet">&nbsp;Betalingsbetingelse:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="betbet" id="betbet" size="5" maxlength="2" value='${model.record.betbet}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="postg">&nbsp;Postgiro:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="postg" id="postg" size="20" maxlength="20" value='${model.record.postg}'></td>
+														<td class="text12" title="betmat">&nbsp;Betaling:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="betmat" id="betmat" size="15" maxlength="17" value='${model.record.betmat}'></td>
+			
+													</tr>
+													<tr>
+														<td class="text12" title="sykont">&nbsp;Kontonummer:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="sykont" id="sykont" size="10" maxlength="7" value='${model.record.sykont}'></td>
+														<td class="text12" title="kgrens">&nbsp;Kredittgrense:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="kgrens" id="kgrens" size="10" maxlength="7" value='${model.record.kgrens}'></td>
+			
+													</tr>
+													<tr>
+														<td class="text12" title="fmot">&nbsp;Fakturamottager:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														<td><input type="text" class="inputTextMediumBlue" name="fmot" id="fmot" size="10" maxlength="8" value='${model.record.fmot}'></td>
+														<td class="text12" title="sfakt">&nbsp;Samlefakturagrunnlag:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="sfakt" id="sfakt" size="1" maxlength="1" value='${model.record.sfakt}'></td>
+													</tr>
+												</table>
+											</td>
+											<td width="50%" valign="top">
+												<table border="0">
+													<tr>
+														<td class="text12" title="sysalu">&nbsp;Saldo, ufaktureret:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="sysalu" id="sysalu" size="15" maxlength="13" value='${model.record.sysalu}'></td>
+														<td class="text12" title="syfr03">&nbsp;Faktura, fritekstkode:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr03" id="syfr03" size="5" maxlength="2" value='${model.record.syfr03}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="xxinm3">&nbsp;Faktura, innland M3:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="xxinm3" id="xxinm3" size="5" maxlength="3" value='${model.record.xxinm3}'></td>
+														<td class="text12" title="xxinlm">&nbsp;Faktura, innland LM:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="xxinlm" id="xxinlm" size="5" maxlength="4" value='${model.record.xxinlm}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="rnraku">&nbsp;Mva nummer:</td>
+														<td colspan="3"><input type="text" class="inputTextMediumBlue" name="rnraku" id="rnraku" size="5" maxlength="3" value='${model.record.rnraku}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="symvjn">&nbsp;Momsregistrert:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="symvjn" id="symvjn" size="1" maxlength="1" value='${model.record.symvjn}'></td>
+														<td class="text12" title="symvsp">&nbsp;Momsspecifikasjon:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="symvsp" id="symvsp" size="1" maxlength="1" value='${model.record.symvsp}'></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>	
 
-
 							<tr> <!-- rad 3 -->
-								<td colspan="2" >&nbsp;</td>
+								<td colspan="2" >&nbsp;
+									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
+										<tr>
+											<td class="text12Bold">
+												&nbsp;Vilkår 
+											</td>
+										</tr>
+									</table>
+									<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+										<tr> 
+											<td width="50%" >
+												<table border="0">
+													<tr>
+														<td class="text12" title="syutlp">&nbsp;Utlendsk provision:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syutlp" id="syutlp" size="5" maxlength="4" value='${model.record.syutlp}'>%</td>
+														<td class="text12" title="syminu">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																								Utlendsk provision, min.:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syminu" id="syminu" size="5" maxlength="4" value='${model.record.syminu}'>%</td>
+													</tr>
+													<tr>
+														<td class="text12" title="syopdt">&nbsp;Oppdragstype:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syopdt" id="syopdt" size="5" maxlength="2" value='${model.record.syopdt}'></td>
+														<td class="text12" title="sylikv">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																								Likviditetskode:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="sylikv" id="sylikv" size="1" maxlength="1" value='${model.record.sylikv}'></td>
+			
+													</tr>
+												</table>
+											</td>
+											<td width="50%" valign="top">
+												<table border="0">
+													<tr>
+														<td class="text12" title="golk">&nbsp;Godslokalkode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="golk" id="golk" size="5" maxlength="4" value='${model.record.golk}'></td>
+														<td class="text12" title="aktkod">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							Aktivitetskode:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="aktkod" id="aktkod" size="5" maxlength="2" value='${model.record.aktkod}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="dkund">&nbsp;Diversekunde:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="dkund" id="dkund" size="1" maxlength="1" value='${model.record.dkund}'></td>
+														<td class="text12" title="syfr02">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							Tollkreditt:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr02" id="syfr02" size="5" maxlength="4" value='${model.record.syfr02}'></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>	
 
 							<tr> <!-- rad4 -->
-								<td colspan="2" >&nbsp;</td>
+								<td colspan="2" >&nbsp;
+									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
+										<tr>
+											<td class="text12Bold">
+												&nbsp;Øvrig
+											</td>
+										</tr>
+									</table>
+									<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+										<tr> 
+											<td width="50%" >
+												<table border="0">
+													<tr>
+														<td class="text12" title="vatkku">&nbsp;VAT nummer:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="vatkku" id="vatkku" size="20" maxlength="14" value='${model.record.vatkku}'></td>
+														<td class="text12" title="syselg">&nbsp;Selgerkode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syselg" id="syselg" size="5" maxlength="3" value='${model.record.syselg}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="aknrku">&nbsp;Avtalekundenr:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="aknrku" id="aknrku" size="10" maxlength="8" value='${model.record.aknrku}'></td>
+														<td class="text12" title="syfr04">&nbsp;Secured:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr04" id="syfr04" size="5" maxlength="3" value='${model.record.syfr04}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="syregn">&nbsp;Fylkeskattesjef:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syregn" id="syregn" size="5" maxlength="2" value='${model.record.syregn}'></td>
+														<td class="text12" title="syfr05">&nbsp;Samtak:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr05" id="syfr05" size="5" maxlength="3" value='${model.record.syfr05}'></td>
+													</tr>
+												</table>
+											</td>
+											<td width="50%" valign="top">
+												<table border="0">
+													<tr>
+														<td class="text12" title="syfr06">&nbsp;Free 06:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr06" id="syfr06" size="5" maxlength="4" value='${model.record.syfr06}'></td>
+														<td class="text12" title="xxbre">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																								Breddegrad:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="xxbre" id="xxbre" size="10" maxlength="8" value='${model.record.xxbre}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="syiat1">&nbsp;Iatakode 1:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syiat1" id="syiat1" size="10" maxlength="7" value='${model.record.syiat1}'></td>
+														<td class="text12" title="xxlen">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																								Lengdegrad:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="xxlen" id="xxlen" size="10" maxlength="9" value='${model.record.xxlen}'></td>
+													</tr>
+													<tr>
+														<td class="text12" title="syiat2">&nbsp;Iatakode 2:</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syiat2" id="syiat2" size="5" maxlength="4" value='${model.record.syiat2}'></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 
 							<tr> <!-- rad5 -->
@@ -310,6 +492,12 @@
 						
 	 	    		</form>
 				</td>
+				
+				<td width="30">
+ 	   	 			&nbsp;
+ 	   	 		</td>
+				
+				
 			</tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>

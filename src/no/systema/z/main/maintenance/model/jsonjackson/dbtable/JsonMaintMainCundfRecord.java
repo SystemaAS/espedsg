@@ -104,6 +104,129 @@ public class JsonMaintMainCundfRecord extends JsonAbstractGrandFatherRecord {
 	public void setFmot (String value){ this.fmot = value;   }   
 	public String getFmot(){ return this.fmot;   }    	
 
+	private String bankg = null;                                
+	public void setBankg (String value){ this.bankg = value;   }   
+	public String getBankg(){ return this.bankg;   }    	
+
+	private String postg = null;                                
+	public void setPostg (String value){ this.postg = value;   }   
+	public String getPostg(){ return this.postg;   }    	
+	
+	private String betbet = null;                                
+	public void setBetbet (String value){ this.betbet = value;   }   
+	public String getBetbet(){ return this.betbet;   }    	
+	
+	private String betmat = null;                                
+	public void setBetmat (String value){ this.betmat = value;   }   
+	public String getBetmat(){ return this.betmat;   }    	
+	
+	private String sfakt = null;                                
+	public void setSfakt (String value){ this.sfakt = value;   }   
+	public String getSfakt(){ return this.sfakt;   }    
+	
+	private String kgrens = null;                                
+	public void setKgrens (String value){ this.kgrens = value;   }   
+	public String getKgrens(){ return this.kgrens;   }    
+	
+	private String sysalu = null;                                
+	public void setSysalu (String value){ this.sysalu = value;   }   
+	public String getSysalu(){ return this.sysalu;   }   
+	
+	private String syfr03 = null;                                
+	public void setSyfr03 (String value){ this.syfr03 = value;   }   
+	public String getSyfr03(){ return this.syfr03;   }   
+	
+	private String xxinm3 = null;                                
+	public void setXxinm3 (String value){ this.xxinm3 = value;   }   
+	public String getXxinm3(){ return this.xxinm3;   }   
+	
+	private String xxinlm = null;                                
+	public void setXxinlm (String value){ this.xxinlm = value;   }   
+	public String getXxinlm(){ return this.xxinlm;   }   
+	
+	private String rnraku = null;                                
+	public void setRnraku (String value){ this.rnraku = value;   }   
+	public String getRnraku(){ return this.rnraku;   }   
+	
+	private String symvjn = null;                                
+	public void setSymvjn (String value){ this.symvjn = value;   }   
+	public String getSymvjn(){ return this.symvjn;   }   
+	
+	private String symvsp = null;                                
+	public void setSymvsp (String value){ this.symvsp = value;   }   
+	public String getSymvsp(){ return this.symvsp;   }   	
+	
+	private String syutlp = null;                                
+	public void setSyutlp (String value){ this.syutlp = value;   }   
+	public String getSyutlp(){ return this.syutlp;   }   	
+
+	private String syminu = null;                                
+	public void setSyminu (String value){ this.syminu = value;   }   
+	public String getSyminu(){ return this.syminu;   }   	
+	
+	private String syopdt = null;                                
+	public void setSyopdt (String value){ this.syopdt = value;   }   
+	public String getSyopdt(){ return this.syopdt;   }   	
+	
+	private String sylikv = null;                                
+	public void setSylikv (String value){ this.sylikv = value;   }   
+	public String getSylikv(){ return this.sylikv;   }   	
+	
+	private String golk = null;                                
+	public void setGolk (String value){ this.golk = value;   }   
+	public String getGolk(){ return this.golk;   }   		
+	
+	private String aktkod = null;                                
+	public void setAktkod (String value){ this.aktkod = value;   }   
+	public String getAktkod(){ return this.aktkod;   }   
+
+	private String dkund = null;                                
+	public void setDkund(String value){ this.dkund = value;   }   
+	public String getDkund(){ return this.dkund;   }   
+
+	private String vatkku = null;                                
+	public void setVatkku(String value){ this.vatkku = value;   }   
+	public String getVatkku(){ return this.vatkku;   }   
+
+	private String syselg = null;                                
+	public void setSyselg(String value){ this.syselg = value;   }   
+	public String getSyselg(){ return this.syselg;   }   	
+	
+	private String aknrku = null;                                
+	public void setAknrku(String value){ this.aknrku = value;   }   
+	public String getAknrku(){ return this.aknrku;   }   	
+	
+	private String syfr04 = null;                                
+	public void setSyfr04(String value){ this.syfr04 = value;   }   
+	public String getSyfr04(){ return this.syfr04;   }   	
+	
+	private String syregn = null;                                
+	public void setSyregn(String value){ this.syregn = value;   }   
+	public String getSyregn(){ return this.syregn;   }   		
+
+	private String syfr05 = null;                                
+	public void setSyfr05(String value){ this.syfr05 = value;   }   
+	public String getSyfr05(){ return this.syfr05;   }   	
+
+	private String syfr06 = null;                                
+	public void setSyfr06(String value){ this.syfr06 = value;   }   
+	public String getSyfr06(){ return this.syfr06;   }   	
+	
+	private String xxbre = null;                                
+	public void setXxbre(String value){ this.xxbre = value;   }   
+	public String getXxbre(){ return this.xxbre;   }   		
+	
+	private String syiat1 = null;                                
+	public void setSyiat1(String value){ this.syiat1 = value;   }   
+	public String getSyiat1(){ return this.syiat1;   }  
+	
+	private String xxlen = null;                                
+	public void setXxlen(String value){ this.xxlen = value;   }   
+	public String getXxlen(){ return this.xxlen;   }  
+	
+	private String syiat2 = null;                                
+	public void setSyiat2(String value){ this.syiat2 = value;   }   
+	public String getSyiat2(){ return this.syiat2;   }  
 	
 	/**
 	 * 
