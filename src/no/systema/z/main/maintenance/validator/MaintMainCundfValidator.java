@@ -27,8 +27,11 @@ public class MaintMainCundfValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firma", "systema.maint.kunderegister.error.firma"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kundnr", "systema.maint.kunderegister.error.kundnr");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sonavn", "systema.maint.kunderegister.error.sonavn");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "postnr", "systema.maint.kunderegister.error.postnr");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "adr3", "systema.maint.kunderegister.error.adr3");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "betbet", "systema.maint.kunderegister.error.betbet");
 
-		//TODO: continue...
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){

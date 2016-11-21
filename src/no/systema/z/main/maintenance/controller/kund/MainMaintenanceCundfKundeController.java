@@ -73,6 +73,8 @@ public class MainMaintenanceCundfKundeController {
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
 			logger.info("adjust:recordToValidate="+recordToValidate.toString());
+			
+			//TODO: Create new
 
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Update
 				// Validate
@@ -185,7 +187,6 @@ public class MainMaintenanceCundfKundeController {
 	}
 	
 	
-	//Dont know to put from jsp, here here, explicit hardwired
 	private void adjustRecordToValidate(JsonMaintMainCundfRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setFirma(kundeSessionParams.getFirma());
 		recordToValidate.setKundnr(kundeSessionParams.getKundnr());

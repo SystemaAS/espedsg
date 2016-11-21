@@ -20,28 +20,6 @@ function setBlockUI(element) {
 }
 
 jq(function() {
-
-	jq("#dialog").dialog({
-		modal : true,
-		resizable : false,
-		buttons : {
-			"Yeah!" : function() {
-				$(this).dialog("close");
-			},
-			"Sure, Why Not" : function() {
-				$(this).dialog("close");
-			}
-		}
-	});
-
-	jq("input[type='text']").change(function() {
-		jq('#dirty').val("isDirty");
-
-	});
-
-});
-
-jq(function() {
 	//Clean values for createing new record
 	jq('#newRecordButton').click(function() {
 		jq('#tgkna').val("");
@@ -65,6 +43,25 @@ jq(function() {
 		jq('#updateId').val("");
 		
 	});
+
+	jq("#formRecord").submit(function() {
+		jq.blockUI({
+			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
+		});
+	});
+
+	jq("input[type='text']").change(function() {
+		jq('#dirty').val("isDirty");
+
+	});
+	
+    jq('#ctypeIdLink').click(function() {
+    	jq('#ctypeIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?callertype=ctype', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	
+	
+	
+	
 }); 
 
 

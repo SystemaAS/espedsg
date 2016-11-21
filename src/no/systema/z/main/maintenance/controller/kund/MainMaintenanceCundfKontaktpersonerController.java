@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.main.context.TdsAppContext;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
@@ -91,6 +94,9 @@ public class MainMaintenanceCundfKontaktpersonerController {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
+		logger.info("init: recordToValidate="+recordToValidate);
+
+		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
@@ -101,7 +107,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 			
 			
-			logger.info("recordToValidate="+recordToValidate);
+			logger.info("after: recordToValidate="+recordToValidate);
 			
 			
 			MaintMainCundcValidator validator = new MaintMainCundcValidator();
@@ -176,7 +182,6 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 	}
 	
-	//Dont know to put from jsp, here here, explicit hardwired
 	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setCfirma(kundeSessionParams.getFirma());
 		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
