@@ -313,7 +313,7 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 						
-								<table id="containerdatatableTable" align="left" >
+								<table id="containerdatatableTable" align="left" width="100%" >
 								<tr>
 								<td class="text11">	
 							
@@ -681,7 +681,7 @@
 						 					<select class="inputTextMediumBlueMandatoryField" name="svev_eup1" id="svev_eup1" >
 							 					<option value="">-Välj-</option>
 											  	<c:forEach var="code" items="${model.forfarande01CodeList}" >
-							 				  		<option value="${code.svkd_kd}"<c:if test="${model.record.sviv_eup1 == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+							 				  		<option value="${code.svkd_kd}"<c:if test="${model.record.svev_eup1 == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
 												</c:forEach>
 											</select>
 											<a tabindex="-1" id="svev_eup1IdLink" >
@@ -693,7 +693,7 @@
 						 					<select name="svev_eup2" id="svev_eup2" >
 							 				  <option value="">-Välj-</option>
 											  <c:forEach var="code" items="${model.forfarande02CodeList}" >
-			 				  					 <option value="${code.svkd_kd}"<c:if test="${model.record.sviv_eup2 == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
+			 				  					 <option value="${code.svkd_kd}"<c:if test="${model.record.svev_eup2 == code.svkd_kd}"> selected </c:if> >${code.svkd_kd}</option>
 											  </c:forEach> 
 											</select>
 											<a tabindex="-1" id="svev_eup2IdLink" >

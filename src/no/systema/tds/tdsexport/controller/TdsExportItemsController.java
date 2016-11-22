@@ -173,8 +173,6 @@ public class TdsExportItemsController {
 				
 				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate));
 				
-				
-
 				TdsExportItemsValidator validator = new TdsExportItemsValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			    validator.validate(recordToValidate, bindingResult);
@@ -323,7 +321,7 @@ public class TdsExportItemsController {
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
 			}
-	    	
+	    
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
@@ -344,27 +342,25 @@ public class TdsExportItemsController {
 			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
 			
 			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	    	JsonTdsExportSpecificTopicItemContainer jsonTdsExportSpecificTopicItemContainer = this.getTdsExportSpecificTopicItemService().getTdsExportSpecificTopicItemContainer(jsonPayloadFetch);
+	    	
+			JsonTdsExportSpecificTopicItemContainer jsonTdsExportSpecificTopicItemContainer = this.getTdsExportSpecificTopicItemService().getTdsExportSpecificTopicItemContainer(jsonPayloadFetch);
 	    	if(jsonTdsExportSpecificTopicItemContainer!=null){
 	    		Double calculatedItemLinesTotalAmount = this.tdsExportCalculator.getItemLinesTotalAmount(jsonTdsExportSpecificTopicItemContainer);
 	    		Double diffItemLinesTotalAmountWithInvoiceTotalAmount = this.tdsExportCalculator.getDiffBetweenCalculatedTotalAmountAndTotalAmount(invoiceTotalAmount, calculatedItemLinesTotalAmount);
 	    		jsonTdsExportSpecificTopicItemContainer.setCalculatedItemLinesTotalAmount(calculatedItemLinesTotalAmount);
 	    		jsonTdsExportSpecificTopicItemContainer.setDiffItemLinesTotalAmountWithInvoiceTotalAmount(diffItemLinesTotalAmountWithInvoiceTotalAmount);
 	    	}
+	    	
 	    	//general code population
 		    this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","KLI");
 		    this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","THO");
-		    	
-    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","GCY");
+		    this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","GCY");
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","MDX");
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","MCF");
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"E","SAL");
-    		
-    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"E","FOR");
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"E","FF1");
-    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","FFK");
-    		
-    		    
+    		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"E","FFK");
+    		  
     		this.setDomainObjectsForListInView(session, model, jsonTdsExportSpecificTopicItemContainer);
 			
     		successView.addObject("model",model);
@@ -674,16 +670,16 @@ public class TdsExportItemsController {
 	 * @param model
 	 * @param jsonTdsExportSpecificTopicItemContainer
 	 */
-	private void setDomainObjectsForListInView(HttpSession session, Map model, JsonTdsExportSpecificTopicItemContainer jsonTdsExportSpecificTopicItemContainer){
+	private void setDomainObjectsForListInView(HttpSession session, Map model, JsonTdsExportSpecificTopicItemContainer container){
 		List list = new ArrayList();
-		if(jsonTdsExportSpecificTopicItemContainer!=null){
-			for (JsonTdsExportSpecificTopicItemRecord record : jsonTdsExportSpecificTopicItemContainer.getOrderList()){
+		if(container!=null){
+			for (JsonTdsExportSpecificTopicItemRecord record : container.getOrderList()){
 				list.add(record);
 				//logger.info(record.getSvev_vasl());
 			}
 		}
 		model.put(TdsConstants.DOMAIN_LIST, list);
-		model.put(TdsConstants.DOMAIN_RECORD_ITEM_CONTAINER_TOPIC, jsonTdsExportSpecificTopicItemContainer);
+		model.put(TdsConstants.DOMAIN_RECORD_ITEM_CONTAINER_TOPIC, container);
 		//set a session variable in order to make the list available to an external view controller (Excel/PDF- Controller)
 		session.setAttribute(session.getId() + TdsConstants.SESSION_LIST, list);
 		

@@ -27,8 +27,9 @@ public class TdsExportItemsValidator implements Validator {
 	 */
 	public void validate(Object obj, Errors errors) { 
 		JsonTdsExportSpecificTopicItemRecord record = (JsonTdsExportSpecificTopicItemRecord)obj;
-
+		
 		//Check for Mandatory fields first
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_ulkd", "systema.tds.export.header.error.null.item.svev_ulkd"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_vata", "systema.tds.export.header.error.null.item.svev_vata"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_eup1", "systema.tds.export.header.error.null.item.svev_eup1");
