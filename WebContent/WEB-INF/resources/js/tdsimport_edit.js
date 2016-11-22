@@ -723,6 +723,27 @@
 			});
 	    });
 	});
+	jq(function() { 
+	    jq('#svih_vakd').blur(function() {
+	    	if(jq('#svih_vaku').val()==''){
+		    	//this parameters must match the AJAX controller parameter names in Spring exactly...
+				jq.getJSON('getCurrencyRate_TdsImport.do', {
+					applicationUser : jq('#applicationUser').val(),
+					currencyCode : jq('#svih_vakd').val(),
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						//data[i].svvk_krs;
+						//data[i].svvs_omr;
+						jq('#svih_vaku').val(data[i].svvk_krs);
+						jq('#svih_vaom').val(data[i].svvs_omr);
+					}
+					
+				});
+	    	}
+	    });
+	});
 
 	
 	//Meddelandetyp Mandatory fields

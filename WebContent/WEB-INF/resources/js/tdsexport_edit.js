@@ -713,6 +713,25 @@
 			});
 	    });
 	});
+	jq(function() { 
+	    jq('#sveh_vakd').blur(function() {
+	    	if(jq('#sveh_vaku').val()==''){
+				jq.getJSON('getCurrencyRate.do', {
+					applicationUser : jq('#applicationUser').val(),
+					currencyCode : jq('#sveh_vakd').val(),
+					ajax : 'true'
+				}, function(data) {
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						//data[i].svvk_krs;
+						//data[i].svvs_omr;
+						jq('#sveh_vaku').val(data[i].svvk_krs);
+						jq('#sveh_vaom').val(data[i].svvs_omr);
+					}
+				});
+	    	}
+	    });
+	});
 
 	//---------------
 	//Tullkontor list
