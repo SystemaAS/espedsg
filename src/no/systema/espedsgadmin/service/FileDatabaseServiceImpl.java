@@ -7,6 +7,8 @@ import java.util.List;
 
 import no.systema.espedsgadmin.db.FileDatabaseManager;
 import no.systema.espedsgadmin.model.CustomerApplicationObject;
+import no.systema.espedsgadmin.model.TomcatAspApplicationObject;
+
 
 /**
  * @author oscardelatorre
@@ -17,8 +19,6 @@ import no.systema.espedsgadmin.model.CustomerApplicationObject;
 public class FileDatabaseServiceImpl implements FileDatabaseService {
 	
 	/**
-	 * 
-	 * @param utfPayload
 	 * @return
 	 * 
 	 */
@@ -26,6 +26,18 @@ public class FileDatabaseServiceImpl implements FileDatabaseService {
 		
 		FileDatabaseManager dbMgr = new FileDatabaseManager();
 		List<CustomerApplicationObject> list = dbMgr.getCustAppMap();
+
+		return list;
+	}
+	
+	/**
+	 * @return
+	 * 
+	 */
+	public List<TomcatAspApplicationObject> getTomcatAspPortList(){
+		
+		FileDatabaseManager dbMgr = new FileDatabaseManager();
+		List<TomcatAspApplicationObject> list = dbMgr.getTomcatAspCustomersPortList();
 
 		return list;
 	}

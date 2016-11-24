@@ -4,6 +4,7 @@
 package no.systema.espedsgadmin.service;
 import java.util.*;
 import no.systema.espedsgadmin.model.CustomerApplicationObject;
+import no.systema.espedsgadmin.model.TomcatAspApplicationObject;
 
 
 /**
@@ -12,4 +13,5 @@ import no.systema.espedsgadmin.model.CustomerApplicationObject;
  */
 public interface FileDatabaseService {
 	public List<CustomerApplicationObject> getCustomerApplicationList();
+	public List<TomcatAspApplicationObject> getTomcatAspPortList();
 }

@@ -129,7 +129,57 @@
 			</tr>
 		    </c:if>
 		    
+	 	    <tr height="40"><td>&nbsp;</td></tr>
+	 	    
+	 	    <%-- list component --%>
+			<c:if test="${not empty model.dbTomcatPortsObjectList}">
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="8" class="text14"><b>&nbsp;SaaS Tomcat [ server.xml ]</b> configuration ports</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+					
+				<td width="98%">
+				<table cellspacing="0" border="0" cellpadding="0">
+			    	    <tr>
+						<td >
+						<table cellspacing="0" border="0" cellpadding="0">
+							<tr class="tableHeaderField" height="20" valign="left">
+			                    <td class="tableHeaderFieldFirst" align="left" >&nbsp;CUSTOMER&nbsp;</td>
+			                    <td class="tableHeaderField" align="left" >&nbsp;CONNECTOR port&nbsp;</td>
+			                    <td class="tableHeaderField" align="left" >&nbsp;SHUTDOWN port&nbsp;</td>
+			                    <td class="tableHeaderField" align="left" >&nbsp;SSL port&nbsp;</td>
+			                    <td class="tableHeaderField" align="left" >&nbsp;AJP port&nbsp;</td>
+			                </tr>  
+			                   
+				            <c:forEach var="record" items="${model.dbTomcatPortsObjectList}" varStatus="counter">    
+				               <c:choose>           
+				                   <c:when test="${counter.count%2==0}">
+				                       <tr class="tableRow" height="20" >
+				                   </c:when>
+				                   <c:otherwise>   
+				                       <tr class="tableOddRow" height="20" >
+				                   </c:otherwise>
+				               </c:choose>
+				               <td class="tableCellFirst"  ><font class="text12MediumBlue">&nbsp;${record.aspCustomerName}&nbsp;</font></td>
+		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.connectorPort}&nbsp;</font></td>
+		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.shutdownPort}&nbsp;</font></td>
+		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.sslPort}&nbsp;</font></td>
+		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.ajpPort}&nbsp;</font></td>
+		                       
+				            </tr> 
+				            </c:forEach>
+			            </table>
+					</td>	
+					</tr>
+				</table>
+				</td>
+			</tr>
+		    </c:if>
+	 	    
 	 	    <tr height="20"><td>&nbsp;</td></tr>
+	 	    
 	 		</table>
 		</td>
 	</tr>

@@ -67,8 +67,11 @@ public class CustomerApplicationController {
 			return this.loginView;
 		}else{
 			
-			List list = this.fileDatabaseService.getCustomerApplicationList();
-			model.put("dbObjectList", list);
+			List dbObjectList = this.fileDatabaseService.getCustomerApplicationList();
+			List dbTomcatPortsObjectList = this.fileDatabaseService.getTomcatAspPortList();
+			//
+			model.put("dbObjectList", dbObjectList);
+			model.put("dbTomcatPortsObjectList", dbTomcatPortsObjectList);
 			
 			successView.addObject("model" , model);
 			

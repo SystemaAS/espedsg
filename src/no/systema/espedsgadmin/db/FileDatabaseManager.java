@@ -10,6 +10,8 @@ import no.systema.main.context.TdsServletContext;
 import no.systema.main.util.io.TextFileReaderService;
 import no.systema.espedsgadmin.controller.CustomerApplicationController;
 import no.systema.espedsgadmin.model.CustomerApplicationObject;
+import no.systema.espedsgadmin.model.TomcatAspApplicationObject;
+
 
 /**
  * 
@@ -28,7 +30,8 @@ public class FileDatabaseManager {
 	private String sourceFileCustApps = "custApps.db";
 	Map<String, String> customerMap = new HashMap<String, String>();
 	Map<String, String> appMap = new HashMap<String, String>();
-
+	//Tomcat ports
+	private String sourceFileTomcatAspCustomers = "tomcatAspCustomers.db";
 	
 	
 	/**
@@ -158,4 +161,43 @@ public class FileDatabaseManager {
 		}
 		return dbCarrierObjectList;
 	}
+	
+	/**
+	 * Get list of tomcat ports per ASP customer
+	 * @return
+	 */
+	public List<TomcatAspApplicationObject> getTomcatAspCustomersPortList(){
+		List<TomcatAspApplicationObject> dbCarrierObjectList = new ArrayList<TomcatAspApplicationObject>();
+		TomcatAspApplicationObject tomcatObject = null;
+		TextFileReaderService textFileReaderServiceCustApps = new TextFileReaderService();
+		List<String> payload = textFileReaderServiceCustApps.getFileLines(TdsServletContext.getTdsServletContext().getResourceAsStream(RESOURCE_FILES_PATH_DEFAULT + this.sourceFileTomcatAspCustomers), this.UTF_8);
+		
+		for(String record : payload){
+			if(!record.contains("META")){
+				String[] fields = record.split(";");
+				//System.out.println ("CUST: " + id[0]);
+				List<String> list = null;
+				if(fields!=null && fields.length>0){
+					list = Arrays.asList(fields);
+				}else{
+					list = new ArrayList();
+				}
+				if(fields!=null && fields.length>1){
+					//populate carrier object
+					tomcatObject = new TomcatAspApplicationObject();
+					tomcatObject.setAspCustomerName(fields[0]);
+					tomcatObject.setConnectorPort(fields[1]);
+					tomcatObject.setShutdownPort(fields[2]);
+					tomcatObject.setSslPort(fields[3]);
+					tomcatObject.setAjpPort(fields[4]);
+					logger.info("ASP:" + tomcatObject.getAspCustomerName());
+					//add to list
+					dbCarrierObjectList.add(tomcatObject);
+				}
+			}
+		}
+		return dbCarrierObjectList;
+	}
+	
+	
 }
