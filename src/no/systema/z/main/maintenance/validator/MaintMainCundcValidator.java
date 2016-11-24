@@ -43,8 +43,6 @@ public class MaintMainCundcValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cfirma", "systema.maint.kunderegister.error.firma"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ccompn", "systema.maint.kunderegister.error.kundnr");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cconta", "systema.maint.kunderegister.error.cconta");
-		
-		
 	}
 	
 }

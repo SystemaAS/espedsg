@@ -7,7 +7,6 @@ import java.util.List;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 /**
- * This class i beholder of codes in child windows.
  * 
  * @author Fredrik Möller
  * @date Nov 21, 2016
@@ -15,23 +14,41 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMaintMainChildWindowsKodeRecord extends JsonAbstractGrandFatherRecord {
 
-	private String code = null; 
-	private String description = null; 
+	private String kftyp = null;
+	private String kfkod = null;
+	private String kftxt = null;
+	private String kftxte = null;
 
-	public String getCode() {
-		return code;
+	public String getKftyp() {
+		return kftyp;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setKftyp(String kftyp) {
+		this.kftyp = kftyp;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getKfkod() {
+		return kfkod;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setKfkod(String kfkod) {
+		this.kfkod = kfkod;
+	}
+
+	public String getKftxt() {
+		return kftxt;
+	}
+
+	public void setKftxt(String kftxt) {
+		this.kftxt = kftxt;
+	}
+
+	public String getKftxte() {
+		return kftxte;
+	}
+
+	public void setKftxte(String kftxte) {
+		this.kftxte = kftxte;
 	}
 
 	/**

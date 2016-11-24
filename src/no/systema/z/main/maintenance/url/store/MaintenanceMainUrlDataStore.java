@@ -71,6 +71,13 @@ public final class MaintenanceMainUrlDataStore {
 	 * 
 	 */
 	static public String MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsCUNDC.do";
+	
+	/**
+	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=FUNKSJON&kfkod=ad
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=FUNKSJON
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKOFAST.do";	
 
 	/**
 	 * /syjservicesbcore/syjsCUNDC_C.do

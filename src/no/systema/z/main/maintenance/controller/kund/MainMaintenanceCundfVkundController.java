@@ -22,21 +22,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.main.context.TdsAppContext;
+import no.systema.jservices.common.values.FasteKoder;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
-import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
-import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
+import no.systema.z.main.maintenance.controller.ChildWindowKode;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowsKodeContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowsKodeRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.service.MaintMainChildWindowService;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
@@ -134,23 +134,28 @@ public class MainMaintenanceCundfVkundController {
 
 	}
 
-
+	/**
+	 * This method serve as data populater for all child windows for Kunderegister - VKUND.
+	 * 
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="mainmaintenance_vkund_edit_childwindow_codes.do",  method={RequestMethod.GET} )
 	public ModelAndView getCodes(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenance_vkund_edit_childwindow_codes");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String callerType = request.getParameter("callertype");
-		String typeCode = request.getParameter("type");
+		String caller = request.getParameter("caller");  //Field in jsp
 		
-		//check user (should be in session already)
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			  
-			List list = getCodeList(appUser, typeCode);
+			List list = getCodeList(appUser, caller);
 			model.put("codeList", list);
-			model.put("callerType", callerType);
+			model.put("caller", caller);
 			
 			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
 			
@@ -158,53 +163,71 @@ public class MainMaintenanceCundfVkundController {
 		}
 	}
 		
+	//TODO: extend with more...
+	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {
+		List<ChildWindowKode> list = null;
 	
-	private List<JsonMaintMainChildWindowsKodeRecord> getCodeList(SystemaWebUser appUser, String typeCode) {
-		List<JsonMaintMainChildWindowsKodeRecord> list = new ArrayList<JsonMaintMainChildWindowsKodeRecord>();
+		if ("ctype".equals(caller)) { //Funksjon
+			list = getFunksjonKoder(appUser);
+			
+		}
 		
-		JsonMaintMainChildWindowsKodeRecord record = new JsonMaintMainChildWindowsKodeRecord();
-		record.setCode("frmo");
-		record.setDescription("Fredrik Moller");
-		list.add(record);
+/*		switch (FasteKoder.valueOf(callerType)) {
+			case FUNKSJON:
+				//TODO:
+				break;
+				
+			default:
+				throw new IllegalArgumentException("FasteKoder: "+callerType+ " is unvalid.");
+				
+		
+		}
+		*/
 		
 		return list;
 		
 		
 	}
 	
-	
-	
-/*	private List<JsonTvinnSadCodeRecord> getCodeXXXList(SystemaWebUser appUser, String typeCode){
-		List<JsonTvinnSadCodeRecord> list = new ArrayList<JsonTvinnSadCodeRecord>();
-		
-		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_CODES_URL;
+	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser) {
+		logger.info(Calendar.getInstance().getTime() + " getFunksjonKoder start - timestamp");
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&typ=" + typeCode);
-		
+		urlRequestParams.append("&kftyp=" + FasteKoder.FUNKSJON.toString());
 		logger.info(BASE_URL);
 		logger.info(urlRequestParams);
-		
+
 		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		JsonTvinnSadCodeContainer container = null;
-		try{
-			if(jsonPayload!=null){
-				container = this.sadImportGeneralCodesChildWindowService.getCodeContainer(jsonPayload);
-				if(container!=null){
-					for(JsonTvinnSadCodeRecord  record : container.getKodlista()){
-						list.add(record);
+		JsonMaintMainChildWindowsKodeContainer container = null;
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		try {
+			if (jsonPayload != null) {
+				container = maintMainChildWindowService.getContainer(jsonPayload);
+				logger.info("container.getList()="+container.getList());
+				if (container != null) {
+					for (JsonMaintMainChildWindowsKodeRecord record : container.getList()) {
+						kode = getChildWindowKode(record);
+						kodeList.add(kode);
 					}
 				}
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
-	}	*/
+		return kodeList;
+	}
 	
+	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowsKodeRecord record) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(record.getKfkod());
+		kode.setDescription(record.getKftxt());
 	
+		return kode;
+	}
+
 
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
 		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord();
@@ -247,11 +270,10 @@ public class MainMaintenanceCundfVkundController {
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
 				list = container.getList();
-				
-		        for(JsonMaintMainCundfRecord record : list){
+/*		        for(JsonMaintMainCundfRecord record : list){
 	        	  logger.info("record:" + record.toString());
 	        	}	
-				
+*/				
 			}
 		}
 
@@ -286,6 +308,18 @@ public class MainMaintenanceCundfVkundController {
 	@Required
 	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
+	
+	@Qualifier ("maintMainChildWindowService")
+	private MaintMainChildWindowService maintMainChildWindowService;
+	@Autowired
+	@Required
+	public void setMaintMainChildWindowService (MaintMainChildWindowService value){ this.maintMainChildWindowService = value; }
+	public MaintMainChildWindowService getMaintMainChildWindowService(){ return this.maintMainChildWindowService; }
+	
+	
+	
+	
+	
 
 		
 }

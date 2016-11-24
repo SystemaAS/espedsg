@@ -3,16 +3,12 @@
  */
 package no.systema.z.main.maintenance.mapper.jsonjackson.dbtable;
 
-//
-import java.util.Collection;
-
 //jackson library
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
 
 /**
  * @author Fredrik Möller
@@ -28,7 +24,6 @@ public class MaintMainCundcMapper {
 		
 		//At this point we now have an UTF-8 payload
 		JsonMaintMainCundcContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintMainCundcContainer.class); 
-		Collection<JsonMaintMainCundcRecord> list = container.getList();
 		
 		return container;
 	}

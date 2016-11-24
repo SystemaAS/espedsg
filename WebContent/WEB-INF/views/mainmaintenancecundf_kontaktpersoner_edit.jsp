@@ -64,24 +64,6 @@
 	 		<table id="tabRows" width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 			
-			<%-- Other errors (none validation errors) --%>
-			<c:if test="${not empty model.errorMessage}">
-			<tr>
-				<td width="5%">&nbsp;</td>
-				<td >
-		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td >
-				 				<ul class="isa_error text12" >
-		                                  <li>${model.errorMessage}</li>                                    
-		                              </ul>
-				 			</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			</c:if>
-	 	    
 <!-- 	 	    
 	 	    <tr>
 	 	   		<td width="25%">&nbsp;</td> 
@@ -245,44 +227,6 @@
 					</tr>
 
 
-					<%-- Validation errors --%>
-					<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
-					<tr>
-						<td >
-				           	<table align="left" border="0" cellspacing="0" cellpadding="0">
-				           	<tr >
-				           	<td >					
-					            <ul class="isa_error text12" >
-					            <c:forEach var="error" items="${errors.allErrors}">
-					                <li >
-					                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
-					                </li>
-					            </c:forEach>
-					            </ul>
-							</td>
-							</tr>
-							</table>
-						</td>
-					</tr>
-					</spring:hasBindErrors>
-					
-					<%-- Other errors (none validation errors) --%>
-					<c:if test="${not empty model.errorMessage}">
-					<tr>
-						<td width="5%">&nbsp;</td>
-						<td >
-				           	<table align="left" border="0" cellspacing="0" cellpadding="0">
-						 		<tr>
-						 			<td >
-						 				<ul class="isa_error text12" >
-				                                  <li>${model.errorMessage}</li>                                    
-				                              </ul>
-						 			</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					</c:if>
 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
@@ -292,6 +236,43 @@
 								<input type="hidden" name="ccontaorg" id="ccontaorg" value="${model.record.ccontaorg}"> 
 								<input type="hidden" name="action" id="action" value="doUpdate">
 								<table id="kontakpersonerDetails" width="100%" cellspacing="0" border="0" align="left">
+									<%-- Validation errors --%>
+									<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+										<tr>
+											<td>
+												<table align="left" border="0" cellspacing="0" cellpadding="0">
+													<tr>
+														<td>
+															<ul class="isa_error text12">
+																<c:forEach var="error" items="${errors.allErrors}">
+																	<li><spring:message code="${error.code}"
+																			text="${error.defaultMessage}" />&nbsp;&nbsp;</li>
+																</c:forEach>
+															</ul>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</spring:hasBindErrors>
+									
+									<%-- Other errors (none validation errors) --%>
+									<c:if test="${not empty model.errorMessage}">
+									<tr>
+										<td >
+								           	<table align="left" border="0" cellspacing="0" cellpadding="0">
+										 		<tr>
+										 			<td >
+										 				<ul class="isa_error text12" >
+								                                  <li>${model.errorMessage}</li>                                    
+								                              </ul>
+										 			</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									</c:if>
+								
 									<tr >
 										<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
 									</tr>

@@ -8,11 +8,11 @@ jq(function() {
 		var id = this.id;
 		var record = id.split('@');
 		var code = record[0].replace("code", "");
-		var callerType = record[1].replace("callertype", "");
-		alert(code + " " + callerType);
+		var caller = record[1].replace("caller", "");
+		alert(code + " " + caller);
 
 		//addressing a parent field from this child window
-		if (callerType == 'ctype') {
+		if (caller == 'ctype') {
 			opener.jq('#ctype').val(code);
 			opener.jq('#ctype').focus();
 

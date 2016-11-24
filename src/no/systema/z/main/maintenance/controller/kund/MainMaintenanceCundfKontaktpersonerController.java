@@ -234,10 +234,8 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			JsonMaintMainCundcContainer container = this.maintMainCundcService.doUpdate(jsonPayload);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
-					if (container.getErrMsg().toUpperCase().startsWith("ERROR")) {
 						errMsg.append(container.getErrMsg());
 						retval = MainMaintenanceConstants.ERROR_CODE;
-					}
 				}
 			}
 		}

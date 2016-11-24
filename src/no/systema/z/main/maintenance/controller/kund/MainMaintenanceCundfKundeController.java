@@ -61,8 +61,6 @@ public class MainMaintenanceCundfKundeController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		
-		logger.info("init:recordToValidate="+recordToValidate.toString());
-		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
@@ -72,8 +70,6 @@ public class MainMaintenanceCundfKundeController {
 		
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
-			logger.info("adjust:recordToValidate="+recordToValidate.toString());
-			
 			//TODO: Create new
 
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Update
@@ -113,6 +109,7 @@ public class MainMaintenanceCundfKundeController {
 			model.put("firma", kundeSessionParams.getFirma());
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 			return successView;		
 		
@@ -120,7 +117,20 @@ public class MainMaintenanceCundfKundeController {
 
 	}
 	
-
+	//TODO: more to singel point
+	private String getTrimmedKnav(String knavn) {
+		StringBuilder knavn_display = new StringBuilder();
+		int maxLenght = 10;
+		if (knavn.length() > maxLenght) {
+			knavn_display.append(knavn.substring(0, maxLenght));
+			knavn_display.append("...");
+			return knavn_display.toString();
+		} else {
+			return knavn;
+		}
+	}
+	
+	
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
