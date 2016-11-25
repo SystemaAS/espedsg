@@ -250,7 +250,7 @@
 							<font class="text11MediumBlue" style="font-style: italic;">${topic.opd}</font>
 						 </a>
 	               	  </td>	
-    		               <td class="tableCell" width="10%">&nbsp;
+   		               <td class="tableCell" width="10%">&nbsp;
 							<a class="copyLink" id="copyLink${counter.count}" runat="server" href="#">
 								<img src="resources/images/copy.png" border="0" alt="copy">
 								&nbsp;Kopiere
