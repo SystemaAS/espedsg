@@ -250,12 +250,16 @@ public class SadImportHeaderArchiveController {
 		String status = request.getParameter("status");
 		String tullid = request.getParameter("tullId");
 		String datum = request.getParameter("datum");
+		String omberegningFlag = request.getParameter("o2_sist");
+		
 		model.put("opd", opd);
 		model.put("avd", avd);
 		model.put("sign", sign);
 		model.put("status", status);
 		model.put("tullId", tullid);
 		model.put("datum", datum);
+		model.put("o2_sist", omberegningFlag);
+		
 		
 	}
 	

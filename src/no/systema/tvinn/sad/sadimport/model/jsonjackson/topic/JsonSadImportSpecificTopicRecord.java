@@ -17,6 +17,10 @@ import java.lang.reflect.Field;
 public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRecord{
 	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	
+	private String o2_sist = null;
+	public void setO2_sist(String value) {  this.o2_sist = value; }
+	public String getO2_sist() { return this.o2_sist;}
+	
 	
 	//These variables have been replaced by true variables implemented in AS400 (antk, antvp, sumbv)
 	private Integer sumOfAntalKolliInItemLines = 0;

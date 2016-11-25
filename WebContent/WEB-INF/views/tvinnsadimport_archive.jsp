@@ -22,7 +22,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkHeader" tabindex=-1 style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
-							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}">
+							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
 						<font class="text12MediumBlue">[${model.opd}]</font>
 						<c:if test="${model.status == 'M' || empty model.status}">
@@ -35,7 +35,7 @@
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkInvoices" tabindex=-1 style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
 												&opd=${ model.opd}
-												&status=${ model.status}&fabl=${ XX.dkih_222}">
+												&status=${ model.status}&fabl=${ XX.dkih_222}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 						</font>
@@ -44,7 +44,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a tabindex=-1 style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
-												&opd=${ model.opd}">
+												&opd=${ model.opd}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
 						</font>
@@ -54,7 +54,7 @@
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkItemLines" tabindex=-1 style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
-												&status=${model.status}&datum=${model.datum}&fabl=${recordTopic.svih_fabl}">
+												&status=${model.status}&datum=${model.datum}&fabl=${recordTopic.svih_fabl}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/>
 						</font>
@@ -67,7 +67,7 @@
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkLogging" tabindex=-1 style="display:block;" href="tvinnsadimport_logging.do?avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&tullId=${model.tullId}
-												&status=${model.status}&datum=${model.datum}">
+												&status=${model.status}&datum=${model.datum}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.logging.tab"/>
 						</font>
@@ -83,7 +83,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-												&opd=${ model.opd}&status=${model.status}">
+												&opd=${ model.opd}&status=${model.status}&o2_sist=${ model.o2_sist}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
 						</font>

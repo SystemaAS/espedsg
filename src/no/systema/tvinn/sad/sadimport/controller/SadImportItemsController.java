@@ -140,6 +140,8 @@ public class SadImportItemsController {
 			//String invoiceTotalAmount = request.getParameter("fabl"); //Changed to getSibel3() from header...
 			String startItemLineNr = request.getParameter("startItemLineNr");
 			String tariffNr = request.getParameter("tariffNr");
+			String omberegningFlag = request.getParameter("o2_sist");
+			
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadImportSpecificTopicRecord headerRecord = (JsonSadImportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -166,6 +168,7 @@ public class SadImportItemsController {
 			model.put("refnr(tullid)", refnr);
 			model.put("status", status);
 			model.put("datum", datum);
+			model.put("o2_sist", omberegningFlag);
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));

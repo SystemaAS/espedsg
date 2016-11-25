@@ -85,6 +85,24 @@ public class JsonSadImportTopicListRecord extends JsonAbstractGrandFatherRecord 
 	public void setH_xref(String value) {  this.h_xref = value; }
 	public String getH_xref() { return this.h_xref;}
 	
+	private String o2_simf = null;
+	public void setO2_simf(String value) {  this.o2_simf = value; }
+	public String getO2_simf() { return this.o2_simf;}
+	
+	private String o2_sist = null;
+	public void setO2_sist(String value) {  this.o2_sist = value; }
+	public String getO2_sist() { return this.o2_sist;}
+	
+	private String o2_sidt = null;
+	public void setO2_sidt(String value) {  this.o2_sidt = value; }
+	public String getO2_sidt() { return this.o2_sidt;}
+	
+	private String o2_sitll = null;
+	public void setO2_sitll(String value) {  this.o2_sitll = value; }
+	public String getO2_sitll() { return this.o2_sitll;}
+	
+	
+	
 	private Collection<JsonNotisblockRecord> notisblockList;
 	public void setNotisblockList(Collection<JsonNotisblockRecord> value){ this.notisblockList = value; }
 	public Collection<JsonNotisblockRecord> getNotisblockList(){ return notisblockList; }

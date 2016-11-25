@@ -139,6 +139,8 @@ public class SadImportHeaderFinansOpplysningerController {
 			String sign = request.getParameter("sign");
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
+			String omberegningFlag = request.getParameter("o2_sist");
+			
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadImportSpecificTopicRecord headerRecord = (JsonSadImportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -156,7 +158,7 @@ public class SadImportHeaderFinansOpplysningerController {
 			model.put("sign", sign);
 			model.put("status", status);
 			model.put("datum", datum);
-			
+			model.put("o2_sist", omberegningFlag);
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable

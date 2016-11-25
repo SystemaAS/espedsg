@@ -156,6 +156,7 @@ public class SadImportHeaderController {
 		String sign = request.getParameter("sisg");
 		String si0035 = request.getParameter("si0035"); //test indicator
 		String innstikk = request.getParameter("simi"); //innstikk indicator
+		String omberegningFlag = request.getParameter("o2_sist"); //omberegning indicator
 		logger.info("TEST flag:<" + si0035 +">");
 		
 		//Action (doFetch, doUpdate, doCreate)
@@ -214,7 +215,7 @@ public class SadImportHeaderController {
 						this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 						this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 						this.setCodeDropDownMgr(appUser, model);	
-			    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicContainer, totalItemLinesObject);	
+			    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicContainer, totalItemLinesObject, omberegningFlag);	
 				    		
 			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 						//put the doUpdate action since we are preparing the record for an update (when saving)
@@ -391,14 +392,14 @@ public class SadImportHeaderController {
 					this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 					this.setCodeDropDownMgr(appUser, model);	
 
-		    			successView.addObject("model" , model);
-			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
+	    			successView.addObject("model" , model);
+		    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 		            //Edit or Create offset
-			    		if(isValidCreatedRecordTransactionOnRPG){
-			    			successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
+		    		if(isValidCreatedRecordTransactionOnRPG){
+		    			successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
 		            }else{
-		            		//Validation errors have been generated and we must offset to some state (set or changed above in some flow)
-		            		successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, action);
+	            		//Validation errors have been generated and we must offset to some state (set or changed above in some flow)
+	            		successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, action);
 		            }
 					
 				//------------------------
@@ -1319,7 +1320,7 @@ public class SadImportHeaderController {
 	 * @param container
 	 * @param totalItemLinesObject
 	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicContainer container, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject){
+	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicContainer container, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject, String omberegningFlag){
 		//SET HEADER RECORDS  (from RPG)
 		for (JsonSadImportSpecificTopicRecord record : container.getOneorder()){
 			record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
@@ -1331,6 +1332,8 @@ public class SadImportHeaderController {
 			record.setFinansOpplysningarTotKurs(totalItemLinesObject.getFinansOpplysningarTotKurs());
 			//Adjust dates
 			this.adjustDatesOnFetch(record);
+			//Omberegning flag
+			record.setO2_sist(omberegningFlag);
 			
 			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines

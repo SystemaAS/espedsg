@@ -61,7 +61,7 @@
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
 													&opd=${ model.record.sitdn}
-													&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
+													&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 							</font>
@@ -70,7 +70,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}">
+													&opd=${ model.record.sitdn}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
 							</font>
@@ -79,7 +79,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}">
+													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/>
 							</font>
@@ -88,7 +88,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkLogging" style="display:block;" href="tvinnsadimport_logging.do?avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${model.record.sitdn}&status=${model.record.sist}">
+													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.logging.tab"/>
 							</font>
@@ -98,7 +98,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkArchive" style="display:block;" href="tvinnsadimport_archive.do?avd=${model.record.siavd}&sign=${model.record.sisg}
-													&opd=${model.record.sitdn}&status=${model.record.sist}">
+													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/>
 							</font>
@@ -108,7 +108,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}">
+													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
 							</font>
