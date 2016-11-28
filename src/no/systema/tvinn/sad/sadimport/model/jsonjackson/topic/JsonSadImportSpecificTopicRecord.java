@@ -21,6 +21,14 @@ public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setO2_sist(String value) {  this.o2_sist = value; }
 	public String getO2_sist() { return this.o2_sist;}
 	
+	private String o2_sidt = null;
+	public void setO2_sidt(String value) {  this.o2_sidt = value; }
+	public String getO2_sidt() { return this.o2_sidt;}
+	
+	private String o2_simf = null;
+	public void setO2_simf(String value) {  this.o2_simf = value; }
+	public String getO2_simf() { return this.o2_simf;}
+	
 	
 	//These variables have been replaced by true variables implemented in AS400 (antk, antvp, sumbv)
 	private Integer sumOfAntalKolliInItemLines = 0;

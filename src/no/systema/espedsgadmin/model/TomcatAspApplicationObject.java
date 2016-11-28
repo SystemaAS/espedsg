@@ -31,6 +31,9 @@ public class TomcatAspApplicationObject {
 	public void setAjpPort(String value) {  this.ajpPort = value; }
 	public String getAjpPort() { return this.ajpPort;}
 	
+	private String systemaHttpPort = null; 
+	public void setSystemaHttpPort(String value) {  this.systemaHttpPort = value; }
+	public String getSystemaHttpPort() { return this.systemaHttpPort;}
 	
 	private List<String> portList = new ArrayList<String>(); 
 	public void addToPortList( String value) {  this.portList.add(value); }

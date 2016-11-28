@@ -225,7 +225,8 @@
            					</a>
                		   </td>
                		   <td class="tableCell" >&nbsp;
-               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sist=${topic.o2_sist}">
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}
+               		   																					&o2_sist=${topic.o2_sist}&o2_sidt=${topic.o2_sidt}&o2_simf=${topic.o2_simf}">
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>

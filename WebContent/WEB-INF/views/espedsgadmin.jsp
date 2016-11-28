@@ -151,6 +151,7 @@
 			                    <td class="tableHeaderField" align="left" >&nbsp;SHUTDOWN port&nbsp;</td>
 			                    <td class="tableHeaderField" align="left" >&nbsp;SSL port&nbsp;</td>
 			                    <td class="tableHeaderField" align="left" >&nbsp;AJP port&nbsp;</td>
+			                    <td class="tableHeaderField" align="left" ><font style="color:green">&nbsp;ASP HTTP-server port&nbsp;</font></td>
 			                </tr>  
 			                   
 				            <c:forEach var="record" items="${model.dbTomcatPortsObjectList}" varStatus="counter">    
@@ -167,6 +168,8 @@
 		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.shutdownPort}&nbsp;</font></td>
 		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.sslPort}&nbsp;</font></td>
 		                       <td class="tableCell"  ><font class="text12MediumBlue">&nbsp;${record.ajpPort}&nbsp;</font></td>
+		                       <td class="tableCell" align="right" ><font class="text12MediumBlue" style="color:green">&nbsp;<b>${record.systemaHttpPort}&nbsp;</b></font></td>
+		                       
 		                       
 				            </tr> 
 				            </c:forEach>

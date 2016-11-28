@@ -98,6 +98,8 @@ public class GeneralNotisblockController {
 		String opd = request.getParameter("opd");
 		String sign = request.getParameter("sign");
 		String omberegningFlag = request.getParameter("o2_sist");
+		String omberegningDate = request.getParameter("o2_sidt");
+		
 		
 		logger.info("ACTION: " + action);
 		logger.info("SUBSYSTEM:" + subsystem);
@@ -131,6 +133,8 @@ public class GeneralNotisblockController {
 			model.put("sign", sign);
 			model.put("orig", caller);
 			model.put("o2_sist", omberegningFlag);
+			model.put("o2_sidt", omberegningDate);
+			
 			
 			if(this.ACTION_DO_UPDATE.equals(action) || this.ACTION_DO_DELETE.equals(action)){
 				

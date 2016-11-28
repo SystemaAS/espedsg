@@ -157,6 +157,10 @@ public class SadImportHeaderController {
 		String si0035 = request.getParameter("si0035"); //test indicator
 		String innstikk = request.getParameter("simi"); //innstikk indicator
 		String omberegningFlag = request.getParameter("o2_sist"); //omberegning indicator
+		String omberegningDate = request.getParameter("o2_sidt"); //omberegning indicator
+		String omberegningType = request.getParameter("o2_simf"); //omberegning indicator
+		
+		
 		logger.info("TEST flag:<" + si0035 +">");
 		
 		//Action (doFetch, doUpdate, doCreate)
@@ -215,7 +219,7 @@ public class SadImportHeaderController {
 						this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 						this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 						this.setCodeDropDownMgr(appUser, model);	
-			    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicContainer, totalItemLinesObject, omberegningFlag);	
+			    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicContainer, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType);	
 				    		
 			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 						//put the doUpdate action since we are preparing the record for an update (when saving)
@@ -1319,8 +1323,13 @@ public class SadImportHeaderController {
 	 * @param model
 	 * @param container
 	 * @param totalItemLinesObject
+	 * @param omberegningFlag
+	 * @param omberegningDate
+	 * @param omberegningType
+	 * 
 	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicContainer container, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject, String omberegningFlag){
+	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicContainer container, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject, 
+			String omberegningFlag, String omberegningDate, String omberegningType){
 		//SET HEADER RECORDS  (from RPG)
 		for (JsonSadImportSpecificTopicRecord record : container.getOneorder()){
 			record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
@@ -1334,6 +1343,8 @@ public class SadImportHeaderController {
 			this.adjustDatesOnFetch(record);
 			//Omberegning flag
 			record.setO2_sist(omberegningFlag);
+			record.setO2_sidt(omberegningDate);
+			record.setO2_simf(omberegningType);
 			
 			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines

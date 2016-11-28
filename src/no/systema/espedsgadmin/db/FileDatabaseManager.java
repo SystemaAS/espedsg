@@ -190,6 +190,7 @@ public class FileDatabaseManager {
 					tomcatObject.setShutdownPort(fields[2]);
 					tomcatObject.setSslPort(fields[3]);
 					tomcatObject.setAjpPort(fields[4]);
+					tomcatObject.setSystemaHttpPort(fields[5]);
 					logger.info("ASP:" + tomcatObject.getAspCustomerName());
 					//add to list
 					dbCarrierObjectList.add(tomcatObject);

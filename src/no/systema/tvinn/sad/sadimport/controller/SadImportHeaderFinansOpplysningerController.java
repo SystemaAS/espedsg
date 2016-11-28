@@ -140,6 +140,7 @@ public class SadImportHeaderFinansOpplysningerController {
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
 			String omberegningFlag = request.getParameter("o2_sist");
+			String omberegningDate = request.getParameter("o2_sidt");
 			
 			
 			//this fragment gets some header fields needed for the validator
@@ -159,6 +160,8 @@ public class SadImportHeaderFinansOpplysningerController {
 			model.put("status", status);
 			model.put("datum", datum);
 			model.put("o2_sist", omberegningFlag);
+			model.put("o2_sidt", omberegningDate);
+			
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable

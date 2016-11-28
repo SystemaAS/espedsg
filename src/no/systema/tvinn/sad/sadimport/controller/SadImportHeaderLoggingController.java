@@ -342,6 +342,8 @@ public class SadImportHeaderLoggingController {
 		String tullid = request.getParameter("tullId");
 		String datum = request.getParameter("datum");
 		String omberegningFlag = request.getParameter("o2_sist");
+		String omberegningDate = request.getParameter("o2_sidt");
+		
 		
 		model.put("opd", opd);
 		model.put("avd", avd);
@@ -350,6 +352,7 @@ public class SadImportHeaderLoggingController {
 		model.put("tullId", tullid);
 		model.put("datum", datum);
 		model.put("o2_sist", omberegningFlag);
+		model.put("o2_sidt", omberegningDate);
 		
 	}
 	
