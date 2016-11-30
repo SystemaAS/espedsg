@@ -22,7 +22,9 @@ public class JsonEnhetsRegisteretDataCheckRecord extends JsonAbstractGrandFather
 	private String registrertimvaregisteret = null;
 	private String underavvikling = null;
 	private String undertvangsavviklingellertvangsopplosning = null;
-	private String existsinregister = null;
+	private String existsashovedenhet = null;
+	private String existsasunderenhet = null;
+	private String overordnetenhetorgnr = null;
 
 	public String getFirmakode() {
 		return firmakode;
@@ -88,12 +90,29 @@ public class JsonEnhetsRegisteretDataCheckRecord extends JsonAbstractGrandFather
 		this.undertvangsavviklingellertvangsopplosning = undertvangsavviklingellertvangsopplosning;
 	}
 
-	public String getExistsinregister() {
-		return existsinregister;
+
+	public String getExistsashovedenhet() {
+		return existsashovedenhet;
 	}
 
-	public void setExistsinregister(String existsinregister) {
-		this.existsinregister = existsinregister;
+	public void setExistsashovedenhet(String existsashovedenhet) {
+		this.existsashovedenhet = existsashovedenhet;
+	}
+
+	public String getExistsasunderenhet() {
+		return existsasunderenhet;
+	}
+
+	public void setExistsasunderenhet(String existsasunderenhet) {
+		this.existsasunderenhet = existsasunderenhet;
+	}
+
+	public String getOverordnetenhetorgnr() {
+		return overordnetenhetorgnr;
+	}
+
+	public void setOverordnetenhetorgnr(String overordnetenhetorgnr) {
+		this.overordnetenhetorgnr = overordnetenhetorgnr;
 	}
 
 	/**

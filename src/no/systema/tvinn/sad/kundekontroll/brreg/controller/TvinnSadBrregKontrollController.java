@@ -120,7 +120,7 @@ public class TvinnSadBrregKontrollController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	
-    	logger.info("jsonPayload="+jsonPayload);;
+    	//logger.info("jsonPayload="+jsonPayload); To big
     	List<JsonEnhetsRegisteretDataCheckRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists

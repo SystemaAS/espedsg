@@ -74,7 +74,9 @@
 								    <th class="text12">Kundnr</th>   
 				                    <th class="text12">Kundenavn</th>
 				                    <th class="text12">Org.nr</th>
-				                    <th class="text12">Enhetsregisteret</th>
+				                    <th class="text12">HovedEnhet</th>
+				                    <th class="text12">UnderEnhet</th>
+				                    <th class="text12">HovedEnhets Org.nr</th>
 				                    <th class="text12">Konkurs</th>
 				                    <th class="text12">Merverdi</th>
 				                    <th class="text12">Under avvikling</th>
@@ -96,7 +98,9 @@
 			        		       <td class="text11">&nbsp;${record.kundenr}</td>
 			            		   <td class="text11">&nbsp;${record.kundenavn}</td>
 			            		   <td class="text11">&nbsp;${record.orgnr}</td>
-			            		   <td class="text11">&nbsp;${record.existsinregister}</td>
+			            		   <td class="text11">&nbsp;${record.existsashovedenhet}</td>
+			            		   <td class="text11">&nbsp;${record.existsasunderenhet}</td>
+			            		   <td class="text11">&nbsp;${record.overordnetenhetorgnr}</td>
 			            		   <td class="text11">&nbsp;${record.konkurs}</td>
 					               <td class="text11">&nbsp;${record.registrertimvaregisteret}</td>
 			            		   <td class="text11">&nbsp;${record.underavvikling}</td>
@@ -112,7 +116,9 @@
 								    <th class="text12">Kundnr</th>   
 				                    <th class="text12">Kundenavn</th>
 				                    <th class="text12">Org.nr</th>
-				                    <th class="text12">Enhetsregisteret</th>
+				                    <th class="text12">HovedEnhet</th>
+				                    <th class="text12">UnderEnhet</th>
+				                    <th class="text12">HovedEnhets Org.nr</th>
 				                    <th class="text12">Konkurs</th>
 				                    <th class="text12">Merverdi</th>
 				                    <th class="text12">Under avvikling</th>

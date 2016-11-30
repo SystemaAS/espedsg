@@ -64,20 +64,26 @@ public class MainListExcelBuilder extends AbstractExcelView {
         header.createCell(2).setCellValue("Org.nr");
         header.getCell(2).setCellStyle(style);
         
-        header.createCell(3).setCellValue("Enhetsregisteret");
+        header.createCell(3).setCellValue("HovedEnhet");
         header.getCell(3).setCellStyle(style);
          
-        header.createCell(4).setCellValue("Konkurs");
+        header.createCell(4).setCellValue("UnderEnhet");
         header.getCell(4).setCellStyle(style);
-        
-        header.createCell(5).setCellValue("Merverdi");
+  
+        header.createCell(5).setCellValue("HovedEnhets Org.nr");
         header.getCell(5).setCellStyle(style);
-        
-        header.createCell(6).setCellValue("Under avvikling");
+  
+        header.createCell(6).setCellValue("Konkurs");
         header.getCell(6).setCellStyle(style);
         
-        header.createCell(7).setCellValue("Under tvangsavvikling");
+        header.createCell(7).setCellValue("Merverdi");
         header.getCell(7).setCellStyle(style);
+        
+        header.createCell(8).setCellValue("Under avvikling");
+        header.getCell(8).setCellStyle(style);
+        
+        header.createCell(9).setCellValue("Under tvangsavvikling");
+        header.getCell(9).setCellStyle(style);
                 
         
         // create data rows
@@ -85,15 +91,16 @@ public class MainListExcelBuilder extends AbstractExcelView {
          
         for (JsonEnhetsRegisteretDataCheckRecord record : itemList) {
             HSSFRow aRow = sheet.createRow(rowCount++);
-           aRow.createCell(0).setCellValue(record.getKundenr());
-            
+            aRow.createCell(0).setCellValue(record.getKundenr());
             aRow.createCell(1).setCellValue(record.getKundenavn());
             aRow.createCell(2).setCellValue(record.getOrgnr());
-            aRow.createCell(3).setCellValue(record.getExistsinregister());
-            aRow.createCell(4).setCellValue(record.getKonkurs());
-            aRow.createCell(5).setCellValue(record.getRegistrertimvaregisteret());
-            aRow.createCell(6).setCellValue(record.getUnderavvikling());
-            aRow.createCell(7).setCellValue(record.getUndertvangsavviklingellertvangsopplosning());
+            aRow.createCell(3).setCellValue(record.getExistsashovedenhet());
+            aRow.createCell(4).setCellValue(record.getExistsasunderenhet());
+            aRow.createCell(5).setCellValue(record.getOverordnetenhetorgnr());
+            aRow.createCell(6).setCellValue(record.getKonkurs());
+            aRow.createCell(7).setCellValue(record.getRegistrertimvaregisteret());
+            aRow.createCell(8).setCellValue(record.getUnderavvikling());
+            aRow.createCell(9).setCellValue(record.getUndertvangsavviklingellertvangsopplosning());
         }
     }
 	
