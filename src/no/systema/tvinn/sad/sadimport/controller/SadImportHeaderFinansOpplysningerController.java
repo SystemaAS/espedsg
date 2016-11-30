@@ -141,6 +141,7 @@ public class SadImportHeaderFinansOpplysningerController {
 			String datum = request.getParameter("datum");
 			String omberegningFlag = request.getParameter("o2_sist");
 			String omberegningDate = request.getParameter("o2_sidt");
+			String omberegningType = request.getParameter("o2_simf");
 			
 			
 			//this fragment gets some header fields needed for the validator
@@ -161,6 +162,7 @@ public class SadImportHeaderFinansOpplysningerController {
 			model.put("datum", datum);
 			model.put("o2_sist", omberegningFlag);
 			model.put("o2_sidt", omberegningDate);
+			model.put("o2_simf", omberegningType);
 			
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){

@@ -177,20 +177,7 @@
 					<tr class="tableHeaderField" height="20" valign="left">
 	                    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.avd"/>&nbsp;</td>   
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.signatur"/>&nbsp;</td>
-	                    <td class="tableHeaderField" nowrap>
-                    		<img onMouseOver="showPop('update_info');" onMouseOut="hidePop('update_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-		 					<spring:message code="systema.tvinn.sad.export.list.search.label.update"/>
-	 						<div class="text11" style="position: relative;" align="left">
-		 					<span style="position:absolute;top:2px; width:250px;" id="update_info" class="popupWithInputText text11"  >
-			           			<img title="Oppdatere oppdrag" style="vertical-align:bottom;" src="resources/images/update.gif" border="0">
-				           		<b>Oppdatere oppdrag</b><br/>
-				           		<ul>
-				           			<li>&nbsp;Status=tomt eller M</li>
-				           		</ul>
-							</span>	
-							</div>
-						</td>
-	                    
+	                    <td class="tableHeaderField" nowrap><spring:message code="systema.tvinn.sad.export.list.search.label.update"/></td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.arende"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.extrefnr"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.datum"/>&nbsp;</td>
@@ -200,6 +187,13 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.mottagare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.godsnr"/>&nbsp;</td>
 	                    <td class="tableHeaderField" align="center">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.innstikk"/>&nbsp;</td>
+	                    <td class="tableHeaderField" align="center">&nbsp;EP&nbsp;</td>
+	                     <%-- START Omberegning --%>
+	                    <td class="tableHeaderFieldOmberegning" align="center">&nbsp;Omber&nbsp;</td>
+	                    <td class="tableHeaderFieldOmberegning" align="center">&nbsp;St&nbsp;</td>
+	                    <td class="tableHeaderFieldOmberegning" align="center">&nbsp;Dato&nbsp;</td>
+	                    <td class="tableHeaderFieldOmberegning" align="center">&nbsp;Løpenr&nbsp;</td>
+	                    <%-- END Omberegning --%>
 	                    <td class="tableHeaderField" align="center">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.notisblock"/>&nbsp;</td>	                    
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.kopieraArende"/></td>
 	                    
@@ -216,34 +210,38 @@
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
 		               <td class="tableCell" >&nbsp;${topic.sg}</td>
 		               <td nowrap class="tableCell" align="center">
-	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}">
+	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sidt=${topic.o2_sedt}&o2_simf=${topic.o2_semf}">
 	               				<img title="Oppdatera tolldekl." valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
             					</a>
                		   </td>
                		   <td class="tableCell" >&nbsp;
-               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}">
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sedt=${topic.o2_sedt}&o2_semf=${topic.o2_semf}">
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>
-		               <td class="tableCell" >&nbsp;${topic.h_xref}</td>
-		               <td class="tableCell" >&nbsp;${topic.datum}</td>
-		               <td class="tableCell" >&nbsp;${topic.sitll}</td>
-		               <td class="tableCell" >&nbsp;<b>${topic.status}</b></td>
-		               <td class="tableCell" >&nbsp;${topic.avsNavn}</td>
-		               <td class="tableCell" >&nbsp;${topic.motNavn}</td>
-		               <td class="tableCell" >&nbsp;${topic.sign}</td>
-		               <td class="tableCell" align="center"><b>${topic.semi}</b></td>
+		               <td class="tableCell" >&nbsp;${topic.h_xref}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;${topic.datum}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;${topic.sitll}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;<b>${topic.status}&nbsp;</b></td>
+		               <td class="tableCell" >&nbsp;${topic.avsNavn}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;${topic.motNavn}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;${topic.sign}&nbsp;</td>
+		               <td class="tableCell" align="center"><b>${topic.semi}&nbsp;</b></td>
+		               <td class="tableCell" >&nbsp;todo&nbsp;</td>
+		               <td class="tableCellOmberegning" >&nbsp;${topic.o2_semf}&nbsp;</td>
+		               <td class="tableCellOmberegning" >&nbsp;${topic.o2_sest}&nbsp;</td>
+		               <td class="tableCellOmberegning" >&nbsp;${topic.o2_sedt}&nbsp;</td>
+		               <td class="tableCellOmberegning" >&nbsp;${topic.o2_setll}&nbsp;</td>
 		               <td class="tableCell" align="left">&nbsp;
 	               		 <a href="editNotisblock.do?action=doFetch&subsys=sade&avd=${topic.avd}&opd=${topic.opd}&sign=${topic.sg}">
 							<img title="Notisblokk til oppdrag" src="resources/images/largeTextContent.png" width="14px" height="15px" border="0" alt="notisblock">
 							<font class="text11MediumBlue" style="font-style: italic;">${topic.opd}</font>
 						 </a>
 	               	   </td>
-		               <td class="tableCell" width="10%">&nbsp;
+		               <td class="tableCell" >&nbsp;
 		               		<%--<button class="buttonGray" type="button" name="copyButton${counter.count}" id="copyButton${counter.count}" >Kopiera</button> --%>
 							<a class="copyLink" id="copyLink${counter.count}" runat="server" href="#">
 								<img src="resources/images/copy.png" border="0" alt="copy">
-								&nbsp;Kopiere
 							</a>
 							 
 							<div style="display: none;" class="clazz_dialog" id="dialog${counter.count}" title="Dialog">

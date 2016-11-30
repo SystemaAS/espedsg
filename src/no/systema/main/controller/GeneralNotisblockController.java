@@ -97,9 +97,18 @@ public class GeneralNotisblockController {
 		String avd = request.getParameter("avd");
 		String opd = request.getParameter("opd");
 		String sign = request.getParameter("sign");
-		String omberegningFlag = request.getParameter("o2_sist");
-		String omberegningDate = request.getParameter("o2_sidt");
-		
+		String omberegningFlag = null;
+		String omberegningDate = null;
+		String omberegningType = null;
+		if("sadi".equals(subsystem)){
+			omberegningFlag = request.getParameter("o2_sist");
+			omberegningDate = request.getParameter("o2_sidt");
+			omberegningType = request.getParameter("o2_simf");
+		}else if("sade".equals(subsystem)){
+			omberegningFlag = request.getParameter("o2_sest");
+			omberegningDate = request.getParameter("o2_sedt");
+			omberegningType = request.getParameter("o2_semf");
+		}
 		
 		logger.info("ACTION: " + action);
 		logger.info("SUBSYSTEM:" + subsystem);
@@ -132,9 +141,15 @@ public class GeneralNotisblockController {
 			model.put("opd", opd);
 			model.put("sign", sign);
 			model.put("orig", caller);
-			model.put("o2_sist", omberegningFlag);
-			model.put("o2_sidt", omberegningDate);
-			
+			if("sadi".equals(subsystem)){
+				model.put("o2_sist", omberegningFlag);
+				model.put("o2_sidt", omberegningDate);
+				model.put("o2_simf", omberegningType);
+			}else if("sade".equals(subsystem)){
+				model.put("o2_sest", omberegningFlag);
+				model.put("o2_sedt", omberegningDate);
+				model.put("o2_semf", omberegningType);
+			}
 			
 			if(this.ACTION_DO_UPDATE.equals(action) || this.ACTION_DO_DELETE.equals(action)){
 				

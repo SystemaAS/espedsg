@@ -135,6 +135,9 @@ public class SadExportHeaderFinansOpplysningerController {
 			String sign = request.getParameter("sign");
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
+			String omberegningFlag = request.getParameter("o2_sest");
+			String omberegningDate = request.getParameter("o2_sedt");
+			String omberegningType = request.getParameter("o2_semf");
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadExportSpecificTopicRecord headerRecord = (JsonSadExportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -152,6 +155,9 @@ public class SadExportHeaderFinansOpplysningerController {
 			model.put("sign", sign);
 			model.put("status", status);
 			model.put("datum", datum);
+			model.put("o2_sest", omberegningFlag);
+			model.put("o2_sedt", omberegningDate);
+			model.put("o2_semf", omberegningType);
 			
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){

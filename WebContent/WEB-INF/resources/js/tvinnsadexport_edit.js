@@ -807,3 +807,53 @@
 		  
 	  }
 	  	
+	//-----------------------------------------
+	  //START Model dialog "Kopiera Omberegning
+	  //-----------------------------------------
+	  //Initialize <div> here
+	  jq(function() { 
+		  jq("#dialogOmberegningPaOmberegning").dialog({
+			  autoOpen: false,
+			  maxWidth:350,
+	          maxHeight: 250,
+	          width: 350,
+	          height: 250,
+			  modal: true
+		  });
+	  });
+	  //Present dialog box onClick (href in parent JSP)
+	  jq(function() {
+		  jq("#alinkOmberegningPaOmberegning").click(function() {
+			  //setters (add more if needed)
+			  jq('#dialogOmberegningPaOmberegning').dialog( "option", "title", "Ny Omberegning" );
+			  //deal with buttons for this modal window
+			  jq('#dialogOmberegningPaOmberegning').dialog({
+				 buttons: [ 
+		            {
+					 id: "dialogSaveOMB",	
+					 text: "Gå vidare",
+					 click: function(){
+						 		jq('#copyOmberegningPaOmberegningForm').submit();
+					 		}
+				 	 },
+		 	 		{
+				 	 id: "dialogCancelOMB",
+				 	 text: "Avbryt", 
+					 click: function(){
+						 		//back to initial state of form elements on modal dialog
+						 		//jq("#dialogSaveOMB").button("option", "disabled", true);
+						 		jq("#selectedOmb").val("");
+						 		jq( this ).dialog( "close" ); 
+					 		} 
+		 	 		 } ] 
+			  });
+			  
+			  //init values
+			  //jq("#dialogSaveOMB").button("option", "disabled", true);
+			  //open now
+			  jq('#dialogOmberegningPaOmberegning').dialog('open');
+			  
+		  });
+	  });	  
+	
+		  

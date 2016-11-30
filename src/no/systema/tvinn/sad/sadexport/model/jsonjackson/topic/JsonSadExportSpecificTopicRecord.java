@@ -15,6 +15,19 @@ import java.lang.reflect.Field;
  */
 public class JsonSadExportSpecificTopicRecord extends JsonAbstractGrandFatherRecord{
 	
+	private String o2_sest = null;
+	public void setO2_sest(String value) {  this.o2_sest = value; }
+	public String getO2_sest() { return this.o2_sest;}
+	
+	private String o2_sedt = null;
+	public void setO2_sedt(String value) {  this.o2_sedt = value; }
+	public String getO2_sedt() { return this.o2_sedt;}
+	
+	private String o2_semf = null;
+	public void setO2_semf(String value) {  this.o2_semf = value; }
+	public String getO2_semf() { return this.o2_semf;}
+	
+	
 	private Integer sumOfAntalKolliInItemLines = 0;
 	public void setSumOfAntalKolliInItemLines(Integer value) {  this.sumOfAntalKolliInItemLines = value; }
 	public Integer getSumOfAntalKolliInItemLines() {return this.sumOfAntalKolliInItemLines;}

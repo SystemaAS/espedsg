@@ -220,14 +220,13 @@
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
 		               <td class="tableCell" >&nbsp;${topic.sg}</td>
 		               <td nowrap class="tableCell" align="center">
-	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sign=${topic.sg}&o2_sist=${topic.o2_sist}">
+	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sist=${topic.o2_sist}&o2_sidt=${topic.o2_sidt}&o2_simf=${topic.o2_simf}">
 	               				<img title="Uppdatera ärende" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
            					</a>
                		   </td>
                		   <td class="tableCell" >&nbsp;
-               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}
-               		   																					&o2_sist=${topic.o2_sist}&o2_sidt=${topic.o2_sidt}&o2_simf=${topic.o2_simf}">
-	               				&nbsp;${topic.opd}
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadimport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sist=${topic.o2_sist}&o2_sidt=${topic.o2_sidt}&o2_simf=${topic.o2_simf}">
+               		   			&nbsp;${topic.opd}
 		               		</a>
 		               </td>
 		               <td class="tableCell" >&nbsp;${topic.h_xref}&nbsp;</td>

@@ -87,6 +87,22 @@ public class JsonSadExportTopicListRecord extends JsonAbstractGrandFatherRecord 
 	public void setSemi(String value) {  this.semi = value; }
 	public String getSemi() { return this.semi;}
 	
+	private String o2_semf = null;
+	public void setO2_semf(String value) {  this.o2_semf = value; }
+	public String getO2_semf() { return this.o2_semf;}
+	
+	private String o2_sest = null;
+	public void setO2_sest(String value) {  this.o2_sest = value; }
+	public String getO2_sest() { return this.o2_sest;}
+	
+	private String o2_sedt = null;
+	public void setO2_sedt(String value) {  this.o2_sedt = value; }
+	public String getO2_sedt() { return this.o2_sedt;}
+	
+	private String o2_setll = null;
+	public void setO2_setll(String value) {  this.o2_setll = value; }
+	public String getO2_setll() { return this.o2_setll;}
+	
 	
 	/**
 	 * 

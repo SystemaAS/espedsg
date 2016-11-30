@@ -62,7 +62,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-									&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}">
+									&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
 							</font>
@@ -71,7 +71,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${model.record.setdn}">
+													&opd=${model.record.setdn}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.export.notisblock.createnew.tab"/>
 							</font>
@@ -80,7 +80,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${ model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}">
+													&opd=${ model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/>
 							</font>
@@ -89,7 +89,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkLogging" style="display:block;" href="tvinnsadexport_logging.do?avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
+													&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
 							</font>
@@ -99,23 +99,44 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkArchive" style="display:block;" href="tvinnsadexport_archive.do?avd=${model.record.seavd}&sign=${model.record.sesg}
-							&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}">
+							&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
 							</font>
 							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 						</a>
 					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-													&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}">
-							<font class="tabDisabledLink">
-								&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
-							</font>
-						</a>
-					</td>
-					<td width="5%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					
+					<%-- We must check if this tolddkl. qualifies for omberegning --%>
+					<c:if test="${ ( not empty model.record.setll && (empty model.record.sest || model.record.sest == 'P' || model.record.sest == 'U') ) ||
+								   ( empty model.record.o2_sest  || model.record.o2_sest == 'M' || model.record.o2_sest == 'Z' || model.record.o2_sest == 'Q' || model.record.o2_sest == 'P'  )}">
+						<%-- ------------------------------------------------------------------------------------------ --%>
+						<%-- We must redirect to different behaviors if there is an existent omberegning already or not --%>
+						<%-- ------------------------------------------------------------------------------------------ --%>
+						<c:choose> 
+							<c:when test="${ (model.record.o2_sest == 'P' || model.record.o2_sest == 'Z' ) &&  not empty model.record.o2_semf }">
+								<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+								<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+									<a id="alinkOmberegningPaOmberegning" style="display:block;" runat="server" href="#">
+										<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/></font>
+									</a>
+								</td>
+							</c:when>
+							<c:otherwise>
+								<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+								<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+									<a id="alinkOmberegning" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
+																&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+										<font class="tabDisabledLink">
+											&nbsp;<spring:message code="systema.tvinn.sad.export.omberegning.mastertopic.tab"/>
+										</font>
+									</a>
+								</td>
+							</c:otherwise>
+							</c:choose>
+					</c:if>
+					
+					<td width="25%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:when>
 				<c:otherwise>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
@@ -1758,6 +1779,45 @@
 		</div>
 	</td>
 </tr> 
+
+<%-- --------------------------- --%>	
+ <%-- Ombereg. på Ombereg. dialog --%>	
+ <%-- --------------------------- --%>
+ <tr>
+	<td>
+		<div id="dialogOmberegningPaOmberegning" title="Dialog">
+			<form  action="tvinnsadexport_edit_omberegning.do" name="copyOmberegningPaOmberegningForm" id="copyOmberegningPaOmberegningForm" method="post">
+			 	<input type="hidden" name="action" id="action" value='doFetch'/>
+				<input type="hidden" name="avd" id="avd" value='${ model.record.seavd}'/>
+				<input type="hidden" name="sign" id="sign" value='${ model.record.sesg}'/>
+				<input type="hidden" name="opd" id="opd" value='${ model.record.setdn}'/>
+				<input type="hidden" name="status" id="status" value='${ model.record.sest}'/>
+				<input type="hidden" name="fabl" id="fabl" value='${ model.record.sebel1}'/>
+				<input type="hidden" name="o2_sest" id="o2_sest" value='${ model.record.o2_sest}'/>
+				<input type="hidden" name="o2_sedt" id="o2_sedt" value='${ model.record.o2_sedt}'/>
+				<input type="hidden" name="o2_semf" id="o2_semf" value='${ model.record.o2_semf}'/>
+				
+				<p class="text14" >Denne fortollingen er <b>allerede omberegnet</b>
+				<br><br>
+				Vad vill du velge?
+				</p>
+									
+				<table>
+					<tr height="5"><td ></td></tr>
+					<tr>
+						<td class="text12MediumBlue">
+							<select name="selectedOmb" id="selectedOmb">
+			            		<option value="">-velg-</option>
+			 				  	<option value="o">Basert på original fortolling </option>
+			 				  	<option value="s">Basert på siste ombereg.</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</td>
+</tr>
  
 
 	

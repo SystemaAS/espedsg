@@ -61,7 +61,7 @@
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
 													&opd=${ model.record.sitdn}
-													&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+													&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 							</font>
@@ -70,7 +70,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+													&opd=${ model.record.sitdn}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
 							</font>
@@ -79,7 +79,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+													&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/>
 							</font>
@@ -88,7 +88,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkLogging" style="display:block;" href="tvinnsadimport_logging.do?avd=${ model.record.siavd}&sign=${ model.record.sisg}
-													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.logging.tab"/>
 							</font>
@@ -98,7 +98,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkArchive" style="display:block;" href="tvinnsadimport_archive.do?avd=${model.record.siavd}&sign=${model.record.sisg}
-													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+													&opd=${model.record.sitdn}&status=${model.record.sist}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/>
 							</font>
@@ -125,7 +125,7 @@
 								<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 								<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 									<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-																&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}">
+																&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${ model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 										<font class="tabDisabledLink">
 											&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
 										</font>
@@ -1858,7 +1858,8 @@
 				<input type="hidden" name="fabl" id="fabl" value='${ model.record.sibel3}'/>
 				<input type="hidden" name="o2_sist" id="o2_sist" value='${ model.record.o2_sist}'/>
 				<input type="hidden" name="o2_sidt" id="o2_sidt" value='${ model.record.o2_sidt}'/>
-
+				<input type="hidden" name="o2_simf" id="o2_simf" value='${ model.record.o2_simf}'/>
+				
 				<p class="text14" >Denne fortollingen er <b>allerede omberegnet</b>
 				<br><br>
 				Vad vill du velge?

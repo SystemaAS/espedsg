@@ -22,7 +22,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkHeader" style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${model.opd}
-							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+							&sysg=${model.sign}&tuid=${model.tullId}&syst=${model.status}&sydt=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
 						<font class="text12MediumBlue">[${model.opd}]</font>
 						<c:if test="${model.status == 'M' || empty model.status || model.status == '1'}">
@@ -34,7 +34,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
-												&opd=${ model.opd}&status=${ model.status}&fabl=${ XX.dkih_222}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+												&opd=${ model.opd}&status=${ model.status}&fabl=${ XX.dkih_222}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 						</font>
@@ -43,7 +43,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
-												&opd=${ model.opd}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+												&opd=${ model.opd}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
 						</font>
@@ -52,8 +52,7 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-												&opd=${model.opd}&tullId=${model.tullId}
-												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+												&opd=${model.opd}&tullId=${model.tullId}&status=${model.status}&datum=${model.datum}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/>
 						</font>
@@ -71,24 +70,25 @@
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkArchive" style="display:block;" href="tvinnsadimport_archive.do?avd=${model.avd}&sign=${model.sign}
-												&opd=${model.opd}&tullId=${model.tullId}
-												&status=${model.status}&datum=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+												&opd=${model.opd}&tullId=${model.tullId}&status=${model.status}&datum=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/>
 						</font>
 						<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 					</a>
 				</td>
+				<%-- This tab should be hidden here ?
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkOmberegning" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-												&opd=${ model.opd}&status=${model.status}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}">
+												&opd=${ model.opd}&status=${model.status}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.omberegning.mastertopic.tab"/>
 						</font>
 					</a>
 				</td>
-				<td width="4%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				--%>
+				<td width="20%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			</tr>
 			<tr height="3"><td></td></tr>
 		</table>

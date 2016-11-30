@@ -156,6 +156,11 @@ public class SadExportHeaderController {
 		String sign = request.getParameter("sesg");
 		String se0035 = request.getParameter("se0035"); //test indicator
 		String innstikk = request.getParameter("semi"); //innstikk indicator
+		String omberegningFlag = request.getParameter("o2_sest"); //omberegning indicator
+		String omberegningDate = request.getParameter("o2_sedt"); //omberegning indicator
+		String omberegningType = request.getParameter("o2_semf"); //omberegning indicator
+		
+		
 		logger.info("TEST flag:<" + se0035 +">");
 		
 		//Action (doFetch, doUpdate, doCreate)
@@ -211,7 +216,7 @@ public class SadExportHeaderController {
 			    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 			    		this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 			    		this.setCodeDropDownMgr(appUser, model);	
-			    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicContainer, totalItemLinesObject);
+			    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicContainer, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType);
 			    		
 			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 			    		//put the doUpdate action since we are preparing the record for an update (when saving)
@@ -1245,7 +1250,8 @@ public class SadExportHeaderController {
 	 * @param container
 	 * @param sumOfAntalKolliInItemLines
 	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadExportSpecificTopicContainer container, SadExportSpecificTopicTotalItemLinesObject totalItemLinesObject){
+	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadExportSpecificTopicContainer container, SadExportSpecificTopicTotalItemLinesObject totalItemLinesObject, 
+			String omberegningFlag, String omberegningDate, String omberegningType){
 		//SET HEADER RECORDS  (from RPG)
 		for (JsonSadExportSpecificTopicRecord record : container.getOneorder()){
 			record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
@@ -1258,6 +1264,10 @@ public class SadExportHeaderController {
 			
 			//Adjust dates
 			this.adjustDatesOnFetch(record);
+			//Omberegning flag
+			record.setO2_sest(omberegningFlag);
+			record.setO2_sedt(omberegningDate);
+			record.setO2_semf(omberegningType);
 			
 			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines

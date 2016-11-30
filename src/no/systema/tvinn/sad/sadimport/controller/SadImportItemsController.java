@@ -142,6 +142,7 @@ public class SadImportItemsController {
 			String tariffNr = request.getParameter("tariffNr");
 			String omberegningFlag = request.getParameter("o2_sist");
 			String omberegningDate = request.getParameter("o2_sidt");
+			String omberegningType = request.getParameter("o2_simf"); //omberegning indicator
 			
 			
 			//this fragment gets some header fields needed for the validator
@@ -171,7 +172,7 @@ public class SadImportItemsController {
 			model.put("datum", datum);
 			model.put("o2_sist", omberegningFlag);
 			model.put("o2_sidt", omberegningDate);
-			
+			model.put("o2_simf", omberegningType);
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));

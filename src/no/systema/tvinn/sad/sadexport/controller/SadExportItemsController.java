@@ -136,6 +136,9 @@ public class SadExportItemsController {
 			String refnr = request.getParameter("refnr");
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
+			String omberegningFlag = request.getParameter("o2_sest");
+			String omberegningDate = request.getParameter("o2_sedt");
+			String omberegningType = request.getParameter("o2_semf");
 			
 			String startItemLineNr = request.getParameter("startItemLineNr");
 			String tariffNr = request.getParameter("tariffNr");
@@ -164,6 +167,9 @@ public class SadExportItemsController {
 			model.put("refnr(tullid)", refnr);
 			model.put("status", status);
 			model.put("datum", datum);
+			model.put("o2_sest", omberegningFlag);
+			model.put("o2_sedt", omberegningDate);
+			model.put("o2_semf", omberegningType);
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				//-----------
