@@ -197,7 +197,7 @@
 									</tr>
 									<tr>	
 										<td class="text12" title="tgtina">&nbsp;<font class="text14RedBold" >*</font>Firma nr.</td>
-										<td ><input type="text" required  oninvalid="this.setCustomValidity('Obligatoriskt')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}' /></td>
+										<td ><input type="text" required  oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tgtina" id="tgtina" size="18" maxlength="17" value='${model.record.tgtina}' /></td>
 									</tr>
 									<tr>
 										<td class="text12" title="tgnaa">&nbsp;<font class="text14RedBold" >*</font>Navn</td>
