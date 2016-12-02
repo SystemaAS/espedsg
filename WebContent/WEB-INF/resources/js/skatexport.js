@@ -14,6 +14,17 @@
 	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
+	  
+	  //External references in model Dialog
+	  	jq('#extRefIdLink').click(function() {
+	    	jq('#extRefIdLink').attr('target','_blank');
+	    	window.open('skatexport_childwindow_external_references.do?', "codeWin", "top=300px,left=750px,height=500px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#extRefIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#extRefIdLink').click();
+			}
+	    });
   });
   
   jq(function() {

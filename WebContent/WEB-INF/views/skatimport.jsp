@@ -381,6 +381,9 @@
 							</td>
 							<td class="text12MediumBlue">
 								<input type="text" class="inputText" id="selectedExtRefNr" name="selectedExtRefNr" size="25" maxlength="35" value=''>&nbsp;
+								<a tabindex="-1" id="extRefIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
 							</td>
 						</tr>
 					</table>

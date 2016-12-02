@@ -16,6 +16,9 @@ public final class SkatImportUrlDataStore {
 	//[1] FETCH ARENDE LIST
 	//----------------------------
 	static public String SKAT_IMPORT_BASE_TOPICLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI000R.pgm";
+	//fetch external references
+	//http://10.13.1.22/sycgip/tdke004r.pgm?user=A25DEMO
+	static public String SKAT_IMPORT_BASE_FETCH_TOPIC_LIST_EXTERNAL_REFERENCES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKI004R.pgm";
 	
 	//----------------------------
 	//[2] FETCH A SPECIFIC ARENDE

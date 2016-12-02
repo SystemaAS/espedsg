@@ -40,14 +40,17 @@ import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalRecord;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicInvoiceExternalRecord;
 
 import no.systema.skat.skatimport.service.SkatImportSpecificTopicService;
+import no.systema.skat.skatimport.service.SkatImportTopicListService;
+
 import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
 import no.systema.skat.skatimport.util.RpgReturnResponseHandler;
 
@@ -197,6 +200,61 @@ public class SkatImportControllerChildWindow {
 	}
 	/**
 	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatimport_childwindow_external_references.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView skatExportExternalReferences(@ModelAttribute ("record") JsonSkatImportTopicListExternalRefContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		logger.info("Inside: skatImportExternalReferences");
+		
+		ModelAndView successView = new ModelAndView("skatimport_childwindow_external_references");
+		JsonSkatImportTopicInvoiceExternalRecord jsonSkatExportTopicInvoiceExternalRecord = null;
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		
+		Map model = new HashMap();
+		String urlRequestParamsKeys = null;
+		//Catch required action (doFetch or doUpdate)
+		
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL_FETCH = SkatImportUrlDataStore.SKAT_IMPORT_BASE_FETCH_TOPIC_LIST_EXTERNAL_REFERENCES_URL;
+			urlRequestParamsKeys = "user=" + appUser.getUser();
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("FETCH av list... ");
+	    	logger.info("URL: " + BASE_URL_FETCH);
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the FETCH (RPG program) here
+	    	//--------------------------------------
+			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+			
+			//Debug --> 
+	    	//logger.info(jsonPayloadFetch);
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	JsonSkatImportTopicListExternalRefContainer container = this.skatImportTopicListService.getSkatImportTopicListExternalRefContainer(jsonPayloadFetch);
+	    	//drop downs populated from back-end
+	    	this.setDomainObjectsForListExternalRefInView(model, container);
+			
+	    	successView.addObject("model",model);
+			
+	    	logger.info("END of method");
+	    	return successView;
+		}
+		
+	}
+	
+	
+	/**
+	 * 
 	 * @param appUser
 	 * @param countryCode
 	 * @param itemCode
@@ -302,6 +360,23 @@ public class SkatImportControllerChildWindow {
 		model.put(SkatConstants.DOMAIN_RECORD, record);
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @param container
+	 */
+	private void setDomainObjectsForListExternalRefInView(Map model, JsonSkatImportTopicListExternalRefContainer container){
+		List list = new ArrayList();
+		if(container!=null){
+			for (JsonSkatImportTopicListExternalRefRecord record : container.getExtList()){
+				//this.adjustDatesOnFetch(record);
+				list.add(record);
+			}
+		}
+		model.put(SkatConstants.DOMAIN_LIST_EXTERNAL_REF, list);
+		
+	}
+	
 
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -334,6 +409,14 @@ public class SkatImportControllerChildWindow {
 	@Required
 	public void setSkatImportSpecificTopicService (SkatImportSpecificTopicService value){ this.skatImportSpecificTopicService = value; }
 	public SkatImportSpecificTopicService getSkatImportSpecificTopicService(){ return this.skatImportSpecificTopicService; }
+	
+	
+	@Qualifier ("skatImportTopicListService")
+	private SkatImportTopicListService skatImportTopicListService;
+	@Autowired
+	@Required
+	public void setSkatImportTopicListService (SkatImportTopicListService value){ this.skatImportTopicListService = value; }
+	public SkatImportTopicListService getSkatImportTopicListService(){ return this.skatImportTopicListService; }
 	
 	
 }

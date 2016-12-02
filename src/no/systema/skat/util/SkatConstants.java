@@ -101,6 +101,7 @@ public final class SkatConstants {
 	public static final String DOMAIN_RECORD_TOPIC_SKAT_UNLOADING = "recordTopicSkatUnloading";
 	
 	public static final String DOMAIN_LIST = "list";
+	public static final String DOMAIN_LIST_EXTERNAL_REF = "listExternalRef";
 	public static final String DOMAIN_RECORD_ITEM_CONTAINER_TOPIC = "recordItemContainerTopic";
 	public static final String DOMAIN_RECORD_ITEM_CONTAINER_INVOICE_TOPIC = "recordItemContainerInvoiceTopic";
 	public static final String SESSION_LIST = "sessionList";

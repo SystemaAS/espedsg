@@ -3,6 +3,7 @@
  */
 package no.systema.skat.skatimport.service;
 
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListContainer;
 
 /**
@@ -14,4 +15,5 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicLis
  */
 public interface SkatImportTopicListService {
 	public JsonSkatImportTopicListContainer getSkatImportTopicListContainer(String utfPayload);
+	public JsonSkatImportTopicListExternalRefContainer getSkatImportTopicListExternalRefContainer(String utfPayload);
 }

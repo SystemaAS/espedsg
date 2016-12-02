@@ -11,6 +11,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import no.systema.main.controller.LoginController;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListRecord;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListExternalRefContainer;
+import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListExternalRefRecord;
+
 //
 import java.util.*;
 
@@ -28,10 +31,26 @@ public class SkatExportTopicListMapper {
 		ObjectMapper mapper = new ObjectMapper();  
 		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSkatExportTopicListContainer topicListContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicListContainer.class); 
+		JsonSkatExportTopicListContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicListContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
-		logger.info("[JSON-String payload status=OK]  " + topicListContainer.getUser());
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		
-		return topicListContainer;
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonSkatExportTopicListExternalRefContainer getContainerExternalRef(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonSkatExportTopicListExternalRefContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicListExternalRefContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		
+		return container;
 	}
 }

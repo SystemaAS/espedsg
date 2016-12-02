@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.main.controller.LoginController;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListRecord;
 //
@@ -39,8 +40,23 @@ public class SkatImportTopicListMapper {
 			//logger.info("Avs: " + record.getAvsNavn());
 			
 		}
-		
-		
 		return topicListContainer;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonSkatImportTopicListExternalRefContainer getContainerExternalRef(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonSkatImportTopicListExternalRefContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportTopicListExternalRefContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		
+		return container;
 	}
 }
