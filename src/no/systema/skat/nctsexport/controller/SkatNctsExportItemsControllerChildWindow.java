@@ -341,6 +341,9 @@ public class SkatNctsExportItemsControllerChildWindow {
 		if(searchFilter.getXrefnr()!=null && !"".equals(searchFilter.getXrefnr())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "xref=" + searchFilter.getXrefnr());
 		}
+		if(searchFilter.getMrn()!=null && !"".equals(searchFilter.getMrn())){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mrn=" + searchFilter.getMrn());
+		}
 		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
 		}

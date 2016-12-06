@@ -33,6 +33,7 @@
 						<tr>
 							<td class="text11">&nbsp;&nbsp;Afdelning</td>
 							<td class="text11">&nbsp;&nbsp;Angivelse</td>
+							<td class="text11">&nbsp;&nbsp;Mrn</td>
 							<td class="text11">&nbsp;&nbsp;Ref.nr.</td>
 							<td class="text11">&nbsp;&nbsp;Ext.ref.nr</td>
 							<td class="text11">&nbsp;&nbsp;Dato</td>
@@ -42,6 +43,7 @@
 						 <tr>	
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value="${searchFilter.avd}"></td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="8" maxlength="7" value="${searchFilter.opd}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="mrn" id="mrn" size="10" maxlength="10" value="${searchFilter.mrn}"></td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="refnr" id="refnr" size="10" maxlength="10" value="${searchFilter.refnr}"></td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="xrefnr" id="xrefnr" size="10" maxlength="10" value="${searchFilter.xrefnr}"></td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value="${searchFilter.datum}"></td>
@@ -66,6 +68,7 @@
 							<th class="text11" title="avd">&nbsp;<spring:message code="systema.skat.export.list.search.label.avd"/>&nbsp;</th>
 		                    <th class="text11" title="sign">&nbsp;<spring:message code="systema.skat.export.list.search.label.signatur"/>&nbsp;</th>
 		                    <th class="text11" title="opd">&nbsp;<spring:message code="systema.skat.export.list.search.label.arende"/>&nbsp;</th>
+		                    <th class="text11" title="opd">&nbsp;Mrn&nbsp;</th>
 		                    <th class="text11" title="refnr">&nbsp;<spring:message code="systema.skat.export.list.search.label.refnr"/>&nbsp;</th>
 		                    <th class="text11" title="dkeh_xref">&nbsp;<spring:message code="systema.skat.export.list.search.label.xrefnr"/>&nbsp;</th>
 		                    <th class="text11" title="aart">&nbsp;<spring:message code="systema.skat.export.list.search.label.aart"/>&nbsp;</th>
@@ -91,6 +94,7 @@
 			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="avd${record.avd}@opd${record.opd}@xref${record.dkeh_xref}@refnr${record.refnr}" >
 			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.opd}
 			               	</td>
+		               	   <td class="text11">&nbsp;${record.dkeh_mrn}</td>
 		               	   <td class="text11">&nbsp;${record.refnr}</td>
 		               	   <td class="text11">&nbsp;${record.dkeh_xref}</td>
 		               	   <td class="text11">&nbsp;${record.aart}</td>

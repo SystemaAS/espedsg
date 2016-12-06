@@ -38,6 +38,9 @@ public class SearchFilterSkatExportTopicList {
 	public void setXrefnr(String value) {  this.xrefnr = value; }
 	public String getXrefnr() { return this.xrefnr;}
 	
+	private String mrn = null;
+	public void setMrn(String value) {  this.mrn = value; }
+	public String getMrn() { return this.mrn;}
 	
 	private String sign = null;
 	public void setSign(String value) { this.sign = value;}

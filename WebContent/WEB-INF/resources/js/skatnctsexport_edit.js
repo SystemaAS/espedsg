@@ -618,14 +618,42 @@
 			function(data) {
 				var len = data.length;
 				for ( var i = 0; i < len; i++) {
-					jq('#thdst').val(data[i].thdst);
-					jq('#thdk').val(data[i].thdk);
+					//Sender
+					jq('#thkns').val(data[i].thkns);
+					jq('#thnas').val(data[i].thnas);
+					jq('#thtins').val(data[i].thtins);
+					jq('#thads1').val(data[i].thads1);
+					jq('#thpns').val(data[i].thpns);
+					jq('#thpss').val(data[i].thpss);
+					jq('#thlks').val(data[i].thlks);
+					if('DK'== data[i].thlks){
+						jq('#thsks').val('DA');
+					}
+					//Receiver
+					jq('#thknk').val(data[i].thknk);
+					jq('#thnak').val(data[i].thnak);
+					jq('#thtink').val(data[i].thtink);
+					jq('#thadk1').val(data[i].thadk1);
+					jq('#thpnk').val(data[i].thpnk);
+					jq('#thpsk').val(data[i].thpsk);
+					jq('#thlkk').val(data[i].thlkk);
+					if('NO'== data[i].thlkk){
+						jq('#thskk').val('NO');
+					}
+					//Responsible
 					jq('#thtina').val(data[i].thtina);
 					jq('#thnaa').val(data[i].thnaa);
 					jq('#thada1').val(data[i].thada1);
 					jq('#thpna').val(data[i].thpna);
 					jq('#thpsa').val(data[i].thpsa);
 					jq('#thlka').val(data[i].thlka);
+					if('DK'== data[i].thlka){
+						jq('#thska').val('DA');
+					}
+					
+					jq('#thdst').val(data[i].thdst);
+					jq('#thdk').val(data[i].thdk);
+					
 					jq('#thlsd').val(data[i].thlsd);
 					jq('#thlas2').val(data[i].thlas2);
 					jq('#thalk').val(data[i].thalk);
@@ -633,6 +661,7 @@
 					jq('#thskfd').val(data[i].thskfd);
 					jq('#thcats').val(data[i].thcats);
 					jq('#thtsd1').val(data[i].thtsd1);
+					jq('#thtsb').val(data[i].thtsb);
 					
 					jq('#thddt').val(data[i].thddt);
 					jq('#thdkr').val(data[i].thdkr);
