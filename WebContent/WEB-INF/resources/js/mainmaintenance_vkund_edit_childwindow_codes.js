@@ -9,7 +9,6 @@ jq(function() {
 		var record = id.split('@');
 		var code = record[0].replace("code", "");
 		var caller = record[1].replace("caller", "");
-		alert(code + " " + caller);
 
 		//addressing a parent field from this child window
 		if (caller == 'ctype') {

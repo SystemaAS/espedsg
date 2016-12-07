@@ -222,7 +222,7 @@ public class MainMaintenanceCundfVkundController {
 	
 	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowsKodeRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
-		kode.setCode(record.getKfkod());
+		kode.setCode("*"+ record.getKftxt()); //Yes, special
 		kode.setDescription(record.getKftxt());
 	
 		return kode;

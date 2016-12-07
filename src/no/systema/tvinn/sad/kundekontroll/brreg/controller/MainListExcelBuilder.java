@@ -84,8 +84,12 @@ public class MainListExcelBuilder extends AbstractExcelView {
         
         header.createCell(9).setCellValue("Under tvangsavvikling");
         header.getCell(9).setCellStyle(style);
-                
-        
+  
+        //Added for Schenker, remove ?
+        header.createCell(10).setCellValue("Organisasjonsform");
+        header.getCell(10).setCellStyle(style);
+ 
+            
         // create data rows
         int rowCount = 1;
          
@@ -101,6 +105,8 @@ public class MainListExcelBuilder extends AbstractExcelView {
             aRow.createCell(7).setCellValue(record.getRegistrertimvaregisteret());
             aRow.createCell(8).setCellValue(record.getUnderavvikling());
             aRow.createCell(9).setCellValue(record.getUndertvangsavviklingellertvangsopplosning());
+            aRow.createCell(10).setCellValue(record.getOrganisasjonsform());
+
         }
     }
 	

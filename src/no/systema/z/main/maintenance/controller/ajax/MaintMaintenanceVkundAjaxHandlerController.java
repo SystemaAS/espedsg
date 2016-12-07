@@ -43,7 +43,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta) {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
-		logger.info(METHOD + " applicationUser" + applicationUser + "cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta);
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta);
 		List<JsonMaintMainCundcRecord> result = new ArrayList();
 
 		return (List) this.fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta);

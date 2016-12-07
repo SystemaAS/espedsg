@@ -78,6 +78,8 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+
 
 			return successView;
 
@@ -180,6 +182,18 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 		}
 
+	}
+	
+	private String getTrimmedKnav(String knavn) {
+		StringBuilder knavn_display = new StringBuilder();
+		int maxLenght = 10;
+		if (knavn.length() > maxLenght) {
+			knavn_display.append(knavn.substring(0, maxLenght));
+			knavn_display.append("...");
+			return knavn_display.toString();
+		} else {
+			return knavn;
+		}
 	}
 	
 	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {

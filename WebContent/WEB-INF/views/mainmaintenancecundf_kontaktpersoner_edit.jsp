@@ -40,7 +40,7 @@
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tab" align="center">
 								<font class="tabLink">&nbsp;Kunde</font>&nbsp;
-								<font class="text11MediumBlue">[ ${kundeSessionParams.knavn} ]</font>
+								<font class="text11MediumBlue">[${tab_knavn_display}]</font>
 							</td>
 							<td width="55%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						</c:when>
@@ -174,6 +174,7 @@
  	   	 		<td>&nbsp;</td>
  	   	 		<td width="100%">
  	   	 		 <table id="mainArea" class="tabThinBorderWhite" width="100%" cellspacing="0" border="0" align="left">
+<!-- 
  	   	 		 	<tr id="smallFiller">
  	   	 		 		<td rowspan="10">
  	   	 		 			&nbsp;
@@ -183,12 +184,13 @@
  	   	 		 		</td>
  
  	   	 		 	</tr>
+ -->
  	   	 		 	<tr id="list">
  	   	 		 		<td>
 							<table id="mainList" class="display compact cell-border" >
 							<thead>
 								<tr>
-									<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
+									<th align="center" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 									<th class="tableHeaderField" >&nbsp;Kontaktperson&nbsp;</th>
 									<th class="tableHeaderField" >&nbsp;Type&nbsp;</th>
 				                    <th class="tableHeaderField" >&nbsp;Telefon&nbsp;</th>
@@ -200,15 +202,15 @@
 				             <tbody >  
 					            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 					               <tr class="tableRow" height="20" >
-					               <td id="recordUpdate_${record.cfirma}_${record.ccompn}_${record.cconta}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+					               <td id="recordUpdate_${record.cfirma}_${record.ccompn}_${record.cconta}" onClick="getRecord(this);" align="center" width="5%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 			               				<img src="resources/images/update.gif" border="0" alt="edit">
 					               </td>
-					               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.cconta}&nbsp;</font></td>
-					               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.ctype}&nbsp;</font></td>
+					               <td width="15%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.cconta}&nbsp;</font></td>
+					               <td width="15%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.ctype}&nbsp;</font></td>
 					               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cphone}&nbsp;</font></td>
 					               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cmobil}&nbsp;</font></td>
-					               <td width="30%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cemail}&nbsp;</font></td>
-			                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+					               <td width="40%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.cemail}&nbsp;</font></td>
+			                       <td align="center" width="5%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 			               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_kontaktpersoner_edit.do?action=doDelete&cfirma=${record.cfirma}&ccompn=${record.ccompn}&cconta=${record.cconta}&ctype=${record.ctype}">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 						               	</a>

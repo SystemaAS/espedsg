@@ -25,6 +25,8 @@ public class JsonEnhetsRegisteretDataCheckRecord extends JsonAbstractGrandFather
 	private String existsashovedenhet = null;
 	private String existsasunderenhet = null;
 	private String overordnetenhetorgnr = null;
+	private String organisasjonsform = null;
+	
 
 	public String getFirmakode() {
 		return firmakode;
@@ -113,6 +115,14 @@ public class JsonEnhetsRegisteretDataCheckRecord extends JsonAbstractGrandFather
 
 	public void setOverordnetenhetorgnr(String overordnetenhetorgnr) {
 		this.overordnetenhetorgnr = overordnetenhetorgnr;
+	}
+
+	public String getOrganisasjonsform() {
+		return organisasjonsform;
+	}
+
+	public void setOrganisasjonsform(String organisasjonsform) {
+		this.organisasjonsform = organisasjonsform;
 	}
 
 	/**
