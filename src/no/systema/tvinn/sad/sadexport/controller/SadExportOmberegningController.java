@@ -85,6 +85,13 @@ public class SadExportOmberegningController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private String ACTIVE_INNSTIKK_CODE = "I";
+	//Omberegning
+	private String OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND = "NYO";
+	private String OMBEREGNING_TYPE_NYS_LATTER_BACKEND = "NYS";
+	private String OMBEREGNING_TYPE_NYA_ANGRA_BACKEND = "NYA";
+	
+	
+	
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -155,15 +162,17 @@ public class SadExportOmberegningController {
 		String action = request.getParameter("action");
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
-		String sign = request.getParameter("sesg");
+		String sign = request.getParameter("sign");
 		String se0035 = request.getParameter("se0035"); //test indicator
 		String innstikk = request.getParameter("semi"); //innstikk indicator
+		//Omberegning
 		String omberegningFlag = request.getParameter("o2_sest"); //omberegning indicator
 		String omberegningDate = request.getParameter("o2_sedt"); //omberegning indicator
-		String omberegningType = request.getParameter("o2_semf"); //omberegning indicator
+		String omberegningType = request.getParameter("o2_semf"); //omberegning indicator (DFU,DTK,DEB, etc)
+		String selectedOmb = request.getParameter("selectedOmb"); //omberegning indicator from User Input dialog
 		
-		logger.info("TEST flag:<" + se0035 +">");
 		
+		logger.info("TEST flag:<" + se0035 +">");		
 		//Action (doFetch, doUpdate, doCreate)
 		logger.info("Action:" + action);
 		logger.info("Opd:" + opd);
@@ -191,13 +200,42 @@ public class SadExportOmberegningController {
 				//FETCH RECORD
 				//-------------
 				if(TvinnSadConstants.ACTION_FETCH.equals(action)){
+					//Omberegning opd prior to fetch (will be updated with (-) minus sign
+					String opdOmb = opd;
+					
+					//(A) BRANCH for omberegning ALREADY exists
+					if(omberegningDate!=null && !"".equals(omberegningDate)){
+						//at this point we do know that there IS ALREADY a previous omberegning
+						if(omberegningType!=null && !"".equals(omberegningType)){
+							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
+							if(selectedOmb != null && !"".equals(selectedOmb)){
+								this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+								opdOmb = opdOmb + "-";
+							}else{
+								//Add a minus sign (to indicate omberegning on service back-end will be fetch)
+								opdOmb = opdOmb + "-"; 
+							}
+						}else{
+							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
+							opdOmb = opdOmb + "-"; 
+						}
+					//(B) BRANCH for ombregning DOES NOT exist
+					}else{
+						logger.info("Create new omberegning...");
+						//at this point we do know that there IS NOT a previous omberegning
+						//(1) create first omberegning (will be prepared for fetch)
+						selectedOmb = this.OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND;
+						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+						opdOmb = opdOmb + "-"; 
+					}
+					
 					logger.info("FETCH record transaction...");
 					//---------------------------
 					//get BASE URL = RPG-PROGRAM
 		            //---------------------------
 					String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
 					//url params
-					String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opd, sign, appUser);
+					String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opdOmb, sign, appUser);
 					//for debug purposes in GUI
 					session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 					
@@ -434,6 +472,34 @@ public class SadExportOmberegningController {
 	private void adjustValidUpdateFlag(Map model, JsonSadExportSpecificTopicRecord record){
 		record.setValidUpdate(true);
 		model.put(TvinnSadConstants.DOMAIN_RECORD, record);
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @param sign
+	 * @param selectedOmb
+	 */
+	private void cloneOpdToOmberegning(String appUser, String avd, String opd, String sign,String selectedOmb){
+		//clone the original
+		String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_CREATE_OMBEREGNING_FROM_ORIG_SPECIFIC_TOPIC_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sesg=" + sign);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "omtype=" + selectedOmb );
+		//Debug --> 
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys.toString());
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		if(jsonPayload!=null){
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		}else{
+			logger.debug("FATAL ERROR-- jsonPayload is NULL? ..." + jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		}
+		
 	}
 	/**
 	 * 
@@ -986,7 +1052,7 @@ public class SadExportOmberegningController {
 		    		//============
 		    		//Varans pris
 		    		//============
-		    		logger.info("svbelt:" + record.getSvbelt());
+		    		//logger.info("svbelt:" + record.getSvbelt());
 		    		if(record.getSvbelt()!=null && !"".equals(record.getSvbelt())){
 		    			try{
 		    				totalAmount += Double.parseDouble(record.getSvbelt().replace(",","."));

@@ -48,12 +48,12 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkHeader" style="display:block;" href="tvinnsadexport_edit.do?action=doFetch&avd=${model.record.seavd}&opd=${model.record.setdn}
+				<a id="alinkHeader" style="display:block;" href="tvinnsadexport_edit.do?action=doFetch&avd=${model.record.seavd}&opd=${fn:replace(model.record.setdn,'-','')}
 						&sign=${model.record.sesg}&tuid=${refnr}&status=${model.record.sest}&sydt=${model.datum}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/>
 					</font>
-					<font class="text12MediumBlue">[${model.record.setdn}]</font>
+					<font class="text12MediumBlue">[${fn:replace(model.record.setdn,'-','')}]</font>
 					<c:if test="${ model.record.sest == 'M' || empty  model.record.sest}">
 						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 					</c:if>
@@ -63,7 +63,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-							&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${ model.record.sebel1}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+							&opd=${fn:replace(model.record.setdn,'-','')}&status=${ model.record.sest}&fabl=${ model.record.sebel1}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
 					</font>
@@ -72,7 +72,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-											&opd=${model.record.setdn}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+											&opd=${fn:replace(model.record.setdn,'-','')}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.notisblock.createnew.tab"/>
 					</font>
@@ -81,7 +81,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-											&opd=${ model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+											&opd=${fn:replace(model.record.setdn,'-','')}&status=${model.record.sest}&datum=${model.record.sedt}&fabl=${ XX.dkih_222}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/>
 					</font>
@@ -90,7 +90,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkLogging" style="display:block;" href="tvinnsadexport_logging.do?avd=${ model.record.seavd}&sign=${ model.record.sesg}
-											&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+											&opd=${fn:replace(model.record.setdn,'-','')}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
 					</font>
@@ -100,7 +100,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkArchive" style="display:block;" href="tvinnsadexport_archive.do?avd=${model.record.seavd}&sign=${model.record.sesg}
-					&opd=${model.record.setdn}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
+					&opd=${fn:replace(model.record.setdn,'-','')}&status=${model.record.sest}&datum=${model.record.sedt}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
 					</font>

@@ -445,6 +445,94 @@ public class JsonSadExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setSesam(String value) {  this.sesam = value; }
 	public String getSesam() { return this.sesam;}
 	
+	//OMBEREGNING variables
+	private String om_setype = null; 
+	public void setOm_setype(String value) {  this.om_setype = value; }
+	public String getOm_setype() { return this.sesam;}
+	
+	private String om_seft01 = null; 
+	public void setOm_seft01(String value) {  this.om_seft01 = value; }
+	public String getOm_seft01() { return this.om_seft01;}
+	
+	private String om_seft02 = null; 
+	public void setOm_seft02(String value) {  this.om_seft02 = value; }
+	public String getOm_seft02() { return this.om_seft02;}
+	
+	private String om_seft03 = null; 
+	public void setOm_seft03(String value) {  this.om_seft03 = value; }
+	public String getOm_seft03() { return this.om_seft03;}
+	
+	private String om_seft04 = null; 
+	public void setOm_seft04(String value) {  this.om_seft04 = value; }
+	public String getOm_seft04() { return this.om_seft04;}
+	
+	private String om_seft05 = null; 
+	public void setOm_seft05(String value) {  this.om_seft05 = value; }
+	public String getOm_seft05() { return this.om_seft05;}
+	
+	private String om_seft11 = null; 
+	public void setOm_seft11(String value) {  this.om_seft11 = value; }
+	public String getOm_seft11() { return this.om_seft11;}
+	
+	private String om_seft12 = null; 
+	public void setOm_seft12(String value) {  this.om_seft12 = value; }
+	public String getOm_seft12() { return this.om_seft12;}
+	
+	private String om_seft13 = null; 
+	public void setOm_seft13(String value) {  this.om_seft13 = value; }
+	public String getOm_seft13() { return this.om_seft13;}
+	
+	private String om_seft14 = null; 
+	public void setOm_seft14(String value) {  this.om_seft14 = value; }
+	public String getOm_seft14() { return this.om_seft14;}
+	
+	private String om_seft15 = null; 
+	public void setOm_seft15(String value) {  this.om_seft15 = value; }
+	public String getOm_seft15() { return this.om_seft15;}
+	
+	private String om_sebltt = null; 
+	public void setOm_sebltt(String value) {  this.om_sebltt = value; }
+	public String getOm_sebltt() { return this.om_sebltt;}
+	
+	private String om_sety01 = null; 
+	public void setOm_sety01(String value) {  this.om_sety01 = value; }
+	public String getOm_sety01() { return this.om_sety01;}
+	
+	private String om_sety02 = null; 
+	public void setOm_sety02(String value) {  this.om_sety02 = value; }
+	public String getOm_sety02() { return this.om_sety02;}
+	
+	private String om_sety03 = null; 
+	public void setOm_sety03(String value) {  this.om_sety03 = value; }
+	public String getOm_sety03() { return this.om_sety03;}
+	
+	private String om_sety04 = null; 
+	public void setOm_sety04(String value) {  this.om_sety04 = value; }
+	public String getOm_sety04() { return this.om_sety04;}
+	
+	private String om_sety05 = null; 
+	public void setOm_sety05(String value) {  this.om_sety05 = value; }
+	public String getOm_sety05() { return this.om_sety05;}
+	
+	private String om_sebl01 = null; 
+	public void setOm_sebl01(String value) {  this.om_sebl01 = value; }
+	public String getOm_sebl01() { return this.om_sebl01;}
+	
+	private String om_sebl02 = null; 
+	public void setOm_sebl02(String value) {  this.om_sebl02 = value; }
+	public String getOm_sebl02() { return this.om_sebl02;}
+	
+	private String om_sebl03 = null; 
+	public void setOm_sebl03(String value) {  this.om_sebl03 = value; }
+	public String getOm_sebl03() { return this.om_sebl03;}
+	
+	private String om_sebl04 = null; 
+	public void setOm_sebl04(String value) {  this.om_sebl04 = value; }
+	public String getOm_sebl04() { return this.om_sebl04;}
+	
+	private String om_sebl05 = null; 
+	public void setOm_sebl05(String value) {  this.om_sebl05 = value; }
+	public String getOm_sebl05() { return this.om_sebl05;}
 	
 	
 	/**

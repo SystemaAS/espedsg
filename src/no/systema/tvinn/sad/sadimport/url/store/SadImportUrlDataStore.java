@@ -25,6 +25,9 @@ public final class SadImportUrlDataStore {
 	static public String SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI001R.pgm";
 	//http://gw.systema.no/sycgip/TNOI001R.pgm?user=OSCAR&avd=1&opd=91132
 	
+	static public String SAD_IMPORT_BASE_CREATE_OMBEREGNING_FROM_ORIG_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI003R.pgm";
+	//http://gw.systema.no/sycgip/TNOI003R.pgm?user=OSCAR&avd=1&opd=900041&sesg=OT&OMTYPE=NYO(NYS,NYA)
+	
 	//[2.1] FETCH Fakt.total from Invoices
 	//http://gw.systema.no/sycgip/tnoi033r.pgm?user=OSCAR&avd=1&opd=215
 	static public String SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_FAKT_TOTAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI033R.pgm";

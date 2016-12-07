@@ -1871,8 +1871,8 @@
 						<td class="text12MediumBlue">
 							<select name="selectedOmb" id="selectedOmb">
 			            		<option value="">-velg-</option>
-			 				  	<option value="o">Basert på original fortolling </option>
-			 				  	<option value="s">Basert på siste ombereg.</option>
+			 				  	<option value="NYO">Basert på original fortolling</option>
+			 				  	<option value="NYS">Basert på siste ombereg.</option>
 							</select>
 						</td>
 					</tr>

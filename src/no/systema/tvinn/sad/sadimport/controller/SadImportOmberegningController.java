@@ -32,6 +32,7 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
@@ -87,6 +88,11 @@ public class SadImportOmberegningController {
 	private ApplicationContext context;
 	
 	private String ACTIVE_INNSTIKK_CODE = "I";
+	//Omberegning
+	private String OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND = "NYO";
+	private String OMBEREGNING_TYPE_NYS_LATTER_BACKEND = "NYS";
+	private String OMBEREGNING_TYPE_NYA_ANGRA_BACKEND = "NYA";
+	
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -154,12 +160,13 @@ public class SadImportOmberegningController {
 		String action = request.getParameter("action");
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
-		String sign = request.getParameter("sisg");
+		String sign = request.getParameter("sign");
 		String si0035 = request.getParameter("si0035"); //test indicator
 		String innstikk = request.getParameter("simi"); //innstikk indicator
 		String omberegningFlag = request.getParameter("o2_sist"); //omberegning indicator
 		String omberegningDate = request.getParameter("o2_sidt"); //omberegning indicator
 		String omberegningType = request.getParameter("o2_simf"); //omberegning indicator
+		String selectedOmb = request.getParameter("selectedOmb"); //omberegning indicator from User Input dialog
 		
 		
 		logger.info("TEST flag:<" + si0035 +">");
@@ -192,7 +199,33 @@ public class SadImportOmberegningController {
 				//FETCH RECORD
 				//-------------
 				if(TvinnSadConstants.ACTION_FETCH.equals(action)){
+					//Omberegning adjust prior to fetch
+					String opdOmb = opd;
 					
+					//(A) BRANCH for omberegning ALREADY exists
+					if(omberegningDate!=null && !"".equals(omberegningDate)){
+						//at this point we do know that there IS ALREADY a previous omberegning
+						if(omberegningType!=null && !"".equals(omberegningType)){
+							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
+							if(selectedOmb != null && !"".equals(selectedOmb)){
+								this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+							}else{
+								//Add a minus sign (to indicate omberegning on service back-end will be fetch)
+								opdOmb = opdOmb + "-"; 
+							}
+						}else{
+							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
+							opdOmb = opdOmb + "-"; 
+						}
+					//(B) BRANCH for ombregning DOES NOT exist
+					}else{
+						logger.info("Create new omberegning...");
+						//at this point we do know that there IS NOT a previous omberegning
+						//(1) create first omberegning (will be prepared for fetch)
+						selectedOmb = this.OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND;
+						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+						opdOmb = opdOmb + "-"; 
+					}
 					logger.info("FETCH record transaction...");
 					//---------------------------
 					//get BASE URL = RPG-PROGRAM
@@ -445,6 +478,26 @@ public class SadImportOmberegningController {
 		model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 	}
 	
+	private void cloneOpdToOmberegning(String appUser, String avd, String opd, String sign,String selectedOmb){
+		//clone the original
+		String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_CREATE_OMBEREGNING_FROM_ORIG_SPECIFIC_TOPIC_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sisg=" + sign);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "omtype=" + selectedOmb );
+		//Debug --> 
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys.toString());
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		if(jsonPayload!=null){
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		}else{
+			logger.debug("FATAL ERROR-- jsonPayload is NULL? ..." + jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		}
+		
+	}
 	/**
 	 * 
 	 * @param session
