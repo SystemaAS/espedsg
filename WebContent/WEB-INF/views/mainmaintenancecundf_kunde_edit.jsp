@@ -146,13 +146,13 @@
 
 								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Fritext</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;Fritekst</font>&nbsp;						
 									</a>
 								</td>
 
 								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Parametrar</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;Parametere</font>&nbsp;						
 									</a>
 								</td>
 								

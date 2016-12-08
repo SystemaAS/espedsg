@@ -143,13 +143,13 @@
 
 							<td width="80" valign="bottom" class="tabDisabledSub" align="center">
 								<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
-									<font class="tabDisabledLinkMinor">&nbsp;Fritext</font>&nbsp;						
+									<font class="tabDisabledLinkMinor">&nbsp;Fritekst</font>&nbsp;						
 								</a>
 							</td>
 
 							<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
-									<font class="tabDisabledLinkMinor">&nbsp;Parametrar</font>&nbsp;						
+									<font class="tabDisabledLinkMinor">&nbsp;Parametere</font>&nbsp;						
 								</a>
 							</td>
 							
@@ -174,19 +174,8 @@
  	   	 		<td>&nbsp;</td>
  	   	 		<td width="100%">
  	   	 		 <table id="mainArea" class="tabThinBorderWhite" width="100%" cellspacing="0" border="0" align="left">
-<!-- 
- 	   	 		 	<tr id="smallFiller">
- 	   	 		 		<td rowspan="10">
- 	   	 		 			&nbsp;
- 	   	 		 		</td>
- 	   	 		 		<td>
- 	   	 		 			&nbsp;
- 	   	 		 		</td>
- 
- 	   	 		 	</tr>
- -->
  	   	 		 	<tr id="list">
- 	   	 		 		<td>
+ 	   	 		 		<td>&nbsp;
 							<table id="mainList" class="display compact cell-border" >
 							<thead>
 								<tr>
@@ -227,8 +216,6 @@
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 					</tr>
-
-
 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
@@ -282,80 +269,193 @@
 										<td>&nbsp;</td>
 									</tr>
 									<tr>
-										<td width="50%">
-											<table class="formFrameHeaderPeachWithBorder" width="90%" 	cellspacing="0" border="0" align="left">
+										<td>
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">
 													&nbsp;Kontaktinfo 
 													</td>
 												</tr>
 											</table>			
-											<table class="formFramePeachGrayRoundBottom"  width="90%" cellspacing="0" border="0" align="left">
-												<tr>
-													<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>Kontaktperson</td>
-													<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="cconta" id="cconta" size="31" maxlength="30" value='${model.record.cconta}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="ctype">&nbsp;Funksjon:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="ctype" id="ctype" size="31" maxlength="30" value='${model.record.ctype}'>
-														<a tabindex="-1" id="ctypeIdLink">
-															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-														</a>
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td width="50%" >
+														<table>
+															<tr>
+																<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>Kontaktperson:</td>
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="cconta" id="cconta" size="35" maxlength="30" value='${model.record.cconta}'></td>
+																<td class="text12" title="cphone">&nbsp;Telefon:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="15" maxlength="15" value='${model.record.cphone}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="ctype">&nbsp;Funksjon:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="ctype" id="ctype" size="35" maxlength="30" value='${model.record.ctype}'>
+																	<a tabindex="-1" id="ctypeIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
+																<td class="text12" title="cmobil">&nbsp;Mobil:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="15" maxlength="15" value='${model.record.cmobil}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="cmerge">&nbsp;Slå sammen PDF:</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="cmerge" id="cmerge" size="1" maxlength="1" value='${model.record.cmerge}'>
+																 	<font class="text12" title="cprint">&nbsp;Print også ?:</font> 
+																 	<input type="text" class="inputTextMediumBlue" name="cprint" id="cprint" size="1" maxlength="1" value='${model.record.cprint}'>
+																 	<font class="text12" title="clive">&nbsp;Vedlegg (V):</font> 
+																 	<input type="text" class="inputTextMediumBlue" name="clive" id="clive" size="1" maxlength="1" value='${model.record.clive}'>
+																</td>
+															</tr>
+														</table>
+													</td>
+													<td width="50%" valign="top">
+														<table>
+															<tr>
+																<td colspan="2" class="text12" title="cemail">&nbsp;E-mail:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="70" maxlength="70" value='${model.record.cemail}'></td>
+															<tr>
+																<td colspan="2" class="text12" title="cemne">&nbsp;E-mail, emne:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="70" maxlength="80" value='${model.record.cemne}'></td>
+															</tr>
+														</table>
 													</td>
 												</tr>
-												<tr>
-													<td class="text12" title="cemail">&nbsp;E-mail:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="50" maxlength="70" value='${model.record.cemail}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="cemne">&nbsp;E-mail, emne:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="50" maxlength="80" value='${model.record.cemne}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="cavd">&nbsp;Avdeling:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cavd" id="cavd" size="50" maxlength="80" value='${model.record.cavd}'></td>
-												</tr>
-
 											</table>
 										</td>
-	
-										<td width="50%">
-											<table class="formFrameHeaderTransparent" width="90%" 	cellspacing="0" border="0" border="0">
-												<tr valign="top">
-													<td class="text12" title="copd">&nbsp;Ordertyper:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="copd" id="copd" size="10" maxlength="10" value='${model.record.copd}'></td>
-												</tr>
+									</tr>
+
+									<tr>
+										<td>&nbsp;
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12" title="copdio">&nbsp;Ink/Omit ordertyper:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="copdio" id="copdio" size="1" maxlength="1" value='${model.record.copdio}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="cavdio">&nbsp;Ink/Omit avdeling:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cavdio" id="cavdio" size="1" maxlength="1" value='${model.record.cavdio}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="clive">&nbsp;Vedlegg (V):</td>
-													<td><input type="text" class="inputTextMediumBlue" name="clive" id="clive" size="1" maxlength="1" value='${model.record.clive}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="cmerge">&nbsp;Merge PDF:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cmerge" id="cmerge" size="1" maxlength="1" value='${model.record.cmerge}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="cprint">&nbsp;Print:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="cprint" id="cprint" size="1" maxlength="1" value='${model.record.cprint}'></td>
+													<td class="text12Bold">
+													&nbsp;Avvikende vedleggsliste på kundenivå
+													</td>
 												</tr>
 											</table>			
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td width="50%" >
+														<table>
+															<tr>
+																<td class="text12">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+															</tr>
+															<tr>
+																<td class="text12">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
 										</td>
 									</tr>
-									<tr><td colspan="2">&nbsp;</td></tr>
+
 									<tr>
-										<td colspan="2">&nbsp;</td>
-										<td>
+										<td>&nbsp;
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">
+													&nbsp;Inc/Omit
+													</td>
+												</tr>
+											</table>			
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td width="20%" >
+														<table>
+															<tr>
+																<td class="text12" title="cavdio">&nbsp;Inc/Omit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavdio" id="cavdio" size="1" maxlength="1" value='${model.record.cavdio}'></td>
+																<td class="text12" title="cavd">&nbsp;Avdeling:</td>
+															</tr>
+															<tr>
+																<td colspan="3" class="text12" title="cavd" height="25">&nbsp;</td>
+															</tr>
+															<tr>
+																<td class="text12" title="copdio">&nbsp;Inc/Omit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="copdio" id="copdio" size="1" maxlength="1" value='${model.record.copdio}'></td>
+																<td class="text12" title="copd">&nbsp;Ordertype:</td>
+															</tr>
+														</table>
+													</td>
+													<td width="80%" valign="top">
+														<table>
+															<tr>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+															</tr>
+															<tr>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+															</tr>
+															<tr>
+																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+									<tr><td>&nbsp;</td></tr>
+									<tr> 
+										<td align="right">
 											<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
 										</td>
 									</tr>
-									
 								</table>
 			 	    		</form>
  	   	 		 		</td>
@@ -371,14 +471,7 @@
  	   	 		
  	   	 	</tr>
  
-  	    	<tr>
-
-			</tr>
-			
-			<tr height="25"><td>&nbsp;</td></tr>
-			
-	 	    <tr height="20"><td>&nbsp;</td></tr>
-	
+	 	    <tr height="20"><td>&nbsp;</td></tr>	
 	 	    
 	 		</table>
 		</td>

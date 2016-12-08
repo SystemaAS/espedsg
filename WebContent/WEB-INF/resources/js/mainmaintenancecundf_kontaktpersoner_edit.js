@@ -133,7 +133,7 @@ jq(document).ready(function() {
 	//init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
 	jq('#mainList').dataTable({
 		"dom" : '<"top">t<"bottom"flip><"clear">',
-		"scrollY" : "250px",
+		"scrollY" : "200px",
 		"scrollCollapse" : false,
 		"columnDefs" : [ {
 			"type" : "num",
