@@ -448,7 +448,7 @@ public class JsonSadExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	//OMBEREGNING variables
 	private String om_setype = null; 
 	public void setOm_setype(String value) {  this.om_setype = value; }
-	public String getOm_setype() { return this.sesam;}
+	public String getOm_setype() { return this.om_setype;}
 	
 	private String om_seft01 = null; 
 	public void setOm_seft01(String value) {  this.om_seft01 = value; }

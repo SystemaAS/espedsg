@@ -52,7 +52,7 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExpor
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemRecord;
 import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
 import no.systema.tvinn.sad.sadexport.service.html.dropdown.SadExportDropDownListPopulationService;
-import no.systema.tvinn.sad.sadexport.validator.SadExportHeaderValidator;
+import no.systema.tvinn.sad.sadexport.validator.SadExportOmberegningHeaderValidator;
 import no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicItemService;
 import no.systema.tvinn.sad.sadexport.util.RpgReturnResponseHandler;
 import no.systema.tvinn.sad.sadexport.util.manager.CodeDropDownMgr;
@@ -228,7 +228,7 @@ public class SadExportOmberegningController {
 						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
 						opdOmb = opdOmb + "-"; 
 					}
-					
+					logger.info("opdOmb:" + opdOmb);
 					logger.info("FETCH record transaction...");
 					//---------------------------
 					//get BASE URL = RPG-PROGRAM
@@ -290,7 +290,7 @@ public class SadExportOmberegningController {
 						recordToValidate.setSeavd(avd);
 						recordToValidate.setSesg(sign);
 					}
-					SadExportHeaderValidator validator = new SadExportHeaderValidator();
+					SadExportOmberegningHeaderValidator validator = new SadExportOmberegningHeaderValidator();
 					validator.validate(recordToValidate, bindingResult);
 					//test indicator in validation field
 					recordToValidate.setSe0035(se0035);
@@ -312,7 +312,7 @@ public class SadExportOmberegningController {
 					    	}
 
 				    }else{
-				    		JsonSadExportSpecificTopicRecord jsonSadExportSpecificTopicRecord = null;
+			    		JsonSadExportSpecificTopicRecord jsonSadExportSpecificTopicRecord = null;
 						String tuidRefNr = null;
 						
 						if(opd!=null && !"".equals(opd)){
@@ -1551,6 +1551,9 @@ public class SadExportOmberegningController {
 					 model,appUser,CodeDropDownMgr.CODE_D_LAGRINGSSTED, null, null);
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
 					 model,appUser,CodeDropDownMgr.CODE_HA_HAVNKODER, null, null);
+			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
+					 model,appUser,CodeDropDownMgr.CODE_O_TYPETILFELLE, null, null);
+			
 	}
 	
 	/**

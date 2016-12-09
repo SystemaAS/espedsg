@@ -231,7 +231,7 @@
 					
 				</td>
 				<td align="right" valign="top" >
-					<a tabindex=-1 href="tvinnsadimport_edit_printTopic.do?avd=${model.record.siavd}&opd=${model.record.sitdn}">
+					<a tabindex=-1 href="tvinnsadimport_edit_omberegning_printTopic.do?avd=${model.record.siavd}&opd=${model.record.sitdn}">
 					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 						&nbsp;&nbsp;&nbsp;
 					</a>
@@ -348,6 +348,37 @@
 								</select>
 				 			</td>
 		 				</tr>
+		 				
+		 				<tr height="2"><td></td></tr>
+		 				<tr>
+				 			<td class="text12">
+				 				<img onMouseOver="showPop('om_sitype_info');" onMouseOut="hidePop('om_sitype_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+			 					<b>1</b><font class="text16RedBold" >*</font><span title="om_sitype">Type&nbsp;</span>
+			 					<div class="text11" style="position: relative;" align="left">
+			 					<span style="position:absolute;top:2px; width:250px;" id="om_sitype_info" class="popupWithInputText text11"  >
+				           			<b>Typetilfelle</b>
+				           			<ul>
+				           				<c:forEach var="record" items="${model.typetilfelleOmbCodeList}" >
+				           					<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
+				           				</c:forEach>				           									           									           									           									           									           				
+			           				</ul>
+								</span>	
+								</div>	
+			 					
+				 			</td>
+				 			<td>
+				 				<select class="inputTextMediumBlueMandatoryField" name="om_sitype" id="om_sitype" >
+				 				  <option value="">-velg-</option>	
+				 				  <c:forEach var="record" items="${model.typetilfelleOmbCodeList}" >
+			 				  		<option value="${record.zkod}"<c:if test="${ model.record.om_sitype == record.zkod}"> selected </c:if> >${record.zkod}</option>
+								  </c:forEach> 
+								</select>
+			 				</td>
+		 				</tr>
+			 			<tr height="5"><td></td></tr>	
+		 				
+		 				
+		 				
 		 				<tr>
 		 					<td class="text12">
 		 						<table>
@@ -1541,7 +1572,7 @@
 					        <tr>
 			 					<td class="text12" colspan="2" >
 			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>31.&nbsp;</b><span title="todo">Årsak</span>&nbsp;</b>
+				 				&nbsp;<b>31.&nbsp;</b><font class="text16RedBold" >*</font><span title="om_sift01...">Årsak</span>&nbsp;</b>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute; top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
 					           			<b>31. Årsak</b>&nbsp;
@@ -1554,27 +1585,27 @@
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlueMandatoryField" name="om_sift01" id="om_sift01" size="66" maxlength="65" value="${model.record.om_sift01}">
 			 					</td>
 							</tr>	
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_sift02" id="om_sift02" size="66" maxlength="65" value="${model.record.om_sift02}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_sift03" id="om_sift03" size="66" maxlength="65" value="${model.record.om_sift03}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_sift04" id="om_sift04" size="66" maxlength="65" value="${model.record.om_sift04}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_sift05" id="om_sift05" size="66" maxlength="65" value="${model.record.om_sift05}">
 			 					</td>
 							</tr>
 							<tr height="15"><td>&nbsp;</td>&nbsp;</tr>
@@ -1730,21 +1761,19 @@
 			            		<td class="text">&nbsp;</td> 
 			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
 	
-			 				    <%-- only status = M or emtpy status is allowed TODO
+			 				    <%-- only status = M or emtpy status is allowed TODO --%>
 			 				    <c:choose>
 				 				    <c:when test="${ Xmodel.record.sist == 'M' || empty  Xmodel.record.sist }">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.submit"/>'/>
+					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit_omberegning.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  Xmodel.record.sitdn && Xmodel.record.validUpdate}">
-					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadimport_send.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.send"/>'/>
+					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadimport_edit_omberegning_send.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.send"/>'/>
 					 				    	</c:if>
 				 				    </c:when>
 				 				    <c:otherwise>
 				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 				 				    </c:otherwise>	
 			 				    </c:choose>
-		 				    	--%>
-		 				    	<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 		 				    	
                 				</td>
 					        </tr>

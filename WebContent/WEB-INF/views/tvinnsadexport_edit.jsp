@@ -107,9 +107,12 @@
 						</a>
 					</td>
 					
-					<%-- We must check if this tolddkl. qualifies for omberegning --%>
-					<c:if test="${ ( not empty model.record.setll && (empty model.record.sest || model.record.sest == 'P' || model.record.sest == 'U') ) ||
-								   ( empty model.record.o2_sest  || model.record.o2_sest == 'M' || model.record.o2_sest == 'Z' || model.record.o2_sest == 'Q' || model.record.o2_sest == 'P'  )}">
+					<%-- We must check if this tolddkl. qualifies for omberegning 
+					<c:if test="${ ( not empty model.record.setll && 
+								   ( (empty model.record.sest || model.record.sest == 'P' || model.record.sest == 'U'))  || ( empty model.record.o2_sest  || model.record.o2_sest == 'M' || model.record.o2_sest == 'Z' || model.record.o2_sest == 'Q' || model.record.o2_sest == 'P')  )}">
+					--%>
+					<c:if test="${ not empty model.record.setll }">
+						<c:if test="${ (empty model.record.sest || model.record.sest == 'P' || model.record.sest == 'U')  || ( empty model.record.o2_sest  || model.record.o2_sest == 'M' || model.record.o2_sest == 'Z' || model.record.o2_sest == 'Q' || model.record.o2_sest == 'P')  }">
 						<%-- ------------------------------------------------------------------------------------------ --%>
 						<%-- We must redirect to different behaviors if there is an existent omberegning already or not --%>
 						<%-- ------------------------------------------------------------------------------------------ --%>
@@ -133,7 +136,8 @@
 									</a>
 								</td>
 							</c:otherwise>
-							</c:choose>
+						</c:choose>
+						</c:if>	
 					</c:if>
 					
 					<td width="25%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>

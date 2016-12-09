@@ -36,6 +36,10 @@ public class JsonSadExportTopicListRecord extends JsonAbstractGrandFatherRecord 
 	public void setSitll(String value) {  this.sitll = value; }
 	public String getSitll() { return this.sitll;}
 
+	private String setll = null;
+	public void setSetll(String value) {  this.setll = value; }
+	public String getSetll() { return this.setll;}
+	
 	private String sitle = null;
 	public void setSitle(String value) {  this.sitle = value; }
 	public String getSitle() { return this.sitle;}

@@ -317,8 +317,8 @@ public class SadExportController {
 		if(searchFilter.getSg()!=null && !"".equals(searchFilter.getSg())){
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sg=" + searchFilter.getSg());
 		}
-		if(searchFilter.getSitll()!=null && !"".equals(searchFilter.getSitll())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lopenr=" + searchFilter.getSitll());
+		if(searchFilter.getSetll()!=null && !"".equals(searchFilter.getSetll())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lopenr=" + searchFilter.getSetll());
 		}
 		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + this.dateFormatter.convertToDate_ISO(searchFilter.getDatum()));

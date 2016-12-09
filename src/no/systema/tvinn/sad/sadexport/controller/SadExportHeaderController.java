@@ -1268,6 +1268,10 @@ public class SadExportHeaderController {
 			record.setO2_sest(omberegningFlag);
 			record.setO2_sedt(omberegningDate);
 			record.setO2_semf(omberegningType);
+			logger.info("setll:" + record.getSetll());
+			logger.info("sest:" + record.getSest());
+			logger.info("o2_sest:" + record.getO2_sest());
+			
 			
 			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines

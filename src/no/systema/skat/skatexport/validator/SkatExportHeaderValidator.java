@@ -508,6 +508,18 @@ public class SkatExportHeaderValidator implements Validator {
 					}
 				}
 				
+				//-----------------------
+				//Varernas placering
+				//-----------------------
+				if(record.getDkeh_304()!=null && !"".equals(record.getDkeh_304())){
+					int MIN_LENGTH_DKEH_304 = 3;
+					if(record.getDkeh_304().length() < MIN_LENGTH_DKEH_304){
+						errors.rejectValue("dkeh_304", "systema.skat.export.header.error.rule.varplacering.adresseLopenr");
+					}
+					
+				}
+				
+				
 				//---------------------------------------------
 				//We need to validate all item lines
 				//(a) Varekode: 		8-characters (dkev_331)

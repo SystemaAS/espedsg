@@ -550,6 +550,95 @@ public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setH_xref(String value) {  this.h_xref = value; }
 	public String getH_xref() { return this.h_xref;}
 	
+	//OMBEREGNING variables
+	private String om_sitype = null; 
+	public void setOm_sitype(String value) {  this.om_sitype = value; }
+	public String getOm_sitype() { return this.om_sitype;}
+	
+	private String om_sift01 = null; 
+	public void setOm_sift01(String value) {  this.om_sift01 = value; }
+	public String getOm_sift01() { return this.om_sift01;}
+	
+	private String om_sift02 = null; 
+	public void setOm_sift02(String value) {  this.om_sift02 = value; }
+	public String getOm_sift02() { return this.om_sift02;}
+	
+	private String om_sift03 = null; 
+	public void setOm_sift03(String value) {  this.om_sift03 = value; }
+	public String getOm_sift03() { return this.om_sift03;}
+	
+	private String om_sift04 = null; 
+	public void setOm_sift04(String value) {  this.om_sift04 = value; }
+	public String getOm_sift04() { return this.om_sift04;}
+	
+	private String om_sift05 = null; 
+	public void setOm_sift05(String value) {  this.om_sift05 = value; }
+	public String getOm_sift05() { return this.om_sift05;}
+	
+	private String om_sift11 = null; 
+	public void setOm_sift11(String value) {  this.om_sift11 = value; }
+	public String getOm_sift11() { return this.om_sift11;}
+	
+	private String om_sift12 = null; 
+	public void setOm_sift12(String value) {  this.om_sift12 = value; }
+	public String getOm_sift12() { return this.om_sift12;}
+	
+	private String om_sift13 = null; 
+	public void setOm_sift13(String value) {  this.om_sift13 = value; }
+	public String getOm_sift13() { return this.om_sift13;}
+	
+	private String om_sift14 = null; 
+	public void setOm_sift14(String value) {  this.om_sift14 = value; }
+	public String getOm_sift14() { return this.om_sift14;}
+	
+	private String om_sift15 = null; 
+	public void setOm_sift15(String value) {  this.om_sift15 = value; }
+	public String getOm_sift15() { return this.om_sift15;}
+	
+	private String om_sibltt = null; 
+	public void setOm_sibltt(String value) {  this.om_sibltt = value; }
+	public String getOm_sibltt() { return this.om_sibltt;}
+	
+	private String om_sity01 = null; 
+	public void setOm_sity01(String value) {  this.om_sity01 = value; }
+	public String getOm_sity01() { return this.om_sity01;}
+	
+	private String om_sity02 = null; 
+	public void setOm_sity02(String value) {  this.om_sity02 = value; }
+	public String getOm_sity02() { return this.om_sity02;}
+	
+	private String om_sity03 = null; 
+	public void setOm_sity03(String value) {  this.om_sity03 = value; }
+	public String getOm_sity03() { return this.om_sity03;}
+	
+	private String om_sity04 = null; 
+	public void setOm_sity04(String value) {  this.om_sity04 = value; }
+	public String getOm_sity04() { return this.om_sity04;}
+	
+	private String om_sity05 = null; 
+	public void setOm_sity05(String value) {  this.om_sity05 = value; }
+	public String getOm_sity05() { return this.om_sity05;}
+	
+	private String om_sibl01 = null; 
+	public void setOm_sibl01(String value) {  this.om_sibl01 = value; }
+	public String getOm_sibl01() { return this.om_sibl01;}
+	
+	private String om_sibl02 = null; 
+	public void setOm_sibl02(String value) {  this.om_sibl02 = value; }
+	public String getOm_sibl02() { return this.om_sibl02;}
+	
+	private String om_sibl03 = null; 
+	public void setOm_sibl03(String value) {  this.om_sibl03 = value; }
+	public String getOm_sibl03() { return this.om_sibl03;}
+	
+	private String om_sibl04 = null; 
+	public void setOm_sibl04(String value) {  this.om_sibl04 = value; }
+	public String getOm_sibl04() { return this.om_sibl04;}
+	
+	private String om_sibl05 = null; 
+	public void setOm_sibl05(String value) {  this.om_sibl05 = value; }
+	public String getOm_sibl05() { return this.om_sibl05;}
+	
 	
 	/**
 	 * Used for java reflection in other classes

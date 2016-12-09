@@ -231,7 +231,7 @@
 						<input tabindex=-1 type="checkbox" name="se0035" id="se0035" value="2" <c:if test="${model.record.se0035 == '2'}"> checked </c:if> ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;						
 					</c:if>
 					--%>
-					<a tabindex=-1 href="tvinnsadexport_edit_printTopic.do?avd=${model.record.seavd}&opd=${model.record.setdn}">
+					<a tabindex=-1 href="tvinnsadexport_edit_omberegning_printTopic.do?avd=${model.record.seavd}&opd=${model.record.setdn}">
 					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 						&nbsp;&nbsp;&nbsp;
 					</a>
@@ -349,6 +349,34 @@
 				 			</td>
 				 			
 		 				</tr>
+		 				<tr height="2"><td></td></tr>
+		 				<tr>
+				 			<td class="text12">
+				 				<img onMouseOver="showPop('om_setype_info');" onMouseOut="hidePop('om_setype_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+			 					<b>1</b><font class="text16RedBold" >*</font><span title="om_setype">Type&nbsp;</span>
+			 					<div class="text11" style="position: relative;" align="left">
+			 					<span style="position:absolute;top:2px; width:250px;" id="om_setype_info" class="popupWithInputText text11"  >
+				           			<b>Typetilfelle</b>
+				           			<ul>
+				           				<c:forEach var="record" items="${model.typetilfelleOmbCodeList}" >
+				           					<li><b>${record.zkod}</b>&nbsp;${record.ztxt}</li>
+				           				</c:forEach>				           									           									           									           									           									           				
+			           				</ul>
+								</span>	
+								</div>	
+			 					
+				 			</td>
+				 			<td>
+				 				<select class="inputTextMediumBlueMandatoryField" name="om_setype" id="om_setype" >
+				 				  <option value="">-velg-</option>	
+				 				  <c:forEach var="record" items="${model.typetilfelleOmbCodeList}" >
+			 				  		<option value="${record.zkod}"<c:if test="${ model.record.om_setype == record.zkod}"> selected </c:if> >${record.zkod}</option>
+								  </c:forEach> 
+								</select>
+			 				</td>
+		 				</tr>
+			 			<tr height="5"><td></td></tr>	
+		 				
 		 				<tr>
 		 					<td class="text12">
 		 						<img onMouseOver="showPop('tollMva_info');" onMouseOut="hidePop('tollMva_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -1483,47 +1511,46 @@
 					        <tr>
 			 					<td class="text12" colspan="2" >
 			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>31.&nbsp;</b><span title="todo">Årsak</span>&nbsp;</b>
+				 				&nbsp;<b>31.</b><font class="text16RedBold" >*</font>&nbsp;</b><span title="todo">Årsak</span>&nbsp;</b>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute; top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
 					           			<b>31. Årsak</b>&nbsp;
 					           			<br/><br/>
 					           			Todo
-					           			
 								</span>
 								</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlueMandatoryField" name="om_seft01" id="om_seft01" size="66" maxlength="65" value="${model.record.om_seft01}">
 			 					</td>
 							</tr>	
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_seft02" id="om_seft02" size="66" maxlength="65" value="${model.record.om_seft02}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_seft03" id="om_seft03" size="66" maxlength="65" value="${model.record.om_seft03}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_seft04" id="om_seft04" size="66" maxlength="65" value="${model.record.om_seft04}">
 			 					</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="66" maxlength="65" value="${Xmodel.record.todo}">
+			 						<input type="text" class="inputTextMediumBlue" name="om_seft05" id="om_seft05" size="66" maxlength="65" value="${model.record.om_seft05}">
 			 					</td>
 							</tr>
 							<tr height="25"><td>&nbsp;</td></tr>
 							<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('slaSammen_info');" onMouseOut="hidePop('slaSammen_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					            <span title="sefvk">Slå sammen:</span>
+					            <span title="sesam">Slå sammen:</span>
 					            	<div class="text11" style="position: relative;" align="left">
 					            	<span style="position:absolute;top:2px; width:250px;" id="slaSammen_info" class="popupWithInputText text11"  >
 					           			<b>Slå sammen</b>
@@ -1535,11 +1562,7 @@
 									</div>
 				            	</td>
 					            <td >
-				            		<select name="sesam" id="sesam" >
-				 				  		<option value="">-velg-</option>
-								  		<option value="J"<c:if test="${model.record.sesam == 'J'}"> selected </c:if> >Ja</option>
-								  		<option value="N"<c:if test="${model.record.sesam == 'N'}"> selected </c:if> >Nej</option>
-									</select>
+					            	<input readonly type="text" class="inputTextReadOnly" name="sesam" id="sesam" size="2" maxlength="1" value="${model.record.sesam}">
 					            </td>
 					        </tr>
 							<tr>
@@ -1557,40 +1580,11 @@
 									</div>
 				            	</td>
 					            <td >
-					            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sefvk" id="sefvk" size="5" maxlength="6" value="${model.record.sefvk}">
+				            		<input readonly type="text" class="inputTextReadOnly" name="sefvk" id="sefvk" size="5" maxlength="6" value="${model.record.sefvk}">
 					            </td>
 					        </tr>
 					        
-					        <%--
-					        <tr height="2"><td></td></tr>
-					        <c:if test="${ model.record.sest == 'E' || model.record.sest == 'K' || model.record.sest == 'Å' || empty  model.record.sest }"> 
-						   		<c:if test="${ empty model.record.setll }">
-							        <tr>
-							        	<td valign="top" class="text12" colspan="2">
-							        		<img onMouseOver="showPop('changeStatusUser_info');" onMouseOut="hidePop('changeStatusUser_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					            			Endre Status&nbsp;
-							        		<img style="vertical-align: bottom;cursor: pointer;" id="updateStatusByUserImg" width="20px" height="20px" src="resources/images/changeStatus.png" border="0" alt="change status">
-							        		<div class="text11" style="position: relative;" align="left">
-							            	<span style="position:absolute; top:2px;" id="changeStatusUser_info" class="popupWithInputText text11"  >
-							           			<b>Endre Status</b>
-							           			<br/>
-							           			<p>
-							           				Statusen kan bare endres når:
-							           				<ol>
-							           				<li>Status = E, K, Å eller blank</li>
-							           				<li>Løpenr er blank</li>
-							           				
-						           					</ol>	
-							           			</p>
-											</span>
-											</div>	
-							        	</td>
-							        </tr>
-						       </c:if>
-					        </c:if>
-					         --%>
-					        
-					        
+					         
 							<tr height="20"><td>&nbsp;</td>&nbsp;</tr>
 							<tr><td class="text12" colspan="2"><b>Varelinje totaler&nbsp;</b></td></tr>
 							<tr>
@@ -1682,10 +1676,10 @@
 			 				    <%-- only status = M or emtpy status is allowed --%>
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.sest == 'M' || empty  model.record.sest }">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.submit"/>'/>
+					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.setdn && model.record.validUpdate}">
-					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadexport_send.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.send"/>'/>
+					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_send.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.send"/>'/>
 					 				    	</c:if>
 				 				    </c:when>
 				 				    <c:otherwise>

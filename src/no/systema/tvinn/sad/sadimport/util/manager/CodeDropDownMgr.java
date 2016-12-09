@@ -16,6 +16,7 @@ import no.systema.skat.skatimport.util.SkatImportConstants;
 import no.systema.tvinn.sad.model.external.url.UrlTvinnSadTolltariffenObject;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
+import no.systema.tvinn.sad.sadexport.util.SadExportConstants;
 import no.systema.tvinn.sad.sadimport.util.SadImportConstants;
 import no.systema.tvinn.sad.sadimport.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
@@ -168,6 +169,10 @@ public class CodeDropDownMgr {
 			
 			}else if(this.CODE_L_LEVERINGSBETINGELSER.equalsIgnoreCase(paramTYP)){
 				model.put(SadImportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST,list);
+				
+			}else if(this.CODE_O_TYPETILFELLE.equalsIgnoreCase(paramTYP)){
+				model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_O_TYPETILFELLE_OMBEREGNING_LIST,list);
+			
 			}
 			
 			//we put tolltariffen here since there is no other related list on ITEMS jsp
@@ -251,6 +256,8 @@ public class CodeDropDownMgr {
 		model.put(SadImportConstants.RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST, list);
 		list = (List)session.getAttribute("model." + SadImportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST);
 		model.put(SadImportConstants.RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST, list);
+		
+		
 		
 		
 	}

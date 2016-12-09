@@ -66,7 +66,7 @@
 				</div>
                 </td>
                 <td class="text12" align="left" title="datumt"><spring:message code="systema.tvinn.sad.export.list.search.label.tdatum"/></td>
-                <td class="text12" align="left" title="sitll">&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.lopenr"/></td>
+                <td class="text12" align="left" title="setll">&nbsp;&nbsp;<spring:message code="systema.tvinn.sad.export.list.search.label.lopenr"/></td>
                 <td class="text12" align="left" title="status">
                 <img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.tvinn.sad.export.list.search.label.status"/>
@@ -127,7 +127,7 @@
 				<td align="left" ><input type="text" class="inputText" name="xref" id="xref" size="10" maxlength="35" value='${searchFilterSadExport.xref}'>&nbsp;</td>
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="7" maxlength="6" value='${searchFilterSadExport.datum}'>&nbsp;</td>
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumt" id="datumt" size="7" maxlength="6" value='${searchFilterSadExport.datumt}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="sitll" id="sitll"size="10" maxlength="35" value='${searchFilterSadExport.sitll}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="setll" id="setll"size="10" maxlength="35" value='${searchFilterSadExport.setll}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="1" maxlength="1" value='${searchFilterSadExport.status}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="9" maxlength="50" value='${searchFilterSadExport.avsNavn}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="9" maxlength="50" value='${searchFilterSadExport.motNavn}'>&nbsp;</td>
@@ -210,18 +210,18 @@
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
 		               <td class="tableCell" >&nbsp;${topic.sg}</td>
 		               <td nowrap class="tableCell" align="center">
-	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sidt=${topic.o2_sedt}&o2_simf=${topic.o2_semf}">
+	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&setll=${topic.setll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sidt=${topic.o2_sedt}&o2_simf=${topic.o2_semf}">
 	               				<img title="Oppdatera tolldekl." valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
             					</a>
                		   </td>
                		   <td class="tableCell" >&nbsp;
-               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&sitll=${topic.sitll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sedt=${topic.o2_sedt}&o2_semf=${topic.o2_semf}">
+               		   		<a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&setll=${topic.setll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sedt=${topic.o2_sedt}&o2_semf=${topic.o2_semf}">
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>
 		               <td class="tableCell" >&nbsp;${topic.h_xref}&nbsp;</td>
 		               <td class="tableCell" >&nbsp;${topic.datum}&nbsp;</td>
-		               <td class="tableCell" >&nbsp;${topic.sitll}&nbsp;</td>
+		               <td class="tableCell" >&nbsp;${topic.setll}&nbsp;</td>
 		               <td class="tableCell" >&nbsp;<b>${topic.status}&nbsp;</b></td>
 		               <td class="tableCell" >&nbsp;${topic.avsNavn}&nbsp;</td>
 		               <td class="tableCell" >&nbsp;${topic.motNavn}&nbsp;</td>

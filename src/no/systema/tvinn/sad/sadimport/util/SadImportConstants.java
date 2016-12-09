@@ -52,7 +52,8 @@ public final class SadImportConstants {
 	public static final String RESOURCE_MODEL_KEY_CODE_F_TYPETILFELLE_LIST = "typetilfelleCodeList";
 	public static final String RESOURCE_MODEL_KEY_CODE_L_INCOTERMS_LIST = "incotermsCodeList";
 	public static final String RESOURCE_MODEL_KEY_CODE_V_CURRENCY_LIST = "currencyCodeList";
-
+	//
+	public static final String RESOURCE_MODEL_KEY_CODE_O_TYPETILFELLE_OMBEREGNING_LIST = "typetilfelleOmbCodeList";
 	
 	public static final String URL_EXTERNAL_TOLLTARIFFEN = "tolltariffenURL";
 	

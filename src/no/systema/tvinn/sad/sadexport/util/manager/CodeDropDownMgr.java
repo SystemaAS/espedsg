@@ -86,7 +86,7 @@ public class CodeDropDownMgr {
 	public static final String CODE_C_DOK_SERTIFIKAT_KODER_EXPORT = "C";
 	public static final String CODE_D_LAGRINGSSTED = "D";
 	public static final String CODE_E_FYLKESKODERKODER = "E";
-	//public static final String CODE_O_TYPETILFELLE = "O";
+	public static final String CODE_O_TYPETILFELLE = "O";
 	public static final String CODE_V_CURRENCY = "V";
 	public static final String CODE_L_LEVERINGSBETINGELSER = "L";
 	public static final String CODE_HA_HAVNKODER = "HA";
@@ -166,6 +166,9 @@ public class CodeDropDownMgr {
 			
 			}else if(this.CODE_HA_HAVNKODER.equalsIgnoreCase(paramTYP)){
 				model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_HA_HAVNKODER_LIST,list);
+			
+			}else if(this.CODE_O_TYPETILFELLE.equalsIgnoreCase(paramTYP)){
+				model.put(SadExportConstants.RESOURCE_MODEL_KEY_CODE_O_TYPETILFELLE_OMBEREGNING_LIST,list);
 			
 			}
 			

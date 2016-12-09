@@ -30,6 +30,7 @@ public class SearchFilterSadExportTopicList {
 	public void setOpd(String value) {  this.opd = value; }
 	public String getOpd() { return this.opd;}
 	
+	
 	private String sitll = null;
 	public void setSitll(String value) {  this.sitll = value; }
 	public String getSitll() { return this.sitll;}
@@ -37,6 +38,11 @@ public class SearchFilterSadExportTopicList {
 	private String sitle = null;
 	public void setSitle(String value) {  this.sitle = value; }
 	public String getSitle() { return this.sitle	;}
+	
+	private String setll = null;
+	public void setSetll(String value) {  this.setll = value; }
+	public String getSetll() { return this.setll;}
+	
 	
 	private String sign = null;
 	public void setSign(String value) { this.sign = value;}

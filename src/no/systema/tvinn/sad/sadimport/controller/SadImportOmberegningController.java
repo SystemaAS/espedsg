@@ -53,7 +53,7 @@ import no.systema.tvinn.sad.sadimport.mapper.url.request.UrlRequestParameterMapp
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemRecord;
 import no.systema.tvinn.sad.sadimport.service.html.dropdown.SadImportDropDownListPopulationService;
-import no.systema.tvinn.sad.sadimport.validator.SadImportHeaderValidator;
+import no.systema.tvinn.sad.sadimport.validator.SadImportOmberegningHeaderValidator;
 import no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicItemService;
 import no.systema.tvinn.sad.sadimport.util.RpgReturnResponseHandler;
 import no.systema.tvinn.sad.sadimport.util.SadImportCalculator;
@@ -226,13 +226,14 @@ public class SadImportOmberegningController {
 						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
 						opdOmb = opdOmb + "-"; 
 					}
+					logger.info("opdOmb:" + opdOmb);
 					logger.info("FETCH record transaction...");
 					//---------------------------
 					//get BASE URL = RPG-PROGRAM
 		            //---------------------------
 					String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
 					//url params
-					String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opd, sign, appUser);
+					String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opdOmb, sign, appUser);
 					//for debug purposes in GUI
 					session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 					
@@ -289,7 +290,7 @@ public class SadImportOmberegningController {
 						recordToValidate.setSiavd(avd);
 						recordToValidate.setSisg(sign);
 					}
-					SadImportHeaderValidator validator = new SadImportHeaderValidator();
+					SadImportOmberegningHeaderValidator validator = new SadImportOmberegningHeaderValidator();
 					validator.setSystemWebUser(appUser);
 					validator.setSadImportSpecificTopicService(this.sadImportSpecificTopicService);
 					validator.setUrlCgiProxyService(this.urlCgiProxyService);
@@ -1600,6 +1601,8 @@ public class SadImportOmberegningController {
 					 model,appUser,CodeDropDownMgr.CODE_L_LEVERINGSBETINGELSER, null, null);
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
 					 model,appUser,CodeDropDownMgr.CODE_V_CURRENCY, null, null);
+			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
+					 model,appUser,CodeDropDownMgr.CODE_O_TYPETILFELLE, null, null);
 			
 	}
 	

@@ -107,8 +107,8 @@
 					</td>
 					
 					<%-- We must check if this tolddkl. qualifies for omberegning --%>
-					<c:if test="${ ( not empty model.record.sitll && (empty model.record.sist || model.record.sist == 'P' || model.record.sist == 'U') ) ||
-								   ( empty model.record.o2_sist  || model.record.o2_sist == 'M' || model.record.o2_sist == 'Z' || model.record.o2_sist == 'Q' || model.record.o2_sist == 'P'  )}">
+					<c:if test="${ not empty model.record.sitll }"> 
+					 	<c:if test="${ (empty model.record.sist || model.record.sist == 'P' || model.record.sist == 'U')  || (empty model.record.o2_sist  || model.record.o2_sist == 'M' || model.record.o2_sist == 'Z' || model.record.o2_sist == 'Q' || model.record.o2_sist == 'P' )}">
 						<%-- ------------------------------------------------------------------------------------------ --%>
 						<%-- We must redirect to different behaviors if there is an existent omberegning already or not --%>
 						<%-- ------------------------------------------------------------------------------------------ --%>
@@ -133,7 +133,7 @@
 								</td>
 							</c:otherwise>
 						</c:choose>
-						
+						</c:if>
 					</c:if>
 					<td width="25%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:when>
