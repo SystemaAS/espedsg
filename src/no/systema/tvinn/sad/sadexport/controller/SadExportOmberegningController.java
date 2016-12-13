@@ -86,6 +86,7 @@ public class SadExportOmberegningController {
 	private ApplicationContext context;
 	private String ACTIVE_INNSTIKK_CODE = "I";
 	//Omberegning
+	private String OMBEREGNING_TYPE_BLANK_ORIGINAL_BACKEND = "";
 	private String OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND = "NYO";
 	private String OMBEREGNING_TYPE_NYS_LATTER_BACKEND = "NYS";
 	private String OMBEREGNING_TYPE_NYA_ANGRA_BACKEND = "NYA";
@@ -209,6 +210,7 @@ public class SadExportOmberegningController {
 						if(omberegningType!=null && !"".equals(omberegningType)){
 							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
 							if(selectedOmb != null && !"".equals(selectedOmb)){
+								logger.info("Clone omberegning... upon user interaction");
 								this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
 								opdOmb = opdOmb + "-";
 							}else{
@@ -217,6 +219,7 @@ public class SadExportOmberegningController {
 							}
 						}else{
 							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
+							logger.info("Show omberegning...");
 							opdOmb = opdOmb + "-"; 
 						}
 					//(B) BRANCH for ombregning DOES NOT exist
@@ -224,7 +227,7 @@ public class SadExportOmberegningController {
 						logger.info("Create new omberegning...");
 						//at this point we do know that there IS NOT a previous omberegning
 						//(1) create first omberegning (will be prepared for fetch)
-						selectedOmb = this.OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND;
+						selectedOmb = this.OMBEREGNING_TYPE_BLANK_ORIGINAL_BACKEND;
 						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
 						opdOmb = opdOmb + "-"; 
 					}
@@ -300,16 +303,20 @@ public class SadExportOmberegningController {
 					//----------------------------
 					if(bindingResult.hasErrors()){
 						logger.info("[ERROR Validation] Record does not validate)");
-					    	//put domain objects and do go back to the original view...
+				    	//put domain objects and do go back to the original view...
 						recordToValidate.setSetdn(opd);
 						recordToValidate.setSeavd(avd);
-						recordToValidate.setSesg(sign);
-					    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject );
+						
+						if(recordToValidate.getSesg()==null || "".equals(recordToValidate.getSesg()) ){
+							recordToValidate.setSesg(sign);
+						}
+						
+				    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject );
 					    	
-					    	isValidCreatedRecordTransactionOnRPG = false;
-					    	if(opd==null || "".equals(opd)){
-					    		action = TvinnSadConstants.ACTION_CREATE;
-					    	}
+				    	isValidCreatedRecordTransactionOnRPG = false;
+				    	if(opd==null || "".equals(opd)){
+				    		action = TvinnSadConstants.ACTION_CREATE;
+				    	}
 
 				    }else{
 			    		JsonSadExportSpecificTopicRecord jsonSadExportSpecificTopicRecord = null;

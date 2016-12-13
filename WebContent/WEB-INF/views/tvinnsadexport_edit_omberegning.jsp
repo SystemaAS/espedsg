@@ -178,7 +178,7 @@
 		<c:choose>
 		<%-- UPDATE MODE --%> 
 	    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
-	    		<input type="hidden" name="avd" id="avd" value='${model.record.seavd}'>
+	    	<input type="hidden" name="avd" id="avd" value='${model.record.seavd}'>
 			<input type="hidden" name="sesg" id="sesg" value='${model.record.sesg}'>
 			<tr >
 				<td align="left" class="text12MediumBlue" >
@@ -1511,7 +1511,7 @@
 					        <tr>
 			 					<td class="text12" colspan="2" >
 			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>31.</b><font class="text16RedBold" >*</font>&nbsp;</b><span title="todo">Årsak</span>&nbsp;</b>
+				 				&nbsp;<b>31.</b><font class="text16RedBold" >*</font>&nbsp;</b><span title="om_seft01...om_seft05">Årsak</span>&nbsp;</b>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute; top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
 					           			<b>31. Årsak</b>&nbsp;
@@ -1546,6 +1546,48 @@
 			 						<input type="text" class="inputTextMediumBlue" name="om_seft05" id="om_seft05" size="66" maxlength="65" value="${model.record.om_seft05}">
 			 					</td>
 							</tr>
+							<tr height="10"><td class="text">&nbsp;</td> </tr>
+					        
+					        <tr>
+			 					<td class="text12" colspan="2" >
+			 					<img onMouseOver="showPop('mftvinn_info');" onMouseOut="hidePop('mftvinn_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				&nbsp;<span title="blank">Melding fra TVINN</span>&nbsp;</b>
+				 				<div class="text11" style="position: relative;" align="left">
+				 				<span style="position:absolute; top:2px; width:250px;" id="mftvinn_info" class="popupWithInputText text11"  >
+					           			<b>Melding fra TVINN</b>&nbsp;
+					           			<br/><br/>
+					           			Todo
+								</span>
+								</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft11}">
+			 					</td>
+							</tr>	
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft12}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft13}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft14}">
+			 					</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text12">
+			 						<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft15}">
+			 					</td>
+							</tr>
+							
+							
 							<tr height="25"><td>&nbsp;</td></tr>
 							<tr>
 					            <td class="text12" align="left" >
