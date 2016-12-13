@@ -18,13 +18,19 @@
 			  var opd = record[1].replace("opd", "");
 			  var xref = record[2].replace("xref", "");
 			  var refnr = record[3].replace("refnr", "");
+			  var mrn = record[4].replace("mrn", "");
+			  
 			  
 			  //alert(vkod + " " + text);
 			  opener.jq('#tvavd2').val(avd);
 			  opener.jq('#tvtdn2').val(opd);
 			  opener.jq('#xref').val(xref);
 			  if(opener.jq('#tvdref').val()==''){
-				  opener.jq('#tvdref').val(refnr);
+				  if(mrn!=''){
+					  opener.jq('#tvdref').val(mrn);
+				  }else{	  
+					  opener.jq('#tvdref').val(refnr);
+				  }
 			  }
 			  
 			  opener.jq('#tvtdn2').focus();

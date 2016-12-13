@@ -101,21 +101,34 @@
 					            <tr> 
 					            	<td>&nbsp;</td>   
 					                <td class="text12" align="left" >&nbsp;Kunde
-					                	<%--
-					                	<a tabindex="-1" id="avggCustomerIdLink">
-											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-										</a>
-										 --%>
+					                	<c:if test="${user.intern == 'J'}">
+					                		<a tabindex="-1" id="avggCustomerIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
+										</c:if>
 					                </td>
 								</tr>
 					 	        <tr>
 					 	        	<td>&nbsp;</td>
-					 	        	<td >
-										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${user.custNr}'>&nbsp;
-									</td>
-									<td >	
-										<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value='${user.custName}'>
-									</td>
+					 	        	<c:choose>
+					 	        	<c:when test="${user.intern == 'J'}">
+						 	        	<td >
+											<input type="text" class="inputText" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${searchFilter.avggCustomerId}'>&nbsp;
+										</td>
+										<td >	
+											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value=''>
+										</td>
+									</c:when>
+									<c:otherwise>
+										<td >
+											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${user.custNr}'>&nbsp;
+										</td>
+										<td >	
+											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value='${user.custName}'>
+										</td>
+									</c:otherwise>
+									</c:choose>
+									
 									<td valign="top" align="left" >
 					                   &nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lage'>
 					                </td>
@@ -146,20 +159,17 @@
 	    				<tr height="2"><td></td></tr>
 						<tr class="tableHeaderField" height="20" valign="left">
 		                    <td class="tableHeaderField">&nbsp;Dokument&nbsp;</td>
-		                    
 		               </tr> 
-		              
+
 		               	<c:forEach var="record" items="${model.list}" varStatus="counter">    
 			               <tr class="tableRow" height="20" >
-			               <td class="tableCellFirst">&nbsp;&nbsp;
-			               		<a href="tvinnsadadmin_renderArchive.do?fp=${record.filnam}" target="_new">
-			               			<img title="select" style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.filnam}
-			               		</a>
-			               </td>
-			            </tr> 
+				               <td class="tableCellFirst">&nbsp;&nbsp;
+				               		<a href="tvinnsadadmin_renderArchive.do?fp=${record.filnam}" target="_new">
+				               			<img title="select" style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.filnam}
+				               		</a>
+				               </td>
+			            	</tr> 
 			            </c:forEach>
-			            	
-			             
 		            </table>
 				</td>
 				</tr>			
