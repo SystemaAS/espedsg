@@ -89,6 +89,7 @@ public class SadImportOmberegningController {
 	
 	private String ACTIVE_INNSTIKK_CODE = "I";
 	//Omberegning
+	private String OMBEREGNING_TYPE_OMB_ORIGINAL_BACKEND = "OMB";
 	private String OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND = "NYO";
 	private String OMBEREGNING_TYPE_NYS_LATTER_BACKEND = "NYS";
 	private String OMBEREGNING_TYPE_NYA_ANGRA_BACKEND = "NYA";
@@ -208,23 +209,29 @@ public class SadImportOmberegningController {
 						if(omberegningType!=null && !"".equals(omberegningType)){
 							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
 							if(selectedOmb != null && !"".equals(selectedOmb)){
-								this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+								opdOmb = opdOmb + "-";
+								logger.info("Clone omberegning... upon user interaction");
+								this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
+								
 							}else{
 								//Add a minus sign (to indicate omberegning on service back-end will be fetch)
 								opdOmb = opdOmb + "-"; 
 							}
 						}else{
 							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
+							logger.info("Show omberegning...");
 							opdOmb = opdOmb + "-"; 
 						}
 					//(B) BRANCH for ombregning DOES NOT exist
 					}else{
-						logger.info("Create new omberegning...");
-						//at this point we do know that there IS NOT a previous omberegning
-						//(1) create first omberegning (will be prepared for fetch)
-						selectedOmb = this.OMBEREGNING_TYPE_NYO_ORIGINAL_BACKEND;
-						this.cloneOpdToOmberegning(appUser.getUser(), avd, opd, sign, selectedOmb);
+						logger.info("Create new omberegning automatically...");
 						opdOmb = opdOmb + "-"; 
+						if(!this.omberegningExists(action, avd, opdOmb, sign, appUser)){
+							//at this point we do know that there IS NOT a previous omberegning
+							//(1) create first omberegning (will be prepared for fetch)
+							selectedOmb = this.OMBEREGNING_TYPE_OMB_ORIGINAL_BACKEND;
+							this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
+						}
 					}
 					logger.info("opdOmb:" + opdOmb);
 					logger.info("FETCH record transaction...");
@@ -307,7 +314,9 @@ public class SadImportOmberegningController {
 					    	//put domain objects and do go back to the original view...
 					    	recordToValidate.setSiavd(avd);
 					    	recordToValidate.setSitdn(opd);
-					    	recordToValidate.setSisg(sign);
+					    	if(recordToValidate.getSisg()==null || "".equals(recordToValidate.getSisg()) ){
+					    		recordToValidate.setSisg(sign);
+					    	}
 					    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject);
 					    	
 					    	isValidCreatedRecordTransactionOnRPG = false;
@@ -465,6 +474,38 @@ public class SadImportOmberegningController {
 		}
 	}
 
+	/**
+	 * 
+	 * @param action
+	 * @param avd
+	 * @param opdOmb
+	 * @param sign
+	 * @param appUser
+	 * @return
+	 */
+	private boolean omberegningExists(String action, String avd, String opdOmb, String sign, SystemaWebUser appUser){
+		boolean recordExists = false;
+		
+		String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
+		//url params
+		String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opdOmb, sign, appUser);
+		//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSadImportSpecificTopicContainer jsonSadImportSpecificTopicContainer = this.sadImportSpecificTopicService.getSadImportSpecificTopicContainer(jsonPayload);
+    		if(jsonSadImportSpecificTopicContainer!=null && jsonSadImportSpecificTopicContainer.getOneorder()!=null){
+    			if(jsonSadImportSpecificTopicContainer.getOneorder().size()>0){
+    				recordExists = true;
+    			}
+    		}
+    	}
+    	return recordExists;
+	}
 	/**
 	 * 
 	 * Aux method to prevent an end-user for sending the declaration without having saved it first.

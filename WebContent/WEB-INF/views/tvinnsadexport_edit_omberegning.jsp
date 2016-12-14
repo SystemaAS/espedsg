@@ -353,7 +353,7 @@
 		 				<tr>
 				 			<td class="text12">
 				 				<img onMouseOver="showPop('om_setype_info');" onMouseOut="hidePop('om_setype_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-			 					<b>1</b><font class="text16RedBold" >*</font><span title="om_setype">Type&nbsp;</span>
+			 					<font class="text16RedBold" >*</font><span title="om_setype">Typetilfelle&nbsp;</span>
 			 					<div class="text11" style="position: relative;" align="left">
 			 					<span style="position:absolute;top:2px; width:250px;" id="om_setype_info" class="popupWithInputText text11"  >
 				           			<b>Typetilfelle</b>
@@ -1511,7 +1511,7 @@
 					        <tr>
 			 					<td class="text12" colspan="2" >
 			 					<img onMouseOver="showPop('31_info');" onMouseOut="hidePop('31_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				&nbsp;<b>31.</b><font class="text16RedBold" >*</font>&nbsp;</b><span title="om_seft01...om_seft05">Årsak</span>&nbsp;</b>
+				 				&nbsp;<b>31.<c:if test="${empty model.record.om_seft11}"></b><font class="text16RedBold" >*</font></c:if>&nbsp;<span title="om_seft01...om_seft05">Årsak</span>&nbsp;</b>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute; top:2px; width:250px;" id="31_info" class="popupWithInputText text11"  >
 					           			<b>31. Årsak</b>&nbsp;
@@ -1523,7 +1523,15 @@
 							</tr>
 							<tr>
 								<td colspan="2" class="text12">
-			 						<input type="text" class="inputTextMediumBlueMandatoryField" name="om_seft01" id="om_seft01" size="66" maxlength="65" value="${model.record.om_seft01}">
+									<%-- When Tullverket has answered, the legend should be protected and not updateable --%>
+									<c:choose>
+										<c:when test="${empty model.record.om_seft11}">
+											<input type="text" class="inputTextMediumBlueMandatoryField" name="om_seft01" id="om_seft01" size="66" maxlength="65" value="${model.record.om_seft01}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input readonly type="text" class="inputTextReadOnly" size="66" maxlength="65" value="${model.record.om_seft01}">
+				 						</c:otherwise>
+			 						</c:choose>
 			 					</td>
 							</tr>	
 							<tr>

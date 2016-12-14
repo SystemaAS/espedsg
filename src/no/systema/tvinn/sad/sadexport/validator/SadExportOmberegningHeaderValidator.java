@@ -69,6 +69,7 @@ public class SadExportOmberegningHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sebel1", "systema.tvinn.sad.export.header.error.null.sebel1.fakturaSum");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "seval1", "systema.tvinn.sad.export.header.error.null.seval1.fakturaVal");
 		//OMBEREGNING
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "om_setype", "systema.tvinn.sad.export.header.error.null.om_setype.typetilfelle");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "om_seft01", "systema.tvinn.sad.export.header.error.null.om_seft01.ombArsak");
 		
 		
