@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,15 +65,52 @@ public class MainMaintenanceCundfKundeController {
 		if (appUser == null) {
 			return this.loginView;
 		} else {
-
 			KundeSessionParams kundeSessionParams = null;
 			kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+			
+			logger.info("action="+action);
+			logger.info("kundeSessionParams="+ReflectionToStringBuilder.toString(kundeSessionParams));
+			
+			//Three ways to enter here:
+			//1. View from list
+			//2. Lage ny
+			//3. Click on Kunde-tab when in other tab
+			
+			
 		
-			adjustRecordToValidate(recordToValidate, kundeSessionParams);
+			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
+				// Validate
+				MaintMainCundfValidator validator = new MaintMainCundfValidator();
+				validator.validate(recordToValidate, bindingResult);
+				if (bindingResult.hasErrors()) {
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				} else {
+					StringBuffer errMsg = new StringBuffer();
+					int dmlRetval = 0;
 
-			//TODO: Create new
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					
+					// check for Update errors
+					if (dmlRetval < 0) {
+						logger.info("[ERROR Validation] Record does not validate)");
+						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					} else {
+						kundeSessionParams.setKundnr(recordToValidate.getKundnr());
+						kundeSessionParams.setFirma(recordToValidate.getFirma());
+						kundeSessionParams.setSonavn(recordToValidate.getSonavn());
+						kundeSessionParams.setKnavn(recordToValidate.getKnavn());
 
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Update
+						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+
+					}
+				}
+
+			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { 
+				adjustRecordToValidate(recordToValidate, kundeSessionParams);
+
 				// Validate
 				MaintMainCundfValidator validator = new MaintMainCundfValidator();
 				validator.validate(recordToValidate, bindingResult);
@@ -91,17 +129,20 @@ public class MainMaintenanceCundfKundeController {
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(),
-								recordToValidate.getKundnr(), recordToValidate.getFirma());
+						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+						
+						successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+
 					}
 				}
-
+				
+				
 			} else { // Fetch
-
 				JsonMaintMainCundfRecord record = fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-
+				
+				successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
 			}
 
 			model.put("action", kundeSessionParams.getAction());
@@ -109,7 +150,6 @@ public class MainMaintenanceCundfKundeController {
 			model.put("firma", kundeSessionParams.getFirma());
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 			return successView;		
 		

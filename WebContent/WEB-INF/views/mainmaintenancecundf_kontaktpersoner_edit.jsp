@@ -339,40 +339,40 @@
 													<td width="50%" >
 														<table>
 															<tr>
-																<td class="text12">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td class="text12" title="arkvedk.avkved">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved1" id="avkved1" size="2" maxlength="2" value='${model.record.avkved1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved2" id="avkved2" size="2" maxlength="2" value='${model.record.avkved2}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved3" id="avkved3" size="2" maxlength="2" value='${model.record.avkved3}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved4" id="avkved4" size="2" maxlength="2" value='${model.record.avkved4}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved5" id="avkved5" size="2" maxlength="2" value='${model.record.avkved5}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved6" id="avkved6" size="2" maxlength="2" value='${model.record.avkved6}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved7" id="avkved7" size="2" maxlength="2" value='${model.record.avkved7}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved8" id="avkved8" size="2" maxlength="2" value='${model.record.avkved8}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved9" id="avkved9" size="2" maxlength="2" value='${model.record.avkved9}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved10" id="avkved10" size="2" maxlength="2" value='${model.record.avkved10}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved11" id="avkved11" size="2" maxlength="2" value='${model.record.avkved11}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved12" id="avkved12" size="2" maxlength="2" value='${model.record.avkved12}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved13" id="avkved13" size="2" maxlength="2" value='${model.record.avkved13}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved14" id="avkved14" size="2" maxlength="2" value='${model.record.avkved14}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved15" id="avkved15" size="2" maxlength="2" value='${model.record.avkved15}'></td>
 															</tr>
 															<tr>
-																<td class="text12">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="arkvedk1" id="arkvedk1" size="2" maxlength="2" value='${model.record.arkvedk1}'></td>
+																<td class="text12" title="avkved.avkved">&nbsp;Faste koder:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved16" id="avkved16" size="2" maxlength="2" value='${model.record.avkved16}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved17" id="avkved17" size="2" maxlength="2" value='${model.record.avkved17}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved18" id="avkved18" size="2" maxlength="2" value='${model.record.avkved18}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved19" id="avkved19" size="2" maxlength="2" value='${model.record.avkved19}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved20" id="avkved20" size="2" maxlength="2" value='${model.record.avkved20}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved21" id="avkved21" size="2" maxlength="2" value='${model.record.avkved21}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved22" id="avkved22" size="2" maxlength="2" value='${model.record.avkved22}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved23" id="avkved23" size="2" maxlength="2" value='${model.record.avkved23}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved24" id="avkved24" size="2" maxlength="2" value='${model.record.avkved24}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved25" id="avkved25" size="2" maxlength="2" value='${model.record.avkved25}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved26" id="avkved26" size="2" maxlength="2" value='${model.record.avkved26}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved27" id="avkved27" size="2" maxlength="2" value='${model.record.avkved27}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved28" id="avkved28" size="2" maxlength="2" value='${model.record.avkved28}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved29" id="avkved29" size="2" maxlength="2" value='${model.record.avkved29}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="avkved30" id="avkved30" size="2" maxlength="2" value='${model.record.avkved30}'></td>
 
 															</tr>
 														</table>
@@ -414,34 +414,34 @@
 														<table>
 															<tr>
 																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd2" id="cavd2" size="4" maxlength="4" value='${model.record.cavd2}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd3" id="cavd3" size="4" maxlength="4" value='${model.record.cavd3}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd4" id="cavd4" size="4" maxlength="4" value='${model.record.cavd4}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd5" id="cavd5" size="4" maxlength="4" value='${model.record.cavd5}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd6" id="cavd6" size="4" maxlength="4" value='${model.record.cavd6}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd7" id="cavd7" size="4" maxlength="4" value='${model.record.cavd7}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd8" id="cavd8" size="4" maxlength="4" value='${model.record.cavd8}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd9" id="cavd9" size="4" maxlength="4" value='${model.record.cavd9}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd10" id="cavd10" size="4" maxlength="4" value='${model.record.cavd10}'></td>
 															</tr>
 															<tr>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd11" id="cavd11" size="4" maxlength="4" value='${model.record.cavd11}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd12" id="cavd12" size="4" maxlength="4" value='${model.record.cavd12}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd13" id="cavd13" size="4" maxlength="4" value='${model.record.cavd13}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd14" id="cavd14" size="4" maxlength="4" value='${model.record.cavd14}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd15" id="cavd15" size="4" maxlength="4" value='${model.record.cavd15}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd16" id="cavd16" size="4" maxlength="4" value='${model.record.cavd16}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd17" id="cavd17" size="4" maxlength="4" value='${model.record.cavd17}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd18" id="cavd18" size="4" maxlength="4" value='${model.record.cavd18}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd19" id="cavd19" size="4" maxlength="4" value='${model.record.cavd19}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="cavd20" id="cavd20" size="4" maxlength="4" value='${model.record.cavd20}'></td>
 															</tr>
 															<tr>
 																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd2" id="copd2" size="2" maxlength="2" value='${model.record.copd2}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd3" id="copd3" size="2" maxlength="2" value='${model.record.copd3}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd4" id="copd4" size="2" maxlength="2" value='${model.record.copd4}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="copd5" id="copd5" size="2" maxlength="2" value='${model.record.copd5}'></td>
 															</tr>
 														</table>
 													</td>

@@ -181,7 +181,7 @@
 				<td width="100%">
 					<form action="mainmaintenancecundf_kunde_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<input type="hidden" name="action" id=action value="doUpdate">
+						<input type="hidden" name="action" id=action value="${model.action}">
 						<input type="hidden" name="dirty" id=dirty value="">
 						<table class="tabThinBorderWhite" width="100%" cellspacing="0" border="0" align="left">
 							<tr>
@@ -189,13 +189,16 @@
 									<table border="0">
 										<tr>
 											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr:</td>
+											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+<!-- 
 											<td><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+ -->
 											<td class="text12" title="syrg">&nbsp;Org.nr:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
 										</tr>
 										<tr>
 											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn:</td>
-											<td><input type="text" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
+											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
 											<td class="text12" title="eori">&nbsp;Eorinr:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="eori" id="eori" size="15" maxlength="17" value='${model.record.eori}'></td>
 										</tr>
@@ -487,6 +490,50 @@
 								</td>
 							</tr>
 							<tr><td colspan="2">&nbsp;</td></tr>
+							<%-- Validation errors --%>
+							<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+							<tr>
+<!-- 
+								<td width="5%">&nbsp;</td>
+ -->
+								<td >
+						           	<table align="left" border="0" cellspacing="0" cellpadding="0">
+						           	<tr >
+						           	<td >					
+							            <ul class="isa_error text12" >
+							            <c:forEach var="error" items="${errors.allErrors}">
+							                <li >
+							                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
+							                </li>
+							            </c:forEach>
+							            </ul>
+									</td>
+									</tr>
+									</table>
+								</td>
+							</tr>
+							</spring:hasBindErrors>
+				
+							<%-- Other errors (none validation errors) --%>
+							<c:if test="${not empty model.errorMessage}">
+							<tr>
+<!--  
+								<td width="5%">&nbsp;</td>
+-->
+								<td >
+						           	<table align="left" border="0" cellspacing="0" cellpadding="0">
+								 		<tr>
+								 			<td >
+								 				<ul class="isa_error text12" >
+						                                  <li>${model.errorMessage}</li>                                    
+						                              </ul>
+								 			</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							</c:if>
+
 							<tr> 
 								<td >&nbsp;</td>
 								<td align="right">
@@ -506,53 +553,8 @@
  	   	 			&nbsp;
  	   	 		</td>
 				
-				
 			</tr>
-			<%-- Validation errors --%>
-			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
-			<tr>
-				<td width="5%">&nbsp;</td>
-				<td >
-		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
-		           	<tr >
-		           	<td >					
-			            <ul class="isa_error text12" >
-			            <c:forEach var="error" items="${errors.allErrors}">
-			                <li >
-			                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>&nbsp;&nbsp;
-			                </li>
-			            </c:forEach>
-			            </ul>
-					</td>
-					</tr>
-					</table>
-				</td>
-			</tr>
-			</spring:hasBindErrors>
 
-			<%-- Other errors (none validation errors) --%>
-			<c:if test="${not empty model.errorMessage}">
-			<tr>
-				<td width="5%">&nbsp;</td>
-				<td >
-		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td >
-				 				<ul class="isa_error text12" >
-		                                  <li>${model.errorMessage}</li>                                    
-		                              </ul>
-				 			</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			</c:if>
-
-
-
-
-
-			
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	    
 	 		</table>

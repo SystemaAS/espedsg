@@ -119,6 +119,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 				validator.validate(recordToValidate, bindingResult);
 			}
 			if(bindingResult.hasErrors()){
+					
 				//ERRORS
 				logger.info("[ERROR Validation] Record does not validate)");
 				if(updateId!=null && !"".equals(updateId)){
@@ -171,12 +172,13 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			List<JsonMaintMainCundcRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), firma, kundnr); 
 	
-	    	//model.put("action", kundeSessionParams.getAction());
 			model.put("kundnr", kundnr);
 			model.put("firma", firma);
 	    	model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 
 	    	successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+
 
 			return successView;
 
@@ -200,6 +202,12 @@ public class MainMaintenanceCundfKontaktpersonerController {
 		recordToValidate.setCfirma(kundeSessionParams.getFirma());
 		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
 		recordToValidate.setSonavn(kundeSessionParams.getSonavn());
+		String concatCavd = recordToValidate.getCavd1()+recordToValidate.getCavd2()+recordToValidate.getCavd3()+recordToValidate.getCavd4()+
+				 			recordToValidate.getCavd5()+recordToValidate.getCavd6()+recordToValidate.getCavd7()+recordToValidate.getCavd8()+
+				 			recordToValidate.getCavd9()+recordToValidate.getCavd10()+recordToValidate.getCavd11()+recordToValidate.getCavd12()+
+				 			recordToValidate.getCavd13()+recordToValidate.getCavd14()+recordToValidate.getCavd15()+recordToValidate.getCavd16()+
+				 			recordToValidate.getCavd17()+recordToValidate.getCavd18()+recordToValidate.getCavd19()+recordToValidate.getCavd20();
+		recordToValidate.setCavd(concatCavd);
 	}
 
 	private List<JsonMaintMainCundcRecord> fetchList(String applicationUser, String cfirma, String ccompn){
@@ -218,12 +226,12 @@ public class MainMaintenanceCundfKontaktpersonerController {
     	if(jsonPayload!=null){
 			//lists
     		JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-/*	        	for(JsonMaintMainCundcRecord record : list){
-	        	  logger.info("record:" + record.toString());
-	        	}
-*/	        }
+			if (container != null) {
+				list = (List) container.getList();
+				for (JsonMaintMainCundcRecord record : list) {
+					logger.info("record:" + record.toString());
+				}
+			}
     	}
     	return list;
     	

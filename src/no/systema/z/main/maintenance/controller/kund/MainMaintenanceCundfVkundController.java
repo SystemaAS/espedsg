@@ -89,7 +89,7 @@ public class MainMaintenanceCundfVkundController {
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kunde_edit"); //NOTE: not name correlated jsp, default to Kunde tab
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String action = request.getParameter("action");
+		String action = null;
 		String updateId = request.getParameter("updateId");
 		String kundnr = recordToValidate.getKundnr();
 		String knavn = recordToValidate.getKnavn();
@@ -98,36 +98,38 @@ public class MainMaintenanceCundfVkundController {
 		
 		logger.info("recordToValidate="+recordToValidate.toString());
 		
-		//Setting kundnr and firma in session to simplify access when navigating in children
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
-		if (kundnr != null && firma != null) {
-			kundeSessionParams.setKundnr(kundnr);
-			kundeSessionParams.setKnavn(knavn);
-			kundeSessionParams.setFirma(firma);
-			kundeSessionParams.setSonavn(recordToValidate.getSonavn());
-			action = MainMaintenanceConstants.ACTION_UPDATE;  //TODO, se över action, kanske ta bort lite malplacerad...
-			kundeSessionParams.setAction(action);  //Here we are in update of existing
-		}
-		
-		session.setAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
-		
+
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
+			if (kundnr != null && firma != null) { //Update
+				kundeSessionParams.setKundnr(kundnr);
+				kundeSessionParams.setKnavn(knavn);
+				kundeSessionParams.setFirma(firma);
+				kundeSessionParams.setSonavn(recordToValidate.getSonavn());
+				action = MainMaintenanceConstants.ACTION_UPDATE;  
+				kundeSessionParams.setAction(action);  
 				
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			
-			} 
-			
-			model.put("action", action);
-			model.put("kundnr", kundnr);
-			model.put("firma", firma);
-			model.put("updateId", updateId);
+				successView.addObject("tab_knavn_display", getTrimmedKnav(knavn));
 
+			
+				model.put("kundnr", kundnr);
+				model.put("firma", firma);
+				model.put("updateId", updateId);
+
+			
+			} else {  //New
+				action = MainMaintenanceConstants.ACTION_CREATE;  
+				kundeSessionParams.setAction(action);  
+				
+			}
+	
+			session.setAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
+			model.put("action", action);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-			successView.addObject("tab_knavn_display", getTrimmedKnav(knavn));
 
 			return successView;
 		}
@@ -273,8 +275,7 @@ public class MainMaintenanceCundfVkundController {
 /*		        for(JsonMaintMainCundfRecord record : list){
 	        	  logger.info("record:" + record.toString());
 	        	}	
-*/				
-			}
+*/			}
 		}
 
 		return list;

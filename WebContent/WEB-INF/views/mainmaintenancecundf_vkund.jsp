@@ -35,7 +35,7 @@
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center">
-					<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vkund_edit.do">
+					<a id="alinkMainMaintVkundNew" onClick="setBlockUI(this);" href="mainmaintenancecundf_vkund_edit.do?action=doCreate">
 						<font class="tabDisabledLink">&nbsp;Lage ny kunde</font>&nbsp;						
 						<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 					</a>
@@ -78,7 +78,8 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenancecundf_vkund_edit.do?kundnr=${record.kundnr}&firma=${record.firma}&knavn=${record.knavn}&sonavn=${record.sonavn}">
+									<input type="hidden" name="action" id="action" value="doUpdate">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenancecundf_vkund_edit.do?action=doUpdate&kundnr=${record.kundnr}&firma=${record.firma}&knavn=${record.knavn}&sonavn=${record.sonavn}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
