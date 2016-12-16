@@ -4,7 +4,15 @@
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
   function setBlockUI(element){
+	  
+	  
+	  //alert("WTF.....jq(action).val()="+jq("#action").val());
+	  
+	  
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  
+	  
+	  
   }
   
   //-------------------

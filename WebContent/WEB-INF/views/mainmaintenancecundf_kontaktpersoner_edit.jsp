@@ -181,9 +181,9 @@
 								<tr>
 									<th align="center" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 									<th class="tableHeaderField" >&nbsp;Kontaktperson&nbsp;</th>
-									<th class="tableHeaderField" >&nbsp;Type&nbsp;</th>
+									<th class="tableHeaderField" >&nbsp;Funksjon&nbsp;</th>
 				                    <th class="tableHeaderField" >&nbsp;Telefon&nbsp;</th>
-									<th class="tableHeaderField" >&nbsp;Mobiltelefon&nbsp;</th>
+									<th class="tableHeaderField" >&nbsp;Mobil&nbsp;</th>
 									<th class="tableHeaderField" >&nbsp;E-mail&nbsp;</th>
 									<th class="tableHeaderField" >&nbsp;Slett&nbsp;</th>
 				                </tr>  
@@ -191,7 +191,7 @@
 				             <tbody >  
 					            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 					               <tr class="tableRow" height="20" >
-					               <td id="recordUpdate_${record.cfirma}_${record.ccompn}_${record.cconta}" onClick="getRecord(this);" align="center" width="5%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+					               <td id="recordUpdate_${record.cfirma}_${record.ccompn}_${record.cconta}_${record.ctype}" onClick="getRecord(this);" align="center" width="5%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 			               				<img src="resources/images/update.gif" border="0" alt="edit">
 					               </td>
 					               <td width="15%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.cconta}&nbsp;</font></td>
@@ -282,29 +282,47 @@
 													<td width="50%" >
 														<table>
 															<tr>
-																<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>Kontaktperson:</td>
+																<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>Kontaktperson:&nbsp;&nbsp;&nbsp;</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="cconta" id="cconta" size="35" maxlength="30" value='${model.record.cconta}'></td>
-																<td class="text12" title="cphone">&nbsp;Telefon:</td>
+																<td class="text12" title="cphone">&nbsp;Telefon:&nbsp;&nbsp;</td>
 																<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="15" maxlength="15" value='${model.record.cphone}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="ctype">&nbsp;Funksjon:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="ctype" id="ctype" size="35" maxlength="30" value='${model.record.ctype}'>
+																<td class="text12" title="ctype">&nbsp;<font class="text14RedBold" >*</font>Funksjon:</td>
+																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="ctype" id="ctype" size="35" maxlength="30" value='${model.record.ctype}'>
+																</td>
+																<td class="text12" title="cmobil">
 																	<a tabindex="-1" id="ctypeIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
+																	&nbsp;Mobil:
 																</td>
-																<td class="text12" title="cmobil">&nbsp;Mobil:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="15" maxlength="15" value='${model.record.cmobil}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="cmerge">&nbsp;Slå sammen PDF:</td>
 																<td>
-																	<input type="text" class="inputTextMediumBlue" name="cmerge" id="cmerge" size="1" maxlength="1" value='${model.record.cmerge}'>
-																 	<font class="text12" title="cprint">&nbsp;Print også ?:</font> 
-																 	<input type="text" class="inputTextMediumBlue" name="cprint" id="cprint" size="1" maxlength="1" value='${model.record.cprint}'>
-																 	<font class="text12" title="clive">&nbsp;Vedlegg (V):</font> 
-																 	<input type="text" class="inputTextMediumBlue" name="clive" id="clive" size="1" maxlength="1" value='${model.record.clive}'>
+																	<select name="cmerge" id="cmerge" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.cmerge == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${ model.record.cmerge == 'N'}"> selected </c:if> >Nej</option>
+													  				</select>
+																	
+																 	<font class="text12" title="cprint">&nbsp;Print:</font> 
+																	<select name="cprint" id="cprint" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="J"<c:if test="${model.record.cprint == 'J'}"> selected </c:if> >Ja</option>
+													  					<option value="N"<c:if test="${ model.record.cprint == 'N'}"> selected </c:if> >Nej</option>
+													  				</select>
+																</td>
+																<td>
+																 	<font class="text12" title="clive">&nbsp;Vedlegg:</font> 
+																</td>
+																<td>
+																	<select name="clive" id="clive" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="V"<c:if test="${model.record.clive == 'V'}"> selected </c:if> >Ja</option>
+													  				</select>
 																</td>
 															</tr>
 														</table>

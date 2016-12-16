@@ -41,21 +41,22 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
 
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta) {
+	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta, String ctype) {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
-		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta);
-		List<JsonMaintMainCundcRecord> result = new ArrayList();
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
 
-		return (List) this.fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta);
+		return (List) this.fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta, ctype);
 	}
 
-	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta) {
+	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta, String ctype) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
 		urlRequestParams.append("user=" + applicationUser);
 		urlRequestParams.append("&cfirma=" + cfirma);
 		urlRequestParams.append("&ccompn=" + ccompn);
 		urlRequestParams.append("&cconta=" + cconta);
+		urlRequestParams.append("&ctype=" + ctype);
+		
 
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());

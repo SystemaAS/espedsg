@@ -13,8 +13,8 @@ jq(function() {
 		//addressing a parent field from this child window
 		if (caller == 'ctype') {
 			opener.jq('#ctype').val(code);
+			opener.jq('#ctype').change();
 			opener.jq('#ctype').focus();
-
 		} 
 
 		//close child window

@@ -104,6 +104,7 @@ function getRecord(record){
 	var cfirma = record[0];
 	var ccompn = record[1];
 	var cconta = record[2];
+	var ctype = record[3];
 	    	
 	jq.ajax({
 	  type: 'GET',
@@ -111,7 +112,8 @@ function getRecord(record){
 	  data: { applicationUser : jq('#applicationUser').val(), 
 		  	  cfirma : cfirma,
 		  	  ccompn : ccompn,
-		  	  cconta : cconta },
+		  	  cconta : cconta,
+		  	  ctype  : ctype },
 	  dataType: 'json',
 	  cache: false,
 	  contentType: 'application/json',
