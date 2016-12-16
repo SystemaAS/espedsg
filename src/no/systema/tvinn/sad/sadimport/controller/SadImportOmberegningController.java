@@ -209,28 +209,39 @@ public class SadImportOmberegningController {
 						if(omberegningType!=null && !"".equals(omberegningType)){
 							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
 							if(selectedOmb != null && !"".equals(selectedOmb)){
-								opdOmb = opdOmb + "-";
+								if(!opdOmb.contains("-")){
+									opdOmb = opdOmb + "-";
+								}
 								logger.info("Clone omberegning... upon user interaction");
 								this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
 								
 							}else{
 								//Add a minus sign (to indicate omberegning on service back-end will be fetch)
-								opdOmb = opdOmb + "-"; 
+								if(!opdOmb.contains("-")){
+									opdOmb = opdOmb + "-"; 
+								}
 							}
 						}else{
 							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
-							logger.info("Show omberegning...");
-							opdOmb = opdOmb + "-"; 
+							logger.info("Show omberegning BRANCH (A)...");
+							if(!opdOmb.contains("-")){
+								opdOmb = opdOmb + "-"; 
+							}
 						}
 					//(B) BRANCH for ombregning DOES NOT exist
 					}else{
-						logger.info("Create new omberegning automatically...");
-						opdOmb = opdOmb + "-"; 
+						if(!opdOmb.contains("-")){
+							opdOmb = opdOmb + "-"; 
+						}
 						if(!this.omberegningExists(action, avd, opdOmb, sign, appUser)){
+							logger.info("Create new omberegning automatically...");
 							//at this point we do know that there IS NOT a previous omberegning
 							//(1) create first omberegning (will be prepared for fetch)
 							selectedOmb = this.OMBEREGNING_TYPE_OMB_ORIGINAL_BACKEND;
 							this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
+						}else{
+							//this will be true in 1% of cases (only when there is some corrupt data - backend)
+							logger.info("Show omberegning BRANCH (B)...");
 						}
 					}
 					logger.info("opdOmb:" + opdOmb);
@@ -317,7 +328,7 @@ public class SadImportOmberegningController {
 					    	if(recordToValidate.getSisg()==null || "".equals(recordToValidate.getSisg()) ){
 					    		recordToValidate.setSisg(sign);
 					    	}
-					    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject);
+					    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType);
 					    	
 					    	isValidCreatedRecordTransactionOnRPG = false;
 					    	if(opd==null || "".equals(opd)){
@@ -424,7 +435,7 @@ public class SadImportOmberegningController {
 					    		//Update successfully done!
 					    		logger.info("[INFO] Record successfully updated, OK ");
 					    		//put domain objects
-					    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicRecord, totalItemLinesObject );
+					    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicRecord, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType );
 					    		if(totalItemLinesObject.getSumOfAntalItemLines()>0 || this.ACTIVE_INNSTIKK_CODE.equals(jsonSadImportSpecificTopicRecord.getSimi())){
 					    			this.adjustValidUpdateFlag(model, jsonSadImportSpecificTopicRecord);
 					    		}
@@ -1456,7 +1467,7 @@ public class SadImportOmberegningController {
 	 * @param record
 	 * @param totalItemLinesObject
 	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicRecord record, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject){
+	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadImportSpecificTopicRecord record, SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject, String omberegningFlag , String omberegningDate, String omberegningType){
 		//SET HEADER RECORDS  (from RPG)
 		record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 		record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
@@ -1467,6 +1478,11 @@ public class SadImportOmberegningController {
 		record.setFinansOpplysningarTotKurs(totalItemLinesObject.getFinansOpplysningarTotKurs());
 		//Adjust dates
 		this.adjustDatesOnFetch(record);
+		//Omberegning flag
+		record.setO2_sist(omberegningFlag);
+		record.setO2_sidt(omberegningDate);
+		record.setO2_simf(omberegningType);
+		
 				
 		model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines

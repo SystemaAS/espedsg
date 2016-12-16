@@ -140,6 +140,11 @@ public class SadImportOmberegningItemsController {
 			//String invoiceTotalAmount = request.getParameter("fabl"); //Changed to getSibel3() from header...
 			String startItemLineNr = request.getParameter("startItemLineNr");
 			String tariffNr = request.getParameter("tariffNr");
+			//Omberegning
+			String omberegningFlag = request.getParameter("o2_sist"); //omberegning indicator
+			String omberegningDate = request.getParameter("o2_sidt"); //omberegning indicator
+			String omberegningType = request.getParameter("o2_simf"); //omberegning indicator (DFU,DTK,DEB, etc)
+			
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadImportSpecificTopicRecord headerRecord = (JsonSadImportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -166,6 +171,11 @@ public class SadImportOmberegningItemsController {
 			model.put("refnr(tullid)", refnr);
 			model.put("status", status);
 			model.put("datum", datum);
+			//Omberegning flag
+			model.put("o2_sist", omberegningFlag);
+			model.put("o2_sidt", omberegningDate);
+			model.put("o2_simf", omberegningType);
+			
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));

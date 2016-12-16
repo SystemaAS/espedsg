@@ -46,7 +46,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkHeader" style="display:block;" href="tvinnsadexport_edit.do?action=doFetch&avd=${model.avd}&opd=${fn:replace(model.opd,'-','')}
-						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}">
+						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${fn:replace(model.opd,'-','')}]</font>
 					<c:if test="${model.status == 'M' || empty model.status}">
@@ -57,7 +57,7 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}">
+				<a id="alinkInvoices" style="display:block;" href="tvinnsadexport_edit_finansopplysninger.do?action=doFetch&avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.finansopplys.createnew.tab"/>
 					</font>
@@ -65,7 +65,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${model.avd}&sign=${ model.sign}&opd=${fn:replace(model.opd,'-','')}">
+				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sade&orig=topic&avd=${model.avd}&sign=${ model.sign}&opd=${fn:replace(model.opd,'-','')}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.notisblock.createnew.tab"/>
 					</font>
@@ -74,7 +74,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkItemLines" style="display:block;" href="tvinnsadexport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${ model.sign}
-									&opd=${fn:replace(model.opd,'-','')}&status=${ model.status}&fabl=">
+									&opd=${fn:replace(model.opd,'-','')}&status=${ model.status}&fabl=&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.export.item.createnew.tab"/></font>
 					<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
@@ -84,7 +84,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkLogging" style="display:block;" href="tvinnsadexport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}&refnr=${dkih_07}
-													&status=${model.status}&datum=${model.datum}">
+													&status=${model.status}&datum=${model.datum}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.logging.tab"/>
 					</font>
@@ -94,7 +94,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkArchive" style="display:block;" href="tvinnsadexport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}&refnr=${dkih_07}
-													&status=${model.status}&datum=${model.datum}"">
+													&status=${model.status}&datum=${model.datum}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.export.archive.tab"/>
 					</font>
@@ -125,7 +125,7 @@
 				<td width="2px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 					<a id="alinkOmberegningSubTab" style="display:block;" href="tvinnsadexport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-											&opd=${model.opd}&status=${model.status}">
+											&opd=${model.opd}&status=${model.status}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 						<font class="text11Gray">Hode</font>
 					</a>	
 				</td>
@@ -269,7 +269,7 @@
 	        			<tr height="10"><td></td></tr> 
 						<tr >
 							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="tvinnsadexport_edit_items.do">
+							<form name="createNewItemLine" id="createNewItemLine" method="post" action="tvinnsadexport_edit_omberegning_items.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
 				 				<input type="hidden" name="avd" id="avd" value='${model.avd}'>
 				 				<input type="hidden" name="sign" id="sign" value='${model.sign}'>
@@ -285,7 +285,7 @@
 									<tr>
 										<td class="text12Bold">
 											<c:if test="${model.status == 'M' || empty model.status}">
-												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_items.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
+												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
 										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
@@ -385,7 +385,7 @@
 											<table class="tableBorderWithRoundCornersGray" >
 												<tr>
 													<td class="text11" nowrap>
-														<input tabindex=-1 class="inputFormSubmitGrayFont11" type="submit" name="submitStartItem" onclick="javascript: form.action='tvinnsadexport_edit_items.do';" value="Hent">
+														<input tabindex=-1 class="inputFormSubmitGrayFont11" type="submit" name="submitStartItem" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value="Hent">
 														fra linjenr:
 														<input tabindex=-1 align="left" type="text" class="inputText" size="4" maxlength="5" name="startItemLineNr" id="startItemLineNr" value='${model.recordItemContainerTopic.startItemLineNr}'>
 														fra varenr:
@@ -455,6 +455,7 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.svavtp.tollsats"/></th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 					                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.sverr.error"/>&nbsp;</th>
+					                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
 					                    <c:if test="${model.status == 'M' || empty model.status}">
 					                    	<th align="center" class="text12" nowrap>Slett</th>
 					                    </c:if> 
@@ -477,9 +478,7 @@
 							               		</a>
 							               </td>
 							               <td class="text11" >&nbsp;${record.svfyl}</td>
-							               <td class="text11" >&nbsp;${record.svvnt}&nbsp;&nbsp;
-							               	  <img id="recordUpdate_${record.svli}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Tilføy Kundens varereg.">
-							               </td>
+							               <td class="text11" >&nbsp;${record.svvnt}</td>
 							               <td class="text11" >&nbsp;${record.svvktn}</td>
 							               <td class="text11" >&nbsp;${record.svntm}</td>
 							               <td class="text11" >&nbsp;${record.svbelt}</td>
@@ -491,9 +490,10 @@
 							               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 							               </td>
+							               <td width="2%" align="center" class="text11Red"><b>${record.svnyl}</b></td>
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
 								               		<img src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	
 								               </td>
@@ -547,12 +547,15 @@
 				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
 				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicTvinnSad.sebel1}"/>
-				 	
 				 	<input type="hidden" name="svli" id="svli" value=''/>
 				 	<input type="hidden" name="dkiv_32" id="dkiv_32" value=''/>
-				 	
 				 	<input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" />
 				 	<input type="hidden" name="lastSelectedItemLineNumber" id="lastSelectedItemLineNumber" value="${model.recordItemContainerTopic.lastSelectedItemLineNumber}" />
+				 	<%-- omberegning --%>
+					<input type="hidden" name="o2_sest" id="o2_sest" value='${model.o2_sest}'>
+					<input type="hidden" name="o2_sedt" id="o2_sedt" value='${model.o2_sedt}'>
+					<input type="hidden" name="o2_semf" id="o2_semf" value='${model.o2_semf}'>
+			
 				 	
 				 	<%-- Topic ITEM CREATE --%>
 	 				<table width="100%" align="center" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
@@ -635,52 +638,6 @@
 											</p>
 										</span>
 										</div>
-										
-										<c:choose>
-										<c:when test="${recordTopicTvinnSad.sedp=='02' || recordTopicTvinnSad.sedp=='04' || recordTopicTvinnSad.sedp=='18' 
-														|| recordTopicTvinnSad.sedp=='81' || recordTopicTvinnSad.sedp=='90'}">
-											<%-- Oppr.Land 
-											<img onClick="showPop('landCodeFylkeInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-											<span style="position:absolute; left:100px; top:450px; width:350px; height:150px;" id="landCodeFylkeInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="opprlandFylke" name="opprlandFylke" size="5" onDblClick="hidePop('landCodeFylkeInfo');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="opprlandFylkeButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('landCodeFylkeInfo');">&nbsp;<spring:message code="systema.tvinn.sad.export.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>
-											--%>
-										</c:when>
-										<c:otherwise>
-											<%-- Fylkeskode 
-											<img onClick="showPop('fylkeInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-											<span style="position:absolute; left:100px; top:450px; width:350px; height:200px;" id="fylkeInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="fylke" name="fylke" size="5" onDblClick="hidePop('fylkeInfo');">
-								           				<c:forEach var="code" items="${model.fylkesCodeList}" >
-							 				  				<option value="${code.zkod}" >${code.zkod}&nbsp;${code.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="fylkeButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('fylkeInfo');">&nbsp;<spring:message code="systema.tvinn.sad.export.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
-											--%>
-										</c:otherwise>
-										</c:choose>
 										</td>
 							            
 							 			<td class="text12" align="left">
@@ -831,7 +788,7 @@
 												
 										</td>
 						        		<td class="text12" align="left">
-						            		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="svvnt" id="svvnt" size="9" maxlength="8" value="${model.record.svvnt}">
+						        			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="svvnt" id="svvnt" size="9" maxlength="8" value="${model.record.svvnt}">
 						            		<a tabindex="-1" id="svvntIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
@@ -954,7 +911,7 @@
 								    	<td align="left" colspan="2">
 												<c:choose>	
 													<c:when test="${model.status == 'M' || empty model.status }">
-														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_items.do';" value='<spring:message code="systema.tvinn.sad.export.item.createnew.submit"/>'>
+														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value='<spring:message code="systema.tvinn.sad.export.item.createnew.submit"/>'>
 														&nbsp;&nbsp;
 														
 														<%-- SEND button: is causing some issues in the Stat.värde calculation
@@ -1490,45 +1447,6 @@
 	        <tr height="20"><td colspan="2" ></td></tr>
             <tr height="30"><td></td></tr>
 		</table>
-		</td>
-		</tr>
-
-		<tr>
-		<td>
-			<div id="dialogKundensVareregister" title="Dialog">
-				<form  action="tvinnsadexport_edit_items_doUpdateKundensVareregister.do" name="updateKundensVareregisterForm" id="updateKundensVareregisterForm" method="post">
-				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<input type="hidden" name="sltxt" id="sltxt" value=""/>
-				 	<%--
-				 	<input type="hidden" name="sltar" id="sltar" value=""/>
-				 	<input type="hidden" name="slpva" id="slpva" value=""/>
-				 	<input type="hidden" name="slsats" id="slsats" value=""/>
-				 	<input type="hidden" name="sltn" id="sltn" value=""/>
-				 	 --%>
-					<table>
-						<tr>
-							<td colspan="6">Beskrivning:&nbsp;<label class="text12Bold" id="description_sltxt" name="description_sltxt"></label></td>
-						</tr>
-						<tr height="5"><td></td></tr>
-						
-						<tr>
-							<td class="tableHeaderField" align="left" >&nbsp;FK/LK</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Varenr.</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Bruttovekt</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Kundens art.nr</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Kundenr.</td>
-          				</tr>
-						<tr>
-							<td class="tableCell11"><input readonly class="inputTextReadOnly" type="text"  id="sloppl" name="sloppl" size="10px" value=""></input></td>
-							<td class="tableCellFirst11"><input class="inputTextReadOnly" type="text" id="sltanr" name="sltanr" size="10px" value=""></input></td>
-							<td class="tableCell11"><input readonly class="inputTextReadOnly" type="text"  id="slvekt" name="slvekt" size="10px" value=""></input></td>
-							<td class="tableCell11"><input  class="inputTextMediumBlue" type="text"  id="slalfa" name="slalfa" size="10px" value=""></input></td>
-							<td class="tableCell11"><input  class="inputTextMediumBlue" type="text"  id="slknr" name="slknr" size="10px" value=""></input></td>
-						</tr>
-						
-					</table>
-				</form>
-			</div>
 		</td>
 		</tr>
 		

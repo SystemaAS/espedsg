@@ -210,7 +210,7 @@
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
 		               <td class="tableCell" >&nbsp;${topic.sg}</td>
 		               <td nowrap class="tableCell" align="center">
-	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&setll=${topic.setll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sidt=${topic.o2_sedt}&o2_simf=${topic.o2_semf}">
+	               	   		<a id="alinkCurrentHeaderId_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sg}&setll=${topic.setll}&syst=${topic.status}&sydt=${topic.datum}&o2_sest=${topic.o2_sest}&o2_sedt=${topic.o2_sedt}&o2_semf=${topic.o2_semf}">
 	               				<img title="Oppdatera tolldekl." valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
             					</a>
                		   </td>

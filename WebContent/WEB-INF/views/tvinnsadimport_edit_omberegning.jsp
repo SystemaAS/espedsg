@@ -137,6 +137,10 @@
 			<input type="hidden" name="sidt" id="sidt" value='${model.record.sidt}'>
 			<input type="hidden" name="sidst" id="sidst" value='${model.record.sidst}'>
 			<input type="hidden" name="sitarf" id="sitarf" value='${model.record.sitarf}'>
+			<%-- omberegning --%>
+			<input type="hidden" name="o2_sist" id="o2_sist" value='${model.record.o2_sist}'>
+			<input type="hidden" name="o2_sidt" id="o2_sidt" value='${model.record.o2_sidt}'>
+			<input type="hidden" name="o2_simf" id="o2_simf" value='${model.record.o2_simf}'>
 			
 			
 		<tr height="6">
@@ -163,7 +167,7 @@
 				</td>
 				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 					<a id="alinkOmberegningItemLinesSubTab" style="display:block;" href="tvinnsadimport_edit_omberegning_items.do?action=doFetch&avd=${ model.record.siavd}&sign=${ model.record.sisg}
-											&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}">
+											&opd=${ model.record.sitdn}&status=${ model.record.sist}&fabl=${model.record.sibel3}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 					<font class="text11Gray">Varelinjer</font>
 					</a>
 				</td>

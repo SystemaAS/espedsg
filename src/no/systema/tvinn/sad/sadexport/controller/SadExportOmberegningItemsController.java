@@ -136,9 +136,14 @@ public class SadExportOmberegningItemsController {
 			String refnr = request.getParameter("refnr");
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
-			
 			String startItemLineNr = request.getParameter("startItemLineNr");
 			String tariffNr = request.getParameter("tariffNr");
+			//Omberegning
+			String omberegningFlag = request.getParameter("o2_sest"); //omberegning indicator
+			String omberegningDate = request.getParameter("o2_sedt"); //omberegning indicator
+			String omberegningType = request.getParameter("o2_semf"); //omberegning indicator (DFU,DTK,DEB, etc)
+			
+			
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadExportSpecificTopicRecord headerRecord = (JsonSadExportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -164,6 +169,11 @@ public class SadExportOmberegningItemsController {
 			model.put("refnr(tullid)", refnr);
 			model.put("status", status);
 			model.put("datum", datum);
+			//Omberegning flag
+			model.put("o2_sest", omberegningFlag);
+			model.put("o2_sedt", omberegningDate);
+			model.put("o2_semf", omberegningType);
+			
 			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				//-----------

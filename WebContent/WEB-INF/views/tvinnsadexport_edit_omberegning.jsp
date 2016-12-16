@@ -138,6 +138,10 @@
 			<input type="hidden" name="sedt" id="sedt" value='${model.record.sedt}'>
 			<input type="hidden" name="sedst" id="sedst" value='${model.record.sedst}'>
 			<input type="hidden" name="setarf" id="setarf" value='${model.record.setarf}'>
+			<%-- omberegning --%>
+			<input type="hidden" name="o2_sest" id="o2_sest" value='${model.record.o2_sest}'>
+			<input type="hidden" name="o2_sedt" id="o2_sedt" value='${model.record.o2_sedt}'>
+			<input type="hidden" name="o2_semf" id="o2_semf" value='${model.record.o2_semf}'>
 			
 		<tr height="6">
 			<td colspan="2">&nbsp;
@@ -163,7 +167,7 @@
 				</td>
 				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 					<a id="alinkOmberegningItemLinesSubTab" style="display:block;" href="tvinnsadexport_edit_omberegning_items.do?action=doFetch&avd=${ model.record.seavd}&sign=${ model.record.sesg}
-											&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${model.record.sebel1}">
+											&opd=${ model.record.setdn}&status=${ model.record.sest}&fabl=${model.record.sebel1}&o2_sest=${ model.record.o2_sest}&o2_sedt=${ model.record.o2_sedt}&o2_semf=${ model.record.o2_semf}">
 					<font class="text11Gray">Varelinjer</font>
 					</a>
 				</td>

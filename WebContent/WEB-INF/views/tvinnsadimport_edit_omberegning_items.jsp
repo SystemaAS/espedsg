@@ -46,7 +46,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkHeader" style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${fn:replace(model.opd,'-','')}
-						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}">
+						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${fn:replace(model.opd,'-','')}]</font>
@@ -59,7 +59,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkInvoices" style="display:block;" href="tvinnsadimport_edit_finansopplysninger.do?action=doFetch&avd=${ model.avd}&sign=${ model.sign}
-											&opd=${fn:replace(model.opd,'-','')}&status=${ model.status}&fabl=${recordTopicTvinnSad.sibel3}">
+											&opd=${fn:replace(model.opd,'-','')}&status=${ model.status}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.finansopplys.createnew.tab"/>
 					</font>
@@ -68,7 +68,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
-											&opd=${fn:replace(model.opd,'-','')}">
+											&opd=${fn:replace(model.opd,'-','')}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
 					</font>
@@ -79,7 +79,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkItemLines" style="display:block;" href="tvinnsadimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 												&opd=${fn:replace(model.opd,'-','')}&tullId=${model.tullId}
-												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicTvinnSad.sibel3}">
+												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 				<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.item.createnew.tab"/></font>
 				<c:if test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
 					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
@@ -89,7 +89,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkLogging" style="display:block;" href="tvinnsadimport_logging.do?avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}
-													&status=${model.status}&datum=${model.datum}">
+													&status=${model.status}&datum=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.logging.tab"/>
 					</font>
@@ -99,7 +99,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkArchive" style="display:block;" href="tvinnsadimport_archive.do?avd=${model.avd}&sign=${model.sign}&opd=${fn:replace(model.opd,'-','')}
-													&status=${model.status}&datum=${model.datum}"">
+													&status=${model.status}&datum=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.archive.tab"/>
 					</font>
@@ -133,7 +133,7 @@
 				<td width="2px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="8%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 					<a id="alinkOmberegningSubTab" style="display:block;" href="tvinnsadimport_edit_omberegning.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
-											&opd=${ model.opd}&status=${model.status}">
+											&opd=${ model.opd}&status=${model.status}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 						<font class="text11Gray">Hode</font>
 					</a>	
 				</td>
@@ -500,9 +500,7 @@
 							               
 							               
 							               <td class="text11" >&nbsp;${record.svlk}</td>
-							               <td class="text11" >&nbsp;${record.svvnt}&nbsp;&nbsp;
-							               	  <img id="recordUpdate_${record.svli}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Tilføy Kundens varereg.">
-							               </td>
+							               <td class="text11" >&nbsp;${record.svvnt}</td>
 							               <td class="text11" >&nbsp;${record.svtn}</td>
 							               <td class="text11" >&nbsp;${record.svpre}</td>
 							               <td class="text11" >&nbsp;${record.svbelt}</td>
@@ -584,7 +582,11 @@
 				 	
 				 	<input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" />
 				 	<input type="hidden" name="lastSelectedItemLineNumber" id="lastSelectedItemLineNumber" value="${model.recordItemContainerTopic.lastSelectedItemLineNumber}" />
-				 	
+				 	<%-- omberegning --%>
+					<input type="hidden" name="o2_sist" id="o2_sist" value='${model.o2_sist}'>
+					<input type="hidden" name="o2_sidt" id="o2_sidt" value='${model.o2_sidt}'>
+					<input type="hidden" name="o2_simf" id="o2_simf" value='${model.o2_simf}'>
+			
 				 	<%-- Topic ITEM CREATE --%>
 	 				<table width="100%" align="center" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
@@ -817,32 +819,13 @@
 											<a tabindex="-1" id="svlkIdLink">
 											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
-											<%-- info span 
-											<img onClick="showPop('opprlandInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-											<span style="position:absolute; left:320px; top:320px; width:350px; height:150px;" id="opprlandInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="opprland" name="opprland" size="5" onDblClick="hidePop('opprlandInfo');">
-								           				<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  			<option value="${country.zkod}">${country.zkod}&nbsp;${country.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			
-													<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="opprlandButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('opprlandInfo');">&nbsp;<spring:message code="systema.tvinn.sad.import.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
-											--%>																 			
+																							 			
 										</td>
-							        		<td class="text12" align="left">
-							            		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="svvnt" id="svvnt" size="12" maxlength="8" value="${model.record.svvnt}">
-							            		<a tabindex="-1" id="svvntIdLink">
-												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-												</a>
+						        		<td class="text12" align="left">
+				        					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="svvnt" id="svvnt" size="12" maxlength="8" value="${model.record.svvnt}">
+					        	    		<a tabindex="-1" id="svvntIdLink">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>
 							            </td>
 										<td align="left" nowrap>
 											<select name="svtn" id="svtn">

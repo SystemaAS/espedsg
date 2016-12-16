@@ -506,7 +506,7 @@
 				var invoiceAmount = jq('#fabl').val().replace(".","");
 				invoiceAmount = invoiceAmount.replace(",",".");
 				if(unitPrice != "" && invoiceAmount != ""){
-					if(invoiceAmount>0){
+					if(invoiceAmount>0 && jq('#svvktb').val()==''){
 						var totalGross = jq('#totalGrossWeight').val().replace(".","");
 						totalGross = totalGross.replace(",",".");
 						var proposedGross = (unitPrice/invoiceAmount) * totalGross;

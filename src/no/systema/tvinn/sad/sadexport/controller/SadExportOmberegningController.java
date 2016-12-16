@@ -210,30 +210,40 @@ public class SadExportOmberegningController {
 						if(omberegningType!=null && !"".equals(omberegningType)){
 							//At this point we do know the user wants to clone or simply fetch upon a dialog interaction
 							if(selectedOmb != null && !"".equals(selectedOmb)){
-								opdOmb = opdOmb + "-";
+								if(!opdOmb.contains("-")){
+									opdOmb = opdOmb + "-";
+								}
 								logger.info("Clone omberegning... upon user interaction");
 								this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
 								
 							}else{
 								//Add a minus sign (to indicate omberegning on service back-end will be fetch)
-								opdOmb = opdOmb + "-"; 
+								if(!opdOmb.contains("-")){
+									opdOmb = opdOmb + "-"; 
+								}
 							}
 						}else{
 							//Add a minus sign (to indicate omberegning on service back-end will be fetched)
-							logger.info("Show omberegning...");
-							opdOmb = opdOmb + "-"; 
+							logger.info("Show omberegning BRANCH (A)...");
+							if(!opdOmb.contains("-")){
+								opdOmb = opdOmb + "-"; 
+							}
 						}
 					//(B) BRANCH for omberegning DOES NOT exist
 					}else{
-						logger.info("Create new omberegning automatically...");
-						opdOmb = opdOmb + "-";
+						if(!opdOmb.contains("-")){
+							opdOmb = opdOmb + "-";
+						}
 						if(!this.omberegningExists(action, avd, opdOmb, sign, appUser)){
+							logger.info("Create new omberegning automatically...");
 							//at this point we do know that there IS NOT a previous omberegning
 							//(1) create first omberegning (will be prepared for fetch)
 							selectedOmb = this.OMBEREGNING_TYPE_OMB_ORIGINAL_BACKEND;
 							this.cloneOpdToOmberegning(appUser.getUser(), avd, opdOmb, sign, selectedOmb);
+						}else{
+							//this will be true in 1% of cases (only when there is some corrupt data - backend)
+							logger.info("Show omberegning BRANCH (B)...");
 						}
-						 
 					}
 					logger.info("opdOmb:" + opdOmb);
 					logger.info("FETCH record transaction... after omberegning possible outcomes ...");
@@ -313,7 +323,7 @@ public class SadExportOmberegningController {
 						if(recordToValidate.getSesg()==null || "".equals(recordToValidate.getSesg()) ){
 							recordToValidate.setSesg(sign);
 						}
-				    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject );
+				    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType );
 					    	
 				    	isValidCreatedRecordTransactionOnRPG = false;
 				    	if(opd==null || "".equals(opd)){
@@ -421,7 +431,7 @@ public class SadExportOmberegningController {
 					    		//Update successfully done!
 					    		logger.info("[INFO] Record successfully updated, OK ");
 					    		//put domain objects
-					    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicRecord, totalItemLinesObject);
+					    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicRecord, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType);
 					    		if(totalItemLinesObject.getSumOfAntalItemLines()>0 || this.ACTIVE_INNSTIKK_CODE.equals(jsonSadExportSpecificTopicRecord.getSemi())){
 					    			this.adjustValidUpdateFlag(model, jsonSadExportSpecificTopicRecord);
 					    		}   		
@@ -1391,8 +1401,12 @@ public class SadExportOmberegningController {
 	 * @param model
 	 * @param record
 	 * @param totalItemLinesObject
+	 * @param omberegningFlag
+	 * @param omberegningDate
+	 * @param omberegningType
 	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadExportSpecificTopicRecord record, SadExportSpecificTopicTotalItemLinesObject totalItemLinesObject){
+	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadExportSpecificTopicRecord record, SadExportSpecificTopicTotalItemLinesObject totalItemLinesObject,
+			String omberegningFlag, String omberegningDate, String omberegningType){
 		//SET HEADER RECORDS  (from RPG)
 		record.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 		record.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
@@ -1400,7 +1414,12 @@ public class SadExportOmberegningController {
 		record.setSumTotalBruttoViktItemLines(totalItemLinesObject.getSumTotalBruttoViktItemLines());
 		//Adjust dates
 		this.adjustDatesOnFetch(record);
-		logger.info("sekdh:" + record.getSekdh());
+		//Omberegning flag
+		record.setO2_sest(omberegningFlag);
+		record.setO2_sedt(omberegningDate);
+		record.setO2_semf(omberegningType);
+		
+		//logger.info("omberegningDate:" + omberegningDate);
 		model.put(TvinnSadConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines
 		session.setAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD, record);
