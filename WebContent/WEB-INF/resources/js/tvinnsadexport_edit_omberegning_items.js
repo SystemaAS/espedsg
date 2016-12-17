@@ -561,7 +561,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "800px",
 	  		  "scrollCollapse":  true,
-	  		  "order": [[ 9, "desc" ]],
+	  		  "order": [[ 9, "desc" ], [ 0, 'asc' ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
@@ -569,7 +569,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
-	  		  "order": [[ 10, "desc" ], [ 1, 'asc' ]],
+	  		  "order": [[ 10, "desc" ], [ 0, 'asc' ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      

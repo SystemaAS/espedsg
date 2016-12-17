@@ -271,6 +271,7 @@
 							<td>
 							<form name="createNewItemLine" id="createNewItemLine" method="post" action="tvinnsadexport_edit_omberegning_items.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
+								<input type="hidden" name="renew" id="renew" value='1'>
 				 				<input type="hidden" name="avd" id="avd" value='${model.avd}'>
 				 				<input type="hidden" name="sign" id="sign" value='${model.sign}'>
 								<input type="hidden" name="opd" id="opd" value='${model.opd}'>
@@ -280,6 +281,10 @@
 				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopicTvinnSad.sebel1}'>
 				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
 				 				<input type="hidden" name="senderId" id="senderId" value='${recordTopicTvinnSad.seknk}'>
+				 				<%-- Omberegning  --%>
+				 				<input type="hidden" name="o2_sest" id="o2_sest" value='${model.o2_sest}'>
+				 				<input type="hidden" name="o2_sedt" id="o2_sedt" value='${model.o2_sedt}'>
+				 				<input type="hidden" name="o2_semf" id="o2_semf" value='${model.o2_semf}'>
 				 										
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
@@ -309,6 +314,7 @@
 												                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.svavtp.tollsats"/></th>
 												                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 												                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.sverr.error"/>&nbsp;</th>
+												                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
 												                    <c:if test="${model.status == 'M' || empty model.status}">
 												                    	<th align="center" class="text12" nowrap>Slett</th>
 												                    </c:if>
@@ -338,11 +344,14 @@
 														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               </td>
+														               <td width="2%" align="center" class="text11Red"><b>${record.svnyl}</b></td>
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>
-															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
+															               <c:if test="${record.svnyl != 'S'}">
+															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 															               		<img src="resources/images/delete.gif" border="0" alt="remove">
-															               	</a>	
+															               	</a>
+															               	</c:if>	
 															               </td>
 														               </c:if>
 														            </tr>
@@ -436,7 +445,11 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 		 						<input type="hidden" name="selkbCountryCode" id="selkbCountryCode" value="${recordTopicTvinnSad.selkb}">
-				 					
+				 				<%-- omberegning --%>
+								<input type="hidden" name="o2_sest" id="o2_sest" value='${model.o2_sest}'>
+								<input type="hidden" name="o2_sedt" id="o2_sedt" value='${model.o2_sedt}'>
+								<input type="hidden" name="o2_semf" id="o2_semf" value='${model.o2_semf}'>
+				
 								<table id="containerdatatableTable" cellspacing="2" align="left" width="100%" >
 								<tr>
 								<td class="text11">
@@ -473,9 +486,11 @@
 							               </c:choose>
 							               <td width="4%" class="text11" align="center">${record.svli}</td>
 							               <td width="4%" class="text11" align="center">&nbsp;
-							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.svli}" href="#" onClick="getItemData(this);">
-							               			<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
-							               		</a>
+							               		<c:if test="${record.svnyl != 'S'}">
+								               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.svli}" href="#" onClick="getItemData(this);">
+								               			<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+								               		</a>
+							               		</c:if>
 							               </td>
 							               <td class="text11" >&nbsp;${record.svfyl}</td>
 							               <td class="text11" >&nbsp;${record.svvnt}</td>
@@ -493,9 +508,11 @@
 							               <td width="2%" align="center" class="text11Red"><b>${record.svnyl}</b></td>
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}">
-								               		<img src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	
+								                	<c:if test="${record.svnyl != 'S'}">
+								               			<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
+								               				<img src="resources/images/delete.gif" border="0" alt="remove">
+								               			</a>
+								               		</c:if>	
 								               </td>
 							               </c:if>
 							               

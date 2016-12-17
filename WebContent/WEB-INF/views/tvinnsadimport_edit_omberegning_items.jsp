@@ -46,7 +46,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkHeader" style="display:block;" href="tvinnsadimport_edit.do?action=doFetch&avd=${model.avd}&opd=${fn:replace(model.opd,'-','')}
-						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
+						&sysg=${model.sign}&tuid=${refnr}&syst=${model.status}&sydt=${model.datum}&o2_sist=${model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${fn:replace(model.opd,'-','')}]</font>
@@ -276,8 +276,9 @@
 	        			<tr height="10"><td></td></tr> 
 						<tr >
 							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="tvinnsadimport_edit_items.do">
+							<form name="createNewItemLine" id="createNewItemLine" method="post" action="tvinnsadimport_edit_omberegning_items.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
+								<input type="hidden" name="renew" id="renew" value='1'>
 				 				<input type="hidden" name="avd" id="avd" value='${model.avd}'>
 				 				<input type="hidden" name="sign" id="sign" value='${model.sign}'>
 								<input type="hidden" name="opd" id="opd" value='${model.opd}'>
@@ -286,13 +287,17 @@
 				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopicTvinnSad.sibel3}'>
 				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sivkb}'>
 				 				<input type="hidden" name="receiverId" id="receiverId" value='${recordTopicTvinnSad.siknk}'>
+				 				<%-- Omberegning  --%>
+				 				<input type="hidden" name="o2_sist" id="o2_sist" value='${model.o2_sist}'>
+				 				<input type="hidden" name="o2_sidt" id="o2_sidt" value='${model.o2_sidt}'>
+				 				<input type="hidden" name="o2_simf" id="o2_simf" value='${model.o2_simf}'>
 				 										
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
 										
 										<td class="text12Bold">
 											<c:if test="${model.status == 'M' || empty model.status}">
-												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadimport_edit_items.do';" value="<spring:message code="systema.tvinn.sad.import.item.line.init.createnew.submit"/>">
+												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadimport_edit_omberegning_items.do';" value="<spring:message code="systema.tvinn.sad.import.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
 										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
@@ -320,6 +325,7 @@
 												                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.svkdaae.avgift"/>&nbsp;</th>
 												                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 												                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.sverr.error"/>&nbsp;</th>
+												                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
 												                    <c:if test="${model.status == 'M' || empty model.status}">
 												                    	<th align="center" class="text12" nowrap>Slett</th>
 												                    </c:if>
@@ -356,11 +362,14 @@
 														               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               </td>
+														               <td width="2%" align="center" class="text11Red"><b>${record.svpreae}</b></td>
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>
-															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sibel3}">
-															               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-															               	</a>	
+															                <c:if test="${record.svpreae != 'S'}">
+																               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_omberegning_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
+																               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+																               	</a>
+															               	</c:if>	
 															               </td>
 														               </c:if>
 														               
@@ -403,7 +412,7 @@
 											<table class="tableBorderWithRoundCornersGray" >
 												<tr colspan="4">
 													<td class="text11" nowrap>
-														<input tabindex=-1 class="inputFormSubmitGrayFont11" type="submit" name="submitStartItem" onclick="javascript: form.action='tvinnsadimport_edit_items.do';" value="Hent">
+														<input tabindex=-1 class="inputFormSubmitGrayFont11" type="submit" name="submitStartItem" onclick="javascript: form.action='tvinnsadimport_edit_omberegning__items.do';" value="Hent">
 														fra linjenr:
 														<input tabindex=-1 align="left" type="text" class="inputText" size="4" maxlength="5" name="startItemLineNr" id="startItemLineNr" value='${model.recordItemContainerTopic.startItemLineNr}'>
 														fra varenr:
@@ -452,7 +461,11 @@
 			               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-		
+								<%-- Omberegning  --%>
+				 				<input type="hidden" name="o2_sist" id="o2_sist" value='${model.o2_sist}'>
+				 				<input type="hidden" name="o2_sidt" id="o2_sidt" value='${model.o2_sidt}'>
+				 				<input type="hidden" name="o2_simf" id="o2_simf" value='${model.o2_simf}'>
+				 				
 								<table id="containerdatatableTable" cellspacing="2" align="left" width="100%">
 								<tr>
 								<td class="text11">
@@ -475,6 +488,7 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.svkdaae.avgift"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 					                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.import.item.list.label.sverr.error"/>&nbsp;</th>
+					                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
 					                    <c:if test="${model.status == 'M' || empty model.status}">
 					                    		<th align="center" class="text12" nowrap>Slett</th>
 					                    </c:if> 
@@ -492,13 +506,13 @@
 							               </c:choose>
 							               <td width="4%" class="text11" align="center">${record.svln}</td>
 							               <td width="4%" class="text11" align="center">&nbsp;
-							               		<%-- Always svli to AS400. svln is only for presentation purposes --%>
-							               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.svli}" href="#" onClick="getItemData(this);">
-							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
-							               		</a>
+							               		<c:if test="${record.svpreae != 'S'}">
+								               		<%-- Always svli to AS400. svln is only for presentation purposes --%>
+								               		<a tabindex=-1 title="${counter.count}" id="recordUpdate_${record.svli}" href="#" onClick="getItemData(this);">
+								               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+								               		</a>
+							               		</c:if>	
 							               </td>
-							               
-							               
 							               <td class="text11" >&nbsp;${record.svlk}</td>
 							               <td class="text11" >&nbsp;${record.svvnt}</td>
 							               <td class="text11" >&nbsp;${record.svtn}</td>
@@ -516,11 +530,14 @@
 							               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 							               </td>
+							               <td width="2%" align="center" class="text11Red"><b>${record.svpreae}</b></td>
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sibel3}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	
+								               	<c:if test="${record.svpreae != 'S'}">
+									               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_omberegning_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sibel3}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
+									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+									               	</a>
+								               	</c:if>	
 								               </td>
 							               </c:if> 
 							            </tr>
@@ -579,7 +596,6 @@
 				 	<input type="hidden" name="sibelr" id="sibelr" value="${recordTopicTvinnSad.sibelr}"/>
 				 	<input type="hidden" name="sibels" id="sibels" value="${recordTopicTvinnSad.sibels}"/>
 					<%-- END avgift header variables --%>					 	
-				 	
 				 	<input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" />
 				 	<input type="hidden" name="lastSelectedItemLineNumber" id="lastSelectedItemLineNumber" value="${model.recordItemContainerTopic.lastSelectedItemLineNumber}" />
 				 	<%-- omberegning --%>
@@ -1018,18 +1034,15 @@
 											</select>
 										</td>
 										<td align="left" >
-												<%-- TODO 
 												<c:choose>	
 													<c:when test="${model.status == 'M' || empty model.status || model.status == '10' || model.status == '20'}">
-														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit_items.do';" value='<spring:message code="systema.tvinn.sad.import.item.createnew.submit"/>'>
+														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit_omberegning_items.do';" value='<spring:message code="systema.tvinn.sad.import.item.createnew.submit"/>'>
 														&nbsp;&nbsp;
 													</c:when>
 													<c:otherwise>
 							 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 							 				    	</c:otherwise>	
 						 				    	</c:choose>
-						 				    	--%>	
-						 				    	<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
 										</td>		
 										
  							        </tr>
@@ -2099,53 +2112,8 @@
 		</table>
 		</td>
 		</tr>
-		
-		
-		<tr>
-		<td>
-			<div id="dialogKundensVareregister" title="Dialog">
-				<form  action="tvinnsadimport_edit_items_doUpdateKundensVareregister.do" name="updateKundensVareregisterForm" id="updateKundensVareregisterForm" method="post">
-				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<input type="hidden" name="varebe" id="varebe" value=""/>
-				 	<input type="hidden" name="w2tn" id="w2tn" value=""/>
-				 	<input type="hidden" name="w2pre" id="w2pre" value=""/>
-				 	<input type="hidden" name="w2belt" id="w2belt" value=""/>
-				 	<input type="hidden" name="w2vktb" id="w2vktb" value=""/>
-				 	<input type="hidden" name="w2vktn" id="w2vktn" value=""/>
-				 	<input type="hidden" name="w2ntm" id="w2ntm" value=""/>
-				 	<input type="hidden" name="w2pva" id="w2pva" value=""/>
-				 	<input type="hidden" name="w2as" id="w2as" value=""/>
-				 	<input type="hidden" name="w2mfr" id="w2mfr" value=""/>
-				 	
-					<table>
-						<tr>
-							<td colspan="6">Beskrivning:&nbsp;<label class="text12Bold" id="svvt" name="svvt"></label></td>
-						</tr>
-						<tr height="5"><td></td></tr>
-						
-						<tr>
-							<td class="tableHeaderField" align="left" >&nbsp;VF</td>
-          					<td class="tableHeaderFieldFirst" align="left" >&nbsp;Oppr.land</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Varenr.</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Kundens art.nr</td>
-          					<td class="tableHeaderField" align="left" >&nbsp;Kundenr.</td>
-          				</tr>
-						<tr>
-							<td class="tableCell11"><input readonly class="inputTextReadOnly" type="text"  id="w2vf" name="w2vf" size="10px" value=""></input></td>
-							<td class="tableCellFirst11"><input class="inputTextReadOnly" type="text" id="w2lk" name="w2lk" size="10px" value=""></input></td>
-							<td class="tableCell11"><input readonly class="inputTextReadOnly" type="text"  id="w2vnti" name="w2vnti" size="10px" value=""></input></td>
-							<td class="tableCell11"><input  class="inputTextMediumBlue" type="text"  id="varenr" name="varenr" size="10px" value=""></input></td>
-							<td class="tableCell11"><input  class="inputTextMediumBlue" type="text"  id="levenr" name="levenr" size="10px" value=""></input></td>
-						</tr>
-						
-					</table>
-				</form>
-			</div>
-		</td>
-		</tr>
+	
 	</table>    
-	
-	
 		
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />

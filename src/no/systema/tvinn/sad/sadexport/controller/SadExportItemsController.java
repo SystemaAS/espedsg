@@ -139,9 +139,15 @@ public class SadExportItemsController {
 			String omberegningFlag = request.getParameter("o2_sest");
 			String omberegningDate = request.getParameter("o2_sedt");
 			String omberegningType = request.getParameter("o2_semf");
-			
 			String startItemLineNr = request.getParameter("startItemLineNr");
 			String tariffNr = request.getParameter("tariffNr");
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("svli_SESSION");
+				session.removeAttribute("svln_SESSION");
+			}
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadExportSpecificTopicRecord headerRecord = (JsonSadExportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
@@ -158,6 +164,7 @@ public class SadExportItemsController {
 				lineSvli = (String)session.getAttribute("svli_SESSION");
 				lineSvln = (String)session.getAttribute("svln_SESSION");
 			}
+			
 			//this row counter(lastSelectedItemLineNumber) is only used to add aspects/behavior to the list of rows (color, scroll(top/down)etc
 			String lastSelectedItemLineNumber = request.getParameter("lastSelectedItemLineNumber");
 			

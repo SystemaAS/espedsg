@@ -142,7 +142,13 @@ public class SadExportOmberegningItemsController {
 			String omberegningFlag = request.getParameter("o2_sest"); //omberegning indicator
 			String omberegningDate = request.getParameter("o2_sedt"); //omberegning indicator
 			String omberegningType = request.getParameter("o2_semf"); //omberegning indicator (DFU,DTK,DEB, etc)
-			
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("svli_SESSION");
+				session.removeAttribute("svln_SESSION");
+			}
 			
 			
 			//this fragment gets some header fields needed for the validator

@@ -144,7 +144,13 @@ public class SadImportOmberegningItemsController {
 			String omberegningFlag = request.getParameter("o2_sist"); //omberegning indicator
 			String omberegningDate = request.getParameter("o2_sidt"); //omberegning indicator
 			String omberegningType = request.getParameter("o2_simf"); //omberegning indicator (DFU,DTK,DEB, etc)
-			
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("svli_SESSION");
+				session.removeAttribute("svln_SESSION");
+			}
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSadImportSpecificTopicRecord headerRecord = (JsonSadImportSpecificTopicRecord)session.getAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD);
