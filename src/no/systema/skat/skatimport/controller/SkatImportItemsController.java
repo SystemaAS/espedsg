@@ -145,6 +145,12 @@ public class SkatImportItemsController {
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
 			String invoiceTotalAmount = request.getParameter("fabl");
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("dkiv_syli_SESSION");
+			}
 			
 			//this fragment gets some header fields needed for the validator
 			JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);

@@ -131,6 +131,12 @@ public class SkatNctsImportUnloadingItemsController {
 			
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("tvli_SESSION");
+			}
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
 			String lineNr = request.getParameter("tvli");
 			if(lineNr!=null && !"".equals(lineNr)){

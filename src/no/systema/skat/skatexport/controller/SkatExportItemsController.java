@@ -146,7 +146,12 @@ public class SkatExportItemsController {
 			//this fragment gets some header fields needed for the validator
 			JsonSkatExportSpecificTopicRecord headerRecord = (JsonSkatExportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
 			logger.info("HeaderRecord dkeh_aart: " + headerRecord.getDkeh_aart());
-			
+			//new line
+			String renew = request.getParameter("renew");
+			if(renew!=null && !"".equals(renew)){
+				//clean
+				session.removeAttribute("dkev_syli_SESSION");
+			}
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
 			String lineNr = request.getParameter("dkev_syli");
 			if(lineNr!=null && !"".equals(lineNr)){

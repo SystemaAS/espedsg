@@ -182,6 +182,7 @@
 							<form id="createNewItemLine" action="skatnctsexport_edit_items.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
 				 				<input type="hidden" name="avd" id="avd" value='${model.avd	}'>
+				 				<input type="hidden" name="renew" id="renew" value='1'>
 				 				<input type="hidden" name="sign" id="sign" value='${model.sign}'>
 								<input type="hidden" name="opd" id="opd" value='${model.opd}'>
 				 				<input type="hidden" name="tullId" id="tullId" value='${model.tullId}'>
