@@ -69,7 +69,7 @@ public final class SadExportUrlDataStore {
 	//[5] FETCH ITEM RECORDS (LIST)
 	//-----------------------------
 	static public String SAD_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE010R.pgm";
-	//TODO-->CB:http://gw.systema.no/sycgip/TNOE010R.pgm?user=OSCAR&avd=1&opd=91132
+	//http://gw.systema.no/sycgip/TNOE010R.pgm?user=OSCAR&avd=1&opd=91132
 	
 	//[5.1] FETCH SPECIFIC ITEM (for an update)
 	static public String SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE011R.pgm";
@@ -79,6 +79,11 @@ public final class SadExportUrlDataStore {
 	//http://gw.systema.no/sycgip/tnoe041r.pgm?user=OSCAR&levenr=1
 	static public String SAD_EXPORT_BASE_UPDATE_TOLLTARIFF_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE042R.pgm";
 	//http://gw.systema.no/sycgip/tnoe042r.pgm?user=OSCAR&slknr=1&slalfa=FXR123&sltxt=gashindrare&sltanr=12345678
+	
+	//[5.2] Ångra Omberegning på alla item lines (same as fetch BUT with mode=R
+	static public String SAD_EXPORT_BASE_ANGRE_OMB_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE010R.pgm";
+	//http://gw.systema.no/sycgip/TNOE010R.pgm?user=OSCAR&avd=1&opd=91132&mode=R
+	
 	
 	//-----------------------------------
 	//[6] EDIT A SPECIFIC ITEM RECORD

@@ -29,6 +29,7 @@ public final class TvinnSadConstants {
 	public static final String ACTION_CREATE = "doCreate";
 	public static final String ACTION_DELETE = "doDelete";
 	public static final String ACTION_SEND = "doSend";
+	public static final String ACTION_REVERSE = "doReverse";
 	
 	//update modes
 	public static final String MODE_UPDATE = "U";

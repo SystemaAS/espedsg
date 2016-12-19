@@ -42,6 +42,10 @@
 			jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
 			window.location = 'tvinnsadimport_edit_items_autocontrol.do?svavd='+ jq('#avd').val() + '&svtdn=' + jq('#opd').val();
 		});
+  		jq('#itemListAngreOmbButton').click(function() {
+			jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+			window.location = 'tvinnsadimport_edit_omberegning_items.do?action=doReverse&user=' + jq('#applicationUser').val() + '&avd='+ jq('#avd').val() + '&opd=' + jq('#opd').val() + '&o2_sist=' + jq('#o2_sist').val() + '&o2_sidt=' + jq('#o2_sidt').val()+ '&o2_simf=' + jq('#o2_simf').val();
+		});
   		
   		//=====================================
 	  	//START Child window for general codes

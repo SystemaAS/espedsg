@@ -72,6 +72,10 @@ public final class SadImportUrlDataStore {
 	//[5.1] FETCH SPECIFIC ITEM (for an update)
 	static public String SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI011R.pgm";
 	
+	//[5.2] Ångra Omberegning på alla item lines (same as fetch BUT with mode=R)
+	static public String SAD_IMPORT_BASE_ANGRE_OMB_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI010R.pgm";
+	//http://gw.systema.no/sycgip/TNOI010R.pgm?user=OSCAR&avd=1&opd=91132&mode=R
+	
 	//FETCH VARUKODER-KUNDENS Vareregister 
 	static public String SAD_IMPORT_FETCH_TOLLTARIFF_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI041R.pgm";
 	//http://gw.systema.no/sycgip/tnoi041r.pgm?user=OSCAR&levenr=1

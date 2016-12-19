@@ -289,9 +289,8 @@
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
 										<td class="text12Bold">
-											<c:if test="${model.status == 'M' || empty model.status}">
-												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
-											</c:if>
+											<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
+											
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
 										        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 									           		
@@ -315,9 +314,8 @@
 												                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 												                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.sverr.error"/>&nbsp;</th>
 												                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
-												                    <c:if test="${model.status == 'M' || empty model.status}">
-												                    	<th align="center" class="text12" nowrap>Slett</th>
-												                    </c:if>
+												                    <th align="center" class="text12" nowrap>Slett</th>
+												                    
 												                </tr> 
 												                </thead>
 											               		<tbody>
@@ -345,15 +343,13 @@
 														               		</c:if>
 														               </td>
 														               <td width="2%" align="center" class="text11Red"><b>${record.svnyl}</b></td>
-														               <c:if test="${model.status == 'M' || empty model.status}">	
-															               <td class="text11" align="center" nowrap>
+														               <td class="text11" align="center" nowrap>
 															               <c:if test="${record.svnyl != 'S'}">
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&sign=${model.sign}&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
 															               		<img src="resources/images/delete.gif" border="0" alt="remove">
 															               	</a>
 															               	</c:if>	
-															               </td>
-														               </c:if>
+														               </td>
 														            </tr>
 														            <%-- this param is used ONLY in this JSP --%>
 															        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" /> 
@@ -381,14 +377,19 @@
 														</tr>
 														</table>
 												    	</div>
-											    </span> 
+											    </span>
+											     
 											<%--    
 										    <c:if test="${model.status == 'M' || empty model.status}">		
 												&nbsp;<button title="Kontrollera varelinjer" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varelinje kontroll</button>
 											</c:if>
-											 --%>          		
+											 --%> 
+											 &nbsp;<button title="Angre Omberegning" name="itemListAngreOmbButton" id="itemListAngreOmbButton" class="buttonGrayWithGreenFrame11" type="button" >&nbsp;Angre Omberegning&nbsp;</button>
+											          		
 										</td>
+										
 									</tr>
+									<%-- N/A within Omberegning ?
 									<tr>
 										<td colspan="4">
 											<table class="tableBorderWithRoundCornersGray" >
@@ -404,6 +405,8 @@
 											</table>
 						            		</td>
 									</tr>
+									 --%>
+									 
 									<tr>
 										<td class="text12Bold">&nbsp;Antall varelinjer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${totalNumberOfItemLines}</b></font>
 						            		
@@ -434,7 +437,7 @@
 									</tr>
 									<tr height="2"><td></td></tr>
 								</table>
-							</form>
+								</form>
 							</td>
 						</tr> 
 						
@@ -469,9 +472,8 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.wd1.vareDescription"/>&nbsp;</th>
 					                    <th align="center" class="text12">&nbsp;<spring:message code="systema.tvinn.sad.export.item.list.label.sverr.error"/>&nbsp;</th>
 					                    <th width="2%" align="center" class="text12">&nbsp;Omb.status</th>
-					                    <c:if test="${model.status == 'M' || empty model.status}">
-					                    	<th align="center" class="text12" nowrap>Slett</th>
-					                    </c:if> 
+					                    <th align="center" class="text12" nowrap>Slett</th>
+					                     
 					               </tr> 
 					               </thead>
 					               <tbody>	
@@ -506,16 +508,14 @@
 							               		</c:if>
 							               </td>
 							               <td width="2%" align="center" class="text11Red"><b>${record.svnyl}</b></td>
-							               <c:if test="${model.status == 'M' || empty model.status}">	
-								               <td class="text11" align="center" nowrap>
-								                	<c:if test="${record.svnyl != 'S'}">
-								               			<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
-								               				<img src="resources/images/delete.gif" border="0" alt="remove">
-								               			</a>
-								               		</c:if>	
-								               </td>
-							               </c:if>
-							               
+							               <td class="text11" align="center" nowrap>
+							                	<c:if test="${record.svnyl != 'S'}">
+							               			<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_omberegning_items.do?action=doDelete&avd=${record.svavd}&opd=${record.svtdn}&lin=${record.svli}&fabl=${recordTopicTvinnSad.sebel1}&o2_sest=${ model.o2_sest}&o2_sedt=${ model.o2_sedt}&o2_semf=${ model.o2_semf}">
+							               				<img src="resources/images/delete.gif" border="0" alt="remove">
+							               			</a>
+							               		</c:if>	
+							               </td>
+							              
 							            </tr>
 								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" />  --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${record.svli}" scope="request" /> 
@@ -926,24 +926,9 @@
 											</a>
 										</td>																			
 								    	<td align="left" colspan="2">
-												<c:choose>	
-													<c:when test="${model.status == 'M' || empty model.status }">
-														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value='<spring:message code="systema.tvinn.sad.export.item.createnew.submit"/>'>
-														&nbsp;&nbsp;
-														
-														<%-- SEND button: is causing some issues in the Stat.värde calculation
-															 We shall have the send button ONLY at one place (so far) and that is at the header level
-									 				    	<c:if test="${not empty totalNumberOfItemLines && '0' != totalNumberOfItemLines}">
-									 				    		<input tabindex=-1 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatimport_send.do';" value='<spring:message code="systema.skat.import.createnew.send"/>'/>
-									 				    	</c:if>
-									 				  	 --%>
-													</c:when>
-													<c:otherwise>
-							 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
-							 				    	</c:otherwise>	
-						 				    	</c:choose>	
+								    			<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_items.do';" value='<spring:message code="systema.tvinn.sad.export.item.createnew.submit"/>'>
+												&nbsp;&nbsp;
 										</td>
-																	        	
 							        </tr>									
 								</table>
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">	

@@ -33,7 +33,6 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 
-import no.systema.tvinn.sad.sadimport.model.KundensVareRegisterUpdateItemRecord;
 import no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicItemService;
 import no.systema.tvinn.sad.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemAvgifterBeforeCalculationRecord;
@@ -49,7 +48,6 @@ import no.systema.tvinn.sad.sadimport.service.html.dropdown.SadImportDropDownLis
 import no.systema.tvinn.sad.sadimport.util.RpgReturnResponseHandler;
 import no.systema.tvinn.sad.sadimport.util.SadImportCalculator;
 import no.systema.tvinn.sad.sadimport.util.manager.CodeDropDownMgr;
-import no.systema.tvinn.sad.sadimport.util.manager.SadImportItemsAutoControlMgr;
 import no.systema.tvinn.sad.sadimport.util.manager.SadImportAvgiftsberakningenMgr;
 import no.systema.tvinn.sad.sadimport.validator.SadImportItemsValidator;
 import no.systema.tvinn.sad.service.TvinnSadTolltariffVarukodService;
@@ -358,7 +356,26 @@ public class SadImportOmberegningItemsController {
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
 				
+			}else if(TvinnSadConstants.ACTION_REVERSE.equals(action)){
+				logger.info("[INFO] Angre Omberegning item line list start process... ");
+				String BASE_URL_ANGRE_OMB = SadImportUrlDataStore.SAD_IMPORT_BASE_ANGRE_OMB_ITEMLIST_URL;
+				StringBuffer urlRequestParamsKeysReverse = new StringBuffer();//this.getRequestUrlKeyParameters(request, avd, opd, appUser);
+				urlRequestParamsKeysReverse.append("user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd + "&mode=R");
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL_ANGRE_OMB));
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeysReverse);
+		    	
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_ANGRE_OMB, urlRequestParamsKeysReverse.toString());
+		    	if(jsonPayload!=null){
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	}else{
+		    		logger.info("FATAL ERROR in ANGRE OMB...jsonPayload = <null> ???" + Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	}
+		    	
 			}
+			
+			
+			
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM

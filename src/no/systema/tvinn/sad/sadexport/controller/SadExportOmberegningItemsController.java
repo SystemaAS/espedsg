@@ -334,6 +334,22 @@ public class SadExportOmberegningItemsController {
 		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
 		    	}
 				
+			}else if(TvinnSadConstants.ACTION_REVERSE.equals(action)){
+				logger.info("[INFO] Angre Omberegning item line list start process... ");
+				String BASE_URL_ANGRE_OMB = SadExportUrlDataStore.SAD_EXPORT_BASE_ANGRE_OMB_ITEMLIST_URL;
+				StringBuffer urlRequestParamsKeysReverse = new StringBuffer();//this.getRequestUrlKeyParameters(request, avd, opd, appUser);
+				urlRequestParamsKeysReverse.append("user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd + "&mode=R");
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL_ANGRE_OMB));
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeysReverse);
+		    	
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_ANGRE_OMB, urlRequestParamsKeysReverse.toString());
+		    	if(jsonPayload!=null){
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	}else{
+		    		logger.info("FATAL ERROR in ANGRE OMB...jsonPayload = <null> ???" + Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	}
+		    	
 			}
 			
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
@@ -389,6 +405,7 @@ public class SadExportOmberegningItemsController {
 	    	return successView;
 		}
 	}
+	
 	
 	
 	/**
