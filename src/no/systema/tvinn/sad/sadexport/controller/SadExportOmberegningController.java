@@ -44,8 +44,6 @@ import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpeci
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicRecord;
 import no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicService;
-import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicCopiedFromTransportUppdragContainer;
-import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicCopiedContainer;
 import no.systema.tvinn.sad.sadexport.model.topic.SadExportSpecificTopicTotalItemLinesObject;
 import no.systema.tvinn.sad.sadexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemContainer;
@@ -105,38 +103,6 @@ public class SadExportOmberegningController {
 			logger.setLevel(Level.DEBUG);
 		}
 	}	
-	
-	/**
-	 * Renders the create GUI view (without any logic)
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="tvinnsadexport_edit.do",  params="action=doPrepareCreate", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView doPrepareCreate(HttpSession session, HttpServletRequest request){
-		Map model = new HashMap();
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tvinnsadexport_edit");
-		logger.info("Method: doPrepareCreate [RequestMapping-->tvinnsadexport_edit.do]");
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-		}else{
-	        //add gui lists here
-			this.setCodeDropDownMgr(appUser, model);	
-	    		this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
-	    		this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-	    		//domain
-	    		//logger.info("#######" + request.getAttribute("errorMessageOnCopyFromTransportOppdrag"));
-	    		successView.addObject("model", model);
-	    		successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_CREATE);
-		}
-		return successView;
-	}
-	*/
 	
 	/**
 	 * New Omberegning
@@ -324,12 +290,8 @@ public class SadExportOmberegningController {
 							recordToValidate.setSesg(sign);
 						}
 				    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject, omberegningFlag, omberegningDate, omberegningType );
-					    	
 				    	isValidCreatedRecordTransactionOnRPG = false;
-				    	if(opd==null || "".equals(opd)){
-				    		action = TvinnSadConstants.ACTION_CREATE;
-				    	}
-
+				    	
 				    }else{
 			    		JsonSadExportSpecificTopicRecord jsonSadExportSpecificTopicRecord = null;
 						String tuidRefNr = null;
@@ -345,48 +307,7 @@ public class SadExportOmberegningController {
 				            this.adjustFieldsAfterBind(request, jsonSadExportSpecificTopicRecord);
 				            //test indicator
 				            jsonSadExportSpecificTopicRecord.setSe0035(se0035);
-				            jsonSadExportSpecificTopicRecord.setSemi(innstikk);
-							
-						}else{
-							logger.info("CREATE NEW follow by UDATE transaction...");
-							//CREATE AND UPDATE transaction
-							//This means that the update will be done AFTER a creation of an empty record. All this in the same transaction. 2 STEPS involved: (1)create and (2)update
-							//---------------------------------------------------------------------------------------------
-							//STEP[1] Generate new Topic key seeds (avd,opd,sign) by creating an empty new record. 
-							//---------------------------------------------------------------------------------------------
-							jsonSadExportSpecificTopicRecord = this.createNewTopicHeaderKeySeeds(session, request, appUser, avd, sign);
-							if(jsonSadExportSpecificTopicRecord!=null){
-								opd = jsonSadExportSpecificTopicRecord.getSetdn();
-								jsonSadExportSpecificTopicRecord.setSeavd(avd);
-								jsonSadExportSpecificTopicRecord.setSesg(sign);
-					            
-								//take the rest from GUI.
-								jsonSadExportSpecificTopicRecord = new JsonSadExportSpecificTopicRecord();
-								ServletRequestDataBinder binder = new ServletRequestDataBinder(jsonSadExportSpecificTopicRecord);
-					            //binder.registerCustomEditor(...); // if needed
-					            binder.bind(request);
-								//clean up the register date since there is some bug here
-					            jsonSadExportSpecificTopicRecord.setSedt(null);
-
-					            //adjust fields in order to comply to the back-end requirements
-					            this.adjustFieldsAfterBind(request, jsonSadExportSpecificTopicRecord);
-					            
-					            //Now set back with the generated values since the bind method above erases them...
-					            jsonSadExportSpecificTopicRecord.setSeavd(avd);
-					            jsonSadExportSpecificTopicRecord.setSetdn(opd);
-					            jsonSadExportSpecificTopicRecord.setSesg(sign);
-					            //more completions
-					            jsonSadExportSpecificTopicRecord.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
-					            jsonSadExportSpecificTopicRecord.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
-					            jsonSadExportSpecificTopicRecord.setSumTotalAmountItemLines(totalItemLinesObject.getSumTotalAmountItemLines());
-					            jsonSadExportSpecificTopicRecord.setSumTotalBruttoViktItemLines(totalItemLinesObject.getSumTotalBruttoViktItemLines());
-					            //test indicator
-					            jsonSadExportSpecificTopicRecord.setSe0035(se0035);
-					            jsonSadExportSpecificTopicRecord.setSemi(innstikk);
-							}else{
-								//Some kind of error occurred. Set the transaction as invalid...
-								isValidCreatedRecordTransactionOnRPG = false;
-							}
+				            jsonSadExportSpecificTopicRecord.setSemi(innstikk);							
 						}
 						//--------------------------------------------------
 						//At this point we are ready to do an update
@@ -556,8 +477,7 @@ public class SadExportOmberegningController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="tvinnsadexport_send.do")
+	@RequestMapping(value="tvinnsadexport_edit_omberegning_send.do")
 	public ModelAndView doSadExportSend(HttpSession session, HttpServletRequest request){
 
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
@@ -584,7 +504,6 @@ public class SadExportOmberegningController {
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
 			String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-			
 			//-------------------
 			//add URL-parameter 
 			//-------------------
@@ -595,32 +514,30 @@ public class SadExportOmberegningController {
 			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		    	logger.info("URL PARAMS: " + urlRequestParams);
-		    	//----------------------------------------------------------------------------
-		    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-		    	//----------------------------------------------------------------------------
-		    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-			//Debug --> 
-		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-		    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
-		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-		    		//TODO ERROR HANDLING HERE... stay in the same page ?
-		    	}else{
-		    		//Update succefully done!
-		    		logger.info("[INFO] Record successfully sent [changed status], OK ");
-		    		//put domain objects
-		    		//this.setDomainObjectsInView(session, model, jsonTdsExportSpecificTopicRecord);
-		    		//TODO SUCCESS should stay at the same side or not? Right now we go to the list of topics
-		    	}
-			
-				
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	//----------------------------------------------------------------------------
+	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+	    	//----------------------------------------------------------------------------
+	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	//Debug --> 
+	    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+	    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+	    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+	    		//TODO ERROR HANDLING HERE... stay in the same page ?
+	    	}else{
+	    		//Update succefully done!
+	    		logger.info("[INFO] Record successfully sent [changed status], OK ");
+	    		//put domain objects
+	    		//this.setDomainObjectsInView(session, model, jsonTdsExportSpecificTopicRecord);
+	    		//TODO SUCCESS should stay at the same side or not? Right now we go to the list of topics
+	    	}
 		}
 		return successView;
 	}
-	*/
+	
 	
 	/**
 	 * Prints a specific topic
@@ -673,271 +590,6 @@ public class SadExportOmberegningController {
 	}
 	*/
 
-	/**
-	 * Copies one topic(angivelse) to a new one (clones the source topic)
-	 * STEP 1: Copy by getting JSON with the new record (new opd, new avd, new sign)
-	 * STEP 2: Fetch the record as if it was a selection of a topic in a list
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="tvinnsadexport_copyTopic.do", method={RequestMethod.POST} )
-	public ModelAndView doCopyTopic( HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tvinnsadexport_edit");
-		ModelAndView fallbackOnErrorView = new ModelAndView("tvinnsadexport");
-		
-		JsonSadExportTopicCopiedContainer jsonSadExportTopicCopiedContainer = null;
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		String method = "doCopyTopic";
-		logger.info("Method: " + method);
-		Map model = new HashMap();
-		
-		//We must get all parameters from the enumeration since all have sequence counter number
-		String action=null;
-		String avd=null;
-		String opd=null;
-		String newAvd=null;
-		String newSign=null;
-		
-		Enumeration requestParameters = request.getParameterNames();
-	    while (requestParameters.hasMoreElements()) {
-	        String element = (String) requestParameters.nextElement();
-	        String value = request.getParameter(element);
-
-	        if (element != null && value != null) {
-	        		logger.info("####################################################");
-        			logger.info("param Name : " + element + " value: " + value);
-        			if(element.startsWith("originalAvd")){
-        				avd = value;
-        			}else if(element.startsWith("originalOpd")){
-        				opd = value;
-        			}else if(element.startsWith("newAvd")){
-        				newAvd = value;
-        			}else if(element.startsWith("newSign")){
-        				newSign = value;
-        			}else if(element.startsWith("action")){
-        				action = value;
-        			}
-        		}
-	    	}
-	    
-	
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-		}else{
-			//--------------------
-			//STEP 1: COPY record
-			//--------------------
-			logger.info("starting COPY record transaction...");
-			String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopy(avd, newAvd, newSign, opd, appUser);
-			//for debug purposes in GUI
-			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
-			
-			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			//Debug --> 
-		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		jsonSadExportTopicCopiedContainer = this.sadExportSpecificTopicService.getSadExportTopicCopiedContainer(jsonPayload);
-		    		if(jsonSadExportTopicCopiedContainer!=null){
-		    			//Check for errors
-		    			if(jsonSadExportTopicCopiedContainer.getErrMsg()!=null && !"".equals(jsonSadExportTopicCopiedContainer.getErrMsg())){
-		    				logger.fatal("[ERROR FATAL] errMsg containing: " + jsonSadExportTopicCopiedContainer.getErrMsg());
-		    				return fallbackOnErrorView;
-		    			}
-		    		}
-		    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
-			}
-		    
-			
-		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-		    	//--------------------
-			//STEP 2: FETCH record
-			//--------------------
-			logger.info("starting FETCH record transaction...");
-			//---------------------------
-			//get BASE URL = RPG-PROGRAM
-            //---------------------------
-			BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
-			//url params
-			urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, jsonSadExportTopicCopiedContainer.getNewavd(), jsonSadExportTopicCopiedContainer.getNewopd(), jsonSadExportTopicCopiedContainer.getNewsign(), appUser);
-			//for debug purposes in GUI
-			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
-			
-			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
-		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			//Debug --> 
-		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		    	if(jsonPayload!=null){
-		    		JsonSadExportSpecificTopicContainer jsonSadExportSpecificTopicContainer = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
-		    		//add gui lists here
-		    		
-		    		this.setCodeDropDownMgr(appUser, model);
-		    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicContainer);
-		    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
-				//put the doUpdate action since we are preparing the record for an update (when saving)
-				successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
-		    		
-		    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
-			}
-			
-			
-			return successView;
-		}
-		
-	}
-	*/
-	
-	/**
-	 * 
-	 * Copies one topic(Angivelse) to a new one, from (1) a Norsk Export or (2) Transport Uppdrag (order)
-	 * STEP 1: Copy
-	 * STEP 2: Fetch the record as if it was a selection of a topic in a list (Update mode)
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 * 
-	 */
-	/*
-	@RequestMapping(value="tvinnsadexport_doFetchTopicFromTransportUppdrag.do", method={RequestMethod.POST} )
-	public ModelAndView doFetchTopicFromTransportUppdrag( HttpSession session, HttpServletRequest request){
-		JsonSadExportTopicCopiedFromTransportUppdragContainer jsonContainer = null;
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-
-		ModelAndView successView = new ModelAndView("tvinnsadexport_edit");
-		//fallback view (usually on errors)
-		ModelAndView fallbackView = new ModelAndView("tvinnsadexport_edit");
-		fallbackView.addObject("action", "doPrepareCreate");
-		//this view is when the end user choose not to copy at all. He/She will start from scratch (empty form (header))
-		ModelAndView cleanNewView = new ModelAndView("redirect:tvinnsadexport_edit.do?action=doPrepareCreate");
-		
-		String method = "doFetchTopicFromTransportUppdrag";
-		logger.info("Method: " + method);
-		Map model = new HashMap();
-		
-		//We must get all parameters from the enumeration since all have sequence counter number
-		String action=request.getParameter("actionGS");;
-		String avd=request.getParameter("selectedAvd");
-		String opd=request.getParameter("selectedOpd");
-		String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser Norway AS
-
-		logger.info("Method: " + action + avd + opd);
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-		}else{
-			
-			if( (extRefNr!=null && !"".equals(extRefNr)) || ( (opd!=null && !"".equals(opd)) && (avd!=null && !"".equals(avd))) ){
-				//--------------------
-				//STEP 1: COPY record
-				//--------------------
-				logger.info("starting PROCESS record transaction...");
-				String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-				String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(avd, opd, extRefNr, appUser);
-				//for debug purposes in GUI
-				session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
-				
-				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	//--------------------------------------
-			    	//EXECUTE (RPG program) here
-			    	//--------------------------------------
-			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-			    	//Debug --> 
-			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		jsonContainer = this.sadExportSpecificTopicService.getSadExportTopicCopiedFromTransportUppdragContainer(jsonPayload);
-			    		if(jsonContainer!=null){
-			    			//Check for errors
-			    			if(jsonContainer.getErrMsg()!=null && !"".equals(jsonContainer.getErrMsg())){
-			    				logger.info("[WARN] errMsg containing: " + jsonContainer.getErrMsg());
-			    				logger.info("[WARN] redirecting to error fallback jsp");
-			    				//Send the error message to the redirect view.
-			    				//request.setAttribute("errorMessageOnCopyFromTransportOppdrag", jsonContainer.getErrMsg());
-			    				model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, jsonContainer.getErrMsg());
-			    				model.put(TvinnSadConstants.ASPECT_ERROR_META_INFO, "Vid kopiering av TransportUppdrag...");
-			    				fallbackView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
-			    				
-			    				return fallbackView;
-			    			}
-			    		}
-			    	}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
-			    
-				
-			    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-			    	//--------------------
-				//STEP 2: FETCH record
-				//--------------------
-				logger.info("starting FETCH record transaction...");
-				//---------------------------
-				//get BASE URL = RPG-PROGRAM
-	            //---------------------------
-				BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_URL;
-				//url params
-				urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, jsonContainer.getSeavd(), jsonContainer.getSetdn(), jsonContainer.getSesg(), appUser);
-				//for debug purposes in GUI
-				session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
-				
-				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	//--------------------------------------
-			    	//EXECUTE the FETCH (RPG program) here
-			    	//--------------------------------------
-			    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				//Debug --> 
-			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    	if(jsonPayload!=null){
-			    		JsonSadExportSpecificTopicContainer jsonSadExportSpecificTopicContainer = this.sadExportSpecificTopicService.getSadExportSpecificTopicContainer(jsonPayload);
-		    			//populate gui
-					this.setCodeDropDownMgr(appUser, model);	
-			    		this.setDomainObjectsInView(session, model, jsonSadExportSpecificTopicContainer);
-			    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
-					//put the doUpdate action since we are preparing the record for an update (when saving)
-					successView.addObject(TvinnSadConstants.EDIT_ACTION_ON_TOPIC, TvinnSadConstants.ACTION_UPDATE);
-			    		
-			    	}else{
-					logger.fatal("[ERROR fatal] NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
-			}else{
-				logger.warn("[INFO] Tolldekl is NULL. Redirecting to: tvinnsadexport_edit.do?action=doPrepareCreate... ");
-				//return new ModelAndView("redirect:tdsimport_edit.do?action=doPrepareCreate");
-				return cleanNewView;
-			}
-			
-			return successView;
-		}
-		
-	}
-	*/
 	
 	/**
 	 * 
@@ -1142,66 +794,6 @@ public class SadExportOmberegningController {
 	    	return totalItemLinesObject;
 	}
 		
-	
-	/**
-	 * Generates key seeds for an upcoming update (the generation of this keys creates also a new record ready to be updated)
-	 * The method must be seen as STEP ONE in an upcoming update [same transaction].
-	 * 
-	 * @param session
-	 * @param request
-	 * @param user
-	 * @param avd
-	 * @param sign
-	 * 
-	 * @return 
-	 */
-	
-	private JsonSadExportSpecificTopicRecord createNewTopicHeaderKeySeeds(HttpSession session, HttpServletRequest request, SystemaWebUser user,
-																		 String avd, String sign){
-		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
-		JsonSadExportSpecificTopicRecord record = new JsonSadExportSpecificTopicRecord();
-		//---------------------------
-		//get BASE URL = RPG-PROGRAM
-        //---------------------------
-		String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-		
-		//----------------------------------------------------------------------------------------------------------
-		// STEP[PREPARE CREATION] --> generate new opd and tuid (if applicable) in order to be able to Add (Create)
-		//----------------------------------------------------------------------------------------------------------
-		logger.info("STEP[1] GET SEEDS and CREATE RECORD...");
-		StringBuffer urlRequestParamsForSeed = new StringBuffer();
-		urlRequestParamsForSeed.append("user=" + user.getUser());
-		//for debug purposes in GUI
-		session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL);
-				
-		urlRequestParamsForSeed.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsForSeed.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sesg=" + sign);
-		urlRequestParamsForSeed.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + TvinnSadConstants.MODE_ADD);
-		logger.info("URL for SEED: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		logger.info("PARAMS for SEED: " + urlRequestParamsForSeed.toString());
-		
-		//Get the counter from RPG (new opd Id)
-		String rpgSeedNumberPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsForSeed.toString());
-		
-		// Map the JSON response to the new seeds (syop,tuid and ombud fields)
-		// We are not using std JSON conversion since the RPGs strings are not the same. Should be the same as
-		// the header fields. The RPG output should be changed in order to comply to the field specification...
-		logger.info("### rpgSeedNumberPayload: " + rpgSeedNumberPayload);
-		
-		rpgReturnResponseHandler.getNewSeedsOpdAndTuidRequiredForCreateNewTopic(rpgSeedNumberPayload);
-		logger.info("### setdn from RPG PROGRAM: " + rpgReturnResponseHandler.getSetdn());
-		
-		//we must complete the GUI-json sypo and tuid with the value from a seedTuid here
-		if(rpgReturnResponseHandler.getSetdn()!=null){
-			record.setSetdn(rpgReturnResponseHandler.getSetdn().trim());
-		}else{
-			logger.info("[ERROR] No mandatory seeds (setdn) were generated correctly)! look at std output log. [errMsg]" + rpgReturnResponseHandler.getErrorMessage());
-			record = null;
-		}
-        
-		return record;
-	}
-	
 	/**
 	 * log Errors in Aspects and Domain objects in order to render on GUI
 	 * @param model
@@ -1231,54 +823,6 @@ public class SadExportOmberegningController {
 		return urlRequestParamsKeys.toString();	
 	}
 	
-	/**
-	 * 
-	 * @param avd
-	 * @param opd
-	 * @param extRefNr
-	 * @param appUser
-	 * @return
-	 */
-	private String getRequestUrlKeyParametersForCopyTopicFromTransportUppdrag(String avd, String opd, String extRefNr, SystemaWebUser appUser){
-		//user=OSCAR&avd=1&opd=53452&sign=CB&mode=GS 
-		final String MODE = "GS";
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		
-		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		if(opd!=null && !"".equals(opd)){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
-		}else if (extRefNr!=null && !"".equals(extRefNr)){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "h_xref=" + extRefNr);
-		}
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sesg=" + appUser.getTvinnSadSign());
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE);
-		
-		return urlRequestParamsKeys.toString();
-	}
-
-	/**
-	 * 
-	 * @param avd
-	 * @param opd
-	 * @param appUser
-	 * @return
-	 */
-	private String getRequestUrlKeyParametersForCopy(String avd, String newAvd, String newSign, String opd, SystemaWebUser appUser){
-		//user=OSCAR&avd=1&newavd=2&opd=218&mode=C&newsign=OT 
-		final String MODE_COPY = "C";
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		
-		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "newavd=" + newAvd);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE_COPY);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "newsesg=" + newSign);
-		
-		
-		return urlRequestParamsKeys.toString();	
-	}
 	
 	/**
 	 * Gets the key parameter string (such as avd, opd, user, mode)
@@ -1320,45 +864,7 @@ public class SadExportOmberegningController {
 		return urlRequestParamsKeys.toString();
 	}
 	
-	/**
-	 * 
-	 * @param avd
-	 * @param opd
-	 * @param newStatus
-	 * @param appUser
-	 * @return
-	 */
-	private String getRequestUrlKeyParametersForUpdateStatus(String avd, String opd, String newStatus, SystemaWebUser appUser){
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		
-		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
-		if(newStatus != null & !"".equals(newStatus)){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "status=" + newStatus);
-		}
-		return urlRequestParamsKeys.toString();
-	}
-	/**
-	 * 
-	 * @param session
-	 * @param model
-	 * @param container
-	 */
-	private void setDomainObjectsInView(HttpSession session, Map model, JsonSadExportSpecificTopicContainer container){
-		//SET HEADER RECORDS  (from RPG)
-		for (JsonSadExportSpecificTopicRecord record : container.getOneorder()){
-			
-			this.adjustDatesOnFetch(record);
-			if(record.getSeval1()!=null){
-				//logger.info("###########seval1:" + record.getSeval1());
-			}
-			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
-			//put the header topic in session for the coming item lines
-			session.setAttribute(TvinnSadConstants.DOMAIN_RECORD_TOPIC_TVINN_SAD, record);
-		}
-
-	}
+	
 	
 	/**
 	 * 

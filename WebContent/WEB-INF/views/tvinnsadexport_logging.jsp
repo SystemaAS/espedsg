@@ -128,7 +128,7 @@
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" >&nbsp;${model.mtdn}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
+		               <td class="tableCellFirst" <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> >&nbsp;${record.mtdn}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
 		               <td class="tableCell">&nbsp;
 		               		<a <c:if test="${record.msr == 'R'}">style="color:#9F6000;"</c:if> href="ediftplog.do?sssn=${record.msn}&ftplev=EDISS" target="_new" onClick="window.open(this.href,'targetWindow','top=200px,left=600px,height=800px,width=700px,scrollbars=no,status=no,location=no'); return false;">
 		               			<img src="resources/images/bebullet.gif" border="0" alt="Vis Ftp log" >

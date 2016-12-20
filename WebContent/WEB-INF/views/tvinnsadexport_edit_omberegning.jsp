@@ -54,9 +54,7 @@
 						&nbsp;<spring:message code="systema.tvinn.sad.export.created.mastertopic.tab"/>
 					</font>
 					<font class="text12MediumBlue">[${fn:replace(model.record.setdn,'-','')}]</font>
-					<c:if test="${ model.record.sest == 'M' || empty  model.record.sest}">
-						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
-					</c:if>
+					<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 				</a>
 			</td>
 			
@@ -919,10 +917,83 @@
 			 			</tr>		 				
 		 				<tr height="5"><td></td></tr>
 		 				<tr height="1"><td colspan="4" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text">&nbsp;</td> </tr>
+		 				<tr height="10"><td></td></tr>
 					</table>
 					</td>
 			</tr>
+			
+			<%-- Communcation EDI parameters --%>
+			<tr height="20"><td></td></tr>
+			<tr>
+				<td width="5">&nbsp;</td>
+	            <td >
+					<%-- Special section --%>
+					<table width="90%" align="left" class="formFrameHeaderBlueWithBorder" border="0" cellspacing="0" cellpadding="0">
+				 		<tr height="15">
+				 			<td class="text12White">
+				 				&nbsp;<img onMouseOver="showPop('edi_info');" onMouseOut="hidePop('edi_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+		 						&nbsp;<font class="text16RedBold" >*</font>Meldings funksjon Omberegning<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+		 						<div class="text11" style="position: relative;" align="left">
+		 						<span style="position:absolute;top:2px; width:250px;" id="edi_info" class="popupWithInputText text11" >
+				           			<b>Meldings funksjon Omberegning</b><br/><br/>
+									Send till TVINN (EDI) ...
+								</span>
+								</div>
+			 				</td>
+		 				</tr>
+	 				</table>
+	 			</td>
+ 			</tr>
+			<tr>
+	 			<td width="5">&nbsp;</td>
+	            <td >
+	 				<%-- create record --%>
+				 	<table width="90%" align="left" class="formFrameTitaniumGrayRoundBottom" border="0" cellspacing="0" cellpadding="0">
+				 		<tr>
+					 		<td>
+						 		<table align="left" border="0" cellspacing="0" cellpadding="0">
+							 		<tr height="15">
+							            <td class="text12Bold" align="left" >&nbsp;</td> 
+							        </tr>
+							        <tr>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="todo">Meldings funksjon&nbsp;</span></td>
+							            <td class="text12" >
+								            <select class="inputTextMediumBlueMandatoryField" name="todo" id="todo" >
+							 				  <option value="DEB"<c:if test="${ Xmodel.record.seval1 == 'DEB'}"> selected </c:if> >DEB</option>
+											  <option value="DRE"<c:if test="${ Xmodel.record.seval1 == 'DRE'}"> selected </c:if> >DRE</option>
+											  <option value="DSO"<c:if test="${ Xmodel.record.seval1 == 'DSO'}"> selected </c:if> >DSO</option>
+											</select>
+							            </td>
+							            <td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="todo">Ekspedisjonsenhet</span>&nbsp;&nbsp;</td>
+							            <td class="text12">	
+			 								<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="8" maxlength="6" value="${Xmodel.record.todo}">
+			 							</td>
+							        </tr>
+							        <tr height="4"><td class="text12" align="left" ></td> 
+							        </tr>
+							        <tr>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="todo">Sekvens</span></td>
+							            	
+							            <td class="text12">	
+							           		<input type="text" class="inputTextReadOnly" size="8" maxlength="6" value="${Xmodel.record.todo}">
+							            </td>
+							            <td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="todo">Versjon</span></td>
+							            <td class="text12">	
+			 								<input type="text" class="inputTextReadOnly" size="8" maxlength="6" value="${Xmodel.record.todo}">
+			 							</td>
+							        </tr>
+							        <tr height="5">
+							            <td class="text12Bold" align="left" >&nbsp;</td> 
+							        </tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+		  	</tr>
+			
 			</table>
+			
 		</td>
 		<%-- --------------- --%>
 		<%-- RIGHT SIDE CELL --%>
@@ -1653,7 +1724,7 @@
 							           		<font class="text11">
 							           			<p>	
 							           			Summen av antall pakker på produktnivå ikke er lik det angitte antall pakker i posten. Vi anbefaler at du leser hva som kunne være galt ved å sjekke varelinjene.
-							           			Hvis nummeret til venstre er = <b>-1</b> betyr, at det er mere enn 0-varelinjer, og summen av varelinjer kolli antall er = 0 (som er fejl).
+							           			Hvis nummeret til venstre er = <b>-1</b> betyr, at det er mere enn 0-varelinjer, og summen av varelinjer kolli antall er = 0.
 												</p>
 											</font>	
 										</span>
@@ -1726,21 +1797,13 @@
 				            <tr >	
 			            		<td class="text">&nbsp;</td> 
 			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
-	
-			 				    <%-- only status = M or emtpy status is allowed --%>
-			 				    <c:choose>
-				 				    <c:when test="${ model.record.sest == 'M' || empty  model.record.sest }">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.submit"/>'/>
-					 				    	&nbsp;&nbsp;
-					 				    	<c:if test="${not empty  model.record.setdn && model.record.validUpdate}">
-					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_send.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.send"/>'/>
-					 				    	</c:if>
-				 				    </c:when>
-				 				    <c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
-				 				    </c:otherwise>	
-			 				    </c:choose>
-		 				    
+
+			 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadexport_edit_omberegning.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.submit"/>'/>
+			 				    	&nbsp;&nbsp;
+			 				    	<c:if test="${not empty  model.record.setdn && model.record.validUpdate}">
+			 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadexport_edit_omberegning_send.do';" value='<spring:message code="systema.tvinn.sad.export.createnew.send"/>'/>
+			 				    	</c:if>
+
                 				</td>
 					        </tr>
 				            
