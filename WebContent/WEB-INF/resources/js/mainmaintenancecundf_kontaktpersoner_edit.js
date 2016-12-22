@@ -86,7 +86,12 @@ jq(function() {
     	jq('#ctypeIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
-	
+
+    jq('#ctypeRefLink').click(function() {
+    	jq('#ctypeRefLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype_ref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	
+ 
 	
 	
 }); 

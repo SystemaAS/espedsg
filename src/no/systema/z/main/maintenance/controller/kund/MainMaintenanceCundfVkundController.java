@@ -32,8 +32,8 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowsKodeContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowsKodeRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainChildWindowService;
@@ -62,6 +62,7 @@ public class MainMaintenanceCundfVkundController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVkundController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private boolean KOFAST_NO_ID = true; 
 	
 	@RequestMapping(value="mainmaintenancecundf_vkund.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
@@ -170,8 +171,10 @@ public class MainMaintenanceCundfVkundController {
 		List<ChildWindowKode> list = null;
 	
 		if ("ctype".equals(caller)) { //Funksjon
-			list = getFunksjonKoder(appUser);
+			list = getFunksjonKoder(appUser, KOFAST_NO_ID);
 			
+		} else if ("ctype_ref".equals(caller)) {
+			list = getFunksjonKoder(appUser, !KOFAST_NO_ID);
 		}
 		
 /*		switch (FasteKoder.valueOf(callerType)) {
@@ -191,8 +194,7 @@ public class MainMaintenanceCundfVkundController {
 		
 	}
 	
-	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser) {
-		logger.info(Calendar.getInstance().getTime() + " getFunksjonKoder start - timestamp");
+	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser, boolean noId) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser());
@@ -202,16 +204,15 @@ public class MainMaintenanceCundfVkundController {
 
 		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		JsonMaintMainChildWindowsKodeContainer container = null;
+		JsonMaintMainChildWindowKofastContainer container = null;
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		try {
 			if (jsonPayload != null) {
 				container = maintMainChildWindowService.getContainer(jsonPayload);
-				logger.info("container.getList()="+container.getList());
 				if (container != null) {
-					for (JsonMaintMainChildWindowsKodeRecord record : container.getList()) {
-						kode = getChildWindowKode(record);
+					for (JsonMaintMainChildWindowKofastRecord record : container.getList()) {
+						kode = getChildWindowKode(record, noId);
 						kodeList.add(kode);
 					}
 				}
@@ -221,15 +222,18 @@ public class MainMaintenanceCundfVkundController {
 		}
 		return kodeList;
 	}
-	
-	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowsKodeRecord record) {
+
+	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowKofastRecord record, boolean noId) {
 		ChildWindowKode kode = new ChildWindowKode();
-		kode.setCode("*"+ record.getKftxt()); //Yes, special
+		if (noId) {
+			kode.setCode("*" + record.getKftxt());
+		} else {
+			kode.setCode(record.getKfkod());
+		}
 		kode.setDescription(record.getKftxt());
-	
+
 		return kode;
 	}
-
 
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
 		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord();

@@ -3,7 +3,7 @@
  */
 package no.systema.z.main.maintenance.service;
 
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowsKodeContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 
 /**
@@ -20,7 +20,7 @@ public interface MaintMainChildWindowService {
 	 * @param utfPayload
 	 * @return JsonMaintMainChildWindowsKodeContainer
 	 */
-	public JsonMaintMainChildWindowsKodeContainer getContainer(String utfPayload);
+	public JsonMaintMainChildWindowKofastContainer getContainer(String utfPayload);
 	public JsonMaintMainCundcContainer doUpdate(String utfPayload);
 	
 }

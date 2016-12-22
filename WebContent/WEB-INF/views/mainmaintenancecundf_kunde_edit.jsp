@@ -493,9 +493,6 @@
 							<%-- Validation errors --%>
 							<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 							<tr>
-<!-- 
-								<td width="5%">&nbsp;</td>
- -->
 								<td >
 						           	<table align="left" border="0" cellspacing="0" cellpadding="0">
 						           	<tr >
@@ -517,9 +514,6 @@
 							<%-- Other errors (none validation errors) --%>
 							<c:if test="${not empty model.errorMessage}">
 							<tr>
-<!--  
-								<td width="5%">&nbsp;</td>
--->
 								<td >
 						           	<table align="left" border="0" cellspacing="0" cellpadding="0">
 								 		<tr>

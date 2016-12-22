@@ -10,7 +10,7 @@ import java.util.Collection;
  * @date Nov 22, 2016
  *
  */
-public class JsonMaintMainChildWindowsKodeContainer implements IJsonMaintMainContainer {
+public class JsonMaintMainChildWindowKofastContainer implements IJsonMaintMainContainer {
 	private String user = null;
 	private String errMsg = null;
 	
@@ -30,14 +30,14 @@ public class JsonMaintMainChildWindowsKodeContainer implements IJsonMaintMainCon
 		this.errMsg = errMsg;
 	}
 
-	private Collection<JsonMaintMainChildWindowsKodeRecord> list;
+	private Collection<JsonMaintMainChildWindowKofastRecord> list;
 
-	public void setList(Collection<JsonMaintMainChildWindowsKodeRecord> value) {
+	public void setList(Collection<JsonMaintMainChildWindowKofastRecord> value) {
 		this.list = value;
 	}
 
 	@Override
-	public Collection<JsonMaintMainChildWindowsKodeRecord> getList() {
+	public Collection<JsonMaintMainChildWindowKofastRecord> getList() {
 		return list;
 	}
 

@@ -288,7 +288,22 @@
 																<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="15" maxlength="15" value='${model.record.cphone}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="ctype">&nbsp;<font class="text14RedBold" >*</font>Funksjon:</td>
+																<td class="text12" title="ctype">&nbsp;<font class="text14RedBold" >*</font>Funksjon:
+												 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												 				
+												 				<div class="text11" style="position: relative;" align="left">
+												 				<span style="position:absolute; top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >
+														           		<b>Funksjon</b>
+														           		<p>
+														           		Oppgi funksjon eller velj fastekode som gyldige funksjon.
+														           		</p>
+														           		<p> 
+																		Hvis verdien begynner med * så regnes verdi som faste kode.
+																		Hvis verdien begynner med * så kan verdi i Faste koder brukes nedenfor, i <b>Avvikende vedleggsliste på kundenivå</b>
+														           		</p>
+																</span>
+																</div>
+																</td>
 																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="ctype" id="ctype" size="35" maxlength="30" value='${model.record.ctype}'>
 																</td>
 																<td class="text12" title="cmobil">
@@ -350,6 +365,12 @@
 													<td class="text12Bold">
 													&nbsp;Avvikende vedleggsliste på kundenivå
 													</td>
+													<td align="right">&nbsp;Ref.
+														<a tabindex="-1" id="ctypeRefLink">
+															<img style="cursor:pointer;vertical-align:middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+														&nbsp;&nbsp;
+													</td>	
 												</tr>
 											</table>			
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">

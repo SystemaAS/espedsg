@@ -12,7 +12,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * @date Nov 21, 2016
  *
  */
-public class JsonMaintMainChildWindowsKodeRecord extends JsonAbstractGrandFatherRecord {
+public class JsonMaintMainChildWindowKofastRecord extends JsonAbstractGrandFatherRecord {
 
 	private String kftyp = null;
 	private String kfkod = null;

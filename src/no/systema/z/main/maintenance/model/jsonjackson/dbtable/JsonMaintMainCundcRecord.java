@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
@@ -202,10 +204,22 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd1() {
 		if (cavd1 != null) { // from UI
-			return cavd1;
-		} else { 
+			String cvad1Result = StringUtils.leftPad(cavd1.trim(), 4, "0");
+			return cvad1Result;
+		} else {
 			if (cavd != null) { // from DB
-				return this.cavd.substring(0, 4);
+				String cavd1 = this.cavd.substring(0, 4);
+				if (StringUtils.startsWith(cavd1, "0000")) {
+					return "";
+				} else if (StringUtils.startsWith(cavd1, "000")) {
+					return cavd1.substring(3);
+				} else if (StringUtils.startsWith(cavd1, "00")) {
+					return cavd1.substring(2);
+				} else if (StringUtils.startsWith(cavd1, "0")) {
+					return cavd1.substring(1);
+				} else {
+					return cavd1;
+				}
 			}
 		}
 		return "";
@@ -217,10 +231,22 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd2() {
 		if (cavd2 != null) { // from UI
-			return cavd2;
-		} else { 
+			String cvad2Result = StringUtils.leftPad(cavd2.trim(), 4, "0");
+			return cvad2Result;
+		} else {
 			if (cavd != null) { // from DB
-				return this.cavd.substring(4, 8);
+				String cavd2 = this.cavd.substring(4,8);
+				if (StringUtils.startsWith(cavd2, "0000")) {
+					return "";
+				} else if (StringUtils.startsWith(cavd2, "000")) {
+					return cavd2.substring(3);
+				} else if (StringUtils.startsWith(cavd2, "00")) {
+					return cavd2.substring(2);
+				} else if (StringUtils.startsWith(cavd2, "0")) {
+					return cavd2.substring(1);
+				} else {
+					return cavd2;
+				}
 			}
 		}
 		return "";

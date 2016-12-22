@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,14 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.main.context.TdsAppContext;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
@@ -118,8 +116,8 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			}else{
 				validator.validate(recordToValidate, bindingResult);
 			}
+			
 			if(bindingResult.hasErrors()){
-					
 				//ERRORS
 				logger.info("[ERROR Validation] Record does not validate)");
 				if(updateId!=null && !"".equals(updateId)){
@@ -155,7 +153,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 				}
 				//check for Update errors
 				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
+					logger.info("[ERROR DML] Record does not validate)");
 					if(updateId!=null && !"".equals(updateId)){
 						//meaning bounced in an Update and not a Create new
 						model.put("updateId", updateId);
@@ -208,8 +206,21 @@ public class MainMaintenanceCundfKontaktpersonerController {
 				 			recordToValidate.getCavd13()+recordToValidate.getCavd14()+recordToValidate.getCavd15()+recordToValidate.getCavd16()+
 				 			recordToValidate.getCavd17()+recordToValidate.getCavd18()+recordToValidate.getCavd19()+recordToValidate.getCavd20();
 		recordToValidate.setCavd(concatCavd);
+		
 	}
 
+	
+/*	private String pad(String toPad) {
+		String result = StringUtils.leftPad(toPad, 4, "0");
+
+//		logger.info("Padded, from="+toPad+" to="+result);
+		
+		return result;
+		
+	}
+	*/
+	
+	
 	private List<JsonMaintMainCundcRecord> fetchList(String applicationUser, String cfirma, String ccompn){
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
