@@ -97,7 +97,7 @@ public class MainMaintenanceCundfVkundController {
 		String firma = recordToValidate.getFirma();
 		
 		
-		logger.info("recordToValidate="+recordToValidate.toString());
+//		logger.info("recordToValidate="+recordToValidate.toString());
 		
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
 
@@ -114,7 +114,7 @@ public class MainMaintenanceCundfVkundController {
 				
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				successView.addObject("tab_knavn_display", getTrimmedKnav(knavn));
+				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 			
 				model.put("kundnr", kundnr);
@@ -286,7 +286,7 @@ public class MainMaintenanceCundfVkundController {
 	}
 
 
-	private String getTrimmedKnav(String knavn) {
+/*	private String getTrimmedKnav(String knavn) {
 		StringBuilder knavn_display = new StringBuilder();
 		int maxLenght = 10;
 		if (knavn.length() > maxLenght) {
@@ -296,7 +296,7 @@ public class MainMaintenanceCundfVkundController {
 		} else {
 			return knavn;
 		}
-	}
+	}*/
 	
 	
 	//Wired - SERVICES

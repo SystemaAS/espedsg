@@ -204,22 +204,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd1() {
 		if (cavd1 != null) { // from UI
-			String cvad1Result = StringUtils.leftPad(cavd1.trim(), 4, "0");
-			return cvad1Result;
+			return leftPad(cavd1);
 		} else {
 			if (cavd != null) { // from DB
 				String cavd1 = this.cavd.substring(0, 4);
-				if (StringUtils.startsWith(cavd1, "0000")) {
-					return "";
-				} else if (StringUtils.startsWith(cavd1, "000")) {
-					return cavd1.substring(3);
-				} else if (StringUtils.startsWith(cavd1, "00")) {
-					return cavd1.substring(2);
-				} else if (StringUtils.startsWith(cavd1, "0")) {
-					return cavd1.substring(1);
-				} else {
-					return cavd1;
-				}
+				return cleanZeros(cavd1);
 			}
 		}
 		return "";
@@ -231,22 +220,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd2() {
 		if (cavd2 != null) { // from UI
-			String cvad2Result = StringUtils.leftPad(cavd2.trim(), 4, "0");
-			return cvad2Result;
+			return leftPad(cavd2);
 		} else {
 			if (cavd != null) { // from DB
 				String cavd2 = this.cavd.substring(4,8);
-				if (StringUtils.startsWith(cavd2, "0000")) {
-					return "";
-				} else if (StringUtils.startsWith(cavd2, "000")) {
-					return cavd2.substring(3);
-				} else if (StringUtils.startsWith(cavd2, "00")) {
-					return cavd2.substring(2);
-				} else if (StringUtils.startsWith(cavd2, "0")) {
-					return cavd2.substring(1);
-				} else {
-					return cavd2;
-				}
+				return cleanZeros(cavd2);
 			}
 		}
 		return "";
@@ -258,10 +236,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd3() {
 		if (cavd3 != null) { // from UI
-			return cavd3;
+			return leftPad(cavd3);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(8, 12);
+				String cavd3 = this.cavd.substring(8,12);
+				return cleanZeros(cavd3);
 			}
 		}
 		return "";
@@ -273,10 +252,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd4() {
 		if (cavd4 != null) { // from UI
-			return cavd4;
+			return leftPad(cavd4);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(12, 16);
+				String cavd4 = this.cavd.substring(12,16);
+				return cleanZeros(cavd4);
 			}
 		}
 		return "";
@@ -288,10 +268,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd5() {
 		if (cavd5 != null) { // from UI
-			return cavd5;
+			return leftPad(cavd5);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(16, 20);
+				String cavd5 = this.cavd.substring(16,20);
+				return cleanZeros(cavd5);
 			}
 		}
 		return "";
@@ -299,10 +280,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd6() {
 		if (cavd6 != null) { // from UI
-			return cavd6;
+			return leftPad(cavd6);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(20, 24);
+				String cavd6 = this.cavd.substring(20,24);
+				return cleanZeros(cavd6);
 			}
 		}
 		return "";
@@ -310,10 +292,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd7() {
 		if (cavd7 != null) { // from UI
-			return cavd7;
+			return leftPad(cavd7);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(24, 28);
+				String cavd7 = this.cavd.substring(24,28);
+				return cleanZeros(cavd7);
 			}
 		}
 		return "";
@@ -321,10 +304,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd8() {
 		if (cavd8 != null) { // from UI
-			return cavd8;
+			return leftPad(cavd8);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(28, 32);
+				String cavd8 = this.cavd.substring(28,32);
+				return cleanZeros(cavd8);
 			}
 		}
 		return "";
@@ -332,10 +316,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd9() {
 		if (cavd9 != null) { // from UI
-			return cavd9;
+			return leftPad(cavd9);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(32, 36);
+				String cavd9 = this.cavd.substring(32,36);
+				return cleanZeros(cavd9);
 			}
 		}
 		return "";
@@ -343,10 +328,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd10() {
 		if (cavd10 != null) { // from UI
-			return cavd10;
+			return leftPad(cavd10);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(36, 40);
+				String cavd10 = this.cavd.substring(36,40);
+				return cleanZeros(cavd10);
 			}
 		}
 		return "";
@@ -354,10 +340,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd11() {
 		if (cavd11 != null) { // from UI
-			return cavd11;
+			return leftPad(cavd11);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(40, 44);
+				String cavd11 = this.cavd.substring(40,44);
+				return cleanZeros(cavd11);
 			}
 		}
 		return "";
@@ -365,10 +352,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd12() {
 		if (cavd12 != null) { // from UI
-			return cavd12;
+			return leftPad(cavd12);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(44, 48);
+				String cavd12 = this.cavd.substring(44,48);
+				return cleanZeros(cavd12);
 			}
 		}
 		return "";
@@ -376,10 +364,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd13() {
 		if (cavd13 != null) { // from UI
-			return cavd13;
+			return leftPad(cavd13);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(48, 52);
+				String cavd13 = this.cavd.substring(48,52);
+				return cleanZeros(cavd13);
 			}
 		}
 		return "";
@@ -387,10 +376,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd14() {
 		if (cavd14 != null) { // from UI
-			return cavd14;
+			return leftPad(cavd14);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(52, 56);
+				String cavd14 = this.cavd.substring(52,56);
+				return cleanZeros(cavd14);
 			}
 		}
 		return "";
@@ -398,10 +388,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd15() {
 		if (cavd15 != null) { // from UI
-			return cavd15;
+			return leftPad(cavd15);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(56, 60);
+				String cavd15 = this.cavd.substring(56,60);
+				return cleanZeros(cavd15);
 			}
 		}
 		return "";
@@ -409,10 +400,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd16() {
 		if (cavd16 != null) { // from UI
-			return cavd16;
+			return leftPad(cavd16);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(60, 64);
+				String cavd16 = this.cavd.substring(60,64);
+				return cleanZeros(cavd16);
 			}
 		}
 		return "";
@@ -420,10 +412,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd17() {
 		if (cavd17 != null) { // from UI
-			return cavd17;
+			return leftPad(cavd17);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(64, 68);
+				String cavd17 = this.cavd.substring(64,68);
+				return cleanZeros(cavd17);
 			}
 		}
 		return "";
@@ -431,10 +424,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd18() {
 		if (cavd18 != null) { // from UI
-			return cavd18;
+			return leftPad(cavd18);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(68, 72);
+				String cavd18 = this.cavd.substring(68,72);
+				return cleanZeros(cavd18);
 			}
 		}
 		return "";
@@ -442,10 +436,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 	public String getCavd19() {
 		if (cavd19 != null) { // from UI
-			return cavd19;
+			return leftPad(cavd19);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(72, 76);
+				String cavd19 = this.cavd.substring(72,76);
+				return cleanZeros(cavd19);
 			}
 		}
 		return "";
@@ -453,10 +448,11 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 	
 	public String getCavd20() {
 		if (cavd20 != null) { // from UI
-			return cavd20;
+			return leftPad(cavd20);
 		} else { 
 			if (cavd != null) { // from DB
-				return this.cavd.substring(76, 80);
+				String cavd20 = this.cavd.substring(76,80);
+				return cleanZeros(cavd20);
 			}
 		}
 		return "";
@@ -1089,11 +1085,6 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 		this.avkved30 = avkved30;
 	}
 
-	/**
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	public List<Field> getFields() throws Exception {
 		Class cl = Class.forName(this.getClass().getCanonicalName());
 		Field[] fields = cl.getDeclaredFields();
@@ -1101,4 +1092,26 @@ public class JsonMaintMainCundcRecord extends JsonAbstractGrandFatherRecord {
 
 		return list;
 	}
+
+
+	private String leftPad(String toPad) {
+		return StringUtils.leftPad(toPad.trim(), 4, "0");
+	}
+
+	private String cleanZeros(String toClean) {
+		if (StringUtils.startsWith(toClean, "0000")) {
+			return "";
+		} else if (StringUtils.startsWith(toClean, "000")) {
+			return toClean.substring(3);
+		} else if (StringUtils.startsWith(toClean, "00")) {
+			return toClean.substring(2);
+		} else if (StringUtils.startsWith(toClean, "0")) {
+			return toClean.substring(1);
+		} else {
+			return toClean;
+		}
+	}
+	
+	
+
 }

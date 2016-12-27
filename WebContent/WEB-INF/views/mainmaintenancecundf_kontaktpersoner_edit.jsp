@@ -436,7 +436,13 @@
 														<table>
 															<tr>
 																<td class="text12" title="cavdio">&nbsp;Inc/Omit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavdio" id="cavdio" size="1" maxlength="1" value='${model.record.cavdio}'></td>
+																<td>
+																	<select name="cavdio" id="cavdio" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="I"<c:if test="${model.record.cmerge == 'I'}"> selected </c:if> >Inc</option>
+													  					<option value="O"<c:if test="${ model.record.cmerge == 'O'}"> selected </c:if> >Omit</option>
+													  				</select>
+																</td>
 																<td class="text12" title="cavd">&nbsp;Avdeling:</td>
 															</tr>
 															<tr>
@@ -444,7 +450,13 @@
 															</tr>
 															<tr>
 																<td class="text12" title="copdio">&nbsp;Inc/Omit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-																<td><input type="text" class="inputTextMediumBlue" name="copdio" id="copdio" size="1" maxlength="1" value='${model.record.copdio}'></td>
+																<td>
+																	<select name="copdio" id="copdio" >
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="I"<c:if test="${model.record.cmerge == 'I'}"> selected </c:if> >Inc</option>
+													  					<option value="O"<c:if test="${ model.record.cmerge == 'O'}"> selected </c:if> >Omit</option>
+													  				</select>
+																</td>
 																<td class="text12" title="copd">&nbsp;Ordertype:</td>
 															</tr>
 														</table>

@@ -132,7 +132,7 @@ public class MainMaintenanceCundfKundeController {
 						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 						
-						successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+						successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 					}
 				}
@@ -142,7 +142,7 @@ public class MainMaintenanceCundfKundeController {
 				JsonMaintMainCundfRecord record = fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				
-				successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 			}
 
 			model.put("action", kundeSessionParams.getAction());
@@ -157,7 +157,7 @@ public class MainMaintenanceCundfKundeController {
 
 	}
 	
-	//TODO: more to singel point
+/*	//TODO: more to singel point
 	private String getTrimmedKnav(String knavn) {
 		StringBuilder knavn_display = new StringBuilder();
 		int maxLenght = 10;
@@ -168,7 +168,7 @@ public class MainMaintenanceCundfKundeController {
 		} else {
 			return knavn;
 		}
-	}
+	}*/
 	
 	
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
@@ -190,14 +190,10 @@ public class MainMaintenanceCundfKundeController {
 			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
-	
 				for (Iterator<JsonMaintMainCundfRecord> iterator = container.getList().iterator(); iterator.hasNext();) {
 					record = (JsonMaintMainCundfRecord) iterator.next();
-
 				}
-		
 			}
-
 		}
 
 		return record;

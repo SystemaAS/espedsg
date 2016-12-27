@@ -76,7 +76,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 
 			return successView;
@@ -163,9 +163,6 @@ public class MainMaintenanceCundfKontaktpersonerController {
 				}
 				
 			}
-			//------------
-			//FETCH table
-			//------------
 
 			List<JsonMaintMainCundcRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), firma, kundnr); 
@@ -175,7 +172,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 	    	model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 
 	    	successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-			successView.addObject("tab_knavn_display", getTrimmedKnav(kundeSessionParams.getKnavn()));
+			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
 
 			return successView;
@@ -184,7 +181,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 	}
 	
-	private String getTrimmedKnav(String knavn) {
+/*	private String getTrimmedKnav(String knavn) {
 		StringBuilder knavn_display = new StringBuilder();
 		int maxLenght = 10;
 		if (knavn.length() > maxLenght) {
@@ -195,31 +192,22 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			return knavn;
 		}
 	}
-	
+*/	
 	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setCfirma(kundeSessionParams.getFirma());
 		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
 		recordToValidate.setSonavn(kundeSessionParams.getSonavn());
-		String concatCavd = recordToValidate.getCavd1()+recordToValidate.getCavd2()+recordToValidate.getCavd3()+recordToValidate.getCavd4()+
+		String cavd = recordToValidate.getCavd1()+recordToValidate.getCavd2()+recordToValidate.getCavd3()+recordToValidate.getCavd4()+
 				 			recordToValidate.getCavd5()+recordToValidate.getCavd6()+recordToValidate.getCavd7()+recordToValidate.getCavd8()+
 				 			recordToValidate.getCavd9()+recordToValidate.getCavd10()+recordToValidate.getCavd11()+recordToValidate.getCavd12()+
 				 			recordToValidate.getCavd13()+recordToValidate.getCavd14()+recordToValidate.getCavd15()+recordToValidate.getCavd16()+
 				 			recordToValidate.getCavd17()+recordToValidate.getCavd18()+recordToValidate.getCavd19()+recordToValidate.getCavd20();
-		recordToValidate.setCavd(concatCavd);
+		recordToValidate.setCavd(cavd);
+		String copd = recordToValidate.getCopd1()+recordToValidate.getCopd2()+recordToValidate.getCopd3()+recordToValidate.getCopd4()+recordToValidate.getCopd5();
+		recordToValidate.setCopd(copd);
 		
 	}
 
-	
-/*	private String pad(String toPad) {
-		String result = StringUtils.leftPad(toPad, 4, "0");
-
-//		logger.info("Padded, from="+toPad+" to="+result);
-		
-		return result;
-		
-	}
-	*/
-	
 	
 	private List<JsonMaintMainCundcRecord> fetchList(String applicationUser, String cfirma, String ccompn){
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;

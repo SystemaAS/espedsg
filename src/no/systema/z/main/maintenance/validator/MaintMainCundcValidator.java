@@ -42,7 +42,6 @@ public class MaintMainCundcValidator implements Validator {
 	private void checkIfValidToEnterFasteKoder(Errors errors, JsonMaintMainCundcRecord record) {
 		if (record.getAvkved1() != null && !(record.getAvkved1().length() == 0 || record.getAvkved1().contains(" "))) {
 			if (!record.getCtype().startsWith("*")) {
-				logger.info("errors.rejectValue...");
 				errors.rejectValue("avkved1", "", "Faste koder kan ikke registreras hvis *-Funksjon ikke finnes.");
 			}
 		}
