@@ -262,8 +262,11 @@
 									</tr>
 									</c:if>
 								
-									<tr >
-										<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
+									<tr>
+										<td>
+											<button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button>&nbsp;&nbsp;
+											<button disabled="disabled" name="copyRecordButton" id="copyRecordButton" class="inputFormSubmitStd" type="button" >Kopiere</button>
+										</td>
 									</tr>
 									<tr height="2">
 										<td>&nbsp;</td>

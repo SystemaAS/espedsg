@@ -61,7 +61,7 @@ public class MainMaintenanceCundfxXxController {
 		String action = request.getParameter("action");
 		
 		KundeSessionParams kundeSessionParams = null;
-		kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+		kundeSessionParams = (KundeSessionParams)session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 
 		if (appUser == null) {
 			return this.loginView;

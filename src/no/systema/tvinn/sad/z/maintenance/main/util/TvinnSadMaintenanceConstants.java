@@ -82,13 +82,6 @@ public final class TvinnSadMaintenanceConstants {
 	 */
 	public static final String DOMAIN_SEARCH_FILTER_NCTS_EXPORT_KODEREGISTER = "searchFilterNctsExportKoderegister";
 	
-	/**
-	 * Cast to {@link KundeSessionParams}
-	 * 
-	 */
-	public static final String KUNDE_SESSION_PARAMS = "kundeSessionParams";
-	
-
 	//aspects in view (sucha as errors, logs, other
 	public static final String ASPECT_ERROR_MESSAGE = "errorMessage";
 	public static final String ASPECT_ERROR_META_INFO = "errorInfo";

@@ -1,7 +1,22 @@
 package no.systema.z.main.maintenance.controller.kund;
 
+/**
+ * 
+ * Placeholder for util methods foir Kunderegister.
+ * 
+ * @author Fredrik Möller
+ * @date Dec 28, 2016
+ *
+ */
 public class VkundControllerUtil {
 
+	/**
+	 * For UI. Trimming knav to fit in tab
+	 * 
+	 * 
+	 * @param knavn
+	 * @return a trimmed knavn if lenght > 10
+	 */
 	public static String getTrimmedKnav(String knavn) {
 		StringBuilder knavn_display = new StringBuilder();
 		int maxLenght = 10;

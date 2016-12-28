@@ -32,6 +32,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
+import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
@@ -63,6 +64,8 @@ public class MainMaintenanceCundfVkundController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private boolean KOFAST_NO_ID = true; 
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+
 	
 	@RequestMapping(value="mainmaintenancecundf_vkund.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
@@ -90,45 +93,51 @@ public class MainMaintenanceCundfVkundController {
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kunde_edit"); //NOTE: not name correlated jsp, default to Kunde tab
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		String action = null;
+		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		String kundnr = recordToValidate.getKundnr();
 		String knavn = recordToValidate.getKnavn();
 		String firma = recordToValidate.getFirma();
-		
-		
-//		logger.info("recordToValidate="+recordToValidate.toString());
-		
+		StringBuffer errMsg = new StringBuffer();
+		int dmlRetval = 0;
+
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
 
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			if (kundnr != null && firma != null) { //Update
+			
+			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Open for edit
 				kundeSessionParams.setKundnr(kundnr);
 				kundeSessionParams.setKnavn(knavn);
 				kundeSessionParams.setFirma(firma);
 				kundeSessionParams.setSonavn(recordToValidate.getSonavn());
-				action = MainMaintenanceConstants.ACTION_UPDATE;  
 				kundeSessionParams.setAction(action);  
 				
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
-
-			
+				
 				model.put("kundnr", kundnr);
 				model.put("firma", firma);
 				model.put("updateId", updateId);
-
-			
-			} else {  //New
-				action = MainMaintenanceConstants.ACTION_CREATE;  
-				kundeSessionParams.setAction(action);  
 				
+			} else if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //Lage ny
+				kundeSessionParams.setAction(action);  
+			
+			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {  //Delete from list
+				dmlRetval = deleteRecord(appUser.getUser(), kundnr, firma, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				if( dmlRetval < 0){
+					logger.info("[ERROR DML] Record does not validate)");
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				} else {
+					kundeSessionParams.setAction(action);  
+					successView = new ModelAndView("redirect:mainmaintenancecundf_vkund.do");
+				}
 			}
 	
-			session.setAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
+			session.setAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
 			model.put("action", action);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 
@@ -264,13 +273,8 @@ public class MainMaintenanceCundfVkundController {
 
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		// debugger
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() + " CGI-end timestamp");
 		Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
-
 		if (jsonPayload != null) {
 			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
@@ -286,18 +290,31 @@ public class MainMaintenanceCundfVkundController {
 	}
 
 
-/*	private String getTrimmedKnav(String knavn) {
-		StringBuilder knavn_display = new StringBuilder();
-		int maxLenght = 10;
-		if (knavn.length() > maxLenght) {
-			knavn_display.append(knavn.substring(0, maxLenght));
-			knavn_display.append("...");
-			return knavn_display.toString();
-		} else {
-			return knavn;
+	private int deleteRecord(String applicationUser, String kundnr, String firma, String mode, StringBuffer errMsg) {
+		int retval = 0;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + applicationUser);
+		urlRequestParams.append("&mode=" + mode);
+		urlRequestParams.append("&kundnr=" + kundnr);
+		urlRequestParams.append("&firma=" + firma);
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		if (jsonPayload != null) {
+			JsonMaintMainCundfContainer container = this.maintMainCundfService.doUpdate(jsonPayload);
+			if (container != null) {
+				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
+					errMsg.append(container.getErrMsg());
+					retval = MainMaintenanceConstants.ERROR_CODE;
+				}
+			}
 		}
-	}*/
-	
+
+		return retval;
+	}
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -321,11 +338,6 @@ public class MainMaintenanceCundfVkundController {
 	public void setMaintMainChildWindowService (MaintMainChildWindowService value){ this.maintMainChildWindowService = value; }
 	public MaintMainChildWindowService getMaintMainChildWindowService(){ return this.maintMainChildWindowService; }
 	
-	
-	
-	
-	
-
 		
 }
 

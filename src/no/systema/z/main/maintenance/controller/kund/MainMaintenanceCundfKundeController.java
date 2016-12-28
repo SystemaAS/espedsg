@@ -1,8 +1,10 @@
 package no.systema.z.main.maintenance.controller.kund;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +27,7 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
@@ -61,23 +61,19 @@ public class MainMaintenanceCundfKundeController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
-		
+		StringBuffer errMsg = new StringBuffer();
+		int dmlRetval = 0;
+		JsonMaintMainCundfRecord savedRecord = null;
+
 		if (appUser == null) {
 			return this.loginView;
 		} else {
 			KundeSessionParams kundeSessionParams = null;
-			kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+			kundeSessionParams = (KundeSessionParams)session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			
 			logger.info("action="+action);
 			logger.info("kundeSessionParams="+ReflectionToStringBuilder.toString(kundeSessionParams));
 			
-			//Three ways to enter here:
-			//1. View from list
-			//2. Lage ny
-			//3. Click on Kunde-tab when in other tab
-			
-			
-		
 			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
 				// Validate
 				MaintMainCundfValidator validator = new MaintMainCundfValidator();
@@ -86,21 +82,19 @@ public class MainMaintenanceCundfKundeController {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-
-					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					
-					// check for Update errors
-					if (dmlRetval < 0) {
+					logger.info("savedRecord="+ReflectionToStringBuilder.toString(savedRecord));
+					
+					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						kundeSessionParams.setKundnr(recordToValidate.getKundnr());
-						kundeSessionParams.setFirma(recordToValidate.getFirma());
-						kundeSessionParams.setSonavn(recordToValidate.getSonavn());
-						kundeSessionParams.setKnavn(recordToValidate.getKnavn());
+						kundeSessionParams.setKundnr(savedRecord.getKundnr());
+						kundeSessionParams.setFirma(savedRecord.getFirma());
+						kundeSessionParams.setSonavn(savedRecord.getSonavn());
+						kundeSessionParams.setKnavn(savedRecord.getKnavn());
 
 						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -111,20 +105,15 @@ public class MainMaintenanceCundfKundeController {
 			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { 
 				adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
-				// Validate
 				MaintMainCundfValidator validator = new MaintMainCundfValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-
 				} else {
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-
-					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					// check for Update errors
-					if (dmlRetval < 0) {
+					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
@@ -132,17 +121,12 @@ public class MainMaintenanceCundfKundeController {
 						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 						
-						successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
-
 					}
 				}
-				
-				
 			} else { // Fetch
 				JsonMaintMainCundfRecord record = fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				
-				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 			}
 
 			model.put("action", kundeSessionParams.getAction());
@@ -150,26 +134,12 @@ public class MainMaintenanceCundfKundeController {
 			model.put("firma", kundeSessionParams.getFirma());
 
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
-
+			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
+			
 			return successView;		
-		
 		}
 
 	}
-	
-/*	//TODO: more to singel point
-	private String getTrimmedKnav(String knavn) {
-		StringBuilder knavn_display = new StringBuilder();
-		int maxLenght = 10;
-		if (knavn.length() > maxLenght) {
-			knavn_display.append(knavn.substring(0, maxLenght));
-			knavn_display.append("...");
-			return knavn_display.toString();
-		} else {
-			return knavn;
-		}
-	}*/
-	
 	
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
@@ -180,14 +150,12 @@ public class MainMaintenanceCundfKundeController {
 
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		// debugger
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() + " CGI-end timestamp");
+		logger.info(jsonPayload);
+
 		JsonMaintMainCundfRecord record = null;
 		if (jsonPayload != null) {
-			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist"); //??
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
 				for (Iterator<JsonMaintMainCundfRecord> iterator = container.getList().iterator(); iterator.hasNext();) {
@@ -200,38 +168,36 @@ public class MainMaintenanceCundfKundeController {
 	}
 	
 
-	private int updateRecord(String applicationUser, JsonMaintMainCundfRecord record, String mode,
-			StringBuffer errMsg) {
-		int retval = 0;
-
+	private JsonMaintMainCundfRecord updateRecord(String applicationUser, JsonMaintMainCundfRecord record, String mode, StringBuffer errMsg) {
+		JsonMaintMainCundfRecord savedRecord = null;
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
-		// put the final valid param. string
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record));
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
-		// extract
+		List<JsonMaintMainCundfRecord> list = new ArrayList();
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		logger.info("jsonPayload=" + jsonPayload);
 		if (jsonPayload != null) {
-			// lists
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.doUpdate(jsonPayload);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
-					if (container.getErrMsg().toUpperCase().startsWith("ERROR")) {
-						errMsg.append(container.getErrMsg());
-						retval = MainMaintenanceConstants.ERROR_CODE;
-					}
+					errMsg.append(container.getErrMsg());
+					return null;
+				}
+				list = (List) container.getList();
+				for (JsonMaintMainCundfRecord cundfEntity : list) {
+					savedRecord = cundfEntity;
 				}
 			}
 		}
-		
-		return retval;
+
+		return savedRecord;
 	}
-	
 	
 	private void adjustRecordToValidate(JsonMaintMainCundfRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setFirma(kundeSessionParams.getFirma());
@@ -255,6 +221,5 @@ public class MainMaintenanceCundfKundeController {
 	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 
-		
 }
 

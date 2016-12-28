@@ -3,6 +3,8 @@
  */
 package no.systema.z.main.maintenance.util;
 
+import no.systema.z.main.maintenance.controller.kund.KundeSessionParams;
+
 /**
  * All type of system constants for Maintenance in general
  * 
@@ -110,7 +112,10 @@ public final class MainMaintenanceConstants {
 	//GENERAL CODES
 	
 	
-	
-	
+	/**
+	 * Cast to {@link KundeSessionParams}
+	 * 
+	 */
+	public static final String KUNDE_SESSION_PARAMS = "kundeSessionParams";	
 	   
 }

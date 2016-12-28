@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +25,6 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
@@ -64,7 +62,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 		if (appUser == null) {
 			return this.loginView;
 		} else {
-			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
+			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			String firma = kundeSessionParams.getFirma();
 			String kundnr = kundeSessionParams.getKundnr();
 
@@ -78,12 +76,9 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
-
 			return successView;
-
 		}
 	}
-	
 	
 	
 	@RequestMapping(value="mainmaintenancecundf_kontaktpersoner_edit.do", method={RequestMethod.GET, RequestMethod.POST })
@@ -94,86 +89,60 @@ public class MainMaintenanceCundfKontaktpersonerController {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
-		logger.info("init: recordToValidate="+recordToValidate);
-
-		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
-			KundeSessionParams kundeSessionParams = (KundeSessionParams)session.getAttribute(TvinnSadMaintenanceConstants.KUNDE_SESSION_PARAMS);
-			String firma = kundeSessionParams.getFirma();
-			String kundnr = kundeSessionParams.getKundnr();
-
+			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
-			
-			
-			logger.info("after: recordToValidate="+recordToValidate);
-			
-			
+
 			MaintMainCundcValidator validator = new MaintMainCundcValidator();
-			if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action)){
+			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
 				validator.validateDelete(recordToValidate, bindingResult);
-			}else{
+			} else {
 				validator.validate(recordToValidate, bindingResult);
 			}
-			
-			if(bindingResult.hasErrors()){
-				//ERRORS
+
+			if (bindingResult.hasErrors()) {
 				logger.info("[ERROR Validation] Record does not validate)");
-				if(updateId!=null && !"".equals(updateId)){
-					//meaning bounced in an Update and not a Create new
+				if (updateId != null && !"".equals(updateId)) {
+					// meaning bounced in an Update and not a Create new
 					model.put("updateId", updateId);
-					
 				}
-				model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-			}else{
-				
-				//------------
-				//UPDATE table
-				//------------
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+			} else {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
-				//UPDATE
-				if (TvinnSadMaintenanceConstants.ACTION_UPDATE.equals(action) ){
-					if(updateId!=null && !"".equals(updateId)){
-						//update
-						logger.info(TvinnSadMaintenanceConstants.ACTION_UPDATE);
-						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_UPDATE, errMsg);
-						
-					//CREATE
-					}else{
-						//create new
-						logger.info(TvinnSadMaintenanceConstants.ACTION_CREATE);
-						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_ADD, errMsg);
+				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {
+					if (updateId != null && !"".equals(updateId)) {
+						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					} else {
+						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					}
-				}else if(TvinnSadMaintenanceConstants.ACTION_DELETE.equals(action) ){
-					//delete
-					logger.info(TvinnSadMaintenanceConstants.ACTION_DELETE);
-					dmlRetval = updateRecord(appUser.getUser(), recordToValidate, TvinnSadMaintenanceConstants.MODE_DELETE, errMsg);
+				} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
+					dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				}
-				//check for Update errors
-				if( dmlRetval < 0){
+				// check for Update errors
+				if (dmlRetval < 0) {
 					logger.info("[ERROR DML] Record does not validate)");
-					if(updateId!=null && !"".equals(updateId)){
-						//meaning bounced in an Update and not a Create new
+					if (updateId != null && !"".equals(updateId)) {
+						// meaning bounced in an Update and not a Create new
 						model.put("updateId", updateId);
 					}
-					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}
-				
+
 			}
 
 			List<JsonMaintMainCundcRecord> list = new ArrayList();
-	    	list = this.fetchList(appUser.getUser(), firma, kundnr); 
-	
-			model.put("kundnr", kundnr);
-			model.put("firma", firma);
-	    	model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
+			list = this.fetchList(appUser.getUser(), kundeSessionParams.getFirma(), kundeSessionParams.getKundnr());
 
-	    	successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+			model.put("kundnr", kundeSessionParams.getKundnr());
+			model.put("firma", kundeSessionParams.getFirma());
+			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
+
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
-
 
 			return successView;
 
@@ -181,18 +150,6 @@ public class MainMaintenanceCundfKontaktpersonerController {
 
 	}
 	
-/*	private String getTrimmedKnav(String knavn) {
-		StringBuilder knavn_display = new StringBuilder();
-		int maxLenght = 10;
-		if (knavn.length() > maxLenght) {
-			knavn_display.append(knavn.substring(0, maxLenght));
-			knavn_display.append("...");
-			return knavn_display.toString();
-		} else {
-			return knavn;
-		}
-	}
-*/	
 	private void adjustRecordToValidate(JsonMaintMainCundcRecord recordToValidate, KundeSessionParams kundeSessionParams) {
 		recordToValidate.setCfirma(kundeSessionParams.getFirma());
 		recordToValidate.setCcompn(kundeSessionParams.getKundnr());
@@ -226,16 +183,15 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			//lists
     		JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
 			if (container != null) {
-				list = (List) container.getList();
+/*				list = (List) container.getList();
 				for (JsonMaintMainCundcRecord record : list) {
 					logger.info("record:" + record.toString());
 				}
-			}
+*/			}
     	}
     	return list;
     	
 	}
-	
 	
 	private int updateRecord(String applicationUser, JsonMaintMainCundcRecord record, String mode, StringBuffer errMsg) {
 		int retval = 0;

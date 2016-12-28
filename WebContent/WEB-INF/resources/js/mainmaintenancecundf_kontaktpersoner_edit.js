@@ -22,7 +22,6 @@ function setBlockUI(element) {
 jq(function() {
 	//Clean values for createing new record
 	jq('#newRecordButton').click(function() {
-		jq('#tgkna').val("");
 		jq('#cconta').val("")
 		jq('#ctype').val("");
 		jq('#cphone').val("");
@@ -64,12 +63,38 @@ jq(function() {
 		jq('#copdio').val("");
 		jq('#cmerge').val("");
 		jq('#avkved1').val("");
+		jq('#avkved2').val("");
+		jq('#avkved3').val("");
+		jq('#avkved4').val("");
+		jq('#avkved5').val("");
+		jq('#avkved6').val("");
+		jq('#avkved7').val("");
+		jq('#avkved8').val("");
+		jq('#avkved9').val("");
+		jq('#avkved10').val("");
+		jq('#avkved11').val("");
+		jq('#avkved12').val("");
+		jq('#avkved13').val("");
+		jq('#avkved14').val("");
+		jq('#avkved15').val("");
+		jq('#avkved16').val("");
+		jq('#avkved17').val("");
+		jq('#avkved18').val("");
+		jq('#avkved19').val("");
+		jq('#avkved20').val("");
 		
-
 		//for update
 		jq('#updateId').val("");
 		
 	});
+	
+	
+	jq('#copyRecordButton').click(function() {
+		jq('#cconta').val(jq('#cconta').val() + " - <kopi>");
+		jq('#updateId').val("");
+	});
+	
+	
 
 	jq("#formRecord").submit(function() {
 		jq.blockUI({
@@ -92,7 +117,6 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype_ref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
  
-	
 	
 }); 
 
@@ -199,6 +223,9 @@ function getRecord(record){
 			
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].cconta);
+			
+			//Enable Kopiere
+			jq('#copyRecordButton').attr("disabled", false);
 			
 		}
 	  }, 
