@@ -183,8 +183,8 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			//lists
     		JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
 			if (container != null) {
-/*				list = (List) container.getList();
-				for (JsonMaintMainCundcRecord record : list) {
+				list = (List) container.getList();
+/*				for (JsonMaintMainCundcRecord record : list) {
 					logger.info("record:" + record.toString());
 				}
 */			}

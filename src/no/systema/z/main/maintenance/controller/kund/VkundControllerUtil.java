@@ -11,8 +11,7 @@ package no.systema.z.main.maintenance.controller.kund;
 public class VkundControllerUtil {
 
 	/**
-	 * For UI. Trimming knav to fit in tab
-	 * 
+	 * For UI. Trimming knavn to fit in tab
 	 * 
 	 * @param knavn
 	 * @return a trimmed knavn if lenght > 10
@@ -20,7 +19,7 @@ public class VkundControllerUtil {
 	public static String getTrimmedKnav(String knavn) {
 		StringBuilder knavn_display = new StringBuilder();
 		int maxLenght = 10;
-		if (knavn.length() > maxLenght) {
+		if (knavn != null && knavn.length() > maxLenght) {
 			knavn_display.append(knavn.substring(0, maxLenght));
 			knavn_display.append("...");
 			return knavn_display.toString();

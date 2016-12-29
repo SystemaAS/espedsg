@@ -84,8 +84,6 @@ public class MainMaintenanceCundfKundeController {
 				} else {
 					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					
-					logger.info("savedRecord="+ReflectionToStringBuilder.toString(savedRecord));
-					
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
@@ -98,13 +96,11 @@ public class MainMaintenanceCundfKundeController {
 
 						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-
 					}
 				}
 
-			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { 
+			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { //Update
 				adjustRecordToValidate(recordToValidate, kundeSessionParams);
-
 				MaintMainCundfValidator validator = new MaintMainCundfValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
@@ -112,7 +108,6 @@ public class MainMaintenanceCundfKundeController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
 					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-					// check for Update errors
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
@@ -120,7 +115,6 @@ public class MainMaintenanceCundfKundeController {
 					} else {
 						JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-						
 					}
 				}
 			} else { // Fetch
@@ -129,7 +123,7 @@ public class MainMaintenanceCundfKundeController {
 				
 			}
 
-			model.put("action", kundeSessionParams.getAction());
+			model.put("action", MainMaintenanceConstants.ACTION_UPDATE); //User can change data
 			model.put("kundnr", kundeSessionParams.getKundnr());
 			model.put("firma", kundeSessionParams.getFirma());
 

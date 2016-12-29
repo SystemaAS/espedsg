@@ -25,7 +25,6 @@ public class MaintMainCundfValidator implements Validator {
 	public void validate(Object obj, Errors errors) { 
 		JsonMaintMainCundfRecord record = (JsonMaintMainCundfRecord)obj;
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kundnr", "systema.maint.kunderegister.error.kundnr");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "postnr", "systema.maint.kunderegister.error.postnr");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "adr3", "systema.maint.kunderegister.error.adr3");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "betbet", "systema.maint.kunderegister.error.betbet");

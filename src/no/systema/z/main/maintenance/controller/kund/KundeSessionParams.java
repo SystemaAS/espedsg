@@ -18,7 +18,6 @@ public class KundeSessionParams implements Serializable {
 	private String kundnr;
 	private String knavn;
 	private String firma;
-	private String action;
 	private String sonavn;
 	
 	public String getKnavn() {
@@ -26,12 +25,6 @@ public class KundeSessionParams implements Serializable {
 	}
 	public void setKnavn(String knavn) {
 		this.knavn = knavn;
-	}
-	public String getAction() {
-		return action;
-	}
-	public void setAction(String action) {
-		this.action = action;
 	}
 	public String getSonavn() {
 		return sonavn;

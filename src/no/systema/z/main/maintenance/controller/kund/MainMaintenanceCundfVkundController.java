@@ -7,10 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,16 +19,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import no.systema.jservices.common.values.FasteKoder;
-//application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
-import no.systema.tvinn.sad.z.maintenance.main.util.TvinnSadMaintenanceConstants;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
@@ -39,10 +34,8 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCund
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainChildWindowService;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
-//models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-
 
 /**
  * Gateway for Kunderegister
@@ -103,40 +96,37 @@ public class MainMaintenanceCundfVkundController {
 
 		KundeSessionParams kundeSessionParams = new KundeSessionParams();
 
-		if(appUser==null){
+		if (appUser == null) {
 			return this.loginView;
-		}else{
-			
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {  //Open for edit
+		} else {
+
+			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { // Open for edit
 				kundeSessionParams.setKundnr(kundnr);
 				kundeSessionParams.setKnavn(knavn);
 				kundeSessionParams.setFirma(firma);
 				kundeSessionParams.setSonavn(recordToValidate.getSonavn());
-				kundeSessionParams.setAction(action);  
-				
+
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
-				
+
 				model.put("kundnr", kundnr);
 				model.put("firma", firma);
 				model.put("updateId", updateId);
-				
-			} else if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //Lage ny
-				kundeSessionParams.setAction(action);  
-			
-			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {  //Delete from list
+
+			} else if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) { // Lage ny
+
+			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { // Delete from list
 				dmlRetval = deleteRecord(appUser.getUser(), kundnr, firma, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				if( dmlRetval < 0){
+				if (dmlRetval < 0) {
 					logger.info("[ERROR DML] Record does not validate)");
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					kundeSessionParams.setAction(action);  
 					successView = new ModelAndView("redirect:mainmaintenancecundf_vkund.do");
 				}
 			}
-	
+
 			session.setAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
 			model.put("action", action);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);

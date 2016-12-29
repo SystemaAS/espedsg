@@ -35,7 +35,6 @@
 					</a>
 				</td>
 				<c:choose>
-					
 					<c:when test="${not empty kundeSessionParams.kundnr}">
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="15%" valign="bottom" class="tab" align="center">
@@ -188,11 +187,15 @@
 								<td width="50%" >&nbsp;
 									<table border="0">
 										<tr>
-											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr:</td>
-											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
-<!-- 
-											<td><input readonly type="text" class="inputTextReadOnly" name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
- -->
+											<td class="text12" title="kundnr">&nbsp;Kundenr:</td>
+											<c:choose>
+												<c:when test="${model.action == 'doCreate'}">
+													<td><input type="text" class="inputTextMediumBlue"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+												</c:when>
+												<c:otherwise>
+													<td><input readonly type="text" class="inputTextReadOnly"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+												</c:otherwise>
+											</c:choose>
 											<td class="text12" title="syrg">&nbsp;Org.nr:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
 										</tr>

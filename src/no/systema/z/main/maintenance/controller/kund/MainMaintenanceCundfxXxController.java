@@ -67,7 +67,7 @@ public class MainMaintenanceCundfxXxController {
 			return this.loginView;
 		} else {
 
-			model.put("action", kundeSessionParams.getAction());
+			//model.put("action", kundeSessionParams.getAction());
 			model.put("kundnr", kundeSessionParams.getKundnr());
 			model.put("firma", kundeSessionParams.getFirma());
 
