@@ -87,15 +87,13 @@ jq(function() {
 		jq('#updateId').val("");
 		
 	});
-	
-	
+
 	jq('#copyRecordButton').click(function() {
-		jq('#cconta').val(jq('#cconta').val() + " - <kopi>");
+		jq('#cconta').val(jq('#cconta').val() + ".kopi");
 		jq('#updateId').val("");
 	});
 	
 	
-
 	jq("#formRecord").submit(function() {
 		jq.blockUI({
 			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
