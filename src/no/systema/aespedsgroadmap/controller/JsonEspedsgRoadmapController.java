@@ -132,13 +132,13 @@ public class JsonEspedsgRoadmapController {
 		RoadmapObject obj = new RoadmapObject();
 		obj.setId("1");obj.setSubject("Upgrade to Tomcat 8.0");
 		obj.setText("RS/OT");
-		obj.setStatus("Y");
+		obj.setStatus("G");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
-		obj.setId("2");obj.setSubject("Upgrade to Java 7");
-		obj.setText("RS/OT");
-		obj.setStatus("Y");
+		obj.setId("2");obj.setSubject("Upgrade to Java 8");
+		obj.setText("Java team");
+		obj.setStatus("R");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
@@ -156,11 +156,11 @@ public class JsonEspedsgRoadmapController {
 		obj = new RoadmapObject();
 		obj.setId("5");obj.setSubject("Infrastructure - Code assambley");
 		obj.setText("Jenkins / Java team");
-		obj.setStatus("R");
+		obj.setStatus("Y");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
-		obj.setId("6");obj.setSubject("AS400 handover to JavaServices");
+		obj.setId("6");obj.setSubject("AS400 migration to JavaServices");
 		obj.setText("Java team on FreeForm");
 		obj.setStatus("Y");
 		list.add(obj);
