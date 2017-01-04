@@ -304,7 +304,9 @@
 			 				 --%>
 			 				<tr height="10"><td></td></tr>
 			 				<tr>
-			 					<td colspan="10" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.fraktvikt"/>:&nbsp;${model.container.fbv}</b></td>
+			 					<td class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.fraktvikt"/>:</b>&nbsp;${model.container.fbv}</td>
+			 					<td colspan="2" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.avgangsdagar"/>:</b>&nbsp;${model.container.avdg}</td>
+			 					<td colspan="2" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.framforingstid"/>:</b>&nbsp;${model.container.frdg}</td>
 			 				</tr>
 		 					
 			 				<tr><td colspan="10"><hr size="1" width="100%"/></td></tr>
