@@ -90,7 +90,7 @@
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-					<form action="mainmaintenanceavd_syfa28r_edit.do" name="formRecord" id="formRecord" method="POST" >
+					<form action="mainmaintenancefirm_syfa30r_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<c:if test="${not empty Xmodel.record.kovavd}">
 							<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
@@ -537,7 +537,13 @@
 															<tr height="13"><td></td></tr>
 														</table>
 													</td>
-													
+													<td valign="top" align="left" class="text11" width="90%" colspan="2" >
+						 								<table width="90%" cellspacing="0" border="0" >
+															<tr>
+																<td align="left" class="text12" ><input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/></td>
+															</tr>							
+														</table>
+													</td>
 						 						</tr>
 						 						
 						 			
@@ -1228,7 +1234,7 @@
 
 							<tr height="5"><td >&nbsp;</td></tr>
 						</table>
-
+				</form>
 				</td>
 				</tr>
 	 	    	<tr height="20"><td>&nbsp;</td></tr>

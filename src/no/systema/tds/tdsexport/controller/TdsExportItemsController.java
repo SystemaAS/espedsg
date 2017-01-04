@@ -144,6 +144,8 @@ public class TdsExportItemsController {
 			String status = request.getParameter("status");
 			String datum = request.getParameter("datum");
 			String invoiceTotalAmount = request.getParameter("fabl");
+			//this fragment gets some header fields needed for the validator
+			JsonTdsExportSpecificTopicRecord headerRecord = (JsonTdsExportSpecificTopicRecord)session.getAttribute(TdsConstants.DOMAIN_RECORD_TOPIC);
 			
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
 			String lineNr = request.getParameter("svev_syli");
@@ -171,7 +173,7 @@ public class TdsExportItemsController {
 					recordToValidate.setSvev_vata(null); 
 				}
 				
-				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate));
+				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord));
 				
 				TdsExportItemsValidator validator = new TdsExportItemsValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -593,13 +595,14 @@ public class TdsExportItemsController {
 	 * @param recordToValidate
 	 * @return
 	 */
-	private String getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate){
+	private String getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
 		String retval = "N";
 		String TDS_IE = "E";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
 		
-		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + recordToValidate.getSvev_ulkd();
+		//Changed 03.jan.2017--> DHL discover this error: String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + recordToValidate.getSvev_ulkd();
+		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + headerRecord.getSveh_aube();
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");
