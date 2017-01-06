@@ -31,7 +31,7 @@
 				
 			</td>
 			<c:choose>
-				<c:when test="${empty model.opd}">
+				<c:when test="${empty model.hereff}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
@@ -42,7 +42,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
-						<font class="tabLink"><spring:message code="systema.ebooking.order.tab"/></font><font class="text12">&nbsp;${model.opd}</font>
+						<font class="tabLink"><spring:message code="systema.ebooking.order.tab"/></font><font class="text12">&nbsp;${model.hereff}</font>
 					</td>
 				</c:otherwise>
 			</c:choose>
@@ -227,7 +227,7 @@
 							 			<span title="todo">Ordrenr (egen ref)&nbsp;</span>
 				 					</td>
 				 					<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${XXmodel.record.trknfa}">
+					 					<input type="text" class="inputTextMediumBlue11" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
 					 				</td>
 					 			</tr>
 					 			<tr>
@@ -242,7 +242,7 @@
 					 					&nbsp;<span title="todo">Hentedato</span>
 					 				</td>
 						 			<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="9" maxlength="8" value="${XXmodel.record.hebodt}">
+					 					<input type="text" class="inputTextMediumBlue11" name="hedtop" id="hedtop" size="9" maxlength="8" value="${model.record.hedtop}">
 						    		</td>
 						    		<td align="right" class="text11">
 					 					&nbsp;<span title="todo">Lev.dato</span>
@@ -296,7 +296,7 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.pickup.address"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${Xmodel.record.henas}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${Xmodel.record.heads1}"></td>
 				 				</tr>
 					 			<tr>	
