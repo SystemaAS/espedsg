@@ -10,6 +10,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderListContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderListRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
+
 
 
 /**
@@ -33,6 +35,11 @@ public class JsonOrderListMapper {
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonMainOrderListRecord record : container.getOrderList()){
 			//DEBUG
+		}
+		if(container!=null && container.getOrderTypesNew()!=null){
+			for (JsonMainOrderTypesNewRecord record : container.getOrderTypesNew()){
+				//DEBUG logger.info(record.getNewAvd());
+			}
 		}
 		return container;
 	}

@@ -92,13 +92,11 @@
 				<td width="100%">
 					<form action="mainmaintenancefirm_syfa30r_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<c:if test="${not empty Xmodel.record.kovavd}">
+						<c:if test="${not empty model.record.fifirm}">
 							<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
 						</c:if>
 						<input type="hidden" name="action" id=action value="${model.action}">
 						<input type="hidden" name="avd" id="avd" value="${model.avd}">
-						<input type="hidden" name="kovavd" id="kovavd" value="${Xmodel.record.kovavd}">
-						<input type="hidden" name="avdnavn" id=avdnavn value="${model.avdnavn}">
 						
 						<table width="99%" 	cellspacing="0" border="0" align="left">
 							<tr>
@@ -106,9 +104,9 @@
 									<table width="100%" cellspacing="0" border="0" align="left">
 										<tr >
 											<td colspan="8" class="text14MediumBlue" >
-											<span title="fifirm">Firmakode&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
+											<span title="fifirm">Firmakode&nbsp;</span>&nbsp;&nbsp;<input name="fifirm" id="fifirm" tabindex=-1 readonly class="inputTextReadOnly" type="text" size="10" value="${model.record.fifirm}"/>
 											&nbsp;&nbsp;&nbsp;
-											<span  title="fift">Firmanavn&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
+											<span  title="fift">Firmanavn&nbsp;</span>&nbsp;&nbsp;<input name="fift" id="fift" tabindex=-1 readonly class="inputTextReadOnly" type="text" size="40" value="${model.record.fift}"/>
 											&nbsp;&nbsp;&nbsp;
 											<span  title="fikrtn">Kortnavn&nbsp;</span>&nbsp;&nbsp;<input tabindex=-1 readonly class="inputTextReadOnly" type="text" size="30" value="${model.record.fikrtn}"/>
 											

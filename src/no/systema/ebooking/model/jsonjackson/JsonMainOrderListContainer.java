@@ -35,4 +35,8 @@ public class JsonMainOrderListContainer {
 	public void setOrderList(Collection<JsonMainOrderListRecord> value){ this.orderList = value;}
 	public Collection<JsonMainOrderListRecord> getOrderList(){ return this.orderList; }
 	
+	private Collection<JsonMainOrderTypesNewRecord> orderTypesNew = null;
+	public void setOrderTypesNew(Collection<JsonMainOrderTypesNewRecord> value){ this.orderTypesNew = value;}
+	public Collection<JsonMainOrderTypesNewRecord> getOrderTypesNew(){ return this.orderTypesNew; }
+	
 }

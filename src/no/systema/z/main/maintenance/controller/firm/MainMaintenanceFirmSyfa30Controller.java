@@ -80,7 +80,10 @@ public class MainMaintenanceFirmSyfa30Controller {
 			List<JsonMaintMainFirmRecord> list = this.fetchList(appUser.getUser());
 	 		for(JsonMaintMainFirmRecord record : list){
 	 			model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+	 			model.put("updateId", record.getFifirm());
 	 		}
+	 		//for comming update
+	 		model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 	 		
 	 		successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -105,7 +108,7 @@ public class MainMaintenanceFirmSyfa30Controller {
 		//String id = request.getParameter("kosfsi");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		
+		boolean isValidRecord = true;
 		
 		if(appUser==null){
 			return this.loginView;
@@ -119,7 +122,6 @@ public class MainMaintenanceFirmSyfa30Controller {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
 			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 			
-			/*
 			//--------------
 			//UPDATE record
 			//--------------
@@ -129,9 +131,8 @@ public class MainMaintenanceFirmSyfa30Controller {
 				//JsonMaintMainKodtaKodthRecord listeHodeRecord = this.bindChildListeHode(request);
 				//JsonMaintMainKodtaTellRecord oppnrTurRecord = this.bindChildOppnrTur(request);
 				
-				
 				//Validate
-				MaintMainKodtsfSyparfValidator validator = new MaintMainKodtsfSyparfValidator();
+				MaintMainFirmValidator validator = new MaintMainFirmValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS
@@ -140,8 +141,9 @@ public class MainMaintenanceFirmSyfa30Controller {
 					//recordToValidate.setListeHodeRecord(listeHodeRecord);
 					//recordToValidate.setOppnrTurRecord(oppnrTurRecord);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					isValidRecord = false;
 					//get list
-					model.put("list", this.fetchList(appUser.getUser()));
+					//model.put("list", this.fetchList(appUser.getUser()));
 					
 				}else{
 					//Update table
@@ -150,13 +152,13 @@ public class MainMaintenanceFirmSyfa30Controller {
 					
 					if(updateId!=null && !"".equals(updateId)){
 						//update
-						logger.info(MainMaintenanceConstants.MODE_UPDATE);
+						logger.info("action:" + MainMaintenanceConstants.MODE_UPDATE);
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 						
 					}else{
 						//create new
-						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						logger.info("action:" + MainMaintenanceConstants.MODE_ADD);
+						//N/A? dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 						
 					}
 					
@@ -166,15 +168,15 @@ public class MainMaintenanceFirmSyfa30Controller {
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 						//get list
-						model.put("list", this.fetchList(appUser.getUser()));
+						//model.put("list", this.fetchList(appUser.getUser()));
 					}else{
 						//post successful update operations
-						updateId = recordToValidate.getKosfsi();
+						updateId = recordToValidate.getFifirm();
 						//refresh
-						JsonMaintMainKodtsfSyparfRecord record = this.fetchRecord(appUser.getUser(), recordToValidate.getKosfsi());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+						//JsonMaintMainKodtsfSyparfRecord record = this.fetchRecord(appUser.getUser(), recordToValidate.getKosfsi());
+						//model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 						//post successful update operations
-						successView = new ModelAndView("redirect:mainmaintenancesign_syfa60r.do?id=KODTSF");
+						//successView = new ModelAndView("redirect:mainmaintenancefirm_syfa30r.do?id=FIRM");
 					}
 				}
 					
@@ -192,27 +194,26 @@ public class MainMaintenanceFirmSyfa30Controller {
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					//get list
-					model.put("list", this.fetchList(appUser.getUser()));
+					//model.put("list", this.fetchList(appUser.getUser()));
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenancesign_syfa60r.do?id=KODTSF");
+					//successView = new ModelAndView("redirect:mainmaintenancefirm_syfa30r.do?id=FIRM");
 				}
 			}
-			*/
 			
 			
 			//--------------
 			//Fetch record
 			//--------------
-			//JsonMaintMainKodtsfSyparfRecord record = new JsonMaintMainKodtsfSyparfRecord();
-			//if(recordToValidate.getKosfsi()!=null && !"".equals(recordToValidate.getKosfsi())){
-			//	record = this.fetchRecord(appUser.getUser(), recordToValidate.getKosfsi());
-			//}
-			//model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			
+			if(isValidRecord){
+				List<JsonMaintMainFirmRecord> list = this.fetchList(appUser.getUser());
+		 		for(JsonMaintMainFirmRecord record : list){
+		 			model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+		 		}
+			}
 			//populate model
 			if(action==null || "".equals(action)){
-				action = "doUpdate";
+				action = MainMaintenanceConstants.ACTION_UPDATE;
 			}
 			model.put("action", action);
 			//model.put("avd", avd);
@@ -329,7 +330,7 @@ public class MainMaintenanceFirmSyfa30Controller {
 	private int updateRecord(String applicationUser, JsonMaintMainFirmRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -352,7 +353,8 @@ public class MainMaintenanceFirmSyfa30Controller {
 	        		}
 	        	}
 	        }
-    	}    	
+    	} 
+       	
     	return retval;
 	}
 	

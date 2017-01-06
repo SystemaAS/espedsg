@@ -192,7 +192,8 @@
 		            <tr class="tex11" >
 		               <td class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
 			           		<div id="opd${record.hereff}_linkcontainer${counter.count}" >
-			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}" onClick="TODOgoToSpecificOrder(this);">
+			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}"
+			           			onClick="setBlockUI(this);" href="ebooking_mainorder.do?action=doFetch&avd=1&opd=${record.hereff}&sysg=&sitll=&syst=&sydt=">
     		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
     		    				<font class="text11MediumBlue">${record.hereff}</font>
     		    			</a>
@@ -252,7 +253,7 @@
 		<tr>
 		<td>
 			<div id="dialogCreateNewOrder" title="Dialog">
-				<form  action="ebooking_doCreateNewOrder.do" name="createNewOrderForm" id="createNewOrderForm" method="post">
+				<form  action="ebooking_mainorder.do" name="createNewOrderForm" id="createNewOrderForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
 					<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					
@@ -262,14 +263,16 @@
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
 								<select name="selectedType" id="selectedType">
-									<%-- TODO
-				            		<c:forEach var="record" items="${model.avdList}" >
-	                             	 	<option value="${record.avd}"<c:if test="${searchFilterSadImport.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst== '2'}">&nbsp;(test)</c:if></option>
+									
+				            		<c:forEach var="record" items="${model.containerOpenOrders.orderTypesNew}" >
+	                             	 	<option value="${record.newAvd}@${record.newModul}@${record.newModul2}@${record.newLandKode}@${record.newSideSK}" >${record.newText}</option>
 									</c:forEach>
-									 --%>
+									
+									<%--
 									<option value="0000HD  STransportoppdrag Innland/Utgående" >Transportoppdrag Innland/Utgående</option>
 									<option value="0000HEDKSTransportoppdrag Eksport,Danmark Test" >Transportoppdrag Eksport-Danmakr Test</option>
-									<option value="0000HI  KTransportoppdrag Import" >Transportoppdrag Import</option>									  
+									<option value="0000HI  KTransportoppdrag Import" >Transportoppdrag Import</option>
+									 --%>									  
 								</select>
 							</td>
 						</tr>

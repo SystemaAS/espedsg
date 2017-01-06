@@ -30,12 +30,22 @@
 				</a>
 				
 			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-				<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
-				<font class="tabLink"><spring:message code="systema.ebooking.createnew.order.tab"/></font>
-				
-			</td>
+			<c:choose>
+				<c:when test="${empty model.opd}">
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
+						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
+						<font class="tabLink"><spring:message code="systema.ebooking.createnew.order.tab"/></font>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
+						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
+						<font class="tabLink"><spring:message code="systema.ebooking.order.tab"/></font><font class="text12">&nbsp;${model.opd}</font>
+					</td>
+				</c:otherwise>
+			</c:choose>
 			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
@@ -186,10 +196,10 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<spring:message code="systema.transportdisp.orders.form.update.label.header.edit"/>	
-								&nbsp;&nbsp;<b>${model.record.heavd}/${model.record.heopd}</b>
+								&nbsp;&nbsp;<b>${Xmodel.record.heavd}/${Xmodel.record.heopd}</b>
 								&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
-								<c:if test="${not empty model.record.hepro}">
-									&nbsp;&nbsp;&nbsp;&nbsp;Turnr&nbsp;${model.record.hepro}
+								<c:if test="${not empty Xmodel.record.hepro}">
+									&nbsp;&nbsp;&nbsp;&nbsp;Turnr&nbsp;${Xmodel.record.hepro}
 								</c:if>
 			 				</td>
 		 				</tr>
@@ -200,11 +210,11 @@
             <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-					<input type="hidden" name="tripNr" id="tripNr" value='${model.record.hepro}'>
-					<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
-					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsignee}'>
-					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
-					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
+					<input type="hidden" name="tripNr" id="tripNr" value='${Xmodel.record.hepro}'>
+					<input type="hidden" name="heopd" id="heopd" value='${Xmodel.record.heopd}'>
+					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsignee}'>
+					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrier}'>
+					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternal}'>
 		
 					<table style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
@@ -217,7 +227,7 @@
 							 			<span title="todo">Ordrenr (egen ref)&nbsp;</span>
 				 					</td>
 				 					<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${Xmodel.record.trknfa}">
+					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${XXmodel.record.trknfa}">
 					 				</td>
 					 			</tr>
 					 			<tr>
@@ -226,23 +236,23 @@
 							 			<span title="todo">Annen ref.&nbsp;</span>
 				 					</td>
 				 					<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${Xmodel.record.trknfa}">
+					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${XXmodel.record.trknfa}">
 					 				</td>
 					 				<td align="right" class="text11">
 					 					&nbsp;<span title="todo">Hentedato</span>
 					 				</td>
 						 			<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="9" maxlength="8" value="${Xmodel.record.hebodt}">
+					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="9" maxlength="8" value="${XXmodel.record.hebodt}">
 						    		</td>
 						    		<td align="right" class="text11">
 					 					&nbsp;<span title="todo">Lev.dato</span>
 					 				</td>
 						 			<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="9" maxlength="8" value="${Xmodel.record.hebodt}">
+					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="9" maxlength="8" value="${XXmodel.record.hebodt}">
 						    		</td>
 						    		<td align="right" class="text11">
 					 					&nbsp;<span title="todo">Avvikande hente/lev-adr:</span>
-					 					<input type="checkbox" id="todo" name="todo" value="J" <c:if test="${Xmodel.record.hepk1 == 'J'}"> checked </c:if>>
+					 					<input type="checkbox" id="todo" name="todo" value="J" <c:if test="${XXmodel.record.hepk1 == 'J'}"> checked </c:if>>
 					 				</td>
 				 				</tr>
 							</table>
@@ -277,8 +287,8 @@
 					 				</td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
-								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="35" value="${model.record.whenas}"></td>
+				 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${Xmodel.record.hekns}"></td>
+								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="35" value="${Xmodel.record.whenas}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -286,8 +296,8 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.pickup.address"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${Xmodel.record.henas}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${Xmodel.record.heads1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="heads2"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.address2"/></span></td>
@@ -300,9 +310,9 @@
 				 					
 				 					
 				 					<td class="text11" >
-				 					<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${model.record.heads2}">
+				 					<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${Xmodel.record.heads2}">
 				 					</td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heads3" id="heads3" size="25" maxlength="30" value="${model.record.heads3}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heads3" id="heads3" size="25" maxlength="30" value="${Xmodel.record.heads3}"></td>
 				 				</tr>
 				 				<%--
 				 				<tr height="15"><td ></td></tr>	
@@ -334,10 +344,10 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="herfa" id="herfa" size="20" maxlength="35" value="${Xmodel.record.herfa}">
 								 	</td>
 				 					<td class="text11" >
-						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">
+						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${Xmodel.record.hesdla}">
 										
 						 			</td>
 				 				</tr>
@@ -347,14 +357,14 @@
 					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${Xmodel.record.wsscont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${Xmodel.record.wsstlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${model.record.wssmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${Xmodel.record.wssmail}"></td>
 				 				</tr>
 				 				
 				 				<tr height="8"><td ></td></tr>													 				
@@ -433,27 +443,27 @@
 							 				</td>
 						 				</tr>
 						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${model.record.henasf}"></td>
+						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${Xmodel.record.heknsf}"></td>
+										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${Xmodel.record.henasf}"></td>
 						 					<td class="text11" >
 						 						<select name="hevals" id="hevals">
 							 						<option value="">-valuta-</option>
 								 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-								 				  		<option value="${currency}"<c:if test="${model.record.hevals == currency || (empty model.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
+								 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevals == currency || (empty Xmodel.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
 													</c:forEach>  
 												</select>
 						 					</td>
 						 					<td class="text11" >
 						 						<select name="hekdfs" id="hekdfs">
 							 						<option value="">-select-</option>
-								 				  	<option value="B" <c:if test="${model.record.hekdfs == 'B'}"> selected </c:if> >B</option>
-								 				  	<option value="E" <c:if test="${model.record.hekdfs == 'E'}"> selected </c:if> >E</option>
-								 				  	<option value="X" <c:if test="${model.record.hekdfs == 'X'}"> selected </c:if> >X</option>
+								 				  	<option value="B" <c:if test="${Xmodel.record.hekdfs == 'B'}"> selected </c:if> >B</option>
+								 				  	<option value="E" <c:if test="${Xmodel.record.hekdfs == 'E'}"> selected </c:if> >E</option>
+								 				  	<option value="X" <c:if test="${Xmodel.record.hekdfs == 'X'}"> selected </c:if> >X</option>
 								 				  	  
 												</select>
 						 					</td>
 						 					
-						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heans" id="heans" size="1" maxlength="1" value="${model.record.heans}"></td>
+						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heans" id="heans" size="1" maxlength="1" value="${Xmodel.record.heans}"></td>
 					 					</tr>
 									</table>
 									</td>				 				
@@ -477,8 +487,8 @@
 					 				</td>	
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
-				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="35" value="${model.record.whenak}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${Xmodel.record.heknk}"></td>
+				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="35" value="${Xmodel.record.whenak}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -486,16 +496,16 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.delivery.address"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${Xmodel.record.henak}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${Xmodel.record.headk1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="headk2"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.address2"/></span></td>
 					 				<td class="text11">&nbsp;<span title="headk3"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.postalcode.city"/></span></td>
 					 			</tr>
 								<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk2" id="headk2" size="25" maxlength="30" value="${Xmodel.record.headk2}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk3" id="headk3" size="25" maxlength="30" value="${Xmodel.record.headk3}"></td>
 				 				</tr>
 				 				<%--
 				 				<tr height="15"><td ></td></tr>
@@ -523,10 +533,10 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfk" id="herfk" size="20" maxlength="35" value="${Xmodel.record.herfk}">
 				 					</td>
 				 					<td class="text11" >
-						 				<input type="text" class="inputTextMediumBlue11" name="hesdl" id="hesdl" size="21" maxlength="20" value="${model.record.hesdl}">
+						 				<input type="text" class="inputTextMediumBlue11" name="hesdl" id="hesdl" size="21" maxlength="20" value="${Xmodel.record.hesdl}">
 										
 						 			</td>
 				 				</tr>
@@ -536,14 +546,14 @@
 					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${Xmodel.record.wskcont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${Xmodel.record.wsktlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${model.record.wskmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${Xmodel.record.wskmail}"></td>
 				 				</tr>
 				 				
 				 				<tr height="8"><td ></td></tr>
@@ -618,26 +628,26 @@
 							 				</td>
 						 				</tr>
 						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${model.record.henakf}"></td>
+						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${Xmodel.record.heknkf}"></td>
+										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${Xmodel.record.henakf}"></td>
 						 					<td class="text11" >
 						 						<select name="hevalk" id="hevalk">
 							 						<option value="">-valuta-</option>
 								 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-								 				  		<option value="${currency}"<c:if test="${model.record.hevalk == currency || (empty model.record.hevalk && currency=='NOK')}"> selected </c:if> >${currency}</option>
+								 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevalk == currency || (empty Xmodel.record.hevalk && currency=='NOK')}"> selected </c:if> >${currency}</option>
 													</c:forEach>  
 												</select>
 						 					</td>
 						 					<td class="text11" >
 						 						<select name="hekdfk" id="hekdfk">
 							 						<option value="">-select-</option>
-								 				  	<option value="B" <c:if test="${model.record.hekdfk == 'B'}"> selected </c:if> >B</option>
-								 				  	<option value="E" <c:if test="${model.record.hekdfk == 'E'}"> selected </c:if> >E</option>
-								 				  	<option value="X" <c:if test="${model.record.hekdfk == 'X'}"> selected </c:if> >X</option>
+								 				  	<option value="B" <c:if test="${Xmodel.record.hekdfk == 'B'}"> selected </c:if> >B</option>
+								 				  	<option value="E" <c:if test="${Xmodel.record.hekdfk == 'E'}"> selected </c:if> >E</option>
+								 				  	<option value="X" <c:if test="${Xmodel.record.hekdfk == 'X'}"> selected </c:if> >X</option>
 								 				  	  
 												</select>
 						 					</td>
-						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heank" id="heank" size="1" maxlength="1" value="${model.record.heank}"></td>
+						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heank" id="heank" size="1" maxlength="1" value="${Xmodel.record.heank}"></td>
 					 					</tr>
 									</table>
 									</td>				 				
@@ -679,18 +689,18 @@
 						 				<select class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						 				  		<option value="${country.zkod}"<c:if test="${model.record.helka == country.zkod}"> selected </c:if> >${country.zkod}</option>
+						 				  		<option value="${country.zkod}"<c:if test="${Xmodel.record.helka == country.zkod}"> selected </c:if> >${country.zkod}</option>
 											</c:forEach>  
 										</select>
 					 				</td>
 						 			<td class="text11" nowrap>
-						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
+						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${Xmodel.record.hesdf}">
 						 				<a tabindex=0 id="hesdfIdLink">
 	 										<img id="imgFromSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 									</a>
 					 				</td>
 					 				<td class="text11" colspan="2">
-						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${model.record.wppns1}">
+						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${Xmodel.record.wppns1}">
 					 				</td>
 					 				<td class="text11">&nbsp;&nbsp;</td>
 					 			</tr>
@@ -715,18 +725,18 @@
 						 				<select class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
+						 				  		<option value="${country.zkod}"<c:if test="${Xmodel.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
 											</c:forEach>  
 										</select>
 					 				</td>
 						 			<td class="text11" nowrap>
-						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${Xmodel.record.hesdt}">
 						 				<a tabindex=0 id="hesdtIdLink" >
 	 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 									</a>
 					 				</td>
 									<td class="text11" colspan="2">
-						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${model.record.wppns2}">
+						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${Xmodel.record.wppns2}">
 					 				</td>
 					 				<td class="text11">&nbsp;&nbsp;</td>
 					 			</tr>					 			
@@ -739,13 +749,13 @@
 									<table>
 						 			<tr>		
 										<td nowrap class="text11">&nbsp;&nbsp;<span title="todo">Kolli</span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${Xmodel.record.hepk3}"></td>
+							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${XXmodel.record.hepk3}"></td>
 							 			<td nowrap class="text11">&nbsp;<span title="todo">Vekt</span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${Xmodel.record.hepk3}"></td>
+							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${XXmodel.record.hepk3}"></td>
 							 			<td nowrap class="text11">&nbsp;<span title="todo">Kubikk</span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${Xmodel.record.hepk3}"></td>
+							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${XXmodel.record.hepk3}"></td>
 							 			<td nowrap class="text11">&nbsp;<span title="todo">Lastemeter</span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${Xmodel.record.hepk3}"></td>
+							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="todo" id="todo" value="${XXmodel.record.hepk3}"></td>
 							 		</tr>
 							 		</table>
 							 		</td>
@@ -766,8 +776,8 @@
 										</span>
 										</div>
 									</td>
-						 			<td class="text11" ><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hegn" id="hegn" value="${Xmodel.record.hegn}"></td>									
-									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${Xmodel.record.hegn}"></td>									
+						 			<td class="text11" ><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hegn" id="hegn" value="${XXmodel.record.hegn}"></td>									
+									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${XXmodel.record.hegn}"></td>									
 									
 								</tr>
 								<tr>	
@@ -785,8 +795,8 @@
 										</span>
 										</div>
 									</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${Xmodel.record.hegn}"></td>									
-									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${Xmodel.record.hegn}"></td>									
+						 			<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${XXmodel.record.hegn}"></td>									
+									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="todo" id="todo" value="${XXmodel.record.hegn}"></td>									
 									
 								</tr>
 								
@@ -883,7 +893,7 @@
 						 		</table>
 						 		<div class="ownScrollableSubWindow" style="width:1460px; height:10em;" > 
 						 		<table border="0" style="table-layout: fixed; width:1460px" cellpadding="0" cellspacing="2">
-						 		<c:forEach items="${model.record.fraktbrevList}" var="fraktbrevRecord" varStatus="counter">
+						 		<c:forEach items="${Xmodel.record.fraktbrevList}" var="fraktbrevRecord" varStatus="counter">
 						 			<c:if test="${not empty fraktbrevRecord.fvlinr}">
 						 				<c:set var="upperCurrentItemlineNr" scope="request" value="${fraktbrevRecord.fvlinr}"/>
 						 				<c:set var="totalNumberOfLines" scope="request" value="${counter.count}"/>
@@ -964,7 +974,7 @@
 						 				</td>
 					 					<td width="2%" align="left" class="tableCell" >
 						               		<c:if test="${not empty fraktbrevRecord.fvlinr}">
-						               			<c:if test="${ model.record.singleLine == 'N' }">
+						               			<c:if test="${ Xmodel.record.singleLine == 'N' }">
 							               			<a id="deleteLine_${counter.count}" onClick="deleteOrderLine(this);">
 							               				<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               		</a>
@@ -992,29 +1002,29 @@
 										<b>TOT</b>
 									</td>
 									<td align="left" class="tableHeaderField11">
-										<input type="text" class="inputTextMediumBlue10" name="hegm1" id="hegm1" size="6" maxlength="35" value="${model.record.hegm1}">
+										<input type="text" class="inputTextMediumBlue10" name="hegm1" id="hegm1" size="6" maxlength="35" value="${Xmodel.record.hegm1}">
 									</td>
 						 			<td align="right" class="tableHeaderField11">
-						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
+						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${Xmodel.record.hent}">
 						 			</td>
 						 			<td width="7%" align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td width="7%" align="left" class="tableHeaderField11">
-						 				<input type="text" class="inputTextMediumBlue10MandatoryFieldUPPERCASE" style="text-align:left;" name="hevs1" id="hevs1" size="10" maxlength="25" value="${model.record.hevs1}">
+						 				<input type="text" class="inputTextMediumBlue10MandatoryFieldUPPERCASE" style="text-align:left;" name="hevs1" id="hevs1" size="10" maxlength="25" value="${Xmodel.record.hevs1}">
 						 			</td>
 						 			<td width="7%" align="right" class="tableHeaderField11">
-						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="8" maxlength="9" value="${model.record.hevkt}">
+						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="8" maxlength="9" value="${Xmodel.record.hevkt}">
 						 			</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11"><span title="hem3">&nbsp;</span>
-						 				<input onBlur="checkHem3(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="hem3" id="hem3" size="5" maxlength="8" value="${model.record.hem3}">
+						 				<input onBlur="checkHem3(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="hem3" id="hem3" size="5" maxlength="8" value="${Xmodel.record.hem3}">
 					 				</td>
 						 			<td align="right" class="tableHeaderField11"><span title="helm">&nbsp;</span>
-						 				<input onBlur="checkHelm(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helm" id="helm" size="5" maxlength="5" value="${model.record.helm}">
+						 				<input onBlur="checkHelm(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helm" id="helm" size="5" maxlength="5" value="${Xmodel.record.helm}">
 					 				</td>
 						 			<td align="right" class="tableHeaderField11"><span title="helmla">&nbsp;</span>
-						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${model.record.helmla}">
+						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${Xmodel.record.helmla}">
 						 			</td>
 						 			<td width="6%" align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td width="4%" align="right" class="tableHeaderField11">&nbsp;</td>
@@ -1023,12 +1033,12 @@
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11"><span title="hepoen">&nbsp;</span>
-						 				<input readonly tabindex=-1 onKeyPress="return amountKey(event)" type="text" class="inputText10BlueBoldReadOnly" style="text-align:right;" name="hepoen" id="hepoen" size="5" maxlength="5" value="${model.record.hepoen}">
+						 				<input readonly tabindex=-1 onKeyPress="return amountKey(event)" type="text" class="inputText10BlueBoldReadOnly" style="text-align:right;" name="hepoen" id="hepoen" size="5" maxlength="5" value="${Xmodel.record.hepoen}">
 						 			</td>
 						 			<td width="2%" align="left" class="tableHeaderField11">
 						 				<img onMouseOver="showPop('psum_info');" onMouseOut="hidePop('psum_info');" style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 				<span title="hestl4">P</span>
-						 				<input type="checkbox" id="hestl4" name="hestl4" value="P" <c:if test="${model.record.hestl4 == 'P'}"> checked </c:if>>
+						 				<input type="checkbox" id="hestl4" name="hestl4" value="P" <c:if test="${Xmodel.record.hestl4 == 'P'}"> checked </c:if>>
 						 				<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute; left:-50px; top:10px; width:200" id="psum_info" class="popupWithInputText"  >
 												<font class="text11">
@@ -1047,7 +1057,7 @@
 						</tr>
 						
 						  
-						<c:if test="${not empty model.record.heopd && totalNumberOfLines >= 4}">
+						<c:if test="${not empty Xmodel.record.heopd && totalNumberOfLines >= 4}">
 				 			<tr height="10"><td ></td></tr>
 					 		<%-- CREATE NEW LINE SECTION
 					 		<tr>
@@ -1161,15 +1171,15 @@
 							 		</tr>
 							 		<tr>
 							 			<td class="text11" >&nbsp;	
-							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hegm2" id="hegm2" size="12" maxlength="10" value="${model.record.hegm2}">					 				
+							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hegm2" id="hegm2" size="12" maxlength="10" value="${Xmodel.record.hegm2}">					 				
 						 				</td>
 						 				<td class="text12" width="100px">&nbsp;</td>
 						 				<td class="text11">
-							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hevs2" id="hevs2" size="12" maxlength="10" value="${model.record.hevs2}">
+							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hevs2" id="hevs2" size="12" maxlength="10" value="${Xmodel.record.hevs2}">
 						 				</td>
 						 				<td class="text12" width="70px">&nbsp;</td>
 						 				<td class="text12">
-						 					<input readonly type="text" class="inputTextReadOnly tableCell" size="10" value="${model.record.hefbv}">
+						 					<input readonly type="text" class="inputTextReadOnly tableCell" size="10" value="${Xmodel.record.hefbv}">
 						 				</td>
 						 			</tr>
 						 		</table>
@@ -1192,7 +1202,7 @@
 	 				    </td>
 						<td align="right">
 		 				    <c:choose>
-			 				    <c:when test="${ not empty model.record.heavd && not empty model.record.heopd }">
+			 				    <c:when test="${ not empty Xmodel.record.heavd && not empty Xmodel.record.heopd }">
 			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.transportdisp.submit.save"/>'/>
 			 				    </c:when>
 			 				    <c:otherwise>
@@ -1240,26 +1250,26 @@
 								<tr>
 						 			<td class="text12">Melding til mottaker</td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="2">${model.record.messageNoteConsignee}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
 						 			<td class="text12">Melding til transportør</td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="2">${model.record.messageNoteCarrier}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
 						 			<td class="text12">Melding til avsender</td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteInternal" name="messageNoteConsignor	" limit='70,2' cols="75" rows="2">${model.record.messageNoteInternal}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteInternal" name="messageNoteConsignor	" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr height="5"><td></td></tr>
 				 				<tr>
 						 			<td class="text12">Email adresse</td>
 						 			<td class="text11">
-						 				<input type="text" class="inputTextMediumBlue11" size="40" maxlength="100" name="emailTodo" id="emailTodo" value="${Xmodel.record.hegn}">
+						 				<input type="text" class="inputTextMediumBlue11" size="40" maxlength="100" name="emailTodo" id="emailTodo" value="${XXmodel.record.hegn}">
 						 				&nbsp;(ekstra booking bekreftelse)
 					 				</td>									
 				 				</tr>
@@ -1274,7 +1284,7 @@
 							 			<td valign="top" class="text12">
 						 					<spring:message code="systema.transportdisp.workflow.trip.form.label.uploadedDocs"/>&nbsp;
 						 					<ul>
-						 					<c:forEach items="${model.record.archivedDocsRecord}" var="record" varStatus="counter">
+						 					<c:forEach items="${Xmodel.record.archivedDocsRecord}" var="record" varStatus="counter">
 						 						<li>
 						 						<a target="_blank" href="transportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
 		    		    							<img title="Archive" style="vertical-align:middle;" src="resources/images/pdf.png" width="14" height="14" border="0" alt="PDF arch.">

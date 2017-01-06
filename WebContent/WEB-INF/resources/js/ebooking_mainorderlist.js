@@ -89,6 +89,8 @@
 	  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 	  "scrollY":        	"700px",
 	  "scrollCollapse":  	true,
+	  //"columnDefs": [{ "type": "num", "targets": 1 }],
+	  "order": [[ 1, "desc" ]],
 	  //"autoWidth": false, //for optimization purposes when initializing the table
 	  "lengthMenu": [ 50, 75, 100]
 	  

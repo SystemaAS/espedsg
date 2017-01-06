@@ -122,9 +122,13 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public String getFitaxNO (){
 		if(this.fitax!=null && !"".equals(this.fitax)){
 			String tmpUSA = this.fitax.replace(",", ".");
-			Double tmp = Double.valueOf(tmpUSA) * 100;
+			Double tmp = Double.valueOf(tmpUSA);
+			if(tmp<1){
+				tmp = tmp * 100;
+			}
 			this.fitaxNO = String.valueOf(tmp);
 			this.fitaxNO = this.numberFormatter.getFormattedEU(this.fitaxNO);
+			
 		}
 		return this.fitaxNO;  
 	} 
@@ -210,7 +214,10 @@ public class JsonMaintMainFirmRecord extends JsonAbstractGrandFatherRecord {
 	public String getFitax2NO (){
 		if(this.fitax2!=null && !"".equals(this.fitax2)){
 			String tmpUSA = this.fitax2.replace(",", ".");
-			Double tmp = Double.valueOf(tmpUSA) * 100;
+			Double tmp = Double.valueOf(tmpUSA);
+			if(tmp<1){
+				tmp = tmp * 100;
+			}
 			this.fitax2NO = String.valueOf(tmp);
 			this.fitax2NO = this.numberFormatter.getFormattedEU(this.fitax2NO);
 		}

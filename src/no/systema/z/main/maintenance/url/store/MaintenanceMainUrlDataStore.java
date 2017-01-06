@@ -122,6 +122,9 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA68R_U.do";
 	//SYFA60R_U (SAKSBEHANDLERE)
 	static public String MAINTENANCE_MAIN_BASE_SYFA60R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA60R_U.do";
+	//syjsSYFIRMR_U.do (FIRM)
+	static public String MAINTENANCE_MAIN_BASE_SYFIRMR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFIRMR_U.do";
+	
 	
 	
 	//AVD SAD IMPORT ON GENERAL MAINT

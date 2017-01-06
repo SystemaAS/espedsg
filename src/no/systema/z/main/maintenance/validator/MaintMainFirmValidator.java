@@ -40,17 +40,14 @@ public class MaintMainFirmValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				/* TODO
-				if( !this.validInteger( record.getTeopdn()) ){
-					errors.rejectValue("teopdn", "", "Oppnr er ugyldig. Oppdragsnr. må være større enn 0.");
-					
-				}else if( !this.validInteger( record.getTeturn()) ){
-					errors.rejectValue("teturn", "", "Turnr. er ugyldig. Turnr. må være større enn 0. ");
 				
-				}else if( !this.validNumberTetmin(record) ){
-					errors.rejectValue("tetmin", "", "Minm.turnr er ugyldig. Minmumturnr. kan ikke være større enn turnr. ");
+				if( !this.validNumber(record.getFitax()) ){
+					errors.rejectValue("fitax", "", "Momssats er ugyldig. Max value: 99,99");
 				}
-				*/
+				if( !this.validNumber(record.getFitax2()) ){
+					errors.rejectValue("fitax2", "", "Tidligere momssats er ugyldig. Max value: 99,99");
+				}
+				
 			}
 		}
 		
@@ -97,13 +94,13 @@ public class MaintMainFirmValidator implements Validator {
 	 * @return
 	 */
 	private boolean validNumber(String value){
-		final Integer UPPER_LIMIT = 99;
+		final Integer UPPER_LIMIT = 100;
 		boolean retval = true;
 		if (value!=null && !"".equals(value)){
 			String tmp = value.replace(",", ".");
 			try{
 				Double tmpDbl = Double.parseDouble(tmp);
-				if(tmpDbl>UPPER_LIMIT){
+				if(tmpDbl>=UPPER_LIMIT){
 					retval = false;
 				}
 			}catch(Exception e){

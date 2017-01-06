@@ -58,6 +58,10 @@ import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+//eBooking
+import no.systema.ebooking.util.EbookingConstants;
+
 
 /**
  * ebooking Order List Controller 
@@ -70,9 +74,9 @@ import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class EbookingMainOrderController {
+public class EbookingMainOrderHeaderController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
-	private static Logger logger = Logger.getLogger(EbookingMainOrderController.class.getName());
+	private static Logger logger = Logger.getLogger(EbookingMainOrderHeaderController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -91,7 +95,7 @@ public class EbookingMainOrderController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="ebooking_doCreateNewOrder.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="ebooking_mainorder.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		this.context = TdsAppContext.getApplicationContext();
@@ -100,7 +104,9 @@ public class EbookingMainOrderController {
 		String wssavd = request.getParameter("wssavd");
 		if(wssavd!=null && !"".equals(wssavd)){ recordToValidate.setAvd(wssavd); }
 		if(wstur!=null && !"".equals(wstur)){ recordToValidate.setTur(wstur); }
-		
+		//
+		String opd = request.getParameter("opd");
+		String action = request.getParameter("action");
 		
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
@@ -116,6 +122,27 @@ public class EbookingMainOrderController {
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_EBOOKING);
 			//appUser.setUrlStoreProps(this.reflectionUrlStoreMgr.printProperties("no.systema.transportdisp.url.store.TransportDispUrlDataStore", "html")); //Debug info om UrlStore
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			if(EbookingConstants.ACTION_UPDATE.equals(action)){
+				
+			}else if(EbookingConstants.ACTION_DELETE.equals(action)){
+				
+			}
+			
+			//--------------
+			//Fetch record
+			//--------------
+			//populate model
+			if(action==null || "".equals(action)){
+				action = "doUpdate";
+			}
+			model.put("action", action);
+			model.put("opd", opd);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+			
+			return successView;
+			
 			//-----------
 			//Validation
 			//-----------
@@ -125,7 +152,7 @@ public class EbookingMainOrderController {
 		    validator.validate(recordToValidate, bindingResult);
 		    */
 		    //check for ERRORS
-			if(bindingResult.hasErrors()){
+			/*if(bindingResult.hasErrors()){
 	    		logger.info("[ERROR Validation] search-filter does not validate)");
 	    		//put domain objects and do go back to the successView from here
 	    		//drop downs
@@ -163,6 +190,7 @@ public class EbookingMainOrderController {
 				return successView;
 			    	
 		    }
+		    */
 		}
 		
 	}
