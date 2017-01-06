@@ -91,6 +91,16 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYCUNDFR_U.do";
 	
+	
+	/**
+	 * Retrieve a Enhet on provided orgnr from data.brreg.no. <br><br>
+	 * 
+	 * /syjservicestn/brreg.do
+	 * 
+	 * @Example http://gw.systema.no:8080/syjservicestn/brreg.do?user=OSCAR&orgnr=936809219
+	 */
+	static public String BRREG_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/brreg.do";
+	
 	//GET EDI (edii)
 	//ALL --> http://http://gw.systema.no:8080/syjservicesbcore/syjsSYEDIIR.do?user=OSCAR&inid=1&inna=TOLD
 	static public String MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYEDIIR.do";
@@ -145,7 +155,6 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA61R.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODFR.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SAD_SERVICESTN_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestn/syjsSAD002_KODTS4R.do";
-	
-	
+		
 	
 }

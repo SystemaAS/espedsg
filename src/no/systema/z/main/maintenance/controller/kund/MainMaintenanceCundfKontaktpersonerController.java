@@ -72,7 +72,7 @@ public class MainMaintenanceCundfKontaktpersonerController {
 			model.put("kundnr", kundnr);
 			model.put("firma", firma);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
-
+			
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 
@@ -178,10 +178,13 @@ public class MainMaintenanceCundfKontaktpersonerController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
+    	
+    	logger.info("jsonPayload="+jsonPayload);
     	List<JsonMaintMainCundcRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
     		JsonMaintMainCundcContainer container = this.maintMainCundcService.getList(jsonPayload);
+    		logger.info("container="+container);
 			if (container != null) {
 				list = (List) container.getList();
 /*				for (JsonMaintMainCundcRecord record : list) {

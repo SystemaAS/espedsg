@@ -109,9 +109,6 @@ public class TvinnSadBrregKontrollController {
 	}	
 	
 	
-	
-	
-	
 	private List<JsonEnhetsRegisteretDataCheckRecord> fetchList(String applicationUser){
 		String BASE_URL = TvinnSadUrlDataStore.TVINN_SAD_BRREG_GET_KUNDEDATA_KONTROLL_URL;
 		String urlRequestParams = "user=" + applicationUser;
@@ -127,7 +124,6 @@ public class TvinnSadBrregKontrollController {
     		JsonEnhetsRegisteretDataCheckContainer container = this.brregEnhetsRegisteretService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	logger.info("list.size():"+list.size());
 /*	        	for(JsonEnhetsRegisteretDataCheckRecord record : list){
 	        	  logger.info("record:" + record.toString());
 	        	}

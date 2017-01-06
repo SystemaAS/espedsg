@@ -201,7 +201,7 @@
 										</tr>
 										<tr>
 											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn:</td>
-											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
+											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
 											<td class="text12" title="eori">&nbsp;Eorinr:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="eori" id="eori" size="15" maxlength="17" value='${model.record.eori}'></td>
 										</tr>

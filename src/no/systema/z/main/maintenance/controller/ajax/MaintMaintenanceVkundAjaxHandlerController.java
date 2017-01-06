@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import no.systema.jservices.common.brreg.proxy.entities.Enhet;
+import no.systema.jservices.common.brreg.proxy.entities.JsonEnhetContainer;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -45,9 +50,41 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
 		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
 
-		return (List) this.fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta, ctype);
+		return (List) fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta, ctype);
 	}
 
+	@RequestMapping(value = "getSpecificRecord_enhet_brreg.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<Enhet> getRecordHovedEnhetBrreg(@RequestParam String applicationUser, @RequestParam String orgnr) {
+		final String METHOD = "[DEBUG] getSpecificRecord_enhet_brreg ";
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
+
+		return (List) fetchSpecificEnhet(applicationUser, orgnr);
+	}
+
+	private Collection<Enhet> fetchSpecificEnhet(String user, String orgnr ) {
+		String BASE_URL = MaintenanceMainUrlDataStore.BRREG_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + user);
+		urlRequestParams.append("&orgnr=" + orgnr);
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		
+		
+		logger.info("jsonPayload="+jsonPayload);
+
+		JsonReader<JsonDtoContainer<Enhet>> jsonReader = new JsonReader<JsonDtoContainer<Enhet>>();
+		jsonReader.set(new JsonDtoContainer<Enhet>());
+		
+		JsonDtoContainer<Enhet> container =  (JsonDtoContainer<Enhet> )jsonReader.get(jsonPayload);
+		
+		logger.info("container="+container);
+		
+		return container.getDtoList();
+		
+	}
+	
 	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta, String ctype) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
@@ -70,10 +107,10 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 			JsonMaintMainCundcContainer container = maintMainCundcService.getList(jsonPayload);
 			if (container != null) {
 				list = (List) container.getList();
-				for (JsonMaintMainCundcRecord record : list) {
+/*				for (JsonMaintMainCundcRecord record : list) {
 					logger.info("record=" + record);
 				}
-			}
+*/			}
 		}
 
 		return list;
