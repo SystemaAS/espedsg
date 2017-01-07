@@ -38,6 +38,7 @@ import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 
 //TRANSPDISP
+/*
 import no.systema.transportdisp.util.RpgReturnResponseHandler;
 import no.systema.transportdisp.service.TransportDispWorkflowListService;
 import no.systema.transportdisp.service.TransportDispWorkflowShippingPlanningOrdersListService;
@@ -53,19 +54,21 @@ import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTra
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningCurrentOrdersListRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord;
+*/
 import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.transportdisp.util.TransportDispConstants;
-import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
-import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
-import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+//import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
+//import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
+//import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 //eBooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
+import no.systema.ebooking.util.manager.CodeDropDownMgr;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
+import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
+
 
 
 
@@ -83,13 +86,14 @@ import no.systema.ebooking.service.EbookingMainOrderHeaderService;
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class EbookingMainOrderHeaderController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(4000);
 	private static Logger logger = Logger.getLogger(EbookingMainOrderHeaderController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
-	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
-	private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	//private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
+	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -107,17 +111,16 @@ public class EbookingMainOrderHeaderController {
 	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		this.context = TdsAppContext.getApplicationContext();
-		Collection<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord> outputListOpenOrders = new ArrayList<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord>();
-		String wstur = request.getParameter("wstur");
-		String wssavd = request.getParameter("wssavd");
-		if(wssavd!=null && !"".equals(wssavd)){ recordToValidate.setAvd(wssavd); }
-		if(wstur!=null && !"".equals(wstur)){ recordToValidate.setTur(wstur); }
+		
+		//String wstur = request.getParameter("wstur");
+		//String wssavd = request.getParameter("wssavd");
+		//if(wssavd!=null && !"".equals(wssavd)){ recordToValidate.setAvd(wssavd); }
+		//if(wstur!=null && !"".equals(wstur)){ recordToValidate.setTur(wstur); }
 		//
 		String hereff = request.getParameter("hereff");
 		String heunik = request.getParameter("unik");
 		String action = request.getParameter("action");
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
-		
 		
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
@@ -144,7 +147,9 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(selectedTypeWithCreateNew); 
 			JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, hereff, heunik);
-			model.put(MainMaintenanceConstants.DOMAIN_RECORD, headerOrderRecord);
+			model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
+			//get dropdowns
+			this.setCodeDropDownMgr(appUser, model);
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
@@ -152,7 +157,7 @@ public class EbookingMainOrderHeaderController {
 			model.put("action", action);
 			model.put("hereff", hereff);
 			
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			
@@ -225,6 +230,7 @@ public class EbookingMainOrderHeaderController {
 			record.setNewModul2(str[2]);
 			record.setNewLandKode(str[3]);
 			record.setNewSideSK(str[4]);
+			record.setNewText(str[5]);
 		}
 		return record;
 	}
@@ -252,8 +258,8 @@ public class EbookingMainOrderHeaderController {
 		}
 		//Only when new order (to get default values)
 		if(orderTypes!=null){
-			urlRequestParams.append("&newavd=" + orderTypes.getNewAvd() + "&newmodul=" + orderTypes.getNewModul()+ "&newmodul2=" +orderTypes.getNewModul2());
-			urlRequestParams.append("&newlandkode=" + orderTypes.getNewLandKode() + "&newsidesk=" + orderTypes.getNewSideSK() + "&newtext=");
+			urlRequestParams.append("&newavd=" + orderTypes.getNewAvd() + "&newmodul=" + orderTypes.getNewModul()+ "&newmodul2=" + orderTypes.getNewModul2());
+			urlRequestParams.append("&newlandkode=" + orderTypes.getNewLandKode() + "&newsidesk=" + orderTypes.getNewSideSK() + "&newtext=" +  orderTypes.getNewText());
 		}
 		
 		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
@@ -266,7 +272,7 @@ public class EbookingMainOrderHeaderController {
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
     		JsonMainOrderHeaderContainer container = this.ebookingMainOrderHeaderService.getContainer(jsonPayload);
-    		model.put(TransportDispConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
+    		model.put(EbookingConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
     		if(container!=null){
     			if(container.getOneorder()!=null){
 	    			for( JsonMainOrderHeaderRecord headerRecord: container.getOneorder()){
@@ -279,9 +285,6 @@ public class EbookingMainOrderHeaderController {
 		return record;
 	}
 	
-	
-	
-	
 	/**
 	 * 
 	 * @param model
@@ -289,7 +292,7 @@ public class EbookingMainOrderHeaderController {
 	 */
 	private void setDomainObjectsInView(Map model, SearchFilterTransportDispWorkflowShippingPlanningOrdersList record){
 		//SET HEADER RECORDS  (from RPG)
-		model.put(TransportDispConstants.DOMAIN_RECORD, record);
+		//model.put(TransportDispConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -298,11 +301,9 @@ public class EbookingMainOrderHeaderController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		/* TODO COVI Status
-		 * 
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.ebookingDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		*/
+		
 	}
 
 	//SERVICES
@@ -319,6 +320,14 @@ public class EbookingMainOrderHeaderController {
 	@Required
 	public void setEbookingMainOrderHeaderService (EbookingMainOrderHeaderService value){ this.ebookingMainOrderHeaderService = value; }
 	public EbookingMainOrderHeaderService getEbookingMainOrderHeaderService(){ return this.ebookingMainOrderHeaderService; }
+	
+	
+	@Qualifier ("ebookingDropDownListPopulationService")
+	private EbookingDropDownListPopulationService ebookingDropDownListPopulationService;
+	@Autowired
+	@Required
+	public void setEbookingDropDownListPopulationService (EbookingDropDownListPopulationService value){ this.ebookingDropDownListPopulationService = value; }
+	public EbookingDropDownListPopulationService getEbookingDropDownListPopulationService(){ return this.ebookingDropDownListPopulationService; }
 	
 	
 }

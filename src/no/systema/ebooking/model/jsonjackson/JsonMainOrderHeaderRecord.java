@@ -246,7 +246,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
 	private String headk3 = null;
 	public void setHeadk3(String value){ this.headk3 = value;}
-	public String getHeadk(){ return this.headk3; }
+	public String getHeadk3(){ return this.headk3; }
 	
 	private String helkk = null;
 	public void setHelkk(String value){ this.helkk = value;}

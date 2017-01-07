@@ -264,7 +264,7 @@
 							<td class="text12MediumBlue">Type&nbsp;
 								<select name="selectedType" id="selectedType">
 									<c:forEach var="record" items="${model.containerOpenOrders.orderTypesNew}" >
-	                             	 	<option value="${record.newAvd}@${record.newModul}@${record.newModul2}@${record.newLandKode}@${record.newSideSK}" >${record.newText}</option>
+	                             	 	<option value="${record.newAvd}@${record.newModul}@${record.newModul2}@${record.newLandKode}@${record.newSideSK}@${record.newText}" >${record.newText}</option>
 									</c:forEach>
 									
 									<%--

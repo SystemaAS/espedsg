@@ -23,6 +23,8 @@ public class EbookingUrlDataStore {
 	static public String EBOOKING_BASE_FETCH_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TBOK002R.pgm";
 	
 	
+	
+	
 	//--------------------
 	//[3] EDIT Order
 	//mode=A  = Add
@@ -42,6 +44,30 @@ public class EbookingUrlDataStore {
 	//(FRA)-->http://gw.systema.no/sycgip/TJINQSTED.pgm?user=JOVO&varlk=FRALK&VARKOD=FRA&SOKLK=NO&WSKUNPA=A (A, P eller blank) 
 	//(TIL)-->http://gw.systema.no/sycgip/TJINQSTED.pgm?user=JOVO&varlk=TILLK&VARKOD=TIL&SOKLK=NO&
 	static public String EBOOKING_BASE_CHILDWINDOW_POSTAL_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQSTED.pgm";
+	
+	
+	
+	//---------------------------------------------------
+	//[2] GENERAL CODES - for country (AS400 from TVINN) 
+	//---------------------------------------------------
+	static public String EBOOKING_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG005R.pgm"; 
+	//http://gw.systema.no/sycgip/TNOG005R.pgm?user=OSCAR&typ=2 //country list
+	
+	//---------------------------------------------------
+	//[1.1] GENERAL FUNCTIONS eg.(signature, other...) 
+	//---------------------------------------------------
+	static public String EBOOKING_GENERAL_SIGN_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE24R.pgm"; 
+	//http://gw.systema.no/sycgip/TJGE24R.pgm?user=JOVO	
+	
+	static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQOTY.pgm";
+	//http://gw.systema.no/sycgip/TJINQOTY.pgm?user=JOVO&opdtyp=&beskr=&getval=&fullinfo=J
+	//Note: getval=J:perfect match, fullinfo=J:all fields are returned
+	
+	static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQFRA.pgm";
+	//http://gw.systema.no/sycgip/TJINQFRA.pgm?user=JOVO&franka=&beskr=&getval=&fullinfo=J
+	
+	static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE002.pgm";
+	//http://gw.systema.no/sycgip/TJGE002.pgm?user=JOVO&avd=75&opd=19
 	
 	
 	
