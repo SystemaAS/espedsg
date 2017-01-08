@@ -16,7 +16,7 @@ import no.systema.fraktkalkulator.model.jsonjackson.JsonFraktKalkulatorUserConta
  *
  */
 public class FraktkalkulatorValidator implements Validator {
-	private static final Logger logger = Logger.getLogger(FraktKalkulatorController.class.getName());
+	private static final Logger logger = Logger.getLogger(FraktkalkulatorValidator.class.getName());
 	
 	/**
 	 * 

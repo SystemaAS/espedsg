@@ -193,7 +193,7 @@
 		               <td class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
 			           		<div id="opd${record.hereff}_linkcontainer${counter.count}" >
 			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}"
-			           			onClick="setBlockUI(this);" href="ebooking_mainorder.do?action=doFetch&unik=${record.unik}&hereff=${record.hereff}&sysg=&sitll=&syst=&sydt=">
+			           			onClick="setBlockUI(this);" href="ebooking_mainorder.do?action=doFetch&heunik=${record.unik}&hereff=${record.hereff}&sysg=&sitll=&syst=&sydt=">
     		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
     		    				<font class="text11MediumBlue">${record.hereff}</font>
     		    			</a>

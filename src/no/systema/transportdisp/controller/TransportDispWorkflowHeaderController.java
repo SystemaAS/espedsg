@@ -308,7 +308,7 @@ public class TransportDispWorkflowHeaderController {
 							recordToValidate.setGetdoctrip(archiveDocsList);
 							
 							//put domain objects
-					    		this.setDomainObjectsInView(session, model, recordToValidate );
+					    	this.setDomainObjectsInView(session, model, recordToValidate );
 					    	}
 						}
 					}

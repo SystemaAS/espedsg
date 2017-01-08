@@ -36,6 +36,11 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripMessageNoteRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
 //TRANSPDISP
 /*
@@ -55,19 +60,22 @@ import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTra
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord;
 */
-import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
+//import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
 //import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 //import no.systema.transportdisp.util.manager.java.reflect.ReflectionUrlStoreMgr;
 //import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 //eBooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
+import no.systema.ebooking.util.RpgReturnResponseHandler;
 import no.systema.ebooking.util.manager.CodeDropDownMgr;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
 import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
+import no.systema.ebooking.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.ebooking.validator.OrderHeaderValidator;
 
 
 
@@ -91,7 +99,10 @@ public class EbookingMainOrderHeaderController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	//
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	//private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
@@ -108,21 +119,18 @@ public class EbookingMainOrderHeaderController {
 	 * @return
 	 */
 	@RequestMapping(value="ebooking_mainorder.do", method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		
+	public ModelAndView doFind(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		
-		//String wstur = request.getParameter("wstur");
-		//String wssavd = request.getParameter("wssavd");
-		//if(wssavd!=null && !"".equals(wssavd)){ recordToValidate.setAvd(wssavd); }
-		//if(wstur!=null && !"".equals(wstur)){ recordToValidate.setTur(wstur); }
-		//
-		String hereff = request.getParameter("hereff");
-		String heunik = request.getParameter("unik");
-		String action = request.getParameter("action");
-		String selectedTypeWithCreateNew = request.getParameter("selectedType");
-		
 		Map model = new HashMap();
+		
+		String hereff = request.getParameter("hereff");
+		String heunik = request.getParameter("heunik");
+		String action = request.getParameter("action");
+		boolean isValidRecord = true;
+		//special case on Create New comming from the order list "Create new order"
+		String selectedTypeWithCreateNew = request.getParameter("selectedType");
+		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
+		
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		
 		ModelAndView successView = new ModelAndView("ebooking_mainorder");
@@ -136,7 +144,51 @@ public class EbookingMainOrderHeaderController {
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_EBOOKING);
 			//appUser.setUrlStoreProps(this.reflectionUrlStoreMgr.printProperties("no.systema.transportdisp.url.store.TransportDispUrlDataStore", "html")); //Debug info om UrlStore
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
 			if(EbookingConstants.ACTION_UPDATE.equals(action)){
+				//Validation here TODO ... 
+				//don't forget model.put("selectedTypeWithCreateNew", selectedTypeWithCreateNew) --> if selectedTypeWithCreateNew!=null...
+				//...
+				OrderHeaderValidator validator = new OrderHeaderValidator();
+				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+			    validator.validate(recordToValidate, bindingResult);
+			    if(bindingResult.hasErrors()){
+		    		logger.info("[ERROR Validation] record does not validate)");
+		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+		    		isValidRecord = false;
+		    		
+		    		
+		    		//put domain objects and do go back to the successView from here
+		    		//drop downs
+		    		//this.setCodeDropDownMgr(appUser, model);
+					//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+					//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+					
+		    		//set aspects
+		    		
+					//successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+		    		//successView.addObject(EbookingConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
+		    		//successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
+		    		//successView.addObject("searchFilter", recordToValidate);
+		    		
+			    }else{	
+					//Start DML operations if applicable
+					StringBuffer errMsg = new StringBuffer();
+					int dmlRetval = 0;
+					if(recordToValidate.getHeunik()!=null && !"".equals(recordToValidate.getHeunik())){
+						//update
+						logger.info("doUpdate");
+						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_UPDATE, errMsg);
+						if(dmlRetval==0){
+							//TODO
+						}
+					}else{
+						//create new
+						logger.info("doCreate");
+						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_ADD, errMsg);
+						model.put("selectType", "");
+					}
+			    }
 				
 			}else if(EbookingConstants.ACTION_DELETE.equals(action)){
 				
@@ -145,9 +197,10 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			//Fetch record
 			//--------------
-			JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(selectedTypeWithCreateNew); 
-			JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, hereff, heunik);
-			model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
+			if(isValidRecord){
+				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, hereff, heunik);
+				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
+			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
 			//populate model
@@ -155,8 +208,6 @@ public class EbookingMainOrderHeaderController {
 				action = "doUpdate";
 			}
 			model.put("action", action);
-			model.put("hereff", hereff);
-			
 			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -217,22 +268,74 @@ public class EbookingMainOrderHeaderController {
 	
 	/**
 	 * 
-	 * @param selectedTypeWithCreateNew
+	 * @param model
+	 * @param applicationUser
+	 * @param recordToValidate
+	 * @param mode
+	 * @param errMsg
 	 * @return
 	 */
-	private JsonMainOrderTypesNewRecord getDefaultValuesForCreateNewOrder(String selectedTypeWithCreateNew){
-		JsonMainOrderTypesNewRecord record = null;
-		if(selectedTypeWithCreateNew!=null && !"".equals(selectedTypeWithCreateNew)){
-			String[] str = selectedTypeWithCreateNew.split("@");
-			record = new JsonMainOrderTypesNewRecord();
-			record.setNewAvd(str[0]);
-			record.setNewModul(str[1]);
-			record.setNewModul2(str[2]);
-			record.setNewLandKode(str[3]);
-			record.setNewSideSK(str[4]);
-			record.setNewText(str[5]);
-		}
-		return record;
+	private int updateRecord(Map model, String applicationUser, JsonMainOrderHeaderRecord recordToValidate, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	
+    	/*
+    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
+    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+    		//this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+    		//isValidCreatedRecordTransactionOnRPG = false;
+    		//retval = -1; 
+    		
+    	}else{
+    		//Update successfully done!
+    		logger.info("[INFO] Record successfully updated, OK ");
+    		
+    		/*TODO messages ...
+    		this.updateMessageNote(messageNote, recordToValidate.getTuavd(), recordToValidate.getTupro(), appUser);
+    		
+    		//set message note (after update aka refresh)
+    		Collection<JsonTransportDispWorkflowSpecificTripMessageNoteRecord> messageNoteAfterUpdate = null;
+    		messageNoteAfterUpdate = this.controllerAjaxCommonFunctionsMgr.fetchMessageNote(appUser.getUser(), recordToValidate.getTuavd(), recordToValidate.getTupro());
+    		StringBuffer br = new StringBuffer();
+    		for(JsonTransportDispWorkflowSpecificTripMessageNoteRecord record:messageNoteAfterUpdate ){
+    			br.append(record.getFrttxt() + "\n");
+    		}
+    		recordToValidate.setMessageNote(br.toString());
+    		//logger.info(recordToValidate.getMessageNote());
+    		 
+			//put domain objects
+	    	this.setDomainObjectsInView(session, model, recordToValidate );
+	    	
+    	}
+    	
+
+    	/*
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainStandiContainer container = this.maintMainStandiService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	} 
+    	*/   	
+    	return retval;
 	}
 	
 	/**
@@ -290,9 +393,8 @@ public class EbookingMainOrderHeaderController {
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, SearchFilterTransportDispWorkflowShippingPlanningOrdersList record){
-		//SET HEADER RECORDS  (from RPG)
-		//model.put(TransportDispConstants.DOMAIN_RECORD, record);
+	private void setDomainObjectsInView(Map model, JsonMainOrderHeaderRecord record){
+		//model.put(EbookingConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -306,6 +408,36 @@ public class EbookingMainOrderHeaderController {
 		
 	}
 
+
+	/**
+	 * 
+	 * @param model
+	 * @param selectedTypeWithCreateNew
+	 * @return
+	 */
+	private JsonMainOrderTypesNewRecord getDefaultValuesForCreateNewOrder(Map model, String selectedTypeWithCreateNew){
+		final String FIELD_SEPARATOR = "@";
+		JsonMainOrderTypesNewRecord record = new JsonMainOrderTypesNewRecord();
+		//this will be true ONLY when the record is new. Normal Updates of existent records will not be in this category...
+		if(selectedTypeWithCreateNew!=null && !"".equals(selectedTypeWithCreateNew)){
+			if(selectedTypeWithCreateNew.contains(FIELD_SEPARATOR)){
+				String[] str = selectedTypeWithCreateNew.split(FIELD_SEPARATOR);
+				if(str.length==6){
+					record = new JsonMainOrderTypesNewRecord();
+					record.setNewAvd(str[0]);
+					record.setNewModul(str[1]);
+					record.setNewModul2(str[2]);
+					record.setNewLandKode(str[3]);
+					record.setNewSideSK(str[4]);
+					record.setNewText(str[5]);
+					//save to future validation errors
+					model.put("selectedType", selectedTypeWithCreateNew);
+				}
+				
+			}
+		}
+		return record;
+	}
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

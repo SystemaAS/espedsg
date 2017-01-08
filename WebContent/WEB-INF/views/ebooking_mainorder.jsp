@@ -31,7 +31,7 @@
 				
 			</td>
 			<c:choose>
-				<c:when test="${empty model.hereff}">
+				<c:when test="${empty model.record.hereff && empty model.record.heunik}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
@@ -42,7 +42,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
-						<font class="tabLink"><spring:message code="systema.ebooking.order.tab"/></font><font class="text12">&nbsp;${model.hereff}</font>
+						<font class="tabLink"><spring:message code="systema.ebooking.order.tab"/></font><font class="text12">&nbsp;${model.record.hereff}</font>
 					</td>
 				</c:otherwise>
 			</c:choose>
@@ -56,6 +56,7 @@
 	<%-- Validation errors FRONT END --%>
 	<%-- --------------------------- --%>
 	<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+	<tr height="5"><td></td></tr>
 	<tr>
 		<td>
            	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
@@ -185,7 +186,7 @@
 		<tr>
 		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
-			<form action="TODOtransportdisp_mainorder_update.do"  name="transportdispForm" id="transportdispForm" method="post">
+			<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
 			<input type="hidden" name="parentTrip" id="parentTrip" value="${model.parentTrip}">
 			<table style="width:100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
 			<tr height="10"><td>&nbsp;</td></tr> 
@@ -196,7 +197,7 @@
 				 		<tr height="15">
 				 			<td class="text12White">
 								&nbsp;<spring:message code="systema.ebooking.orders.form.update.label.header.edit"/>	
-								&nbsp;&nbsp;<b>${model.record.heunik}/${model.record.hereff}</b>
+								&nbsp;&nbsp;<b>${model.record.heunik} / ${model.record.hereff}</b>
 								&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
 			 				</td>
 		 				</tr>
@@ -210,6 +211,9 @@
 					<input type="hidden" name="heunik" id="heunik" value='${model.record.heunik}'>
 					<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
+					<input type="hidden" name="action" id="action" value='doUpdate'>
+					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
+					
 					
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsignee}'>
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrier}'>
@@ -686,7 +690,7 @@
 										</div>
 				 					</td>
 					 				<td class="text11">
-					 					<select class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
+					 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 						 				  		<option value="${country.zkod}"<c:if test="${model.record.helka == country.zkod}"> selected </c:if> >${country.zkod}</option>
@@ -695,7 +699,7 @@
 										
 					 				</td>
 						 			<td class="text11" nowrap>
-						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
+						 				<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
 						 				<a tabindex=0 id="hesdfIdLink">
 	 										<img id="imgFromSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 									</a>
@@ -723,7 +727,7 @@
 										</div>
 					 				</td>
 					 				<td class="text11">
-					 					<select class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
+					 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 						 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
@@ -732,7 +736,7 @@
 										
 					 				</td>
 						 			<td class="text11" nowrap>
-						 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+						 				<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
 						 				<a tabindex=0 id="hesdtIdLink" >
 	 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 									</a>
