@@ -624,6 +624,39 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setTvtinks(String value) {  this.tvtinks = value; }
 	public String getTvtinks() { return this.tvtinks;}
 	
+	//Internal use. Not applicable to EDIFACT to SKAT.Only for internal use.
+	private String dkxv_222 = null;
+	public void setDkxv_222(String value) {  this.dkxv_222 = value; }
+	public String getDkxv_222() { return this.dkxv_222;}
+	
+	private String dkxv_221 = null;
+	public void setDkxv_221(String value) {  this.dkxv_221 = value; }
+	public String getDkxv_221() { return this.dkxv_221;}
+	
+	private String dkxv_221b = null;
+	public void setDkxv_221b(String value) {  this.dkxv_221b = value; }
+	public String getDkxv_221b() { return this.dkxv_221b;}
+	
+	private String dkxv_221c = null;
+	public void setDkxv_221c(String value) {  this.dkxv_221c = value; }
+	public String getDkxv_221c() { return this.dkxv_221c;}
+	
+	private String dkxv_222b = null;
+	public void setDkxv_222b(String value) {  this.dkxv_222b = value; }
+	public String getDkxv_222b() { return this.dkxv_222b;}
+	
+	private String dkxv_46 = null;
+	public void setDkxv_46(String value) {  this.dkxv_46 = value; }
+	public String getDkxv_46() { return this.dkxv_46;}
+	
+	private String dkxv_42b = null;
+	public void setDkxv_42b(String value) {  this.dkxv_42b = value; }
+	public String getDkxv_42b() { return this.dkxv_42b;}
+	
+	private String dkxv_42c = null;
+	public void setDkxv_42c(String value) {  this.dkxv_42c = value; }
+	public String getDkxv_42c() { return this.dkxv_42c;}
+	
 	
 	/**
 	 * 

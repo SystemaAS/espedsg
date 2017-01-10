@@ -2342,10 +2342,12 @@
 				jq('#thgkd').val("7");
 				jq('#thgft1').val("");
 				jq('#thgadk').val("");
+				alert("SS kan inte ha garanti!")
 			}else{
-				validateGuarantee();
+				//validateGuarantee();
 			}
 	    });
+		
 		jq('#thgadk').blur(function() {
 			if("SS" == jq('#thdk').val()){
 				jq('#thgkd').val("7");
@@ -2355,6 +2357,7 @@
 				validateGuarantee();
 			}
 	    });
+	    
 	});
 	
 	function validateGuarantee(){
@@ -2380,7 +2383,6 @@
 					}
 				}else{
 					alert(errMsg);
-					
 				}
 				
 			}

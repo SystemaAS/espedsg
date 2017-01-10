@@ -959,10 +959,10 @@
 										
 							        </tr>
 							        <tr>
-							        	<td class="text11" colspan="2">
+							        	<td valign="top" class="text11" colspan="2">
 											&nbsp;<input type="text" class="inputText" name="tvmn" id="tvmn" size="30" maxlength="42" value='${model.record.tvmn}'>
 										</td>
-										<td class="text11"> 
+										<td valign="top" class="text11"> 
 										<select name="tvmnsk" id="tvmnsk">
 							            			<option value="">-vælg-</option>
 							 				  	<c:forEach var="record" items="${model.ncts012_Sprak_CodeList}" >
@@ -974,8 +974,46 @@
 											</a>
 										</td>
 							        	<td>&nbsp;</td>
-										
-							            <td align="left">
+							            <td colspan="4">
+							            	<table cellspacing="0" border="0" cellpadding="0">
+							            		<tr class="tableHeaderField10" height="20" valign="left">
+												 	<td align="center" class="tableHeaderFieldFirst11">&nbsp;Fakt.beløb VAL&nbsp;</td> 
+								                    <td align="center" class="tableHeaderField11">&nbsp;Fakt.møntsort&nbsp;</td> 
+								                    <td align="center" class="tableHeaderField11">&nbsp;Kurs&nbsp;</td>
+								                    <td align="center" class="tableHeaderField11">&nbsp;Faktor&nbsp;</td>
+								                    <td align="center" class="tableHeaderField11">&nbsp;Beløb&nbsp;DKK</td> 
+									             </tr> 
+									             <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_222" id="dkxv_222" size="16" maxlength="16" value='${model.record.dkxv_222}'>&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221" id="dkxv_221" size="16" maxlength="10" value='${model.record.dkxv_221}'>&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221b" id="dkxv_221b" size="16" maxlength="8" value='${model.record.dkxv_221b}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221c" id="dkxv_221c" size="16" maxlength="7" value='${model.record.dkxv_221c}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;Fakt&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_222b" id="dkxv_222b" size="16" maxlength="16" value='${model.record.dkxv_222b}'>&nbsp;</td>
+							               		 </tr>
+									             <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;Tollv.&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right" name="dkxv_46" id="dkxv_46" size="16" maxlength="10" value='${model.record.dkxv_46}'>&nbsp;</td>
+							               		 </tr>
+							               		 <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;Moms&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right"  name="dkxv_42b" id="dkxv_42b" size="16" maxlength="10" value='${model.record.dkxv_42b}'>&nbsp;</td>
+							               		 </tr>	
+							               		 <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<b>TOTAL</b>&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right" name="dkxv_42c" id="dkxv_42c" size="16" maxlength="12" value='${model.record.dkxv_42c}'>&nbsp;</td>
+							               		 </tr>	
+							            	</table>
+							            </td>
+							            <td valign="bottom" align="center">
 											<c:choose>	
 												<c:when test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
 													<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.skat.ncts.export.item.createnew.submit"/>'>
@@ -986,43 +1024,12 @@
 					 				    		</c:choose>	
 											
 							            </td>
-							            <td colspan="4">
-							            	<table cellspacing="0" border="0" cellpadding="0">
-							            		<tr class="tableHeaderField" height="20" valign="left">
-												 	<td align="right" class="tableHeaderFieldFirst">&nbsp;Fakt.beløb VAL&nbsp;</td> 
-								                    <td align="right" class="tableHeaderField">&nbsp;Fakt.møntsort&nbsp;</td> 
-								                    <td align="right" class="tableHeaderField">&nbsp;Kurs&nbsp;</td>
-								                    <td align="right" class="tableHeaderField">&nbsp;Faktor&nbsp;</td>
-								                    <td align="right" class="tableHeaderField">&nbsp;Fakt.beløb DKK&nbsp;</td> 
-									             </tr> 
-									             <tr class="tableRow">
-									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_46" id="dkxv_46" size="10" maxlength="10" value='${Xmodel.record.dkxv_46}'>&nbsp;</td>
-							               		 </tr>
-							               		 <tr class="tableRow">
-									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_42b" id="dkxv_42b" size="10" maxlength="10" value='${Xmodel.record.dkxv_42b}'>&nbsp;</td>
-							               		 </tr>	
-							               		 <tr class="tableRow">
-									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_42c" id="dkxv_42c" size="12" maxlength="12" value='${Xmodel.record.dkxv_42c}'>&nbsp;</td>
-							               		 </tr>	
-							            	</table>
-							            </td>
  							        </tr>
 			        	        </table>
 					        </td>
 					        
 				        </tr>
+				       
 				        <tr height="10"><td></td></tr>
 					</table>          
             	</td>
