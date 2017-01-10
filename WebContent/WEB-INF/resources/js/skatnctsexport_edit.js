@@ -25,6 +25,7 @@
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
   	  });
   	  
+  	  
   	  	//----------------
 	  	//CUSTOMER search
 	  	//----------------
@@ -58,6 +59,7 @@
 				jq('#thnaaIdLink').click();
 			}
 	    });
+	    
 	    //SIKKERHED
 	    //SENDER - SIKK
 	    jq('#thnassIdLink').click(function() {
@@ -90,6 +92,19 @@
 			}
 	    });
 	    //END CUSTOMER SEARCH
+	    
+	    
+	  //Valuta
+  	  jq('#thgvkIdLink').click(function() {
+    	jq('#thgvkIdLink').attr('target','_blank');
+    	window.open('skatnctsexport_edit_childwindow_generalcodes.do?action=doInit&type=107&ctype=thgvk', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#thgvkIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#thgvkIdLink').click();
+		}
+  	  });
+	    
     });
     
     

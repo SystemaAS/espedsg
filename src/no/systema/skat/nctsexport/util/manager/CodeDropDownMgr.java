@@ -105,7 +105,6 @@ public class CodeDropDownMgr {
 				CODES_URL = SkatUrlDataStore.SKAT_CODES_URL;
 			}
 			
-			
 			StringBuffer urlRequestParamsKeys = new StringBuffer();
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "typ=" + paramTYP);
@@ -117,10 +116,10 @@ public class CodeDropDownMgr {
 			}
 			//Now build the payload and send to the back end via the drop down service
 			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
-			/*
+			logger.info("CODES URL:" + CODES_URL);
 			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
-			logger.info(utfPayload);
-			*/
+			//logger.info(utfPayload);
+			
 			
 			JsonSkatNctsCodeContainer codeContainer = skatDropDownListPopulationService.getNctsCodeContainer(utfPayload);
 			List<JsonSkatNctsCodeRecord> list = new ArrayList();

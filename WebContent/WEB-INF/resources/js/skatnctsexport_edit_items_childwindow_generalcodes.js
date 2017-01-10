@@ -63,7 +63,12 @@
 				  opener.jq('#tveh').val(kod);
 				  opener.jq('#tveh').focus();
 				  
+				//valutakode	  
+			  }else if(callerType == 'dkxv_221'){
+				  opener.jq('#dkxv_221').val(kod);
+				  opener.jq('#dkxv_221').focus();
 			  }
+			  
 
 			  //close child window
 			  window.close();

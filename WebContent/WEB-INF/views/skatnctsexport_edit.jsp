@@ -1088,9 +1088,9 @@
 					                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.thgvk == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 														</c:forEach> 
 													</select>
-													<a tabindex="-1" target="_blank" href="${model.skatCurrencyCodesURL.value}" onclick="${model.skatCurrencyCodesURL.windowOpenDimensions}" >
-									            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-									            		</a>								
+													<a tabindex="-1" id="thgvkIdLink" >
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+													</a>																	 						
 								 				</td>
 							 				</tr>
 							            		<tr height="5"><td></td></tr>

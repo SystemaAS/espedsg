@@ -397,14 +397,15 @@ public class SkatNctsExportItemsController {
 	    	//add gui lists here
     		//this.setCodeDropDownMgr(appUser, model);
     		
-    		String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS);
+	    	this.setCodeDropDownMgr(appUser, model);
+    		/*String codeMgrExists = (String)session.getAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS);
 	    	if(codeMgrExists!=null){
 	    		this.codeDropDownMgr.getCodeMgrListsFromSession(model, session);
 	    	}else{
 	    		this.setCodeDropDownMgr(appUser, model);
 	    		this.codeDropDownMgr.setCodeMgrListsInSession(model, session);
 	    		session.setAttribute(SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS, SkatConstants.SESSION_CODE_MANAGER_EXISTS_SKATEXPORT_NCTS );
-	    	}
+	    	}*/
     		
     		//domain objects
 	    	this.setDomainObjectsForListInView(session, model, jsonSkatNctsExportSpecificTopicItemContainer);
@@ -650,8 +651,10 @@ public class SkatNctsExportItemsController {
 				 model,appUser,CodeDropDownMgr.CODE_017_KOLLI, null, null);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_031_DEKLTYPE, null, null);
+		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_107_CURRENCY, null, null);
+		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_302_STATUS_KODER, null, null);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,

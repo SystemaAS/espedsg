@@ -746,6 +746,16 @@ END override jQuery elements
 	background-color:#DDDDDD;
 	padding: 2px 5px
 }
+.inputText10ReadOnly{
+	border: 1px solid #CCCCCC;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-size: 10px;
+	font-style: italic;
+	background-color:#DDDDDD;
+	padding: 2px 5px
+}
 .inputText14ReadOnly{
 	border: 1px solid #CCCCCC;
 	-moz-border-radius: 5px;

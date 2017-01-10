@@ -976,39 +976,50 @@
 							        	<td>&nbsp;</td>
 							            <td colspan="4">
 							            	<table cellspacing="0" border="0" cellpadding="0">
+							            		
 							            		<tr class="tableHeaderField10" height="20" valign="left">
-												 	<td align="center" class="tableHeaderFieldFirst11">&nbsp;Fakt.beløb VAL&nbsp;</td> 
-								                    <td align="center" class="tableHeaderField11">&nbsp;Fakt.møntsort&nbsp;</td> 
-								                    <td align="center" class="tableHeaderField11">&nbsp;Kurs&nbsp;</td>
-								                    <td align="center" class="tableHeaderField11">&nbsp;Faktor&nbsp;</td>
+												 	<td align="center" class="tableHeaderFieldFirst11" title="dkxv_222">&nbsp;Fakt.beløb&nbsp;</td> 
+								                    <td align="center" class="tableHeaderField11" title="dkxv_221">&nbsp;Fakt.møntsort&nbsp;</td> 
+								                    <td align="center" class="tableHeaderField11" title="dkxv_221b">&nbsp;Kurs&nbsp;</td>
+								                    <td align="center" class="tableHeaderField11" title="dkxv_221c">&nbsp;Faktor&nbsp;</td>
 								                    <td align="center" class="tableHeaderField11">&nbsp;Beløb&nbsp;DKK</td> 
 									             </tr> 
 									             <tr class="tableRow">
 									              	<td class="tableCellFirst" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_222" id="dkxv_222" size="16" maxlength="16" value='${model.record.dkxv_222}'>&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221" id="dkxv_221" size="16" maxlength="10" value='${model.record.dkxv_221}'>&nbsp;</td>
-							               			<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221b" id="dkxv_221b" size="16" maxlength="8" value='${model.record.dkxv_221b}'>&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_221c" id="dkxv_221c" size="16" maxlength="7" value='${model.record.dkxv_221c}'>&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;Fakt&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_222b" id="dkxv_222b" size="16" maxlength="16" value='${model.record.dkxv_222b}'>&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;
+							               				<select class="inputTextMediumBlueMandatoryField" name="dkxv_221" id="dkxv_221" >
+										 				  <option value="">-vælg-</option>	
+										 				  	<c:forEach var="code" items="${model.currencyCodeList}" >
+						                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkxv_221 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+															</c:forEach> 
+														</select>
+														<a tabindex="-1" id="dkxv_221IdLink" >
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find2.png" width="10px" height="10px" border="0" alt="search" >
+														</a>
+							               				</td>
+							               			<td class="tableCell" align="right" >&nbsp;<input readonly type="text" class="inputText10ReadOnly"  style="text-align: right" name="dkxv_221b" id="dkxv_221b" size="16" maxlength="8" value='${model.record.dkxv_221b}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input readonly type="text" class="inputText10ReadOnly"  style="text-align: right" name="dkxv_221c" id="dkxv_221c" size="16" maxlength="7" value='${model.record.dkxv_221c}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" ><span title="dkxv_222b">&nbsp;Fakt.blp&nbsp;</span><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField"  style="text-align: right" name="dkxv_222b" id="dkxv_222b" size="16" maxlength="16" value='${model.record.dkxv_222b}'>&nbsp;</td>
 							               		 </tr>
 									             <tr class="tableRow">
 									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
 						               				<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;Tollv.&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right" name="dkxv_46" id="dkxv_46" size="16" maxlength="10" value='${model.record.dkxv_46}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" ><span title="dkxv_46">&nbsp;Tollv.&nbsp;</span><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right" name="dkxv_46" id="dkxv_46" size="16" maxlength="10" value='${model.record.dkxv_46}'>&nbsp;</td>
 							               		 </tr>
 							               		 <tr class="tableRow">
 									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
 						               				<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;Moms&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right"  name="dkxv_42b" id="dkxv_42b" size="16" maxlength="10" value='${model.record.dkxv_42b}'>&nbsp;</td>
+						               				<td class="tableCell" align="right" ><span title="dkxv_42b">&nbsp;Moms&nbsp;</span><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right"  name="dkxv_42b" id="dkxv_42b" size="16" maxlength="10" value='${model.record.dkxv_42b}'>&nbsp;</td>
 							               		 </tr>	
 							               		 <tr class="tableRow">
 									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
 							               			<td class="tableCell" align="right" >&nbsp;</td>
-						               				<td class="tableCell" align="right" >&nbsp;<b>TOTAL</b>&nbsp;</td>
+						               				<td class="tableCell" align="right" ><span title="dkxv_42c">&nbsp;<b>TOTAL</b>&nbsp;</span></td>
 						               				<td class="tableCell" align="right" >&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align: right" name="dkxv_42c" id="dkxv_42c" size="16" maxlength="12" value='${model.record.dkxv_42c}'>&nbsp;</td>
 							               		 </tr>	
 							            	</table>

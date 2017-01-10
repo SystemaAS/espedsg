@@ -98,8 +98,14 @@
 			  }else if(callerType == 'thlka'){
 				  opener.jq('#thlka').val(kod);
 				  opener.jq('#thlka').focus();
+				
+			  //valutakode	  
+			  }else if(callerType == 'thgvk'){
+				  opener.jq('#thgvk').val(kod);
+				  opener.jq('#thgvk').focus();
 			  }
 
+			  
 			  //close child window
 			  window.close();
 		  });

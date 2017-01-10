@@ -99,7 +99,17 @@
 			}
 	    });
 	    
-	    
+	  //Valuta
+  	  jq('#dkxv_221IdLink').click(function() {
+    	jq('#dkxv_221IdLink').attr('target','_blank');
+    	window.open('skatnctsexport_edit_items_childwindow_generalcodes.do?action=doInit&type=107&ctype=dkxv_221', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  });
+  	  jq('#thgvkIdLink').keypress(function(e){ //extra feature for the end user
+		if(e.which == 13) {
+			jq('#dkxv_221IdLink').click();
+		}
+  	  });
+		   
     }); 
     
     //ChildWindow Language Codes
@@ -393,6 +403,16 @@
 				jq('#tvlkks').val(data[i].tvlkks);
 				jq('#tvskks').val(data[i].tvskks);
 				jq('#tvtinks').val(data[i].tvtinks);
+				//Matrix dkxv
+				jq('#dkxv_222').val(data[i].dkxv_222);
+				jq('#dkxv_221').val(data[i].dkxv_221);
+				jq('#dkxv_221b').val(data[i].dkxv_221b);
+				jq('#dkxv_221c').val(data[i].dkxv_221c);
+				jq('#dkxv_222b').val(data[i].dkxv_222b);
+				jq('#dkxv_46').val(data[i].dkxv_46);
+				jq('#dkxv_42b').val(data[i].dkxv_42b);
+				jq('#dkxv_42c').val(data[i].dkxv_42c);
+				
 				
 				//debug information on Fetch item
 				jq('#debugPrintlnAjaxItemFetchInfo').text(data[i].debugPrintlnAjax);
@@ -732,6 +752,96 @@
 		  }
 		});
 	});
+  	
+  	
+  	//============================
+	//START - Currency AJAX fetch
+	//============================
+	jq(function() { 
+	    jq('#dkxv_221').change(function() {
+	    	//alert('Hej');
+	    	//this parameters must match the AJAX controller parameter names in Spring exactly...
+	    		var isoDate = "";
+	    		var faktisktAnkDato = jq('#datum').val();
+	    		var forventatAnkDato = jq('#datum').val();
+	    		if(faktisktAnkDato!=""){
+	    			isoDate =faktisktAnkDato; 
+	    		}else{
+	    			isoDate =forventatAnkDato;
+	    		}
+	    		getCurrencyData(isoDate);
+	    });
+	});
+	jq(function() { 
+	    jq('#dkxv_221b').blur(function() {
+	    		//alert('Hej');
+	    		//this parameters must match the AJAX controller parameter names in Spring exactly...
+	    		var dkxv_221b = jq('#dkxv_221b').val();
+	    		var isoDate = "";
+	    		var faktisktAnkDato = jq('#datum').val();
+	    		var forventatAnkDato = jq('#datum').val();
+	    		if(faktisktAnkDato!=""){
+	    			isoDate =faktisktAnkDato; 
+	    		}else{
+	    			isoDate =forventatAnkDato;
+	    		}
+	    		if(dkxv_221b==null || dkxv_221b==""){
+	    			getCurrencyData(isoDate);
+	    		}	
+	    });
+	});
+	jq(function() { 
+	    jq('#dkxv_221c').blur(function() {
+	    		//alert('Hej');
+	    		//this parameters must match the AJAX controller parameter names in Spring exactly...
+	    		var dkxv_221c = jq('#dkxv_221c').val();
+	    		var isoDate = "";
+	    		var faktisktAnkDato = jq('#datum').val();
+	    		var forventatAnkDato = jq('#datum').val();
+	    		if(faktisktAnkDato!=""){
+	    			isoDate =faktisktAnkDato; 
+	    		}else{
+	    			isoDate =forventatAnkDato;
+	    		}
+	    		if(dkxv_221c==null || dkxv_221c==""){
+	    			getCurrencyData(isoDate);
+	    		}	
+	    });
+	});
+	//private function
+	function getCurrencyData(isoDate) {
+		jq.ajax({
+			type: 'GET',
+			url: 'getCurrencyRate_SkatNctsExport.do',
+			data: { 	applicationUser : jq('#applicationUser').val(),
+					currencyCode : jq('#dkxv_221').val(),
+					isoDate : isoDate,
+					invoiceAmount : jq('#dkxv_222').val()},
+			dataType: 'json',
+			success: function(data) {
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					jq('#dkxv_221b').val(data[i].dkvk_krs);
+					jq('#dkxv_221c').val(data[i].dkvs_omr);
+					//own field NOT comming from JSON but from Ajax-method
+					jq('#dkxv_222b').val(data[i].own_blpDKK);
+					jq('#dkxv_46').val(data[i].own_tollvDKK);
+					jq('#dkxv_42b').val(data[i].own_momsDKK);
+					jq('#dkxv_42c').val(data[i].own_grandTotalDKK);
+					
+					
+				}
+			}
+		});
+	}
+	//============================
+	//END - Currency AJAX fetch
+	//============================
+	
+  	
+  	
+  	
+  	
   	
   	
   	jq(document).ready(function() {

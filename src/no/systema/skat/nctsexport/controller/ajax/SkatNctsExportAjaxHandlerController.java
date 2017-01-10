@@ -373,6 +373,71 @@ public class SkatNctsExportAjaxHandlerController {
 	    	}
 		}
 		
+	  /**
+	   * Copied from SkatExportAjaxHandler (jan 10th, 2017)
+	   * 
+	   * @param applicationUser
+	   * @param currencyCode
+	   * @param isoDate
+	   * @param invoiceAmount
+	   * @return
+	   */
+	  @RequestMapping(value = "getCurrencyRate_SkatNctsExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set getCurrencyRate(@RequestParam String applicationUser, @RequestParam String currencyCode, @RequestParam String isoDate, @RequestParam String invoiceAmount) {
+		  final String METHOD = "[DEBUG] getCurrencyRate_SkatNctsExport.do "; 
+		  logger.info("Inside " + METHOD);
+		  Set result = new HashSet();
+		  //String validDate = this.getValidCurrencyDate(isoDate);
+		  String validDate = isoDate;
+		  
+		  //build
+		  String BASE_URL_CURRENCY_RATE = SkatUrlDataStore.SKAT_FETCH_CURRENCY_RATE_URL;
+		  StringBuffer urlRequestParamsCurrencyRate = new StringBuffer();
+		  urlRequestParamsCurrencyRate.append("user=" + applicationUser);
+		  urlRequestParamsCurrencyRate.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + currencyCode);
+		  urlRequestParamsCurrencyRate.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + validDate);
+		  //execute
+		  String jsonPayloadCurrencyRate = this.urlCgiProxyService.getJsonContent(BASE_URL_CURRENCY_RATE, urlRequestParamsCurrencyRate.toString());
+		  logger.info(METHOD + "CURRENCY URL:" + BASE_URL_CURRENCY_RATE);
+		  logger.info(METHOD + "CURRENCY PARAMS:" + urlRequestParamsCurrencyRate.toString());
+		  logger.info(METHOD + jsonPayloadCurrencyRate);
+		  //now map and process json
+		  if(jsonPayloadCurrencyRate!=null){
+			  JsonCurrencyRateContainer jsonCurrencyRateContainer = this.currencyRateService.getCurrencyRateContainer(jsonPayloadCurrencyRate);
+			  for(JsonCurrencyRateRecord record : jsonCurrencyRateContainer.getValutakurs()){
+				  //Debug
+				  logger.info(METHOD + "Currency RATE: " + record.getSvvk_krs() + " " + record.getDkvk_krs());
+				  logger.info(METHOD + "Currency FACTOR: " + record.getSvvs_omr() + " " + record.getDkvs_omr());
+				  //extra fields
+				  if(invoiceAmount!=null && !"".equals(invoiceAmount)){
+					  Double dblAmount = Double.parseDouble(invoiceAmount.replace(",", "."));
+					  Double dblKurs = Double.parseDouble(record.getDkvk_krs().replace(",", "."));
+					  Integer intFactor = Integer.parseInt(record.getDkvs_omr());
+					  //(1) do the math
+					  Double dblAmountDKK = (dblAmount * dblKurs) / intFactor;
+					  Double dblTollvDKK = 0.00;
+					  Double dblMomsDKK = dblAmountDKK * 0.25;
+					  Double dblGrandTotalDKK = dblAmountDKK + dblMomsDKK;
+					  //(2) setters
+					  String strAmountDKK = String.valueOf(dblAmountDKK);
+					  record.setOwn_blpDKK(strAmountDKK.replace(".", ","));
+					  //Tollverdi
+					  String strTollvDKK = String.valueOf(dblTollvDKK);
+					  record.setOwn_tollvDKK(strTollvDKK.replace(".", ",")); //TODO CB/OT
+					  //Moms
+					  String strMomsDKK = String.valueOf(dblMomsDKK);
+					  record.setOwn_momsDKK(strMomsDKK.replace(".", ","));
+					  //Grand total
+					  String strGrandTotalDKK = String.valueOf(dblGrandTotalDKK);
+					  record.setOwn_grandTotalDKK(strGrandTotalDKK.replace(".", ","));
+					  logger.info(METHOD + "Grand Total: " + record.getOwn_grandTotalDKK());
+					  
+				  }
+				  result.add(record);
+			  }
+		  } 
+		  return result;
+	  }
 	  	
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")

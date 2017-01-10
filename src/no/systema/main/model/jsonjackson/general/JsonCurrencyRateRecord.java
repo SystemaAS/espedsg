@@ -30,6 +30,23 @@ public class JsonCurrencyRateRecord {
 	public void setDkvk_krs(String value){ this.dkvk_krs = value;}
 	public String getDkvk_krs(){ return this.dkvk_krs; }
 	
+	private String own_blpDKK = null;
+	public void setOwn_blpDKK(String value){ this.own_blpDKK = value;}
+	public String getOwn_blpDKK(){ return this.own_blpDKK; }
+	
+	private String own_tollvDKK = null;
+	public void setOwn_tollvDKK(String value){ this.own_tollvDKK = value;}
+	public String getOwn_tollvDKK(){ return this.own_tollvDKK; }
+	
+	private String own_momsDKK = null;
+	public void setOwn_momsDKK(String value){ this.own_momsDKK = value;}
+	public String getOwn_momsDKK(){ return this.own_momsDKK; }
+	
+	private String own_grandTotalDKK = null;
+	public void setOwn_grandTotalDKK(String value){ this.own_grandTotalDKK = value;}
+	public String getOwn_grandTotalDKK(){ return this.own_grandTotalDKK; }
+	
+	
 	//TVINN_SAD
 	private String kvaomr = null;
 	public void setKvaomr(String value){ this.kvaomr = value;}
