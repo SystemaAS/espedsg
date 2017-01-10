@@ -342,18 +342,18 @@
 									<tr>
 										<td class="text12Bold">&nbsp;Antal vareposter&nbsp;&nbsp;<font class="text12MediumBlue"><b>${totalNumberOfItemLines}</b></font>
 										</td>
-										<td width="10%" class="text12">&nbsp;</td>
-										<td align="right" class="text11">Bruttovægt:&nbsp;
+										<td width="6%" class="text12">&nbsp;</td>
+										<td nowrap align="right" class="text11">Bruttovægt:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=11" value='${recordTopicSkat.dkeh_brut}'>
 										</td>
-										<td align="right" class="text11">Faktura beløb:&nbsp;
+										<td nowrap align="right" class="text11">Faktura beløb:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value='${recordTopicSkat.dkeh_222}'>
 											&nbsp;<font style="color:#000080; font-style: italic;"><b>${recordTopicSkat.dkeh_221}</b></font>
 										</td>
-										<td align="right" class="text11">Varens pris&nbsp;(&Sigma;):&nbsp;
+										<td nowrap align="right" class="text11">Varens pris&nbsp;(&Sigma;):&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value='${model.recordItemContainerTopic.calculatedItemLinesTotalAmount}'>
 										</td>
-										<td align="right" class="text11">Forskel:&nbsp;
+										<td nowrap align="right" class="text11">Forskel:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly
 												<c:choose>
 												<c:when test="${fn:contains(model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount,'-')}">
@@ -378,11 +378,11 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}"> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							
-								<table id="containerdatatableTable" cellspacing="2" align="left" >
+								<table width="100%" id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 							
-								<table id="tblItemLines" class="display compact cell-border">
+								<table id="tblItemLines" class="display compact cell-border" >
 									<thead>
 										<tr style="background-color:#DDDDDD">
 									    <th class="text11">&nbsp;Lin&nbsp;</th>

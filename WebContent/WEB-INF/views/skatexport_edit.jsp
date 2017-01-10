@@ -355,7 +355,7 @@
 				 			</td>
 				 			<td>	
 				 				<select name="dkeh_ajou" id="dkeh_ajou" >
-			 					  <option value="">-vælg-</option>
+			 					  <option value="" <c:if test="${ empty model.record.dkeh_ajou }"> selected </c:if> >-vælg-</option>
 			 					  <option value="1"<c:if test="${ model.record.dkeh_ajou == '1'}"> selected </c:if> >1</option>
 								  <option value="2"<c:if test="${ model.record.dkeh_ajou == '2'}"> selected </c:if> >2</option>
 								  <option value="6"<c:if test="${ model.record.dkeh_ajou == '6'}"> selected </c:if> >6</option>
