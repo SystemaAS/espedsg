@@ -187,15 +187,17 @@
 								<td width="50%" >&nbsp;
 									<table border="0">
 										<tr>
-											<td class="text12" title="kundnr">&nbsp;Kundenr:</td>
+											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr:</td>
+										
 											<c:choose>
 												<c:when test="${model.action == 'doCreate'}">
-													<td><input type="text" class="inputTextMediumBlue"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+													<td><input required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
 												</c:when>
 												<c:otherwise>
 													<td><input readonly type="text" class="inputTextReadOnly"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
 												</c:otherwise>
 											</c:choose>
+											
 											<td class="text12" title="syrg">&nbsp;Org.nr:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
 										</tr>
@@ -216,8 +218,8 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="text12" title="postnr">&nbsp;<font class="text14RedBold" >*</font>Postnr(norsk):</td>
-											<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="postnr" id="postnr" size="5" maxlength="4" value='${model.record.postnr}'></td>
+											<td class="text12" title="postnr">&nbsp;Postnr(norsk):</td>
+											<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="postnr" id="postnr" size="5" maxlength="4" value='${model.record.postnr}'></td>
 											<td class="text12" title="adr2">&nbsp;Postboks:</td>
 											<td><input type="text" class="inputTextMediumBlue" name="adr2" id="adr2" size="20" maxlength="30" value='${model.record.adr2}'></td>
 										</tr>
@@ -296,8 +298,8 @@
 													<tr>
 														<td class="text12" title="bankg">&nbsp;Bankgiro:</td>
 														<td><input type="text" class="inputTextMediumBlue" name="bankg" id="bankg" size="20" maxlength="15" value='${model.record.bankg}'></td>
-														<td class="text12" title="betbet">&nbsp;<font class="text14RedBold">*</font>Betalingsbetingelse:</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="betbet" id="betbet" size="5" maxlength="2" value='${model.record.betbet}'></td>
+														<td class="text12" title="betbet">&nbsp;Betalingsbetingelse:</td>
+														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="betbet" id="betbet" size="5" maxlength="2" value='${model.record.betbet}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="postg">&nbsp;Postgiro:</td>

@@ -986,6 +986,38 @@
 					 				    		</c:choose>	
 											
 							            </td>
+							            <td colspan="4">
+							            	<table cellspacing="0" border="0" cellpadding="0">
+							            		<tr class="tableHeaderField" height="20" valign="left">
+												 	<td align="right" class="tableHeaderFieldFirst">&nbsp;Fakt.beløb VAL&nbsp;</td> 
+								                    <td align="right" class="tableHeaderField">&nbsp;Fakt.møntsort&nbsp;</td> 
+								                    <td align="right" class="tableHeaderField">&nbsp;Kurs&nbsp;</td>
+								                    <td align="right" class="tableHeaderField">&nbsp;Faktor&nbsp;</td>
+								                    <td align="right" class="tableHeaderField">&nbsp;Fakt.beløb DKK&nbsp;</td> 
+									             </tr> 
+									             <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_46" id="dkxv_46" size="10" maxlength="10" value='${Xmodel.record.dkxv_46}'>&nbsp;</td>
+							               		 </tr>
+							               		 <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_42b" id="dkxv_42b" size="10" maxlength="10" value='${Xmodel.record.dkxv_42b}'>&nbsp;</td>
+							               		 </tr>	
+							               		 <tr class="tableRow">
+									              	<td class="tableCellFirst" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+							               			<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;</td>
+						               				<td class="tableCell" align="right" >&nbsp;<input type="text" class="inputText" name="dkxv_42c" id="dkxv_42c" size="12" maxlength="12" value='${Xmodel.record.dkxv_42c}'>&nbsp;</td>
+							               		 </tr>	
+							            	</table>
+							            </td>
  							        </tr>
 			        	        </table>
 					        </td>
