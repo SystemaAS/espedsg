@@ -410,7 +410,9 @@ public class SkatNctsExportAjaxHandlerController {
 		  Set result = new HashSet();
 		  //String validDate = this.getValidCurrencyDate(isoDate);
 		  String validDate = isoDate;
-		  
+		  if(toldsats==null || "".equals(toldsats)){
+			  toldsats = "0.00";
+		  }
 		  //build
 		  String BASE_URL_CURRENCY_RATE = SkatUrlDataStore.SKAT_FETCH_CURRENCY_RATE_URL;
 		  StringBuffer urlRequestParamsCurrencyRate = new StringBuffer();
@@ -427,39 +429,49 @@ public class SkatNctsExportAjaxHandlerController {
 			  JsonCurrencyRateContainer jsonCurrencyRateContainer = this.currencyRateService.getCurrencyRateContainer(jsonPayloadCurrencyRate);
 			  for(JsonCurrencyRateRecord record : jsonCurrencyRateContainer.getValutakurs()){
 				  //Debug
-				  logger.info(METHOD + "Currency RATE: " + record.getSvvk_krs() + " " + record.getDkvk_krs());
-				  logger.info(METHOD + "Currency FACTOR: " + record.getSvvs_omr() + " " + record.getDkvs_omr());
+				  logger.info(METHOD + "Currency RATE: " + record.getDkvk_krs());
+				  logger.info(METHOD + "Currency FACTOR: " + record.getDkvs_omr());
 				  //extra fields
 				  if(invoiceAmount!=null && !"".equals(invoiceAmount)){
 					  Double dblAmount = Double.parseDouble(invoiceAmount.replace(",", "."));
 					  Double dblToldsats = Double.parseDouble(toldsats.replace(",", "."));
 					  Double dblKurs = Double.parseDouble(record.getDkvk_krs().replace(",", "."));
 					  Integer intFactor = Integer.parseInt(record.getDkvs_omr());
+					  logger.info(METHOD + "Before math... ");
 					  //(1) do the math
 					  Double dblAmountDKK = (dblAmount * dblKurs) / intFactor;
 					  Double dblTollvDKK = (dblAmountDKK * dblToldsats);
 					  Double dblSubTotalExklMoms = (dblAmountDKK + dblTollvDKK);
 					  Double dblMomsDKK = (dblSubTotalExklMoms) * 0.25;
 					  Double dblGrandTotalDKK = dblSubTotalExklMoms + dblMomsDKK;
+					  logger.info(METHOD + "After math... " + dblAmountDKK + "-"+dblTollvDKK + "-" + dblSubTotalExklMoms + "-" + dblMomsDKK + "-" + dblGrandTotalDKK);
 					  //format decimals numbers
-					  dblAmountDKK = this.numberFormatter.getDouble(dblAmountDKK, 2);
-					  dblTollvDKK = this.numberFormatter.getDouble(dblTollvDKK, 2);
-					  dblSubTotalExklMoms = this.numberFormatter.getDouble(dblSubTotalExklMoms, 2);
-					  dblMomsDKK = this.numberFormatter.getDouble(dblMomsDKK, 2);
-					  dblGrandTotalDKK = this.numberFormatter.getDouble(dblGrandTotalDKK, 2);
-					  
-					  //(2) setters
-					  String strAmountDKK = String.valueOf(dblAmountDKK);
-					  record.setOwn_blpDKK(strAmountDKK.replace(".", ","));
+					  //dblAmountDKK = this.numberFormatter.getDouble(dblAmountDKK, 2);
+					  //dblTollvDKK = this.numberFormatter.getDouble(dblTollvDKK, 2);
+					  //dblSubTotalExklMoms = this.numberFormatter.getDouble(dblSubTotalExklMoms, 2);
+					  //dblMomsDKK = this.numberFormatter.getDouble(dblMomsDKK, 2);
+					  //dblGrandTotalDKK = this.numberFormatter.getDouble(dblGrandTotalDKK, 2);
+					  //logger.info(METHOD + "After format... " + dblAmountDKK + "-"+dblTollvDKK + "-" + dblSubTotalExklMoms + "-" + dblMomsDKK + "-" + dblGrandTotalDKK);
+					  ///(2) setters
+					  //--String strAmountDKK = String.valueOf(dblAmountDKK);
+					  //--String strAmountDKK = this.numberFormatter.getDoubleEuropeanFormat(dblAmountDKK, 2);
+					  String strAmountDKK = String.valueOf(this.numberFormatter.getDoubleEuropeanFormat(dblAmountDKK, 2, false));
+					  record.setOwn_blpDKK(strAmountDKK);
 					  //Tollverdi
-					  String strTollvDKK = String.valueOf(dblTollvDKK);
-					  record.setOwn_tollvDKK(strTollvDKK.replace(".", ","));
+					  //--String strTollvDKK = String.valueOf(dblTollvDKK);
+					  //--record.setOwn_tollvDKK(strTollvDKK.replace(".", ","));
+					  String strTollvDKK = String.valueOf(this.numberFormatter.getDoubleEuropeanFormat(dblTollvDKK, 2, false));
+					  record.setOwn_tollvDKK(strTollvDKK);
 					  //Moms
-					  String strMomsDKK = String.valueOf(dblMomsDKK);
-					  record.setOwn_momsDKK(strMomsDKK.replace(".", ","));
+					  //--String strMomsDKK = String.valueOf(dblMomsDKK);
+					  //--record.setOwn_momsDKK(strMomsDKK.replace(".", ","));
+					  String strMomsDKK = String.valueOf(this.numberFormatter.getDoubleEuropeanFormat(dblMomsDKK, 2, false));
+					  record.setOwn_momsDKK(strMomsDKK);
 					  //Grand total
-					  String strGrandTotalDKK = String.valueOf(dblGrandTotalDKK);
-					  record.setOwn_grandTotalDKK(strGrandTotalDKK.replace(".", ","));
+					  //--String strGrandTotalDKK = String.valueOf(dblGrandTotalDKK);
+					  //--record.setOwn_grandTotalDKK(strGrandTotalDKK.replace(".", ","));
+					  String setOwn_grandTotalDKK = String.valueOf(this.numberFormatter.getDoubleEuropeanFormat(dblGrandTotalDKK, 2, false));
+					  record.setOwn_grandTotalDKK(setOwn_grandTotalDKK);
 					  logger.info(METHOD + "Grand Total: " + record.getOwn_grandTotalDKK());
 					  
 				  }

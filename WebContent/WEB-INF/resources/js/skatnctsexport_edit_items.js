@@ -246,10 +246,10 @@
 	    			for ( var i = 0; i < 1; i++) {
 	    				if(jq('#tvvnt').val()==''){
 	    					var itemCode = data[i].dkev_331;
-	    					if(itemCode!='' && itemCode.length>6){
+	    					/*if(itemCode!='' && itemCode.length>6){
 	    						var tmp = itemCode.substring(0, 6);
 	    						itemCode = tmp;
-	    					}
+	    					}*/
 	    					jq('#tvvnt').val(itemCode);
 	    				}
 	    				if(jq('#tvvktb').val()==''){

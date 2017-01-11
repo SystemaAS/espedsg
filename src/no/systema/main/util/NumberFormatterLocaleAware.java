@@ -176,7 +176,7 @@ public class NumberFormatterLocaleAware {
 				 	
 			 }
 		 }catch(Exception e){
-			 //nothing
+			 e.toString();
 		 }
 		 return retval;
 	 }
