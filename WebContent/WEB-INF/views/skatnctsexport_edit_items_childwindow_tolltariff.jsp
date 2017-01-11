@@ -50,8 +50,9 @@
 					<table id="tolltariffList" class="display compact cell-border" width="100%" >
 						<thead>
 						<tr style="background-color:#EEEEEE">
-							<th class="text11" title="adunnr">&nbsp;Varekod&nbsp;</th>
-		                    <th class="text11" title="adembg">&nbsp;Beskrivelse&nbsp;</th>
+							<th class="text11" title="dktara02">&nbsp;Varekod&nbsp;</th>
+		                    <th class="text11" title="dktara64">&nbsp;Beskrivelse&nbsp;</th>
+		                    <th class="text11" title="dktara15">&nbsp;Toldsats&nbsp;</th>
 		                </tr> 
 		                </thead>
 		                
@@ -66,10 +67,12 @@
 			                   </c:otherwise>
 			               </c:choose>
 			               
-		               	   <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.dktara02}@text${record.dktara64}@ctype${model.callerType}" >
+		               	   <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.dktara02}@text${record.dktara64}@ctype${model.callerType}@tollsats${record.dktara15}" >
 			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.dktara02}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.dktara64}</td>
+		               	   <td class="text11">&nbsp;${record.dktara15}</td>
+		               	   
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

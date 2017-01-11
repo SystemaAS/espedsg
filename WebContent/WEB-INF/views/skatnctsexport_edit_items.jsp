@@ -597,7 +597,7 @@
 			 			            		</td>
 							            
 							        		<td class="text12" align="left">
-							        			<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="tvvnt" id="tvvnt" size="12" maxlength="6" value="${model.record.tvvnt}">
+							        			<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="tvvnt" id="tvvnt" size="12" maxlength="8" value="${model.record.tvvnt}">
 							        			<a tabindex="-1" id="tvvntIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 												</a>
@@ -955,7 +955,7 @@
 										</div>
 							            
 							            </td>
-										<td>&nbsp;</td>
+										<td class="text11" >Toldsats</td>
 										
 							        </tr>
 							        <tr>
@@ -973,7 +973,7 @@
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 											</a>
 										</td>
-							        	<td>&nbsp;</td>
+							        	<td valign="top"><input readonly type="text" class="inputTextReadOnly" name="ownToldsats" id="ownToldsats" size="9" value=''></td>
 							            <td colspan="5">
 							            	<table cellspacing="0" border="0" cellpadding="0">
 							            		

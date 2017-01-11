@@ -15,6 +15,7 @@ public class GeneralTester {
 	 */
 	public static void main(String[] args) {
 		try{
+			/*
 			String SPACE = "Z";
 			int FTX_LIMIT = 50;
 			StringBuffer str = new StringBuffer("TARZAN in the jungle");
@@ -23,7 +24,13 @@ public class GeneralTester {
 				str.append(SPACE);
 			}
 			System.out.println(str);
-			
+			*/
+			//
+			String tmp = "0000850";
+			String strInteger = tmp.substring(0,4);
+			  String strDecimals = tmp.substring(3);
+			  System.out.println("dbl:" + strInteger + "." + strDecimals);
+			  
 		}catch(Exception e){
 			e.printStackTrace();
 		}

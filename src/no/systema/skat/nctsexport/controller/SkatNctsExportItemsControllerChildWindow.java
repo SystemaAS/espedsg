@@ -204,6 +204,9 @@ public class SkatNctsExportItemsControllerChildWindow {
 	private List<JsonSkatTaricVarukodRecord> getTolltariffList(SystemaWebUser appUser, String tolltariffVarekod, String ieMode){
 		List<JsonSkatTaricVarukodRecord> list = new ArrayList<JsonSkatTaricVarukodRecord>();
 		
+		String strDktara15 = "0.00";
+		JsonSkatTaricVarukodRecord defaultRecord = new JsonSkatTaricVarukodRecord();
+		
 		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 		String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -222,8 +225,25 @@ public class SkatNctsExportItemsControllerChildWindow {
 				container = this.skatTaricVarukodService.getContainer(jsonPayload);
 				if(container!=null){
 					for(JsonSkatTaricVarukodRecord  record : container.getTariclist()){
-						list.add(record);
+					  //format
+					  if(record.getDktara15()!=null && !"".equals(record.getDktara15())){
+						  if(record.getDktara15().length()==7){
+							  String strInteger = record.getDktara15().substring(0,4);
+							  String strDecimals = record.getDktara15().substring(3);
+							  strDktara15 = strInteger + "." + strDecimals;
+							  //logger.info("strDktara15:" + strDktara15);
+						  }
+					  }
+					  record.setDktara15(strDktara15);
+					  list.add(record);
 					}
+					
+				}
+				//default when applicable
+				if(list.isEmpty()){
+					logger.info("default record...");
+					defaultRecord.setDktara15(strDktara15);
+					list.add(defaultRecord);
 				}
 			}
 		}catch(Exception e){

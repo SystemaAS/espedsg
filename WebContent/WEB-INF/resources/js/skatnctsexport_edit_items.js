@@ -404,14 +404,14 @@
 				jq('#tvskks').val(data[i].tvskks);
 				jq('#tvtinks').val(data[i].tvtinks);
 				//Matrix dkxv
-				jq('#dkxv_222').val(data[i].dkxv_222);
-				jq('#dkxv_221').val(data[i].dkxv_221);
-				jq('#dkxv_221b').val(data[i].dkxv_221b);
-				jq('#dkxv_221c').val(data[i].dkxv_221c);
-				jq('#dkxv_222b').val(data[i].dkxv_222b);
-				jq('#dkxv_46').val(data[i].dkxv_46);
-				jq('#dkxv_42b').val(data[i].dkxv_42b);
-				jq('#dkxv_42c').val(data[i].dkxv_42c);
+				jq('#dkxv_222').val(data[i].dkxv_222); //Fakt.b VAL
+				jq('#dkxv_221').val(data[i].dkxv_221); //VALUTA
+				jq('#dkxv_221b').val(data[i].dkxv_221b); //KURS
+				jq('#dkxv_221c').val(data[i].dkxv_221c); //Faktor
+				jq('#dkxv_222b').val(data[i].dkxv_222b); //Fakt.b DKK
+				jq('#dkxv_46').val(data[i].dkxv_46);//Tollverdi
+				jq('#dkxv_42b').val(data[i].dkxv_42b);//Moms
+				jq('#dkxv_42c').val(data[i].dkxv_42c);//Grand total (ink moms)
 				
 				
 				//debug information on Fetch item
@@ -429,23 +429,23 @@
   	
   	jq(function() {
   		jq('#tvvnt').blur(function() {
-  		  if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==6 ){
-  			//STEP(1) get varebeskrivelse if empty 
-  			if(jq('#tvvt').val()==''){  
-	  			jq.getJSON('searchTaricVarukod_SkatNctsExport.do', {
-					applicationUser : jq('#applicationUser').val(),
-					taricVarukod : jq('#tvvnt').val(),
-					ajax : 'true'
-				}, function(data) {
-					var len = data.length;
-					for ( var i = 0; i < len; i++) {
-						//första bästa, annars får användaren använda luppen
-						jq('#tvvt').val(data[i].dktara64);					
-					}					
-				});
-  			}
+  		  if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==8 ){
+  			jq.getJSON('searchTaricVarukod_SkatNctsExport.do', {
+				applicationUser : jq('#applicationUser').val(),
+				taricVarukod : jq('#tvvnt').val(),
+				ajax : 'true'
+			}, function(data) {
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					if(jq('#tvvt').val()==''){ 
+						jq('#tvvt').val(data[i].dktara64);
+					}
+					jq('#ownToldsats').val(data[i].dktara15);
+				}					
+			});
+	  			
   			//STEP(2) get følsomme varer krav (mandatory or not)
-  			if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==6 ){  
+  			if(jq('#tvvnt').val()!='' && jq('#tvvnt').val().length==8 ){  
 	  			jq.getJSON('isFolsommeVare_SkatNctsExport.do', {
 					applicationUser : jq('#applicationUser').val(),
 					taricVarukod : jq('#tvvnt').val(),
@@ -458,15 +458,19 @@
 							jq('#tvfv').val(data[i].tfkode);
 						}	
 					}else{
-						jq('#tvfvnt').val("");
+						//jq('#tvvt').val("");
 						jq('#tvfv').val("");
 					}	
 				});
   			}
+  			
+  		  }else{
+			jq('#tvfvnt').val("");
+			jq('#tvfv').val("");
+			jq('#ownToldsats').val("");
   		  }			  
   		});
   	});
-  	
   	
   	
 	//---------------------------------------------------------
@@ -813,10 +817,11 @@
 		jq.ajax({
 			type: 'GET',
 			url: 'getCurrencyRate_SkatNctsExport.do',
-			data: { 	applicationUser : jq('#applicationUser').val(),
+			data: { applicationUser : jq('#applicationUser').val(),
 					currencyCode : jq('#dkxv_221').val(),
 					isoDate : isoDate,
-					invoiceAmount : jq('#dkxv_222').val()},
+					invoiceAmount : jq('#dkxv_222').val(),
+					toldsats : jq('#ownToldsats').val()},
 			dataType: 'json',
 			success: function(data) {
 				var len = data.length;
@@ -875,38 +880,4 @@
 
 	});
   	
-  	//OBSOLETE: Grid aspects on behavior usually required when updating more than 10-rows. 
-	//All this helps to high-light the next-row to update...after a newly row update has taken place.
-	/*jq(document).ready(function(){
-		var indx = 1;
-		try{
-			indx = parseInt(jq('#lastSelectedItemLineNumber').val());
-			indx++;
-		}catch(err){ 
-			//alert("err:" + err.message)
-		}
-		var row = document.getElementById("parentItemLineListTable").rows;
-		//do the rest ONLY if lineNr is empty (since there could be validadtion errors and in this case the code should not execute further)
-		var lineNr = jq('#lineNr').val();
-		if (indx > 1 && ""==lineNr){
-			//alert(indx);
-			row[indx].scrollIntoView(false);
-			var id = "#"+row[indx].id;
-			//jq(id).css("background-color","#F0F0F0");
-			jq(id).css("background-color","#A3D098");
-			row[indx].focus();
-			
-		}else{
-			//focus on dkiv_331
-			jq('#tvvnt').focus();
-		}
-	});
-	*/
   	
-	
-
-		
-
-
-  	
-	

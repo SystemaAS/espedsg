@@ -10,12 +10,18 @@
 			  var vkod = record[0].replace("vkod", "");
 			  var text = record[1].replace("text", "");
 			  var callerType = record[2].replace("ctype", "");
+			  var tollsats = record[3].replace("tollsats", "");
+			  
 			  //alert(vkod + " " + text + " " + callerType);
 			  if(vkod!=null && vkod.length>6){
-				  vkod = vkod.substring(0, 6);
+				  //vkod = vkod.substring(0, 6); change to 8-chars
 			  }	  
 			  opener.jq('#tvvnt').val(vkod);
 			  opener.jq('#tvvnt').focus();
+			  opener.jq('#tvvt').val(text);
+			  //tollsats
+			  opener.jq('#ownToldsats').val(tollsats);
+			  
 			  //close child window
 			  window.close();
 		  });

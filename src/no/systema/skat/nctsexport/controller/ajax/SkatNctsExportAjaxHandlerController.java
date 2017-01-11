@@ -49,6 +49,7 @@ import no.systema.skat.nctsexport.model.jsonjackson.topic.validation.JsonSkatNct
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityRecord;
 
+import no.systema.main.util.NumberFormatterLocaleAware;
 
 /**
  * This Ajax handler is the class handling ajax request in SkatNctsExport. 
@@ -63,7 +64,7 @@ import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExpo
 
 public class SkatNctsExportAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(SkatNctsExportAjaxHandlerController.class.getName());
-	
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	/**
 	 * 
 	 * @param applicationUser
@@ -219,7 +220,9 @@ public class SkatNctsExportAjaxHandlerController {
 		  logger.info("Inside searchTaricVarukod_SkatNctsExport()");
 		  Set result = new HashSet();
 		  String IMPORT_IE = "E";//
-		  int VARUKOD_LENGTH_DK = 6;
+		  int VARUKOD_LENGTH_DK = 8;
+		  String strDktara15 = "0.00";
+		  JsonSkatTaricVarukodRecord defaultRecord = new JsonSkatTaricVarukodRecord();
 		  try{
 			  if(taricVarukod!=null && taricVarukod.length()==VARUKOD_LENGTH_DK){
 				  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
@@ -231,8 +234,25 @@ public class SkatNctsExportAjaxHandlerController {
 					  logger.info("dktara02:" + record.getDktara02());
 					  logger.info("dktara63:" + record.getDktara63());
 					  logger.info("dktara64:" + record.getDktara64());
+					  logger.info("dktara15:" + record.getDktara15());
+					  //format
+					  if(record.getDktara15()!=null && !"".equals(record.getDktara15())){
+						  if(record.getDktara15().length()==7){
+							  String strInteger = record.getDktara15().substring(0,4);
+							  String strDecimals = record.getDktara15().substring(3);
+							  strDktara15 = strInteger + "." + strDecimals;
+						  }
+					  }
+					  record.setDktara15(strDktara15);
+					  logger.info("dktara15:" + record.getDktara15());
 					  result.add(record);
 				  }	
+				  
+			  }
+			  //with no match
+			  if(result.isEmpty()){
+				  defaultRecord.setDktara15(strDktara15);
+				  result.add(defaultRecord);
 			  }
 		  }catch(Exception e){
 			  e.printStackTrace();
@@ -251,7 +271,7 @@ public class SkatNctsExportAjaxHandlerController {
 	  public @ResponseBody Set<JsonSkatTaricVarukodRecord> isFolsommeVare(@RequestParam String applicationUser, @RequestParam String taricVarukod) {
 		  logger.info("Inside isFolsommeVare_SkatNctsExport()");
 		  Set result = new HashSet();
-		  int VARUKOD_LENGTH_DK = 6;
+		  int VARUKOD_LENGTH_DK = 8;
 		  String FOLSOMMEVARE_CODE = "064";
 		  try{
 			  if(taricVarukod!=null && taricVarukod.length()==VARUKOD_LENGTH_DK){
@@ -383,7 +403,8 @@ public class SkatNctsExportAjaxHandlerController {
 	   * @return
 	   */
 	  @RequestMapping(value = "getCurrencyRate_SkatNctsExport.do", method = RequestMethod.GET)
-	  public @ResponseBody Set getCurrencyRate(@RequestParam String applicationUser, @RequestParam String currencyCode, @RequestParam String isoDate, @RequestParam String invoiceAmount) {
+	  public @ResponseBody Set getCurrencyRate(@RequestParam String applicationUser, @RequestParam String currencyCode, 
+			  @RequestParam String isoDate, @RequestParam String invoiceAmount, @RequestParam String toldsats) {
 		  final String METHOD = "[DEBUG] getCurrencyRate_SkatNctsExport.do "; 
 		  logger.info("Inside " + METHOD);
 		  Set result = new HashSet();
@@ -411,19 +432,28 @@ public class SkatNctsExportAjaxHandlerController {
 				  //extra fields
 				  if(invoiceAmount!=null && !"".equals(invoiceAmount)){
 					  Double dblAmount = Double.parseDouble(invoiceAmount.replace(",", "."));
+					  Double dblToldsats = Double.parseDouble(toldsats.replace(",", "."));
 					  Double dblKurs = Double.parseDouble(record.getDkvk_krs().replace(",", "."));
 					  Integer intFactor = Integer.parseInt(record.getDkvs_omr());
 					  //(1) do the math
 					  Double dblAmountDKK = (dblAmount * dblKurs) / intFactor;
-					  Double dblTollvDKK = 0.00;
-					  Double dblMomsDKK = dblAmountDKK * 0.25;
-					  Double dblGrandTotalDKK = dblAmountDKK + dblMomsDKK;
+					  Double dblTollvDKK = (dblAmountDKK * dblToldsats);
+					  Double dblSubTotalExklMoms = (dblAmountDKK + dblTollvDKK);
+					  Double dblMomsDKK = (dblSubTotalExklMoms) * 0.25;
+					  Double dblGrandTotalDKK = dblSubTotalExklMoms + dblMomsDKK;
+					  //format decimals numbers
+					  dblAmountDKK = this.numberFormatter.getDouble(dblAmountDKK, 2);
+					  dblTollvDKK = this.numberFormatter.getDouble(dblTollvDKK, 2);
+					  dblSubTotalExklMoms = this.numberFormatter.getDouble(dblSubTotalExklMoms, 2);
+					  dblMomsDKK = this.numberFormatter.getDouble(dblMomsDKK, 2);
+					  dblGrandTotalDKK = this.numberFormatter.getDouble(dblGrandTotalDKK, 2);
+					  
 					  //(2) setters
 					  String strAmountDKK = String.valueOf(dblAmountDKK);
 					  record.setOwn_blpDKK(strAmountDKK.replace(".", ","));
 					  //Tollverdi
 					  String strTollvDKK = String.valueOf(dblTollvDKK);
-					  record.setOwn_tollvDKK(strTollvDKK.replace(".", ",")); //TODO CB/OT
+					  record.setOwn_tollvDKK(strTollvDKK.replace(".", ","));
 					  //Moms
 					  String strMomsDKK = String.valueOf(dblMomsDKK);
 					  record.setOwn_momsDKK(strMomsDKK.replace(".", ","));
