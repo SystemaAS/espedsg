@@ -974,7 +974,7 @@
 											</a>
 										</td>
 							        	<td>&nbsp;</td>
-							            <td colspan="4">
+							            <td colspan="5">
 							            	<table cellspacing="0" border="0" cellpadding="0">
 							            		
 							            		<tr class="tableHeaderField10" height="20" valign="left">
@@ -1024,7 +1024,13 @@
 							               		 </tr>	
 							            	</table>
 							            </td>
-							            <td valign="bottom" align="center">
+							            
+ 							        </tr>
+ 							        <tr>
+ 							        	<td colspan="9">
+ 							        	<table border="0" width="1000px">
+ 							        	<tr>
+ 							        	<td width="100%" align="right">
 											<c:choose>	
 												<c:when test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
 													<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.skat.ncts.export.item.createnew.submit"/>'>
@@ -1035,6 +1041,9 @@
 					 				    		</c:choose>	
 											
 							            </td>
+ 							        	</table>
+ 							        	</tr>
+ 							        	</td>
  							        </tr>
 			        	        </table>
 					        </td>
