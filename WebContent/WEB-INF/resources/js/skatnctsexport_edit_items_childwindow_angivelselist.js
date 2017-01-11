@@ -19,12 +19,16 @@
 			  var xref = record[2].replace("xref", "");
 			  var refnr = record[3].replace("refnr", "");
 			  var mrn = record[4].replace("mrn", "");
-			  
+			  var faktValuta = record[5].replace("valuta", "");
+			  var faktBelopp = record[6].replace("blp", "");
 			  
 			  //alert(vkod + " " + text);
 			  opener.jq('#tvavd2').val(avd);
 			  opener.jq('#tvtdn2').val(opd);
 			  opener.jq('#xref').val(xref);
+			  opener.jq('#dkxv_221').val(faktValuta);
+			  opener.jq('#dkxv_222').val(faktBelopp);
+			  
 			  if(opener.jq('#tvdref').val()==''){
 				  if(mrn!=''){
 					  opener.jq('#tvdref').val(mrn);

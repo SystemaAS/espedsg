@@ -833,8 +833,7 @@
 					jq('#dkxv_46').val(data[i].own_tollvDKK);
 					jq('#dkxv_42b').val(data[i].own_momsDKK);
 					jq('#dkxv_42c').val(data[i].own_grandTotalDKK);
-					
-					
+
 				}
 			}
 		});

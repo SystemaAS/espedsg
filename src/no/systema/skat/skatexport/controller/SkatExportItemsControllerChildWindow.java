@@ -83,37 +83,6 @@ public class SkatExportItemsControllerChildWindow {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="skatnctsexport_edit_items_childwindow_angivelselist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
-	public ModelAndView doFindAngivelseList(@ModelAttribute ("record") SearchFilterSkatExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitAngivelseList");
-		Map model = new HashMap();
-		
-		ModelAndView successView = new ModelAndView("skatnctsexport_edit_items_childwindow_angivelselist");
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return this.loginView;
-			
-		}else{
-			
-			List<JsonSkatExportTopicListRecord> list = (List)this.getAngivelseList(appUser, searchFilter);
-			model.put("angivelseList", list);
-			successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER , searchFilter);
-			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
-			
-	    	return successView;
-		}
-	}
-	*/
 	
 	/**
 	 * 

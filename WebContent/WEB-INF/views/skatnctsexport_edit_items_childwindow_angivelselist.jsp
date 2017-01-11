@@ -91,7 +91,7 @@
 			               </c:choose>
 			               <td class="text11">&nbsp;${record.avd}</td>
 			               <td class="text11">&nbsp;${record.sign}</td>
-			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="avd${record.avd}@opd${record.opd}@xref${record.dkeh_xref}@refnr${record.refnr}@mrn${record.dkeh_mrn}" >
+			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="avd${record.avd}@opd${record.opd}@xref${record.dkeh_xref}@refnr${record.refnr}@mrn${record.dkeh_mrn}@valuta${record.dkeh_221}@blp${record.dkeh_222}" >
 			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.opd}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.dkeh_mrn}</td>
