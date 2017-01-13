@@ -70,7 +70,7 @@ import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 public class SkatNctsExportItemsControllerChildWindow {
 	
 	private static final Logger logger = Logger.getLogger(SkatNctsExportItemsControllerChildWindow.class.getName());
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2500);
 	
 	private final String GENERAL_CODE_008_COUNTRY = "008";
 	private final String GENERAL_CODE_107_CURRENCY = "107";
@@ -115,6 +115,41 @@ public class SkatNctsExportItemsControllerChildWindow {
 			}
 			List<JsonSkatExportTopicListRecord> list = (List)this.getAngivelseList(appUser, searchFilter);
 			model.put("angivelseList", list);
+			successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER , searchFilter);
+			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_edit_items_childwindow_angivelselist_gettoitemlines.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
+	public ModelAndView doFindAngivelseListToImportToItemlines(@ModelAttribute ("record") SearchFilterSkatExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitAngivelseList");
+		Map model = new HashMap();
+		String avdNcts = request.getParameter("avdNcts");
+		String opdNcts = request.getParameter("opdNcts");
+		
+		ModelAndView successView = new ModelAndView("skatnctsexport_edit_items_childwindow_angivelselist_gettoitemlines");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			
+			List<JsonSkatExportTopicListRecord> list = (List)this.getAngivelseList(appUser, searchFilter);
+			model.put("angivelseList", list);
+			model.put("avdNcts", avdNcts);
+			model.put("opdNcts", opdNcts);
+			
 			successView.addObject(SkatConstants.DOMAIN_SEARCH_FILTER , searchFilter);
 			successView.addObject(SkatConstants.DOMAIN_MODEL , model);
 			
@@ -314,7 +349,7 @@ public class SkatNctsExportItemsControllerChildWindow {
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 
     	//Debug --> 
-    	logger.info(jsonPayload);
+    	logger.info(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
     		JsonSkatExportTopicListContainer jsonSkatExportTopicListContainer = this.skatExportTopicListService.getSkatExportTopicListContainer(jsonPayload);
@@ -357,6 +392,9 @@ public class SkatNctsExportItemsControllerChildWindow {
 		}
 		if(searchFilter.getRefnr()!=null && !"".equals(searchFilter.getRefnr())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "refnr=" + searchFilter.getRefnr());
+		}
+		if(searchFilter.getTrid()!=null && !"".equals(searchFilter.getTrid())){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "trid=" + searchFilter.getTrid());
 		}
 		if(searchFilter.getXrefnr()!=null && !"".equals(searchFilter.getXrefnr())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "xref=" + searchFilter.getXrefnr());

@@ -116,8 +116,8 @@ public class CodeDropDownMgr {
 			}
 			//Now build the payload and send to the back end via the drop down service
 			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
-			logger.info("CODES URL:" + CODES_URL);
-			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			//logger.info("CODES URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
 			//logger.info(utfPayload);
 			
 			

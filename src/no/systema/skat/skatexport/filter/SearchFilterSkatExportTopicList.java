@@ -74,6 +74,10 @@ public class SearchFilterSkatExportTopicList {
 	public void setInternFakturanr(String value) {  this.internFakturanr = value; }
 	public String getInternFakturanr() { return this.internFakturanr;}
 	
+	private String trid = null;
+	public void setTrid(String value) {  this.trid = value; }
+	public String getTrid() { return this.trid;}
+	
 	
 	/**
 	 * Gets the populated values by reflection

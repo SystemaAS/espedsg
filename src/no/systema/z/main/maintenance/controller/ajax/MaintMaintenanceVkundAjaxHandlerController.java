@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
-import no.systema.jservices.common.brreg.proxy.entities.JsonEnhetContainer;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.service.UrlCgiProxyService;

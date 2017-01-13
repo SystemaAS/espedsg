@@ -211,7 +211,7 @@
 							"sveh_fabl=" + jq('#session_sveh_fabl').val() + "&"; 
 		var svevStrParam = "svev_fabl=" + jq('#svev_fabl').val();	
 		
-		if(jq('#session_sveh_vakd').val()!='' && jq('#session_sveh_vaku').val() !='' && jq('#session_sveh_fabl').val()!=''){
+		if(jq('#session_sveh_vakd').val()!='' && jq('#session_sveh_vaku').val() !='' && jq('#session_sveh_fabl').val()!='' && jq('#svev_fabl').val()!=''){
 			jq.ajax({
 				type: 'GET',
 				url: 'calculateStatisticalValues_TdsExport.do',

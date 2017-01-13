@@ -130,7 +130,7 @@
   	jq(function() {
 	  	jq('#tvtdn2IdLink').click(function() {
 	    	jq('#tvtdn2IdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val() + '&xref=' + jq('#xref').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val() + '&xref=' + jq('#xref').val(), "codeWin", "top=300px,left=500px,height=600px,width=900px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#tvtdn2IdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
@@ -139,11 +139,21 @@
 	    });
 	    jq('#xrefIdLink').click(function() {
 	    	jq('#xrefIdLink').attr('target','_blank');
-	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val() + '&xref=' + jq('#xref').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist.do?action=doFind&avd=' + jq('#tvavd2').val() + '&opd=' + jq('#tvtdn2').val() + '&xref=' + jq('#xref').val(), "codeWin", "top=300px,left=500px,height=600px,width=900px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#xrefIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
 				jq('#xrefIdLink').click();
+			}
+	    });
+	    
+	    jq('#itemLinesImportButton').click(function() {
+	    	jq('#itemLinesImportButton').attr('target','_blank');
+	    	window.open('skatnctsexport_edit_items_childwindow_angivelselist_gettoitemlines.do?action=doFind&avdNcts=' + jq('#avd').val() + '&opdNcts=' + jq('#opd').val(), "codeWinItemLinesImport", "top=300px,left=400px,height=500px,width=900px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#itemLinesImportButton').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#itemLinesImportButton').click();
 			}
 	    });
   	});

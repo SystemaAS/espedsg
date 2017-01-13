@@ -71,8 +71,7 @@
 				               </tbody>
 		                    </table>  
 						</td>
-					</tr>
-					
+				   </tr>
 					
 	               <tr>
 		               <td align="left">

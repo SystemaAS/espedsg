@@ -64,7 +64,7 @@ import no.systema.skat.skatexport.service.SkatExportTopicListService;
 //@SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class SkatNctsExportItemsController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2500);
 	private static final Logger logger = Logger.getLogger(SkatNctsExportItemsController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private ModelAndView loginView = new ModelAndView("login");

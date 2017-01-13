@@ -86,6 +86,16 @@ public final class SkatNctsExportUrlDataStore {
 	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE026R.pgm";	
 	//http://gw.systema.no/sycgip/tdce026r.pgm?user=OSCAR&mode=U&tvavd=1&tvtdn=50187&tvli=1&tvtkbm=A&tvkref=Derivat&tvnass=Tarzan
 	
+	//---------------------------------------------
+	//[6.1] IMPORT into item lines
+	//avd = avdelningen till NCTS export
+	//opd = angivelsenr till NCTS export
+	//dkeh_syav = avdelningen till exportangivelsen
+	//dkeh_syop = angivelsenr till exportangivelsen
+	//----------------------------------------------
+	static public String NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE091R.pgm";	
+	//http://gw.systema.no/sycgip/tdce091r.pgm?user=OSCAR&avd=1&opd=188888&dkeh_syav=2&dkeh_syop=152221
+	
 	
 	//------------------------------------------
 	//[7] LOG and ARCHIVE for a SPECIFIC ARENDE

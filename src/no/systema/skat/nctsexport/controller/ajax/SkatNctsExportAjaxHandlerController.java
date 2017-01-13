@@ -480,6 +480,54 @@ public class SkatNctsExportAjaxHandlerController {
 		  } 
 		  return result;
 	  }
+	  
+	  
+	  /**
+	   * Imports a SKAT EXPORT as a NCTS EXPORT item line
+	   * @param applicationUser
+	   * @param avd
+	   * @return
+	   */
+	  @RequestMapping(value = "importSkatExportAsSkatNctsExportItemLine_SkatNctsExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatCustomerRecord> importSkatExportAsSkatNctsExportItemLine(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		 
+		 	String method = "SkatNctsExportAjaxHandlerController.importSkatExportAsSkatNctsExportItemLine_SkatNctsExport.do";
+		 	logger.info("Inside " + method);
+		 	Set result = new HashSet();
+		 	
+		 	logger.info("update record transaction started");
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+			//---------------------------
+			String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL;
+			//url params
+			String urlRequestParamsKeys = applicationUser + requestParams;
+			//for debug purposes in GUI
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("URL: " + BASE_URL);
+			logger.info("URL PARAMS: " + urlRequestParamsKeys);
+			//--------------------------------------
+			//EXECUTE RPG program here
+			//--------------------------------------
+			/** TODO with CB!!
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug --> 
+			logger.info(method + " --> jsonPayload:" + jsonPayload);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+
+			if(jsonPayload!=null){
+			JsonSkatNctsExportSpecificTopicContainer container = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+	    		if(container!=null){
+	    			for(JsonSkatNctsExportSpecificTopicRecord  record : container.getOneorder()){
+	    				logger.info("Deklarantens plats via AJAX: " + record.getThdst() );
+	    				result.add(record);
+	    			}
+	    		}
+	    	}
+	    	*/
+		return result;  
+	  }
+	  
 	  	
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")

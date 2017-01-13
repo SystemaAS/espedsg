@@ -72,6 +72,10 @@ public class JsonSkatExportTopicListRecord extends JsonAbstractGrandFatherRecord
 	public void setDkeh_222(String value) {  this.dkeh_222 = value; }
 	public String getDkeh_222() {return this.dkeh_222;}
 	
+	private String dkeh_181 = null;
+	public void setDkeh_181(String value) {  this.dkeh_181 = value; }
+	public String getDkeh_181() {return this.dkeh_181;}
+	
 	/**
 	 * 
 	 * @return

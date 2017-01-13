@@ -277,7 +277,11 @@
 													</table>
 										   			</div>
 								   				</span>	
+								   	
+								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere vareposter</button>			
 									</td>
+									
+									
 								</tr>
 								<tr>
 									<td class="text12Bold">&nbsp;Antal vareposter&nbsp;&nbsp;<font class="text12MediumBlue"><b>${totalNumberOfItemLines}</b></font></td>

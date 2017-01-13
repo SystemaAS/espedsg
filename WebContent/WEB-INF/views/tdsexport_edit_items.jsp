@@ -480,7 +480,7 @@
 							 		<tr>
 							 			<td>&nbsp;</td>
 							 			<td class="text12" align="left">
-							 			<b>&nbsp;34a.</b>&nbsp;<font class="text16RedBold" >*</font><span title="svev_ulkd">Ursp.land</span>
+							 			<b>&nbsp;34a.</b>&nbsp;<span title="svev_ulkd">Ursp.land</span>
 										</td>
 							 			
 							 			
@@ -658,7 +658,7 @@
 							        <tr>
 							        	<td align="left" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select class="inputTextMediumBlueMandatoryField" name="svev_ulkd" id="svev_ulkd">
+							            	<select class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.svev_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>
