@@ -29,12 +29,6 @@ jq(function() {
 
 	});	
 
-	
-    jq('#spraakIdLink').click(function() {
-    	alert("Hej Språk");
-    	jq('#spraakIdLink').attr('target','_blank');
-    	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });
     jq('#sylandIdLink').click(function() {
     	alert("Hej Land");
     	jq('#sylandIdLink').attr('target','_blank');
@@ -65,66 +59,50 @@ jq(function() {
     	jq('#golkIdLink').attr('target','_blank');
     	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });
-    jq('#aktkodIdLink').click(function() {
-    	alert("Hej Aktivitetskode");
-    	jq('#aktkodIdLink').attr('target','_blank');
-    	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });
+
     jq('#syselgIdLink').click(function() {
     	alert("Hej Selgerkode");
     	jq('#syselgIdLink').attr('target','_blank');
     	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });
     
-    jq('#syrg').blur(function() {
-		//var customerNr = jq('#tgkna').val();
-		var orgNr =  jq('#syrg').val();
-		//var name = jq('#tgnaa').val();
-	    //var address = jq('#tgada1').val();
-	    alert("orgNr="+orgNr);
-		//if(customerNr!="" && (orgNr=='' && name=='' && address=='')){
-		if(orgNr!=""){
-    		jq.getJSON('getSpecificRecord_enhet_brreg.do', {
-			applicationUser : jq('#applicationUser').val(),
-			orgnr : orgNr,
-			ajax : 'true'
-		}, function(data) {
-			var len = data.length;
-			for ( var i = 0; i < len; i++) {
-				customer = new Object();
-				customer.knavn = data[i].navn;
-				//customer.eori = data[i].eori;
-				//customer.adr1 = data[i].adr1;
-				//customer.adr2 = data[i].adr2;
-				//customer.adr3 = data[i].adr3;
-				//customer.postnr = data[i].postnr;
-				//customer.syrg = data[i].syrg;
-				//customer.tlf = data[i].tlf;
-				//customer.syland = data[i].syland;
-			  	//put the object in map now with customerNumber as key
-				//map[customer.kundnr] = customer;
-			}
-			if(len > 0){
-			//	jq('#tgtina').val(customer.syrg);
-				jq("#knavn").val(customer.knavn);jq("#knavn").change();
-			//	jq('#tgada1').val(customer.adr1);
-			//	jq('#tgpna').val(customer.postnr);
-			//	jq('#tgpsa').val(customer.adr3);
-			//	jq('#tglka').val(customer.syland);
-			}else{
-				//init fields
-			//	jq('#tgtina').val("");
-			//	jq('#tgnaa').val("");
-			//	jq('#tgada1').val("");
-			//	jq('#tgpna').val("");
-			//	jq('#tgpsa').val("");
-			}
-		});
-		}
-});
 
-    
-    
+    jq('#syrg').blur(
+			function() {
+				var orgnr = jq('#syrg').val();
+				var knavn = jq('#knavn').val();
+				var adr1 = jq('#adr1').val();
+				var adr3 = jq('#adr3').val();
+				var postnr = jq('#postnr').val();
+				var syland = jq('#syland').val();
+				var spraak = jq('#spraak').val();
+
+				if (orgnr != ""
+						&& (knavn == '' && adr1 == '' && adr3 == ''&& postnr == '' && syland == '' && spraak == '')) {
+					jq.getJSON('getSpecificRecord_enhet_brreg.do', {
+						applicationUser : jq('#applicationUser').val(),
+						orgnr : orgnr,
+						ajax : 'true'
+					}, function(data) {
+						var len = data.length;
+						for (var i = 0; i < len; i++) {
+							jq("#knavn").val(data[i].navn);
+							jq("#knavn").change();
+							jq("#adr1").val(data[i].postadresse.adresse);
+							jq("#adr1").change();
+							jq("#adr3").val(data[i].postadresse.poststed);
+							jq("#adr3").change();
+							jq("#postnr").val(data[i].postadresse.postnummer);
+							jq("#postnr").change();
+							jq("#syland").val(data[i].postadresse.landkode);
+							jq("#syland").change();
+							jq("#spraak").val("N");
+							jq("#spraak").change();
+
+						}
+					});
+				}
+			});
 
 }); 
   

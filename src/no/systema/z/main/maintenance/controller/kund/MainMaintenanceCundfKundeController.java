@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-//application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
@@ -31,7 +29,6 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
-//models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
@@ -53,12 +50,14 @@ public class MainMaintenanceCundfKundeController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	//private VkundControllerUtil util = null;
 	
 
 	@RequestMapping(value="mainmaintenancecundf_kunde_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vkund_edit(@ModelAttribute ("record") JsonMaintMainCundfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kunde_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		VkundControllerUtil util = new VkundControllerUtil(urlCgiProxyService);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		StringBuffer errMsg = new StringBuffer();
@@ -120,7 +119,10 @@ public class MainMaintenanceCundfKundeController {
 			} else { // Fetch
 				JsonMaintMainCundfRecord record = fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				
+				if (appUser.isNorwegianFirma()) {
+					util.addEnhetProperties(record, model, appUser);
+				}
+			
 			}
 
 			model.put("action", MainMaintenanceConstants.ACTION_UPDATE); //User can change data

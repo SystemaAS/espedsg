@@ -60,6 +60,9 @@ public class JsonSystemaUserContainer {
 	public void setSignatur(String value) {  this.signatur = value; }
 	public String getSignatur() { return this.signatur;}
 	
+	private String filand = null;
+	public void setFiland(String value) {  this.filand = value; }
+	public String getFiland() { return this.filand;}
 	
 	private Collection<JsonSystemaUserRecord> menuList;
 	public void setMenuList(Collection<JsonSystemaUserRecord> value){ this.menuList = value; }

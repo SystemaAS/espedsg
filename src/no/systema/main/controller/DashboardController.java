@@ -183,6 +183,8 @@ public class DashboardController {
 		appUser.setBanner(jsonSystemaUserContainer.getBanner());
 		appUser.setSystemaLogo(jsonSystemaUserContainer.getSystemaLogo());
 		appUser.setSignatur(jsonSystemaUserContainer.getSignatur());
+		appUser.setFiland(jsonSystemaUserContainer.getFiland());
+		
 		/*logger.info("[INFO] user logo:" + appUser.getLogo() );
 		logger.info("[INFO] user banner:" + appUser.getBanner() );
 		logger.info("[INFO] user sign:" + appUser.getTdsSign() );
