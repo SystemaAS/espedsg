@@ -22,15 +22,18 @@
 			<tr height="25"> 
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-					<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+					<font class="tabDisabledLink">&nbsp;
+						<spring:message code="systema.main.maintenance.label"/>
+					</font>
 					<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center">
 					<a id="alinkMainCundfGate" tabindex=-1 style="display:block;" href="mainmaintenancecundf_vkund.do">
-
-					<font class="tabDisabledLink">&nbsp;Kunderegister</font>&nbsp;
+					<font class="tabDisabledLink">&nbsp;
+						<spring:message code="systema.main.maintenance.customerreg"/>
+					</font>&nbsp;
 					<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 					</a>
 				</td>
@@ -38,7 +41,9 @@
 					<c:when test="${not empty kundeSessionParams.kundnr}">
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="15%" valign="bottom" class="tab" align="center">
-							<font class="tabLink">&nbsp;Kunde</font>&nbsp;
+							<font class="tabLink">&nbsp;
+								<spring:message code="systema.main.maintenance.customer"/>
+							</font>&nbsp;
 							<font class="text11MediumBlue">[${tab_knavn_display}]</font>
 						</td>
 						<td width="55%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -46,7 +51,9 @@
 					<c:otherwise>
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="15%" valign="bottom" class="tab" align="center">
-								<font class="tabLink">&nbsp;Lage ny kunde</font>&nbsp;						
+								<font class="tabLink">&nbsp;
+									<spring:message code="systema.main.maintenance.customer.new"/>
+								</font>&nbsp;						
 								<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</td>
 						<td width="55%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -121,46 +128,55 @@
  	   	 	    <td>
  					<table class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-								<td width="80" valign="bottom" class="tabSub" align="center" nowrap>
-									<font class="tabLinkMinor">&nbsp;Kunde</font>
+								<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
+									<font class="tabLinkMinor">&nbsp;
+										<spring:message code="systema.main.maintenance.customer"/>
+									</font>
 								</td>
-
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_list.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Kontakter</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.contacts"/>
+										</font>&nbsp;						
 									</a>
 								</td>
-
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Varer(import)</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.stuff.import"/>
+										</font>&nbsp;						
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareExpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Varer(export)</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.stuff.export"/>
+										</font>&nbsp;						
 									</a>
 								</td>
 
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Fritekst</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.text"/>
+										</font>&nbsp;						
 									</a>
 								</td>
-
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Parametere</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.params"/>
+										</font>&nbsp;						
 									</a>
 								</td>
-								
-								<td width="80" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;Miljøavgift</font>&nbsp;						
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.envfee"/>
+										</font>&nbsp;						
 									</a>
 								</td>
-								
 								
 <!--  
 								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
@@ -187,8 +203,8 @@
 								<td width="50%" >&nbsp;
 									<table border="0">
 										<tr>
-											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>Kundenr:</td>
-										
+											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customernr"/>
 											<c:choose>
 												<c:when test="${model.action == 'doCreate'}">
 													<td><input required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
@@ -198,35 +214,70 @@
 												</c:otherwise>
 											</c:choose>
 											
-											<td class="text12" title="syrg">&nbsp;Org.nr:</td>
+											<td class="text12" title="syrg">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.orgnr"/>
+												<c:if test="${user.filand == 'NO'}">
+								 					&nbsp;<img onMouseOver="showPop('orgnr_info');" onMouseOut="hidePop('orgnr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+									 				<div class="text11" style="position: relative;" align="left">
+									 				<span style="position:absolute; top:2px; width:250px;" id="orgnr_info" class="popupWithInputText text11"  >  <!-- TODO: nordify, now norwegian -->
+											           		<b>Organisasjonsnummer</b>
+											           		<br><br>Hvis organisasjonsnummer fylles i, og addressinformation mangler, lastes information om postadresse fra Brønnøysundregistrene:
+															<br><br>postadresse.adresse<br>
+															postadresse.poststed<br>
+															postadresse.postnummer<br>
+															postadresse.landkode<br>
+													</span>
+													</div>
+												</c:if>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
 										</tr>
 										<tr>
-											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>Navn:</td>
+											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.name"/>
+											</td>
 											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="knavn" id="knavn" size="30" maxlength="30" value='${model.record.knavn}'></td>
-											<td class="text12" title="eori">&nbsp;Eorinr:</td>
+											<td class="text12" title="eori">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.eori"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="eori" id="eori" size="15" maxlength="17" value='${model.record.eori}'></td>
 										</tr>
 										<tr>
-											<td class="text12" title="adr1">&nbsp;Adresse:</td>
+											<td class="text12" title="adr1">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.address"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="adr1" id="adr1" size="30" maxlength="30" value='${model.record.adr1}'></td>
-											<td class="text12" title="spraak">&nbsp;Språk:</td>
-											<td><input type="text" class="inputTextMediumBlue" name="spraak" id="spraak" size="1" maxlength="1" value='${model.record.spraak}'>
-												<a tabindex="-1" id="spraakIdLink">
-													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-												</a>
+											<td class="text12" title="spraak">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.language"/>
+											</td>
+											<td>								
+												<select name="spraak" id="spraak" > <!-- TODO: nordify, now norwegian -->
+			 					  					<option value="">-velg-</option>
+			 					  					<option value="N"<c:if test="${model.record.spraak == 'N'}"> selected </c:if> >Norsk</option>
+								  					<option value="E"<c:if test="${ model.record.spraak == 'E'}"> selected </c:if> >Engelsk</option>
+								  					<option value="T"<c:if test="${ model.record.spraak == 'T'}"> selected </c:if> >Tysk</option>
+
+								  				</select>
 											</td>
 										</tr>
 										<tr>
-											<td class="text12" title="postnr">&nbsp;Postnr(norsk):</td>
+											<td class="text12" title="postnr">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.postnr"/>
+											</td>
 											<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="postnr" id="postnr" size="5" maxlength="4" value='${model.record.postnr}'></td>
-											<td class="text12" title="adr2">&nbsp;Postboks:</td>
+											<td class="text12" title="adr2">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.postbox"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="adr2" id="adr2" size="20" maxlength="30" value='${model.record.adr2}'></td>
 										</tr>
 										<tr>
-											<td class="text12" title="sypoge">&nbsp;Postnr(utlendsk):</td>
+											<td class="text12" title="sypoge">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sypoge"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="sypoge" id="sypoge" size="10" maxlength="9" value='${model.record.sypoge}'></td>
-											<td class="text12" title="syland">&nbsp;Land:</td>
+											<td class="text12" title="syland">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.landcode"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="syland" id="syland" size="2" maxlength="2" value='${model.record.syland}'>
 												<a tabindex="-1" id="sylandIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -234,41 +285,57 @@
 											</td>
 										</tr>
 										<tr>
-											<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>Postadresse:</td>
-											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="25" maxlength="24" value='${model.record.adr3}'></td>
-											<td class="text12" title="pnpbku">&nbsp;Postboksnr:</td>
+											<td class="text12" title="adr3">&nbsp;<font class="text14RedBold" >*</font>
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.adr3"/>
+											</td>
+											<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="adr3" id="adr3" size="25" maxlength="24" value='${model.record.adr3}'></td>
+											<td class="text12" title="pnpbku">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.postboxnr"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="pnpbku" id="pnpbku" size="10" maxlength="10" value='${model.record.pnpbku}'></td>
 										</tr>
 									</table>
 								</td>
 								<td width="50%" valign="top">&nbsp;
-									<table border="0">
+									<table>
 										<tr>
-											<td class="text12" title="adr21">&nbsp;Adresse 3:</td>
+											<td class="text12" title="adr21">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.adr21"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="adr21" id="adr21" size="25" maxlength="30" value='${model.record.adr21}'></td>
-											<td class="text12" title="systat">&nbsp;State:</td>
+											<td class="text12" title="systat">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.systat"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="systat" id="systat" size="3" maxlength="3" value='${model.record.systat}'></td>
-
 										</tr>
 										<tr>
-											<td class="text12" title="kpers">&nbsp;Kontaktperson:</td>
+											<td class="text12" title="kpers">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.contact"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="kpers" id="kpers" size="25" maxlength="30" value='${model.record.kpers}'></td>
-											<td class="text12" title="tlf">&nbsp;Telefon:</td>
+											<td class="text12" title="tlf">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.phone"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="tlf" id="tlf" size="10" maxlength="8" value='${model.record.tlf}'></td>
 										</tr>
 										<tr>
-											<td class="text12" title="syepos">&nbsp;E-mail:</td>
+											<td class="text12" title="syepos">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.email"/>
+											</td>
 											<td colspan="4"><input type="text" class="inputTextMediumBlue" name="syepos" id="syepos" size="60" maxlength="70" value='${model.record.syepos}'></td>
-
 										</tr>
 										<tr>
-											<td class="text12" title="valkod">&nbsp;Valutakod:</td>
+											<td class="text12" title="valkod">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.currency"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="valkod" id="valkod" size="3" maxlength="3" value='${model.record.valkod}'>
 												<a tabindex="-1" id="valkodIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
 											</td>
-											<td class="text12" title="kundgr">&nbsp;Kundegruppe:</td>
+											<td class="text12" title="kundgr">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.kundgr"/>
+											</td>
 											<td><input type="text" class="inputTextMediumBlue" name="kundgr" id="kundgr" size="2" maxlength="2" value='${model.record.kundgr}'>
 												<a tabindex="-1" id="kundgrIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -278,6 +345,23 @@
 										<tr>
 											<td colspan="4">&nbsp;</td>
 										</tr>
+										<tr>
+											<td colspan="4">&nbsp;</td>
+										</tr>	
+										<tr>
+											<td colspan="3">&nbsp;</td>
+											<td>
+												<c:if test="${user.filand == 'NO'}">
+								 					&nbsp;<img onMouseOver="showPop('brreg_info');" onMouseOut="hidePop('brreg_info');"style="vertical-align:bottom;" width="150px" height="25px" src="http://scf.brreg.no/bilder/brreg_logo.svg" alt="info">
+									 				<div class="text11" style="position: relative;" align="left">
+									 				<span style="position:absolute; top:2px; width:250px; left:-50px" id="brreg_info" class="popupWithInputText text11"  > <!-- TODO: nordify, now norwegian -->
+											           	<b>Enhet:</b>
+														<br>${model.enhetProperties}<br>
+													</span>
+													</div>
+												</c:if>
+											</td>	
+										</tr>										
 									</table>
 								</td>
 							</tr>
@@ -287,7 +371,7 @@
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
 											<td class="text12Bold">
-												&nbsp;Faktura 
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoice"/>
 											</td>
 										</tr>
 									</table>
@@ -296,29 +380,45 @@
 											<td width="50%" >
 												<table border="0">
 													<tr>
-														<td class="text12" title="bankg">&nbsp;Bankgiro:</td>
+														<td class="text12" title="bankg">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.bank"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="bankg" id="bankg" size="20" maxlength="15" value='${model.record.bankg}'></td>
-														<td class="text12" title="betbet">&nbsp;Betalingsbetingelse:</td>
+														<td class="text12" title="betbet">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.betbet"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="betbet" id="betbet" size="5" maxlength="2" value='${model.record.betbet}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="postg">&nbsp;Postgiro:</td>
+														<td class="text12" title="postg">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.post"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="postg" id="postg" size="20" maxlength="20" value='${model.record.postg}'></td>
-														<td class="text12" title="betmat">&nbsp;Betaling:</td>
+														<td class="text12" title="betmat">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.payment"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="betmat" id="betmat" size="15" maxlength="17" value='${model.record.betmat}'></td>
-			
 													</tr>
 													<tr>
-														<td class="text12" title="sykont">&nbsp;Kontonummer:</td>
+														<td class="text12" title="sykont">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.account"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="sykont" id="sykont" size="10" maxlength="7" value='${model.record.sykont}'></td>
-														<td class="text12" title="kgrens">&nbsp;Kredittgrense:</td>
+														<td class="text12" title="kgrens">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.acclimit"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="kgrens" id="kgrens" size="10" maxlength="7" value='${model.record.kgrens}'></td>
 			
 													</tr>
 													<tr>
-														<td class="text12" title="fmot">&nbsp;Fakturamottager:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														<td class="text12" title="fmot">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicerec"/>
+															&nbsp;&nbsp;&nbsp;&nbsp;
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="fmot" id="fmot" size="10" maxlength="8" value='${model.record.fmot}'></td>
-														<td class="text12" title="sfakt">&nbsp;Samlefakturagrunnlag:</td>
+														<td class="text12" title="sfakt">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicecoll"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="sfakt" id="sfakt" size="1" maxlength="1" value='${model.record.sfakt}'></td>
 													</tr>
 												</table>
@@ -326,25 +426,39 @@
 											<td width="50%" valign="top">
 												<table border="0">
 													<tr>
-														<td class="text12" title="sysalu">&nbsp;Saldo, ufaktureret:</td>
+														<td class="text12" title="sysalu">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.saldo"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="sysalu" id="sysalu" size="15" maxlength="13" value='${model.record.sysalu}'></td>
-														<td class="text12" title="syfr03">&nbsp;Faktura, fritekstkode:</td>
+														<td class="text12" title="syfr03">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicetext"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syfr03" id="syfr03" size="5" maxlength="2" value='${model.record.syfr03}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="xxinm3">&nbsp;Faktura, innland M3:</td>
+														<td class="text12" title="xxinm3">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicem3"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="xxinm3" id="xxinm3" size="5" maxlength="3" value='${model.record.xxinm3}'></td>
-														<td class="text12" title="xxinlm">&nbsp;Faktura, innland LM:</td>
+														<td class="text12" title="xxinlm">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicelm"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="xxinlm" id="xxinlm" size="5" maxlength="4" value='${model.record.xxinlm}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="rnraku">&nbsp;Mva nummer:</td>
+														<td class="text12" title="rnraku">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.mva"/>
+														</td>
 														<td colspan="3"><input type="text" class="inputTextMediumBlue" name="rnraku" id="rnraku" size="20" maxlength="20" value='${model.record.rnraku}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="symvjn">&nbsp;Momsregistrert:</td>
+														<td class="text12" title="symvjn">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.mvareg"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="symvjn" id="symvjn" size="1" maxlength="1" value='${model.record.symvjn}'></td>
-														<td class="text12" title="symvsp">&nbsp;Momsspecifikasjon:</td>
+														<td class="text12" title="symvsp">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.mvaspec"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="symvsp" id="symvsp" size="1" maxlength="1" value='${model.record.symvsp}'></td>
 													</tr>
 												</table>
@@ -358,25 +472,30 @@
 								<td colspan="2" >&nbsp;
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
-											<td class="text12Bold">
-												&nbsp;Vilkår 
+											<td class="text12Bold">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.terms"/>
 											</td>
 										</tr>
 									</table>
 									<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 										<tr> 
 											<td width="50%" >
-												<table border="0">
+												<table>
 													<tr>
-														<td class="text12" title="syutlp">&nbsp;Utlendsk provision:</td>
+														<td class="text12" title="syutlp">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.provision"/>
+														</td>
 														<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="syutlp" id="syutlp" size="5" maxlength="4" value='${model.record.syutlp}'>%</td>
 														<td class="text12" title="syminu">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																								Utlendsk provision, min.:</td>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.provisionmin"/>
+														</td>
 														<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="syminu" id="syminu" size="5" maxlength="4" value='${model.record.syminu}'>%</td>
 													</tr>
 													<tr>
-														<td class="text12" title="syopdt">&nbsp;Oppdragstype:</td>
+														<td class="text12" title="syopdt">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.mission"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syopdt" id="syopdt" size="5" maxlength="2" value='${model.record.syopdt}'>
 															<a tabindex="-1" id="syopdtIdLink">
 																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -384,7 +503,8 @@
 														</td>
 														<td class="text12" title="sylikv">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																								Likviditetskode:</td>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sylikv"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="sylikv" id="sylikv" size="1" maxlength="1" value='${model.record.sylikv}'>
 															<a tabindex="-1" id="sylikvIdLink">
 																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -394,9 +514,11 @@
 												</table>
 											</td>
 											<td width="50%" valign="top">
-												<table border="0">
+												<table>
 													<tr>
-														<td class="text12" title="golk">&nbsp;Godslokalkode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="golk">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sylikv"/>
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="golk" id="golk" size="5" maxlength="4" value='${model.record.golk}'>
 															<a tabindex="-1" id="golkIdLink">
@@ -405,19 +527,25 @@
 														</td>
 														<td class="text12" title="aktkod">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																							Aktivitetskode:</td>
-														<td><input type="text" class="inputTextMediumBlue" name="aktkod" id="aktkod" size="5" maxlength="2" value='${model.record.aktkod}'>
-															<a tabindex="-1" id="aktkodIdLink">
-																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-															</a>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.aktkod"/>
+														</td>
+														<td>
+															<select name="aktkod" id="aktkod" >
+						 					  					<option value="">-velg-</option>
+						 					  					<option value="A"<c:if test="${model.record.aktkod == 'A'}"> selected </c:if> >A</option>
+											  					<option value="I"<c:if test="${ model.record.aktkod == 'I'}"> selected </c:if> >I</option>
+											  				</select>
 														</td>
 													</tr>
 													<tr>
-														<td class="text12" title="dkund">&nbsp;Diversekunde:</td>
+														<td class="text12" title="dkund">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.dkund"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="dkund" id="dkund" size="1" maxlength="1" value='${model.record.dkund}'></td>
 														<td class="text12" title="syfr02">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																							Tollkreditt:</td>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customs"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syfr02" id="syfr02" size="5" maxlength="4" value='${model.record.syfr02}'></td>
 													</tr>
 												</table>
@@ -431,8 +559,8 @@
 								<td colspan="2" >&nbsp;
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
-											<td class="text12Bold">
-												&nbsp;Øvrig
+											<td class="text12Bold">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.misc"/>
 											</td>
 										</tr>
 									</table>
@@ -441,10 +569,14 @@
 											<td width="50%" >
 												<table border="0">
 													<tr>
-														<td class="text12" title="vatkku">&nbsp;VAT nummer:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="vatkku">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.vat"/>
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="vatkku" id="vatkku" size="20" maxlength="14" value='${model.record.vatkku}'></td>
-														<td class="text12" title="syselg">&nbsp;Selgerkode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="syselg">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sell"/>
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syselg" id="syselg" size="5" maxlength="3" value='${model.record.syselg}'>
 															<a tabindex="-1" id="syselgIdLink">
@@ -453,15 +585,23 @@
 														</td>
 													</tr>
 													<tr>
-														<td class="text12" title="aknrku">&nbsp;Avtalekundenr:</td>
+														<td class="text12" title="aknrku">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.deal"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="aknrku" id="aknrku" size="10" maxlength="8" value='${model.record.aknrku}'></td>
-														<td class="text12" title="syfr04">&nbsp;Secured:</td>
+														<td class="text12" title="syfr04">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.secured"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syfr04" id="syfr04" size="5" maxlength="3" value='${model.record.syfr04}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="syregn">&nbsp;Fylkeskattesjef:</td>
+														<td class="text12" title="syregn">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.syregn"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="syregn" id="syregn" size="10" maxlength="8" value='${model.record.syregn}'></td>
-														<td class="text12" title="syfr05">&nbsp;Samtak:</td>
+														<td class="text12" title="syfr05">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.syfr05"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="syfr05" id="syfr05" size="5" maxlength="3" value='${model.record.syfr05}'></td>
 													</tr>
 												</table>
@@ -469,23 +609,31 @@
 											<td width="50%" valign="top">
 												<table border="0">
 													<tr>
-														<td class="text12" title="syfr06">&nbsp;Free 06:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="syfr06">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.syfr06"/>
+																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
 														<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="syfr06" id="syfr06" size="5" maxlength="4" value='${model.record.syfr06}'></td>
 														<td class="text12" title="xxbre">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																								Breddegrad:</td>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.xxbre"/>
+														</td>
 														<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="xxbre" id="xxbre" size="10" maxlength="8" value='${model.record.xxbre}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="syiat1">&nbsp;Iatakode 1:</td>
+														<td class="text12" title="syiat1">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.syiat1"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="syiat1" id="syiat1" size="10" maxlength="7" value='${model.record.syiat1}'></td>
 														<td class="text12" title="xxlen">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																								Lengdegrad:</td>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.xxlen"/>
+														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="xxlen" id="xxlen" size="10" maxlength="9" value='${model.record.xxlen}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="syiat2">&nbsp;Iatakode 2:</td>
+														<td class="text12" title="syiat2">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.syiat2"/>
+														</td>
 														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="syiat2" id="syiat2" size="5" maxlength="4" value='${model.record.syiat2}'></td>
 													</tr>
 												</table>
@@ -536,7 +684,7 @@
 							<tr> 
 								<td >&nbsp;</td>
 								<td align="right">
-									<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/>
+									<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
 								</td>
 							</tr>
 

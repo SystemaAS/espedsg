@@ -180,6 +180,10 @@ public class SystemaWebUser {
 	private String signatur = null;
 	public void setSignatur(String value) {  this.signatur = value; }
 	public String getSignatur() { return this.signatur;}
+
+	private String filand = null;
+	public void setFiland(String value) {  this.filand = value; }
+	public String getFiland() { return this.filand;}
 	
 	private String errMsg = null;
 	public void setErrMsg(String value){ this.errMsg=value;  }
@@ -191,6 +195,18 @@ public class SystemaWebUser {
 	public void setUrlStoreProps(String value){ this.urlStoreProps=value;  }
 	public String getUrlStoreProps(){ return this.urlStoreProps;  }
 	
+	/**
+	 * Check if user is under a Norwegian firma.
+	 * 
+	 * @return, true, if filand = NO, else false
+	 */
+	public boolean isNorwegianFirma() {
+		if("NO".equals(filand)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	//---------
 	//Aspects
