@@ -5,7 +5,7 @@ C35;Collicare@http://217.65.230.10:8080/espedsg@8.0 / V11
 C100;DHL@http://165.72.19.220:8443/espedsg@8.0 / <b>V12</b>
 C101;DHL(external)@http://198.141.241.224:8443/espedsg@8.0 / <b>V12</b>
 C110;Dachser NO - ASP24@http://gw.systema.no:8181/espedsg@8.0 / <b>V12</b>
-C111;Dachser DK - ASP25@http://10.13.1.22:8383/espedsg@8.0 / <b>V12</b>
+C111;Dachser DK - ASP25@http://gw.systema.no:8383/espedsg@8.0 / <b>V12</b>
 C200;DSV@http://10.47.16.52:8080/espedsg@6.0 / old OS
 C300;Kingsrød DK@http://10.20.4.2:8383/espedsg@8.0 / <b>V12</b>
 C301;Kingsrød NO@http://10.20.4.2:8282/espedsg@8.0 / <b>V12</b>
@@ -13,9 +13,9 @@ C400;Nortrail@http://193.69.249.50:8080/espedsg@8.0 / V11
 C420;Panalpina - ASP40@http://10.13.1.22:8585/espedsg@8.0 / <b>V12</b>
 C500;Postnord@http://192.108.100.247:8080/espedsg@8.0 / V11
 C520;Speditøren - ASP12@http://gw.systema.no:8484/espedsg@8.0 / <b>V12</b>
-C600;Toten Trans.@http://cust.toten.as:8080/espedsg@6.0 / old OS
-C601;Toten Trans. MS@http://cust.toten.as:8081/espedsg@8.0 / old OS
-C602;Toten Trans. AB@http://cust.toten.as:8082/espedsg@8.0 / old OS
-C603;Toten Trans. FK@http://cust.toten.as:8083/espedsg@8.0 / old OS
-C604;Toten Trans. TR@http://cust.toten.as:8084/espedsg@8.0 / old OS
-C605;Toten Trans. DK@http://cust.toten.as:8085/espedsg@8.0 / old OS
+C600;Toten Trans.@http://cust.toten.as:8080/espedsg@8.0 / <b>V12</b>
+C601;Toten Trans. MS@http://cust.toten.as:8081/espedsg@8.0 / <b>V12</b>
+C602;Toten Trans. AB@http://cust.toten.as:8082/espedsg@8.0 / <b>V12</b>
+C603;Toten Trans. FK@http://cust.toten.as:8083/espedsg@8.0 / <b>V12</b>
+C604;Toten Trans. TR@http://cust.toten.as:8084/espedsg@8.0 / <b>V12</b>
+C605;Toten Trans. DK@http://cust.toten.as:8085/espedsg@8.0 / <b>V12</b>
