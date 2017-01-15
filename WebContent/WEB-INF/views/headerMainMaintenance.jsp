@@ -42,7 +42,7 @@
 				 	<tr>
 				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
-				 			eSped<font style="color:#003300;">sg</font> - VEDLIKEHOLD
+				 			eSped<font style="color:#003300;">sg</font> - <spring:message code="systema.main.maintenance.banner"/>
 				 			
 				 		</td>
 				 		 
@@ -92,7 +92,16 @@
 	      				</td>		      				
 	      				<td class="text11" width="50%" align="right" valign="middle">
 	      					
-						    <img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
+	      					<c:if test="${ empty user.usrLang || user.usrLang == 'NO'}">
+			               		<img src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
+			               	</c:if>
+			               	<c:if test="${ user.usrLang == 'DA'}">
+			               		<img src="resources/images/countryFlags/Flag_DK.gif" height="12" border="0" alt="country">
+			               	</c:if>
+			               	<c:if test="${ user.usrLang == 'SE'}">
+			               		<img src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">
+			               	</c:if>
+			               	
 		      				&nbsp;
 		      				<font class="headerMenuWhite">
 			    				<img src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');" > 

@@ -23,20 +23,20 @@
 			<tr height="25"> 
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-					<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.main.maintenance.label"/></font>
 					<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tab" align="center">
-					<font class="tabLink">&nbsp;Kunderegister</font>&nbsp;
+					<font class="tabLink">&nbsp;<spring:message code="systema.main.maintenance.customerreg"/></font>&nbsp;
 					<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="15%" valign="bottom" class="tabDisabled" align="center">
 					<a id="alinkMainMaintVkundNew" onClick="setBlockUI(this);" href="mainmaintenancecundf_vkund_edit.do?action=doCreate">
-						<font class="tabDisabledLink">&nbsp;Lage ny kunde</font>&nbsp;						
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.main.maintenance.customer.new"/></font>&nbsp;						
 						<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 					</a>
 				</td>
@@ -61,17 +61,17 @@
 						<table id="mainList" class="display compact cell-border" > 
 							<thead>
 								<tr>
-								    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-									<th width="2%" class="tableHeaderField" align="center" >Kundenr</th>
-									<th width="15%" class="tableHeaderField" align="center" >Navn</th>
-				                    <th class="tableHeaderField" align="left" >&nbsp;TIN / CVR/SE-nr</th>
-				                    <th class="tableHeaderField" align="left" >&nbsp;Adresse</th>
-				                    <th class="tableHeaderField" align="center" >Postadresse</th>
-				                    <th class="tableHeaderField" align="center" >Postnr</th>
-				                    <th class="tableHeaderField" align="center" >Land</th>
-				                    <th class="tableHeaderField" align="center" >Tollkredit</th>
-				                    <th class="tableHeaderField" align="center" >Firma</th>
-				                    <th class="tableHeaderField" align="center" >Slett</th>
+								    <th width="2%" class="tableHeaderFieldFirst" align="center" ><spring:message code="systema.edit"/></th>                                                            
+									<th width="2%" class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customernr"/></th>
+									<th width="15%" class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.name"/></th>
+				                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.orgnr"/></th>
+				                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.address"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.adr3"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.postnr.plain"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.landcode"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customs"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.firm"/></th>
+				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
 				                </tr>  
 			                </thead> 
 			                <tbody >  

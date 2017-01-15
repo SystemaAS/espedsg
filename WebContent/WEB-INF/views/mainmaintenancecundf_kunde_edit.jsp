@@ -128,19 +128,19 @@
  	   	 	    <td>
  					<table class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-								<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer"/>
 									</font>
 								</td>
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_list.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.contacts"/>
 										</font>&nbsp;						
 									</a>
 								</td>
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.stuff.import"/>
@@ -148,7 +148,7 @@
 									</a>
 								</td>
 
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareExpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.stuff.export"/>
@@ -156,21 +156,21 @@
 									</a>
 								</td>
 
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.text"/>
 										</font>&nbsp;						
 									</a>
 								</td>
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.params"/>
 										</font>&nbsp;						
 									</a>
 								</td>
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.envfee"/>
@@ -181,7 +181,7 @@
 <!--  
 								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
 -->
-							 	<td width="520" class="tabFantomSpace" align="center" nowrap></td>
+							 	<td width="450" class="tabFantomSpace" align="center" nowrap></td>
 
 
 						</tr>

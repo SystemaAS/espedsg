@@ -18,7 +18,7 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;Vedlikehold</font>&nbsp;
+						<font class="tabLink">&nbsp;<spring:message code="systema.main.maintenance.label"/></font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -43,12 +43,12 @@
 						<table width="100%" id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
-								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
-			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
-								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.id"/>&nbsp;</th>
+								<th width="2%" class="tableHeaderField" align="center" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.edit"/></th>
+			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.description"/>&nbsp;</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.code"/>&nbsp;</th>
+								<th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.text"/>&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.status"/>&nbsp;</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
