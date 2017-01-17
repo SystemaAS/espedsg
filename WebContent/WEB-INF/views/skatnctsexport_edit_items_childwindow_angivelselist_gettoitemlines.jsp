@@ -30,6 +30,7 @@
 					<td>
 						<table>
 						<form name="skatNctsExportAngivelseForm" id="skatNctsExportAngivelseForm" action="skatnctsexport_edit_items_childwindow_angivelselist_gettoitemlines.do?action=doFind" method="post">
+							<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							<input type="hidden" name="avdNcts" id="avdNcts" value="${model.avdNcts}">
 							<input type="hidden" name="opdNcts" id="opdNcts" value="${model.opdNcts}">
 						<tr>
@@ -68,9 +69,7 @@
 					
 					<%-- this is the datatables grid (content)--%>
 					<form action="N/A_is_done_with_jquery....?action=doFind" name="searchForm" id="searchForm" method="post">
-						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-						<input type="hidden" name="avdNcts" id="avdNcts" value="${model.avdNcts}">
-						<input type="hidden" name="opdNcts" id="opdNcts" value="${model.opdNcts}">
+						
 					<table id="angivelseList" class="display compact cell-border" width="100%" >
 						<thead>
 						<tr style="background-color:#EEEEEE">
@@ -128,7 +127,8 @@
            		<tr height="10"><td></td></tr>
            		<tr>
 		          <td align="left">
-		          		&nbsp;<input class="inputFormSubmit" type="button" name="buttonCloseOk" id="buttonCloseOk" value='OK'>
+		          		&nbsp;<input class="inputFormSubmit" type="button" name="buttonPick" id="buttonPick" value='Pluk'>
+		          		&nbsp;&nbsp;&nbsp;<input class="inputFormSubmit" type="button" name="buttonCloseOk" id="buttonCloseOk" value='OK'>
 		          		&nbsp;<input class="inputFormSubmit" type="button" name="cancel" id="cancel" value='Annullér'>
 		          </td>
 		         </tr>

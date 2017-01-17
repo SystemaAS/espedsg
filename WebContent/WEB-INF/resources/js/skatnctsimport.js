@@ -13,8 +13,7 @@
   
   jq(function() {
 	  jq("#datum").datepicker({ 
-		  dateFormat: 'yymmdd', 
-		  defaultDate: "-6m"	  
+		  dateFormat: 'yymmdd'  
 	  });
 	  
 	  jq("#datumFr").datepicker({ 

@@ -3,7 +3,10 @@
  */
 package no.systema.skat.nctsexport.model.jsonjackson.topic;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import no.systema.tvinn.sad.nctsexport.model.jsonjackson.topic.JsonSadNctsExportSpecificTopicRecord;
 
@@ -39,5 +42,13 @@ public class JsonSkatNctsExportSpecificTopicContainer {
 	public void setSecurityhead(Collection<JsonSkatNctsExportSpecificTopicRecord> value){ this.securityhead = value; }
 	public Collection<JsonSkatNctsExportSpecificTopicRecord> getSecurityhead(){ return securityhead; }
 	
+	//required for JSON auto-fill in
+	public List<Field> getFields() throws Exception{
+		Class cl = Class.forName(this.getClass().getCanonicalName());
+		Field[] fields = cl.getDeclaredFields();
+		List<Field> list = Arrays.asList(fields);
+		
+		return list;
+	}
 	
 }

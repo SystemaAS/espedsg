@@ -148,6 +148,7 @@
 	  jq('#dkih_dtm2').change(function() {
 		var val = jq("#dkih_dtm2").val();
 		jq("#dkih_dtm2").val(val.replace(' ', ''));
+		
 	  });
 	
 	  

@@ -675,7 +675,15 @@
 											<select class="inputTextMediumBlueMandatoryField" name="dkev_37" id="dkev_37">
 						 						<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.procedureKoderR37CodeList}" >
-							 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_37 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+							 				  		<c:choose>
+								 				  		<c:when test="${empty model.record.dkev_syli}">
+															<option value="${code.dkkd_kd}"<c:if test="${'1000000' == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+								 				  		</c:when>
+								 				  		<c:otherwise>
+															<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_37 == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+								 				  		</c:otherwise>
+							 				  		</c:choose>
+							 				  		
 												</c:forEach>  
 											</select>	
 											<a tabindex="-1" id="dkev_37IdLink" OnClick="triggerChildWindowGeneralCodes(this, '112')">
@@ -912,7 +920,15 @@
 						           			<select class="inputTextMediumBlueMandatoryField" name="dkev_402a" id="dkev_402a">
 							            		<option value="">-vælg-</option>
 							 				  	<c:forEach var="code" items="${model.transportdocsSummariskadocsCodeList}" >
-			                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_402a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+							 				  		<c:choose>
+								 				  		<c:when test="${empty model.record.dkev_syli}">
+															<option value="${code.dkkd_kd}"<c:if test="${'Z380' == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+								 				  		</c:when>
+								 				  		<c:otherwise>
+															<option value="${code.dkkd_kd}"<c:if test="${model.record.dkev_402a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
+								 				  		</c:otherwise>
+							 				  		</c:choose>
+
 												</c:forEach> 
 											</select>
 											<a tabindex="-1" id="dkev_402aIdLink" OnClick="triggerChildWindowGeneralCodesR40(this, '017', ${recordTopicSkat.dkeh_26})">

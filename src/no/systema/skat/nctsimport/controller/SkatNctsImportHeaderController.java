@@ -210,7 +210,6 @@ public class SkatNctsImportHeaderController {
 					//---------------------
 					//Validation Light GUI
 					//---------------------
-					
 					SkatNctsImportHeaderValidator validator = new SkatNctsImportHeaderValidator();
 					logger.info("VALIDATING...");
 					if(opd!=null && !"".equals(opd)){
@@ -219,17 +218,13 @@ public class SkatNctsImportHeaderController {
 					}else{
 						logger.info("avdXX: " + avd);
 						logger.info("signXX: " + sign);
-						
 						//Create
 						//we must lend these dropdown variables to the validation object
 						recordToValidate.setTiavd(avd);
 						recordToValidate.setTisg(sign);
-						
 					}
+					validator.validate(recordToValidate, bindingResult);
 					
-					if(!this.isTestMode(recordToValidate)){
-						validator.validate(recordToValidate, bindingResult);
-					}
 					//test indicator in validation field
 					recordToValidate.setDknh_0035(dknh_0035);
 
@@ -706,7 +701,7 @@ public class SkatNctsImportHeaderController {
 		for (JsonSkatNctsImportSpecificTopicRecord record : container.getOneorder()){
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
-			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT, record);
 		}
 
 	}
@@ -722,7 +717,7 @@ public class SkatNctsImportHeaderController {
 		//SET HEADER RECORDS  (from RPG)
 		model.put(SkatConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines
-		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT, record);
 	}
 	/**
 	 * 

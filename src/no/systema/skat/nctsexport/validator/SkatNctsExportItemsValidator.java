@@ -92,6 +92,10 @@ public class SkatNctsExportItemsValidator implements Validator {
 					}else if ( record.getTvnt()==null || "".equals(record.getTvnt())){
 						errors.rejectValue("tvnt", "systema.skat.ncts.export.header.error.rule.item.tvnt.mustExist");
 					}
+					//Merking
+					if( record.getTvmn()==null || "".equals(record.getTvmn()) ){
+						errors.rejectValue("tvmn", "systema.skat.ncts.export.header.error.null.item.merking.tvmn");
+					}
 				}
 				
 				/*

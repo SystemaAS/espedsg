@@ -171,6 +171,12 @@
   		jq("#dkeh_dtm2").val(val.replace(' ', ''));
   	  });
   	  
+  	  jq('#dkeh_dtm2').blur(function() {
+  		  if(jq('#dkeh_syst').val() == '11'){
+  			jq('#dkeh_ajou').val("9");
+  		  }
+  	  });
+  	  
   	  jq("#dkeh_28c").datepicker({ 
 		  dateFormat: 'yymmdd'  
 	  });

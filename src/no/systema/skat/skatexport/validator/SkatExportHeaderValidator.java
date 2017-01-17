@@ -147,6 +147,8 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08f", "systema.skat.export.header.error.null.dkeh_08f");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_06", "systema.skat.export.header.error.null.dkeh_06");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_21", "systema.skat.export.header.error.null.dkeh_21");
+			
 			//Fakt.belopp and related fields
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221", "systema.skat.export.header.error.null.dkeh_221");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221b", "systema.skat.export.header.error.null.dkeh_221b");

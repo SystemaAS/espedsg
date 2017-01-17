@@ -229,16 +229,13 @@ public class SkatNctsExportHeaderController {
 					}else{
 						logger.info("avdXX: " + avd);
 						logger.info("signXX: " + sign);
-						
 						//Create
 						//we must lend these dropdown variables to the validation object
 						recordToValidate.setThavd(avd);
 						recordToValidate.setThsg(sign);
-						
 					}
-					if(!this.isTestMode(recordToValidate)){
-						validator.validate(recordToValidate, bindingResult);
-					}
+					validator.validate(recordToValidate, bindingResult);
+					
 					//test indicator in validation field
 					recordToValidate.setDkxh_0035(dkxh_0035);
 					

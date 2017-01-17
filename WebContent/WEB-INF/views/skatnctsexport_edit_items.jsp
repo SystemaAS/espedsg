@@ -278,7 +278,8 @@
 										   			</div>
 								   				</span>	
 								   	
-								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere vareposter</button>			
+								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere vareposter</button>	
+								   				
 									</td>
 									
 									

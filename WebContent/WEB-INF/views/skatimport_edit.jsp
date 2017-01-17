@@ -1042,6 +1042,25 @@
 					<td width="2">&nbsp;</td>
 					<td valign="top">
 			 			<table border="0" cellspacing="0" cellpadding="0">
+			 				<tr >	
+			            		<td colspan="4" class="text9BlueGreen" valign="bottom" align="left" >
+			 				    <%--only status = M or emtpy status is allowed --%> 
+			 				    <c:choose>
+				 				    <c:when test="${ model.record.dkih_syst == 'M' || empty  model.record.dkih_syst || model.record.dkih_syst == '10' || model.record.dkih_syst == '20' || model.record.dkih_syst == '40'}">
+					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
+					 				    	&nbsp;&nbsp;
+					 				    	<c:if test="${not empty  model.record.dkih_syop && model.record.validUpdate}">
+					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatimport_send.do';" value='<spring:message code="systema.skat.import.createnew.send"/>'/>
+					 				    	</c:if>
+				 				    </c:when>
+				 				    <c:otherwise>
+				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.skat.submit.not.editable"/>'/>
+				 				    </c:otherwise>	
+			 				    </c:choose>
+		 				    
+                				</td>
+					        </tr>
+					        <tr height="12"><td class="text"></td> </tr>
 					 		<tr>
 					            <td class="text12" align="left" >
 					            <img onMouseOver="showPop('15_a_info');" onMouseOut="hidePop('15_a_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -1630,11 +1649,12 @@
 				            	<td class="text">&nbsp;</td> 
 		 						<td class="text">&nbsp;</td> 
 			 				</tr>
+			 				<%-- moved on top (DACHSER DK)
 				            <tr >	
 			            		<td class="text">&nbsp;</td> 
 			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
 	
-			 				    <%-- only status = M or emtpy status is allowed --%>
+			 				    only status = M or emtpy status is allowed 
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkih_syst == 'M' || empty  model.record.dkih_syst || model.record.dkih_syst == '10' || model.record.dkih_syst == '20' || model.record.dkih_syst == '40'}">
 					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
@@ -1650,6 +1670,7 @@
 		 				    
                 				</td>
 					        </tr>
+					        --%>
 				            
 						</table>
 					</td>
