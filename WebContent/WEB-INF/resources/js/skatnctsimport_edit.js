@@ -283,8 +283,8 @@
 					jq('#titrnr').val(data[i].titrnr);
 					//jq('#tignsk').val(data[i].tignsk);
 					//jq('#tialk').val(data[i].tialk);
-					jq('#tignsk').val("SV");//default
-					jq('#tialk').val("SE");//default
+					jq('#tignsk').val("DA");//default
+					jq('#tialk').val("");//default
 					jq('#tialsk').val(data[i].tialsk);
 					
 					jq('#tials').val(data[i].tials);

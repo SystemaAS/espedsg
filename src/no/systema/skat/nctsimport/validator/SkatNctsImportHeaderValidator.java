@@ -50,7 +50,7 @@ public class SkatNctsImportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tiavd", "systema.skat.ncts.import.header.error.null.tiavd"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tisg", "systema.skat.ncts.import.header.error.null.tisg"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tienkl", "systema.skat.ncts.import.header.error.null.tienkl"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tign", "systema.skat.ncts.import.header.error.null.tign"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tign", "systema.skat.ncts.import.header.error.null.tign"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titrnr", "systema.skat.ncts.import.header.error.null.titrnr"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tignsk", "systema.skat.ncts.import.header.error.null.tignsk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tialk", "systema.skat.ncts.import.header.error.null.tialk"); 

@@ -166,6 +166,15 @@
 			jq('#thtma').val("");
 		  }
 		});
+	    
+	    //thtalk
+	    jq('#thtalk').blur(function() {
+	    	//Only with create new
+	    	if(jq('#thtdn').val() == ''){
+	    		jq('#thtgid').val(jq('#thtaid').val());
+	    		jq('#thtglk').val(jq('#thtalk').val());
+	    	}	
+	    });
 	});
 	
     

@@ -166,7 +166,7 @@
 			<tr >
 				<td colspan="3" align="left" class="text12MediumBlue">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afd:&nbsp;${model.record.tiavd}&nbsp;&nbsp;<span title="titdn">Angivelse:</span>&nbsp;<b>${model.record.titdn}</b>
-					&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${model.record.tign}</b>
+					&nbsp;&nbsp;&nbsp;Egen ref.:&nbsp;<b>${model.record.tign}</b>
 				</td>
 				<c:if test="${'1' != isTestAvd}">		
 					<td align="right" >
@@ -428,8 +428,8 @@
 						<table border="0" cellspacing="1" cellpadding="0">
 						<tr>
 				            <td >&nbsp;</td>
-				            <td ><font class="text16RedBold" >*</font><span title="tign">Godsnr</span></td>
-				            <td colspan="3" ><input type="text" class="inputTextMediumBlueMandatoryField" name="tign" id="tign" size="36" maxlength="35" value="${model.record.tign}"></td>
+				            <td ><span title="tign">Egen ref.</span></td>
+				            <td colspan="3" ><input type="text" class="inputTextMediumBlue" name="tign" id="tign" size="36" maxlength="35" value="${model.record.tign}"></td>
 			            </tr>
 						<tr>
 				            <td >&nbsp;</td>
