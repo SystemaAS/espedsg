@@ -26,7 +26,7 @@
 		var postnr = jq('#postnr').val();
 		var syland = jq('#syland').val();
 		var spraak = jq('#spraak').val();
-
+		
 		if (orgnr != ""&& (knavn == '' && adr1 == '' && adr3 == ''&& postnr == '' && syland == '' && spraak == '')) {
 			jq.getJSON('getSpecificRecord_enhet_brreg.do', {
 				applicationUser : jq('#applicationUser').val(),
@@ -73,7 +73,7 @@
 		success : function(data) {
 			var rows = 1;
 			var cols = 46;
-			jq("#ehp").text("");
+			jq("#ehp").text("Ikke tilgjengelig");  //default, in missing in  brreg
 			if (data.length > 0) {
 				var len = data.length;
 				var rows = len/cols;

@@ -362,7 +362,7 @@
 								 					&nbsp;<img onMouseOver="showPop('brreg_info');" onMouseOut="hidePop('brreg_info');"style="vertical-align:bottom;" width="150px" height="25px" src="http://scf.brreg.no/bilder/brreg_logo.svg" alt="info">
 									 				<div class="text11" style="position: relative;" align="left">
 									 				<span style="position:absolute; top:2px; width:300px; left:-60px" id="brreg_info" class="popupWithInputText text11">
-									 					<textarea cols="46" id="ehp">&nbsp;</textarea>
+									 					<textarea cols="46" id="ehp">&nbsp;Ikke tilgjengelig.</textarea>
 													</span>
 													</div>
 												</c:if>
