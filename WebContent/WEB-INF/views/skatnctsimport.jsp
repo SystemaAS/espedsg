@@ -167,7 +167,7 @@
                 		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.status"/></td>
                 		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.type"/></td>
                 		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.ansvarig"/></td>
-                		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.godsnr"/></td>
+                		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;Egen ref.</td>
                 		<td class="tableHeaderField" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.frigivningsDatum"/></td>
                 		<%--
                 		<td class="tableHeaderField">&nbsp;Kopiera Ärende&nbsp;</td>
