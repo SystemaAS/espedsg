@@ -128,7 +128,7 @@ public class SkatImportHeaderInvoiceController {
 			String datum = request.getParameter("datum");
 			
 			//this fragment gets some header fields needed for the validator
-			JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+			JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT);
 			String invoiceTotalAmount = headerRecord.getDkih_222();
 			
 			

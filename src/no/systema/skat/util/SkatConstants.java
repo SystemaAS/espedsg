@@ -98,7 +98,9 @@ public final class SkatConstants {
 	
 	
 	public static final String DOMAIN_RECORD_TOPIC_SKAT = "recordTopicSkat";
+	public static final String DOMAIN_RECORD_TOPIC_SKAT_IMPORT = "recordTopicSkatImport";
 	public static final String DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT = "recordTopicSkatNctsImport";
+	public static final String DOMAIN_RECORD_TOPIC_SKAT_NCTS_EXPORT = "recordTopicSkatNctsExport";
 	public static final String DOMAIN_RECORD_TOPIC_SKAT_UNLOADING = "recordTopicSkatUnloading";
 	
 	public static final String DOMAIN_LIST = "list";

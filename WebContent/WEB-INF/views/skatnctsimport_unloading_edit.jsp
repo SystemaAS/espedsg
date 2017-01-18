@@ -25,31 +25,31 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkat.tisg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkatNctsImport.tisg}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkat.tiavd}&opd=${recordTopicSkat.titdn}
-						&sysg=${recordTopicSkat.tisg}&syst=${recordTopicSkat.tist}&sydt=${recordTopicSkat.tidt}">
+				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkatNctsImport.tiavd}&opd=${recordTopicSkatNctsImport.titdn}
+						&sysg=${recordTopicSkatNctsImport.tisg}&syst=${recordTopicSkatNctsImport.tist}&sydt=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.created.mastertopic.tab"/></font>
-					<font class="text12MediumBlue">[${recordTopicSkat.titdn}]</font>
-					<c:if test="${ recordTopicSkat.tist == 'F' || recordTopicSkat.tist == 'M' || empty recordTopicSkat.tist}">
+					<font class="text12MediumBlue">[${recordTopicSkatNctsImport.titdn}]</font>
+					<c:if test="${ recordTopicSkatNctsImport.tist == 'F' || recordTopicSkatNctsImport.tist == 'M' || empty recordTopicSkatNctsImport.tist}">
 						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 					</c:if>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+											&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+											&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.item.createnew.tab"/>
 					</font>
-					<c:if test="${ recordTopicSkat.tist == 'F' || recordTopicSkat.tist == 'M' || empty recordTopicSkat.tist}">
+					<c:if test="${ recordTopicSkatNctsImport.tist == 'F' || recordTopicSkatNctsImport.tist == 'M' || empty recordTopicSkatNctsImport.tist}">
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 					</c:if>
 				</a>
@@ -64,9 +64,9 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkUnloadingItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit_items.do?action=doFetch&avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}	
-											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkUnloadingItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit_items.do?action=doFetch&avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}	
+											&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+											&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.unloading.item.createnew.tab"/>
 					</font>
@@ -75,9 +75,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+									&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+									&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.logging.tab"/>
 					</font>
@@ -86,9 +86,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+									&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+									&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.archive.tab"/>
 					</font>
@@ -115,31 +115,31 @@
 		<%-- general (from user profile) --%>
 		<input type="hidden" name="action" id="action" value='doUpdate'>
 		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-		<input type="hidden" name="opd" id="opd" value='${recordTopicSkat.titdn}'>
+		<input type="hidden" name="opd" id="opd" value='${recordTopicSkatNctsImport.titdn}'>
 		<%-- topic specific (syop and tuid) --%>
-		<input type="hidden" name="tiavd" id="tiavd" value='${recordTopicSkat.tiavd}'>
-		<input type="hidden" name="titdn" id="titdn" value='${recordTopicSkat.titdn}'>
-		<input type="hidden" name="tisg" id="tisg" value='${recordTopicSkat.tisg}'>
-		<input type="hidden" name="tist" id="tist" value='${recordTopicSkat.tist}'>
-		<input type="hidden" name="tidt" id="tidt" value='${recordTopicSkat.tidt}'>
-    		<input type="hidden" name="avd" id="avd" value='${recordTopicSkat.tiavd}'>
-		<input type="hidden" name="sign" id="sign" value='${recordTopicSkat.tisg}'>
+		<input type="hidden" name="tiavd" id="tiavd" value='${recordTopicSkatNctsImport.tiavd}'>
+		<input type="hidden" name="titdn" id="titdn" value='${recordTopicSkatNctsImport.titdn}'>
+		<input type="hidden" name="tisg" id="tisg" value='${recordTopicSkatNctsImport.tisg}'>
+		<input type="hidden" name="tist" id="tist" value='${recordTopicSkatNctsImport.tist}'>
+		<input type="hidden" name="tidt" id="tidt" value='${recordTopicSkatNctsImport.tidt}'>
+    		<input type="hidden" name="avd" id="avd" value='${recordTopicSkatNctsImport.tiavd}'>
+		<input type="hidden" name="sign" id="sign" value='${recordTopicSkatNctsImport.tisg}'>
 		<tr >
 			<td colspan="3" align="left" class="text12MediumBlue">
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afd:&nbsp;<b>${recordTopicSkat.tiavd}</b>&nbsp;&nbsp;<span title="titdn">Angivelse:</span>&nbsp;<b>${recordTopicSkat.titdn}</b>
-				&nbsp;&nbsp;&nbsp;<span title="titrnr">MRN-nr:</span>&nbsp;<b>${recordTopicSkat.titrnr}</b>&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkat.tign}</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afd:&nbsp;<b>${recordTopicSkatNctsImport.tiavd}</b>&nbsp;&nbsp;<span title="titdn">Angivelse:</span>&nbsp;<b>${recordTopicSkatNctsImport.titdn}</b>
+				&nbsp;&nbsp;&nbsp;<span title="titrnr">MRN-nr:</span>&nbsp;<b>${recordTopicSkatNctsImport.titrnr}</b>&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkatNctsImport.tign}</b>
 			</td>
 		</tr>
 		<tr >
 			<td align="left" class="text11MediumBlue">
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="tisg">Sign:</span>&nbsp;<b>${recordTopicSkat.tisg}</b>,&nbsp;&nbsp;<span title="tidt">Dato:</span>&nbsp;<b>${recordTopicSkat.tidt}</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="tisg">Sign:</span>&nbsp;<b>${recordTopicSkatNctsImport.tisg}</b>,&nbsp;&nbsp;<span title="tidt">Dato:</span>&nbsp;<b>${recordTopicSkatNctsImport.tidt}</b>
 				&nbsp;
 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-           		<span title="tist">Status:</span>&nbsp;<b>${recordTopicSkat.tist}</b>
+           		<span title="tist">Status:</span>&nbsp;<b>${recordTopicSkatNctsImport.tist}</b>
 				&nbsp;&nbsp;
 				<span title="tienkl">Type procedure:</span>&nbsp;
-				<c:if test="${recordTopicSkat.tienkl == 'J'}"><b>Forenklet</b></c:if>
-				<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>  
+				<c:if test="${recordTopicSkatNctsImport.tienkl == 'J'}"><b>Forenklet</b></c:if>
+				<c:if test="${recordTopicSkatNctsImport.tienkl == 'N'}"><b>Normal</b></c:if>  
 				
 					<div class="text11" style="position: relative;" align="left">
 					<span style="position:absolute; left:150; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
@@ -206,7 +206,7 @@
 					 			<td class="text12">&nbsp;</td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tikn" id="tikn" size="8" maxlength="8" value="${recordTopicSkat.tikn}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tikn" id="tikn" size="8" maxlength="8" value="${recordTopicSkatNctsImport.tikn}"></td>
 					 			<td class="text12">&nbsp;</td>
 			 				</tr>
 			 				<tr >
@@ -214,31 +214,31 @@
 					 			<td class="text12">&nbsp;<span title="tina">Navn</span></td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="titin" id="titin" size="17" maxlength="17" value="${recordTopicSkat.titin}"></td>
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tina" id="tina" size="30" maxlength="30" value="${recordTopicSkat.tina}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="titin" id="titin" size="17" maxlength="17" value="${recordTopicSkatNctsImport.titin}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tina" id="tina" size="30" maxlength="30" value="${recordTopicSkatNctsImport.tina}"></td>
 			 				</tr>
 			 				<tr >
 					 			<td class="text12">&nbsp;<span title="tiad1">Adresse</span></td>
 					 			<td class="text12">&nbsp;<span title="tisk">Sprogkode</span></td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tiad1" id="tiad1" size="30" maxlength="30" value="${recordTopicSkat.tiad1}"></td>
-					 			<td ><input readonly type="text" class="inputTextMediumBlue" name="tisk" id="tisk" size="2" maxlength="2" value="${recordTopicSkat.tisk}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tiad1" id="tiad1" size="30" maxlength="30" value="${recordTopicSkatNctsImport.tiad1}"></td>
+					 			<td ><input readonly type="text" class="inputTextMediumBlue" name="tisk" id="tisk" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tisk}"></td>
 			 				</tr>
 			 				<tr >
 					 			<td class="text12">&nbsp;<span title="tips">By</span></td>
 					 			<td class="text12">&nbsp;<span title="tipn">Postnr</span></td>
 			 				</tr>
 			 				<tr >
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tips" id="tips" size="24" maxlength="24" value="${recordTopicSkat.tips}"></td>
-					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tipn" id="tipn" size="9" maxlength="9" value="${recordTopicSkat.tipn}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tips" id="tips" size="24" maxlength="24" value="${recordTopicSkatNctsImport.tips}"></td>
+					 			<td class="text12"><input readonly type="text" class="inputTextMediumBlue" name="tipn" id="tipn" size="9" maxlength="9" value="${recordTopicSkatNctsImport.tipn}"></td>
 			 				</tr>
 			 				<tr >
 					 			<td class="text12">&nbsp;<span title="tilk">Landkode</span></td>
 					 			<td class="text12">&nbsp</td>
 			 				</tr>
 			 				<tr >
-			 					<td ><input readonly type="text" class="inputTextMediumBlue" name="tilk" id="tilk" size="2" maxlength="2" value="${recordTopicSkat.tilk}"></td>
+			 					<td ><input readonly type="text" class="inputTextMediumBlue" name="tilk" id="tilk" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tilk}"></td>
 					 			<td class="text12">
 					 				&nbsp;
 					 			</td>
@@ -258,22 +258,22 @@
 						<tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tign">Godsnr</span></td>
-				            <td colspan="3" ><input readonly type="text" class="inputText" name="tign" id="tign" size="36" maxlength="35" value="${recordTopicSkat.tign}"></td>
+				            <td colspan="3" ><input readonly type="text" class="inputText" name="tign" id="tign" size="36" maxlength="35" value="${recordTopicSkatNctsImport.tign}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tignsk">Sprogkode</span>&nbsp;</td>
-				            <td ><input readonly type="text" class="inputText" name="tignsk" id="tignsk" size="2" maxlength="2" value="${recordTopicSkat.tignsk}"></td>
+				            <td ><input readonly type="text" class="inputText" name="tignsk" id="tignsk" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tignsk}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="titrnr">MRN-nr</span></td>
-				            <td colspan="3"><input readonly type="text" class="inputText" name="titrnr" id="titrnr" size="36" maxlength="35" value="${recordTopicSkat.titrnr}"></td>
+				            <td colspan="3"><input readonly type="text" class="inputText" name="titrnr" id="titrnr" size="36" maxlength="35" value="${recordTopicSkatNctsImport.titrnr}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tialk">Afs.land</span>&nbsp;</td>
-				            <td ><input readonly type="text" class="inputText" name="tialk" id="tialk" size="2" maxlength="2" value="${recordTopicSkat.tialk}"></td>
+				            <td ><input readonly type="text" class="inputText" name="tialk" id="tialk" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tialk}"></td>
 				            <td >&nbsp;</td>
 			            </tr>
 			            
@@ -281,15 +281,15 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="titsb">Best.toldsted</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="titsb" id="titsb" size="10" maxlength="8" value="${recordTopicSkat.titsb}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="titsb" id="titsb" size="10" maxlength="8" value="${recordTopicSkatNctsImport.titsb}"></td>
 				            <td ><span title="tiskb">Sprogkode&nbsp;</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiskb" id="tiskb" size="2" maxlength="2" value="${recordTopicSkat.tiskb}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiskb" id="tiskb" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tiskb}"></td>
 				            
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tidtf">Frigivelsesdato</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${recordTopicSkat.tidtf}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${recordTopicSkatNctsImport.tidtf}"></td>
 			            </tr>
 			            <tr height="5"><td></td></tr>
 			            <tr>
@@ -309,25 +309,25 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tialsk">Aft.lag.sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialsk" id="tialsk" size="17" maxlength="17" value="${recordTopicSkat.tialsk}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialsk" id="tialsk" size="17" maxlength="17" value="${recordTopicSkatNctsImport.tialsk}"></td>
 				            <td ><span title="tialss">Sprogkode</span>&nbsp;</td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialss" id="tialss" size="2" maxlength="2" value="${recordTopicSkat.tialss}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tialss" id="tialss" size="2" maxlength="2" value="${recordTopicSkatNctsImport.tialss}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tials">Aft.lag.sted</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tials" id="tials" size="20" maxlength="35" value="${recordTopicSkat.tials}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tials" id="tials" size="20" maxlength="35" value="${recordTopicSkatNctsImport.tials}"></td>
 			            </tr>
 			            <tr height="2"><td>&nbsp;</td></tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tiglsk">Godk.lag.sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${recordTopicSkat.tiglsk}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiglsk" id="tiglsk" size="17" maxlength="17" value="${recordTopicSkatNctsImport.tiglsk}"></td>
 			            </tr>
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tiacts">Kontrol sted (kode)</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiacts" id="tiacts" size="17" maxlength="17" value="${recordTopicSkat.tiacts}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tiacts" id="tiacts" size="17" maxlength="17" value="${recordTopicSkatNctsImport.tiacts}"></td>
 			            </tr>
 			            	
 			            <tr height="2"><td>&nbsp;</td></tr>
@@ -702,7 +702,7 @@
 						 		<tr>
 					            		<%-- only status = U,H are allowed  --%>
 				 				    <c:choose>
-					 				    <c:when test="${ recordTopicSkat.tist == 'U' || recordTopicSkat.tist == 'H' }">
+					 				    <c:when test="${ recordTopicSkatNctsImport.tist == 'U' || recordTopicSkatNctsImport.tist == 'H' }">
 						 				    <td class="text9BlueGreen" valign="bottom"  >
 							 				    &nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
 							 				

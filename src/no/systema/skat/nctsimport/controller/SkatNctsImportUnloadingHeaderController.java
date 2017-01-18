@@ -139,7 +139,7 @@ public class SkatNctsImportUnloadingHeaderController {
 		String method = "doNctsImportEdit [RequestMapping-->skatnctsimport_unloading_edit.do]";
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		
-		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT);
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		logger.info("Method: " + method);
 		//---------------------------------
@@ -403,7 +403,7 @@ public class SkatNctsImportUnloadingHeaderController {
 	    			//model.put(TdsConstants.DOMAIN_RECORD, record);
 	    			
 	    			//put the header topic in session for the coming item lines
-	    			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+	    			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT, record);
 	    		}
 	    		
 	    	}
@@ -518,7 +518,7 @@ public class SkatNctsImportUnloadingHeaderController {
 		//SET HEADER RECORDS  (from RPG)
 		model.put(SkatConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines
-		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_UNLOADING, record);
 	}
 	/**
 	 * 

@@ -1454,7 +1454,7 @@ public class SkatNctsExportHeaderController {
 			}
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
-			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_EXPORT, record);
 		}
 
 	}
@@ -1470,7 +1470,7 @@ public class SkatNctsExportHeaderController {
 		for (JsonSkatNctsExportSpecificTopicRecord record : jsonNctsExportSpecificTopicContainer.getOneorder()){
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
-			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_EXPORT, record);
 		}
 	}
 	
@@ -1490,7 +1490,7 @@ public class SkatNctsExportHeaderController {
 		//SET HEADER RECORDS  (from RPG)
 		model.put(SkatConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines
-		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_EXPORT, record);
 	}
 	/**
 	 * 

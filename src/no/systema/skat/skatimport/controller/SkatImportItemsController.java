@@ -153,7 +153,7 @@ public class SkatImportItemsController {
 			}
 			
 			//this fragment gets some header fields needed for the validator
-			JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+			JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT);
 			
 			
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
@@ -459,7 +459,7 @@ public class SkatImportItemsController {
 		
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//this fragment gets some header fields needed for the validator
-		JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		JsonSkatImportSpecificTopicRecord headerRecord = (JsonSkatImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT);
 		
 		Map model = new HashMap();
 		String urlRequestParamsKeys = null;

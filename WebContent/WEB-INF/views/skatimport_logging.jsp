@@ -43,7 +43,7 @@
 				<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 												&opd=${model.opd}&refnr=${dkih_07}
-												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicSkat.dkih_222}">
+												&status=${model.status}&datum=${model.datum}&fabl=${recordTopicSkatImport.dkih_222}">
 						<font class="tabDisabledLink">
 							&nbsp;<spring:message code="systema.skat.import.item.createnew.tab"/>
 						</font>

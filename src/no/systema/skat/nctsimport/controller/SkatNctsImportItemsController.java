@@ -96,7 +96,7 @@ public class SkatNctsImportItemsController {
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		JsonSkatNctsImportSpecificTopicItemRecord jsonSkatNctsImportSpecificTopicItemRecord = null;
 		
-		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT);
 		//logger.info("Avd:" + recordTopicHeader.getTiavd());
 		//logger.info("testAvd:" + recordTopicHeader.getTestAvd());
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);

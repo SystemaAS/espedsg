@@ -103,7 +103,7 @@ public class SkatNctsImportUnloadingItemsController {
 		
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		
-		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT);
+		JsonSkatNctsImportSpecificTopicRecord recordTopicHeader = (JsonSkatNctsImportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_IMPORT);
 		//Get the header record in order to use some values in the validator
 		JsonSkatNctsImportSpecificTopicUnloadingRecord headerUnloadingRecord = (JsonSkatNctsImportSpecificTopicUnloadingRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_UNLOADING);
 		JsonSkatNctsImportSpecificTopicUnloadingItemRecord jsonNctsImportSpecificTopicUnloadingItemRecord = null;

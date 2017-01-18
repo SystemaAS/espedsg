@@ -99,11 +99,11 @@
 				 				&nbsp;Avd&nbsp;<b>${model.avd}</b>
 				 				&nbsp;Angivelse&nbsp;<b>${model.opd}</b>
 				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
-				 				&nbsp;&nbsp;&nbsp;&nbsp;Ref.nr.:&nbsp;<b>${recordTopicSkat.dkih_07}</b>
+				 				&nbsp;&nbsp;&nbsp;&nbsp;Ref.nr.:&nbsp;<b>${recordTopicSkatImport.dkih_07}</b>
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				Status:&nbsp;<b>${model.status}</b>
-				 				&nbsp;&nbsp;Angivelsesart:&nbsp;<b>${recordTopicSkat.dkih_aart}</b>
+				 				&nbsp;&nbsp;Angivelsesart:&nbsp;<b>${recordTopicSkatImport.dkih_aart}</b>
 				 				
 				 				<div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:500px;" id="status_info" class="popupWithInputText text11"  >
@@ -144,25 +144,25 @@
 							        </tr>
 							        <tr>
 							        		<td width="30%" class="text11" align="left">EORI&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02a}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02a}</td>
 							           	
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02b}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02b}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02c}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02c}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02d}&nbsp;${recordTopicSkat.dkih_02e}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02d}&nbsp;${recordTopicSkatImport.dkih_02e}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">Landkode&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02f}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02f}</td>
 							        </tr>						        
 							        
 			        	        </table>
@@ -175,24 +175,24 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">CVR/SE-nr&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08a}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08b}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08b}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08c}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08c}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08d}&nbsp;${recordTopicSkat.dkih_08e}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08d}&nbsp;${recordTopicSkatImport.dkih_08e}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">Landkode&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08f}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08f}</td>
 							        </tr>
 							        <%--
 									<tr>
@@ -227,9 +227,9 @@
 				 				<input type="hidden" name="refnr" id="refnr" value='${dkih_07}'>
 				 				<input type="hidden" name="status" id="status" value='${model.status}'>
 				 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
-				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopicSkat.dkih_222}'>
-				 				<input type="hidden" name="dkih_mokn" id="dkih_mokn" value='${recordTopicSkat.dkih_mokn}'>
-				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicSkat.dkih_brut}'>
+				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopicSkatImport.dkih_222}'>
+				 				<input type="hidden" name="dkih_mokn" id="dkih_mokn" value='${recordTopicSkatImport.dkih_mokn}'>
+				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicSkatImport.dkih_brut}'>
 				 				
 				 				
 				 										
@@ -425,11 +425,11 @@
 										<td width="10%" class="text12">&nbsp;</td>
 										
 										<td align="right" class="text11">Bruttovægt:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=11" value='${recordTopicSkat.dkih_brut}'>
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=11" value='${recordTopicSkatImport.dkih_brut}'>
 										</td>
 										<td align="right" class="text11">Faktura beløb:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value='${recordTopicSkat.dkih_222}'>
-											&nbsp;<font style="color:#000080; font-style: italic;"><b>${recordTopicSkat.dkih_221}</b></font>
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value='${recordTopicSkatImport.dkih_222}'>
+											&nbsp;<font style="color:#000080; font-style: italic;"><b>${recordTopicSkatImport.dkih_221}</b></font>
 										</td>
 										<td align="right" class="text11">Varens pris&nbsp;(&Sigma;):&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value='${model.recordItemContainerTopic.calculatedItemLinesTotalAmount}'>
@@ -653,7 +653,7 @@
 				 	<input type="hidden" name="refnr" id="refnr" value="${dkih_07}"/>
 				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicSkat.dkih_222}"/>
+				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicSkatImport.dkih_222}"/>
 				 	
 				 	<input type="hidden" name="dkiv_syli" id="dkiv_syli" value=''/>
 				 	<input type="hidden" name="dkiv_32" id="dkiv_32" value="${model.record.dkiv_32}"/>
@@ -707,7 +707,7 @@
 							 			<td class="text12" align="left">
 							            <img onMouseOver="showPop('33_info');" onMouseOut="hidePop('33_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							            <b>33.</b>
-							            <c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+							            <c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkiv_331">Varekode</span>
@@ -730,7 +730,7 @@
 							            	<td class="text12" align="left">
 							            <img onMouseOver="showPop('36_info');" onMouseOut="hidePop('36_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
 				 						<b>36.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='03' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='03' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkiv_36">Præference</span>
@@ -747,7 +747,7 @@
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('37_1_info');" onMouseOut="hidePop('37_1_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>37.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='03' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='03' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkiv_37">Procedure</span>
@@ -780,7 +780,7 @@
 										</td>
 							            
 							            <td class="text12" align="left"><b>42.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='03' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='03' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            	<span title="dkiv_42">Varens pris:&nbsp;</span>
@@ -789,8 +789,8 @@
 							            <td class="text12" align="left">
 							            <img onMouseOver="showPop('35_info');" onMouseOut="hidePop('35_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>35.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='01' || recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || 
-				 									  recordTopicSkat.dkih_aart=='05' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='01' || recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || 
+				 									  recordTopicSkatImport.dkih_aart=='05' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkiv_35">Brut.(kg)</span>
@@ -812,8 +812,8 @@
 										</td>
 										<td class="text12" align="left">
 										<b>&nbsp;38.</b>
-										<c:if test="${recordTopicSkat.dkih_aart=='03' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='05' || 
-				 									  recordTopicSkat.dkih_aart=='07' || recordTopicSkat.dkih_aart=='08'}">
+										<c:if test="${recordTopicSkatImport.dkih_aart=='03' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='05' || 
+				 									  recordTopicSkatImport.dkih_aart=='07' || recordTopicSkatImport.dkih_aart=='08'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 										<span title="dkiv_38">Net.(kg)</span>
@@ -821,8 +821,8 @@
 										<td class="text12" align="left" >
 							            <img onMouseOver="showPop('31_gods_info');" onMouseOut="hidePop('31_gods_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.1</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || 
-				 									  recordTopicSkat.dkih_aart=='05' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || 
+				 									  recordTopicSkatImport.dkih_aart=='05' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkiv_311a">Kolli mærke&nbsp;</span>
@@ -890,7 +890,7 @@
 										<span id="kotaRubrik">
 											<b>31.3</b>
 										</span>
-										<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+										<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkiv_313a">Kolli antal</span>
@@ -906,7 +906,7 @@
 										<td class="text12">
 										<img onMouseOver="showPop('31_kslag_info');" onMouseOut="hidePop('31_kslag_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.4</b>
-										<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+										<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 										<span title="dkiv_314a">Kolli art</span>
@@ -924,7 +924,7 @@
 										<td class="text12" align="left" colspan="2">
 										<img onMouseOver="showPop('31_varubesk_info');" onMouseOut="hidePop('31_varubesk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>31.5</b>
-										<c:if test="${recordTopicSkat.dkih_aart=='01' || recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+										<c:if test="${recordTopicSkatImport.dkih_aart=='01' || recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 										<span title="dkiv_315a">Varebeskrivelse&nbsp;</span>
@@ -1036,13 +1036,13 @@
  							        <tr height="5"><td ></td></tr>
  							        <tr height="20"><td class="text" align="left" colspan="12"><hr></td></tr>
 							        <%-- Session fields needed for the AJAX calculation av Avgifter --%>
-							        <input type="hidden" name="session_dkih_12" id="session_dkih_12" value="${recordTopicSkat.dkih_12}">
-							        <input type="hidden" name="session_dkih_12e" id="session_dkih_12e" value="${recordTopicSkat.dkih_12e}">
-							        <input type="hidden" name="session_dkih_221" id="session_dkih_221" value="${recordTopicSkat.dkih_221}">
-							        <input type="hidden" name="session_dkih_221b" id="session_dkih_221b" value="${recordTopicSkat.dkih_221b}">
-							        <input type="hidden" name="session_dkih_221c" id="session_dkih_221c" value="${recordTopicSkat.dkih_221c}">
-							        <input type="hidden" name="session_dkih_222" id="session_dkih_222" value="${recordTopicSkat.dkih_222}">
-							        <input type="hidden" name="session_dkih_201" id="session_dkih_201" value="${recordTopicSkat.dkih_201}">
+							        <input type="hidden" name="session_dkih_12" id="session_dkih_12" value="${recordTopicSkatImport.dkih_12}">
+							        <input type="hidden" name="session_dkih_12e" id="session_dkih_12e" value="${recordTopicSkatImport.dkih_12e}">
+							        <input type="hidden" name="session_dkih_221" id="session_dkih_221" value="${recordTopicSkatImport.dkih_221}">
+							        <input type="hidden" name="session_dkih_221b" id="session_dkih_221b" value="${recordTopicSkatImport.dkih_221b}">
+							        <input type="hidden" name="session_dkih_221c" id="session_dkih_221c" value="${recordTopicSkatImport.dkih_221c}">
+							        <input type="hidden" name="session_dkih_222" id="session_dkih_222" value="${recordTopicSkatImport.dkih_222}">
+							        <input type="hidden" name="session_dkih_201" id="session_dkih_201" value="${recordTopicSkatImport.dkih_201}">
 							        
 							        <%-- Model fields needed for the AJAX calculation av Bilagda handlingar --%>
 							        <input type="hidden" name="model_avd" id="model_avd" value="${model.avd}">
@@ -1052,7 +1052,7 @@
 							        		<td class="text12" align="left">
 							 			<img onMouseOver="showPop('34a_info');" onMouseOut="hidePop('34a_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>34.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' || recordTopicSkat.dkih_aart=='07'}">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' || recordTopicSkatImport.dkih_aart=='07'}">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 				 						<span title="dkiv_34">Opr.land</span>
@@ -1081,8 +1081,8 @@
 						        		<td class="text12" align="left">
 							            <img onMouseOver="showPop('46_info');" onMouseOut="hidePop('46_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>46.</b>
-				 						<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='03' || recordTopicSkat.dkih_aart=='04' ||
-				 									 recordTopicSkat.dkih_aart=='05' || recordTopicSkat.dkih_aart=='07' || recordTopicSkat.dkih_aart=='08' }">
+				 						<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='03' || recordTopicSkatImport.dkih_aart=='04' ||
+				 									 recordTopicSkatImport.dkih_aart=='05' || recordTopicSkatImport.dkih_aart=='07' || recordTopicSkatImport.dkih_aart=='08' }">
 							            		<font class="text16RedBold" >*</font>
 							            </c:if>
 							            <span title="dkiv_46">Statistisk værdi:&nbsp;</span>
@@ -1105,8 +1105,8 @@
 							           	<td colspan="4" class="text12" align="left" >
 								            <img onMouseOver="showPop('40_info');" onMouseOut="hidePop('40_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 						<b>40.</b>
-					 						<c:if test="${recordTopicSkat.dkih_aart=='02' || recordTopicSkat.dkih_aart=='04' ||
-					 									 recordTopicSkat.dkih_aart=='05' || recordTopicSkat.dkih_aart=='07' }">
+					 						<c:if test="${recordTopicSkatImport.dkih_aart=='02' || recordTopicSkatImport.dkih_aart=='04' ||
+					 									 recordTopicSkatImport.dkih_aart=='05' || recordTopicSkatImport.dkih_aart=='07' }">
 								            		<font class="text16RedBold" >*</font>
 								            </c:if>
 					 						<span title="dkiv_401/dkiv_402/dkiv_403">Summarisk angivelse / Forudgående dokument:</span>
@@ -1158,7 +1158,7 @@
 											 				  		<option value="${code.dkkd_kd}"<c:if test="${model.record.dkiv_402a == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>
 																</c:forEach> 
 															</select>
-															<a tabindex="-1" id="dkiv_402aIdLink" OnClick="triggerChildWindowGeneralCodesR40(this, '017', ${recordTopicSkat.dkih_25}, ${recordTopicSkat.dkih_26})">
+															<a tabindex="-1" id="dkiv_402aIdLink" OnClick="triggerChildWindowGeneralCodesR40(this, '017', ${recordTopicSkatImport.dkih_25}, ${recordTopicSkatImport.dkih_26})">
 																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 															</a>										           				
 														</td>
@@ -2590,7 +2590,7 @@
 																<tr>	
 																	<td class="text11">
 																		&nbsp;&nbsp;&nbsp;<span title="dkiv_t11b"><b>11b.</b>&nbsp;Indirekte betalinger - se rubrik 8 b.</span>
-																		&nbsp;(Omregningskurs: <font class="text11Gray"><b>${recordTopicSkat.dkih_221b}</b></font> )
+																		&nbsp;(Omregningskurs: <font class="text11Gray"><b>${recordTopicSkatImport.dkih_221b}</b></font> )
 																	</td>
 																	<td class="text11">
 																		&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextRight" name="dkiv_t11b" id="dkiv_t11b" size="20" maxlength="15" value="${model.record.dkiv_t11b}">
@@ -2719,7 +2719,7 @@
 																	</td>
 																	<td class="text11">
 																		<c:forEach var="record" items="${model.toldstedCodeList}" >
-																			<c:if test="${recordTopicSkat.dkih_a == record.dkkd_kd}"> 
+																			<c:if test="${recordTopicSkatImport.dkih_a == record.dkkd_kd}"> 
 																				&nbsp;<input style="text-align:right;" readonly type="text" class="inputTextReadOnly" name="dkiv_t17_readOnly" id="dkiv_t17_readOnly" size="20" maxlength="35" value="${record.dkkf_txt}">
 																			</c:if> 
 																		</c:forEach>

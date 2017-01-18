@@ -109,28 +109,28 @@
 						 		<table width="80%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
 							            <td width="30%" class="text11Bold" align="left" >Afsender&nbsp;</td>
-							            <td class="text11" align="left" >${recordTopicSkat.thkns}</td>
+							            <td class="text11" align="left" >${recordTopicSkatNctsExport.thkns}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">CVR/SE-nr&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thtins}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thtins}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thnas}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thnas}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thads1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thads1}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thpns}&nbsp;${recordTopicSkat.thpss}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thpns}&nbsp;${recordTopicSkatNctsExport.thpss}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Land
 							            </td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thlks}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thlks}</td>
 							        </tr>
 							        
 			        	        </table>
@@ -139,28 +139,28 @@
 						 		<table width="80%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
 							            <td width="30%" class="text11Bold" align="left" >Modtager&nbsp;</td>
-							            <td class="text11" align="left" >${recordTopicSkat.thknk}</td>
+							            <td class="text11" align="left" >${recordTopicSkatNctsExport.thknk}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">EORI&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thtink}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thtink}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thnak}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thnak}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thadk1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thadk1}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thpnk}&nbsp;${recordTopicSkat.thpsk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thpnk}&nbsp;${recordTopicSkatNctsExport.thpsk}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Land
 							            </td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.thlkk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsExport.thlkk}</td>
 							        </tr>
 			        	        </table>
 					        </td>
@@ -278,7 +278,9 @@
 										   			</div>
 								   				</span>	
 								   	
+								   	<c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
 								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere vareposter</button>	
+								   	</c:if>	
 								   				
 									</td>
 									
@@ -289,7 +291,7 @@
 									<td width="10%" class="text12">&nbsp;</td>
 																		
 									<td align="right" class="text11"><b>35.</b>Bruttovægt &nbsp;
-										<input style="text-align: right;" tabindex=-1 type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=11" value='${recordTopicSkat.thvkb}'>
+										<input style="text-align: right;" tabindex=-1 type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=11" value='${recordTopicSkatNctsExport.thvkb}'>
 										&nbsp;&nbsp;
 									</td>
 									

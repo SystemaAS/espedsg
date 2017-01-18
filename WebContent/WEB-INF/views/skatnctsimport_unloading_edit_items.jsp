@@ -17,7 +17,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkat.tisg}">
+				<a id="alinkTopicList" tabindex=-1 style="display:block;" href="skatnctsimport.do?action=doFind&sign=${recordTopicSkatNctsImport.tisg}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					
@@ -25,11 +25,11 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkat.tiavd}&opd=${recordTopicSkat.titdn}
-						&sysg=${recordTopicSkat.tisg}&syst=${recordTopicSkat.tist}&sydt=${recordTopicSkat.tidt}">
+				<a id="alinkHeader" tabindex=-1 style="display:block;" href="skatnctsimport_edit.do?action=doFetch&avd=${recordTopicSkatNctsImport.tiavd}&opd=${recordTopicSkatNctsImport.titdn}
+						&sysg=${recordTopicSkatNctsImport.tisg}&syst=${recordTopicSkatNctsImport.tist}&sydt=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.ncts.import.created.mastertopic.tab"/></font>
-					<font class="text12MediumBlue">[${recordTopicSkat.titdn}]</font>
-					<c:if test="${ recordTopicSkat.tist == 'F' || recordTopicSkat.tist == 'M' || empty recordTopicSkat.tist}">
+					<font class="text12MediumBlue">[${recordTopicSkatNctsImport.titdn}]</font>
+					<c:if test="${ recordTopicSkatNctsImport.tist == 'F' || recordTopicSkatNctsImport.tist == 'M' || empty recordTopicSkatNctsImport.tist}">
 						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 					</c:if>
 				</a>
@@ -37,13 +37,13 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatnctsimport_edit_items.do?action=doFetch&avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+											&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+											&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 				<font class="tabDisabledLink">
 					&nbsp;<spring:message code="systema.skat.ncts.import.item.createnew.tab"/>
 				</font>
-				<c:if test="${recordTopicSkat.tist == 'F' || recordTopicSkat.tist == 'M' || empty recordTopicSkat.tist}">
+				<c:if test="${recordTopicSkatNctsImport.tist == 'F' || recordTopicSkatNctsImport.tist == 'M' || empty recordTopicSkatNctsImport.tist}">
 					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 				</c:if>
 				</a>
@@ -51,9 +51,9 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkUnloading" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-											&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-											&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkUnloading" tabindex=-1 style="display:block;" href="skatnctsimport_unloading_edit.do?avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+											&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+											&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.unloading.createnew.tab"/>
 					</font>
@@ -69,9 +69,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkLogging" tabindex=-1 style="display:block;" href="skatnctsimport_logging.do?avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+									&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+									&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.logging.tab"/>
 					</font>
@@ -80,9 +80,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkat.tiavd}&sign=${recordTopicSkat.tisg}
-									&opd=${recordTopicSkat.titdn}&mrnNr=${recordTopicSkat.titrnr}&godsNr=${recordTopicSkat.tign}
-									&status=${recordTopicSkat.tist}&datum=${recordTopicSkat.tidt}">
+				<a id="alinkArchive" tabindex=-1 style="display:block;" href="skatnctsimport_archive.do?avd=${recordTopicSkatNctsImport.tiavd}&sign=${recordTopicSkatNctsImport.tisg}
+									&opd=${recordTopicSkatNctsImport.titdn}&mrnNr=${recordTopicSkatNctsImport.titrnr}&godsNr=${recordTopicSkatNctsImport.tign}
+									&status=${recordTopicSkatNctsImport.tist}&datum=${recordTopicSkatNctsImport.tidt}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.ncts.import.archive.tab"/>
 					</font>
@@ -108,19 +108,19 @@
 	 				<table width="100%" align="center" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text11MediumBlue">
-				 				&nbsp;Afd&nbsp;<b>${recordTopicSkat.tiavd}</b>
-				 				&nbsp;Angivelse&nbsp;<b>${recordTopicSkat.titdn}</b>
-				 				&nbsp;Sign&nbsp;<b>${recordTopicSkat.tisg}</b>
+				 				&nbsp;Afd&nbsp;<b>${recordTopicSkatNctsImport.tiavd}</b>
+				 				&nbsp;Angivelse&nbsp;<b>${recordTopicSkatNctsImport.titdn}</b>
+				 				&nbsp;Sign&nbsp;<b>${recordTopicSkatNctsImport.tisg}</b>
 				 				
 				 				&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-           						Status:&nbsp;<b>${recordTopicSkat.tist}</b>
+           						Status:&nbsp;<b>${recordTopicSkatNctsImport.tist}</b>
 				 				&nbsp;&nbsp;
 								<span title="tienkl">Type procedure:</span>&nbsp;
-								<c:if test="${recordTopicSkat.tienkl == 'J'}"><b>Forenklet</b></c:if>
-								<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>
-				 				&nbsp;&nbsp;&nbsp;Mrn-nr:&nbsp;<b>${recordTopicSkat.titrnr}</b>
-				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkat.tign}</b>
+								<c:if test="${recordTopicSkatNctsImport.tienkl == 'J'}"><b>Forenklet</b></c:if>
+								<c:if test="${recordTopicSkatNctsImport.tienkl == 'N'}"><b>Normal</b></c:if>
+				 				&nbsp;&nbsp;&nbsp;Mrn-nr:&nbsp;<b>${recordTopicSkatNctsImport.titrnr}</b>
+				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkatNctsImport.tign}</b>
 			 				
 			 				<div class="text11" style="position: relative;" align="left">
 							<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
@@ -137,7 +137,7 @@
 		 				<tr height="20"><td></td></tr>
 	 				</table>
 	 				
-					<%-- MASTER Topic information [it is passed through a session object: recordTopicSkat] --%>
+					<%-- MASTER Topic information [it is passed through a session object: recordTopicSkatNctsImport] --%>
 				 	<table height="40" width="100%" align="center" class="formFrameTitaniumWhite" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="2"><td class="text" align="left" colspan="2"></td></tr>
 				 		<tr>
@@ -149,16 +149,16 @@
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left" >Kundenr&nbsp;</td>
-							            <td class="text11MediumBlue" align="left" >${recordTopicSkat.tikn}</td>
+							            <td class="text11MediumBlue" align="left" >${recordTopicSkatNctsImport.tikn}</td>
 							        </tr>
 							        							        
 							        <tr>
 							            <td width="30%" class="text11" align="left">TIN-nr&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkat.titin}</b></td>
+							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkatNctsImport.titin}</b></td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkat.tina}</b></td>
+							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkatNctsImport.tina}</b></td>
 							        </tr>
 								</table>
 					        </td>
@@ -169,16 +169,16 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tiad1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tiad1}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tipn}&nbsp;${recordTopicSkat.tips}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tipn}&nbsp;${recordTopicSkatNctsImport.tips}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Landkode
 							            </td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tilk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tilk}</td>
 							        </tr>
 							        
 			        	        </table>
@@ -397,7 +397,7 @@
 				 				<input tabindex=-1 align="center" class="text12BoldLightGreenForItemLinenr" readonly type="text" name="lineNr" id="lineNr" size="3" value="">
 			 				</td>
 			 				<td class="text12White" align="right">
-				 				Konform&nbsp;&nbsp;<font class="text16RedBold">${ recordTopicSkatUnloading.nikonf }</font>&nbsp;&nbsp;&nbsp;
+				 				Konform&nbsp;&nbsp;<font class="text16RedBold">${ recordTopicSkatNctsImportUnloading.nikonf }</font>&nbsp;&nbsp;&nbsp;
 				 			</td>
 		 				</tr>
 	 				</table>
@@ -410,7 +410,7 @@
 							 		<tr>
 							 			<td class="text12" align="left" valign="bottom">
 							 				<img onMouseOver="showPop('control_code_info');" onMouseOut="hidePop('control_code_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 				<c:if test="${recordTopicSkatUnloading.nikonf != '1'}">
+							 				<c:if test="${recordTopicSkatNctsImportUnloading.nikonf != '1'}">
 								 				<font class="text16RedBold" >*</font>
 							 				</c:if>
 							 				<span title="nvct" >Kode</span>
@@ -458,7 +458,7 @@
 							        <tr>
 							        		<td class="text12" align="left">
 							        		<c:choose>
-							        		<c:when test="${recordTopicSkatUnloading.nikonf != '1'}">
+							        		<c:when test="${recordTopicSkatNctsImportUnloading.nikonf != '1'}">
 												<select class="inputTextMediumBlueMandatoryField" name="nvct" id="nvct">
 													<option value=""<c:if test="${model.record.nvct == ''}"> selected </c:if> >-vælg-</option>
 												  	<option value="DI"<c:if test="${model.record.nvct == 'DI'}"> selected </c:if> >DI</option>
@@ -755,7 +755,7 @@
 							        
 						            		<%-- only status = U,H are allowed  --%>
 					 				    	<c:choose>
-						 				    <c:when test="${ recordTopicSkat.tist == 'U' ||  recordTopicSkat.tist == 'H' }">
+						 				    <c:when test="${ recordTopicSkatNctsImport.tist == 'U' ||  recordTopicSkatNctsImport.tist == 'H' }">
 							 				    <td align="center" class="text9BlueGreen" valign="bottom"  >
 								 				    &nbsp;&nbsp;&nbsp;<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_unloading_edit_items.do';" value="<spring:message code="systema.skat.ncts.import.unloading.createnew.submit"/>"/>
 								 				</td>    	

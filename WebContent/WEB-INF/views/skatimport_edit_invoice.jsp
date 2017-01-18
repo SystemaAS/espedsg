@@ -49,7 +49,7 @@
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="skatimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 											&opd=${model.opd}&refnr=${dkih_07}
-											&status=${model.status}&datum=${model.datum}&fabl=${recordTopicSkat.dkih_222}">
+											&status=${model.status}&datum=${model.datum}&fabl=${recordTopicSkatImport.dkih_222}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.skat.import.item.createnew.tab"/>
 					</font>
@@ -117,24 +117,24 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">EORI&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02a}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02b}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02b}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02c}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02c}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02d}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02d}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_02e}&nbsp;${recordTopicSkat.dkih_02f}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_02e}&nbsp;${recordTopicSkatImport.dkih_02f}</td>
 							        </tr>
 							        <tr>
 							        		<td width="30%" class="text11" align="left">&nbsp;</td>
@@ -149,27 +149,27 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">CVR/SE-nr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08a}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08a}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08b}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08b}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08c}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08c}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Postnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08d}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08d}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_08e}&nbsp;${recordTopicSkat.dkih_08f}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_08e}&nbsp;${recordTopicSkatImport.dkih_08f}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Klarereren&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.dkih_14a}&nbsp;&nbsp;${recordTopicSkat.dkih_14b}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatImport.dkih_14a}&nbsp;&nbsp;${recordTopicSkatImport.dkih_14b}</td>
 							        </tr>
 							        
 			        	        </table>
@@ -194,8 +194,8 @@
 						            	</td>
 						            	
 										<td align="right" class="text11">Fsum:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${recordTopicSkat.dkih_222}">
-											<font class="inputText11BlueBoldReadOnly">${recordTopicSkat.dkih_221}</font>
+											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" value="${recordTopicSkatImport.dkih_222}">
+											<font class="inputText11BlueBoldReadOnly">${recordTopicSkatImport.dkih_221}</font>
 										</td>
 										
 										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
@@ -356,8 +356,8 @@
 	 				<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
 	 				<input type="hidden" name="status" id="status" value="${model.status}"/>
 	 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
-	 				<input type="hidden" name="fabl" id="fabl" value='${XrecordTopicSkat.todo}'>
-	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicSkat.todo}'>
+	 				<input type="hidden" name="fabl" id="fabl" value='${XrecordTopicSkatImport.todo}'>
+	 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${XrecordTopicSkatImport.todo}'>
 	 				<table width="80%" cellspacing="0" border="0" cellpadding="0">
 						<tr>
 							<td class="text12Bold">
@@ -385,7 +385,7 @@
 				 	<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}"/>
 				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${XrecordTopicSkat.svih_fabl}"/>
+				 	<input type="hidden" name="fabl" id="fabl" value="${XrecordTopicSkatImport.svih_fabl}"/>
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	

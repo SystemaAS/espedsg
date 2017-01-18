@@ -108,17 +108,17 @@
 	 				<table width="100%" align="center" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text11MediumBlue">
-				 				&nbsp;Afd&nbsp;<b>${recordTopicSkat.tiavd}</b>
-				 				&nbsp;Angivelse&nbsp;<b>${recordTopicSkat.titdn}</b>
-				 				&nbsp;Sign&nbsp;<b>${recordTopicSkat.tisg}</b>
+				 				&nbsp;Afd&nbsp;<b>${recordTopicSkatNctsImport.tiavd}</b>
+				 				&nbsp;Angivelse&nbsp;<b>${recordTopicSkatNctsImport.titdn}</b>
+				 				&nbsp;Sign&nbsp;<b>${recordTopicSkatNctsImport.tisg}</b>
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-           						Status:&nbsp;<b>${recordTopicSkat.tist}</b>
+           						Status:&nbsp;<b>${recordTopicSkatNctsImport.tist}</b>
 								&nbsp;&nbsp;Type procedure: 
-           						<c:if test="${recordTopicSkat.tienkl == 'J'}"><b>Forenklet</b></c:if>
-           						<c:if test="${recordTopicSkat.tienkl == 'N'}"><b>Normal</b></c:if>           						 
-				 				&nbsp;&nbsp;&nbsp;MRN-nr:&nbsp;<b>${recordTopicSkat.titrnr}</b>
-				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkat.tign}</b>
+           						<c:if test="${recordTopicSkatNctsImport.tienkl == 'J'}"><b>Forenklet</b></c:if>
+           						<c:if test="${recordTopicSkatNctsImport.tienkl == 'N'}"><b>Normal</b></c:if>           						 
+				 				&nbsp;&nbsp;&nbsp;MRN-nr:&nbsp;<b>${recordTopicSkatNctsImport.titrnr}</b>
+				 				&nbsp;&nbsp;&nbsp;Gods-nr:&nbsp;<b>${recordTopicSkatNctsImport.tign}</b>
 				 			
 							<div class="text11" style="position: relative;" align="left">
 							<span style="position:absolute; top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
@@ -147,16 +147,16 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left" >Kundenr&nbsp;</td>
-							            <td class="text11MediumBlue" align="left" >${recordTopicSkat.tikn}</td>
+							            <td class="text11MediumBlue" align="left" >${recordTopicSkatNctsImport.tikn}</td>
 							        </tr>
 							        
 							        <tr>
 							            <td width="30%" class="text11" align="left">TIN-nr&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkat.titin}</b></td>
+							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkatNctsImport.titin}</b></td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkat.tina}</b></td>
+							           	<td class="text11MediumBlue" align="left"><b>${recordTopicSkatNctsImport.tina}</b></td>
 							        </tr>
 								</table>
 					        </td>
@@ -167,16 +167,16 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tiad1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tiad1}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">By&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tipn}&nbsp;${recordTopic.tips}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tipn}&nbsp;${recordTopic.tips}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Landkode
 							            </td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicSkat.tilk}</td>
+							           	<td class="text11MediumBlue" align="left">${recordTopicSkatNctsImport.tilk}</td>
 							        </tr>
 							        
 			        	        </table>

@@ -1305,7 +1305,7 @@ public class SkatImportHeaderController {
 		for (JsonSkatImportSpecificTopicRecord record : container.getOneorder()){
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
-			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT, record);
 		}
 
 	}
@@ -1332,7 +1332,7 @@ public class SkatImportHeaderController {
 			}
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines
-			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+			session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT, record);
 		}
 		
 	}
@@ -1352,7 +1352,7 @@ public class SkatImportHeaderController {
 		}
 		model.put(SkatConstants.DOMAIN_RECORD, record);
 		//put the header topic in session for the coming item lines
-		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT, record);
+		session.setAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_IMPORT, record);
 	}
 	/**
 	 * 
