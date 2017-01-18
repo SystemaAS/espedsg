@@ -70,9 +70,6 @@ public class MainMaintenanceCundfKundeController {
 			KundeSessionParams kundeSessionParams = null;
 			kundeSessionParams = (KundeSessionParams)session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			
-			logger.info("action="+action);
-			logger.info("kundeSessionParams="+ReflectionToStringBuilder.toString(kundeSessionParams));
-			
 			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
 				// Validate
 				MaintMainCundfValidator validator = new MaintMainCundfValidator();
@@ -119,10 +116,6 @@ public class MainMaintenanceCundfKundeController {
 			} else { // Fetch
 				JsonMaintMainCundfRecord record = fetchRecord(appUser.getUser(), kundeSessionParams.getKundnr(), kundeSessionParams.getFirma());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				if (appUser.isNorwegianFirma()) {
-					util.addEnhetProperties(record, model, appUser);
-				}
-			
 			}
 
 			model.put("action", MainMaintenanceConstants.ACTION_UPDATE); //User can change data

@@ -7,25 +7,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.SerializationUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.brreg.proxy.entities.Enhet;
-import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.values.FasteKoder;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
@@ -65,8 +61,6 @@ public class MainMaintenanceCundfVkundController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private boolean KOFAST_NO_ID = true; 
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	private VkundControllerUtil util = null;
-
 	
 	@RequestMapping(value="mainmaintenancecundf_vkund.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
@@ -93,7 +87,7 @@ public class MainMaintenanceCundfVkundController {
 	public ModelAndView mainmaintenancecundf_vkund_edit(@ModelAttribute ("record") JsonMaintMainCundfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_kunde_edit"); //NOTE: not name correlated jsp, default to Kunde tab
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		util = new VkundControllerUtil(urlCgiProxyService);
+		VkundControllerUtil util = new VkundControllerUtil(urlCgiProxyService);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
@@ -117,10 +111,6 @@ public class MainMaintenanceCundfVkundController {
 
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				
-				if (appUser.isNorwegianFirma()) {
-					util.addEnhetProperties(record, model, appUser);
-				}
 				
 				successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
 

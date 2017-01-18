@@ -140,6 +140,7 @@
 										</font>&nbsp;						
 									</a>
 								</td>
+<!-- 
 								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
@@ -177,7 +178,7 @@
 										</font>&nbsp;						
 									</a>
 								</td>
-								
+-->									
 <!--  
 								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
 -->
@@ -221,7 +222,7 @@
 									 				<div class="text11" style="position: relative;" align="left">
 									 				<span style="position:absolute; top:2px; width:250px;" id="orgnr_info" class="popupWithInputText text11"  >  <!-- TODO: nordify, now norwegian -->
 											           		<b>Organisasjonsnummer</b>
-											           		<br><br>Hvis organisasjonsnummer fylles i, og addressinformation mangler, lastes information om postadresse fra Brønnøysundregistrene:
+											           		<br><br>Hvis nedlastningknappen till høyre brukes , og addressinformation mangler, lastes information om postadresse fra Brønnøysundregistrene:
 															<br><br>postadresse.adresse<br>
 															postadresse.poststed<br>
 															postadresse.postnummer<br>
@@ -230,7 +231,13 @@
 													</div>
 												</c:if>
 											</td>
-											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'></td>
+											<td><input type="text" class="inputTextMediumBlue" name="syrg" id="syrg" size="15" maxlength="14" value='${model.record.syrg}'>&nbsp;
+												<c:if test="${user.filand == 'NO'}">
+													<a tabindex="-1" id="brregLink" onClick="getDataFromBrreg(this);">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/request.png" width="14px" height="14px" border="0" title="Last ned data fra Brønnøysundregistrene." >
+													</a> 
+												</c:if>
+											</td>
 										</tr>
 										<tr>
 											<td class="text12" title="knavn">&nbsp;<font class="text14RedBold" >*</font>
@@ -350,13 +357,12 @@
 										</tr>	
 										<tr>
 											<td colspan="3">&nbsp;</td>
-											<td>
+											<td>&nbsp;
 												<c:if test="${user.filand == 'NO'}">
 								 					&nbsp;<img onMouseOver="showPop('brreg_info');" onMouseOut="hidePop('brreg_info');"style="vertical-align:bottom;" width="150px" height="25px" src="http://scf.brreg.no/bilder/brreg_logo.svg" alt="info">
 									 				<div class="text11" style="position: relative;" align="left">
-									 				<span style="position:absolute; top:2px; width:250px; left:-50px" id="brreg_info" class="popupWithInputText text11"  > <!-- TODO: nordify, now norwegian -->
-											           	<b>Enhet:</b>
-														<br>${model.enhetProperties}<br>
+									 				<span style="position:absolute; top:2px; width:300px; left:-60px" id="brreg_info" class="popupWithInputText text11">
+									 					<textarea cols="46" id="ehp">&nbsp;</textarea>
 													</span>
 													</div>
 												</c:if>

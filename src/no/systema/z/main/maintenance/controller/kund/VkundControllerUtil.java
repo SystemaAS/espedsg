@@ -10,9 +10,7 @@ import org.apache.log4j.Logger;
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
-import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
@@ -58,7 +56,7 @@ public class VkundControllerUtil {
 
 	
 	/**
-	 * Fetch a {@link Enhet} as a Map with key/value, conversiokn done by Jackson
+	 * Fetch a {@link Enhet} as a Map with key/value, conversion done by Jackson
 	 * 
 	 * @param user
 	 * @param orgnr
@@ -108,22 +106,4 @@ public class VkundControllerUtil {
 		}
 	}	
 
-	/**
-	 * Add Enhet properties to model
-	 * 
-	 * @param record
-	 * @param model, adding enhetProperties
-	 * @param appUser
-	 */
-	public void addEnhetProperties(JsonMaintMainCundfRecord record, Map model, SystemaWebUser appUser) {
-		if (record.getSyrg() != null  && record.getSyrg().length() > 0) {
-			Map<String, Object> enhetProperties = fetchEnhetMap(appUser.getUser(), record.getSyrg());
-			if (enhetProperties != null) {
-				model.put("enhetProperties", enhetProperties);
-			} else {
-				model.put("enhetProperties", "Ikke tillgjenglig.");
-			}
-		}
-	}
-	
 }

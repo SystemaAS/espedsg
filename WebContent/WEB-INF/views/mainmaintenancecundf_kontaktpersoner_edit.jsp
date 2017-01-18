@@ -138,6 +138,7 @@
 									<spring:message code="systema.main.maintenance.customer.contacts"/>
 								</font>&nbsp;						
 							</td>
+<!--  
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
@@ -166,7 +167,7 @@
 									</font>&nbsp;						
 								</a>
 							</td>							
-							
+-->							
 <!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
  -->

@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
-
-import no.systema.jservices.common.json.JsonDtoContainer;
-import no.systema.jservices.common.json.JsonReader;
-
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -45,7 +41,6 @@ import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
-	//private VkundControllerUtil util = null;
 
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta, String ctype) {
@@ -56,12 +51,14 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	}
 
 	@RequestMapping(value = "getSpecificRecord_enhet_brreg.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody List<Enhet> getRecordHovedEnhetBrreg(@RequestParam String applicationUser, @RequestParam String orgnr) {
+	public @ResponseBody Collection<Enhet> getRecordHovedEnhetBrreg(@RequestParam String applicationUser, @RequestParam String orgnr) {
 		VkundControllerUtil util = new VkundControllerUtil(urlCgiProxyService);
 		final String METHOD = "[DEBUG] getSpecificRecord_enhet_brreg ";
 		logger.info(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
 
-		return (List<Enhet>) util.fetchSpecificEnhet(applicationUser, orgnr);
+		Collection<Enhet> list =  util.fetchSpecificEnhet(applicationUser, orgnr);
+		
+		return list;
 	}
 
 	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta, String ctype) {
