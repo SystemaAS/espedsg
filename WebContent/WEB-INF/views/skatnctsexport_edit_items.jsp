@@ -367,7 +367,7 @@
 								               </td>
 							               </c:if>
 								           </tr>
-								        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> --%>
+								        <c:set var="counterItemLinesInTopic" value="${counter.count}" scope="request" />
 								        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
 								         
 							            </c:forEach>
@@ -805,7 +805,24 @@
 																  <option value="CAL"<c:if test="${model.record.tvtlo == 'CAL'}"> selected </c:if> >CAL [Skuldbelopp]</option>
 																  <option value="DG0"<c:if test="${model.record.tvtlo == 'DG0'}"> selected </c:if> >DG0 [Export med restriktioner]</option>
 																  <option value="DG1"<c:if test="${model.record.tvtlo == 'DG1'}"> selected </c:if> >DG1 [Export med avgift]</option>
-																  <option value="DG2"<c:if test="${model.record.tvtlo == 'DG2'}"> selected </c:if> >DG2 [Export]</option>
+																  <c:choose>
+																  	<c:when test="${not empty model.record.tvli}">
+																  		<option value="DG2"<c:if test="${model.record.tvtlo == 'DG2'}"> selected </c:if> >DG2 [Export]</option>
+																  	</c:when>
+																  	<c:otherwise>
+																  		<c:choose>
+																  			<%-- only on ROW: 1 as default --%>
+																	  		<c:when test="${empty counterItemLinesInTopic }">
+																	  			<option value="DG2" selected  >DG2 [Export]</option>
+																	  		</c:when>
+																	  		<c:otherwise>
+																	  			<option value="DG2"<c:if test="${model.record.tvtlo == 'DG2'}"> selected </c:if> >DG2 [Export]</option>
+																	  		</c:otherwise>
+																  		</c:choose>
+																  		
+																  	</c:otherwise>
+																  </c:choose>
+																  
 															  	</select>	
 										           			</td>
 										           			<td class="text11" >&nbsp;

@@ -6,6 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
+	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/skatglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	<SCRIPT type="text/javascript" src="resources/js/skatexport.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
@@ -222,6 +223,7 @@
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.aart"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.datum"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.status"/>&nbsp;</td>
+	                    <td class="tableHeaderField" title="Send alle status 11">&nbsp;&nbsp;<input type="button" name="buttonSendAll" id="buttonSendAll" value='Send'>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.avsandare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.mottagare"/>&nbsp;</td>
 	                    <%--
@@ -257,6 +259,11 @@
 		               <td class="tableCell" >&nbsp;${topic.aart}</td>
 		               <td class="tableCell" >&nbsp;${topic.datum}</td>
 		               <td class="tableCell" >&nbsp;<b>${topic.status}</b></td>
+		               <td class="tableCell" align="center">
+		               		<c:if test="${topic.status == '11'}">
+		               			<input class="clazzSendAware" type="checkbox" value="J" id="syav${topic.avd}_syop${topic.opd}" name="syav${topic.avd}_syop${topic.opd}" >
+		               		</c:if>
+		               </td>
 		               <td class="tableCell" >&nbsp;${topic.avsNavn}</td>
 		               <td class="tableCell" >&nbsp;${topic.motNavn}</td>
 		               <%-- 
@@ -330,7 +337,7 @@
 		</tr>
     </c:if> 
     
-    		<tr>
+   		<tr>
 		<td>
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
 				<form  action="skatexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
@@ -385,6 +392,29 @@
 		</td>
 		</tr>
 		
+		<tr>
+		<td>
+			<div id="dialogSendAll" title="Dialog">
+				<form  action="NOTHING.do" name="sendAllForm" id="sendAllForm" method="post">
+				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
+				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
+					<p class="text12" ></p>
+					
+					<table>
+						<tr>
+							<td class="text12" align="left" >&nbsp;Faktisk ekspeditionstid</td>
+   						</tr>
+						<tr>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="sendAllDtm2" name="sendAllDtm2" size="16" maxlength="12" value=''>&nbsp;
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</td>
+		</tr>
+	
     
 </table>	
 		

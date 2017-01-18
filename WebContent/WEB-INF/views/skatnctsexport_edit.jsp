@@ -1653,7 +1653,7 @@
 					        </tr>	    
 				            <tr height="2"><td>&nbsp;</td></tr>
 				            
-					     	<%-- This section is not needed in NCTS since the backend sums all kollis at an item level
+					     	<%-- This section is not needed in NCTS since the backend sums all kollis at an item level --%>
 					     	<tr>
 					        		<td class="text12Gray" align="left" >
 					        			Antal kollin (i vareposterne)&nbsp;
@@ -1680,7 +1680,7 @@
 					            		</c:if>
 					            </td>
 					        </tr>
-					         --%>
+					         
 					        <tr>
 					        		<td class="text12Gray" align="left" >Antal vareposter &nbsp;</td>
 						        	<td >

@@ -101,6 +101,13 @@
 			 				<a tabindex=-1 href="renderLocalPdf.do?fn=SKAT_EDI_CUSRES_svarkoder_v.1.1.xls.pdf" target="_blank">
 			 					<img valign="bottom" width="14px" height="14px" src="resources/images/pdf.png" border="0" alt="pdf">
 			 				</a>
+			 				
+			 				&nbsp;&nbsp;&nbsp;&nbsp;
+			 				<font class="text10">Rules and Conditions</font>
+			 				<%-- SKAT_EDI_EDIFACT_rules and conditions v4.xlsx --%>
+			 				<a tabindex=-1 href="renderLocalPdf.do?fn=SKAT_EDI_EDIFACT_rules_and_conditions_v4.xlsx" target="_blank">
+			 					<img valign="bottom" width="14px" height="14px" src="resources/images/pdf.png" border="0" alt="pdf">
+			 				</a>
 							
 	                    </td>
 	               </tr>     

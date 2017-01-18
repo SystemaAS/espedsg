@@ -30,6 +30,8 @@ import no.systema.main.util.JsonDebugger;
 //SKAT
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
+import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
 import no.systema.skat.service.SkatTaricVarukodService;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
@@ -486,6 +488,61 @@ public class SkatExportAjaxHandlerController {
 		  return sb.toString();
 	  }
 	  	
+	  
+	  /**
+	   * Imports a SKAT EXPORT as a NCTS EXPORT item line
+	   * @param applicationUser
+	   * @param avd
+	   * @return
+	   */
+	  @RequestMapping(value = "sendAllSkatExportStatus11_SkatExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatExportSpecificTopicContainer> sendAllSkatExportStatus11(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		 
+		 	String method = "sendAllSkatExportStatus11_SkatNctsExport.do";
+		 	logger.info("Inside " + method);
+		 	Set result = new HashSet();
+		 	
+		 	if (requestParams!=null && !"".equals(requestParams)){
+			 	String[] params = requestParams.split(";");
+			 	List <String>list = Arrays.asList(params);
+			 	
+			 	for (String record : list){
+				 	logger.info("update record transaction started");
+					//---------------------------
+					//get BASE URL = RPG-PROGRAM
+					//---------------------------
+					String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_BULK_SEND_SPECIFIC_TOPICS_URL;
+					//url params
+					String urlRequestParamsKeys = "user=" + applicationUser + record;
+					//for debug purposes in GUI
+					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+					logger.info("URL: " + BASE_URL);
+					logger.info("URL PARAMS: " + urlRequestParamsKeys);
+					//--------------------------------------
+					//EXECUTE RPG program here
+					//--------------------------------------
+					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+					//Debug --> 
+					logger.info("jsonPayload:" + jsonPayload);
+					logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		
+					if(jsonPayload!=null){
+					JsonSkatExportSpecificTopicContainer container = this.skatExportSpecificTopicService.getSkatExportSpecificTopicContainer(jsonPayload);
+			    		if(container!=null){
+			    			logger.info("container errMsg (if any): " + "avd:" + container.getAvd() + " opd:" + container.getOpd() + 
+			    						" errMsg:" + container.getErrMsg() );
+			    					result.add(container);
+			    		}
+			    	}
+			    	
+			 	}
+		 	}
+		return result;  
+	  }
+	  
+	  
+	  
+	  
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
 	  private UrlCgiProxyService urlCgiProxyService;

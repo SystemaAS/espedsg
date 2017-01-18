@@ -3,7 +3,10 @@
  */
 package no.systema.skat.skatexport.model.jsonjackson.topic;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 
 
@@ -33,5 +36,18 @@ public class JsonSkatExportSpecificTopicContainer {
 	public void setOneorder(Collection<JsonSkatExportSpecificTopicRecord> value){ this.oneorder = value; }
 	public Collection<JsonSkatExportSpecificTopicRecord> getOneorder(){ return oneorder; }
 	
+	/**
+	 * Used for java reflection in other classes
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public List<Field> getFields() throws Exception{
+		Class cl = Class.forName(this.getClass().getCanonicalName());
+		Field[] fields = cl.getDeclaredFields();
+		List<Field> list = Arrays.asList(fields);
+		
+		return list;
+	}
 	
 }

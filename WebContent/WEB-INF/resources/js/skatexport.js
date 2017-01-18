@@ -32,6 +32,16 @@
 		  dateFormat: 'yymmdd'	  
 	  });
 	  
+	  jq("#sendAllDtm2").datetimepicker({ 
+  		  dateFormat: 'yymmdd',
+		  controlType: 'select',
+		  timeFormat: 'HHmm' 
+	  });
+	  jq('#sendAllDtm2').change(function() {
+	  		var val = jq("#sendAllDtm2").val();
+	  		jq("#sendAllDtm2").val(val.replace(' ', ''));
+	  	  });
+	  
   });
   
   
@@ -223,6 +233,108 @@
   //END Model dialog "Kopiera Ärende from template
   //-----------------------------------------------
 
+//Initialize <div> here
+  jq(function() { 
+	  jq("#dialogSendAll").dialog({
+		  autoOpen: false,
+		  maxWidth:300,
+          maxHeight: 350,
+          width: 300,
+          height: 350,
+		  modal: true
+	  });
+  });
+  
+//Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq("#buttonSendAll").click(function() {
+		  //setters (add more if needed)
+		  jq('#dialogSendAll').dialog( "option", "title", "Sæt Faktisk ekspeditionstid" );
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialogSendAll').dialog({
+			 buttons: [ 
+	            {
+				 id: "buttonSaveOk",	
+				 text: "Fortstæt",
+				 click: function(){
+	            			sendAllWithStatus11();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "buttonCancel",
+			 	 text: "Annullér", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		//jq("#buttonSaveOk").button("option", "disabled", true);
+					 		//jq("#selectedAvd").val("");
+					 		//jq("#selectedOpd").val("");
+					 		//jq("#selectedExtRefNr").val("");
+							jq( this ).dialog( "close" ); 
+				 		} 
+	 	 		 } ] 
+		  });
+		  //init values
+		  jq("#buttonSaveOk").button("option", "disabled", false);
+		  //open now
+		  jq('#dialogSendAll').dialog('open');
+	  });
+  });
+  
+  //Send multiple selections to the controller here
+  function sendAllWithStatus11() {
+	  //init place holder
+		var requestParams = "";
+		var RECORD_SEPARATOR = ';';
+		jq( ".clazzSendAware" ).each(function( i ) {
+			  var id = this.id;
+			  var record = id.split('_');
+			  var syav = record[0].replace("syav", "");
+			  var syop = record[1].replace("syop", "");
+			  var counter = i + 1;
+			  //
+			  if(jq('#syav' + syav + '_' + 'syop' + syop ).prop('checked')){
+				  var str = "&avd=" + syav + "&opd=" + syop + "&dtm2=" + jq('#sendAllDtm2').val();
+				//start
+				  requestParams += str + RECORD_SEPARATOR;
+			  }  
+		});	
+		//DEBUG --> alert(requestParams);
+		if(requestParams != '' && jq('#sendAllDtm2').val() != ''){
+			//DEBUG-->alert("A");
+			jq.ajax({
+				type: 'GET',
+				url: 'sendAllSkatExportStatus11_SkatExport.do',
+				data: { applicationUser : jq('#applicationUser').val(),
+						requestParams : requestParams },
+				dataType: 'json',
+				cache: false,
+				contentType: 'application/json',
+	  	  	  	success: function(data) {
+					//Update has been done successfully
+					jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+		  			window.location.reload();
+		  			window.close();		
+		  	  		/*
+		  			var len = data.length;
+		  	  		for ( var i = 0; i < len; i++) {
+		  	  			//Update has been done successfully
+		  	  			
+		  	  		}*/
+				},
+		  	  	error: function() {
+	  	  	    	alert('Error loading ...');
+	  	  		}
+			});
+			//reload
+			//jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+  			//window.location.reload();
+  			//window.close();
+		}
+		
+  	}
+
+  
   
   
   

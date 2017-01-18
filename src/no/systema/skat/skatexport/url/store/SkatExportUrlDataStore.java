@@ -38,6 +38,10 @@ public final class SkatExportUrlDataStore {
 	//------------------------------		
 	static public String SKAT_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE002R.pgm";	
 	
+	//http://gw.systema.no/sycgip/tdke052r.pgm?user=CB&avd=2&opd=7000033&dtm2=201701172100
+	static public String SKAT_EXPORT_BASE_UPDATE_BULK_SEND_SPECIFIC_TOPICS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE052R.pgm";	
+	
+	
 	//-----------------------------
 	//[5] FETCH ITEM RECORDS (LIST)
 	//-----------------------------

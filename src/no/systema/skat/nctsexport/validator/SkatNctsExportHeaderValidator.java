@@ -275,6 +275,16 @@ public class SkatNctsExportHeaderValidator implements Validator {
 							errors.rejectValue("thlasd", "systema.skat.ncts.export.header.error.rule.thlosd.placeOfUnloading.mandatory");
 						}
 					}
+					if(!"".equals(record.getThdta())){
+						//OK
+					}else{
+						errors.rejectValue("thdta", "systema.skat.ncts.export.header.error.rule.thdta.dateAndTime.mandatory");
+					}
+					if(!"".equals(record.getThtma())){
+						//OK
+					}else{
+						errors.rejectValue("thtma", "systema.skat.ncts.export.header.error.rule.thdta.dateAndTime.mandatory");
+					}
 					//Related field //Commercial Ref.
 					/* To be assessed by Bo
 					if(!"".equals(record.getThkref())){

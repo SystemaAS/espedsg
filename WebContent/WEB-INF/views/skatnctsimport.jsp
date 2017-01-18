@@ -78,7 +78,7 @@
 				</td>	               
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.type"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.ansvarig"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.godsnr"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;Egen ref.</td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.skat.ncts.import.list.search.label.frigivningsDatum"/></td>
                 
                 <td>&nbsp;</td>

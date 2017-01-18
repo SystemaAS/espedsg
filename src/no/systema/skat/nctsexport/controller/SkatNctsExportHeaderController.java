@@ -1635,35 +1635,35 @@ public class SkatNctsExportHeaderController {
 		    			try{
 		    				antalKolli += Integer.parseInt(record.getTvnt());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    		if(record.getTvnt2()!=null && !"".equals(record.getTvnt2())){
 		    			try{
 		    				antalKolli += Integer.parseInt(record.getTvnt2());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    		if(record.getTvnt3()!=null && !"".equals(record.getTvnt3())){
 		    			try{
 		    				antalKolli += Integer.parseInt(record.getTvnt3());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    		if(record.getTvnt4()!=null && !"".equals(record.getTvnt4())){
 		    			try{
 		    				antalKolli += Integer.parseInt(record.getTvnt4());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    		if(record.getTvnt5()!=null && !"".equals(record.getTvnt5())){
 		    			try{
 		    				antalKolli += Integer.parseInt(record.getTvnt5());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    		//bruttovikt
@@ -1671,7 +1671,7 @@ public class SkatNctsExportHeaderController {
 		    			try{
 		    				grossWeight += Double.parseDouble(record.getTvvktb());
 		    			}catch(Exception e){
-		    				logger.info("[ERROR] on ANTAL KOLLI CATCH");
+		    				//logger.info("[ERROR] on ANTAL KOLLI CATCH");
 		    			}
 		    		}
 		    	}
