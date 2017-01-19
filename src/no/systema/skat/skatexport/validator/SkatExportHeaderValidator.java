@@ -392,6 +392,23 @@ public class SkatExportHeaderValidator implements Validator {
 					if(!isValidISOFormat){
 						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValidMask"); 
 					}
+					//There is a requirement regarding ajour=9 together with fakt.eksp.tid
+					//Either both or nothing
+					if("9".equals(record.getDkeh_ajou()) ){
+						//OK
+					}else{
+						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValid");
+					}
+				}
+				//There is a requirement regarding ajour=9 together with fakt.eksp.tid
+				//Either both or nothing
+				if ("9".equals(record.getDkeh_ajou()) ){
+					if(record.getDkeh_dtm2()!=null && !"".equals(record.getDkeh_dtm2())){
+						 //OK
+					}else{
+						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValid");
+					}
+					
 				}
 				//--------------
 				//Angivelsestyp

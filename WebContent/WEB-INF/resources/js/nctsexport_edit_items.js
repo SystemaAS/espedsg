@@ -454,7 +454,40 @@
     		});
 	});
 
+	
+	jq(document).ready(function() {
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      
+			jq('#tblItemLinesAll').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "800px",
+	    	  "deferRender": true,
+	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	  	  
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLines').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "180px",
+	    	  "deferRender": true, //to speed the table load
+	    	  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	      
+	      //event on input field for search
+	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+	      //event on input field for search
+	      jq('input.tblItemLinesAll_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
 
+	});
+	
 	
 	
 
