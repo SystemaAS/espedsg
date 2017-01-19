@@ -96,6 +96,7 @@ public final class TdsConstants {
 	//domain objects for model-view passing values
 	public static final String DOMAIN_MODEL = "model";
 	public static final String DOMAIN_RECORD = "record";
+	public static final String DOMAIN_SEARCH_FILTER = "searchFilter";
 	public static final String DOMAIN_RECORD_TOPIC = "recordTopic";
 	public static final String DOMAIN_RECORD_TOPIC_UNLOADING = "recordTopicUnloading";
 	

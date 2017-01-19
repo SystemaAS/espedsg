@@ -20,6 +20,9 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 
 import no.systema.main.service.general.CurrencyRateService;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
+import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicService;
+import no.systema.tds.nctsexport.url.store.UrlDataStore;
 import no.systema.tds.tdsexport.model.jsonjackson.customer.JsonTdsExportCustomerRecord;
 import no.systema.tds.nctsexport.model.jsonjackson.topic.items.JsonNctsExportSpecificTopicItemContainer;
 import no.systema.tds.nctsexport.model.jsonjackson.topic.items.JsonNctsExportSpecificTopicItemRecord;
@@ -285,6 +288,60 @@ public class NctsExportAjaxHandlerController {
 		  return sb.toString();
 	  }
 	  	
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param requestParams
+	   * @return
+	   */
+	  @RequestMapping(value = "importTdsExportAsNctsExportItemLine_TdsNctsExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSkatNctsExportSpecificTopicContainer> importSkatExportAsSkatNctsExportItemLine(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		 
+		 	String method = "importTdsExportAsNctsExportItemLine_TdsNctsExport.do";
+		 	logger.info("Inside " + method);
+		 	Set result = new HashSet();
+		 	
+		 	if (requestParams!=null && !"".equals(requestParams)){
+			 	String[] params = requestParams.split(";");
+			 	List <String>list = Arrays.asList(params);
+			 	
+			 	for (String record : list){
+				 	logger.info("update record transaction started");
+					//---------------------------
+					//get BASE URL = RPG-PROGRAM
+					//---------------------------
+					String BASE_URL = UrlDataStore.NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL;
+					//url params
+					String urlRequestParamsKeys = "user=" + applicationUser + record;
+					//for debug purposes in GUI
+					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+					logger.info("URL: " + BASE_URL);
+					logger.info("URL PARAMS: " + urlRequestParamsKeys);
+					//--------------------------------------
+					//EXECUTE RPG program here
+					//--------------------------------------
+					logger.info("CB/OT todo TDS-implementations pgm!!!");
+					/**
+					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+					//Debug --> 
+					logger.info(method + " --> jsonPayload:" + jsonPayload);
+					logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		
+					if(jsonPayload!=null){
+					JsonSkatNctsExportSpecificTopicContainer container = this.skatNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+			    		if(container!=null){
+			    			logger.info("container errMsg (if any): " + "avd:" + container.getAvd() + " opd:" + container.getOpd() + 
+			    						" errMsg:" + container.getErrMsg() );
+			    					result.add(container);
+			    		}
+			    	}
+			    	**/
+			 	}
+		 	}
+		return result;  
+	  }
+	  
+	  
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
 	  private UrlCgiProxyService urlCgiProxyService;
@@ -337,6 +394,14 @@ public class NctsExportAjaxHandlerController {
 	  @Required	
 	  public void setTdsTaricVarukodService(TdsTaricVarukodService value){this.tdsTaricVarukodService = value;}
 	  public TdsTaricVarukodService getTdsTaricVarukodService(){ return this.tdsTaricVarukodService; }
+	  
+	  
+	  @Qualifier ("skatNctsExportSpecificTopicService")
+	  private SkatNctsExportSpecificTopicService skatNctsExportSpecificTopicService;
+	  @Autowired
+	  @Required
+	  public void setSkatNctsExportSpecificTopicService (SkatNctsExportSpecificTopicService value){ this.skatNctsExportSpecificTopicService = value; }
+	  public SkatNctsExportSpecificTopicService getSkatNctsExportSpecificTopicService(){ return this.skatNctsExportSpecificTopicService; }
 	  
 	  
 		

@@ -66,6 +66,17 @@ public final class UrlDataStore {
 	//http://gw.systema.no/sycgip/TNCE012R.pgm?user=OSCAR&avd=1&opd=50079&lin=3&mode=D	
 	
 	
+	//---------------------------------------------
+	//[6.1] IMPORT into item lines
+	//avd = avdelningen till NCTS export
+	//opd = angivelsenr till NCTS export
+	//sveh_syav = avdelningen till exportangivelsen
+	//sveh_syop = angivelsenr till exportangivelsen
+	//----------------------------------------------
+	static public String NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNCE091R.pgm";	
+	//http://gw.systema.no/sycgip/tnce091r.pgm?user=OSCAR&avd=1&opd=188888&sveh_syav=2&sveh_syop=152221
+	
+	
 	//------------------------------------------
 	//[7] LOG and ARCHIVE for a SPECIFIC ARENDE
 	//------------------------------------------

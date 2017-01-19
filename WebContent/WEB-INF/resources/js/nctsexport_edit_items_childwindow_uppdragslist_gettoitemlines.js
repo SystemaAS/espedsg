@@ -1,6 +1,7 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+  	
   	//--------
   	//Koder
   	//--------
@@ -30,7 +31,7 @@
 				  //alert(requestParams);
 				  
 				  if(jq('#syav' + syav + '_' + 'syop' + syop ).prop('checked')){
-					  var str = "&avd=" + jq('#avdNcts').val() + "&opd=" + jq('#opdNcts').val() + "&dkeh_syav=" + syav +  "&dkeh_syop=" + syop ;
+					  var str = "&avd=" + jq('#avdNcts').val() + "&opd=" + jq('#opdNcts').val() + "&sveh_syav=" + syav +  "&sveh_syop=" + syop ;
 					  //start
 					  requestParams += str + RECORD_SEPARATOR;
 					  //alert( requestParams );
@@ -40,7 +41,7 @@
 			//At this point we now have the requestParams-record (to be split in the Controller)
 			jq.ajax({						
 	  	  	  type: 'GET',
-	  	  	  url: 'importSkatExportAsSkatNctsExportItemLine_SkatNctsExport.do',
+	  	  	  url: 'importTdsExportAsNctsExportItemLine_TdsNctsExport.do',
 	  	  	  data: { applicationUser : jq('#applicationUser').val(),
 			  			requestParams : requestParams },
 	  	  	  dataType: 'json',

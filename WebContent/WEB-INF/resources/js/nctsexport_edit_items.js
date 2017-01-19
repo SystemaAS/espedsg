@@ -1,6 +1,23 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
+  	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   	
+  	function reloadThis() {
+  		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  		window.location.reload();
+  	}
+  	
+  	jq(function() {
+	  	jq('#itemLinesImportButton').click(function() {
+	    	jq('#itemLinesImportButton').attr('target','_blank');
+	    	window.open('nctsexport_edit_items_childwindow_uppdragslist_gettoitemlines.do?action=doFind&avdNcts=' + jq('#avd').val() + '&opdNcts=' + jq('#opd').val(), "codeWinItemLinesImport", "top=300px,left=400px,height=500px,width=900px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#itemLinesImportButton').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#itemLinesImportButton').click();
+			}
+	    });
+  	});
   	/**
   	 * gets a specific item line
   	 * 

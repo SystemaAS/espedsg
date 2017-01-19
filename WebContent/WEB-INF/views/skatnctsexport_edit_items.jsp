@@ -283,8 +283,7 @@
 								   	</c:if>	
 								   				
 									</td>
-									
-									
+
 								</tr>
 								<tr>
 									<td class="text12Bold">&nbsp;Antal vareposter&nbsp;&nbsp;<font class="text12MediumBlue"><b>${totalNumberOfItemLines}</b></font></td>
