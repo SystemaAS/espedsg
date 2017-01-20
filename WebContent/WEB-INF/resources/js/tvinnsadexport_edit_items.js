@@ -2,6 +2,7 @@
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
     
+  	
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {
 	  jq('#alinkTopicList').click(function() { 

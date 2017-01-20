@@ -216,31 +216,29 @@
 								</c:if>
 								<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
 									        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
-								           		<div class="ownScrollableSubWindow" style="width:1080px; height:900px; margin:10px;">
-								           			<nav>
-								           			<table width="95%" border="0" align="left" cellspacing="2">
-								           			<tr>
-									           			<td colspan="3" class="text14"><b>Varelinjer</b></td>
-									           		</tr>
-										           	<tr>	
-														<td >
-														<table width="95%" cellspacing="0" border="0" cellpadding="0">
-															<tr class="tableHeaderField" height="20" valign="left">
-															    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td>
-															    <td class="tableHeaderField">&nbsp;Varenr.&nbsp;</td>   
-											                    <td class="tableHeaderField">&nbsp;Dekl&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Avs.land&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Best.land&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Dok.type&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Bruttovekt&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Nettovekt&nbsp;</td>
-											                    <td class="tableHeaderField">&nbsp;Kolliant.(&Sigma;)</td>
-											                    <td class="tableHeaderField">&nbsp;Stk.(&Sigma;)</td>
-											                    <td class="tableHeaderField">&nbsp;Varebeskrivelse&nbsp;</td>
+								           		<table id="containerdatatableTable" width="98%" align="left" >
+								           			<tr>	
+													<td class="text12">
+								           			<table id="tblItemLinesAll" class="display compact cell-border">
+								           				<thead>
+										           		<tr style="background-color:#DDDDDD">	
+															    <th class="text12">&nbsp;Linjenr.&nbsp;</th>
+															    <th class="text12">&nbsp;Varenr.&nbsp;</th>   
+											                    <th class="text12">&nbsp;Dekl&nbsp;</th>
+											                    <th class="text12">&nbsp;Avs.land&nbsp;</th>
+											                    <th class="text12">&nbsp;Best.land&nbsp;</th>
+											                    <th class="text12">&nbsp;Dok.type&nbsp;</th>
+											                    <th class="text12">&nbsp;Bruttovekt&nbsp;</th>
+											                    <th class="text12">&nbsp;Nettovekt&nbsp;</th>
+											                    <th class="text12">&nbsp;Kolliant.(&Sigma;)</th>
+											                    <th class="text12">&nbsp;Stk.(&Sigma;)</th>
+											                    <th class="text12">&nbsp;Varebeskrivelse&nbsp;</th>
 											                    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
-										                    		<td align="center" class="tableHeaderField" nowrap>Slett</td>
+										                    		<th align="center" class="text12" nowrap>Slett</td>
 											                    </c:if> 
 										               		</tr> 
+										               		</thead>
+										               		<tbody> 
 									 						  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 													               <c:choose>           
 													                   <c:when test="${counter.count%2==0}">
@@ -250,38 +248,38 @@
 													                       <tr class="tableOddRow" height="20" >
 													                   </c:otherwise>
 													               </c:choose>
-			               							               <td width="2%" class="tableCellFirst" align="center">&nbsp;
-													               		<a tabindex=-1 id="recordUpdate_${counter.count}_${record.tvli}" href="#" onClick="getItemData(this);">${record.tvli}
-													               		<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;</a>
-													               </td>
+			               							               <td width="2%" class="text11" align="center">&nbsp;${record.tvli}</td>
+													               <td class="text11" >&nbsp;${record.tvvnt}</td>
+													               <td class="text11" >&nbsp;${record.tvdk}</td>
+													               <td class="text11" >&nbsp;${record.tvalk}</td>
+													               <td class="text11" >&nbsp;${record.tvblk}</td>
+													               <td class="text11" >&nbsp;${record.tvdty}</td>
+													               <td class="text11" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
+													               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
 													               
-													               <td class="tableCell" >&nbsp;${record.tvvnt}</td>
-													               <td class="tableCell" >&nbsp;${record.tvdk}</td>
-													               <td class="tableCell" >&nbsp;${record.tvalk}</td>
-													               <td class="tableCell" >&nbsp;${record.tvblk}</td>
-													               <td class="tableCell" >&nbsp;${record.tvdty}</td>
-													               <td class="tableCell" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
-													               <td class="tableCell" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
-													               
-													               <td class="tableCell" >&nbsp;${record.sum_of_tvnt}</td>
-													               <td class="tableCell" >&nbsp;${record.sum_of_tvnteh}</td>
-													               <td width="40%" class="tableCell" width="100" >&nbsp;${record.tvvt}</td>
+													               <td class="text11" >&nbsp;${record.sum_of_tvnt}</td>
+													               <td class="text11" >&nbsp;${record.sum_of_tvnteh}</td>
+													               <td width="40%" class="text11" width="100" >&nbsp;${record.tvvt}</td>
 													               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
-														               <td class="tableCell" align="center" nowrap>&nbsp;
+														               <td class="text11" align="center" nowrap>&nbsp;
 														               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadnctsexport_edit_items.do?action=doDelete&sign=${model.sign}&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
-														               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+														               		<img src="resources/images/delete.gif" border="0" alt="remove">
 														               	</a>	
 														               </td>
 													               </c:if>
 													            </tr>
+													            <%-- this param is used ONLY in this JSP --%>
+													            <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
 														        <%-- <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" />  --%>
 														        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
 														        </c:forEach>
-												        </table>
+														  </tbody>
+														</table>
 														</td>											           		
 											         </tr>
-											         <tr>
-								           				<td>
+											         </table>
+											         
+											         <div>
 								           				<table >
 														<%-- OK BUTTON --%>
 								           				<tr align="left" >
@@ -289,13 +287,13 @@
 															</td>
 														</tr>
 														</table>
-														</td>
-													</tr>
-											           		
-									   			</table>
-									   			</nav>
-									   			</div>
+													</div>
 							   				</span>	
+							   		
+							   		<c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
+							   			&nbsp;<button title="Import av varuposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere varelinjer</button>	
+							   		</c:if>	
+							   				
 									</td>
 									<td width="20%" class="text12">&nbsp;</td>
 								</tr>
@@ -305,30 +303,38 @@
 						</tr> 
 						
 						<tr>
-							<td valign="top" class="ownScrollableSubWindow" style="width:1050px; height:10em;">
-								<table width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
-									    <td class="tableHeaderFieldFirst">&nbsp;Linjenr.&nbsp;</td> 
-									    <td class="tableHeaderField">&nbsp;Varenr.&nbsp;</td>   
-					                    <td class="tableHeaderField">&nbsp;Dekl.&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Avs.land&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Best.land&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Dok.type&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Bruttovekt&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Nettovekt&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;Kolliant.(&Sigma;)</td>
-					                    <td class="tableHeaderField">&nbsp;Stk.(&Sigma;)</td>
-					                    <td class="tableHeaderField">&nbsp;Varebeskrivelse&nbsp;</td>
+							<td >
+							<form name="formItemList" id="formItemList" method="POST" >
+			               		<input type="hidden" name="opdItemList" id="opdItemList" value='${model.opd}'>
+		 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
+		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+								
+								<table width="100%" id="containerdatatableTable" cellspacing="2" align="left" >
+									<tr>
+									<td class="text11">
+							
+									<table id="tblItemLines" class="display compact cell-border">
+									<thead>
+										<tr style="background-color:#DDDDDD">
+									    <th class="text11">&nbsp;Linjenr.&nbsp;</th> 
+									    <th class="text11">&nbsp;Oppd.&nbsp;</th>
+									    <th class="text11">&nbsp;Varenr.&nbsp;</th>   
+					                    <th class="text11">&nbsp;Dekl.&nbsp;</th>
+					                    <th class="text11">&nbsp;Avs.land&nbsp;</th>
+					                    <th class="text11">&nbsp;Best.land&nbsp;</th>
+					                    <th class="text11">&nbsp;Dok.type&nbsp;</th>
+					                    <th class="text11">&nbsp;Bruttovekt&nbsp;</th>
+					                    <th class="text11">&nbsp;Nettovekt&nbsp;</th>
+					                    <th class="text11">&nbsp;Kolliant.(&Sigma;)</th>
+					                    <th class="text11">&nbsp;Stk.(&Sigma;)</th>
+					                    <th class="text11">&nbsp;Varebeskrivelse&nbsp;</th>
 					                    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
-					                    	<td align="center" class="tableHeaderField" nowrap>Slett</td>
+					                    	<th align="center" class="text11" nowrap>Slett</th>
 					                    </c:if> 
-					               </tr> 
-					               
-					               <form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value='${model.opd}'>
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-				 						 
+					               		</tr> 
+					               	</thead>
+					               	<tbody>
+					                
 							           <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
@@ -339,25 +345,24 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               <%-- <td class="tableCellFirst" width="2%">&nbsp;${counter.count}</td> --%>
-							               <td width="2%" class="tableCellFirst" align="center">&nbsp;
-							               		<a tabindex=-1 id="recordUpdate_${counter.count}_${record.tvli}" href="#" onClick="getItemData(this);">${record.tvli}
-							               		<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+							               <td width="4%" class="text11" align="center">${record.tvli}</td>
+							               <td width="4%" class="text11" align="center">&nbsp;
+							               		<a tabindex=-1 id="recordUpdate_${counter.count}_${record.tvli}" href="#" onClick="getItemData(this);">
+							               			<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
-								               	
 							               </td>
-							               
-							               <td class="tableCell" >&nbsp;${record.tvvnt}</td>
-							               <td class="tableCell" >&nbsp;${record.tvdk}</td>
-							               <td class="tableCell" >&nbsp;${record.tvalk}</td>
-							               <td class="tableCell" >&nbsp;${record.tvblk}</td>
-							               <td class="tableCell" >&nbsp;${record.tvdty}</td>
-							               <td class="tableCell" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
-							               <td class="tableCell" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
-							               <td class="tableCell" >&nbsp;${record.sum_of_tvnt}</td>
-							               <td class="tableCell" >&nbsp;${record.sum_of_tvnteh}</td>
-							               <td class="tableCell" ><div style="width:120px" >&nbsp;${record.tvvt}</div></td>
+							               <td class="text11" >&nbsp;${record.tvvnt}</td>
+							               <td class="text11" >&nbsp;${record.tvdk}</td>
+							               <td class="text11" >&nbsp;${record.tvalk}</td>
+							               <td class="text11" >&nbsp;${record.tvblk}</td>
+							               <td class="text11" >&nbsp;${record.tvdty}</td>
+							               <td class="text11" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
+							               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
+							               <td class="text11" >&nbsp;${record.sum_of_tvnt}</td>
+							               <td class="text11" >&nbsp;${record.sum_of_tvnteh}</td>
+							               <td class="text11" ><div style="width:120px" >&nbsp;${record.tvvt}</div></td>
 							               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
-								               <td class="tableCell" align="center" nowrap>&nbsp;
+								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadnctsexport_edit_items.do?action=doDelete&sign=${model.sign}&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	
@@ -369,11 +374,12 @@
 								        <c:set var="numberOfItemLinesInTopic" value="${record.tvli}" scope="request" />
 								         
 							            </c:forEach>
-						            </form>	
+							        </tbody>  
 					            </table>
 							</td>	
 						</tr>
 					</table>
+					</form>
 				</td>
 			</tr>
 			<tr height="3"><td></td></tr>

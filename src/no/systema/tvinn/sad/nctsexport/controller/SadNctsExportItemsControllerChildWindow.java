@@ -40,7 +40,6 @@ import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
-
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicListContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicListRecord;
 import no.systema.tvinn.sad.sadexport.service.SadExportTopicListService;
@@ -95,6 +94,88 @@ public class SadNctsExportItemsControllerChildWindow {
 			logger.setLevel(Level.DEBUG);
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadnctsexport_edit_items_childwindow_oppdragslist_gettoitemlines.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
+	public ModelAndView doFindAngivelseListToImportToItemlines(@ModelAttribute ("record") SearchFilterSadExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindAngivelseListToImportToItemlines");
+		Map model = new HashMap();
+		String avdNcts = request.getParameter("avdNcts");
+		String opdNcts = request.getParameter("opdNcts");
+		
+		ModelAndView successView = new ModelAndView("tvinnsadnctsexport_edit_items_childwindow_oppdragslist_gettoitemlines");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			
+			logger.info(searchFilter.getDatum());
+			List<JsonSadExportTopicListRecord> list = (List)this.getArendeList(appUser, searchFilter);
+			model.put("angivelseList", list);
+			model.put("avdNcts", avdNcts);
+			model.put("opdNcts", opdNcts);
+			
+			successView.addObject(TvinnSadConstants.DOMAIN_SEARCH_FILTER , searchFilter);
+			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param searchFilter
+	 * @return
+	 */
+	private Collection<JsonSadExportTopicListRecord> getArendeList(SystemaWebUser appUser, SearchFilterSadExportTopicList searchFilter){
+		Collection<JsonSadExportTopicListRecord> list = new ArrayList<JsonSadExportTopicListRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		
+		//get BASE URL
+		final String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_TOPICLIST_URL;
+		//add URL-parameters
+		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+
+    	//Debug --> 
+    	logger.info(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonSadExportTopicListContainer jsonSadExportTopicListContainer = this.sadExportTopicListService.getSadExportTopicListContainer(jsonPayload);
+			//-----------------------------------------------------------
+			//now filter the topic list with the search filter (if applicable)
+			//-----------------------------------------------------------
+			list = jsonSadExportTopicListContainer.getOrderList();	
+			//Remove all "D" status rows. These are to be shown if-and-only-if the user demand it explicitly in the search filter
+			if(!"D".equals(searchFilter.getStatus())){
+				//To avoid the ...ConcurrentModificationException we take a copy of the existing list and iterate over new copy
+				for (JsonSadExportTopicListRecord record : new ArrayList<JsonSadExportTopicListRecord>(list)){
+					if("D".equals(record.getStatus())){
+						//list.remove(record);
+					}
+				}
+			}
+    	}
+		return list;
+	}
+	
+	
 	/**
 	 * 
 	 * @param searchFilter
@@ -359,8 +440,8 @@ public class SadNctsExportItemsControllerChildWindow {
 		if(searchFilter.getSg()!=null && !"".equals(searchFilter.getSg())){
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sg=" + searchFilter.getSg());
 		}
-		if(searchFilter.getSitll()!=null && !"".equals(searchFilter.getSitll())){
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lopenr=" + searchFilter.getSitll());
+		if(searchFilter.getSetll()!=null && !"".equals(searchFilter.getSetll())){
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "lopenr=" + searchFilter.getSetll());
 		}
 		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + this.dateFormatter.convertToDate_ISO(searchFilter.getDatum()));

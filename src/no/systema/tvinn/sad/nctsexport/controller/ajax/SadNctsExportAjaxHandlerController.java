@@ -27,6 +27,7 @@ import no.systema.main.service.general.CurrencyRateService;
 import no.systema.main.util.JavaReflectionUtil;
 
 //SAD
+
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodContainer;
@@ -230,6 +231,59 @@ public class SadNctsExportAjaxHandlerController {
 		  }
 		  
 		  return result;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param requestParams
+	   * @return
+	   */
+	  @RequestMapping(value = "importSadExportAsNctsExportItemLine_SadNctsExport.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonSadNctsExportSpecificTopicContainer> importSadExportAsSkatNctsExportItemLine(@RequestParam String applicationUser, @RequestParam String requestParams) {
+		 
+		 	String method = "importSadExportAsNctsExportItemLine_SadNctsExport.do";
+		 	logger.info("Inside " + method);
+		 	Set result = new HashSet();
+		 	
+		 	if (requestParams!=null && !"".equals(requestParams)){
+			 	String[] params = requestParams.split(";");
+			 	List <String>list = Arrays.asList(params);
+			 	
+			 	for (String record : list){
+				 	logger.info("update record transaction started");
+					//---------------------------
+					//get BASE URL = RPG-PROGRAM
+					//---------------------------
+					String BASE_URL = SadNctsExportUrlDataStore.NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL;
+					//url params
+					String urlRequestParamsKeys = "user=" + applicationUser + record;
+					//for debug purposes in GUI
+					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+					logger.info("URL: " + BASE_URL);
+					logger.info("URL PARAMS: " + urlRequestParamsKeys);
+					//--------------------------------------
+					//EXECUTE RPG program here
+					//--------------------------------------
+					logger.info("CB/OT todo TVINN-implementations pgm!!!");
+					/*
+					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+					//Debug --> 
+					logger.info(method + " --> jsonPayload:" + jsonPayload);
+					logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		
+					if(jsonPayload!=null){
+					JsonSadNctsExportSpecificTopicContainer container = this.sadNctsExportSpecificTopicService.getNctsExportSpecificTopicContainer(jsonPayload);
+			    		if(container!=null){
+			    			logger.info("container errMsg (if any): " + "avd:" + container.getAvd() + " opd:" + container.getOpd() + 
+			    						" errMsg:" + container.getErrMsg() );
+			    					result.add(container);
+			    		}
+			    	}
+			    	*/
+			 	}
+		 	}
+		return result;  
 	  }
 	  
 	  /**

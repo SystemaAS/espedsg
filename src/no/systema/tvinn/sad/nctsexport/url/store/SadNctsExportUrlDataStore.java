@@ -82,6 +82,18 @@ public final class SadNctsExportUrlDataStore {
 	static public String NCTS_EXPORT_BASE_UPDATE_SPECIFIC_SIKKERHET_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TTCE026R.pgm";	
 	//http://gw.systema.no/sycgip/ttce026r.pgm?user=OSCAR&mode=U&tvavd=1&tvtdn=1&tvli=1&tvnass=Tarzan
 	
+	//---------------------------------------------
+	//[6.1] IMPORT into item lines
+	//avd = avdelningen till NCTS export
+	//opd = angivelsenr till NCTS export
+	//TODOsveh_syav = avdelningen till exportangivelsen
+	//TODOsveh_syop = angivelsenr till exportangivelsen
+	//----------------------------------------------
+	static public String NCTS_EXPORT_BASE_IMPORT_EXPORT_AS_ITEMLINE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TTCE091R.pgm";	
+	//http://gw.systema.no/sycgip/ttce091r.pgm?user=OSCAR&avd=1&opd=188888&TODOsveh_syav=2&TODOsveh_syop=152221
+	
+	
+	
 	//------------------------------------------
 	//[7] LOG and ARCHIVE for a SPECIFIC ARENDE
 	//------------------------------------------

@@ -38,6 +38,9 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceGateController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
+	private final String COUNTRY_CODE_NORWAY = "NO";
+	private final String COUNTRY_CODE_SWEDEN = "SE";
+	private final String COUNTRY_CODE_DENMARK = "DK";
 	
 	/**
 	 * 
@@ -64,7 +67,7 @@ public class MainMaintenanceGateController {
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
 			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 			
-			List list = this.populateMaintenanceMainList();
+			List list = this.populateMaintenanceMainList(appUser);
 			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 			//this.setCodeDropDownMgr(appUser, model);
@@ -86,13 +89,18 @@ public class MainMaintenanceGateController {
 	 * 
 	 * @return
 	 */
-	private List<MainMaintenanceMainListObject> populateMaintenanceMainList(){
+	private List<MainMaintenanceMainListObject> populateMaintenanceMainList(SystemaWebUser appUser ){
 		List<MainMaintenanceMainListObject> listObject = new ArrayList<MainMaintenanceMainListObject>();
 		MainMaintenanceMainListObject object = new  MainMaintenanceMainListObject();
 		        
 		
 		object.setId("1");
-		object.setSubject("Avdelinger");
+		object.setSubject("Avdelinger");//default
+		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+			object.setSubject("Avdelningar");
+		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+			object.setSubject("Afdelinger");
+		}
 		object.setCode("mainmaintenanceavdgate");
 		object.setText("SYFA14 / KODTA, NAVAVD, KODTSF, KODTD, KODTASID, FIRM, CUNDF");
 		object.setDbTable("KODTA");
@@ -102,7 +110,12 @@ public class MainMaintenanceGateController {
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Saksbehandlere");
+		object.setSubject("Saksbehandlere");//default
+		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+			object.setSubject("Handläggare");
+		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+			object.setSubject("Toldrepræsentanter");
+		}
 		object.setCode("mainmaintenancesign");
 		object.setText("SYFA60 / KODTSF, SYPARF");
 		object.setDbTable("KODTSF");
@@ -113,6 +126,11 @@ public class MainMaintenanceGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Kunderegister");
+		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+			object.setSubject("Kundregister");
+		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+			object.setSubject("Kunderegister");
+		}
 		object.setCode("mainmaintenancecundf");
 		object.setText("VKUND / CUNDF, CUNDC, FRATXT, SYPARF, CUNDMAF,....");
 		object.setDbTable("CUNDF");
@@ -123,6 +141,11 @@ public class MainMaintenanceGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("4");
 		object.setSubject("Firma opplysninger");
+		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+			object.setSubject("Firmaupplysningar");
+		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+			object.setSubject("Firmaoplysninger");
+		}
 		object.setCode("mainmaintenancefirm");
 		object.setText("SYFA30 / FIRM,FIRFB,FIRKOS,FIRKU,FIRSTA,FIRTR");
 		object.setDbTable("FIRM");

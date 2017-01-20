@@ -274,10 +274,10 @@
 						<tr>
 							<td >
 								<form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value='${model.opd}'>
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-				 						 
+			               		<input type="hidden" name="opdItemList" id="opdItemList" value='${model.opd}'>
+		 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
+		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+		 						 
 								<table width="100%" id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
@@ -302,9 +302,7 @@
 					               </tr>
 					               </thead>
 					               <tbody> 
-					               
-					               
-							           <c:forEach items="${model.list}" var="record" varStatus="counter">    
+					                   <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
 							                       <tr class="tableRow" height="20" >
@@ -316,9 +314,9 @@
 							               <td width="4%" class="text11" align="center">${record.tvli}</td>
 							               <td width="4%" class="text11" align="center">&nbsp;
 							               		<a tabindex=-1 id="recordUpdate_${counter.count}_${record.tvli}" href="#" onClick="getItemData(this);">
-							               		<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;</a>
+							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+							               		</a>
 							               </td>
-							               
 							               <td class="text11" >&nbsp;${record.tvvnt}</td>
 							               <td class="text11" >&nbsp;${record.tvdk}</td>
 							               <td class="text11" >&nbsp;${record.tvalk}</td>
@@ -352,7 +350,6 @@
 					         </form> 
 							</td>	
 						</tr>
-						
 					</table>
 				</td>
 			</tr>

@@ -86,7 +86,7 @@ public class NctsExportItemsControllerChildWindow {
 	@RequestMapping(value="nctsexport_edit_items_childwindow_uppdragslist_gettoitemlines.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST } )
 	public ModelAndView doFindAngivelseListToImportToItemlines(@ModelAttribute ("record") SearchFilterTdsExportTopicList searchFilter, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitAngivelseList");
+		logger.info("Inside: doFindAngivelseListToImportToItemlines");
 		Map model = new HashMap();
 		String avdNcts = request.getParameter("avdNcts");
 		String opdNcts = request.getParameter("opdNcts");
@@ -155,6 +155,12 @@ public class NctsExportItemsControllerChildWindow {
 		return list;
 	}
 	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
 	private String getRequestUrlKeyParameters(SearchFilterTdsExportTopicList searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		//String action = request.getParameter("action");

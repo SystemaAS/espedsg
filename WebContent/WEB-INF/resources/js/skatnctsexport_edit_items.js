@@ -4,7 +4,7 @@
   	
   	function reloadThis() {
   		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  		window.location.reload();
+  		window.location = 'skatnctsexport_edit_items.do?action=doFetch&avd='+ jq('#avd').val() + '&sign=' + jq('#sign').val() +'&opd=' + jq('#opd').val();
   	}
   	
   	//Overlay on tab (to mark visually a delay...)

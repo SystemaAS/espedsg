@@ -2,6 +2,12 @@
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
     
+  	function reloadThis() {
+  		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  		window.location = 'tvinnsadnctsexport_edit_items.do?action=doFetch&avd='+ jq('#avd').val() + '&sign=' + jq('#sign').val() +'&opd=' + jq('#opd').val();
+  	}
+  	
+  	
   	jq(function() {
 	  	jq('#tvtdn2IdLink').click(function() {
 	    	jq('#tvtdn2IdLink').attr('target','_blank');
@@ -10,6 +16,16 @@
 	    jq('#tvtdn2IdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
 				jq('#tvtdn2IdLink').click();
+			}
+	    });
+	    //Import av Eksport dekl.
+	    jq('#itemLinesImportButton').click(function() {
+	    	jq('#itemLinesImportButton').attr('target','_blank');
+	    	window.open('tvinnsadnctsexport_edit_items_childwindow_oppdragslist_gettoitemlines.do?action=doFind&avdNcts=' + jq('#avd').val() + '&opdNcts=' + jq('#opd').val(), "codeWinItemLinesImport", "top=300px,left=400px,height=500px,width=900px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#itemLinesImportButton').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#itemLinesImportButton').click();
 			}
 	    });
   	});
@@ -870,7 +886,38 @@
   	
   	*/
 	
-	
+  	jq(document).ready(function() {
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      
+			jq('#tblItemLinesAll').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "800px",
+	    	  "deferRender": true,
+	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	  	  
+	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLines').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "180px",
+	    	  "deferRender": true, //to speed the table load
+	    	  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	      
+	      //event on input field for search
+	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+	      //event on input field for search
+	      jq('input.tblItemLinesAll_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+
+	});
 
 		
 
