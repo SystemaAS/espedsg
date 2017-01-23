@@ -1508,7 +1508,7 @@
 			 				<tr>
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('tullkontor_info');" onMouseOut="hidePop('tullkontor_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <b>C.</b>&nbsp;<font class="text16RedBold" >*</font><span title="thcats">Udgangstoldsted&nbsp;</span>
+					            <b>C.</b>&nbsp;<font class="text16RedBold" >*</font><span title="thcats">Afgangstoldsted&nbsp;</span>
 					            <div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:250px;" id="tullkontor_info" class="popupWithInputText text11"  >
 					           			<ul>
@@ -1872,11 +1872,11 @@
 						 				&nbsp;
 						 				<img onMouseOver="showPop('14_info');" onMouseOut="hidePop('14_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						
-				 						<b>&nbsp;50.</b><font class="text16RedBold" >*</font>Hovedforpligtet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+				 						<b>&nbsp;50.</b><font class="text16RedBold" >*</font>Hovedforpligtede&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 				 						
 						 				<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:250px;" id="14_info" class="popupWithInputText text11"  >
-						           			Hovedforpligtet. 
+						           			Hovedforpligtede. 
 						           			<ul>
 							           			<li>The principal’s name (full name of the person or company) and full address shall be
 													entered as well as the identification number, if any, allocated by the competent

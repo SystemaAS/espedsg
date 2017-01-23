@@ -983,7 +983,7 @@
 							        </tr>
 							        <tr>
 							        	<td valign="top" class="text11" colspan="2">
-											&nbsp;<input type="text" class="inputText" name="tvmn" id="tvmn" size="30" maxlength="42" value='${model.record.tvmn}'>
+											&nbsp;<input type="text" class="inputText" name="tvmn" id="tvmn" size="30" maxlength="35" value='${model.record.tvmn}'>
 										</td>
 										<td valign="top" class="text11"> 
 										<select name="tvmnsk" id="tvmnsk">
@@ -1934,7 +1934,7 @@
 								           			<table>
 								           				<tr>
 										           			<td class="text11">
-										           				&nbsp;<span title="tvmn2/tvmn3/tvmn4..." >Kolli mærke  [max 42 tegn]:</span>
+										           				&nbsp;<span title="tvmn2/tvmn3/tvmn4..." >Kolli mærke  [max 35 tegn]:</span>
 										           			</td>
 										           			<td class="text11">
 																&nbsp;<span title="tveh2/tveh3/tveh4..." >Kolli slag [kode]</span>
@@ -1950,7 +1950,7 @@
 														</tr>
 									           			<tr>
 										           			<td valign="top" class="text11">
-										           				&nbsp;2.<textarea rows="2" cols="15" class="inputText" name="tvmn2" id="tvmn2" maxlength="42">${model.record.tvmn2}</textarea>
+										           				&nbsp;2.<textarea rows="2" cols="15" class="inputText" name="tvmn2" id="tvmn2" maxlength="35">${model.record.tvmn2}</textarea>
 										           			</td>
 										           			<td align="left" valign="bottom">
 										            			<select name="tveh2" id="tveh2">
@@ -1969,7 +1969,7 @@
 										           		</tr>
 														<tr>
 										           			<td valign="top" class="text11">
-										           				&nbsp;3.<textarea rows="2" cols="15" class="inputText" name="tvmn3" id="tvmn3" maxlength="42">${model.record.tvmn3}</textarea>
+										           				&nbsp;3.<textarea rows="2" cols="15" class="inputText" name="tvmn3" id="tvmn3" maxlength="35">${model.record.tvmn3}</textarea>
 										           			</td>
 										           			<td align="left" valign="bottom">
 										            			<select name="tveh3" id="tveh3">
@@ -1988,7 +1988,7 @@
 										           		</tr>
 									           			<tr>
 										           			<td valign="top" class="text11">
-										           				&nbsp;4.<textarea rows="2" cols="15" class="inputText" name="tvmn4" id="tvmn4" maxlength="42">${model.record.tvmn4}</textarea>
+										           				&nbsp;4.<textarea rows="2" cols="15" class="inputText" name="tvmn4" id="tvmn4" maxlength="35">${model.record.tvmn4}</textarea>
 										           			</td>
 										           			<td align="left" valign="bottom">
 										            			<select name="tveh4" id="tveh4">
@@ -2008,7 +2008,7 @@
 										           		</tr>
 									           			<tr>
 										           			<td valign="top" class="text11">
-										           				&nbsp;5.<textarea rows="2" cols="15" class="inputText" name="tvmn5" id="tvmn5" maxlength="42">${model.record.tvmn5}</textarea>
+										           				&nbsp;5.<textarea rows="2" cols="15" class="inputText" name="tvmn5" id="tvmn5" maxlength="35">${model.record.tvmn5}</textarea>
 										           			</td>
 										           			<td align="left" valign="bottom">
 										            			<select name="tveh5" id="tveh5">

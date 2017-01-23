@@ -23,13 +23,13 @@
 				<tr height="25"> 
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.main.maintenance.label"/></font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Saksbehandlere</font>&nbsp;
+						<font class="tabLink">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa60.signatures"/></font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="sign general list">
 					</td>
 					<%--
@@ -66,7 +66,7 @@
 								<th width="2%" class="tableHeaderField" align="center" >Signatur</th>
 								<th width="40%" class="tableHeaderField" align="center" >Navn</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
-			                    <th class="tableHeaderField" align="center" >Slett</th>
+			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
 			                    
 			                </tr>  
 			                </thead> 
@@ -152,7 +152,7 @@
 					<table width="95%" cellspacing="1" border="0" align="left">
 						<tr height="5"><td></td></tr>
 						<tr >
-							<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Lage ny</button></td>
+							<td><button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" ><spring:message code="systema.new"/></button></td>
 						</tr>
 						<tr height="20"><td></td></tr>
 						<tr>
@@ -171,7 +171,7 @@
  	    						&nbsp;&nbsp;&nbsp;<span title="syuser">Userid</span>
  	    						<input type="text" class="inputTextMediumBlue" name="syuser" id="syuser" size="11" maxlength="10" value="${model.record.syuser}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>
 						
  	    					</td>
 		    	    	</tr>

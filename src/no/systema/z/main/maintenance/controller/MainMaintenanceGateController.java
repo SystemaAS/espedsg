@@ -38,9 +38,9 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceGateController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private final String COUNTRY_CODE_NORWAY = "NO";
-	private final String COUNTRY_CODE_SWEDEN = "SE";
-	private final String COUNTRY_CODE_DENMARK = "DK";
+	private final String LANGUAGE_CODE_NORWAY = "NO";
+	private final String LANGUAGE_CODE_SWEDEN = "SV";
+	private final String LANGUAGE_CODE_DENMARK = "DA";
 	
 	/**
 	 * 
@@ -96,9 +96,9 @@ public class MainMaintenanceGateController {
 		
 		object.setId("1");
 		object.setSubject("Avdelinger");//default
-		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
 			object.setSubject("Avdelningar");
-		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){
 			object.setSubject("Afdelinger");
 		}
 		object.setCode("mainmaintenanceavdgate");
@@ -111,9 +111,9 @@ public class MainMaintenanceGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("Saksbehandlere");//default
-		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
 			object.setSubject("Handläggare");
-		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){
 			object.setSubject("Toldrepræsentanter");
 		}
 		object.setCode("mainmaintenancesign");
@@ -126,9 +126,9 @@ public class MainMaintenanceGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Kunderegister");
-		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
 			object.setSubject("Kundregister");
-		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){
 			object.setSubject("Kunderegister");
 		}
 		object.setCode("mainmaintenancecundf");
@@ -141,9 +141,9 @@ public class MainMaintenanceGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("4");
 		object.setSubject("Firma opplysninger");
-		if(COUNTRY_CODE_SWEDEN.equals(appUser.getFiland())){
+		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
 			object.setSubject("Firmaupplysningar");
-		}else if(COUNTRY_CODE_DENMARK.equals(appUser.getFiland())){
+		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){
 			object.setSubject("Firmaoplysninger");
 		}
 		object.setCode("mainmaintenancefirm");
