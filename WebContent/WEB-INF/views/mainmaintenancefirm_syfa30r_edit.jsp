@@ -29,7 +29,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Firma opplysninger</font>&nbsp;
+						<font class="tabLink">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa30.company"/></font>&nbsp;
 						<font class="text11MediumBlue">${model.avdTODO}</font>
 					</td>
 					<td width="76%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -538,7 +538,7 @@
 													<td valign="top" align="left" class="text11" width="90%" colspan="2" >
 						 								<table width="90%" cellspacing="0" border="0" >
 															<tr>
-																<td align="left" class="text12" ><input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre'/></td>
+																<td align="left" class="text12" ><input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/></td>
 															</tr>							
 														</table>
 													</td>
@@ -877,7 +877,7 @@
 																	<table>
 																		<tr>
 																			<td class="text12" align="left">
-																			<span title="f">&nbsp;Skriv ut melding om manuell behandling på TVINN</span>
+																			<span title="file31">&nbsp;Skriv ut melding om manuell behandling på TVINN</span>
 																			</td>
 																			<td class="text12" >
 																				<select name="file31" id="file31" class="inputTextMediumBlue">

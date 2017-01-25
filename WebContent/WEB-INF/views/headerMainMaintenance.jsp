@@ -98,7 +98,7 @@
 			               	<c:if test="${ user.usrLang == 'DA'}">
 			               		<img src="resources/images/countryFlags/Flag_DK.gif" height="12" border="0" alt="country">
 			               	</c:if>
-			               	<c:if test="${ user.usrLang == 'SE'}">
+			               	<c:if test="${ user.usrLang == 'SV'}">
 			               		<img src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">
 			               	</c:if>
 			               	
