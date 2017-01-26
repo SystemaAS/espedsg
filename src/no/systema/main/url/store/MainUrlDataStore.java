@@ -13,6 +13,9 @@ public final class MainUrlDataStore {
 	//[1] LOGIN - SYSTEMA WEB eSped
 	//------------------------------
 	static public String SYSTEMA_WEB_LOGIN_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/symn0J.pgm";
+	//Special firm code service in order to login above
+	static public String SYSTEMA_WEB_FIRMLOGIN_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFIRMLOGIN.do";
+	
 	
 	//---------------
 	//[2] Notisblock 

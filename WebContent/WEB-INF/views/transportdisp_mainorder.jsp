@@ -1760,7 +1760,7 @@
 							 				<input onBlur="validateDangerousGoodsUnnr(${counter.count});"  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffantk_${counter.count}" id="ffantk_${counter.count}" size="5" maxlength="5" value="${fraktbrevRecord.ffantk}">
 						 				</td>
 						 				<td align="right" class="tableCellDangerousGoods" nowrap>
-							 				<input onBlur="validateDangerousGoodsUnnr(${counter.count});" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffante_${counter.count}" id="ffante_${counter.count}" size="6" maxlength="7" value="${fraktbrevRecord.ffante}">
+							 				<input onBlur="validateDangerousGoodsUnnr(${counter.count});" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffante_${counter.count}" id="ffante_${counter.count}" size="9" maxlength="11" value="${fraktbrevRecord.ffante}">
 						 				</td>
 						 				<td align="right" class="tableCellDangerousGoods">
 							 				<select onChange="validateDangerousGoodsUnnr(${counter.count});" name="ffenh_${counter.count}" id="ffenh_${counter.count}">
@@ -1936,7 +1936,7 @@
 							 				<input onBlur="validateDangerousGoodsUnnrNewLine();" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffantk" id="ffantk" size="5" maxlength="5" value="">
 						 				</td>
 						 				<td align="right" class="text11" nowrap>
-							 				<input onBlur="validateDangerousGoodsUnnrNewLine();" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffante" id="ffante" size="7" maxlength="7" value="">
+							 				<input onBlur="validateDangerousGoodsUnnrNewLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffante" id="ffante" size="9" maxlength="11" value="">
 						 				</td>
 						 				<input type="hidden" id="ownAdrFaktNewLine" name="ownAdrFaktNewLine" value="">
 						 				<td align="right" class="text11" nowrap>

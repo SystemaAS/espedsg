@@ -34,9 +34,13 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.JsonSystemaUserContainer;
 import no.systema.main.model.jsonjackson.JsonSystemaUserRecord;
 import no.systema.main.model.jsonjackson.JsonSystemaUserExtensionsArchiveRecord;
+import no.systema.main.model.jsonjackson.JsonFirmLoginContainer;
+import no.systema.main.model.jsonjackson.JsonFirmLoginRecord;
+
 
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.login.SystemaWebLoginService;
+import no.systema.main.service.FirmLoginService;
 
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
@@ -98,20 +102,25 @@ public class DashboardController {
 			    	return loginView;
 	
 		    }else{
+		    	//get the company code for the user
+		    	String companyCode = this.getCompanyCodeForLogin();
+		    	
 		    	//---------------------------
 				//get BASE URL = RPG-PROGRAM
 	            //---------------------------
 				String BASE_URL = MainUrlDataStore.SYSTEMA_WEB_LOGIN_URL;
 				
 				//url params
-				String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser);
+				String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser, companyCode);
 				
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			    	logger.info("URL: " + BASE_URL);
 			    	//don't show the pwd
-			    	int pwd = urlRequestParamsKeys.indexOf("&pwd");
-			    	String credentailsPwd = urlRequestParamsKeys.substring(pwd + 5);
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys.substring(0,pwd)+"&md5");
+			    	//int pwd = urlRequestParamsKeys.indexOf("&pwd");
+			    	//String credentailsPwd = urlRequestParamsKeys.substring(pwd + 5);
+			    	//logger.info("URL PARAMS: " + urlRequestParamsKeys.substring(0,pwd)+"&md5");
+			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+			    	
 			    	//--------------------------------------
 			    	//EXECUTE the FETCH (RPG program) here
 			    	//--------------------------------------
@@ -120,7 +129,8 @@ public class DashboardController {
 				    	//Debug --> 
 				    	//System.out.println(jsonPayload);
 				    	logger.info(jsonPayload);
-				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp " + new StringBuilder(credentailsPwd).reverse().toString() + "carebum");
+				    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp " + new StringBuilder(credentailsPwd).reverse().toString() + "carebum");
+				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp ");
 				    	if(jsonPayload!=null){ 
 				    		JsonSystemaUserContainer jsonSystemaUserContainer = this.systemaWebLoginService.getSystemaUserContainer(jsonPayload);
 				    		//check for errors
@@ -160,6 +170,25 @@ public class DashboardController {
 		}
 	}
 	
+	/**
+	 * This method must be used as long as we use AS400 login service
+	 * When migrating to JAVA services the method and procedure will be obsolete...
+	 * 
+	 * @return
+	 */
+	private String getCompanyCodeForLogin(){
+		String companyCode = null;
+		
+		String FIRM_URL = MainUrlDataStore.SYSTEMA_WEB_FIRMLOGIN_URL;
+    	String jsonFirmPayload = this.urlCgiProxyService.getJsonContent(FIRM_URL);
+    	//logger.info(jsonFirmPayload);
+    	JsonFirmLoginContainer firmContainer = this.firmLoginService.getContainer(jsonFirmPayload);
+    	for(JsonFirmLoginRecord record : firmContainer.getList()){
+    		companyCode = record.getFifirm();
+    	}
+    	logger.info(companyCode);
+    	return companyCode;
+	}
 	/**
 	 * This is the only place in which the jsonUserContainer lends over its values to the global SystemWebUser object
 	 * @param request
@@ -230,9 +259,11 @@ public class DashboardController {
 	/**
 	 * 
 	 * @param appUser
+	 * @param companyCode
+	 * 
 	 * @return
 	 */
-	private String getRequestUrlKeyParameters(SystemaWebUser appUser){
+	private String getRequestUrlKeyParameters(SystemaWebUser appUser, String companyCode){
 		StringBuffer urlRequestParamsKeys = null;
 		
 		if(appUser!=null){
@@ -240,7 +271,9 @@ public class DashboardController {
 				urlRequestParamsKeys = new StringBuffer();
 				urlRequestParamsKeys.append("user=" + appUser.getUser());
 				urlRequestParamsKeys.append(AppConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "pwd=" + appUser.getPassword());
-				
+				if(companyCode!=null){
+					urlRequestParamsKeys.append(AppConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "firma=" + companyCode);
+				}
 			}
 		}
 		return urlRequestParamsKeys.toString();
@@ -296,7 +329,17 @@ public class DashboardController {
 	@Required
 	public void setSystemaWebLoginService (SystemaWebLoginService value){ this.systemaWebLoginService = value; }
 	public SystemaWebLoginService getSystemaWebLoginService(){ return this.systemaWebLoginService; }
-		
+	
+	
+	@Qualifier ("firmLoginService")
+	private FirmLoginService firmLoginService;
+	@Autowired
+	@Required
+	public void setFirmLoginService (FirmLoginService value){ this.firmLoginService = value; }
+	public FirmLoginService getFirmLoginService(){ return this.firmLoginService; }
+	
+	
+	
 		
 }
 

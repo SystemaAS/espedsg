@@ -1685,10 +1685,13 @@
 		  				jq("#ffindx_" + counter).val(data[i].adindx);
 		  				//[1] ADR->Update line and line ADR
 		  				if(jq("#ffante_" + counter).val()!='' && jq("#ffante_" + counter).val()!='?'){
-		  					var unit = parseInt(jq("#ffante_" + counter).val());
+		  					//var unit = parseInt(jq("#ffante_" + counter).val()); //OBSOLETE -->ffante as Integer
+		  					var unitStr = jq("#ffante_" + counter).val();
+		  					unitStr = unitStr.replace(",",".");
+		  					var unit = Number(unitStr);
 		  					var fakt = parseInt(data[i].adfakt);
 		  					if(jq("#ffantk_" + counter).val()!='' && jq("#ffantk_" + counter).val()!='?' && jq("#ffenh_" + counter).val()!=''){
-			  					jq("#ffpoen_" + counter).val(unit * fakt);
+		  						jq("#ffpoen_" + counter).val(unit * fakt);
 			  					//cosmetics
 			  					jq("#ffantk_" + counter).removeClass( "isa_warning" );
 			  					jq("#ffante_" + counter).removeClass( "isa_warning" );
@@ -2160,13 +2163,23 @@
 		  }
 	  });
 	  //Update the ADR-sum with
+	  /* OLD With ffante as Integer
 	  var unitStr = jq('#ffante').val();
 	  var faktStr = jq('#ownAdrFaktNewLine').val();
 	  if(unitStr!='' && faktStr!=''){
 		  unit = parseInt(unitStr);
 		  fakt = parseInt(faktStr);
 		  sum += (unit*fakt);
+	  }*/
+	  var unitStr = jq('#ffante').val();
+	  var faktStr = jq('#ownAdrFaktNewLine').val();
+	  if(unitStr!='' && faktStr!=''){
+		  unitStr = unitStr.replace(",",".");
+		  unit = Number(unitStr);
+		  fakt = parseInt(faktStr);
+		  sum += (unit*fakt);
 	  }
+	  
 	  //ADR field NOT REQUIRED to be blocked by checkbox: hestl4
 	  jq("#hepoen").attr("readonly", false); 
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
