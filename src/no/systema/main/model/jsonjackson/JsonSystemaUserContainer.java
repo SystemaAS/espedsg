@@ -16,6 +16,10 @@ public class JsonSystemaUserContainer {
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}
 
+	private String userName = null; 
+	public void setUserName(String value) {  this.userName = value; }
+	public String getUserName() { return this.userName;}
+
 	private String intern = null;
 	public void setIntern(String value) {  this.intern = value; }
 	public String getIntern() { return this.intern;}

@@ -72,6 +72,10 @@ public class SystemaWebUser {
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}
 	
+	private String userName = null; 
+	public void setUserName(String value) {  this.userName = value; }
+	public String getUserName() { return this.userName;}
+	
 	private String password = null;
 	public void setPassword(String value) {  this.password = value; }
 	public String getPassword() { return this.password;}

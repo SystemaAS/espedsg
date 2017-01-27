@@ -124,7 +124,7 @@
 											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerId" id="avggCustomerId" size="10" maxlength="8" value='${user.custNr}'>&nbsp;
 										</td>
 										<td >	
-											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value='${user.custName}'>
+											<input readonly type="text" class="inputTextReadOnly" name="avggCustomerName" id="avggCustomerName" size="35" maxlength="35" value='${user.userName}'>
 										</td>
 									</c:otherwise>
 									</c:choose>

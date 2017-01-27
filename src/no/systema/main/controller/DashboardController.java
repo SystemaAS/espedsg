@@ -201,6 +201,7 @@ public class DashboardController {
 		
 		//user values
 		appUser.setUser(jsonSystemaUserContainer.getUser().toUpperCase());
+		appUser.setUserName(jsonSystemaUserContainer.getUserName());
 		appUser.setUsrLang(jsonSystemaUserContainer.getUsrLang());
 		appUser.setUserAS400(jsonSystemaUserContainer.getUsrAS400());
 		appUser.setIntern(jsonSystemaUserContainer.getIntern());
