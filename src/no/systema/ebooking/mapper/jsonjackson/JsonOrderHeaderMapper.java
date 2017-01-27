@@ -10,6 +10,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
+
 
 
 /**
@@ -32,6 +35,24 @@ public class JsonOrderHeaderMapper {
 		JsonMainOrderHeaderContainer container = mapper.readValue(utfPayload.getBytes(), JsonMainOrderHeaderContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonMainOrderHeaderRecord record : container.getOneorder()){
+			//DEBUG
+		}
+		
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonMainOrderHeaderFraktbrevContainer getFraktbrevContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonMainOrderHeaderFraktbrevContainer container = mapper.readValue(utfPayload.getBytes(), JsonMainOrderHeaderFraktbrevContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		for (JsonMainOrderHeaderFraktbrevRecord record : container.getAwblinelist()){
 			//DEBUG
 		}
 		

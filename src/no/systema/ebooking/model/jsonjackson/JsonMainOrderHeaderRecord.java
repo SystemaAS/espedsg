@@ -14,6 +14,14 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
+	private String heunik = null;
+	public void setHeunik(String value){ this.heunik = value;}
+	public String getHeunik(){ return this.heunik; }
+	
+	private String hereff = null;
+	public void setHereff(String value){ this.hereff = value;}
+	public String getHereff(){ return this.hereff; }
+	
     
 	private String heur = null;
 	public void setHeur(String value){ this.heur = value;}
@@ -805,13 +813,29 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setHesnn(String value){ this.hesnn = value;}
 	public String getHesnn(){ return this.hesnn; }
 	
-	private String heunik = null;
-	public void setHeunik(String value){ this.heunik = value;}
-	public String getHeunik(){ return this.heunik; }
 	
-	private String hereff = null;
-	public void setHereff(String value){ this.hereff = value;}
-	public String getHereff(){ return this.hereff; }
+	
+	private List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = null;
+	public void setFraktbrevList(List<JsonMainOrderHeaderFraktbrevRecord> value) {  this.fraktbrevList = value; }
+	public List<JsonMainOrderHeaderFraktbrevRecord> getFraktbrevList() {return this.fraktbrevList;}
+	
+	private String singleLine = "N";
+	public String getSingleLine() {
+		if(this.fraktbrevList!=null){
+			int i = 0;
+			for(JsonMainOrderHeaderFraktbrevRecord lineRecord : this.fraktbrevList){
+				if(lineRecord.getFvlinr()!=null && !"".equals(lineRecord.getFvlinr())){
+					i++;
+				}
+			}
+			if(i==1){
+				this.singleLine = "Y";
+			}
+		}
+		return this.singleLine;
+	}
+	//nothing just a dummy method to avoid exceptions in java reflections implementations
+	public void setSingleLine(String value) { }
 	
 	
 	/**

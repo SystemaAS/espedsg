@@ -37,7 +37,7 @@
 	<script type="text/javascript" src="resources/js/dataTables.fixedHeader.js"></script>
 	<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script> --%>
 	
-    <table class="noBg" width="1200" border="0" cellspacing="0" cellpadding="0">
+    <table class="noBg" width="1480" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 	 	<tr class="clazzTdsBanner" id="tdsBanner" style="visibility:visible">
 	 	 	<%-- class="grayTitanBg" --%>
@@ -70,7 +70,7 @@
 		
 		<tr >
 			<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1480" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------------------- --%>

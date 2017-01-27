@@ -36,11 +36,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripMessageNoteRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainStandiRecord;
-import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
-import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+
 
 //TRANSPDISP
 /*
@@ -70,6 +66,8 @@ import no.systema.ebooking.util.EbookingConstants;
 import no.systema.ebooking.util.RpgReturnResponseHandler;
 import no.systema.ebooking.util.manager.CodeDropDownMgr;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
@@ -199,6 +197,8 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			if(isValidRecord){
 				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, hereff, heunik);
+				//populate
+				this.populateFraktbrev( appUser, headerOrderRecord);
 				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
 			}
 			//get dropdowns
@@ -264,6 +264,68 @@ public class EbookingMainOrderHeaderController {
 		    */
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param orderRecord
+	 */
+	private void populateFraktbrev(SystemaWebUser appUser, JsonMainOrderHeaderRecord orderRecord){
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_LIST_MAIN_ORDER_FRAKTBREV_URL;
+		
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append("&avd=" + orderRecord.getHeavd());
+		urlRequestParamsKeys.append("&opd=" + orderRecord.getHeopd());
+		urlRequestParamsKeys.append("&fbn=1");
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = new ArrayList<JsonMainOrderHeaderFraktbrevRecord>();
+	    
+    	//Only with EXISTENT ORDER
+    	if(orderRecord.getHeopd()!=null && !"".equals(orderRecord.getHeopd())){
+			//----------------------------------------------------------------------------
+	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+	    	//----------------------------------------------------------------------------
+    		logger.info("URL: " + BASE_URL);
+        	logger.info("URL PARAMS: " + urlRequestParamsKeys.toString());
+        	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+	    	//Debug -->
+		    logger.info(jsonPayload);
+		    if(jsonPayload!=null){
+		    	JsonMainOrderHeaderFraktbrevContainer container = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
+				if(container!=null){
+		    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
+						fraktbrevList.add(fraktbrevRecord);
+					}
+					//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
+		    		this.populateEmptyFraktbrevList(fraktbrevList);
+				}
+	    	}
+    	}else{
+    		this.populateEmptyFraktbrevList(fraktbrevList);
+    	}
+    	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
+    	
+    	//populate the list on parent record
+		orderRecord.setFraktbrevList(fraktbrevList);
+	}
+	/**
+	 * 
+	 * @param fraktbrevList
+	 */
+	private void populateEmptyFraktbrevList (List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList){
+		if(fraktbrevList==null || fraktbrevList.size()<EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES){
+			int start = fraktbrevList.size();
+			for(int i = ++start;i<=EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES;i++){
+				//logger.info("#########################:" + i);
+				fraktbrevList.add(new JsonMainOrderHeaderFraktbrevRecord());
+			}
+		}
 	}
 	
 	/**

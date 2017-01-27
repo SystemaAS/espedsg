@@ -209,12 +209,10 @@
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="heunik" id="heunik" value='${model.record.heunik}'>
-					<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
-					
-					
+
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsignee}'>
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrier}'>
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternal}'>
@@ -670,7 +668,7 @@
 	        			<table style="width:99%;" align="left" class="tableBorderWithRoundCornersGray" cellspacing="0" cellpadding="0">
 				 		<tr height="5"><td colspan="2" ></td></tr>
 				 		<tr>
-							<td valign="top" style="width:45%;border-right:1px solid;border-color:#FFFFFF;""  >
+							<td valign="top" style="width:50%;border-right:1px solid;border-color:#FFFFFF;""  >
 								<table>
 						 		<tr height="2"><td ></td></tr>
 							 	<tr>	
@@ -823,7 +821,7 @@
 									<table>
 						 			<tr>		
 										<td class="text11">&nbsp;
-											<span title="todo">Oppdragstype</span>
+											<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.oppdragstype"/></span>
 							 			</td>
 							 			<td class="text11">
 							 				<select name="todo" id="todo">
@@ -832,7 +830,7 @@
 							 			</td>
 										<td width="30px">&nbsp;</td>
 										<td class="text11">&nbsp;
-											<span title="todo">Leveringsbet.</span>
+											<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.incoterms"/></span>
 							 			</td>
 							 			<td class="text11">
 							 				<select name="todo" id="todo">
@@ -841,7 +839,7 @@
 							 			</td>
 										<td width="30px">&nbsp;</td>
 										<td class="text11">&nbsp;
-											<span title="todo">Prod.kode</span>
+											<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.productcode"/></span>
 							 			</td>
 							 			<td class="text11">
 							 				<select name="todo" id="todo">
@@ -869,7 +867,7 @@
             		<td>
 	        			<table style="width:99%;" align="left" class="tableBorderWithRoundCornersGray" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="6"><td></td></tr>
-				 		<%-- UPDATE LINEs SECTION
+				 		<%-- UPDATE LINEs SECTION --%>
 				 		<tr>
 							<td colspan="2" valign="top" style="width:100%;" >
 								<table border="0" style="table-layout: fixed; width:1460px;" cellpadding="0" cellspacing="2" >
@@ -899,13 +897,13 @@
 						 		</table>
 						 		<div class="ownScrollableSubWindow" style="width:1460px; height:10em;" > 
 						 		<table border="0" style="table-layout: fixed; width:1460px" cellpadding="0" cellspacing="2">
-						 		<c:forEach items="${Xmodel.record.fraktbrevList}" var="fraktbrevRecord" varStatus="counter">
+						 		<c:forEach items="${model.record.fraktbrevList}" var="fraktbrevRecord" varStatus="counter">
 						 			<c:if test="${not empty fraktbrevRecord.fvlinr}">
 						 				<c:set var="upperCurrentItemlineNr" scope="request" value="${fraktbrevRecord.fvlinr}"/>
 						 				<c:set var="totalNumberOfLines" scope="request" value="${counter.count}"/>
 						 					
 						 			</c:if>
-						 			<%-- lineNr will always be sent(to the controller) in case this is a new line (when fvlinr=null)
+						 			<%-- lineNr will always be sent(to the controller) in case this is a new line (when fvlinr=null) --%>
 						 			<input type="hidden" name="lineNr_${counter.count}" id="lineNr_${counter.count}" value="${counter.count}" >   
 							 		<input type="hidden" name="fvlinr_${counter.count}" id="fvlinr_${counter.count}" value="${fraktbrevRecord.fvlinr}" >
 							 		   
@@ -980,7 +978,7 @@
 						 				</td>
 					 					<td width="2%" align="left" class="tableCell" >
 						               		<c:if test="${not empty fraktbrevRecord.fvlinr}">
-						               			<c:if test="${ Xmodel.record.singleLine == 'N' }">
+						               			<c:if test="${ model.record.singleLine == 'N' }">
 							               			<a id="deleteLine_${counter.count}" onClick="deleteOrderLine(this);">
 							               				<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               		</a>
@@ -1000,10 +998,10 @@
 							<td colspan="2" valign="top" style="width:100%;" >
 								<table border="0" style="table-layout: fixed; width:1460px;" cellpadding="0" cellspacing="2" >
 					 			<input type="hidden" name="totalNumberOfLines" id="totalNumberOfLines" value="${totalNumberOfLines}" >
-					 			<%-- TOTALS 
+					 			<%-- TOTALS --%>
 								<tr class="tableRow">	
 									<td width="2%" align="left" class="tableHeaderFieldFirst11">
-										<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1
+										<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 --%>
 										<input type="hidden" id="upperCurrentItemlineNr" name="upperCurrentItemlineNr" value="${upperCurrentItemlineNr}">
 										<b>TOT</b>
 									</td>
@@ -1063,7 +1061,7 @@
 						</tr>
 						
 						  
-						<c:if test="${not empty Xmodel.record.heopd && totalNumberOfLines >= 4}">
+						<c:if test="${not empty model.record.hereff && totalNumberOfLines >= 4}">
 				 			<tr height="10"><td ></td></tr>
 					 		<%-- CREATE NEW LINE SECTION
 					 		<tr>
@@ -1159,11 +1157,13 @@
 						 			<tr></tr>
 						 			</table>
 					 			</td>
-				 			</tr>	
+				 			</tr>
+				 			--%>	
 						</c:if>
 						
 						
 						<tr height="5"><td ></td></tr>
+						<%--
 						<tr>
 							<td colspan="2" valign="top" style="width:100%;">
 								<table border="0">
@@ -1191,13 +1191,14 @@
 						 		</table>
 					 		</td>
 						</tr>
+						 --%>
 						<tr height="5"><td ></td></tr>
 							
 	 				</table>
             		</td>
             </tr>
             <tr height="2"><td></td></tr>
-             --%>
+             
              
             <tr>
 				<td colspan="2">
@@ -1208,7 +1209,7 @@
 	 				    </td>
 						<td align="right">
 		 				    <c:choose>
-			 				    <c:when test="${ not empty Xmodel.record.heavd && not empty Xmodel.record.heopd }">
+			 				    <c:when test="${ not empty model.record.heunik && not empty model.record.hereff }">
 			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
 			 				    </c:when>
 			 				    <c:otherwise>
