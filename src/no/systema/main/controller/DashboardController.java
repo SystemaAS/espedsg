@@ -181,7 +181,8 @@ public class DashboardController {
 		
 		String FIRM_URL = MainUrlDataStore.SYSTEMA_WEB_FIRMLOGIN_URL;
     	String jsonFirmPayload = this.urlCgiProxyService.getJsonContent(FIRM_URL);
-    	//logger.info(jsonFirmPayload);
+    	logger.info(FIRM_URL);
+    	logger.info(jsonFirmPayload);
     	JsonFirmLoginContainer firmContainer = this.firmLoginService.getContainer(jsonFirmPayload);
     	for(JsonFirmLoginRecord record : firmContainer.getList()){
     		companyCode = record.getFifirm();
