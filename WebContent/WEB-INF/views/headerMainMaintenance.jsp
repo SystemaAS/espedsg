@@ -101,6 +101,9 @@
 			               	<c:if test="${ user.usrLang == 'SV'}">
 			               		<img src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">
 			               	</c:if>
+			               	<c:if test="${ user.usrLang == 'EN'}">
+			               		<img src="resources/images/countryFlags/Flag_UK.gif" height="12" border="0" alt="country">
+			               	</c:if>
 			               	
 		      				&nbsp;
 		      				<font class="headerMenuWhite">

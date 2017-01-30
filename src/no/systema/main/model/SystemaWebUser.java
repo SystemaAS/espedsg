@@ -80,6 +80,10 @@ public class SystemaWebUser {
 	public void setPassword(String value) {  this.password = value; }
 	public String getPassword() { return this.password;}
 	
+	private String companyCode = null; 
+	public void setCompanyCode(String value) {  this.companyCode = value; }
+	public String getCompanyCode() { return this.companyCode;}
+	
 	//---------------------------------------------
 	//Return parameters after valid login in AS400
 	//---------------------------------------------

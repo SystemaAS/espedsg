@@ -140,7 +140,7 @@ public class MainMaintenanceGateController {
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("4");
-		object.setSubject("Firma opplysninger");
+		object.setSubject("Firmaopplysninger");
 		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
 			object.setSubject("Firmaupplysningar");
 		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){

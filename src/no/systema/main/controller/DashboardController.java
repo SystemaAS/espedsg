@@ -81,7 +81,7 @@ public class DashboardController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="logonDashboard.do", method=RequestMethod.POST)
+	@RequestMapping(value="logonDashboard.do", method= { RequestMethod.POST })
 	public ModelAndView logon(@ModelAttribute (AppConstants.SYSTEMA_WEB_USER_KEY) SystemaWebUser appUser, BindingResult bindingResult, HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		ModelAndView successView = new ModelAndView("dashboard");
 		Map model = new HashMap();
@@ -102,7 +102,8 @@ public class DashboardController {
 			    	return loginView;
 	
 		    }else{
-		    	//get the company code for the user
+		    	//get the company code for the comming user
+		    	//this routine was triggered by Totens upgrade (Jan-2017 V12). Ref. JOVOs requirement
 		    	String companyCode = this.getCompanyCodeForLogin();
 		    	
 		    	//---------------------------
@@ -143,7 +144,7 @@ public class DashboardController {
 				    			}else{
 				    				this.setDashboardMenuObjectsInSession(session, jsonSystemaUserContainer);
 				    				//hand-over to appUser from JsonUser
-				    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer);
+				    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer, companyCode);
 				    				
 				    			}
 				    		}
@@ -195,13 +196,15 @@ public class DashboardController {
 	 * @param request
 	 * @param appUser
 	 * @param jsonSystemaUserContainer
+	 * @param companyCode
 	 * 
 	 */
-	private void doHandOverToSystemaWebUser(HttpServletRequest request, SystemaWebUser appUser, JsonSystemaUserContainer jsonSystemaUserContainer){
+	private void doHandOverToSystemaWebUser(HttpServletRequest request, SystemaWebUser appUser, JsonSystemaUserContainer jsonSystemaUserContainer, String companyCode){
 		
 		//user values
 		appUser.setUser(jsonSystemaUserContainer.getUser().toUpperCase());
 		appUser.setUserName(jsonSystemaUserContainer.getUserName());
+		appUser.setCompanyCode(companyCode);//fifirm in firm
 		appUser.setUsrLang(jsonSystemaUserContainer.getUsrLang());
 		appUser.setUserAS400(jsonSystemaUserContainer.getUsrAS400());
 		appUser.setIntern(jsonSystemaUserContainer.getIntern());

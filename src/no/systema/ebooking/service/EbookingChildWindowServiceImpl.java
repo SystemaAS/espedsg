@@ -1,6 +1,10 @@
 package no.systema.ebooking.service;
+
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
+import no.systema.ebooking.mapper.jsonjackson.EbookingCustomerMapper;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
 import no.systema.main.mapper.jsonjackson.general.PostalCodesMapper;
+
 
 /**
  * 
@@ -21,5 +25,20 @@ public class EbookingChildWindowServiceImpl implements EbookingChildWindowServic
 			e.printStackTrace();
 		}
 		return container;
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonEbookingCustomerContainer getCustomerContainer(String utfPayload){
+		JsonEbookingCustomerContainer container = null;
+		try{
+			EbookingCustomerMapper mapper = new EbookingCustomerMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
 	}
 }

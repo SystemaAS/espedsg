@@ -285,7 +285,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.ebooking.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=s','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doInit&ctype=s','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>
 					 				</td>
@@ -480,7 +480,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.ebooking.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=c','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doInit&ctype=c','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>	
 					 				</td>
@@ -872,27 +872,27 @@
 							<td colspan="2" valign="top" style="width:100%;" >
 								<table border="0" style="table-layout: fixed; width:1460px;" cellpadding="0" cellspacing="2" >
 						 		<tr class="tableHeaderField10" >
-							 		<td width="2%" align="left" valign="bottom" class="tableHeaderFieldFirst11"><span title="fvlinr">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.linenr"/></span></td>
-							 		<td align="left" valign="bottom" class="tableHeaderField11"><span title="fmmrk1/hegm1(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.marks"/></span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
-						 			<td width="7%" align="left" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.forpak"/></span></td>
-						 			<td width="7%" align="left" valign="bottom" class="tableHeaderField11"><span title="fvvt/hevs1(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.goodsDesc"/></span></td>
-						 			<td width="7%" align="right" valign="bottom" class="tableHeaderField11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlen">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.length"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvbrd">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.width"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvhoy">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.height"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm2/helmla(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.lm.la"/>&nbsp;</span></td>
-						 			<td width="6%" align="left" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
-						 			<td width="4%" align="right" valign="bottom" class="tableHeaderField11"><span title="ffembg">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.emg"/>&nbsp;</span></td>
-						 			<td width="4%" align="right" valign="bottom" class="tableHeaderField11"><span title="ffindx">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.emg.index"/>&nbsp;</span></td>
+							 		<td width="2%" align="left" valign="bottom" class="tableHeaderFieldFirst11"><span title="fvlinr">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.linenr"/></span></td>
+							 		<td align="left" valign="bottom" class="tableHeaderField11"><span title="fmmrk1/hegm1(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.marks"/></span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
+						 			<td width="7%" align="left" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.forpak"/></span></td>
+						 			<td width="7%" align="left" valign="bottom" class="tableHeaderField11"><span title="fvvt/hevs1(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.goodsDesc"/></span></td>
+						 			<td width="7%" align="right" valign="bottom" class="tableHeaderField11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlen">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.length"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvbrd">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.width"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvhoy">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.height"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm2/helmla(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.lm.la"/>&nbsp;</span></td>
+						 			<td width="6%" align="left" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
+						 			<td width="4%" align="right" valign="bottom" class="tableHeaderField11"><span title="ffembg">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.emg"/>&nbsp;</span></td>
+						 			<td width="4%" align="right" valign="bottom" class="tableHeaderField11"><span title="ffindx">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.emg.index"/>&nbsp;</span></td>
 						 			
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffantk">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.ant2"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
-						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffpoen/hepoen(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.adr"/>&nbsp;</span></td>
-						 			<td width="2%" align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.transportdisp.orders.form.detail.update.label.remove"/></span></td>										 			
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffantk">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.ant2"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
+						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffpoen/hepoen(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.adr"/>&nbsp;</span></td>
+						 			<td nowrap align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.ebooking.orders.form.detail.update.label.remove"/></span></td>										 			
 						 		</tr>
 						 		</table>
 						 		<div class="ownScrollableSubWindow" style="width:1460px; height:10em;" > 

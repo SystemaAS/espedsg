@@ -71,21 +71,11 @@
 			<td height="23" align="center" colspan="2"> 
     			 <table class="dashboardFrameMain" width="1150" border="0" cellspacing="0" cellpadding="0" align="center" >
 				 	<tr >
-			    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;
-			    			
-	      				</td>
+			    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;</td>
 	      				<td class="text11" width="50%" align="right">
 	      					<font class="headerMenuGreenNoPointer">
 	      						<img title="${user.logo}" src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');">&nbsp;
-	      							<font style="color:#000000">${user.user}&nbsp;</font>${user.usrLang}&nbsp;
-			    				        <span style="position:absolute; left:750px; top:180px; width:320px; height:20px;" id="specialInformationAdmin" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
-						           			${activeUrlRPG}
-						           			&nbsp;&nbsp;&nbsp;&nbsp;<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('specialInformationAdmin');">Close</button> 
-						           		</div>
-							        </span>   		
-			    				
-				    			</font>
+      							<font style="color:#000000">${user.user}&nbsp;</font>${user.usrLang}&nbsp;</font>
 				    			<font color="#FCFFF0"; style="font-weight: bold;" onClick="showPop('userInfo');">&nbsp;|&nbsp;</font>
 				    			<span style="position:absolute; left:750px; top:180px; width:150px; height:20px;" id="userInfo" class="popupWithInputText"  >
 						           		<div class="text11" align="left">
@@ -101,6 +91,16 @@
 				    				</font>
 			    				</a>
 			    			</td>
+			    			<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; left:1000px; top:30px; width:250px" id="specialInformationAdmin" class="popupWithInputText"  >
+									<font class="text11">
+										<p>Firmakode&nbsp;<b>${user.companyCode}</b></p>
+					           			<p>${activeUrlRPG}</p>
+					           			<p>&nbsp;<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('specialInformationAdmin');">Close</button></p>
+					           			
+				           			</font>
+								</span>
+							</div> 	
 			        </tr>
 			     </table> 
 			</td>
