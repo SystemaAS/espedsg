@@ -36,6 +36,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
+import no.systema.transportdisp.util.TransportDispConstants;
 
 
 
@@ -104,6 +106,7 @@ public class EbookingMainOrderHeaderController {
 		String heunik = request.getParameter("heunik");
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
+		
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
@@ -164,6 +167,10 @@ public class EbookingMainOrderHeaderController {
 						logger.info("doCreate");
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
+						
+					}
+					if(dmlRetval<0){
+						isValidRecord = false;
 					}
 			    }
 				
@@ -329,15 +336,15 @@ public class EbookingMainOrderHeaderController {
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	
-    	/*
+    	
     	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	
     	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
     	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
     		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-    		//this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
     		//isValidCreatedRecordTransactionOnRPG = false;
-    		//retval = -1; 
+    		retval = -1; 
     		
     	}else{
     		//Update successfully done!
@@ -355,27 +362,13 @@ public class EbookingMainOrderHeaderController {
     		}
     		recordToValidate.setMessageNote(br.toString());
     		//logger.info(recordToValidate.getMessageNote());
-    		 
+    		*/ 
 			//put domain objects
-	    	this.setDomainObjectsInView(session, model, recordToValidate );
+	    	//this.setDomainObjectsInView(session, model, recordToValidate );
 	    	
     	}
     	
-
-    	/*
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintMainStandiContainer container = this.maintMainStandiService.doUpdate(jsonPayload);
-	        if(container!=null){
-	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
-	        			errMsg.append(container.getErrMsg());
-	        			retval = MainMaintenanceConstants.ERROR_CODE;
-	        		}
-	        	}
-	        }
-    	} 
-    	*/   	
+    	  	
     	return retval;
 	}
 	
@@ -435,7 +428,7 @@ public class EbookingMainOrderHeaderController {
 	 * @param record
 	 */
 	private void setDomainObjectsInView(Map model, JsonMainOrderHeaderRecord record){
-		//model.put(EbookingConstants.DOMAIN_RECORD, record);
+		model.put(EbookingConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -479,6 +472,34 @@ public class EbookingMainOrderHeaderController {
 		}
 		return record;
 	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @param rpgReturnResponseHandler
+	 * @param record
+	 */
+	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonMainOrderHeaderRecord record){
+		logger.info(rpgReturnResponseHandler.getErrorMessage());
+		this.setAspectsInView(model, rpgReturnResponseHandler);
+		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
+        this.setDomainObjectsInView(model, record);
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param rpgReturnResponseHandler
+	 */
+	private void setAspectsInView (Map model, RpgReturnResponseHandler rpgReturnResponseHandler){
+		model.put(TransportDispConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		//extra error information
+		StringBuffer errorMetaInformation = new StringBuffer();
+		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
+		errorMetaInformation.append(rpgReturnResponseHandler.getHereff());
+		model.put(TransportDispConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+	}
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

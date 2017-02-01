@@ -51,6 +51,24 @@
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
 	 	    
+	 	    <tr >
+	 	    	<td width="5%">&nbsp;</td>
+				<td width="100%" class="text12">
+					<form action="mainmaintenancecundf_vkund.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
+					<input type="hidden" name="firma" id="firma" value="${user.companyCode}">
+					<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customernr"/>&nbsp;
+					<input type="text" class="inputTextMediumBlue" name="searchKundnr" id="searchKundnr" size="20" maxlength="35" value='${model.kundnr}'>					
+					&nbsp;
+					<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.name"/>&nbsp;
+					<input type="text" class="inputTextMediumBlue" name="searchKnavn" id="searchKnavn" size="20" maxlength="35" value='${model.knavn}'>					
+					
+					
+					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.main.maintenance.search"/>'/>
+										
+					</form>
+				</td>
+			</tr>
+			
 			<%-- list component --%>
 			<tr>
 				<td width="3%">&nbsp;</td>

@@ -27,7 +27,7 @@
 	 	<tr>
 	 		 <%-- class="grayTitanBg" --%>
     		<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1300" border="0" cellspacing="0" cellpadding="0">
     			 	<tr>
 			        	<td>&nbsp;</td>
 			        	<td>&nbsp;</td>
@@ -53,7 +53,7 @@
 		</tr>
     		<tr>
 			<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-	    			 <table width="1100" border="0" cellspacing="1" cellpadding="1">
+	    			 <table width="1300" border="0" cellspacing="1" cellpadding="1">
 					 	<tr >
 				    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;</td>
 	      				<td class="text11" width="50%" align="right">

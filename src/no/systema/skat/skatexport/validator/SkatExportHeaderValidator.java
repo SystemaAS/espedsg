@@ -386,10 +386,18 @@ public class SkatExportHeaderValidator implements Validator {
 					if(!isValidISOFormat){
 						errors.rejectValue("dkeh_dtm1", "systema.skat.export.header.error.rule.ankomstTidDtm1NotValidMask"); 
 					}
+					//lenght validation
+					if(record.getDkeh_dtm1().length()<12){
+						errors.rejectValue("dkeh_dtm1", "systema.skat.export.header.error.rule.ankomstTidDtm1NotValidMask"); 
+					}
 				}				
 				if (record.getDkeh_dtm2()!=null && !"".equals(record.getDkeh_dtm2())){
 					boolean isValidISOFormat = new DateValidator().validateDateIso203_YYYYMMDDhhmm(record.getDkeh_dtm2());
 					if(!isValidISOFormat){
+						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValidMask"); 
+					}
+					//lenght validation
+					if(record.getDkeh_dtm2().length()<12){
 						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValidMask"); 
 					}
 					//There is a requirement regarding ajour=9 together with fakt.eksp.tid

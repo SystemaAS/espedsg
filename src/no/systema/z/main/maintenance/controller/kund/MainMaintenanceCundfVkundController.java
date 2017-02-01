@@ -66,6 +66,10 @@ public class MainMaintenanceCundfVkundController {
 	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vkund");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		String dbTable = request.getParameter("id");
+		String kundnr = request.getParameter("searchKundnr");
+		String knavn = request.getParameter("searchKnavn");
+		String firma = request.getParameter("firma");
 		
 		Map model = new HashMap();
 		if (appUser == null) {
@@ -73,7 +77,17 @@ public class MainMaintenanceCundfVkundController {
 		} else {
 
 			Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
-			list = this.fetchList(appUser.getUser(), null, null);
+			//search filter. Note: if both are present then we go for the kundnr.
+			if( (kundnr!=null && !"".equals(kundnr)) ){
+				list = this.fetchList(appUser.getUser(), kundnr, firma);
+			}else if( (knavn!=null && !"".equals(knavn)) ){
+				list = this.fetchList(appUser.getUser(), null, null, knavn);
+			}
+			//set domain objets
+	    	model.put("dbTable", dbTable);
+	    	model.put("knavn", knavn);
+	    	model.put("kundnr", kundnr);
+	    	
 			model.put("list", list);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 
@@ -256,7 +270,13 @@ public class MainMaintenanceCundfVkundController {
 		return record;
 
 	}
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param kundnr
+	 * @param firma
+	 * @return
+	 */
 	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
@@ -284,7 +304,52 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param kundnr
+	 * @param firma
+	 * @param knavn
+	 * @return
+	 */
+	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma, String knavn) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + applicationUser);
+		if (kundnr != null && firma != null) {
+			urlRequestParams.append("&kundnr=" + kundnr);
+			urlRequestParams.append("&firma=" + firma);
+		}else{
+			urlRequestParams.append("&knavn=" + knavn);
+		}
 
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
+		if (jsonPayload != null) {
+			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
+			if (container != null) {
+				list = container.getList();
+/*		        for(JsonMaintMainCundfRecord record : list){
+	        	  logger.info("record:" + record.toString());
+	        	}	
+*/			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param kundnr
+	 * @param firma
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
 	private int deleteRecord(String applicationUser, String kundnr, String firma, String mode, StringBuffer errMsg) {
 		int retval = 0;
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
