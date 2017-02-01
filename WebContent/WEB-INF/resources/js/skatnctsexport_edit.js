@@ -1613,6 +1613,80 @@
 		  });
 	  });
 
+	  //----------------------------------
+	  //START Model dialog CANCELLATION
+	  //----------------------------------
+	  //Initialize <div> here
+	  jq(function() { 
+		  jq("#dialogCancellation").dialog({
+			  autoOpen: false,
+			  maxWidth:600,
+	          maxHeight: 300,
+	          width: 600,
+	          height: 250,
+			  modal: true
+		  });
+	  });
+	  //Present dialog box onClick (href in parent JSP)
+	  jq(function() {
+		  jq("#cancellationButton").click(function() {
+			  //setters (add more if needed)
+			  jq('#dialogCancellation').dialog( "option", "title", "Annullering SKAT" );
+			  
+			  //deal with buttons for this modal window
+			  jq('#dialogCancellation').dialog({
+				 buttons: [ 
+		            {
+					 id: "dialogSaveTU",	
+					 text: "Ok",
+					 click: function(){
+						 		jq('#cancellationForm').submit();
+					 		}
+				 	 },
+		 	 		{
+				 	 id: "dialogCancelTU",
+				 	 text: "Cancel", 
+					 click: function(){
+						 		//back to initial state of form elements on modal dialog
+						 		//jq("#dialogSaveSU").button("option", "disabled", true);
+						 		//jq("#selectedStatus").val("");
+						 		jq( this ).dialog( "close" ); 
+					 		} 
+		 	 		 } ] 
+			  });
+			  //init values
+			  jq("#dialogSaveTU").button("option", "disabled", true);
+			  //open now
+			  jq('#dialogCancellation').dialog('open');
+		  });
+	  });
+	  //Events for the dialog fields (some kind of "implicit validation" since all fields are mandatory)
+	  jq(function() {
+		  jq("#tkft1").blur(function() {
+			  if(jq("#tkft1").val()!=''){
+				  if(jq("#tksk").val()!=''){
+					  jq("#dialogSaveTU").button("option", "disabled", false);
+				  }else{
+					  jq("#dialogSaveTU").button("option", "disabled", true);
+				  }
+			  }else{
+				  jq("#dialogSaveTU").button("option", "disabled", true);
+			  }
+		  });
+		  jq("#tksk").blur(function() {
+			  if(jq("#tkft1").val()!=''){
+				  if(jq("#tksk").val()!=''){
+					  jq("#dialogSaveTU").button("option", "disabled", false);
+				  }else{
+					  jq("#dialogSaveTU").button("option", "disabled", true);
+				  }
+			  }else{
+				  jq("#dialogSaveTU").button("option", "disabled", true);
+			  }
+			  
+		  });
+	  });
+	  
 	  
 	//------------------------------------------------------------
   	//FETCH CUSTOMER from SENDER [AVSÄNDARE - SIKKERHED] html area

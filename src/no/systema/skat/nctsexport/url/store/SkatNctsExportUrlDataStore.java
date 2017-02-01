@@ -129,5 +129,9 @@ public final class SkatNctsExportUrlDataStore {
 	//-----------------------------
 	static public String NCTS_EXPORT_BASE_UPDATE_STATUS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE051R.pgm";
 	
-	
+	//-----------------------------
+	// Cancellation SKAT
+	//-----------------------------
+	//http://gw.systema.no/sycgip/tdce005r.pgm?user=CB&tkavd=1&tktdn=9000019&tkft1=tarzan&tkft2=jane&tksk=DA
+	static public String NCTS_EXPORT_BASE_UPDATE_CANCEL_SKAT_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDCE005R.pgm";
 }

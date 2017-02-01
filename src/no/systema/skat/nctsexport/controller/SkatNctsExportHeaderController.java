@@ -881,6 +881,71 @@ public class SkatNctsExportHeaderController {
 	
 	/**
 	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatnctsexport_cancellationSkat.do")
+	public ModelAndView doCancellationSkat(HttpSession session, HttpServletRequest request){
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_NCTS_EXPORT);
+		ModelAndView successView = new ModelAndView("redirect:skatnctsexport.do?action=doFind&sign=" + appUser.getSkatSign());
+		
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		
+		//---------------------------------
+		//Crucial request parameters (Keys
+		//---------------------------------
+		String avd = request.getParameter("tkavd");
+		String opd = request.getParameter("tktdn");
+		String tkft1 = request.getParameter("tkft1");
+		String tksk = request.getParameter("tksk");
+		
+		Map model = new HashMap();
+		
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = SkatNctsExportUrlDataStore.NCTS_EXPORT_BASE_UPDATE_CANCEL_SKAT_URL;
+			
+			//-------------------
+			//add URL-parameter 
+			//-------------------
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersCancellationSkat(avd, opd, tkft1, tksk, appUser);
+			//there are only key parameters in doSend. No other topic (record) specific parameters from GUI or such
+			String urlRequestParams = urlRequestParamsKeys;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + BASE_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	//----------------------------------------------------------------------------
+	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+	    	//----------------------------------------------------------------------------
+	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			//Debug --> 
+	    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+	    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+	    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+	    		//TODO ERROR HANDLING HERE... stay in the same page ?
+	    	}else{
+	    		//Update succefully done!
+	    		logger.info("[INFO] Cancellation SKAT successfully carried out = OK ");
+	    		//put domain objects
+	    		//this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicRecord);
+	    		//TODO SUCCESS should stay at the same side or not? Right now we go to the list of topics
+	    	}
+		}
+		return successView;
+	}
+	
+	/**
+	 * 
 	 * @param nctsExportTargetItemRecord
 	 * @param applicationUser
 	 * @param avd
@@ -1434,6 +1499,30 @@ public class SkatNctsExportHeaderController {
 		if(newStatus != null & !"".equals(newStatus)){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "status=" + newStatus);
 		}
+		return urlRequestParamsKeys.toString();	
+	}
+	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param sign
+	 * @param tkft1
+	 * @param tksk
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersCancellationSkat(String avd, String opd, String tkft1, String tksk,  SystemaWebUser appUser){
+		
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tkavd=" + avd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tktdn=" + opd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tkft1=" + tkft1);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tksk=" + tksk);
+		
+
 		return urlRequestParamsKeys.toString();	
 	}
 	/**

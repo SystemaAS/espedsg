@@ -1778,6 +1778,16 @@
 	                				</td>
 					        </tr>
 					        --%>
+					        <tr >	
+			            		<td class="text9BlueGreen" valign="bottom" align="left" >
+		 					    	<%-- only status = P or U are allowed --%>
+			 				        <c:if test="${ model.record.thst == 'P' ||  model.record.thst=='U' }">
+			 				        	<c:if test="${not empty model.record.thtrnr}">
+				 				    		<button name="cancellationButton" id="cancellationButton" class="buttonGrayWithGreenFrame" type="button" ><spring:message code="systema.skat.cancellation.skat"/></button>
+				 				    	</c:if> 
+				 				    </c:if>
+				 				</td>
+					        </tr>
 					        
 					        <tr height="25"><td colspan="2">&nbsp;</td></tr>
 					        
@@ -2747,4 +2757,38 @@
 		</div>
 	</td>
 </tr> 
+
+<tr>
+		<td>
+			<div id="dialogCancellation" title="Dialog">
+				<form  action="skatnctsexport_cancellationSkat.do" name="cancellationForm" id="cancellationForm" method="post">
+				 	<input type="hidden" name="tkavd" id="tkavd" value='${model.record.thavd}'/>
+				 	<input type="hidden" name="tktdn" id="tktdn" value='${model.record.thtdn}'/>
+				 		
+					<p class="text12" >Annullerings anmodning</p>
+					
+					<table>
+						<tr>
+							<td class="text12" align="left" >Årsag</td>
+   							<td class="text12" align="left" >Sprogkode</td>
+   						</tr>
+						<tr>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" id="tkft1" name="tkft1" size="65" maxlength="70" value=''>
+							</td>
+							<td class="text12MediumBlue">
+								<select name="tksk" id="tksk">
+				            		<option value="">-vælg-</option>
+				 				  	<c:forEach var="code" items="${model.ncts012_Sprak_CodeList}" >
+                               	 		<option value="${code.tkkode}"<c:if test="${model.record.thskfd == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+									</c:forEach> 
+								</select>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</td>
+	</tr>
+
 	

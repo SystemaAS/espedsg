@@ -279,7 +279,7 @@
 								   				</span>	
 								   	
 								   	<c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
-								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame11" type="button" >Importere vareposter</button>	
+								   		&nbsp;<button title="Import av vareposter" name="itemLinesImportButton" id="itemLinesImportButton" class="buttonGrayWithGreenFrame12" type="button" >Importere vareposter</button>	
 								   	</c:if>	
 								   				
 									</td>
