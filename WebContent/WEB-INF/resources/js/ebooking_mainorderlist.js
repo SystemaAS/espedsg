@@ -73,9 +73,46 @@
 		  jq('#dialogCreateNewOrder').dialog('open');
 	  });
   });
+  //-----------------------------
   //END Create new order - Dialog
   //-----------------------------
   
+  
+//---------------------------------------
+  //DELETE Order
+  //This is done in order to present a jquery
+  //Alert modal pop-up
+  //----------------------------------------
+  function doPermanentlyDeleteOrder(element){
+	  //start
+	  var record = element.id.split('@');
+	  var hereff = record[0];
+	  var heunik = record[1];
+	  hereff= hereff.replace("hereff_","");
+	  heunik= heunik.replace("heunik_","");
+	  	//Start dialog
+	  	jq('<div></div>').dialog({
+	        modal: true,
+	        title: "Dialog - Slett Oppdrag " + opd,
+	        buttons: {
+		        Fortsett: function() {
+	        		jq( this ).dialog( "close" );
+		            //do delete
+		            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		            window.location = "ebooking_mainorderlist_permanently_delete_order.do?action=doDelete" + "&heunik=" + heunik + "&hereff=" + hereff;
+		        },
+		        Avbryt: function() {
+		            jq( this ).dialog( "close" );
+		        }
+	        },
+	        open: function() {
+		  		  var markup = "Er du sikker på at du vil slette denne?";
+		          jq(this).html(markup);
+		          //make Cancel the default button
+		          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
+		     }
+		});  //end dialog
+  }
   
   
   

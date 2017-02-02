@@ -40,10 +40,14 @@ import no.systema.main.model.SystemaWebUser;
 //EBOOKING
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderListContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderListRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
+
 import no.systema.ebooking.filter.SearchFilterEbookingMainList;
 import no.systema.ebooking.service.EbookingMainOrderListService;
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
+import no.systema.ebooking.util.RpgReturnResponseHandler;
 
 /**
  * ebooking Order List Controller 
@@ -62,6 +66,7 @@ public class EbookingMainOrderListController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -146,91 +151,7 @@ public class EbookingMainOrderListController {
 		
 	}
 	
-	/**
-	 * The method moves orders from/to current orders list/open orders list and vice-versa
-	 * Note: The order is never deleted. The permanent deletion of an order is done somewhere else...
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="transportdisp_mainorderlist_add_remove_order.do",  method={RequestMethod.GET} )
-	public ModelAndView doAddRemoveOrder(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
-		Map model = new HashMap();
-		this.context = TdsAppContext.getApplicationContext();
-		Collection<JsonTransportDispWorkflowShippingPlanningCurrentOrdersListRecord> outputListCurrentOrders = new ArrayList<JsonTransportDispWorkflowShippingPlanningCurrentOrdersListRecord>();
-		Collection<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord> outputListOpenOrders = new ArrayList<JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord>();
-		String wstur = request.getParameter("wstur");
-		String wsavd = request.getParameter("wsavd");
-		String wsopd = request.getParameter("wsopd");
-		String wmode = request.getParameter("wmode");
-
-		if(wmode!=null && !"".equals(wmode)){recordToValidate.setMode(wmode);}
-		if(wsavd!=null && !"".equals(wsavd))recordToValidate.setAvd(wsavd);
-		if(wstur!=null && !"".equals(wstur))recordToValidate.setTur(wstur);
-		if(wsopd!=null && !"".equals(wsopd))recordToValidate.setOpd(wsopd);
-		logger.info("#OPD:" + recordToValidate.getOpd());
-		ModelAndView errorView = new ModelAndView("transportdisp_mainorderlist");
-		ModelAndView successView = new ModelAndView("redirect:transportdisp_mainorderlist.do?action=doFind&wssavd=" + wsavd + "&wstur=" + wstur);
-		
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			//-----------
-			//Validation
-			//-----------
-			/* TODO
-			SadImportListValidator validator = new SadImportListValidator();
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    validator.validate(recordToValidate, bindingResult);
-		   
-		    //check for ERRORS
-			if(bindingResult.hasErrors()){
-	    		logger.info("[ERROR Validation] search-filter does not validate)");
-	    		//put domain objects and do go back to the successView from here
-	    		//drop downs
-	    		this.setCodeDropDownMgr(appUser, model);
-				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
-	    		successView.addObject("searchFilter", recordToValidate);
-				return errorView;
-	    		
-		    }else{
-		    	final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_ADD_DELETE_ORDER_FROM_TRIP_URL;
-	    		//add URL-parameters
-	    		StringBuffer urlRequestParams = new StringBuffer();
-	    		urlRequestParams.append("user=" + appUser.getUser());
-	    		urlRequestParams.append("&wmode=" + wmode);urlRequestParams.append("&wstur=" + wstur);
-	    		urlRequestParams.append("&wsavd=" + wsavd);urlRequestParams.append("&wsopd=" + wsopd);
-	    		
-	    		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParams);
-		    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		    	//Debug --> 
-		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-		    	rpgReturnResponseHandler.evaluateRpgResponseOnAddRemoveOrder(rpgReturnPayload);
-		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-		    		this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);			    		//isValidCreatedRecordTransactionOnRPG = false;
-		    	}
-		    	return successView;
-		    }
-		}
-	}
-	*/
+	
 	/**
 	 * Permanent deletion of a specific order from the order list
 	 * 
@@ -240,20 +161,21 @@ public class EbookingMainOrderListController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="transportdisp_mainorderlist_permanently_delete_order.do",  method={RequestMethod.GET} )
-	public ModelAndView doPermanentlyDeleteOrder(@ModelAttribute ("record") SearchFilterTransportDispWorkflowShippingPlanningOrdersList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	
+	@RequestMapping(value="ebooking_mainorderlist_permanently_delete_order.do",  method={RequestMethod.GET} )
+	public ModelAndView doPermanentlyDeleteOrder(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		Map model = new HashMap();
 
-		logger.info("#AVD:" + recordToValidate.getAvd());
-		logger.info("#OPD:" + recordToValidate.getOpd());
-		ModelAndView errorView = new ModelAndView("transportdisp_mainorderlist");
+		logger.info("#HEUNIK:" + recordToValidate.getHeunik());
+		logger.info("#HEREFF:" + recordToValidate.getHereff());
+		ModelAndView errorView = new ModelAndView("ebooking_mainorderlist");
 		StringBuffer params = new StringBuffer();
-		if(recordToValidate.getAvd()!=null && !"".equals(recordToValidate.getAvd())){
-			params.append("&wssavd=" + recordToValidate.getAvd());
+		if( (recordToValidate.getHeunik()!=null && !"".equals(recordToValidate.getHeunik())) && 
+			(recordToValidate.getHereff()!=null && !"".equals(recordToValidate.getHereff())) ){	
+			params.append("&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
 		}
-		ModelAndView successView = new ModelAndView("redirect:transportdisp_mainorderlist.do?action=doFind" + params);
+		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorderlist.do?action=doFind");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
@@ -262,57 +184,35 @@ public class EbookingMainOrderListController {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			//-----------
-			//Validation
-			//-----------
-			/* TODO (further on...?)
-			SadImportListValidator validator = new SadImportListValidator();
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    validator.validate(recordToValidate, bindingResult);
-		    
-		    //check for ERRORS
-			if(bindingResult.hasErrors()){
-	    		logger.info("[ERROR Validation] search-filter does not validate)");
-	    		//put domain objects and do go back to the successView from here
-	    		//drop downs
-	    		this.setCodeDropDownMgr(appUser, model);
-				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
-	    		successView.addObject("searchFilter", recordToValidate);
-				//return errorView;
+			final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
+			String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + EbookingConstants.MODE_DELETE;
+			StringBuffer urlRequestParamsBfr = new StringBuffer();
+			urlRequestParamsBfr.append("&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
+			//put the final valid param. string
+			String urlRequestParams = urlRequestParamsKeys + urlRequestParamsBfr.toString();
+			
+			logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	
+	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
+	    	
+	    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
+	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+	    		//this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+	    		//isValidCreatedRecordTransactionOnRPG = false;
 	    		
-		    }else{
-		    	final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_PERMANENTLY_DELETE_MAIN_ORDER_URL;
-	    		//add URL-parameters
-	    		StringBuffer urlRequestParams = new StringBuffer();
-	    		urlRequestParams.append("user=" + appUser.getUser());
-	    		urlRequestParams.append("&avd=" + recordToValidate.getAvd());
-	    		urlRequestParams.append("&opd=" + recordToValidate.getOpd());
-	    		
-	    		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
-		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    	logger.info("URL: " + BASE_URL);
-		    	logger.info("URL PARAMS: " + urlRequestParams);
-		    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		    	//Debug --> 
-		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
-		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-		    	rpgReturnResponseHandler.evaluateRpgResponseOnPermanentDeleteOrder(rpgReturnPayload);
-		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on DELETE: " + rpgReturnResponseHandler.getErrorMessage());
-		    		this.setFatalErrorPermanentDeleteOrders(model, rpgReturnResponseHandler, recordToValidate);	
-		    		errorView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
-		    		errorView.addObject("searchFilter", recordToValidate);
-		    		return errorView;
-		    	}
-		    }
-			return successView;
+	    	}else{
+	    		//Update successfully done!
+	    		logger.info("[INFO] Record successfully deleted, OK ");
+
+	    	}
+
 		}
+		return successView;
 	}
-	*/
+	
 	
 	
 	

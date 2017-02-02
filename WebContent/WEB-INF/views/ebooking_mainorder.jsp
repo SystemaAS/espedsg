@@ -224,11 +224,9 @@
 							<table border="0">
 							 	<tr>
 							 		
-						 		 	<td class="text11">&nbsp;&nbsp;
-							 			<span title="hereff"><spring:message code="systema.ebooking.orders.form.update.label.orderref"/>&nbsp;</span>
-				 					</td>
+						 		 	<td class="text11">&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hereff"><spring:message code="systema.ebooking.orders.form.update.label.orderref"/>&nbsp;</span></td>
 				 					<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
+					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
 					 				</td>
 					 				<td align="right" class="text11">
 					 					&nbsp;<span title="heavd">Avd</span>

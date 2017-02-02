@@ -31,7 +31,7 @@ public class OrderHeaderValidator implements Validator {
 	 */
 	public void validate(Object obj, Errors errors) { 
 		JsonMainOrderHeaderRecord record = (JsonMainOrderHeaderRecord)obj;
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hereff", "systema.ebooking.orders.form.update.error.null.from.hereff");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "helka", "systema.ebooking.orders.form.update.error.null.from.helka");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdf", "systema.ebooking.orders.form.update.error.null.from.hesdf");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hetri", "systema.ebooking.orders.form.update.error.null.to.hetri");

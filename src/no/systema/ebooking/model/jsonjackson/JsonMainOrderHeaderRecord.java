@@ -14,11 +14,11 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
-	private String heunik = null;
+	private String heunik = "";
 	public void setHeunik(String value){ this.heunik = value;}
 	public String getHeunik(){ return this.heunik; }
 	
-	private String hereff = null;
+	private String hereff = "";
 	public void setHereff(String value){ this.hereff = value;}
 	public String getHereff(){ return this.hereff; }
 	

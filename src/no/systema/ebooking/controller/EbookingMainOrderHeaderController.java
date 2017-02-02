@@ -36,8 +36,6 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
-import no.systema.transportdisp.util.TransportDispConstants;
 
 
 
@@ -102,8 +100,8 @@ public class EbookingMainOrderHeaderController {
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
-		String hereff = request.getParameter("hereff");
-		String heunik = request.getParameter("heunik");
+		//String hereff = request.getParameter("hereff");
+		//String heunik = request.getParameter("heunik");
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
 		
@@ -134,22 +132,10 @@ public class EbookingMainOrderHeaderController {
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
-		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		isValidRecord = false;
-		    		
-		    		
 		    		//put domain objects and do go back to the successView from here
-		    		//drop downs
-		    		//this.setCodeDropDownMgr(appUser, model);
-					//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-					//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-					
-		    		//set aspects
-		    		
-					//successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
-		    		//successView.addObject(EbookingConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-		    		//successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
-		    		//successView.addObject("searchFilter", recordToValidate);
+		    		this.populateFraktbrev( appUser, recordToValidate);
+					model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		
 			    }else{	
 					//Start DML operations if applicable
@@ -182,7 +168,7 @@ public class EbookingMainOrderHeaderController {
 			//Fetch record
 			//--------------
 			if(isValidRecord){
-				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, hereff, heunik);
+				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
 				//populate
 				this.populateFraktbrev( appUser, headerOrderRecord);
 				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
@@ -197,57 +183,9 @@ public class EbookingMainOrderHeaderController {
 			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-			
 			return successView;
 			
-			//-----------
-			//Validation
-			//-----------
-			/* TODO
-			SadImportListValidator validator = new SadImportListValidator();
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    validator.validate(recordToValidate, bindingResult);
-		    */
-		    //check for ERRORS
-			/*if(bindingResult.hasErrors()){
-	    		logger.info("[ERROR Validation] search-filter does not validate)");
-	    		//put domain objects and do go back to the successView from here
-	    		//drop downs
-	    		this.setCodeDropDownMgr(appUser, model);
-				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
-	    		successView.addObject("searchFilter", recordToValidate);
-				return successView;
-	    		
-		    }else{
-				//STEP [1]
-		    	StringBuffer userAvd = new StringBuffer();
-	    		outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model, userAvd);
-	    		
-	    		
-	   		 	//--------------------------------------
-				//Final successView with domain objects
-				//--------------------------------------
-				//drop downs
-				//this.setCodeDropDownMgr(appUser, model);
-				successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
-	    		//domain and search filter
-				successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
-				//Put list for upcomming view (PDF, Excel, etc)
-				if(outputListOpenOrders!=null){
-					session.setAttribute(session.getId() + TransportDispConstants.SESSION_LIST, outputListOpenOrders);
-				}
-				successView.addObject("searchFilter", recordToValidate);
-				
-				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-				return successView;
-			    	
-		    }
-		    */
+
 		}
 		
 	}
@@ -338,7 +276,7 @@ public class EbookingMainOrderHeaderController {
     	
     	
     	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	
+    	logger.info(rpgReturnPayload);
     	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
     	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
     		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
@@ -349,6 +287,10 @@ public class EbookingMainOrderHeaderController {
     	}else{
     		//Update successfully done!
     		logger.info("[INFO] Record successfully updated, OK ");
+    		//newly created id. Set it in the recordToValidate in order to fetch (refresh) later on
+    		if(EbookingConstants.MODE_ADD.equals(mode)){
+    			recordToValidate.setHeunik(rpgReturnResponseHandler.getHeunik());
+    		}
     		
     		/*TODO messages ...
     		this.updateMessageNote(messageNote, recordToValidate.getTuavd(), recordToValidate.getTupro(), appUser);
@@ -490,12 +432,12 @@ public class EbookingMainOrderHeaderController {
 	 * @param rpgReturnResponseHandler
 	 */
 	private void setAspectsInView (Map model, RpgReturnResponseHandler rpgReturnResponseHandler){
-		model.put(TransportDispConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
 		//extra error information
 		StringBuffer errorMetaInformation = new StringBuffer();
 		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
 		errorMetaInformation.append(rpgReturnResponseHandler.getHereff());
-		model.put(TransportDispConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		model.put(EbookingConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
 	}
 	
 	
