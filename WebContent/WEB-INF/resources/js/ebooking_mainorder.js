@@ -20,14 +20,17 @@
 //==============================================================================
   //START - Postal codes On-Blur (required to be an exact number and nothing else)
   //==============================================================================
+  var CITY_OWNwppns1 = 1;
+  var CITY_OWNwppns2 = 2;
   jq(function() {
-	  	/*
 	  	jq('#hesdf').focus(function() {
+	  		/*
 	  	  if(jq('#hesdf').val()=='' && jq('#heads3').val()!=''){
 	  		  var sellersPostalCodeRaw = jq('#heads3').val();
 	  		  var postalCode = sellersPostalCodeRaw.substr(0,sellersPostalCodeRaw.indexOf(' '));
-	  		  jq('#hesdf').val(postalCode);
+	  		  jq('#hesdf').val(postalCode);  
 	  	  }
+	  	  */
 	  	});
 	    jq('#hesdf').blur(function() {
 	    	var id = jq('#hesdf').val();
@@ -38,7 +41,7 @@
 	    		jq('#OWNwppns1').val("");
 	    	}
 		});
-		*/
+		
 	    jq('#hesdfIdLink').click(function() {
 	    	jq('#hesdfIdLink').attr('target','_blank');
 	    	window.open('ebooking_childwindow_postalcodes.do?action=doInit&direction=fra&st2lk=' + jq('#helka').val() + '&st2kod=' + jq('#hesdf').val() + '&caller=hesdf', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
@@ -48,7 +51,28 @@
 				jq('#hesdfIdLink').click();
 			}
 	    });
+	    //------
 	    //hesdt
+	    //------
+	    jq('#hesdt').focus(function() {
+	    	/*
+	  		if(jq('#hesdt').val()=='' && jq('#headk3').val()!=''){
+	  			var buyersPostalCodeRaw = jq('#headk3').val();
+	  			var postalCode = buyersPostalCodeRaw.substr(0,buyersPostalCodeRaw.indexOf(' '));
+	  			jq('#hesdt').val(postalCode);
+	  		}
+	  		*/
+	  	});
+	    jq('#hesdt').blur(function() {
+    		var id = jq('#hesdt').val();
+    		if(id!=null && id!=""){
+    			var countryCode = jq('#hetri').val();
+    			getCity(CITY_OWNwppns2,id,countryCode);
+    		}else{
+    			jq('#OWNwppns2').val("");
+    		}
+		});
+	    
 	    jq('#hesdtIdLink').click(function() {
 	    	jq('#hesdtIdLink').attr('target','_blank');
 	    	window.open('ebooking_childwindow_postalcodes.do?action=doInit&direction=til&st2lk=' + jq('#hetri').val() + '&st2kod=' + jq('#hesdt').val() + '&caller=hesdt', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
@@ -60,6 +84,60 @@
 	    });
 	    
   });
+  
+//Ajax on postal codes
+  function getCity(target, id, countryCode){
+	  jq.getJSON('searchPostNumber_Ebooking.do', {
+		  applicationUser : jq('#applicationUser').val(),
+		  id : id,
+		  countryCode : countryCode,
+		  ajax : 'true'
+	  }, function(data) {
+		var len = data.length;
+		if(len==1){ //must be a single-valid value
+			for ( var i = 0; i < len; i++) {
+				if(target==CITY_OWNwppns1){
+					jq('#OWNwppns1').val(data[i].st2nvn);
+					jq('#helka').val(data[i].st2lk);
+					jq('#hesdf').attr("class","inputTextMediumBlue11MandatoryField");
+					
+				}else if(target==CITY_OWNwppns2){
+					jq('#OWNwppns2').val(data[i].st2nvn);
+					jq('#hetri').val(data[i].st2lk);
+					jq('#hesdt').attr("class","inputTextMediumBlue11MandatoryField");
+					
+				}/*else if(target==CITY_OWNwppns3){
+					jq('#OWNwppns3').val(data[i].st2nvn);
+					jq('#helks').val(data[i].st2lk);
+					jq('#hesdff').attr("class","inputTextMediumBlue11");
+					
+				}else if(target==CITY_OWNwppns4){
+					jq('#OWNwppns4').val(data[i].st2nvn);
+					jq('#helkk').val(data[i].st2lk);
+					jq('#hesdvt').attr("class","inputTextMediumBlue11");
+				}*/
+			}
+		}else{
+			//invalid postal code
+			if(target==CITY_OWNwppns1){
+				jq('#hesdf').addClass("text11RedBold");
+				jq('#OWNwppns1').val("?");
+			}else if(target==CITY_OWNwppns2){
+				jq('#hesdt').addClass("text11RedBold");
+				jq('#OWNwppns2').val("?");
+			}/*else if(target==CITY_OWNwppns3){
+				jq('#hesdff').addClass("text11RedBold");
+				jq('#OWNwppns3').val("?");
+			}else if(target==CITY_OWNwppns4){
+				jq('#hesdvt').addClass("text11RedBold");
+				jq('#OWNwppns4').val("?");
+			}*/
+		}
+	});
+  }
+  //=================
+  //END Postal codes
+  //=================
   
   
   

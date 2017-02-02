@@ -14,27 +14,27 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMainOrderTypesNewRecord extends JsonAbstractGrandFatherRecord {
 	
-	private String newAvd = null;
+	private String newAvd = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewAvd(String value){ this.newAvd = value;}
 	public String getNewAvd(){ return this.newAvd; }
 	
-	private String newModul = null;
+	private String newModul = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewModul(String value){ this.newModul = value;}
 	public String getNewModul(){ return this.newModul; }
 	
-	private String newModul2 = null;
+	private String newModul2 = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewModul2(String value){ this.newModul2 = value;}
 	public String getNewModul2(){ return this.newModul2; }
 	
-	private String newLandKode = null;
+	private String newLandKode = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewLandKode(String value){ this.newLandKode = value;}
 	public String getNewLandKode(){ return this.newLandKode; }
 	
-	private String newSideSK = null;
+	private String newSideSK = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewSideSK(String value){ this.newSideSK = value;}
 	public String getNewSideSK(){ return this.newSideSK; }
 	
-	private String newText = null;
+	private String newText = ""; //Must be empty string instead of null (back end requir.)
 	public void setNewText(String value){ this.newText = value;}
 	public String getNewText(){ return this.newText; }
 	

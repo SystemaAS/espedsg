@@ -568,6 +568,22 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setTrsdfd(String value){ this.trsdfd = value;}
 	public String getTrsdfd(){ return this.trsdfd; }
 	
+	private String wsetdd = null;
+	public void setWsetdd(String value) {  this.wsetdd = value; }
+	public String getWsetdd() {return this.wsetdd;}
+
+	private String wsetdk = null;
+	public void setWsetdk(String value) {  this.wsetdk = value; }
+	public String getWsetdk() {return this.wsetdk;}
+
+	private String wsetad = null;
+	public void setWsetad(String value) {  this.wsetad = value; }
+	public String getWsetad() {return this.wsetad;}
+
+	private String wsetak = null;
+	public void setWsetak(String value) {  this.wsetak = value; }
+	public String getWsetak() {return this.wsetak;}
+
 	private String trsdfk = null;
 	public void setTrsdfk(String value){ this.trsdfk = value;}
 	public String getTrsdfk(){ return this.trsdfk; }
@@ -814,6 +830,38 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHesnn(){ return this.hesnn; }
 	
 	
+	private String wsscont = null;
+	public void setWsscont(String value) {  this.wsscont = this.toUpperCase(value); }
+	public String getWsscont() {return this.wsscont;}
+	
+	private String wsstlf = null;
+	public void setWsstlf(String value) {  this.wsstlf = this.toUpperCase(value); }
+	public String getWsstlf() {return this.wsstlf;}
+	
+	private String wssmail = null;
+	public void setWssmail(String value) {  this.wssmail = this.toUpperCase(value); }
+	public String getWssmail() {return this.wssmail;}
+	
+	private String wskcont = null;
+	public void setWskcont(String value) {  this.wskcont = this.toUpperCase(value); }
+	public String getWskcont() {return this.wskcont;}
+	
+	private String wsktlf = null;
+	public void setWsktlf(String value) {  this.wsktlf = this.toUpperCase(value); }
+	public String getWsktlf() {return this.wsktlf;}
+	
+	private String wskmail = null;
+	public void setWskmail(String value) {  this.wskmail = this.toUpperCase(value); }
+	public String getWskmail() {return this.wskmail;}
+	
+	private String whenas = null;
+	public void setWhenas(String value) {  this.whenas = value; }
+	public String getWhenas() {return this.whenas;}
+	
+	private String whenak = null;
+	public void setWhenak(String value) {  this.whenak = value; }
+	public String getWhenak() {return this.whenak;}
+	
 	
 	private List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = null;
 	public void setFraktbrevList(List<JsonMainOrderHeaderFraktbrevRecord> value) {  this.fraktbrevList = value; }
@@ -837,6 +885,18 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	//nothing just a dummy method to avoid exceptions in java reflections implementations
 	public void setSingleLine(String value) { }
 	
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public String toUpperCase(String value) {
+		String retval = value;
+		if(value!=null){
+			retval = value.toUpperCase();
+		}
+		return retval;
+	}
 	
 	/**
 	 * User for java reflection in other classes

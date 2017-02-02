@@ -279,6 +279,38 @@
 						<tr height="5"><td ></td></tr>
 						
 						<tr>
+							<td >
+							<table class="tableBorderWithRoundCornersLightGray">
+								<tr>
+									<td class="text12Bold"><spring:message code="systema.ebooking.orders.form.update.label.shippingDates"/></td>
+									<td class="text11">&nbsp;<font class="text12RedBold" >*</font><span title="wsetdd/wsetdk"><spring:message code="systema.ebooking.orders.form.update.label.shippingDates.etd"/></span></td>
+									<td class="text11">
+										<input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetdd" id="wsetdd" size="9" maxlength="8" value="${model.record.wsetdd}">
+									</td>
+									<td class="text11"><input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetdk" id="wsetdk" size="4" maxlength="4" value="${model.record.wsetdk}"></td>
+									
+						
+								</tr>
+							</table>
+							</td>
+							<td >
+							<table class="tableBorderWithRoundCornersLightGray">
+								<tr>
+									<td class="text12Bold"><spring:message code="systema.ebooking.orders.form.update.label.arrivalDates"/></td>
+									<td class="text11">&nbsp;<font class="text12RedBold" >*</font><span title="wsetad/wsetak"><spring:message code="systema.ebooking.orders.form.update.label.arrivalDates.eta"/></span></td>
+									<td class="text11">
+										<input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetad" id="wsetad" size="9" maxlength="8" value="${model.record.wsetad}">
+									</td>
+									<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" name="wsetak" id="wsetak" size="4" maxlength="4" value="${model.record.wsetak}"></td>
+									
+								</tr>
+							</table>
+							</td>		
+						</tr>
+						<tr height="5"><td ></td></tr>
+						
+						
+						<tr>
 				 			<td valign="top" >
 				 			 <table style="width:99%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
 						 		<tr height="10"><td ></td></tr>
@@ -295,7 +327,7 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
-								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="35" value="${Xmodel.record.whenas}"></td>
+								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="35" value="${model.record.whenas}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -316,12 +348,12 @@
 				 					</td>
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heads3" id="heads3" size="25" maxlength="30" value="${model.record.heads3}"></td>
 				 				</tr>
-				 				<%--
+				 				
 				 				<tr height="15"><td ></td></tr>	
 				 				<tr>	
 				 					<td class="text11">
 										<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 					<span title="herfa"><spring:message code="systema.transportdisp.orders.form.update.label.avsRef"/></span>						 				
+					 					<span title="herfa"><spring:message code="systema.ebooking.orders.form.update.label.avsRef"/></span>						 				
 										<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute; left:0px; top:0px; width:250px" id="herfa_info" class="popupWithInputText"  >
 											<font class="text11">
@@ -337,7 +369,7 @@
 				 					<td class="text11">
 				 						<span title="hesdla">
 				 							<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 							<spring:message code="systema.transportdisp.orders.form.update.label.load"/>
+				 							<spring:message code="systema.ebooking.orders.form.update.label.load"/>
 				 							<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_loadunloadplaces.do?action=doInit&&caller=hesdla','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 						<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 					</a>
@@ -346,34 +378,34 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="herfa" id="herfa" size="20" maxlength="35" value="${Xmodel.record.herfa}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
 								 	</td>
 				 					<td class="text11" >
-						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${Xmodel.record.hesdla}">
+						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">
 										
 						 			</td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 								<tr>
-					 				<td class="text11">&nbsp;<span title="wsscont"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.contactName"/></span></td>
-					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.telephone"/></span></td>
+					 				<td class="text11">&nbsp;<span title="wsscont"><spring:message code="systema.ebooking.orders.form.update.label.shipper.contactName"/></span></td>
+					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${Xmodel.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${Xmodel.record.wsstlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
 				 				</tr>
 					 			<tr>	
-					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.email"/></span></td>
+					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.ebooking.orders.form.update.label.shipper.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${Xmodel.record.wssmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${model.record.wssmail}"></td>
 				 				</tr>
 				 				
 				 				<tr height="8"><td ></td></tr>													 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;
 				 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
-				 						<spring:message code="systema.transportdisp.orders.form.update.label.shipper.invoicee"/>
+				 						<spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee"/>
 			 						</td>
 								</tr>
 				 				<tr>
@@ -381,14 +413,14 @@
 				 					<table class="tableBorderWithRoundCornersLightGray">
 					 					<tr>
 							 				<td class="text11">
-							 					&nbsp;<span title="heknsf"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.invoicee.id"/>&nbsp;</span>
+							 					&nbsp;<span title="heknsf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.id"/>&nbsp;</span>
 							 				</td>
 							 				<td class="text11">
-							 					&nbsp;<span title="henasf"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
+							 					&nbsp;<span title="henasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
 							 				</td>
 							 				<td class="text11">
 							 					<img onMouseOver="showPop('shipperCurr_info');" onMouseOut="hidePop('shipperCurr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="hevals"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.currencyCode"/>&nbsp;</span>
+								 				<span title="hevals"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.currencyCode"/>&nbsp;</span>
 								 				<div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute; left:0px; top:0px; width:250px" id="shipperCurr_info" class="popupWithInputText"  >
 														<font class="text11">
@@ -402,75 +434,25 @@
 												</span>
 												</div>
 							 				</td>
-							 				<td class="text11">
-												<img onMouseOver="showPop('shipperInvCode_info');" onMouseOut="hidePop('shipperInvCode_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="hekdfs"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.invoicee.invoiceCode"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="shipperInvCode_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Fakturakode</b>
-									           			<div>
-									           			<ul>
-									           				<li><b>X</b>&nbsp;Fakturaforslag skal IKKE lages automatisk -  (OBS! Gjelder kun GEBYR-avtaledelen av evt. faktura.)</li>
-									           				<li><b>E</b>&nbsp;Egen betyr at vareeiers (avsender/mottaker) avtale skal benyttes ikke fakturamottakers.</li>
-									           				<li><b>B</b>&nbsp;Bytt betyr at "motpartens" avtale skal benyttes.</li>
-									           			</ul>
-									           			<p>Kodene E/B er selvsagt kun fornuftige dersom det er benyttet ulike kundenr for fakturamottaker og avsender/mottaker.
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 					
-							 				</td>
 							 				
-							 				<td class="text11">
-							 					<img onMouseOver="showPop('shipperContract_info');" onMouseOut="hidePop('shipperContract_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="heans"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.invoicee.contractNumber"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="shipperContract_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Avt.nr</b>
-									           			<div>
-									           			<p>Avtalenummer (i gebyravtalesystemet)=<b>0 - 9</b></br>
-										           			Benyttes kun når en kunde på ellere helt identiske forhold har ulike GEBYR-avtaler (f.eks særskilte prosjekter??)
-															(operatøren bør da ha veiledning om dette via info lagt inn på kundenotatblokk eller "likv.koder".)
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 					
-							 					
-							 				</td>
 						 				</tr>
 						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${Xmodel.record.heknsf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${Xmodel.record.henasf}"></td>
+						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
+										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${model.record.henasf}"></td>
 						 					<td class="text11" >
 						 						<select name="hevals" id="hevals">
 							 						<option value="">-valuta-</option>
-								 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
+								 				  	<c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
 								 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevals == currency || (empty Xmodel.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
 													</c:forEach>  
 												</select>
 						 					</td>
-						 					<td class="text11" >
-						 						<select name="hekdfs" id="hekdfs">
-							 						<option value="">-select-</option>
-								 				  	<option value="B" <c:if test="${Xmodel.record.hekdfs == 'B'}"> selected </c:if> >B</option>
-								 				  	<option value="E" <c:if test="${Xmodel.record.hekdfs == 'E'}"> selected </c:if> >E</option>
-								 				  	<option value="X" <c:if test="${Xmodel.record.hekdfs == 'X'}"> selected </c:if> >X</option>
-								 				  	  
-												</select>
-						 					</td>
 						 					
-						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heans" id="heans" size="1" maxlength="1" value="${Xmodel.record.heans}"></td>
 					 					</tr>
 									</table>
 									</td>				 				
 					 			</tr>
-					 			 --%>	
+					 			 	
 				 				<tr height="10"><td ></td></tr>
 							 </table>
 						 	</td>
@@ -490,7 +472,7 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
-				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="35" value="${Xmodel.record.whenak}"></td>
+				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="35" value="${model.record.whenak}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -509,11 +491,17 @@
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
 				 				</tr>
-				 				<%--
+				 				
+				 				
+				 				
+				 				
+				 				
+				 				
+				 				
 				 				<tr height="15"><td ></td></tr>
 				 				<tr>	
 				 					<td class="text11"><img onMouseOver="showPop('herfk_info');" onMouseOut="hidePop('herfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 					&nbsp;&nbsp;<span title="herfk"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.ref"/></span>
+					 					&nbsp;&nbsp;<span title="herfk"><spring:message code="systema.ebooking.orders.form.update.label.consignee.ref"/></span>
 						 				<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute; left:0px; top:0px; width:250px" id="herfk_info" class="popupWithInputText"  >
 											<font class="text11">
@@ -527,7 +515,7 @@
 				 					</td>
 				 					<td class="text11">
 				 						<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 						<span title="hesdl"><spring:message code="systema.transportdisp.orders.form.update.label.unload"/></span>
+				 						<span title="hesdl"><spring:message code="systema.ebooking.orders.form.update.label.unload"/></span>
 				 						<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 					<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 				</a>
@@ -535,34 +523,34 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfk" id="herfk" size="20" maxlength="35" value="${Xmodel.record.herfk}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
 				 					</td>
 				 					<td class="text11" >
-						 				<input type="text" class="inputTextMediumBlue11" name="hesdl" id="hesdl" size="21" maxlength="20" value="${Xmodel.record.hesdl}">
+						 				<input type="text" class="inputTextMediumBlue11" name="hesdl" id="hesdl" size="21" maxlength="20" value="${model.record.hesdl}">
 										
 						 			</td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 				 				<tr>
-					 				<td class="text11">&nbsp;<span title="wskcont"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.contactName"/></span></td>
-					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.telephone"/></span></td>
+					 				<td class="text11">&nbsp;<span title="wskcont"><spring:message code="systema.ebooking.orders.form.update.label.consignee.contactName"/></span></td>
+					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${Xmodel.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${Xmodel.record.wsktlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
 				 				</tr>
 					 			<tr>	
-					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.email"/></span></td>
+					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.ebooking.orders.form.update.label.consignee.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${Xmodel.record.wskmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${model.record.wskmail}"></td>
 				 				</tr>
 				 				
 				 				<tr height="8"><td ></td></tr>
 								<tr>
 				 					<td class="text12Bold">&nbsp;
 				 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
-				 						<spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee"/>
+				 						<spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee"/>
 				 					</td>
 								</tr>
 				 																	 				
@@ -571,90 +559,22 @@
 				 					<table class="tableBorderWithRoundCornersLightGray">
 					 					<tr>
 							 				<td class="text11">
-							 					&nbsp;<span title="heknkf"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.id"/>&nbsp;</span>
+							 					&nbsp;<span title="heknkf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.id"/>&nbsp;</span>
 							 				</td>
 							 				<td class="text11">
-							 					&nbsp;<span title="henakf"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
+							 					&nbsp;<span title="henakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
 							 				</td>
-							 				<td class="text11">
-							 					<img onMouseOver="showPop('consigneeCurr_info');" onMouseOut="hidePop('consigneeCurr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="hevalk"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.currencyCode"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="consigneeCurr_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Valuta</b>
-									           			<div>
-									           			<p>Valuta for fakturautstedelse - hentes fra kunderegister, kan overstyres. 
-									           				Ved ulik NOK går fremmedvaluta inn i reskontro.
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 				</td>
-											<td class="text11">
-							 					<img onMouseOver="showPop('consigneeInvCode_info');" onMouseOut="hidePop('consigneeInvCode_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="hekdfk"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.invoiceCode"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="consigneeInvCode_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Fakturakode</b>
-									           			<div>
-									           			<ul>
-									           				<li><b>X</b>&nbsp;Fakturaforslag skal IKKE lages automatisk -  (OBS! Gjelder kun GEBYR-avtaledelen av evt. faktura.)</li>
-									           				<li><b>E</b>&nbsp;Egen betyr at vareeiers (avsender/mottaker) avtale skal benyttes ikke fakturamottakers.</li>
-									           				<li><b>B</b>&nbsp;Bytt betyr at "motpartens" avtale skal benyttes.</li>
-									           			</ul>
-									           			<p>Kodene E/B er selvsagt kun fornuftige dersom det er benyttet ulike kundenr for fakturamottaker og avsender/mottaker.
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 				</td>							 				<td class="text11">
-							 					<img onMouseOver="showPop('consigneeContract_info');" onMouseOut="hidePop('consigneeContract_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="heank"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.invoicee.contractNumber"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="consigneeContract_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Avt.nr</b>
-									           			<div>
-									           			<p>Avtalenummer (i gebyravtalesystemet)=<b>0 - 9</b></br>
-										           			Benyttes kun når en kunde på ellere helt identiske forhold har ulike GEBYR-avtaler (f.eks særskilte prosjekter??)
-															(operatøren bør da ha veiledning om dette via info lagt inn på kundenotatblokk eller "likv.koder".)
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 				</td>
+							 				
 						 				</tr>
 						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${Xmodel.record.heknkf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${Xmodel.record.henakf}"></td>
-						 					<td class="text11" >
-						 						<select name="hevalk" id="hevalk">
-							 						<option value="">-valuta-</option>
-								 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-								 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevalk == currency || (empty Xmodel.record.hevalk && currency=='NOK')}"> selected </c:if> >${currency}</option>
-													</c:forEach>  
-												</select>
-						 					</td>
-						 					<td class="text11" >
-						 						<select name="hekdfk" id="hekdfk">
-							 						<option value="">-select-</option>
-								 				  	<option value="B" <c:if test="${Xmodel.record.hekdfk == 'B'}"> selected </c:if> >B</option>
-								 				  	<option value="E" <c:if test="${Xmodel.record.hekdfk == 'E'}"> selected </c:if> >E</option>
-								 				  	<option value="X" <c:if test="${Xmodel.record.hekdfk == 'X'}"> selected </c:if> >X</option>
-								 				  	  
-												</select>
-						 					</td>
-						 					<td class="text11" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueUPPERCASE" name="heank" id="heank" size="1" maxlength="1" value="${Xmodel.record.heank}"></td>
+						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
+										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${model.record.henakf}"></td>
+						 					
 					 					</tr>
 									</table>
 									</td>				 				
 					 			</tr>
-					 			--%>								 
+					 											 
 				 				<tr height="10"><td ></td></tr>
 			 				</table>
 						 	</td>

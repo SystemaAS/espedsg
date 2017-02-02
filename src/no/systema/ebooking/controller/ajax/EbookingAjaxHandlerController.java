@@ -29,6 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.util.JsonDebugger;
+import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
+import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
+import no.systema.transportdisp.util.TransportDispConstants;
 /*
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowListContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowListRecord;
@@ -122,7 +127,7 @@ public class EbookingAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(EbookingAjaxHandlerController.class.getName());
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	//private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
-	
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	
 	/**
 	 * 
@@ -190,6 +195,85 @@ public class EbookingAjaxHandlerController {
 	    	  }
 	    	  return result;
 	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param id
+	   * @param countryCode
+	   * @return
+	   */
+	  @RequestMapping(value = "searchPostNumber_Ebooking.do", method = RequestMethod.GET)
+	  public @ResponseBody Collection<JsonPostalCodesRecord> searchPostNumber(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String countryCode) {
+		  logger.info("Inside searchPostNumber");
+		  Collection<JsonPostalCodesRecord> result = new ArrayList<JsonPostalCodesRecord>();
+		  
+		  String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_POSTAL_CODES_URL;
+		  JsonPostalCodesRecord recordToValidate = new JsonPostalCodesRecord();
+		  recordToValidate.setSt2kod(id);
+		  recordToValidate.setSt2lk(countryCode);
+		  boolean exactMatch = true;
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchPostalCodes(applicationUser, recordToValidate, exactMatch);
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug -->
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    
+			if(jsonPayload!=null){
+				JsonPostalCodesContainer container = this.ebookingChildWindowService.getPostalCodesContainer(jsonPayload);
+	    			if(container!=null){
+	    				result = container.getPostnrlist();
+	    				for(JsonPostalCodesRecord  record : result){
+	    				//DEBUG
+	    				}
+	    			}
+			}	
+		  return result;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param searchFilterRecord
+	   * @param exactMatch
+	   * @return
+	   */
+	  private String getRequestUrlKeyParametersSearchPostalCodes(String applicationUser, JsonPostalCodesRecord searchFilterRecord, boolean exactMatch){
+			final String POSTALCODE_DIRECTION_FRA = "fra";
+			final String POSTALCODE_DIRECTION_TIL = "til";
+			
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + applicationUser);
+			if(POSTALCODE_DIRECTION_FRA.equals(searchFilterRecord.getDirection())){
+				urlRequestParamsKeys.append("&varlk=fralk");
+				urlRequestParamsKeys.append("&varkod=fra");
+			}else if(POSTALCODE_DIRECTION_TIL.equals(searchFilterRecord.getDirection())){
+				urlRequestParamsKeys.append("&varlk=tillk");
+				urlRequestParamsKeys.append("&varkod=til");
+			}
+			
+			if(searchFilterRecord.getSt2lk()!=null && !"".equals(searchFilterRecord.getSt2lk())){
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soklk=" + searchFilterRecord.getSt2lk());
+			}
+			if(searchFilterRecord.getSt2nvn()!=null && !"".equals(searchFilterRecord.getSt2nvn())){
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soknvn=" + searchFilterRecord.getSt2nvn());
+			}
+			if(searchFilterRecord.getWskunpa()!=null && !"".equals(searchFilterRecord.getWskunpa())){
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wskunpa=" + searchFilterRecord.getWskunpa());
+			}
+			if(searchFilterRecord.getSt2kod()!=null && !"".equals(searchFilterRecord.getSt2kod())){
+				//urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wst2kod=" + searchFilterRecord.getSt2kod());
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sokkod=" + searchFilterRecord.getSt2kod());
+			}
+			if(exactMatch){
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
+			}
+			
+			return urlRequestParamsKeys.toString();
+		}
 	  /**
 	   * 
 	   * @param applicationUser

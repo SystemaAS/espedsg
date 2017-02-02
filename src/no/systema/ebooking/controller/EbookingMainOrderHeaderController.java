@@ -389,12 +389,11 @@ public class EbookingMainOrderHeaderController {
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser() + "&mode=G");
 		if( (hereff!=null && !"".equals(hereff)) && (heunik!=null && !"".equals(heunik)) ){
-			urlRequestParams.append("&HEUNIK=" + heunik + "&HEREFF=" + hereff );
+			//Meaning fetching to an update
+			urlRequestParams.append("&heunik=" + heunik + "&hereff=" + hereff );
 		}else{
-			urlRequestParams.append("&HEUNIK=&HEREFF=");
-		}
-		//Only when new order (to get default values)
-		if(orderTypes!=null){
+			//Meaning preparing a create new ...
+			urlRequestParams.append("&heunik=&hereff=");
 			urlRequestParams.append("&newavd=" + orderTypes.getNewAvd() + "&newmodul=" + orderTypes.getNewModul()+ "&newmodul2=" + orderTypes.getNewModul2());
 			urlRequestParams.append("&newlandkode=" + orderTypes.getNewLandKode() + "&newsidesk=" + orderTypes.getNewSideSK() + "&newtext=" +  orderTypes.getNewText());
 		}
