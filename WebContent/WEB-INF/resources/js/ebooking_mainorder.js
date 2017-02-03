@@ -8,14 +8,108 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+//Global functions
+  function g_getCurrentYearStr(){
+	  return new Date().getFullYear().toString();
+  }
+  function g_getCurrentMonthStr(){
+	  var currentMonth = new Date().getMonth() + 1;
+	  var currentMonthStr = currentMonth.toString();
+	  if (currentMonth < 10) { currentMonthStr = '0' + currentMonth; }
+	  return currentMonthStr;
+  }
+  
+  
   jq(function() {
 	  jq("#dateTODO").datepicker({ 
 		  dateFormat: 'yymmdd'
 		  //,defaultDate: "-1m"	  
 	  });
-	  
-	  
   });
+  //----------------------
+  //START ETD / ETA dates
+  //----------------------
+  jq(function() {
+	  jq("#wsetdd").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#wsetdk").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+		  /*showOn: "button",
+	      buttonImage: "resources/images/calendar.gif",
+	      buttonImageOnly: true,
+	      buttonText: "Select date" 
+		  */
+		  //dateFormat: 'ddmmy', 
+	  });
+	  jq("#wsetdd").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#wsetdd").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#wsetdd").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#wsetdd").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+	  });
+	  jq("#wsetdk").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#wsetdk").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#wsetdk").val(str + '00');  
+			  }else if (length==1){
+				  jq("#wsetdk").val('0' + str + '00');
+			  }
+		  }
+	  });
+	  
+	  jq("#wsetad").datepicker({ 
+		  onSelect: function(date) {
+		  	jq("#wsetak").focus();
+	      },
+		  dateFormat: 'yymmdd',
+		  firstDay: 1 //monday
+	  });
+	  jq("#wsetad").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#wsetad").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#wsetad").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
+			  }else if (length==4){
+				  var userDay = str.substring(0,2);
+				  var userMonth = str.substring(2,4);
+				  jq("#wsetad").val(g_getCurrentYearStr() + userMonth + userDay);
+			  }
+		  }
+		  
+	  });
+	  jq("#wsetak").blur(function(){
+		  //now check the user input alternatives
+		  var str = jq("#wsetak").val();
+		  if(str!=''){
+			  var length = str.length;
+			  if(length==2){
+				  jq("#wsetak").val(str + '00');  
+			  }else if (length==1){
+				  jq("#wsetak").val('0' + str + '00');
+			  }
+		  }
+	  });
+  });
+//----------------------
+//END ETD / ETA dates
+//----------------------
+  
+  
   
 //==============================================================================
   //START - Postal codes On-Blur (required to be an exact number and nothing else)
@@ -345,6 +439,7 @@
 		    	}
 		    });
 	    });
+	    */
 	    //Fakturapart Seller
 	    jq('#heknsf').blur(function() {
 	    	getInvoicePartySeller();
@@ -356,6 +451,7 @@
 	    //-------------------
 	    //getPrincipalName()
 	    //-------------------
+	    /*
 	    function getPrincipalName() {
 	    	var id = jq('#trknfa').val();
     		if(id!=null && id!=""){
@@ -381,13 +477,14 @@
 				});
     		}
 	    }
+	    */
 	    //--------------------------
 	    //getInvoicePartySeller()
 	    //--------------------------
 	    function getInvoicePartySeller() {
 	    	var id = jq('#heknsf').val();
     		if(id!=null && id!=""){
-	    		jq.getJSON('searchCustomer_TransportDisp.do', {
+	    		jq.getJSON('searchCustomer_Ebooking.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : id,
@@ -419,7 +516,7 @@
 	    function getInvoicePartyBuyer() {
     		var id = jq('#heknkf').val();
     		if(id!=null && id!=""){
-	    		jq.getJSON('searchCustomer_TransportDisp.do', {
+	    		jq.getJSON('searchCustomer_Ebooking.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : id,
@@ -446,7 +543,7 @@
     			jq('#henakf').val("");
     		}
 		}
-	    */
+	   
 	});
   
 
