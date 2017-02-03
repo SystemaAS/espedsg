@@ -274,6 +274,11 @@
     		jq('#packingCodesList_filter').val()
         ).draw();
     }
+    function filterDangerousGoodsList (){
+        jq('#dangerousGoodsList').DataTable().search(
+    		jq('#dangerousGoodsList_filter').val()
+        ).draw();
+    }
     
     //Init datatables
     jq(document).ready(function() {
@@ -336,6 +341,18 @@
 	  //event on input field for search
 	  jq('input.packingCodesList_filter').on( 'keyup click', function () {
 		  filterPackingCodesList();
+	  });
+	  
+	//------------------------------
+	  //tables [dangerous goods]
+	  //----------------------------
+	  jq('#dangerousGoodsList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.dangerousGoodsList_filter').on( 'keyup click', function () {
+		  filterDangerousGoodsList();
 	  });
       
     });

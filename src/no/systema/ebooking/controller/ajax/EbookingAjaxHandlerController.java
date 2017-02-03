@@ -32,75 +32,15 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.transportdisp.util.TransportDispConstants;
-/*
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowListContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowListRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderContainer;
-
-
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripArchivedDocsContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripArchivedDocsRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripMessageNoteContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripMessageNoteRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierRecord;
-
-
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispBilNrContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispBilNrRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispDriverContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispDriverRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispFileUploadValidationContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispTranspCarrierContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispTranspCarrierRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispCustomerDeliveryAddressContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispCustomerDeliveryAddressRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevRecord;
-
-
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispTollstedCodesContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispTollstedCodesRecord;
-
-
-import no.systema.transportdisp.model.workflow.order.OrderLineValidationObject;
-
-import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
-import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
-
-import no.systema.transportdisp.service.TransportDispChildWindowService;
-import no.systema.transportdisp.service.TransportDispWorkflowBudgetService;
-import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
-import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
-
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.transportdisp.util.RpgReturnResponseHandler;
-import no.systema.transportdisp.util.TransportDispConstants;
-import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
-*/
 
 //ebooking
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
+
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
@@ -108,8 +48,6 @@ import no.systema.ebooking.util.EbookingConstants;
 import no.systema.ebooking.util.RpgReturnResponseHandler;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressRecord;
-
-
 
 
 /**
@@ -234,6 +172,117 @@ public class EbookingAjaxHandlerController {
 		  return result;
 	  }
 	  
+	  @RequestMapping(value = "searchPackingCodes_Ebooking.do", method = RequestMethod.GET)
+	  public @ResponseBody Collection<JsonEbookingPackingCodesRecord> searchPackingCodes(@RequestParam String applicationUser,@RequestParam String kode) {
+		  	Collection<JsonEbookingPackingCodesRecord> result = new ArrayList<JsonEbookingPackingCodesRecord>();
+		  	logger.info("Inside searchPackingCodes...");
+		  
+	  		//prepare the access CGI with RPG back-end
+			String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_PACKING_CODES_URL;
+			
+			String urlRequestParamsKeys = "user=" + applicationUser + "&kode=" + kode + "&fullinfo=J&getval=J";
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug -->
+			logger.info(jsonPayload);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			
+			if(jsonPayload!=null){
+				JsonEbookingPackingCodesContainer container = this.ebookingChildWindowService.getPackingCodesContainer(jsonPayload);
+				if(container!=null){
+					result = container.getForpaknKoder();
+				}else{
+					logger.info("**************** CONTAINER = NULL");
+				}
+			}
+			//logger.info("**************** List Size:" + result.size());
+			return result;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param id
+	   * @param countryCode
+	   * @return
+	   */
+	  @RequestMapping(value = "searchDangerousGoods_Ebooking.do", method = RequestMethod.GET)
+	  public @ResponseBody Collection<JsonEbookingDangerousGoodsRecord> searchDangerousGoods(@RequestParam String applicationUser, 
+																	@RequestParam String unnr, @RequestParam String embg , @RequestParam String indx) {
+		  	Collection<JsonEbookingDangerousGoodsRecord> result = new ArrayList<JsonEbookingDangerousGoodsRecord>();
+
+		  	//this.controllerAjaxCommonFunctionsMgr = new ControllerAjaxCommonFunctionsMgr (this.urlCgiProxyService, this.transportDispChildWindowService);
+		  	JsonEbookingDangerousGoodsContainer record = new JsonEbookingDangerousGoodsContainer();
+		  	record.setUnnr(unnr);
+		  	if(!"?".equals(embg)){record.setEmbg(embg);}
+		  	if(!"?".equals(indx)){record.setIndx(indx);}
+		  
+		  	logger.info("Inside searchDangerousGoods...");
+		  
+	  		//prepare the access CGI with RPG back-end
+			String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_DANGEROUS_GOODS_URL;
+			//adjust from jquery/jsp
+			if("?".equals(record.getEmbg())){ record.setEmbg(""); }
+			if("?".equals(record.getIndx())){ record.setIndx(""); }
+			
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersDangerousGoods(applicationUser, record);
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug -->
+			logger.debug(jsonPayload);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			
+			if(jsonPayload!=null){
+				JsonEbookingDangerousGoodsContainer container = this.ebookingChildWindowService.getDangerousGoodsContainer(jsonPayload);
+				if(container!=null){
+					result = container.getUnNumbers();
+				}else{
+					logger.info("**************** CONTAINER = NULL");
+				}
+			}
+			//logger.info("**************** List Size:" + result.size());
+			return result;
+	  }
+	  
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param searchFilter
+	   * @return
+	   */
+	  private String getRequestUrlKeyParametersDangerousGoods(String applicationUser, JsonEbookingDangerousGoodsContainer searchFilter){
+		  	String CODE_UNNR = "U";
+		  	String CODE_EMBG = "E";
+		  	String CODE_INDX = "J";
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + applicationUser);
+			String matchOnlyCode = CODE_UNNR; //Deafault
+			
+			if(searchFilter.getUnnr()!=null && !"".equals(searchFilter.getUnnr())){
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "unnr=" + searchFilter.getUnnr());
+			}
+			//user=JOVO&unnr=1950=&embg=&indx=&getval=&fullinfo=J
+			
+			if(searchFilter.getEmbg()!=null && !"".equals(searchFilter.getEmbg())){
+				//searching for perfect match (otherwise it will return from an unnr-number and forward...)
+				matchOnlyCode = CODE_EMBG;
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "embg=" + searchFilter.getEmbg());
+			}
+			if(searchFilter.getIndx()!=null && !"".equals(searchFilter.getIndx())){
+				//searching for perfect match (otherwise it will return from an unnr-number and forward...)
+				matchOnlyCode = CODE_INDX;
+				urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "indx=" + searchFilter.getIndx());
+			}
+			
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "matchOnly=" + matchOnlyCode); 
+			//urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fullinfo=J"); //always the max. nr of columns (as default)
+			
+			return urlRequestParamsKeys.toString();
+		}
 	  /**
 	   * 
 	   * @param applicationUser

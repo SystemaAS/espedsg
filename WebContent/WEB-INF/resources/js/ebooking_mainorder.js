@@ -618,6 +618,225 @@
   }
 
   
+//-------------------------------------------------------
+  //Dangerous goods child window (is triggered from jsp)
+  //-------------------------------------------------------
+  function searchDangerousGoods(element) {
+	  var id = element.id;
+	  var record = id.split('_');
+	  var i = record[1]; 
+	  //alert(jq('#ffunnr_' + counter).val());
+	  jq(id).attr('target','_blank');
+  	  window.open('ebooking_childwindow_dangerousgoods.do?action=doFind&unnr=' + jq("#ffunnr_" + i).val() + 
+  			  '&embg=' + jq("#ffembg_" + i).val() + '&indx=' + jq("#ffindx_" + i).val() + '&callerLineCounter=' + i, 
+  			  "dangerousgoodsWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  }
+  
+  function searchDangerousGoodsNewLine(element) {
+	  jq(element.id).attr('target','_blank');
+  	  window.open('ebooking_childwindow_dangerousgoods.do?action=doFind&unnr=' + jq("#ffunnr").val() + 
+  			  '&embg=' + jq("#ffembg").val() + '&indx=' + jq("#ffindx").val() + '&callerLineCounter=', 
+  			  "dangerousgoodsWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  }
+  //--------------------------------------------------------------
+  //Dangerous goods validation in order to demand the indx or not
+  //--------------------------------------------------------------
+  function validateDangerousGoodsUnnr(lineNr) {
+	  var counter = Number(lineNr);
+	  var keyUnnr =jq("#ffunnr_" + counter).val();
+	  if(keyUnnr!=""){
+		  if(jq("#ffembg_" + counter).val()=="?" ){
+			  jq("#ffembg_" + counter).val("");
+		  }
+		  if(jq("#ffindx_" + counter).val()=="?" ){
+			  jq("#ffindx_" + counter).val("");
+		  }
+		  
+		  jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'searchDangerousGoods_Ebooking.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(),
+			  		  unnr : jq("#ffunnr_" + counter).val(),
+		  		  	  embg : jq("#ffembg_" + counter).val() ,
+		  		  	  indx : jq("#ffindx_" + counter).val()  },
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		for ( var i = 0; i < len; i++) {
+		  			if(len>1){
+		  				if(jq("#ffembg_" + counter).val()==''){ 
+		  					//jq("#ffembg_" + counter).val("?");
+		  					jq("#ffembg_" + counter).addClass( "isa_warning" );
+	  					}
+		  				//jq("#ffindx_" + counter).val("?");
+		  				jq("#ffindx_" + counter).addClass( "isa_warning" );
+		  				jq("#ffunnr_" + counter).removeClass( "isa_error" );
+		  				jq("#ffpoen_" + counter).val("");
+		  				
+		  			}else if (len==1){
+		  				jq("#ffunnr_" + counter).val(data[i].adunnr);
+		  				jq("#ffembg_" + counter).val(data[i].adembg);
+		  				jq("#ffindx_" + counter).val(data[i].adindx);
+		  				//[1] ADR->Update line and line ADR
+		  				if(jq("#ffante_" + counter).val()!='' && jq("#ffante_" + counter).val()!='?'){
+		  					//var unit = parseInt(jq("#ffante_" + counter).val()); //OBSOLETE -->ffante as Integer
+		  					var unitStr = jq("#ffante_" + counter).val();
+		  					unitStr = unitStr.replace(",",".");
+		  					var unit = Number(unitStr);
+		  					var fakt = parseInt(data[i].adfakt);
+		  					if(jq("#ffantk_" + counter).val()!='' && jq("#ffantk_" + counter).val()!='?' && jq("#ffenh_" + counter).val()!=''){
+		  						jq("#ffpoen_" + counter).val(unit * fakt);
+			  					//cosmetics
+			  					jq("#ffantk_" + counter).removeClass( "isa_warning" );
+			  					jq("#ffante_" + counter).removeClass( "isa_warning" );
+		  					}else{
+		  						jq("#ffpoen_" + counter).val("");
+		  						if(jq("#ffantk_" + counter).val()==''){
+		  							//jq("#ffantk_" + counter).val("?");
+		  							jq("#ffantk_" + counter).addClass( "isa_warning" );
+		  						}
+		  					}
+		  					
+		  				}else{
+		  					jq("#ffpoen_" + counter).val("");
+		  					//jq("#ffante_" + counter).val("?");
+	  						jq("#ffante_" + counter).addClass( "isa_warning" );
+		  				}
+		  				//[2] ADR->Update always total ADR to keep it in sync
+	  					private_sumAdr();
+	  					
+		  				//cosmetics
+		  				jq("#ffunnr_" + counter).removeClass( "isa_error" );
+		  				jq("#ffembg_" + counter).removeClass( "isa_error isa_warning" );
+		  				jq("#ffindx_" + counter).removeClass( "isa_error isa_warning" );
+		  			}
+		  		}
+		  		//if invalid number acknowledge this...
+		  		if(len<=0){
+		  			//cosmetics
+	  				jq("#ffunnr_" + counter).addClass( "isa_error" );
+	  				if(jq("#ffembg_" + counter).val()!='') { jq("#ffembg_" + counter).addClass( "isa_error" ); }
+	  				if(jq("#ffindx_" + counter).val()!='') { jq("#ffindx_" + counter).addClass( "isa_error" ); }
+	  				jq("#ffpoen_" + counter).val("");
+	  			}
+		  	  },
+		  	  error: function() {
+			  	    alert('Error loading on Ajax callback (?)...check js');
+		  	  }
+		  });
+		  
+	  }else{
+		  jq("#ffunnr_" + counter).val("");jq("#ffembg_" + counter).val("");jq("#ffindx_" + counter).val("");
+		  jq("#ffantk_" + counter).val("");jq("#ffante_" + counter).val("");jq("#ffenh_" + counter).val("");
+		  jq("#ffpoen_" + counter).val("");
+		  //cosmetics
+		  jq("#ffunnr_" + counter).removeClass( "isa_error" );
+		  jq("#ffembg_" + counter).removeClass( "isa_error isa_warning" );jq("#ffindx_" + counter).removeClass( "isa_error isa_warning" );
+		  jq("#ffantk_" + counter).removeClass( "isa_error isa_warning" );jq("#ffante_" + counter).removeClass( "isa_error isa_warning" );
+		  jq("#ffenh_" + counter).removeClass( "isa_error isa_warning" );
+	  }
+  }
+  
+//--------------------------------------------------------------
+  //Dangerous goods validation in order to demand the indx or not
+  //--------------------------------------------------------------
+  function validateDangerousGoodsUnnrNewLine() {
+	  var keyUnnr =jq("#ffunnr").val();
+	  if(keyUnnr!=""){
+		  if(jq("#ffembg").val()=="?" ){
+			  jq("#ffembg").val("");
+		  }
+		  if(jq("#ffindx").val()=="?" ){
+			  jq("#ffindx").val("");
+		  }
+		  jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'searchDangerousGoods_Ebooking.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(),
+			  		  unnr : jq("#ffunnr").val(),
+		  		  	  embg : jq("#ffembg").val() ,
+		  		  	  indx : jq("#ffindx").val()  },
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		for ( var i = 0; i < len; i++) {
+		  			if(len>1){
+		  				if(jq("#ffembg").val()==''){ 
+		  					//jq("#ffembg").val("?");
+		  					jq("#ffembg").addClass( "isa_warning" );
+	  					}
+		  				//jq("#ffindx").val("?");
+		  				jq("#ffindx").addClass( "isa_warning" );
+		  				jq("#ffunnr").removeClass( "isa_error" );
+		  				
+		  			}else if (len==1){
+		  				jq("#ffunnr").val(data[i].adunnr);
+		  				jq("#ffembg").val(data[i].adembg);
+		  				jq("#ffindx").val(data[i].adindx);
+		  				//[1] ADR->get the ADR factor
+		  				if(jq("#ffante").val()!='' && jq("#ffante").val()!='?'){
+		  					if(jq("#ffantk").val()!='' && jq("#ffantk").val()!='?' && jq("#ffenh").val()!=''){
+		  						jq("#ownAdrFaktNewLine").val(data[i].adfakt);
+			  					//TODO Tentative ?
+		  						//var hepoen = Number(jq("#hepoen").val());
+			  					//hepoen = hepoen + (unit * fakt);
+			  					//Update total ADR. Note: notice that this is the only update in ADR-Total. When NEW LINE...
+			  					//jq("hepoen").val(hepoen);
+			  					
+			  					//cosmetics
+			  					jq("#ffantk").removeClass( "isa_warning" );
+			  					jq("#ffante").removeClass( "isa_warning" );
+		  					}else{
+		  						jq("#ownAdrFaktNewLine").val("");
+		  						if(jq("#ffantk").val()==''){
+		  							//jq("#ffantk").val("?");
+		  							jq("#ffantk").addClass( "isa_warning" );
+		  						}
+		  					}
+		  					
+		  				}else{
+		  					jq("#ownAdrFaktNewLine").val("");
+		  					//jq("#ffante").val("?");
+	  						jq("#ffante").addClass( "isa_warning" );
+		  				}
+		  				//cosmetics
+		  				jq("#ffunnr").removeClass( "isa_error" );
+		  				jq("#ffembg").removeClass( "isa_error isa_warning" );
+		  				jq("#ffindx").removeClass( "isa_error isa_warning" );
+		  			}
+		  		}
+		  		//if invalid number acknowledge this...
+		  		if(len<=0){
+		  			//cosmetics
+	  				jq("#ffunnr").addClass( "isa_error" );
+	  				if(jq("#ffembg").val()!='') { jq("#ffembg").addClass( "isa_error" ); }
+	  				if(jq("#ffindx").val()!='') { jq("#ffindx").addClass( "isa_error" ); }
+	  				jq("#ownAdrFaktNewLine").val("");
+	  			}
+		  	  },
+		  	  error: function() {
+			  	    alert('Error loading on Ajax callback (?)...check js');
+		  	  }
+		  });
+		  
+	  }else{
+		  jq("#ffunnr").val("");jq("#ffembg").val("");jq("#ffindx").val("");
+		  jq("#ffantk").val("");jq("#ffante").val("");jq("#ffenh").val("");
+		  //cosmetics
+		  jq("#ffunnr").removeClass( "isa_error" );
+		  jq("#ffembg").removeClass( "isa_error isa_warning" );jq("#ffindx").removeClass( "isa_error isa_warning" );
+		  jq("#ffantk").removeClass( "isa_error isa_warning" );jq("#ffante").removeClass( "isa_error isa_warning" );
+		  jq("#ffenh").removeClass( "isa_error isa_warning" );
+		  
+	  }
+	  
+  }
+  
+  
   
   
   

@@ -28,6 +28,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.validator.LoginValidator;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
+import no.systema.transportdisp.util.TransportDispConstants;
 //ebooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
@@ -38,7 +40,8 @@ import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadU
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
-
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
 
 
 
@@ -465,6 +468,96 @@ public class EbookingControllerChildWindow {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_dangerousgoods.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitDangerousGoods(@ModelAttribute ("record") JsonEbookingDangerousGoodsContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitDangerousGoods");
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_dangerousgoods");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_dangerousgoods.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindDangerousGoods(@ModelAttribute ("record") JsonEbookingDangerousGoodsContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindDangerousGoods");
+		Collection<JsonEbookingDangerousGoodsRecord> outputList = new ArrayList();
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_dangerousgoods");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_DANGEROUS_GOODS_URL;
+		    	String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+				
+		    	logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParamsKeys);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				
+				if(jsonPayload!=null){
+					JsonEbookingDangerousGoodsContainer container = this.ebookingChildWindowService.getDangerousGoodsContainer(jsonPayload);
+		    			if(container!=null){
+		    				outputList = container.getUnNumbers();
+		    			}
+				}
+		    	
+    			model.put(this.DATATABLE_DANGEROUS_GOODS_LIST, outputList);
+    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+				
+		    }
+			
+		}
+	}
+	
 		
 	/**
 	 * 	
@@ -608,6 +701,24 @@ public class EbookingControllerChildWindow {
 		return urlRequestParamsKeys.toString();
 	}
 	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingDangerousGoodsContainer searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		
+		if(searchFilter.getUnnr()!=null && !"".equals(searchFilter.getUnnr())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "unnr=" + searchFilter.getUnnr());
+		}
+		//user=JOVO&unnr=1950=&embg=&indx=&getval=&fullinfo=J
+		urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fullinfo=J"); //always the max. nr of columns (as default)
+		
+		return urlRequestParamsKeys.toString();
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
