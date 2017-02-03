@@ -548,6 +548,76 @@
   
 
   
+  //-------------------------------------------------------
+  //Packing codes onBlur / child window (is triggered from jsp)
+  //-------------------------------------------------------
+  function searchPackingCodesOnBlur(element) {
+	  var id = element.id;
+	  var record = id.split('_');
+	  var counter = record[1];
+	  var codeId = jq("#fvpakn_" + counter).val();
+	  jq.ajax({
+	  	  type: 'GET',
+	  	  url: 'searchPackingCodes_Ebooking.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(),
+		  		  kode : codeId },
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		for ( var i = 0; i < len; i++) {
+	  			jq("#fvvt_" + counter).val(data[i].entext);
+	  			jq("#fvlen_" + counter).val(data[i].enlen);
+	  			jq("#fvbrd_" + counter).val(data[i].enbrd);
+	  			jq("#fvhoy_" + counter).val(data[i].enhoy);
+	  			jq("#fvlm_" + counter).val(data[i].enlm);
+	  			jq("#fvlm2_" + counter).val(data[i].enlm2);
+	  		}
+	  	  }
+	  });
+  }	
+  //new line
+  function searchPackingCodesNewLineOnBlur(element) {
+	  var codeId = jq("#fvpakn").val();
+	  jq.ajax({
+	  	  type: 'GET',
+	  	  url: 'searchPackingCodes_Ebooking.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(),
+		  		  kode : codeId },
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		for ( var i = 0; i < len; i++) {
+	  			jq("#fvvt").val(data[i].entext);
+	  			jq("#fvlen").val(data[i].enlen);
+	  			jq("#fvbrd").val(data[i].enbrd);
+	  			jq("#fvhoy").val(data[i].enhoy);
+	  			jq("#fvlm").val(data[i].enlm);
+	  			jq("#fvlm2").val(data[i].enlm2);
+	  		}
+	  	  }
+	  });
+  }	
+  function searchPackingCodes(element) {
+	  var id = element.id;
+	  var record = id.split('_');
+	  var i = record[1]; 
+	  //alert(jq('#fvpakn_' + counter).val());
+	  jq(id).attr('target','_blank');
+  	  window.open('ebooking_childwindow_packingcodes.do?action=doFind&kode=' + jq("#fvpakn_" + i).val() + '&callerLineCounter=' + i, 
+  			  "packingCodesWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  }
+  
+  function searchPackingCodesNewLine(element) {
+	  jq(element.id).attr('target','_blank');
+  	  window.open('ebooking_childwindow_packingcodes.do?action=doFind&kode=' + jq("#fvpakn").val() + '&callerLineCounter=', 
+			  "packingCodesWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  }
+
+  
   
   
   

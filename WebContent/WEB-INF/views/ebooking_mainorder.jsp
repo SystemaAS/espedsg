@@ -810,7 +810,7 @@
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffpoen/hepoen(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.adr"/>&nbsp;</span></td>
-						 			<td nowrap align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.ebooking.orders.form.detail.update.label.remove"/></span></td>										 			
+						 			<td align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.ebooking.orders.form.detail.update.label.remove"/></span></td>										 			
 						 		</tr>
 						 		</table>
 						 		<div class="ownScrollableSubWindow" style="width:1460px; height:10em;" > 
@@ -833,7 +833,7 @@
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onBlur="sumAntal(this);" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10MandatoryField clazzAntMathAware" style="text-align:right;" name="fvant_${counter.count}" id="fvant_${counter.count}" size="7" maxlength="7" value="${fraktbrevRecord.fvant}">
 						 				</td>
-						 				<td width="7%" align="left" class="tableCell" nowrap>
+						 				<td width="6%" align="left" class="tableCell" nowrap>
 							 				<input type="text" onBlur="searchPackingCodesOnBlur(this);" class="inputTextMediumBlue10" name="fvpakn_${counter.count}" id="fvpakn_${counter.count}" size="8" maxlength="7" value="${fraktbrevRecord.fvpakn}">
 							 				<a tabindex=0 id="fvpaknIdLink_${counter.count}" onClick="searchPackingCodes(this);">
 	 											<img id="imgFvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">
@@ -863,7 +863,7 @@
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onBlur="sumLmla();validateItemLineExtensionLmLma(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10 clazzLmlaMathAware" style="text-align:right;" name="fvlm2_${counter.count}" id="fvlm2_${counter.count}" size="4" maxlength="5" value="${fraktbrevRecord.fvlm2}">
 						 				</td>
-						 				<td width="6%" align="left" class="tableCellDangerousGoods" nowrap>
+						 				<td width="5%" align="left" class="tableCellDangerousGoods" nowrap>
 							 				<input onBlur="validateDangerousGoodsUnnr(${counter.count});"  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffunnr_${counter.count}" id="ffunnr_${counter.count}" size="4" maxlength="4" value="${fraktbrevRecord.ffunnr}">
 							 				<a tabindex=0 id="ffunnrIdLink_${counter.count}" onClick="searchDangerousGoods(this);">
 	 											<img id="imgUnnrSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">

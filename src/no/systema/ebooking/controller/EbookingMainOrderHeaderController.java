@@ -157,6 +157,9 @@ public class EbookingMainOrderHeaderController {
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
+						//populate fall backs
+						this.populateFraktbrev( appUser, recordToValidate);
+						model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 					}
 			    }
 				
@@ -196,6 +199,7 @@ public class EbookingMainOrderHeaderController {
 	 * @param orderRecord
 	 */
 	private void populateFraktbrev(SystemaWebUser appUser, JsonMainOrderHeaderRecord orderRecord){
+		
 		//---------------------------
 		//get BASE URL = RPG-PROGRAM
         //---------------------------
@@ -203,15 +207,17 @@ public class EbookingMainOrderHeaderController {
 		
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append("&avd=" + orderRecord.getHeavd());
-		urlRequestParamsKeys.append("&opd=" + orderRecord.getHeopd());
+		urlRequestParamsKeys.append("&unik=" + orderRecord.getHeunik());
+		urlRequestParamsKeys.append("&reff=" + orderRecord.getHereff());
 		urlRequestParamsKeys.append("&fbn=1");
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = new ArrayList<JsonMainOrderHeaderFraktbrevRecord>();
-	    
+    	
+    		
     	//Only with EXISTENT ORDER
-    	if(orderRecord.getHeopd()!=null && !"".equals(orderRecord.getHeopd())){
+    	if( (orderRecord.getHereff()!=null && !"".equals(orderRecord.getHereff())) &&
+			(orderRecord.getHeunik()!=null && !"".equals(orderRecord.getHeunik())) 	){
 			//----------------------------------------------------------------------------
 	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
 	    	//----------------------------------------------------------------------------

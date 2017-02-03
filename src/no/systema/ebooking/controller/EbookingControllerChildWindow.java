@@ -36,6 +36,10 @@ import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCusto
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
+
+
 
 
 /**
@@ -53,6 +57,8 @@ public class EbookingControllerChildWindow {
 	private final String POSTALCODE_DIRECTION = "direction";
 	private final String DATATABLE_CUSTOMER_LIST = "customerList";
 	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
+	private final String DATATABLE_PACKING_CODES_LIST = "packingCodesList";
+	private final String DATATABLE_DANGEROUS_GOODS_LIST = "dangerousGoodsList";
 	
 	private static final Logger logger = Logger.getLogger(EbookingControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
@@ -370,6 +376,95 @@ public class EbookingControllerChildWindow {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_packingcodes.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitPackingCodes(@ModelAttribute ("record") JsonEbookingPackingCodesContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitPackingCodes");
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_packingcodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_packingcodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindPackingCodes(@ModelAttribute ("record") JsonEbookingPackingCodesContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindPackingCodes");
+		Collection<JsonEbookingPackingCodesRecord> outputList = new ArrayList();
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_packingcodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_PACKING_CODES_URL;
+		    	String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+				
+		    	logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParamsKeys);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				
+				if(jsonPayload!=null){
+					JsonEbookingPackingCodesContainer container = this.ebookingChildWindowService.getPackingCodesContainer(jsonPayload);
+		    			if(container!=null){
+		    				outputList = container.getForpaknKoder();
+		    			}
+				}
+		    	
+    			model.put(this.DATATABLE_PACKING_CODES_LIST, outputList);
+    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+				
+		    }
+			
+		}
+	}
+	
 		
 	/**
 	 * 	
@@ -490,6 +585,29 @@ public class EbookingControllerChildWindow {
 		}
 		return urlRequestParamsKeys.toString();
 	}
+	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingPackingCodesContainer searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		
+		if(searchFilter.getKode()!=null && !"".equals(searchFilter.getKode())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kode=" + searchFilter.getKode());
+		}
+		if(searchFilter.getTekst()!=null && !"".equals(searchFilter.getTekst())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tekst=" + searchFilter.getTekst());
+		}
+		//urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
+		urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fullinfo=J"); //always the max. nr of columns (as default)		
+
+		return urlRequestParamsKeys.toString();
+	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

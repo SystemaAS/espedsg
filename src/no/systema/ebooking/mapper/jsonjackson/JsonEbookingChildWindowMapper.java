@@ -13,8 +13,10 @@ import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCusto
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
-
-
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
 
 //
 import java.util.*;
@@ -72,5 +74,46 @@ public class JsonEbookingChildWindowMapper {
 		return container;
 	}
 	
-	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonEbookingPackingCodesContainer getPackingCodesContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonEbookingPackingCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingPackingCodesContainer.class); 
+		
+		//DEBUG
+		Collection<JsonEbookingPackingCodesRecord> fields = container.getForpaknKoder();
+		for(JsonEbookingPackingCodesRecord record : fields){
+			//logger.info("knavn: " + record.getKnavn());
+			//logger.info("kundnr: " + record.getKundnr());
+		}
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonEbookingDangerousGoodsContainer getDangerousGoodsContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonEbookingDangerousGoodsContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingDangerousGoodsContainer.class); 
+		
+		//DEBUG
+		Collection<JsonEbookingDangerousGoodsRecord> fields = container.getUnNumbers();
+		for(JsonEbookingDangerousGoodsRecord record : fields){
+			//logger.info("knavn: " + record.getKnavn());
+			//logger.info("kundnr: " + record.getKundnr());
+		}
+		return container;
+	}
 }
