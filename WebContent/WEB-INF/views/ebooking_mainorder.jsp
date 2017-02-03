@@ -368,7 +368,7 @@
 				 						<span title="hesdla">
 				 							<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
 				 							<spring:message code="systema.ebooking.orders.form.update.label.load"/>
-				 							<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_loadunloadplaces.do?action=doInit&&caller=hesdla','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
+				 							<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_loadunloadplaces.do?action=doInit&&caller=hesdla','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 						<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 					</a>
 				 						</span>
@@ -514,7 +514,7 @@
 				 					<td class="text11">
 				 						<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
 				 						<span title="hesdl"><spring:message code="systema.ebooking.orders.form.update.label.unload"/></span>
-				 						<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
+				 						<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 					<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 				</a>
 				 					</td>

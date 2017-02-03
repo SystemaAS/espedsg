@@ -115,6 +115,25 @@
 	  });
 	});
 	
+	//Select Load/Unload place
+	jq(function() {
+		jq('#loadUnloadPlacesList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+		  var loadPlaceCode = record[0].replace("code_", "");
+		  var loadPlaceName = record[1].replace("loadplacename_", "");
+		  var caller = record[2].replace("caller_", "");
+		  if(opener.jq('#hesdl').length && caller=='hesdl'){ //only way to check if field exists.(Order)
+			  opener.jq('#hesdl').val(loadPlaceName);
+		  }else if(opener.jq('#hesdla').length && caller=='hesdla'){ //only way to check if field exists.(Order)
+			  opener.jq('#hesdla').val(loadPlaceName);
+		  }
+		  //close child window
+		  window.close();
+	  });
+	});
+	
+	
 	//======================
     //Datatables jquery 
     //======================
@@ -134,6 +153,11 @@
     function filterCustomerList (){
         jq('#customerList').DataTable().search(
     		jq('#customerList_filter').val()
+        ).draw();
+    }
+    function filterLoadUnloadPlacesList (){
+        jq('#loadUnloadPlacesList').DataTable().search(
+    		jq('#loadUnloadPlacesList_filter').val()
         ).draw();
     }
     
@@ -174,6 +198,18 @@
 	  //event on input field for search
 	  jq('input.customerList_filter').on( 'keyup click', function () {
 		  filterCustomerList();
+	  });
+	  
+	  //------------------------------
+	  //tables [Load/Unload places]
+	  //----------------------------
+	  jq('#loadUnloadPlacesList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.loadUnloadPlacesList_filter').on( 'keyup click', function () {
+		  filterLoadUnloadPlacesList();
 	  });
       
     });

@@ -65,6 +65,9 @@ public class EbookingUrlDataStore {
 	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrnr=1 
 	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrna=A (all addresses)
 	//...if not empty this will override the customer address (fetched with TJINQKUND.pgm...)
+	static public String EBOOKING_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQSDL.pgm";
+	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO(return all)
+	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO&soknvn=T... etc
 	
 	
 	

@@ -34,7 +34,8 @@ import no.systema.ebooking.util.EbookingConstants;
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
-
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
 
 
 /**
@@ -51,6 +52,7 @@ public class EbookingControllerChildWindow {
 	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String POSTALCODE_DIRECTION = "direction";
 	private final String DATATABLE_CUSTOMER_LIST = "customerList";
+	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
 	
 	private static final Logger logger = Logger.getLogger(EbookingControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
@@ -263,6 +265,111 @@ public class EbookingControllerChildWindow {
 		    }
 		}
 	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_loadunloadplaces.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitLoadUloadPlaces(@ModelAttribute ("record") JsonEbookingLoadUnloadPlacesContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitLoadUloadPlaces");
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_loadunloadplaces");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_loadunloadplaces.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindLoadUnloadPlaces(@ModelAttribute ("record") JsonEbookingLoadUnloadPlacesContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindLoadUploadPlaces");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_loadunloadplaces");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+		    		logger.info("[ERROR Validation] search-filter does not validate)");
+		    		//put domain objects and do go back to the successView from here
+		    		//this.setCodeDropDownMgr(appUser, model);
+		    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+		    		//prepare the access CGI with RPG back-end
+		    		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL;
+		    		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+		    		logger.info("URL: " + BASE_URL);
+		    		logger.info("PARAMS: " + urlRequestParamsKeys);
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		    		//Debug -->
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			    
+		    		if(jsonPayload!=null){
+		    			JsonEbookingLoadUnloadPlacesContainer container = this.ebookingChildWindowService.getLoadUnloadPlacesContainer(jsonPayload);
+			    		if(container!=null){
+			    			List<JsonEbookingLoadUnloadPlacesRecord> list = new ArrayList<JsonEbookingLoadUnloadPlacesRecord>();
+			    			for(JsonEbookingLoadUnloadPlacesRecord  record : container.getInqlosslass()){
+			    				//logger.info("Load PLACE: " + record.getKotmnv());
+			    				list.add(record);
+			    			}
+			    			model.put(this.DATATABLE_LOAD_UNLOAD_PLACES_LIST, list);
+			    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			    		}
+		    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+					return successView;
+					
+			    	}else{
+					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+					return loginView;
+				}
+				
+		    }
+		}
+	}
+	
 		
 	/**
 	 * 	
@@ -365,6 +472,24 @@ public class EbookingControllerChildWindow {
 		return urlRequestParamsKeys.toString();
 	}
 
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingLoadUnloadPlacesContainer searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		
+		if(searchFilter.getSoknvn()!=null && !"".equals(searchFilter.getSoknvn())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soknvn=" + searchFilter.getSoknvn());
+		}
+		if(searchFilter.getSokkod()!=null && !"".equals(searchFilter.getSokkod())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sokkod=" + searchFilter.getSokkod());
+		}
+		return urlRequestParamsKeys.toString();
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
