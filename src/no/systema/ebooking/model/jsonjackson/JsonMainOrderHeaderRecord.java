@@ -29,6 +29,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setOrderLineToDelete(String value) {  this.orderLineToDelete = value; }
 	public String getOrderLineToDelete() {return this.orderLineToDelete;}
 	
+	
 	private String messageNoteConsignee = null;
 	public void setMessageNoteConsignee(String value) {  this.messageNoteConsignee = this.toUpperCase(value); }
 	public String getMessageNoteConsignee() {return this.messageNoteConsignee;}
@@ -52,6 +53,10 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	private String messageNoteInternalOriginal = null;
 	public void setMessageNoteInternalOriginal(String value) {  this.messageNoteInternalOriginal = value; }
 	public String getMessageNoteInternalOriginal() {return this.messageNoteInternalOriginal;}
+	
+	private String messageNoteDate = null;
+	public void setMessageNoteDate(String value) {  this.messageNoteDate = this.toUpperCase(value); }
+	public String getMessageNoteDate() {return this.messageNoteDate;}
 	
 	
 	private String heunik = "";

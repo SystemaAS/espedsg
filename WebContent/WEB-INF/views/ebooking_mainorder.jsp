@@ -146,10 +146,10 @@
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
 
-					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsignee}'>
-					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrier}'>
-					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternal}'>
-		
+					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsignee}'>
+					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
+					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
+					<input type="hidden" id="messageNoteDate" name="messageNoteDate" value="${model.record.messageNoteDate}">
 					<table style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
@@ -1092,6 +1092,7 @@
 			 		<tr>
 			 			<td valign="top" align="left" style="width:70%" >
 				 			<table>
+				 				
 								<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.receiver"/></td>
 						 			<td class="text11">
