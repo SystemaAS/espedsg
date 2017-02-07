@@ -16,6 +16,7 @@
 	</style>
 	
 
+<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -115,78 +116,10 @@
 		</tr>		
 	</c:if>
 	
-	
-	
-	<%-- ------------------------------- --%>
-	<%-- Floating window for file upload --%>
-	<%-- ------------------------------- --%>
-		<c:if test="${not empty model.record.heopd}">
-			<tr>
-				<td valign="bottom" >
-					<span style="position:absolute; left:1550px; top:160px; width:550px; height:800px;" id="economyMatrixInfo" class="popupFloating"  >
-		           		<div class="text10" align="left">
-		           		<table align="left" class="popupFloatingWithRoundCorners3D">
-						    <tr height="2"><td></td></tr>
-					    	<tr>
-							<td valign="top">
-							<form name="uploadFileForm" id="uploadFileForm" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="applicationUserUpload" id="applicationUserUpload" value='${user.user}'>
-								<input type="hidden" name="wsavd" id="wsavd" value='${model.record.heavd}'>
-								<input type="hidden" name="wsopd" id="wsopd" value='${model.record.heopd}'>
-									<table id="containerdatatableTable" cellspacing="2" align="left">
-										<tr>
-											<td colspan="3" class="text12Bold">&nbsp;
-												<img style="vertical-align:bottom;" src="resources/images/upload.png" border="0" width="20" height="20" alt="upload">
-												&nbsp;File Upload&nbsp;							
-											</td>
-										</tr>
-										<tr>
-										<tr height="5"><td></td></tr>
-										<tr>
-										<td>
-											<table>
-											<%--
-											<tr>
-												<td class="text11">&nbsp;Nytt filnavn:</td>
-												<td class="text11">&nbsp;<input tabindex=-1 type="text" class="inputText" name="fileNameNew" id="fileNameNew" size="20" maxlength="20" value=""></td>
-											</tr>
-											 --%>
-											<tr>
-												<td class="text11">&nbsp;Arkiv typen:</td>
-												<td class="text11">&nbsp;
-													<select tabindex=-1 name="wstype" id="wstype">
-														<c:forEach var="record" items="${user.arkivKodOpdList}" >
-								                       	 	<option value="${record.arkKod}">${record.arkKod}-${record.arkTxt}</option>
-														</c:forEach> 
-													</select>	
-												</td>
-											</tr>
-											<tr>	
-												<td class="text11">&nbsp;Fil:</td>
-												<td class="text11">
-					           						&nbsp;<input ondragenter="myFileUploadDragEnter(event)" ondragleave="myFileUploadDragLeave(event)" tabindex=-1 class="tableBorderWithRoundCornersLightYellow3D noFileChosenTransparent" style="width:300px;height:200px;display:block;" type="file" name="file" id="file" />
-					       						</td>
-							           		</tr>
-							           		</table>
-										</td>
-										</tr>
-										<tr height="5"><td></td></tr>
-					       			</table>
-							</form>	
-							</td>
-							</tr>
-						</table>
-					  </div>
-					</span>  		
-				</td>
-			</tr>
-		</c:if>
-		
-		
+
 		<tr>
 		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
-			<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
 			<input type="hidden" name="parentTrip" id="parentTrip" value="${model.parentTrip}">
 			<table style="width:100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
 			<tr height="10"><td>&nbsp;</td></tr> 
@@ -228,8 +161,8 @@
 				 					<td class="text11">
 					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
 					 				</td>
-					 				<td align="right" class="text11">
-					 					&nbsp;<span title="heavd">Avd</span>
+					 				<td align="left" class="text11" >
+					 					&nbsp;&nbsp;<span title="heavd">Avd</span>
 					 				</td>
 					 				<td class="text11">
 					 					<input readonly type="text" class="inputTextReadOnly" name="heavd" id="heavd" size="8" maxlength="8" value="${model.record.heavd}">
@@ -237,26 +170,14 @@
 					 			</tr>
 					 			<tr>
 							 		
-						 		 	<td class="text11">&nbsp;&nbsp;
+						 		 	<td class="text11" >&nbsp;&nbsp;
 							 			<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.annenref"/>&nbsp;</span>
 				 					</td>
 				 					<td class="text11">
 					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${XXmodel.record.trknfa}">
 					 				</td>
-					 				<td align="right" class="text11">
-					 					&nbsp;<span title="hedtop"><spring:message code="systema.ebooking.orders.form.update.label.hentedato"/></span>
-					 				</td>
-						 			<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="hedtop" id="hedtop" size="9" maxlength="8" value="${model.record.hedtop}">
-						    		</td>
-						    		<td align="right" class="text11">
-					 					&nbsp;<span title="trsdtd"><spring:message code="systema.ebooking.orders.form.update.label.levdato"/></span>
-					 				</td>
-						 			<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="trsdtd" id="trsdtd" size="9" maxlength="8" value="${model.record.trsdtd}">
-						    		</td>
-						    		<td align="right" class="text11">
-					 					&nbsp;<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.avvikande.adr"/></span>
+					 				<td align="right" class="text11" colspan="4">
+					 					&nbsp;&nbsp;<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.avvikande.adr"/></span>
 					 					<input type="checkbox" id="todo" name="todo" value="J" <c:if test="${XXmodel.record.hepk1 == 'J'}"> checked </c:if>>
 					 				</td>
 				 				</tr>
@@ -1113,10 +1034,9 @@
 						<tr height="5"><td ></td></tr>
 							
 	 				</table>
-            		</td>
+           		</td>
             </tr>
             <tr height="2"><td></td></tr>
-             
              
             <tr>
 				<td colspan="2">
@@ -1175,19 +1095,19 @@
 								<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.receiver"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteConsignee}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="2">${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.carrier"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteCarrier}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="2">${model.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.sender"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteInternal" name="messageNoteConsignor	" limit='70,2' cols="75" rows="2">${Xmodel.record.messageNoteInternal}</textarea>
+						 				<textarea class="text11UPPERCASE" id="messageNoteInternal" name="messageNoteConsignor	" limit='70,2' cols="75" rows="2">${model.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr height="5"><td></td></tr>
@@ -1229,11 +1149,8 @@
 				</td>
 			</tr>
 			<tr height="10"><td ></td></tr>
-			</table>
-			</form>
-		</td>
-		</tr>
-</table>	
+	</table>
+</form>
 		
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />

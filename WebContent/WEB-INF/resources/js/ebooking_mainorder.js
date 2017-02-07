@@ -836,6 +836,120 @@
 	  
   }
   
+  //------------------
+  //DELETE order line
+  //------------------
+  function deleteOrderLine(element){
+	  var id = element.id;
+	  var record = id.split('_');
+	  var counter = record[1]; 
+	  var r = confirm("Are you sure you want to remove this order line?");
+	  if (r == true){
+		  updateOrderLineTotalsBeforeDelete(counter);
+		  var params = "heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + 
+						"&lin=" + jq('#fvlinr_' + counter).val() + "&hent=" + jq('#hent').val() + "&hevkt=" + jq('#hevkt').val() + 
+						"&hem3=" + jq('#hem3').val() + "&helm=" + jq('#helm').val() + "&helmla=" + jq('#helmla').val() + "&hepoen=" + jq('#hepoen').val();
+		  				//append the protect checkbox value (if applicable)
+						if(jq('#hestl4').prop('checked')){ params += "&hestl4=" + jq('#hestl4').val();}
+						else{ params += "&hestl4="; }
+						//shoot now to the controller!
+						window.location = "ebooking_delete_order_line.do?" + params;
+	  }else{
+		  //nothing
+	  }
+  }
+  
+//--------------------------------
+  // UPDATE before DELETE ORDER LINE
+  //--------------------------------
+  function updateOrderLineTotalsBeforeDelete(counter_delete) { 
+      //Antall
+	  var sum = 0;
+	  jq( ".clazzAntMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvant_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hent').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //Weight
+	  var sum = 0;
+	  jq( ".clazzWeightMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvkt_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hevkt').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //M3
+	  var sum = 0;
+	  jq( ".clazzVolMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvol_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hem3').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //LM
+	  var sum = 0;
+	  jq( ".clazzLmMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvlm_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#helm').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //LM-la
+	  var sum = 0;
+	  jq( ".clazzLmlaMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvlm2_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#helmla').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //ADR
+	  var sum = 0;
+	  jq( ".clazzAdrMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#ffpoen_' + counter).val();
+		  if(value!='' && counter!=counter_delete){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  //this ADR-field in NOT REQUIRED to be blocked by Protected checkbox: hestl4
+	  jq("#hepoen").attr("readonly", false); 
+	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  
+  }
+  
   
   
   

@@ -14,8 +14,8 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContain
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressRecord;
-
-
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
 
 
 /**
@@ -80,4 +80,21 @@ public class JsonOrderHeaderMapper {
 		return container;
 	}
 	
+	/**
+	 * 
+	 * @param Payload
+	 * @return
+	 */
+	public JsonMainOrderHeaderMessageNoteContainer getMessageNoteContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonMainOrderHeaderMessageNoteContainer container = mapper.readValue(utfPayload.getBytes(), JsonMainOrderHeaderMessageNoteContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		for (JsonMainOrderHeaderMessageNoteRecord record : container.getFreetextlist()){
+			//DEBUG
+		}
+		
+		return container;
+	}
 }

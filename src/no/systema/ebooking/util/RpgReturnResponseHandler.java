@@ -236,7 +236,7 @@ public class RpgReturnResponseHandler {
 	 * 
 	 * @param rpgRawResponsePayload
 	 */
-	/*
+	
 	public void evaluateRpgResponseOnEditSpecificOrder(String rpgRawResponsePayload){
 		if(rpgRawResponsePayload!=null){
 			String tmp = rpgRawResponsePayload.replaceAll("\"", "");
@@ -259,10 +259,12 @@ public class RpgReturnResponseHandler {
 						}
 					}else if(keyValuePair[0].trim().equalsIgnoreCase("user")){
 						this.user = keyValuePair[0] + ":" + keyValuePair[1] + ",";
-					}else if(keyValuePair[0].trim().equalsIgnoreCase("heopd")){
-						this.heopd = keyValuePair[1].trim();
-					}else if(keyValuePair[0].trim().equalsIgnoreCase("heavd")){
-						this.heavd = keyValuePair[1].trim();
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("hereff")){
+						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.hereff = keyValuePair[1].trim();
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("heunik")){
+						//this.tuavd = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.heunik = keyValuePair[1].trim();
 					}
 				}
 			}
@@ -270,12 +272,12 @@ public class RpgReturnResponseHandler {
 		
 		
 	}
-	*/
+	
 	/**
 	 * 
 	 * @param rpgRawResponsePayload
 	 */
-	/*
+	
 	public void evaluateRpgResponseOnValidateSpecificOrderLine(String rpgRawResponsePayload){
 		if(rpgRawResponsePayload!=null){
 			String tmp = rpgRawResponsePayload.replaceAll("\"", "");
@@ -296,6 +298,14 @@ public class RpgReturnResponseHandler {
 								logger.info(this.errorMessage);
 							}
 						}
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("user")){
+						this.user = keyValuePair[0] + ":" + keyValuePair[1] + ",";
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("hereff")){
+						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.hereff = keyValuePair[1].trim();
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("heunik")){
+						//this.tuavd = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.heunik = keyValuePair[1].trim();
 					}
 				}
 			}
@@ -304,7 +314,7 @@ public class RpgReturnResponseHandler {
 		
 	}
 	
-	*/
+	
 	
 	
 }

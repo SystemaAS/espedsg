@@ -13,6 +13,46 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * 
  */
 public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
+	static public final String MESSAGE_NOTE_CONSIGNEE = "R";
+	static public final String MESSAGE_NOTE_CARRIER = "G";
+	static public final String MESSAGE_NOTE_INTERNAL = " ";
+	
+	private String totalNumberOfLines = null;
+	public void setTotalNumberOfLines(String value) {  this.totalNumberOfLines = value; }
+	public String getTotalNumberOfLines() { return this.totalNumberOfLines;}
+	
+	private String itemsType = null;
+	public void setItemsType(String value) {  this.itemsType = value; }
+	public String getItemsType() {return this.itemsType;}
+	
+	private String orderLineToDelete = null;
+	public void setOrderLineToDelete(String value) {  this.orderLineToDelete = value; }
+	public String getOrderLineToDelete() {return this.orderLineToDelete;}
+	
+	private String messageNoteConsignee = null;
+	public void setMessageNoteConsignee(String value) {  this.messageNoteConsignee = this.toUpperCase(value); }
+	public String getMessageNoteConsignee() {return this.messageNoteConsignee;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteConsigneeOriginal = null;
+	public void setMessageNoteConsigneeOriginal(String value) {  this.messageNoteConsigneeOriginal = value; }
+	public String getMessageNoteConsigneeOriginal() {return this.messageNoteConsigneeOriginal;}
+
+	private String messageNoteCarrier = null;
+	public void setMessageNoteCarrier(String value) {  this.messageNoteCarrier = this.toUpperCase(value); }
+	public String getMessageNoteCarrier() {return this.messageNoteCarrier;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteCarrierOriginal = null;
+	public void setMessageNoteCarrierOriginal(String value) {  this.messageNoteCarrierOriginal = value; }
+	public String getMessageNoteCarrierOriginal() {return this.messageNoteCarrierOriginal;}
+
+	private String messageNoteInternal = null;
+	public void setMessageNoteInternal(String value) {  this.messageNoteInternal = this.toUpperCase(value); }
+	public String getMessageNoteInternal() {return this.messageNoteInternal;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteInternalOriginal = null;
+	public void setMessageNoteInternalOriginal(String value) {  this.messageNoteInternalOriginal = value; }
+	public String getMessageNoteInternalOriginal() {return this.messageNoteInternalOriginal;}
+	
 	
 	private String heunik = "";
 	public void setHeunik(String value){ this.heunik = value;}

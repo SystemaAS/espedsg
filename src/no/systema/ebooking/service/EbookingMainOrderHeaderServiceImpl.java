@@ -3,11 +3,14 @@
  */
 package no.systema.ebooking.service;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import no.systema.ebooking.mapper.jsonjackson.JsonOrderHeaderMapper;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressContainer;
-
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 
 
 /**
@@ -58,6 +61,21 @@ public class EbookingMainOrderHeaderServiceImpl implements EbookingMainOrderHead
 			e.printStackTrace();
 		}
 		return container;
+	}
+	/**
+	 * 
+	 */
+	public JsonMainOrderHeaderMessageNoteContainer getMessageNoteContainer(String utfPayload){
+		JsonMainOrderHeaderMessageNoteContainer container = null;
+		try{
+			JsonOrderHeaderMapper mapper = new JsonOrderHeaderMapper();
+			container = mapper.getMessageNoteContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return container;
+		
 	}
 
 }
