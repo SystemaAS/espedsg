@@ -14,7 +14,7 @@
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Customer Search
+			Fakturakunde
 			</td>
 		</tr>
 		<tr height="20"><td colspan="2"></td></tr>
@@ -28,6 +28,8 @@
           		<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
 			 	the cosmetic frame will not follow the whole datatable grid including the search field... --%>
 				<table id="containerdatatableTable" cellspacing="2" align="left" width="100%">
+					
+					<%-- NO FILTER since the data set won't be large (less than 50 in all customers)
 					<tr height="5"><td></td></tr>
 					<tr>
 					<td>
@@ -52,8 +54,8 @@
 		           		</table>
 					</td>
 					</tr>
-					<%-- Validation errors --%>
-					<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
+					<%-- Validation errors 
+					<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller
 					<tr>
 						<td colspan="20">
 			            	<table align="left" border="0" cellspacing="0" cellpadding="0">
@@ -72,7 +74,7 @@
 						</td>
 					</tr>
 					</spring:hasBindErrors>
-										
+					--%>					
 					
 					<tr><td><hr size="1" width="100%"/></td></tr>								           		
 	           		<tr height="15"><td></td></tr>
@@ -87,7 +89,6 @@
 		                    <th class="text11">&nbsp;Name</th>
 		                    <th class="text11">&nbsp;Address</th>
 		                    <th class="text11">&nbsp;Post.Code/City/Country</th>
-		                    
 		                </tr> 
 		                </thead>
 		                
@@ -101,24 +102,10 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <c:choose>           
-			                   	<c:when test="${record.aktkod == 'I'}">
-			               			<td onMouseOver="showPop('kType_info${counter.count}');" onMouseOut="hidePop('kType_info${counter.count}');" class="text11MediumBlue" style="background-color:#FEEFB3;cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@aktkod_${record.aktkod}@counter_${counter.count}">&nbsp;${record.kundnr}
-			               			<div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute; left:0px; top:0px;" id="kType_info${counter.count}" class="popupWithInputText"  >
-											<font class="text11">Adressekund</font>	
-			               				</span>
-			               			</div>	
-			               			</td>
-			               	   	</c:when>
-			               		<c:otherwise>
-			               			<td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@aktkod_${record.aktkod}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
-			               		</c:otherwise>
-			               </c:choose>
-			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.navn}</td>
-			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adr1}</td>
-			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adresse}</td>
-			               
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@adr1_${record.gateAdr}@adr2_${record.adresse2}@postnrsted_${record.postnrSted}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
+			               <td class="text11" >&nbsp;${record.navn}</td>
+			               <td class="text11" >&nbsp;${record.gateAdr}&nbsp;${record.adresse2}</td>
+			               <td class="text11" >&nbsp;${record.postnrSted}&nbsp;${record.land}</td>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

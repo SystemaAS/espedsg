@@ -44,7 +44,7 @@ public class JsonEbookingChildWindowMapper {
 		JsonEbookingCustomerContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingCustomerContainer.class); 
 		
 		//DEBUG
-		Collection<JsonEbookingCustomerRecord> fields = container.getInqcustomer();
+		Collection<JsonEbookingCustomerRecord> fields = container.getInqFkund();
 		for(JsonEbookingCustomerRecord record : fields){
 			//logger.info("knavn: " + record.getKnavn());
 			//logger.info("kundnr: " + record.getKundnr());

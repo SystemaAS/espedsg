@@ -250,7 +250,7 @@
   jq(function() {  
 	  	//SHIPPER/CONSIGNOR
 	    jq('#hekns').blur(function() {
-	    	getConsignor();	
+	    	//getConsignor(); N/A	
 		});
 	    function getConsignor(){
 	    	var hekns = jq('#hekns').val();
@@ -318,7 +318,7 @@
 	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {
-	    	getConsignee();
+	    	//getConsignee(); N/A
 		});
 	    function getConsignee(){
 	    	var heknk = jq('#heknk').val();

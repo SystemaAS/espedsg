@@ -6,7 +6,7 @@ package no.systema.ebooking.model.jsonjackson.order.childwindow;
 import java.util.Collection;
 /**
  * @author oscardelatorre
- * @date Jan 30, 2017
+ * @date Feb 08, 2017
  */
 public class JsonEbookingCustomerContainer {
 	
@@ -14,37 +14,16 @@ public class JsonEbookingCustomerContainer {
 	public void setUser(String value){ this.user = value;}
 	public String getUser(){ return this.user; }
 	
-	//this is an internal variable in order to know what type of partner we are searching for (shipper, consignee or Agent)
 	private String ctype = null;
 	public void setCtype(String value){ this.ctype = value;}
 	public String getCtype(){ return this.ctype; }
-	
-	private String soknvn = null;
-	public void setSoknvn(String value){ this.soknvn = value;}
-	public String getSoknvn(){ return this.soknvn; }
-	
-	private String sokknr = null;
-	public void setSokknr(String value){ this.sokknr = value;}
-	public String getSokknr(){ return this.sokknr; }
-	
-	private String kunpnsted = null;
-	public void setKunpnsted(String value){ this.kunpnsted = value;}
-	public String getKunpnsted(){ return this.kunpnsted; }
-	
-	private String wsvarnv = null;
-	public void setWsvarnv(String value){ this.wsvarnv = value;}
-	public String getWsvarnv(){ return this.wsvarnv; }
-	
-	private String maxv = null;
-	public void setMaxv(String value){ this.maxv = value;}
-	public String getMaxv(){ return this.maxv; }
 	
 	private String errMsg = null;
 	public void setErrMsg(String value){ this.errMsg = value;}
 	public String getErrMsg(){ return this.errMsg; }
 	
-	private Collection<JsonEbookingCustomerRecord> inqcustomer = null;
-	public void setInqcustomer(Collection<JsonEbookingCustomerRecord> value){ this.inqcustomer = value;}
-	public Collection<JsonEbookingCustomerRecord> getInqcustomer(){ return this.inqcustomer; }
+	private Collection<JsonEbookingCustomerRecord> inqFkund = null;
+	public void setInqFkund(Collection<JsonEbookingCustomerRecord> value){ this.inqFkund = value;}
+	public Collection<JsonEbookingCustomerRecord> getInqFkund(){ return this.inqFkund; }
 	
 }

@@ -9,61 +9,47 @@ import java.util.List;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 /**
  * @author oscardelatorre
- * @date Jan 30, 2017
+ * @date Feb 08, 2017
  * 
  */
 public class JsonEbookingCustomerRecord extends JsonAbstractGrandFatherRecord  {
-	
-	private String aktkod = null;
-	public void setAktkod(String value){ this.aktkod = value;}
-	public String getAktkod(){ return this.aktkod; }
-	
 	
 	private String kundnr = null;
 	public void setKundnr(String value){ this.kundnr = value;}
 	public String getKundnr(){ return this.kundnr; }
 	
+	private String vadrnr = null;
+	public void setVadrnr(String value){ this.vadrnr = value;}
+	public String getVadrnr(){ return this.vadrnr; }
+	
 	private String navn = null;
 	public void setNavn(String value){ this.navn = value;}
 	public String getNavn(){ return this.navn; }
 	
-	private String adr1 = null;
-	public void setAdr1(String value){ this.adr1 = value;}
-	public String getAdr1(){ return this.adr1; }
+	private String gateAdr = null;
+	public void setGateAdr(String value){ this.gateAdr = value;}
+	public String getGateAdr(){ return this.gateAdr; }
 	
-	private String adr2 = null;
-	public void setAdr2(String value){ this.adr2 = value;}
-	public String getAdr2(){ return this.adr2; }
+	private String adresse2 = null;
+	public void setAdresse2(String value){ this.adresse2 = value;}
+	public String getAdresse2(){ return this.adresse2; }
 	
-	private String adresse = null;
-	public void setAdresse(String value){ this.adresse = value;}
-	public String getAdresse(){ return this.adresse; }
+	private String postnrSted = null;
+	public void setPostnrSted(String value){ this.postnrSted = value;}
+	public String getPostnrSted(){ return this.postnrSted; }
 	
 	private String land = null;
 	public void setLand(String value){ this.land = value;}
 	public String getLand(){ return this.land; }
 	
-	private String fakknr = null;
-	public void setFakknr(String value){ this.fakknr = value;}
-	public String getFakknr(){ return this.fakknr; }
+	private String sonavn = null;
+	public void setSonavn(String value){ this.sonavn = value;}
+	public String getSonavn(){ return this.sonavn; }
 	
+	private String kualfa = null;
+	public void setKualfa(String value){ this.kualfa = value;}
+	public String getKualfa(){ return this.kualfa; }
 	
-	//Delivery Address fields
-	private String auxnavn = "";
-	public void setAuxnavn(String value){ this.auxnavn = value;}
-	public String getAuxnavn(){ return this.auxnavn; }
-	
-	private String auxtlf = "";
-	public void setAuxtlf(String value){ this.auxtlf = value;}
-	public String getAuxtlf(){ return this.auxtlf; }
-	
-	private String auxfax = "";
-	public void setAuxfax(String value){ this.auxfax = value;}
-	public String getAuxfax(){ return this.auxfax; }
-	
-	private String auxmail = "";
-	public void setAuxmail(String value){ this.auxmail = value;}
-	public String getAuxmail(){ return this.auxmail; }
 	
 	/**
 	 * User for java reflection in other classes

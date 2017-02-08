@@ -68,10 +68,6 @@ import no.systema.ebooking.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.ebooking.validator.OrderHeaderValidator;
 
 
-
-
-
-
 /**
  * ebooking Order Header Controller 
  * 
@@ -114,8 +110,6 @@ public class EbookingMainOrderHeaderController {
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
-		//String hereff = request.getParameter("hereff");
-		//String heunik = request.getParameter("heunik");
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
 		
@@ -167,7 +161,7 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser);
+				    		this.processNewMessageNotes(recordToValidate, appUser, request );
 				    		//Update the order lines
 				    		this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
@@ -222,7 +216,6 @@ public class EbookingMainOrderHeaderController {
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			return successView;
-			
 
 		}
 		
@@ -318,27 +311,44 @@ public class EbookingMainOrderHeaderController {
 	 * 
 	 * @param recordToValidate
 	 * @param appUser
+	 * @param request
 	 */
-	private void processNewMessageNotes(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+	private void processNewMessageNotes(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request){
+		//-------------------------------------------------------
+		//get the key values for a DML operation in messageNote
+		//-------------------------------------------------------
+		List<String> ownMessageNoteReceiverLineNrRawList = new ArrayList<String>();
+		List<String> ownMessageNoteCarrierLineNrRawList = new ArrayList<String>();
+		List<String> ownMessageNoteInternalLineNrRawList = new ArrayList<String>();
+		
+		for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+		    String name = entry.getKey();
+		    String value = entry.getValue()[0];
+		    if(name.contains("ownMessageNoteReceiverLineNr")){ ownMessageNoteReceiverLineNrRawList.add(value); }
+		    if(name.contains("ownMessageNoteCarrierLineNr")){ ownMessageNoteCarrierLineNrRawList.add(value); }
+		    if(name.contains("ownMessageNoteInternalLineNr")){ ownMessageNoteInternalLineNrRawList.add(value); }
+		}
+		
+		
 		if(recordToValidate !=null){
 			//CONSIGNEE (RECEIVER)
 			if(recordToValidate.getMessageNoteConsignee()!=null && !"".equals(recordToValidate.getMessageNoteConsignee())){
 				//Delete all values
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
 				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 			}else{
 				if(recordToValidate.getMessageNoteConsigneeOriginal()!=null && !"".equals(recordToValidate.getMessageNoteConsigneeOriginal())){
 					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				}
 			}
-			/**
+			
 			//CARRIER
 			if(recordToValidate.getMessageNoteCarrier()!=null && !"".equals(recordToValidate.getMessageNoteCarrier())){
 				//Delete all values
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
 				//Add new values
 				String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
 				this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
@@ -346,7 +356,7 @@ public class EbookingMainOrderHeaderController {
 				//In case the user removes all lines without writing new ones
 				if(recordToValidate.getMessageNoteCarrierOriginal()!=null && !"".equals(recordToValidate.getMessageNoteCarrierOriginal())){
 					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
 				}
 			}
 			
@@ -354,17 +364,17 @@ public class EbookingMainOrderHeaderController {
 			//INTERNAL
 			if(recordToValidate.getMessageNoteInternal()!=null && !"".equals(recordToValidate.getMessageNoteInternal())){
 				//Delete all values
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
 				//Add new values
 				String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
 				this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 			}else{
 				if(recordToValidate.getMessageNoteInternalOriginal()!=null && !"".equals(recordToValidate.getMessageNoteInternalOriginal())){
 					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
 				}
 			}
-			**/
+			
 		}
 	}
 	
@@ -378,12 +388,10 @@ public class EbookingMainOrderHeaderController {
 	private void updateMessageNote(String[] messageNote, String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
 		String CARRIAGE_RETURN = "[\n\r]";
 		List<String> messageNotePayload = Arrays.asList(messageNote);
-		int lineNr = 0;
 		
 		for(String linePayload: messageNotePayload){
 			linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
 			linePayload = linePayload.trim();
-			lineNr++;
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
 	        //---------------------------
@@ -393,40 +401,11 @@ public class EbookingMainOrderHeaderController {
 				//------------------
 				//add URL-parameter
 				//------------------
+				//no line no parameter is required
 				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
 				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
 				urlRequestParamsKeysBuffer.append("&frunik=" + record.getHeunik());
 				urlRequestParamsKeysBuffer.append("&frreff=" + record.getHereff());
-				urlRequestParamsKeysBuffer.append("&frtdt=" + record.getMessageNoteDate());
-				
-				if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE.equals(messageParty)){
-					if(lineNr==1){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=" + lineNr);
-					}else if (lineNr==2){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=" + lineNr);
-					}
-				}else if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER.equals(messageParty)){
-					if(lineNr==1){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=3"); //always 1:st line for carrier
-					}else if(lineNr==2){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=4"); //always 2:nd line for carrier
-					}
-				}else if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL.equals(messageParty)){
-					if(lineNr==1){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=5"); //always 1:st line for internal
-					}else if(lineNr==2){
-						doUpdate = true;
-						urlRequestParamsKeysBuffer.append("&frtli=6"); //always 2:nd line for internal
-					}
-				}else{
-					//nothing
-				}
-				
 				urlRequestParamsKeysBuffer.append("&frttxt=" + linePayload);
 				urlRequestParamsKeysBuffer.append("&frtkod=" + messageParty);		 
 				urlRequestParamsKeysBuffer.append("&mode=A");
@@ -458,62 +437,48 @@ public class EbookingMainOrderHeaderController {
 	 * @param record
 	 * @param appUser
 	 */
-	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
+	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
 		//we do this in order to secure a total delete no matter how many lines, otherwise it gets complex in case validation errors arise
-		int TOTAL_NUMBER_OF_LINES_CEILING_FOR_DELETE_LOOP = 10;
-		for(int lineNr=1; lineNr<=TOTAL_NUMBER_OF_LINES_CEILING_FOR_DELETE_LOOP;lineNr++){
-			boolean doUpdate = false;
-			//---------------------------
-			//get BASE URL = RPG-PROGRAM
-	        //---------------------------
-			String BASE_URL_UPDATE = MainUrlDataStore.SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL;
-			//------------------
-			//add URL-parameter
-			//------------------
-			StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
-			urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
-			urlRequestParamsKeysBuffer.append("&frunik=" + record.getHeunik());
-			urlRequestParamsKeysBuffer.append("&frreff=" + record.getHereff());
-			urlRequestParamsKeysBuffer.append("&frtdt=" + record.getMessageNoteDate());
-			
-			if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE.equals(messageParty)){
-				if(lineNr==1 || lineNr==2){
-					doUpdate = true;
-					urlRequestParamsKeysBuffer.append("&frtli=" + lineNr);
-				}
-			}else if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER.equals(messageParty)){
-				if(lineNr==3 || lineNr==4){
-					doUpdate = true;
-					urlRequestParamsKeysBuffer.append("&frtli=" + lineNr);
-				}
-			}else if(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL.equals(messageParty)){
-				if(lineNr==5 || lineNr==6){
-					doUpdate = true;
-					urlRequestParamsKeysBuffer.append("&frtli=" + lineNr);
-				}
-			}else{
-				//nothing
-			}
-			//N/A -->urlRequestParamsKeysBuffer.append("&frtkod=" + messageParty);
-			urlRequestParamsKeysBuffer.append("&mode=D");
-			String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-			//DEBUG
-			if(doUpdate){
-				logger.info("URL: " + BASE_URL_UPDATE);
-				logger.info("PARAMS: " + urlRequestParams);
-				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-				//DEBUG only 5
-				logger.info(jsonPayload);
-				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
-				//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-				if(jsonNotisblockContainer!=null){
-					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
-						//Debug
-						logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg());
+		//int TOTAL_NUMBER_OF_LINES_CEILING_FOR_DELETE_LOOP = 10;
+		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
+			String [] msgNoteRecord = msgNoteRawRecord.split("@");
+			if(msgNoteRecord!=null && msgNoteRecord.length==2){
+				boolean doUpdate = false;
+				//---------------------------
+				//get BASE URL = RPG-PROGRAM
+		        //---------------------------
+				String BASE_URL_UPDATE = MainUrlDataStore.SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL;
+				//------------------
+				//add URL-parameter
+				//------------------
+				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
+				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
+				urlRequestParamsKeysBuffer.append("&frunik=" + record.getHeunik());
+				urlRequestParamsKeysBuffer.append("&frreff=" + record.getHereff());
+				urlRequestParamsKeysBuffer.append("&frtli=" + msgNoteRecord[0]);
+				urlRequestParamsKeysBuffer.append("&frtdt=" + msgNoteRecord[1]);
+				urlRequestParamsKeysBuffer.append("&mode=D");
+				
+				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
+				//DEBUG
+				if(doUpdate){
+					logger.info("URL: " + BASE_URL_UPDATE);
+					logger.info("PARAMS: " + urlRequestParams);
+					logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
+					//DEBUG only 5
+					logger.info(jsonPayload);
+					logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+					JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
+					//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
+					if(jsonNotisblockContainer!=null){
+						//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
+						if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
+							//Debug
+							logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg());
+						}
 					}
+					
 				}
 			}
 		}
@@ -537,10 +502,6 @@ public class EbookingMainOrderHeaderController {
 		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteConsignee ){
 			if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
 				brConsignee.append(record.getFrttxt() + "\n");
-				//get the date
-				if(record.getFrtdt()!=null || !"".equals(record.getFrtdt())){
-					orderRecord.setMessageNoteDate(record.getFrtdt());
-				}
 			}
 			
 		}
@@ -548,12 +509,6 @@ public class EbookingMainOrderHeaderController {
 		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteCarrier ){
 			if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
 				brCarrier.append(record.getFrttxt() + "\n");
-				if(record.getFrtdt()!=null || !"".equals(record.getFrtdt())){
-					//get the date if no date has been fetched before
-					if(orderRecord.getMessageNoteDate()==null){
-						orderRecord.setMessageNoteDate(record.getFrtdt());
-					}
-				}
 			}
 		}
 		StringBuffer brInternal = new StringBuffer();
@@ -561,20 +516,18 @@ public class EbookingMainOrderHeaderController {
 			if(record.getFrtkod()==null || "".equals(record.getFrtkod())){ //since we must filter in this specific type (blank)
 				if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
 					brInternal.append(record.getFrttxt() + "\n");
-					if(record.getFrtdt()!=null || !"".equals(record.getFrtdt())){
-						//get the date if no date has been fetched before
-						if(orderRecord.getMessageNoteDate()==null){
-							orderRecord.setMessageNoteDate(record.getFrtdt());
-						}
-					}
 				}
 			}
 		}
+		//logger.info("******************************" + brInternal.toString());
 		//populate final message notes now
 		orderRecord.setMessageNoteConsignee(brConsignee.toString());
 		orderRecord.setMessageNoteCarrier(brCarrier.toString());
 		orderRecord.setMessageNoteInternal(brInternal.toString());
-		
+		//populate auxiliary arrays
+		orderRecord.setMessageNoteConsigneeRaw((List)messageNoteConsignee);
+		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);
+		orderRecord.setMessageNoteInternalRaw((List)messageNoteInternal);
 	}
 	
 	/**
@@ -603,7 +556,7 @@ public class EbookingMainOrderHeaderController {
 	    	logger.info("URL: " + BASE_LIST_URL);
 	    	logger.info("URL PARAMS: " + urlRequestParams);
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
-		//Debug --> 
+	    	//Debug --> 
 	    	logger.debug(jsonPayload);
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){

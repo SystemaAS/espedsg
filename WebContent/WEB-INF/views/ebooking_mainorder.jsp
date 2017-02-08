@@ -149,7 +149,6 @@
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsignee}'>
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
-					<input type="hidden" id="messageNoteDate" name="messageNoteDate" value="${model.record.messageNoteDate}">
 					<table style="width:99%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
@@ -236,7 +235,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.ebooking.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doInit&ctype=s','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>
 					 				</td>
@@ -381,7 +380,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.ebooking.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doInit&ctype=c','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=c','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>	
 					 				</td>
@@ -1096,19 +1095,40 @@
 								<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.receiver"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="2">${model.record.messageNoteConsignee}</textarea>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<c:forEach items="${model.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
+						 					<c:if test="${not empty freeTextRecord.frtli}">
+						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
+						 					</c:if>
+						 				</c:forEach>
+						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.carrier"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="2">${model.record.messageNoteCarrier}</textarea>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<c:forEach items="${model.record.messageNoteCarrierRaw}" var="freeTextRecord" varStatus="counter">
+						 					<c:if test="${not empty freeTextRecord.frtli}">
+						 						<input type="hidden" id="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" name="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
+						 					 </c:if>
+						 				</c:forEach>
+						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${model.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.messageNotes.sender"/></td>
 						 			<td class="text11">
-						 				<textarea class="text11UPPERCASE" id="messageNoteInternal" name="messageNoteConsignor	" limit='70,2' cols="75" rows="2">${model.record.messageNoteInternal}</textarea>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<c:forEach items="${model.record.messageNoteInternalRaw}" var="freeTextRecord" varStatus="counter">
+						 					<c:if test="${not empty freeTextRecord.frtli}">
+						 						<input type="hidden" id="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" name="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
+						 					</c:if> 
+						 				</c:forEach>
+						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${model.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr height="5"><td></td></tr>

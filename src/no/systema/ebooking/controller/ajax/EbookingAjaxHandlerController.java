@@ -78,6 +78,7 @@ public class EbookingAjaxHandlerController {
 	  public @ResponseBody List<JsonEbookingCustomerContainer> searchCustomer(@RequestParam String applicationUser, @RequestParam String customerName, @RequestParam String customerNumber) {
 		  logger.info("Inside searchCustomer");
 		  List result = new ArrayList();
+		  /*
 		  JsonMainOrderHeaderCustomerDeliveryAddressRecord deliveryAddressRecord = getDeliveryAddress(applicationUser, customerNumber);
 		  JsonEbookingCustomerRecord targetRecord = null;
 		  //check if this customer has an existent Delivery address. In that case use it!
@@ -131,6 +132,7 @@ public class EbookingAjaxHandlerController {
 	    			}
 	    		}
 	    	  }
+	    	  */
 	    	  return result;
 	  }
 	  
@@ -329,7 +331,7 @@ public class EbookingAjaxHandlerController {
 	   * @param customerNumber
 	   * @return
 	   */
-	  
+	  /* TO BE DECIDED ...
 	  private JsonMainOrderHeaderCustomerDeliveryAddressRecord getDeliveryAddress(String applicationUser, String customerNumber){
 		  JsonMainOrderHeaderCustomerDeliveryAddressRecord retval = null;
 		//prepare the access CGI with RPG back-end
@@ -359,7 +361,7 @@ public class EbookingAjaxHandlerController {
 	    	  }
     		  return retval;
 	  }
-	  
+	  */
 	  
 
 	 

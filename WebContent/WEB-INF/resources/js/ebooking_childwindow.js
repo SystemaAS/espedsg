@@ -19,30 +19,38 @@
 		  var id = this.id;
 		  var record = id.split('@');
 		  var kundNr = record[0].replace("kundnr_", "");
-		  var customerName = record[1].replace("navn_", "");
-		  var aktkod = record[2].replace("aktkod_", "");
+		  var navn = record[1].replace("navn_", "");
+		  var adr1 = record[2].replace("adr1_", "");
+		  var adr2 = record[3].replace("adr2_", "");
+		  var postnrsted = record[4].replace("postnrsted_", "");
 		  
 		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
 		  //addressing a parent field from this child window
 		  if(jq('#ctype').val()=='s'){
 			  //shipper/consignor 	
 			  opener.jq('#hekns').val(kundNr);
+			  opener.jq('#henas').val(navn);
+			  opener.jq('#heads1').val(adr1);
+			  opener.jq('#heads2').val(adr2);
+			  opener.jq('#heads3').val(postnrsted);
 			  opener.jq('#hekns').focus();
+			  
 		  }else if(jq('#ctype').val()=='a'){
 			  //agent  
 			  opener.jq('#trknfa').val(kundNr);
 			  opener.jq('#trknfa').focus();
+		  
 		  }else if(jq('#ctype').val()=='c'){
 			  //consignee
 			  opener.jq('#heknk').val(kundNr);
+			  opener.jq('#henak').val(navn);
+			  opener.jq('#headk1').val(adr1);
+			  opener.jq('#headk2').val(adr2);
+			  opener.jq('#headk3').val(postnrsted);
 			  opener.jq('#heknk').focus();
+			  
 		  }else if(jq('#ctype').val()=='il'){
-			  //invoice line (on invoice jsp)
-			  if(aktkod == 'I' && opener.jq('#fask').val() == 'X'){
-				  //Not valid. Do nothing!
-			  }else{
-				  opener.jq('#fakunr').val(kundNr);
-			  }
+			  opener.jq('#fakunr').val(kundNr);
 		  }
 		  
 		  //close child window

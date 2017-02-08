@@ -230,10 +230,10 @@ public class EbookingControllerChildWindow {
 		    */
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//this.setCodeDropDownMgr(appUser, model);
-		    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
 				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
 				return successView;
 	    		
@@ -254,7 +254,7 @@ public class EbookingControllerChildWindow {
 		    			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
 			    		if(container!=null){
 			    			List<JsonEbookingCustomerRecord> list = new ArrayList<JsonEbookingCustomerRecord>();
-			    			for(JsonEbookingCustomerRecord  record : container.getInqcustomer()){
+			    			for(JsonEbookingCustomerRecord  record : container.getInqFkund()){
 			    				//logger.info("CUSTOMER NO: " + record.getKundnr());
 			    				//logger.info("NAME: " + record.getNavn());
 			    				list.add(record);
@@ -640,22 +640,6 @@ public class EbookingControllerChildWindow {
 	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingCustomerContainer searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		
-		if(searchFilter.getSokknr()!=null && !"".equals(searchFilter.getSokknr())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sokknr=" + searchFilter.getSokknr());
-		}
-		if(searchFilter.getSoknvn()!=null && !"".equals(searchFilter.getSoknvn())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soknvn=" + searchFilter.getSoknvn());
-		}
-		if(searchFilter.getKunpnsted()!=null && !"".equals(searchFilter.getKunpnsted())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kunpnsted=" + searchFilter.getKunpnsted());
-		}
-		if(searchFilter.getWsvarnv()!=null && !"".equals(searchFilter.getWsvarnv())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsvarnv=" + searchFilter.getWsvarnv());
-		}
-		if(searchFilter.getMaxv()!=null && !"".equals(searchFilter.getMaxv())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "maxv=" + searchFilter.getMaxv());
-		}
 		
 		return urlRequestParamsKeys.toString();
 	}

@@ -5,6 +5,7 @@ package no.systema.ebooking.model.jsonjackson;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 /**
@@ -13,50 +14,11 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * 
  */
 public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
+	
 	static public final String MESSAGE_NOTE_CONSIGNEE = "R";
 	static public final String MESSAGE_NOTE_CARRIER = "G";
 	static public final String MESSAGE_NOTE_INTERNAL = " ";
 	
-	private String totalNumberOfLines = null;
-	public void setTotalNumberOfLines(String value) {  this.totalNumberOfLines = value; }
-	public String getTotalNumberOfLines() { return this.totalNumberOfLines;}
-	
-	private String itemsType = null;
-	public void setItemsType(String value) {  this.itemsType = value; }
-	public String getItemsType() {return this.itemsType;}
-	
-	private String orderLineToDelete = null;
-	public void setOrderLineToDelete(String value) {  this.orderLineToDelete = value; }
-	public String getOrderLineToDelete() {return this.orderLineToDelete;}
-	
-	
-	private String messageNoteConsignee = null;
-	public void setMessageNoteConsignee(String value) {  this.messageNoteConsignee = this.toUpperCase(value); }
-	public String getMessageNoteConsignee() {return this.messageNoteConsignee;}
-	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
-	private String messageNoteConsigneeOriginal = null;
-	public void setMessageNoteConsigneeOriginal(String value) {  this.messageNoteConsigneeOriginal = value; }
-	public String getMessageNoteConsigneeOriginal() {return this.messageNoteConsigneeOriginal;}
-
-	private String messageNoteCarrier = null;
-	public void setMessageNoteCarrier(String value) {  this.messageNoteCarrier = this.toUpperCase(value); }
-	public String getMessageNoteCarrier() {return this.messageNoteCarrier;}
-	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
-	private String messageNoteCarrierOriginal = null;
-	public void setMessageNoteCarrierOriginal(String value) {  this.messageNoteCarrierOriginal = value; }
-	public String getMessageNoteCarrierOriginal() {return this.messageNoteCarrierOriginal;}
-
-	private String messageNoteInternal = null;
-	public void setMessageNoteInternal(String value) {  this.messageNoteInternal = this.toUpperCase(value); }
-	public String getMessageNoteInternal() {return this.messageNoteInternal;}
-	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
-	private String messageNoteInternalOriginal = null;
-	public void setMessageNoteInternalOriginal(String value) {  this.messageNoteInternalOriginal = value; }
-	public String getMessageNoteInternalOriginal() {return this.messageNoteInternalOriginal;}
-	
-	private String messageNoteDate = null;
-	public void setMessageNoteDate(String value) {  this.messageNoteDate = this.toUpperCase(value); }
-	public String getMessageNoteDate() {return this.messageNoteDate;}
 	
 	
 	private String heunik = "";
@@ -929,6 +891,63 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	}
 	//nothing just a dummy method to avoid exceptions in java reflections implementations
 	public void setSingleLine(String value) { }
+	
+	
+	
+	private String totalNumberOfLines = null;
+	public void setTotalNumberOfLines(String value) {  this.totalNumberOfLines = value; }
+	public String getTotalNumberOfLines() { return this.totalNumberOfLines;}
+	
+	private String itemsType = null;
+	public void setItemsType(String value) {  this.itemsType = value; }
+	public String getItemsType() {return this.itemsType;}
+	
+	private String orderLineToDelete = null;
+	public void setOrderLineToDelete(String value) {  this.orderLineToDelete = value; }
+	public String getOrderLineToDelete() {return this.orderLineToDelete;}
+	
+	
+	private String messageNoteConsignee = null;
+	public void setMessageNoteConsignee(String value) {  this.messageNoteConsignee = this.toUpperCase(value); }
+	public String getMessageNoteConsignee() {return this.messageNoteConsignee;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteConsigneeOriginal = null;
+	public void setMessageNoteConsigneeOriginal(String value) {  this.messageNoteConsigneeOriginal = value; }
+	public String getMessageNoteConsigneeOriginal() {return this.messageNoteConsigneeOriginal;}
+
+	private String messageNoteCarrier = null;
+	public void setMessageNoteCarrier(String value) {  this.messageNoteCarrier = this.toUpperCase(value); }
+	public String getMessageNoteCarrier() {return this.messageNoteCarrier;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteCarrierOriginal = null;
+	public void setMessageNoteCarrierOriginal(String value) {  this.messageNoteCarrierOriginal = value; }
+	public String getMessageNoteCarrierOriginal() {return this.messageNoteCarrierOriginal;}
+
+	private String messageNoteInternal = null;
+	public void setMessageNoteInternal(String value) {  this.messageNoteInternal = this.toUpperCase(value); }
+	public String getMessageNoteInternal() {return this.messageNoteInternal;}
+	//Original value is used in UPDATE in order to delete all lines first before creating the new ones
+	private String messageNoteInternalOriginal = null;
+	public void setMessageNoteInternalOriginal(String value) {  this.messageNoteInternalOriginal = value; }
+	public String getMessageNoteInternalOriginal() {return this.messageNoteInternalOriginal;}
+	
+	private String messageNoteDate = null;
+	public void setMessageNoteDate(String value) {  this.messageNoteDate = this.toUpperCase(value); }
+	public String getMessageNoteDate() {return this.messageNoteDate;}
+
+	//Auxiliary raw Free texts (in order to handle frtli (line nr)
+	private List<JsonMainOrderHeaderMessageNoteRecord> messageNoteConsigneeRaw = null;
+	public void setMessageNoteConsigneeRaw(List<JsonMainOrderHeaderMessageNoteRecord> value) {  this.messageNoteConsigneeRaw = value; }
+	public List<JsonMainOrderHeaderMessageNoteRecord> getMessageNoteConsigneeRaw() {return this.messageNoteConsigneeRaw;}
+	
+	private List<JsonMainOrderHeaderMessageNoteRecord> messageNoteCarrierRaw = null;
+	public void setMessageNoteCarrierRaw(List<JsonMainOrderHeaderMessageNoteRecord> value) {  this.messageNoteCarrierRaw = value; }
+	public List<JsonMainOrderHeaderMessageNoteRecord> getMessageNoteCarrierRaw() {return this.messageNoteCarrierRaw;}
+	
+	private List<JsonMainOrderHeaderMessageNoteRecord> messageNoteInternalRaw = null;
+	public void setMessageNoteInternalRaw(List<JsonMainOrderHeaderMessageNoteRecord> value) {  this.messageNoteInternalRaw = value; }
+	public List<JsonMainOrderHeaderMessageNoteRecord> getMessageNoteInternalRaw() {return this.messageNoteInternalRaw;}
+	
 	
 	/**
 	 * 
