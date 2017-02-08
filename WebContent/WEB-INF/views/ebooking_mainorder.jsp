@@ -1101,7 +1101,7 @@
 						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if>
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
@@ -1114,7 +1114,7 @@
 						 						<input type="hidden" id="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" name="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					 </c:if>
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${model.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
@@ -1127,7 +1127,7 @@
 						 						<input type="hidden" id="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" name="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if> 
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues not for DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${model.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>

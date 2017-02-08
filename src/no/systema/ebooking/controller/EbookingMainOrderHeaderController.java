@@ -80,7 +80,7 @@ import no.systema.ebooking.validator.OrderHeaderValidator;
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class EbookingMainOrderHeaderController {
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(4000);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
 	private static Logger logger = Logger.getLogger(EbookingMainOrderHeaderController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -329,7 +329,6 @@ public class EbookingMainOrderHeaderController {
 		    if(name.contains("ownMessageNoteInternalLineNr")){ ownMessageNoteInternalLineNrRawList.add(value); }
 		}
 		
-		
 		if(recordToValidate !=null){
 			//CONSIGNEE (RECEIVER)
 			if(recordToValidate.getMessageNoteConsignee()!=null && !"".equals(recordToValidate.getMessageNoteConsignee())){
@@ -388,16 +387,15 @@ public class EbookingMainOrderHeaderController {
 	private void updateMessageNote(String[] messageNote, String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
 		String CARRIAGE_RETURN = "[\n\r]";
 		List<String> messageNotePayload = Arrays.asList(messageNote);
-		
+		//logger.info("A" + messageNotePayload);
 		for(String linePayload: messageNotePayload){
 			linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-			linePayload = linePayload.trim();
+			//linePayload = linePayload.trim();
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
 	        //---------------------------
 			if(linePayload!=null && !"".equals(linePayload)){
 				String BASE_URL_UPDATE = MainUrlDataStore.SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL;
-				boolean doUpdate = false;
 				//------------------
 				//add URL-parameter
 				//------------------
@@ -409,25 +407,25 @@ public class EbookingMainOrderHeaderController {
 				urlRequestParamsKeysBuffer.append("&frttxt=" + linePayload);
 				urlRequestParamsKeysBuffer.append("&frtkod=" + messageParty);		 
 				urlRequestParamsKeysBuffer.append("&mode=A");
-				if(doUpdate){
-					String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-					logger.info("URL: " + BASE_URL_UPDATE);
-					logger.info("PARAMS: " + urlRequestParams);
-					//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-					logger.info(jsonPayload);
-					//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-					 
-					JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
-					//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-					if(jsonNotisblockContainer!=null){
-						//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-						if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
-							//Debug
-							logger.info("[ERROR]:" + jsonNotisblockContainer.getErrMsg());
-						}
+				
+				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
+				logger.info("URL: " + BASE_URL_UPDATE);
+				logger.info("PARAMS: " + urlRequestParams);
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
+				//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				 
+				JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
+				//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
+				if(jsonNotisblockContainer!=null){
+					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
+					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
+						//Debug
+						logger.info("[ERROR]:" + jsonNotisblockContainer.getErrMsg());
 					}
 				}
+
 			}
 		}
 	}
@@ -438,12 +436,10 @@ public class EbookingMainOrderHeaderController {
 	 * @param appUser
 	 */
 	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
-		//we do this in order to secure a total delete no matter how many lines, otherwise it gets complex in case validation errors arise
-		//int TOTAL_NUMBER_OF_LINES_CEILING_FOR_DELETE_LOOP = 10;
+		
 		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
 			String [] msgNoteRecord = msgNoteRawRecord.split("@");
 			if(msgNoteRecord!=null && msgNoteRecord.length==2){
-				boolean doUpdate = false;
 				//---------------------------
 				//get BASE URL = RPG-PROGRAM
 		        //---------------------------
@@ -461,24 +457,21 @@ public class EbookingMainOrderHeaderController {
 				
 				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
 				//DEBUG
-				if(doUpdate){
-					logger.info("URL: " + BASE_URL_UPDATE);
-					logger.info("PARAMS: " + urlRequestParams);
-					logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-					String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-					//DEBUG only 5
-					logger.info(jsonPayload);
-					logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-					JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
-					//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-					if(jsonNotisblockContainer!=null){
-						//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-						if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
-							//Debug
-							logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg());
-						}
+				logger.info("URL: " + BASE_URL_UPDATE);
+				logger.info("PARAMS: " + urlRequestParams);
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
+				//DEBUG
+				//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
+				//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
+				if(jsonNotisblockContainer!=null){
+					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
+					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
+						//Debug
+						logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg() + msgNoteRecord[0] + "/" + msgNoteRecord[1] + "(heunik:" + record.getHeunik()+"hereff:"+ record.getHereff() + ")");
 					}
-					
 				}
 			}
 		}
@@ -557,7 +550,7 @@ public class EbookingMainOrderHeaderController {
 	    	logger.info("URL PARAMS: " + urlRequestParams);
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
 	    	//Debug --> 
-	    	logger.debug(jsonPayload);
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonMainOrderHeaderMessageNoteContainer messageNoteContainer = this.ebookingMainOrderHeaderService.getMessageNoteContainer(jsonPayload);
@@ -610,7 +603,7 @@ public class EbookingMainOrderHeaderController {
 			list.add(fraktbrevRecord);
 			
 		}
-		logger.info("********** order lines list, SIZE:" + list.size());
+		//logger.info("********** order lines list, SIZE:" + list.size());
 		recordToValidate.setFraktbrevList(list);
 	}
 	/**
@@ -840,11 +833,11 @@ public class EbookingMainOrderHeaderController {
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
+    	logger.info("URL PARAMS: (to long...)");// + urlRequestParams);
     	
     	
     	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	logger.info(rpgReturnPayload);
+    	logger.info(jsonDebugger.debugJsonPayloadWithLog4J(rpgReturnPayload));
     	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
     	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
     		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
