@@ -330,51 +330,75 @@ public class EbookingMainOrderHeaderController {
 		}
 		
 		if(recordToValidate !=null){
-			//CONSIGNEE (RECEIVER)
-			if(recordToValidate.getMessageNoteConsignee()!=null && !"".equals(recordToValidate.getMessageNoteConsignee())){
+			String messageNoteConsigneeOriginal = request.getParameter("messageNoteConsigneeOriginal");
+			if(!messageNoteConsigneeOriginal.equals(recordToValidate.getMessageNoteConsignee())){
+				//logger.info("CONSIGNEE NOT EQUAL");
+				//CONSIGNEE (RECEIVER)
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
 				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
-			}else{
-				if(recordToValidate.getMessageNoteConsigneeOriginal()!=null && !"".equals(recordToValidate.getMessageNoteConsigneeOriginal())){
+				
+				/*OBSOLETE but do not remove YET! (same for all other parties)
+				if(recordToValidate.getMessageNoteConsignee()!=null && !"".equals(recordToValidate.getMessageNoteConsignee())){
 					//Delete all values
 					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
-				}
+					//Add new values
+					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
+					this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				}else{
+					if(recordToValidate.getMessageNoteConsigneeOriginal()!=null && !"".equals(recordToValidate.getMessageNoteConsigneeOriginal())){
+						//Delete all values
+						//this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
+					}
+				}*/
+			}else{
+				logger.info("CONSIGNEE EQUAL"); 
+				//do not update
 			}
 			
-			//CARRIER
-			if(recordToValidate.getMessageNoteCarrier()!=null && !"".equals(recordToValidate.getMessageNoteCarrier())){
+			String messageNoteCarrierOriginal = request.getParameter("messageNoteCarrierOriginal");
+			if(!messageNoteCarrierOriginal.equals(recordToValidate.getMessageNoteCarrier())){
+				//logger.info("CARRIER NOT EQUAL");
+				//CARRIER
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
 				//Add new values
 				String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
 				this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 			}else{
-				//In case the user removes all lines without writing new ones
-				if(recordToValidate.getMessageNoteCarrierOriginal()!=null && !"".equals(recordToValidate.getMessageNoteCarrierOriginal())){
-					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
-				}
+				logger.info("CARRIER EQUAL"); 
+				//do not update
 			}
 			
-			
-			//INTERNAL
-			if(recordToValidate.getMessageNoteInternal()!=null && !"".equals(recordToValidate.getMessageNoteInternal())){
+			String messageNoteInternalOriginal = request.getParameter("messageNoteInternalOriginal");
+			if(!messageNoteInternalOriginal.equals(recordToValidate.getMessageNoteInternal())){
+				//logger.info("INTERNAL NOT EQUAL");
+				//INTERNAL
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
 				//Add new values
 				String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
 				this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 			}else{
-				if(recordToValidate.getMessageNoteInternalOriginal()!=null && !"".equals(recordToValidate.getMessageNoteInternalOriginal())){
-					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
-				}
+				logger.info("INTERNAL EQUAL"); 
+				//do not update
 			}
-			
+
 		}
+	}
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private boolean isNull(String value){
+		boolean retval = true;
+		if(value!=null && !"".equals(value)){
+			retval = false;
+		}
+		return retval;
 	}
 	
 	/**
