@@ -1074,15 +1074,15 @@
 							            		
 							            		<%-- These fields are not to be presented in the GUI --%>
 							            		<tr>
-									 			<td class="text12" colspan="2" ><span title="thgbl">Garantibeløb&nbsp;</span></td>
+									 			<td class="text12" colspan="2" ><font class="text16RedBold" >*</font><span title="thgbl">Garantibeløb&nbsp;</span></td>
 									 			<td class="text12">&nbsp;<span title="thgvk">Møntsort</span></td>
 								 			</tr>
 									 		<tr>	
 									 			<td colspan="2" align="left" >
-									 			<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="25" maxlength="13" value="${model.record.thgbl}">
+									 			<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thgbl" id="thgbl" size="25" maxlength="13" value="${model.record.thgbl}">
 									 			</td>
 									 			<td>
-									 				<select name="thgvk" id="thgvk" >
+									 				<select class="inputTextMediumBlueMandatoryField" name="thgvk" id="thgvk" >
 									 				  <option value="">-vælg-</option>	
 									 				  	<c:forEach var="code" items="${model.currencyCodeList}" >
 					                                	 	<option value="${code.dkkd_kd}"<c:if test="${model.record.thgvk == code.dkkd_kd}"> selected </c:if> >${code.dkkd_kd}</option>

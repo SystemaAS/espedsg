@@ -776,10 +776,12 @@
   	//============================
 	//START - Currency AJAX fetch
 	//============================
-	jq(function() { 
-	    jq('#dkxv_221').change(function() {
-	    	//alert('Hej');
-	    	//this parameters must match the AJAX controller parameter names in Spring exactly...
+  	jq(function() { 
+	    jq('#dkxv_222').blur(function() {
+	    	//only when currency and rate are already in place
+	    	if(jq('#dkxv_221').val()!='' && jq('#dkxv_221b').val()!=''){
+		    	//alert('Hej');
+		    	//this parameters must match the AJAX controller parameter names in Spring exactly...
 	    		var isoDate = "";
 	    		var faktisktAnkDato = jq('#datum').val();
 	    		var forventatAnkDato = jq('#datum').val();
@@ -789,42 +791,58 @@
 	    			isoDate =forventatAnkDato;
 	    		}
 	    		getCurrencyData(isoDate);
+	    	}
+	    });
+	});
+	jq(function() { 
+	    jq('#dkxv_221').blur(function() {
+	    	//alert('Hej');
+	    	//this parameters must match the AJAX controller parameter names in Spring exactly...
+    		var isoDate = "";
+    		var faktisktAnkDato = jq('#datum').val();
+    		var forventatAnkDato = jq('#datum').val();
+    		if(faktisktAnkDato!=""){
+    			isoDate =faktisktAnkDato; 
+    		}else{
+    			isoDate =forventatAnkDato;
+    		}
+    		getCurrencyData(isoDate);
 	    });
 	});
 	jq(function() { 
 	    jq('#dkxv_221b').blur(function() {
-	    		//alert('Hej');
-	    		//this parameters must match the AJAX controller parameter names in Spring exactly...
-	    		var dkxv_221b = jq('#dkxv_221b').val();
-	    		var isoDate = "";
-	    		var faktisktAnkDato = jq('#datum').val();
-	    		var forventatAnkDato = jq('#datum').val();
-	    		if(faktisktAnkDato!=""){
-	    			isoDate =faktisktAnkDato; 
-	    		}else{
-	    			isoDate =forventatAnkDato;
-	    		}
-	    		if(dkxv_221b==null || dkxv_221b==""){
-	    			getCurrencyData(isoDate);
-	    		}	
+    		//alert('Hej');
+    		//this parameters must match the AJAX controller parameter names in Spring exactly...
+    		var dkxv_221b = jq('#dkxv_221b').val();
+    		var isoDate = "";
+    		var faktisktAnkDato = jq('#datum').val();
+    		var forventatAnkDato = jq('#datum').val();
+    		if(faktisktAnkDato!=""){
+    			isoDate =faktisktAnkDato; 
+    		}else{
+    			isoDate =forventatAnkDato;
+    		}
+    		if(dkxv_221b==null || dkxv_221b==""){
+    			getCurrencyData(isoDate);
+    		}	
 	    });
 	});
 	jq(function() { 
 	    jq('#dkxv_221c').blur(function() {
-	    		//alert('Hej');
-	    		//this parameters must match the AJAX controller parameter names in Spring exactly...
-	    		var dkxv_221c = jq('#dkxv_221c').val();
-	    		var isoDate = "";
-	    		var faktisktAnkDato = jq('#datum').val();
-	    		var forventatAnkDato = jq('#datum').val();
-	    		if(faktisktAnkDato!=""){
-	    			isoDate =faktisktAnkDato; 
-	    		}else{
-	    			isoDate =forventatAnkDato;
-	    		}
-	    		if(dkxv_221c==null || dkxv_221c==""){
-	    			getCurrencyData(isoDate);
-	    		}	
+    		//alert('Hej');
+    		//this parameters must match the AJAX controller parameter names in Spring exactly...
+    		var dkxv_221c = jq('#dkxv_221c').val();
+    		var isoDate = "";
+    		var faktisktAnkDato = jq('#datum').val();
+    		var forventatAnkDato = jq('#datum').val();
+    		if(faktisktAnkDato!=""){
+    			isoDate =faktisktAnkDato; 
+    		}else{
+    			isoDate =forventatAnkDato;
+    		}
+    		if(dkxv_221c==null || dkxv_221c==""){
+    			getCurrencyData(isoDate);
+    		}	
 	    });
 	});
 	//private function

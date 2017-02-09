@@ -163,14 +163,19 @@
 		                    	<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 		                    	Status
 		                    	<div class="text11" style="position: relative;" align="left">
-									<span style="position: absolute; top:0px; left:-100px;" id="status_info" class="popupWithInputText"  >
+									<span style="position: absolute; top:0px; left:-150px; width:200px;" id="status_info" class="popupWithInputText"  >
 										<font class="text11" >
 					           		 	<p>Status</p>
 					           		 	<ul>
 					           				<li><b>A</b>&nbsp;Annet.</li>
 					           				<li><b>C</b>&nbsp;Sendt: sendt til mottakspunkt.</li>
 					           				<li><b>E</b>&nbsp;Error: Fejl ved sending.</li>
+					           				<li><b>N</b>&nbsp;Warning: Faktura mangler fakturalinjer.</li>
 					           				<li><b>O</b>&nbsp;OK: Sending er OK.</li>
+					           				<li><b>S</b>&nbsp;Info: Faktura er kredittert.</li>
+					           				<li><b>T</b>&nbsp;Warning: PDF av faktura er ikke klar.</li>
+					           				<li><b>V</b>&nbsp;Warning: XML-faktura skal ikke sendes pga. partners standardmelding ikke er definert (pkt.5 på meny EDIMNU3).</li>
+					           				<li><b>X</b>&nbsp;Warning: midletidig status. Program holder på å lage xml-fil</li>
 						           		</ul>
 						           		</font>
 									</span>
