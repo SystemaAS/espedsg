@@ -63,6 +63,8 @@ public class SadImportHeaderValidator implements Validator {
 		//Modtager
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sinak", "systema.tvinn.sad.import.header.error.null.sinak");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sirg", "systema.tvinn.sad.import.header.error.null.sirg");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "simva", "systema.tvinn.sad.import.header.error.null.simva");
+		
 		//Deklarant
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sinad", "systema.tvinn.sad.import.header.error.null.sinad");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sitlf", "systema.tvinn.sad.import.header.error.null.sitlf");

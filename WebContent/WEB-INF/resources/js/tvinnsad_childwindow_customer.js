@@ -22,6 +22,8 @@
 			  var wskta = record[10].replace("wskta", "");
 			  var wsktb = record[11].replace("wsktb", "");
 			  var wsktc = record[12].replace("wsktc", "");
+			  //momsregistrert
+			  var symvjn = record[13].replace("symvjn", "");
 			  //addressing a parent field from this child window
 			  //=========================
 			  //TVINN SAD Export Module 
@@ -63,6 +65,7 @@
 				  opener.jq('#siknk').val(knr);
 				  opener.jq('#sinak').val(knavn);
 				  opener.jq('#sirg').val(syrg);
+				  opener.jq('#simva').val(symvjn);
 				  opener.jq('#siadk1').val(adr1);
 				  opener.jq('#siadk2').val(adr2);
 				  opener.jq('#siadk3').val(adr3);

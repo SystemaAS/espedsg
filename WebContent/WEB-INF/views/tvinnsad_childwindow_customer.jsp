@@ -58,6 +58,7 @@
 		                    <th class="text11" >&nbsp;Postadresse&nbsp;</th>
 		                    <th class="text11" >&nbsp;Postnr&nbsp;</th>
 		                    <th class="text11" >&nbsp;Land&nbsp;</th>
+		                    <th class="text11" >&nbsp;Momsreg.&nbsp;</th>
 		                    <th class="text11" >&nbsp;Tollkredit&nbsp;</th>
 		                </tr> 
 		                </thead>
@@ -72,7 +73,7 @@
 			                       <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${record.syland}@keori${record.eori}@ctype${model.ctype}@kadr2${record.adr2}@ksyrg${record.syrg}@wskta${record.wskta}@wsktb${record.wsktb}@wsktc${record.wsktc}" >
+			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${record.syland}@keori${record.eori}@ctype${model.ctype}@kadr2${record.adr2}@ksyrg${record.syrg}@wskta${record.wskta}@wsktb${record.wsktb}@wsktc${record.wsktc}@symvjn${record.symvjn}" >
 			               		<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.kundnr}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.knavn}</td>
@@ -81,6 +82,12 @@
 		               	   <td class="text11">&nbsp;${record.adr3}</td>
 		               	   <td class="text11">&nbsp;${record.postnr}</td>
 		               	   <td class="text11">&nbsp;${record.syland}</td>
+		               	   <td class="text11">
+			               	   	<c:choose>
+				               	   	<c:when test="${ record.symvjn == 'J' || empty record.symvjn}">&nbsp;J</c:when>
+				               	   	<c:otherwise>&nbsp;N</c:otherwise>
+			               	   	</c:choose>	
+		               	   </td>
 		               	   <td class="text11">&nbsp;${record.wsktc}&nbsp;${record.wskta}&nbsp;${record.wsktb}</td>
 			            </tr> 
 			            </c:forEach>

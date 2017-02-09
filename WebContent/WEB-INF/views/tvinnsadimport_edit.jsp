@@ -698,7 +698,7 @@
 											
 											
 							            </td>
-							            <td class="text12" align="left" >&nbsp;&nbsp;
+							            <td class="text12" align="left" >&nbsp;
 							            <span title="sinak" id="v_sinak" class="validation"><font class="text16RedBold" >*</font>Navn&nbsp;</span>
 							            	<a tabindex="-1" id="sinakIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
@@ -710,11 +710,22 @@
 							            <td class="text12" align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sinak" id="sinak" size="31" maxlength="30" value="${model.record.sinak}"></td>
 							        </tr>
 							        <tr height="10"><td></td></tr>
-							        
 							        <tr>
-							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font>
-							            		<span title="sirg" id="v_sirg" class="validation">Regnr</span>
-							            </td>
+							            <td class="text12" align="left" >&nbsp;<font class="text16RedBold" >*</font><span title="sirg" id="v_sirg" class="validation">Regnr</span></td>
+							            <td class="text12" ><font class="text16RedBold" >*</font><span title="simva">Momregistrert&nbsp;</span></td>
+							        </tr>
+							        <tr>
+							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sirg" id="sirg" size="20" maxlength="11" value="${model.record.sirg}"></td>
+							            <td align="left">
+							            	<select class="inputTextMediumBlueMandatoryField" name="simva" id="simva" >
+							 				  <option value="J"<c:if test="${ model.record.simva == 'J' || empty model.record.simva}"> selected </c:if> >Ja</option>
+						 				  	  <option value="N"<c:if test="${ model.record.simva == 'N'}"> selected </c:if> >Nei</option>
+											</select>
+										</td>
+							        </tr>
+							        
+							        <tr height="4"><td>&nbsp;</td></tr>
+							        <tr>
 							            <td class="text12" >
 						 					<img onMouseOver="showPop('48_info');" onMouseOut="hidePop('48_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 				&nbsp;<b>48.&nbsp;</b><span title="siktc/sikta/siktb">Kontonr.Tollkredit&nbsp;</span>
@@ -729,13 +740,13 @@
 										</td>
 							        </tr>
 							        <tr>
-							            <td align="left"><input type="text" class="inputTextMediumBlueMandatoryField"  name="sirg" id="sirg" size="20" maxlength="11" value="${model.record.sirg}"></td>
 							            <td align="left">
 							            		<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktc" id="siktc" size="1" maxlength="1" value="${model.record.siktc}">
 											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="sikta" id="sikta" size="5" maxlength="5" value="${model.record.sikta}">
 											<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue" name="siktb" id="siktb" size="2" maxlength="2" value="${model.record.siktb}">
 										</td>	
 							        </tr>
+							         
 							         
 							        <tr height="4"><td>&nbsp;</td></tr>
 							        <tr>

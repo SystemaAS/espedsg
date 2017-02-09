@@ -66,6 +66,9 @@ public class JsonTvinnSadCustomerRecord {
 	public void setSyrg(String value){ this.syrg = value;}
 	public String getSyrg(){ return this.syrg; }
 	
+	private String symvjn = null;
+	public void setSymvjn(String value){ this.symvjn = value;}
+	public String getSymvjn(){ return this.symvjn; }
 	
 	private String vatkku = null;
 	public void setVatkku(String value){ this.vatkku = value;}

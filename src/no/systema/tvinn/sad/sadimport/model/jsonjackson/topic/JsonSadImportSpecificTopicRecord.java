@@ -229,6 +229,10 @@ public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setSirg(String value) {  this.sirg = value; }
 	public String getSirg() {return this.sirg;}
 	
+	private String simva = null;
+	public void setSimva(String value) {  this.simva = value; }
+	public String getSimva() { return this.simva;}
+
 	private String sinak = null;
 	public void setSinak(String value) {  this.sinak = value; }
 	public String getSinak() {return this.sinak;}
