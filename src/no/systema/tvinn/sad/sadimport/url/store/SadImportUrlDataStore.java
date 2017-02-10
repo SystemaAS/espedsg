@@ -134,6 +134,8 @@ public final class SadImportUrlDataStore {
 	//------------------------------------------
 	static public String SAD_IMPORT_BASE_PRINT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI014R.pgm";	
 	//http://gw.systema.no/sycgip/TNOI014R.pgm?user=OSCAR&avd=1&opd=218	
+	static public String SAD_IMPORT_BASE_PRINT_SKILLEARK_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TARC000R.pgm";	
+	//http://gw.systema.no/sycgip/TNOI014R.pgm?user=OSCAR&avd=1&opd=218	
 
 	//----------------------------------------------
 	//[9] Avd default values for every new record

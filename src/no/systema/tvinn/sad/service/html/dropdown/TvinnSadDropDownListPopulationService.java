@@ -9,6 +9,7 @@ import no.systema.tvinn.sad.mapper.jsonjackson.avdsignature.TvinnSadSignatureMap
 
 
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCode2Container;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadNctsCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadAvdelningContainer;
 import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadSignatureContainer;
@@ -38,7 +39,22 @@ public class TvinnSadDropDownListPopulationService {
 		return this.codeMapper.getContainer(utfPayload);
 	}
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTvinnSadCode2Container getCodeContainer2(String utfPayload) throws Exception{
+		return this.codeMapper.getContainer2(utfPayload);
+	}
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
 	public JsonTvinnSadNctsCodeContainer getNctsCodeContainer(String utfPayload) throws Exception{
 		return this.codeMapper.getNctsContainer(utfPayload);
 	}

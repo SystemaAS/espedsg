@@ -57,6 +57,7 @@ import no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicItemService;
 import no.systema.tvinn.sad.sadexport.util.RpgReturnResponseHandler;
 import no.systema.tvinn.sad.sadexport.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportSpecificTopicFaktTotalRecord;
+import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
@@ -556,6 +557,47 @@ public class SadExportHeaderController {
 		return successView;
 	}
 
+	@RequestMapping(value="tvinnsadexport_edit_printSkilleArkTopic.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doSadExportEditPrintSkilleArkTopic(HttpSession session, HttpServletRequest request){
+		Map model = new HashMap();
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		ModelAndView successView = new ModelAndView("redirect:tvinnsadexport.do?action=doFind&sg=" + appUser.getTvinnSadSign());
+		
+		String method = "doSadExportEditPrintSkilleArkTopic [RequestMapping-->tvinnsadexport_edit_printSkilleArkTopic.do]";
+		logger.info("Method: " + method);
+		String opd = request.getParameter("currentOpd");
+		String avd = request.getParameter("currentAvd");
+		String archiveType = request.getParameter("selectedType");
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+		}else{
+			//-------------------------------------
+			//get BASE URL = RPG-PROGRAM for PRINT
+            //-------------------------------------
+			String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_PRINT_SKILLEARK_FOR_SPECIFIC_TOPIC_URL;
+			//url params
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForPrintSkilleArk( avd, opd, appUser, archiveType);
+			//for debug purposes in GUI
+			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the Print (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    //END of PRINT here and now
+	    	logger.info("Method PRINT END - " + method);	
+		}
+		
+		return successView;
+	}
 
 	/**
 	 * Copies one topic(angivelse) to a new one (clones the source topic)
@@ -1118,6 +1160,25 @@ public class SadExportHeaderController {
 	 * 
 	 * @param avd
 	 * @param opd
+	 * @param appUser
+	 * @param type
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForPrintSkilleArk(String avd, String opd, SystemaWebUser appUser, String type){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "type=" + type);
+		
+		return urlRequestParamsKeys.toString();	
+	}
+	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
 	 * @param extRefNr
 	 * @param appUser
 	 * @return
@@ -1484,6 +1545,10 @@ public class SadExportHeaderController {
 					 model,appUser,CodeDropDownMgr.CODE_D_LAGRINGSSTED, null, null);
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
 					 model,appUser,CodeDropDownMgr.CODE_HA_HAVNKODER, null, null);
+			
+			//drop down to print skilleark (must be Z type)
+			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString2(urlCgiProxyService, tvinnSadDropDownListPopulationService, model, appUser, "Z");
+			
 	}
 	
 	/**

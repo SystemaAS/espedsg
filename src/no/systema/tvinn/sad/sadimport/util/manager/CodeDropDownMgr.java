@@ -16,6 +16,9 @@ import no.systema.skat.skatimport.util.SkatImportConstants;
 import no.systema.tvinn.sad.model.external.url.UrlTvinnSadTolltariffenObject;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCode2Container;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCode2Record;
+
 import no.systema.tvinn.sad.sadexport.util.SadExportConstants;
 import no.systema.tvinn.sad.sadimport.util.SadImportConstants;
 import no.systema.tvinn.sad.sadimport.util.manager.CodeDropDownMgr;
@@ -181,10 +184,61 @@ public class CodeDropDownMgr {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
+	
+
+	/**
+	 * 
+	 * @param urlCgiProxyService
+	 * @param tvinnSadDropDownListPopulationService
+	 * @param model
+	 * @param appUser
+	 * @param paramTYP
+	 */
+	public void populateCodesHtmlDropDownsFromJsonString2(UrlCgiProxyService urlCgiProxyService, TvinnSadDropDownListPopulationService tvinnSadDropDownListPopulationService,
+			Map model, SystemaWebUser appUser, String paramTYP){
+			//fill in html lists here
+			try{
+			
+			String CODES_URL = TvinnSadUrlDataStore.TVINN_SAD_CODES2_URL;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "type=" + paramTYP);
+			//logger.info("CODES_URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+			//debug
+			//logger.info(utfPayload);
+			
+			JsonTvinnSadCode2Container codeContainer = tvinnSadDropDownListPopulationService.getCodeContainer2(utfPayload);
+			List<JsonTvinnSadCode2Record> list = new ArrayList();
+			
+			//Take some exception into consideration here or run the default to populate the final list
+			for(JsonTvinnSadCode2Record codeRecord: codeContainer.getArkivkodelist()){
+				//default
+				list.add(codeRecord);
+				//logger.info("CODE_RECORD: " + codeRecord.getZtxt());
+			}
+			model.put(SadImportConstants.RESOURCE_MODEL_KEY_CODE_ARCHIVE_CODE_LIST,list);
+			
+			
+			
+			//we put tolltariffen here since there is no other related list on ITEMS jsp
+			//model.put(SadImportConstants.URL_EXTERNAL_TOLLTARIFFEN, new UrlTvinnSadTolltariffenObject() );
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 

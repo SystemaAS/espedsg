@@ -10,6 +10,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCodeRecord;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCode2Container;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadCode2Record;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadNctsCodeContainer;
 import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadNctsCodeRecord;
 
@@ -40,6 +42,35 @@ public class TvinnSadCodeMapper {
 			//DEBUG
 			Collection<JsonTvinnSadCodeRecord> fields = codeContainer.getKodlista();
 			for(JsonTvinnSadCodeRecord record : fields){
+				/*logger.info("Code: " + record.getZkod());
+				logger.info("Value: " + record.getZtxt());
+				*/
+			}
+		}	
+		return codeContainer;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTvinnSadCode2Container getContainer2(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		JsonTvinnSadCode2Container codeContainer = null;
+		
+		if(utfPayload!=null){
+			//At this point we now have an UTF-8 payload
+			codeContainer = mapper.readValue(utfPayload.getBytes(), JsonTvinnSadCode2Container.class); 
+			//logger.info("Mapping Code object from JSON payload...");
+			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
+			
+			//DEBUG
+			Collection<JsonTvinnSadCode2Record> fields = codeContainer.getArkivkodelist();
+			for(JsonTvinnSadCode2Record record : fields){
 				/*logger.info("Code: " + record.getZkod());
 				logger.info("Value: " + record.getZtxt());
 				*/

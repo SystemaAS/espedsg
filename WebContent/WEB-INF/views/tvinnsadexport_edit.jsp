@@ -246,9 +246,10 @@
 						<input tabindex=-1 type="checkbox" name="se0035" id="se0035" value="2" <c:if test="${model.record.se0035 == '2'}"> checked </c:if> ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;						
 					</c:if>
 					<a tabindex=-1 href="tvinnsadexport_edit_printTopic.do?avd=${model.record.seavd}&opd=${model.record.setdn}">
-					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
-						&nbsp;&nbsp;&nbsp;
+					 	<img style="vertical-align: bottom;cursor:pointer;" src="resources/images/printer.png" width="30px" height="30px" border="0" alt="Print">
 					</a>
+					&nbsp;&nbsp;<img title="Print skilleark" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print skilleark">
+					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
 			<tr >
@@ -1822,6 +1823,34 @@
 		</div>
 	</td>
 </tr>
+
+<%-- -------------------------- --%>	
+ <%-- print skilleark dialog    --%>	
+ <%-- -------------------------- --%>	
+ <tr>
+	<td>
+		<div id="dialogPrintSkilleArk" title="Dialog">
+			<form action="tvinnsadexport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
+			 	<input type="hidden" name="currentAvd" id="currentAvd" value="${model.record.seavd}">
+			 	<input type="hidden" name="currentOpd" id="currentOpd" value="${model.record.setdn}">
+				<table>
+					<tr>
+						<td class="text12" align="left" >&nbsp;Type</td>
+						<td class="text12MediumBlue">
+							<select name="selectedType" id="selectedType">
+			            		<option value="">-velg-</option>
+			            		<c:forEach var="record" items="${model.typeArchiveCodeList}" >
+			 				  		<option value="${record.artype}">${record.artype}&nbsp;${record.artxt}</option>
+								</c:forEach>  
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</td>
+</tr> 
+	
  
 
 	

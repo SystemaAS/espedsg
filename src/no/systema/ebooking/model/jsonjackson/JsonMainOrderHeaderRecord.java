@@ -17,7 +17,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
 	static public final String MESSAGE_NOTE_CONSIGNEE = "R";
 	static public final String MESSAGE_NOTE_CARRIER = "G";
-	static public final String MESSAGE_NOTE_INTERNAL = " ";
+	static public final String MESSAGE_NOTE_INTERNAL = "";
 	
 	
 	

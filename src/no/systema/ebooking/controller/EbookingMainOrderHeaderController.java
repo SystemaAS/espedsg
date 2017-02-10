@@ -374,7 +374,7 @@ public class EbookingMainOrderHeaderController {
 			
 			String messageNoteInternalOriginal = request.getParameter("messageNoteInternalOriginal");
 			if(!messageNoteInternalOriginal.equals(recordToValidate.getMessageNoteInternal())){
-				//logger.info("INTERNAL NOT EQUAL");
+				logger.info("INTERNAL NOT EQUAL");
 				//INTERNAL
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
@@ -462,6 +462,7 @@ public class EbookingMainOrderHeaderController {
 	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
 		
 		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
+			logger.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&:" + msgNoteRawRecord);
 			String [] msgNoteRecord = msgNoteRawRecord.split("@");
 			if(msgNoteRecord!=null && msgNoteRecord.length==2){
 				//---------------------------
@@ -497,6 +498,7 @@ public class EbookingMainOrderHeaderController {
 						logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg() + msgNoteRecord[0] + "/" + msgNoteRecord[1] + "(heunik:" + record.getHeunik()+"hereff:"+ record.getHereff() + ")");
 					}
 				}
+				
 			}
 		}
 	}
@@ -566,7 +568,7 @@ public class EbookingMainOrderHeaderController {
     		urlRequestParams.append("user=" + applicationUser);
     		if(orderRecord.getHeunik()!=null && !"".equals(orderRecord.getHeunik())){ urlRequestParams.append("&unik=" + orderRecord.getHeunik()); }
     		if(orderRecord.getHereff()!=null && !"".equals(orderRecord.getHereff())){ urlRequestParams.append("&reff=" + orderRecord.getHereff()); }
-    		if(type!=null && !"".equals(type)){ urlRequestParams.append("&part=" + type); }
+    		urlRequestParams.append("&part=" + type);
     		
     		
     		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -578,9 +580,18 @@ public class EbookingMainOrderHeaderController {
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonMainOrderHeaderMessageNoteContainer messageNoteContainer = this.ebookingMainOrderHeaderService.getMessageNoteContainer(jsonPayload);
-	    		outputList = messageNoteContainer.getFreetextlist();
-	    		for(JsonMainOrderHeaderMessageNoteRecord note: outputList){
-	    			//logger.info(note.getFrttxt());
+	    		Collection<JsonMainOrderHeaderMessageNoteRecord> tmpList = messageNoteContainer.getFreetextlist();
+	    		if(type!=null && !"".equals(type)){
+	    			outputList = tmpList;
+	    		}else{
+	    			//all records with no part type (blank) must be filtered 
+		    		for(JsonMainOrderHeaderMessageNoteRecord record: tmpList){
+		    			if(record.getFrtkod()==null || "".equals(record.getFrtkod())){ //since we must filter in this specific type (blank)
+		    				if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
+		    					outputList.add(record);		    					
+		    				}
+		    			}	
+		    		}
 	    		}
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 		}

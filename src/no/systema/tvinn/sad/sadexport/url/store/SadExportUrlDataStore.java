@@ -137,6 +137,8 @@ public final class SadExportUrlDataStore {
 	//------------------------------------------
 	static public String SAD_EXPORT_BASE_PRINT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOE014R.pgm";	
 	//http://gw.systema.no/sycgip/TNOI014R.pgm?user=OSCAR&avd=1&opd=218	
+	static public String SAD_EXPORT_BASE_PRINT_SKILLEARK_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TARC000R.pgm";	
+	//http://gw.systema.no/sycgip/TARC000R.pgm?user=OSCAR&avd=1&opd=218&type=Z
 
 	
 	//----------------------------------------------

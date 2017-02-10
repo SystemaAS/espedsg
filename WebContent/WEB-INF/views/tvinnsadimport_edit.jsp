@@ -35,19 +35,19 @@
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
-			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="alinkTopicList" style="display:block;" 
-					<c:choose>
-						<c:when test="${empty model.record.sisg}">href="tvinnsadimport.do?action=doFind&sg=${user.tvinnSadSign}"</c:when>
-						<c:otherwise>href="tvinnsadimport.do?action=doFind&sg=${model.record.sisg}"</c:otherwise>
-					</c:choose> > 
-					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
-				</a>
-			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<c:choose> 
 			    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
+			    	<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkTopicList" style="display:block;" 
+							<c:choose>
+								<c:when test="${empty model.record.sisg}">href="tvinnsadimport.do?action=doFind&sg=${user.tvinnSadSign}"</c:when>
+								<c:otherwise>href="tvinnsadimport.do?action=doFind&sg=${model.record.sisg}"</c:otherwise>
+							</c:choose> > 
+							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">
 							&nbsp;<spring:message code="systema.tvinn.sad.import.created.mastertopic.tab"/>
@@ -138,11 +138,22 @@
 					<td width="25%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:when>
 				<c:otherwise>
-					<td width="15%" valign="bottom" class="tab" align="center" nowrap>
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a id="alinkTopicList" style="display:block;" 
+							<c:choose>
+								<c:when test="${empty model.record.sisg}">href="tvinnsadimport.do?action=doFind&sg=${user.tvinnSadSign}"</c:when>
+								<c:otherwise>href="tvinnsadimport.do?action=doFind&sg=${model.record.sisg}"</c:otherwise>
+							</c:choose> > 
+							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tvinn.sad.import.list.tab"/></font>
+						</a>
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.import.createnew.tab"/></font>
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 					</td>
-					<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				</c:otherwise>
 			</c:choose>
 		</tr>
@@ -245,9 +256,10 @@
 						<input tabindex=-1 type="checkbox" name="si0035" id="si0035" value="2" <c:if test="${model.record.si0035 == '2'}"> checked </c:if> ><font class="text12MediumBlue"><b>TEST flagg</b></font>&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<a tabindex=-1 href="tvinnsadimport_edit_printTopic.do?avd=${model.record.siavd}&opd=${model.record.sitdn}">
-					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
-						&nbsp;&nbsp;&nbsp;
+					 	<img title="Print" style="vertical-align: bottom;cursor:pointer;" src="resources/images/printer.png" width="30px" height="30px" border="0" alt="Print">
 					</a>
+					&nbsp;&nbsp;<img title="Print skilleark" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print skilleark">
+					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
 			<tr >
@@ -1892,4 +1904,31 @@
 		</div>
 	</td>
 </tr>
+
+<%-- -------------------------- --%>	
+ <%-- print skilleark dialog    --%>	
+ <%-- -------------------------- --%>	
+ <tr>
+	<td>
+		<div id="dialogPrintSkilleArk" title="Dialog">
+			<form action="tvinnsadimport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
+			 	<input type="hidden" name="currentAvd" id="currentAvd" value="${model.record.siavd}">
+			 	<input type="hidden" name="currentOpd" id="currentOpd" value="${model.record.sitdn}">
+				<table>
+					<tr>
+						<td class="text12" align="left" >&nbsp;Type</td>
+						<td class="text12MediumBlue">
+							<select name="selectedType" id="selectedType">
+			            		<option value="">-velg-</option>
+			            		<c:forEach var="record" items="${model.typeArchiveCodeList}" >
+			 				  		<option value="${record.artype}">${record.artype}&nbsp;${record.artxt}</option>
+								</c:forEach>  
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</td>
+</tr> 
 	

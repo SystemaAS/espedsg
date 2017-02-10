@@ -34,6 +34,9 @@ public final class TvinnSadUrlDataStore {
 	// GENERAL CODES - TVINN SAD 
 	static public String TVINN_SAD_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG005R.pgm"; 
 	//http://gw.systema.no/sycgip/TNOG005R.pgm?user=OSCAR&typ=2
+	static public String TVINN_SAD_CODES2_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TARC001R.pgm"; 
+	//http://gw.systema.no/sycgip/TARC001R.pgm?user=OSCAR&type=Z..
+	
 	
 	//FETCH VARUKODER-TOLLTARIFF (ITEM LINES)
 	static public String TVINN_SAD_FETCH_TOLLTARIFF_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG006R.pgm";
