@@ -33,6 +33,10 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setValidOppdragRef(boolean value) {  this.validOppdragRef = value; }
 	public boolean isValidOppdragRef() {return this.validOppdragRef;}
 	
+	private boolean validTolltariff = true;
+	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
+	public boolean isValidTolltariff() {return this.validTolltariff;}
+	
 	
 	//Aux. attr. in order to sum all packages
 	private Integer sum_of_tvnt = 0;

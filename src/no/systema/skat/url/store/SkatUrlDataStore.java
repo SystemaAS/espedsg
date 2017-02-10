@@ -30,7 +30,7 @@ public final class SkatUrlDataStore {
 	
 	//FETCH VARUKODER-TARIC (ITEM LINES)
 	static public String SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKG006R.pgm";
-	//http://gw.systema.no/sycgip/TDKG006R.pgm?user=OSCAR&ie=I&kod=8514 or (ie=E)
+	//http://gw.systema.no/sycgip/TDKG006R.pgm?user=OSCAR&ie=I&kod=8514 or (ie=I/E). NCTS=(I/E)
 	
 	
 	//CURRENCY RATES

@@ -28,13 +28,17 @@ import org.springframework.validation.BindingResult;
 
 //import no.systema.tds.service.MainHdTopicService;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodRecord;
 import no.systema.skat.nctsexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemRecord;
+import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicRecord;
+
 
 import no.systema.skat.nctsexport.service.SkatNctsExportSpecificTopicItemService;
 import no.systema.skat.nctsexport.service.html.dropdown.SkatNctsExportDropDownListPopulationService;
@@ -42,13 +46,20 @@ import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
 import no.systema.skat.nctsexport.util.RpgReturnResponseHandler;
 import no.systema.skat.nctsexport.validator.SkatNctsExportItemsValidator;
 
+import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.nctsexport.util.manager.CodeDropDownMgr;
+import no.systema.skat.service.SkatTaricVarukodService;
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.items.JsonSkatNctsExportSpecificTopicItemSecurityContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportTopicListContainer;
 import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
 import no.systema.skat.skatexport.service.SkatExportTopicListService;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecord;
+import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatTaricVarukodContainer;
+import no.systema.tvinn.sad.model.jsonjackson.codes.JsonTvinnSadTolltariffVarukodRecord;
+import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
 
 /**
  * 
@@ -129,6 +140,8 @@ public class SkatNctsExportItemsController {
 				//clean
 				session.removeAttribute("tvli_SESSION");
 			}
+			//get header record (to access header variables)
+			JsonSkatNctsExportSpecificTopicRecord headerRecord = (JsonSkatNctsExportSpecificTopicRecord)session.getAttribute(SkatConstants.DOMAIN_RECORD_TOPIC_SKAT_NCTS_EXPORT);
 			
 			//this key is only used with a real Update. When empty it will be a signal for a CREATE NEW (Add)
 			String lineNr = request.getParameter("tvli");
@@ -176,6 +189,9 @@ public class SkatNctsExportItemsController {
 				if(!"".equals(recordToValidate.getTvtdn2())){
 					recordToValidate.setValidOppdragRef(this.isValidOppdragRef(appUser, recordToValidate));
 				}
+				//check if varukod is valid
+				boolean isBatch = false;
+				this.backEndValidationOnTolltariff(appUser, headerRecord, recordToValidate, isBatch);
 				validator.validate(recordToValidate, bindingResult);
 				
 			    //check for ERRORS
@@ -752,6 +768,78 @@ public class SkatNctsExportItemsController {
     	return retval;
 	}
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param headerRecord
+	 * @param record
+	 * @param isBatch
+	 */
+	private void backEndValidationOnTolltariff(SystemaWebUser appUser, JsonSkatNctsExportSpecificTopicRecord headerRecord, JsonSkatNctsExportSpecificTopicItemRecord record, boolean isBatch){
+		//String ITEM_NR_SUFFIX_CHARACTERS_INVALID = "???";
+		//we must validate towards the back-end here in order to avoid injection problems in Validator
+		//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search-taric-number routine
+		JsonSkatTaricVarukodRecord jsonSkatTaricVarukodRecord = this.getTaricVarukod(appUser.getUser(), record.getTvvnt(), headerRecord.getThalk());
+		if(jsonSkatTaricVarukodRecord!=null){
+			logger.info("VALID varukod:" + record.getTvvnt());
+			//N/A --> this.setValuesOnRecordToValidate(jsonSkatTaricVarukodRecord, record, isBatch);
+			
+		}else{
+			logger.info("INVALID varukod:" + record.getTvvnt());
+			//only with validation of a specific record (no batch)
+			/*
+			if(!isBatch){
+				if(record.getDkev_331()!=null){
+					Integer length = record.getDkev_331().length();
+					if(length>=3){
+						record.setSvvntValid(false);
+					}else{
+						//put a suffix to indicate invalid number (in a single validation use case)
+						record.setSvvntValid(false);
+					}
+				}
+			}else{
+				record.setValidTolltariff(false);
+			}
+			*/
+			record.setValidTolltariff(false);
+		}
+		
+		
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param taricVarukod
+	 * @param countryCode
+	 * @return
+	 */
+	private JsonSkatTaricVarukodRecord getTaricVarukod(String applicationUser, String taricVarukod, String countryCode) {
+		logger.info("Inside getTaricVarukod()");
+		JsonSkatTaricVarukodRecord retval = null;
+		
+		String TYPE_IE = "E";
+		try{
+		  String BASE_URL = SkatUrlDataStore.SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL;
+		  String urlRequestParamsKeys = "user=" + applicationUser + "&ie=" + TYPE_IE + "&kod=" + taricVarukod; // + "&selkb=" + countryCode;
+		  UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		  String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		  JsonSkatTaricVarukodContainer container = this.skatTaricVarukodService.getContainer(jsonPayload);
+		  if(container!=null){
+			  for(JsonSkatTaricVarukodRecord record : container.getTariclist()){
+				  if(taricVarukod!=null && taricVarukod.equals(record.getDktara02())){
+					  //logger.info("MATCH on VAREKOD. !!!!: " + record.getDktara02());
+					  retval = record;
+				  }
+			  }	
+		  }
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	  
+		return retval;
+  	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -786,6 +874,14 @@ public class SkatNctsExportItemsController {
 	@Required
 	public void setSkatExportTopicListService (SkatExportTopicListService value){ this.skatExportTopicListService = value; }
 	public SkatExportTopicListService getSkatExportTopicListService(){ return this.skatExportTopicListService; }
+	
+	@Qualifier 
+	private SkatTaricVarukodService skatTaricVarukodService;
+	@Autowired
+	@Required	
+	public void setSkatTaricVarukodService(SkatTaricVarukodService value){this.skatTaricVarukodService = value;}
+	public SkatTaricVarukodService getSkatTaricVarukodService(){ return this.skatTaricVarukodService; }
+	
 	
 	 
 }

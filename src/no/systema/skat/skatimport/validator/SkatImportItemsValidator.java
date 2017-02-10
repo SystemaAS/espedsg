@@ -135,6 +135,7 @@ public class SkatImportItemsValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
+				
 				//---------------------
 				//Gross and Net weight
 				//---------------------

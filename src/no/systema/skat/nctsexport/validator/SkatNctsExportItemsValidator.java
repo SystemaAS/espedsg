@@ -55,11 +55,15 @@ public class SkatNctsExportItemsValidator implements Validator {
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
+				//Check varukod
+				if(!record.isValidTolltariff()){
+					errors.rejectValue("tvvnt", "systema.skat.ncts.export.header.error.null.item.varenr.tvvnt");
+				}
+				
 				//-----------------------------------------------------
 				//Oemballerade varor must always have "Styck" (delar)
 				//tveh
 				//-----------------------------------------------------
-				
 				if("NE".equals(record.getTveh()) || "NF".equals(record.getTveh())){
 					if(record.getTvnteh()==null && "".equals(record.getTvnteh())){
 						errors.rejectValue("tvnteh", "systema.skat.ncts.export.header.error.rule.item.tvnteh.biggerThanZero");
