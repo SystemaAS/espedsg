@@ -155,31 +155,25 @@
 							<td colspan="2">
 							<table border="0">
 							 	<tr>
-							 		
 						 		 	<td class="text11">&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hereff"><spring:message code="systema.ebooking.orders.form.update.label.orderref"/>&nbsp;</span></td>
 				 					<td class="text11">
 					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
 					 				</td>
+					 				
 					 				<td align="left" class="text11" >
-					 					&nbsp;&nbsp;<span title="heavd">Avd</span>
+					 					&nbsp;&nbsp;<span title="xfakBet"><spring:message code="systema.ebooking.orders.form.update.label.fraktbetaler"/></span>
 					 				</td>
 					 				<td class="text11">
-					 					<input readonly type="text" class="inputTextReadOnly" name="heavd" id="heavd" size="8" maxlength="8" value="${model.record.heavd}">
+										<select <c:if test="${not model.record.fakBetExists}"> disabled </c:if> name="xfakBet" id="xfakBet">
+											<option value=''>-velg-</option>
+						 					<option value='S' <c:if test="${model.record.xfakBet == 'S'}"> selected </c:if> ><spring:message code="systema.ebooking.orders.form.update.label.shipper.seller"/></option>
+				 							<option value='M' <c:if test="${model.record.xfakBet == 'M'}"> selected </c:if> ><spring:message code="systema.ebooking.orders.form.update.label.consignee"/></option>
+				 							<option value='A' <c:if test="${model.record.xfakBet == 'A'}"> selected </c:if> ><spring:message code="systema.ebooking.orders.form.update.label.annen"/></option>
+										</select>
 					 				</td>
+					 				 
 					 			</tr>
-					 			<tr>
-							 		
-						 		 	<td class="text11" >&nbsp;&nbsp;
-							 			<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.annenref"/>&nbsp;</span>
-				 					</td>
-				 					<td class="text11">
-					 					<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="10" maxlength="10" value="${XXmodel.record.trknfa}">
-					 				</td>
-					 				<td align="right" class="text11" colspan="4">
-					 					&nbsp;&nbsp;<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.avvikande.adr"/></span>
-					 					<input type="checkbox" id="todo" name="todo" value="J" <c:if test="${XXmodel.record.hepk1 == 'J'}"> checked </c:if>>
-					 				</td>
-				 				</tr>
+					 			
 							</table>
 							</td>
 						</tr>
@@ -201,11 +195,11 @@
 							<table class="tableBorderWithRoundCornersLightGray">
 								<tr>
 									<td class="text12Bold"><spring:message code="systema.ebooking.orders.form.update.label.shippingDates"/></td>
-									<td class="text11">&nbsp;<font class="text12RedBold" >*</font><span title="wsetdd/wsetdk"><spring:message code="systema.ebooking.orders.form.update.label.shippingDates.etd"/></span></td>
+									<td class="text11">&nbsp;<span title="wsetdd/wsetdk"><spring:message code="systema.ebooking.orders.form.update.label.shippingDates.etd"/></span></td>
 									<td class="text11">
-										<input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetdd" id="wsetdd" size="9" maxlength="8" value="${model.record.wsetdd}">
+										<input type="text" class="inputTextMediumBlue11" name="wsetdd" id="wsetdd" size="9" maxlength="8" value="${model.record.wsetdd}">
 									</td>
-									<td class="text11"><input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetdk" id="wsetdk" size="4" maxlength="4" value="${model.record.wsetdk}"></td>
+									<td class="text11"><input type="text" class="inputTextMediumBlue11" name="wsetdk" id="wsetdk" size="4" maxlength="4" value="${model.record.wsetdk}"></td>
 									
 						
 								</tr>
@@ -215,11 +209,11 @@
 							<table class="tableBorderWithRoundCornersLightGray">
 								<tr>
 									<td class="text12Bold"><spring:message code="systema.ebooking.orders.form.update.label.arrivalDates"/></td>
-									<td class="text11">&nbsp;<font class="text12RedBold" >*</font><span title="wsetad/wsetak"><spring:message code="systema.ebooking.orders.form.update.label.arrivalDates.eta"/></span></td>
+									<td class="text11">&nbsp;<span title="wsetad/wsetak"><spring:message code="systema.ebooking.orders.form.update.label.arrivalDates.eta"/></span></td>
 									<td class="text11">
-										<input type="text" class="inputTextMediumBlue11MandatoryField" name="wsetad" id="wsetad" size="9" maxlength="8" value="${model.record.wsetad}">
+										<input type="text" class="inputTextMediumBlue11" name="wsetad" id="wsetad" size="9" maxlength="8" value="${model.record.wsetad}">
 									</td>
-									<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" name="wsetak" id="wsetak" size="4" maxlength="4" value="${model.record.wsetak}"></td>
+									<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="wsetak" id="wsetak" size="4" maxlength="4" value="${model.record.wsetak}"></td>
 									
 								</tr>
 							</table>
@@ -235,12 +229,15 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.ebooking.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
-	 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 									</a>
+					 					<c:if test="${model.record.fakBetExists}">
+						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 									</a>
+	 									</c:if>
 					 				</td>
 					 				<td class="text11">
 					 					&nbsp;<span title="whenas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.seller"/>&nbsp;</span>
+					 	
 					 				</td>
 					 			</tr>
 					 			<tr>	
@@ -249,12 +246,18 @@
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
-					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.name"/></span></td>
+					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.name"/></span>
+					 					<c:if test="${model.record.fakBetExists}">
+						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${model.record.hekns}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 									</a>
+	 									</c:if>
+					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="heads2"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr2"/></span></td>
@@ -277,7 +280,7 @@
 											<font class="text11">
 							           			<b>Søk Avs.</b>
 							           			<div>
-							           			<p>Avsenders søkereferanse Fritt felt for utfylling. <br>
+							           			<p>Avsenders søkereferanse <br>
 							           				Begrep for senere søk/gjenfinning.</p>
 							           			</div>
 						           			</font>
@@ -296,7 +299,7 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
+				 						<input type="text" class="inputTextMediumBlue11" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
 								 	</td>
 				 					<td class="text11" >
 						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">
@@ -318,58 +321,65 @@
 					 			<tr>	
 				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${model.record.wssmail}"></td>
 				 				</tr>
+				 				<tr height="8"><td ></td></tr>
 				 				
-				 				<tr height="8"><td ></td></tr>													 				
-								<tr>
-				 					<td class="text12Bold">&nbsp;
-				 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
-				 						<spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee"/>
-			 						</td>
-								</tr>
-				 				<tr>
-				 					<td colspan="2">
-				 					<table class="tableBorderWithRoundCornersLightGray">
-					 					<tr>
-							 				<td class="text11">
-							 					&nbsp;<span title="heknsf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.id"/>&nbsp;</span>
-							 				</td>
-							 				<td class="text11">
-							 					&nbsp;<span title="henasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
-							 				</td>
-							 				<td class="text11">
-							 					<img onMouseOver="showPop('shipperCurr_info');" onMouseOut="hidePop('shipperCurr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 				<span title="hevals"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.currencyCode"/>&nbsp;</span>
-								 				<div class="text11" style="position: relative;" align="left">
-													<span style="position:absolute; left:0px; top:0px; width:250px" id="shipperCurr_info" class="popupWithInputText"  >
-														<font class="text11">
-									           			<b>Valuta</b>
-									           			<div>
-									           			<p>Valuta for fakturautstedelse - hentes fra kunderegister, kan overstyres. 
-									           				Ved ulik NOK går fremmedvaluta inn i reskontro.
-									           			</p>
-									           			</div>
-								           			</font>
-												</span>
-												</div>
-							 				</td>
-							 				
-						 				</tr>
-						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${model.record.henasf}"></td>
-						 					<td class="text11" >
-						 						<select name="hevals" id="hevals">
-							 						<option value="">-valuta-</option>
-								 				  	<c:forEach var="currency" items="${Xmodel.currencyCodeList}" >
-								 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevals == currency || (empty Xmodel.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
-													</c:forEach>  
-												</select>
-						 					</td>
-						 					
-					 					</tr>
-									</table>
-									</td>				 				
-					 			</tr>
+				 				<c:if test="${model.record.fakBetExists}">													 				
+									<tr>
+					 					<td class="text12Bold">&nbsp;
+					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
+					 						<spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee"/>
+				 						</td>
+									</tr>
+					 				<tr>
+					 					<td colspan="2">
+					 					<table class="tableBorderWithRoundCornersLightGray">
+						 					<tr>
+								 				<td class="text11">
+								 					&nbsp;<span title="heknsf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.id"/>&nbsp;</span>
+								 					<c:if test="${model.record.fakBetExists}">
+									 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=sf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+					 									</a>
+				 									</c:if>
+								 				</td>
+								 				<td class="text11">
+								 					&nbsp;<span title="henasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
+								 				</td>
+								 				<td class="text11">
+								 					<img onMouseOver="showPop('shipperCurr_info');" onMouseOut="hidePop('shipperCurr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+									 				<span title="hevals"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.currencyCode"/>&nbsp;</span>
+									 				<div class="text11" style="position: relative;" align="left">
+														<span style="position:absolute; left:0px; top:0px; width:250px" id="shipperCurr_info" class="popupWithInputText"  >
+															<font class="text11">
+										           			<b>Valuta</b>
+										           			<div>
+										           			<p>Valuta for fakturautstedelse - hentes fra kunderegister, kan overstyres. 
+										           				Ved ulik NOK går fremmedvaluta inn i reskontro.
+										           			</p>
+										           			</div>
+									           			</font>
+													</span>
+													</div>
+								 				</td>
+								 				
+							 				</tr>
+							 				<tr>	
+							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${model.record.henasf}"></td>
+							 					<td class="text11" >
+							 						<select name="hevals" id="hevals">
+								 						<option value="">-valuta-</option>
+									 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
+									 				  		<option value="${currency}"<c:if test="${model.record.hevals == currency || (empty model.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
+														</c:forEach>  
+													</select>
+							 					</td>
+							 					
+						 					</tr>
+										</table>
+										</td>				 				
+						 			</tr>
+					 			</c:if>
 					 			 	
 				 				<tr height="10"><td ></td></tr>
 							 </table>
@@ -380,9 +390,11 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.ebooking.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=c','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
-	 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 									</a>	
+					 					<c:if test="${model.record.fakBetExists}">
+						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=c','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 									</a>	
+	 									</c:if>
 					 				</td>
 					 				<td class="text11">
 					 					&nbsp;<span title="whenak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.buyer"/>&nbsp;</span>
@@ -398,8 +410,8 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="headk2"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr2"/></span></td>
@@ -409,12 +421,6 @@
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
 				 				</tr>
-				 				
-				 				
-				 				
-				 				
-				 				
-				 				
 				 				
 				 				<tr height="15"><td ></td></tr>
 				 				<tr>	
@@ -463,36 +469,42 @@
 					 			<tr>	
 				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${model.record.wskmail}"></td>
 				 				</tr>
-				 				
 				 				<tr height="8"><td ></td></tr>
-								<tr>
-				 					<td class="text12Bold">&nbsp;
-				 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
-				 						<spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee"/>
-				 					</td>
-								</tr>
-				 																	 				
-				 				<tr>
-				 					<td colspan="2">
-				 					<table class="tableBorderWithRoundCornersLightGray">
-					 					<tr>
-							 				<td class="text11">
-							 					&nbsp;<span title="heknkf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.id"/>&nbsp;</span>
-							 				</td>
-							 				<td class="text11">
-							 					&nbsp;<span title="henakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
-							 				</td>
-							 				
-						 				</tr>
-						 				<tr>	
-						 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
-										 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${model.record.henakf}"></td>
-						 					
-					 					</tr>
-									</table>
-									</td>				 				
-					 			</tr>
-					 											 
+				 				
+				 				<c:if test="${model.record.fakBetExists}">
+									<tr>
+					 					<td class="text12Bold">&nbsp;
+					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
+					 						<spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee"/>
+					 					</td>
+									</tr>
+					 				<tr>
+					 					<td colspan="2">
+					 					<table class="tableBorderWithRoundCornersLightGray">
+						 					<tr>
+								 				<td class="text11">
+								 					&nbsp;<span title="heknkf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.id"/>&nbsp;</span>
+								 					<c:if test="${model.record.fakBetExists}">
+									 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=kf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+					 									</a>
+				 									</c:if>
+								 					
+								 				</td>
+								 				<td class="text11">
+								 					&nbsp;<span title="henakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
+								 				</td>
+								 				
+							 				</tr>
+							 				<tr>	
+							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${model.record.henakf}"></td>
+							 					
+						 					</tr>
+										</table>
+										</td>				 				
+						 			</tr>
+					 			</c:if>								 
 				 				<tr height="10"><td ></td></tr>
 			 				</table>
 						 	</td>
@@ -545,43 +557,7 @@
 					 				</td>
 					 				<td class="text11">&nbsp;&nbsp;</td>
 					 			</tr>
-					 			<tr>	
-						 			<td class="text11">
-						 				
-						 				<img onMouseOver="showPop('hetri_info');" onMouseOut="hidePop('hetri_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				<font class="text12RedBold" >*</font><span title="hetri/hesdt"><spring:message code="systema.ebooking.orders.form.update.label.to"/></span>
-						 				<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute;top:0px; width:250px" id="hetri_info" class="popupWithInputText"  >
-												<font class="text11">
-							           			<b>Til sted</b>
-							           			<div>
-							           			<p>Landkode + postnr / kode for "kundefraktens" tilsted. Ved IKKE postnr.basert er det kun ett kodefelt (5 langt).
-												</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
-					 				</td>
-					 				<td class="text11">
-					 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
-					 						<option value="">-landkode-</option>
-						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
-											</c:forEach>  
-										</select>
-										
-					 				</td>
-						 			<td class="text11" nowrap>
-						 				<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
-						 				<a tabindex=0 id="hesdtIdLink" >
-	 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
-	 									</a>
-					 				</td>
-									<td class="text11" colspan="2">
-						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${Xmodel.record.wppns2}">
-					 				</td>
-					 				<td class="text11">&nbsp;&nbsp;</td>
-					 			</tr>					 			
+					 				 			
 							 	</table>
 							</td>
 							<td align="left">
@@ -589,59 +565,44 @@
 								<tr>
 									<td colspan="4">
 									<table>
-						 			<tr>		
-										<td nowrap class="text11">&nbsp;&nbsp;<span title="hent"><spring:message code="systema.ebooking.orders.form.update.label.kolli"/></span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="hent" id="hent" value="${model.record.hent}"></td>
-							 			<td nowrap class="text11">&nbsp;<span title="hevkt"><spring:message code="systema.ebooking.orders.form.update.label.vekt"/></span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="hevkt" id="hevkt" value="${model.record.hevkt}"></td>
-							 			<td nowrap class="text11">&nbsp;<span title="hem3"><spring:message code="systema.ebooking.orders.form.update.label.m3"/></span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="hem3" id="hem3" value="${model.record.hem3}"></td>
-							 			<td nowrap class="text11">&nbsp;<span title="helm"><spring:message code="systema.ebooking.orders.form.update.label.lm"/></span></td>
-							 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="10" maxlength="10" name="helm" id="helm" value="${model.record.helm}"></td>
-							 		</tr>
+							 			<tr>	
+								 			<td class="text11">
+								 				<img onMouseOver="showPop('hetri_info');" onMouseOut="hidePop('hetri_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								 				<font class="text12RedBold" >*</font><span title="hetri/hesdt"><spring:message code="systema.ebooking.orders.form.update.label.to"/></span>
+								 				<div class="text11" style="position: relative;" align="left">
+													<span style="position:absolute;top:0px; width:250px" id="hetri_info" class="popupWithInputText"  >
+														<font class="text11">
+									           			<b>Til sted</b>
+									           			<div>
+									           			<p>Landkode + postnr / kode for "kundefraktens" tilsted. Ved IKKE postnr.basert er det kun ett kodefelt (5 langt).
+														</p>
+									           			</div>
+								           			</font>
+												</span>
+												</div>
+							 				</td>
+							 				<td class="text11">
+							 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
+							 						<option value="">-landkode-</option>
+								 				  	<c:forEach var="country" items="${model.countryCodeList}" >
+								 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
+													</c:forEach>  
+												</select>
+							 				</td>
+								 			<td class="text11" nowrap>
+								 				<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+								 				<a tabindex=0 id="hesdtIdLink" >
+			 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
+			 									</a>
+							 				</td>
+											<td class="text11" colspan="2">
+								 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${Xmodel.record.wppns2}">
+							 				</td>
+							 				<td class="text11">&nbsp;&nbsp;</td>
+							 			</tr>			
 							 		</table>
 							 		</td>
 							 	</tr>
-							 	<tr height="3"><td ></td></tr> 		
-						 		<tr>	
-						 			<td class="text11" >&nbsp;
-										<img onMouseOver="showPop('godsnr_info');" onMouseOut="hidePop('godsnr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				<span title="hevs1/hevs2"><spring:message code="systema.ebooking.orders.form.update.label.godsbesk"/></span>
-						 				<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute;top:2px; width:250px" id="godsnr_info" class="popupWithInputText"  >
-												<font class="text11">
-							           			<b>Godsbeskr</b>
-							           			<div>
-							           			<p>todo</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
-									</td>
-						 			<td class="text11" ><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hevs1" id="hevs1" value="${model.record.hevs1}"></td>									
-									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hevs2" id="hevs2" value="${model.record.hevs2}"></td>									
-									
-								</tr>
-								<tr>	
-						 			<td class="text11" >&nbsp;
-										<img onMouseOver="showPop('merking_info');" onMouseOut="hidePop('merking_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				<span title="hegm1/hegm2"><spring:message code="systema.ebooking.orders.form.update.label.merking"/></span>
-						 				<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute; left:0px; top:0px; width:350px" id="merking_info" class="popupWithInputText"  >
-												<font class="text11">
-							           			<b>Merking</b>
-							           			<div>
-							           			<p>todo</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
-									</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hegm1" id="hegm1" value="${model.record.hegm1}"></td>									
-									<td class="text11"><input type="text" class="inputTextMediumBlue11UPPERCASE" size="30" maxlength="15" name="hegm2" id="hegm2" value="${model.record.hegm2}"></td>									
-									
-								</tr>
-								
 							</table>
 							</td>
 						</tr>

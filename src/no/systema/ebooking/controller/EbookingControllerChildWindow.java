@@ -28,14 +28,15 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.validator.LoginValidator;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
-import no.systema.transportdisp.util.TransportDispConstants;
+
 //ebooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
@@ -257,6 +258,101 @@ public class EbookingControllerChildWindow {
 			    			for(JsonEbookingCustomerRecord  record : container.getInqFkund()){
 			    				//logger.info("CUSTOMER NO: " + record.getKundnr());
 			    				//logger.info("NAME: " + record.getNavn());
+			    				list.add(record);
+			    			}
+			    			model.put(this.DATATABLE_CUSTOMER_LIST, list);
+			    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			    		}
+		    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+					return successView;
+					
+			    	}else{
+					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+					return loginView;
+				}
+				
+		    }
+		}
+	}
+	
+	@RequestMapping(value="ebooking_childwindow_customer_addresses.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitCustomerAddresses(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitCustomerAddresses");
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_customer_addresses.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindCustomerAddresses(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindCustomerAddresses");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+		    		//prepare the access CGI with RPG back-end
+		    		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
+		    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wkundnr=" + recordToValidate.getWkundnr() + "&wvadrna=A"; //A=all addresses
+		    		logger.info("URL: " + BASE_URL);
+		    		logger.info("PARAMS: " + urlRequestParamsKeys);
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		    		//Debug -->
+			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			    
+		    		if(jsonPayload!=null){
+		    			JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingChildWindowService.getCustomerDeliveryAddressContainer(jsonPayload);
+			    		if(container!=null){
+			    			List<JsonEbookingCustomerDeliveryAddressRecord> list = new ArrayList<JsonEbookingCustomerDeliveryAddressRecord>();
+			    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
 			    				list.add(record);
 			    			}
 			    			model.put(this.DATATABLE_CUSTOMER_LIST, list);
@@ -643,6 +739,7 @@ public class EbookingControllerChildWindow {
 		
 		return urlRequestParamsKeys.toString();
 	}
+	
 
 	/**
 	 * 

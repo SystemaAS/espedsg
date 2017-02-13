@@ -1,18 +1,22 @@
 /**
  * 
  */
-package no.systema.ebooking.model.jsonjackson;
+package no.systema.ebooking.model.jsonjackson.order.childwindow;
 
 import java.util.Collection;
 /**
  * @author oscardelatorre
  * @date Jan 30, 2017
  */
-public class JsonMainOrderHeaderCustomerDeliveryAddressContainer {
+public class JsonEbookingCustomerDeliveryAddressContainer {
 	
 	private String user = null;
 	public void setUser(String value){ this.user = value;}
 	public String getUser(){ return this.user; }
+	
+	private String ctype = null;
+	public void setCtype(String value){ this.ctype = value;}
+	public String getCtype(){ return this.ctype; }
 	
 	//this is an internal variable in order to know what type of partner we are searching for (shipper, consignee or Agent)
 	private String wkundnr = null;
@@ -35,8 +39,8 @@ public class JsonMainOrderHeaderCustomerDeliveryAddressContainer {
 	public void setErrMsg(String value){ this.errMsg = value;}
 	public String getErrMsg(){ return this.errMsg; }
 	
-	private Collection<JsonMainOrderHeaderCustomerDeliveryAddressRecord> inqdeladdr = null;
-	public void setInqdeladdr(Collection<JsonMainOrderHeaderCustomerDeliveryAddressRecord> value){ this.inqdeladdr = value;}
-	public Collection<JsonMainOrderHeaderCustomerDeliveryAddressRecord> getInqdeladdr(){ return this.inqdeladdr; }
+	private Collection<JsonEbookingCustomerDeliveryAddressRecord> inqdeladdr = null;
+	public void setInqdeladdr(Collection<JsonEbookingCustomerDeliveryAddressRecord> value){ this.inqdeladdr = value;}
+	public Collection<JsonEbookingCustomerDeliveryAddressRecord> getInqdeladdr(){ return this.inqdeladdr; }
 	
 }

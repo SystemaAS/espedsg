@@ -1,6 +1,7 @@
 package no.systema.ebooking.service;
 
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
@@ -30,6 +31,7 @@ public class EbookingChildWindowServiceImpl implements EbookingChildWindowServic
 		return container;
 	}
 	
+	
 	/**
 	 * 
 	 */
@@ -43,6 +45,19 @@ public class EbookingChildWindowServiceImpl implements EbookingChildWindowServic
 		}
 		return container;
 		
+	}
+	/**
+	 * 
+	 */
+	public JsonEbookingCustomerDeliveryAddressContainer getCustomerDeliveryAddressContainer(String utfPayload){
+		JsonEbookingCustomerDeliveryAddressContainer container = null;
+		try{
+			JsonEbookingChildWindowMapper mapper = new JsonEbookingChildWindowMapper();
+			container = mapper.getCustomerDeliveryAddressesContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 	}
 	/**
 	 * 

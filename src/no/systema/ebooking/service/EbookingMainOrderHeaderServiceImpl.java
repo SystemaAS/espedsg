@@ -9,8 +9,8 @@ import java.io.StringWriter;
 import no.systema.ebooking.mapper.jsonjackson.JsonOrderHeaderMapper;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
 
 
 /**
@@ -52,8 +52,8 @@ public class EbookingMainOrderHeaderServiceImpl implements EbookingMainOrderHead
 	/**
 	 * 
 	 */
-	public JsonMainOrderHeaderCustomerDeliveryAddressContainer getDeliveryAddressContainer(String utfPayload){
-		JsonMainOrderHeaderCustomerDeliveryAddressContainer container = null;
+	public JsonEbookingCustomerDeliveryAddressContainer getDeliveryAddressContainer(String utfPayload){
+		JsonEbookingCustomerDeliveryAddressContainer container = null;
 		try{
 			JsonOrderHeaderMapper mapper = new JsonOrderHeaderMapper();
 			container = mapper.getDeliveryAddressContainer(utfPayload);

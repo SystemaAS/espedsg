@@ -51,6 +51,19 @@
 			  
 		  }else if(jq('#ctype').val()=='il'){
 			  opener.jq('#fakunr').val(kundNr);
+			  
+		  }else if(jq('#ctype').val()=='sf'){
+			  //selgers fakturapart  
+			  opener.jq('#heknsf').val(kundNr);
+			  opener.jq('#heknsf').focus();
+			  opener.jq('#henasf').val(navn);
+			  
+		  }else if(jq('#ctype').val()=='kf'){
+			  //kjøpers fakturapart  
+			  opener.jq('#heknkf').val(kundNr);
+			  opener.jq('#henakf').val(navn);
+			  opener.jq('#heknkf').focus();
+		  
 		  }
 		  
 		  //close child window

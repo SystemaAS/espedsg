@@ -11,6 +11,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
+
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
@@ -52,6 +55,27 @@ public class JsonEbookingChildWindowMapper {
 		return container;
 	}
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonEbookingCustomerDeliveryAddressContainer getCustomerDeliveryAddressesContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonEbookingCustomerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingCustomerDeliveryAddressContainer.class); 
+		
+		//DEBUG
+		Collection<JsonEbookingCustomerDeliveryAddressRecord> fields = container.getInqdeladdr();
+		for(JsonEbookingCustomerDeliveryAddressRecord record : fields){
+			//logger.info("knavn: " + record.getKnavn());
+			//logger.info("kundnr: " + record.getKundnr());
+		}
+		return container;
+	}
 	/**
 	 * 
 	 * @param utfPayload

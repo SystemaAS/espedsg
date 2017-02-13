@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.ebooking.model.jsonjackson;
+package no.systema.ebooking.model.jsonjackson.order.childwindow;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * @date Jan 30, 2017
  * 
  */
-public class JsonMainOrderHeaderCustomerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
+public class JsonEbookingCustomerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
 	
 	private String vadrnr = null;
 	public void setVadrnr(String value){ this.vadrnr = value;}

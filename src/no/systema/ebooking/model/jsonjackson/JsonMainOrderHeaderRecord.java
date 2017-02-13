@@ -50,6 +50,15 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setHedtop(String value){ this.hedtop = value;}
 	public String getHedtop(){ return this.hedtop; }
 	
+	private String xfakBet = null;
+	public void setXfakBet(String value){ this.xfakBet = value;}
+	public String getXfakBet(){ return this.xfakBet; }
+	
+	private boolean fakBetExists = true;
+	public void setFakBetExists(boolean value){ this.fakBetExists = value;}
+	public boolean getFakBetExists(){ return this.fakBetExists; }
+	
+	
 	private String hedtr = null;
 	public void setHedtr(String value){ this.hedtr = value;}
 	public String getHedtr(){ return this.hedtr; }

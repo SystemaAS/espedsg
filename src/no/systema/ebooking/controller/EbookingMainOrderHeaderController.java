@@ -42,12 +42,7 @@ import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderMessageNoteContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderMessageNoteRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.transportdisp.util.TransportDispConstants;
+
 
 //eBooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
@@ -62,6 +57,9 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecor
 
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
+import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
 import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
 import no.systema.ebooking.mapper.url.request.UrlRequestParameterMapper;
@@ -127,8 +125,6 @@ public class EbookingMainOrderHeaderController {
 			return loginView;
 			
 		}else{
-			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_EBOOKING);
-			//appUser.setUrlStoreProps(this.reflectionUrlStoreMgr.printProperties("no.systema.transportdisp.url.store.TransportDispUrlDataStore", "html")); //Debug info om UrlStore
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			
 			if(EbookingConstants.ACTION_UPDATE.equals(action)){
@@ -198,15 +194,24 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			if(isValidRecord){
 				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
+				//check if user is allowed to choose invoicee (fakturaBetalare)
+				this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
 				this.populateMessageNotes( appUser, headerOrderRecord);
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
+
+				//Only in case of Create new order (INSERT ORDER)
+				if(orderTypes!=null){
+					headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
+				}
+					
 				//domain objects
 				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
 			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
+			this.setDropDownsFromFiles(model);
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
@@ -219,6 +224,36 @@ public class EbookingMainOrderHeaderController {
 
 		}
 		
+	}
+	/**
+	 * 
+	 * @param headerOrderRecord
+	 * @param appUser
+	 */
+	public void setFakturaBetalareFlag(JsonMainOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser();
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug -->
+    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    
+		if(jsonPayload!=null){
+			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
+    		if(container!=null){
+    			if(container.getInqFkund()!=null && container.getInqFkund().size()>0){
+    				//nothing. At least one record
+    			}else{
+    				//this makes the user not allowed to choose faktura part
+    				headerOrderRecord.setFakBetExists(false);
+    			}
+    			
+    		}
+		}	
 	}
 	/**
 	 * 
@@ -300,7 +335,7 @@ public class EbookingMainOrderHeaderController {
 			urlRequestParamsKeys.append("&reff=" + recordToValidate.getHereff());
 			urlRequestParamsKeys.append("&fbn=1");
 			urlRequestParamsKeys.append("&lin=" + recordToValidate.getOrderLineToDelete());
-			urlRequestParamsKeys.append("&mode=" + TransportDispConstants.MODE_DELETE);
+			urlRequestParamsKeys.append("&mode=" + EbookingConstants.MODE_DELETE);
 			
 		}
 		
@@ -339,20 +374,6 @@ public class EbookingMainOrderHeaderController {
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
 				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
-				
-				/*OBSOLETE but do not remove YET! (same for all other parties)
-				if(recordToValidate.getMessageNoteConsignee()!=null && !"".equals(recordToValidate.getMessageNoteConsignee())){
-					//Delete all values
-					this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
-					//Add new values
-					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-					this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
-				}else{
-					if(recordToValidate.getMessageNoteConsigneeOriginal()!=null && !"".equals(recordToValidate.getMessageNoteConsigneeOriginal())){
-						//Delete all values
-						//this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
-					}
-				}*/
 			}else{
 				logger.info("CONSIGNEE EQUAL"); 
 				//do not update
@@ -978,6 +999,10 @@ public class EbookingMainOrderHeaderController {
 				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
 		
 	}
+	
+	private void setDropDownsFromFiles(Map<String, Object> model){
+		model.put(EbookingConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.ebookingDropDownListPopulationService.getCurrencyList());
+	}
 
 
 	/**
@@ -1067,6 +1092,13 @@ public class EbookingMainOrderHeaderController {
 	public void setNotisblockService (NotisblockService value){ this.notisblockService=value; }
 	public NotisblockService getNotisblockService(){return this.notisblockService;}
 	
+	
+	@Qualifier ("ebookingChildWindowService")
+	private EbookingChildWindowService ebookingChildWindowService;
+	@Autowired
+	@Required
+	public void setEbookingChildWindowService (EbookingChildWindowService value){ this.ebookingChildWindowService = value; }
+	public EbookingChildWindowService getEbookingChildWindowService(){ return this.ebookingChildWindowService; }
 	
 }
 

@@ -12,10 +12,10 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderCustomerDeliveryAddressRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
 
 
 /**
@@ -67,13 +67,13 @@ public class JsonOrderHeaderMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public JsonMainOrderHeaderCustomerDeliveryAddressContainer getDeliveryAddressContainer(String utfPayload) throws Exception{
+	public JsonEbookingCustomerDeliveryAddressContainer getDeliveryAddressContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
 		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonMainOrderHeaderCustomerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonMainOrderHeaderCustomerDeliveryAddressContainer.class); 
+		JsonEbookingCustomerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingCustomerDeliveryAddressContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
-		for (JsonMainOrderHeaderCustomerDeliveryAddressRecord record : container.getInqdeladdr()){
+		for (JsonEbookingCustomerDeliveryAddressRecord record : container.getInqdeladdr()){
 			//DEBUG
 		}
 		
