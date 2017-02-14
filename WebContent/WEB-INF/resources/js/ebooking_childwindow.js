@@ -23,12 +23,17 @@
 		  var adr1 = record[2].replace("adr1_", "");
 		  var adr2 = record[3].replace("adr2_", "");
 		  var postnrsted = record[4].replace("postnrsted_", "");
+		  var kundName = record[5].replace("kundname_", "");
+		  var kundAddress = record[6].replace("kundaddress_", "");
+		  
 		  
 		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
 		  //addressing a parent field from this child window
 		  if(jq('#ctype').val()=='s'){
 			  //shipper/consignor 	
 			  opener.jq('#hekns').val(kundNr);
+			  opener.jq('#whenas').val(kundName + " - " + kundAddress);
+			  
 			  opener.jq('#henas').val(navn);
 			  opener.jq('#heads1').val(adr1);
 			  opener.jq('#heads2').val(adr2);
@@ -43,6 +48,8 @@
 		  }else if(jq('#ctype').val()=='c'){
 			  //consignee
 			  opener.jq('#heknk').val(kundNr);
+			  opener.jq('#whenak').val(kundName + " - " + kundAddress);
+			  
 			  opener.jq('#henak').val(navn);
 			  opener.jq('#headk1').val(adr1);
 			  opener.jq('#headk2').val(adr2);
@@ -55,13 +62,13 @@
 		  }else if(jq('#ctype').val()=='sf'){
 			  //selgers fakturapart  
 			  opener.jq('#heknsf').val(kundNr);
+			  opener.jq('#whenasf').val(kundName + " - " + kundAddress);
 			  opener.jq('#heknsf').focus();
-			  opener.jq('#henasf').val(navn);
 			  
 		  }else if(jq('#ctype').val()=='kf'){
 			  //kjøpers fakturapart  
 			  opener.jq('#heknkf').val(kundNr);
-			  opener.jq('#henakf').val(navn);
+			  opener.jq('#whenakf').val(kundName + " - " + kundAddress);
 			  opener.jq('#heknkf').focus();
 		  
 		  }
@@ -70,6 +77,45 @@
 		  window.close();
 	  });
 	});
+	
+	jq(function() {
+		jq('#customerAddressesList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+		  var kundNr = record[0].replace("vadrnr_", "");
+		  var navn = record[1].replace("navn_", "");
+		  var adr1 = record[2].replace("adr1_", "");
+		  var adr2 = record[3].replace("adr2_", "");
+		  var postnrsted = record[4].replace("postnrsted_", "");
+		  
+		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
+		  //addressing a parent field from this child window
+		  if(jq('#ctype').val()=='s'){
+			  //shipper/consignor 	
+			  //opener.jq('#hekns').val(kundNr); //this should not override the customer number
+			  opener.jq('#henas').val(navn);
+			  opener.jq('#heads1').val(adr1);
+			  opener.jq('#heads2').val(adr2);
+			  opener.jq('#heads3').val(postnrsted);
+			  opener.jq('#henas').focus();
+			  
+		  }else if(jq('#ctype').val()=='c'){
+			  //consignee
+			  //opener.jq('#heknk').val(kundNr); //this should not override the customer number
+			  opener.jq('#henak').val(navn);
+			  opener.jq('#headk1').val(adr1);
+			  opener.jq('#headk2').val(adr2);
+			  opener.jq('#headk3').val(postnrsted);
+			  opener.jq('#henak').focus();
+		  
+		  }
+		  //close child window
+		  window.close();
+	  });
+	});
+	
+	
+	
   	
 	//Select Postal Code From
 	jq(function() {
@@ -285,6 +331,11 @@
     		jq('#customerList_filter').val()
         ).draw();
     }
+    function filterCustomerAddressesList (){
+        jq('#customerAddressesList').DataTable().search(
+    		jq('#customerAddressesList_filter').val()
+        ).draw();
+    }
     function filterLoadUnloadPlacesList (){
         jq('#loadUnloadPlacesList').DataTable().search(
     		jq('#loadUnloadPlacesList_filter').val()
@@ -339,6 +390,16 @@
 	  jq('input.customerList_filter').on( 'keyup click', function () {
 		  filterCustomerList();
 	  });
+	  //related table Customer Addresses
+	  jq('#customerAddressesList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.customerAddressesList_filter').on( 'keyup click', function () {
+		  filterCustomerAddressesList();
+	  });
+	  
 	  
 	  //------------------------------
 	  //tables [Load/Unload places]

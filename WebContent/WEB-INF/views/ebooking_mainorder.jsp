@@ -143,6 +143,8 @@
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="heunik" id="heunik" value='${model.record.heunik}'>
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
+					<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
+					<input type="hidden" name="trknfa" id="trknfa" value='${model.record.trknfa}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
 
@@ -223,8 +225,8 @@
 						
 						
 						<tr>
-				 			<td valign="top" >
-				 			 <table style="width:99%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
+				 			<td valign="top" width="50%" >
+				 			 <table style="width:99%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0" border="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">
@@ -242,13 +244,13 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
-								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="35" value="${model.record.whenas}"></td>
+								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${model.record.heknsNavn}&nbsp;-&nbsp;${model.record.heknsPnSt}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.name"/></span>
 					 					<c:if test="${model.record.fakBetExists}">
-						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${model.record.hekns}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
 	 									</c:if>
@@ -343,7 +345,7 @@
 				 									</c:if>
 								 				</td>
 								 				<td class="text11">
-								 					&nbsp;<span title="henasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
+								 					&nbsp;<span title="whenasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
 								 				</td>
 								 				<td class="text11">
 								 					<img onMouseOver="showPop('shipperCurr_info');" onMouseOut="hidePop('shipperCurr_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -365,7 +367,7 @@
 							 				</tr>
 							 				<tr>	
 							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
-											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henasf" id="henasf" size="31" maxlength="30"value="${model.record.henasf}"></td>
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenasf" id="whenasf" size="50" value="${model.record.heknsfNavn} - ${model.record.heknsfPnSt}"></td>
 							 					<td class="text11" >
 							 						<select name="hevals" id="hevals">
 								 						<option value="">-valuta-</option>
@@ -384,7 +386,7 @@
 				 				<tr height="10"><td ></td></tr>
 							 </table>
 						 	</td>
-						 	<td valign="top" >
+						 	<td valign="top" width="50%">
 				 			 <table style="width:99%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
 					 			<tr height="10"><td ></td></tr>
 						 		<tr>
@@ -402,11 +404,17 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
-				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="35" value="${model.record.whenak}"></td>
+				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${model.record.heknkNavn}&nbsp;-&nbsp;${model.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
-					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.name"/></span></td>
+					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.name"/></span>
+					 					<c:if test="${model.record.fakBetExists}">
+						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=c&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 									</a>
+	 									</c:if>
+					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
@@ -492,14 +500,14 @@
 								 					
 								 				</td>
 								 				<td class="text11">
-								 					&nbsp;<span title="henakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
+								 					&nbsp;<span title="whenakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
 								 				</td>
 								 				
 							 				</tr>
 							 				<tr>	
 							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
-											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="henakf" id="henakf" size="31" maxlength="30"value="${model.record.henakf}"></td>
-							 					
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenakf" id="whenakf" size="50" value="${model.record.heknkfNavn} - ${model.record.heknkfPnSt}"></td>
+							 					<td class="text11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						 					</tr>
 										</table>
 										</td>				 				

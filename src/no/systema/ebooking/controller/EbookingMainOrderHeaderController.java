@@ -115,8 +115,6 @@ public class EbookingMainOrderHeaderController {
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
-		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		
 		ModelAndView successView = new ModelAndView("ebooking_mainorder");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -889,7 +887,7 @@ public class EbookingMainOrderHeaderController {
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: (to long...)");// + urlRequestParams);
+    	logger.info("URL PARAMS:" + urlRequestParams);
     	
     	
     	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);

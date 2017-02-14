@@ -60,6 +60,7 @@ public class EbookingControllerChildWindow {
 	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String POSTALCODE_DIRECTION = "direction";
 	private final String DATATABLE_CUSTOMER_LIST = "customerList";
+	private final String DATATABLE_CUSTOMER_ADDRESSES_LIST = "customerAdressesList";
 	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
 	private final String DATATABLE_PACKING_CODES_LIST = "packingCodesList";
 	private final String DATATABLE_DANGEROUS_GOODS_LIST = "dangerousGoodsList";
@@ -275,7 +276,13 @@ public class EbookingControllerChildWindow {
 		    }
 		}
 	}
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="ebooking_childwindow_customer_addresses.do", params="action=doInit",  method={RequestMethod.GET} )
 	public ModelAndView doInitCustomerAddresses(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
@@ -355,7 +362,7 @@ public class EbookingControllerChildWindow {
 			    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
 			    				list.add(record);
 			    			}
-			    			model.put(this.DATATABLE_CUSTOMER_LIST, list);
+			    			model.put(this.DATATABLE_CUSTOMER_ADDRESSES_LIST, list);
 			    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
 			    		}
 		    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);

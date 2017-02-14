@@ -200,8 +200,8 @@
     		    			</div>
 			           </td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.henas}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.henak}</td>
+		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
+		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>

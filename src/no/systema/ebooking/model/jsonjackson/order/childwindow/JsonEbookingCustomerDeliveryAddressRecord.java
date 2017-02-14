@@ -14,6 +14,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonEbookingCustomerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
 	
+	
 	private String vadrnr = null;
 	public void setVadrnr(String value){ this.vadrnr = value;}
 	public String getVadrnr(){ return this.vadrnr; }
@@ -53,6 +54,9 @@ public class JsonEbookingCustomerDeliveryAddressRecord extends JsonAbstractGrand
 	private String vamail = null;
 	public void setVamail(String value){ this.vamail = value;}
 	public String getVamail(){ return this.vamail; }
+	
+	
+	
 	
 	
 	/**

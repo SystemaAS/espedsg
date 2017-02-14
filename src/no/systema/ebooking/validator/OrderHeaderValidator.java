@@ -31,7 +31,7 @@ public class OrderHeaderValidator implements Validator {
 	 */
 	public void validate(Object obj, Errors errors) { 
 		JsonMainOrderHeaderRecord record = (JsonMainOrderHeaderRecord)obj;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hereff", "systema.ebooking.orders.form.update.error.null.from.hereff");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hereff", "systema.ebooking.orders.form.update.error.null.from.hereff");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henas", "systema.ebooking.orders.form.update.error.null.shipper.name.henas");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heads1", "systema.ebooking.orders.form.update.error.null.shipper.name.heads1");
 		
@@ -44,13 +44,64 @@ public class OrderHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hetri", "systema.ebooking.orders.form.update.error.null.to.hetri");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdt", "systema.ebooking.orders.form.update.error.null.to.hesdt");
 		//Check for Mandatory fields
-		/*
+		
 		if(record!=null){
-			if( "".equals(record.getXXX()) || "".equals(record.getFralk()) || "".equals(record.getTil()) ||"".equals(record.getTillk())){
-				errors.rejectValue("fra", "systema.fraktkalkulator.main.form.search.notValidMandatoryFields");
+			//Fakturapart
+			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
+				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.both.invoicees.invalid");
 			}
 			
+			//Check References (one of them is always mandatory. In certain cases, both are mandatory
+			if(this.isInvoiceeOnSeller(record)){
+				if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
+					logger.info("ZZZZZ");
+					errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.senderRef.mustExist");
+				}
+			}else{
+				if(this.isInvoiceeOnReceiver(record)){
+					if (record.getHerfk()==null || "".equals(record.getHerfk()) ){
+						errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.receiverRef.mustExist");
+					}else{
+						if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
+							errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.senderAndReceiverRefs.mustExist");
+						}
+					}
+				}
+			}
 		}
-		*/
+		
 	}	
+	/**
+	 * 
+	 * @param record
+	 * @return
+	 */
+	private boolean isInvoiceeOnSeller(JsonMainOrderHeaderRecord record){
+		boolean retval = false;
+		if( (record.getTrknfa().equals(record.getHekns())) || (record.getTrknfa().equals(record.getHeknsf())) ){
+			retval = true;
+		}
+		if( (record.getHekns()!=null && !"".equals(record.getHekns())) && (record.getHeknsf()!=null && !"".equals(record.getHeknsf())) ){
+			retval = true;
+		}
+		return retval;
+		
+	}
+	/**
+	 * 
+	 * @param record
+	 * @return
+	 */
+	private boolean isInvoiceeOnReceiver(JsonMainOrderHeaderRecord record){
+		boolean retval = false;
+		if( (record.getTrknfa().equals(record.getHeknk())) || (record.getTrknfa().equals(record.getHeknkf())) ){
+			retval = true;
+		}
+		if( (record.getHeknk()!=null && !"".equals(record.getHeknk())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
+			retval = true;
+		}
+		return retval;
+		
+	}
+	
 }

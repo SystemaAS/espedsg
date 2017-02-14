@@ -50,6 +50,14 @@ public class JsonEbookingCustomerRecord extends JsonAbstractGrandFatherRecord  {
 	public void setKualfa(String value){ this.kualfa = value;}
 	public String getKualfa(){ return this.kualfa; }
 	
+	private String kundNavn = null;
+	public void setKundNavn(String value){ this.kundNavn = value;}
+	public String getKundNavn(){ return this.kundNavn; }
+	
+	private String kundPnSt = null;
+	public void setKundPnSt(String value){ this.kundPnSt = value;}
+	public String getKundPnSt(){ return this.kundPnSt; }
+	
 	
 	/**
 	 * User for java reflection in other classes

@@ -14,7 +14,7 @@
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Adresser
+			<spring:message code="systema.ebooking.childwindow.customeraddresses.label.title"/>
 			</td>
 		</tr>
 		<tr height="20"><td colspan="2"></td></tr>
@@ -82,18 +82,18 @@
 					<tr class="text12" >
 					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:50em;">
 					<%-- this is the datatables grid (content)--%>
-					<table id="customerList" class="display compact cell-border" width="100%">
+					<table id="customerAddressesList" class="display compact cell-border" width="100%">
 						<thead>
 						<tr style="background-color:#EEEEEE">
-						    <th class="text11">&nbsp;Adresse Nr</th>   
-		                    <th class="text11">&nbsp;Navn</th>
-		                    <th class="text11">&nbsp;Adresse</th>
-		                    <th class="text11">&nbsp;Post.Code/City/Country</th>
+							<th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.name"/></th>
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.address"/></th>
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.postnrStedLand"/></th>
 		                </tr> 
 		                </thead>
 		                
 		                <tbody>
-		                <c:forEach var="record" items="${Xmodel.addressList}" varStatus="counter">    
+		                <c:forEach var="record" items="${model.customerAdressesList}" varStatus="counter">    
 			               <c:choose>           
 			                   <c:when test="${counter.count%2==0}">
 			                       <tr class="text11" >
@@ -102,10 +102,10 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${Xrecord.kundnr}@navn_${Xrecord.navn}@adr1_${Xrecord.gateAdr}@adr2_${Xrecord.adresse2}@postnrsted_${Xrecord.postnrSted}@counter_${counter.count}">&nbsp;${Xrecord.kundnr}</td>
-			               <td class="text11" >&nbsp;${Xrecord.navn}</td>
-			               <td class="text11" >&nbsp;${Xrecord.gateAdr}&nbsp;${Xrecord.adresse2}</td>
-			               <td class="text11" >&nbsp;${Xrecord.postnrSted}&nbsp;${Xrecord.land}</td>
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">&nbsp;${record.vadrnr}</td>
+			               <td class="text11" >&nbsp;${record.vadrna}</td>
+			               <td class="text11" >&nbsp;${record.vadrn1}&nbsp;${record.vadrn2}</td>
+			               <td class="text11" >&nbsp;${record.vadrn3}&nbsp;${record.valand}</td>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

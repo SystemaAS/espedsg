@@ -163,6 +163,38 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setHekns(String value){ this.hekns = value;}
 	public String getHekns(){ return this.hekns; }
 	
+	
+	//START specific Customer's invoicees
+	private String heknsNavn = null;
+	public void setHeknsNavn(String value){ this.heknsNavn = value;}
+	public String getHeknsNavn(){ return this.heknsNavn; }
+	private String heknsPnSt = null;
+	public void setHeknsPnSt(String value){ this.heknsPnSt = value;}
+	public String getHeknsPnSt(){ return this.heknsPnSt; }
+	
+	private String heknsfNavn = null;
+	public void setHeknsfNavn(String value){ this.heknsfNavn = value;}
+	public String getHeknsfNavn(){ return this.heknsfNavn; }
+	private String heknsfPnSt = null;
+	public void setHeknsfPnSt(String value){ this.heknsfPnSt = value;}
+	public String getHeknsfPnSt(){ return this.heknsfPnSt; }
+	
+	private String heknkNavn = null;
+	public void setHeknkNavn(String value){ this.heknkNavn = value;}
+	public String getHeknkNavn(){ return this.heknkNavn; }
+	private String heknkPnSt = null;
+	public void setHeknkPnSt(String value){ this.heknkPnSt = value;}
+	public String getHeknkPnSt(){ return this.heknkPnSt; }
+	
+	private String heknkfNavn = null;
+	public void setHeknkfNavn(String value){ this.heknkfNavn = value;}
+	public String getHeknkfNavn(){ return this.heknkfNavn; }
+	private String heknkfPnSt = null;
+	public void setHeknkfPnSt(String value){ this.heknkfPnSt = value;}
+	public String getHeknkfPnSt(){ return this.heknkfPnSt; }
+	//END specific Customer's invoicees
+	
+
 	private String henas = null;
 	public void setHenas(String value){ this.henas = value;}
 	public String getHenas(){ return this.henas; }

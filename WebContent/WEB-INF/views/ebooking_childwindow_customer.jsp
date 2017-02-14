@@ -14,7 +14,7 @@
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			Fakturakunde
+			<spring:message code="systema.ebooking.childwindow.customer.label.title"/>
 			</td>
 		</tr>
 		<tr height="20"><td colspan="2"></td></tr>
@@ -85,10 +85,13 @@
 					<table id="customerList" class="display compact cell-border" width="100%">
 						<thead>
 						<tr style="background-color:#EEEEEE">
-						    <th class="text11">&nbsp;Customer No.</th>   
-		                    <th class="text11">&nbsp;Name</th>
-		                    <th class="text11">&nbsp;Address</th>
-		                    <th class="text11">&nbsp;Post.Code/City/Country</th>
+						    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.customer.nr"/></th>  
+						    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.address.name"/></th>
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.address.address"/></th>
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.address.postnrStedLand"/></th>
+		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.customer.name"/></th>  
+						    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customer.label.customer.address"/></th>  
+						    
 		                </tr> 
 		                </thead>
 		                
@@ -102,10 +105,13 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@adr1_${record.gateAdr}@adr2_${record.adresse2}@postnrsted_${record.postnrSted}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="kundnr_${record.kundnr}@navn_${record.navn}@adr1_${record.gateAdr}@adr2_${record.adresse2}@postnrsted_${record.postnrSted}@kundname_${record.kundNavn}@kundaddress_${record.kundPnSt}@counter_${counter.count}">&nbsp;${record.kundnr}</td>
 			               <td class="text11" >&nbsp;${record.navn}</td>
 			               <td class="text11" >&nbsp;${record.gateAdr}&nbsp;${record.adresse2}</td>
 			               <td class="text11" >&nbsp;${record.postnrSted}&nbsp;${record.land}</td>
+			               <td class="text11" >&nbsp;${record.kundNavn}</td>
+			               <td class="text11" >&nbsp;${record.kundPnSt}</td>
+			               
 			            </tr> 
 			            </c:forEach>
 			            </tbody>
