@@ -33,7 +33,11 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
 
+
 //ebooking
+import no.systema.ebooking.model.EbookingOrderLineValidationObject;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
@@ -66,6 +70,59 @@ public class EbookingAjaxHandlerController {
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	//private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	
+	
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param requestString
+	 * @param lineNr
+	 * @return
+	 */
+	@RequestMapping(value = "validateCurrentOrderDetailLine_Ebooking.do", method = RequestMethod.GET)
+    public @ResponseBody Set<EbookingOrderLineValidationObject> validateCurrentOrderDetailLine
+	  						(@RequestParam String applicationUser, @RequestParam String requestString, @RequestParam String lineNr ){
+		 logger.info("Inside: validateCurrentOrderDetailLine");
+		 Set<EbookingOrderLineValidationObject> result = new HashSet<EbookingOrderLineValidationObject>();
+		 EbookingOrderLineValidationObject orderLineValidationObject = new EbookingOrderLineValidationObject();
+		 //logger.info(requestString);
+		 if(requestString!=null && !"".equals(requestString)){
+		 	 String BASE_URL = null;
+		 	 BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_VALIDATE_LINE_MAIN_ORDER_FRAKTBREV_2_URL;
+		 	 
+		 	 
+			 //add URL-parameters
+			 String urlRequestParams = requestString;
+			 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			 logger.info("URL: " + BASE_URL);
+			 logger.info("URL PARAMS: " + urlRequestParams);
+			 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			 
+			 if(jsonPayload!=null){
+				 JsonMainOrderHeaderFraktbrevContainer container = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
+				 if(container!=null){
+					 for(JsonMainOrderHeaderFraktbrevRecord record : container.getAwblineValidate()){
+						 orderLineValidationObject.setLinenr(lineNr);
+						 orderLineValidationObject.setFvlm(record.getFvlm());
+						 orderLineValidationObject.setFvlm2(record.getFvlm2());
+						 logger.info(orderLineValidationObject.getFvlm());
+						 logger.info(orderLineValidationObject.getFvlm2());
+						 
+						 
+					 }	
+					 logger.info("errMsg:" + container.getErrMsg());
+					 //hand over
+					 orderLineValidationObject.setErrMsg(container.getErrMsg());
+					 orderLineValidationObject.setInfoMsg(container.getInfoMsg());
+					 
+				 }
+			 }
+			 result.add(orderLineValidationObject);
+		 }
+		 return result;
+	}
+	
 	
 	/**
 	 * 
