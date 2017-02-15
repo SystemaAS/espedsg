@@ -55,6 +55,14 @@ public class SkatNctsExportItemsValidator implements Validator {
 		//Logical controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
+				//Check if type header angiv.type is = T-
+				if(record.isThdkTminusType()){
+					if(record.getTvdk()!=null && !"".equals(record.getTvdk())){
+						//OK = valid
+					}else{
+						errors.rejectValue("tvvnt", "systema.skat.ncts.export.header.error.rule.item.tvdk.mustExistWhenTminus");
+					}
+				}
 				//Check varukod
 				if(!record.isValidTolltariff()){
 					errors.rejectValue("tvvnt", "systema.skat.ncts.export.header.error.null.item.varenr.tvvnt");
@@ -101,6 +109,8 @@ public class SkatNctsExportItemsValidator implements Validator {
 						errors.rejectValue("tvmn", "systema.skat.ncts.export.header.error.null.item.merking.tvmn");
 					}
 				}
+				
+				
 				
 				/*
 				//-----------------------------------------------------

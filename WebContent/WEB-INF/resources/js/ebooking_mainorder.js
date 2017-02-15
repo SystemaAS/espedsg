@@ -616,7 +616,116 @@
   	  window.open('ebooking_childwindow_packingcodes.do?action=doFind&kode=' + jq("#fvpakn").val() + '&callerLineCounter=', 
 			  "packingCodesWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
   }
+  
+  //------------------------
+  //SUM fields Item lines
+  //----------------------
+  function sumAntal(element) {
+	  //element.id;
+	  var sum = 0;
+	  jq( ".clazzAntMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvant_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hent').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+  }
+  
+  function sumVareslag(element){
+	  var id = element.id;
+	  var counter = id.replace("fvvt_","");
+	  var targetStr = "";
+	  //This feature is required only IF and only IF there is just a single line in the matrix. 
+	  //Otherwise, the end-user must enter the total vareslag him/herself
+	  if(counter=='1'){
+		  var fvpakn = jq('#fvpakn_' + counter).val();
+		  var fvvt = jq('#fvvt_' + counter).val();
+		  var fvant = jq('#fvant_' + counter).val();
+		  if(fvvt!='' && fvant!=''){
+			  targetStr = fvpakn + " " + fvvt;
+		  }
+		  if(!jq('#hestl4').prop('checked')){
+			  if(jq('#hevs1').val()==''){
+				  jq('#hevs1').val(targetStr);
+			  }
+		  }
+	  }
+  }
+	  
+  function sumWeight(element) {
+	  //element.id;
+	  var sum = 0;
+	  jq( ".clazzWeightMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvkt_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hevkt').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+  }
 
+  function sumVolume(element) {
+	  //element.id;
+	  var MAX_VALUE = 9999.99;
+	  var sum = 0;
+	  jq( ".clazzVolMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvol_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  var dblValue = Number(value);
+			  if(dblValue > MAX_VALUE){
+				  jq('#fvvol_' + counter).addClass( "isa_error" );
+			  }else{
+				  sum += Number(value);
+				  jq('#fvvol_' + counter).removeClass( "isa_error" );
+			  }
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  jq('#hem3').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+  }
+  function calculateVolume(element) {
+	  var id = element.id;
+	  if(jq(element).val()==''){
+		  var counter; var antal; var length; var width; var height; var result;
+		  if(id.indexOf("_") > -1){
+			  counter = id.replace("fvvol_","");
+			  //now get all parameters
+			  antal = jq('#fvant_'+counter).val();
+			  length = jq('#fvlen_'+counter).val();
+			  width= jq('#fvbrd_'+counter).val();
+			  height= jq('#fvhoy_'+counter).val();
+			  
+		  }else{
+			  antal = jq('#fvant').val();
+			  length = jq('#fvlen').val();
+			  width= jq('#fvbrd').val();
+			  height= jq('#fvhoy').val();
+		  }	
+		  result = Number(antal)*Number(length)*Number(width)*Number(height);
+		  //Now to the math
+		  if(result>0){
+			  result = result * 0.000001;
+			  jq(element).val(result.toLocaleString('de-DE', { useGrouping: false }));
+		  }
+	  }
+  }
+  
+  
   
 //-------------------------------------------------------
   //Dangerous goods child window (is triggered from jsp)

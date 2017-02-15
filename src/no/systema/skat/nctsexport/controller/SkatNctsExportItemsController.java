@@ -189,6 +189,10 @@ public class SkatNctsExportItemsController {
 				if(!"".equals(recordToValidate.getTvtdn2())){
 					recordToValidate.setValidOppdragRef(this.isValidOppdragRef(appUser, recordToValidate));
 				}
+				//Check if angivelsestype is T- in header
+				if("T-".equals(headerRecord.getThdk())){
+					recordToValidate.setThdkTminusType(true);
+				}
 				//check if varukod is valid
 				boolean isBatch = false;
 				this.backEndValidationOnTolltariff(appUser, headerRecord, recordToValidate, isBatch);

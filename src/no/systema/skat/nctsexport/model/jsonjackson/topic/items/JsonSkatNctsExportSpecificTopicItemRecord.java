@@ -37,6 +37,10 @@ public class JsonSkatNctsExportSpecificTopicItemRecord extends JsonAbstractGrand
 	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
 	public boolean isValidTolltariff() {return this.validTolltariff;}
 	
+	private boolean thdkTminusType = false;
+	public void setThdkTminusType(boolean value) {  this.thdkTminusType = value; }
+	public boolean isThdkTminusType() {return this.thdkTminusType;}
+	
 	
 	//Aux. attr. in order to sum all packages
 	private Integer sum_of_tvnt = 0;
