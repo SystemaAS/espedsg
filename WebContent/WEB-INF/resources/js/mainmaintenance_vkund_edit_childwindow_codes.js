@@ -10,14 +10,12 @@ jq(function() {
 		var code = record[0].replace("code", "");
 		var caller = record[1].replace("caller", "");
 
-		//addressing a parent field from this child window
-		if (caller == 'ctype') {
-			opener.jq('#ctype').val(code);
-			opener.jq('#ctype').change();
-			opener.jq('#ctype').focus();
-		} 
-
-		//close child window
+		caller = "#" + caller;
+		
+		opener.jq(caller).val(code);
+		opener.jq(caller).change();
+		opener.jq(caller).focus();
+		
 		window.close();
 	});
 });

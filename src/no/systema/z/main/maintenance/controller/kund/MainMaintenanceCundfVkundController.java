@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.dao.ValufDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.values.FasteKoder;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
@@ -136,7 +139,7 @@ public class MainMaintenanceCundfVkundController {
 
 			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { // Delete from list
 				dmlRetval = deleteRecord(appUser.getUser(), kundnr, firma, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				//TODO: ev remove kundeSessionParams
+				session.removeAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 				if (dmlRetval < 0) {
 					logger.info("[ERROR DML] Record does not validate)");
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
@@ -184,32 +187,20 @@ public class MainMaintenanceCundfVkundController {
 		}
 	}
 		
-	//TODO: extend with more...
 	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {
 		List<ChildWindowKode> list = null;
-	
-		if ("ctype".equals(caller)) { //Funksjon
+
+		if ("ctype".equals(caller)) { // Funksjon
 			list = getFunksjonKoder(appUser, KOFAST_NO_ID);
-			
 		} else if ("ctype_ref".equals(caller)) {
 			list = getFunksjonKoder(appUser, !KOFAST_NO_ID);
+		} else if ("valkod".equals(caller)) { //Valutakod
+			list = getValkoder(appUser);
+		} else {
+			throw new IllegalArgumentException(caller + "is not supported.");
 		}
-		
-/*		switch (FasteKoder.valueOf(callerType)) {
-			case FUNKSJON:
-				//TODO:
-				break;
-				
-			default:
-				throw new IllegalArgumentException("FasteKoder: "+callerType+ " is unvalid.");
-				
-		
-		}
-		*/
-		
+
 		return list;
-		
-		
 	}
 	
 	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser, boolean noId) {
@@ -240,7 +231,40 @@ public class MainMaintenanceCundfVkundController {
 		}
 		return kodeList;
 	}
+	
+	
+	private List<ChildWindowKode> getValkoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<ValufDao>> jsonReader = new JsonReader<JsonDtoContainer<ValufDao>>();
+		jsonReader.set(new JsonDtoContainer<ValufDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_VALUF_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser.getUser());
 
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		JsonDtoContainer<ValufDao> container =  (JsonDtoContainer<ValufDao> )jsonReader.get(jsonPayload);
+		if (container != null) {
+			for (ValufDao valufDao : container.getDtoList()) {
+				kode = getChildWindowKode(valufDao);
+				kodeList.add(kode);
+			}
+		}
+		return kodeList;
+	}	
+
+	private ChildWindowKode getChildWindowKode(ValufDao valufDao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(valufDao.getValkod());
+		kode.setDescription(valufDao.getValtek());
+
+		return kode;
+	}	
+	
+	
 	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowKofastRecord record, boolean noId) {
 		ChildWindowKode kode = new ChildWindowKode();
 		if (noId) {
