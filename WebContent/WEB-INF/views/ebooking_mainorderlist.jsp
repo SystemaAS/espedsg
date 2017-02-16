@@ -209,7 +209,27 @@
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
+		               <td align="center" class="text11MediumBlue">
+		               		<c:choose>
+			               		<c:when test="${record.status == 'E'}">
+				               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="ebooking_mainorderlist_send_order.do?heunik=${record.unik}">
+				               			<img src="resources/images/send-file.png" height="18px" width="18px" border="0" alt="send">
+				               		</a>
+			               		</c:when>
+			               		<c:otherwise>
+			               			<c:if test="${record.status == 'P'}">
+			               				<span title="Bookingen er plukket">
+			               					<img src="resources/images/complete-icon.png" height="12px" width="12px" border="0" alt="completed">
+			               				</span>
+			               			</c:if>
+			               			<c:if test="${empty record.status}">
+			               				<span title="Booking er sendt inn men ennå ikke plukket til oppdrag">
+			               					<img src="resources/images/engines.png" height="16px" width="16px" border="0" alt="in process">
+			               				</span>
+			               			</c:if>
+			               		</c:otherwise>
+		               		</c:choose>
+		               </td>
 		               
 		               <td align="center" class="text11MediumBlue">
             		  	 	<a sytle="cursor:pointer;" id="hereff_${record.hereff}@heunik_${record.unik}" title="delete" onClick="doPermanentlyDeleteOrder(this)" tabindex=-1>

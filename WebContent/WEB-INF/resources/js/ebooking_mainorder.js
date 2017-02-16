@@ -775,12 +775,138 @@
 	  }
 	  
   }
+  //ADR
+  function private_sumAdr() {
+	  //element.id;
+	  var MAX_VALUE = 99.99;
+	  var sum = 0;
+	  var sum = 0;
+	  jq( ".clazzAdrMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#ffpoen_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  //this ADR is THE ONLY FIELD not required to block the sum with the Protect checkbox (hestl4)
+	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+  }
   
   
-//--------------------------
+//------------------
+  // CHECK functions
+  //------------------
+  function checkVolumeNewLine() {
+	  var MAX_VALUE = 9999.99;
+	  var sum = 0;
+	  var value = jq('#fvvol').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#fvvol').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#fvvol').removeClass( "isa_error" );
+		  }
+	  }
+  }
+  function checkLmNewLine() {
+	  jq('#fvlm').removeClass( "isa_error" );
+	  
+	  var MAX_VALUE = 99.99;
+	  var sum = 0;
+	  var value = jq('#fvlm').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#fvlm').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#fvlm').removeClass( "isa_error" );
+			  //AUTO FILL cousin field
+			  if(jq('#fvlm2').val() == ""){
+				  jq('#fvlm2').val(jq('#fvlm').val());
+			  }
+		  }
+	  }
+  }
+  function checkLm2NewLine() {
+	  var MAX_VALUE = 99.99;
+	  var sum = 0;
+	  var value = jq('#fvlm2').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#fvlm2').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#fvlm2').removeClass( "isa_error" );
+		  }
+	  }else{
+		  //AUTO FILL cousin field
+		  if(jq('#fvlm2').val() == ""){
+			  jq('#fvlm2').val(jq('#fvlm').val());
+		  }
+	  }
+  }
+  function checkHem3() {
+	  var MAX_VALUE = 9999.999;
+	  var sum = 0;
+	  var value = jq('#hem3').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#hem3').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#hem3').removeClass( "isa_error" );
+		  }
+	  }
+  }
+  function checkHelm() {
+	  var MAX_VALUE = 99.99;
+	  var sum = 0;
+	  var value = jq('#helm').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#helm').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#helm').removeClass( "isa_error" );
+		  }
+	  }
+  }
+  function checkHelmla() {
+	  var MAX_VALUE = 99.99;
+	  var sum = 0;
+	  var value = jq('#helmla').val();
+	  if(value!=''){
+		  value = value.replace(",",".");
+		  var dblValue = Number(value);
+		  if(dblValue > MAX_VALUE){
+			  jq('#helmla').addClass( "isa_error" );
+		  }else{
+			  sum += Number(value);
+			  jq('#helmla').removeClass( "isa_error" );
+		  }
+	  }
+  }
+  
+  
+  
+  //--------------------------
   //Add Item line (in Order)
   //--------------------------
   function addItemLine() {
+	  
 	  //[1] Validate new line first
 	  //if(private_validateNewItemLine()){
 	  
@@ -788,15 +914,14 @@
 		  var newLineNr = Number(jq('#upperCurrentItemlineNr').val()) + 1;
 		  //Build the request string here (new line)
 		  //user=JOVO&avd=75&opd=11&fbn=1&lin=2&mode=A&fvant=11&fvvkt=15
-		  var requestString = "user=" + jq('#applicationUser').val() + "&avd=" + jq('#heavd').val() + 
-		  					 "&opd=" + jq('#heopd').val() + "&fbn=1" + "&lin=" +  newLineNr + "&mode=A" +
+		  var requestString = "user=" + jq('#applicationUser').val() + "&unik=" + jq('#heunik').val() + "&reff=" + jq('#hereff').val() + 
+		  					 "&fbn=1" + "&lin=" +  newLineNr + "&mode=A" +
 		  					 "&fmmrk1=" + jq('#fmmrk1').val() + "&fvant=" +  jq('#fvant').val() + "&fvpakn=" +  jq('#fvpakn').val() +	
 		  					 "&fvvt=" + jq('#fvvt').val() + "&fvvkt=" +  jq('#fvvkt').val() + "&fvlen=" +  jq('#fvlen').val() +
 		  					 "&fvbrd=" + jq('#fvbrd').val() + "&fvhoy=" +  jq('#fvhoy').val() + "&fvvol=" +  jq('#fvvol').val() +
 		  					 "&fvlm=" + jq('#fvlm').val() + "&fvlm2=" +  jq('#fvlm2').val() + "&ffunnr=" +  jq('#ffunnr').val() +
 		  					 "&ffembg=" + jq('#ffembg').val() + jq('#ffindx').val() + "&ffantk=" +  jq('#ffantk').val() + "&ffante=" +  jq('#ffante').val() +
 		  					 "&ffenh=" + jq('#ffenh').val();
-		  
 		  
 		  var ant = jq('#fvant').val();
 		  var weight = jq('#fvvkt').val();
@@ -819,7 +944,7 @@
 			  //-----------------------------
 			  jq.ajax({
 			  	  type: 'GET',
-			  	  url: 'addNewOrderDetailLine_TransportDisp.do',
+			  	  url: 'addNewOrderDetailLine_Ebooking.do',
 			  	  data: { applicationUser : jq('#applicationUser').val(), 
 			  		  	  requestString : requestString }, 
 			  	  dataType: 'json',
@@ -836,8 +961,7 @@
 			  				//Note: the reason for updating the totals in doFind is because no session object is possible to hand in an ajax call.
 			  				//For the above reason we then use the doFind method in order to get the whole record and update its total fields once there.
 			  				//There is no other way to do the update without breaking the Ajax design in Spring and good healthy session handling in the web infrastructure
-				  			window.location = "transportdisp_mainorder.do?hepro=" + jq('#tripNr').val() + "&heavd=" + jq('#heavd').val() + 
-				  								"&heopd=" + jq('#heopd').val() + "&oltotals=" + orderLinesTotalString;
+				  			window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&oltotals=" + orderLinesTotalString;
 				  			
 			  			}else{
 			  				alert("[ERROR] when creating the order line...?");
@@ -951,10 +1075,75 @@
 	  return retval;
 	  
   }
+//----------------------------------
+  //NEW Item line
+  //----------------------------------
+  function validateNewItemLine() {
+	  var retval = false;
+	  //Build the request string here (new line)
+	  //user=JOVO&avd=75&opd=19&fmmrk1=&fvant=1&fvpakn=&fvvt=TEST&fvvkt=1000&fvvol=&fvlm=&fvlm2=&fvlen=&fvbrd=&fvhoy=&ffunnr=1234&ffemb=&ffantk=1&ffante=1&ffenh=KGM
+	  var requestString = "user=" + jq('#applicationUser').val() + "&avd=" + jq('#heavd').val() + "&opdtyp=" + jq('#heot').val() +
+			 "&opd=" + jq('#heopd').val() + "&fmmrk1=" + jq('#fmmrk1').val() + "&fvant=" +  jq('#fvant').val() + "&fvpakn=" +  jq('#fvpakn').val() +	
+			 "&fvvt=" + jq('#fvvt').val() + "&fvvkt=" +  jq('#fvvkt').val() + "&fvlen=" +  jq('#fvlen').val() +
+			 "&fvbrd=" + jq('#fvbrd').val() + "&fvhoy=" +  jq('#fvhoy').val() + "&fvvol=" +  jq('#fvvol').val() +
+			 "&fvlm=" + jq('#fvlm').val() + "&fvlm2=" +  jq('#fvlm2').val() + "&ffunnr=" +  jq('#ffunnr').val() +
+			 "&ffembg=" + jq('#ffembg').val() + "&ffindx=" + jq('#ffindx').val() + "&ffantk=" +  jq('#ffantk').val() + "&ffante=" +  jq('#ffante').val() +
+			 "&ffenh=" + jq('#ffenh').val();
+	  //alert(requestString);
+	  //mandatory fields
+	  var ant = jq('#fvant').val(); var weight = jq('#fvvkt').val(); var description = jq('#fvvt').val();
+	  if ( ant!='' && weight!='' && description !='' ){
+		  jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'validateCurrentOrderDetailLine_Ebooking.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(), 
+		  		  	  requestString : requestString,
+		  		  	  lineNr : null },
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  async: false, //only way to make synchronous calls. Otherwise will all ajax dependent functions will execute asynchronously
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		for ( var j = 0; j < len; j++) {
+		  			//we send the redirect after a successfull creation in order to refresh...
+		  			//success code = 1
+		  			if(data[j].errMsg!=null && data[j].errMsg!=''){
+		  				//alert(data[i].errMsg);
+		  				var errorPrefix = "[ERROR] FATAL on new line:";
+			  			jq('#orderLineErrMsgPlaceHolder').text(errorPrefix + " -->" + data[j].errMsg);
+			  			jq('#fvvkt').focus(); //always to weight column otherwise we lose control
+		  			}else{
+		  				jq('#orderLineErrMsgPlaceHolder').text("");
+		  				//here we take care of the parameters that will complete some values
+		  				if(jq('#fvlm').val()==''){ jq('#fvlm').val(data[j].fvlm); }
+		  				if(jq('#fvlm2').val()==''){ jq('#fvlm2').val(data[j].fvlm2); }
+		  				//trigger local function to keep in sync the math
+		  				retval = true;
+		  						  				
+		  			}	
+		  		}
+		  	  },
+		  	  error: function() {
+			  	  alert('Error loading ...');
+		  	  }
+		  });
+	  }else{
+		  alert("[ERROR] missing mandatory fields for new line...");
+		  if(ant==''){
+			  jq('#fvant').focus();  
+		  }else if (weight==''){
+			  jq('#fvvkt').focus();
+		  }else if (description==''){
+			  jq('#fvvt').focus();
+		  }
+	  }
+	  return retval;
+  }
   
   
   
-//-------------------------------------------------------
+  //-------------------------------------------------------
   //Dangerous goods child window (is triggered from jsp)
   //-------------------------------------------------------
   function searchDangerousGoods(element) {
@@ -1287,6 +1476,149 @@
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
 	  
   }
+  
+//-----------------------------
+  //UPDATE before ADD ORDER LINE
+  //-----------------------------
+  function updateOrderLineTotalsBeforeAdd() { 
+      //Antall
+	  var sum = 0;
+	  jq( ".clazzAntMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvant_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  var fvant = jq('#fvant').val();
+		  if(fvant!=''){ fvant = fvant.replace(",","."); sum += Number(fvant); }
+		  jq('#hent').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //Weight
+	  var sum = 0;
+	  jq( ".clazzWeightMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvkt_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  var fvvkt = jq('#fvvkt').val();
+		  if(fvvkt!=''){ fvvkt = fvvkt.replace(",","."); sum += Number(fvvkt); }
+		  jq('#hevkt').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //M3
+	  var sum = 0;
+	  jq( ".clazzVolMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvvol_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  var fvvol = jq('#fvvol').val();
+		  if(fvvol!=''){ fvvol = fvvol.replace(",","."); sum += Number(fvvol); }
+		  jq('#hem3').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //LM
+	  var sum = 0;
+	  jq( ".clazzLmMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvlm_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  var fvlm = jq('#fvlm').val();
+		  if(fvlm!=''){ fvlm = fvlm.replace(",","."); sum += Number(fvlm); }
+		  jq('#helm').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //LM-la
+	  var sum = 0;
+	  jq( ".clazzLmlaMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#fvlm2_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  if(!jq('#hestl4').prop('checked')){
+		  var fvlm2 = jq('#fvlm2').val();
+		  if(fvlm2!=''){ fvlm2 = fvlm2.replace(",","."); sum += Number(fvlm2); }
+		  jq('#helmla').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  }
+	  //ADR
+	  var sum = 0;
+	  jq( ".clazzAdrMathAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var value = jq('#ffpoen_' + counter).val();
+		  if(value!=''){
+			  value = value.replace(",",".");
+			  sum += Number(value);
+		  }
+	  });
+	  //Update the ADR-sum with
+	  /* OLD With ffante as Integer
+	  var unitStr = jq('#ffante').val();
+	  var faktStr = jq('#ownAdrFaktNewLine').val();
+	  if(unitStr!='' && faktStr!=''){
+		  unit = parseInt(unitStr);
+		  fakt = parseInt(faktStr);
+		  sum += (unit*fakt);
+	  }*/
+	  var unitStr = jq('#ffante').val();
+	  var faktStr = jq('#ownAdrFaktNewLine').val();
+	  if(unitStr!='' && faktStr!=''){
+		  unitStr = unitStr.replace(",",".");
+		  unit = Number(unitStr);
+		  fakt = parseInt(faktStr);
+		  sum += (unit*fakt);
+	  }
+	  
+	  //ADR field NOT REQUIRED to be blocked by checkbox: hestl4
+	  jq("#hepoen").attr("readonly", false); 
+	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
+	  
+  }
+  
+  //UPDATE before SUBMIT Vareslag - TOT
+  //Usually if the field hasn't been populated earlier by other jQuery functions on Vareslag
+  function private_isSingleOrderLine() {
+	  //element.id;
+	  var sum = 0;
+	  var isTrue = true;
+	  jq( ".clazzVareslagAware" ).each(function( i ) {
+		  var id = this.id;
+		  var counter = i + 1;
+		  var fvant = jq('#fvant_' + counter).val();
+		  var fvvt = jq('#fvvt_' + counter).val();
+		  var fvvkt = jq('#fvvkt_' + counter).val();
+		  
+		  if(counter>1 && (fvant!='' && fvvt!='' && fvvkt!='')){
+			 isTrue = false;  
+		  }
+		  
+	  });
+	  
+	  return isTrue;
+	  
+  }
+  
   
   
   

@@ -32,7 +32,7 @@
 				
 			</td>
 			<c:choose>
-				<c:when test="${empty model.record.hereff && empty model.record.heunik}">
+				<c:when test="${empty model.record.heunik}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
@@ -142,6 +142,7 @@
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="heunik" id="heunik" value='${model.record.heunik}'>
+					<input type="hidden" name="hereff" id="hereff" value='${model.record.hereff}'>
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
 					<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
 					<input type="hidden" name="trknfa" id="trknfa" value='${model.record.trknfa}'>
@@ -157,11 +158,12 @@
 							<td colspan="2">
 							<table border="0">
 							 	<tr>
+							 		<%-- hereff has been replaced by: Avs.ref (herfa) or Mott.ref (herfk) 
 						 		 	<td class="text11">&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hereff"><spring:message code="systema.ebooking.orders.form.update.label.orderref"/>&nbsp;</span></td>
 				 					<td class="text11">
 					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
 					 				</td>
-					 				
+					 				--%>
 					 				<td align="left" class="text11" >
 					 					&nbsp;&nbsp;<span title="xfakBet"><spring:message code="systema.ebooking.orders.form.update.label.fraktbetaler"/></span>
 					 				</td>
@@ -628,20 +630,26 @@
 									<table>
 						 			<tr>		
 										<td class="text11">&nbsp;
-											<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.oppdragstype"/></span>
+											<span title="heot"><spring:message code="systema.ebooking.orders.form.update.label.oppdragstype"/></span>
 							 			</td>
 							 			<td class="text11">
-							 				<select name="todo" id="todo">
-							 					<option value='todo' <c:if test="${fraktbrevRecord.ffenh == 'KG' || fraktbrevRecord.ffenh == 'kg'}"> selected </c:if> >INNLANDSOPPDRAG</option>
+							 				<select name="heot" id="heot">
+							 					<option value="">-velg-</option>
+							 					<c:forEach var="record" items="${model.oppdragstypeList}" >
+							 						<option value='${record.opdTyp}' <c:if test="${record.opdTyp == model.record.heot}"> selected </c:if> >${record.opdTyp}</option>
+							 					</c:forEach>
 											</select>
 							 			</td>
 										<td width="30px">&nbsp;</td>
 										<td class="text11">&nbsp;
-											<span title="todo"><spring:message code="systema.ebooking.orders.form.update.label.incoterms"/></span>
+											<span title="hefr"><spring:message code="systema.ebooking.orders.form.update.label.incoterms"/></span>
 							 			</td>
 							 			<td class="text11">
-							 				<select name="todo" id="todo">
-							 					<option value='todo' <c:if test="${fraktbrevRecord.ffenh == 'KG' || fraktbrevRecord.ffenh == 'kg'}"> selected </c:if> >SENDER BETALER</option>
+							 				<select name="hefr" id="hefr">
+							 					<option value="">-velg-</option>
+							 					<c:forEach var="record" items="${model.incotermsList}" >
+							 						<option value='${record.franka}' <c:if test="${record.franka == model.record.hefr}"> selected </c:if> >${record.franka}</option>
+							 					</c:forEach>
 											</select>
 							 			</td>
 										<td width="30px">&nbsp;</td>
@@ -669,7 +677,7 @@
             </tr>
             <tr height="2"><td></td></tr>
             
-            <%--
+            
             <tr>
             		<td>
 	        			<table style="width:99%;" align="left" class="tableBorderWithRoundCornersGray" border="0" cellspacing="0" cellpadding="0">
@@ -699,7 +707,7 @@
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
 						 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffpoen/hepoen(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.adr"/>&nbsp;</span></td>
-						 			<td align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.ebooking.orders.form.detail.update.label.remove"/></span></td>										 			
+						 			<td width="2%" align="left" valign="bottom" class="tableHeaderField11"><span title=""><spring:message code="systema.ebooking.orders.form.detail.update.label.remove"/></span></td>										 			
 						 		</tr>
 						 		</table>
 						 		<div class="ownScrollableSubWindow" style="width:1460px; height:10em;" > 
@@ -715,17 +723,17 @@
 							 		<input type="hidden" name="fvlinr_${counter.count}" id="fvlinr_${counter.count}" value="${fraktbrevRecord.fvlinr}" >
 							 		   
 							 		<tr class="tableRow" >
-							 			<td width="2%" align="center" class="tableCellFirst" nowrap>${counter.count}</td>
+							 			<td title="fvlinr_${fraktbrevRecord.fvlinr}" width="2%" align="center" class="tableCellFirst" nowrap>${counter.count}</td>
 					               		<td align="left" class="tableCell" nowrap>
 						 					<input type="text" class="inputTextMediumBlue10" name="fmmrk1_${counter.count}" id="fmmrk1_${counter.count}" size="10" maxlength="35" value="${fraktbrevRecord.fmmrk1}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onBlur="sumAntal(this);" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10MandatoryField clazzAntMathAware" style="text-align:right;" name="fvant_${counter.count}" id="fvant_${counter.count}" size="7" maxlength="7" value="${fraktbrevRecord.fvant}">
 						 				</td>
-						 				<td width="6%" align="left" class="tableCell" nowrap>
+						 				<td width="7%" align="left" class="tableCell" nowrap>
 							 				<input type="text" onBlur="searchPackingCodesOnBlur(this);" class="inputTextMediumBlue10" name="fvpakn_${counter.count}" id="fvpakn_${counter.count}" size="8" maxlength="7" value="${fraktbrevRecord.fvpakn}">
 							 				<a tabindex=0 id="fvpaknIdLink_${counter.count}" onClick="searchPackingCodes(this);">
-	 											<img id="imgFvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">
+	 											<img id="imgFvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">&nbsp;
 	 										</a>
 						 				</td>
 						 				<td width="7%" align="left" class="tableCell" nowrap>
@@ -752,10 +760,10 @@
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onBlur="sumLmla();validateItemLineExtensionLmLma(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10 clazzLmlaMathAware" style="text-align:right;" name="fvlm2_${counter.count}" id="fvlm2_${counter.count}" size="4" maxlength="5" value="${fraktbrevRecord.fvlm2}">
 						 				</td>
-						 				<td width="5%" align="left" class="tableCellDangerousGoods" nowrap>
+						 				<td width="6%" align="left" class="tableCellDangerousGoods" nowrap>
 							 				<input onBlur="validateDangerousGoodsUnnr(${counter.count});"  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffunnr_${counter.count}" id="ffunnr_${counter.count}" size="4" maxlength="4" value="${fraktbrevRecord.ffunnr}">
 							 				<a tabindex=0 id="ffunnrIdLink_${counter.count}" onClick="searchDangerousGoods(this);">
-	 											<img id="imgUnnrSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">
+	 											<img id="imgUnnrSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="10px" width="10px" border="0" alt="search">&nbsp;
 	 										</a>
 						 				</td>
 						 				<td width="4%" align="right" class="tableCellDangerousGoods" nowrap>
@@ -793,8 +801,6 @@
 						               		</c:if> 	
 							 			</td>
 						 			</tr>
-						 			
-						 			
 					 			</c:forEach>
 					 			</table>
 						 		</div>
@@ -813,29 +819,29 @@
 										<b>TOT</b>
 									</td>
 									<td align="left" class="tableHeaderField11">
-										<input type="text" class="inputTextMediumBlue10" name="hegm1" id="hegm1" size="6" maxlength="35" value="${Xmodel.record.hegm1}">
+										<input type="text" class="inputTextMediumBlue10" name="hegm1" id="hegm1" size="6" maxlength="35" value="${model.record.hegm1}">
 									</td>
 						 			<td align="right" class="tableHeaderField11">
-						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${Xmodel.record.hent}">
+						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
 						 			</td>
 						 			<td width="7%" align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td width="7%" align="left" class="tableHeaderField11">
-						 				<input type="text" class="inputTextMediumBlue10MandatoryFieldUPPERCASE" style="text-align:left;" name="hevs1" id="hevs1" size="10" maxlength="25" value="${Xmodel.record.hevs1}">
+						 				<input type="text" class="inputTextMediumBlue10MandatoryFieldUPPERCASE" style="text-align:left;" name="hevs1" id="hevs1" size="10" maxlength="25" value="${model.record.hevs1}">
 						 			</td>
 						 			<td width="7%" align="right" class="tableHeaderField11">
-						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="8" maxlength="9" value="${Xmodel.record.hevkt}">
+						 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="8" maxlength="9" value="${model.record.hevkt}">
 						 			</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="left" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11"><span title="hem3">&nbsp;</span>
-						 				<input onBlur="checkHem3(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="hem3" id="hem3" size="5" maxlength="8" value="${Xmodel.record.hem3}">
+						 				<input onBlur="checkHem3(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="hem3" id="hem3" size="5" maxlength="8" value="${model.record.hem3}">
 					 				</td>
 						 			<td align="right" class="tableHeaderField11"><span title="helm">&nbsp;</span>
-						 				<input onBlur="checkHelm(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helm" id="helm" size="5" maxlength="5" value="${Xmodel.record.helm}">
+						 				<input onBlur="checkHelm(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helm" id="helm" size="5" maxlength="5" value="${model.record.helm}">
 					 				</td>
 						 			<td align="right" class="tableHeaderField11"><span title="helmla">&nbsp;</span>
-						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${Xmodel.record.helmla}">
+						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${model.record.helmla}">
 						 			</td>
 						 			<td width="6%" align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td width="4%" align="right" class="tableHeaderField11">&nbsp;</td>
@@ -844,12 +850,12 @@
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11"><span title="hepoen">&nbsp;</span>
-						 				<input readonly tabindex=-1 onKeyPress="return amountKey(event)" type="text" class="inputText10BlueBoldReadOnly" style="text-align:right;" name="hepoen" id="hepoen" size="5" maxlength="5" value="${Xmodel.record.hepoen}">
+						 				<input readonly tabindex=-1 onKeyPress="return amountKey(event)" type="text" class="inputText10BlueBoldReadOnly" style="text-align:right;" name="hepoen" id="hepoen" size="5" maxlength="5" value="${model.record.hepoen}">
 						 			</td>
 						 			<td width="2%" align="left" class="tableHeaderField11">
 						 				<img onMouseOver="showPop('psum_info');" onMouseOut="hidePop('psum_info');" style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 				<span title="hestl4">P</span>
-						 				<input type="checkbox" id="hestl4" name="hestl4" value="P" <c:if test="${Xmodel.record.hestl4 == 'P'}"> checked </c:if>>
+						 				<input type="checkbox" id="hestl4" name="hestl4" value="P" <c:if test="${model.record.hestl4 == 'P'}"> checked </c:if>>
 						 				<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute; left:-50px; top:10px; width:200" id="psum_info" class="popupWithInputText"  >
 												<font class="text11">
@@ -868,30 +874,30 @@
 						</tr>
 						
 						  
-						<c:if test="${not empty model.record.hereff && totalNumberOfLines >= 4}">
+						<c:if test="${not empty model.record.heunik && totalNumberOfLines >= 4}">
 				 			<tr height="10"><td ></td></tr>
-					 		<%-- CREATE NEW LINE SECTION
+					 		<%-- CREATE NEW LINE SECTION --%>
 					 		<tr>
 								<td colspan="2" style="padding: 3px;">
 									<table align="left" border="0" style="width:99%;background-color:#778899">
 									<tr class="tableHeaderField10" >	
-							 			<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="fmmrk1">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.marks"/></span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.forpak"/></span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvvt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.goodsDesc"/></span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.transportdisp.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlen">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.length"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvbrd">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.width"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvhoy">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.height"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm2/helmla(Tot)">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.lm.la"/>&nbsp;</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffembg">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.emg"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffindx">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.emg.index"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffantk">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.ant2"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.transportdisp.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="fmmrk1">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.marks"/></span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.forpak"/></span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvvt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.goodsDesc"/></span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlen">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.length"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvbrd">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.width"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvhoy">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.height"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm2/helmla(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.lm.la"/>&nbsp;</span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffembg">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.emg"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffindx">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.emg.index"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffantk">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.ant2"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
 							 			
 							 		</tr>
 							 		<tr >	
@@ -959,46 +965,14 @@
 					 							
 											</select>
 						 				</td>
-						 				<td align="center"><input onClick="addItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.transportdisp.orders.form.detail.update.createNewLine"/>'></td>
+						 				<td align="center"><input onClick="addItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.ebooking.orders.form.detail.update.createNewLine"/>'></td>
 						 			</tr>
 						 			<tr></tr>
 						 			</table>
 					 			</td>
 				 			</tr>
-				 			--%>	
+				 				
 						</c:if>
-						
-						
-						<tr height="5"><td ></td></tr>
-						<%--
-						<tr>
-							<td colspan="2" valign="top" style="width:100%;">
-								<table border="0">
-							 		<tr height="2"><td ></td></tr>
-							 		<tr>
-							 			<td class="text12" nowrap>&nbsp;&nbsp;<span title="hegm2"><spring:message code="systema.transportdisp.orders.form.update.label.marks2"/></span></td>
-							 			<td class="text12" width="100px">&nbsp;</td>
-							 			<td class="text12" nowrap>&nbsp;&nbsp;&nbsp;<span title="hevs2"><spring:message code="systema.transportdisp.orders.form.update.label.goodsDesc2"/></span></td>
-							 			<td class="text12" width="70px">&nbsp;</td>
-							 			<td class="text12" nowrap>&nbsp;&nbsp;<span title="hefbv"><spring:message code="systema.transportdisp.orders.form.update.label.fraktberakningsVekt"/></span></td>
-							 		</tr>
-							 		<tr>
-							 			<td class="text11" >&nbsp;	
-							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hegm2" id="hegm2" size="12" maxlength="10" value="${Xmodel.record.hegm2}">					 				
-						 				</td>
-						 				<td class="text12" width="100px">&nbsp;</td>
-						 				<td class="text11">
-							 				<input type="text" class="inputTextMediumBlueUPPERCASE" name="hevs2" id="hevs2" size="12" maxlength="10" value="${Xmodel.record.hevs2}">
-						 				</td>
-						 				<td class="text12" width="70px">&nbsp;</td>
-						 				<td class="text12">
-						 					<input readonly type="text" class="inputTextReadOnly tableCell" size="10" value="${Xmodel.record.hefbv}">
-						 				</td>
-						 			</tr>
-						 		</table>
-					 		</td>
-						</tr>
-						 --%>
 						<tr height="5"><td ></td></tr>
 							
 	 				</table>
@@ -1015,7 +989,7 @@
 	 				    </td>
 						<td align="right">
 		 				    <c:choose>
-			 				    <c:when test="${ not empty model.record.heunik && not empty model.record.hereff }">
+			 				    <c:when test="${ not empty model.record.heunik }">
 			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
 			 				    </c:when>
 			 				    <c:otherwise>
@@ -1120,7 +1094,7 @@
 						 					<ul>
 						 					<c:forEach items="${Xmodel.record.archivedDocsRecord}" var="record" varStatus="counter">
 						 						<li>
-						 						<a target="_blank" href="transportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
+						 						<a target="_blank" href="TODOtransportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
 		    		    							<img title="Archive" style="vertical-align:middle;" src="resources/images/pdf.png" width="14" height="14" border="0" alt="PDF arch.">
 		    		    							${record.doctxt}
 				   								</a>&nbsp;&nbsp;&nbsp;

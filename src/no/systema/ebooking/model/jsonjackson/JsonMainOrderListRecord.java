@@ -94,6 +94,9 @@ public class JsonMainOrderListRecord extends JsonAbstractGrandFatherRecord {
 	public void setHerfa(String value){ this.herfa = value;}
 	public String getHerfa(){ return this.herfa; }
 	
+	private String status = null;
+	public void setStatus(String value){ this.status = value;}
+	public String getStatus(){ return this.status; }
 	
 	/**
 	 * User for java reflection in other classes

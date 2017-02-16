@@ -11,19 +11,12 @@ import no.systema.main.context.TdsServletContext;
 import no.systema.main.util.io.TextFileReaderService;
 import no.systema.ebooking.util.EbookingConstants;
 import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingCodeContainer;
-import no.systema.ebooking.mapper.jsonjackson.JsonEbookingCodeMapper;
-/*
-import no.systema.transportdisp.mapper.jsonjackson.avdsignature.JsonTransportDispSignatureMapper;
-import no.systema.transportdisp.mapper.jsonjackson.frankatur.JsonTransportDispFrankaturMapper;
-import no.systema.transportdisp.mapper.jsonjackson.oppdragstype.JsonTransportDispOppdragTypeMapper;
-import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispChildWindowMapper;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturContainer;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingOppdragTypeContainer;
 
-import no.systema.transportdisp.model.jsonjackson.workflow.avdsignature.JsonTransportDispSignatureContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.frankatur.JsonTransportDispFrankaturContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.oppdragstype.JsonTransportDispOppdragTypeContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.oppdragstype.JsonTransportDispOppdragTypeParametersContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
-*/
+import no.systema.ebooking.mapper.jsonjackson.JsonEbookingCodeMapper;
+
+
 
 
 
@@ -49,6 +42,7 @@ public class EbookingDropDownListPopulationService {
 	private final String FILE_RESOURCE_PATH = EbookingConstants.RESOURCE_FILES_PATH;
 	private TextFileReaderService textFileReaderService = new TextFileReaderService();
 	private JsonEbookingCodeMapper codeMapper = new JsonEbookingCodeMapper();
+	
 	/*private JsonTransportDispSignatureMapper signMapper = new JsonTransportDispSignatureMapper();
 	private JsonTransportDispFrankaturMapper frankaturMapper = new JsonTransportDispFrankaturMapper();
 	private JsonTransportDispOppdragTypeMapper oppdragTypeMapper = new JsonTransportDispOppdragTypeMapper();
@@ -125,10 +119,10 @@ public class EbookingDropDownListPopulationService {
 	 * @return
 	 * @throws Exception
 	 */
-	/*
-	public JsonTransportDispFrankaturContainer getFrankaturContainer(String utfPayload) throws Exception{
-		return this.frankaturMapper.getContainer(utfPayload);
-	}*/
+	
+	public JsonEbookingFrankaturContainer getFrankaturContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getFrankaturContainer(utfPayload);
+	}
 	
 	/**
 	 * 
@@ -136,10 +130,10 @@ public class EbookingDropDownListPopulationService {
 	 * @return
 	 * @throws Exception
 	 */
-	/*
-	public JsonTransportDispOppdragTypeContainer getOppdragTypeContainer(String utfPayload) throws Exception{
-		return this.oppdragTypeMapper.getContainer(utfPayload);
-	}*/
+	
+	public JsonEbookingOppdragTypeContainer getOppdragTypeContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getOppdragTypeContainer(utfPayload);
+	}
 	/**
 	 * 
 	 * @param utfPayload

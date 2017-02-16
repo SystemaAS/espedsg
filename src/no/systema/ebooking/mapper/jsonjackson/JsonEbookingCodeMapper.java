@@ -10,6 +10,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingCodeContainer;
 import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingCodeRecord;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturContainer;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturRecord;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingOppdragTypeContainer;
+import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingOppdragTypeRecord;
 
 import java.util.*;
 
@@ -43,5 +47,60 @@ public class JsonEbookingCodeMapper {
 		}	
 		return codeContainer;
 	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonEbookingFrankaturContainer getFrankaturContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		JsonEbookingFrankaturContainer container = null;
+		
+		if(utfPayload!=null){
+			//At this point we now have an UTF-8 payload
+			container = mapper.readValue(utfPayload.getBytes(), JsonEbookingFrankaturContainer.class); 
+			//logger.info("Mapping Code object from JSON payload...");
+			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
+			
+			//DEBUG
+			Collection<JsonEbookingFrankaturRecord> fields = container.getFrankaturer();
+			for(JsonEbookingFrankaturRecord record : fields){
+
+			}
+		}	
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonEbookingOppdragTypeContainer getOppdragTypeContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		JsonEbookingOppdragTypeContainer container = null;
+		
+		if(utfPayload!=null){
+			//At this point we now have an UTF-8 payload
+			container = mapper.readValue(utfPayload.getBytes(), JsonEbookingOppdragTypeContainer.class); 
+			//logger.info("Mapping Code object from JSON payload...");
+			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
+			
+			//DEBUG
+			Collection<JsonEbookingOppdragTypeRecord> fields = container.getOppdragsTyper();
+			for(JsonEbookingOppdragTypeRecord record : fields){
+
+			}
+		}	
+		return container;
+	}
+	
 	
 }

@@ -110,6 +110,8 @@ public class EbookingMainOrderHeaderController {
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
+		String orderLineTotalsString = request.getParameter("oltotals");
+		logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
@@ -590,13 +592,13 @@ public class EbookingMainOrderHeaderController {
     		urlRequestParams.append("&part=" + type);
     		
     		
-    		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-	    	logger.info("URL: " + BASE_LIST_URL);
-	    	logger.info("URL PARAMS: " + urlRequestParams);
+    		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	//logger.info("URL: " + BASE_LIST_URL);
+	    	//logger.info("URL PARAMS: " + urlRequestParams);
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
 	    	//Debug --> 
-	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonMainOrderHeaderMessageNoteContainer messageNoteContainer = this.ebookingMainOrderHeaderService.getMessageNoteContainer(jsonPayload);
 	    		Collection<JsonMainOrderHeaderMessageNoteRecord> tmpList = messageNoteContainer.getFreetextlist();
@@ -905,6 +907,8 @@ public class EbookingMainOrderHeaderController {
     		//newly created id. Set it in the recordToValidate in order to fetch (refresh) later on
     		if(EbookingConstants.MODE_ADD.equals(mode)){
     			recordToValidate.setHeunik(rpgReturnResponseHandler.getHeunik());
+    			recordToValidate.setHereff(rpgReturnResponseHandler.getHereff());
+    			
     		}
     		
     		/*TODO messages ...
@@ -995,7 +999,8 @@ public class EbookingMainOrderHeaderController {
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.ebookingDropDownListPopulationService,
 				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		
+		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringFrankatur(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringOppdragsType(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
 	}
 	
 	private void setDropDownsFromFiles(Map<String, Object> model){

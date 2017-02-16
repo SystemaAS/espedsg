@@ -32,8 +32,6 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
-
-
 //ebooking
 import no.systema.ebooking.model.EbookingOrderLineValidationObject;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
@@ -72,6 +70,47 @@ public class EbookingAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param requestString
+	 * @return
+	 */
+	@RequestMapping(value = "addNewOrderDetailLine_Ebooking.do", method = RequestMethod.GET)
+    public @ResponseBody Set<JsonMainOrderHeaderFraktbrevRecord> addNewOrderDetailLine
+	  						(@RequestParam String applicationUser, @RequestParam String requestString){
+		 logger.info("Inside: addNewOrderDetailLine");
+		 Set<JsonMainOrderHeaderFraktbrevRecord> result = new HashSet<JsonMainOrderHeaderFraktbrevRecord>();
+		 //logger.info(requestString);
+		 if(requestString!=null && !"".equals(requestString)){
+		 	 final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_UPDATE_LINE_MAIN_ORDER_FRAKTBREV_URL;
+			 //add URL-parameters
+			 String urlRequestParams = requestString;
+			 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			 logger.info("URL: " + BASE_URL);
+			 logger.info("URL PARAMS: " + urlRequestParams);
+			 String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			 
+			 JsonMainOrderHeaderFraktbrevRecord placeHolderObj = new JsonMainOrderHeaderFraktbrevRecord();	
+			 //Debug --> 
+			 logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+			 //we must evaluate a return RPG code in order to know if the Update was OK or not
+			 if(rpgReturnPayload!=null){
+				 rpgReturnResponseHandler.setErrorMessage(null);
+				 rpgReturnResponseHandler.evaluateRpgResponseOnEditSpecificOrder(rpgReturnPayload);
+				 if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+					 rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+					 //TODO -->this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);
+					 logger.info(rpgReturnResponseHandler.getErrorMessage());
+					 placeHolderObj.setFvlinr("-1");
+				 }else{
+					 placeHolderObj.setFvlinr("1");
+				 }
+			 }
+			 result.add(placeHolderObj);
+		 }
+		 return result;
+	}
 	
 	/**
 	 * 

@@ -25,6 +25,44 @@ public class JsonSkatTaricVarukodRecord {
 	public void setDktara15(String value){ this.dktara15 = value;}
 	public String getDktara15(){ return this.dktara15; }
 	
+	//import
+	private String dktara54 = null;
+	public void setDktara54(String value){ this.dktara54 = value;}
+	public String getDktara54(){ return this.dktara54; }
+	//import
+	private String dktara55 = null;
+	public void setDktara55(String value){ this.dktara55 = value;}
+	public String getDktara55(){ return this.dktara55; }
+	//import
+	private String dktara56 = null;
+	public void setDktara56(String value){ this.dktara56 = value;}
+	public String getDktara56(){ return this.dktara56; }
+	//export
+	private String dktara57 = null;
+	public void setDktara57(String value){ this.dktara57 = value;}
+	public String getDktara57(){ return this.dktara57; }
+	//export
+	private String dktara58 = null;
+	public void setDktara58(String value){ this.dktara58 = value;}
+	public String getDktara58(){ return this.dktara58; }
+	//export
+	private String dktara59 = null;
+	public void setDktara59(String value){ this.dktara59 = value;}
+	public String getDktara59(){ return this.dktara59; }
+	//transitering
+	private String dktara60 = null;
+	public void setDktara60(String value){ this.dktara60 = value;}
+	public String getDktara60(){ return this.dktara60; }
+	//transitering
+	private String dktara61 = null;
+	public void setDktara61(String value){ this.dktara61 = value;}
+	public String getDktara61(){ return this.dktara61; }
+	//transitering
+	private String dktara62 = null;
+	public void setDktara62(String value){ this.dktara62 = value;}
+	public String getDktara62(){ return this.dktara62; }
+	
+
 	/*
 	private String dktara15Formatted = "0.00";
 	public String getDktara15Formatted(){

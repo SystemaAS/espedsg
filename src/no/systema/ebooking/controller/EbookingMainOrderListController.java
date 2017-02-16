@@ -213,7 +213,54 @@ public class EbookingMainOrderListController {
 		return successView;
 	}
 	
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_mainorderlist_send_order.do",  method={RequestMethod.GET} )
+	public ModelAndView doSendOrder(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		Map model = new HashMap();
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		logger.info("#HEUNIK:" + recordToValidate.getHeunik());
+		ModelAndView errorView = new ModelAndView("ebooking_mainorderlist");
+		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorderlist.do?action=doFind");
+
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_SEND_SPECIFIC_ORDER_URL;
+			String urlRequestParamsKeys = "user=" + appUser.getUser() + "&heunik=" + recordToValidate.getHeunik();
+			//put the final valid param. string
+			String urlRequestParams = urlRequestParamsKeys;
+			
+			logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	
+	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
+	    	
+	    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
+	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+	    		//this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+	    		//isValidCreatedRecordTransactionOnRPG = false;
+	    		
+	    	}else{
+	    		//Update successfully done!
+	    		logger.info("[INFO] Record successfully sent, OK ");
+	    	}
+		}
+		return successView;
+	}
 	
 	
 	/**

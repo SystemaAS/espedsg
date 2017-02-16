@@ -37,8 +37,6 @@ public class OrderHeaderValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henak", "systema.ebooking.orders.form.update.error.null.consignee.name.henak");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "headk1", "systema.ebooking.orders.form.update.error.null.consignee.name.headk1");
-		
-		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "helka", "systema.ebooking.orders.form.update.error.null.from.helka");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdf", "systema.ebooking.orders.form.update.error.null.from.hesdf");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hetri", "systema.ebooking.orders.form.update.error.null.to.hetri");
@@ -51,23 +49,34 @@ public class OrderHeaderValidator implements Validator {
 				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.both.invoicees.invalid");
 			}
 			
-			//Check References (one of them is always mandatory. In certain cases, both are mandatory
-			if(this.isInvoiceeOnSeller(record)){
-				if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
-					logger.info("ZZZZZ");
-					errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.senderRef.mustExist");
-				}
-			}else{
-				if(this.isInvoiceeOnReceiver(record)){
-					if (record.getHerfk()==null || "".equals(record.getHerfk()) ){
-						errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.receiverRef.mustExist");
-					}else{
-						if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
-							errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.senderAndReceiverRefs.mustExist");
+			//-----------------------------------------------------------------------------------------------
+			//START Check References (one of them is always mandatory. In certain cases, both are mandatory)
+			//These keys replaced hereff (ref.JOVO)
+			//-----------------------------------------------------------------------------------------------
+			if( (record.getHerfa()!=null && !"".equals(record.getHerfa())) || (record.getHerfk()!=null && !"".equals(record.getHerfk())) ){
+				//OK. Go on with further validation
+				//(2)
+				if(this.isInvoiceeOnSeller(record)){
+					if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
+						errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderRef.mustExist");
+					}
+				}else{
+					if(this.isInvoiceeOnReceiver(record)){
+						if (record.getHerfk()==null || "".equals(record.getHerfk()) ){
+							errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.receiverRef.mustExist");
+						}else{
+							if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
+								errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.both.senderAndReceiverRefs.mustExist");
+							}
 						}
 					}
 				}
+			}else{
+				errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderOrReceiverRef.mustExist");
 			}
+			//----------------------
+			//END Check References
+			//----------------------
 		}
 		
 	}	
