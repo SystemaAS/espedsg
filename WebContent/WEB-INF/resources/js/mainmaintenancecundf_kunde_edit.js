@@ -106,9 +106,8 @@ jq(function() {
 	});	
 
     jq('#sylandIdLink').click(function() {
-    	alert("Hej Land");
     	jq('#sylandIdLink').attr('target','_blank');
-    	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=syland', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });
     
     jq('#valkodIdLink').click(function() {

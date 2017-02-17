@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.dao.KodtlkDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -196,7 +197,11 @@ public class MainMaintenanceCundfVkundController {
 			list = getFunksjonKoder(appUser, !KOFAST_NO_ID);
 		} else if ("valkod".equals(caller)) { //Valutakod
 			list = getValkoder(appUser);
-		} else {
+		} else if ("syland".equals(caller)) { //Landkode
+			list = getLandkoder(appUser);
+		} 
+		
+		else {
 			throw new IllegalArgumentException(caller + "is not supported.");
 		}
 
@@ -231,6 +236,39 @@ public class MainMaintenanceCundfVkundController {
 		}
 		return kodeList;
 	}
+
+	
+	private List<ChildWindowKode> getLandkoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<KodtlkDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtlkDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtlkDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTLK_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		JsonDtoContainer<KodtlkDao> container =  (JsonDtoContainer<KodtlkDao> )jsonReader.get(jsonPayload);
+		if (container != null) {
+			for (KodtlkDao kodtlkDao : container.getDtoList()) {
+				kode = getChildWindowKode(kodtlkDao);
+				kodeList.add(kode);
+			}
+		}
+		return kodeList;
+	}	
+
+	private ChildWindowKode getChildWindowKode(KodtlkDao kodtlkDao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(kodtlkDao.getKlklk());
+		kode.setDescription(kodtlkDao.getKlknvn());
+
+		return kode;
+	}	
+		
 	
 	
 	private List<ChildWindowKode> getValkoder(SystemaWebUser appUser) {
