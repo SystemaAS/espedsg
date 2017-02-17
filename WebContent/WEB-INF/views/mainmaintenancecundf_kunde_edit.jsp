@@ -343,11 +343,7 @@
 											<td class="text12" title="kundgr">&nbsp;
 												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.kundgr"/>
 											</td>
-											<td><input type="text" class="inputTextMediumBlue" name="kundgr" id="kundgr" size="2" maxlength="2" value='${model.record.kundgr}'>
-												<a tabindex="-1" id="kundgrIdLink">
-													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-												</a>
-											</td>
+											<td><input type="text" class="inputTextMediumBlue" name="kundgr" id="kundgr" size="2" maxlength="2" value='${model.record.kundgr}'></td>
 										</tr>
 										<tr>
 											<td colspan="4">&nbsp;</td>
@@ -526,11 +522,7 @@
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sylikv"/>
 															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="golk" id="golk" size="5" maxlength="4" value='${model.record.golk}'>
-															<a tabindex="-1" id="golkIdLink">
-																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-															</a>
-														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="golk" id="golk" size="5" maxlength="4" value='${model.record.golk}'></td>
 														<td class="text12" title="aktkod">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.aktkod"/>
@@ -584,11 +576,7 @@
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sell"/>
 															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="syselg" id="syselg" size="5" maxlength="3" value='${model.record.syselg}'>
-															<a tabindex="-1" id="syselgIdLink">
-																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-															</a>
-														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="syselg" id="syselg" size="5" maxlength="3" value='${model.record.syselg}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="aknrku">&nbsp;
