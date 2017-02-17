@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.KodtlkDao;
+import no.systema.jservices.common.dao.KodtotyDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -199,6 +200,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getValkoder(appUser);
 		} else if ("syland".equals(caller)) { //Landkode
 			list = getLandkoder(appUser);
+		} else if ("syopdt".equals(caller)) { //Oppdragstype
+			list = getOppdragsTyper(appUser);
 		} 
 		
 		else {
@@ -269,7 +272,36 @@ public class MainMaintenanceCundfVkundController {
 		return kode;
 	}	
 		
-	
+	private List<ChildWindowKode> getOppdragsTyper(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<KodtotyDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtotyDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtotyDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTOTY_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		JsonDtoContainer<KodtotyDao> container =  (JsonDtoContainer<KodtotyDao> )jsonReader.get(jsonPayload);
+		if (container != null) {
+			for (KodtotyDao kodtotyDao : container.getDtoList()) {
+				kode = getChildWindowKode(kodtotyDao);
+				kodeList.add(kode);
+			}
+		}
+		return kodeList;
+	}	
+
+	private ChildWindowKode getChildWindowKode(KodtotyDao kodtotyDao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(kodtotyDao.getKo1kod());
+		kode.setDescription(kodtotyDao.getKo1ntx());
+
+		return kode;
+	}	
 	
 	private List<ChildWindowKode> getValkoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<ValufDao>> jsonReader = new JsonReader<JsonDtoContainer<ValufDao>>();
