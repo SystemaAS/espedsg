@@ -303,7 +303,7 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlue11" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
 								 	</td>
 				 					<td class="text11" >
 						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">

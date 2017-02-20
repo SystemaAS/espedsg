@@ -124,7 +124,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHenaa(){ return this.henaa; }
 	
 	private String herfa = null;
-	public void setHerfa(String value){ this.herfa = value;}
+	public void setHerfa(String value) {  this.herfa = this.toUpperCase(value); }
 	public String getHerfa(){ return this.herfa; }
 	
 	private String hesaml = null;
@@ -196,15 +196,15 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
 
 	private String henas = null;
-	public void setHenas(String value){ this.henas = value;}
+	public void setHenas(String value){ this.henas = this.toUpperCase(value);}
 	public String getHenas(){ return this.henas; }
 	
 	private String heads1 = null;
-	public void setHeads1(String value){ this.heads1 = value;}
+	public void setHeads1(String value){ this.heads1 = this.toUpperCase(value);}
 	public String getHeads1(){ return this.heads1; }
 	
 	private String heads2 = null;
-	public void setHeads2(String value){ this.heads2 = value;}
+	public void setHeads2(String value){ this.heads2 = this.toUpperCase(value);}
 	public String getHeads2(){ return this.heads2; }
 	
 	private String hepns = null;
@@ -213,7 +213,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	
 	
 	private String heads3 = null;
-	public void setHeads3(String value){ this.heads3 = value;}
+	public void setHeads3(String value){ this.heads3 = this.toUpperCase(value);}
 	public String getHeads3(){ return this.heads3; }
 	
 	private String helks = null;
@@ -285,15 +285,15 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHeknk(){ return this.heknk; }
 	
 	private String henak = null;
-	public void setHenak(String value){ this.henak = value;}
+	public void setHenak(String value){ this.henak = this.toUpperCase(value);}
 	public String getHenak(){ return this.henak; }
 	
 	private String headk1 = null;
-	public void setHeadk1(String value){ this.headk1 = value;}
+	public void setHeadk1(String value){ this.headk1 = this.toUpperCase(value);}
 	public String getHeadk1(){ return this.headk1; }
 	
 	private String headk2 = null;
-	public void setHeadk2(String value){ this.headk2 = value;}
+	public void setHeadk2(String value){ this.headk2 = this.toUpperCase(value);}
 	public String getHeadk2(){ return this.headk2; }
 	
 	private String hepnk = null;
@@ -301,7 +301,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHepnk(){ return this.hepnk; }
 	
 	private String headk3 = null;
-	public void setHeadk3(String value){ this.headk3 = value;}
+	public void setHeadk3(String value){ this.headk3 = this.toUpperCase(value);}
 	public String getHeadk3(){ return this.headk3; }
 	
 	private String helkk = null;
@@ -373,7 +373,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHeot(){ return this.heot; }
 	
 	private String hekdpl = null;
-	public void setHekdpl(String value){ this.hekdpl = value;}
+	public void setHekdpl(String value){ this.hekdpl = this.toUpperCase(value);}
 	public String getHekdpl(){ return this.hekdpl; }
 	
 	private String hefr = null;
@@ -517,31 +517,31 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHeklmo(){ return this.heklmo; }
 	
 	private String hepk1 = null;
-	public void setHepk1(String value){ this.hepk1 = value;}
+	public void setHepk1(String value){ this.hepk1 = this.toUpperCase(value);}
 	public String getHepk1(){ return this.hepk1; }
 	
 	private String hepk2 = null;
-	public void setHepk2(String value){ this.hepk2 = value;}
+	public void setHepk2(String value){ this.hepk2 = this.toUpperCase(value);}
 	public String getHepk2(){ return this.hepk2; }
 	
 	private String hepk3 = null;
-	public void setHepk3(String value){ this.hepk3 = value;}
+	public void setHepk3(String value){ this.hepk3 = this.toUpperCase(value);}
 	public String getHepk3(){ return this.hepk3; }
 	
 	private String hepk4 = null;
-	public void setHepk4(String value){ this.hepk4 = value;}
+	public void setHepk4(String value){ this.hepk4 = this.toUpperCase(value);}
 	public String getHepk4(){ return this.hepk4; }
 	
 	private String hepk5 = null;
-	public void setHepk5(String value){ this.hepk5 = value;}
+	public void setHepk5(String value){ this.hepk5 = this.toUpperCase(value);}
 	public String getHepk5(){ return this.hepk5; }
 	
 	private String hepk6 = null;
-	public void setHepk6(String value){ this.hepk6 = value;}
+	public void setHepk6(String value){ this.hepk6 = this.toUpperCase(value);}
 	public String getHepk6(){ return this.hepk6; }
 	
 	private String hepk7 = null;
-	public void setHepk7(String value){ this.hepk7 = value;}
+	public void setHepk7(String value){ this.hepk7 = this.toUpperCase(value);}
 	public String getHepk7(){ return this.hepk7; }
 	
 	private String hepk8 = null;
@@ -573,7 +573,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHestfr(){ return this.hestfr; }
 	
 	private String herfk = null;
-	public void setHerfk(String value){ this.herfk = value;}
+	public void setHerfk(String value){ this.herfk = this.toUpperCase(value);}
 	public String getHerfk(){ return this.herfk; }
 	
 	private String trslag = null;
@@ -689,7 +689,7 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getTrfrab(){ return this.trfrab; }
 	
 	private String trmva = null;
-	public void setTrmva(String value){ this.trmva = value;}
+	public void setTrmva(String value){ this.trmva = this.toUpperCase(value);}
 	public String getTrmva(){ return this.trmva; }
 	
 	private String trfa11 = null;
@@ -814,27 +814,27 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public String getHestl5(){ return this.hestl5; }
 	
 	private String hestn1 = null;
-	public void setHestn1(String value){ this.hestn1 = value;}
+	public void setHestn1(String value){ this.hestn1 = this.toUpperCase(value);}
 	public String getHestn1(){ return this.hestn1; }
 
 	private String hestn2 = null;
-	public void setHestn2(String value){ this.hestn2 = value;}
+	public void setHestn2(String value){ this.hestn2 = this.toUpperCase(value);}
 	public String getHestn2(){ return this.hestn2; }
 
 	private String hestn3 = null;
-	public void setHestn3(String value){ this.hestn3 = value;}
+	public void setHestn3(String value){ this.hestn3 = this.toUpperCase(value);}
 	public String getHestn3(){ return this.hestn3; }
 
 	private String hestn4 = null;
-	public void setHestn4(String value){ this.hestn4 = value;}
+	public void setHestn4(String value){ this.hestn4 = this.toUpperCase(value);}
 	public String getHestn4(){ return this.hestn4; }
 
 	private String hestn5 = null;
-	public void setHestn5(String value){ this.hestn5 = value;}
+	public void setHestn5(String value){ this.hestn5 = this.toUpperCase(value);}
 	public String getHestn5(){ return this.hestn5; }
 	
 	private String hestn6 = null;
-	public void setHestn6(String value){ this.hestn6 = value;}
+	public void setHestn6(String value){ this.hestn6 = this.toUpperCase(value);}
 	public String getHestn6(){ return this.hestn6; }
 	
 	private String hestn7 = null;

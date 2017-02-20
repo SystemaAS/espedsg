@@ -62,11 +62,16 @@ public class SystemaWebUser {
 	public static final String ACTIVE_MENU_EBOOKING = "EBOOKING";
 	
 	//----------------------------------------------------------------------
-	//In order to catch the login host (request.getHost()) (when applicable)
+	//In order to get the login host (request.getHost()) (when applicable)
 	//----------------------------------------------------------------------
 	private String servletHost = null;
 	public void setServletHost(String value) {  this.servletHost = value; }
 	public String getServletHost() { return this.servletHost;}
+	
+	//In order to get the application.properties: http.as400.root.cgi
+	private String httpCgiRoot = null;
+	public void setHttpCgiRoot(String value) {  this.httpCgiRoot = value; }
+	public String getHttpCgiRoot() { return this.httpCgiRoot;}
 	
 	private String user = null; 
 	public void setUser(String value) {  this.user = value; }

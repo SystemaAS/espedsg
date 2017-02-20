@@ -207,7 +207,11 @@
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xfralk}${record.hesdf}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
+		               <td class="text10" align="left" class="text11MediumBlue">&nbsp;
+		               		<a href="javascript:void(0);" target="_new" onClick="window.open('${user.httpCgiRoot}/sycgip/esop11fb.pgm?user=${user.user}&curtur=${record.unik}','printDocWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+								FraktB
+							</a>
+		               </td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
 		               <td align="center" class="text11MediumBlue">
 		               		<c:choose>

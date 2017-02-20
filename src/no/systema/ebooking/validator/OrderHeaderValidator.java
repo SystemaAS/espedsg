@@ -1,10 +1,16 @@
 package no.systema.ebooking.validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 
 /**
@@ -48,11 +54,10 @@ public class OrderHeaderValidator implements Validator {
 			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
 				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.both.invoicees.invalid");
 			}
-			
-			//-----------------------------------------------------------------------------------------------
-			//START Check References (one of them is always mandatory. In certain cases, both are mandatory)
-			//These keys replaced hereff (ref.JOVO)
-			//-----------------------------------------------------------------------------------------------
+			//-----------------------------------------------------------------------------------------------------------
+			//START Check References & Invoicees (one of them is always mandatory. In certain cases, both are mandatory)
+			//These keys replaced hereff (ref.JOVO).
+			//-----------------------------------------------------------------------------------------------------------
 			if( (record.getHerfa()!=null && !"".equals(record.getHerfa())) || (record.getHerfk()!=null && !"".equals(record.getHerfk())) ){
 				//OK. Go on with further validation
 				//(2)
@@ -74,9 +79,34 @@ public class OrderHeaderValidator implements Validator {
 			}else{
 				errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderOrReceiverRef.mustExist");
 			}
-			//----------------------
-			//END Check References
-			//----------------------
+			
+			//Specific Invoicee validation
+			if("M".equals(record.getXfakBet()) ){
+				if(record.getHerfk()==null || "".equals(record.getHerfk()) ){
+					errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.receiverRef.mustExist");
+				}
+				if(record.getHeknkf()==null || "".equals(record.getHeknkf()) ){
+					errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.receiversInvoicee.mustExist");
+				}
+				
+			}else if("S".equals(record.getXfakBet()) ){
+				if(record.getHerfa()==null || "".equals(record.getHerfa()) ){
+					errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderRef.mustExist");
+				}
+				if(record.getHeknsf()==null || "".equals(record.getHeknsf()) ){
+					errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.sendersInvoicee.mustExist");
+				}
+			}
+			//-----------------------------------
+			//END Check References and Invoicees
+			//-----------------------------------
+			
+			//Check that there is at least one item line
+			if(this.itemLineRecordExist(record)){
+				//OK = valid
+			}else{
+				errors.rejectValue("hereff", "systema.ebooking.orders.form.update.error.rule.itemLines.atleastOneLine.mustExist");
+			}
 		}
 		
 	}	
@@ -113,4 +143,24 @@ public class OrderHeaderValidator implements Validator {
 		
 	}
 	
+	/**
+	 * At least one item line must exist
+	 * 
+	 * @param record
+	 */
+	private boolean itemLineRecordExist(JsonMainOrderHeaderRecord record){
+		boolean retval = false;
+		
+		if(record!=null && record.getFraktbrevList() !=null){
+		    for(JsonMainOrderHeaderFraktbrevRecord itemLine : record.getFraktbrevList()){
+		    	if( (itemLine.getFvant()!=null && !"".equals(itemLine.getFvant())) && 
+		    		(itemLine.getFvvt()!=null && !"".equals(itemLine.getFvvt())) &&
+		    		(itemLine.getFvvkt()!=null && !"".equals(itemLine.getFvvkt())) ){
+		    		retval = true;
+		    	}
+		    	break;
+		    }
+		}
+		return retval;
+	}
 }

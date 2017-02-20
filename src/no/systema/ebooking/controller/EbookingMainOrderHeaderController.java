@@ -170,7 +170,15 @@ public class EbookingMainOrderHeaderController {
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
 						if(dmlRetval==0){
-							//TODO
+							logger.info("[INFO] Record successfully updated, OK ");
+							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
+							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
+				    		this.processNewMessageNotes(recordToValidate, appUser, request );
+				    		//Update the order lines
+				    		this.processOrderLines(recordToValidate, appUser);
+							//postUpdate events on back-end
+			    			//this.processPostUpdateEvents(recordToValidate, appUser);
+			    			logger.info("[END]: children create new...");
 							
 						}
 						
@@ -194,6 +202,7 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			if(isValidRecord){
 				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
+				
 				//check if user is allowed to choose invoicee (fakturaBetalare)
 				this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
@@ -203,7 +212,9 @@ public class EbookingMainOrderHeaderController {
 
 				//Only in case of Create new order (INSERT ORDER)
 				if(orderTypes!=null){
-					headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
+					if( "".equals(headerOrderRecord.getXfakBet()) ){
+						headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
+					}
 				}
 					
 				//domain objects
