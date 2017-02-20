@@ -530,8 +530,8 @@
 														<td>
 															<select name="aktkod" id="aktkod" >
 						 					  					<option value="">-velg-</option>
-						 					  					<option value="A"<c:if test="${model.record.aktkod == 'A'}"> selected </c:if> >A</option>
-											  					<option value="I"<c:if test="${ model.record.aktkod == 'I'}"> selected </c:if> >I</option>
+						 					  					<option value="A"<c:if test="${model.record.aktkod == 'A'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.aktkod.invoice"/></option>
+											  					<option value="I"<c:if test="${ model.record.aktkod == 'I'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.aktkod.address"/></option>
 											  				</select>
 														</td>
 													</tr>
