@@ -34,6 +34,10 @@ import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikContainer;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodtlikRecord;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
+import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
@@ -202,6 +206,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getLandkoder(appUser);
 		} else if ("syopdt".equals(caller)) { //Oppdragstype
 			list = getOppdragsTyper(appUser);
+		} else if ("sylikv".equals(caller)) { //Likviditetskode
+			list = getLikviditetskoder(appUser);
 		} 
 		
 		else {
@@ -302,6 +308,40 @@ public class MainMaintenanceCundfVkundController {
 
 		return kode;
 	}	
+	
+	private List<ChildWindowKode> getLikviditetskoder(SystemaWebUser appUser){
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SYFT19R_GET_LIST_URL;
+		String urlRequestParams = "user=" + appUser.getUser();
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		// extract
+		List<JsonMaintSadImportKodtlikRecord> list = new ArrayList();
+		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			// lists
+			JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService.getList(jsonPayload);
+			if (container != null) {
+				for (JsonMaintSadImportKodtlikRecord record : container.getList()) {
+					kode = getChildWindowKode(record);
+					kodeList.add(kode);
+				}
+			}
+		}
+		return kodeList;
+
+	}	
+
+	private ChildWindowKode getChildWindowKode(JsonMaintSadImportKodtlikRecord record) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(record.getKlikod());
+		kode.setDescription(record.getKlinav());
+
+		return kode;
+	}		
+	
 	
 	private List<ChildWindowKode> getValkoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<ValufDao>> jsonReader = new JsonReader<JsonDtoContainer<ValufDao>>();
@@ -492,6 +532,14 @@ public class MainMaintenanceCundfVkundController {
 	public void setMaintMainChildWindowService (MaintMainChildWindowService value){ this.maintMainChildWindowService = value; }
 	public MaintMainChildWindowService getMaintMainChildWindowService(){ return this.maintMainChildWindowService; }
 	
-		
+
+	@Qualifier ("maintSadImportKodtlikService")
+	private MaintSadImportKodtlikService maintSadImportKodtlikService;
+	@Autowired
+	@Required
+	public void setMaintSadImportKodtlikService (MaintSadImportKodtlikService value){ this.maintSadImportKodtlikService = value; }
+	public MaintSadImportKodtlikService getMaintSadImportKodtlikService(){ return this.maintSadImportKodtlikService; }	
+	
+	
 }
 

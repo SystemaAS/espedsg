@@ -121,9 +121,8 @@ jq(function() {
     });
     
     jq('#sylikvIdLink').click(function() {
-    	alert("Hej Likviditetskode");
     	jq('#sylikvIdLink').attr('target','_blank');
-    	window.open('kunde_edit_childwindow.do?action=doInit&type=2&ctype=silka', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sylikv', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });
     
 }); 

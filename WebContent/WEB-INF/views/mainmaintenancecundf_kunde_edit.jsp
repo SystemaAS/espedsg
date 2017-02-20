@@ -519,7 +519,7 @@
 												<table>
 													<tr>
 														<td class="text12" title="golk">&nbsp;
-															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sylikv"/>
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.golk"/>
 															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="golk" id="golk" size="5" maxlength="4" value='${model.record.golk}'></td>
