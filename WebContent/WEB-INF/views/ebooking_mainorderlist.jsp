@@ -113,6 +113,8 @@
 				<tr>
    				    <form name="searchForm" id="searchForm" action="ebooking_mainorderlist.do?action=doFind" method="post" >
 					<input type="hidden" name="userAvd" id="userAvd" value=''>
+					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
+					
 			    	<td> 
 			    	<table width="100%">
 			    		<tr> 
@@ -178,8 +180,12 @@
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.m3"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.from"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.to"/></th>
-	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.printdoc"/></th>
-	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.getlist"/></th>
+	                    <%-- START Print --%>
+	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;F.br&nbsp;</td>
+	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Cmr&nbsp;</td>
+	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Merk Pdf&nbsp;</td>
+	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Merk Zpl&nbsp;</td>
+	                    <%-- END Print --%>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.transmit"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.delete"/></th>
 	                    
@@ -189,8 +195,10 @@
 	                
 	                <tbody >
 		            <c:forEach items="${listOpenOrders}" var="record" varStatus="counter">  
+		            <input type="hidden" name="unik_${counter.count}" id="unik_${counter.count}" value='${record.unik}'>
 		            <tr class="tex11" >
-		               <td class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
+		            	
+		               <td title="${record.unik}" class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
 			           		<div id="opd${record.hereff}_linkcontainer${counter.count}" >
 			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}"
 			           			onClick="setBlockUI(this);" href="ebooking_mainorder.do?action=doFetch&heunik=${record.unik}&hereff=${record.hereff}&sysg=&sitll=&syst=&sydt=">
@@ -207,18 +215,124 @@
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xfralk}${record.hesdf}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
-		               <td class="text10" align="left" class="text11MediumBlue">&nbsp;
-		               		<a href="javascript:void(0);" target="_new" onClick="window.open('${user.httpCgiRoot}/sycgip/esop11fb.pgm?user=${user.user}&curtur=${record.unik}','printDocWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
-								FraktB
+		               <%-- START Print --%>
+	                    <td class="tableCellEbookingPrint" align="center">
+	                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);" >
+	                    		<img onMouseOver="showPop('fraktbrev_info${counter.count}');" onMouseOut="hidePop('fraktbrev_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
+			               		<c:choose>
+			               			<c:when test="${record.hepk1 == 'Y'}">
+			               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
+			               			</c:when>
+			               			<c:otherwise>
+			               				<c:if test="${record.hepk1 == 'P'}">
+			               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
+			               				</c:if>
+			               				<c:if test="${record.hepk1 != 'P'}">
+			               					&nbsp;&nbsp;
+			               				</c:if>
+			               			</c:otherwise>
+				               	</c:choose>	
 							</a>
-		               </td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.todo}</td>
+							<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; left:0px; top:0px;" id="fraktbrev_info${counter.count}" class="popupWithInputText"  >
+									<font class="text11">
+					           			<b>Fraktbrev</b>
+				           			</font>
+								</span>
+							</div>
+	                    </td>
+	                    <td class="tableCellEbookingPrint" align="center">
+	                    	<a id="cmrLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+	                    		<img onMouseOver="showPop('cmr_info${counter.count}');" onMouseOut="hidePop('cmr_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
+			               		<c:choose>
+			               			<c:when test="${record.hepk2 == 'Y'}">
+			               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
+			               			</c:when>
+			               			<c:otherwise>
+			               				<c:if test="${record.hepk2 == 'P'}">
+			               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
+										</c:if>
+										<c:if test="${record.hepk2 != 'P'}">
+			               					&nbsp;&nbsp;
+			               				</c:if>
+			               			</c:otherwise>
+			               		</c:choose>
+							</a>
+							<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; left:0px; top:0px;" id="cmr_info${counter.count}" class="popupWithInputText"  >
+									<font class="text11">
+					           			<b>CMR fraktbrev</b>
+				           			</font>
+								</span>
+							</div>
+	                    </td>
+	                    <td class="tableCellEbookingPrint" align="center">
+	                    	<a id="merkPdfLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+	                    		<img onMouseOver="showPop('merkPDF_info${counter.count}');" onMouseOut="hidePop('merkPDF_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
+		               			<c:choose>
+			               			<c:when test="${record.hepk3 == 'Y'}">
+			               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
+			               			</c:when>
+			               			<c:otherwise>
+			               				<c:if test="${record.hepk3 == 'P'}">
+			               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
+										</c:if>
+										<c:if test="${record.hepk3 != 'P'}">
+			               					&nbsp;&nbsp;
+			               				</c:if>
+			               			</c:otherwise>
+			               		</c:choose>
+							</a>
+							<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; left:0px; top:0px;" id="merkPDF_info${counter.count}" class="popupWithInputText"  >
+									<font class="text11">
+					           			<b>Merk PDF</b>
+				           			</font>
+								</span>
+							</div>
+	                    </td>
+	                    <td class="tableCellEbookingPrint" align="center">
+	                    	<a id="merkZplLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+	                    		<img onMouseOver="showPop('merkZPL_info${counter.count}');" onMouseOut="hidePop('merkZPL_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
+								<c:choose>
+			               			<c:when test="${record.hepk3 == 'Y'}">
+			               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
+			               			</c:when>
+			               			<c:otherwise>
+			               				<c:if test="${record.hepk3 == 'P'}">
+			               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
+										</c:if>
+										<c:if test="${record.hepk3 != 'P'}">
+			               					&nbsp;&nbsp;
+			               				</c:if>
+			               			</c:otherwise>
+			               		</c:choose>
+							</a>
+							<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute; left:0px; top:0px;" id="merkZPL_info${counter.count}" class="popupWithInputText"  >
+									<font class="text11">
+					           			<b>Merk ZPL</b>
+				           			</font>
+								</span>
+							</div>
+	                    </td>
+	                    <%-- END Print --%>
+		               
 		               <td align="center" class="text11MediumBlue">
 		               		<c:choose>
 			               		<c:when test="${record.status == 'E'}">
-				               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="ebooking_mainorderlist_send_order.do?heunik=${record.unik}">
-				               			<img src="resources/images/send-file.png" height="18px" width="18px" border="0" alt="send">
-				               		</a>
+			               			<c:choose>
+			               			<c:when test="${record.hepk1 != 'Y' && record.hepk2 != 'Y' && record.hepk3 != 'Y'}">
+					               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="ebooking_mainorderlist_send_order.do?heunik=${record.unik}">
+					               			<span title="Bookingen kan sendes">
+					               			<img src="resources/images/send-file.png" height="18px" width="18px" border="0" alt="send">
+					               			</span>
+					               		</a>
+				               		</c:when>
+				               		<c:otherwise>
+				               			<img title="Must be printed first (fraktbrev,cmr,etc)" src="resources/images/info3.png" height="12px" width="12px" border="0" alt="must print">
+				               		</c:otherwise>
+				               		</c:choose>
 			               		</c:when>
 			               		<c:otherwise>
 			               			<c:if test="${record.status == 'P'}">

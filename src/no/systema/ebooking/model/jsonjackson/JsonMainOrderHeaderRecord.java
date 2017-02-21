@@ -20,6 +20,9 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	static public final String MESSAGE_NOTE_INTERNAL = "";
 	
 	
+	private String applicationUser = null;
+	public void setApplicationUser(String value){ this.applicationUser = value;}
+	public String getApplicationUser(){ return this.applicationUser; }
 	
 	private String heunik = "";
 	public void setHeunik(String value){ this.heunik = value;}
@@ -110,6 +113,14 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	private String trknfa = null;
 	public void setTrknfa(String value){ this.trknfa = value;}
 	public String getTrknfa(){ return this.trknfa; }
+	
+	private String trknfaNavn = null;
+	public void setTrknfaNavn(String value){ this.trknfaNavn = value;}
+	public String getTrknfaNavn(){ return this.trknfaNavn; }
+	
+	private String trknfaPnSt = null;
+	public void setTrknfaPnSt(String value){ this.trknfaPnSt = value;}
+	public String getTrknfaPnSt(){ return this.trknfaPnSt; }
 	
 	private String henao = null;
 	public void setHenao(String value){ this.henao = value;}

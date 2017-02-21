@@ -32,6 +32,9 @@
 		  if(jq('#ctype').val()=='s'){
 			  //shipper/consignor 	
 			  opener.jq('#hekns').val(kundNr);
+			  if(opener.jq('#xfakBet').val() != 'M'){
+				  opener.jq('#heknsf').val(kundNr);
+		  	  }
 			  opener.jq('#whenas').val(kundName + " - " + kundAddress);
 			  
 			  opener.jq('#henas').val(navn);
@@ -48,6 +51,9 @@
 		  }else if(jq('#ctype').val()=='c'){
 			  //consignee
 			  opener.jq('#heknk').val(kundNr);
+			  if(opener.jq('#xfakBet').val() == 'M'){
+				  opener.jq('#heknkf').val(kundNr);
+		  	  }
 			  opener.jq('#whenak').val(kundName + " - " + kundAddress);
 			  
 			  opener.jq('#henak').val(navn);
@@ -66,7 +72,7 @@
 			  opener.jq('#heknsf').focus();
 			  
 		  }else if(jq('#ctype').val()=='kf'){
-			  //kjøpers fakturapart  
+			  //kjøpers fakturapart 
 			  opener.jq('#heknkf').val(kundNr);
 			  opener.jq('#whenakf').val(kundName + " - " + kundAddress);
 			  opener.jq('#heknkf').focus();

@@ -26,6 +26,37 @@
 		  //,defaultDate: "-1m"	  
 	  });
   });
+  
+  
+  
+  //Invoicee events
+  jq(function() {
+	  jq("#xfakBet").change(function(){
+		  //now check the user input alternatives
+		  var xfakBet = jq("#xfakBet").val();
+
+		  //some help to the user
+		  if(xfakBet == 'S'){
+			  jq("#heknkf").val("");
+			  //copy to invoicee
+			  jq("#heknsf").val(jq("#hekns").val());
+			  jq("#whenasf").val("");
+			  
+		  }else if(xfakBet == 'M'){
+			  jq("#heknsf").val("");
+			  //copy to invoicee
+			  jq("#heknkf").val(jq("#heknk").val());
+			  jq("#whenakf").val("");
+			  
+		  }else{
+			  jq("#heknsf").val("");
+			  jq("#whenasf").val("");
+			  //
+			  jq("#heknkf").val("");
+			  jq("#whenakf").val("");
+		  }
+	  });
+  });
   //----------------------
   //START ETD / ETA dates
   //----------------------

@@ -1692,6 +1692,15 @@ END override jQuery elements
     border-width: 1px 1px 1px 0px; 
     border-color: green;
 }
+.tableHeaderFieldEbookingPrint {  
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+	color:#FFFFFF; 
+    background-color: #4E78A0;
+    border-style: solid; 
+    border-width: 1px 1px 1px 0px; 
+    border-color: green;
+}
 .tableHeaderFieldFirst { 
 	font-family: Verdana, Arial, Helvetica, sans-serif; 
 	font-size: 12px; 
@@ -1749,6 +1758,16 @@ END override jQuery elements
 }
 
 .tableCellOmberegning{  
+    font-family: verdana, Arial, Helvetica, sans-serif; 
+    font-size: 10px;
+    color: black; 
+    /*background-color:#EEEED1; #FCFFF0 tentative */
+    background-color: lightyellow;
+    border-style: solid; 
+    border-width: 0px 1px 1px 0px; 
+    border-color:#4E78A0  
+}
+.tableCellEbookingPrint{  
     font-family: verdana, Arial, Helvetica, sans-serif; 
     font-size: 10px;
     color: black; 

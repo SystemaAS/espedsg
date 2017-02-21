@@ -47,6 +47,7 @@
 	 										</a>
 										</font>
 										</li>
+										<%--
 										<li style="line-height:20px;">
 						 				<font class="text14">
 							 				<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
@@ -54,6 +55,7 @@
 			 									<font class="text14NavyBlue">ebooking eSpedsg</font>
 	 										</a>
 										</font>
+										 --%>
 						 			</c:if>
 			 						<c:forEach items="${list}" var="record" varStatus="counter"> 
 						 				<c:if test="${ fn:contains(record.prog, 'TOMCAT') }">
@@ -88,6 +90,14 @@
 									 					</div>
 													</c:otherwise>
 												</c:choose>
+											</c:if>
+											<c:if test="${fn:contains(record.prog,'-EBOOKING') }">
+							 					<font class="text14">
+							 						<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
+					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
+					 									<font class="text14NavyBlue">${record.prTxt}</font>
+			 										</a>
+												</font>
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-eFaktura') }">
 							 					<font class="text14">

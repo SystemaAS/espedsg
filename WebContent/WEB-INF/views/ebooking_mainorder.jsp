@@ -126,15 +126,20 @@
 			<%-- FORM HEADER --%>
 	 		<tr>
             		<td>
-	        			<table style="width:99%;" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	        			<table style="width:99%;" align="left" class="formFrameHeader" border="1" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
-				 			<td class="text12White">
+				 			<td align="left" class="text12White">
 								&nbsp;<spring:message code="systema.ebooking.orders.form.update.label.header.edit"/>	
 								&nbsp;&nbsp;<b>${model.record.heunik} / ${model.record.hereff}</b>
 								&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
 			 				</td>
+			 				<td align="right" class="text12White" width="50%">
+								&nbsp;<spring:message code="systema.ebooking.orders.form.update.label.header.customerIdAndName"/>	
+								&nbsp;&nbsp;&nbsp;&nbsp;<b>${model.record.trknfaNavn}&nbsp;&nbsp;</b>${model.record.trknfa}&nbsp;&nbsp;
+								
+			 				</td>
 		 				</tr>
-	 				</table>
+	 					</table>
             		</td>
             </tr>
             <%-- FORM DETAIL --%>
@@ -327,7 +332,8 @@
 				 				</tr>
 				 				<tr height="8"><td ></td></tr>
 				 				
-				 				<c:if test="${model.record.fakBetExists}">													 				
+				 				<c:choose>
+				 				<c:when test="${model.record.fakBetExists}">													 				
 									<tr>
 					 					<td class="text12Bold">&nbsp;
 					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
@@ -340,11 +346,9 @@
 						 					<tr>
 								 				<td class="text11">
 								 					&nbsp;<span title="heknsf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.id"/>&nbsp;</span>
-								 					<c:if test="${model.record.fakBetExists}">
-									 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=sf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+								 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=sf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 					 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-					 									</a>
-				 									</c:if>
+				 									</a>
 								 				</td>
 								 				<td class="text11">
 								 					&nbsp;<span title="whenasf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.invoicee.name"/>&nbsp;</span>
@@ -383,7 +387,11 @@
 										</table>
 										</td>				 				
 						 			</tr>
-					 			</c:if>
+					 			</c:when>
+					 			<c:otherwise>
+					 				<input type="hidden" name="heknsf" id="heknsf" value="${model.record.heknsf}" >   
+					 			</c:otherwise>	
+					 			</c:choose>			
 					 			 	
 				 				<tr height="10"><td ></td></tr>
 							 </table>
@@ -481,7 +489,8 @@
 				 				</tr>
 				 				<tr height="8"><td ></td></tr>
 				 				
-				 				<c:if test="${model.record.fakBetExists}">
+				 				<c:choose>
+				 				<c:when test="${model.record.fakBetExists}">
 									<tr>
 					 					<td class="text12Bold">&nbsp;
 					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
@@ -494,12 +503,9 @@
 						 					<tr>
 								 				<td class="text11">
 								 					&nbsp;<span title="heknkf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.id"/>&nbsp;</span>
-								 					<c:if test="${model.record.fakBetExists}">
-									 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=kf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
-					 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-					 									</a>
-				 									</c:if>
-								 					
+							 						<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=kf','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+				 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+				 									</a>
 								 				</td>
 								 				<td class="text11">
 								 					&nbsp;<span title="whenakf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.invoicee.name"/>&nbsp;</span>
@@ -514,7 +520,11 @@
 										</table>
 										</td>				 				
 						 			</tr>
-					 			</c:if>								 
+					 			</c:when>	
+					 			<c:otherwise>
+					 				<input type="hidden" name="heknkf" id="heknkf" value="${model.record.heknkf}" >   
+					 			</c:otherwise>	
+					 			</c:choose>						 
 				 				<tr height="10"><td ></td></tr>
 			 				</table>
 						 	</td>

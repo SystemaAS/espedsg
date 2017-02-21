@@ -8,6 +8,41 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  function printDocument(element){
+	  var id = element.id;
+	  var record = id.split('_');
+	  var prefix = record[0];
+	  var unikId = record[1]; 
+	  //alert(unikId);
+	  
+	  jq(id).attr('target','_new');
+  	  
+	  
+  	  if(prefix.indexOf("fraktbrev")>=0){
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11fb.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId, 
+  			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  
+	  }else if(prefix.indexOf("cmr")>=0){
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11cm.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId, 
+  			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  
+	  }else if(prefix.indexOf("merkPdf")>=0){
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&lay=HZ&copyprt=J&labeltyp=L', 
+  			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  
+	  }else if(prefix.indexOf("merkZpl")>=0){
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&lay=HZ&copyprt=J&labeltyp=Z', 
+  			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  }
+	  
+	  //refresh parent window
+	  setTimeout(refreshOrderListWindow, 4500);
+  }
+  
+  function refreshOrderListWindow(){
+	  window.location.reload();
+  }
+  
   jq(function() {
 	  jq("#date").datepicker({ 
 		  dateFormat: 'yymmdd'
@@ -21,8 +56,6 @@
 	  });
 	  //
 	  jq("#opd").focus();
-	  
-	  
   });
   
   //----------------------------------------
