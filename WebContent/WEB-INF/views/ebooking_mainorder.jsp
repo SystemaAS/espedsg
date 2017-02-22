@@ -151,6 +151,7 @@
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
 					<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
 					<input type="hidden" name="trknfa" id="trknfa" value='${model.record.trknfa}'>
+					<input type="hidden" name="status" id="status" value='${model.record.status}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
 
@@ -265,8 +266,8 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="heads2"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr2"/></span></td>
@@ -428,8 +429,8 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="headk2"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr2"/></span></td>
@@ -558,7 +559,7 @@
 										</div>
 				 					</td>
 					 				<td class="text11">
-					 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
+					 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 						 				  		<option value="${country.zkod}"<c:if test="${model.record.helka == country.zkod}"> selected </c:if> >${country.zkod}</option>
@@ -567,7 +568,7 @@
 										
 					 				</td>
 						 			<td class="text11" nowrap>
-						 				<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
+						 				<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
 						 				<a tabindex=0 id="hesdfIdLink">
 	 										<img id="imgFromSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 									</a>
@@ -602,7 +603,7 @@
 												</div>
 							 				</td>
 							 				<td class="text11">
-							 					<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
+							 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
 							 						<option value="">-landkode-</option>
 								 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 								 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
@@ -610,7 +611,7 @@
 												</select>
 							 				</td>
 								 			<td class="text11" nowrap>
-								 				<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+								 				<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
 								 				<a tabindex=0 id="hesdtIdLink" >
 			 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 			 									</a>
@@ -644,10 +645,13 @@
 							 			</td>
 							 			<td class="text11">
 							 				<select name="heot" id="heot">
-							 					<option value="">-velg-</option>
-							 					<c:forEach var="record" items="${model.oppdragstypeList}" >
+							 					<c:forEach var="record" items="${model.oppdragstypeList}" varStatus="counter">
 							 						<option value='${record.opdTyp}' <c:if test="${record.opdTyp == model.record.heot}"> selected </c:if> >${record.opdTyp}</option>
+							 						<c:set var="listSizeHeot" value="${counter.count}" scope="request" /> 
 							 					</c:forEach>
+							 					<c:if test="${listSizeHeot > 1}">
+							 						<option value="" <c:if test="${empty model.record.heot}"> selected </c:if> >-velg-</option>
+							 					</c:if>
 											</select>
 							 			</td>
 										<td width="30px">&nbsp;</td>
@@ -656,10 +660,13 @@
 							 			</td>
 							 			<td class="text11">
 							 				<select name="hefr" id="hefr">
-							 					<option value="">-velg-</option>
-							 					<c:forEach var="record" items="${model.incotermsList}" >
+							 					<c:forEach var="record" items="${model.incotermsList}" varStatus="counter">
 							 						<option value='${record.franka}' <c:if test="${record.franka == model.record.hefr}"> selected </c:if> >${record.franka}</option>
+							 						<c:set var="listSizeHefr" value="${counter.count}" scope="request" />
 							 					</c:forEach>
+							 					<c:if test="${listSizeHefr > 1}">
+							 						<option value="" <c:if test="${empty model.record.hefr}"> selected </c:if> >-velg-</option>
+							 					</c:if>
 											</select>
 							 			</td>
 										<td width="30px">&nbsp;</td>
@@ -975,7 +982,9 @@
 					 							
 											</select>
 						 				</td>
-						 				<td align="center"><input onClick="addItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.ebooking.orders.form.detail.update.createNewLine"/>'></td>
+						 				<c:if test="${not empty model.record.status}">
+						 					<td align="center"><input onClick="addItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.ebooking.orders.form.detail.update.createNewLine"/>'></td>
+						 				</c:if>
 						 			</tr>
 						 			<tr></tr>
 						 			</table>
@@ -998,12 +1007,14 @@
 		 				    <label class="text11Red" id="orderLineErrMsgPlaceHolder"></label>
 	 				    </td>
 						<td align="right">
-		 				    <c:choose>
+							<c:choose>
 			 				    <c:when test="${ not empty model.record.heunik }">
-			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
+			 				    	<c:if test="${not empty model.record.status}">
+				 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
+				 				    </c:if>
 			 				    </c:when>
 			 				    <c:otherwise>
-			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.ebooking.submit.createnew.order"/>'/>
+		 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.ebooking.submit.createnew.order"/>'/>
 			 				    </c:otherwise>	
 		 				    </c:choose>
 	 				    </td>

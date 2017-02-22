@@ -24,6 +24,10 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setApplicationUser(String value){ this.applicationUser = value;}
 	public String getApplicationUser(){ return this.applicationUser; }
 	
+	private String status = null;
+	public void setStatus(String value){ this.status = value;}
+	public String getStatus(){ return this.status; }
+	
 	private String heunik = "";
 	public void setHeunik(String value){ this.heunik = value;}
 	public String getHeunik(){ return this.heunik; }

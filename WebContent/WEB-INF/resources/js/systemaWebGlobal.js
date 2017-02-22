@@ -49,5 +49,9 @@
             return true;
         }
     }
+    //refreshes all html 5 CustomValidity functions from jQuery
+    function refreshCustomValidity(element){
+  	  element.setCustomValidity('');
+    }
     
     

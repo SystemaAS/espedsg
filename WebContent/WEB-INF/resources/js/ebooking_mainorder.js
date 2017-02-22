@@ -148,14 +148,18 @@
   var CITY_OWNwppns1 = 1;
   var CITY_OWNwppns2 = 2;
   jq(function() {
+	  	//must be done since CustomValidity is HTML 5 and not jQuery
+	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
 	  	jq('#hesdf').focus(function() {
-	  		/*
-	  	  if(jq('#hesdf').val()=='' && jq('#heads3').val()!=''){
-	  		  var sellersPostalCodeRaw = jq('#heads3').val();
-	  		  var postalCode = sellersPostalCodeRaw.substr(0,sellersPostalCodeRaw.indexOf(' '));
-	  		  jq('#hesdf').val(postalCode);  
-	  	  }
-	  	  */
+	  		if(jq('#hesdf').val()!=''){
+	    		refreshCustomValidity(jq('#hesdf')[0]);
+	  		}else{
+	  			if(jq('#heads3').val()!=''){
+	  				var tmp = jq('#heads3').val();
+	  				var postNr = tmp.substring(0,4);
+	  				jq('#hesdf').val(postNr);
+	  			}
+	  		}
 	  	});
 	    jq('#hesdf').blur(function() {
 	    	var id = jq('#hesdf').val();
@@ -179,14 +183,18 @@
 	    //------
 	    //hesdt
 	    //------
+	    //must be done since CustomValidity is HTML 5 and not jQuery
+	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
 	    jq('#hesdt').focus(function() {
-	    	/*
-	  		if(jq('#hesdt').val()=='' && jq('#headk3').val()!=''){
-	  			var buyersPostalCodeRaw = jq('#headk3').val();
-	  			var postalCode = buyersPostalCodeRaw.substr(0,buyersPostalCodeRaw.indexOf(' '));
-	  			jq('#hesdt').val(postalCode);
+	    	if(jq('#hesdt').val()!=''){
+	    		refreshCustomValidity(jq('#hesdt')[0]);
+	  		}else{
+	  			if(jq('#headk3').val()!=''){
+	  				var tmp = jq('#headk3').val();
+	  				var postNr = tmp.substring(0,4);
+	  				jq('#hesdt	').val(postNr);
+	  			}
 	  		}
-	  		*/
 	  	});
 	    jq('#hesdt').blur(function() {
     		var id = jq('#hesdt').val();
@@ -283,6 +291,14 @@
 	    jq('#hekns').blur(function() {
 	    	//getConsignor(); N/A	
 		});
+	    //must be done since CustomValidity is HTML 5 and not jQuery
+	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
+	    jq('#henas').focus(function() {
+	    	if(jq('#henas').val()!=''){
+	  			refreshCustomValidity(jq('#henas')[0]);
+	  		}
+	  	});
+	    
 	    function getConsignor(){
 	    	var hekns = jq('#hekns').val();
     		if(hekns!=null && hekns!=""){
@@ -351,6 +367,13 @@
 	    jq('#heknk').blur(function() {
 	    	//getConsignee(); N/A
 		});
+	    //must be done since CustomValidity is HTML 5 and not jQuery
+	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
+	    jq('#henak').focus(function() {
+	    	if(jq('#henak').val()!=''){
+	    		refreshCustomValidity(jq('#henak')[0]);
+	  		}
+	  	});
 	    function getConsignee(){
 	    	var heknk = jq('#heknk').val();
     		if(heknk!=null && heknk!=""){

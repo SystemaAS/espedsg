@@ -111,8 +111,8 @@ public class EbookingMainOrderHeaderController {
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
 		String orderLineTotalsString = request.getParameter("oltotals");
+		String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
 		logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
-		
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
@@ -140,10 +140,7 @@ public class EbookingMainOrderHeaderController {
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
-		    		//populate fallbacks ...
-		    		this.populateMessageNotes( appUser, recordToValidate);
-		    		this.populateFraktbrev( appUser, recordToValidate);
-					model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		
 			    }else{	
 					//Start DML operations if applicable
@@ -170,6 +167,7 @@ public class EbookingMainOrderHeaderController {
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
 						if(dmlRetval==0){
+							orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
@@ -179,16 +177,10 @@ public class EbookingMainOrderHeaderController {
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children create new...");
-							
 						}
-						
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
-						//populate fall backs
-						this.populateMessageNotes( appUser, recordToValidate);
-						this.populateFraktbrev( appUser, recordToValidate);
-						//domain objects
 						model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 					}
 			    }
@@ -202,7 +194,6 @@ public class EbookingMainOrderHeaderController {
 			//--------------
 			if(isValidRecord){
 				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
-				
 				//check if user is allowed to choose invoicee (fakturaBetalare)
 				this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
@@ -216,7 +207,8 @@ public class EbookingMainOrderHeaderController {
 						headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
 					}
 				}
-					
+				//set always status as in list (since we do not get this value from back-end)
+				headerOrderRecord.setStatus(orderStatus);
 				//domain objects
 				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
 			}
@@ -310,6 +302,7 @@ public class EbookingMainOrderHeaderController {
 			//Debug --> 
 	    	logger.info("Checking errMsg in rpgReturnPayload [UPDATE - DELETE]:" + rpgReturnPayload);
 	    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+	    	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
 	    	rpgReturnResponseHandler.evaluateRpgResponseOnEditSpecificOrder(rpgReturnPayload);
 	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
 	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on DELETE: " + rpgReturnResponseHandler.getErrorMessage());
@@ -378,7 +371,7 @@ public class EbookingMainOrderHeaderController {
 		if(recordToValidate !=null){
 			String messageNoteConsigneeOriginal = request.getParameter("messageNoteConsigneeOriginal");
 			if(!messageNoteConsigneeOriginal.equals(recordToValidate.getMessageNoteConsignee())){
-				//logger.info("CONSIGNEE NOT EQUAL");
+				logger.info("CONSIGNEE NOT EQUAL");
 				//CONSIGNEE (RECEIVER)
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
@@ -392,7 +385,7 @@ public class EbookingMainOrderHeaderController {
 			
 			String messageNoteCarrierOriginal = request.getParameter("messageNoteCarrierOriginal");
 			if(!messageNoteCarrierOriginal.equals(recordToValidate.getMessageNoteCarrier())){
-				//logger.info("CARRIER NOT EQUAL");
+				logger.info("CARRIER NOT EQUAL");
 				//CARRIER
 				//Delete all values
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
@@ -494,7 +487,6 @@ public class EbookingMainOrderHeaderController {
 	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
 		
 		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
-			logger.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&:" + msgNoteRawRecord);
 			String [] msgNoteRecord = msgNoteRawRecord.split("@");
 			if(msgNoteRecord!=null && msgNoteRecord.length==2){
 				//---------------------------
@@ -905,6 +897,7 @@ public class EbookingMainOrderHeaderController {
     	
     	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	logger.info(jsonDebugger.debugJsonPayloadWithLog4J(rpgReturnPayload));
+    	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
     	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
     	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
     		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
