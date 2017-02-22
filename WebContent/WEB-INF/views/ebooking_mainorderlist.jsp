@@ -217,7 +217,8 @@
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
 		               <%-- START Print --%>
 	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${empty record.status}">
+	                    	<%-- only those status that have a real state. Status=null is not allowed to print --%>
+	                    	<c:if test="${not empty record.status}"> 
 		                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);" >
 		                    		<img onMouseOver="showPop('fraktbrev_info${counter.count}');" onMouseOut="hidePop('fraktbrev_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
 				               		<c:choose>
@@ -244,7 +245,7 @@
 							</c:if>
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${empty record.status}">
+	                    	<c:if test="${not empty record.status}">
 		                    	<a id="cmrLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('cmr_info${counter.count}');" onMouseOut="hidePop('cmr_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
 				               		<c:choose>
@@ -271,7 +272,7 @@
 							</c:if>
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${empty record.status}">
+	                    	<c:if test="${not empty record.status}">
 		                    	<a id="merkPdfLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('merkPDF_info${counter.count}');" onMouseOut="hidePop('merkPDF_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
 			               			<c:choose>
@@ -298,7 +299,7 @@
 							</c:if>
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${empty record.status}">
+	                    	<c:if test="${not empty record.status}">
 		                    	<a id="merkZplLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('merkZPL_info${counter.count}');" onMouseOut="hidePop('merkZPL_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
 									<c:choose>
