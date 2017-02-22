@@ -124,6 +124,8 @@ public class SkatImportItemsController {
 		//Catch required action (doFetch or doUpdate)
 		String action = request.getParameter("action");
 		logger.info("###ACTION: " + action);
+		logger.info("###CERT_CODE_FLAG: " + recordToValidate.getCertificateCodeMandatoryFlag());
+		
 		//initialize and populate the auto copy manager if applicable
 		this.skatAutoCopyMgr = new SkatAutoCopyItemLinesMgr();
 		this.skatAutoCopyMgr.setAutoCopyAttributes(request);

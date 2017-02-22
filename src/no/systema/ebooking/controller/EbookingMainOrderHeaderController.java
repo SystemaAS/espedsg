@@ -154,7 +154,7 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser, request );
+				    		this.processNewMessageNotes(recordToValidate, appUser, request, null );
 				    		//Update the order lines
 				    		this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
@@ -171,7 +171,7 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser, request );
+				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
 				    		//Update the order lines
 				    		this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
@@ -351,8 +351,9 @@ public class EbookingMainOrderHeaderController {
 	 * @param recordToValidate
 	 * @param appUser
 	 * @param request
+	 * @param dmlModeCreateNew
 	 */
-	private void processNewMessageNotes(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request){
+	private void processNewMessageNotes(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
 		//-------------------------------------------------------
 		//get the key values for a DML operation in messageNote
 		//-------------------------------------------------------
@@ -380,7 +381,13 @@ public class EbookingMainOrderHeaderController {
 				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 			}else{
 				logger.info("CONSIGNEE EQUAL"); 
-				//do not update
+				if(dmlModeCreateNew!=null){
+					//Add new values
+					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
+					this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				}else{
+					//do not update
+				}	
 			}
 			
 			String messageNoteCarrierOriginal = request.getParameter("messageNoteCarrierOriginal");
@@ -394,7 +401,13 @@ public class EbookingMainOrderHeaderController {
 				this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 			}else{
 				logger.info("CARRIER EQUAL"); 
-				//do not update
+				if(dmlModeCreateNew!=null){
+					//Add new values
+					String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
+					this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+				}else{
+					//do not update
+				}
 			}
 			
 			String messageNoteInternalOriginal = request.getParameter("messageNoteInternalOriginal");
@@ -408,7 +421,13 @@ public class EbookingMainOrderHeaderController {
 				this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 			}else{
 				logger.info("INTERNAL EQUAL"); 
-				//do not update
+				if(dmlModeCreateNew!=null){
+					//Add new values
+					String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
+					this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+				}else{
+					//do not update
+				}
 			}
 
 		}

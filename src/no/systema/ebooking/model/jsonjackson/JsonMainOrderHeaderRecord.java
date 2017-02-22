@@ -925,6 +925,10 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setWhenak(String value) {  this.whenak = value; }
 	public String getWhenak() {return this.whenak;}
 	
+	private String wsmail = null;
+	public void setWsmail(String value) {  this.wsmail = value; }
+	public String getWsmail() {return this.wsmail;}
+	
 	
 	private List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = null;
 	public void setFraktbrevList(List<JsonMainOrderHeaderFraktbrevRecord> value) {  this.fraktbrevList = value; }

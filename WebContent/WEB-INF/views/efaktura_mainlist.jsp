@@ -119,7 +119,7 @@
 			        <td class="text12">
 			        	<select name="status" id="status">
            					<option value="*" <c:if test="${searchFilter.status == '*'}"> selected </c:if> >Alle</option>
-          					<option value="O" <c:if test="${searchFilter.status == 'O'}"> selected </c:if> >OK</option>
+          					<option value="O" <c:if test="${searchFilter.status == 'O'}"> selected </c:if> >Received</option>
           					<option value="C" <c:if test="${searchFilter.status == 'C'}"> selected </c:if> >Sendt</option>
           					<option value=" "  <c:if test="${searchFilter.status == ' '}"> selected </c:if> >Ikke sendt</option>
           					<option value="E" <c:if test="${searchFilter.status == 'E'}"> selected </c:if> >Error</option>
@@ -171,7 +171,7 @@
 					           				<li><b>C</b>&nbsp;Sendt: sendt til mottakspunkt.</li>
 					           				<li><b>E</b>&nbsp;Error: Fejl ved sending.</li>
 					           				<li><b>N</b>&nbsp;Warning: Faktura mangler fakturalinjer.</li>
-					           				<li><b>O</b>&nbsp;OK: Sending er OK.</li>
+					           				<li><b>O</b>&nbsp;OK: Received er OK.</li>
 					           				<li><b>S</b>&nbsp;Info: Faktura er kredittert.</li>
 					           				<li><b>T</b>&nbsp;Warning: PDF av faktura er ikke klar.</li>
 					           				<li><b>V</b>&nbsp;Warning: XML-faktura skal ikke sendes pga. partners standardmelding ikke er definert (pkt.5 på meny EDIMNU3).</li>
@@ -235,7 +235,7 @@
 											</div>
 										</c:if>
 										<c:if test="${record.xfst=='O'}">
-					               			OK
+					               			Received
 										</c:if>
 										<c:if test="${record.xfst=='C'}">
 					               			Sendt

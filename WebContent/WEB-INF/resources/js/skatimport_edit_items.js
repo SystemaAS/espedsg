@@ -591,6 +591,10 @@
 						//this is done in order to take care of the supp.enhet (dkiv_411) through a string split (when taricVarukodList.change)
 						dktara63 = data[i].dktara63;
 					}
+					//SKAT import trio of fields
+					if(data[i].dktara54!='' || data[i].dktara55!='' || data[i].dktara56!=''){
+						jq('#certificateCodeMandatoryFlag').val("REQUIRED");
+					}
 				}
 				//Use the value or change a previous value into blank
 				if(dktara63 != ""){
@@ -599,7 +603,7 @@
 					jq('#dkiv_411').val("");
 				}
 				
-			});		
+				});		
     		});
 	});
   	

@@ -25,6 +25,9 @@ public class JsonSkatExportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
 	public boolean isValidTolltariff() {return this.validTolltariff;}
 	
+	private String certificateCodeMandatoryFlag = null;
+	public void setCertificateCodeMandatoryFlag(String value) {  this.certificateCodeMandatoryFlag = value; }
+	public String getCertificateCodeMandatoryFlag() {return this.certificateCodeMandatoryFlag;}
 	
 	//Aux. attribute to pass some header values into a Validator for Items. (Angivelsesart)
 	private String header_dkeh_aart = null;
@@ -412,67 +415,67 @@ public class JsonSkatExportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	end old */
 	
 	private String dkev_4421 = null;
-	public void setdkev_4421(String value) {  this.dkev_4421 = value; }
-	public String getdkev_4421() { return this.dkev_4421; }
+	public void setDkev_4421(String value) {  this.dkev_4421 = value; }
+	public String getDkev_4421() { return this.dkev_4421; }
 	private String dkev_442a = null;
-	public void setdkev_442a(String value) {  this.dkev_442a = value; }
-	public String getdkev_442a() { return this.dkev_442a; }
+	public void setDkev_442a(String value) {  this.dkev_442a = value; }
+	public String getDkev_442a() { return this.dkev_442a; }
 	
 	private String dkev_4422 = null;
-	public void setdkev_4422(String value) {  this.dkev_4422 = value; }
-	public String getdkev_4422() { return this.dkev_4422; }
+	public void setDkev_4422(String value) {  this.dkev_4422 = value; }
+	public String getDkev_4422() { return this.dkev_4422; }
 	private String dkev_442b = null;
-	public void setdkev_442b(String value) {  this.dkev_442b = value; }
-	public String getdkev_442b() { return this.dkev_442b; }
+	public void setDkev_442b(String value) {  this.dkev_442b = value; }
+	public String getDkev_442b() { return this.dkev_442b; }
 	
 	private String dkev_4423 = null;
-	public void setdkev_4423(String value) {  this.dkev_4423 = value; }
-	public String getdkev_4423() { return this.dkev_4423; }
+	public void setDkev_4423(String value) {  this.dkev_4423 = value; }
+	public String getDkev_4423() { return this.dkev_4423; }
 	private String dkev_442c = null;
-	public void setdkev_442c(String value) {  this.dkev_442c = value; }
-	public String getdkev_442c() { return this.dkev_442c; }
+	public void setDkev_442c(String value) {  this.dkev_442c = value; }
+	public String getDkev_442c() { return this.dkev_442c; }
 	
 	private String dkev_4424 = null;
-	public void setdkev_4424(String value) {  this.dkev_4424 = value; }
-	public String getdkev_4424() { return this.dkev_4424; }
+	public void setDkev_4424(String value) {  this.dkev_4424 = value; }
+	public String getDkev_4424() { return this.dkev_4424; }
 	private String dkev_442d = null;
-	public void setdkev_442d(String value) {  this.dkev_442d = value; }
-	public String getdkev_442d() { return this.dkev_442d; }
+	public void setDkev_442d(String value) {  this.dkev_442d = value; }
+	public String getDkev_442d() { return this.dkev_442d; }
 
 	private String dkev_4425 = null;
-	public void setdkev_4425(String value) {  this.dkev_4425 = value; }
-	public String getdkev_4425() { return this.dkev_4425; }
+	public void setDkev_4425(String value) {  this.dkev_4425 = value; }
+	public String getDkev_4425() { return this.dkev_4425; }
 	private String dkev_442e = null;
-	public void setdkev_442e(String value) {  this.dkev_442e = value; }
-	public String getdkev_442e() { return this.dkev_442e; }
+	public void setDkev_442e(String value) {  this.dkev_442e = value; }
+	public String getDkev_442e() { return this.dkev_442e; }
 	
 	private String dkev_4426 = null;
-	public void setdkev_4426(String value) {  this.dkev_4426 = value; }
-	public String getdkev_4426() { return this.dkev_4426; }
+	public void setDkev_4426(String value) {  this.dkev_4426 = value; }
+	public String getDkev_4426() { return this.dkev_4426; }
 	private String dkev_442f = null;
-	public void setdkev_442f(String value) {  this.dkev_442f = value; }
-	public String getdkev_442f() { return this.dkev_442f; }
+	public void setDkev_442f(String value) {  this.dkev_442f = value; }
+	public String getDkev_442f() { return this.dkev_442f; }
 	
 	private String dkev_4427 = null;
-	public void setdkev_4427(String value) {  this.dkev_4427 = value; }
-	public String getdkev_4427() { return this.dkev_4427; }
+	public void setDkev_4427(String value) {  this.dkev_4427 = value; }
+	public String getDkev_4427() { return this.dkev_4427; }
 	private String dkev_442g = null;
-	public void setdkev_442g(String value) {  this.dkev_442g = value; }
-	public String getdkev_442g() { return this.dkev_442g; }
+	public void setDkev_442g(String value) {  this.dkev_442g = value; }
+	public String getDkev_442g() { return this.dkev_442g; }
 	
 	private String dkev_4428 = null;
-	public void setdkev_4428(String value) {  this.dkev_4428 = value; }
-	public String getdkev_4428() { return this.dkev_4428; }
+	public void setDkev_4428(String value) {  this.dkev_4428 = value; }
+	public String getDkev_4428() { return this.dkev_4428; }
 	private String dkev_442h = null;
-	public void setdkev_442h(String value) {  this.dkev_442h = value; }
-	public String getdkev_442h() { return this.dkev_442h; }
+	public void setDkev_442h(String value) {  this.dkev_442h = value; }
+	public String getDkev_442h() { return this.dkev_442h; }
 	
 	private String dkev_4429 = null;
-	public void setdkev_4429(String value) {  this.dkev_4429 = value; }
-	public String getdkev_4429() { return this.dkev_4429; }
+	public void setDkev_4429(String value) {  this.dkev_4429 = value; }
+	public String getDkev_4429() { return this.dkev_4429; }
 	private String dkev_442i = null;
-	public void setdkev_442i(String value) {  this.dkev_442i = value; }
-	public String getdkev_442i() { return this.dkev_442i; }
+	public void setDkev_442i(String value) {  this.dkev_442i = value; }
+	public String getDkev_442i() { return this.dkev_442i; }
 	
 
 	

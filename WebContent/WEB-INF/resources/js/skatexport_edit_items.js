@@ -410,6 +410,10 @@
 						//this is done in order to take care of the supp.enhet (dkev_411) through a string split (when taricVarukodList.change)
 						dktara63 = data[i].dktara63;
 					}
+					//SKAT export trio of fields
+					if(data[i].dktara57!='' || data[i].dktara58!='' || data[i].dktara59!=''){
+						jq('#certificateCodeMandatoryFlag').val("REQUIRED");
+					}
 				}
 				//Use the value or change a previous value into blank
 				if(dktara63 != ""){

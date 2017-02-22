@@ -494,6 +494,8 @@
 				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
 				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicSkat.dkeh_222}"/>
+				 	<input type="hidden" name="certificateCodeMandatoryFlag" id="certificateCodeMandatoryFlag" value="${model.record.certificateCodeMandatoryFlag}"/>
+				 	
 				 	
 				 	<input type="hidden" name="dkev_syli" id="dkev_syli" value=''/>
 				 	<input type="hidden" name="dkev_32" id="dkev_32" value='${model.record.dkev_32}'/>

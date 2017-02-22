@@ -163,6 +163,13 @@ public class SkatImportItemsValidator implements Validator {
 					errors.rejectValue("dkiv_442a", "systema.skat.import.header.error.rule.item.certificatValues");
 				}
 			}
+			//Certificate is mandatory
+			if(record.getDkiv_4421()==null || "".equals(record.getDkiv_4421())){
+				if(record.getCertificateCodeMandatoryFlag()!=null && !"".equals(record.getCertificateCodeMandatoryFlag())){
+					errors.rejectValue("dkiv_4421", "systema.skat.import.header.error.rule.item.certificatCodeMustExist");
+				}
+			}
+			
 			//Copy elements from start-line-nr to end-line-nr
 			if(record.getCopyLineStartLineNr()!=null && !"".equals(record.getCopyLineStartLineNr()) ){
 				//TODO COVI convert to Int and compare both...

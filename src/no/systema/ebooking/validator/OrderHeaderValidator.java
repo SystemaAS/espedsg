@@ -67,11 +67,14 @@ public class OrderHeaderValidator implements Validator {
 			//Fakturapart
 			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
 				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.both.invoicees.invalid");
+			}else{
+				if( (record.getHeknsf() != null && !"".equals(record.getHeknsf())) || (record.getHeknkf() != null && !"".equals(record.getHeknkf())) ){
+					//OK (at least one)
+				}else{
+					errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.sendersOrReceiversInvoicee.mustExist");
+				}
 			}
-			//Fakturapart
-			if( (record.getHeknsf() ==null || "".equals(record.getHeknsf())) && (record.getHeknkf()==null && "".equals(record.getHeknkf())) ){
-				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.sendersOrReceiversInvoicee.mustExist");
-			}
+			
 			//-----------------------------------------------------------------------------------------------------------
 			//START Check References & Invoicees (one of them is always mandatory. In certain cases, both are mandatory)
 			//These keys replaced hereff (ref.JOVO).

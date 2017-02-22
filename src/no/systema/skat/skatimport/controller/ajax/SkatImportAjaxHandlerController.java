@@ -214,6 +214,10 @@ public class SkatImportAjaxHandlerController {
 				  //logger.info(METHOD + "dktara02:" + record.getDktara02());
 				  //logger.info(METHOD + "dktara63:" + record.getDktara63());
 				  //logger.info(METHOD + "dktara64:" + record.getDktara64());
+				  //for certificate code mandatory flag ...
+				  //logger.info(METHOD + "dktara54:" + record.getDktara54());
+				  //logger.info(METHOD + "dktara55:" + record.getDktara55());
+				  //logger.info(METHOD + "dktara56:" + record.getDktara56());
 				  result.add(record);
 			  }	
 		  }catch(Exception e){

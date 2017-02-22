@@ -206,6 +206,13 @@ public class SkatExportItemsValidator implements Validator {
 						}
 					}
 				}
+				
+				//Certificate is mandatory
+				if(record.getDkev_4421()==null || "".equals(record.getDkev_4421())){
+					if(record.getCertificateCodeMandatoryFlag()!=null && !"".equals(record.getCertificateCodeMandatoryFlag())){
+						errors.rejectValue("dkev_4421", "systema.skat.export.header.error.rule.item.certificatCodeMustExist");
+					}
+				}
 			}
 		}
 		

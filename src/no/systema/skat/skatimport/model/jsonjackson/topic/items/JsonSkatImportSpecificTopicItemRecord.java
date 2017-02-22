@@ -25,6 +25,10 @@ public class JsonSkatImportSpecificTopicItemRecord  extends JsonAbstractGrandFat
 	public void setValidTolltariff(boolean value) {  this.validTolltariff = value; }
 	public boolean isValidTolltariff() {return this.validTolltariff;}
 	
+	private String certificateCodeMandatoryFlag = null;
+	public void setCertificateCodeMandatoryFlag(String value) {  this.certificateCodeMandatoryFlag = value; }
+	public String getCertificateCodeMandatoryFlag() {return this.certificateCodeMandatoryFlag;}
+	
 	
 	private Integer sum_of_dkiv_313 = 0;
 	public Integer getSum_of_dkiv_313() {

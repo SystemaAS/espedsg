@@ -1619,28 +1619,25 @@
 		 						<td class="text">&nbsp;</td> 
 			 				</tr>
 			 				
-			 				<%-- only status = M or emtpy status is allowed
-			 				Moved to on top (DACHSER DK required)
 			 				
 				            <tr >	
-			            		<td class="text">&nbsp;</td> 
-			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
+			            		<td class="text9BlueGreen" valign="bottom" align="left" >
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97'}">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
+					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">
-					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatexport_send.do';" value='<spring:message code="systema.skat.export.createnew.send"/>'/>
+					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send2" id="send2" onclick="javascript: form.action='skatexport_send.do';" value='<spring:message code="systema.skat.export.createnew.send"/>'/>
 					 				    	</c:if>
 				 				    </c:when>
 				 				    <c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.skat.submit.not.editable"/>'/>
+				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit2" value='<spring:message code="systema.skat.submit.not.editable"/>'/>
 				 				    </c:otherwise>	
 			 				    </c:choose>
 		 				    
                 				</td>
 					        </tr>
-				            --%>
+				            -
 						</table>
 					</td>
 				</tr>
