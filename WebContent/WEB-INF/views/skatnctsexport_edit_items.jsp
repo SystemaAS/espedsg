@@ -216,6 +216,7 @@
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktn.nettov"/>&nbsp;</th>
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnt.kolliAnt"/>(&Sigma;)</th>
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnteh.styk"/>(&Sigma;)</th>
+											                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdref.docRef"/></th>
 											                    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
 											                    		<th align="center" class="text12" nowrap>Fjern</th>
 											                    </c:if> 
@@ -242,6 +243,7 @@
 													               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
 													               <td class="text11" >&nbsp;${record.sum_of_tvnt}</td>
 													               <td class="text11" >&nbsp;${record.sum_of_tvnteh}</td>
+													               <td class="text11" >&nbsp;${record.tvdref}</td>
 													               
 													               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
 														               <td class="text11" align="center" nowrap>&nbsp;
@@ -327,6 +329,7 @@
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktn.nettov"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnt.kolliAnt"/>(&Sigma;)</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnteh.styk"/>(&Sigma;)</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdref.docRef"/></th>
 					                    
 					                    <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">
 					                    		<th align="center" class="text11" nowrap>Fjern</th>
@@ -358,6 +361,7 @@
 							               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
 							               <td class="text11" >&nbsp;${record.sum_of_tvnt}</td>
 							               <td class="text11" >&nbsp;${record.sum_of_tvnteh}</td>
+							               <td class="text11" >&nbsp;${record.tvdref}</td>
 							               <c:if test="${model.status == 'G' ||  model.status=='F' || model.status == 'M' || empty model.status}">	
 								               <td class=text11 align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatnctsexport_edit_items.do?action=doDelete&avd=${record.tvavd}&opd=${record.tvtdn}&lin=${record.tvli}">
