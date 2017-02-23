@@ -412,7 +412,18 @@
 					}
 					//SKAT export trio of fields
 					if(data[i].dktara57!='' || data[i].dktara58!='' || data[i].dktara59!=''){
+						var value = "";
+						if(data[i].dktara57 != ''){
+							value = data[i].dktara57;
+						}
+						if(data[i].dktara58 != ''){
+							value = data[i].dktara58;
+						}
+						if(data[i].dktara59 != ''){
+							value = data[i].dktara59;
+						}
 						jq('#certificateCodeMandatoryFlag').val("REQUIRED");
+						jq('#dkev_443').val(value);
 					}
 				}
 				//Use the value or change a previous value into blank
