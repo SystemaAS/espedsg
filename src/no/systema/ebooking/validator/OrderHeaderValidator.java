@@ -21,6 +21,7 @@ import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.service.EbookingChildWindowServiceImpl;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
+import no.systema.main.validator.EmailValidator;
 
 /**
  * 
@@ -34,7 +35,7 @@ public class OrderHeaderValidator implements Validator {
 	//Init services here
 	private EbookingChildWindowService ebookingChildWindowService = new EbookingChildWindowServiceImpl();
 	private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
-	
+	private EmailValidator emailValidator = new EmailValidator();
 	/**
 	 * 
 	 */
@@ -153,6 +154,13 @@ public class OrderHeaderValidator implements Validator {
 				//OK = valid
 			}else{
 				errors.rejectValue("hereff", "systema.ebooking.orders.form.update.error.rule.itemLines.atleastOneLine.mustExist");
+			}
+			
+			//Check validity of email address
+			if(record.getWsmail()!=null && !"".equals(record.getWsmail())){
+				if( !this.emailValidator.validateEmail(record.getWsmail()) ){
+					errors.rejectValue("wsmail", "systema.ebooking.orders.form.update.error.rule.email.isNotValid");
+				}
 			}
 		}
 		

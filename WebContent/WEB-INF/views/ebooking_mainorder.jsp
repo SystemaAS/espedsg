@@ -1099,7 +1099,7 @@
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.ebooking.orders.form.update.label.email"/></td>
 						 			<td class="text11">
-						 				<input type="text" class="inputTextMediumBlue11" size="40" maxlength="100" name="wsmail" id="wsmail" value="${model.record.wsmail}">
+						 				<input type="text" class="inputTextMediumBlue11" size="55" maxlength="70" name="wsmail" id="wsmail" value="${model.record.wsmail}">
 						 				&nbsp;(ekstra booking bekreftelse)
 					 				</td>									
 				 				</tr>

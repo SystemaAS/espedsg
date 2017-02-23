@@ -106,7 +106,7 @@
 							               	<c:if test="${ fn:startsWith(module, 'SAD') || fn:startsWith(module, 'UFORT') || fn:startsWith(module, 'SPØ') || fn:startsWith(module, 'AVG') }">
 							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
 							               	</c:if>
-							               	<c:if test="${ fn:startsWith(module, 'PRIS') || fn:startsWith(module, 'WORK') || fn:startsWith(module, 'EFAK') }">
+							               	<c:if test="${ fn:startsWith(module, 'PRIS') || fn:startsWith(module, 'WORK') || fn:startsWith(module, 'EFAK') || fn:startsWith(module, 'EBOOK')  }">
 							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
 							               	</c:if>
 							               	
