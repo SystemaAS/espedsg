@@ -28,12 +28,12 @@ public class SadExportSpecificTopicArchiveMapper {
 		//At this point we now have an UTF-8 payload
 		JsonSadExportSpecificTopicArchiveContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicArchiveContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
-		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
 		Collection<JsonSadExportSpecificTopicArchiveRecord> list = container.getArchiveElements();
 		for(JsonSadExportSpecificTopicArchiveRecord record : list){
-			logger.info("Url (archive): " + record.getUrl());
-			logger.info("Subject (archive): " + record.getSubject());
+			//logger.info("Url (archive): " + record.getUrl());
+			//logger.info("Subject (archive): " + record.getSubject());
 		}
 		return container;
 	}

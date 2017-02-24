@@ -115,9 +115,9 @@ public class SadExportHeaderArchiveController {
 		    		this.setDomainObjectsInView(model, jsonSadExportSpecificTopicArchiveContainer);
 		    		this.setDomainObjectsInView(request, model);
 		    		
-		    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
+	    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 				successView.addObject(TvinnSadConstants.DOMAIN_LIST,jsonSadExportSpecificTopicArchiveContainer.getArchiveElements());
-		    	
+				
 		    	}else{
 				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 				return loginView;

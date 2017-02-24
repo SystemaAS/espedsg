@@ -101,7 +101,7 @@
 	<tr>
 		<td>		
 		<table width="100%" cellspacing="0" border="0" cellpadding="0">
-	    	<%-- separator --%>
+	    	
 	        <tr height="2"><td></td></tr> 
 			<tr>
 				<td>
@@ -133,7 +133,7 @@
 		               <td class="tableCell" >&nbsp;${record.createDate}</td>
 		               <td class="tableCell" >&nbsp;${record.createTime}</td>
 		               <td class="tableCell" >&nbsp;${record.additionalInfo}</td>
-		               <%-- <td class="tableCell" >&nbsp;${record.url}</td>  --%>
+		               <%-- <td class="tableCell" >&nbsp;${record.url}</td> --%> 
 		               <td class="tableCell" >&nbsp;
 		               		<a href="tvinnsadimport_renderArchive.do?fp=${record.url}" target="_new" >
 			               		<img src="resources/images/pdf.png" border="0" width="16px" height="16px" alt="Visa arkivdokument" >
@@ -149,7 +149,7 @@
 		</table>
 		</td>
 	</tr>
-    
+
 </table>	
 		
 <!-- ======================= footer ===========================-->

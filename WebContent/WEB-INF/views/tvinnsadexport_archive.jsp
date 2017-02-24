@@ -99,7 +99,6 @@
 	<tr>
 		<td>		
 		<table width="100%" cellspacing="0" border="0" cellpadding="0">
-	    	<%-- separator --%>
 	        <tr height="2"><td></td></tr> 
 			<tr>
 				<td>
@@ -115,6 +114,7 @@
 	                    <td class="tableHeaderField">&nbsp;Dokument</td> 
 	                    
 	               </tr> 
+	               
 	               <c:if test="${not empty list}"> 
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
@@ -141,12 +141,14 @@
 		            </tr> 
 		            </c:forEach>
 		            </c:if>
+		             
 	            </table>
 			</td>	
 			</tr>
 		</table>
 		</td>
 	</tr>
+	
     
 </table>	
 		

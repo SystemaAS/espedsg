@@ -29,4 +29,16 @@ public final class MainUrlDataStore {
 	//---------------
 	static public String SYSTEMA_EDI_FTP_LOG_EDI42R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsEDI42R.do";
 	static public String SYSTEMA_EDI_FTP_LOG_EDI43R_FETCH_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsEDI43R.do";
+	
+	
+	//-----------------
+	//Upload to Archive
+	//-----------------
+	static public String SYSTEMA_UPLOAD_FILE_VALIDATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJETUR07A.pgm";	
+	//http://gw.systema.no/sycgip/TJETUR07A.pgm?user=OSCAR&wsdokn=tarzan.jpg
+	//{ "user": "OSCAR", "wsdokn": "tarzan.jpg","valids": "Y", "tmpdir": "/pdf/tmp/", "errMsg": "", "chksuffix": [] } 
+	static public String SYSTEMA_UPLOAD_FILE_AFTER_VALIDATION_APPROVAL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJETUR07B.pgm";	
+	//http://gw.systema.no/sycgip/TJETUR07B.pgm?user=JOVO&wstur=75000002&wsdokn=/pdf/tmp/ukkulele.jpg&wsalias=trumpet.jpg 
+	
 }
+

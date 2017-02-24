@@ -17,7 +17,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="notisblockService" class="no.systema.main.service.general.notisblock.NotisblockServiceImpl"/>
 	<bean id="ediFtpLogService" class="no.systema.main.service.general.EdiFtpLogServiceImpl"/>
 	<bean id="firmLoginService" class="no.systema.main.service.FirmLoginServiceImpl"/>
-	
+	<bean id="uploadFileToArchiveService" class="no.systema.main.service.general.UploadFileToArchiveServiceImpl"/>
 	
 	
 	<!-- =========  -->
