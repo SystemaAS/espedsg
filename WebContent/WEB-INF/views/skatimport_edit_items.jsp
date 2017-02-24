@@ -655,6 +655,7 @@
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
 				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicSkatImport.dkih_222}"/>
 				 	<input type="hidden" name="certificateCodeMandatoryFlag" id="certificateCodeMandatoryFlag" value="${model.record.certificateCodeMandatoryFlag}"/>
+				 	<input type="hidden" name="recordHeader_dkih_aart" id="recordHeader_dkih_aart" value="${recordTopicSkatImport.dkih_aart}"/>
 				 	
 				 	
 				 	<input type="hidden" name="dkiv_syli" id="dkiv_syli" value=''/>

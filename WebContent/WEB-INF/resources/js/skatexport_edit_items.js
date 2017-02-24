@@ -412,6 +412,7 @@
 					}
 					//SKAT export trio of fields
 					if(data[i].dktara57!='' || data[i].dktara58!='' || data[i].dktara59!=''){
+						var aart = jq('#recordHeader_dkeh_aart').val();
 						var value = "";
 						if(data[i].dktara57 != ''){
 							value = data[i].dktara57;
@@ -423,7 +424,10 @@
 							value = data[i].dktara59;
 						}
 						jq('#certificateCodeMandatoryFlag').val("REQUIRED");
-						jq('#dkev_443').val(value);
+						//only some types of aart (header: Ang.art)
+						if(aart=='20' || aart=='21' || aart=='25' || aart=='28' || aart=='30' || aart=='31' || aart=='32' ){
+							jq('#dkev_443').val(value);
+						}
 					}
 				}
 				//Use the value or change a previous value into blank

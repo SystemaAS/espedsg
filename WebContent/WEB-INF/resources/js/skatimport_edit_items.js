@@ -593,6 +593,7 @@
 					}
 					//SKAT import trio of fields
 					if(data[i].dktara54!='' || data[i].dktara55!='' || data[i].dktara56!=''){
+						var aart = jq('#recordHeader_dkih_aart').val();
 						var value = "";
 						if(data[i].dktara54 != ''){
 							value = data[i].dktara54;
@@ -604,7 +605,11 @@
 							value = data[i].dktara56
 						}
 						jq('#certificateCodeMandatoryFlag').val("REQUIRED");
-						jq('#dkiv_443').val(value);
+						//only some types of aart (header: Ang.art)
+						if(aart=='02' || aart=='04' || aart=='07' ){
+							jq('#dkiv_443').val(value);
+						}
+						
 					}
 				}
 				//Use the value or change a previous value into blank
