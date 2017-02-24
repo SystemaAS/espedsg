@@ -522,28 +522,28 @@
 													<td width="80%" valign="top">
 														<table>
 															<tr>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd2" id="cavd2" size="4" maxlength="4" value='${model.record.cavd2}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd3" id="cavd3" size="4" maxlength="4" value='${model.record.cavd3}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd4" id="cavd4" size="4" maxlength="4" value='${model.record.cavd4}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd5" id="cavd5" size="4" maxlength="4" value='${model.record.cavd5}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd6" id="cavd6" size="4" maxlength="4" value='${model.record.cavd6}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd7" id="cavd7" size="4" maxlength="4" value='${model.record.cavd7}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd8" id="cavd8" size="4" maxlength="4" value='${model.record.cavd8}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd9" id="cavd9" size="4" maxlength="4" value='${model.record.cavd9}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd10" id="cavd10" size="4" maxlength="4" value='${model.record.cavd10}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd2" id="cavd2" size="4" maxlength="4" value='${model.record.cavd2}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd3" id="cavd3" size="4" maxlength="4" value='${model.record.cavd3}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd4" id="cavd4" size="4" maxlength="4" value='${model.record.cavd4}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd5" id="cavd5" size="4" maxlength="4" value='${model.record.cavd5}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd6" id="cavd6" size="4" maxlength="4" value='${model.record.cavd6}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd7" id="cavd7" size="4" maxlength="4" value='${model.record.cavd7}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd8" id="cavd8" size="4" maxlength="4" value='${model.record.cavd8}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd9" id="cavd9" size="4" maxlength="4" value='${model.record.cavd9}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd10" id="cavd10" size="4" maxlength="4" value='${model.record.cavd10}'></td>
 															</tr>
 															<tr>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd11" id="cavd11" size="4" maxlength="4" value='${model.record.cavd11}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd12" id="cavd12" size="4" maxlength="4" value='${model.record.cavd12}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd13" id="cavd13" size="4" maxlength="4" value='${model.record.cavd13}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd14" id="cavd14" size="4" maxlength="4" value='${model.record.cavd14}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd15" id="cavd15" size="4" maxlength="4" value='${model.record.cavd15}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd16" id="cavd16" size="4" maxlength="4" value='${model.record.cavd16}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd17" id="cavd17" size="4" maxlength="4" value='${model.record.cavd17}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd18" id="cavd18" size="4" maxlength="4" value='${model.record.cavd18}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd19" id="cavd19" size="4" maxlength="4" value='${model.record.cavd19}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="cavd20" id="cavd20" size="4" maxlength="4" value='${model.record.cavd20}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd11" id="cavd11" size="4" maxlength="4" value='${model.record.cavd11}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd12" id="cavd12" size="4" maxlength="4" value='${model.record.cavd12}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd13" id="cavd13" size="4" maxlength="4" value='${model.record.cavd13}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd14" id="cavd14" size="4" maxlength="4" value='${model.record.cavd14}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd15" id="cavd15" size="4" maxlength="4" value='${model.record.cavd15}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd16" id="cavd16" size="4" maxlength="4" value='${model.record.cavd16}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd17" id="cavd17" size="4" maxlength="4" value='${model.record.cavd17}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd18" id="cavd18" size="4" maxlength="4" value='${model.record.cavd18}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd19" id="cavd19" size="4" maxlength="4" value='${model.record.cavd19}'></td>
+																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd20" id="cavd20" size="4" maxlength="4" value='${model.record.cavd20}'></td>
 															</tr>
 															<tr>
 																<td><input type="text" class="inputTextMediumBlue" name="copd1" id="copd1" size="2" maxlength="2" value='${model.record.copd1}'></td>
