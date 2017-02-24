@@ -134,22 +134,25 @@
 								</a>
 							</td>
 							<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
-								<font class="tabDisabledLinkMinor">&nbsp;
+								<font class="tabLinkMinor">&nbsp;
 									<spring:message code="systema.main.maintenance.customer.contacts"/>
 								</font>&nbsp;						
 							</td>
+							
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritekst_edit.do">
+									<font class="tabDisabledLinkMinor">&nbsp;
+										<spring:message code="systema.main.maintenance.customer.text"/>
+									</font>&nbsp;						
+								</a>
+							</td>
+							
+							
 <!--  
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer.stuff.import"/>
-									</font>&nbsp;						
-								</a>
-							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritext_edit.do">
-									<font class="tabDisabledLinkMinor">&nbsp;
-										<spring:message code="systema.main.maintenance.customer.text"/>
 									</font>&nbsp;						
 								</a>
 							</td>
@@ -171,7 +174,7 @@
 <!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
  -->
-						 	<td width="450" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="770" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>

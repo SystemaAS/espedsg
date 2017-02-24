@@ -44,8 +44,8 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChil
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
-import no.systema.z.main.maintenance.service.MaintMainChildWindowService;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
@@ -232,7 +232,7 @@ public class MainMaintenanceCundfVkundController {
 		ChildWindowKode kode = null;
 		try {
 			if (jsonPayload != null) {
-				container = maintMainChildWindowService.getContainer(jsonPayload);
+				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
 					for (JsonMaintMainChildWindowKofastRecord record : container.getList()) {
 						kode = getChildWindowKode(record, noId);
@@ -525,12 +525,12 @@ public class MainMaintenanceCundfVkundController {
 	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 	
-	@Qualifier ("maintMainChildWindowService")
-	private MaintMainChildWindowService maintMainChildWindowService;
+	@Qualifier ("maintMainKofastService")
+	private MaintMainKofastService maintMainKofastService;
 	@Autowired
 	@Required
-	public void setMaintMainChildWindowService (MaintMainChildWindowService value){ this.maintMainChildWindowService = value; }
-	public MaintMainChildWindowService getMaintMainChildWindowService(){ return this.maintMainChildWindowService; }
+	public void setMaintMainKofastService (MaintMainKofastService value){ this.maintMainKofastService = value; }
+	public MaintMainKofastService getMaintMainKofastService(){ return this.maintMainKofastService; }
 	
 
 	@Qualifier ("maintSadImportKodtlikService")

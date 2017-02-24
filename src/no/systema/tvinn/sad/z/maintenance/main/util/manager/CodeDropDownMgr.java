@@ -5,12 +5,16 @@ package no.systema.tvinn.sad.z.maintenance.main.util.manager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jfree.util.Log;
 
+import no.systema.jservices.common.values.FasteKoder;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTransitKodeTypeContainer;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTransitKodeTypeRecord;
@@ -20,6 +24,11 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.Js
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.JsonMaintSadExportKodts6Record;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
+import no.systema.z.main.maintenance.controller.ChildWindowKode;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
+import no.systema.z.main.maintenance.service.MaintMainKofastService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 
 /**
@@ -148,6 +157,39 @@ public class CodeDropDownMgr {
 		
 	}
 	
-	
+
+	/**
+	 * Populate with all delsystem
+	 * 
+	 * model attribute: delSystemList
+	 * 
+	 * @param maintMainKofastService
+	 * @param model
+	 * @param applicationUser
+	 */
+	public void popluateDelsystem(UrlCgiProxyService urlCgiProxyService, MaintMainKofastService maintMainKofastService, Map model, String applicationUser) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + applicationUser);
+		urlRequestParams.append("&kftyp=" + FasteKoder.DELSYS.toString());
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		JsonMaintMainChildWindowKofastContainer container = null;
+		Collection <JsonMaintMainChildWindowKofastRecord> list = new ArrayList<JsonMaintMainChildWindowKofastRecord>();
+		try {
+			if (jsonPayload != null) {
+				container = maintMainKofastService.getContainer(jsonPayload);
+				if (container != null) {
+					list = container.getList();
+				}
+			}
+		} catch (Exception e) {
+			logger.info("Error: ",e);
+		}
+		
+    	model.put("delSystemList", list);
+	}	
 	
 }
