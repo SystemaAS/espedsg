@@ -221,21 +221,42 @@
 						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if>
 						 				</c:forEach>
+						 				
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="fxtxt" name="fxtxt" limit='80,2' cols="80" rows="30">${model.fxtxt}</textarea>
+						 				 <textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="fxtxt" name="fxtxt" cols="80" rows="30">${model.fxtxt}</textarea> 
+										
+										<!-- 
+										 <table class="text10" width="100%" cellspacing="0" border="0" align="left">
+						 						<c:forEach var="changelog" items="${model.delSystemList}">
+							 				  		 <tr>
+											 			<td width="2px">&nbsp;${changelog.kfkod}</td>
+											 			<td>
+											 				<input type="text" class="inputTextMediumBlue" name="colxx" id="colxx" size="20" maxlength="35" value='${changelog.kftxt}'>		
+											 			</td>
+													 </tr>
+												</c:forEach>
+												
+											 <tr>
+											 	<td width="2px">&nbsp;2</td>
+											 	<td class="text12">&nbsp; col 2</td>
+											 </tr>	
+											 <tr>
+											 	<td width="2px">&nbsp;22</td>
+											 	<td class="text12">&nbsp; col 2</td>
+											 </tr>										 
+										 </table>
+										 -->
+	
 				 				   </td>
-				 				   <td valign="top">&nbsp;
+				 				   
+				 				   <td class="text12" valign="top">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.changelog"/>
 				 				   		<img onMouseOver="showPop('log_info');" onMouseOut="hidePop('log_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 				<div class="text11"  style="position: relative;" align="right">
-							 				<span style="position:absolute; width:200px; right:150px" id="log_info" class="popupWithInputText text11" >
-												<!-- 
-							 						<c:forEach var="record" items="${model.delSystemList}">
-								 				  		${record.kfkod} - ${record.kftxt}</br>
-													</c:forEach>
- 												-->
-												${model.changelog}
+						 				<div class="text11"  style="position: relative;" align="left">
+							 				<span style="position:absolute; width:150px; right:240px" id="log_info" class="popupWithInputText text11" >
+						 						<c:forEach var="changelog" items="${model.changelogList}">
+							 				  		${changelog.fxusr} - ${changelog.fxdt}</br>
+												</c:forEach>
 											</span>
-											
 										</div>
 				 				   </td>
 								</tr>
@@ -244,6 +265,7 @@
 									<td width="50%">&nbsp;</td>
 									<td width="50%">&nbsp;</td>
 								</tr>
+								
 								<tr> 
 									<td width="50%" align="right">
 										<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>

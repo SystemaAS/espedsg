@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,7 +60,6 @@ public class MainMaintenanceCundfFritekstController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String kfkod = request.getParameter("searchKfkod");
-		logger.info("kfkod="+kfkod);
 		
 		if (appUser == null) {
 			return this.loginView;
@@ -76,13 +76,10 @@ public class MainMaintenanceCundfFritekstController {
 			} else { //Fetch
 
 				String fxtxt = fetchTekst(appUser,kundnr, kfkod );
-				String changelog = fetchChangelog(appUser,kundnr, kfkod);
-				
-				logger.info("fxtxt="+fxtxt);
-				logger.info("changelog="+changelog);
+				List<ChangelogDTO> changelogList = fetchChangelog(appUser,kundnr, kfkod);
 				
 				model.put("fxtxt", fxtxt);
-				model.put("changelog", changelog);
+				model.put("changelogList", changelogList);
 
 			}
 
@@ -103,29 +100,41 @@ public class MainMaintenanceCundfFritekstController {
 	private String fetchTekst(SystemaWebUser appUser, String kundnr, String kfkod) {
 		StringBuilder concatText = new StringBuilder();
 		List<FratxtDao> fratxtList = getFratxt(appUser, kundnr, kfkod);
+		int newLines = 0;
+		int lnr = 0;
+		int prevLnr = 0;
 		for (FratxtDao fratxtDao : fratxtList) {
-			concatText.append(fratxtDao.getFxtxt()).append(System.getProperty("line.separator"));
+			prevLnr = lnr;
+			lnr = Integer.parseInt(fratxtDao.getFxlnr());
+			newLines = lnr - prevLnr;
+			concatText.append(newLines(newLines)).append(fratxtDao.getFxtxt());
 		}
-
-//		logger.info("concatText="+concatText.toString());
 		return concatText.toString();
-
 	}
 	
-	private String fetchChangelog(SystemaWebUser appUser, String kundnr, String kfkod) {
-		StringBuilder concatLog = new StringBuilder();
-		List<FratxtDao> fratxtList = getFratxt(appUser, kundnr, kfkod);
-		for (FratxtDao fratxtDao : fratxtList) {
-			concatLog.append(fratxtDao.getFxusr()).append(":").append(fratxtDao.getFxdt());
-			concatLog.append(System.getProperty("line.separator"));
+	
+	private String newLines(int newLines) {
+		StringBuilder lines = new StringBuilder();
+		for (int i = 0; i < newLines; i++) {
+			lines.append('\n');
 		}
-
-		logger.info("concatLog="+concatLog.toString());
-		return concatLog.toString();
-
+		return lines.toString();
+	}
+	
+	private List<ChangelogDTO> fetchChangelog(SystemaWebUser appUser, String kundnr, String kfkod) {
+		List<FratxtDao> fratxtList = getFratxt(appUser, kundnr, kfkod);
+		List<ChangelogDTO> changeLogList = new ArrayList<ChangelogDTO>();
+		ChangelogDTO changeLog = null;
+		for (FratxtDao fratxtDao : fratxtList) {
+			changeLog = new ChangelogDTO();
+			if (fratxtDao.getFxusr() != null && !"".equals(fratxtDao.getFxusr().trim())) {
+				changeLog.setFxusr(fratxtDao.getFxusr());
+				changeLog.setFxdt(fratxtDao.getFxdt());
+				changeLogList.add(changeLog);
+			}
+		}
+		return changeLogList;
 	}	
-	
-	
 	
 	private List<FratxtDao> getFratxt(SystemaWebUser appUser, String kundnr, String kfkod) {
 		JsonReader<JsonDtoContainer<FratxtDao>> jsonReader = new JsonReader<JsonDtoContainer<FratxtDao>>();
