@@ -1758,26 +1758,25 @@
 		 						<td class="text">&nbsp;</td> 
 			 				</tr>
 			 				
-							<%-- moved on top --- DACHSER DK 
+							<%-- cloned on top --- DACHSER DK --%>
 				            <tr >	
-				            		<td class="text">&nbsp;</td> 
-			 				    <td class="text9BlueGreen" valign="bottom" align="right" >
-			 				    	<%-- only status = M or emtpy status is allowed
+			 				    <td class="text9BlueGreen" valign="bottom" align="left" >
+			 				    	<%-- only status = M or emtpy status is allowed --%>
 				 				    <c:choose>
 					 				    <c:when test="${ model.record.thst == 'G' ||  model.status=='F' || model.record.thst == 'M' || empty model.record.thst}">
-						 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsexport_edit.do';" value='<spring:message code="systema.skat.ncts.export.createnew.submit"/>'/>
+						 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatnctsexport_edit.do';" value='<spring:message code="systema.skat.ncts.export.createnew.submit"/>'/>
 						 				    	&nbsp;&nbsp;
 						 				    	<c:if test="${not empty model.record.thtdn}">
-						 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" onclick="javascript: form.action='skatnctsexport_send.do';" value='<spring:message code="systema.skat.ncts.export.createnew.send"/>'/>
+						 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send2" onclick="javascript: form.action='skatnctsexport_send.do';" value='<spring:message code="systema.skat.ncts.export.createnew.send"/>'/>
 						 				    	</c:if>
 					 				    </c:when>
 					 				    <c:otherwise>
-					 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.skat.submit.not.editable"/>'/>
+					 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit2" id="submit2" value='<spring:message code="systema.skat.submit.not.editable"/>'/>
 					 				    </c:otherwise>	
 				 				    </c:choose>
 	                				</td>
 					        </tr>
-					        --%>
+					        
 					        <tr >	
 			            		<td class="text9BlueGreen" valign="bottom" align="left" >
 		 					    	<%-- only status = P or U are allowed --%>
