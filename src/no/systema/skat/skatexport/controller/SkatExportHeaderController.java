@@ -168,7 +168,6 @@ public class SkatExportHeaderController {
 		logger.info("Avd:" + avd);
 		logger.info("Sign:" + sign);
 		logger.info("Fakturabelop (dkeh_222):" + recordToValidate.getDkeh_222());
-		
 		Map model = new HashMap();
 		
 		if(appUser==null){
@@ -247,7 +246,10 @@ public class SkatExportHeaderController {
 					this.setItemLinesForValidation(recordToValidate, appUser);
 					//(2) Validate the record
 					SkatExportHeaderValidator validator = new SkatExportHeaderValidator();
-					validator.validate(recordToValidate, bindingResult);
+					//required validation only for production avd
+					if( !"1".equals(recordToValidate.getTestAvdFlag()) ){
+						validator.validate(recordToValidate, bindingResult);
+					}
 					//test indicator in validation field
 					recordToValidate.setDkeh_0035(dkeh_0035);
 

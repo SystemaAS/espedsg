@@ -72,6 +72,11 @@ public class JsonSkatImportSpecificTopicRecord extends JsonAbstractGrandFatherRe
 	public void setDkih_genb(String value) {  this.dkih_genb = value; }
 	public String getDkih_genb() {return this.dkih_genb;}
 	
+	//test avd flag
+	private String testAvdFlag = null;
+	public void setTestAvdFlag(String value) {  this.testAvdFlag = value; }
+	public String getTestAvdFlag() {return this.testAvdFlag;}
+	
 	//test indicator in production
 	private String dkih_0035 = null;
 	public void setDkih_0035(String value) {  this.dkih_0035 = value; }

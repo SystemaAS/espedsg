@@ -225,6 +225,7 @@
 				<tr>
 					<td align="left" class="text14Red" >
 						&nbsp;&nbsp;<b>[TEST Avdelning]</b>
+						<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 					</td>
 				</tr>
 			</c:if>	
@@ -1179,7 +1180,7 @@
 					 		<tr>
 					            <td class="text12" align="left">
 					            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					            <b>21.</b>
+					            <b>21.</b><font class="text12RedBold" >*</font>
 					            <span title="sveh_trai / sveh_tral">Aktiva transportmedlets identitet och nationalitet vid gränspassagen</span>
 					            <div class="text11" style="position: relative;" align="left" >
 					            <span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >

@@ -66,6 +66,10 @@ public class JsonTdsExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	private boolean validUpdate = false;
 	public void setValidUpdate(boolean value) {  this.validUpdate = value; }
 	public boolean isValidUpdate() {return this.validUpdate;}
+
+	private String testAvdFlag = null;
+	public void setTestAvdFlag(String value) {  this.testAvdFlag = value; }
+	public String getTestAvdFlag() {return this.testAvdFlag;}
 	
 	
 	//test indicator in production

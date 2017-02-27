@@ -114,8 +114,6 @@
 					<c:if test="${record.avd == model.record.thavd}">	
 						<c:if test="${record.tst == '1'}">
 							<c:set var="isTestAvd" value="1" scope="request" />
-							<%-- this testAvd flag is used to deactivate the validator functionality in the controller --%>
-							<input type="hidden" name="testAvd" id="testAvd" value="1">
 						</c:if>
 					</c:if>
 				</c:forEach>
@@ -209,6 +207,7 @@
 				<tr>
 					<td colspan="2" align="left" class="text14Red">
 						&nbsp;&nbsp;&nbsp;<b>[ TEST Afdeling ]</b>
+						<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 					</td>
 				</tr>	
 			</c:if> 

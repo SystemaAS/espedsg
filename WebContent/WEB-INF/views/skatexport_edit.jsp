@@ -194,6 +194,7 @@
 					<c:if test="${'1' == isTestAvd}">
 						<font class="text14Red" >	
 							&nbsp;&nbsp;<b>[TEST Afdeling]</b>
+							<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 						</font>
 					</c:if>
 					<div class="text11" style="position: relative;" align="left">

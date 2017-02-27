@@ -73,6 +73,11 @@ public class TdsExportHeaderValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_aube", "systema.tds.export.header.error.null.sveh_aube");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_trin", "systema.tds.export.header.error.null.sveh_trin");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_trgr", "systema.tds.export.header.error.null.sveh_trgr");
+		if( !"1".equals(record.getSveh_0035()) ){
+			if( !"1".equals(record.getTestAvdFlag()) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_trai", "systema.tds.export.header.error.null.sveh_trai");
+			}
+		}
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_utfa", "systema.tds.export.header.error.null.sveh_utfa");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_kota", "systema.tds.export.header.error.null.sveh_kota");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sveh_brut", "systema.tds.export.header.error.null.sveh_brut");

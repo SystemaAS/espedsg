@@ -226,6 +226,7 @@
 				<tr>
 					<td align="left" class="text14Red" >
 						&nbsp;&nbsp;<b>[TEST Afdeling]</b>
+						<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 					</td>
 				</tr>
 			</c:if>

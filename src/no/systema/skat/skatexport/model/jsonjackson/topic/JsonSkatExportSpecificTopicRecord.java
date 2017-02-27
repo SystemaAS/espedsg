@@ -74,6 +74,11 @@ public class JsonSkatExportSpecificTopicRecord extends JsonAbstractGrandFatherRe
 	public void setValidUpdate(boolean value) {  this.validUpdate = value; }
 	public boolean isValidUpdate() {return this.validUpdate;}
 	
+	//test avd flag
+	private String testAvdFlag = null;
+	public void setTestAvdFlag(String value) {  this.testAvdFlag = value; }
+	public String getTestAvdFlag() {return this.testAvdFlag;}
+	
 	//test indicator
 	private String dkeh_0035 = null;
 	public void setDkeh_0035(String value) {  this.dkeh_0035 = value; }

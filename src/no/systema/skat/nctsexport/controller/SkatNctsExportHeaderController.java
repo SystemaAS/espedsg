@@ -234,8 +234,10 @@ public class SkatNctsExportHeaderController {
 						recordToValidate.setThavd(avd);
 						recordToValidate.setThsg(sign);
 					}
-					validator.validate(recordToValidate, bindingResult);
-					
+					//required validation only for production avd
+					if( !"1".equals(recordToValidate.getTestAvdFlag()) ){
+						validator.validate(recordToValidate, bindingResult);
+					}
 					//test indicator in validation field
 					recordToValidate.setDkxh_0035(dkxh_0035);
 					
@@ -409,20 +411,6 @@ public class SkatNctsExportHeaderController {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @return
-	 */
-	private boolean isTestMode(JsonSkatNctsExportSpecificTopicRecord recordToValidate){
-		boolean retval = false;
-		//test flag via test avd
-		if(recordToValidate.getTestAvd()!=null && "1".equals(recordToValidate.getTestAvd()) ){
-			retval = true;
-		}
-		
-		return retval;
-	}
 	/**
 	 * 
 	 * @param jsonNctsExportSpecificTopicRecord

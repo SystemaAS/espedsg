@@ -164,7 +164,8 @@ public class TdsExportHeaderController {
 		String sign = request.getParameter("sign");
 		String sveh_0035 = request.getParameter("sveh_0035"); //test indicator
 		
-		logger.info("TEST flagga:<" + sveh_0035 +">");
+		logger.info("Testflagga i PROD:<" + sveh_0035 +">");
+		//logger.info("Testavd. flagga:<" + recordToValidate.getTestAvdFlag() +">");
 		
 		//Action (doFetch, doUpdate, doCreate)
 		logger.info("Action:" + action);

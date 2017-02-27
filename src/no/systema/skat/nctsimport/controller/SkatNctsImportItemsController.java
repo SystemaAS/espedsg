@@ -171,7 +171,8 @@ public class SkatNctsImportItemsController {
 					}
 				}*/
 				
-				if(!this.isTestMode(recordTopicHeader)){
+				//required validation only for production avd
+				if( !"1".equals(recordTopicHeader.getTestAvdFlag()) ){
 					validator.validate(recordToValidate, bindingResult);
 				}
 				
@@ -629,20 +630,7 @@ public class SkatNctsImportItemsController {
 		
 	}
 	
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @return
-	 */
-	private boolean isTestMode(JsonSkatNctsImportSpecificTopicRecord recordHeader){
-		boolean retval = false;
-		//test flag via test avd
-		if(recordHeader.getTestAvd()!=null && "1".equals(recordHeader.getTestAvd()) ){
-			retval = true;
-		}
-		
-		return retval;
-	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")

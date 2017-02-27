@@ -245,7 +245,10 @@ public class SkatImportHeaderController {
 						recordToValidate.setDkih_sysg(sign);
 					}
 					SkatImportHeaderValidator validator = new SkatImportHeaderValidator();
-					validator.validate(recordToValidate, bindingResult);
+					//required validation only for production avd
+					if( !"1".equals(recordToValidate.getTestAvdFlag()) ){
+						validator.validate(recordToValidate, bindingResult);
+					}
 					//test indicator in validation field
 					recordToValidate.setDkih_0035(dkih_0035);
 
