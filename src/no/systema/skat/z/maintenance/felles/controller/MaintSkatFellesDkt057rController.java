@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatimport.controller;
+package no.systema.skat.z.maintenance.felles.controller;
 
 import java.util.*;
 
@@ -36,23 +36,23 @@ import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkt
 import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
-import no.systema.skat.z.maintenance.main.validator.MaintSkatImportDkt057rValidator;
+import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDkt057rValidator;
 
 
 /**
- *  SKAT Maintenance Import Syft02r Controller 
+ *  SKAT Maintenance Felles Dkt057 Controller 
  * 
  * @author oscardelatorre
- * @date Jun 13, 2016
+ * @date Feb 27, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatImportDkt057rController {
+public class MaintSkatFellesDkt057rController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatImportDkt057rController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatFellesDkt057rController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -65,9 +65,9 @@ public class MaintSkatImportDkt057rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceimport_dkt057r.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="skatmaintenancefelles_dkt057r.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkt057r");
+		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt057r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
@@ -99,9 +99,9 @@ public class MaintSkatImportDkt057rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceimport_dkt057r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="skatmaintenancefelles_dkt057r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktvkRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkt057r");
+		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt057r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -115,7 +115,7 @@ public class MaintSkatImportDkt057rController {
 			//adjust values
 			this.adjustSomeRecordValues(recordToValidate);
 			//Move on
-			MaintSkatImportDkt057rValidator validator = new MaintSkatImportDkt057rValidator();
+			MaintSkatFellesDkt057rValidator validator = new MaintSkatFellesDkt057rValidator();
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{

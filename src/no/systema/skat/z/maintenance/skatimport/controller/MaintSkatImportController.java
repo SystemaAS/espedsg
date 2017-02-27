@@ -96,14 +96,6 @@ public class MaintSkatImportController {
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 		        
 		object.setId("1");
-		object.setSubject("Vedligeholdelse af firmaoppl.");
-		object.setCode("SKAT_FIRMOPP");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("2");
 		object.setSubject("Vedligeholdelse af avd.oppl.");
 		object.setCode("SKAT_AVD");
 		//object.setText("TODO / TODO");
@@ -111,15 +103,7 @@ public class MaintSkatImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("3");
-		object.setSubject("Vedligeholdelse af sagsbehandler");
-		object.setCode("SKAT_SAGSBEH");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("4");
+		object.setId("2");
 		object.setSubject("Vedligeholdelse af koder");
 		object.setCode("SKAT_KODER");
 		//object.setText("TODO");
@@ -127,17 +111,7 @@ public class MaintSkatImportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("5");
-		object.setSubject("Vedligeholdelse af valutakurser");
-		object.setCode("SKAT_VALUTAKRS");
-		object.setText("DKT057 / DKTVK");
-		object.setDbTable("DKTVK");
-		object.setStatus("G");
-		object.setPgm("dkt057r");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("6");
+		object.setId("3");
 		object.setSubject("Vedligeholdelse af certifikater");
 		object.setCode("SKAT_CERT");
 		//TODO object.setText("TODO / TODO");

@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatnctsexport.controller;
+package no.systema.skat.z.maintenance.skatexport.controller;
 
 import java.util.*;
 
@@ -34,19 +34,19 @@ import no.systema.skat.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
 
 /**
- * SKAT Maintenance NCTS Import Topic Controller 
+ * SKAT Maintenance Export Topic Controller 
  * 
  * @author oscardelatorre
- * @date Sep 2, 2016
+ * @date Feb 27, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatNctsExportController {
+public class MaintSkatExportKoderGateController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatNctsExportController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatExportKoderGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -58,9 +58,9 @@ public class MaintSkatNctsExportController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenancenctsexport.do", method=RequestMethod.GET)
+	@RequestMapping(value="skatmaintenanceexport_kodergate.do", method=RequestMethod.GET)
 	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenancenctsexport");
+		ModelAndView successView = new ModelAndView("skatmaintenanceexport_kodergate");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		
@@ -68,14 +68,21 @@ public class MaintSkatNctsExportController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_NCTS_EXPORT);
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_EXPORT);
 			session.setAttribute(SkatMaintenanceConstants.ACTIVE_URL_RPG_SKAT_MAINTENANCE, SkatMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
 			List list = this.populateMaintenanceMainList();
+			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+			//this.setCodeDropDownMgr(appUser, model);
+			//init filter with users signature (for starters)
+			//searchFilter.setSg(appUser.getTvinnSadSign());
+			//successView.addObject("searchFilter" , searchFilter);
 			//init the rest
 			model.put("list", list);
 			successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);
+			//successView.addObject(TvinnSadConstants.DOMAIN_LIST,new ArrayList());
 			
 	    	return successView;
 		}
@@ -87,32 +94,34 @@ public class MaintSkatNctsExportController {
 	private List<MaintenanceMainListObject> populateMaintenanceMainList(){
 		List<MaintenanceMainListObject> listObject = new ArrayList<MaintenanceMainListObject>();
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
-	
+		        
 		object.setId("1");
-		object.setSubject("Vedligeholdelse af avd.oppl.");
-		object.setCode("SKAT_AVD");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
+		object.setSubject("Svartekstkoder");
+		object.setCode("101");
+		//object.setText("TODO");
+		object.setDbTable("dktkd");
+		object.setPgm("koder");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Vedligeholdelse af koder");
-		object.setCode("SKAT_KODER");
+		object.setSubject("Angivelsesart");
+		object.setCode("102");
 		//object.setText("TODO");
-		//object.setDbTable("TODO");
+		object.setDbTable("dktkd");
+		object.setPgm("koder");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Vedligeholdelse af garanti");
-		object.setCode("SKAT_GARANTI");
-		object.setText("DKXGH / ...");
-		object.setDbTable("DKXGH");
-		object.setStatus("G");
-		object.setPgm("dkx030r");
+		object.setSubject("Ekspeditionssted");
+		object.setCode("103");
+		//object.setText("TODO");
+		object.setDbTable("dktkd");
+		object.setPgm("koder");
 		listObject.add(object);
-		
+		//
 		return listObject;
 	}
 	

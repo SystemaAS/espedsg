@@ -120,7 +120,7 @@
 			    			<%-- --------------------- --%>
 			    			<%-- SKAT NCTS IMPORT MENU --%>
 			    			<%-- --------------------- --%>
-			    			<a id="alinkTopicListMenuNctsImp" tabindex=-1 href="skatmaintenance_nctsimport.do?">
+			    			<a id="alinkTopicListMenuNctsImp" tabindex=-1 href="skatmaintenancenctsimport.do?">
 			    				&nbsp;<font
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='SKAT_MAINTENANCE_NCTS_IMPORT'}">
@@ -133,13 +133,31 @@
 			    				>&nbsp;<spring:message code="systema.skat.ncts.import.label"/>&nbsp;</font>
 			    			</a>
 			    			&nbsp;<font color="#FF6600"; style="font-weight: bold;">|</font>
-
+							
+							<%-- ----------------------- --%>
+			    			<%-- VEDLIKEHOLD FELLES      --%>
+			    			<%-- ----------------------- --%>
+			    			<a id="alinkTopicListMenuMaintFelles" tabindex=-1 href="skatmaintenancefelles.do?">
+			    				&nbsp;<font
+			    				<c:choose>           
+		                   			<c:when test="${user.activeMenu=='SKAT_MAINTENANCE_FELLES'}">
+		                       			class="headerMenuOrange"
+		                   			</c:when>
+		                   			<c:otherwise>   
+		                       			class="headerMenuWhite"
+		                   			</c:otherwise>
+		               			</c:choose>
+			    				>&nbsp;<spring:message code="systema.skat.maintenance.felles.label"/>&nbsp;</font>
+			    			</a>
+			    			&nbsp;<font color="#FF6600"; style="font-weight: bold;">|</font>
+			    			
+			    			
 		    			 	<%-- ------------------- --%>
 			    			<%-- Maintenance  MENU    --%>
 			    			<%-- -------------------- --%>
 			    			<a tabindex=-1 href="skatgate.do">
 			    				&nbsp;<font class="headerMenuMaintenance">
-		                   		&nbsp;&nbsp;Hovedmenuen for SKAT &nbsp;&nbsp;</font>
+		                   		&nbsp;&nbsp;<spring:message code="systema.skat.main.gate.returnTo.label"/>&nbsp;&nbsp;</font>
 			    			</a>
 	      				</td>		      				
 	      				<td class="text11" width="50%" align="right" valign="middle">
