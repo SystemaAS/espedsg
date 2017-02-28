@@ -196,13 +196,13 @@
 						</td>
 						<td>
 							<form action="mainmaintenancecundf_fritekst_edit.do" name="formRecordSearch" id="formRecordSearch" method="POST" >
-									<select  class="inputTextMediumBlue" name="searchKfkod" id="searchKfkod" >
+									<select onchange="setBlockUI(this);this.form.submit();" class="inputTextMediumBlue" name="searchKfkod" id="searchKfkod" >
 										<option value="">-alle-</option>
 										<c:forEach var="record" items="${model.delSystemList}" >
 					 				  		<option value="${record.kfkod}" <c:if test="${model.searchKfkod == record.kfkod}"> selected </c:if> >${record.kfkod} - ${record.kftxt}</option>
 										</c:forEach> 
 					  				</select>
-									&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.show"/>'/>
+									<!--  &nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.show"/>'/>-->
 							</form>
 						</td>
 						
@@ -210,7 +210,7 @@
 					
 					<tr>
 						<td>&nbsp;</td>
-				 		<td class="text12" valign="top">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.text"/> </td>  
+				 		<td class="text12" valign="top"><spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.text"/> </td>  
 				 		<td class="text11">
 					 		<form action="mainmaintenancecundf_fritekst_edit.do" name="formRecord" id="formRecord" method="POST" >
 					 		<input type="hidden" name="action" id="action" value="doUpdate">
@@ -240,7 +240,7 @@
 								
 								<tr> 
 									<td width="50%" align="right">
-										<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
+										<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
 									</td>
 									<td width="50%">&nbsp;</td>
 								</tr>

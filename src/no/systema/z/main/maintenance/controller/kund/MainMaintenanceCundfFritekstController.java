@@ -98,6 +98,10 @@ public class MainMaintenanceCundfFritekstController {
 				changelogList = fetchChangelog(originalList);
 
 			} else { // Fetch
+				if (searchKfkod == null) {
+					searchKfkod = "";  // represents alle
+				}
+				logger.info("searchKfkod="+searchKfkod);
 				originalList = getFratxt(appUser, kundnr, searchKfkod);
 				fxtxt = fetchTekst(originalList);
 				changelogList = fetchChangelog(originalList);

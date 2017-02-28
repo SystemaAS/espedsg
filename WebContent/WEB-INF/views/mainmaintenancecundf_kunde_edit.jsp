@@ -206,11 +206,11 @@
 								<td width="50%" >&nbsp;
 									<table border="0">
 										<tr>
-											<td class="text12" title="kundnr">&nbsp;<font class="text14RedBold" >*</font>
+											<td class="text12" title="kundnr">&nbsp;
 												<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customernr"/>
 											<c:choose>
 												<c:when test="${model.action == 'doCreate'}">
-													<td><input required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
+													<td><input type="text" class="inputTextMediumBlue"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
 												</c:when>
 												<c:otherwise>
 													<td><input readonly type="text" class="inputTextReadOnly"  name="kundnr" id="kundnr" size="10" maxlength="8" value='${model.record.kundnr}'></td>
