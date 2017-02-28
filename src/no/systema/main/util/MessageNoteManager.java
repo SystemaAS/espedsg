@@ -3,7 +3,6 @@
  */
 package no.systema.main.util;
 
-import java.util.*;
 import org.apache.log4j.Logger;
 
 /**
@@ -16,14 +15,16 @@ import org.apache.log4j.Logger;
 public class MessageNoteManager {
 	
 	private static Logger logger = Logger.getLogger(MessageNoteManager.class.getName());
+	
 	/**
-	 * Get lines separated with CR
+	 * Get lines separated with CR.
+	 * Manage 100 lines.
 	 * 
 	 * @param message
 	 * @return
 	 */
 	public String[] getChunksOfMessageNote(String message){
-		String[] records = new String[30];
+		String[] records = new String[100];
 		if(message!=null){
 			String messageRaw = message;
 			if(messageRaw!=null){

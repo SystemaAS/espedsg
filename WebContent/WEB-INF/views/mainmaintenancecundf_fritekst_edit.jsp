@@ -192,11 +192,12 @@
 			 	    <tr>
 			 	    	<td>&nbsp;</td>
 						<td width="7%" class="text12">
-							<font class="text14RedBold" >*</font><span title="searchKfkod"><spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.delsystem"/></span>
+							<span title="searchKfkod"><spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.delsystem"/></span>
 						</td>
 						<td>
 							<form action="mainmaintenancecundf_fritekst_edit.do" name="formRecordSearch" id="formRecordSearch" method="POST" >
-									<select required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="searchKfkod" id="searchKfkod" >
+									<select  class="inputTextMediumBlue" name="searchKfkod" id="searchKfkod" >
+										<option value="">-alle-</option>
 										<c:forEach var="record" items="${model.delSystemList}" >
 					 				  		<option value="${record.kfkod}" <c:if test="${model.searchKfkod == record.kfkod}"> selected </c:if> >${record.kfkod} - ${record.kftxt}</option>
 										</c:forEach> 
@@ -212,41 +213,12 @@
 				 		<td class="text12" valign="top">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.text"/> </td>  
 				 		<td class="text11">
 					 		<form action="mainmaintenancecundf_fritekst_edit.do" name="formRecord" id="formRecord" method="POST" >
+					 		<input type="hidden" name="action" id="action" value="doUpdate">
+					 		<input type="hidden" name="searchKfkod" id="searchKfkod" value="${model.searchKfkod}">
 						 	  <table width="90%" cellspacing="0" border="0" align="left">
 				 				 <tr>
 									<td>
-						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
-						 				<c:forEach items="${model.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
-						 					<c:if test="${not empty freeTextRecord.frtli}">
-						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
-						 					</c:if>
-						 				</c:forEach>
-						 				
-						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				 <textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="fxtxt" name="fxtxt" cols="80" rows="30">${model.fxtxt}</textarea> 
-										
-										<!-- 
-										 <table class="text10" width="100%" cellspacing="0" border="0" align="left">
-						 						<c:forEach var="changelog" items="${model.delSystemList}">
-							 				  		 <tr>
-											 			<td width="2px">&nbsp;${changelog.kfkod}</td>
-											 			<td>
-											 				<input type="text" class="inputTextMediumBlue" name="colxx" id="colxx" size="20" maxlength="35" value='${changelog.kftxt}'>		
-											 			</td>
-													 </tr>
-												</c:forEach>
-												
-											 <tr>
-											 	<td width="2px">&nbsp;2</td>
-											 	<td class="text12">&nbsp; col 2</td>
-											 </tr>	
-											 <tr>
-											 	<td width="2px">&nbsp;22</td>
-											 	<td class="text12">&nbsp; col 2</td>
-											 </tr>										 
-										 </table>
-										 -->
-	
 				 				   </td>
 				 				   
 				 				   <td class="text12" valign="top">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.changelog"/>

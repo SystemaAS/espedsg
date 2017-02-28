@@ -159,7 +159,7 @@ public class CodeDropDownMgr {
 	
 
 	/**
-	 * Populate with all delsystem
+	 * Populate with all delsystem, (excluding label-post)
 	 * 
 	 * model attribute: delSystemList
 	 * 
@@ -182,7 +182,11 @@ public class CodeDropDownMgr {
 			if (jsonPayload != null) {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
-					list = container.getList();
+					for (JsonMaintMainChildWindowKofastRecord jsonMaintMainChildWindowKofastRecord :  container.getList()) {
+						if (!"DEFN".equals(jsonMaintMainChildWindowKofastRecord.getKfkod())) {
+							list.add(jsonMaintMainChildWindowKofastRecord);
+						}
+					}
 				}
 			}
 		} catch (Exception e) {

@@ -136,7 +136,13 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_FRATXT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFRATXT.do";	
 	
-	
+	/**
+	 * DML of FratxtDao
+	 * 
+	 * @Example http://gw.systema.no:8080/syjservicesbcore/syjsFRATXT_U.do?user=OSCAR&fxknr=24&fxlnr=20&delsys=A&fxtxt=updatedtext&mode=U/A/D
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_FRATXT_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFRATXT_U.do";		
 	
 	//GET EDI (edii)
 	//ALL --> http://http://gw.systema.no:8080/syjservicesbcore/syjsSYEDIIR.do?user=OSCAR&inid=1&inna=TOLD
