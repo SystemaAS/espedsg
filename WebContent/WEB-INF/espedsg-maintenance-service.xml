@@ -8,13 +8,6 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<!-- ================  -->
- 	<!-- APPLICATION WIDE -->  
-	<!-- ================  -->
-	<bean id="urlCgiProxyService" class="no.systema.main.service.UrlCgiProxyServiceImpl"/>
-	<bean id="systemaWebLoginService" class="no.systema.main.service.login.SystemaWebLoginServiceImpl"/>
-	<bean id="currencyRateService" class="no.systema.main.service.general.CurrencyRateServiceImpl"/>
-	<bean id="notisblockService" class="no.systema.main.service.general.notisblock.NotisblockServiceImpl"/>
 	
 	<!-- ============================  -->
 	<!-- MAINTENANCE WIDE per module   -->
@@ -92,6 +85,12 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- SKAT NCTS EXPORT   -->
 	<!-- =================  -->
 	<bean id="maintDkxghService" class="no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghServiceImpl"/>
+	
+	<!-- =================  -->
+	<!-- SKAT EXPORT   -->
+	<!-- =================  -->
+	<bean id="maintDktkdService" class="no.systema.skat.z.maintenance.skatexport.service.MaintDktkdServiceImpl"/>
+	
 	
 	<!-- ===================  -->
 	<!-- MAINTENANCE GENERAL  -->
