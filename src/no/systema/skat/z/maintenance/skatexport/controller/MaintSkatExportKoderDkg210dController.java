@@ -29,8 +29,12 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
+import no.systema.skat.z.maintenance.skatexport.validator.MaintSkatExportDkg210dValidator;
+import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.z.maintenance.main.model.MaintenanceMainListObject;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
+import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
 import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
 import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
@@ -55,6 +59,7 @@ public class MaintSkatExportKoderDkg210dController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 	/**
 	 * 
@@ -93,6 +98,96 @@ public class MaintSkatExportKoderDkg210dController {
 	    	return successView;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatmaintenanceexport_dkg210d_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktkdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("skatmaintenanceexport_dkg210d");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		
+		String dbTable = request.getParameter("id");
+		String updateId = request.getParameter("updateId");
+		String action = request.getParameter("action");
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			//Move on
+			MaintSkatExportDkg210dValidator validator = new MaintSkatExportDkg210dValidator();
+			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
+				validator.validateDelete(recordToValidate, bindingResult);
+			}else{
+				validator.validate(recordToValidate, bindingResult);
+			}
+			if(bindingResult.hasErrors()){
+				//ERRORS
+				logger.info("[ERROR Validation] Record does not validate)");
+				model.put("dbTable", dbTable);
+				if(updateId!=null && !"".equals(updateId)){
+					//meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
+				}
+				model.put(SkatMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+			}else{
+				
+				//------------
+				//UPDATE table
+				//------------
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				//UPDATE
+				if (SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
+					if(updateId!=null && !"".equals(updateId)){
+						//update
+						logger.info(SkatMaintenanceConstants.ACTION_UPDATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, SkatMaintenanceConstants.MODE_UPDATE, errMsg);
+						
+					//CREATE
+					}else{
+						//create new
+						logger.info(SkatMaintenanceConstants.ACTION_CREATE);
+						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, SkatMaintenanceConstants.MODE_ADD, errMsg);
+					}
+				}else if(SkatMaintenanceConstants.ACTION_DELETE.equals(action) ){
+					//delete
+					logger.info(SkatMaintenanceConstants.ACTION_DELETE);
+					dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, SkatMaintenanceConstants.MODE_DELETE, errMsg);
+				}
+				//check for Update errors
+				if( dmlRetval < 0){
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put("dbTable", dbTable);
+					model.put(SkatMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(SkatMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}
+				
+			}
+			//------------
+			//FETCH table
+			//------------
+			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action) || SkatMaintenanceConstants.ACTION_UPDATE.equals(action) ){
+				//this in order to present the complete list to the end user after a DML-operation
+				//recordToValidate.setDkvk_kd(null);
+			}
+			List<JsonMaintDktkdRecord> list = this.fetchList(appUser.getUser(), recordToValidate.getDkkd_typ());
+	    	//set domain objets
+	    	model.put("dbTable", dbTable);
+	    	model.put("dkkd_typ", recordToValidate.getDkkd_typ());
+	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
+			successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -101,7 +196,7 @@ public class MaintSkatExportKoderDkg210dController {
 	 */
 	private List<JsonMaintDktkdRecord> fetchList(String applicationUser, String dkkd_typ){
 		
-		String BASE_URL = MaintenanceSkatExportUrlDataStore.MAINTENANCE_BASE_DKG210RR_GET_LIST_URL;
+		String BASE_URL = MaintenanceSkatExportUrlDataStore.MAINTENANCE_BASE_DKG210R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		//mandatory params
 		urlRequestParams.append("user="+ applicationUser);
@@ -126,6 +221,44 @@ public class MaintSkatExportKoderDkg210dController {
     	}
     	return list;
     	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateRecord(String applicationUser, JsonMaintDktkdRecord record, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		String BASE_URL = MaintenanceSkatExportUrlDataStore.MAINTENANCE_BASE_DKG210R_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintDktkdContainer container = this.maintDktkdService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = SkatMaintenanceConstants.ERROR_CODE;
+	        		}
+	        	}
+	        }
+    	}
+    	return retval;
 	}
 	
 	//SERVICES

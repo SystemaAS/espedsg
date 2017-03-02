@@ -92,7 +92,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dkkd_kd3}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dkkd_txt}&nbsp;</font></td>      
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="TODOskatmaintenanceexport_dkg210d_edit.do?action=doDelete&id=${model.dbTable}&dkkd_typ=${record.dkkd_typ}&dkkd_kd=${record.dkkd_kd}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="skatmaintenanceexport_dkg210d_edit.do?action=doDelete&id=${model.dbTable}&dkkd_typ=${record.dkkd_typ}&dkkd_kd=${record.dkkd_kd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -176,13 +176,13 @@
 					<table width="80%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="DKKD_KD">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
-							<td class="text12" title="DKKD_KD2">&nbsp;<font class="text14RedBold" >*</font>Kode2</td>
+							<td class="text12" title="DKKD_KD2">&nbsp;Kode2</td>
 							<td class="text12" title="DKKD_KD3">&nbsp;Kode3</td>
 							<td class="text12" title="DKKD_TXT">&nbsp;<font class="text14RedBold" >*</font>Tekst</td>
 						</tr>
 						<tr>
 						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkkd_kd" id="dkkd_kd" size="10" maxlength="20" value='${model.record.dkkd_kd}'></td>
-						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkkd_kd2" id="dkkd_kd2" size="10" maxlength="9" value='${model.record.dkkd_kd2}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dkkd_kd2" id="dkkd_kd2" size="10" maxlength="9" value='${model.record.dkkd_kd2}'></td>
 						<td ><input type="text" class="inputTextMediumBlue" name="dkkd_kd3" id="dkkd_kd3" size="10" maxlength="5" value='${model.record.dkkd_kd3}'></td>
 						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dkkd_txt" id="dkkd_txt" size="50" maxlength="250" value='${model.record.dkkd_txt}'></td>
 						<td>

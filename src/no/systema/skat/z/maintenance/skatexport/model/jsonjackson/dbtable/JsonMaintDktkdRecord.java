@@ -1,5 +1,10 @@
 package no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
+import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 /**
  * All variables must be initialized to empty strings and NOT to NULL values
@@ -9,7 +14,7 @@ package no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable;
  * @date Feb 28, 2017
  * 
  */
-public class JsonMaintDktkdRecord {
+public class JsonMaintDktkdRecord extends JsonAbstractGrandFatherRecord{
 
 	private String dkkd_typ = null;                                
 	public void setDkkd_typ (String value){ this.dkkd_typ = value;   }   
@@ -31,6 +36,17 @@ public class JsonMaintDktkdRecord {
 	public void setDkkd_txt (String value){ this.dkkd_txt = value;   }   
 	public String getDkkd_txt (){ return this.dkkd_txt;   }              
 
-	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Field> getFields() throws Exception{
+		Class cl = Class.forName(this.getClass().getCanonicalName());
+		Field[] fields = cl.getDeclaredFields();
+		List<Field> list = Arrays.asList(fields);
+		
+		return list;
+	}
 	
 }
