@@ -219,7 +219,7 @@
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<%-- only those status that have a real state. Status=null is not allowed to print --%>
 	                    	<c:if test="${not empty record.status}"> 
-		                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);" >
+		                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" onClick="printDocument(this);" >
 		                    		<img onMouseOver="showPop('fraktbrev_info${counter.count}');" onMouseOut="hidePop('fraktbrev_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
 				               		<c:choose>
 				               			<c:when test="${record.hepk1 == 'Y'}">
@@ -230,7 +230,7 @@
 				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
 				               				</c:if>
 				               				<c:if test="${record.hepk1 != 'P'}">
-				               					&nbsp;&nbsp;
+				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
 				               				</c:if>
 				               			</c:otherwise>
 					               	</c:choose>	
@@ -246,7 +246,7 @@
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<c:if test="${not empty record.status}">
-		                    	<a id="cmrLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+		                    	<a id="cmrLinkId_${record.unik}" href="javascript:void(0);" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('cmr_info${counter.count}');" onMouseOut="hidePop('cmr_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
 				               		<c:choose>
 				               			<c:when test="${record.hepk2 == 'Y'}">
@@ -257,7 +257,7 @@
 				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
 											</c:if>
 											<c:if test="${record.hepk2 != 'P'}">
-				               					&nbsp;&nbsp;
+				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
 				               				</c:if>
 				               			</c:otherwise>
 				               		</c:choose>
@@ -273,7 +273,7 @@
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<c:if test="${not empty record.status}">
-		                    	<a id="merkPdfLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+		                    	<a id="merkPdfLinkId_${record.unik}" href="javascript:void(0);" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('merkPDF_info${counter.count}');" onMouseOut="hidePop('merkPDF_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
 			               			<c:choose>
 				               			<c:when test="${record.hepk3 == 'Y'}">
@@ -284,7 +284,7 @@
 				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
 											</c:if>
 											<c:if test="${record.hepk3 != 'P'}">
-				               					&nbsp;&nbsp;
+				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
 				               				</c:if>
 				               			</c:otherwise>
 				               		</c:choose>
@@ -300,7 +300,7 @@
 	                    </td>
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<c:if test="${not empty record.status}">
-		                    	<a id="merkZplLinkId_${record.unik}" href="javascript:void(0);" target="_new" onClick="printDocument(this);">
+		                    	<a id="merkZplLinkId_${record.unik}" href="javascript:void(0);" onClick="printDocument(this);">
 		                    		<img onMouseOver="showPop('merkZPL_info${counter.count}');" onMouseOut="hidePop('merkZPL_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
 									<c:choose>
 				               			<c:when test="${record.hepk3 == 'Y'}">
@@ -311,7 +311,7 @@
 				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
 											</c:if>
 											<c:if test="${record.hepk3 != 'P'}">
-				               					&nbsp;&nbsp;
+				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
 				               				</c:if>
 				               			</c:otherwise>
 				               		</c:choose>

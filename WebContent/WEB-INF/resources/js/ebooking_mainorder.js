@@ -1015,7 +1015,7 @@
 			  				//Note: the reason for updating the totals in doFind is because no session object is possible to hand in an ajax call.
 			  				//For the above reason we then use the doFind method in order to get the whole record and update its total fields once there.
 			  				//There is no other way to do the update without breaking the Ajax design in Spring and good healthy session handling in the web infrastructure
-				  			window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&oltotals=" + orderLinesTotalString;
+				  			window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&oltotals=" + orderLinesTotalString + "&status=" + jq('#status').val();
 				  			
 			  			}else{
 			  				alert("[ERROR] when creating the order line...?");

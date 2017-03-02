@@ -15,10 +15,9 @@
 	  var unikId = record[1]; 
 	  //alert(unikId);
 	  
-	  jq(id).attr('target','_new');
+	  //jq(id).attr('target','_blank');  //not needed in order to avoid strange behavior in non-Chrome browsers... (example: Firefox pop-up blank tab in addition of the PDF tab ??)
   	  
-	  
-  	  if(prefix.indexOf("fraktbrev")>=0){
+	  if(prefix.indexOf("fraktbrev")>=0){
 		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11fb.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId, 
   			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  
