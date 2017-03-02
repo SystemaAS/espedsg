@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.main.controller.ajax;
+package no.systema.skat.z.maintenance.skatexport.controller.ajax;
 
 import java.util.*;
 
@@ -30,10 +30,10 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 
 
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
-import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
+import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
+import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
+import no.systema.skat.z.maintenance.skatexport.service.MaintDktkdService;
+import no.systema.skat.z.maintenance.skatexport.url.store.MaintenanceSkatExportUrlDataStore;
 
 
 
@@ -41,16 +41,16 @@ import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
  * Maintenance Ajax Controller 
  * 
  * @author oscardelatorre
- * @date Jun 13, 2016
+ * @date Mar 2, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatAjaxHandlerController {
+public class MaintSkatExportAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatAjaxHandlerController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatExportAjaxHandlerController.class.getName());
 	
 	/**
 	 * 
@@ -59,14 +59,14 @@ public class MaintSkatAjaxHandlerController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="getSpecificRecord_dkt057r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintDktvkRecord> getRecordDkt057
-	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String date) {
-		final String METHOD = "[DEBUG] getRecordDkt057";
+	@RequestMapping(value="getSpecificRecord_dkg210d.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintDktkdRecord> getRecordDkg210
+	  	(@RequestParam String applicationUser, @RequestParam String dkkd_typ, @RequestParam String dkkd_kd) {
+		final String METHOD = "[DEBUG] getSpecificRecord_dkg210d";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintDktvkRecord> result = new ArrayList();
+		List<JsonMaintDktkdRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListDkt057(applicationUser, id, date);
+    	result = (List)this.fetchListDkg210d(applicationUser, dkkd_typ, dkkd_kd);
     	
     	return result;
 	
@@ -75,29 +75,27 @@ public class MaintSkatAjaxHandlerController {
 	/**
 	 * 
 	 * @param applicationUser
-	 * @param id
-	 * @param date
-	 * 
+	 * @param dkkd_typ
+	 * @param dkkd_kd
 	 * @return
-	 * 
 	 */
-	private Collection<JsonMaintDktvkRecord> fetchListDkt057(String applicationUser, String id, String fromDate){
+	private Collection<JsonMaintDktkdRecord> fetchListDkg210d(String applicationUser, String dkkd_typ, String dkkd_kd){
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&dkvk_kd=" + id + "&dkvk_dts=" + fromDate;
+		String BASE_URL = MaintenanceSkatExportUrlDataStore.MAINTENANCE_BASE_DKG210R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&dkkd_typ=" + dkkd_typ + "&dkkd_kd=" + dkkd_kd;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
-    	List<JsonMaintDktvkRecord> list = new ArrayList();
+    	List<JsonMaintDktkdRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktvkContainer container = this.maintDktvkService.getList(jsonPayload);
+    		JsonMaintDktkdContainer container = this.maintDktkdService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintDktvkRecord record: list){
-	        		//logger.info(record.getDkvk_kd());
+	        	for(JsonMaintDktkdRecord record: list){
+	        		//logger.info(record.getDkkd_kd());
 	        	}
 	        }
     	}
@@ -116,12 +114,12 @@ public class MaintSkatAjaxHandlerController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintDktvkService")
-	private MaintDktvkService maintDktvkService;
+	@Qualifier ("maintDktkdService")
+	private MaintDktkdService maintDktkdService;
 	@Autowired
 	@Required
-	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
-	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
+	public void setMaintDktkdService (MaintDktkdService value){ this.maintDktkdService = value; }
+	public MaintDktkdService getMaintDktkdService(){ return this.maintDktkdService; }
 	
 	
 }
