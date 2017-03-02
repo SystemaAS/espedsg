@@ -380,6 +380,7 @@
 																	<select name="clive" id="clive" >
 								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
 								 					  					<option value="V"<c:if test="${model.record.clive == 'V'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+								 					  					<option value="X"<c:if test="${model.record.clive == 'X'}"> selected </c:if>><spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emmaxml"/></option>
 													  				</select>
 																</td>
 															</tr>
