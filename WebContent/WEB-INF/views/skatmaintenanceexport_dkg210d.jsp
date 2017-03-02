@@ -17,7 +17,7 @@
 	<tr height="15"><td>&nbsp;</td></tr>
 	<tr>
 		<td>
-		<%-- tab container component --%>
+		<%-- tab container component   --%>
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
