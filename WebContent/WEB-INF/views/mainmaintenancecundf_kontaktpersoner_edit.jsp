@@ -375,6 +375,17 @@
 																 	<font class="text12" title="clive">&nbsp;
 																 		<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.vedlegg"/>
 																 	</font> 
+																	<img onMouseOver="showPop('vedlegg_info');" onMouseOut="hidePop('vedlegg_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+													 				<div class="text11" style="position: relative;" align="left">
+													 				<span style="position:absolute; top:2px; width:250px;" id="vedlegg_info" class="popupWithInputText text11">
+														           		<b>
+														           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.vedlegg"/>
+														           		</b>
+														           		<p>
+														           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emmaxmlifo"/>
+														           		</p> 
+																	</span>
+																	</div> 	
 																</td>
 																<td>
 																	<select name="clive" id="clive" >
