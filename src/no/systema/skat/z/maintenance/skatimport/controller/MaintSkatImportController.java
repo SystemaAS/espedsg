@@ -96,27 +96,22 @@ public class MaintSkatImportController {
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 		        
 		object.setId("1");
-		object.setSubject("Vedligeholdelse af avd.oppl.");
-		object.setCode("SKAT_AVD");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
+		object.setSubject("Vedligeholdelse af koder");
+		object.setCode("SKAT_KODER");
+		object.setStatus("G");
+		object.setPgm("kodergate");
+		//object.setText("TODO");
+		object.setDbTable("DKTKD");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Vedligeholdelse af koder");
-		object.setCode("SKAT_KODER");
-		//object.setText("TODO");
-		//object.setDbTable("TODO");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("3");
 		object.setSubject("Vedligeholdelse af certifikater");
 		object.setCode("SKAT_CERT");
 		//TODO object.setText("TODO / TODO");
 		//TODO object.setDbTable("TODO");
 		listObject.add(object);
+		//
 		
 		return listObject;
 	}

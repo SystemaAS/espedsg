@@ -1,9 +1,9 @@
 /**
  * 
  */
-package no.systema.skat.z.maintenance.skatexport.service;
+package no.systema.skat.z.maintenance.main.service;
 
-import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
 
 /**
  * 

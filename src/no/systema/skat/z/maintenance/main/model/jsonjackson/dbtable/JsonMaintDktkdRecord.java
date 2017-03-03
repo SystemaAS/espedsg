@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable;
+package no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatexport.controller.ajax;
+package no.systema.skat.z.maintenance.main.controller.ajax;
 
 import java.util.*;
 
@@ -28,12 +28,10 @@ import org.springframework.web.bind.WebDataBinder;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-
-
-import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
-import no.systema.skat.z.maintenance.skatexport.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
-import no.systema.skat.z.maintenance.skatexport.service.MaintDktkdService;
-import no.systema.skat.z.maintenance.skatexport.url.store.MaintenanceSkatExportUrlDataStore;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
+import no.systema.skat.z.maintenance.main.service.MaintDktkdService;
+import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 
 
 
@@ -48,9 +46,9 @@ import no.systema.skat.z.maintenance.skatexport.url.store.MaintenanceSkatExportU
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatExportAjaxHandlerController {
+public class MaintSkatMainAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatExportAjaxHandlerController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatMainAjaxHandlerController.class.getName());
 	
 	/**
 	 * 
@@ -81,7 +79,7 @@ public class MaintSkatExportAjaxHandlerController {
 	 */
 	private Collection<JsonMaintDktkdRecord> fetchListDkg210d(String applicationUser, String dkkd_typ, String dkkd_kd){
 		
-		String BASE_URL = MaintenanceSkatExportUrlDataStore.MAINTENANCE_BASE_DKG210R_GET_LIST_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKG210R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&dkkd_typ=" + dkkd_typ + "&dkkd_kd=" + dkkd_kd;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));

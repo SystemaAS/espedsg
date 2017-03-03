@@ -48,9 +48,9 @@ import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatAjaxHandlerController {
+public class MaintSkatFellesAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatAjaxHandlerController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatFellesAjaxHandlerController.class.getName());
 	
 	/**
 	 * 

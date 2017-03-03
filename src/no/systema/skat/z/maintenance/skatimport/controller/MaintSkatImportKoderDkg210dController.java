@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatexport.controller;
+package no.systema.skat.z.maintenance.skatimport.controller;
 
 import java.util.*;
 
@@ -29,32 +29,30 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
+
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.skat.z.maintenance.main.model.MaintenanceMainListObject;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
 import no.systema.skat.z.maintenance.main.service.MaintDktkdService;
-import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
 import no.systema.skat.z.maintenance.main.validator.MaintSkatMainDkg210dValidator;
+import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 
 
 /**
- * SKAT Maintenance Export Topic Controller 
+ * SKAT Maintenance Import Topic Controller 
  * 
  * @author oscardelatorre
- * @date Feb 28, 2017
+ * @date Mar 03, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatExportKoderDkg210dController {
+public class MaintSkatImportKoderDkg210dController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatExportKoderDkg210dController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatImportKoderDkg210dController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -67,9 +65,9 @@ public class MaintSkatExportKoderDkg210dController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceexport_dkg210d.do", method=RequestMethod.GET)
+	@RequestMapping(value="skatmaintenanceimport_dkg210d.do", method=RequestMethod.GET)
 	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceexport_dkg210d");
+		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkg210d");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
@@ -81,7 +79,7 @@ public class MaintSkatExportKoderDkg210dController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_EXPORT);
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_IMPORT);
 			session.setAttribute(SkatMaintenanceConstants.ACTIVE_URL_RPG_SKAT_MAINTENANCE, SkatMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
@@ -106,9 +104,9 @@ public class MaintSkatExportKoderDkg210dController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenanceexport_dkg210d_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="skatmaintenanceimport_dkg210d_edit.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktkdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenanceexport_dkg210d");
+		ModelAndView successView = new ModelAndView("skatmaintenanceimport_dkg210d");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
