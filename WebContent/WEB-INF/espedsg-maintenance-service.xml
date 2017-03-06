@@ -88,6 +88,11 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- =================  -->
 	<bean id="maintDkxghService" class="no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghServiceImpl"/>
 	
+	<!-- =================  -->
+	<!-- SKAT IMPORT   -->
+	<!-- =================  -->
+	<bean id="maintSkatImportDktseService" class="no.systema.skat.z.maintenance.skatimport.service.MaintSkatImportDktseServiceImpl"/>
+	
 	
 	<!-- ===================  -->
 	<!-- MAINTENANCE GENERAL  -->

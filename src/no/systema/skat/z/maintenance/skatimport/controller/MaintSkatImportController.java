@@ -108,8 +108,10 @@ public class MaintSkatImportController {
 		object.setId("2");
 		object.setSubject("Vedligeholdelse af certifikater");
 		object.setCode("SKAT_CERT");
+		object.setStatus("G");
+		object.setPgm("dkt058r");
 		//TODO object.setText("TODO / TODO");
-		//TODO object.setDbTable("TODO");
+		object.setDbTable("DKTSE");
 		listObject.add(object);
 		//
 		

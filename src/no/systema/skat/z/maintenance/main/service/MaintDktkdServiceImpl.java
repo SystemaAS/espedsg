@@ -3,8 +3,8 @@
  */
 package no.systema.skat.z.maintenance.main.service;
 
+import no.systema.skat.z.maintenance.main.mapper.jsonjackson.dbtable.MaintDktkdMapper;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
-import no.systema.skat.z.maintenance.skatexport.mapper.jsonjackson.dbtable.MaintDktkdMapper;
 
 /**
  * 

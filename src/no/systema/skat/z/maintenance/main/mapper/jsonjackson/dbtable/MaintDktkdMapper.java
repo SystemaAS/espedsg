@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.skat.z.maintenance.skatexport.mapper.jsonjackson.dbtable;
+package no.systema.skat.z.maintenance.main.mapper.jsonjackson.dbtable;
 
 //jackson library
 import org.apache.log4j.Logger;
