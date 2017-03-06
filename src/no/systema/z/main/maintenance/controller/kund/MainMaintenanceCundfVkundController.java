@@ -208,7 +208,9 @@ public class MainMaintenanceCundfVkundController {
 			list = getOppdragsTyper(appUser);
 		} else if ("sylikv".equals(caller)) { //Likviditetskode
 			list = getLikviditetskoder(appUser);
-		} 
+		} else if ("sypaid".equals(caller)) { //Param id
+			list = getParamKoder(appUser,  !KOFAST_NO_ID);
+		}  
 		
 		else {
 			throw new IllegalArgumentException(caller + "is not supported.");
@@ -216,6 +218,39 @@ public class MainMaintenanceCundfVkundController {
 
 		return list;
 	}
+	
+	
+	private List<ChildWindowKode> getParamKoder(SystemaWebUser appUser, boolean noId) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&kftyp=" + FasteKoder.SYPAR.toString());
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+
+		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		JsonMaintMainChildWindowKofastContainer container = null;
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		try {
+			if (jsonPayload != null) {
+				container = maintMainKofastService.getContainer(jsonPayload);
+				if (container != null) {
+					for (JsonMaintMainChildWindowKofastRecord record : container.getList()) {
+						kode = getChildWindowKode(record, noId);
+						kodeList.add(kode);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kodeList;
+	}
+	
+	
+	
 	
 	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser, boolean noId) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;

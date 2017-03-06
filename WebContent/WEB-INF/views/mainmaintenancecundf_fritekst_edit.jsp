@@ -145,19 +145,19 @@
 									<spring:message code="systema.main.maintenance.customer.text"/>
 								</font>&nbsp;						
 							</td>
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_list.do">
+									<font class="tabDisabledLinkMinor">&nbsp;
+										<spring:message code="systema.main.maintenance.customer.params"/>
+									</font>&nbsp;						
+								</a>
+							</td>
 							
 <!--  
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer.stuff.import"/>
-									</font>&nbsp;						
-								</a>
-							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_edit.do">
-									<font class="tabDisabledLinkMinor">&nbsp;
-										<spring:message code="systema.main.maintenance.customer.params"/>
 									</font>&nbsp;						
 								</a>
 							</td>

@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
+import no.systema.jservices.common.dto.SyparfDto;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
+import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -42,6 +46,16 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
 
+
+	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<SyparfDto> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
+		final String METHOD = "[DEBUG] getSpecificRecord_syparf ";
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
+
+		return (List<SyparfDto>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
+	}	
+	
+	
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta, String ctype) {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
@@ -61,6 +75,28 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		return list;
 	}
 
+
+	private List<SyparfDto> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
+		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
+		jsonReader.set(new JsonDtoContainer<SyparfDto>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&sykunr=" + sykunr);
+		urlRequestParams.append("&syrecn=" + syrecn);
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+		List<SyparfDto> list = new ArrayList<SyparfDto>();
+		JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
+		if (container != null) {
+			list = container.getDtoList();
+		}
+		return list;
+	}		
+	
 	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta, String ctype) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();

@@ -103,6 +103,17 @@ public final class MaintenanceMainUrlDataStore {
 	
 	
 	/**
+	 * Retrieve a List of SyparfDao
+	 * 
+	 * @Example SELECT specific:http://gw.systema.no:8080/syjservicesbcore/syjsSYPARF.do?user=OSCAR&sykunr=1&syrecn=15
+	 * @Example SELECT list: 	http://gw.systema.no:8080/syjservicesbcore/syjsSYPARF.do?user=OSCAR&sykunr=1
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SYPARF_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYPARF.do";
+
+	
+	
+	/**
 	 * Retrieve a List of ValufDao
 	 * 
 	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsVALUF.do?user=OSCAR
