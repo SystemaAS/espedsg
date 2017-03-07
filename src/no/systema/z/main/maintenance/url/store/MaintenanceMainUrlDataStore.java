@@ -111,7 +111,14 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_SYPARF_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYPARF.do";
 
-	
+
+	/**
+	 * DML of SyparfDao
+	 * 
+	 * @Example http://gw.systema.no:8080/syjservicesbcore/syjsSYPARF_U.do?user=OSCAR&sykunr=24&syrecn=59&sysort=15&syvrdn=1,5&syvrda=alfaupdate&mode=U/A/D
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SYPARF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYPARF_U.do";			
 	
 	/**
 	 * Retrieve a List of ValufDao

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.dao.IDao;
 import no.systema.jservices.common.dto.SyparfDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -29,13 +31,11 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
-import no.systema.z.main.maintenance.service.MaintMainCundcService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundcValidator;
+import no.systema.z.main.maintenance.validator.MaintMainSyparfValidator;
 
 
 /**
@@ -62,8 +62,6 @@ public class MainMaintenanceCundfParamsController {
 		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		
-		logger.info("doParamsList");
-
 		if (appUser == null) {
 			return this.loginView;
 		} else {
@@ -87,27 +85,33 @@ public class MainMaintenanceCundfParamsController {
 	
 	
 	@RequestMapping(value="mainmaintenancecundf_params_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_kontaktpersoner_edit(@ModelAttribute ("record") JsonMaintMainCundcRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenancecundf_params_edit(@ModelAttribute ("record") SyparfDto recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_params_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
+		String sykunr = request.getParameter("sykunr");
+		
+		
 		logger.info("action="+action);
+		logger.info("updateId="+updateId);
+		logger.info("sykunr="+sykunr);
+		
+		logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
 		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 
-			MaintMainCundcValidator validator = new MaintMainCundcValidator();
+			MaintMainSyparfValidator validator = new MaintMainSyparfValidator();
 			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
 				validator.validateDelete(recordToValidate, bindingResult);
 			} else {
 				validator.validate(recordToValidate, bindingResult);
 			}
-
 			if (bindingResult.hasErrors()) {
 				logger.info("[ERROR Validation] Record does not validate)");
 				if (updateId != null && !"".equals(updateId)) {
@@ -118,6 +122,7 @@ public class MainMaintenanceCundfParamsController {
 			} else {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
+				
 				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
 						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
@@ -180,28 +185,31 @@ public class MainMaintenanceCundfParamsController {
 	}	
 	
 	
-	private int updateRecord(String applicationUser, JsonMaintMainCundcRecord record, String mode, StringBuffer errMsg) {
+	private int updateRecord(String applicationUser, SyparfDto record, String mode, StringBuffer errMsg) {
 		int retval = 0;
-
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_DML_UPDATE_URL;
+		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
+		jsonReader.set(new JsonDtoContainer<SyparfDto>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-		// extract
+		logger.info("jsonPayload=" + jsonPayload);
 		if (jsonPayload != null) {
-			// lists
-			JsonMaintMainCundcContainer container = this.maintMainCundcService.doUpdate(jsonPayload);
+			JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
+				logger.info("container="+container);
+				logger.info("container.getErrMsg()="+container.getErrMsg());
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
-						errMsg.append(container.getErrMsg());
-						retval = MainMaintenanceConstants.ERROR_CODE;
+					errMsg.append(container.getErrMsg());
+					logger.info("errMsg="+errMsg.toString());
+					retval = MainMaintenanceConstants.ERROR_CODE;
 				}
-			}
+			}			
 		}
 
 		return retval;
@@ -215,13 +223,6 @@ public class MainMaintenanceCundfParamsController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("maintMainCundcService")
-	private MaintMainCundcService maintMainCundcService;
-	@Autowired
-	@Required
-	public void setMaintMainCundcService (MaintMainCundcService value){ this.maintMainCundcService = value; }
-	public MaintMainCundcService getMaintMainCundcService(){ return this.maintMainCundcService; }
-
 		
 }
 

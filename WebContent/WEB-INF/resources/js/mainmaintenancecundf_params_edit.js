@@ -22,8 +22,12 @@ function setBlockUI(element) {
 jq(function() {
 	//Clean values for createing new record
 	jq('#newRecordButton').click(function() {
-		jq('#cconta').val("")
-		jq('#ctype').val("");
+		jq('#syrecn').val("")
+		jq('#sykunr').val("");
+		jq('#sypaid').val("");
+		jq('#sysort').val("");
+		jq('#syvrdn').val("");
+		jq('#syvrda').val("");
 		
 		//for update
 		jq('#updateId').val("");
@@ -41,8 +45,8 @@ jq(function() {
 
 	});
 	
-    jq('#sypaidLink').click(function() {
-    	jq('#sypaidLink').attr('target','_blank');
+    jq('#sypaidIdLink').click(function() {
+    	jq('#sypaidIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sypaid', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
 
@@ -74,6 +78,8 @@ function getRecord(record){
 	  success: function(data) {
 	  	var len = data.length;
 		for ( var i = 0; i < len; i++) {
+			jq('#sykunr').val("");jq('#sykunr').val(data[i].sykunr);
+			jq('#syrecn').val("");jq('#syrecn').val(data[i].syrecn);
 			jq('#sypaid').val("");jq('#sypaid').val(data[i].sypaid);
 			jq('#sypaidDesc').val("");jq('#sypaidDesc').val(data[i].sypaidDesc);
 			jq('#sysort').val("");jq('#sysort').val(data[i].sysort);
