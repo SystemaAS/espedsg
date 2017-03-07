@@ -41,7 +41,9 @@ public class MaintSkatImportDkt058rValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				//N/A
+				if(!record.isValidCustomerNumber()){
+					errors.rejectValue("dkse_knr", "", "Kundenr er ugyldig.");
+				}
 			}
 		}
 	}
@@ -56,7 +58,9 @@ public class MaintSkatImportDkt058rValidator implements Validator {
 		JsonMaintDktseRecord record = (JsonMaintDktseRecord)obj;
 		//logger.info(record.getTariff());
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkse_knr", "", "Kundenr er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkse_331", "", "Varekode er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkse_331", "", "Varekode er obligatorisk");
+		// N/A? ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkse_34", "", "Land er obligatorisk"); 
+		// N/A? ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkse_4421", "", "Certificat er obligatorisk"); 
 		
 	}
 

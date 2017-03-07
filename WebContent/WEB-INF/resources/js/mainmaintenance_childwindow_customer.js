@@ -111,6 +111,11 @@
 				  opener.jq('#thpst').val(adr3);
 				  opener.jq('#thpnt').val(postnr);
 				  opener.jq('#thlkt').val(land);
+				  
+			  //SKAT Import - Certifikatkoder
+			  }else if(callerType == 'dkse_knr'){ 
+				  opener.jq('#dkse_knr').val(knr);
+				  
 			  }
 			  
 				  

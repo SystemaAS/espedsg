@@ -11,6 +11,20 @@
 	  jq("#formRecord").submit(function() {
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
 	  });
+	  
+	  //----------------
+	  //CUSTOMER search
+	  //----------------
+	  //Kundnr
+	  jq('#dkse_knrIdLink').click(function() {
+		  jq('#dkse_knrIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&firma=' + jq('#companyCode').val() + "&knr=" + jq('#dkse_knr').val() + '&ctype=dkse_knr', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#dkse_knrIdLink').keypress(function(e){ //extra feature for the end user
+  		  if(e.which == 13) {
+  			  jq('#dkse_knrIdLink').click();
+  		  }
+  	  });
   });
   
   

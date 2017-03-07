@@ -37,7 +37,10 @@ import no.systema.skat.z.maintenance.skatimport.model.jsonjackson.dbtable.JsonMa
 import no.systema.skat.z.maintenance.skatimport.service.MaintSkatImportDktseService;
 import no.systema.skat.z.maintenance.skatimport.url.store.MaintenanceSkatImportUrlDataStore;
 import no.systema.skat.z.maintenance.skatimport.validator.MaintSkatImportDkt058rValidator;
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
  * SKAT Maintenance Import Topic Controller 
@@ -119,6 +122,7 @@ public class MaintSkatImportKoderDkt058rController {
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
+				recordToValidate.setValidCustomerNumber(this.customerExists(appUser.getUser(), recordToValidate));
 				validator.validate(recordToValidate, bindingResult);
 			}
 			if(bindingResult.hasErrors()){
@@ -240,6 +244,7 @@ public class MaintSkatImportKoderDkt058rController {
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
+    	
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	logger.info(jsonPayload);
     	//extract
@@ -257,6 +262,45 @@ public class MaintSkatImportKoderDkt058rController {
     	}
     	return retval;
 	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param record
+	 * @return
+	 */
+	public boolean customerExists(String applicationUser, JsonMaintDktseRecord record){
+		boolean retval = true;
+		String DEFAULT_FIRMA_CUSTOMER_NR = "0";
+		Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
+
+		if( record.getDkse_knr()!=null && !"".equals(record.getDkse_knr()) ){
+			if(!record.getDkse_knr().equals(DEFAULT_FIRMA_CUSTOMER_NR)){
+				String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+				String urlRequestParamsKeys = "user=" + applicationUser + "&kundnr=" + record.getDkse_knr();
+				//logger.info("URL: " + BASE_URL);
+				//logger.info("PARAMS: " + urlRequestParamsKeys);
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//debugger
+				//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+		    		JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
+		    		if(container!=null){
+		    			if(container.getList()!=null && container.getList().size()>0){
+		    				//OK
+		    			}else{
+		    				retval = false;
+		    			}
+		    		}
+		    	}
+			}
+		}
+		return retval;
+		
+	}
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -273,6 +317,14 @@ public class MaintSkatImportKoderDkt058rController {
 	@Required
 	public void setMaintSkatImportDktseService (MaintSkatImportDktseService value){ this.maintSkatImportDktseService = value; }
 	public MaintSkatImportDktseService getMaintSkatImportDktseService(){ return this.maintSkatImportDktseService; }
+	
+	
+	@Qualifier ("maintMainCundfService")
+	private MaintMainCundfService maintMainCundfService;
+	@Autowired
+	@Required
+	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
+	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 	
 	
 

@@ -36,6 +36,14 @@ public class JsonMaintDktseRecord extends JsonAbstractGrandFatherRecord{
 	public void setDkse_442A (String value){ this.dkse_442A = value;   }   
 	public String getDkse_442A (){ return this.dkse_442A;   }              
     
+	private boolean validCustomerNumber = true;
+	public void setValidCustomerNumber (boolean value){ this.validCustomerNumber = value;   }   
+	public boolean isValidCustomerNumber (){ return this.validCustomerNumber;   }              
+    
+	private boolean validVarekode = true;
+	public void setValidVarekode (boolean value){ this.validVarekode = value;   }   
+	public boolean isValidVarekode (){ return this.validVarekode;   }              
+    
 
 	/**
 	 * 
