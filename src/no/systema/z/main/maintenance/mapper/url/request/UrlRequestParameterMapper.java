@@ -73,15 +73,21 @@ public class UrlRequestParameterMapper {
 	 * Builds the final url parameter list (to send with a GET or POST form method)
 	 * Handles String, Integer and Double
 	 * 
-	 * @param object, any Object
+	 * @param object, any Object. If inherited, the superclass fields will be used. Meaning we assuming it is a DTO that inherits from the DAO.
 	 * @return String, in url format.
 	 * 
 	 */
 	public String getUrlParameterValidString(Object object){
 		StringBuffer sb = new StringBuffer();
+		Field[] fields = null;
+		if (object.getClass().getSuperclass().equals(Object.class)) {
+			fields = object.getClass().getDeclaredFields();
+		} else {
+			fields = object.getClass().getSuperclass().getDeclaredFields();
+		}
 		
 		try{
-			for(Field field: object.getClass().getDeclaredFields()){
+			for(Field field: fields){
 				try{
 					field.setAccessible(true);//we must do this in order to access private fields
 					String value = (String)field.get(object); 

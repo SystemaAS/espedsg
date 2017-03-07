@@ -247,6 +247,8 @@
 								<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
 								<input type="hidden" name="action" id="action" value="doUpdate">
+								<input type="hidden" name="sykunr" id="sykunr" value='${model.record.sykunr}'>
+								<input type="hidden" name="syrecn" id="syrecn" value='${model.record.syrecn}'>
 								<table id="paramsDetails" width="100%" cellspacing="0" border="0" align="left">
 									<spring:hasBindErrors name="record"> 
 										<tr>
