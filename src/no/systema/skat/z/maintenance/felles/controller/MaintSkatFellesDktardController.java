@@ -31,8 +31,11 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
+import no.systema.skat.z.maintenance.main.service.MaintDktkdService;
 import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
@@ -81,6 +84,10 @@ public class MaintSkatFellesDktardController {
 			//get table
 	    	List<JsonMaintDktvkRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser(), id);
+	    	//drop downs
+	    	List codeList022 = this.fetchListKoder(appUser.getUser(), "022");
+	    	model.put("codeList022", codeList022);
+	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	model.put("searchKode", id);
@@ -264,6 +271,43 @@ public class MaintSkatFellesDktardController {
 	}
 	
 	/**
+	 * 
+	 * @param applicationUser
+	 * @param dkkd_typ
+	 * @return
+	 */
+	private List<JsonMaintDktkdRecord> fetchListKoder(String applicationUser, String dkkd_typ){
+		
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKG210R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		//mandatory params
+		urlRequestParams.append("user="+ applicationUser);
+		urlRequestParams.append("&dkkd_typ=" + dkkd_typ);
+		
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintDktkdRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintDktkdContainer container = this.maintDktkdService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintDktkdRecord record : list){
+	        		//logger.info("TGGNR:" + record.getTggnr());
+	        	}
+	        }
+    	}
+    	return list;
+    	
+	}
+	
+	
+	
+	/**
 	 * UPDATE/CREATE/DELETE
 	 * 
 	 * @param applicationUser
@@ -317,6 +361,14 @@ public class MaintSkatFellesDktardController {
 	@Required
 	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
 	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
+	
+	
+	@Qualifier ("maintDktkdService")
+	private MaintDktkdService maintDktkdService;
+	@Autowired
+	@Required
+	public void setMaintDktkdService (MaintDktkdService value){ this.maintDktkdService = value; }
+	public MaintDktkdService getMaintDktkdService(){ return this.maintDktkdService; }
 	
 }
 

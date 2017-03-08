@@ -95,7 +95,7 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY": "250px",
     	  "scrollCollapse":  false,
-    	  "columnDefs": [{ "type": "num", "targets": 1 }],
+    	  //"columnDefs": [{ "type": "num", "targets": 1 }],
     	  "order": [[ 1, "asc" ]],
     	  "lengthMenu": [ 75, 100]
   	  });

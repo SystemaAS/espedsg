@@ -183,6 +183,7 @@ public class SkatExportItemsValidator implements Validator {
 				//No decimals are allowed with weights > 1
 				//-----------------------------------------
 				//Gross
+				/*
 				if(record.getDkev_35()!=null && !"".equals(record.getDkev_35())){
 					String grossFormatTmp = record.getDkev_35().replace(".", "");
 					double grossWeight = Double.parseDouble(grossFormatTmp.replace(",", "."));
@@ -206,7 +207,7 @@ public class SkatExportItemsValidator implements Validator {
 						}
 					}
 				}
-				
+				*/
 				//Certificate is mandatory
 				if(record.getDkev_4421()==null || "".equals(record.getDkev_4421())){
 					if(record.getCertificateCodeMandatoryFlag()!=null && !"".equals(record.getCertificateCodeMandatoryFlag())){
