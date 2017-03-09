@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.dao.IDao;
 import no.systema.jservices.common.dto.SyparfDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -34,7 +33,6 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.validator.MaintMainCundcValidator;
 import no.systema.z.main.maintenance.validator.MaintMainSyparfValidator;
 
 
@@ -70,7 +68,7 @@ public class MainMaintenanceCundfParamsController {
 			String kundnr = kundeSessionParams.getKundnr();
 
 			List<SyparfDto> list = new ArrayList();
-			list = this.fetchList(appUser, kundnr, null);
+			list = fetchList(appUser, kundnr, null);
 
 			model.put("kundnr", kundnr);
 			model.put("firma", firma);
@@ -92,19 +90,15 @@ public class MainMaintenanceCundfParamsController {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		
-		String sykunr = request.getParameter("sykunr");
-		
-		
 		logger.info("action="+action);
 		logger.info("updateId="+updateId);
-		logger.info("sykunr="+sykunr);
-		
 		logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
 		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
+			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
 			MaintMainSyparfValidator validator = new MaintMainSyparfValidator();
 			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
@@ -214,6 +208,12 @@ public class MainMaintenanceCundfParamsController {
 
 		return retval;
 	}	
+	
+	
+	private void adjustRecordToValidate(SyparfDto recordToValidate, KundeSessionParams kundeSessionParams) {
+		recordToValidate.setSykunr(kundeSessionParams.getKundnr());
+	}
+
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

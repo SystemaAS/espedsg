@@ -25,6 +25,7 @@ public class MaintMainSyparfValidator implements Validator {
 	public void validate(Object obj, Errors errors) {
 		// SyparfDto record = (SyparfDto)obj;
 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sykunr", "systema.maint.params.error.sykunr");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sypaid", "systema.maint.params.error.sypaid");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "syvrdn", "systema.maint.params.error.syvrdn");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "syvrda", "systema.maint.params.error.syvrda");
@@ -32,9 +33,8 @@ public class MaintMainSyparfValidator implements Validator {
 	}
 
 	public void validateDelete(Object obj, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sypaid", "systema.maint.params.error.sypaid");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "syvrdn", "systema.maint.params.error.syvrdn");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "syvrda", "systema.maint.params.error.syvrda");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sykunr", "systema.maint.params.error.sykunr");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "syrecn", "systema.maint.params.error.syrecn");
 	}
 
 }

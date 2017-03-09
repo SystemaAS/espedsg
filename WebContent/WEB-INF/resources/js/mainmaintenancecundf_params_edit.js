@@ -23,8 +23,8 @@ jq(function() {
 	//Clean values for createing new record
 	jq('#newRecordButton').click(function() {
 		jq('#syrecn').val("")
-		jq('#sykunr').val("");
 		jq('#sypaid').val("");
+		jq('#sypaidDesc').val("");
 		jq('#sysort').val("");
 		jq('#syvrdn').val("");
 		jq('#syvrda').val("");
