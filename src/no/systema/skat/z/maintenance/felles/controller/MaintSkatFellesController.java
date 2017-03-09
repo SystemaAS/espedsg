@@ -111,7 +111,7 @@ public class MaintSkatFellesController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Vedligeholdelse af Toldtariffen - Taric");
+		object.setSubject("Vedligeholdelse af Toldtariffen");
 		object.setCode("SKAT_TOLDTARIF");
 		object.setText("DKTARD");
 		object.setDbTable("DKTARD");

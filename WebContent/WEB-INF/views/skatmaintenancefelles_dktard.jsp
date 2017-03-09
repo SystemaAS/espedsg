@@ -50,7 +50,9 @@
 				<td width="100%" class="text12">
 					<form action="skatmaintenancefelles_dktard.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
 					Varekode&nbsp;
-					<input type="text" class="inputTextMediumBlue" name="searchTatanr" id="searchTatanr" size="9" maxlength="8" value='${model.tatanr}'>
+					<input type="text" class="inputTextMediumBlue" name="searchDktard01" id="searchDktard01" size="11" maxlength="10" value='${model.searchDktard01}'>
+					&nbsp;&nbsp;Start dato&nbsp;
+					<input type="text" class="inputTextMediumBlue" name="searchDktard02" id="searchDktard02" size="9" maxlength="8" value='${model.searchDktard02}'>
 					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søg'/>
 					</form>
 				</td>
@@ -78,20 +80,20 @@
 			                </tr>  
 			                </thead> 
 			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.tatanr}_${record.taalfa}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.dktard01}_${record.dktard02}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.tatanr}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taordb}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taordk}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taeftb}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taeftk}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taefb}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.taefb}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.dktard01}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard02}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard03}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard04}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard05}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard47}&nbsp;</font></td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.dktard48}&nbsp;</font></td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOskatmaintenancefelles_sad010r_edit.do?action=doDelete&id=${model.dbTable}&tatanr=${record.tatanr}&taalfa=${record.taalfa}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="TODOskatmaintenancefelles_sad010r_edit.do?action=doDelete&id=${model.dbTable}&tatanr=${Xrecord.tatanr}&taalfa=${Xrecord.taalfa}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -172,42 +174,38 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<input type="hidden" name="taalfaOrig" id=taalfaOrig value="${XXmodel.record.taalfaOrig}">
 					
 					<table width="80%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="dktard01">&nbsp;<font class="text14RedBold" >*</font>Varekode</td>
 							<td class="text12" title="dktard02">&nbsp;<font class="text14RedBold" >*</font>Start dato</td>
-							<td class="text12" title="dktard03">&nbsp;Slut dato</td>
+							<td class="text12" title="dktard03"><font class="text14RedBold" >*</font>&nbsp;Slut dato</td>
 							<td class="text12" title="dktard04">&nbsp;Toldsatstype</td>
 							<td class="text12" title="dktard05">&nbsp;Toldsats</td>
 							<td class="text12" title="dktard47">&nbsp;Supplerende mængde</td>
-							<td class="text12" title="dktard48">&nbsp;Varekodetext</td>
+							<td class="text12" title="dktard48"><font class="text14RedBold" >*</font>&nbsp;Varekodetext</td>
 						</tr>
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="dktard01" id="dktard01" size="11" maxlength="10" value='${XXmodel.record.dktard01}'></td>
-						<td ><input type="text" class="inputTextMediumBlueMandatoryField" name="dktard02" id="dktard02" size="10" maxlength="8" value='${XXmodel.record.dktard02}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard03" id="dktard03" size="10" maxlength="8" value='${XXmodel.record.dktard03}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard04" id="dktard04" size="3" maxlength="2" value='${XXmodel.record.dktard04}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard05" id="dktard05" size="8" maxlength="7" value='${XXmodel.record.dktard05}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard47" id="dktard47" size="4" maxlength="3" value='${XXmodel.record.dktard47}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard48" id="dktard48" size="20" maxlength="182" value='${XXmodel.record.dktard48}'></td>
-						<%--
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dktard01" id="dktard01" size="11" maxlength="10" value='${model.record.dktard01}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dktard02" id="dktard02" size="10" maxlength="8" value='${model.record.dktard02}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dktard03" id="dktard03" size="10" maxlength="8" value='${model.record.dktard03}'></td>
 						<td >
-							<select name="tastk" id="tastk">
-        		    			<option value="">-velg-</option>
-							  	<option value="J"<c:if test="${ XXmodel.record.tastk == 'J'}"> selected </c:if> >Ja</option>
+							<select class="inputTextMediumBlue" name="dktard04" id="dktard04">
+			            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="code" items="${model.codeListToldsatstype}" >
+                              	 	<option value="${code}"<c:if test="${model.record.dktard04 == code}"> selected </c:if> >${code}</option>
+								</c:forEach> 
 							</select>
 						</td>
-						 --%>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard05" id="dktard05" size="8" maxlength="7" value='${model.record.dktard05}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard47" id="dktard47" size="4" maxlength="3" value='${model.record.dktard47}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="dktard48" id="dktard48" size="20" maxlength="182" value='${model.record.dktard48}'></td>
 						<td>
-							<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Spare'/>
+							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare'/>
 						</td>
 						</tr>
 						<tr height="3"><td></td>
 					</table>
-					
 					
 					<table class="tableHeaderField" width="80%" cellspacing="1" border="0" align="left">	
 						<%--
@@ -231,25 +229,16 @@
 								</c:forEach> 
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard07" id="dktard07" size="2" maxlength="1" value='${Xmodel.record.dktard07}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard08" id="dktard08" size="6" maxlength="5" value='${Xmodel.record.dktard08}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard09" id="dktard09" size="2" maxlength="1" value='${Xmodel.record.dktard09}'></td>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard07" id="dktard07" size="2" maxlength="1" value='${model.record.dktard07}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard08" id="dktard08" size="6" maxlength="5" value='${model.record.dktard08}'></td>
 						<td >
-							
-						
-							<%--
-							<select name="taordk" id="taordk">
+							<select name="dktard09" id="dktard09">
         		    			<option value="">-velg-</option>
-							  	<option value="A"<c:if test="${ Xmodel.record.taordk == 'A'}"> selected </c:if> >A</option>
-							  	<option value="F"<c:if test="${ Xmodel.record.taordk == 'F'}"> selected </c:if> >F</option>
-							  	<option value="P"<c:if test="${ Xmodel.record.taordk == 'P'}"> selected </c:if> >P</option>		
-							  	<option value="V"<c:if test="${ Xmodel.record.taordk == 'V'}"> selected </c:if> >V</option>
-							  	<option value="W"<c:if test="${ Xmodel.record.taordk == 'W'}"> selected </c:if> >W</option>
+							  	<option value="A"<c:if test="${ model.record.dktard09 == 'A'}"> selected </c:if> >A</option>
+							  	<option value="R"<c:if test="${ model.record.dktard09 == 'R'}"> selected </c:if> >R</option>
+							  	<option value="W"<c:if test="${ model.record.dktard09 == 'W'}"> selected </c:if> >W</option>
 							</select>
-							 --%>
 						</td>
-						
 						</tr>
 						<%--
 						------------------------ 
@@ -267,8 +256,15 @@
 						</tr>
 
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard10" id="dktard10" size="3" maxlength="2" value='${Xmodel.record.dktard10}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard11" id="dktard11" size="8" maxlength="7" value='${Xmodel.record.dktard11}'></td>
+						<td >
+							<select class="inputTextMediumBlue" name="dktard10" id="dktard10">
+			            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="code" items="${model.codeListToldsatstype}" >
+                              	 	<option value="${code}"<c:if test="${model.record.dktard10 == code}"> selected </c:if> >${code}</option>
+								</c:forEach> 
+							</select>
+						</td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard11" id="dktard11" size="8" maxlength="7" value='${model.record.dktard11}'></td>
 						<td >
 							<select class="inputTextMediumBlue" name="dktard12" id="dktard12">
 			            		<option value="">-vælg-</option>
@@ -277,10 +273,16 @@
 								</c:forEach> 
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard13" id="dktard13" size="2" maxlength="1" value='${Xmodel.record.dktard13}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard14" id="dktard14" size="6" maxlength="5" value='${Xmodel.record.dktard14}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard15" id="dktard15" size="2" maxlength="1" value='${Xmodel.record.dktard15}'></td>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard13" id="dktard13" size="2" maxlength="1" value='${model.record.dktard13}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard14" id="dktard14" size="6" maxlength="5" value='${model.record.dktard14}'></td>
+						<td >
+							<select name="dktard15" id="dktard15">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.dktard15 == 'A'}"> selected </c:if> >A</option>
+							  	<option value="R"<c:if test="${ model.record.dktard15 == 'R'}"> selected </c:if> >R</option>
+							  	<option value="W"<c:if test="${ model.record.dktard15 == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
 						</tr>
 						
 						<%--
@@ -298,8 +300,15 @@
 						</tr>
 
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard16" id="dktard16" size="3" maxlength="2" value='${Xmodel.record.dktard16}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard17" id="dktard17" size="8" maxlength="7" value='${Xmodel.record.dktard17}'></td>
+						<td >
+							<select class="inputTextMediumBlue" name="dktard16" id="dktard16">
+			            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="code" items="${model.codeListToldsatstype}" >
+                              	 	<option value="${code}"<c:if test="${model.record.dktard16 == code}"> selected </c:if> >${code}</option>
+								</c:forEach> 
+							</select>
+						</td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard17" id="dktard17" size="8" maxlength="7" value='${model.record.dktard17}'></td>
 						<td >
 							<select class="inputTextMediumBlue" name="dktard18" id="dktard18">
 			            		<option value="">-vælg-</option>
@@ -308,10 +317,16 @@
 								</c:forEach> 
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard19" id="dktard19" size="2" maxlength="1" value='${Xmodel.record.dktard19}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard20" id="dktard20" size="6" maxlength="5" value='${Xmodel.record.dktard20}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard21" id="dktard21" size="2" maxlength="1" value='${Xmodel.record.dktard21}'></td>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard19" id="dktard19" size="2" maxlength="1" value='${model.record.dktard19}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard20" id="dktard20" size="6" maxlength="5" value='${model.record.dktard20}'></td>
+						<td >
+							<select name="dktard21" id="dktard21">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.dktard21 == 'A'}"> selected </c:if> >A</option>
+							  	<option value="R"<c:if test="${ model.record.dktard21 == 'R'}"> selected </c:if> >R</option>
+							  	<option value="W"<c:if test="${ model.record.dktard21 == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
 						</tr>
 						<%--
 						------------------------ 
@@ -328,8 +343,15 @@
 						</tr>
 
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard22" id="dktard22" size="3" maxlength="2" value='${Xmodel.record.dktard22}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard23" id="dktard23" size="8" maxlength="7" value='${Xmodel.record.dktard23}'></td>
+						<td >
+							<select class="inputTextMediumBlue" name="dktard22" id="dktard22">
+			            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="code" items="${model.codeListToldsatstype}" >
+                              	 	<option value="${code}"<c:if test="${model.record.dktard22 == code}"> selected </c:if> >${code}</option>
+								</c:forEach> 
+							</select>
+						</td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard23" id="dktard23" size="8" maxlength="7" value='${model.record.dktard23}'></td>
 						<td >
 							<select class="inputTextMediumBlue" name="dktard24" id="dktard24">
 			            		<option value="">-vælg-</option>
@@ -338,10 +360,16 @@
 								</c:forEach> 
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard25" id="dktard25" size="2" maxlength="1" value='${Xmodel.record.dktard25}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard26" id="dktard26" size="6" maxlength="5" value='${Xmodel.record.dktard26}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard27" id="dktard27" size="2" maxlength="1" value='${Xmodel.record.dktard27}'></td>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard25" id="dktard25" size="2" maxlength="1" value='${model.record.dktard25}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard26" id="dktard26" size="6" maxlength="5" value='${model.record.dktard26}'></td>
+						<td >
+							<select name="dktard27" id="dktard27">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.dktard27 == 'A'}"> selected </c:if> >A</option>
+							  	<option value="R"<c:if test="${ model.record.dktard27 == 'R'}"> selected </c:if> >R</option>
+							  	<option value="W"<c:if test="${ model.record.dktard27 == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
 						</tr>
 						<%--
 						------------------------ 
@@ -358,8 +386,15 @@
 						</tr>
 
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard28" id="dktard28" size="3" maxlength="2" value='${Xmodel.record.dktard28}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard29" id="dktard29" size="8" maxlength="7" value='${Xmodel.record.dktard29}'></td>
+						<td >
+							<select class="inputTextMediumBlue" name="dktard28" id="dktard28">
+			            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="code" items="${model.codeListToldsatstype}" >
+                              	 	<option value="${code}"<c:if test="${model.record.dktard28 == code}"> selected </c:if> >${code}</option>
+								</c:forEach> 
+							</select>
+						</td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard29" id="dktard29" size="8" maxlength="7" value='${model.record.dktard29}'></td>
 						<td >
 							<select class="inputTextMediumBlue" name="dktard30" id="dktard30">
 			            		<option value="">-vælg-</option>
@@ -368,10 +403,16 @@
 								</c:forEach> 
 							</select>
 						</td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard31" id="dktard31" size="2" maxlength="1" value='${Xmodel.record.dktard31}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard32" id="dktard32" size="6" maxlength="5" value='${Xmodel.record.dktard32}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard33" id="dktard33" size="2" maxlength="1" value='${Xmodel.record.dktard33}'></td>
-						
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard31" id="dktard31" size="2" maxlength="1" value='${model.record.dktard31}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard32" id="dktard32" size="6" maxlength="5" value='${model.record.dktard32}'></td>
+						<td >
+							<select name="dktard33" id="dktard33">
+        		    			<option value="">-velg-</option>
+							  	<option value="A"<c:if test="${ model.record.dktard33 == 'A'}"> selected </c:if> >A</option>
+							  	<option value="R"<c:if test="${ model.record.dktard33 == 'R'}"> selected </c:if> >R</option>
+							  	<option value="W"<c:if test="${ model.record.dktard33 == 'W'}"> selected </c:if> >W</option>
+							</select>
+						</td>
 						</tr>
 						
 						<%--
@@ -381,18 +422,59 @@
 						--%>
 						<tr height="10"><td></td></tr>
 						<tr>
-							<td class="text12" title="dktard34">&nbsp;Bilag-1</td>
-							<td class="text12" title="dktard35">&nbsp;Bilag-2</td>
-							<td class="text12" title="dktard36">&nbsp;Bilag-3</td>
-							<td class="text12" title="dktard37">&nbsp;Bilag-4</td>
+							<td class="text12" >
+							<img onMouseOver="showPop('bilag1_info');" onMouseOut="hidePop('bilag1_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
+				 			<span title="dktard34">Bilag-1</span>
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="bilag1_info" class="popupWithInputText text11"  >
+				           			<b>Bilag-1 - Antidumping</b>
+				           			 <br>
+									 1 = Der er mulighed for antidumping.
+								</span>
+								</div>
+							</td>
+							<td class="text12" >
+							<img onMouseOver="showPop('bilag2_info');" onMouseOut="hidePop('bilag2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
+				 			<span title="dktard35">Bilag-2</span>
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="bilag2_info" class="popupWithInputText text11"  >
+				           			<b>Bilag-2 - Toldsuspension</b>
+				           			 <br>
+									 2 = Der er mulighed for toldsuspension
+								</span>
+								</div>
+				 			</td>
+							<td class="text12" >
+							<img onMouseOver="showPop('bilag3_info');" onMouseOut="hidePop('bilag3_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
+				 			<span title="dktard36">Bilag-3</span>
+								<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="bilag3_info" class="popupWithInputText text11"  >
+				           			<b>Bilag-3 - Diverse</b>
+				           			 <br>
+									 3 = Der findes landbrugselementer, tillægstold for sukker/mel, udligningsafgift eller tillægsbeløb..
+								</span>
+								</div>
+							</td>
+							<td class="text12" >
+							<img onMouseOver="showPop('bilag4_info');" onMouseOut="hidePop('bilag4_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info" >
+				 			<span title="dktard37">Bilag-4</span>
+				 				<div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="bilag4_info" class="popupWithInputText text11"  >
+				           			<b>Bilag-4 - Præference</b>
+				           			 <br>
+									 4 = Der er mulighed for præferencetold.
+								</span>
+								</div>
+							
+							</td>
 				
 						</tr>
 
 						<tr>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard34" id="dktard34" size="2" maxlength="1" value='${Xmodel.record.dktard34}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard35" id="dktard35" size="2" maxlength="1" value='${Xmodel.record.dktard35}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard36" id="dktard36" size="2" maxlength="1" value='${Xmodel.record.dktard36}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="dktard37" id="dktard37" size="2" maxlength="1" value='${Xmodel.record.dktard37}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard34" id="dktard34" size="2" maxlength="1" value='${model.record.dktard34}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard35" id="dktard35" size="2" maxlength="1" value='${model.record.dktard35}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard36" id="dktard36" size="2" maxlength="1" value='${model.record.dktard36}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="dktard37" id="dktard37" size="2" maxlength="1" value='${model.record.dktard37}'></td>
 						
 						</tr>
 						
@@ -413,12 +495,12 @@
 						</tr>
 
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard38" id="dktard38" size="3" maxlength="2" value='${Xmodel.record.dktard38}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard39" id="dktard39" size="3" maxlength="2" value='${Xmodel.record.dktard39}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard40" id="dktard40" size="3" maxlength="2" value='${Xmodel.record.dktard40}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard41" id="dktard41" size="3" maxlength="2" value='${Xmodel.record.dktard41}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard42" id="dktard42" size="3" maxlength="2" value='${Xmodel.record.dktard42}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard43" id="dktard43" size="3" maxlength="2" value='${Xmodel.record.dktard43}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard38" id="dktard38" size="3" maxlength="2" value='${model.record.dktard38}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard39" id="dktard39" size="3" maxlength="2" value='${model.record.dktard39}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard40" id="dktard40" size="3" maxlength="2" value='${model.record.dktard40}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard41" id="dktard41" size="3" maxlength="2" value='${model.record.dktard41}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard42" id="dktard42" size="3" maxlength="2" value='${model.record.dktard42}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard43" id="dktard43" size="3" maxlength="2" value='${model.record.dktard43}'></td>
 							
 						</tr>
 						<tr>
@@ -428,9 +510,9 @@
 						</tr>
 
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard44" id="dktard44" size="3" maxlength="2" value='${Xmodel.record.dktard44}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard45" id="dktard45" size="3" maxlength="2" value='${Xmodel.record.dktard45}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktard46" id="dktard46" size="3" maxlength="2" value='${Xmodel.record.dktard46}'></td>							
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard44" id="dktard44" size="3" maxlength="2" value='${model.record.dktard44}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard45" id="dktard45" size="3" maxlength="2" value='${model.record.dktard45}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktard46" id="dktard46" size="3" maxlength="2" value='${model.record.dktard46}'></td>							
 						</tr>
 	 	    		</table> 		
 	 	    	</form>

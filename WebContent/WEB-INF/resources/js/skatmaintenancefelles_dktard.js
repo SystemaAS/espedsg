@@ -8,11 +8,14 @@
   }
   
   jq(function() {
-  	  jq("#tadatoNO").datepicker({ 
-  		  dateFormat: 'ddmmy'
+  	  jq("#dktard02").datepicker({ 
+  		  dateFormat: 'yyddmm'
   	  });
-  	  jq("#tadtsNO").datepicker({ 
-  		  dateFormat: 'ddmmy'
+  	  jq("#dktard03").datepicker({ 
+  		  dateFormat: 'yyddmm'
+	  });
+  	  jq("#searchDktard02").datepicker({ 
+		  dateFormat: 'yyddmm'
 	  });
   });
 

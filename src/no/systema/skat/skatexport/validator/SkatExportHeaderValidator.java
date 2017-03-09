@@ -396,7 +396,7 @@ public class SkatExportHeaderValidator implements Validator {
 					if(!isValidISOFormat){
 						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValidMask"); 
 					}
-					//lenght validation
+					//length validation
 					if(record.getDkeh_dtm2().length()<12){
 						errors.rejectValue("dkeh_dtm2", "systema.skat.export.header.error.rule.ankomstTidDtm2NotValidMask"); 
 					}
