@@ -8,6 +8,13 @@
   }
   
   jq(function() {
+	  jq("#formRecord").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+	  
+  });
+  
+  jq(function() {
   	  jq("#dktard02").datepicker({ 
   		  dateFormat: 'yyddmm'
   	  });
@@ -17,6 +24,20 @@
   	  jq("#searchDktard02").datepicker({ 
 		  dateFormat: 'yyddmm'
 	  });
+  	  
+  	  //custom validity
+	  jq('#dktard02').blur(function() {
+	  		if(jq('#dktard02').val()!=''){
+	    		refreshCustomValidity(jq('#dktard02')[0]);
+	  		}
+	  });
+	  //custom validity
+	  jq('#dktard03').blur(function() {
+	  		if(jq('#dktard03').val()!=''){
+	    		refreshCustomValidity(jq('#dktard03')[0]);
+	  		}
+	  });
+	  
   });
 
   jq(function() {

@@ -28,6 +28,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
@@ -137,6 +138,9 @@ public class MaintSkatFellesDktardController {
 			}else{
 				validator.validate(recordToValidate, bindingResult);
 			}
+			//adjust some fields
+			this.adjustSomeFields(recordToValidate);
+			
 			if(bindingResult.hasErrors()){
 				//ERRORS
 				logger.info("[ERROR Validation] Record does not validate)");
@@ -202,6 +206,19 @@ public class MaintSkatFellesDktardController {
 	    	return successView;
 		}
 	}
+	private void adjustSomeFields(JsonMaintDktardRecord recordToValidate){
+		int TOLDSATS_FIELDS_LENGTH = 7;
+		String TOLDSATS_FILLER_CHAR = "0";
+		String TOLDSATS_DECIMAL_COMMA = ",";
+		StringManager mgr = new StringManager();
+		//Toldsatser (must be stored without decimal sign and with trailing Zeros). The field is a string field
+		recordToValidate.setDktard05(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard05(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard11(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard11(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard17(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard17(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard23(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard23(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard29(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard29(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		
+	}
 	/**
 	 * 
 	 * @param applicationUser
@@ -232,7 +249,7 @@ public class MaintSkatFellesDktardController {
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
 	        	for(JsonMaintDktardRecord record : list){
-	        		//logger.info("LEVENR:" + record.getLevenr());
+	        		logger.info("TEKST:" + record.getDktard48() + "END");
 	        	}
 	        }
     	}

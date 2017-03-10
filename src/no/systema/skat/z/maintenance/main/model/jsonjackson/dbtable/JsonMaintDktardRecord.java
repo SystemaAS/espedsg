@@ -206,7 +206,7 @@ public class JsonMaintDktardRecord extends JsonAbstractGrandFatherRecord{
 	
 	private String dktard48 = null;                                
 	public void setDktard48 (String value){ this.dktard48 = value;   }   
-	public String getDktard48 (){ return this.dktard48;   }  
+	public String getDktard48 (){ return this.dktard48; }  
 	         
 
 	/**

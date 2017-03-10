@@ -90,7 +90,6 @@ public class MaintSkatFellesDktardrValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktard01", "", "Varekode er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktard02", "", "Start dato er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktard03", "", "Slut dato er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktard48", "", "Varetekst er obligatorisk"); 
 		
 	}
 }

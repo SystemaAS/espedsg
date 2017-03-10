@@ -3,6 +3,7 @@ import java.util.*;
 import java.sql.Timestamp;
 
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.util.StringManager;
 
 /**
  * @author oscardelatorre
@@ -15,22 +16,10 @@ public class GeneralTester {
 	 */
 	public static void main(String[] args) {
 		try{
-			/*
-			String SPACE = "Z";
-			int FTX_LIMIT = 50;
-			StringBuffer str = new StringBuffer("TARZAN in the jungle");
-			int len = str.length();
-			for (int x=len+1;x<=FTX_LIMIT;x++){
-				str.append(SPACE);
-			}
-			System.out.println(str);
-			*/
-			//
-			String tmp = "0000850";
-			String strInteger = tmp.substring(0,4);
-			  String strDecimals = tmp.substring(3);
-			  System.out.println("dbl:" + strInteger + "." + strDecimals);
-			  
+			StringManager mgr = new StringManager();
+			String str = "888,89";
+			String s = mgr.trailingStringWithNumericFiller(mgr.removeChar(str, ","), 7, "0");
+			System.out.println(mgr.removeChar(s, ","));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
