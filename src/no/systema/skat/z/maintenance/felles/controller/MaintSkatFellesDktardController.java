@@ -40,7 +40,7 @@ import no.systema.skat.z.maintenance.main.service.MaintDktardService;
 import no.systema.skat.z.maintenance.main.service.html.dropdown.SkatMaintMainDropDownListPopulationService;
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
-import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDkt057rValidator;
+import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDktardrValidator;
 
 
 /**
@@ -131,7 +131,7 @@ public class MaintSkatFellesDktardController {
 			return this.loginView;
 		}else{
 			//Move on
-			MaintSkatFellesDkt057rValidator validator = new MaintSkatFellesDkt057rValidator();
+			MaintSkatFellesDktardrValidator validator = new MaintSkatFellesDktardrValidator();
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
@@ -190,7 +190,9 @@ public class MaintSkatFellesDktardController {
 			List<JsonMaintDktardRecord> list = this.fetchList(appUser.getUser(), id, startDato);
 			//drop downs
 	    	List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
+	    	List codeListToldsatstype = this.skatMaintMainDropDownListPopulationService.getToldsatstypeList();
 	    	model.put("codeList022", codeList022);
+	    	model.put("codeListToldsatstype", codeListToldsatstype);
 	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
@@ -287,7 +289,7 @@ public class MaintSkatFellesDktardController {
 	private int updateRecord(String applicationUser, JsonMaintDktardRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKTARDR_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string

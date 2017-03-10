@@ -42,15 +42,23 @@ public class MaintSkatFellesDktardrValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
+				//Varekode
+				if (record.getDktard01()!=null && !"".equals(record.getDktard01())){
+					//length validation
+					if(record.getDktard01().length()<10){
+						errors.rejectValue("dktard01", " ", "Varekode er ugyldig"); 
+					}
+				}
+				
 				//Start dato
 				if (record.getDktard02()!=null && !"".equals(record.getDktard02())){
 					boolean isValidISOFormat = new DateValidator().validateDateIso203_YYYYMMDD(record.getDktard02());
 					if(!isValidISOFormat){
-						errors.rejectValue("dktard02", "", "Start dato er ugyldig"); 
+						errors.rejectValue("dktard02", " ", "Start dato er ugyldig"); 
 					}
 					//length validation
 					if(record.getDktard02().length()<8){
-						errors.rejectValue("dktard02", "Start dato er ugyldig"); 
+						errors.rejectValue("dktard02", " ", "Start dato er ugyldig"); 
 					}
 				}
 				//Slut dato
@@ -59,11 +67,11 @@ public class MaintSkatFellesDktardrValidator implements Validator {
 					if(!"99999999".equals(record.getDktard03())){
 						boolean isValidISOFormat = new DateValidator().validateDateIso203_YYYYMMDD(record.getDktard02());
 						if(!isValidISOFormat){
-							errors.rejectValue("dktard02", "", "Start dato er ugyldig"); 
+							errors.rejectValue("dktard02", " ", "Start dato er ugyldig"); 
 						}
 						//length validation
 						if(record.getDktard02().length()<8){
-							errors.rejectValue("dktard02", "Start dato er ugyldig"); 
+							errors.rejectValue("dktard02", " ",  "Start dato er ugyldig"); 
 						}
 					}
 				}
