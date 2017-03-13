@@ -182,7 +182,7 @@ public class CodeDropDownMgr {
 			if (jsonPayload != null) {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
-					for (JsonMaintMainChildWindowKofastRecord jsonMaintMainChildWindowKofastRecord :  container.getList()) {
+					for (JsonMaintMainChildWindowKofastRecord jsonMaintMainChildWindowKofastRecord :  container.getDtoList()) {
 						if (!"DEFN".equals(jsonMaintMainChildWindowKofastRecord.getKfkod())) {
 							list.add(jsonMaintMainChildWindowKofastRecord);
 						}

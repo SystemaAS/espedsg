@@ -21,14 +21,16 @@ import no.systema.jservices.common.brreg.proxy.entities.Enhet;
 import no.systema.jservices.common.dto.SyparfDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
-import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.controller.kund.VkundControllerUtil;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundcService;
+import no.systema.z.main.maintenance.service.MaintMainSyparfService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
@@ -48,11 +50,11 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 
 
 	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody List<SyparfDto> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
+	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syparf ";
 		logger.info(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
 
-		return (List<SyparfDto>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
+		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
 	}	
 	
 	
@@ -76,7 +78,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	}
 
 
-	private List<SyparfDto> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
+	private List<JsonMaintMainSyparfRecord> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
 		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
 		jsonReader.set(new JsonDtoContainer<SyparfDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
@@ -89,11 +91,15 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		logger.info("PARAMS: " + urlRequestParams.toString());
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		logger.info("jsonPayload=" + jsonPayload);
-		List<SyparfDto> list = new ArrayList<SyparfDto>();
-		JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
+		List<JsonMaintMainSyparfRecord> list = new ArrayList<JsonMaintMainSyparfRecord>();
+
+ 		JsonMaintMainSyparfContainer container = maintMainSyparfService.getContainer(jsonPayload);
 		if (container != null) {
-			list = container.getDtoList();
-		}
+			for (JsonMaintMainSyparfRecord syparfDto : container.getDtoList()) {
+				list.add(syparfDto);
+			}
+		}		
+		
 		return list;
 	}		
 	
@@ -154,5 +160,15 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	public MaintMainCundcService getMaintMainCundcService() {
 		return this.maintMainCundcService;
 	}
+	
+	@Qualifier ("maintMainSyparfService")
+	private MaintMainSyparfService maintMainSyparfService;
+	@Autowired
+	@Required
+	public void setMaintMainSyparfService (MaintMainSyparfService value){ this.maintMainSyparfService = value; }
+	public MaintMainSyparfService getMaintMainSyparfService(){ return this.maintMainSyparfService; }		
+	
+	
+	
 
 }

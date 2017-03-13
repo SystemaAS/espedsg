@@ -37,7 +37,7 @@ public class JsonMaintMainChildWindowKofastContainer implements IJsonMaintMainCo
 	}
 
 	@Override
-	public Collection<JsonMaintMainChildWindowKofastRecord> getList() {
+	public Collection<JsonMaintMainChildWindowKofastRecord> getDtoList() {
 		return list;
 	}
 

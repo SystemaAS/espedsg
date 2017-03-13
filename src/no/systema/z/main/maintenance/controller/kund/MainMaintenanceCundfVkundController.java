@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -237,7 +238,7 @@ public class MainMaintenanceCundfVkundController {
 			if (jsonPayload != null) {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
-					for (JsonMaintMainChildWindowKofastRecord record : container.getList()) {
+					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
 						kode = getChildWindowKode(record, noId);
 						kodeList.add(kode);
 					}
@@ -269,7 +270,8 @@ public class MainMaintenanceCundfVkundController {
 			if (jsonPayload != null) {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
-					for (JsonMaintMainChildWindowKofastRecord record : container.getList()) {
+					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
+						logger.info("JsonMaintMainChildWindowKofastRecord="+ReflectionToStringBuilder.toString(record));
 						kode = getChildWindowKode(record, noId);
 						kodeList.add(kode);
 					}

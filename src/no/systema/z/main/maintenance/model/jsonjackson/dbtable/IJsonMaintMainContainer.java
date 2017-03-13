@@ -18,6 +18,6 @@ public interface IJsonMaintMainContainer {
 	 * Get list of Records
 	 * @return
 	 */
-	public Collection<?> getList();
+	public Collection<?> getDtoList();
 
 }

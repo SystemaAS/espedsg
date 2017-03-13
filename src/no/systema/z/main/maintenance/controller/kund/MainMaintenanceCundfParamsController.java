@@ -2,6 +2,7 @@ package no.systema.z.main.maintenance.controller.kund;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,10 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfRecord;
+import no.systema.z.main.maintenance.service.MaintMainSyparfService;
+import no.systema.z.main.maintenance.service.MaintMainSyparfServiceImpl;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -67,9 +72,9 @@ public class MainMaintenanceCundfParamsController {
 			String firma = kundeSessionParams.getFirma();
 			String kundnr = kundeSessionParams.getKundnr();
 
-			List<SyparfDto> list = new ArrayList();
-			list = fetchList(appUser, kundnr, null);
-
+			Collection<JsonMaintMainSyparfRecord> list = new ArrayList();
+			list = fetchList(appUser, kundnr, null);			
+			
 			model.put("kundnr", kundnr);
 			model.put("firma", firma);
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
@@ -89,10 +94,6 @@ public class MainMaintenanceCundfParamsController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		
-		logger.info("action="+action);
-		logger.info("updateId="+updateId);
-		logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
 		
 		if (appUser == null) {
 			return this.loginView;
@@ -138,10 +139,9 @@ public class MainMaintenanceCundfParamsController {
 				}
 
 			}
-
-			List<SyparfDto> list = new ArrayList();
+			Collection<JsonMaintMainSyparfRecord> list = new ArrayList();
 			list = this.fetchList(appUser, kundeSessionParams.getKundnr(), null);
-
+			
 			model.put("kundnr", kundeSessionParams.getKundnr());
 			model.put("firma", kundeSessionParams.getFirma());
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
@@ -154,8 +154,9 @@ public class MainMaintenanceCundfParamsController {
 		}
 
 	}
+
 	
-	private List<SyparfDto> fetchList(SystemaWebUser appUser, String sykunr, String syrecn) {
+	private List<SyparfDto> fetchKalleAnka(SystemaWebUser appUser, String sykunr, String syrecn) {
 		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
 		jsonReader.set(new JsonDtoContainer<SyparfDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
@@ -174,9 +175,38 @@ public class MainMaintenanceCundfParamsController {
 		JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
 		if (container != null) {
 			list = container.getDtoList();
+			for (SyparfDto syparfDto : list) {
+				logger.info("syparfDto="+ReflectionToStringBuilder.toString(syparfDto));
+			}
 		}
 		return list;
 	}	
+	
+	
+	private Collection<JsonMaintMainSyparfRecord> fetchList(SystemaWebUser appUser, String sykunr, String syrecn) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&sykunr=" + sykunr);
+		if (syrecn != null) {
+			urlRequestParams.append("&syrecn=" + syrecn);
+		}
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+		Collection<JsonMaintMainSyparfRecord> list = new ArrayList<JsonMaintMainSyparfRecord>();
+
+  		JsonMaintMainSyparfContainer container = maintMainSyparfService.getContainer(jsonPayload);
+		if (container != null) {
+			for (JsonMaintMainSyparfRecord syparfDto : container.getDtoList()) {
+				list.add(syparfDto);
+			}
+		}
+
+		return list;
+	}		
 	
 	
 	private int updateRecord(String applicationUser, SyparfDto record, String mode, StringBuffer errMsg) {
@@ -196,11 +226,8 @@ public class MainMaintenanceCundfParamsController {
 		if (jsonPayload != null) {
 			JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
-				logger.info("container="+container);
-				logger.info("container.getErrMsg()="+container.getErrMsg());
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
 					errMsg.append(container.getErrMsg());
-					logger.info("errMsg="+errMsg.toString());
 					retval = MainMaintenanceConstants.ERROR_CODE;
 				}
 			}			
@@ -222,6 +249,13 @@ public class MainMaintenanceCundfParamsController {
 	@Required
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
+
+	@Qualifier ("maintMainSyparfService")
+	private MaintMainSyparfService maintMainSyparfService;
+	@Autowired
+	@Required
+	public void setMaintMainSyparfService (MaintMainSyparfService value){ this.maintMainSyparfService = value; }
+	public MaintMainSyparfService getMaintMainSyparfService(){ return this.maintMainSyparfService; }	
 	
 		
 }
