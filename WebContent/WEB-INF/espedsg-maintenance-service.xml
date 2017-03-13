@@ -106,6 +106,10 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainKofastService" class="no.systema.z.main.maintenance.service.MaintMainKofastServiceImpl"/>
 	<bean id="maintMainCundcService" class="no.systema.z.main.maintenance.service.MaintMainCundcServiceImpl"/>
 	<bean id="maintMainSyparfService" class="no.systema.z.main.maintenance.service.MaintMainSyparfServiceImpl"/>
+	<bean id="maintMainFratxtService" class="no.systema.z.main.maintenance.service.MaintMainFratxtServiceImpl"/>
+	<bean id="maintMainKodtlikService" class="no.systema.z.main.maintenance.service.MaintMainKodtlikServiceImpl"/>
+	<bean id="maintMainKodtotyService" class="no.systema.z.main.maintenance.service.MaintMainKodtotyServiceImpl"/>
+	<bean id="maintMainValufService" class="no.systema.z.main.maintenance.service.MaintMainValufServiceImpl"/>
 	
 	<bean id="maintMainKodtvKodtwService" class="no.systema.z.main.maintenance.service.MaintMainKodtvKodtwServiceImpl">
 		<property name="urlCgiProxyService"><ref bean="urlCgiProxyService"/></property>

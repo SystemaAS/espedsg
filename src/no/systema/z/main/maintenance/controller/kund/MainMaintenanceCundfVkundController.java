@@ -45,8 +45,17 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChil
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtlikContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtlikRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtotyContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtotyRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainValufContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainValufRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainKodtlikService;
+import no.systema.z.main.maintenance.service.MaintMainKodtotyService;
 import no.systema.z.main.maintenance.service.MaintMainKofastService;
+import no.systema.z.main.maintenance.service.MaintMainValufService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
@@ -297,20 +306,21 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
-		JsonDtoContainer<KodtlkDao> container =  (JsonDtoContainer<KodtlkDao> )jsonReader.get(jsonPayload);
+		JsonMaintMainKodtlikContainer container = maintMainKodtlikService.getContainer(jsonPayload);
 		if (container != null) {
-			for (KodtlkDao kodtlkDao : container.getDtoList()) {
-				kode = getChildWindowKode(kodtlkDao);
+			for (JsonMaintMainKodtlikRecord record : container.getDtoList()) {
+				kode = getChildWindowKode(record);
 				kodeList.add(kode);
 			}
-		}
+		}		
+		
 		return kodeList;
 	}	
 
-	private ChildWindowKode getChildWindowKode(KodtlkDao kodtlkDao) {
+	private ChildWindowKode getChildWindowKode(JsonMaintMainKodtlikRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
-		kode.setCode(kodtlkDao.getKlklk());
-		kode.setDescription(kodtlkDao.getKlknvn());
+		kode.setCode(record.getKlklk());
+		kode.setDescription(record.getKlknvn());
 
 		return kode;
 	}	
@@ -328,20 +338,21 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
-		JsonDtoContainer<KodtotyDao> container =  (JsonDtoContainer<KodtotyDao> )jsonReader.get(jsonPayload);
+		JsonMaintMainKodtotyContainer container = maintMainKodtotyService.getContainer(jsonPayload);
 		if (container != null) {
-			for (KodtotyDao kodtotyDao : container.getDtoList()) {
-				kode = getChildWindowKode(kodtotyDao);
+			for (JsonMaintMainKodtotyRecord record : container.getDtoList()) {
+				kode = getChildWindowKode(record);
 				kodeList.add(kode);
 			}
 		}
+		
 		return kodeList;
 	}	
 
-	private ChildWindowKode getChildWindowKode(KodtotyDao kodtotyDao) {
+	private ChildWindowKode getChildWindowKode(JsonMaintMainKodtotyRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
-		kode.setCode(kodtotyDao.getKo1kod());
-		kode.setDescription(kodtotyDao.getKo1ntx());
+		kode.setCode(record.getKo1kod());
+		kode.setDescription(record.getKo1ntx());
 
 		return kode;
 	}	
@@ -393,20 +404,21 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
-		JsonDtoContainer<ValufDao> container =  (JsonDtoContainer<ValufDao> )jsonReader.get(jsonPayload);
+		JsonMaintMainValufContainer container = maintMainValufService.getContainer(jsonPayload);
 		if (container != null) {
-			for (ValufDao valufDao : container.getDtoList()) {
-				kode = getChildWindowKode(valufDao);
+			for (JsonMaintMainValufRecord record : container.getDtoList()) {
+				kode = getChildWindowKode(record);
 				kodeList.add(kode);
 			}
-		}
+		}		
+		
 		return kodeList;
 	}	
 
-	private ChildWindowKode getChildWindowKode(ValufDao valufDao) {
+	private ChildWindowKode getChildWindowKode(JsonMaintMainValufRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
-		kode.setCode(valufDao.getValkod());
-		kode.setDescription(valufDao.getValtek());
+		kode.setCode(record.getValkod());
+		kode.setDescription(record.getValtek());
 
 		return kode;
 	}	
@@ -577,6 +589,27 @@ public class MainMaintenanceCundfVkundController {
 	public void setMaintSadImportKodtlikService (MaintSadImportKodtlikService value){ this.maintSadImportKodtlikService = value; }
 	public MaintSadImportKodtlikService getMaintSadImportKodtlikService(){ return this.maintSadImportKodtlikService; }	
 	
+	@Qualifier ("maintMainKodtlikService")
+	private MaintMainKodtlikService maintMainKodtlikService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtlikService (MaintMainKodtlikService value){ this.maintMainKodtlikService = value; }
+	public MaintMainKodtlikService getMaintMainKodtlikServicee(){ return this.maintMainKodtlikService; }
+	
+	@Qualifier ("maintMainKodtotyService")
+	private MaintMainKodtotyService maintMainKodtotyService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtotyService (MaintMainKodtotyService value){ this.maintMainKodtotyService = value; }
+	public MaintMainKodtotyService getMaintMainKodtotyService(){ return this.maintMainKodtotyService; }		
+		
+	@Qualifier ("maintMainValufService")
+	private MaintMainValufService maintMainValufService;
+	@Autowired
+	@Required
+	public void setMaintMainValufService (MaintMainValufService value){ this.maintMainValufService = value; }
+	public MaintMainValufService getMaintMainValufService(){ return this.maintMainValufService; }		
+		
 	
 }
 

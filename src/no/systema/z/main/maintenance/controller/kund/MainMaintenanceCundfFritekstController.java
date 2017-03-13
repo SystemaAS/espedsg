@@ -2,6 +2,7 @@ package no.systema.z.main.maintenance.controller.kund;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,10 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFratxtContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFratxtRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundcService;
+import no.systema.z.main.maintenance.service.MaintMainFratxtService;
 import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -60,7 +64,7 @@ public class MainMaintenanceCundfFritekstController {
 		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		List<ChangelogDTO> changelogList = null;
-		List<FratxtDao> originalList = null;
+		Collection<JsonMaintMainFratxtRecord> originalList = null;
 		String action = request.getParameter("action");
 		String searchKfkod = request.getParameter("searchKfkod");
 		String fxtxt = request.getParameter("fxtxt");
@@ -101,7 +105,6 @@ public class MainMaintenanceCundfFritekstController {
 				if (searchKfkod == null) {
 					searchKfkod = "";  // represents alle
 				}
-				logger.info("searchKfkod="+searchKfkod);
 				originalList = getFratxt(appUser, kundnr, searchKfkod);
 				fxtxt = fetchTekst(originalList);
 				changelogList = fetchChangelog(originalList);
@@ -148,18 +151,22 @@ public class MainMaintenanceCundfFritekstController {
 	}
 	
 	
-	private List<FratxtDao> getDeleteList(List<FratxtDao> insertList, List<FratxtDao> originalList) {
+	private List<FratxtDao> getDeleteList(List<FratxtDao> insertList, Collection<JsonMaintMainFratxtRecord> originalList) {
 		List<FratxtDao> deleteList = new ArrayList<FratxtDao>();
 		String orgLnr = null;
-
-		search: for (FratxtDao orgDao : originalList) {
-			orgLnr = orgDao.getFxlnr();
+		FratxtDao dao = null;
+		search: for (JsonMaintMainFratxtRecord orgRecord : originalList) {
+			orgLnr = orgRecord.getFxlnr();
 			for (FratxtDao insertDao : insertList) {
 				if (insertDao.getFxlnr().equals(orgLnr)) {
 					continue search;
 				}
 			}
-			deleteList.add(orgDao);
+			dao = new FratxtDao();
+			dao.setFxknr(orgRecord.getFxknr());
+			dao.setFxlnr(orgRecord.getFxlnr());
+			
+			deleteList.add(dao);
 		}
 
 		return deleteList;
@@ -194,17 +201,17 @@ public class MainMaintenanceCundfFritekstController {
 	}
 	
 	
-	private String fetchTekst(List<FratxtDao> orgFratxtDaoList) {
+	private String fetchTekst(Collection<JsonMaintMainFratxtRecord> orgFratxtDaoList) {
 		StringBuilder concatText = new StringBuilder();
-		List<FratxtDao> fratxtList = orgFratxtDaoList;
+		Collection<JsonMaintMainFratxtRecord> fratxtList = orgFratxtDaoList;
 		int newLines = 0;
 		int lnr = 0;
 		int prevLnr = 0;
-		for (FratxtDao fratxtDao : fratxtList) {
+		for (JsonMaintMainFratxtRecord record : fratxtList) {
 			prevLnr = lnr;
-			lnr = Integer.parseInt(fratxtDao.getFxlnr());
+			lnr = Integer.parseInt(record.getFxlnr());
 			newLines = lnr - prevLnr;
-			concatText.append(newLines(newLines)).append(fratxtDao.getFxtxt());
+			concatText.append(newLines(newLines)).append(record.getFxtxt());
 		}
 		return concatText.toString();
 	}
@@ -218,24 +225,22 @@ public class MainMaintenanceCundfFritekstController {
 		return lines.toString();
 	}
 	
-	private List<ChangelogDTO> fetchChangelog(List<FratxtDao> orgFratxtDaoList) {
-		List<FratxtDao> fratxtList = orgFratxtDaoList;
+	private List<ChangelogDTO> fetchChangelog(Collection<JsonMaintMainFratxtRecord> orgFratxtDaoList) {
+		Collection<JsonMaintMainFratxtRecord> fratxtList = orgFratxtDaoList;
 		List<ChangelogDTO> changeLogList = new ArrayList<ChangelogDTO>();
 		ChangelogDTO changeLog = null;
-		for (FratxtDao fratxtDao : fratxtList) {
+		for (JsonMaintMainFratxtRecord record : fratxtList) {
 			changeLog = new ChangelogDTO();
-			if (fratxtDao.getFxusr() != null && !"".equals(fratxtDao.getFxusr().trim())) {
-				changeLog.setFxusr(fratxtDao.getFxusr());
-				changeLog.setFxdt(fratxtDao.getFxdt());
+			if (record.getFxusr() != null && !"".equals(record.getFxusr().trim())) {
+				changeLog.setFxusr(record.getFxusr());
+				changeLog.setFxdt(record.getFxdt());
 				changeLogList.add(changeLog);
 			}
 		}
 		return changeLogList;
 	}	
 	
-	private List<FratxtDao> getFratxt(SystemaWebUser appUser, String kundnr, String kfkod) {
-		JsonReader<JsonDtoContainer<FratxtDao>> jsonReader = new JsonReader<JsonDtoContainer<FratxtDao>>();
-		jsonReader.set(new JsonDtoContainer<FratxtDao>());
+	private Collection<JsonMaintMainFratxtRecord> getFratxt(SystemaWebUser appUser, String kundnr, String kfkod) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_FRATXT_GET_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
 		urlRequestParams.append("user=" + appUser.getUser());
@@ -246,10 +251,12 @@ public class MainMaintenanceCundfFritekstController {
 		logger.info("PARAMS: " + urlRequestParams.toString());
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		logger.info("jsonPayload=" + jsonPayload);
-		List<FratxtDao> list = new ArrayList<FratxtDao>();
-		JsonDtoContainer<FratxtDao> container = (JsonDtoContainer<FratxtDao>) jsonReader.get(jsonPayload);
+		Collection<JsonMaintMainFratxtRecord> list = new ArrayList<JsonMaintMainFratxtRecord>();
+  		JsonMaintMainFratxtContainer container = maintMainFratxtService.getContainer(jsonPayload);
 		if (container != null) {
-			list = container.getDtoList();
+			for (JsonMaintMainFratxtRecord syparfDto : container.getDtoList()) {
+				list.add(syparfDto);
+			}
 		}
 		return list;
 	}		
@@ -280,6 +287,13 @@ public class MainMaintenanceCundfFritekstController {
 	@Required
 	public void setMaintMainKofastService (MaintMainKofastService value){ this.maintMainKofastService = value; }
 	public MaintMainKofastService getMaintMainKofastService(){ return this.maintMainKofastService; }	
+	
+	@Qualifier ("maintMainFratxtService")
+	private MaintMainFratxtService maintMainFratxtService;
+	@Autowired
+	@Required
+	public void setMaintMainFratxtService (MaintMainFratxtService value){ this.maintMainFratxtService = value; }
+	public MaintMainFratxtService getMaintMainFratxtService(){ return this.maintMainFratxtService; }		
 	
 		
 }
