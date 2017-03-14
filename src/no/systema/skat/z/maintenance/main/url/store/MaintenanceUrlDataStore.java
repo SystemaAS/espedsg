@@ -25,6 +25,9 @@ public final class MaintenanceUrlDataStore {
 	//DKTARDR
 	//Specific code --> http://gw.systema.no:8080/syjservicesst/syjsDKTARDR.do?user=OSCAR&dktard01=10...
 	static public String MAINTENANCE_BASE_DKTARDR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKTARDR.do";
+	//DKT055R
+	//Specific code --> http://gw.systema.no:8080/syjservicesst/syjsDKT055R.do?user=OSCAR
+	static public String MAINTENANCE_BASE_DKT055R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKT055R.do";
 
 	//----------------------------------
 	//[1] UPDATE DB record
@@ -39,5 +42,8 @@ public final class MaintenanceUrlDataStore {
 	//DKTARDR
 	//Specific code --> TODO http://gw.systema.no:8080/syjservicesst/syjsDKTARDR_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String MAINTENANCE_BASE_DKTARDR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKTARDR_U.do";
-		
+	//DKT055R
+	//Specific code --> TODO http://gw.systema.no:8080/syjservicesst/syjsDKT055R_U.do?user=OSCAR&mode=U&<record>attributes...
+	static public String MAINTENANCE_BASE_DKT055R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKT055R_U.do";
+			
 }

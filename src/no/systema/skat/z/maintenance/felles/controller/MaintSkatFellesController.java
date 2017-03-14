@@ -95,8 +95,8 @@ public class MaintSkatFellesController {
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 		        
 		object.setId("1");
-		object.setSubject("Vedligeholdelse af firmaoplys.");
-		object.setCode("SKAT_FIRMOPP");
+		object.setSubject("Vedligeholdelse af firmaoplysninger");
+		object.setCode("SKAT_FIRMOPL");
 		object.setText("DKT055 / DKTFI");
 		object.setDbTable("DKTFI");
 		object.setStatus("G");

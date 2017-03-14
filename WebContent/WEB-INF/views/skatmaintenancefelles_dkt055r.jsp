@@ -120,9 +120,9 @@
 							<td class="text12" title="dktf_0022t">&nbsp;Kodeord</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0004t" id="dktf_0004t" size="30" maxlength="35" value='${Xmodel.record.dktf_0004t}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0010t" id="dktf_0010t" size="30" maxlength="35" value='${Xmodel.record.dktf_0010t}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0022t" id="dktf_0022t" size="15" maxlength="14" value='${Xmodel.record.dktf_0022t}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0004t" id="dktf_0004t" size="30" maxlength="35" value='${model.record.dktf_0004t}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0010t" id="dktf_0010t" size="30" maxlength="35" value='${model.record.dktf_0010t}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0022t" id="dktf_0022t" size="15" maxlength="14" value='${model.record.dktf_0022t}'></td>
 						</tr>
 						<tr height="5"><td></td>
 						<tr>
@@ -138,9 +138,9 @@
 							<td class="text12" title="dktf_ftipt">&nbsp;Adresse</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftust" id="dktf_ftust" size="30" maxlength="35" value='${Xmodel.record.dktf_ftust}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftpwt" id="dktf_ftpwt" size="21" maxlength="20" value='${Xmodel.record.dktf_ftpwt}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftipt" id="dktf_ftipt" size="40" maxlength="64" value='${Xmodel.record.dktf_ftipt}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftust" id="dktf_ftust" size="30" maxlength="35" value='${model.record.dktf_ftust}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftpwt" id="dktf_ftpwt" size="21" maxlength="20" value='${model.record.dktf_ftpwt}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftipt" id="dktf_ftipt" size="40" maxlength="64" value='${model.record.dktf_ftipt}'></td>
 						</tr>
 						<tr height="3"><td></td>
 						<tr>
@@ -150,8 +150,8 @@
 							<td >
 								<select name="dktf_0031t" id="dktf_0031t">
 	        		    			<option value="">-velg-</option>
-								  	<option value="1"<c:if test="${ Xmodel.record.dktf_0031t == '1'}"> selected </c:if> >Ja</option>
-								  	<option value=""<c:if test="${ Xmodel.record.dktf_0031t == ''}"> selected </c:if> >Nei</option>
+								  	<option value="1"<c:if test="${ model.record.dktf_0031t == '1'}"> selected </c:if> >Ja</option>
+								  	<option value=""<c:if test="${ model.record.dktf_0031t == ''}"> selected </c:if> >Nei</option>
 								</select>
 							</td>
 						</tr>
@@ -183,9 +183,9 @@
 							<td class="text12" title="dktf_0022p">&nbsp;Kodeord</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0004p" id="dktf_0004p" size="30" maxlength="35" value='${Xmodel.record.dktf_0004p}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0010p" id="dktf_0010p" size="30" maxlength="35" value='${Xmodel.record.dktf_0010p}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0022p" id="dktf_0022p" size="15" maxlength="14" value='${Xmodel.record.dktf_0022p}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0004p" id="dktf_0004p" size="30" maxlength="35" value='${model.record.dktf_0004p}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0010p" id="dktf_0010p" size="30" maxlength="35" value='${model.record.dktf_0010p}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_0022p" id="dktf_0022p" size="15" maxlength="14" value='${model.record.dktf_0022p}'></td>
 						</tr>
 						<tr height="5"><td></td>
 						<tr>
@@ -201,9 +201,9 @@
 							<td class="text12" title="dktf_ftipp">&nbsp;Adresse</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftusp" id="dktf_ftusp" size="30" maxlength="35" value='${Xmodel.record.dktf_ftusp}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftpwp" id="dktf_ftpwp" size="21" maxlength="20" value='${Xmodel.record.dktf_ftpwp}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftipp" id="dktf_ftipp" size="40" maxlength="64" value='${Xmodel.record.dktf_ftipp}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftusp" id="dktf_ftusp" size="30" maxlength="35" value='${model.record.dktf_ftusp}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftpwp" id="dktf_ftpwp" size="21" maxlength="20" value='${model.record.dktf_ftpwp}'></td>
+							<td ><input type="text" class="inputTextMediumBlue" name="dktf_ftipp" id="dktf_ftipp" size="40" maxlength="64" value='${model.record.dktf_ftipp}'></td>
 						</tr>
 						<tr height="3"><td></td>
 						<tr>
@@ -213,8 +213,8 @@
 							<td >
 								<select name="dktf_0031p" id="dktf_0031p">
 	        		    			<option value="">-velg-</option>
-								  	<option value="1"<c:if test="${ Xmodel.record.dktf_0031p == '1'}"> selected </c:if> >Ja</option>
-								  	<option value=""<c:if test="${ Xmodel.record.dktf_0031p == ''}"> selected </c:if> >Nei</option>
+								  	<option value="1"<c:if test="${ model.record.dktf_0031p == '1'}"> selected </c:if> >Ja</option>
+								  	<option value=""<c:if test="${ model.record.dktf_0031p == ''}"> selected </c:if> >Nei</option>
 								</select>
 							</td>
 						</tr>
@@ -225,7 +225,7 @@
 	 	    			<tr height="10"><td>&nbsp;</td>
 			    	    <tr>
 				    	    <td colspan="2" class="text12" title="dktard01">&nbsp;Bibliotek for LSOUTPUT&nbsp;&nbsp;&nbsp;
-				    	    <input type="text" class="inputTextMediumBlue" name="dktf_lsli" id="dktf_lsli" size="11" maxlength="10" value='${Xmodel.record.dktf_lsli}'>
+				    	    <input type="text" class="inputTextMediumBlue" name="dktf_lsli" id="dktf_lsli" size="11" maxlength="10" value='${model.record.dktf_lsli}'>
 				    	    </td>
 				    	    <td class="text12" align="right">
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare'/>
