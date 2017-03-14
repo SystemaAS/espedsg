@@ -155,23 +155,15 @@
 										</font>&nbsp;						
 									</a>
 								</td>
+								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareregister.do">
+										<font class="tabDisabledLinkMinor">&nbsp;
+											<spring:message code="systema.main.maintenance.customer.vareregister"/>
+										</font>&nbsp;						
+									</a>
+								</td>
 								
 <!-- 
-								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;
-											<spring:message code="systema.main.maintenance.customer.stuff.import"/>
-										</font>&nbsp;						
-									</a>
-								</td>
-
-								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintVareExpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;
-											<spring:message code="systema.main.maintenance.customer.stuff.export"/>
-										</font>&nbsp;						
-									</a>
-								</td>
 
 								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
@@ -184,14 +176,12 @@
 <!--  
 								<td width="40" class="tabDisabledTrailingEnd"  align="center" nowrap></td>
 -->
-							 	<td width="770" class="tabFantomSpace" align="center" nowrap></td>
+							 	<td width="660" class="tabFantomSpace" align="center" nowrap></td>
 
 
 						</tr>
 					</table>
 				</td>
- 	   	 	
- 	   	 	
  	   	 	</tr> <!-- End second tab row -->
  
  	    	<tr>
