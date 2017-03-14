@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_params_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_vareimp_no_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -148,20 +148,21 @@
 									</font>&nbsp;						
 								</a>
 							</td>
-							<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
-									<font class="tabLinkMinor">&nbsp;
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_params_list.do">
+									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer.params"/>
 									</font>&nbsp;						
-							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareregister.do">
-										<font class="tabDisabledLinkMinor">&nbsp;
-											<spring:message code="systema.main.maintenance.customer.vareregister"/>
-										</font>&nbsp;						
-									</a>
+								</a>
+							</td>							
+							<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
+									<font class="tabLinkMinor">&nbsp;
+										<spring:message code="systema.main.maintenance.customer.vareregister"/>
+									</font>&nbsp;						
 							</td>
 							
 <!--  
+
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintMavgGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_xxx_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
@@ -177,10 +178,63 @@
 						</tr>
 					</table>
 				</td>
- 	   	 	
- 	   	 	
- 	   	 	</tr> <!-- End second tab row -->
- 	   	 	
+ 	   	 	</tr> <!-- End second tab row  -->  
+
+	   	 	<tr> 
+ 	   	 		<td>&nbsp;</td>
+ 	   	 	    <td>
+ 					<table id= "thirdTabRow" class=formFrameHeaderTransparentThirdTabRow style="width:1000px" cellspacing="0" border="0" cellpadding="0">
+ 					   <tr height="20"><td>&nbsp;</td>
+ 					   </tr>
+					  <tr height="20"> 
+							<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
+									<font class="tabLinkMinor">&nbsp;
+									   <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
+									</font>
+							</td>
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<!--  	<a id="alinkMainMaintVareExpNoGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_no_edit.do"> -->
+									<font class="tabDisabledLinkMinor">&nbsp;
+										  <spring:message code="systema.main.maintenance.customer.vareregister.exp.no"/>
+									</font>&nbsp;						
+							<!--	</a>    -->
+							</td>
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<!--  	<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_dk_edit.do"> -->
+									<font class="tabDisabledLinkMinor">&nbsp;
+										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.dk"/>
+									</font>&nbsp;						
+							<!--  	</a> -->
+							</td>
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_dk_edit.do">  -->
+									<font class="tabDisabledLinkMinor">&nbsp;
+										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.dk"/>
+									</font>&nbsp;						
+							<!--  	</a> -->
+							</td>							
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">  -->
+									<font class="tabDisabledLinkMinor">&nbsp;
+										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.se"/>
+									</font>&nbsp;						
+							<!--  	</a> -->
+							</td>
+							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<!--  	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se_edit.do"> -->
+									<font class="tabDisabledLinkMinor">&nbsp;
+										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
+									</font>&nbsp;						
+							<!-- 	</a>  -->
+							</td>		
+							
+						 	<td width="550" class="tabFantomSpace" align="center" nowrap></td>
+
+						</tr>
+					</table>
+				</td>
+ 	   	 	</tr> <!-- End third tab row -->
+
  	   	 	<tr height="30">
  	   	 		<td>&nbsp;</td>
  	   	 		<td width="100%">

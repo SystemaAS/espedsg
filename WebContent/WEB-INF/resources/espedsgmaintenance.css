@@ -1421,6 +1421,25 @@ END override jQuery elements
     
 }
 
+.formFrameHeaderTransparentThirdTabRow { 
+	border: 0px solid #4E78A0;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color:#FFFFFF; 
+    background-color: #FFFFFF;
+    border-style: solid; 
+    border-width: 0px 1px 0px 1px; 
+    border-color: #DDDDDD;
+    
+}
+
 .divisionLine {
 	border:2px solid;
 	border-radius:25px;
