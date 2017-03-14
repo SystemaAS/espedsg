@@ -780,7 +780,7 @@
 						 				<td align="center" class="tableCell" >
 							 				<button name="dangerousGoodsButton_${counter.count}" class="buttonGray" type="button" onClick="showPop('dangerousGoods_${counter.count}');" >Mere...</button>
 							 					<div class="text11" style="position: relative;" align="left">
-							 					<span style="position:absolute;left:-320px;" id="dangerousGoods_${counter.count}" class="popupWithInputText"  >
+							 					<span style="position:absolute;left:-360px;" id="dangerousGoods_${counter.count}" class="popupWithInputText"  >
 								           		<table>
 								           			<tr>
 								           				<td width="2%" align="left" valign="bottom" class="tableHeaderFieldFirst11"><span title="linnrDG only for info purpose...">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.linenr"/></span></td>
@@ -1023,7 +1023,7 @@
 						 				<td align="center" class="tableCell" >
 							 				<button name="dangerousGoodsNewLineButton" class="buttonGray" type="button" onClick="showPop('dangerousGoodsNewLine');" >Mere...</button>
 							 					<div class="text11" style="position: relative;" align="left">
-							 					<span style="position:absolute;left:-300px;" id="dangerousGoodsNewLine" class="popupWithInputText"  >
+							 					<span style="position:absolute;left:-320px;" id="dangerousGoodsNewLine" class="popupWithInputText"  >
 								           		<table>
 								        			<tr>
 								        				<td align="center" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
