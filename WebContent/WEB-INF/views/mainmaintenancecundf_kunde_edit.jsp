@@ -156,7 +156,7 @@
 									</a>
 								</td>
 								<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareregister.do">
+									<a id="alinkMainMaintVareRegGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareregister.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.vareregister"/>
 										</font>&nbsp;						
