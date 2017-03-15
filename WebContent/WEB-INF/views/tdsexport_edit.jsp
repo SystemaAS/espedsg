@@ -899,7 +899,7 @@
 				 			<td colspan="2" class="text12" align="left" >
 				 				<input readonly style="text-align: left" type="text" class="inputTextReadOnly" name="sumOfInvoiceAmountInItemLines" id="sumOfInvoiceAmountInItemLines" size="20" maxlength="20" value="${model.record.sumOfInvoiceAmountInItemLinesStr}">
 				 				<c:if test="${not empty (sumOfInvoiceAmountInItemLinesStr && model.record.sveh_fabl)}">
-			            			<c:if test="${model.record.sumOfInvoiceAmountInItemLines != model.record.sveh_fabl_dbl}">
+			            			<c:if test="${model.record.sumOfInvoiceAmountInItemLinesStr != model.record.sveh_fabl_dbl}">
 						            	<img onMouseOver="showPop('itemsSumInvoiceAmount_info');" onMouseOut="hidePop('itemsSumInvoiceAmount_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="invoice amount warning">	
 				            		</c:if>
 				            	</c:if>

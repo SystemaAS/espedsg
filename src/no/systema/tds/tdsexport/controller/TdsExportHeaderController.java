@@ -32,6 +32,7 @@ import org.springframework.web.bind.WebDataBinder;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.skat.util.SkatConstants;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
@@ -88,7 +89,7 @@ public class TdsExportHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private TaricDirectAccessorMgr taricDirectAccessorMgr = new TaricDirectAccessorMgr();
-	
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -1302,10 +1303,9 @@ public class TdsExportHeaderController {
     	logger.info("Bruttovikt(sum): " + grossWeight);
     	logger.info("Fakt.belopp(sum): " + invoiceAmount);
     	*/
-    	
     	topicRecord.setSumOfAntalKolliInItemLines(antalKolli);
     	topicRecord.setSumOfGrossWeightInItemLines(grossWeight);
-    	topicRecord.setSumOfInvoiceAmountInItemLines(invoiceAmount);
+    	topicRecord.setSumOfInvoiceAmountInItemLines(this.numberFormatter.getDouble(invoiceAmount, 3));
     	
     	return topicRecord;
 	}
@@ -1552,6 +1552,7 @@ public class TdsExportHeaderController {
 			record.setSumOfAntalKolliInItemLines(sumTopicRecord.getSumOfAntalKolliInItemLines());
 			record.setSumOfGrossWeightInItemLines(sumTopicRecord.getSumOfGrossWeightInItemLines());
 			record.setSumOfInvoiceAmountInItemLines(sumTopicRecord.getSumOfInvoiceAmountInItemLines());
+			
 			record.setInvoiceListTotSum(sumFaktTotalRecord.getTot_fabl());
 			record.setInvoiceListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
 			record.setInvoiceListTotKurs(sumFaktTotalRecord.getTot_vaku());

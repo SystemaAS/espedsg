@@ -3,6 +3,8 @@
  */
 package no.systema.main.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -40,6 +42,7 @@ public class NumberFormatterLocaleAware {
 		 return retval;
 		 
 	 }
+	 
 	 /**
 	  * 
 	  * @param sourceNumber
@@ -63,6 +66,7 @@ public class NumberFormatterLocaleAware {
 		 return retval;
 		 
 	 }
+	 
 	 /**
 	  * 
 	  * @param sourceNumber
@@ -187,15 +191,13 @@ public class NumberFormatterLocaleAware {
 	  * @return
 	  */
 	 public Double getDouble(Double sourceNumber, int numberOfDecimals){
-		 StringBuffer suffixDecimals = new StringBuffer();
-		 for(int x=0;x<numberOfDecimals;x++){
-			 suffixDecimals.append("0");
+		 Double retval = sourceNumber;
+		 try{
+			retval = new BigDecimal(sourceNumber).setScale(numberOfDecimals, RoundingMode.HALF_UP).doubleValue();
+		 }catch(Exception e){
+			 e.printStackTrace();
 		 }
-		 DecimalFormat df = new DecimalFormat("#." + suffixDecimals.toString() );
-		 String sourceNumberStr = df.format(sourceNumber);
-		 Double retval = Double.valueOf(sourceNumberStr);
 		 return retval;
-		
 	 }
 	 
 	 

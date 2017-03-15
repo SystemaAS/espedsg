@@ -57,7 +57,7 @@
 							&nbsp;<spring:message code="systema.skat.export.created.mastertopic.tab"/>
 						</font>
 						<font class="text12MediumBlue">[${model.record.dkeh_syop}]</font>
-						<c:if test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97'}">
+						<c:if test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
 							<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 						</c:if>
 					</td>
@@ -994,7 +994,7 @@
 			            		<td colspan="4" class="text9BlueGreen" valign="bottom" align="left" >
 								<%-- only status = M or emtpy status is allowed --%>
 			 				    <c:choose>
-				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97'}">
+				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
 					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">
@@ -1624,7 +1624,7 @@
 				            <tr >	
 			            		<td class="text9BlueGreen" valign="bottom" align="left" >
 			 				    <c:choose>
-				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97'}">
+				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
 					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">

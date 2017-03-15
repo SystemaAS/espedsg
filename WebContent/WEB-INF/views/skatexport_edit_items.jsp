@@ -46,7 +46,7 @@
 					
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.skat.export.created.mastertopic.tab"/></font>
 					<font class="text12MediumBlue">[${model.opd}]</font>
-					<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+					<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 						<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 					</c:if>
 				</a>
@@ -63,7 +63,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
 				<font class="tabLink">&nbsp;<spring:message code="systema.skat.export.item.createnew.tab"/></font>
-				<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+				<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 					<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 				</c:if>
 				
@@ -232,7 +232,7 @@
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
 										<td class="text12Bold">
-											<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+											<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='skatexport_edit_items.do';" value="<spring:message code="systema.skat.export.item.line.init.createnew.submit"/>">
 											</c:if>
 											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Vis alle</button> 
@@ -258,7 +258,7 @@
 												                    <th class="text12">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
 												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
 												                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkerr.error"/>&nbsp;</th>
-												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+												                    <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 													                    	<th align="center" class="text12" nowrap>Fjern</th>
 												                    </c:if>
 											               		</tr> 
@@ -297,7 +297,7 @@
 														               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               </td>
-														               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
+														               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">	
 															               <td class="text11" align="center" >
 															               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">
 															               		<img src="resources/images/delete.gif" border="0" alt="remove">
@@ -333,7 +333,7 @@
 										   			</div>
 								   				</span>
 								   					
-								   			<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">		
+								   			<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">		
 												&nbsp;<button title="Kontrollere vareposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Kontrollere vareposter</button>
 											</c:if>		
 								   				
@@ -400,7 +400,7 @@
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_46.statValue"/>&nbsp;</th>
 					                    <th class="text11" nowrap>&nbsp;<spring:message code="systema.skat.export.item.list.label.dkev_42.varansPris"/>&nbsp;</th>
 					                    <th class="text12" >&nbsp;<spring:message code="systema.skat.export.item.list.label.dkerr.error"/>&nbsp;</th>
-										<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+										<c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 					                    	<th align="center" class="text11" nowrap>Fjern</th>
 					                    </c:if>  
 					               		</tr> 
@@ -439,7 +439,7 @@
 							               			<img src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 							               </td>
-   							               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
+   							               <c:if test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_items.do?action=doDelete&avd=${record.dkev_syav}&opd=${record.dkev_syop}&lin=${record.dkev_syli}&fabl=${recordTopicSkat.dkeh_222}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
@@ -1202,7 +1202,7 @@
 										</td>
     									    <td align="left" colspan="5">
 												<c:choose>	
-													<c:when test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
+													<c:when test="${model.status == 'M' || empty model.status || model.status == '11' || model.status == '20' || model.status == '97' || model.status == '40'}">
 														<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit_items.do';" value='<spring:message code="systema.skat.export.item.createnew.submit"/>'>
 														&nbsp;&nbsp;
 														<%-- SEND button: is causing some issues in the Stat.värde calculation
