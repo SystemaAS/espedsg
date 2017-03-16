@@ -866,11 +866,11 @@ public class EbookingMainOrderHeaderController {
 						fraktbrevList.add(fraktbrevRecord);
 					}
 					//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
-		    		this.populateEmptyFraktbrevList(fraktbrevList);
+		    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
 				}
 	    	}
     	}else{
-    		this.populateEmptyFraktbrevList(fraktbrevList);
+    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
     	}
     	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
     	
@@ -881,6 +881,7 @@ public class EbookingMainOrderHeaderController {
 	 * 
 	 * @param fraktbrevList
 	 */
+	/** N/A
 	private void populateEmptyFraktbrevList (List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList){
 		if(fraktbrevList==null || fraktbrevList.size()<EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES){
 			int start = fraktbrevList.size();
@@ -890,7 +891,7 @@ public class EbookingMainOrderHeaderController {
 			}
 		}
 	}
-	
+	**/
 	/**
 	 * 
 	 * @param model

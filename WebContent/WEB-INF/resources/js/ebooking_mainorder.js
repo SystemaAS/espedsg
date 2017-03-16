@@ -960,7 +960,6 @@
   //Add Item line (in Order)
   //--------------------------
   function addItemLine() {
-	  
 	  //[1] Validate new line first
 	  //if(private_validateNewItemLine()){
 	  
@@ -1423,7 +1422,7 @@
   function deleteOrderLine(element){
 	  var id = element.id;
 	  var record = id.split('_');
-	  var counter = record[1]; 
+	  var counter = Number(record[1]); 
 	  var r = confirm("Are you sure you want to remove this order line?");
 	  if (r == true){
 		  updateOrderLineTotalsBeforeDelete(counter);
@@ -1444,6 +1443,7 @@
   // UPDATE before DELETE ORDER LINE
   //--------------------------------
   function updateOrderLineTotalsBeforeDelete(counter_delete) { 
+	  /*
       //Antall
 	  var sum = 0;
 	  jq( ".clazzAntMathAware" ).each(function( i ) {
@@ -1528,13 +1528,14 @@
 	  //this ADR-field in NOT REQUIRED to be blocked by Protected checkbox: hestl4
 	  jq("#hepoen").attr("readonly", false); 
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
-	  
+	  */
   }
   
 //-----------------------------
   //UPDATE before ADD ORDER LINE
   //-----------------------------
   function updateOrderLineTotalsBeforeAdd() { 
+	  /*
       //Antall
 	  var sum = 0;
 	  jq( ".clazzAntMathAware" ).each(function( i ) {
@@ -1635,6 +1636,8 @@
 		  fakt = parseInt(faktStr);
 		  sum += (unit*fakt);
 	  }*/
+	  
+	  /*
 	  var unitStr = jq('#ffante').val();
 	  var faktStr = jq('#ownAdrFaktNewLine').val();
 	  if(unitStr!='' && faktStr!=''){
@@ -1647,7 +1650,7 @@
 	  //ADR field NOT REQUIRED to be blocked by checkbox: hestl4
 	  jq("#hepoen").attr("readonly", false); 
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
-	  
+	  */
   }
   
   //UPDATE before SUBMIT Vareslag - TOT
@@ -1672,6 +1675,33 @@
 	  return isTrue;
 	  
   }
+  
+//-------------------
+  //Datatables jquery
+  //-------------------
+  //private function
+  function filterGlobal () {
+    jq('#tblItemLines').dataTable().search(
+    	jq('#tblItemLines_filter').val()
+    ).draw();
+  }
+  jq(document).ready(function(){
+		  //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLines').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "180px",
+	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  	  });
+	      
+	      //event on input field for search
+	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+	      
+	});
+	
   
   
   
