@@ -39,6 +39,7 @@ import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
@@ -88,7 +89,7 @@ public class EbookingMainOrderHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
-	
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -785,10 +786,7 @@ public class EbookingMainOrderHeaderController {
 		String vkt = fraktbrevRecord.getFvvkt();
 		String desc = fraktbrevRecord.getFvvt();
 		
-		if( (ant!=null && !"".equals(ant))  && 
-			(vkt!=null && !"".equals(vkt))  && 
-			(desc!=null && !"".equals(desc))){
-	
+		if( (ant!=null && !"".equals(ant))  && (vkt!=null && !"".equals(vkt))  && (desc!=null && !"".equals(desc))){
 			retval = true;
 		}
 		return retval;
@@ -864,8 +862,12 @@ public class EbookingMainOrderHeaderController {
 				if(container!=null){
 		    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
 						fraktbrevList.add(fraktbrevRecord);
+						
 					}
-					//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
+		    		//set totals
+		    		this.setFraktbrevsTotals(container, orderRecord);
+					
+		    		//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
 		    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
 				}
 	    	}
@@ -876,6 +878,44 @@ public class EbookingMainOrderHeaderController {
     	
     	//populate the list on parent record
 		orderRecord.setFraktbrevList(fraktbrevList);
+	}
+	/**
+	 * 
+	 * @param container
+	 * @param orderRecord
+	 */
+	private void setFraktbrevsTotals(JsonMainOrderHeaderFraktbrevContainer container, JsonMainOrderHeaderRecord orderRecord ){
+		Integer hent = 0;
+		Double hevkt = 0.00D;
+		Double hem3 = 0.00D;
+		Double helm = 0.00D;
+		
+		if(container!=null){
+    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
+				hent += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvant()));
+				logger.info(hent);
+				hevkt += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
+				hem3 += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvol()));
+				helm += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvlm()));
+				
+			}
+    		orderRecord.setHent(String.valueOf(hent));
+    		orderRecord.setHevkt( String.valueOf( this.numberFormatter.getDouble(hevkt, 3)) );
+    		orderRecord.setHem3( String.valueOf( this.numberFormatter.getDouble(hem3, 3)) );
+    		orderRecord.setHelm( String.valueOf( this.numberFormatter.getDouble(helm, 3)) );
+		}	
+	}
+	/**
+	 * help function
+	 * @param value
+	 * @return
+	 */
+	private String getNumericString(String value){
+		String retval = "0";
+		if(value!=null && !"".equals(value)){
+			retval = value.replace("," , ".");
+		}
+		return retval;
 	}
 	/**
 	 * 

@@ -703,12 +703,12 @@
 				 		<%-- UPDATE LINEs SECTION --%>
 				 		<tr>
 							<td >
-									
-								<table id="tblItemLines" class="display compact cell-border" >
+				 				<table id="tblItemLines" class="display compact cell-border" >
 								
 								<thead>
 								
 						 		<tr style="background-color:#DDDDDD" >
+						 			<th align="center" class="text11"><spring:message code="systema.ebooking.orders.form.detail.update.label.update"/></th>
 							 		<th align="left" class="text11"><span title="fvlinr">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.linenr"/></span></th>
 							 		<th align="left" class="text11"><span title="fmmrk1/hegm1(Tot)">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.marks"/></span></th>
 						 			<th align="right" class="text11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.antal"/>&nbsp;</span></th>
@@ -741,17 +741,18 @@
 						 					
 						 			</c:if>
 						 			
-							 		<tr class="tableRow" >
+							 		<tr >
 							 			<%-- lineNr will always be sent(to the controller) in case this is a new line (when fvlinr=null) --%>
 						 				<input type="hidden" name="lineNr_${counter.count}" id="lineNr_${counter.count}" value="${counter.count}" >   
 							 			<input type="hidden" name="fvlinr_${counter.count}" id="fvlinr_${counter.count}" value="${fraktbrevRecord.fvlinr}" >
 							 			
-							 			<td width="2%" align="center" class="text11" nowrap>${counter.count}</td>
+							 			<td align="center" class="text11" ><img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update line"></td>
+							 			<td align="center" class="text11" nowrap>${counter.count}</td>
 					               		<td align="left" class="text11" nowrap>${fraktbrevRecord.fmmrk1}</td>
 						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvant}</td>
-						 				<td width="7%" align="left" class="text11" nowrap>${fraktbrevRecord.fvpakn}</td>
-						 				<td width="7%" align="left" class="text11" nowrap>${fraktbrevRecord.fvvt}</td>
-						 				<td width="7%" align="right" class="text11" nowrap>${fraktbrevRecord.fvvkt}</td>
+						 				<td align="left" class="text11" nowrap>${fraktbrevRecord.fvpakn}</td>
+						 				<td align="left" class="text11" nowrap>${fraktbrevRecord.fvvt}</td>
+						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvvkt}</td>
 						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvlen}</td>
 						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvbrd}</td>
 						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvhoy}</td>
@@ -809,20 +810,76 @@
 						               		</c:if> 	
 							 			</td>
 						 			</tr>
-					 			</c:forEach>
+					 			</c:forEach>					 			
 					 			</tbody>
+					 			<tfoot>
+					 				<tr style="background-color:#DDDDDD" >	
+									
+									<td align="center" class="text11"><b>TOT</b></td>
+									<td align="left" class="text11">${model.record.hegm1}</td>
+						 			<td align="right" class="text11">${model.record.hent}</td>
+						 			<td align="left" class="text11">&nbsp;</td>
+						 			<td align="left" class="text11">${model.record.hevs1}</td>
+						 			<td align="right" class="text11">${model.record.hevkt}</td>
+						 			<td align="right" class="text11">&nbsp;</td>
+						 			<td align="right" class="text11">&nbsp;</td>
+						 			<td align="right" class="text11">&nbsp;</td>
+						 			<td align="right" class="text11">${model.record.hem3}</td>
+						 			<td align="right" class="text11"><span title="helm"></span>${model.record.helm}</td>
+					 				<%--
+						 			<td align="right" class="text11"><span title="helmla">&nbsp;</span>
+						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${model.record.helmla}">
+						 			</td>
+						 			 --%>
+						 			<td width="3%" align="left" class="text11">&nbsp;</td>
+						 			<td width="3%" align="right" class="text11">&nbsp;</td>
+						 			<td width="3%" align="right" class="text11">&nbsp;</td>
+						 			<td width="5%" align="right" class="text11">&nbsp;</td>
+						 			<td width="5%" align="right" class="text11">&nbsp;</td>
+						 			<td width="5%" align="right" class="text11">&nbsp;</td>
+						 			
+						 			<td align="right" class="text11"><span title="hepoen">&nbsp;</span>${model.record.hepoen}</td>
+						 			
+						 			<td width="2%" align="right" class="text11" >
+						 				<%--
+						 				<img onMouseOver="showPop('psum_info');" onMouseOut="hidePop('psum_info');" style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 				<span title="hestl4">P</span>
+						 				<input type="checkbox" id="hestl4" name="hestl4" value="P" <c:if test="${model.record.hestl4 == 'P'}"> checked </c:if>>
+						 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:-50px; top:10px; width:200" id="psum_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>P (Protect)</b>
+							           			<div>
+							           			<p> Protect sumlinje<br/> 
+												</p>
+							           			</div>
+						           			</font>
+											</span>
+										</div>
+										 --%>
+						 			</td>
+						 			</tr>
+					 			</tfoot>
 					 			</table>
 							</td>
 						</tr>
-						<tr height="1"><td ></td></tr>
+						<tr height="1">
+							<td >
+								<input type="hidden" name="totalNumberOfLines" id="totalNumberOfLines" value="${totalNumberOfLines}" >
+				 				<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 --%>
+								<input type="hidden" id="upperCurrentItemlineNr" name="upperCurrentItemlineNr" value="${upperCurrentItemlineNr}">
+								</td>
+							</tr>
 						
+						
+						<%-- ORIG TOT
 						<tr>
 							<td colspan="2" valign="top" style="width:100%;" >
 								<table border="0" style="width:98%; cellpadding="0" cellspacing="2" >
 					 			<input type="hidden" name="totalNumberOfLines" id="totalNumberOfLines" value="${totalNumberOfLines}" >
-					 			<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 --%>
+					 			<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 
 								<input type="hidden" id="upperCurrentItemlineNr" name="upperCurrentItemlineNr" value="${upperCurrentItemlineNr}">
-					 			<%-- TOTALS --%>
+					 			<%-- TOTALS 
 								<tr class="tableRow">	
 									<td width="2%" align="left" class="tableHeaderFieldFirst11">
 										
@@ -860,7 +917,7 @@
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
 						 			<td align="right" class="tableHeaderField11">&nbsp;</td>
-						 			--%> 
+						 			-
 						 			
 						 			<td align="right" class="tableHeaderField11"><span title="hepoen">&nbsp;</span>
 						 				<input readonly tabindex=-1 onKeyPress="return amountKey(event)" type="text" class="inputText10BlueBoldReadOnly" style="text-align:right;" name="hepoen" id="hepoen" size="5" maxlength="5" value="${model.record.hepoen}">
@@ -885,7 +942,7 @@
 						 		</table>
 						 	</td>		
 						</tr>
-					
+						--%>
 						
 						
 						
