@@ -746,7 +746,11 @@
 						 				<input type="hidden" name="lineNr_${counter.count}" id="lineNr_${counter.count}" value="${counter.count}" >   
 							 			<input type="hidden" name="fvlinr_${counter.count}" id="fvlinr_${counter.count}" value="${fraktbrevRecord.fvlinr}" >
 							 			
-							 			<td align="center" class="text11" ><img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update line"></td>
+							 			<td align="center" class="text11" >
+							 				<a tabindex=-1 id="recordUpdate_${fraktbrevRecord.fvlinr}" href="#" onClick="getItemData(this);">
+					               				<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update line">
+						               		</a>
+							 			</td>
 							 			<td align="center" class="text11" nowrap>${counter.count}</td>
 					               		<td align="left" class="text11" nowrap>${fraktbrevRecord.fmmrk1}</td>
 						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvant}</td>
@@ -803,7 +807,7 @@
 					 					<td width="2%" align="left" class="text11" >
 						               		<c:if test="${not empty fraktbrevRecord.fvlinr}">
 						               			<c:if test="${ model.record.singleLine == 'N' }">
-							               			<a id="deleteLine_${counter.count}" onClick="deleteOrderLine(this);">
+							               			<a id="deleteLine_${counter.count}" onClick="deleteItemLine(this);">
 							               				<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               		</a>
 							               		</c:if>
@@ -816,6 +820,7 @@
 					 				<tr style="background-color:#DDDDDD" >	
 									
 									<td align="center" class="text11"><b>TOT</b></td>
+									<td align="left" class="text11"></td>
 									<td align="left" class="text11">${model.record.hegm1}</td>
 						 			<td align="right" class="text11">${model.record.hent}</td>
 						 			<td align="left" class="text11">&nbsp;</td>
@@ -868,8 +873,8 @@
 								<input type="hidden" name="totalNumberOfLines" id="totalNumberOfLines" value="${totalNumberOfLines}" >
 				 				<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 --%>
 								<input type="hidden" id="upperCurrentItemlineNr" name="upperCurrentItemlineNr" value="${upperCurrentItemlineNr}">
-								</td>
-							</tr>
+							</td>
+						</tr>
 						
 						
 						<%-- ORIG TOT
@@ -944,14 +949,14 @@
 						</tr>
 						--%>
 						
-						
-						
-							<tr height="10"><td ></td></tr>
-					 		<%-- CREATE NEW LINE SECTION --%>
+							<tr height="10"><td align="left" ></td></tr>
+							
+					 		<%-- CREATE NEW / UPDATE LINE  --%>
 					 		<tr>
 								<td colspan="2" style="padding: 3px;">
 									<table align="left" border="0" style="width:100%; background-color:#778899">
-									<tr class="tableHeaderField10" >	
+									<tr class="tableHeaderField10" >
+										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">&nbsp;Lnr</span></td>
 							 			<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="fmmrk1">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.marks"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.ebooking.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
 							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.forpak"/></span></td>
@@ -975,7 +980,9 @@
 							 			 --%>
 							 		</tr>
 							 		<tr >
-							 				
+							 			<td align="center" >&nbsp;
+											<input title="from model" tabindex=-1 class="text12BoldLightGreenForItemLinenrBookingBg" readonly type="text" name="lineNrForUpdateFvlinr" id="lineNrForUpdateFvlinr" size="3" value=''>
+										</td>	
 							 			<td align="center" class="text11" nowrap>
 						 					<input type="text" class="inputTextMediumBlue10" name="fmmrk1" id="fmmrk1" size="10" maxlength="35" value="">
 						 				</td>
@@ -1094,7 +1101,7 @@
 						 				</td>
 						 				--%>
 						 				<c:if test="${not empty model.record.status}">
-						 					<td align="center"><input onClick="addItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.ebooking.orders.form.detail.update.createNewLine"/>'></td>
+						 					<td align="center"><input onClick="updateItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.ebooking.orders.form.detail.update.saveLine"/>'></td>
 						 				</c:if>
 						 			</tr>
 						 			<tr></tr>

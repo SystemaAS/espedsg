@@ -277,7 +277,7 @@ public class EbookingMainOrderHeaderController {
 		recordToValidate.setOrderLineToDelete(request.getParameter("lin"));
 		logger.info("#LINENR:" + recordToValidate.getOrderLineToDelete());
 		
-		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorder.do?action=doFetch&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
+		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorder.do?action=doFetch&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff() + "&status=" + recordToValidate.getStatus());
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		Map model = new HashMap();
 		
@@ -862,7 +862,6 @@ public class EbookingMainOrderHeaderController {
 				if(container!=null){
 		    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
 						fraktbrevList.add(fraktbrevRecord);
-						
 					}
 		    		//set totals
 		    		this.setFraktbrevsTotals(container, orderRecord);
@@ -893,7 +892,7 @@ public class EbookingMainOrderHeaderController {
 		if(container!=null){
     		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
 				hent += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvant()));
-				logger.info(hent);
+				//logger.info(hent);
 				hevkt += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
 				hem3 += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvol()));
 				helm += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvlm()));
