@@ -51,7 +51,7 @@
 					<form action="skatmaintenancefelles_dktard.do?id=${model.dbTable}" name="formRecord" id="formRecord" method="POST" >
 					Varekode&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchDktard01" id="searchDktard01" size="11" maxlength="10" value='${model.searchDktard01}'>
-					&nbsp;&nbsp;Start dato&nbsp;
+					&nbsp;&nbsp;Startdato&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchDktard02" id="searchDktard02" size="9" maxlength="8" value='${model.searchDktard02}'>
 					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" value='Søg'/>
 					</form>
@@ -70,8 +70,8 @@
 							<tr>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Opdater&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Varekode&nbsp;</th>
-			                    <th class="tableHeaderField" >&nbsp;Start dato&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Slut dato&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;Startdato&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Slutdato&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Toldsatstype&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Toldsats&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Supplerende mængde.&nbsp;</th>
@@ -178,8 +178,8 @@
 					<table width="80%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 							<td class="text12" title="dktard01">&nbsp;<font class="text14RedBold" >*</font>Varekode</td>
-							<td class="text12" title="dktard02">&nbsp;<font class="text14RedBold" >*</font>Start dato</td>
-							<td class="text12" title="dktard03"><font class="text14RedBold" >*</font>&nbsp;Slut dato</td>
+							<td class="text12" title="dktard02">&nbsp;<font class="text14RedBold" >*</font>Startdato</td>
+							<td class="text12" title="dktard03"><font class="text14RedBold" >*</font>&nbsp;Slutdato</td>
 							<td class="text12" title="dktard04">&nbsp;Toldsatstype</td>
 							<td class="text12" title="dktard05">&nbsp;Toldsats</td>
 							<td class="text12" title="dktard47">&nbsp;Supplerende mængde</td>
