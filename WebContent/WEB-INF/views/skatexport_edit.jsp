@@ -995,7 +995,7 @@
 								<%-- only status = M or emtpy status is allowed --%>
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
+					 				    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">
 					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatexport_send.do';" value='<spring:message code="systema.skat.export.createnew.send"/>'/>
@@ -1625,7 +1625,7 @@
 			            		<td class="text9BlueGreen" valign="bottom" align="left" >
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
+					 				    	<input class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">
 					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send2" id="send2" onclick="javascript: form.action='skatexport_send.do';" value='<spring:message code="systema.skat.export.createnew.send"/>'/>

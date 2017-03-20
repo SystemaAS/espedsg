@@ -209,8 +209,8 @@
 													            <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvnt.varekod"/>&nbsp;</th>  
 													            <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvt.vareDescription"/>&nbsp;</th>
 																<th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdk.angivType"/>&nbsp;</th>
-											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvalk.afsLand"/>&nbsp;</th>
-											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvblk.bestLand"/>&nbsp;</th>
+											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnas.afsNavn"/>&nbsp;</th>
+											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnak.modtNavn"/>&nbsp;</th>
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdty.dokType"/>&nbsp;</th>
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktb.bruttov"/>&nbsp;</th>
 											                    <th class="text12">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktn.nettov"/>&nbsp;</th>
@@ -236,8 +236,8 @@
 													               <td class="text11" >&nbsp;${record.tvvnt}</td>
 													               <td width="40%" class="text11">&nbsp;${record.tvvt}</td>
 													               <td class="text11" >&nbsp;${record.tvdk}</td>
-													               <td class="text11" >&nbsp;${record.tvalk}</td>
-													               <td class="text11" >&nbsp;${record.tvblk}</td>
+													               <td class="text11" >&nbsp;${record.tvnas}</td>
+													               <td class="text11" >&nbsp;${record.tvnak}</td>
 													               <td class="text11" >&nbsp;${record.tvdty}</td>
 													               <td class="text11" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
 													               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>
@@ -322,8 +322,8 @@
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvnt.varekod"/>&nbsp;</th> 
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvt.vareDescription"/>&nbsp;</th>  
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdk.angivType"/>&nbsp;</th>
-					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvalk.afsLand"/>&nbsp;</th>
-					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvblk.bestLand"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnas.afsNavn"/>&nbsp;</th>
+					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvnak.modtNavn"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvdty.dokType"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktb.bruttov"/>&nbsp;</th>
 					                    <th class="text11">&nbsp;<spring:message code="systema.skat.ncts.export.item.list.label.tvvktn.nettov"/>&nbsp;</th>
@@ -354,8 +354,8 @@
 							               <td class="text11" >&nbsp;${record.tvvnt}</td>
 							               <td class="text11" ><div style="width:120px" >&nbsp;${record.tvvt}</div></td>
 							               <td class="text11" >&nbsp;${record.tvdk}</td>
-							               <td class="text11" >&nbsp;${record.tvalk}</td>
-							               <td class="text11" >&nbsp;${record.tvblk}</td>
+							               <td class="text11" >&nbsp;${record.tvnas}</td>
+							               <td class="text11" >&nbsp;${record.tvnak}</td>
 							               <td class="text11" >&nbsp;${record.tvdty}</td>
 							               <td class="text11" align="right" >&nbsp;${record.tvvktb}&nbsp;</td>
 							               <td class="text11" align="right" >&nbsp;${record.tvvktn}&nbsp;</td>

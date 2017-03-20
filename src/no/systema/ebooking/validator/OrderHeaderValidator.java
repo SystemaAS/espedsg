@@ -150,11 +150,11 @@ public class OrderHeaderValidator implements Validator {
 			
 			
 			//Check that there is at least one item line
-			if(this.itemLineRecordExist(record)){
+			/*if(this.itemLineRecordExist(record)){
 				//OK = valid
 			}else{
 				errors.rejectValue("hereff", "systema.ebooking.orders.form.update.error.rule.itemLines.atleastOneLine.mustExist");
-			}
+			}*/
 			
 			//Check validity of email address
 			if(record.getWsmail()!=null && !"".equals(record.getWsmail())){

@@ -842,7 +842,7 @@
 						 			<td width="5%" align="right" class="text11">&nbsp;</td>
 						 			<td width="5%" align="right" class="text11">&nbsp;</td>
 						 			<td width="5%" align="right" class="text11">&nbsp;</td>
-						 			
+						 			<%--heopen = sum of ADR field (Dang.goods) --%>
 						 			<td align="right" class="text11"><span title="hepoen">&nbsp;</span>${model.record.hepoen}</td>
 						 			
 						 			<td width="2%" align="right" class="text11" >

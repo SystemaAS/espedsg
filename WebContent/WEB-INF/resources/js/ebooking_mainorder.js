@@ -1041,10 +1041,10 @@
 	  var description = jq('#fvvt').val();
 	  //mandatory fields
 	  if ( ant!='' && weight!='' && description !='' ){
-		  //-------------------------
-		  //[1] update totals on GUI
-		  //-------------------------
-		  updateOrderLineTotalsBeforeAdd();
+		  //------------------------------------------------
+		  //[1] update totals on GUI - OLD VERSION OBSOLETE
+		  //------------------------------------------------
+		  //updateOrderLineTotalsBeforeAdd();
 		  //Prepare the total records in order to update the order record with these
 		  /*var orderLinesTotalString = "@hent_" + jq('#hent').val() + "@hevkt_" + jq('#hevkt').val() + "@hem3_" + jq('#hem3').val() + "@helm_" + jq('#helm').val() + 
 		  							  "@helmla_" + jq('#helmla').val() + "@hepoen_" + jq('#hepoen').val();
@@ -1752,7 +1752,9 @@
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
 	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
-	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
+	  		  "lengthMenu": [ 100, 300, 400, 900],
+	  		  //"paging" : false,
+	  		  "info" : false
 	  	  });
 	      
 	      //event on input field for search

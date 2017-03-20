@@ -111,9 +111,9 @@ public class EbookingMainOrderHeaderController {
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
-		String orderLineTotalsString = request.getParameter("oltotals");
+		//String orderLineTotalsString = request.getParameter("oltotals");
 		String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
-		logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
+		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
@@ -135,7 +135,7 @@ public class EbookingMainOrderHeaderController {
 				OrderHeaderValidator validator = new OrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
-				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
+				//OLD VERSION - OBSOLETE --> this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
@@ -157,7 +157,7 @@ public class EbookingMainOrderHeaderController {
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, null );
 				    		//Update the order lines
-				    		this.processOrderLines(recordToValidate, appUser);
+				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children update");
@@ -174,7 +174,7 @@ public class EbookingMainOrderHeaderController {
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
 				    		//Update the order lines
-				    		this.processOrderLines(recordToValidate, appUser);
+				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children create new...");

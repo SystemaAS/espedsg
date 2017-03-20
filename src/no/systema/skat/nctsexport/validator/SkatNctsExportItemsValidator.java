@@ -65,7 +65,10 @@ public class SkatNctsExportItemsValidator implements Validator {
 				}
 				//Check varukod
 				if(!record.isValidTolltariff()){
-					errors.rejectValue("tvvnt", "systema.skat.ncts.export.header.error.null.item.varenr.tvvnt");
+					//only check for mandatory tvvnt IF and only IF the dokument code != 380. Type 380 does not requires a varekode
+					if( !"380".equals(record.getTvdty()) ){
+						errors.rejectValue("tvvnt", "systema.skat.ncts.export.header.error.null.item.varenr.tvvnt");
+					}
 				}
 				
 				//-----------------------------------------------------

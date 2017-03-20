@@ -1048,7 +1048,7 @@
 			 				    <%--only status = M or emtpy status is allowed --%> 
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkih_syst == 'M' || empty  model.record.dkih_syst || model.record.dkih_syst == '10' || model.record.dkih_syst == '20' || model.record.dkih_syst == '40'}">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
+					 				    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkih_syop && model.record.validUpdate}">
 					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatimport_send.do';" value='<spring:message code="systema.skat.import.createnew.send"/>'/>
@@ -1656,7 +1656,7 @@
 	
 			 				    <c:choose>
 				 				    <c:when test="${ model.record.dkih_syst == 'M' || empty  model.record.dkih_syst || model.record.dkih_syst == '10' || model.record.dkih_syst == '20' || model.record.dkih_syst == '40'}">
-					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
+					 				    	<input class="inputFormSubmit" type="submit" name="submit2" id="submit2" onclick="javascript: form.action='skatimport_edit.do';" value='<spring:message code="systema.skat.import.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.dkih_syop && model.record.validUpdate}">
 					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send2" id="send2" onclick="javascript: form.action='skatimport_send.do';" value='<spring:message code="systema.skat.import.createnew.send"/>'/>
