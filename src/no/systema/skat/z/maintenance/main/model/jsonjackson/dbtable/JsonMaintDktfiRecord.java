@@ -18,6 +18,24 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMaintDktfiRecord extends JsonAbstractGrandFatherRecord {
 
+	
+	private boolean validSenderIdTest = false;                                
+	public void setValidSenderIdTest (boolean value){ this.validSenderIdTest = value;   }   
+	public boolean isValidSenderIdTest (){ return this.validSenderIdTest;   }  
+	
+	private boolean validSenderIdProd = false;                                
+	public void setValidSenderIdProd (boolean value){ this.validSenderIdProd = value;   }   
+	public boolean isValidSenderIdProd (){ return this.validSenderIdProd;   }  
+	
+	private boolean validReceiverIdTest = false;                                
+	public void setValidReceiverIdTest (boolean value){ this.validReceiverIdTest = value;   }   
+	public boolean isValidReceiverIdTest (){ return this.validReceiverIdTest;   }  
+	
+	private boolean validReceiverIdProd = false;                                
+	public void setValidReceiverIdProd (boolean value){ this.validReceiverIdProd = value;   }   
+	public boolean isValidReceiverIdProd (){ return this.validReceiverIdProd;   }  
+	
+	
 	private String dktf_0004t = null;                                
 	public void setDktf_0004t (String value){ this.dktf_0004t = value;   }   
 	public String getDktf_0004t (){ return this.dktf_0004t;   }  

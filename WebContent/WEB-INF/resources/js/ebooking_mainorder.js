@@ -954,85 +954,144 @@
 	  }
   }
   
-  
+  /**
+   * Get item line
+   * @returns
+   */
+  function getItemData(element) {
+	  var id = element.id;
+	  var lineNr = id.replace("recordUpdate_", ""); 
+	  
+	  //sycgip/TJGE22R.pgm?user=OSCAR&unik=10001201&reff=TARZAN%20X&fbn=1&lin=1
+	  var requestString = "user=" + jq('#applicationUser').val() + "&unik=" + jq('#heunik').val() + 
+	  	"&reff=" + jq('#hereff').val() + "&fbn=1" + "&lin=" +  lineNr;
+	  	 
+	  jq.ajax({
+	  	  type: 'GET',
+	  	  url: 'getSpecificTopicItemChosenFromGuiElement_Ebooking.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(), 
+	  		  	  requestString : requestString }, 
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		for ( var i = 0; i < len; i++) {
+	  			jq('#lineNrForUpdateFvlinr').val(data[i].fvlinr);
+		  		jq('#fmmrk1').val(data[i].fmmrk1);
+		  		jq('#fvant').val(data[i].fvant);
+		  		jq('#fvpakn').val(data[i].fvpakn);
+		  		jq('#fvvt').val(data[i].fvvt);
+		  		jq('#fvvkt').val(data[i].fvvkt);
+		  		jq('#fvlen').val(data[i].fvlen);
+		  		jq('#fvbrd').val(data[i].fvbrd);
+		  		jq('#fvhoy').val(data[i].fvhoy);
+		  		jq('#fvvol').val(data[i].fvvol);
+		  		jq('#fvlm').val(data[i].fvlm);
+		  		
+		  		//farlig gods
+		  		jq('#ffunnr').val(data[i].ffunnr);
+		  		jq('#ffembg').val(data[i].ffembg);
+		  		jq('#ffindx').val(data[i].ffindx);
+		  		jq('#ffantk').val(data[i].ffantk);
+		  		jq('#ffante').val(data[i].ffante);
+		  		jq('#ffenh').val(data[i].ffenh);
+		  		
+		  		//cursor on line please
+		  		jq('#fvant').focus();
+	  		}
+	  	  },
+	  	  error: function() {
+		  	    alert('Error loading ...');
+	    
+	  	  }
+	  });
+	  
+	  
+  }
   
   //--------------------------
   //Add Item line (in Order)
   //--------------------------
-  function addItemLine() {
+  function updateItemLine() {
+    //[1] Validate new line first
+	//if(private_validateNewItemLine()){
+	 
+	  //default new line nr and mode=A (Add)
+	  var lineNr = Number(jq('#upperCurrentItemlineNr').val()) + 1;  	
+	  var mode = "A";
+	  //check if this is an update 
+	  if(jq('#lineNrForUpdateFvlinr').val()!=''){
+		  lineNr = jq('#lineNrForUpdateFvlinr').val();
+		  mode = "U";
+	  }
+	  //Build the request string here (create new/update line)
+	  //TJGE23R.pgm?user=OSCAR&unik=75&reff=11&fbn=1&lin=2&mode=A/U&fvant=11&fvvkt=15
+	  var requestString = "user=" + jq('#applicationUser').val() + "&unik=" + jq('#heunik').val() + "&reff=" + jq('#hereff').val() + 
+	  					 "&fbn=1" + "&lin=" +  lineNr + "&mode=" + mode +
+	  					 "&fmmrk1=" + jq('#fmmrk1').val() + "&fvant=" +  jq('#fvant').val() + "&fvpakn=" +  jq('#fvpakn').val() +	
+	  					 "&fvvt=" + jq('#fvvt').val() + "&fvvkt=" +  jq('#fvvkt').val() + "&fvlen=" +  jq('#fvlen').val() +
+	  					 "&fvbrd=" + jq('#fvbrd').val() + "&fvhoy=" +  jq('#fvhoy').val() + "&fvvol=" +  jq('#fvvol').val() +
+	  					 "&fvlm=" + jq('#fvlm').val() + "&fvlm2=" +  jq('#fvlm2').val() + "&ffunnr=" +  jq('#ffunnr').val() +
+	  					 "&ffembg=" + jq('#ffembg').val() + jq('#ffindx').val() + "&ffantk=" +  jq('#ffantk').val() + "&ffante=" +  jq('#ffante').val() +
+	  					 "&ffenh=" + jq('#ffenh').val();
 	  
-	  //[1] Validate new line first
-	  //if(private_validateNewItemLine()){
-	  
-		  //[2] At this point we are ready to prepare and execute the add line implementation
-		  var newLineNr = Number(jq('#upperCurrentItemlineNr').val()) + 1;
-		  //Build the request string here (new line)
-		  //user=JOVO&avd=75&opd=11&fbn=1&lin=2&mode=A&fvant=11&fvvkt=15
-		  var requestString = "user=" + jq('#applicationUser').val() + "&unik=" + jq('#heunik').val() + "&reff=" + jq('#hereff').val() + 
-		  					 "&fbn=1" + "&lin=" +  newLineNr + "&mode=A" +
-		  					 "&fmmrk1=" + jq('#fmmrk1').val() + "&fvant=" +  jq('#fvant').val() + "&fvpakn=" +  jq('#fvpakn').val() +	
-		  					 "&fvvt=" + jq('#fvvt').val() + "&fvvkt=" +  jq('#fvvkt').val() + "&fvlen=" +  jq('#fvlen').val() +
-		  					 "&fvbrd=" + jq('#fvbrd').val() + "&fvhoy=" +  jq('#fvhoy').val() + "&fvvol=" +  jq('#fvvol').val() +
-		  					 "&fvlm=" + jq('#fvlm').val() + "&fvlm2=" +  jq('#fvlm2').val() + "&ffunnr=" +  jq('#ffunnr').val() +
-		  					 "&ffembg=" + jq('#ffembg').val() + jq('#ffindx').val() + "&ffantk=" +  jq('#ffantk').val() + "&ffante=" +  jq('#ffante').val() +
-		  					 "&ffenh=" + jq('#ffenh').val();
+	  var ant = jq('#fvant').val();
+	  var weight = jq('#fvvkt').val();
+	  var description = jq('#fvvt').val();
+	  //mandatory fields
+	  if ( ant!='' && weight!='' && description !='' ){
+		  //------------------------------------------------
+		  //[1] update totals on GUI - OLD VERSION OBSOLETE
+		  //------------------------------------------------
+		  //updateOrderLineTotalsBeforeAdd();
+		  //Prepare the total records in order to update the order record with these
+		  /*var orderLinesTotalString = "@hent_" + jq('#hent').val() + "@hevkt_" + jq('#hevkt').val() + "@hem3_" + jq('#hem3').val() + "@helm_" + jq('#helm').val() + 
+		  							  "@helmla_" + jq('#helmla').val() + "@hepoen_" + jq('#hepoen').val();
+									  //append the protect checkbox value (if applicable)
+									  if(jq('#hestl4').prop('checked')){ orderLinesTotalString += "@hestl4_" + jq('#hestl4').val();}
+									  else{ orderLinesTotalString += "@hestl4_"; }*/
 		  
-		  var ant = jq('#fvant').val();
-		  var weight = jq('#fvvkt').val();
-		  var description = jq('#fvvt').val();
-		  //mandatory fields
-		  if ( ant!='' && weight!='' && description !='' ){
-			  //-------------------------
-			  //[1] update totals on GUI
-			  //-------------------------
-			  updateOrderLineTotalsBeforeAdd();
-			  //Prepare the total records in order to update the order record with these
-			  var orderLinesTotalString = "@hent_" + jq('#hent').val() + "@hevkt_" + jq('#hevkt').val() + "@hem3_" + jq('#hem3').val() + "@helm_" + jq('#helm').val() + 
-			  							  "@helmla_" + jq('#helmla').val() + "@hepoen_" + jq('#hepoen').val();
-										  //append the protect checkbox value (if applicable)
-										  if(jq('#hestl4').prop('checked')){ orderLinesTotalString += "@hestl4_" + jq('#hestl4').val();}
-										  else{ orderLinesTotalString += "@hestl4_"; }
-			  
-			  //-----------------------------
-			  //[2] now to the add line impl.
-			  //-----------------------------
-			  jq.ajax({
-			  	  type: 'GET',
-			  	  url: 'addNewOrderDetailLine_Ebooking.do',
-			  	  data: { applicationUser : jq('#applicationUser').val(), 
-			  		  	  requestString : requestString }, 
-			  	  dataType: 'json',
-			  	  cache: false,
-			  	  contentType: 'application/json',
-			  	  success: function(data) {
-			  		var len = data.length;
-			  		for ( var i = 0; i < len; i++) {
-			  			//we send the redirect after a successfull creation in order to refresh...
-			  			//success code = 1
-			  			if(data[i].fvlinr=='1'){
-			  				//jq('#submit').click(); //doUpdate
-			  				//doFind on redirect...with extra order line total fields in order to update them there...
-			  				//Note: the reason for updating the totals in doFind is because no session object is possible to hand in an ajax call.
-			  				//For the above reason we then use the doFind method in order to get the whole record and update its total fields once there.
-			  				//There is no other way to do the update without breaking the Ajax design in Spring and good healthy session handling in the web infrastructure
-				  			window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&oltotals=" + orderLinesTotalString + "&status=" + jq('#status').val();
-				  			
-			  			}else{
-			  				alert("[ERROR] when creating the order line...?");
-			  			}
-			  		}
-			  	  },
-			  	  error: function() {
-				  	    alert('Error loading ...');
-			    
-			  	  }
-			  });
-			  
-		  }else{
-			  alert("[ERROR] missing mandatory fields for new line...");
-		  }
-	  //}
-	  
+		  //-----------------------------
+		  //[2] now to the add line impl.
+		  //-----------------------------
+		  jq.ajax({
+		  	  type: 'GET',
+		  	  url: 'updateOrderDetailLine_Ebooking.do',
+		  	  data: { applicationUser : jq('#applicationUser').val(), 
+		  		  	  requestString : requestString }, 
+		  	  dataType: 'json',
+		  	  cache: false,
+		  	  contentType: 'application/json',
+		  	  success: function(data) {
+		  		var len = data.length;
+		  		for ( var i = 0; i < len; i++) {
+		  			//we send the redirect after a successfull creation in order to refresh...
+		  			//success code = 1
+		  			if(data[i].fvlinr=='1'){
+		  				//jq('#submit').click(); //doUpdate
+		  				//doFind on redirect...with extra order line total fields in order to update them there...
+		  				//Note: the reason for updating the totals in doFind is because no session object is possible to hand in an ajax call.
+		  				//For the above reason we then use the doFind method in order to get the whole record and update its total fields once there.
+		  				//There is no other way to do the update without breaking the Ajax design in Spring and good healthy session handling in the web infrastructure
+			  			//OBSOLETE window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&oltotals=" + orderLinesTotalString + "&status=" + jq('#status').val();
+		  				window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + "&status=" + jq('#status').val();
+		  			}else{
+		  				alert("[ERROR] when creating the order line...?");
+		  			}
+		  		}
+		  	  },
+		  	  error: function() {
+			  	    alert('Error loading ...');
+		    
+		  	  }
+		  });
+		  
+	  }else{
+		  alert("[ERROR] missing mandatory fields for new line...");
+	  }
+  //}
+  
   }
   
   
@@ -1420,14 +1479,14 @@
   //------------------
   //DELETE order line
   //------------------
-  function deleteOrderLine(element){
+  function deleteItemLine(element){
 	  var id = element.id;
 	  var record = id.split('_');
-	  var counter = record[1]; 
-	  var r = confirm("Are you sure you want to remove this order line?");
+	  var counter = Number(record[1]); 
+	  var r = confirm("Are you sure you want to remove this item line?");
 	  if (r == true){
 		  updateOrderLineTotalsBeforeDelete(counter);
-		  var params = "heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + 
+		  var params = "heunik=" + jq('#heunik').val() + "&hereff=" + jq('#hereff').val() + jq('#status').val() + 
 						"&lin=" + jq('#fvlinr_' + counter).val() + "&hent=" + jq('#hent').val() + "&hevkt=" + jq('#hevkt').val() + 
 						"&hem3=" + jq('#hem3').val() + "&helm=" + jq('#helm').val() + "&helmla=" + jq('#helmla').val() + "&hepoen=" + jq('#hepoen').val();
 		  				//append the protect checkbox value (if applicable)
@@ -1444,6 +1503,7 @@
   // UPDATE before DELETE ORDER LINE
   //--------------------------------
   function updateOrderLineTotalsBeforeDelete(counter_delete) { 
+	  /*
       //Antall
 	  var sum = 0;
 	  jq( ".clazzAntMathAware" ).each(function( i ) {
@@ -1528,13 +1588,14 @@
 	  //this ADR-field in NOT REQUIRED to be blocked by Protected checkbox: hestl4
 	  jq("#hepoen").attr("readonly", false); 
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
-	  
+	  */
   }
   
 //-----------------------------
   //UPDATE before ADD ORDER LINE
   //-----------------------------
   function updateOrderLineTotalsBeforeAdd() { 
+	  /*
       //Antall
 	  var sum = 0;
 	  jq( ".clazzAntMathAware" ).each(function( i ) {
@@ -1635,6 +1696,8 @@
 		  fakt = parseInt(faktStr);
 		  sum += (unit*fakt);
 	  }*/
+	  
+	  /*
 	  var unitStr = jq('#ffante').val();
 	  var faktStr = jq('#ownAdrFaktNewLine').val();
 	  if(unitStr!='' && faktStr!=''){
@@ -1647,7 +1710,7 @@
 	  //ADR field NOT REQUIRED to be blocked by checkbox: hestl4
 	  jq("#hepoen").attr("readonly", false); 
 	  jq('#hepoen').val(sum.toLocaleString('de-DE', { useGrouping: false }));
-	  
+	  */
   }
   
   //UPDATE before SUBMIT Vareslag - TOT
@@ -1672,6 +1735,35 @@
 	  return isTrue;
 	  
   }
+  
+//-------------------
+  //Datatables jquery
+  //-------------------
+  //private function
+  function filterGlobal () {
+    jq('#tblItemLines').dataTable().search(
+    	jq('#tblItemLines_filter').val()
+    ).draw();
+  }
+  jq(document).ready(function(){
+		  //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	      jq('#tblItemLines').dataTable( {
+	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "scrollY":    "180px",
+	  		  "scrollCollapse":  true,
+	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+	  		  "lengthMenu": [ 100, 300, 400, 900],
+	  		  //"paging" : false,
+	  		  "info" : false
+	  	  });
+	      
+	      //event on input field for search
+	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+	      		filterGlobal();
+	      });
+	      
+	});
+	
   
   
   

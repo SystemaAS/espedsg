@@ -115,8 +115,16 @@
 							</td>	
 						</tr>
 						<tr>
-							<td class="text12" title="dktf_0004t">&nbsp;Afsender id</td>
-							<td class="text12" title="dktf_0010t">&nbsp;Modtager id</td>
+							<td class="text12" title="dktf_0004t">&nbsp;Afsender id
+								<a tabindex="-1" id="dktf_0004tIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
+							<td class="text12" title="dktf_0010t">&nbsp;Modtager id
+								<a tabindex="-1" id="dktf_0010tIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
 							<td class="text12" title="dktf_0022t">&nbsp;Kodeord</td>
 						</tr>
 						<tr>
@@ -178,8 +186,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="text12" title="dktf_0004p">&nbsp;Afsender id</td>
-							<td class="text12" title="dktf_0010p">&nbsp;Modtager id</td>
+							<td class="text12" title="dktf_0004p">&nbsp;Afsender id
+								<a tabindex="-1" id="dktf_0004pIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
+							<td class="text12" title="dktf_0010p">&nbsp;Modtager id
+								<a tabindex="-1" id="dktf_0010pIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
 							<td class="text12" title="dktf_0022p">&nbsp;Kodeord</td>
 						</tr>
 						<tr>

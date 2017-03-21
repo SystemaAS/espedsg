@@ -39,6 +39,7 @@ import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
+import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
@@ -88,7 +89,7 @@ public class EbookingMainOrderHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
-	
+	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -110,9 +111,9 @@ public class EbookingMainOrderHeaderController {
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
-		String orderLineTotalsString = request.getParameter("oltotals");
+		//String orderLineTotalsString = request.getParameter("oltotals");
 		String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
-		logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
+		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
@@ -134,7 +135,7 @@ public class EbookingMainOrderHeaderController {
 				OrderHeaderValidator validator = new OrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
-				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
+				//OLD VERSION - OBSOLETE --> this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
@@ -156,7 +157,7 @@ public class EbookingMainOrderHeaderController {
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, null );
 				    		//Update the order lines
-				    		this.processOrderLines(recordToValidate, appUser);
+				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children update");
@@ -173,7 +174,7 @@ public class EbookingMainOrderHeaderController {
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
 				    		//Update the order lines
-				    		this.processOrderLines(recordToValidate, appUser);
+				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children create new...");
@@ -276,7 +277,7 @@ public class EbookingMainOrderHeaderController {
 		recordToValidate.setOrderLineToDelete(request.getParameter("lin"));
 		logger.info("#LINENR:" + recordToValidate.getOrderLineToDelete());
 		
-		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorder.do?action=doFetch&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
+		ModelAndView successView = new ModelAndView("redirect:ebooking_mainorder.do?action=doFetch&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff() + "&status=" + recordToValidate.getStatus());
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		Map model = new HashMap();
 		
@@ -785,10 +786,7 @@ public class EbookingMainOrderHeaderController {
 		String vkt = fraktbrevRecord.getFvvkt();
 		String desc = fraktbrevRecord.getFvvt();
 		
-		if( (ant!=null && !"".equals(ant))  && 
-			(vkt!=null && !"".equals(vkt))  && 
-			(desc!=null && !"".equals(desc))){
-	
+		if( (ant!=null && !"".equals(ant))  && (vkt!=null && !"".equals(vkt))  && (desc!=null && !"".equals(desc))){
 			retval = true;
 		}
 		return retval;
@@ -865,12 +863,15 @@ public class EbookingMainOrderHeaderController {
 		    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
 						fraktbrevList.add(fraktbrevRecord);
 					}
-					//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
-		    		this.populateEmptyFraktbrevList(fraktbrevList);
+		    		//set totals
+		    		this.setFraktbrevsTotals(container, orderRecord);
+					
+		    		//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
+		    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
 				}
 	    	}
     	}else{
-    		this.populateEmptyFraktbrevList(fraktbrevList);
+    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
     	}
     	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
     	
@@ -879,8 +880,47 @@ public class EbookingMainOrderHeaderController {
 	}
 	/**
 	 * 
+	 * @param container
+	 * @param orderRecord
+	 */
+	private void setFraktbrevsTotals(JsonMainOrderHeaderFraktbrevContainer container, JsonMainOrderHeaderRecord orderRecord ){
+		Integer hent = 0;
+		Double hevkt = 0.00D;
+		Double hem3 = 0.00D;
+		Double helm = 0.00D;
+		
+		if(container!=null){
+    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
+				hent += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvant()));
+				//logger.info(hent);
+				hevkt += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
+				hem3 += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvol()));
+				helm += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvlm()));
+				
+			}
+    		orderRecord.setHent(String.valueOf(hent));
+    		orderRecord.setHevkt( String.valueOf( this.numberFormatter.getDouble(hevkt, 3)) );
+    		orderRecord.setHem3( String.valueOf( this.numberFormatter.getDouble(hem3, 3)) );
+    		orderRecord.setHelm( String.valueOf( this.numberFormatter.getDouble(helm, 3)) );
+		}	
+	}
+	/**
+	 * help function
+	 * @param value
+	 * @return
+	 */
+	private String getNumericString(String value){
+		String retval = "0";
+		if(value!=null && !"".equals(value)){
+			retval = value.replace("," , ".");
+		}
+		return retval;
+	}
+	/**
+	 * 
 	 * @param fraktbrevList
 	 */
+	/** N/A
 	private void populateEmptyFraktbrevList (List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList){
 		if(fraktbrevList==null || fraktbrevList.size()<EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES){
 			int start = fraktbrevList.size();
@@ -890,7 +930,7 @@ public class EbookingMainOrderHeaderController {
 			}
 		}
 	}
-	
+	**/
 	/**
 	 * 
 	 * @param model

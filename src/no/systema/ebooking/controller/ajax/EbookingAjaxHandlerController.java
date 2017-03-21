@@ -76,10 +76,10 @@ public class EbookingAjaxHandlerController {
 	 * @param requestString
 	 * @return
 	 */
-	@RequestMapping(value = "addNewOrderDetailLine_Ebooking.do", method = RequestMethod.GET)
-    public @ResponseBody Set<JsonMainOrderHeaderFraktbrevRecord> addNewOrderDetailLine
+	@RequestMapping(value = "updateOrderDetailLine_Ebooking.do", method = RequestMethod.GET)
+    public @ResponseBody Set<JsonMainOrderHeaderFraktbrevRecord> updateOrderDetailLine
 	  						(@RequestParam String applicationUser, @RequestParam String requestString){
-		 logger.info("Inside: addNewOrderDetailLine");
+		 logger.info("Inside: updateOrderDetailLine");
 		 Set<JsonMainOrderHeaderFraktbrevRecord> result = new HashSet<JsonMainOrderHeaderFraktbrevRecord>();
 		 //logger.info(requestString);
 		 if(requestString!=null && !"".equals(requestString)){
@@ -110,6 +110,39 @@ public class EbookingAjaxHandlerController {
 			 result.add(placeHolderObj);
 		 }
 		 return result;
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param requestString
+	 * @return
+	 */
+	@RequestMapping(value = "getSpecificTopicItemChosenFromGuiElement_Ebooking.do", method = RequestMethod.GET)
+    public @ResponseBody Set<JsonMainOrderHeaderFraktbrevRecord> getSpecificTopicItemChosenFromHtmlList
+	  						(@RequestParam String applicationUser, @RequestParam String requestString){
+		 logger.info("Inside: getSpecificTopicItemChosenFromHtmlList");
+		 
+		 Set<JsonMainOrderHeaderFraktbrevRecord> result = new HashSet<JsonMainOrderHeaderFraktbrevRecord>();
+		 //logger.info(requestString);
+		 if(requestString!=null && !"".equals(requestString)){
+		 	final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_LINE_MAIN_ORDER_FRAKTBREV_URL;
+			//add URL-parameters
+		 	String urlRequestParams = requestString;
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("URL: " + BASE_URL);
+			logger.info("URL PARAMS: " + urlRequestParams);
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			JsonMainOrderHeaderFraktbrevContainer container = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
+			if(container!=null){
+				for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblineGet()){
+					result.add(fraktbrevRecord);
+					//logger.info(fraktbrevRecord.getFvant());
+				}
+			}
+		 }
+		 
+		 return result;
+		 
 	}
 	
 	/**

@@ -1429,6 +1429,15 @@ END override jQuery elements
     background-color: #4E78A0;;
     
 }
+.text12BoldLightGreenForItemLinenrBookingBg{  
+    font-weight:bold ; 
+    border: 0px solid #4E78A0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color: #7cbf4c; 
+    background-color: #778899;
+    
+}
 .text12BoldRedForItemLinenr{  
     font-weight:bold ; 
     border: 0px solid #4E78A0;
@@ -1753,7 +1762,7 @@ END override jQuery elements
     color: black; 
     background-color:#EEEED1; /*#FCFFF0 tentative */
     border-style: solid; 
-    border-width: 0px 1px 1px 0px; 
+    border-width: 0px 0px 0px 0px; 
     border-color:#4E78A0  
 }
 

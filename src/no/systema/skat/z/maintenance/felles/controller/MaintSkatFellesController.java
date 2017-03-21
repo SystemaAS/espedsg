@@ -107,8 +107,10 @@ public class MaintSkatFellesController {
 		object.setId("2");
 		object.setSubject("Vedligeholdelse af sagsbehandler");
 		object.setCode("SKAT_SAGSBEH");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
+		object.setText("DKT056 / DKTHA");
+		object.setDbTable("DKTHA");
+		object.setStatus("G");
+		object.setPgm("dkt056r");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();

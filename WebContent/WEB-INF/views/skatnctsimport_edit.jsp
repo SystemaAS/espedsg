@@ -536,7 +536,7 @@
 		 				    <c:choose>
 			 				    <c:when test="${ model.record.tist == 'F' || model.record.tist == 'M' || empty model.record.tist}">
 			 				    <td class="text9BlueGreen" valign="bottom"  >
-				 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_edit.do';" value='<spring:message code="systema.skat.ncts.import.createnew.submit"/>'/>
+				 				    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatnctsimport_edit.do';" value='<spring:message code="systema.skat.ncts.import.createnew.submit"/>'/>
 				 				</td>    	
 				 				    	&nbsp;&nbsp;
 				 				    	<c:if test="${not empty model.record.titdn}">

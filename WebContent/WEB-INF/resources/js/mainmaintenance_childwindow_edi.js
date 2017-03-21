@@ -20,7 +20,25 @@
 			  }else if(callerType == 's0010'){
 				  opener.jq('#s0010').val(inid);
 				  opener.jq('#s0010').focus();
-			  }  
+				  
+			  //DK Felles Vedlikehold	  
+			  }else if(callerType == 'dktf_0004t'){
+				  opener.jq('#dktf_0004t').val(inid);
+				  opener.jq('#dktf_0004t').focus();
+				  
+			  }else if(callerType == 'dktf_0010t'){
+				  opener.jq('#dktf_0010t').val(inid);
+				  opener.jq('#dktf_0010t').focus();
+				  
+			  }else if(callerType == 'dktf_0004p'){
+				  opener.jq('#dktf_0004p').val(inid);
+				  opener.jq('#dktf_0004p').focus();
+				  
+			  }else if(callerType == 'dktf_0010p'){
+				  opener.jq('#dktf_0010p').val(inid);
+				  opener.jq('#dktf_0010p').focus();
+			  } //END DK Vedlikehold
+			  
 			  //close child window
 			  window.close();
 		  });

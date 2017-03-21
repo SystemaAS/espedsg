@@ -55,9 +55,7 @@ public class JsonOrderHeaderMapper {
 		//At this point we now have an UTF-8 payload
 		JsonMainOrderHeaderFraktbrevContainer container = mapper.readValue(utfPayload.getBytes(), JsonMainOrderHeaderFraktbrevContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
-		for (JsonMainOrderHeaderFraktbrevRecord record : container.getAwblinelist()){
-			//DEBUG
-		}
+		
 		
 		return container;
 	}

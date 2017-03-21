@@ -49,20 +49,22 @@ public class MaintSkatFellesDkt055rValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktf_ftusp", "", PROD + " FTP - Kodeord er obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dktf_ftpwp", "", PROD + " FTP - Adresse er obligatorisk"); 
 		
-		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				//Varekode
-				/*
-				if (record.getDktard01()!=null && !"".equals(record.getDktard01())){
-					//length validation
-					if(record.getDktard01().length()<10){
-						errors.rejectValue("dktard01", " ", "Varekode er ugyldig"); 
-					}
-				}*/
-				
-				
+				//UNB validity
+				if (!record.isValidSenderIdTest()){
+					errors.rejectValue("validSenderIdTest", " ", TEST + " UNB - Afsender id er ugyldig"); 
+				}
+				if (!record.isValidReceiverIdTest()){
+					errors.rejectValue("validReceiverIdTest", " ", TEST + " UNB - Modtager id er ugyldig"); 
+				}
+				if (!record.isValidSenderIdProd()){
+					errors.rejectValue("validSenderIdProd", " ", PROD + " UNB - Afsender id er ugyldig"); 
+				}
+				if (!record.isValidReceiverIdProd()){
+					errors.rejectValue("validReceiverIdProd", " ", PROD + " UNB - Modtager id er ugyldig"); 
+				}
 			}
 		}
 	}

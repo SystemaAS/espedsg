@@ -65,7 +65,7 @@
 						<table cellspacing="0" border="0" cellpadding="0">
 							<tr class="tableHeaderField" height="20" valign="left">
 			                    <td width="20%" class="tableHeaderFieldFirst" align="left" >&nbsp;CUSTOMER&nbsp;</td>
-			                    <td width="10%" class="tableHeaderField" align="left" >&nbsp;TOMCAT/AS400&nbsp;</td>
+			                    <td nowrap width="10%" class="tableHeaderField" align="left" >&nbsp;Java / TOMCAT / AS400&nbsp;</td>
 			                    <td width="20%" class="tableHeaderField" align="left" >&nbsp;URL&nbsp;</td>
 			                    <td colspan="10" class="tableHeaderField" align="center" >MODULES</td>
 			                </tr>  

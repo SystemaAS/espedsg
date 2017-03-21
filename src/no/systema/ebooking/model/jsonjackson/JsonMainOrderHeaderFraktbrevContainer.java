@@ -51,9 +51,15 @@ public class JsonMainOrderHeaderFraktbrevContainer {
 	public void setAwblinelist(Collection<JsonMainOrderHeaderFraktbrevRecord> value){ this.awblinelist = value; }
 	public Collection<JsonMainOrderHeaderFraktbrevRecord> getAwblinelist(){ return awblinelist; }
 	
+	//when fetch for specific item line (ajax)
+	private Collection<JsonMainOrderHeaderFraktbrevRecord> awblineGet;
+	public void setAwblineGet(Collection<JsonMainOrderHeaderFraktbrevRecord> value){ this.awblineGet = value; }
+	public Collection<JsonMainOrderHeaderFraktbrevRecord> getAwblineGet(){ return awblineGet; }
+	
 	private Collection<JsonMainOrderHeaderFraktbrevRecord> awblineValidate;
 	public void setAwblineValidate(Collection<JsonMainOrderHeaderFraktbrevRecord> value){ this.awblineValidate = value; }
 	public Collection<JsonMainOrderHeaderFraktbrevRecord> getAwblineValidate(){ return awblineValidate; }
+	
 	//used in validation (awblineValidate)
 	private String fvlinr = null;
 	public void setFvlinr(String value) {  this.fvlinr = value; }
