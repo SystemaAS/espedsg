@@ -49,14 +49,14 @@
 			<tr>
 				<td width="3%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="98%" cellspacing="1" border="1" align="left">
+				<table id="containerdatatableTable" width="98%" cellspacing="1" border="0" align="left">
 			    	    <tr>
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th class="tableHeaderField" align="center" >Signatur</th>
+								<th width="10%" class="tableHeaderField" align="center" >Signatur</th>
 								<th class="tableHeaderField" align="center" >Navn</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
 			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
@@ -69,11 +69,11 @@
 				               <td width="2%" id="recordUpdate_${record.dkth_sysg}" onClick="getRecord(this);" align="center" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 					               	<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.dkth_sysg}</td>
+				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.dkth_sysg}</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.dkth_namn}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.dkth_usid}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatmaintenancefelles_dkt56r_edit.do?action=doDelete&dkth_sysg=${record.dkth_sysg}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatmaintenancefelles_dkt056r_edit.do?action=doDelete&dkth_sysg=${record.dkth_sysg}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -133,14 +133,10 @@
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="skatmaintenancefelles_dkt056r.do" name="formRecord" id="formRecord" method="POST" onSubmit="enableDisabledFields();">
+				<form action="skatmaintenancefelles_dkt056r_edit.do" name="formRecord" id="formRecord" method="POST" onSubmit="enableDisabledFields();">
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> <%-- this value is set in AJAX in order to know if the SAVE = ADD or UPDATE --%>
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<%--
-					<input type="hidden" name="hoavd" id=hoavd value="${model.avd}">
-					<input type="hidden" name="avdnavn" id=avdnavn value="${model.avdnavn}">
-					 --%>
 					 
 					<table width="95%" cellspacing="1" border="0" align="left">
 						<tr height="5"><td></td></tr>
@@ -158,15 +154,17 @@
 										<input type="text" class="inputTextMediumBlueMandatoryField"  name="dkth_sysg" id="dkth_sysg" size="5" maxlength="3" value='${model.record.dkth_sysg}'>
 									</c:otherwise>
 								</c:choose>
+								<a tabindex="-1" id="dkth_sysgIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
 								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="dkth_namn">Navn&nbsp;</span>
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="dkth_namn" id="dkth_namn" size="20" maxlength="16" value='${model.record.dkth_namn}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="dkth_namn" id="dkth_namn" size="36" maxlength="35" value='${model.record.dkth_namn}'>
 								
- 	    						&nbsp;&nbsp;&nbsp;<span title="syuser">Userid</span>
- 	    						<input type="text" class="inputTextMediumBlue" name="dkth_usid" id="dkth_usid" size="11" maxlength="10" value="${model.record.dkth_usid}" />
+ 	    						&nbsp;&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="syuser">Userid</span>
+ 	    						<input type="text" class="inputTextMediumBlueMandatoryField" name="dkth_usid" id="dkth_usid" size="11" maxlength="10" value="${model.record.dkth_usid}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 	    						<%--
-								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>
-								 --%>
+ 	    						<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>
+								
  	    					</td>
 		    	    	</tr>
 		    	    	<tr height="20"><td></td></tr>

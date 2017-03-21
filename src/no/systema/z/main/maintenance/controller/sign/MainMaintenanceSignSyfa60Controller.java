@@ -250,7 +250,7 @@ public class MainMaintenanceSignSyfa60Controller {
 	 * @param applicationUser
 	 * @return
 	 */
-	private List<JsonMaintMainKodtsfSyparfRecord> fetchList(String applicationUser){
+	public List<JsonMaintMainKodtsfSyparfRecord> fetchList(String applicationUser){
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser;

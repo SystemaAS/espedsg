@@ -43,16 +43,19 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
-
+import no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Container;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Record;
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.controller.sign.MainMaintenanceSignSyfa60Controller;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
 
 
 /**
@@ -208,7 +211,12 @@ public class MainMaintenanceControllerChildWindow {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="mainmaintenance_childwindow_opptype.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView searchOppType(HttpSession session, HttpServletRequest request){
 		logger.info("Inside searchOppType");
@@ -257,7 +265,53 @@ public class MainMaintenanceControllerChildWindow {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenance_childwindow_signatures.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView searchSignatures(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenance_childwindow_signatures");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		logger.info(callerType);
+		String id = request.getParameter("id");
+		
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			logger.info("Inside method: mainmaintenance_childwindow_signatures");
+			
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL;
+			String urlRequestParams = "user=" + appUser.getUser();
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	//DEBUG
+	    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+	    	//extract
+	    	List<JsonMaintMainKodtsfSyparfRecord> list = new ArrayList();
+	    	if(jsonPayload!=null){
+				//lists
+	    		JsonMaintMainKodtsfSyparfContainer container = this.maintMainKodtsfSyparfService.getList(jsonPayload);
+		        if(container!=null){
+		        	list = (List)container.getList();
+		        }
+	    	}
+	    	model.put("list", list);
+			model.put("id", id);
+			model.put("ctype", callerType);
+			
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;	
+		  	
+		}
+	}
  	
 	/**
 	 * 
@@ -364,6 +418,13 @@ public class MainMaintenanceControllerChildWindow {
 	public void setMaintMainKodtot2Service(MaintMainKodtot2Service value){this.maintMainKodtot2Service = value;}
 	public MaintMainKodtot2Service getMaintMainKodtot2Service(){ return this.maintMainKodtot2Service; }
 	
+	
+	@Qualifier ("maintMainKodtsfSyparfService")
+	private MaintMainKodtsfSyparfService maintMainKodtsfSyparfService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtsfSyparfService (MaintMainKodtsfSyparfService value){ this.maintMainKodtsfSyparfService = value; }
+	public MaintMainKodtsfSyparfService getMaintMainKodtsfSyparfService(){ return this.maintMainKodtsfSyparfService; }
 	
 	
 	

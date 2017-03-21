@@ -18,6 +18,11 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMaintDkthaRecord extends JsonAbstractGrandFatherRecord  {
 
+	private boolean validSignature = false;
+	public void setValidSignature (boolean value){ this.validSignature = value;   }   
+	public boolean isValidSignature (){ return this.validSignature;   }  
+	
+	
 	private String dkth_sysg = null;                                
 	public void setDkth_sysg (String value){ this.dkth_sysg = value;   }   
 	public String getDkth_sysg (){ return this.dkth_sysg;   }  

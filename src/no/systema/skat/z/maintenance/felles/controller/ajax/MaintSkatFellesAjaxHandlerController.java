@@ -34,8 +34,13 @@ import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkt
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardContainer;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardRecord;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaRecord;
+
 import no.systema.skat.z.maintenance.main.service.MaintDktardService;
 import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+import no.systema.skat.z.maintenance.main.service.MaintDkthaService;
+
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 
 
@@ -89,6 +94,25 @@ public class MaintSkatFellesAjaxHandlerController {
 		List<JsonMaintDktardRecord> result = new ArrayList();
 	 	//get table
     	result = (List)this.fetchListDktard(applicationUser, id, fromDate, toDate);
+    	
+    	return result;
+	
+	}
+	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSpecificRecord_dkt056r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintDkthaRecord> getRecordDkt056r
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_dktard";
+		logger.info(METHOD + " Inside...");
+		List<JsonMaintDkthaRecord> result = new ArrayList();
+	 	//get table
+    	result = (List)this.fetchListDkt056(applicationUser, id);
     	
     	return result;
 	
@@ -156,6 +180,34 @@ public class MaintSkatFellesAjaxHandlerController {
     	return list;
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintDkthaRecord> fetchListDkt056(String applicationUser, String id){
+		
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT056R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&dkth_sysg=" + id ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintDkthaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintDkthaContainer container = this.maintDkthaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getDtoList();
+	        	for(JsonMaintDkthaRecord record: list){
+	        		//logger.info(record.getDkth_sysg());
+	        	}
+	        }
+    	}
+    	return list;
+	}
 	
 
 	//SERVICES
@@ -181,6 +233,14 @@ public class MaintSkatFellesAjaxHandlerController {
 	@Required
 	public void setMaintDktardService (MaintDktardService value){ this.maintDktardService = value; }
 	public MaintDktardService getMaintDktardService(){ return this.maintDktardService; }
+	
+	@Qualifier ("maintDkthaService")
+	private MaintDkthaService maintDkthaService;
+	@Autowired
+	@Required
+	public void setMaintDkthaService (MaintDkthaService value){ this.maintDkthaService = value; }
+	public MaintDkthaService getMaintDkthaService(){ return this.maintDkthaService; }
+	
 	
 	
 }

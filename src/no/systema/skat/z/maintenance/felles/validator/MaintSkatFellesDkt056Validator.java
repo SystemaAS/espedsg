@@ -43,15 +43,9 @@ public class MaintSkatFellesDkt056Validator implements Validator {
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
 				//TODO validation of parent Sign
-				/*
-				if (record.getDktard01()!=null && !"".equals(record.getDktard01())){
-					//length validation
-					if(record.getDktard01().length()<10){
-						errors.rejectValue("dktard01", " ", "Varekode er ugyldig"); 
-					}
+				if (!record.isValidSignature()){
+					errors.rejectValue("validSignature", " ", "Signatur er ugyldig"); 
 				}
-				*/
-				
 			}
 		}
 	}
