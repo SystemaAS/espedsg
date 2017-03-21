@@ -368,14 +368,10 @@
 																		</c:otherwise>
 																	</c:choose>
 																
-																
 																<td class="text12" title="w2f2">&nbsp;
 																	Verdi fast
 																</td>
 																<td><input type="text"  class="inputTextMediumBlue" name="w2f2" id="w2f2" size="1" maxlength="1" value='${model.record.w2f2}'></td>
-																
-																
-																
 															</tr>
 															
 															<tr>
@@ -389,6 +385,7 @@
 																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'></td>
 															</tr>
+															
 															<tr>
 																<td class="text12" title="w2vnti">&nbsp;
 																	Varenr
@@ -399,6 +396,7 @@
 																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'></td>
 															</tr>
+															
 															<tr>
 																<td class="text12" title="w2belt">&nbsp;
 																	Tolverdi
@@ -409,6 +407,7 @@
 																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2vktb" id="w2vktb" size="15" maxlength="15" value='${model.record.w2vktb}'></td>
 															</tr>
+															
 															<tr>
 																<td class="text12" title="w2vktn">&nbsp;
 																	Nettovikt
@@ -482,7 +481,7 @@
 									
 									
 									<tr> <!-- Artikelbesk o avgift -->
-										<td width="50%">
+										<td width="50%"  valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
@@ -524,10 +523,37 @@
 													<td><input type="text" class="inputTextMediumBlue" name="w2nt03" id="w2nt03" size="10" maxlength="6" value='${model.record.w2nt03}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh03" id="w2eh03" size="5" maxlength="4" value='${model.record.w2eh03}'></td>
 												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt04" id="w2vt04" size="30" maxlength="30" value='${model.record.w2vt04}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft04" id="w2ft04" size="30" maxlength="28" value='${model.record.w2ft04}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt04" id="w2nt04" size="10" maxlength="6" value='${model.record.w2nt04}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh04" id="w2eh04" size="5" maxlength="4" value='${model.record.w2eh04}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt05" id="w2vt05" size="30" maxlength="30" value='${model.record.w2vt05}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft05" id="w2ft05" size="30" maxlength="28" value='${model.record.w2ft05}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt05" id="w2nt05" size="10" maxlength="6" value='${model.record.w2nt05}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh05" id="w2eh05" size="5" maxlength="4" value='${model.record.w2eh05}'></td>
+												</tr>
+												<tr>
+													<td>&nbsp;</td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft06" id="w2ft06" size="30" maxlength="28" value='${model.record.w2ft06}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt06" id="w2nt06" size="10" maxlength="6" value='${model.record.w2nt06}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh06" id="w2eh06" size="5" maxlength="4" value='${model.record.w2eh06}'></td>
+												</tr>
+												<tr>
+													<td>&nbsp;</td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft07" id="w2ft07" size="30" maxlength="28" value='${model.record.w2ft07}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt07" id="w2nt07" size="10" maxlength="6" value='${model.record.w2nt07}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh07" id="w2eh07" size="5" maxlength="4" value='${model.record.w2eh07}'></td>
+												</tr>												
+												<tr>
+													<td colspan="4" class="text12" height="25">&nbsp;</td>
+												</tr>
 											</table>
 										</td>
 										
-										<td width="50%">
+										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
@@ -536,7 +562,7 @@
 												</tr>
 											</table>			
 									
-											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12" title="w2mfr">&nbsp;
 														Kode
@@ -575,12 +601,133 @@
 													<td><input type="text" class="inputTextMediumBlue" name="w2agr3" id="w2agr3" size="15" maxlength="13" value='${model.record.w2agr3}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2abl3" id="w2abl3" size="6" maxlength="6" value='${model.record.w2abl3}'></td>
 												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd4" id="w2akd4" size="2" maxlength="2" value='${model.record.w2akd4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv4" id="w2asv4" size="3" maxlength="3" value='${model.record.w2asv4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa4" id="w2asa4" size="15" maxlength="13" value='${model.record.w2asa4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr4" id="w2agr4" size="15" maxlength="13" value='${model.record.w2agr4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl4" id="w2abl4" size="6" maxlength="6" value='${model.record.w2abl4}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd5" id="w2akd5" size="2" maxlength="2" value='${model.record.w2akd5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv5" id="w2asv5" size="3" maxlength="3" value='${model.record.w2asv5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa5" id="w2asa5" size="15" maxlength="13" value='${model.record.w2asa5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr5" id="w2agr5" size="15" maxlength="13" value='${model.record.w2agr5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl5" id="w2abl5" size="6" maxlength="6" value='${model.record.w2abl5}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd6" id="w2akd6" size="2" maxlength="2" value='${model.record.w2akd6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv6" id="w2asv6" size="3" maxlength="3" value='${model.record.w2asv6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa6" id="w2asa6" size="15" maxlength="13" value='${model.record.w2asa6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr6" id="w2agr6" size="15" maxlength="13" value='${model.record.w2agr6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl6" id="w2abl6" size="6" maxlength="6" value='${model.record.w2abl6}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd7" id="w2akd7" size="2" maxlength="2" value='${model.record.w2akd7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv7" id="w2asv7" size="3" maxlength="3" value='${model.record.w2asv7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa7" id="w2asa7" size="15" maxlength="13" value='${model.record.w2asa7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr7" id="w2agr7" size="15" maxlength="13" value='${model.record.w2agr7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl7" id="w2abl7" size="6" maxlength="6" value='${model.record.w2abl7}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd8" id="w2akd8" size="2" maxlength="2" value='${model.record.w2akd8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv8" id="w2asv8" size="3" maxlength="3" value='${model.record.w2asv8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa8" id="w2asa8" size="15" maxlength="13" value='${model.record.w2asa8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr8" id="w2agr8" size="15" maxlength="13" value='${model.record.w2agr8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl8" id="w2abl8" size="6" maxlength="6" value='${model.record.w2abl8}'></td>
+												</tr>
 											</table>
 										
 										</td>
 										
 									</tr>  <!-- End Artikelbesk / Avgift -->
 		
+									<tr> <!-- Tilleggsopplysningar -->
+										<td width="50%"  valign="top">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">&nbsp;
+														Tilleggsopplysninger(a)
+													</td>
+												</tr>
+											</table>			
+
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td class="text12" title="w2mfr">&nbsp;
+														Tilleggsopplysning
+													</td>
+													<td class="text12" title="w2bel">&nbsp;
+														Ref.
+													</td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top1" id="w2top1" size="20" maxlength="17" value='${model.record.w2top1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre1" id="w2cre1" size="3" maxlength="3" value='${model.record.w2cre1}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top2" id="w2top2" size="20" maxlength="17" value='${model.record.w2top2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre2" id="w2cre2" size="3" maxlength="3" value='${model.record.w2cre2}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top3" id="w2top3" size="20" maxlength="17" value='${model.record.w2top3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre3" id="w2cre3" size="3" maxlength="3" value='${model.record.w2cre3}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top4" id="w2top4" size="20" maxlength="17" value='${model.record.w2top4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre4" id="w2cre4" size="3" maxlength="3" value='${model.record.w2cre4}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top5" id="w2top5" size="20" maxlength="17" value='${model.record.w2top5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre5" id="w2cre5" size="3" maxlength="3" value='${model.record.w2cre5}'></td>
+												</tr>
+											</table>
+										</td>
+										
+										<td width="50%" valign="top">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">&nbsp;
+														Tilleggsopplysninger(b)
+													</td>
+												</tr>
+											</table>			
+
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td class="text12" title="w2mfr">&nbsp;
+														Tilleggsopplysning
+													</td>
+													<td class="text12" title="w2bel">&nbsp;
+														Ref.
+													</td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top6" id="w2top6" size="20" maxlength="17" value='${model.record.w2top6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre6" id="w2cre6" size="3" maxlength="3" value='${model.record.w2cre6}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top7" id="w2top7" size="20" maxlength="17" value='${model.record.w2top7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre7" id="w2cre7" size="3" maxlength="3" value='${model.record.w2cre7}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top8" id="w2top8" size="20" maxlength="17" value='${model.record.w2top8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre8" id="w2cre8" size="3" maxlength="3" value='${model.record.w2cre8}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top9" id="w2top9" size="20" maxlength="17" value='${model.record.w2top9}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre9" id="w2cre9" size="3" maxlength="3" value='${model.record.w2cre9}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2top10" id="w2top10" size="20" maxlength="17" value='${model.record.w2top10}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2cre10" id="w2cre10" size="3" maxlength="3" value='${model.record.w2cre10}'></td>
+												</tr>
+											</table>
+										
+										</td>
+										
+									</tr>  <!-- End Tilleggsopplysningar -->
+
 
 									<tr><td>&nbsp;</td></tr>
 									<tr> 
