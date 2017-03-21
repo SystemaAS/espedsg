@@ -17,8 +17,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintDktkdService" class="no.systema.skat.z.maintenance.main.service.MaintDktkdServiceImpl"/>
 	<bean id="maintDktardService" class="no.systema.skat.z.maintenance.main.service.MaintDktardServiceImpl"/>
 	<bean id="maintDktfiService" class="no.systema.skat.z.maintenance.main.service.MaintDktfiServiceImpl"/>
+	<bean id="maintDkthaService" class="no.systema.skat.z.maintenance.main.service.MaintDkthaServiceImpl"/>
 	<bean id="skatMaintMainDropDownListPopulationService" class="no.systema.skat.z.maintenance.main.service.html.dropdown.SkatMaintMainDropDownListPopulationService"/>
-	
 	
 
 	<!-- =================  -->
@@ -111,6 +111,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainKodtlikService" class="no.systema.z.main.maintenance.service.MaintMainKodtlikServiceImpl"/>
 	<bean id="maintMainKodtotyService" class="no.systema.z.main.maintenance.service.MaintMainKodtotyServiceImpl"/>
 	<bean id="maintMainValufService" class="no.systema.z.main.maintenance.service.MaintMainValufServiceImpl"/>
+	<bean id="maintMainSadvareService" class="no.systema.z.main.maintenance.service.MaintMainSadvareServiceImpl"/>
 	
 	<bean id="maintMainKodtvKodtwService" class="no.systema.z.main.maintenance.service.MaintMainKodtvKodtwServiceImpl">
 		<property name="urlCgiProxyService"><ref bean="urlCgiProxyService"/></property>

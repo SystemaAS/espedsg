@@ -174,7 +174,7 @@
 <!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
  -->
-						 	<td width="660" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="540" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>

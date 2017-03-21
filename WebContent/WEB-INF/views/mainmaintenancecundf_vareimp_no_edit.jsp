@@ -174,7 +174,7 @@
 <!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
  -->
-						 	<td width="660" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="500" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>
@@ -187,40 +187,40 @@
  					   <tr height="20"><td>&nbsp;</td>
  					   </tr>
 					  <tr height="20"> 
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<a id="alinkMainMaintVareExpNoGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_no.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											  <spring:message code="systema.main.maintenance.customer.vareregister.exp.no"/>
 										</font>&nbsp;						
 								</a>
 							</td>
-							<td width="110" valign="bottom" class="tabSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;
 									   <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
 									</font>
 							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 							<!--  	<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_dk_edit.do"> -->
 									<font class="tabDisabledLinkMinor">&nbsp;
 										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.dk"/>
 									</font>&nbsp;						
 							<!--  	</a> -->
 							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_dk_edit.do">  -->
 									<font class="tabDisabledLinkMinor">&nbsp;
 										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.dk"/>
 									</font>&nbsp;						
 							<!--  	</a> -->
 							</td>							
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">  -->
 									<font class="tabDisabledLinkMinor">&nbsp;
 										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.se"/>
 									</font>&nbsp;						
 							<!--  	</a> -->
 							</td>
-							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 							<!--  	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se_edit.do"> -->
 									<font class="tabDisabledLinkMinor">&nbsp;
 										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
@@ -228,7 +228,7 @@
 							<!-- 	</a>  -->
 							</td>		
 							
-						 	<td width="550" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="450" class="tabFantomSpace" align="center" nowrap></td>
 
 						</tr>
 					</table>
@@ -261,7 +261,7 @@
 				             <tbody >  
 					            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 					               <tr class="tableRow" height="20" >
-						               <td id="recordUpdate_${record.varenr}_${record.levenr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+						               <td id="recordUpdate_${record.levenr}_${record.varenr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 				               				<img src="resources/images/update.gif" border="0" alt="edit">
 						               </td>
 						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.varenr}&nbsp;</font></td>
@@ -292,7 +292,6 @@
 						<td>&nbsp;</td>
 					</tr>
 
- <!-- 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
 							<form action="mainmaintenancecundf_vareimp_no_edit.do" name="formRecord" id="formRecord" method="POST" >
@@ -343,72 +342,249 @@
 									<tr height="2">
 										<td>&nbsp;</td>
 									</tr>
-									<tr>
-										<td>
+									<tr> <!-- Artikelinfo -->
+										<td colspan="2">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
-														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.param"/>
+														Artikelinfo
 													</td>
 												</tr>
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="50%" >
+													<td width="50%">
 														<table>
 															<tr>
-																<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaid"/>:&nbsp;&nbsp;&nbsp;
-																</td>
-																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${model.record.sypaid}'></td>
-																<td class="text12" title="sypaid">
-																	<a tabindex="-1" id="sypaidIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																</td>
+																<td class="text12" title="varenr">&nbsp;
+																	Artikelnr
+																	<c:choose>
+																		<c:when test="${model.action == 'doCreate'}">
+																			<td><input type="text" class="inputTextMediumBlue"  name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
+																		</c:when>
+																		<c:otherwise>
+																			<td><input readonly type="text" class="inputTextReadOnly"  name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
+																		</c:otherwise>
+																	</c:choose>
 																
-																<td class="text12" title="sypaidDesc">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
-																<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="50" maxlength="50" value='${model.record.sypaidDesc}'></td>
+																
+																<td class="text12" title="w2f2">&nbsp;
+																	Verdi fast
+																</td>
+																<td><input type="text"  class="inputTextMediumBlue" name="w2f2" id="w2f2" size="1" maxlength="1" value='${model.record.w2f2}'></td>
+																
+																
 																
 															</tr>
-
+															
 															<tr>
-																<td class="text12" title="sysort">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>:
+																<td class="text12" title="syrg">&nbsp;
+																	Beskrivelse
 																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${model.record.sysort}'>
+																<td><input type="text" class="inputTextMediumBlue" name="varebe" id="varebe" size="55" maxlength="50" value='${model.record.varebe}'></td>
+															
+																<td class="text12" title="w2lk">&nbsp;
+																	Land
 																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'></td>
 															</tr>
-
+															<tr>
+																<td class="text12" title="w2vnti">&nbsp;
+																	Varenr
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2vnti" id="w2vnti" size="30" maxlength="30" value='${model.record.w2vnti}'></td>
+																<td class="text12" title="spraak">&nbsp;
+																	Preferanse
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="w2belt">&nbsp;
+																	Tolverdi
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2belt" id="w2belt" size="15" maxlength="15" value='${model.record.w2belt}'></td>
+																<td class="text12" title="w2vktb">&nbsp;
+																	Bruttovekt
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2vktb" id="w2vktb" size="15" maxlength="15" value='${model.record.w2vktb}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="w2vktn">&nbsp;
+																	Nettovikt
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2vktn" id="w2vktn" size="15" maxlength="15" value='${model.record.w2vktn}'></td>
+																<td class="text12" title="w2ntm">&nbsp;
+																	Mengde
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2ntm" id="w2ntm" size="10" maxlength="9" value='${model.record.w2ntm}'></td>
+															</tr>
 														</table>
 													</td>
+													
 													<td width="50%" valign="top">
 														<table>
 															<tr>
-																<td colspan="2" class="text12" title="syvrdn">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:
+																<td class="text12" title="w2mfr">&nbsp;
+																	Momsfri
 																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="20" maxlength="15" value='${model.record.syvrdn}'>
+																<td><input type="text" class="inputTextMediumBlue" name="w2mfr" id="w2mfr" size="1" maxlength="1" value='${model.record.w2mfr}'></td>
+																<td class="text12" title="w2beln">&nbsp;
+																	Bel NOK
 																</td>
-															<tr>
-																<td colspan="2" class="text12" title="syvrda">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrda"/>:
-																</td>
-																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="60" maxlength="50" value='${model.record.syvrda}'>
-																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2beln" id="w2beln" size="15" maxlength="15" value='${model.record.w2beln}'></td>
 															</tr>
+															<tr>
+																<td class="text12" title="w2bel">&nbsp;
+																	Avg. just
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2bel" id="w2bel" size="15" maxlength="13" value='${model.record.w2bel}'></td>
+																<td class="text12" title="w2pros">&nbsp;
+																	Varev.(proc)
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="w2val">&nbsp;
+																	Valutakod
+																</td>
+																<td colspan="4"><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'></td>
+															</tr>
+															
+															<tr>
+																<td class="text12" title="w2pva">&nbsp;
+																	Pvaf
+																</td>
+																<td><input type="text"  class="inputTextMediumBlue" name="w2pva" id="w2pva" size="1" maxlength="1" value='${model.record.w2pva}'></td>
+																<td class="text12" title="w2as">&nbsp;
+																	Avsats
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2as" id="w2as" size="10" maxlength="9" value='${model.record.w2as}'></td>
+															</tr>
+															
+															<tr>
+																<td colspan="4">&nbsp;</td>
+															</tr>
+															<tr>
+																<td colspan="4">&nbsp;</td>
+															</tr>	
+															<tr>
+																<td colspan="3">&nbsp;</td>
+																<td>&nbsp;
+																</td>	
+															</tr>										
 														</table>
 													</td>
 												</tr>
 											</table>
 										</td>
-									</tr>
+									</tr>  <!-- End Artikelinfo -->
+									
+									
+									<tr> <!-- Artikelbesk o avgift -->
+										<td width="50%">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">&nbsp;
+														Artikelbeskrivelse
+													</td>
+												</tr>
+											</table>			
+
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td class="text12" title="w2mfr">&nbsp;
+														Beskrivelse
+													</td>
+													<td class="text12" title="w2bel">&nbsp;
+														Merke og nr
+													</td>
+													<td class="text12" title="w2pros">&nbsp;
+														Antall kolli
+													</td>
+													<td class="text12" title="w2beln">&nbsp;
+														Enhet
+													</td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="30" maxlength="30" value='${model.record.w2vt01}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft01" id="w2ft01" size="30" maxlength="28" value='${model.record.w2ft01}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt01" id="w2nt01" size="10" maxlength="6" value='${model.record.w2nt01}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh01" id="w2eh01" size="5" maxlength="4" value='${model.record.w2eh01}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt02" id="w2vt02" size="30" maxlength="30" value='${model.record.w2vt02}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft02" id="w2ft02" size="30" maxlength="28" value='${model.record.w2ft02}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt02" id="w2nt02" size="10" maxlength="6" value='${model.record.w2nt02}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh02" id="w2eh02" size="5" maxlength="4" value='${model.record.w2eh02}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt03" id="w2vt03" size="30" maxlength="30" value='${model.record.w2vt03}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft03" id="w2ft03" size="30" maxlength="28" value='${model.record.w2ft03}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2nt03" id="w2nt03" size="10" maxlength="6" value='${model.record.w2nt03}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2eh03" id="w2eh03" size="5" maxlength="4" value='${model.record.w2eh03}'></td>
+												</tr>
+											</table>
+										</td>
+										
+										<td width="50%">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">&nbsp;
+														Avgifter
+													</td>
+												</tr>
+											</table>			
+									
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr>
+													<td class="text12" title="w2mfr">&nbsp;
+														Kode
+													</td>
+													<td class="text12" title="w2bel">&nbsp;
+														Sekvens
+													</td>
+													<td class="text12" title="w2pros">&nbsp;
+														Sats
+													</td>
+													<td class="text12" title="w2beln">&nbsp;
+														Grunnlag
+													</td>
+													<td class="text12" title="w2beln">&nbsp;
+														Belop
+													</td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd1" id="w2akd1" size="2" maxlength="2" value='${model.record.w2akd1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv1" id="w2asv1" size="3" maxlength="3" value='${model.record.w2asv1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa1" id="w2asa1" size="15" maxlength="13" value='${model.record.w2asa1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr1" id="w2agr1" size="15" maxlength="13" value='${model.record.w2agr1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl1" id="w2abl1" size="6" maxlength="6" value='${model.record.w2abl1}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd2" id="w2akd2" size="2" maxlength="2" value='${model.record.w2akd2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv2" id="w2asv2" size="3" maxlength="3" value='${model.record.w2asv2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa2" id="w2asa2" size="15" maxlength="13" value='${model.record.w2asa2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr2" id="w2agr2" size="15" maxlength="13" value='${model.record.w2agr2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl2" id="w2abl2" size="6" maxlength="6" value='${model.record.w2abl2}'></td>
+												</tr>
+												<tr>
+													<td><input type="text" class="inputTextMediumBlue" name="w2akd3" id="w2akd3" size="2" maxlength="2" value='${model.record.w2akd3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asv3" id="w2asv3" size="3" maxlength="3" value='${model.record.w2asv3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2asa3" id="w2asa3" size="15" maxlength="13" value='${model.record.w2asa3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2agr3" id="w2agr3" size="15" maxlength="13" value='${model.record.w2agr3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2abl3" id="w2abl3" size="6" maxlength="6" value='${model.record.w2abl3}'></td>
+												</tr>
+											</table>
+										
+										</td>
+										
+									</tr>  <!-- End Artikelbesk / Avgift -->
+		
 
 									<tr><td>&nbsp;</td></tr>
 									<tr> 
-										<td align="right">
+										<td colspan="2" align="right">
 											<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
 										</td>
 									</tr>
@@ -417,7 +593,6 @@
  	   	 		 		</td>
  	   	 		 	</tr>
  
-  -->	   	 		 
  	   	 		 </table>
  	   	 		
  	   	 		</td>

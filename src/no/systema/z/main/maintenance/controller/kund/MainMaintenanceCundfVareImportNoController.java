@@ -22,16 +22,15 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadvareContainer;
-import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportSadvareRecord;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportSadvareService;
-import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.service.MaintMainSyparfService;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareRecord;
+import no.systema.z.main.maintenance.service.MaintMainSadvareService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
 /**
- * Controller for Export(no) for Vareregister in Kunderegister
+ * Controller for Import(no) for Vareregister in Kunderegister
  * 
  * 
  * @author Fredrik Möller
@@ -52,8 +51,6 @@ public class MainMaintenanceCundfVareImportNoController {
 		ModelAndView successView = null;
 		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
-		logger.info("appUser 2, ="+appUser);
-		
 		if (appUser == null) {
 			return this.loginView;
 		} else  {
@@ -71,9 +68,9 @@ public class MainMaintenanceCundfVareImportNoController {
 	
 	private ModelAndView vareImportNo(SystemaWebUser appUser, String kundnr, String firma, String knavn) {
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareimp_no_edit");
-		Map model = new HashMap();
+		Map<String, Object> model = new HashMap<String, Object>();
 
-		List<JsonMaintSadImportSadvareRecord> list = new ArrayList();
+		List<JsonMaintMainSadvareRecord> list = new ArrayList<JsonMaintMainSadvareRecord>();
 		list = fetchList(appUser.getUser(), kundnr);
 
 		model.put("kundnr", kundnr);
@@ -86,8 +83,8 @@ public class MainMaintenanceCundfVareImportNoController {
 		return successView;
 	}	
 	
-	private List<JsonMaintSadImportSadvareRecord> fetchList(String applicationUser, String kundnr) {
-		String BASE_URL = TvinnSadMaintenanceImportUrlDataStore.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD001AR_GET_LIST_URL;
+	private List<JsonMaintMainSadvareRecord> fetchList(String applicationUser, String kundnr) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
 		urlRequestParams.append("&levenr=" + kundnr);
@@ -96,60 +93,38 @@ public class MainMaintenanceCundfVareImportNoController {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		// extract
-		List<JsonMaintSadImportSadvareRecord> list = new ArrayList();
+		//logger.info("jsonPayload="+jsonPayload);
+		List<JsonMaintMainSadvareRecord> list = null;;
 		if (jsonPayload != null) {
-			// lists
-			JsonMaintSadImportSadvareContainer container = maintSadImportSadvareService.getList(jsonPayload);
+			JsonMaintMainSadvareContainer container = maintMainSadvareService.getContainer(jsonPayload);
 			if (container != null) {
-				list = (List) container.getList();
-				for (JsonMaintSadImportSadvareRecord record : list) {
-					// logger.info("LEVENR:" + record.getLevenr());
-				}
+				list = (List<JsonMaintMainSadvareRecord>) container.getDtoList();
 			}
 		}
 		return list;
-
 	}
 
 	// Wired - SERVICES
 	@Qualifier("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
-
 	@Autowired
 	@Required
 	public void setUrlCgiProxyService(UrlCgiProxyService value) {
 		this.urlCgiProxyService = value;
 	}
-
 	public UrlCgiProxyService getUrlCgiProxyService() {
 		return this.urlCgiProxyService;
 	}
 
-	@Qualifier("maintMainSyparfService")
-	private MaintMainSyparfService maintMainSyparfService;
-
+	@Qualifier("maintMainSadvareService")
+	private MaintMainSadvareService maintMainSadvareService;
 	@Autowired
 	@Required
-	public void setMaintMainSyparfService(MaintMainSyparfService value) {
-		this.maintMainSyparfService = value;
+	public void setMaintMainSadvareService(MaintMainSadvareService value) {
+		this.maintMainSadvareService = value;
 	}
-
-	public MaintMainSyparfService getMaintMainSyparfService() {
-		return this.maintMainSyparfService;
-	}
-
-	@Qualifier("maintSadImportSadvareService")
-	private MaintSadImportSadvareService maintSadImportSadvareService;
-
-	@Autowired
-	@Required
-	public void setMaintSadImportSadvareService(MaintSadImportSadvareService value) {
-		this.maintSadImportSadvareService = value;
-	}
-
-	public MaintSadImportSadvareService getMaintSadImportSadvareService() {
-		return this.maintSadImportSadvareService;
+	public MaintMainSadvareService getMaintMainSadvareService() {
+		return this.maintMainSadvareService;
 	}
 
 }

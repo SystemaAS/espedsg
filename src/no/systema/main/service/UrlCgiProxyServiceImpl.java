@@ -3,8 +3,13 @@
  */
 package no.systema.main.service;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+//java net
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -12,9 +17,6 @@ import org.springframework.core.io.Resource;
 
 import no.systema.main.context.TdsAppContext;
 import no.systema.main.util.EncodingTransformer;
-
-//java net
-import java.net.*;
 /**
  * 
  * @author oscardelatorre
@@ -22,8 +24,6 @@ import java.net.*;
  */
 public class UrlCgiProxyServiceImpl implements UrlCgiProxyService{
 	private static Logger logger = Logger.getLogger(UrlCgiProxyServiceImpl.class.getName());
-	
-	//private static final Logger logger = Logger.getLogger(UrlCgiProxyServiceImpl.class.getName());
 	private static final String ENCODING_JSON_UTF8 = "UTF8";
 	private static final String ENCODING_STREAMS_UTF8 = "UTF-8";
 
@@ -73,6 +73,7 @@ public class UrlCgiProxyServiceImpl implements UrlCgiProxyService{
 	 
     	}catch(Exception e){
     		e.printStackTrace();
+    		logger.info("Error:", e);
     	}
 		
 		return utfPayload;
@@ -114,6 +115,7 @@ public class UrlCgiProxyServiceImpl implements UrlCgiProxyService{
 			
 		}catch(Exception e){
     		e.printStackTrace();
+    		logger.info("Error:", e);
     		
     	}
 		return utfPayload;
@@ -135,6 +137,7 @@ public class UrlCgiProxyServiceImpl implements UrlCgiProxyService{
 			
     	}catch(Exception e){
     		e.printStackTrace();
+    		logger.info("Error:", e);
     	}
 		
 		return utfPayload;

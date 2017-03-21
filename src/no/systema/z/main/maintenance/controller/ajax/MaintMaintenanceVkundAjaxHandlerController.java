@@ -27,9 +27,12 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.controller.kund.VkundControllerUtil;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundcService;
+import no.systema.z.main.maintenance.service.MaintMainSadvareService;
 import no.systema.z.main.maintenance.service.MaintMainSyparfService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
@@ -49,6 +52,14 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
 
 
+	@RequestMapping(value = "getSpecificRecord_sadvare.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JsonMaintMainSadvareRecord> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sadvare ";
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
+
+		return (List<JsonMaintMainSadvareRecord>) fetchSpecificSadvare(applicationUser, levenr, varenr);
+	}	
+	
 	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syparf ";
@@ -77,10 +88,29 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		return list;
 	}
 
+	private List<JsonMaintMainSadvareRecord> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&levenr=" + levenr);
+		urlRequestParams.append("&varenr=" + varenr);
 
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List<JsonMaintMainSadvareRecord> list = null;;
+		if (jsonPayload != null) {
+			JsonMaintMainSadvareContainer container = maintMainSadvareService.getContainer(jsonPayload);
+			if (container != null) {
+				list = (List<JsonMaintMainSadvareRecord>) container.getDtoList();
+			}
+		}
+		return list;
+	}	
+	
 	private List<JsonMaintMainSyparfRecord> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
-		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
-		jsonReader.set(new JsonDtoContainer<SyparfDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
 		urlRequestParams.append("user=" + appUser);
@@ -168,7 +198,16 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	public void setMaintMainSyparfService (MaintMainSyparfService value){ this.maintMainSyparfService = value; }
 	public MaintMainSyparfService getMaintMainSyparfService(){ return this.maintMainSyparfService; }		
 	
-	
+	@Qualifier("maintMainSadvareService")
+	private MaintMainSadvareService maintMainSadvareService;
+	@Autowired
+	@Required
+	public void setMaintMainSadvareService(MaintMainSadvareService value) {
+		this.maintMainSadvareService = value;
+	}
+	public MaintMainSadvareService getMaintMainSadvareService() {
+		return this.maintMainSadvareService;
+	}	
 	
 
 }
