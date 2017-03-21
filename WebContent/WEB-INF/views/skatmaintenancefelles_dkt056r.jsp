@@ -49,15 +49,15 @@
 			<tr>
 				<td width="3%">&nbsp;</td>
 				<td width="100%">
-				<table id="containerdatatableTable" width="99%" cellspacing="1" border="0" align="left">
+				<table id="containerdatatableTable" width="98%" cellspacing="1" border="1" align="left">
 			    	    <tr>
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th width="2%" class="tableHeaderField" align="center" >Signatur</th>
-								<th width="40%" class="tableHeaderField" align="center" >Navn</th>
+								<th class="tableHeaderField" align="center" >Signatur</th>
+								<th class="tableHeaderField" align="center" >Navn</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
 			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
 			                    
@@ -66,14 +66,14 @@
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.kosfsi}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               <td width="2%" id="recordUpdate_${record.dkth_sysg}" onClick="getRecord(this);" align="center" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 					               	<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.kosfsi}</td>
-				               <td width="40%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.kosfnv}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.syuser}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.dkth_sysg}</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.dkth_namn}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.dkth_usid}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancesign_syfa60r_edit.do?action=doDelete&kosfsi=${record.kosfsi}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatmaintenancefelles_dkt56r_edit.do?action=doDelete&dkth_sysg=${record.dkth_sysg}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -149,20 +149,20 @@
 						</tr>
 						<tr height="20"><td></td></tr>
 						<tr>
-							<td class="text12" ><font class="text14RedBold" >*</font><span title="kosfsi">Signatur&nbsp;</span>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="dkth_sysg">Signatur&nbsp;</span>
 								<c:choose>
 									<c:when test="${not empty model.updateId}">
-										<input readonly type="text" class="inputTextReadOnly"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
+										<input readonly type="text" class="inputTextReadOnly"  name="dkth_sysg" id="dkth_sysg" size="5" maxlength="3" value='${model.record.dkth_sysg}'>
 									</c:when>
 									<c:otherwise>
-										<input type="text" class="inputTextMediumBlueMandatoryField"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
+										<input type="text" class="inputTextMediumBlueMandatoryField"  name="dkth_sysg" id="dkth_sysg" size="5" maxlength="3" value='${model.record.dkth_sysg}'>
 									</c:otherwise>
 								</c:choose>
-								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="kosfnv">Navn&nbsp;</span>
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="kosfnv" id="kosfnv" size="20" maxlength="16" value='${model.record.kosfnv}'>
+								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="dkth_namn">Navn&nbsp;</span>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="dkth_namn" id="dkth_namn" size="20" maxlength="16" value='${model.record.dkth_namn}'>
 								
  	    						&nbsp;&nbsp;&nbsp;<span title="syuser">Userid</span>
- 	    						<input type="text" class="inputTextMediumBlue" name="syuser" id="syuser" size="11" maxlength="10" value="${model.record.syuser}" />
+ 	    						<input type="text" class="inputTextMediumBlue" name="dkth_usid" id="dkth_usid" size="11" maxlength="10" value="${model.record.dkth_usid}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  	    						<%--
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>

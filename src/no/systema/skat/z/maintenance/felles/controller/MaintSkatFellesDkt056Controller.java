@@ -34,14 +34,14 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.skat.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdContainer;
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktkdRecord;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardContainer;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardRecord;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaContainer;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaRecord;
 import no.systema.skat.z.maintenance.main.service.MaintDktkdService;
-import no.systema.skat.z.maintenance.main.service.MaintDktardService;
+import no.systema.skat.z.maintenance.main.service.MaintDkthaService;
 import no.systema.skat.z.maintenance.main.service.html.dropdown.SkatMaintMainDropDownListPopulationService;
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
-import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDktardrValidator;
+import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDkt056Validator;
 
 
 /**
@@ -87,19 +87,19 @@ public class MaintSkatFellesDkt056Controller {
 			return this.loginView;
 		}else{
 			//get table
-	    	List<JsonMaintDktardRecord> list = new ArrayList();
-	    	list = this.fetchList(appUser.getUser(), id, startDato);
+	    	List<JsonMaintDkthaRecord> list = new ArrayList();
+	    	list = this.fetchList(appUser.getUser());
 	    	//drop downs
-	    	List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
+	    	/*List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
 	    	List codeListToldsatstype = this.skatMaintMainDropDownListPopulationService.getToldsatstypeList();
 	    	model.put("codeList022", codeList022);
 	    	model.put("codeListToldsatstype", codeListToldsatstype);
-	    	
+	    	*/
 	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	model.put("searchDktard01", id);
-	    	model.put("searchDktard02", startDato);
+	    	//model.put("searchDktard01", id);
+	    	//model.put("searchDktard02", startDato);
 	    	
 	    	model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);
@@ -117,7 +117,7 @@ public class MaintSkatFellesDkt056Controller {
 	 * @return
 	 */
 	@RequestMapping(value="skatmaintenancefelles_dkt056r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktardRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDkthaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt056r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
@@ -132,14 +132,12 @@ public class MaintSkatFellesDkt056Controller {
 			return this.loginView;
 		}else{
 			//Move on
-			MaintSkatFellesDktardrValidator validator = new MaintSkatFellesDktardrValidator();
+			MaintSkatFellesDkt056Validator validator = new MaintSkatFellesDkt056Validator();
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
 				validator.validate(recordToValidate, bindingResult);
 			}
-			//adjust some fields
-			this.adjustSomeFields(recordToValidate);
 			
 			if(bindingResult.hasErrors()){
 				//ERRORS
@@ -191,7 +189,7 @@ public class MaintSkatFellesDkt056Controller {
 				//this in order to present the complete list to the end user after a DML-operation
 				//recordToValidate.setDk(null);
 			}
-			List<JsonMaintDktardRecord> list = this.fetchList(appUser.getUser(), id, startDato);
+			List<JsonMaintDkthaRecord> list = this.fetchList(appUser.getUser());
 			//drop downs
 	    	List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
 	    	List codeListToldsatstype = this.skatMaintMainDropDownListPopulationService.getToldsatstypeList();
@@ -206,19 +204,7 @@ public class MaintSkatFellesDkt056Controller {
 	    	return successView;
 		}
 	}
-	private void adjustSomeFields(JsonMaintDktardRecord recordToValidate){
-		int TOLDSATS_FIELDS_LENGTH = 7;
-		String TOLDSATS_FILLER_CHAR = "0";
-		String TOLDSATS_DECIMAL_COMMA = ",";
-		StringManager mgr = new StringManager();
-		//Toldsatser (must be stored without decimal sign and with trailing Zeros). The field is a string field
-		recordToValidate.setDktard05(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard05(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard11(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard11(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard17(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard17(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard23(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard23(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard29(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard29(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		
-	}
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -226,30 +212,30 @@ public class MaintSkatFellesDkt056Controller {
 	 * @param startDato
 	 * @return
 	 */
-	private List<JsonMaintDktardRecord> fetchList(String applicationUser, String id, String startDato){
+	private List<JsonMaintDkthaRecord> fetchList(String applicationUser){
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKTARDR_GET_LIST_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT056R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
-		urlRequestParams.append("&dktard01="+ id);
+		//urlRequestParams.append("&dktard01="+ id);
 		//other params
-		if(startDato!=null && !"".equals(startDato)){
+		/*if(startDato!=null && !"".equals(startDato)){
 			urlRequestParams.append("&dktard02=" + startDato);
-		}
+		}*/
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     	//extract
-    	List<JsonMaintDktardRecord> list = new ArrayList();
+    	List<JsonMaintDkthaRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktardContainer container = this.maintDktardService.getList(jsonPayload);
+    		JsonMaintDkthaContainer container = this.maintDkthaService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
-	        	for(JsonMaintDktardRecord record : list){
-	        		logger.info("TEKST:" + record.getDktard48() + "END");
+	        	for(JsonMaintDkthaRecord record : list){
+	        		//logger.info("TEKST:" + record.getDkth_namn() + "END");
 	        	}
 	        }
     	}
@@ -303,10 +289,10 @@ public class MaintSkatFellesDkt056Controller {
 	 * @param mode
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintDktardRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintDkthaRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKTARDR_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT056R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -320,7 +306,7 @@ public class MaintSkatFellesDkt056Controller {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktardContainer container = this.maintDktardService.doUpdate(jsonPayload);
+    		JsonMaintDkthaContainer container = this.maintDkthaService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -343,12 +329,12 @@ public class MaintSkatFellesDkt056Controller {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintDktardService")
-	private MaintDktardService maintDktardService;
+	@Qualifier ("maintDkthaService")
+	private MaintDkthaService maintDkthaService;
 	@Autowired
 	@Required
-	public void setMaintDktardService (MaintDktardService value){ this.maintDktardService = value; }
-	public MaintDktardService getMaintDktardService(){ return this.maintDktardService; }
+	public void setMaintDkthaService (MaintDkthaService value){ this.maintDkthaService = value; }
+	public MaintDkthaService getMaintDkthaService(){ return this.maintDkthaService; }
 	
 	
 	@Qualifier ("maintDktkdService")

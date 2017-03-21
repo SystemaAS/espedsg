@@ -102,7 +102,7 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY": "350px",
     	  "scrollCollapse":  true,
-    	  "columnDefs": [{ "type": "num", "targets": 1 }],
+    	  //"columnDefs": [{ "type": "num", "targets": 1 }],
     	  "order": [[ 1, "asc" ]],
     	  "lengthMenu": [ 75, 100]
   	  });
