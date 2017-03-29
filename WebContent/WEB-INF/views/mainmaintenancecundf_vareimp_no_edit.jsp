@@ -174,7 +174,7 @@
 <!-- 
 							<td width="50" class="tabDisabledTrailingEnd"></td>
  -->
-						 	<td width="500" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="540" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>
@@ -228,7 +228,7 @@
 							<!-- 	</a>  -->
 							</td>		
 							
-						 	<td width="450" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="490" class="tabFantomSpace" align="center" nowrap></td>
 
 						</tr>
 					</table>
@@ -276,7 +276,7 @@
 						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2mfr}&nbsp;</font></td>
 						               
 						               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-				               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad001ar_edit.do?action=doDelete&id=${model.dbTable}&varenr=${record.varenr}&levenr=${record.levenr}">
+				               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_vareimp_no_edit.do?action=doDelete&varenr=${record.varenr}&levenr=${record.levenr}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 							               	</a>
 						               </td>
@@ -359,15 +359,7 @@
 															<tr>
 																<td class="text12" title="varenr">&nbsp;
 																	Artikelnr
-																	<c:choose>
-																		<c:when test="${model.action == 'doCreate'}">
-																			<td><input type="text" class="inputTextMediumBlue"  name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
-																		</c:when>
-																		<c:otherwise>
-																			<td><input readonly type="text" class="inputTextReadOnly"  name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
-																		</c:otherwise>
-																	</c:choose>
-																
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
 																<td class="text12" title="w2f2">&nbsp;
 																	Verdi fast
 																</td>
@@ -378,7 +370,7 @@
 																<td class="text12" title="syrg">&nbsp;
 																	Beskrivelse
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="varebe" id="varebe" size="55" maxlength="50" value='${model.record.varebe}'></td>
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="varebe" id="varebe" size="55" maxlength="50" value='${model.record.varebe}'></td>
 															
 																<td class="text12" title="w2lk">&nbsp;
 																	Land
@@ -401,7 +393,7 @@
 																<td class="text12" title="w2belt">&nbsp;
 																	Tolverdi
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2belt" id="w2belt" size="15" maxlength="15" value='${model.record.w2belt}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2belt" id="w2belt" size="15" maxlength="15" value='${model.record.w2belt}'></td>
 																<td class="text12" title="w2vktb">&nbsp;
 																	Bruttovekt
 																</td>
@@ -416,7 +408,7 @@
 																<td class="text12" title="w2ntm">&nbsp;
 																	Mengde
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2ntm" id="w2ntm" size="10" maxlength="9" value='${model.record.w2ntm}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2ntm" id="w2ntm" size="10" maxlength="9" value='${model.record.w2ntm}'></td>
 															</tr>
 														</table>
 													</td>
@@ -431,17 +423,17 @@
 																<td class="text12" title="w2beln">&nbsp;
 																	Bel NOK
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2beln" id="w2beln" size="15" maxlength="15" value='${model.record.w2beln}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2beln" id="w2beln" size="15" maxlength="15" value='${model.record.w2beln}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="w2bel">&nbsp;
 																	Avg. just
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2bel" id="w2bel" size="15" maxlength="13" value='${model.record.w2bel}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2bel" id="w2bel" size="15" maxlength="13" value='${model.record.w2bel}'></td>
 																<td class="text12" title="w2pros">&nbsp;
 																	Varev.(proc)
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="w2val">&nbsp;
@@ -458,7 +450,7 @@
 																<td class="text12" title="w2as">&nbsp;
 																	Avsats
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2as" id="w2as" size="10" maxlength="9" value='${model.record.w2as}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2as" id="w2as" size="10" maxlength="9" value='${model.record.w2as}'></td>
 															</tr>
 															
 															<tr>
@@ -492,59 +484,59 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td class="text12" title="w2mfr">&nbsp;
+													<td class="text12" title="w2mfr">
 														Beskrivelse
 													</td>
-													<td class="text12" title="w2bel">&nbsp;
+													<td class="text12" title="w2bel">
 														Merke og nr
 													</td>
-													<td class="text12" title="w2pros">&nbsp;
+													<td class="text12" title="w2pros">
 														Antall kolli
 													</td>
-													<td class="text12" title="w2beln">&nbsp;
+													<td class="text12" title="w2beln">
 														Enhet
 													</td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="30" maxlength="30" value='${model.record.w2vt01}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft01" id="w2ft01" size="30" maxlength="28" value='${model.record.w2ft01}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt01" id="w2nt01" size="10" maxlength="6" value='${model.record.w2nt01}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="31" maxlength="30" value='${model.record.w2vt01}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft01" id="w2ft01" size="29" maxlength="28" value='${model.record.w2ft01}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt01" id="w2nt01" size="10" maxlength="6" value='${model.record.w2nt01}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh01" id="w2eh01" size="5" maxlength="4" value='${model.record.w2eh01}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt02" id="w2vt02" size="30" maxlength="30" value='${model.record.w2vt02}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft02" id="w2ft02" size="30" maxlength="28" value='${model.record.w2ft02}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt02" id="w2nt02" size="10" maxlength="6" value='${model.record.w2nt02}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt02" id="w2vt02" size="31" maxlength="30" value='${model.record.w2vt02}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft02" id="w2ft02" size="29" maxlength="28" value='${model.record.w2ft02}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt02" id="w2nt02" size="10" maxlength="6" value='${model.record.w2nt02}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh02" id="w2eh02" size="5" maxlength="4" value='${model.record.w2eh02}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt03" id="w2vt03" size="30" maxlength="30" value='${model.record.w2vt03}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft03" id="w2ft03" size="30" maxlength="28" value='${model.record.w2ft03}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt03" id="w2nt03" size="10" maxlength="6" value='${model.record.w2nt03}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt03" id="w2vt03" size="31" maxlength="30" value='${model.record.w2vt03}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft03" id="w2ft03" size="29" maxlength="28" value='${model.record.w2ft03}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt03" id="w2nt03" size="10" maxlength="6" value='${model.record.w2nt03}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh03" id="w2eh03" size="5" maxlength="4" value='${model.record.w2eh03}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt04" id="w2vt04" size="30" maxlength="30" value='${model.record.w2vt04}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft04" id="w2ft04" size="30" maxlength="28" value='${model.record.w2ft04}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt04" id="w2nt04" size="10" maxlength="6" value='${model.record.w2nt04}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt04" id="w2vt04" size="31" maxlength="30" value='${model.record.w2vt04}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft04" id="w2ft04" size="29" maxlength="28" value='${model.record.w2ft04}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt04" id="w2nt04" size="10" maxlength="6" value='${model.record.w2nt04}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh04" id="w2eh04" size="5" maxlength="4" value='${model.record.w2eh04}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt05" id="w2vt05" size="30" maxlength="30" value='${model.record.w2vt05}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft05" id="w2ft05" size="30" maxlength="28" value='${model.record.w2ft05}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt05" id="w2nt05" size="10" maxlength="6" value='${model.record.w2nt05}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2vt05" id="w2vt05" size="31" maxlength="30" value='${model.record.w2vt05}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft05" id="w2ft05" size="29" maxlength="28" value='${model.record.w2ft05}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt05" id="w2nt05" size="10" maxlength="6" value='${model.record.w2nt05}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh05" id="w2eh05" size="5" maxlength="4" value='${model.record.w2eh05}'></td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft06" id="w2ft06" size="30" maxlength="28" value='${model.record.w2ft06}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt06" id="w2nt06" size="10" maxlength="6" value='${model.record.w2nt06}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh06" id="w2eh06" size="5" maxlength="4" value='${model.record.w2eh06}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft06" id="w2ft06" size="29" maxlength="28" value='${model.record.w2ft06}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt06" id="w2nt06" size="10" maxlength="6" value='${model.record.w2nt06}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2eh06" id="w2eh06" size="5" maxlength="4" value='${model.record.w2eh06}'></td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft07" id="w2ft07" size="30" maxlength="28" value='${model.record.w2ft07}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2nt07" id="w2nt07" size="10" maxlength="6" value='${model.record.w2nt07}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="w2ft07" id="w2ft07" size="29" maxlength="28" value='${model.record.w2ft07}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt07" id="w2nt07" size="10" maxlength="6" value='${model.record.w2nt07}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2eh07" id="w2eh07" size="5" maxlength="4" value='${model.record.w2eh07}'></td>
 												</tr>												
 												<tr>
@@ -564,77 +556,77 @@
 									
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12" title="w2mfr">&nbsp;
+													<td class="text12" title="w2mfr">
 														Kode
 													</td>
-													<td class="text12" title="w2bel">&nbsp;
+													<td class="text12" title="w2bel">
 														Sekvens
 													</td>
-													<td class="text12" title="w2pros">&nbsp;
+													<td class="text12" title="w2pros">
 														Sats
 													</td>
-													<td class="text12" title="w2beln">&nbsp;
+													<td class="text12" title="w2beln">
 														Grunnlag
 													</td>
-													<td class="text12" title="w2beln">&nbsp;
+													<td class="text12" title="w2beln">
 														Belop
 													</td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd1" id="w2akd1" size="2" maxlength="2" value='${model.record.w2akd1}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv1" id="w2asv1" size="3" maxlength="3" value='${model.record.w2asv1}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa1" id="w2asa1" size="15" maxlength="13" value='${model.record.w2asa1}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr1" id="w2agr1" size="15" maxlength="13" value='${model.record.w2agr1}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl1" id="w2abl1" size="6" maxlength="6" value='${model.record.w2abl1}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa1" id="w2asa1" size="15" maxlength="13" value='${model.record.w2asa1}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr1" id="w2agr1" size="15" maxlength="13" value='${model.record.w2agr1}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl1" id="w2abl1" size="6" maxlength="6" value='${model.record.w2abl1}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd2" id="w2akd2" size="2" maxlength="2" value='${model.record.w2akd2}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv2" id="w2asv2" size="3" maxlength="3" value='${model.record.w2asv2}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa2" id="w2asa2" size="15" maxlength="13" value='${model.record.w2asa2}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr2" id="w2agr2" size="15" maxlength="13" value='${model.record.w2agr2}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl2" id="w2abl2" size="6" maxlength="6" value='${model.record.w2abl2}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa2" id="w2asa2" size="15" maxlength="13" value='${model.record.w2asa2}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr2" id="w2agr2" size="15" maxlength="13" value='${model.record.w2agr2}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl2" id="w2abl2" size="6" maxlength="6" value='${model.record.w2abl2}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd3" id="w2akd3" size="2" maxlength="2" value='${model.record.w2akd3}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv3" id="w2asv3" size="3" maxlength="3" value='${model.record.w2asv3}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa3" id="w2asa3" size="15" maxlength="13" value='${model.record.w2asa3}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr3" id="w2agr3" size="15" maxlength="13" value='${model.record.w2agr3}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl3" id="w2abl3" size="6" maxlength="6" value='${model.record.w2abl3}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa3" id="w2asa3" size="15" maxlength="13" value='${model.record.w2asa3}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr3" id="w2agr3" size="15" maxlength="13" value='${model.record.w2agr3}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl3" id="w2abl3" size="6" maxlength="6" value='${model.record.w2abl3}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd4" id="w2akd4" size="2" maxlength="2" value='${model.record.w2akd4}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv4" id="w2asv4" size="3" maxlength="3" value='${model.record.w2asv4}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa4" id="w2asa4" size="15" maxlength="13" value='${model.record.w2asa4}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr4" id="w2agr4" size="15" maxlength="13" value='${model.record.w2agr4}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl4" id="w2abl4" size="6" maxlength="6" value='${model.record.w2abl4}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa4" id="w2asa4" size="15" maxlength="13" value='${model.record.w2asa4}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr4" id="w2agr4" size="15" maxlength="13" value='${model.record.w2agr4}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl4" id="w2abl4" size="6" maxlength="6" value='${model.record.w2abl4}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd5" id="w2akd5" size="2" maxlength="2" value='${model.record.w2akd5}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv5" id="w2asv5" size="3" maxlength="3" value='${model.record.w2asv5}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa5" id="w2asa5" size="15" maxlength="13" value='${model.record.w2asa5}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr5" id="w2agr5" size="15" maxlength="13" value='${model.record.w2agr5}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl5" id="w2abl5" size="6" maxlength="6" value='${model.record.w2abl5}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa5" id="w2asa5" size="15" maxlength="13" value='${model.record.w2asa5}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr5" id="w2agr5" size="15" maxlength="13" value='${model.record.w2agr5}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl5" id="w2abl5" size="6" maxlength="6" value='${model.record.w2abl5}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd6" id="w2akd6" size="2" maxlength="2" value='${model.record.w2akd6}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv6" id="w2asv6" size="3" maxlength="3" value='${model.record.w2asv6}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa6" id="w2asa6" size="15" maxlength="13" value='${model.record.w2asa6}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr6" id="w2agr6" size="15" maxlength="13" value='${model.record.w2agr6}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl6" id="w2abl6" size="6" maxlength="6" value='${model.record.w2abl6}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa6" id="w2asa6" size="15" maxlength="13" value='${model.record.w2asa6}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr6" id="w2agr6" size="15" maxlength="13" value='${model.record.w2agr6}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl6" id="w2abl6" size="6" maxlength="6" value='${model.record.w2abl6}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd7" id="w2akd7" size="2" maxlength="2" value='${model.record.w2akd7}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv7" id="w2asv7" size="3" maxlength="3" value='${model.record.w2asv7}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa7" id="w2asa7" size="15" maxlength="13" value='${model.record.w2asa7}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr7" id="w2agr7" size="15" maxlength="13" value='${model.record.w2agr7}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl7" id="w2abl7" size="6" maxlength="6" value='${model.record.w2abl7}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa7" id="w2asa7" size="15" maxlength="13" value='${model.record.w2asa7}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr7" id="w2agr7" size="15" maxlength="13" value='${model.record.w2agr7}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl7" id="w2abl7" size="6" maxlength="6" value='${model.record.w2abl7}'></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd8" id="w2akd8" size="2" maxlength="2" value='${model.record.w2akd8}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="w2asv8" id="w2asv8" size="3" maxlength="3" value='${model.record.w2asv8}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asa8" id="w2asa8" size="15" maxlength="13" value='${model.record.w2asa8}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2agr8" id="w2agr8" size="15" maxlength="13" value='${model.record.w2agr8}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2abl8" id="w2abl8" size="6" maxlength="6" value='${model.record.w2abl8}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa8" id="w2asa8" size="15" maxlength="13" value='${model.record.w2asa8}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2agr8" id="w2agr8" size="15" maxlength="13" value='${model.record.w2agr8}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2abl8" id="w2abl8" size="6" maxlength="6" value='${model.record.w2abl8}'></td>
 												</tr>
 											</table>
 										
@@ -654,10 +646,10 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td class="text12" title="w2mfr">&nbsp;
+													<td class="text12" title="w2mfr">
 														Tilleggsopplysning
 													</td>
-													<td class="text12" title="w2bel">&nbsp;
+													<td class="text12" title="w2bel">
 														Ref.
 													</td>
 												</tr>
@@ -695,10 +687,10 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td class="text12" title="w2mfr">&nbsp;
+													<td class="text12" title="w2mfr">
 														Tilleggsopplysning
 													</td>
-													<td class="text12" title="w2bel">&nbsp;
+													<td class="text12" title="w2bel">
 														Ref.
 													</td>
 												</tr>

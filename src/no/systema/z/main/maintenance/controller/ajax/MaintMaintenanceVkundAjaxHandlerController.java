@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
-import no.systema.jservices.common.dto.SyparfDto;
+import no.systema.jservices.common.dao.SadvareDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.service.UrlCgiProxyService;
@@ -27,8 +27,6 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.controller.kund.VkundControllerUtil;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundcRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSadvareRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundcService;
@@ -53,11 +51,11 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 
 
 	@RequestMapping(value = "getSpecificRecord_sadvare.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody List<JsonMaintMainSadvareRecord> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
+	public @ResponseBody Collection<SadvareDao> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
 		final String METHOD = "[DEBUG] getSpecificRecord_sadvare ";
 		logger.info(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
 
-		return (List<JsonMaintMainSadvareRecord>) fetchSpecificSadvare(applicationUser, levenr, varenr);
+		return fetchSpecificSadvare(applicationUser, levenr, varenr);
 	}	
 	
 	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -87,7 +85,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		
 		return list;
 	}
-
+/*
 	private List<JsonMaintMainSadvareRecord> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -109,6 +107,32 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		}
 		return list;
 	}	
+*/	
+	
+	//TODO, fix this på utf8 !!
+	private Collection<SadvareDao> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
+		JsonReader<JsonDtoContainer<SadvareDao>> jsonReader = new JsonReader<JsonDtoContainer<SadvareDao>>();
+		jsonReader.set(new JsonDtoContainer<SadvareDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&levenr=" + levenr);
+		urlRequestParams.append("&varenr=" + varenr);
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+
+		JsonDtoContainer<SadvareDao> container = (JsonDtoContainer<SadvareDao>) jsonReader.get(jsonPayload);
+		if (container != null) {
+			return container.getDtoList();
+		} else {
+			return null;
+		}
+	}		
+	
+	
 	
 	private List<JsonMaintMainSyparfRecord> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;

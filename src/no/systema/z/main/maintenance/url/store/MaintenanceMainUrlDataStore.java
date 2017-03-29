@@ -110,6 +110,17 @@ public final class MaintenanceMainUrlDataStore {
 	 * 
 	 */
 	static public String MAINTENANCE_MAIN_BASE_SADVARE_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSADVARE.do";	
+
+	
+	/**
+	 * DML of SadvareDao
+	 * 
+	 * @Example UPDATE:
+	 *          http://gw.systema.no:8080/syjservicesbcore/syjsSADVARE_U.do?user=OSCAR&levenr=24&varenr=59&varebe=alfaupdate...and many more...&mode=U/A/D
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SADVARE_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSADVARE_U.do";	
+	
 	
 	/**
 	 * Retrieve a List of SyparfDao
