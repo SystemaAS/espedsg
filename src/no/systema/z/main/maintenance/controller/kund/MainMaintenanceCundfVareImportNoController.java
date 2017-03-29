@@ -193,6 +193,8 @@ public class MainMaintenanceCundfVareImportNoController {
 	
 	
 	private List<JsonMaintMainSadvareRecord> fetchList(String applicationUser, String kundnr) {
+		JsonReader<JsonDtoContainer<JsonMaintMainSadvareRecord>> jsonReader = new JsonReader<JsonDtoContainer<JsonMaintMainSadvareRecord>>();
+		jsonReader.set(new JsonDtoContainer<JsonMaintMainSadvareRecord>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
@@ -203,16 +205,17 @@ public class MainMaintenanceCundfVareImportNoController {
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		//logger.info("jsonPayload="+jsonPayload);
-		List<JsonMaintMainSadvareRecord> list = null;;
+		List<JsonMaintMainSadvareRecord> list = null;
 		if (jsonPayload != null) {
-			JsonMaintMainSadvareContainer container = maintMainSadvareService.getContainer(jsonPayload);
-			if (container != null) {
-				list = (List<JsonMaintMainSadvareRecord>) container.getDtoList();
-			}
+			JsonDtoContainer<JsonMaintMainSadvareRecord> container = (JsonDtoContainer<JsonMaintMainSadvareRecord>) jsonReader.get(jsonPayload);
+			logger.info("container="+container);
+				if (container != null) {
+					list = (List<JsonMaintMainSadvareRecord>) container.getDtoList();
+				}
 		}
 		return list;
-	}
-
+	}	
+	
 	// Wired - SERVICES
 	@Qualifier("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
