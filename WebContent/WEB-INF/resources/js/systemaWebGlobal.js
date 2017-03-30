@@ -1,4 +1,15 @@
-    //for mouse-over for css popup
+	var langMap = {
+			   'EN' : 'English',
+			   'DK' : 'Danish',
+			   'SE' : 'Swedish',
+			   'NO' : 'Norwegian-Bokmal'
+	}
+
+	function getLanguage(lang) {
+	    return '/espedsg/resources/localization/'+langMap[lang]+'.json'
+	}
+	
+	//for mouse-over for css popup
     function showPop(id){
     	if(id!=''){
     		document.getElementById(id).style.visibility = "visible";
@@ -53,5 +64,4 @@
     function refreshCustomValidity(element){
   	  element.setCustomValidity('');
     }
-    
-    
+  

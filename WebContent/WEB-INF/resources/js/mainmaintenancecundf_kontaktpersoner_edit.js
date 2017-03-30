@@ -227,8 +227,9 @@ function getRecord(record){
 			
 		}
 	  }, 
-	  error: function() {
-		  alert('Error loading ...');
+	  error: function(jqXHR, exception) {
+		    alert('Error loading ...look in console log.');
+		    console.log(jqXHR);
 	  }
 	});
 		
@@ -244,7 +245,7 @@ function filterGlobal() {
 }
 
 jq(document).ready(function() {
-	//init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	var lang = jq('#language').val();
 	jq('#mainList').dataTable({
 		"dom" : '<"top">t<"bottom"flip><"clear">',
 		"scrollY" : "200px",
@@ -253,7 +254,10 @@ jq(document).ready(function() {
 			"type" : "num",
 			"targets" : 0
 		} ],
-		"lengthMenu" : [ 75, 100 ]
+		"lengthMenu" : [ 75, 100 ],
+		"language": {
+			"url": getLanguage(lang)
+        }
 	});
 
 });
