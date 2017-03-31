@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.KodtlkDao;
 import no.systema.jservices.common.dao.KodtotyDao;
+import no.systema.jservices.common.dao.Kodts2Dao;
+import no.systema.jservices.common.dao.Kodts7Dao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -65,6 +66,9 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
  * Listing of Kunder
  * 
  * Edit and create new
+ * 
+ * 
+ * Child windows for all tabs, incl. subtabs.
  * 
  * 
  * @author Fredrik Möller
@@ -220,15 +224,89 @@ public class MainMaintenanceCundfVkundController {
 			list = getLikviditetskoder(appUser);
 		} else if ("sypaid".equals(caller)) { //Param id
 			list = getParamKoder(appUser,  !KOFAST_NO_ID);
-		}  
+		}  else if ("w2vf".equals(caller)) { //Verdi fast
+			list = getVerdiFastKoder(appUser);
+		}  else if ("w2lk".equals(caller)) { //Land (import)
+			list = getLandImportKoder(appUser);
+		} 
 		
 		else {
-			throw new IllegalArgumentException(caller + "is not supported.");
+			throw new IllegalArgumentException(caller + " is not supported.");
 		}
 
 		return list;
 	}
 	
+	
+	private List<ChildWindowKode>  getLandImportKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Kodts2Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts2Dao>>();
+		jsonReader.set(new JsonDtoContainer<Kodts2Dao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTS2_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Kodts2Dao> container = (JsonDtoContainer<Kodts2Dao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Kodts2Dao kodts2Dao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodts2Dao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}		
+	
+	private ChildWindowKode getChildWindowKode(Kodts2Dao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKs2lk());
+		kode.setDescription(dao.getKs2ftx());
+
+		return kode;
+	}		
+	
+	
+	
+	private List<ChildWindowKode>  getVerdiFastKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Kodts7Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts7Dao>>();
+		jsonReader.set(new JsonDtoContainer<Kodts7Dao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTS7_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Kodts7Dao> container = (JsonDtoContainer<Kodts7Dao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Kodts7Dao kodts7Dao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodts7Dao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}		
+	
+	private ChildWindowKode getChildWindowKode(Kodts7Dao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(String.valueOf(dao.getKs7vf()));
+		kode.setDescription(dao.getKs7ftx());
+
+		return kode;
+	}		
 	
 	private List<ChildWindowKode> getParamKoder(SystemaWebUser appUser, boolean noId) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
@@ -237,8 +315,6 @@ public class MainMaintenanceCundfVkundController {
 		urlRequestParams.append("&kftyp=" + FasteKoder.SYPAR.toString());
 		logger.info(BASE_URL);
 		logger.info(urlRequestParams);
-
-		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		JsonMaintMainChildWindowKofastContainer container = null;
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
@@ -259,9 +335,6 @@ public class MainMaintenanceCundfVkundController {
 		return kodeList;
 	}
 	
-	
-	
-	
 	private List<ChildWindowKode> getFunksjonKoder(SystemaWebUser appUser, boolean noId) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -280,7 +353,6 @@ public class MainMaintenanceCundfVkundController {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
 					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
-						logger.info("JsonMaintMainChildWindowKofastRecord="+ReflectionToStringBuilder.toString(record));
 						kode = getChildWindowKode(record, noId);
 						kodeList.add(kode);
 					}
@@ -364,12 +436,9 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-		// extract
-		List<JsonMaintSadImportKodtlikRecord> list = new ArrayList();
 		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		if (jsonPayload != null) {
-			// lists
 			JsonMaintSadImportKodtlikContainer container = this.maintSadImportKodtlikService.getList(jsonPayload);
 			if (container != null) {
 				for (JsonMaintSadImportKodtlikRecord record : container.getList()) {
@@ -401,7 +470,6 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		JsonMaintMainValufContainer container = maintMainValufService.getContainer(jsonPayload);

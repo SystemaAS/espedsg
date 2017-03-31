@@ -1,4 +1,3 @@
-//this variable is a global jQuery var instead of using "$" all the time. Very handy
 var jq = jQuery.noConflict();
 //--------
 //Koder
@@ -29,9 +28,13 @@ function filterCode() {
 }
 //Init datatables
 jq(document).ready(function() {
+	var lang = opener.jq('#language').val();
 	jq('#codeList').dataTable({
 		"dom" : '<"top"fli>rt<"bottom"p><"clear">',
-		"lengthMenu" : [ 75, 100, 200, 500 ]
+		"lengthMenu" : [ 75, 100, 200, 500 ],
+		"language": {
+			"url": getLanguage(lang)
+        }
 	});
 	//event on input field for search
 	jq('input.codeList_filter').on('keyup click', function() {

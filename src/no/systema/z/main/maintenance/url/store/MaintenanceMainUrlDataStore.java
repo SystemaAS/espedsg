@@ -165,6 +165,21 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_KODTOTY_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTOTY.do";
 	
+	/**
+	 * Retrieve a List of Kodts7Dao, where ks7uni = S7
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKODTS7.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KODTS7_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTS7.do";
+	
+	/**
+	 * Retrieve a List of Kodts2Dao, where ks2uni = S2
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKODTS2.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KODTS2_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTS2.do";
 	
 	/**
 	 * Retrieve a List of FratxtDao

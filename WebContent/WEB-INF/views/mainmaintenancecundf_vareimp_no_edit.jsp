@@ -360,10 +360,14 @@
 																<td class="text12" title="varenr">&nbsp;
 																	Artikelnr
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
-																<td class="text12" title="w2f2">&nbsp;
+																<td class="text12" title="w2vf">&nbsp;
 																	Verdi fast
 																</td>
-																<td><input type="text"  class="inputTextMediumBlue" name="w2f2" id="w2f2" size="1" maxlength="1" value='${model.record.w2f2}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vf" id="w2vf" size="1" maxlength="1" value='${model.record.w2vf}'>
+																	<a tabindex="-1" id="w2vfIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 															
 															<tr>
@@ -375,7 +379,11 @@
 																<td class="text12" title="w2lk">&nbsp;
 																	Land
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'>
+																	<a tabindex="-1" id="w2lkIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 															
 															<tr>
