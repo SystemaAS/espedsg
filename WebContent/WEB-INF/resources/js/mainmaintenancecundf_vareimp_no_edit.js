@@ -50,8 +50,24 @@ jq(function() {
     jq('#w2lkIdLink').click(function() {
     	jq('#w2lkIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2lk', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });	   
-	
+    });	  
+    
+    jq('#w2vntiIdLink').click(function() {
+    	jq('#w2lkIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2vnti', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	 
+    
+    jq('#w2tnIdLink').click(function() {
+    	jq('#w2lkIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2tn', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	  
+    
+    jq('#w2preIdLink').click(function() {
+    	jq('#w2lkIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2pre', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	 	
+    
+    
 }); 
 
 

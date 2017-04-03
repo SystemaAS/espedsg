@@ -182,6 +182,30 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_KODTS2_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTS2.do";
 	
 	/**
+	 * Retrieve a List of TariDao
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsTARI.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_TARI_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTARI.do";
+	
+	/**
+	 * Retrieve a List of Kodts5Dao
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKODTS5.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KODTS5_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTS5.do";
+
+	/**
+	 * Retrieve a List of Kodts6Dao
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKODTS6.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KODTS6_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTS6.do";
+	
+	/**
 	 * Retrieve a List of FratxtDao
 	 * 
 	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesbcore/syjsFRATXT.do?user=OSCAR&fxknr=24&delsys=A

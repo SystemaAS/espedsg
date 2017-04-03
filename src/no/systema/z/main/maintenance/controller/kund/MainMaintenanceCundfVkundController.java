@@ -25,7 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import no.systema.jservices.common.dao.KodtlkDao;
 import no.systema.jservices.common.dao.KodtotyDao;
 import no.systema.jservices.common.dao.Kodts2Dao;
+import no.systema.jservices.common.dao.Kodts5Dao;
+import no.systema.jservices.common.dao.Kodts6Dao;
 import no.systema.jservices.common.dao.Kodts7Dao;
+import no.systema.jservices.common.dao.TariDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -228,6 +231,12 @@ public class MainMaintenanceCundfVkundController {
 			list = getVerdiFastKoder(appUser);
 		}  else if ("w2lk".equals(caller)) { //Land (import)
 			list = getLandImportKoder(appUser);
+		} else if ("w2vnti".equals(caller)) { //Tariffnr (aka varenr)
+			list = getTariffKoder(appUser);
+		} else if ("w2tn".equals(caller)) { //Tollned
+			list = getTollnedKoder(appUser);
+		} else if ("w2pre".equals(caller)) { //Preferense
+			list = getPreferenseKoder(appUser);
 		} 
 		
 		else {
@@ -236,6 +245,110 @@ public class MainMaintenanceCundfVkundController {
 
 		return list;
 	}
+	
+
+	private List<ChildWindowKode>  getPreferenseKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Kodts6Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts6Dao>>();
+		jsonReader.set(new JsonDtoContainer<Kodts6Dao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTS6_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Kodts6Dao> container = (JsonDtoContainer<Kodts6Dao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Kodts6Dao kodts6Dao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodts6Dao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}		
+	
+	private ChildWindowKode getChildWindowKode(Kodts6Dao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKs6pre());
+		kode.setDescription(dao.getKs6ftx());
+
+		return kode;
+	}		
+	
+	private List<ChildWindowKode>  getTollnedKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Kodts5Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts5Dao>>();
+		jsonReader.set(new JsonDtoContainer<Kodts5Dao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTS5_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Kodts5Dao> container = (JsonDtoContainer<Kodts5Dao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Kodts5Dao kodts5Dao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodts5Dao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}		
+	
+	private ChildWindowKode getChildWindowKode(Kodts5Dao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKs5tln());
+		kode.setDescription(dao.getKs5ftx());
+
+		return kode;
+	}	
+		
+	
+	private List<ChildWindowKode>  getTariffKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<TariDao>> jsonReader = new JsonReader<JsonDtoContainer<TariDao>>();
+		jsonReader.set(new JsonDtoContainer<TariDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_TARI_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<TariDao> container = (JsonDtoContainer<TariDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (TariDao tariDao :  container.getDtoList()) {
+						kode = getChildWindowKode(tariDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}	
+	
+	private ChildWindowKode getChildWindowKode(TariDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(String.valueOf(dao.getTatanr()));
+		kode.setDescription(dao.getTatxt());
+
+		return kode;
+	}	
 	
 	
 	private List<ChildWindowKode>  getLandImportKoder(SystemaWebUser appUser) {

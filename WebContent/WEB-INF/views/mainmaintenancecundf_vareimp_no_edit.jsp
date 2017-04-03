@@ -390,11 +390,19 @@
 																<td class="text12" title="w2vnti">&nbsp;
 																	Varenr
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2vnti" id="w2vnti" size="30" maxlength="30" value='${model.record.w2vnti}'></td>
+																<td><input type="text"  onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vnti" id="w2vnti" size="30" maxlength="30" value='${model.record.w2vnti}'>
+																	<a tabindex="-1" id="w2vntiIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="spraak">&nbsp;
 																	Preferanse
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'>
+																	<a tabindex="-1" id="w2preIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 															
 															<tr>
@@ -447,7 +455,15 @@
 																<td class="text12" title="w2val">&nbsp;
 																	Valutakod
 																</td>
-																<td colspan="4"><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'></td>
+																<td class="text12" title="w2tn">&nbsp;
+																	Tollned
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2tn" id="w2tn" size="1" maxlength="1" value='${model.record.w2tn}'>
+																	<a tabindex="-1" id="w2tnIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 															
 															<tr>
