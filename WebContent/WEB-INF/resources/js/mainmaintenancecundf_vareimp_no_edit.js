@@ -66,7 +66,16 @@ jq(function() {
     	jq('#w2lkIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2pre', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	 	
+   
+    jq('#enhetIdLink').click(function() {
+    	jq('#enhetIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=enhet', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	 
     
+    jq('#avgkodeIdLink').click(function() {
+    	jq('#avgkodeIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=avgkode', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	
     
 }); 
 

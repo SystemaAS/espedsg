@@ -28,6 +28,8 @@ import no.systema.jservices.common.dao.Kodts2Dao;
 import no.systema.jservices.common.dao.Kodts5Dao;
 import no.systema.jservices.common.dao.Kodts6Dao;
 import no.systema.jservices.common.dao.Kodts7Dao;
+import no.systema.jservices.common.dao.Kodts8Dao;
+import no.systema.jservices.common.dao.KodtsaDao;
 import no.systema.jservices.common.dao.TariDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
@@ -237,6 +239,10 @@ public class MainMaintenanceCundfVkundController {
 			list = getTollnedKoder(appUser);
 		} else if ("w2pre".equals(caller)) { //Preferense
 			list = getPreferenseKoder(appUser);
+		} else if ("enhet".equals(caller)) { //Enhet
+			list = getEnhetKoder(appUser);
+		} else if ("avgkode".equals(caller)) { //Avg.kode
+			list = getAvgkodeKoder(appUser);
 		} 
 		
 		else {
@@ -246,7 +252,74 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 	
+	private List<ChildWindowKode>  getAvgkodeKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Kodts8Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts8Dao>>();
+		jsonReader.set(new JsonDtoContainer<Kodts8Dao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTS8_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
 
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Kodts8Dao> container = (JsonDtoContainer<Kodts8Dao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Kodts8Dao kodtsaDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtsaDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}
+	
+	private ChildWindowKode getChildWindowKode(Kodts8Dao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKs8avg() +"-"+dao.getKs8skv());
+		kode.setDescription(dao.getKs8ftx());
+
+		return kode;
+	}		
+	
+	private List<ChildWindowKode>  getEnhetKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<KodtsaDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtsaDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtsaDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTSA_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<KodtsaDao> container = (JsonDtoContainer<KodtsaDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (KodtsaDao kodtsaDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtsaDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}			
+	
+	private ChildWindowKode getChildWindowKode(KodtsaDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKsakd());
+		kode.setDescription(dao.getKsaft());
+
+		return kode;
+	}	
+	
 	private List<ChildWindowKode>  getPreferenseKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Kodts6Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts6Dao>>();
 		jsonReader.set(new JsonDtoContainer<Kodts6Dao>());

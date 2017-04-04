@@ -435,7 +435,14 @@
 																<td class="text12" title="w2mfr">&nbsp;
 																	Momsfri
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2mfr" id="w2mfr" size="1" maxlength="1" value='${model.record.w2mfr}'></td>
+																<td>								
+																	<select name="w2mfr" id="w2mfr" > <!-- TODO: nordify, now norwegian -->
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="F"<c:if test="${model.record.wmfr == 'F'}"> selected </c:if> >Momsfri</option>
+													  					<option value="1"<c:if test="${ model.record.w2mfr == '1'}"> selected </c:if> >MVA høy sats</option>
+													  					<option value="2"<c:if test="${ model.record.w2mfr == '2'}"> selected </c:if> >MVA lav sats</option>
+													  				</select>
+																</td>																
 																<td class="text12" title="w2beln">&nbsp;
 																	Bel NOK
 																</td>
@@ -470,7 +477,16 @@
 																<td class="text12" title="w2pva">&nbsp;
 																	Pvaf
 																</td>
-																<td><input type="text"  class="inputTextMediumBlue" name="w2pva" id="w2pva" size="1" maxlength="1" value='${model.record.w2pva}'></td>
+																<td>								
+																	<select name="w2pva" id="w2pva" > <!-- TODO: nordify, now norwegian -->
+								 					  					<option value="">-velg-</option>
+								 					  					<option value="P"<c:if test="${model.record.w2pva == 'P'}"> selected </c:if> >PROCENTTOLL</option>
+													  					<option value="V"<c:if test="${ model.record.w2pva == 'V'}"> selected </c:if> >pr kg</option>
+													  					<option value="W"<c:if test="${ model.record.w2pva == 'W'}"> selected </c:if> >pr 100 kg</option>
+													  					<option value="A"<c:if test="${ model.record.w2pva == 'A'}"> selected </c:if> >pr. liter</option>
+													  					<option value="F"<c:if test="${ model.record.w2pva == 'F'}"> selected </c:if> >FRI</option>
+													  				</select>
+																</td>
 																<td class="text12" title="w2as">&nbsp;
 																	Avsats
 																</td>
@@ -507,6 +523,13 @@
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr>
+													<td  class="text12" colspan="4" align="right">
+														<a tabindex="-1" id="enhetIdLink">Ref.
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>&nbsp;&nbsp;&nbsp;
+													</td>
+												</tr>
 												<tr> 
 													<td class="text12" title="w2mfr">
 														Beskrivelse
@@ -520,6 +543,7 @@
 													<td class="text12" title="w2beln">
 														Enhet
 													</td>
+
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="31" maxlength="30" value='${model.record.w2vt01}'></td>
@@ -579,6 +603,13 @@
 											</table>			
 									
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="left">
+												<tr>
+													<td  class="text12" colspan="4" align="left">
+														<a tabindex="-1" id="avgkodeIdLink">Ref.
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
+												</tr>
 												<tr>
 													<td class="text12" title="w2mfr">
 														Kode
