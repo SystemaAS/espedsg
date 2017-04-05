@@ -37,34 +37,67 @@ public class MaintMainSadvareValidator implements Validator {
 						&& (record.getW2akd1() == null || "".equals(record.getW2akd1()))) {
 					errors.rejectValue("w2akd1", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd1() != null && !"".equals(record.getW2akd1()))
+						&& (record.getW2asv1() == null || "".equals(record.getW2asv1()))) {
+					errors.rejectValue("w2asv1", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}				
+				
 				if ((record.getW2asv2() != null && !"".equals(record.getW2asv2()))
 						&& (record.getW2akd2() == null || "".equals(record.getW2akd2()))) {
 					errors.rejectValue("w2akd2", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd2() != null && !"".equals(record.getW2akd2()))
+						&& (record.getW2asv2() == null || "".equals(record.getW2asv2()))) {
+					errors.rejectValue("w2asv2", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}					
 				if ((record.getW2asv3() != null && !"".equals(record.getW2asv3()))
 						&& (record.getW2akd3() == null || "".equals(record.getW2akd3()))) {
 					errors.rejectValue("w2akd3", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd3() != null && !"".equals(record.getW2akd3()))
+						&& (record.getW2asv3() == null || "".equals(record.getW2asv3()))) {
+					errors.rejectValue("w2asv3", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}				
 				if ((record.getW2asv4() != null && !"".equals(record.getW2asv4()))
 						&& (record.getW2akd4() == null || "".equals(record.getW2akd4()))) {
 					errors.rejectValue("w2akd4", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd4() != null && !"".equals(record.getW2akd4()))
+						&& (record.getW2asv4() == null || "".equals(record.getW2asv4()))) {
+					errors.rejectValue("w2asv4", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}				
 				if ((record.getW2asv5() != null && !"".equals(record.getW2asv5()))
 						&& (record.getW2akd5() == null || "".equals(record.getW2akd5()))) {
 					errors.rejectValue("w2akd5", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd5() != null && !"".equals(record.getW2akd5()))
+						&& (record.getW2asv5() == null || "".equals(record.getW2asv5()))) {
+					errors.rejectValue("w2asv5", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}					
 				if ((record.getW2asv6() != null && !"".equals(record.getW2asv6()))
 						&& (record.getW2akd6() == null || "".equals(record.getW2akd6()))) {
 					errors.rejectValue("w2akd6", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}	
+				if ((record.getW2akd6() != null && !"".equals(record.getW2akd6()))
+						&& (record.getW2asv6() == null || "".equals(record.getW2asv6()))) {
+					errors.rejectValue("w2asv6", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}					
 				if ((record.getW2asv7() != null && !"".equals(record.getW2asv7()))
 						&& (record.getW2akd7() == null || "".equals(record.getW2akd7()))) {
 					errors.rejectValue("w2akd7", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd7() != null && !"".equals(record.getW2akd7()))
+						&& (record.getW2asv7() == null || "".equals(record.getW2asv7()))) {
+					errors.rejectValue("w2asv7", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}	
 				if ((record.getW2asv8() != null && !"".equals(record.getW2asv8()))
 						&& (record.getW2akd8() == null || "".equals(record.getW2akd8()))) {
 					errors.rejectValue("w2akd8", "", "Hvis sekvensnummer fylles i må kode fylles i");
 				}
+				if ((record.getW2akd8() != null && !"".equals(record.getW2akd8()))
+						&& (record.getW2asv8() == null || "".equals(record.getW2asv8()))) {
+					errors.rejectValue("w2asv8", "", "Hvis kode fylles i må sekvensnummer fylles i");
+				}	
 			}
 		}
 		

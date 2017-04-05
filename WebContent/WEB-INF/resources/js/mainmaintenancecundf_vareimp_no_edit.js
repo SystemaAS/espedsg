@@ -77,6 +77,17 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=avgkode', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
     
+    jq('#kommref1IdLink').click(function() {
+    	jq('#kommref1IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=kommref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	
+    
+    jq('#kommref2IdLink').click(function() {
+    	jq('#kommref2IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=kommref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	 
+    
+    
 }); 
 
 

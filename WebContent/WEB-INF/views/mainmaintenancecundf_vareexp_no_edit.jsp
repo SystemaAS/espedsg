@@ -228,7 +228,7 @@
 							<!-- 	</a>  -->
 							</td>		
 							
-						 	<td width="610" class="tabFantomSpace" align="center" nowrap></td>
+						 	<td width="490" class="tabFantomSpace" align="center" nowrap></td>
 
 						</tr>
 					</table>

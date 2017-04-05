@@ -354,15 +354,12 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="50%">
-														<table>
+													<td width="50%" valign="top">
+														<table border="0">
 															<tr>
-																<td class="text12" title="varenr">&nbsp;
-																	Artikelnr
+																<td class="text12" title="varenr">&nbsp;Artikelnr:</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
-																<td class="text12" title="w2vf">&nbsp;
-																	Verdi fast
-																</td>
+																<td class="text12" title="w2vf">&nbsp;Verdi fast:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vf" id="w2vf" size="1" maxlength="1" value='${model.record.w2vf}'>
 																	<a tabindex="-1" id="w2vfIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -371,14 +368,10 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="syrg">&nbsp;
-																	Beskrivelse
-																</td>
-																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="varebe" id="varebe" size="55" maxlength="50" value='${model.record.varebe}'></td>
+																<td class="text12" title="varebe">&nbsp;Beskrivelse:</td>
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="varebe" id="varebe" size="40" maxlength="50" value='${model.record.varebe}'></td>
 															
-																<td class="text12" title="w2lk">&nbsp;
-																	Land
-																</td>
+																<td class="text12" title="w2lk">&nbsp;Land:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'>
 																	<a tabindex="-1" id="w2lkIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -387,17 +380,13 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2vnti">&nbsp;
-																	Varenr
-																</td>
+																<td class="text12" title="w2vnti">&nbsp;Varenr:</td>
 																<td><input type="text"  onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vnti" id="w2vnti" size="30" maxlength="30" value='${model.record.w2vnti}'>
 																	<a tabindex="-1" id="w2vntiIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
 																</td>
-																<td class="text12" title="spraak">&nbsp;
-																	Preferanse
-																</td>
+																<td class="text12" title="spraak">&nbsp;Preferanse:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'>
 																	<a tabindex="-1" id="w2preIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -406,35 +395,25 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2belt">&nbsp;
-																	Tolverdi
-																</td>
+																<td class="text12" title="w2belt">&nbsp;Tolverdi:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2belt" id="w2belt" size="15" maxlength="15" value='${model.record.w2belt}'></td>
-																<td class="text12" title="w2vktb">&nbsp;
-																	Bruttovekt
-																</td>
+																<td class="text12" title="w2vktb">&nbsp;Bruttovekt:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2vktb" id="w2vktb" size="15" maxlength="15" value='${model.record.w2vktb}'></td>
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2vktn">&nbsp;
-																	Nettovikt
-																</td>
+																<td class="text12" title="w2vktn">&nbsp;Nettovikt:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2vktn" id="w2vktn" size="15" maxlength="15" value='${model.record.w2vktn}'></td>
-																<td class="text12" title="w2ntm">&nbsp;
-																	Mengde
-																</td>
+																<td class="text12" title="w2ntm">&nbsp;Mengde:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2ntm" id="w2ntm" size="10" maxlength="9" value='${model.record.w2ntm}'></td>
 															</tr>
 														</table>
 													</td>
 													
 													<td width="50%" valign="top">
-														<table>
+														<table border="0">
 															<tr>
-																<td class="text12" title="w2mfr">&nbsp;
-																	Momsfri
-																</td>
+																<td class="text12" title="w2mfr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Momsfri:</td>
 																<td>								
 																	<select name="w2mfr" id="w2mfr" > <!-- TODO: nordify, now norwegian -->
 								 					  					<option value="">-velg-</option>
@@ -443,29 +422,19 @@
 													  					<option value="2"<c:if test="${ model.record.w2mfr == '2'}"> selected </c:if> >MVA lav sats</option>
 													  				</select>
 																</td>																
-																<td class="text12" title="w2beln">&nbsp;
-																	Bel NOK
-																</td>
+																<td class="text12" title="w2beln">&nbsp;&nbsp;Bel. NOK:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2beln" id="w2beln" size="15" maxlength="15" value='${model.record.w2beln}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="w2bel">&nbsp;
-																	Avg. just
-																</td>
+																<td class="text12" title="w2bel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avg. just:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2bel" id="w2bel" size="15" maxlength="13" value='${model.record.w2bel}'></td>
-																<td class="text12" title="w2pros">&nbsp;
-																	Varev.(proc)
-																</td>
+																<td class="text12" title="w2pros">&nbsp;&nbsp;Varev.(proc):</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="w2val">&nbsp;
-																	Valutakod
-																</td>
+																<td class="text12" title="w2val">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valutakod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'></td>
-																<td class="text12" title="w2tn">&nbsp;
-																	Tollned
-																</td>
+																<td class="text12" title="w2tn">&nbsp;&nbsp;Tollned:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2tn" id="w2tn" size="1" maxlength="1" value='${model.record.w2tn}'>
 																	<a tabindex="-1" id="w2tnIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -474,9 +443,7 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2pva">&nbsp;
-																	Pvaf
-																</td>
+																<td class="text12" title="w2pva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pvaf:</td>
 																<td>								
 																	<select name="w2pva" id="w2pva" > <!-- TODO: nordify, now norwegian -->
 								 					  					<option value="">-velg-</option>
@@ -487,23 +454,13 @@
 													  					<option value="F"<c:if test="${ model.record.w2pva == 'F'}"> selected </c:if> >FRI</option>
 													  				</select>
 																</td>
-																<td class="text12" title="w2as">&nbsp;
-																	Avsats
-																</td>
+																<td class="text12" title="w2as">&nbsp;&nbsp;Avsats:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2as" id="w2as" size="10" maxlength="9" value='${model.record.w2as}'></td>
 															</tr>
 															
 															<tr>
 																<td colspan="4">&nbsp;</td>
 															</tr>
-															<tr>
-																<td colspan="4">&nbsp;</td>
-															</tr>	
-															<tr>
-																<td colspan="3">&nbsp;</td>
-																<td>&nbsp;
-																</td>	
-															</tr>										
 														</table>
 													</td>
 												</tr>
@@ -513,12 +470,10 @@
 									
 									
 									<tr> <!-- Artikelbesk o avgift -->
-										<td width="50%"  valign="top">
+										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;
-														Artikelbeskrivelse
-													</td>
+													<td class="text12Bold">&nbsp;Artikelbeskrivelse</td>
 												</tr>
 											</table>			
 
@@ -531,19 +486,10 @@
 													</td>
 												</tr>
 												<tr> 
-													<td class="text12" title="w2mfr">
-														Beskrivelse
-													</td>
-													<td class="text12" title="w2bel">
-														Merke og nr
-													</td>
-													<td class="text12" title="w2pros">
-														Antall kolli
-													</td>
-													<td class="text12" title="w2beln">
-														Enhet
-													</td>
-
+													<td class="text12" title="w2vt01">Beskrivelse</td>
+													<td class="text12" title="w2ft01">Merke og nr</td>
+													<td class="text12" title="w2nt01">Antall kolli</td>
+													<td class="text12" title="w2eh01">Enhet</td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="31" maxlength="30" value='${model.record.w2vt01}'></td>
@@ -596,9 +542,7 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;
-														Avgifter
-													</td>
+													<td class="text12Bold">&nbsp;Avgifter</td>
 												</tr>
 											</table>			
 									
@@ -611,21 +555,11 @@
 													</td>
 												</tr>
 												<tr>
-													<td class="text12" title="w2mfr">
-														Kode
-													</td>
-													<td class="text12" title="w2bel">
-														Sekvens
-													</td>
-													<td class="text12" title="w2pros">
-														Sats
-													</td>
-													<td class="text12" title="w2beln">
-														Grunnlag
-													</td>
-													<td class="text12" title="w2beln">
-														Belop
-													</td>
+													<td class="text12" title="w2mfr">Kode</td>
+													<td class="text12" title="w2bel">Sekvens</td>
+													<td class="text12" title="w2pros">Sats</td>
+													<td class="text12" title="w2beln">Grunnlag</td>
+													<td class="text12" title="w2beln">Belop</td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd1" id="w2akd1" size="2" maxlength="2" value='${model.record.w2akd1}'></td>
@@ -693,20 +627,22 @@
 										<td width="50%"  valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;
-														Tilleggsopplysninger(a)
-													</td>
+													<td class="text12Bold">&nbsp;Tilleggsopplysninger(a)</td>
 												</tr>
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr>
+													<td>&nbsp;</td>
+													<td  class="text12" align="left">
+														<a tabindex="-1" id="kommref1IdLink">Ref.
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
+												</tr>
 												<tr> 
-													<td class="text12" title="w2mfr">
-														Tilleggsopplysning
-													</td>
-													<td class="text12" title="w2bel">
-														Ref.
-													</td>
+													<td class="text12" title="w2mfr">Tilleggsopplysning</td>
+													<td class="text12" title="w2bel">Ref.</td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2top1" id="w2top1" size="20" maxlength="17" value='${model.record.w2top1}'></td>
@@ -734,20 +670,22 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;
-														Tilleggsopplysninger(b)
-													</td>
+													<td class="text12Bold">&nbsp;Tilleggsopplysninger(b)</td>
 												</tr>
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr>
+													<td>&nbsp;</td>
+													<td  class="text12" align="left">
+														<a tabindex="-1" id="kommref2IdLink">Ref.
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
+												</tr>
 												<tr> 
-													<td class="text12" title="w2mfr">
-														Tilleggsopplysning
-													</td>
-													<td class="text12" title="w2bel">
-														Ref.
-													</td>
+													<td class="text12" title="w2mfr">Tilleggsopplysning</td>
+													<td class="text12" title="w2bel">Ref.</td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2top6" id="w2top6" size="20" maxlength="17" value='${model.record.w2top6}'></td>

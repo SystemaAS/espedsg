@@ -30,6 +30,7 @@ import no.systema.jservices.common.dao.Kodts6Dao;
 import no.systema.jservices.common.dao.Kodts7Dao;
 import no.systema.jservices.common.dao.Kodts8Dao;
 import no.systema.jservices.common.dao.KodtsaDao;
+import no.systema.jservices.common.dao.KodtsbDao;
 import no.systema.jservices.common.dao.TariDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
@@ -243,6 +244,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getEnhetKoder(appUser);
 		} else if ("avgkode".equals(caller)) { //Avg.kode
 			list = getAvgkodeKoder(appUser);
+		} else if ("kommref".equals(caller)) { //Komm.ref
+			list = getKommrefKoder(appUser);
 		} 
 		
 		else {
@@ -251,6 +254,41 @@ public class MainMaintenanceCundfVkundController {
 
 		return list;
 	}
+	
+	
+	private List<ChildWindowKode>  getKommrefKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<KodtsbDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtsbDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtsbDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTSB_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<KodtsbDao> container = (JsonDtoContainer<KodtsbDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (KodtsbDao kodtsaDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtsaDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}	
+	
+	private ChildWindowKode getChildWindowKode(KodtsbDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKsbkd());
+		kode.setDescription(dao.getKsbft());
+
+		return kode;
+	}	
 	
 	private List<ChildWindowKode>  getAvgkodeKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Kodts8Dao>> jsonReader = new JsonReader<JsonDtoContainer<Kodts8Dao>>();

@@ -171,10 +171,8 @@ public class MainMaintenanceCundfVareImportNoController {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-		logger.info("jsonPayload=" + jsonPayload);
 		if (jsonPayload != null) {
 			JsonDtoContainer<SadvareDao> container = (JsonDtoContainer<SadvareDao>) jsonReader.get(jsonPayload);
-			logger.info("container="+container);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
 					errMsg.append(container.getErrMsg());
