@@ -433,7 +433,11 @@
 															</tr>
 															<tr>
 																<td class="text12" title="w2val">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valutakod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'>
+																	<a tabindex="-1" id="w2valIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="w2tn">&nbsp;&nbsp;Tollned:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2tn" id="w2tn" size="1" maxlength="1" value='${model.record.w2tn}'>
 																	<a tabindex="-1" id="w2tnIdLink">
