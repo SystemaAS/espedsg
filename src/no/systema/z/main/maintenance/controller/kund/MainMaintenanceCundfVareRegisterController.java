@@ -29,16 +29,12 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceCundfVareRegisterController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVareRegisterController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 
 	@RequestMapping(value = "mainmaintenancecundf_vareregister.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doVareRegister(HttpSession session, HttpServletRequest request) {
 		ModelAndView successView = null;
 		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
-		logger.info("appUser="+appUser);
-
 		if (appUser == null) {
 			return this.loginView;
 		} else { 
