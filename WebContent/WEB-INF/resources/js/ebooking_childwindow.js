@@ -360,13 +360,14 @@
     
     //Init datatables
     jq(document).ready(function() {
-  	
+	  var lang = jq('#language').val(); 	
       //--------------------------
       //table [PostNr From]
 	  //--------------------------
 	  jq('#postNrFromList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.postNrFromList_filter').on( 'keyup click', function () {
@@ -378,7 +379,8 @@
 	  //-----------------------
 	  jq('#postNrToList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.postNrToList_filter').on( 'keyup click', function () {
@@ -390,7 +392,8 @@
 	  //-----------------------
 	  jq('#customerList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.customerList_filter').on( 'keyup click', function () {
@@ -399,7 +402,8 @@
 	  //related table Customer Addresses
 	  jq('#customerAddressesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.customerAddressesList_filter').on( 'keyup click', function () {
@@ -412,7 +416,8 @@
 	  //----------------------------
 	  jq('#loadUnloadPlacesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.loadUnloadPlacesList_filter').on( 'keyup click', function () {
@@ -424,7 +429,8 @@
 	  //----------------------------
 	  jq('#packingCodesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.packingCodesList_filter').on( 'keyup click', function () {
@@ -436,7 +442,8 @@
 	  //----------------------------
 	  jq('#dangerousGoodsList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ]
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
 	  jq('input.dangerousGoodsList_filter').on( 'keyup click', function () {

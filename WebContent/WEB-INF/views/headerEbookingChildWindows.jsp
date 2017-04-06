@@ -29,8 +29,7 @@
 
 	<%--datatables grid JS --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<%--<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script> --%>
-	
+	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
     
      

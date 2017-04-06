@@ -1746,21 +1746,23 @@
     ).draw();
   }
   jq(document).ready(function(){
-		  //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
-	      jq('#tblItemLines').dataTable( {
-	    	  "dom": '<"top">t<"bottom"flip><"clear">',
-	    	  "scrollY":    "180px",
-	  		  "scrollCollapse":  true,
-	  		  "columnDefs": [{ "type": "num", "targets": 0 }],
-	  		  "lengthMenu": [ 100, 300, 400, 900],
-	  		  //"paging" : false,
-	  		  "info" : false
-	  	  });
-	      
-	      //event on input field for search
-	      jq('input.tblItemLines_filter').on( 'keyup click', function () {
-	      		filterGlobal();
-	      });
+	  var lang = jq('#language').val(); 
+	  //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+      jq('#tblItemLines').dataTable( {
+    	  "dom": '<"top">t<"bottom"flip><"clear">',
+    	  "scrollY":    "180px",
+  		  "scrollCollapse":  true,
+  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+  		  "lengthMenu": [ 100, 300, 400, 900],
+  		  //"paging" : false,
+  		  "info" : false,
+  		  "language": { "url": getLanguage(lang) }
+  	  });
+      
+      //event on input field for search
+      jq('input.tblItemLines_filter').on( 'keyup click', function () {
+      		filterGlobal();
+      });
 	      
 	});
 	

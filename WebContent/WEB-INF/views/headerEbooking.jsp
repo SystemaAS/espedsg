@@ -33,9 +33,7 @@
 
 	<%--datatables grid --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-	<%--<script type="text/javascript" src="resources/js/dataTables.fixedHeader.min.js"></script>
-	<script type="text/javascript" src="resources/js/dataTables.fixedHeader.js"></script>
-	<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script> --%>
+	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
     <table class="noBg" width="1480" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
