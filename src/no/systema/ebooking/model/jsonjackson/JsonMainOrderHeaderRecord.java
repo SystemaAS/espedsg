@@ -934,6 +934,14 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setFraktbrevList(List<JsonMainOrderHeaderFraktbrevRecord> value) {  this.fraktbrevList = value; }
 	public List<JsonMainOrderHeaderFraktbrevRecord> getFraktbrevList() {return this.fraktbrevList;}
 	
+	private JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord = null;
+	public void setFraktbrevRecord(JsonMainOrderHeaderFraktbrevRecord value) {  this.fraktbrevRecord = value; }
+	public JsonMainOrderHeaderFraktbrevRecord getFraktbrevRecord() {return this.fraktbrevRecord;}
+	
+	private String frbPhantom = null;
+	public void setFrbPhantom(String value) {  this.frbPhantom = value; }
+	public String getFrbPhantom() {return this.frbPhantom;}
+	
 	private String singleLine = "N";
 	public String getSingleLine() {
 		if(this.fraktbrevList!=null){

@@ -977,7 +977,7 @@
 	  	  success: function(data) {
 	  		var len = data.length;
 	  		for ( var i = 0; i < len; i++) {
-	  			jq('#lineNrForUpdateFvlinr').val(data[i].fvlinr);
+	  			jq('#fvlinr').val(data[i].fvlinr);
 		  		jq('#fmmrk1').val(data[i].fmmrk1);
 		  		jq('#fvant').val(data[i].fvant);
 		  		jq('#fvpakn').val(data[i].fvpakn);
@@ -1014,9 +1014,11 @@
   //Add Item line (in Order)
   //--------------------------
   function updateItemLine() {
-    //[1] Validate new line first
-	//if(private_validateNewItemLine()){
-	 
+	  /* OBSOLETE: Moved to the form post
+	   
+	  //[1] Validate new line first
+	  //if(private_validateNewItemLine()){
+	  
 	  //default new line nr and mode=A (Add)
 	  var lineNr = Number(jq('#upperCurrentItemlineNr').val()) + 1;  	
 	  var mode = "A";
@@ -1041,19 +1043,8 @@
 	  var description = jq('#fvvt').val();
 	  //mandatory fields
 	  if ( ant!='' && weight!='' && description !='' ){
-		  //------------------------------------------------
-		  //[1] update totals on GUI - OLD VERSION OBSOLETE
-		  //------------------------------------------------
-		  //updateOrderLineTotalsBeforeAdd();
-		  //Prepare the total records in order to update the order record with these
-		  /*var orderLinesTotalString = "@hent_" + jq('#hent').val() + "@hevkt_" + jq('#hevkt').val() + "@hem3_" + jq('#hem3').val() + "@helm_" + jq('#helm').val() + 
-		  							  "@helmla_" + jq('#helmla').val() + "@hepoen_" + jq('#hepoen').val();
-									  //append the protect checkbox value (if applicable)
-									  if(jq('#hestl4').prop('checked')){ orderLinesTotalString += "@hestl4_" + jq('#hestl4').val();}
-									  else{ orderLinesTotalString += "@hestl4_"; }*/
-		  
 		  //-----------------------------
-		  //[2] now to the add line impl.
+		  //[1] add line impl.
 		  //-----------------------------
 		  jq.ajax({
 		  	  type: 'GET',
@@ -1090,7 +1081,7 @@
 	  }else{
 		  alert("[ERROR] missing mandatory fields for new line...");
 	  }
-  //}
+  	  */
   
   }
   

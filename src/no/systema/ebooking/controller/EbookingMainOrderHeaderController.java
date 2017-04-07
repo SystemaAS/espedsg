@@ -135,12 +135,20 @@ public class EbookingMainOrderHeaderController {
 				OrderHeaderValidator validator = new OrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
-				//OLD VERSION - OBSOLETE --> this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
+				//OLD VERSION - OBSOLETE --> 
+				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
+		    		//populate all message notes
+					this.populateMessageNotes( appUser, recordToValidate);
+					//populate fraktbrev lines
+					this.populateFraktbrev( appUser, recordToValidate);
+					//set always status as in list (since we do not get this value from back-end)
+					recordToValidate.setStatus(orderStatus);
+
 		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		
 			    }else{	
@@ -156,9 +164,12 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, null );
-				    		//Update the order lines
-				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
-							//postUpdate events on back-end
+				    		
+				    		//Update the order lines if applicable
+			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
+				    			this.processOrderLine(request, recordToValidate, appUser);
+				    		}
+				    		//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children update");
 						}
@@ -169,12 +180,15 @@ public class EbookingMainOrderHeaderController {
 						model.put("selectType", "");
 						if(dmlRetval==0){
 							orderStatus = "E"; //since we do not get the value from back-end
-							logger.info("[INFO] Record successfully updated, OK ");
+							logger.info("[INFO] Record successfully created, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
-				    		//Update the order lines
-				    		//OLD VERSION OBSOLETE --> this.processOrderLines(recordToValidate, appUser);
+				    		
+				    		//Create the order line if applicable
+				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
+				    			this.processOrderLine(request, recordToValidate, appUser);
+				    		}
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children create new...");
@@ -650,40 +664,33 @@ public class EbookingMainOrderHeaderController {
 	 * @param recordToValidate
 	 */
 	private void populateOrderLineRecordsWithUserInput(HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate){
-		int totalNumberOfLines = this.getTotalNumberOfLines(recordToValidate);
-		List<JsonMainOrderHeaderFraktbrevRecord> list = new ArrayList<JsonMainOrderHeaderFraktbrevRecord>();
-		JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord = null;
+		JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord = new JsonMainOrderHeaderFraktbrevRecord();
 		
-		for(int counter=1;counter<=totalNumberOfLines;counter++){
-			fraktbrevRecord = new JsonMainOrderHeaderFraktbrevRecord();
-			String lineNr = request.getParameter("fvlinr_" + counter);
+			String lineNr = request.getParameter("fvlinr");
 			if(lineNr!=null && !"".equals(lineNr)){
 				fraktbrevRecord.setFvlinr(lineNr);
 			}
-			fraktbrevRecord.setFmmrk1(request.getParameter("fmmrk1_" + counter));
-			fraktbrevRecord.setFvant(request.getParameter("fvant_" + counter));
-			fraktbrevRecord.setFvpakn(request.getParameter("fvpakn_" + counter));
-			fraktbrevRecord.setFvvt(request.getParameter("fvvt_" + counter));
-			fraktbrevRecord.setFvvkt(request.getParameter("fvvkt_" + counter));
-			fraktbrevRecord.setFvvol(request.getParameter("fvvol_" + counter));
-			fraktbrevRecord.setFvlm(request.getParameter("fvlm_" + counter));
-			fraktbrevRecord.setFvlm2(request.getParameter("fvlm2_" + counter));
-			fraktbrevRecord.setFvlen(request.getParameter("fvlen_" + counter));
-			fraktbrevRecord.setFvbrd(request.getParameter("fvbrd_" + counter));
-			fraktbrevRecord.setFvhoy(request.getParameter("fvhoy_" + counter));
+			fraktbrevRecord.setFmmrk1(request.getParameter("fmmrk1"));
+			fraktbrevRecord.setFvant(request.getParameter("fvant"));
+			fraktbrevRecord.setFvpakn(request.getParameter("fvpakn"));
+			fraktbrevRecord.setFvvt(request.getParameter("fvvt"));
+			fraktbrevRecord.setFvvkt(request.getParameter("fvvkt"));
+			fraktbrevRecord.setFvvol(request.getParameter("fvvol"));
+			fraktbrevRecord.setFvlm(request.getParameter("fvlm"));
+			fraktbrevRecord.setFvlm2(request.getParameter("fvlm2"));
+			fraktbrevRecord.setFvlen(request.getParameter("fvlen"));
+			fraktbrevRecord.setFvbrd(request.getParameter("fvbrd"));
+			fraktbrevRecord.setFvhoy(request.getParameter("fvhoy"));
 			//farlig goods
-			fraktbrevRecord.setFfunnr(request.getParameter("ffunnr_" + counter));
-			fraktbrevRecord.setFfembg(request.getParameter("ffembg_" + counter));
-			fraktbrevRecord.setFfindx(request.getParameter("ffindx_" + counter));
+			fraktbrevRecord.setFfunnr(request.getParameter("ffunnr"));
+			fraktbrevRecord.setFfembg(request.getParameter("ffembg"));
+			fraktbrevRecord.setFfindx(request.getParameter("ffindx"));
 			
-			fraktbrevRecord.setFfantk(request.getParameter("ffantk_" + counter));
-			fraktbrevRecord.setFfante(request.getParameter("ffante_" + counter));
-			fraktbrevRecord.setFfenh(request.getParameter("ffenh_" + counter));
-			list.add(fraktbrevRecord);
-			
-		}
-		//logger.info("********** order lines list, SIZE:" + list.size());
-		recordToValidate.setFraktbrevList(list);
+			fraktbrevRecord.setFfantk(request.getParameter("ffantk"));
+			fraktbrevRecord.setFfante(request.getParameter("ffante"));
+			fraktbrevRecord.setFfenh(request.getParameter("ffenh"));
+			recordToValidate.setFraktbrevRecord(fraktbrevRecord);
+		
 	}
 	/**
 	 * 
@@ -710,15 +717,17 @@ public class EbookingMainOrderHeaderController {
 	
 	/**
 	 * 
+	 * @param request
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private void processOrderLines(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+	private void processOrderLine(HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
 		logger.info("Inside:processOrderLines");
 		//check the total number of lines in order to input a new linenr
-		int i=1;
-		for(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord : recordToValidate.getFraktbrevList()){
-			String lineNr = fraktbrevRecord.getFvlinr();
+		String upperCurrentItemlineNr = request.getParameter("upperCurrentItemlineNr");
+		
+		if(recordToValidate!=null && recordToValidate.getFraktbrevRecord()!=null){
+			String lineNr = recordToValidate.getFraktbrevRecord().getFvlinr();
 			/* Debug
 		 	logger.info("RETURN RECORD fvli:" + fraktbrevRecord.getFvlinr());
 			logger.info("RETURN RECORD desc:" + fraktbrevRecord.getFvvt());
@@ -726,14 +735,21 @@ public class EbookingMainOrderHeaderController {
 			logger.info("RETURN RECORD brd:" + fraktbrevRecord.getFvbrd());
 			logger.info("RETURN RECORD lm:" + fraktbrevRecord.getFvlm());
 			*/
+			
 			String mode = EbookingConstants.MODE_ADD;
 			if(lineNr!=null && !"".equals(lineNr) ){ 
+				logger.info("lineNr (update):" + lineNr);
 				mode = EbookingConstants.MODE_UPDATE; }
 			else{
 				//this line is new!
-				lineNr = String.valueOf(i);
+				if(upperCurrentItemlineNr!=null && !"".equals(upperCurrentItemlineNr)){
+					int lastLineNr = Integer.parseInt(upperCurrentItemlineNr);
+					lineNr = String.valueOf(++lastLineNr);
+					logger.info("lineNr (new):" + lineNr);
+				}
 			}
-			if(this.validMandatoryFieldsFraktbrev(fraktbrevRecord)){
+			//only when at least the mandatory fields are in place
+			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
 				//Start with the update (mode=(A)dd,(D)elete,(U)pdate)
 				String BASE_URL_UPDATE = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_UPDATE_LINE_MAIN_ORDER_FRAKTBREV_URL;
 				//------------------
@@ -741,13 +757,11 @@ public class EbookingMainOrderHeaderController {
 				//------------------
 				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
 				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
-				//urlRequestParamsKeysBuffer.append("&avd=" + recordToValidate.getHeavd()); OBSOLETE for eBooking, but ok for history vs Bring (Work with trips)
-				//urlRequestParamsKeysBuffer.append("&opd=" + recordToValidate.getHeopd()); OBSOLETE for eBooking, but ok for history vs Bring (Work with trips)
 				urlRequestParamsKeysBuffer.append("&unik=" + recordToValidate.getHeunik());
 				urlRequestParamsKeysBuffer.append("&reff=" + recordToValidate.getHereff());
 				urlRequestParamsKeysBuffer.append("&fbn=1");
 				urlRequestParamsKeysBuffer.append("&lin=" + lineNr);
-				urlRequestParamsKeysBuffer.append(this.getFvUrlRequestParamsForUpdate(fraktbrevRecord));
+				urlRequestParamsKeysBuffer.append(this.getFvUrlRequestParamsForUpdate(recordToValidate.getFraktbrevRecord()));
 				urlRequestParamsKeysBuffer.append("&mode=" + mode);
 				
 				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
@@ -769,12 +783,9 @@ public class EbookingMainOrderHeaderController {
 					}
 				}
 			}
-			//counter to keep track of lines with mode=A (new ones...)
-			i++;
-			
 		}
-		
 	}
+	
 	/**
 	 * 
 	 * @param fraktbrevRecord
@@ -782,11 +793,19 @@ public class EbookingMainOrderHeaderController {
 	 */
 	private boolean validMandatoryFieldsFraktbrev(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord){
 		boolean retval = false;
-		String ant = fraktbrevRecord.getFvant();
-		String vkt = fraktbrevRecord.getFvvkt();
-		String desc = fraktbrevRecord.getFvvt();
-		
-		if( (ant!=null && !"".equals(ant))  && (vkt!=null && !"".equals(vkt))  && (desc!=null && !"".equals(desc))){
+		if( this.isNotNull(fraktbrevRecord.getFvant())  && this.isNotNull(fraktbrevRecord.getFvvt())  && this.isNotNull(fraktbrevRecord.getFvvkt()) ){
+			retval = true;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private boolean isNotNull(String value){
+		boolean retval = false;
+		if(value!=null && !"".equals(value)){
 			retval = true;
 		}
 		return retval;

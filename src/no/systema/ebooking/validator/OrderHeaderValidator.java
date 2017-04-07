@@ -162,6 +162,13 @@ public class OrderHeaderValidator implements Validator {
 					errors.rejectValue("wsmail", "systema.ebooking.orders.form.update.error.rule.email.isNotValid");
 				}
 			}
+			//check fraktbrev lines (if applicable)
+			if(this.fraktbrevRecordExists(record.getFraktbrevRecord())){
+				if(!this.validMandatoryFieldsFraktbrev(record.getFraktbrevRecord())){
+					errors.rejectValue("frbPhantom", "systema.ebooking.orders.form.update.error.rule.itemLines.mandatoryFields.mustExist");
+				}
+			}
+			
 		}
 		
 	}	
@@ -215,6 +222,49 @@ public class OrderHeaderValidator implements Validator {
 		    	}
 		    	break;
 		    }
+		}
+		return retval;
+	}
+	
+	
+	/**
+	 * 
+	 * @param fraktbrevRecord
+	 * @return
+	 */
+	private boolean fraktbrevRecordExists(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord){
+		boolean retval = false;
+		//Check if the end user has enter at least one field in the fraktbrev record. 
+		//It is the only way to elucidate if the end user wants to input a fraktbrev record.
+		if( this.isNotNull(fraktbrevRecord.getFvlinr()) || this.isNotNull(fraktbrevRecord.getFvant())  || this.isNotNull(fraktbrevRecord.getFvvkt()) || 
+			this.isNotNull(fraktbrevRecord.getFvvt()) || this.isNotNull(fraktbrevRecord.getFmmrk1())  || this.isNotNull(fraktbrevRecord.getFvpakn()) || 
+			this.isNotNull(fraktbrevRecord.getFvlen()) || this.isNotNull(fraktbrevRecord.getFvbrd())  || this.isNotNull(fraktbrevRecord.getFvhoy()) || 
+			this.isNotNull(fraktbrevRecord.getFvvol()) || this.isNotNull(fraktbrevRecord.getFvlm()) ){
+			retval = true;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param fraktbrevRecord
+	 * @return
+	 */
+	private boolean validMandatoryFieldsFraktbrev(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord){
+		boolean retval = false;
+		if( this.isNotNull(fraktbrevRecord.getFvant())  && this.isNotNull(fraktbrevRecord.getFvvt())  && this.isNotNull(fraktbrevRecord.getFvvkt()) ){
+			retval = true;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private boolean isNotNull(String value){
+		boolean retval = false;
+		if(value!=null && !"".equals(value)){
+			retval = true;
 		}
 		return retval;
 	}
