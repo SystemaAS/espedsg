@@ -135,7 +135,6 @@ public class EbookingMainOrderHeaderController {
 				OrderHeaderValidator validator = new OrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
-				//OLD VERSION - OBSOLETE --> 
 				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
@@ -144,7 +143,7 @@ public class EbookingMainOrderHeaderController {
 		    		isValidRecord = false;
 		    		//populate all message notes
 					this.populateMessageNotes( appUser, recordToValidate);
-					//populate fraktbrev lines
+		    		//populate fraktbrev lines
 					this.populateFraktbrev( appUser, recordToValidate);
 					//set always status as in list (since we do not get this value from back-end)
 					recordToValidate.setStatus(orderStatus);
@@ -181,7 +180,7 @@ public class EbookingMainOrderHeaderController {
 						if(dmlRetval==0){
 							orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully created, OK ");
-							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
+							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
 				    		
@@ -379,7 +378,10 @@ public class EbookingMainOrderHeaderController {
 		for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
 		    String name = entry.getKey();
 		    String value = entry.getValue()[0];
-		    if(name.contains("ownMessageNoteReceiverLineNr")){ ownMessageNoteReceiverLineNrRawList.add(value); }
+		    if(name.contains("ownMessageNoteReceiverLineNr")){
+		    	logger.info("AA:" + value);
+		    	ownMessageNoteReceiverLineNrRawList.add(value); 
+		    }
 		    if(name.contains("ownMessageNoteCarrierLineNr")){ ownMessageNoteCarrierLineNrRawList.add(value); }
 		    if(name.contains("ownMessageNoteInternalLineNr")){ ownMessageNoteInternalLineNrRawList.add(value); }
 		}
@@ -390,10 +392,14 @@ public class EbookingMainOrderHeaderController {
 				logger.info("CONSIGNEE NOT EQUAL");
 				//CONSIGNEE (RECEIVER)
 				//Delete all values
+				logger.info("BB:" + ownMessageNoteReceiverLineNrRawList.size());
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
 				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				//init values
+				//recordToValidate.setMessageNoteConsigneeOriginal(recordToValidate.getMessageNoteConsignee());
+				
 			}else{
 				logger.info("CONSIGNEE EQUAL"); 
 				if(dmlModeCreateNew!=null){
@@ -447,6 +453,8 @@ public class EbookingMainOrderHeaderController {
 
 		}
 	}
+	
+	
 	/**
 	 * 
 	 * @param value
@@ -519,7 +527,7 @@ public class EbookingMainOrderHeaderController {
 	 * @param appUser
 	 */
 	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
-		
+		logger.info("LIST:" + ownMessageNoteLineNrRawList);
 		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
 			String [] msgNoteRecord = msgNoteRawRecord.split("@");
 			if(msgNoteRecord!=null && msgNoteRecord.length==2){
@@ -596,11 +604,16 @@ public class EbookingMainOrderHeaderController {
 				}
 			}
 		}
-		//logger.info("******************************" + brInternal.toString());
+		//logger.info("******************************B" + brInternal.toString());
 		//populate final message notes now
 		orderRecord.setMessageNoteConsignee(brConsignee.toString());
 		orderRecord.setMessageNoteCarrier(brCarrier.toString());
 		orderRecord.setMessageNoteInternal(brInternal.toString());
+		//populate original
+		orderRecord.setMessageNoteConsigneeOriginal(brConsignee.toString());
+		orderRecord.setMessageNoteCarrierOriginal(brCarrier.toString());
+		orderRecord.setMessageNoteInternalOriginal(brInternal.toString());
+		
 		//populate auxiliary arrays
 		orderRecord.setMessageNoteConsigneeRaw((List)messageNoteConsignee);
 		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);

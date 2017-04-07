@@ -164,9 +164,9 @@
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
 
-					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsignee}'>
-					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrier}'>
-					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternal}'>
+					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsigneeOriginal}'>
+					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrierOriginal}'>
+					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternalOriginal}'>
 					<table style="width:98%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
@@ -831,7 +831,7 @@
 						<c:if test="${not empty model.record.heunik}">
 							<tr height="10"><td align="left" ></td></tr>
 							
-					 		<%-- CREATE NEW / UPDATE LINE  --%>
+					 		<%-- CREATE NEW / UPDATE LINE only when the ORDER has been saved first (heunik!=null) --%>
 					 		<tr >
 								<td align="bottom" colspan="3" class="text11">&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" width="10px" height="10px" border="0" alt="update item line">
 								&nbsp;<spring:message code="systema.ebooking.orders.form.detail.update.label.itemLine"/>
