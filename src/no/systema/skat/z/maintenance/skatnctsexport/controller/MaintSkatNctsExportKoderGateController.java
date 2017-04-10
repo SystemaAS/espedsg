@@ -111,7 +111,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -121,7 +121,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -131,7 +131,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -141,7 +141,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -151,7 +151,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -161,7 +161,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -171,7 +171,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -181,7 +181,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -191,7 +191,7 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
@@ -201,29 +201,99 @@ public class MaintSkatNctsExportKoderGateController {
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("11");
+		object.setId("12");
 		object.setSubject("Betalningssætt transportkostnad");
 		object.setCode("116");
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("11");
+		object.setId("13");
 		object.setSubject("Transportmåde");
 		object.setCode("108");
 		object.setText("DKX001R / DKXKODF");
 		object.setDbTable("DKXKODF");
 		object.setPgm("dkx001r");
-		object.setStatus("");
+		object.setStatus("G");
 		listObject.add(object);
-		
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("14");
+		object.setSubject("Fejlkoder i CONTROL");
+		object.setCode("023");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("15");
+		object.setSubject("Kontrollindikator varepost");
+		object.setCode("041");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("16");
+		object.setSubject("Kontrollindikator Transit");
+		object.setCode("042");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("17");
+		object.setSubject("Fejlkoder i CUSRES");
+		object.setCode("049");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("18");
+		object.setSubject("Fejlkoder for datagrupp i CUSRES");
+		object.setCode("149");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("19");
+		object.setSubject("Fejlkoder for garanti");
+		object.setCode("209");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("20");
+		object.setSubject("Statuskoder eksport");
+		object.setCode("302");
+		object.setText("DKX001R / DKXKODF");
+		object.setDbTable("DKXKODF");
+		object.setPgm("dkx001r");
+		object.setStatus("G");
+		listObject.add(object);
+		//
 	    
 		return listObject;
 	}
