@@ -85,31 +85,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		
 		return list;
 	}
-/*
-	private List<JsonMaintMainSadvareRecord> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_GET_URL;
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser);
-		urlRequestParams.append("&levenr=" + levenr);
-		urlRequestParams.append("&varenr=" + varenr);
-
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		logger.info("URL PARAMS: " + urlRequestParams);
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//logger.info("jsonPayload="+jsonPayload);
-		List<JsonMaintMainSadvareRecord> list = null;;
-		if (jsonPayload != null) {
-			JsonMaintMainSadvareContainer container = maintMainSadvareService.getContainer(jsonPayload);
-			if (container != null) {
-				list = (List<JsonMaintMainSadvareRecord>) container.getDtoList();
-			}
-		}
-		return list;
-	}	
-*/	
 	
-	//TODO, fix this på utf8 !!
 	private Collection<SadvareDao> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
 		JsonReader<JsonDtoContainer<SadvareDao>> jsonReader = new JsonReader<JsonDtoContainer<SadvareDao>>();
 		jsonReader.set(new JsonDtoContainer<SadvareDao>());

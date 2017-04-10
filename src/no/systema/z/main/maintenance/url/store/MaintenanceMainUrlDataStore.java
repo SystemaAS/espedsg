@@ -254,6 +254,29 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_FRATXT_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFRATXT_U.do";		
 	
+	/**
+	 * Retrieve a List of ArktxtDao
+	 * 
+	 * @Example SELECT
+	 *          specific:http://gw.systema.no:8080/syjservicesbcore/syjsARKTXT.do?user=OSCAR&artype=fa
+	 * @Example SELECT list:
+	 *          http://gw.systema.no:8080/syjservicesbcore/syjsARKTXT.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_ARKTXT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKTXT.do";
+
+
+	/**
+	 * DML of ArktxtDao
+	 * 
+	 * @Example UPDATE:
+	 *          http://gw.systema.no:8080/syjservicesbcore/syjsARKTXT_U.do?user=OSCAR&artype=ZH&artxt=kalle&mode=U/A/D
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKTXT_U.do";				
+	
+	
+	
 	//GET EDI (edii)
 	//ALL --> http://http://gw.systema.no:8080/syjservicesbcore/syjsSYEDIIR.do?user=OSCAR&inid=1&inna=TOLD
 	static public String MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYEDIIR.do";

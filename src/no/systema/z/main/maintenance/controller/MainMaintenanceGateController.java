@@ -153,6 +153,17 @@ public class MainMaintenanceGateController {
 		object.setPgm("syfa30r");
 		listObject.add(object);
 		
+		object = new  MainMaintenanceMainListObject();
+		object.setId("5");
+		object.setSubject("Arkiv");
+		object.setCode("mainmaintenancearkivgate");
+		object.setText("ARKIV / ARKTXT,...");
+		//object.setDbTable("NO_NAME");
+		object.setStatus("Y");
+		//object.setPgm("no name");
+		listObject.add(object);		
+		
+		
 		return listObject;
 	}
 	
