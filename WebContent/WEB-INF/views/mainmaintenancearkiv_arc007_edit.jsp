@@ -137,12 +137,12 @@
 	 	    
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
-				<td width="100%">
+				<td width="95%">
 					<form action="mainmaintenancearkiv_arc007_edit.do" name="formRecord" id="formRecord" method="POST" >
 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 						<input type="hidden" name="updateId" id=updateId value="${model.updateId}">
 						<input type="hidden" name="action" id=action value="${model.action}">
-						<table  width="100%" cellspacing="1" border="1" align="left">
+						<table  width="95%" cellspacing="1" border="0" align="left">
 							<tr>
 								<td> <!-- First row -->
 									<table>
@@ -159,24 +159,32 @@
 												</c:choose>
 											</td>
 											<td class="text12" title="ARTXT">&nbsp;<font class="text14RedBold" >*</font>Tekst:</td>
-											<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="artxt" id="artxt" size="15" maxlength="15" value='${model.record.artxt}'></td>
+											<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="artxt" id="artxt" size="20" maxlength="15" value='${model.record.artxt}'></td>
 											<td class="text12" title="ARKJN">&nbsp;Arkiver:</td>
 											<td class="text12" >
 												<select name="arkjn" id="arkjn" class="inputTextMediumBlue">
-								  					<option value="">-velg-</option>
+								  					<option value="">-<spring:message code="systema.choose"/>-</option>
 								  					<option value="J"<c:if test="${ model.record.arkjn == 'J'}"> selected </c:if> >Ja</option>
 								  					<option value="N"<c:if test="${ model.record.arkjn == 'N'}"> selected </c:if> >Nei</option>
 								  					
 											  	</select>
 											</td>
 											<td class="text12" title="ARKSND">&nbsp;Ep:</td>
-											<td><input type="text" class="inputTextMediumBlue"  name="arksnd" id="arksnd" size="1" maxlength="1" value='${model.record.arksnd}'></td>
+											<td class="text12" >
+												<select name="arksnd" id="arksnd" class="inputTextMediumBlue">
+								  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								  					<option value="J"<c:if test="${ model.record.arksnd == 'J'}"> selected </c:if> >Ja</option>
+								  					<option value="N"<c:if test="${ model.record.arksnd == 'N'}"> selected </c:if> >Nei</option>
+								  					
+											  	</select>
+											</td>
 											<td class="text12" title="ARKLAG">&nbsp;Mappe:</td>
 											<td><input type="text" class="inputTextMediumBlue"  name="arklag" id="arklag" size="2" maxlength="2" value='${model.record.arklag}'>
 												<a tabindex="-1" id="arklagIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
 											</td>
+											<td><input readonly type="text" class="inputTextReadOnly" name="arcane" id="arcane" size="10" maxlength="10" value='${model.record.artype}'></td>
 											<td class="text12" title="ARKDAG">&nbsp;</font>Lagres(dager)</td>
 											<td><input type="text" class="inputTextMediumBlue"  name="arkdag" id="arkdag" size="5" maxlength="5" value='${model.record.arkdag}'></td>
 										</tr>		
@@ -188,56 +196,182 @@
 								<td>&nbsp; <!-- Second row -->
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
-											<td class="text12Bold">
+											<td class="text12Bold">&nbsp;
 												Vedlegg
 											</td>
+											<td align="right">&nbsp;Ref.
+												<a tabindex="-1" id="arkvedRefLink">
+													<img style="cursor:pointer;vertical-align:middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+												</a>
+												&nbsp;&nbsp;
+											</td>	
+											
 										</tr>
 									</table>
 									<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 										<tr> 
 											<td>
-												<table border="0">
+												<table>
 													<tr>
-														<td class="text12" title="bankg">&nbsp;
-															label 1
+														<td class="text12" title="arkved">&nbsp;
+															Vedlegg:
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="bankg" id="bankg" size="20" maxlength="15" value='${model.record.arkdag}'></td>
-														<td class="text12" title="betbet">&nbsp;
-															label 2
-														</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="betbet" id="betbet" size="5" maxlength="2" value='${model.record.arkdag}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved1" id="avkved1" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved2" id="avkved2" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved3" id="avkved3" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved4" id="avkved4" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved5" id="avkved5" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved6" id="avkved6" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved7" id="avkved7" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved8" id="avkved8" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved9" id="avkved9" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved10" id="avkved10" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved11" id="avkved11" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved12" id="avkved12" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved13" id="avkved13" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved14" id="avkved14" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved15" id="avkved15" size="2" maxlength="2" value='${model.record.arkved}'></td>
 													</tr>
 													<tr>
-														<td class="text12" title="fmot">&nbsp;
-															label 3
-															&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="arkved">&nbsp;
+															Vedlegg:
 														</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="fmot" id="fmot" size="10" maxlength="8" value='${model.record.arkdag}'></td>
-														<td class="text12" title="sfakt">&nbsp;
-															label 4
-														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="sfakt" id="sfakt" size="1" maxlength="1" value='${model.record.arkdag}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved16" id="avkved16" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved17" id="avkved17" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved18" id="avkved18" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved19" id="avkved19" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved20" id="avkved20" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved21" id="avkved21" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved22" id="avkved22" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved23" id="avkved23" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved24" id="avkved24" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved25" id="avkved25" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved26" id="avkved26" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved27" id="avkved27" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved28" id="avkved28" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved29" id="avkved29" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="avkved30" id="avkved30" size="2" maxlength="2" value='${model.record.arkved}'></td>
 													</tr>
+													<tr>
+														<td class="text12" title="arvedl">&nbsp;
+															Vedleg til Epost:
+														</td>													
+														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arvedl" id="arvedl" size="45" maxlength="40" value='${model.record.arvedl}'></td>
+														<td colspan="3" class="text12" title="armrg">&nbsp;
+															Slå sammen PDF:
+														</td>
+														<td colspan="2">
+															<select name="armrg" id="armrg" >
+						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 					  					<option value="J"<c:if test="${model.record.armrg == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.armrg == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+											  				</select>
+														</td>
+													</tr>
+													
 												</table>
 											</td>
 										</tr>
 									</table>
-								</td>
-							</tr>		
+								</td> <!-- End second row -->
+							</tr>	
+							
+							<tr>
+								<td>&nbsp; <!-- Third row -->						
+									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
+										<tr>
+											<td class="text12Bold">&nbsp;
+												Skanning
+											</td>
+										</tr>
+									</table>
+										<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+										<tr> 
+											<td>
+												<table>
+													<tr>
+														<td class="text12" title="arsban">&nbsp;
+															Opplastingsbane:
+														</td>													
+														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arsban" id="arsban" size="55" maxlength="50" value='${model.record.arsban}'></td>
+														<td  class="text12" title="arsfsk">&nbsp;
+															Fjern skilleark:
+														</td>
+														<td>
+															<select name="arsfsk" id="arsfsk" >
+						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 					  					<option value="J"<c:if test="${model.record.arsfsk == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.arsfsk == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+											  				</select>
+														</td>
+														<td  class="text12" title="arscts">&nbsp;
+															Tidsstempel:
+														</td>
+														<td>
+															<select name="arscts" id="arscts" >
+						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 					  					<option value="J"<c:if test="${model.record.arscts == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.arscts == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+											  				</select>
+														</td>
+														<td  class="text12" title="arslab">&nbsp;
+															Merke skilleark:
+														</td>
+														<td>
+															<select name="arslab" id="arslab" >
+						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 					  					<option value="J"<c:if test="${model.record.arslab == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.arslab == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+											  				</select>
+														</td>
+													</tr>
+													<tr>
+														<td  class="text12Gray" title="arslab">&nbsp;
+															Spesial regler:
+														</td>												
+													</tr>
+													<tr>
+														<td colspan="3" class="text12" title="arsrle">&nbsp;
+															Lengde:
+														</td>													
+														<td><input type="text" class="inputTextMediumBlue" name="arsrle" id="arsrle" size="5" maxlength="2" value='${model.record.arslab}'></td>
+														<td class="text12" title="arsrpa">&nbsp;&nbsp;
+															Mønster:
+														</td>													
+														<td><input type="text" class="inputTextMediumBlue" name="arsrpa" id="arsrpa" size="7" maxlength="2" value='${model.record.arslab}'></td>
+														<td class="text12" title="arsrst">&nbsp;&nbsp;
+															I position:
+														</td>													
+														<td><input type="text" class="inputTextMediumBlue" name="arsrst" id="arsrst" size="5" maxlength="2" value='${model.record.arslab}'></td>
+														<td  class="text12" title="arsrno">&nbsp;
+															Numerisk:
+														</td>
+														<td>
+															<select name="arsrno" id="arsrno" >
+						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 					  					<option value="J"<c:if test="${model.record.arslab == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.arslab == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+											  				</select>
+														</td>
+													</tr>													
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td> <!-- End third row -->
+							</tr>							
+							
+							<tr height="3"><td>&nbsp;</td></tr>
+							
 							<tr> 
 								<td align="right">
 									<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
 								</td>
 							</tr>
 
-							<tr height="3">
-								<td>&nbsp;</td>
-							</tr>
-
-
+							<tr height="3"><td>&nbsp;</td></tr>
+							
 						</table>
-						
-						
 	 	    		</form>
 				</td>
 			</tr>	

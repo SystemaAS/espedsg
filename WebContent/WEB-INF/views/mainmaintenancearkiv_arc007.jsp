@@ -86,8 +86,22 @@
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.artype}</td>
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.artxt}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arkjn}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arksnd}&nbsp;</td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+			    					<c:if test="${record.arkjn=='J'}">
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Ja&nbsp;</font>
+		                       		</c:if>
+			    					<c:if test="${record.arkjn=='N'}">
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Nei&nbsp;</font>
+		                       		</c:if>
+		                       </td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+			    					<c:if test="${record.arksnd=='J'}">
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Ja&nbsp;</font>
+		                       		</c:if>
+			    					<c:if test="${record.arksnd=='N'}">
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Nei&nbsp;</font>
+		                       		</c:if>
+		                       </td>				               
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arklag}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancearkiv_arc007_edit.do?action=doDelete&artype=${record.artype}">
