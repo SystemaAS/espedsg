@@ -164,8 +164,8 @@
 											<td class="text12" >
 												<select name="arkjn" id="arkjn" class="inputTextMediumBlue">
 								  					<option value="">-<spring:message code="systema.choose"/>-</option>
-								  					<option value="J"<c:if test="${ model.record.arkjn == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ model.record.arkjn == 'N'}"> selected </c:if> >Nei</option>
+								  					<option value="J"<c:if test="${ model.record.arkjn == 'J'}"> selected </c:if> ><spring:message code="systema.yes"/></option>
+								  					<option value="N"<c:if test="${ model.record.arkjn == 'N'}"> selected </c:if> ><spring:message code="systema.no"/></option>
 								  					
 											  	</select>
 											</td>
@@ -173,8 +173,8 @@
 											<td class="text12" >
 												<select name="arksnd" id="arksnd" class="inputTextMediumBlue">
 								  					<option value="">-<spring:message code="systema.choose"/>-</option>
-								  					<option value="J"<c:if test="${ model.record.arksnd == 'J'}"> selected </c:if> >Ja</option>
-								  					<option value="N"<c:if test="${ model.record.arksnd == 'N'}"> selected </c:if> >Nei</option>
+								  					<option value="J"<c:if test="${ model.record.arksnd == 'J'}"> selected </c:if> ><spring:message code="systema.yes"/></option>
+								  					<option value="N"<c:if test="${ model.record.arksnd == 'N'}"> selected </c:if> ><spring:message code="systema.no"/></option>
 								  					
 											  	</select>
 											</td>
@@ -326,7 +326,7 @@
 														</td>
 													</tr>
 													<tr>
-														<td  class="text12Gray" title="arslab">&nbsp;
+														<td  class="text12Gray">&nbsp;
 															Spesial regler:
 														</td>												
 													</tr>
@@ -334,23 +334,23 @@
 														<td colspan="3" class="text12" title="arsrle">&nbsp;
 															Lengde:
 														</td>													
-														<td><input type="text" class="inputTextMediumBlue" name="arsrle" id="arsrle" size="5" maxlength="2" value='${model.record.arslab}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arsrle" id="arsrle" size="5" maxlength="2" value='${model.record.arsrle}'></td>
 														<td class="text12" title="arsrpa">&nbsp;&nbsp;
 															Mønster:
 														</td>													
-														<td><input type="text" class="inputTextMediumBlue" name="arsrpa" id="arsrpa" size="7" maxlength="2" value='${model.record.arslab}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arsrpa" id="arsrpa" size="7" maxlength="2" value='${model.record.arsrpa}'></td>
 														<td class="text12" title="arsrst">&nbsp;&nbsp;
 															I position:
 														</td>													
-														<td><input type="text" class="inputTextMediumBlue" name="arsrst" id="arsrst" size="5" maxlength="2" value='${model.record.arslab}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arsrst" id="arsrst" size="5" maxlength="2" value='${model.record.arsrst}'></td>
 														<td  class="text12" title="arsrno">&nbsp;
 															Numerisk:
 														</td>
 														<td>
 															<select name="arsrno" id="arsrno" >
 						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
-						 					  					<option value="J"<c:if test="${model.record.arslab == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
-											  					<option value="N"<c:if test="${model.record.arslab == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+						 					  					<option value="J"<c:if test="${model.record.arsrno == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+											  					<option value="N"<c:if test="${model.record.arsrno == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
 											  				</select>
 														</td>
 													</tr>													
