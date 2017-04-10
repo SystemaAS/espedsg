@@ -99,8 +99,10 @@ public class MaintSkatNctsExportController {
 		object.setId("2");
 		object.setSubject("Vedligeholdelse af koder");
 		object.setCode("SKAT_KODER");
-		//object.setText("TODO");
-		//object.setDbTable("TODO");
+		//object.setText("DKX001R");
+		object.setDbTable("DKXKODF");
+		object.setStatus("G");
+		object.setPgm("kodergate");
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
