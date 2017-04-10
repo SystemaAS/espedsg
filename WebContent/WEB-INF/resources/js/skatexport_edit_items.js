@@ -435,6 +435,7 @@
 					jq('#dkev_411').val(dktara63);
 				}else{
 					jq('#dkev_411').val("");
+					jq('#dkev_412').val("");
 				}
 				
 			});		

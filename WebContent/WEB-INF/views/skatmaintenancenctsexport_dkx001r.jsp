@@ -22,7 +22,7 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a id="alinkSadMaintExportGate" tabindex=-1 style="display:block;" href="skatmaintenancnctseexport.do">
+						<a id="alinkSadMaintExportGate" tabindex=-1 style="display:block;" href="skatmaintenancenctsexport.do">
 							<font class="tabDisabledLink">&nbsp;SKAT - Vedligehold</font>
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
@@ -90,7 +90,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tktxtn}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.tktxte}&nbsp;</font></td>
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="skatmaintenancenctsexport_dkx001r_edit.do?action=doDelete&id=${model.dbTable}&tkunik=${record.tkunik}&dkkd_kd=${Xrecord.dkkd_kd}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil fjerne denne?')" tabindex=-1 href="skatmaintenancenctsexport_dkx001r_edit.do?action=doDelete&id=${model.dbTable}&tkunik=${record.tkunik}&tkkode=${record.tkkode}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -167,19 +167,19 @@
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
-					<input type="hidden" name="dkkd_typ" id=dkkd_typ value="${model.tkunik}"> 
+					<input type="hidden" name="tkunik" id=tkunik value="${model.tkunik}"> 
 					<input type="hidden" name="legend" id=legend value="${model.legend}"> 
 					
 					<table width="80%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-							<td class="text12" title="DKKD_KD">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
-							<td class="text12" title="DKKD_KD2">&nbsp;Tekst</td>
-							<td class="text12" title="DKKD_KD3">&nbsp;Tekst engelsk</td>
+							<td class="text12" title="TKKODE">&nbsp;<font class="text14RedBold" >*</font>Kode</td>
+							<td class="text12" title="TKTXTN">&nbsp;Tekst</td>
+							<td class="text12" title="TKTXTE">&nbsp;Tekst engelsk</td>
 						</tr>
 						<tr>
-						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tkkode" id="tkkode" size="10" maxlength="20" value='${model.record.tkkode}'></td>
-						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tktxtn" id="tktxtn" size="10" maxlength="9" value='${model.record.tktxtn}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="10" maxlength="5" value='${model.record.tktxte}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tkkode" id="tkkode" size="11" maxlength="10" value='${model.record.tkkode}'></td>
+						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="tktxtn" id="tktxtn" size="36" maxlength="35" value='${model.record.tktxtn}'></td>
+						<td ><input type="text" class="inputTextMediumBlue" name="tktxte" id="tktxte" size="36" maxlength="35" value='${model.record.tktxte}'></td>
 						<td>
 							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare'/>
 						</td>

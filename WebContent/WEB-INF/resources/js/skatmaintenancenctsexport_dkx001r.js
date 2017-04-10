@@ -17,15 +17,14 @@
   jq(function() {
 		//Clean values for createing new record
 		jq('#newRecordButton').click(function() {
-			jq('#dkkd_kd').val("");
-			jq("#dkkd_kd").prop("readonly", false);
-			jq("#dkkd_kd").removeClass("inputTextReadOnly");
-			jq("#dkkd_kd").addClass("inputTextMediumBlueMandatoryField");
+			jq('#tkkode').val("");
+			jq("#tkkode").prop("readonly", false);
+			jq("#tkkode").removeClass("inputTextReadOnly");
+			jq("#tkkode").addClass("inputTextMediumBlueMandatoryField");
 			
 			//rest of the gang
-			jq('#dkkd_kd2').val("");
-			jq('#dkkd_kd3').val("");
-			jq('#dkkd_txt').val("");
+			jq('#tktxtn').val("");
+			jq('#tktxte').val("");
 			
 			//for update
 			jq('#updateId').val("");
@@ -41,33 +40,33 @@
   	
   	rawId = rawId.replace("recordUpdate_", "");
   	var record = rawId.split('_');
-	var dkkd_typ = record[0];
-	var dkkd_kd = record[1];
+	var tkunik = record[0];
+	var tkkode = record[1];
 	
 	jq.ajax({
   	  type: 'GET',
-  	  url: 'getSpecificRecord_dkg210d.do',
+  	  url: 'getSpecificRecord_dkx001r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  dkkd_typ : dkkd_typ,
-  		  dkkd_kd : dkkd_kd},
+  		tkunik : tkunik,
+  		tkkode : tkkode},
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',
   	  success: function(data) {
 	  	var len = data.length;
   		for ( var i = 0; i < len; i++) {
-  			jq('#dkkd_kd').val("");jq('#dkkd_kd').val(data[i].dkkd_kd);
-  			jq("#dkkd_kd").prop("readonly", true);
-  			jq("#dkkd_kd").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#dkkd_kd").addClass("inputTextReadOnly");
+  			jq('#tkkode').val("");jq('#tkkode').val(data[i].tkkode);
+  			jq("#tkkode").prop("readonly", true);
+  			jq("#tkkode").removeClass("inputTextMediumBlueMandatoryField");
+  			jq("#tkkode").addClass("inputTextReadOnly");
   			
   			//rest of the gang
-  			jq('#dkkd_kd2').val("");jq('#dkkd_kd2').val(data[i].dkkd_kd2);
-  			jq('#dkkd_kd3').val("");jq('#dkkd_kd3').val(data[i].dkkd_kd3);
-  			jq('#dkkd_txt').val("");jq('#dkkd_txt').val(data[i].dkkd_txt);
+  			jq('#tkkode').val("");jq('#tkkode').val(data[i].tkkode);
+  			jq('#tktxtn').val("");jq('#tktxtn').val(data[i].tktxtn);
+  			jq('#tktxte').val("");jq('#tktxte').val(data[i].tktxte);
   			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].dkkd_kd);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].tkunik);
   			
   		}
   	  }, 
