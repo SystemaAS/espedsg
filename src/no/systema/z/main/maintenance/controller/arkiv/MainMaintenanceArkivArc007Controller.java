@@ -1,6 +1,5 @@
 package no.systema.z.main.maintenance.controller.arkiv;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +14,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.dao.ArktxtDao;
-import no.systema.jservices.common.dto.SyparfDto;
+//import no.systema.jservices.common.dao.ArktxtDao;
+import no.systema.jservices.common.dto.ArktxtDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 //application imports
@@ -31,20 +29,6 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtvKodtwRecord;
-import no.systema.z.main.maintenance.service.MaintMainFirmService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaKodthService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-import no.systema.z.main.maintenance.service.MaintMainKodtaTellService;
-import no.systema.z.main.maintenance.service.MaintMainKodtvKodtwService;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -82,7 +66,7 @@ public class MainMaintenanceArkivArc007Controller {
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
 			
 			//Get list
-	 		List list = this.fetchList(appUser.getUser());
+			List<ArktxtDto> list = fetchList(appUser.getUser());
 			model.put("list", list);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -95,7 +79,7 @@ public class MainMaintenanceArkivArc007Controller {
 
 	//TODO - all !!
 	@RequestMapping(value="mainmaintenancearkiv_arc007_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavd_arc007_edit(@ModelAttribute ("record") ArktxtDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavd_arc007_edit(@ModelAttribute ("record") ArktxtDto recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancearkiv_arc007_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -149,7 +133,7 @@ public class MainMaintenanceArkivArc007Controller {
 						//post successful update operations
 						updateId = recordToValidate.getArtype();
 						//refresh
-						ArktxtDao record = this.fetchRecord(appUser.getUser(), recordToValidate.getArtype());
+						ArktxtDto record = fetchRecord(appUser.getUser(), recordToValidate.getArtype());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
@@ -177,10 +161,10 @@ public class MainMaintenanceArkivArc007Controller {
 				//-------------
 				//Fetch record
 				//-------------
-				ArktxtDao record = new ArktxtDao();
+				ArktxtDto record = new ArktxtDto();
 				if(artype!=null && !"".equals(artype)){
 					//get record including children records (listehode & oppdnrTur)
-					record = this.fetchRecord(appUser.getUser(), artype);
+					record = fetchRecord(appUser.getUser(), artype);
 					
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -203,9 +187,9 @@ public class MainMaintenanceArkivArc007Controller {
 		}
 	}
 	
-	private List<ArktxtDao> fetchList(String applicationUser) {
-		JsonReader<JsonDtoContainer<ArktxtDao>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDao>>();
-		jsonReader.set(new JsonDtoContainer<ArktxtDao>());
+	private List<ArktxtDto> fetchList(String applicationUser) {
+		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
+		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
@@ -215,9 +199,9 @@ public class MainMaintenanceArkivArc007Controller {
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		//logger.info("jsonPayload="+jsonPayload);
-		List<ArktxtDao> list = null;
+		List<ArktxtDto> list = null;
 		if (jsonPayload != null) {
-			JsonDtoContainer<ArktxtDao> container = (JsonDtoContainer<ArktxtDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 				if (container != null) {
 					list = container.getDtoList();
 				}
@@ -225,12 +209,11 @@ public class MainMaintenanceArkivArc007Controller {
 		return list;
 	}	
 	
-	private ArktxtDao fetchRecord(String applicationUser, String artype) {
-		JsonReader<JsonDtoContainer<ArktxtDao>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDao>>();
-		jsonReader.set(new JsonDtoContainer<ArktxtDao>());
-		ArktxtDao record = new ArktxtDao();
+	private ArktxtDto fetchRecord(String applicationUser, String artype) {
+		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
+		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
+		ArktxtDto record = new ArktxtDto();
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_GET_URL;
-//		String urlRequestParams = "user=" + applicationUser + "&artype=" + artype;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
 		urlRequestParams.append("&artype=" + artype);		
@@ -238,12 +221,13 @@ public class MainMaintenanceArkivArc007Controller {
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload="+jsonPayload);
 		if (jsonPayload != null) {
-			JsonDtoContainer<ArktxtDao> container = (JsonDtoContainer<ArktxtDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
-				for (ArktxtDao arktxtDao : container.getDtoList()) {
-					record = arktxtDao;
+				for (ArktxtDto arktxtDto : container.getDtoList()) {
+					record = arktxtDto;
 				}
 			}
 		}
@@ -251,10 +235,10 @@ public class MainMaintenanceArkivArc007Controller {
 		return record;
 	}
 	
-	private int updateRecord(String applicationUser, ArktxtDao record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, ArktxtDto record, String mode, StringBuffer errMsg){
 		int retval = 0;
-		JsonReader<JsonDtoContainer<ArktxtDao>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDao>>();
-		jsonReader.set(new JsonDtoContainer<ArktxtDao>());
+		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
+		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
@@ -267,7 +251,7 @@ public class MainMaintenanceArkivArc007Controller {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 		if (jsonPayload != null) {
-			JsonDtoContainer<ArktxtDao> container = (JsonDtoContainer<ArktxtDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
 					errMsg.append(container.getErrMsg());
@@ -280,136 +264,6 @@ public class MainMaintenanceArkivArc007Controller {
 	}
 	
 	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param record
-	 * @param mode
-	 * @param errMsg
-	 * @return
-	 */
-	public int updateChildRecord(String applicationUser, JsonMaintMainKodtaKodthRecord record, String mode, StringBuffer errMsg){
-		int retval = 0;
-		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA68R_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
-		//put the final valid param. string
-		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
-		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	
-    	//extract
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintMainKodtaKodthContainer container = this.maintMainKodtaKodthService.doUpdate(jsonPayload);
-	        if(container!=null){
-	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
-	        			errMsg.append(container.getErrMsg());
-	        			retval = MainMaintenanceConstants.ERROR_CODE;
-	        		}
-	        	}
-	        }
-    	}   
-    	
-    	return retval;
-	}
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param record
-	 * @param mode
-	 * @param errMsg
-	 * @return
-	 */
-	private int updateChildRecord(String applicationUser, JsonMaintMainKodtaTellRecord record, String mode, StringBuffer errMsg){
-		int retval = 0;
-		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA26R_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
-		//put the final valid param. string
-		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
-		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	
-    	//extract
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintMainKodtaTellContainer container = this.maintMainKodtaTellService.doUpdate(jsonPayload);
-	        if(container!=null){
-	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
-	        			errMsg.append(container.getErrMsg());
-	        			retval = MainMaintenanceConstants.ERROR_CODE;
-	        		}
-	        	}
-	        }
-    	}   
-    	
-    	return retval;
-	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param recordToValidate
-	 * @param listeHodeRecord
-	 * @param oppnrTurRecord
-	 * @param errMsg
-	 * @return
-	 */
-	private int updateChilden(String applicationUser, JsonMaintMainKodtaRecord recordToValidate, JsonMaintMainKodtaKodthRecord listeHodeRecord, JsonMaintMainKodtaTellRecord oppnrTurRecord,  StringBuffer errMsg){
-		int dmlRetval = 0;
-		if(listeHodeRecord!=null && oppnrTurRecord!=null){
-			//UPDATE ListeHode
-			if(listeHodeRecord.getKohavd()!=null && !"".equals(listeHodeRecord.getKohavd())){
-				//DEBUG -->logger.info("UPDATE child: listeHode...");
-				dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-			}else{
-				listeHodeRecord.setKohavd(recordToValidate.getKoaavd());
-				dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
-			}
-			//UPDATE OppnrTur
-			if(oppnrTurRecord.getTeavd()!=null && !"".equals(oppnrTurRecord.getTeavd())){
-				//DEBUG -->logger.info("UPDATE child: listeHode...");
-				dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-			}else{
-				oppnrTurRecord.setTeavd(recordToValidate.getKoaavd());
-				dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
-			}
-		}
-		return dmlRetval;
-	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param recordToValidate
-	 * @param listeHodeRecord
-	 * @param oppnrTurRecord
-	 * @param errMsg
-	 * @return
-	 */
-	private int createChilden(String applicationUser, JsonMaintMainKodtaRecord recordToValidate, JsonMaintMainKodtaKodthRecord listeHodeRecord, JsonMaintMainKodtaTellRecord oppnrTurRecord,  StringBuffer errMsg){
-		int dmlRetval = 0;
-		if(listeHodeRecord!=null && oppnrTurRecord!=null){
-			//(1)
-			listeHodeRecord.setKohavd(recordToValidate.getKoaavd());
-			dmlRetval = this.updateChildRecord(applicationUser, listeHodeRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
-			//(2)
-			oppnrTurRecord.setTeavd(recordToValidate.getKoaavd());
-			dmlRetval = this.updateChildRecord(applicationUser, oppnrTurRecord, MainMaintenanceConstants.MODE_ADD, errMsg);
-		}
-		return dmlRetval;
-	}	
-	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -420,45 +274,5 @@ public class MainMaintenanceArkivArc007Controller {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainKodtaService")
-	private MaintMainKodtaService maintMainKodtaService;
-	@Autowired
-	@Required
-	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
-	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
-	
-	
-	@Qualifier ("maintMainFirmService")
-	private MaintMainFirmService maintMainFirmService;
-	@Autowired
-	@Required
-	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
-	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
-	
-	
-	@Qualifier ("maintMainKodtvKodtwService")
-	private MaintMainKodtvKodtwService maintMainKodtvKodtwService;
-	@Autowired
-	@Required
-	public void setMaintMainKodtvKodtwService (MaintMainKodtvKodtwService value){ this.maintMainKodtvKodtwService = value; }
-	public MaintMainKodtvKodtwService getMaintMainKodtvKodtwService(){ return this.maintMainKodtvKodtwService; }
-	
-	//Child record
-	@Qualifier ("maintMainKodtaKodthService")
-	private MaintMainKodtaKodthService maintMainKodtaKodthService;
-	@Autowired
-	@Required
-	public void setMaintMainKodtaKodthService (MaintMainKodtaKodthService value){ this.maintMainKodtaKodthService = value; }
-	public MaintMainKodtaKodthService getMaintMainKodtaKodthService(){ return this.maintMainKodtaKodthService; }
-	
-	//Child record
-	@Qualifier ("maintMainKodtaTellService")
-	private MaintMainKodtaTellService maintMainKodtaTellService;
-	@Autowired
-	@Required
-	public void setMaintMainKodtaTellService (MaintMainKodtaTellService value){ this.maintMainKodtaTellService = value; }
-	public MaintMainKodtaTellService getMaintMainKodtaTellService(){ return this.maintMainKodtaTellService; }
-	
-		
 }
 

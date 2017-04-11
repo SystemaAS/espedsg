@@ -184,7 +184,7 @@
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
 											</td>
-											<td><input readonly type="text" class="inputTextReadOnly" name="arcane" id="arcane" size="10" maxlength="10" value='${model.record.artype}'></td>
+											<td><input readonly type="text" class="inputTextReadOnly" name="arklagDesc" id="arklagDesc" size="10" maxlength="10" value='${model.record.arklagDesc}'></td>
 											<td class="text12" title="ARKDAG">&nbsp;</font>Lagres(dager)</td>
 											<td><input type="text" class="inputTextMediumBlue"  name="arkdag" id="arkdag" size="5" maxlength="5" value='${model.record.arkdag}'></td>
 										</tr>		
