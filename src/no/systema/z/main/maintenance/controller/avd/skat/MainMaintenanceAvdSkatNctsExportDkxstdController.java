@@ -33,18 +33,16 @@ import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaKodthRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdfvContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdfvRecord;
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.sad.MaintMainTrustdValidator;
+import no.systema.z.main.maintenance.validator.skat.MaintMainDkxstdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
 
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
-import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbService;
 import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
@@ -77,7 +75,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	 * 
 	 */
 	@RequestMapping(value="mainmaintenanceavdskatnctsexport_dkx003r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdsadnctsimport_tr003r (HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdskatnctsexport_dkx003r (HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatnctsexport_dkx003r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		String id = request.getParameter("id");  //TRUST or TRUST_FHV, for correct selection
@@ -108,9 +106,9 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	 * @param request
 	 * @return
 	 */
-	/* TODO
+	
 	@RequestMapping(value="mainmaintenanceavdskatnctsexport_dkx003r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdsadnctsimport_tr003_edit(@ModelAttribute ("record") JsonMaintMainTrustdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdskatnctsexport_dkx003_edit(@ModelAttribute ("record") JsonMaintMainDkxstdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatnctsexport_dkx003r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -118,11 +116,11 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 		String avdnavn = request.getParameter("avdnavn");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		JsonMaintMainTrustdfvRecord dbChildRecord = null;
+		JsonMaintMainDkxstdfvRecord dbChildRecord = null;
 		String id = request.getParameter("id");
 		
 		//bind child record (only for validation purposes, even in back-end)
-		JsonMaintMainTrustdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
+		JsonMaintMainDkxstdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
 		
 		
 		if(appUser==null){
@@ -143,7 +141,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 				this.adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
 				recordToValidate.setSikkerhedChildRecord(sikkerhedChildRecord);
 				//Validate
-				MaintMainTrustdValidator validator = new MaintMainTrustdValidator();
+				MaintMainDkxstdValidator validator = new MaintMainDkxstdValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS
@@ -229,12 +227,12 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 			//Fetch record
 			//-------------
 			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
-				JsonMaintMainTrustdRecord record = this.fetchRecord(appUser.getUser(), avd);
-				JsonMaintMainTrustdfvRecord childRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
+				JsonMaintMainDkxstdRecord record = this.fetchRecord(appUser.getUser(), avd);
+				JsonMaintMainDkxstdfvRecord childRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
 				if(childRecord!=null){
 					record.setSikkerhedChildRecord(childRecord);
 				}else{
-					record.setSikkerhedChildRecord(new JsonMaintMainTrustdfvRecord());
+					record.setSikkerhedChildRecord(new JsonMaintMainDkxstdfvRecord());
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
@@ -258,7 +256,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 			
 		}
 	}
-	*/
+	
 	
 	/**
 	 * 

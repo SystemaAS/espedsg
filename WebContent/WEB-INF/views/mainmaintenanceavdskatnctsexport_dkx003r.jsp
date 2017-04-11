@@ -37,17 +37,17 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
 					<c:choose> 
-		    			<c:when test="${model.id=='TRUSTD'}">
+		    			<c:when test="${model.id=='DKXSTD'}">
 							<td width="18%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
-	                       			<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd"/></font>&nbsp;
+								<a id="alinkMainMaintAvdSkatDkx003" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r.do?id=${model.id}">
+	                       			<font class="tabLink">&nbsp;<spring:message code="systema.skat.ncts.export.tab.description.avd"/></font>&nbsp;
 								</a>
 							</td>
 	                    </c:when>
-	                    <c:otherwise> <!--  TRUST_FHV = NCTS Forhåndsvarsling -->
+	                    <c:otherwise> <!--  DKXST_FHV = NCTS Forhåndsvarsling -->
 							<td width="28%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
-	                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+								<a id="alinkMainMaintAvdSkatDkx003" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r.do?id=${model.id}">
+	                        		<font class="tabLink">&nbsp;<spring:message code="systema.skat.ncts.import.tab.description.avd.forhandsvarsling"/></font>&nbsp;
 								</a>
 							</td>
 	                    </c:otherwise>
@@ -55,7 +55,7 @@
 
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?id=${model.id}">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r_edit.do?id=${model.id}">
 							<font class="tabDisabledLink">&nbsp;Lage ny avd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
@@ -94,7 +94,7 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
@@ -105,7 +105,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.thtina}&nbsp;</td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdsadnctsexport_tr003r_edit.do?action=doDelete&thavd=${record.thavd}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdskatnctsexport_dkx003r_edit.do?action=doDelete&thavd=${record.thavd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
