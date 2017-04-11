@@ -73,12 +73,6 @@ public class MaintSkatImportController {
 		
 			//lists
 			List list = this.populateMaintenanceMainList();
-			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-			//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-			//this.setCodeDropDownMgr(appUser, model);
-			//init filter with users signature (for starters)
-			//searchFilter.setSg(appUser.getTvinnSadSign());
-			//successView.addObject("searchFilter" , searchFilter);
 			//init the rest
 			model.put("list", list);
 			successView.addObject(SkatMaintenanceConstants.DOMAIN_MODEL , model);

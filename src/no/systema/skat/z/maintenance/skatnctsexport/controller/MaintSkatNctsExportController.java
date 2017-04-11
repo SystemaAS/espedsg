@@ -89,14 +89,6 @@ public class MaintSkatNctsExportController {
 		MaintenanceMainListObject object = new  MaintenanceMainListObject();
 	
 		object.setId("1");
-		object.setSubject("Vedligeholdelse af avd.oppl.");
-		object.setCode("SKAT_AVD");
-		//object.setText("TODO / TODO");
-		//object.setDbTable("TODO");
-		listObject.add(object);
-		//
-		object = new  MaintenanceMainListObject();
-		object.setId("2");
 		object.setSubject("Vedligeholdelse af koder");
 		object.setCode("SKAT_KODER");
 		//object.setText("DKX001R");
@@ -106,7 +98,7 @@ public class MaintSkatNctsExportController {
 		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("3");
+		object.setId("2");
 		object.setSubject("Vedligeholdelse af garanti");
 		object.setCode("SKAT_GARANTI");
 		object.setText("DKXGH / ...");
