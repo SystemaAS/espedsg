@@ -216,45 +216,45 @@
 														<td class="text12" title="arkved">&nbsp;
 															Vedlegg:
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved1" id="avkved1" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved2" id="avkved2" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved3" id="avkved3" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved4" id="avkved4" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved5" id="avkved5" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved6" id="avkved6" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved7" id="avkved7" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved8" id="avkved8" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved9" id="avkved9" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved10" id="avkved10" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved11" id="avkved11" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved12" id="avkved12" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved13" id="avkved13" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved14" id="avkved14" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved15" id="avkved15" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved1" id="arkved1" size="2" maxlength="2" value='${model.record.arkved1}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved2" id="arkved2" size="2" maxlength="2" value='${model.record.arkved2}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved3" id="arkved3" size="2" maxlength="2" value='${model.record.arkved3}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved4" id="arkved4" size="2" maxlength="2" value='${model.record.arkved4}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved5" id="arkved5" size="2" maxlength="2" value='${model.record.arkved5}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved6" id="arkved6" size="2" maxlength="2" value='${model.record.arkved6}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved7" id="arkved7" size="2" maxlength="2" value='${model.record.arkved7}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved8" id="arkved8" size="2" maxlength="2" value='${model.record.arkved8}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved9" id="arkved9" size="2" maxlength="2" value='${model.record.arkved9}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved10" id="arkved10" size="2" maxlength="2" value='${model.record.arkved10}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved11" id="arkved11" size="2" maxlength="2" value='${model.record.arkved11}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved12" id="arkved12" size="2" maxlength="2" value='${model.record.arkved12}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved13" id="arkved13" size="2" maxlength="2" value='${model.record.arkved13}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved14" id="arkved14" size="2" maxlength="2" value='${model.record.arkved14}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved15" id="arkved15" size="2" maxlength="2" value='${model.record.arkved15}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="arkved">&nbsp;
 															Vedlegg:
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved16" id="avkved16" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved17" id="avkved17" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved18" id="avkved18" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved19" id="avkved19" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved20" id="avkved20" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved21" id="avkved21" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved22" id="avkved22" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved23" id="avkved23" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved24" id="avkved24" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved25" id="avkved25" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved26" id="avkved26" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved27" id="avkved27" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved28" id="avkved28" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved29" id="avkved29" size="2" maxlength="2" value='${model.record.arkved}'></td>
-														<td><input type="text" class="inputTextMediumBlue" name="avkved30" id="avkved30" size="2" maxlength="2" value='${model.record.arkved}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved16" id="arkved16" size="2" maxlength="2" value='${model.record.arkved16}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved17" id="arkved17" size="2" maxlength="2" value='${model.record.arkved17}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved18" id="arkved18" size="2" maxlength="2" value='${model.record.arkved18}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved19" id="arkved19" size="2" maxlength="2" value='${model.record.arkved19}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved20" id="arkved20" size="2" maxlength="2" value='${model.record.arkved20}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved21" id="arkved21" size="2" maxlength="2" value='${model.record.arkved21}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved22" id="arkved22" size="2" maxlength="2" value='${model.record.arkved22}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved23" id="arkved23" size="2" maxlength="2" value='${model.record.arkved23}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved24" id="arkved24" size="2" maxlength="2" value='${model.record.arkved24}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved25" id="arkved25" size="2" maxlength="2" value='${model.record.arkved25}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved26" id="arkved26" size="2" maxlength="2" value='${model.record.arkved26}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved27" id="arkved27" size="2" maxlength="2" value='${model.record.arkved27}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved28" id="arkved28" size="2" maxlength="2" value='${model.record.arkved28}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved29" id="arkved29" size="2" maxlength="2" value='${model.record.arkved29}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="arkved30" id="arkved30" size="2" maxlength="2" value='${model.record.arkved30}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="arvedl">&nbsp;
-															Vedleg til Epost:
+															Vedlegg til Epost:
 														</td>													
 														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arvedl" id="arvedl" size="45" maxlength="40" value='${model.record.arvedl}'></td>
 														<td colspan="3" class="text12" title="armrg">&nbsp;
@@ -315,7 +315,7 @@
 											  				</select>
 														</td>
 														<td  class="text12" title="arslab">&nbsp;
-															Merke skilleark:
+															Merkelapp:
 														</td>
 														<td>
 															<select name="arslab" id="arslab" >
