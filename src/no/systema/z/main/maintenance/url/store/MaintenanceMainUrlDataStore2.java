@@ -11,7 +11,7 @@ import no.systema.main.util.AppConstants;
  * 
  * 
  */
-public final class MaintenanceMainUrlDataStore {
+public final class MaintenanceMainUrlDataStore2 {
 	//--------------------------------------------
 	//[1] FETCH DB Table list or Specific record
 	//--------------------------------------------
@@ -44,7 +44,6 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD NCTS IMPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTR053R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_TR053R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR053R.do";
-	
 	//AVD SAD NCTS EKSPORT ON GENERAL MAINT
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTR003R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_TR003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003R.do";
@@ -56,7 +55,6 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_DKX003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX003R.do";
 	//CHILD RECORD - Sikkerhet -->http://gw.systema.no:8080/syjservicesbcore/syjsDKX003fvR.do?user=OSCAR&thavd=1
 	static public String MAINTENANCE_MAIN_BASE_DKX003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX003fvR.do";
-		
 		
 	
 	//CHILDREN List on SYFA28 --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333
@@ -281,17 +279,8 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKTXT_U.do";				
 	
-	/**
-	 * Retrieve a List of ArkextDao
-	 * 
-	 * @Example SELECT
-	 *          specific:http://gw.systema.no:8080/syjservicesbcore/syjsARKEXT.do?user=OSCAR&arcext=E1
-	 * @Example SELECT list:
-	 *          http://gw.systema.no:8080/syjservicesbcore/syjsARKEXT.do?user=OSCAR
-	 * 
-	 */
-	static public String MAINTENANCE_MAIN_BASE_ARKEXT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKEXT.do";
-
+	
+	
 	//GET EDI (edii)
 	//ALL --> http://http://gw.systema.no:8080/syjservicesbcore/syjsSYEDIIR.do?user=OSCAR&inid=1&inna=TOLD
 	static public String MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYEDIIR.do";
@@ -337,6 +326,7 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD SAD NCTS EKSPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_TR003R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003R_U.do";
 	static public String MAINTENANCE_MAIN_BASE_TR003fvR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTR003fvR_U.do";
+	
 	
 	//AVD SKAT NCTS EKSPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_DKX003R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX003R_U.do";

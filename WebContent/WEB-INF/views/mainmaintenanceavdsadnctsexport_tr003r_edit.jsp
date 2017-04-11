@@ -45,9 +45,9 @@
 							</td>
 	                    </c:when>
 	                    <c:otherwise> <!--  TRUST_FHV = NCTS Forhåndsvarsling -->
-							<td width="22%" valign="bottom" class="tabDisabled" align="center">
+							<td width="28%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdsadnctsexport_tr003r.do?id=${model.id}">
-			                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.export.tab.description.avd.forhandsvarsling"/></font>&nbsp;
+			                        		<font class="tabLink">&nbsp;<spring:message code="systema.tvinn.sad.ncts.import.tab.description.avd.forhandsvarsling"/></font>&nbsp;
 								</a>
 							</td>
 	                    </c:otherwise>
