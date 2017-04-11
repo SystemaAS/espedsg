@@ -99,7 +99,9 @@ public class MaintSkatNctsImportController {
 		object.setSubject("Vedligeholdelse af koder");
 		object.setCode("SKAT_KODER");
 		//object.setText("TODO");
-		//object.setDbTable("TODO");
+		object.setDbTable("DKXKODF");
+		object.setStatus("G");
+		object.setPgm("kodergate");
 		listObject.add(object);
 		
 		return listObject;

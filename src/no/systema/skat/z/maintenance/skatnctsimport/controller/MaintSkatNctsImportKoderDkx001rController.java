@@ -1,4 +1,4 @@
-package no.systema.skat.z.maintenance.skatnctsexport.controller;
+package no.systema.skat.z.maintenance.skatnctsimport.controller;
 
 import java.util.*;
 
@@ -36,7 +36,7 @@ import no.systema.skat.z.maintenance.skatncts.validator.MaintSkatMainDkx001rVali
 
 
 /**
- * SKAT Maintenance NCTS Export Topic Controller 
+ * SKAT Maintenance NCTS Import Topic Controller 
  * 
  * @author oscardelatorre
  * @date Apr 10, 2017
@@ -46,9 +46,9 @@ import no.systema.skat.z.maintenance.skatncts.validator.MaintSkatMainDkx001rVali
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintSkatExportKoderDkx001rController {
+public class MaintSkatNctsImportKoderDkx001rController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintSkatExportKoderDkx001rController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintSkatNctsImportKoderDkx001rController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -61,9 +61,9 @@ public class MaintSkatExportKoderDkx001rController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="skatmaintenancenctsexport_dkx001r.do", method=RequestMethod.GET)
+	@RequestMapping(value="skatmaintenancenctsimport_dkx001r.do", method=RequestMethod.GET)
 	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenancenctsexport_dkx001r");
+		ModelAndView successView = new ModelAndView("skatmaintenancenctsimport_dkx001r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
@@ -75,7 +75,7 @@ public class MaintSkatExportKoderDkx001rController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_NCTS_EXPORT);
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_NCTS_IMPORT);
 			session.setAttribute(SkatMaintenanceConstants.ACTIVE_URL_RPG_SKAT_MAINTENANCE, SkatMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
@@ -101,9 +101,9 @@ public class MaintSkatExportKoderDkx001rController {
 	 * @return
 	 */
 	
-	@RequestMapping(value="skatmaintenancenctsexport_dkx001r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="skatmaintenancenctsimport_dkx001r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDkxkodfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("skatmaintenancenctsexport_dkx001r");
+		ModelAndView successView = new ModelAndView("skatmaintenancenctsimport_dkx001r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		String dbTable = request.getParameter("id");
@@ -240,7 +240,7 @@ public class MaintSkatExportKoderDkx001rController {
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	logger.info(jsonPayload);
-    	/*
+    	
     	//extract
     	if(jsonPayload!=null){
 			//lists
@@ -254,7 +254,7 @@ public class MaintSkatExportKoderDkx001rController {
 	        	}
 	        }
     	}
-    	*/
+    	
     	return retval;
 	}
 	
