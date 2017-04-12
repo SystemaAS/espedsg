@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +33,7 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.validator.MaintMainKodtaValidator;
+import no.systema.z.main.maintenance.validator.MaintMainArktxtValidator;
 
 
 /**
@@ -103,9 +104,10 @@ public class MainMaintenanceArkivArc007Controller {
 			//UPDATE record
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				
+				adjustRecordToValidate(recordToValidate);
+
 				//Validate
-				MaintMainKodtaValidator validator = new MaintMainKodtaValidator();
+				MaintMainArktxtValidator validator = new MaintMainArktxtValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					logger.info("[ERROR Validation] Record does not validate)");
@@ -187,6 +189,19 @@ public class MainMaintenanceArkivArc007Controller {
 		}
 	}
 	
+	private void adjustRecordToValidate(ArktxtDto recordToValidate) {
+		String arkved = recordToValidate.getArkved1()+recordToValidate.getArkved2()+recordToValidate.getArkved3()+recordToValidate.getArkved4()+
+	 			recordToValidate.getArkved5()+recordToValidate.getArkved6()+recordToValidate.getArkved7()+recordToValidate.getArkved8()+
+	 			recordToValidate.getArkved9()+recordToValidate.getArkved10()+recordToValidate.getArkved11()+recordToValidate.getArkved12()+
+	 			recordToValidate.getArkved13()+recordToValidate.getArkved14()+recordToValidate.getArkved15()+recordToValidate.getArkved16()+
+	 			recordToValidate.getArkved17()+recordToValidate.getArkved18()+recordToValidate.getArkved19()+recordToValidate.getArkved20()+
+	 			recordToValidate.getArkved21()+recordToValidate.getArkved22()+recordToValidate.getArkved23()+recordToValidate.getArkved24()+
+	 			recordToValidate.getArkved25()+recordToValidate.getArkved26()+recordToValidate.getArkved27()+recordToValidate.getArkved28()+
+	 			recordToValidate.getArkved29()+recordToValidate.getArkved30();
+		recordToValidate.setArkved(arkved);
+		
+	}
+
 	private List<ArktxtDto> fetchList(String applicationUser) {
 		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
 		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
@@ -242,7 +257,9 @@ public class MainMaintenanceArkivArc007Controller {
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record));
+		logger.info("Record="+ReflectionToStringBuilder.toString(record));
+		logger.info("urlRequestParams="+urlRequestParams);
 		//put the final valid param. string
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 		
@@ -250,6 +267,7 @@ public class MainMaintenanceArkivArc007Controller {
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	logger.info("jsonPayload="+jsonPayload);
 		if (jsonPayload != null) {
 			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 			if (container != null) {

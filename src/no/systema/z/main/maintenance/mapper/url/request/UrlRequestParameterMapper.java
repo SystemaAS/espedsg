@@ -73,8 +73,8 @@ public class UrlRequestParameterMapper {
 	 * Builds the final url parameter list (to send with a GET or POST form method)
 	 * Handles String, Integer and Double
 	 * 
-	 * @param object, any Object. If inherited, the superclass fields will be used. Meaning we assuming it is a DTO that inherits from the DAO.
-	 * @return String, in url format.
+	 * @param object any Object. <b>NOTE:</b> If inherited, the superclass fields will be used. Meaning we assuming it is a DTO that inherits from the DAO.
+	 * @return String in url format.
 	 * 
 	 */
 	public String getUrlParameterValidString(Object object){
@@ -114,7 +114,7 @@ public class UrlRequestParameterMapper {
 						sb.append(MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 						sb.append(value);
 					}else{
-						logger.info(" [INFO]data type not yet supported...");
+						logger.info(" [INFO]data type not yet supported..." + e.getMessage());
 					}
 					//add more instances if you need...					
 										
