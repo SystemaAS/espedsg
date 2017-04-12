@@ -189,19 +189,60 @@ public class MainMaintenanceArkivArc007Controller {
 		}
 	}
 	
-	private void adjustRecordToValidate(ArktxtDto recordToValidate) {
-		String arkved = recordToValidate.getArkved1()+recordToValidate.getArkved2()+recordToValidate.getArkved3()+recordToValidate.getArkved4()+
-	 			recordToValidate.getArkved5()+recordToValidate.getArkved6()+recordToValidate.getArkved7()+recordToValidate.getArkved8()+
-	 			recordToValidate.getArkved9()+recordToValidate.getArkved10()+recordToValidate.getArkved11()+recordToValidate.getArkved12()+
-	 			recordToValidate.getArkved13()+recordToValidate.getArkved14()+recordToValidate.getArkved15()+recordToValidate.getArkved16()+
-	 			recordToValidate.getArkved17()+recordToValidate.getArkved18()+recordToValidate.getArkved19()+recordToValidate.getArkved20()+
-	 			recordToValidate.getArkved21()+recordToValidate.getArkved22()+recordToValidate.getArkved23()+recordToValidate.getArkved24()+
-	 			recordToValidate.getArkved25()+recordToValidate.getArkved26()+recordToValidate.getArkved27()+recordToValidate.getArkved28()+
-	 			recordToValidate.getArkved29()+recordToValidate.getArkved30();
-		recordToValidate.setArkved(arkved);
+	/*
+	 * Specia handling of arkved. Arkved contains 2*30 fields. Note that its the dao that is delivered to service layer
+	 */
+	private void adjustRecordToValidate(ArktxtDto dto) {
+		StringBuilder arkved = new StringBuilder();
+		arkved.append(spaceFiller(dto.getArkved1()));
+		arkved.append(spaceFiller(dto.getArkved2()));
+		arkved.append(spaceFiller(dto.getArkved3()));
+		arkved.append(spaceFiller(dto.getArkved4()));
+		arkved.append(spaceFiller(dto.getArkved5()));		
+		arkved.append(spaceFiller(dto.getArkved6()));		
+		arkved.append(spaceFiller(dto.getArkved7()));		
+		arkved.append(spaceFiller(dto.getArkved8()));		
+		arkved.append(spaceFiller(dto.getArkved9()));		
+		arkved.append(spaceFiller(dto.getArkved10()));		
+		arkved.append(spaceFiller(dto.getArkved11()));		
+		arkved.append(spaceFiller(dto.getArkved12()));		
+		arkved.append(spaceFiller(dto.getArkved13()));		
+		arkved.append(spaceFiller(dto.getArkved14()));		
+		arkved.append(spaceFiller(dto.getArkved15()));		
+		arkved.append(spaceFiller(dto.getArkved16()));		
+		arkved.append(spaceFiller(dto.getArkved17()));		
+		arkved.append(spaceFiller(dto.getArkved18()));		
+		arkved.append(spaceFiller(dto.getArkved19()));		
+		arkved.append(spaceFiller(dto.getArkved20()));		
+		arkved.append(spaceFiller(dto.getArkved21()));		
+		arkved.append(spaceFiller(dto.getArkved22()));		
+		arkved.append(spaceFiller(dto.getArkved23()));		
+		arkved.append(spaceFiller(dto.getArkved24()));		
+		arkved.append(spaceFiller(dto.getArkved25()));		
+		arkved.append(spaceFiller(dto.getArkved26()));		
+		arkved.append(spaceFiller(dto.getArkved27()));		
+		arkved.append(spaceFiller(dto.getArkved28()));		
+		arkved.append(spaceFiller(dto.getArkved29()));		
+		arkved.append(spaceFiller(dto.getArkved30()));		
+		
+		dto.setArkved(arkved.toString());
 		
 	}
 
+	private String spaceFiller(String toFill) {
+		String filled = null;
+		String TWO_SPACES = "  ";
+		
+		if (toFill != null && !"".equals(toFill)) {
+			filled = toFill;
+		} else {
+			filled = TWO_SPACES;
+		}
+		
+		return filled;
+	}	
+	
+	
 	private List<ArktxtDto> fetchList(String applicationUser) {
 		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
 		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
@@ -237,7 +278,7 @@ public class MainMaintenanceArkivArc007Controller {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload="+jsonPayload);
+		//logger.info("jsonPayload="+jsonPayload);
 		if (jsonPayload != null) {
 			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
@@ -257,7 +298,7 @@ public class MainMaintenanceArkivArc007Controller {
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
-		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record));
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record)); //Note: dao object is used in mapper
 		logger.info("Record="+ReflectionToStringBuilder.toString(record));
 		logger.info("urlRequestParams="+urlRequestParams);
 		//put the final valid param. string

@@ -200,7 +200,7 @@
 												Vedlegg
 											</td>
 											<td align="right">&nbsp;Ref.
-												<a tabindex="-1" id="arkvedRefLink">
+												<a tabindex="-1" id="arkvedIdLink">
 													<img style="cursor:pointer;vertical-align:middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
 												&nbsp;&nbsp;

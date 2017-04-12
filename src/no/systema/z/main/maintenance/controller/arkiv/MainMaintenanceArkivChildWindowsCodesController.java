@@ -21,12 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 import no.systema.jservices.common.dao.ArkextDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
+import no.systema.jservices.common.values.FasteKoder;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
+import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
@@ -79,7 +84,10 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 
 		if ("arklag".equals(caller)) { // Mappe
 			list = getArklagKoder(appUser);
-		} else {
+		} else if ("arkved".equals(caller)) { //Vedlegg
+			list = getArkivuKoder(appUser);
+		} 
+		else {
 			throw new IllegalArgumentException(caller + " is not supported.");
 		}
 
@@ -120,6 +128,42 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 
 		return kode;
 	}		
+
+	private List<ChildWindowKode> getArkivuKoder(SystemaWebUser appUser) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&kftyp=" + FasteKoder.ARKIVU.toString());
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		JsonMaintMainChildWindowKofastContainer container = null;
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		try {
+			if (jsonPayload != null) {
+				container = maintMainKofastService.getContainer(jsonPayload);
+				if (container != null) {
+					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
+						kode = getChildWindowKode(record);
+						kodeList.add(kode);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return kodeList;
+	}
+	
+	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowKofastRecord record) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(record.getKfkod());
+		kode.setDescription(record.getKftxt());
+
+		return kode;
+	}	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -128,6 +172,17 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 	@Required
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
+	
+	@Qualifier ("maintMainKofastService")
+	private MaintMainKofastService maintMainKofastService;
+	@Autowired
+	@Required
+	public void setMaintMainKofastService (MaintMainKofastService value){ this.maintMainKofastService = value; }
+	public MaintMainKofastService getMaintMainKofastService(){ return this.maintMainKofastService; }
+	
+	
+	
+	
 	
 }
 
