@@ -23,13 +23,17 @@
 				<tr height="25"> 
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkSadMaintImportGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+						<font class="tabDisabledLink">&nbsp;
+							<spring:message code="systema.main.maintenance.label"/>
+						</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Arkiv</font>&nbsp;
+						<font class="tabLink">&nbsp;
+							<spring:message code="systema.main.maintenance.arkiv"/>
+						</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="arkiv general list">
 					</td>
 					<td width="70%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -53,10 +57,10 @@
 						<table width="100%" id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-							    <th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Endre</th>
-			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+							    <th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;<spring:message code="systema.edit"/></th>
+			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.description"/>&nbsp;</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.text"/>&nbsp;</th>
+			                    <th class="tableHeaderField" align="center" >&nbsp;<spring:message code="systema.main.maintenance.main.gate.status"/>&nbsp;</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  

@@ -78,7 +78,7 @@ public class MainMaintenanceCundfKundeController {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					savedRecord = this.updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
@@ -103,7 +103,7 @@ public class MainMaintenanceCundfKundeController {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					savedRecord = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					savedRecord = this.updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
@@ -157,10 +157,10 @@ public class MainMaintenanceCundfKundeController {
 	}
 	
 
-	private JsonMaintMainCundfRecord updateRecord(String applicationUser, JsonMaintMainCundfRecord record, String mode, StringBuffer errMsg) {
+	private JsonMaintMainCundfRecord updateRecord(SystemaWebUser appUser, JsonMaintMainCundfRecord record, String mode, StringBuffer errMsg) {
 		JsonMaintMainCundfRecord savedRecord = null;
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record));
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 

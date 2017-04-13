@@ -23,8 +23,8 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY": "500px",
     	  "scrollCollapse":  true,
-    	  "columnDefs": [{ "type": "num", "targets": 1 }],
-    	  "order": [[ 1, "asc" ]],
+    	  "columnDefs": [{ "type": "num", "targets": 0 }],
+    	  "order": [[ 0, "asc" ]],
     	  "lengthMenu": [ 75, 100],
   		  "language": {
 			"url": getLanguage(lang)

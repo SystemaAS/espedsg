@@ -119,11 +119,11 @@ public class MainMaintenanceArkivArc007Controller {
 					if(updateId!=null && !"".equals(updateId)){
 						//update
 						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						dmlRetval = this.updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					}else{
 						//create new
 						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						dmlRetval = this.updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					}
 					
 					//check for Update errors
@@ -147,7 +147,7 @@ public class MainMaintenanceArkivArc007Controller {
 				int dmlRetval = 0;
 				
 				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				dmlRetval = this.updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				
 				//check for Update errors
 				if( dmlRetval < 0){
@@ -291,13 +291,13 @@ public class MainMaintenanceArkivArc007Controller {
 		return record;
 	}
 	
-	private int updateRecord(String applicationUser, ArktxtDto record, String mode, StringBuffer errMsg){
+	private int updateRecord(SystemaWebUser appUser, ArktxtDto record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
 		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
 		
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" + appUser.getUsrLang();;
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record)); //Note: dao object is used in mapper
 		logger.info("Record="+ReflectionToStringBuilder.toString(record));
 		logger.info("urlRequestParams="+urlRequestParams);

@@ -23,26 +23,34 @@
 				<tr height="25"> 
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-						<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+						<font class="tabDisabledLink">&nbsp;
+							<spring:message code="systema.main.maintenance.label"/>
+						</font>
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintArkivGate" onClick="setBlockUI(this);" href="mainmaintenancearkivgate.do?id=${model.dbTable}">
-							<font class="tabDisabledLink">&nbsp;Arkiv</font>&nbsp;						
+							<font class="tabDisabledLink">&nbsp;
+								<spring:message code="systema.main.maintenance.arkiv"/>
+							</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tab" align="center">
-						<font class="tabLink">&nbsp;Dokumenter</font>&nbsp;
+						<font class="tabLink">&nbsp;
+							<spring:message code="systema.main.maintenance.arkiv.documents"/>					
+						</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintArkivArc007" onClick="setBlockUI(this);" href="mainmaintenancearkiv_arc007_edit.do">
-							<font class="tabDisabledLink">&nbsp;Lage ny</font>&nbsp;						
+							<font class="tabDisabledLink">&nbsp;
+								<spring:message code="systema.new"/>	
+							</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
 					</td>
@@ -67,13 +75,13 @@
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th width="2%" class="tableHeaderField" align="center" >Kode</th>
-								<th width="15%" class="tableHeaderField" align="center" >Tekst</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Arkiver</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Ep</th>
-			                    <th class="tableHeaderField" align="center" >Mappe</th>
-			                    <th class="tableHeaderField" align="center" >Slett</th>
+							    <th width="2%" class="tableHeaderFieldFirst" align="center"><spring:message code="systema.edit"/></th>                                        
+								<th width="2%" class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.artype"/></th>
+								<th width="15%" class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.artxt"/></th>
+			                    <th class="tableHeaderField" align="left">&nbsp;<spring:message code="systema.main.maintenance.arkiv.document.arkjn"/></th>
+			                    <th class="tableHeaderField" align="left">&nbsp;<spring:message code="systema.main.maintenance.arkiv.document.arksnd"/></th>
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arklag"/></th>
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.delete"/></th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -88,18 +96,18 @@
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.artxt}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 			    					<c:if test="${record.arkjn=='J'}">
-		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Ja&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;<spring:message code="systema.yes"/>&nbsp;</font>
 		                       		</c:if>
 			    					<c:if test="${record.arkjn=='N'}">
-		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Nei&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;<spring:message code="systema.no"/>&nbsp;</font>
 		                       		</c:if>
 		                       </td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 			    					<c:if test="${record.arksnd=='J'}">
-		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Ja&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;<spring:message code="systema.yes"/>&nbsp;</font>
 		                       		</c:if>
 			    					<c:if test="${record.arksnd=='N'}">
-		                       			<font class="text12">&nbsp;&nbsp;&nbsp;Nei&nbsp;</font>
+		                       			<font class="text12">&nbsp;&nbsp;&nbsp;<spring:message code="systema.no"/>&nbsp;</font>
 		                       		</c:if>
 		                       </td>				               
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arklag}&nbsp;</td>
