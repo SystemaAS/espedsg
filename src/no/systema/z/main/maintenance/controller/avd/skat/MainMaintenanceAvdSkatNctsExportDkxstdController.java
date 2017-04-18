@@ -32,6 +32,9 @@ import no.systema.z.main.maintenance.service.sad.MaintMainTrkodfService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
+import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfContainer;
+import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfRecord;
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdRecord;
@@ -40,10 +43,12 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMai
 
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.skat.MaintMainDkxstdValidator;
-import no.systema.z.main.maintenance.util.manager.CodeDropDownMgr;
+import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
 
 import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
-import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+//import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -63,7 +68,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private CodeDropDownMgrSkat codeDropDownMgr = new CodeDropDownMgrSkat();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	/**
@@ -456,14 +461,14 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSad(this.urlCgiProxyService, this.maintKodtvaService, model, applicationUser);
-		this.codeDropDownMgr.populateAvdListHtmlDropDownsSad(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "nealist");
+		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSkat(this.urlCgiProxyService, this.maintDktvkService, model, applicationUser);
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSkat(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "snealist");
 		//Code lists in NCTS domain
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
 		//Borrowed from TVINN domain
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
-		this.codeDropDownMgr.populateDeklarationsTyperHtmlDropDown(this.urlCgiProxyService, this.maintMainTrkodfService, model, applicationUser);
+		//TODO this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
 	}
 	
 	/**
@@ -503,12 +508,12 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	public MaintMainDkxstdfvService getMaintMainDkxstdfvService(){ return this.maintMainDkxstdfvService; }
 	
 	
-	@Qualifier ("maintKodtvaService")
-	private MaintKodtvaService maintKodtvaService;
+	@Qualifier ("maintDktvkService")
+	private MaintDktvkService maintDktvkService;
 	@Autowired
 	@Required
-	public void setMaintKodtvaService (MaintKodtvaService value){ this.maintKodtvaService = value; }
-	public MaintKodtvaService getMaintKodtvaService(){ return this.maintKodtvaService; }
+	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
+	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
 	
 	
 	@Qualifier ("maintMainKodtaService")
@@ -527,12 +532,14 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
 	
-	@Qualifier ("maintMainTrkodfService")
-	private MaintMainTrkodfService maintMainTrkodfService;
+	@Qualifier ("maintDkxkodfService")
+	private MaintDkxkodfService maintDkxkodfService;
 	@Autowired
 	@Required
-	public void setMaintMainTrkodfService (MaintMainTrkodfService value){ this.maintMainTrkodfService = value; }
-	public MaintMainTrkodfService getMaintMainTrkodfService(){ return this.maintMainTrkodfService; }
+	public void setMaintDkxkodfService (MaintDkxkodfService value){ this.maintDkxkodfService = value; }
+	public MaintDkxkodfService getMaintDkxkodfService(){ return this.maintDkxkodfService; }
+	
+	
 	
 	@Qualifier ("maintSadImportKodts4Service")
 	private MaintSadImportKodts4Service maintSadImportKodts4Service;

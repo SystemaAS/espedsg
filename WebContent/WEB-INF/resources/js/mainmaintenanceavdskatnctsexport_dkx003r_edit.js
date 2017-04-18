@@ -40,7 +40,7 @@
 	  //Avd.
 	  jq('#thavdIdLink').click(function() {
 		  jq('#thavdIdLink').attr('target','_blank');
-		  window.open('mainmaintenanceavd_childwindow_syfa14r.do?action=doFind&nealist=1' + '&ctype=thavd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+		  window.open('mainmaintenanceavd_childwindow_syfa14r.do?action=doFind&snealist=1' + '&ctype=thavd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	  });
 	  jq('#thavdIdLink').keypress(function(e){ //extra feature for the end user
   		  if(e.which == 13) {

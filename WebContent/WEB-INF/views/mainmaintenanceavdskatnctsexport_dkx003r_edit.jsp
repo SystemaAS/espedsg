@@ -23,14 +23,14 @@
 				<tr height="25"> 
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 							<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-							<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+							<font class="tabDisabledLink">&nbsp;Vedligehold</font>
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 							</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdgate.do?id=${model.dbTable}">
-							<font class="tabDisabledLink">&nbsp;Avdelinger</font>&nbsp;						
+							<font class="tabDisabledLink">&nbsp;Afdelinger</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 						</a>
 					</td>
@@ -57,14 +57,14 @@
 						<c:when test="${not empty model.updateId}">
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="16%" valign="bottom" class="tab" align="center">
-								<font class="tabLink">&nbsp;Avd.</font>&nbsp;
+								<font class="tabLink">&nbsp;Afd.</font>&nbsp;
 								<font class="text11MediumBlue">(${model.avd})</font>
 							</td>
 						</c:when>
 						<c:otherwise>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="16%" valign="bottom" class="tab" align="center">
-								<font class="tabLink">&nbsp;Lage ny avd.</font>&nbsp;
+								<font class="tabLink">&nbsp;Skabe ny afd.</font>&nbsp;
 								<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 							</td>
 						</c:otherwise>
@@ -114,8 +114,8 @@
 				 		<tr>
 				 			<td >
 				 				<ul class="isa_error text12" >
-		                                  <li>[ERROR on Update] - Server return code: ${model.errorMessage}</li>                                    
-		                              </ul>
+                            	     <li>[ERROR on Update] - Server return code: ${model.errorMessage}</li>                                    
+                              	</ul>
 				 			</td>
 						</tr>
 					</table>
@@ -135,7 +135,7 @@
 						
 							<c:if test="${not empty model.updateId}">
 								<tr >
-									<td colspan="4" class="text14MediumBlue" title=".">Avd.navn&nbsp;&nbsp;&nbsp;
+									<td colspan="4" class="text14MediumBlue" title=".">Afd.navn&nbsp;&nbsp;&nbsp;
 										<input readonly class="inputTextReadOnly" id="avdnavn" name="avdnavn" type="text" size="45" value="${model.avdnavn}">
 									</td>
 								</tr>
@@ -148,14 +148,14 @@
 					    	    		<input type="hidden" name="thavd" id="thavd" value="${model.avd}">
 					    	    	</c:when>
 					    	    	<c:otherwise>
-					    	    		<td class="text12" title="thavd"><font class="text12RedBold" >*</font>Avdeling
+					    	    		<td class="text12" title="thavd"><font class="text12RedBold" >*</font>Afdeling
 					    	    			<a tabindex="-1" id="thavdIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
 					    	    		</td>
 										<td class="text12" >
 										<select name="thavd" id="thavd" class="inputTextMediumBlueMandatoryField">
-						  					<option value="">-velg-</option>
+						  					<option value="">-vælg-</option>
 						  					<c:forEach var="record" items="${model.avdGeneralList}" >
 						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
@@ -164,11 +164,11 @@
 					    	    	</c:otherwise>
 				    	    	</c:choose>
 				    	    	
-				    	    	<td class="text12" title="thnttd"><font class="text12RedBold" >*</font>Antall eksemplar følgeseddel</td>
+				    	    	<td class="text12" title="thnttd"><font class="text12RedBold" >*</font>Antal eksemplar følgeseddel</td>
 								<td class="text12" >
 									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thnttd" id="thnttd" size="2" maxlength="1" value='${model.record.thnttd}'>
 								</td>
-								<td class="text12" title="thntll"><font class="text12RedBold" >*</font>Antall eksemplar lasteliste</td>
+								<td class="text12" title="thntll"><font class="text12RedBold" >*</font>Antal eksemplar lasteliste</td>
 								<td class="text12" >
 									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thntll" id="thntll" size="2" maxlength="1" value='${model.record.thntll}'>
 								</td>
@@ -208,7 +208,7 @@
 						<tr height="5"><td></td></tr>
 			    	    
 						<tr>
-							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Avdeling 
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Afdeling 
 								<a tabindex="-1" id="s0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
@@ -217,7 +217,7 @@
 								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0004" id="s0004" size="20" maxlength="35" value='${model.record.s0004}'>
 							</td>
 						
-							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtvekslingsId Tollvesenet 
+							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtvekslingsId SKAT 
 								<a tabindex="-1" id="s0010IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
@@ -242,7 +242,7 @@
 							<td class="text12" title="thekst">Importeres eksterne data</td>
 							<td class="text12">
 								<select name="thekst" id="thekst" class="inputTextMediumBlue">
-				  					<option value="">-velg-</option>
+				  					<option value="">-vælg-</option>
 				  					<option value="J"<c:if test="${ model.record.thekst == 'J'}"> selected </c:if> >Ja</option>
 				  					<option value="N"<c:if test="${ model.record.thekst == 'N'}"> selected </c:if> >Nei</option>
 				  					<option value="R"<c:if test="${ model.record.thekst == 'R'}"> selected </c:if> >R</option>
@@ -258,9 +258,9 @@
 			
 			<tr>
 				<td width="5%">&nbsp;</td>
-	 			<td class="text12" title="thdk">&nbsp;&nbsp;Deklarasjonstype&nbsp;
+	 			<td class="text12" title="thdk">&nbsp;&nbsp;Angivelsestype&nbsp;
 	 				<select name="thdk" id="thdk" class="inputTextMediumBlue" TABINDEX=1>
-	 				  <option value="">-velg-</option>
+	 				  <option value="">-vælg-</option>
 	 				  	<c:forEach var="code" items="${model.deklarasjonsTypeCodeList}" >
                              	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 						</c:forEach> 
@@ -286,14 +286,14 @@
 								 		<tr height="15">
 								 			<td class="text12White">
 												&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									 			<b>&nbsp;2.</b>Avsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+									 			<b>&nbsp;2.</b>Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 								 				<div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute;top:2px; width:250px;" id="2_info" class="popupWithInputText text11"  >
-									           		<b>2. Avsender</b>
+									           		<b>2. Afsender</b>
 										           		<ul>
-									           			<li>Kundenr. Overføres fra tolldekl./oppdrag hvis TET basert på tolldeklarasjon/oppdrag.</li>
-														<li>Avsenders TIN (Trader Identification Number)<br/>
-														Benytt organisasjonsnr.,evt. bedriftsnummer for avdeling av sentralt registrert enhet. TIN er valgfritt å oppgi.</li>
+									           			<li>Kundenr. Overføres fra tolldekl./oppdrag hvis CVR/SE-nr basert på tolldeklarasjon/oppdrag.</li>
+														<li>Avsenders CVR/SE-nr<br/>
+														Benytt organisasjonsnr.,evt. bedriftsnummer for avdeling av sentralt registrert enhet.</li>
 														</ul>
 												</span>
 												</div>
@@ -342,7 +342,7 @@
 											        </tr>
 											        
 											        <tr>
-											            <td class="text12" align="left" >&nbsp;<span title="thtins">TIN</span></td>
+											            <td class="text12" align="left" >&nbsp;<span title="thtins">CVR/SE</span></td>
 											            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 											        </tr>
 											        <tr>
@@ -352,7 +352,7 @@
 											        <tr height="4"><td>&nbsp;</td></tr>
 											        <tr>
 											            <td class="text12" align="left" >&nbsp;<span title="thads1">Adresse</span></td>
-											            <td class="text12" align="left" >&nbsp;<span title="thsks">Språkkode</span>
+											            <td class="text12" align="left" >&nbsp;<span title="thsks">Sprogkode</span>
 											            </td>
 											        </tr>
 											        <tr>
@@ -366,7 +366,7 @@
 											        		<td>
 												        		<table>
 												        		<tr>
-												            		<td class="text12" align="left" >&nbsp;<span title="thpss">Postadresse</span></td>
+												            		<td class="text12" align="left" >&nbsp;<span title="thpss">By</span></td>
 												            		<td align="left">&nbsp;</td>
 												            	</tr>
 												        		<tr>
@@ -413,15 +413,15 @@
 							 		<tr height="15">
 							 			<td class="text12White">
 							 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 				<b>8.</b>Mottaker&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 				<b>8.</b>Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 							 				<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >
-												<b>8. Mottaker</b>
+												<b>8. Modtager</b>
 							           			<br>
 								           			<ul>
 								           				<li>Kundenr.</li>
-														<li>Mottakers TIN (Trader Identification number). <br/>
-														Dette er et valgfritt felt som benyttes dersom TIN til den autoriserte mottaker i bestemmelseslandet er kjent.</li>
+														<li>Modtagers EORI <br/>
+														Dette er et valgfritt felt som benyttes dersom EORI til den autoriserte mottaker i bestemmelseslandet er kjent.</li>
 									           		</ul>
 											</span>
 											</div>
@@ -467,7 +467,7 @@
 										        </tr>
 			
 										        <tr>
-										            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtink">TIN</span></td>
+										            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtink">EORI</span></td>
 										            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 										        </tr>
 										        <tr>
@@ -477,7 +477,7 @@
 										        <tr height="4"><td>&nbsp;</td></tr>
 										        <tr>
 										            <td class="text12" align="left" >&nbsp;<span title="thadk1">Adresse</span></td>
-										            <td class="text12" align="left" >&nbsp;<span title="thskk">Språkkode</span>
+										            <td class="text12" align="left" >&nbsp;<span title="thskk">Sprogkode</span>
 									            		
 										            </td>
 										        </tr>
@@ -492,7 +492,7 @@
 										        		<td>
 											        		<table>
 											        		<tr>
-											            		<td class="text12" align="left" >&nbsp;<span title="thpsk">Postadresse</span></td>
+											            		<td class="text12" align="left" >&nbsp;<span title="thpsk">By</span></td>
 											            		<td align="left">&nbsp;</td>
 											            	</tr>
 											        		<tr>
@@ -539,7 +539,7 @@
 									<table align="left" class="formFrameHeader" width="95%" border="0" cellspacing="0" cellpadding="0">
 								 		<tr height="15">
 								 			<td class="text12White">
-								 				&nbsp;Spesifikke detaljer om reiserute og garanti&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								 				&nbsp;Specifikke oplysninger om rejseruten og garanti&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 							 				</td>
 						 				</tr>
 					 				</table>
@@ -561,10 +561,10 @@
 											        	<td class="text12" align="left" >
 											        	&nbsp;<img onMouseOver="showPop('51_info');" onMouseOut="hidePop('51_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 											        
-											        	<b>51.</b><span title="thtsd1/thtsd2...">Planlagte transitteringstollsteder - i rute rekkefølge&nbsp;</span>
+											        	<b>51.</b><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder&nbsp;</span>
 											        	<div class="text11" style="position: relative;" align="left">
 														<span style="position:absolute;top:2px; width:250px;" id="51_info" class="popupWithInputText text11"  >
-										           			<b>51. Planlagte transitteringstollsteder</b>
+										           			<b>51. Planlagte grænseovergangssteder</b>
 										           			<p>
 											           			Oppgi kodene for de planlagte innpasseringstollstedene for hver avtalepart som skal passeres under transporten, f.eks. SE603340 for Svinesund (SE).
 																EU anses som én avtalepart. Hvis transporten skal passere andre områder enn det som tilhører avtalepartene, oppgis utpasseringstollstedet fra avtalepartenes område som
@@ -674,12 +674,12 @@
 												        	<td class="text12" align="left" >
 												        	
 												        	&nbsp;<img onMouseOver="showPop('53_info');" onMouseOut="hidePop('53_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-												        	<b>53.</b><span title="thtsb">Bestemmelsestollsted</span>&nbsp;
+												        	<b>53.</b><span title="thtsb">Bestemmelsestoldsted</span>&nbsp;
 												        	
 												        	<div class="text11" style="position: relative;" align="left">
 															<span style="position:absolute;top:2px; width:250px;" id="53_info" class="popupWithInputText text11"  >
 											           			<br/>
-											           			<b>53. Bestemmelsestollsted</b>
+											           			<b>53. Bestemmelsestoldsted</b>
 										           				<p>
 											           			Oppgi kode for tollstedet hvor varen skal fremlegges for å fullføre transitteringen.<br/> 
 											           			Hvis mottaker av varene er hjemmehørende i et land utenfor Transitteringskonvensjonens avtaleområde, oppgis
@@ -712,12 +712,12 @@
 													        	<tr>
 														        	<td  colspan="3" class="text12" align="left" >
 														        	&nbsp;<img onMouseOver="showPop('52_info');" onMouseOut="hidePop('52_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-														        	<b>52.</b><b>Garanti-kode</b>&nbsp;
+														        	<b>52.</b><b>Garantikode</b>&nbsp;
 														        	
 																	<div class="text11" style="position: relative;" align="left">
 																		<span style="position:absolute;top:2px; width:250px;" id="52_info" class="popupWithInputText text11"  >
 														           			<br/>
-														           			<b>52. Garanti-kode</b>
+														           			<b>52. Garantikode</b>
 														           			<ul>
 															           			<li>
 															           				<b>0</b>&nbsp;Garantifritak.
@@ -750,12 +750,12 @@
 											            		<tr>
 											            			<td class="text12">&nbsp;<span title="thgkd">Kode</span></td>
 											            			<td class="text12">&nbsp;<span title="thgft1">Garantinummer</span></td>
-											            			<td class="text12">&nbsp;<span title="thgadk">Tilg.kode</span></td>
+											            			<td class="text12">&nbsp;<span title="thgadk">Adgangskode</span></td>
 											            		</tr>
 											            		<tr>
 											            			<td>
 											            				<select class="inputTextMediumBlue" name="thgkd" id="thgkd" >
-														 				  <option value="">-velg-</option>
+														 				  <option value="">-vælg-</option>
 																		  <option value="0"<c:if test="${model.record.thgkd == '0'}"> selected </c:if> >0</option>
 																		  <option value="1"<c:if test="${model.record.thgkd == '1'}"> selected </c:if> >1</option>
 																		  <option value="2"<c:if test="${model.record.thgkd == '2'}"> selected </c:if> >2</option>
@@ -808,14 +808,14 @@
 														 		<tr>
 														 			<td class="text12"><b><span title="thgpr">Garanti %&nbsp;</span></b></td>
 														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgpr" id="thgpr" size="6" maxlength="5" value="${model.record.thgprNO}"></td>
-														 			<td class="text12"><b>&nbsp;<span title="thgbl">Garantibeløp&nbsp;</span></b></td>
+														 			<td class="text12"><b>&nbsp;<span title="thgbl">Garantibeløb&nbsp;</span></b></td>
 														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${model.record.thgbl}"></td>
-														 			<td class="text12">&nbsp;<span title="thgvk">Valuta</span>
+														 			<td class="text12">&nbsp;<span title="thgvk">Møntsort</span>
 														 				<%-- Note: onChange event in jQuery for this currency list --%>
 														 				<select name="thgvk" id="thgvk" >
-														 				  <option value="">-velg-</option>	
+														 				  <option value="">-vælg-</option>	
 														 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
-										                                	 	<option value="${record.kvakod}"<c:if test="${model.record.thgvk == record.kvakod}"> selected </c:if> >${record.kvakod}</option>
+										                                	 	<option value="${record.dkvk_kd}"<c:if test="${model.record.thgvk == record.dkvk_kd}"> selected </c:if> >${record.dkvk_kd}</option>
 																			</c:forEach> 
 																		</select>
 													 				</td>
@@ -986,7 +986,7 @@
 						            			</td>
 						            			<td class="text12">	
 								            		<select class="inputTextMediumBlue" name="thtrm" id="thtrm">
-							 						<option value="">-velg-</option>
+							 						<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.transportmaterCodeList}" >
 								 				  		<option value="${code.ks4trm}"<c:if test="${model.record.thtrm == code.ks4trm}"> selected </c:if> >${code.ks4trm}</option>
 													</c:forEach> 
@@ -1205,7 +1205,7 @@
 									           	<td class="text12" align="left">
 									           		
 									           		<select name="thdkr" id="thdkr" >
-									           			<option value="">-velg-</option>
+									           			<option value="">-vælg-</option>
 									 				  <option value="A1"<c:if test="${model.record.thdkr == 'A1'}"> selected </c:if> >A1</option>
 									 				  <option value="A2"<c:if test="${model.record.thdkr == 'A2'}"> selected </c:if> >A2</option>
 													  <option value="A3"<c:if test="${model.record.thdkr == 'A3'}"> selected </c:if> >A3</option>
@@ -1243,7 +1243,7 @@
 								           	<tr>
 									            <td class="text12" align="left">&nbsp;</td>
 												<td class="text9BlueGreen" valign="bottom"  >
-					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lagre' onClick="setBlockUI(this);"/>
+					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare' onClick="setBlockUI(this);"/>
 					 							</td>								           	
 					 						</tr>
 										</table>
@@ -1318,13 +1318,13 @@
 								 				&nbsp;
 								 				<img onMouseOver="showPop('14_info');" onMouseOut="hidePop('14_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 						 						
-						 						<b>&nbsp;50.</b>Ansvarlig&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+						 						<b>&nbsp;50.</b>Hovedforpligtede&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 						 						
 								 				<div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="14_info" class="popupWithInputText text11"  >
 							           	
 								           			<br>
-								           			Ansvarlig. 
+								           			Hovedforpligtede 
 								           			<ul>
 									           			<li>The principal’s name (full name of the person or company) and full address shall be
 															entered as well as the identification number, if any, allocated by the competent
@@ -1370,7 +1370,7 @@
 											        	<input type="hidden" name="orig_thpsa" id="orig_thpsa" value='${Xmodel.record.thpsa}'>
 											        	<input type="hidden" name="orig_thlka" id="orig_thlka" value='${Xmodel.record.thlka}'>
 											        	<input type="hidden" name="orig_thska" id="orig_thska" value='${Xmodel.record.thska}'>
-									        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtina">TIN</span></td>
+									        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtina">CVR/SE-nr</span></td>
 											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thnaa">Navn</span>
 											            	<a tabindex="-1" id="thnaaIdLink">
 																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
@@ -1387,7 +1387,7 @@
 											        <tr height="4"><td>&nbsp;</td></tr>
 											        <tr>
 											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thada1">Adresse</span></td>
-											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thska">Språkkode</span>
+											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thska">Sprogkode</span>
 										            		
 											            </td>
 											        </tr>
@@ -1476,7 +1476,7 @@
 										           	</tr>
 										           	<tr>
 											            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											            		<span title="thdant">Forseglings-antall&nbsp;</span>
+											            		<span title="thdant">Forseglings-antal&nbsp;</span>
 											            </td>
 						 								<td class="text12" align="left">
 											           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thdant" id="thdant" size="4" maxlength="4" value="${model.record.thdant}">
@@ -1484,7 +1484,7 @@
 										           	</tr>
 										           	<tr>
 											            <td class="text12" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											            		<span title="thdfsk">Forseglings-språkkode</span>
+											            		<span title="thdfsk">Forseglings-sprogkode</span>
 										            		</td>
 						 								<td class="text12" align="left">
 						 									<input type="text" class="inputTextMediumBlue" name="thdfsk" id="thdfsk" size="3" maxlength="2" value="${model.record.thdfsk}">
@@ -1495,7 +1495,7 @@
 									 				<tr>
 											            <td class="text12" align="left">
 											            <img onMouseOver="showPop('kontrolltullplats_info');" onMouseOut="hidePop('kontrolltullplats_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						 								&nbsp;<span title="thdats/thddtk">Kontroll tollsted og dato&nbsp;</span>
+						 								&nbsp;<span title="thdats/thddtk">Kontroll toldsted og dato&nbsp;</span>
 						 								<div class="text11" style="position: relative;" align="left">
 														<span style="position:absolute;top:2px; width:250px;" id="kontrolltullplats_info" class="popupWithInputText text11"  >
 							           	
@@ -1562,7 +1562,7 @@
 									 		<tr height="18px">
 									 			<td class="text14">
 									 				&nbsp;<img onMouseOver="showPop('sikkerhet_info');" onMouseOut="hidePop('sikkerhet_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-											        	<b>Sikkerhet</b>&nbsp;Arbeid med forhåndsvarsling
+											        	<b>Sikkerhed</b>&nbsp;Arbeid med forhåndsvarsling
 											        <div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute;top:2px; width:250px;" id="sikkerhet_info" class="popupWithInputText text11"  >
 							           					TODO
@@ -1574,7 +1574,7 @@
 							 					
 							            			<td class="text12">&nbsp;<span title="thsik">
 							            				<img onMouseOver="showPop('sikkerhetIndicator_info');" onMouseOut="hidePop('sikkerhetIndicator_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							            				Sikkerhet - Indikator</span>&nbsp;
+							            				Sikkerhed - Indikator</span>&nbsp;
 							            				<div class="text11" style="position: relative;" align="left">
 														<span style="position:absolute;top:2px; width:250px;" id="sikkerhetIndicator_info" class="popupWithInputText text11"  >
 							           						Indikator for specifik omstendighet (0 eller 1)	
@@ -1611,9 +1611,9 @@
 				            					<tr>
 							            			<td class="text12">
 							            				<img onMouseOver="showPop('spesOmstand_info');" onMouseOut="hidePop('spesOmstand_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							            				<span title="thspom">Spes.omstendighet</span>&nbsp;
+							            				<span title="thspom">Spes.omstændighed</span>&nbsp;
 							            				<select name="thspom" id="thspom">
-							            				<option value="">-velg-</option>
+							            				<option value="">-vælg-</option>
 							 				  			<c:forEach var="code" items="${model.ncts096_SpecOmst_CodeList}" >
 			                             	 				<option value="${code.tkkode}"<c:if test="${model.record.sikkerhedChildRecord.thspom == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 														</c:forEach> 
@@ -1630,9 +1630,9 @@
 						            				</td>
 							            			<td class="text12" nowrap>
 							            				<img onMouseOver="showPop('betalmade_info');" onMouseOut="hidePop('betalmade_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							            				<span title="thtkbm">Transp.kost/Betal.måte</span>&nbsp;
+							            				<span title="thtkbm">Transp.kost/Betal.måde</span>&nbsp;
 							            				<select name="thtkbm" id="thtkbm">
-							            				<option value="">-velg-</option>
+							            				<option value="">-vælg-</option>
 							 				  			<c:forEach var="code" items="${model.ncts116_BetalningTransport_CodeList}" >
 			                             	 				<option value="${code.tkkode}"<c:if test="${model.record.sikkerhedChildRecord.thtkbm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 														</c:forEach> 
@@ -1652,7 +1652,7 @@
 							            			<td class="text12" nowrap>&nbsp;&nbsp;<span title="thlosd">Lossested</span>
 							            				<input type="text" class="inputTextMediumBlue" name="thlosd" id="thlosd" size="30" maxlength="35" value="${model.record.sikkerhedChildRecord.thlosd}">
 							            			</td>
-							            			<td class="text12">&nbsp;&nbsp;<span title="thlosdsk">Lossested språkkode</span>
+							            			<td class="text12">&nbsp;&nbsp;<span title="thlosdsk">Lossested sprogkode</span>
 							            				<input type="text" class="inputTextMediumBlue" name="thlosdsk" id="thlosdsk" size="3" maxlength="2" value="${model.record.sikkerhedChildRecord.thlosdsk}">
 							            				
 							            			</td>
@@ -1662,7 +1662,7 @@
 							            				<table>
 							            				<tr>
 							            					<td colspan="4" class="text12">&nbsp;
-							            					<span title="thlkr1-8">Landkode for reiserute</span>
+							            					<span title="thlkr1-8">Landkode for rejseplan</span>
 							            					
 							            					</td>
 							            				</tr>
@@ -1707,7 +1707,7 @@
 									 		<tr height="18px">
 									 			<td class="text12White">
 									 				&nbsp;
-							 						&nbsp;Avsender - Sikkerhet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 						&nbsp;Afsender - Sikkerhed&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 								 				</td>
 							 				</tr>
 					 					</table>
@@ -1750,7 +1750,7 @@
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnass" id="thnass" size="30" maxlength="35" value="${model.record.sikkerhedChildRecord.thnass}"></td>
 															        </tr>
 															        <tr>
-													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtinss">TIN</span></td>
+													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtinss">CVR/SE-nr</span></td>
 															        </tr>
 															        <tr>
 															        		<td align="left"><input type="text" class="inputTextMediumBlue" name="thtinss" id="thtinss" size="20" maxlength="17" value="${model.record.sikkerhedChildRecord.thtinss}"></td>
@@ -1759,7 +1759,7 @@
 															        <tr height="4"><td>&nbsp;</td></tr>
 															        <tr>
 															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadss1">Adresse</span></td>
-															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskss">Språkkode</span>
+															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskss">Sprogkode</span>
 														            		
 															            </td>
 															        </tr>
@@ -1773,7 +1773,7 @@
 															        		<td>
 																        		<table>
 																        		<tr>
-																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpsss">Postadresse</span></td>
+																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpsss">By</span></td>
 																            		<td align="left">&nbsp;</td>
 																            	</tr>
 																        		<tr>
@@ -1821,7 +1821,7 @@
 									 		<tr height="18px">
 									 			<td class="text12White">
 									 				&nbsp;
-							 						&nbsp;Transportør - Sikkerhet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 						&nbsp;Transportør - Sikkerhed&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 								 				</td>
 							 				</tr>
 					 					</table>
@@ -1864,7 +1864,7 @@
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnat" id="thnat" size="30" maxlength="35" value="${model.record.sikkerhedChildRecord.thnat}"></td>
 															        </tr>
 															        <tr>
-													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtint">TIN</span></td>
+													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtint">EORI</span></td>
 															        </tr>
 															        <tr>
 															        		<td align="left"><input type="text" class="inputTextMediumBlue" name="thtint" id="thtint" size="20" maxlength="17" value="${model.record.sikkerhedChildRecord.thtint}"></td>
@@ -1873,7 +1873,7 @@
 															        <tr height="4"><td>&nbsp;</td></tr>
 															        <tr>
 															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadt1">Adresse</span></td>
-															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskt">Språkkode</span>
+															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskt">Sprogkode</span>
 														            		
 															            </td>
 															        </tr>
@@ -1887,7 +1887,7 @@
 															        		<td>
 																        		<table>
 																        		<tr>
-																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpst">Postadresse</span></td>
+																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpst">By</span></td>
 																            		<td align="left">&nbsp;</td>
 																            	</tr>
 																        		<tr>
@@ -1934,7 +1934,7 @@
 									 		<tr height="18px">
 									 			<td class="text12White">
 									 				&nbsp;
-							 						&nbsp;Mottaker - Sikkerhet&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 						&nbsp;Modtager - Sikkerhed&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 								 				</td>
 							 				</tr>
 					 					</table>
@@ -1976,7 +1976,7 @@
 															            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnaks" id="thnaks" size="30" maxlength="35" value="${model.record.sikkerhedChildRecord.thnaks}"></td>
 															        </tr>
 															        <tr>
-													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtinks">TIN</span></td>
+													        				<td class="text12" align="left" >&nbsp;&nbsp;<span title="thtinks">EORI</span></td>
 															        </tr>
 															        <tr>
 															        		<td align="left"><input type="text" class="inputTextMediumBlue" name="thtinks" id="thtinks" size="20" maxlength="17" value="${model.record.sikkerhedChildRecord.thtinks}"></td>
@@ -1985,7 +1985,7 @@
 															        <tr height="4"><td>&nbsp;</td></tr>
 															        <tr>
 															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thadks1">Adresse</span></td>
-															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskks">Språkkode</span>
+															            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thskks">Sprogkode</span>
 														            		
 															            </td>
 															        </tr>
@@ -1999,7 +1999,7 @@
 															        		<td>
 																        		<table>
 																        		<tr>
-																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpsks">Postadresse</span></td>
+																            		<td class="text12" align="left" >&nbsp;&nbsp;<span title="thpsks">By</span></td>
 																            		<td align="left">&nbsp;</td>
 																            	</tr>
 																        		<tr>

@@ -90,10 +90,17 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 		ModelAndView successView = new ModelAndView("mainmaintenanceavd_childwindow_syfa14r");
 		Map model = new HashMap();
 		String callerType = request.getParameter("ctype");
-		String sialist = request.getParameter("sialist");
-		String sealist = request.getParameter("sealist");
-		String nialist = request.getParameter("nialist");
-		String nealist = request.getParameter("nealist");
+		//TVINN
+		String sadImportAvdList = request.getParameter("sialist"); //SadImportAvdlist
+		String sadExportAvdList = request.getParameter("sealist"); //SadExportAvdlist
+		String sadNctsImportAvdList = request.getParameter("nialist"); //SadNctsImportAvdlist
+		String sadNctsExportAvdList = request.getParameter("nealist"); //SadNctsExportAvdlist
+		//SKAT
+		String skatImportAvdList = request.getParameter("ssialist"); //SkatImportAvdlist
+		String skatExportAvdList = request.getParameter("ssealist"); //SkatExportAvdlist
+		String skatNctsImportAvdList = request.getParameter("snialist"); //SkatNctsImportAvdlist
+		String skatNctsExportAvdList = request.getParameter("snealist"); //SkatNctsExportAvdlist
+		
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -106,18 +113,41 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 			
 			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
 			String urlRequestParamsKeys = "user=" + appUser.getUser();
-			if(sialist!=null && !"".equals(sialist)){
+			//------
+			//TVINN
+			//------
+			if(sadImportAvdList!=null && !"".equals(sadImportAvdList)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&sialist=1"; //only the available avd. (sad import)
 			}
-			if(sealist!=null && !"".equals(sealist)){
+			if(sadExportAvdList!=null && !"".equals(sadExportAvdList)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&sealist=1"; //only the available avd. (sad export)
 			}
-			if(nialist!=null && !"".equals(nialist)){
+			if(sadNctsImportAvdList!=null && !"".equals(sadNctsImportAvdList)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&nialist=1"; //only the available avd. (sad ncts import)
 			}
-			if(nealist!=null && !"".equals(nealist)){
+			if(sadNctsExportAvdList!=null && !"".equals(sadNctsExportAvdList)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&nealist=1"; //only the available avd. (sad ncts export)
 			}
+			//------
+			//SKAT
+			//------
+			if(skatImportAvdList!=null && !"".equals(skatImportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&ssialist=1"; //only the available avd. (skat import)
+			}
+			if(skatExportAvdList!=null && !"".equals(skatExportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&ssealist=1"; //only the available avd. (skat export)
+			}
+			if(skatNctsImportAvdList!=null && !"".equals(skatNctsImportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&snialist=1"; //only the available avd. (skat ncts import)
+			}
+			if(skatNctsExportAvdList!=null && !"".equals(skatNctsExportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&snealist=1"; //only the available avd. (skat ncts export)
+			}
+			//---------
+			//TDS TODO
+			//---------
+			
+			
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);
 			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
