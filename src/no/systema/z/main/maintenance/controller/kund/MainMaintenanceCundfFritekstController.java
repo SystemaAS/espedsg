@@ -235,6 +235,7 @@ public class MainMaintenanceCundfFritekstController {
 				changeLog.setFxusr(record.getFxusr());
 				changeLog.setFxdt(record.getFxdt());
 				changeLogList.add(changeLog);
+				break; //TODO, room for improvement
 			}
 		}
 		return changeLogList;
