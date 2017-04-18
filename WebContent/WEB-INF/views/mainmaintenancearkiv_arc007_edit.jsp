@@ -25,27 +25,35 @@
 						<c:when test="${not empty model.updateId}">
 							<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 								<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-								<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+								<font class="tabDisabledLink">&nbsp;
+									<spring:message code="systema.main.maintenance.label"/>
+								</font>
 								<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintArkivGate" onClick="setBlockUI(this);" href="mainmaintenancearkivgate.do?id=${model.dbTable}">
-									<font class="tabDisabledLink">&nbsp;Arkiv</font>&nbsp;						
+									<font class="tabDisabledLink">&nbsp;
+										<spring:message code="systema.main.maintenance.arkiv"/>
+									</font>&nbsp;						
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="arkiv gate list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintArkivArc007" onClick="setBlockUI(this);" href="mainmaintenancearkiv_arc007.do">
-									<font class="tabDisabledLink">&nbsp;Dokumenter</font>&nbsp;
+									<font class="tabDisabledLink">&nbsp;
+										<spring:message code="systema.main.maintenance.arkiv.documents"/>	
+									</font>&nbsp;
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="arkiv general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tab" align="center">
-								<font class="tabLink">&nbsp;Dokument</font>&nbsp;
+								<font class="tabLink">&nbsp;
+									<spring:message code="systema.main.maintenance.arkiv.documents"/>	
+								</font>&nbsp;
 								<font class="text11MediumBlue">(${model.record.artype})</font>
 							</td>
 							
@@ -55,27 +63,35 @@
 						<c:otherwise>
 							<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 								<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">
-								<font class="tabDisabledLink">&nbsp;Vedlikehold</font>
+								<font class="tabDisabledLink">&nbsp;
+									<spring:message code="systema.main.maintenance.label"/>
+								</font>
 								<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintArkivGate" onClick="setBlockUI(this);" href="mainmaintenancearkivgate.do?id=${model.dbTable}">
-									<font class="tabDisabledLink">&nbsp;Arkiv</font>&nbsp;						
+									<font class="tabDisabledLink">&nbsp;
+										<spring:message code="systema.main.maintenance.arkiv"/>
+									</font>&nbsp;						
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. gate list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintArkivArc007" onClick="setBlockUI(this);" href="mainmaintenancearkiv_arc007.do">
-									<font class="tabDisabledLink">&nbsp;Dokumenter</font>&nbsp;
+									<font class="tabDisabledLink">&nbsp;
+										<spring:message code="systema.main.maintenance.arkiv.documents"/>	
+									</font>&nbsp;
 									<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="avd. general list">
 								</a>
 							</td>
 							<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 							<td width="15%" valign="bottom" class="tab" align="center">
-								<font class="tabLink">&nbsp;Lage ny</font>&nbsp;
+								<font class="tabLink">&nbsp;
+									<spring:message code="systema.new"/>
+								</font>&nbsp;
 								<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 							</td>
 							
@@ -92,7 +108,6 @@
 		<%-- space separator --%>
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
-	 	    
 	 	    <%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
@@ -133,8 +148,6 @@
 			</tr>
 			</c:if>
 	 	    
-	 	   
-	 	    
 	 	    <tr>
 				<td width="5%">&nbsp;</td>
 				<td width="95%">
@@ -147,7 +160,9 @@
 								<td> <!-- First row -->
 									<table>
 										<tr>
-											<td class="text12" title="ARTYPE">&nbsp;<font class="text14RedBold" >*</font>Kode:</td>
+											<td class="text12" title="ARTYPE">&nbsp;<font class="text14RedBold" >*</font>
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.artype"/>:	
+											</td>
 											<td >
 												<c:choose>
 													<c:when test="${not empty model.updateId}">
@@ -158,9 +173,13 @@
 													</c:otherwise>
 												</c:choose>
 											</td>
-											<td class="text12" title="ARTXT">&nbsp;<font class="text14RedBold" >*</font>Tekst:</td>
+											<td class="text12" title="ARTXT">&nbsp;<font class="text14RedBold" >*</font>
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.artxt"/>:	
+											</td>
 											<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="artxt" id="artxt" size="20" maxlength="15" value='${model.record.artxt}'></td>
-											<td class="text12" title="ARKJN">&nbsp;Arkiver:</td>
+											<td class="text12" title="ARKJN">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.arkjn"/>:	
+											</td>
 											<td class="text12" >
 												<select name="arkjn" id="arkjn" class="inputTextMediumBlue">
 								  					<option value="">-<spring:message code="systema.choose"/>-</option>
@@ -169,7 +188,9 @@
 								  					
 											  	</select>
 											</td>
-											<td class="text12" title="ARKSND">&nbsp;Ep:</td>
+											<td class="text12" title="ARKSND">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.arksnd"/>:	
+											</td>
 											<td class="text12" >
 												<select name="arksnd" id="arksnd" class="inputTextMediumBlue">
 								  					<option value="">-<spring:message code="systema.choose"/>-</option>
@@ -178,15 +199,19 @@
 								  					
 											  	</select>
 											</td>
-											<td class="text12" title="ARKLAG">&nbsp;Mappe:</td>
+											<td class="text12" title="ARKLAG">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.arklag"/>:	
+											</td>
 											<td><input type="text" class="inputTextMediumBlue"  name="arklag" id="arklag" size="2" maxlength="2" value='${model.record.arklag}'>
 												<a tabindex="-1" id="arklagIdLink">
 													<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
 											</td>
 											<td><input readonly type="text" class="inputTextReadOnly" name="arklagDesc" id="arklagDesc" size="10" maxlength="10" value='${model.record.arklagDesc}'></td>
-											<td class="text12" title="ARKDAG">&nbsp;</font>Lagres(dager)</td>
-											<td><input type="text" class="inputTextMediumBlue"  name="arkdag" id="arkdag" size="5" maxlength="5" value='${model.record.arkdag}'></td>
+											<td class="text12" title="ARKDAG">&nbsp;
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.arkdag"/>:	
+											</td>
+											<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue"  name="arkdag" id="arkdag" size="5" maxlength="5" value='${model.record.arkdag}'></td>
 										</tr>		
 									</table>
 								</td> <!-- End first row -->
@@ -197,9 +222,10 @@
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
 											<td class="text12Bold">&nbsp;
-												Vedlegg
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.header.vedlegg"/>
 											</td>
-											<td align="right">&nbsp;Ref.
+											<td align="right">&nbsp;
+												<spring:message code="systema.ref"/>
 												<a tabindex="-1" id="arkvedIdLink">
 													<img style="cursor:pointer;vertical-align:middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 												</a>
@@ -214,7 +240,7 @@
 												<table>
 													<tr>
 														<td class="text12" title="arkved">&nbsp;
-															Vedlegg:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arkved"/>:
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="arkved1" id="arkved1" size="2" maxlength="2" value='${model.record.arkved1}'></td>
 														<td><input type="text" class="inputTextMediumBlue" name="arkved2" id="arkved2" size="2" maxlength="2" value='${model.record.arkved2}'></td>
@@ -234,7 +260,7 @@
 													</tr>
 													<tr>
 														<td class="text12" title="arkved">&nbsp;
-															Vedlegg:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arkved"/>:
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="arkved16" id="arkved16" size="2" maxlength="2" value='${model.record.arkved16}'></td>
 														<td><input type="text" class="inputTextMediumBlue" name="arkved17" id="arkved17" size="2" maxlength="2" value='${model.record.arkved17}'></td>
@@ -254,11 +280,11 @@
 													</tr>
 													<tr>
 														<td class="text12" title="arvedl">&nbsp;
-															Vedlegg til Epost:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arkvedl"/>:
 														</td>													
 														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arvedl" id="arvedl" size="45" maxlength="40" value='${model.record.arvedl}'></td>
 														<td colspan="3" class="text12" title="armrg">&nbsp;
-															Slå sammen PDF:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.armrg"/>:
 														</td>
 														<td colspan="2">
 															<select name="armrg" id="armrg" >
@@ -281,7 +307,7 @@
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
 											<td class="text12Bold">&nbsp;
-												Skanning
+												<spring:message code="systema.main.maintenance.mainmaintenancearc007.header.scanning"/>
 											</td>
 										</tr>
 									</table>
@@ -291,11 +317,11 @@
 												<table>
 													<tr>
 														<td class="text12" title="arsban">&nbsp;
-															Opplastingsbane:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsban"/>:
 														</td>													
 														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arsban" id="arsban" size="55" maxlength="50" value='${model.record.arsban}'></td>
 														<td  class="text12" title="arsfsk">&nbsp;
-															Fjern skilleark:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsfsk"/>:
 														</td>
 														<td>
 															<select name="arsfsk" id="arsfsk" >
@@ -305,7 +331,7 @@
 											  				</select>
 														</td>
 														<td  class="text12" title="arscts">&nbsp;
-															Tidsstempel:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arscts"/>:
 														</td>
 														<td>
 															<select name="arscts" id="arscts" >
@@ -315,7 +341,7 @@
 											  				</select>
 														</td>
 														<td  class="text12" title="arslab">&nbsp;
-															Merkelapp:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arslab"/>:
 														</td>
 														<td>
 															<select name="arslab" id="arslab" >
@@ -327,24 +353,24 @@
 													</tr>
 													<tr>
 														<td  class="text12Gray">&nbsp;
-															Spesial regler:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.specialrules"/>
 														</td>												
 													</tr>
 													<tr>
 														<td colspan="3" class="text12" title="arsrle">&nbsp;
-															Lengde:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsrle"/>:
 														</td>													
 														<td><input type="text" class="inputTextMediumBlue" name="arsrle" id="arsrle" size="5" maxlength="2" value='${model.record.arsrle}'></td>
 														<td class="text12" title="arsrpa">&nbsp;&nbsp;
-															Mønster:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsrpa"/>:
 														</td>													
 														<td><input type="text" class="inputTextMediumBlue" name="arsrpa" id="arsrpa" size="7" maxlength="2" value='${model.record.arsrpa}'></td>
 														<td class="text12" title="arsrst">&nbsp;&nbsp;
-															I position:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsrst"/>:
 														</td>													
 														<td><input type="text" class="inputTextMediumBlue" name="arsrst" id="arsrst" size="5" maxlength="2" value='${model.record.arsrst}'></td>
 														<td  class="text12" title="arsrno">&nbsp;
-															Numerisk:
+															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsrno"/>:
 														</td>
 														<td>
 															<select name="arsrno" id="arsrno" >

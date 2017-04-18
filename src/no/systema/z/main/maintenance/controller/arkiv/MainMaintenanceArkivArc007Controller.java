@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-//import no.systema.jservices.common.dao.ArktxtDao;
 import no.systema.jservices.common.dto.ArktxtDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -78,7 +77,6 @@ public class MainMaintenanceArkivArc007Controller {
 		}
 	}
 
-	//TODO - all !!
 	@RequestMapping(value="mainmaintenancearkiv_arc007_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenanceavd_arc007_edit(@ModelAttribute ("record") ArktxtDto recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancearkiv_arc007_edit");
@@ -278,7 +276,7 @@ public class MainMaintenanceArkivArc007Controller {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//logger.info("jsonPayload="+jsonPayload);
+		logger.info("jsonPayload="+jsonPayload);
 		if (jsonPayload != null) {
 			JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
 			if (container != null) {
@@ -287,7 +285,7 @@ public class MainMaintenanceArkivArc007Controller {
 				}
 			}
 		}
-
+		logger.info("Record="+ReflectionToStringBuilder.toString(record));
 		return record;
 	}
 	

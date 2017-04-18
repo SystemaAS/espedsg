@@ -83,14 +83,14 @@ public class MainMaintenanceCundfFritekstController {
 				List<FratxtDao> insertList = getInsertList(kundnr, searchKfkod, appUser.getUser(), fxtxt);
 			    List<FratxtDao> deleteList = getDeleteList(insertList, originalList);
 				for (FratxtDao fratxtDao : deleteList) {
-					dmlRetval = updateRecord(appUser.getUser(), fratxtDao, MainMaintenanceConstants.MODE_DELETE, errMsg); 
+					dmlRetval = updateRecord(appUser, fratxtDao, MainMaintenanceConstants.MODE_DELETE, errMsg); 
 					if (dmlRetval < 0) {
 						logger.info("[ERROR updating/deleting]  record:"+ReflectionToStringBuilder.toString(fratxtDao)+", Error:"+errMsg.toString());
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString()); 
 					}
 				}		    
 				for (FratxtDao fratxtDao : insertList) {
-					dmlRetval = updateRecord(appUser.getUser(), fratxtDao, MainMaintenanceConstants.MODE_ADD, errMsg); 
+					dmlRetval = updateRecord(appUser, fratxtDao, MainMaintenanceConstants.MODE_ADD, errMsg); 
 					if (dmlRetval < 0) {
 						logger.info("[ERROR updating/inserting]  record:"+ReflectionToStringBuilder.toString(fratxtDao)+", Error:"+errMsg.toString());
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString()); 
@@ -173,12 +173,12 @@ public class MainMaintenanceCundfFritekstController {
 	}
 	
 	
-	private int updateRecord(String applicationUser, FratxtDao record, String mode, StringBuilder errMsg) {
+	private int updateRecord(SystemaWebUser appUser, FratxtDao record, String mode, StringBuilder errMsg) {
 		int retval = 0;
 		JsonReader<JsonDtoContainer<FratxtDao>> jsonReader = new JsonReader<JsonDtoContainer<FratxtDao>>();
 		jsonReader.set(new JsonDtoContainer<FratxtDao>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_FRATXT_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString((record));
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 

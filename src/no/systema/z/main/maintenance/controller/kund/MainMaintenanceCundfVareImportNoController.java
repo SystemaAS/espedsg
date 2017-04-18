@@ -117,12 +117,12 @@ public class MainMaintenanceCundfVareImportNoController {
 				
 				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
-						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					} else {
-						dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					}
 				} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
-					dmlRetval = updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+					dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				}
 				// check for Update errors
 				if (dmlRetval < 0) {
@@ -157,12 +157,12 @@ public class MainMaintenanceCundfVareImportNoController {
 	}
 	
 
-	private int updateRecord(String applicationUser, SadvareDao record, String mode, StringBuffer errMsg) {
+	private int updateRecord(SystemaWebUser appUser, SadvareDao record, String mode, StringBuffer errMsg) {
 		int retval = 0;
 		JsonReader<JsonDtoContainer<SadvareDao>> jsonReader = new JsonReader<JsonDtoContainer<SadvareDao>>();
 		jsonReader.set(new JsonDtoContainer<SadvareDao>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 

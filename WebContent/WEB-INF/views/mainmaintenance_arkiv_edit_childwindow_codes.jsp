@@ -16,7 +16,8 @@
 	<tr>
 		<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp; <img
 			title="search" valign="bottom" src="resources/images/search.gif"
-			width="24px" height="24px" border="0" alt="search"> Søk kode
+			width="24px" height="24px" border="0" alt="search"> 
+				<spring:message code="systema.main.maintenance.search"/>
 		</td>
 	</tr>
 	<tr>
@@ -34,8 +35,12 @@
 						<table id="codeList" class="display compact cell-border" width="100%">
 							<thead>
 								<tr style="background-color: #EEEEEE">
-									<th class="text11">&nbsp;Kode&nbsp;</th>
-									<th class="text11">&nbsp;Beskrivelse&nbsp;</th>
+									<th class="text11">&nbsp;
+										<spring:message code="systema.main.maintenance.main.gate.code"/>
+									&nbsp;</th>
+									<th class="text11">&nbsp;
+										<spring:message code="systema.main.maintenance.main.gate.description"/>
+									&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -57,7 +62,6 @@
 										&nbsp;&nbsp;${record.code}
 									</td>
 									<td class="text11">&nbsp;${record.description}</td>
-									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
