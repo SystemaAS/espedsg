@@ -101,6 +101,8 @@ public class MainMaintenanceArkivArc007Controller {
 			//--------------
 			//UPDATE record
 			//--------------
+			model.put("view_scanning", "J");
+			
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				adjustRecordToValidate(recordToValidate);
 
@@ -134,6 +136,13 @@ public class MainMaintenanceArkivArc007Controller {
 						updateId = recordToValidate.getArtype();
 						//refresh
 						ArktxtDto record = fetchRecord(appUser.getUser(), recordToValidate.getArtype());
+						if (record != null) {
+							if (record.getArtype().startsWith("Z")) {
+								model.put("view_scanning", "J");
+							} else {
+								model.put("view_scanning", "N");
+							}
+						}
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
@@ -163,9 +172,14 @@ public class MainMaintenanceArkivArc007Controller {
 				//-------------
 				ArktxtDto record = new ArktxtDto();
 				if(artype!=null && !"".equals(artype)){
-					//get record including children records (listehode & oppdnrTur)
 					record = fetchRecord(appUser.getUser(), artype);
-					
+					if (record != null) {
+						if (record.getArtype().startsWith("Z")) {
+							model.put("view_scanning", "J");
+						} else {
+							model.put("view_scanning", "N");
+						}
+					}
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
@@ -224,6 +238,8 @@ public class MainMaintenanceArkivArc007Controller {
 		arkved.append(spaceFiller(dto.getArkved30()));		
 		
 		dto.setArkved(arkved.toString());
+		
+		dto.setArtype(dto.getArtype().toUpperCase());
 		
 	}
 

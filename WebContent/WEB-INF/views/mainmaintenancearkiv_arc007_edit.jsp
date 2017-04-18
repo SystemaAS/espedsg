@@ -169,7 +169,7 @@
 														<input readonly type="text" class="inputTextReadOnly" name="artype" id="artype" size="3" maxlength="2" value='${model.record.artype}'>
 													</c:when>
 													<c:otherwise>
-														<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="artype" id="artype" size="3" maxlength="2" value='${model.record.artype}'>
+														<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="artype" id="artype" size="3" maxlength="2" value='${model.record.artype}'>
 													</c:otherwise>
 												</c:choose>
 											</td>
@@ -302,8 +302,10 @@
 								</td> <!-- End second row -->
 							</tr>	
 							
+						<c:if test="${model.view_scanning == 'J'}"> 
+						
 							<tr>
-								<td>&nbsp; <!-- Third row -->						
+								<td>&nbsp;  <!--  Third row --> 					
 									<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="center">
 										<tr>
 											<td class="text12Bold">&nbsp;
@@ -384,8 +386,9 @@
 											</td>
 										</tr>
 									</table>
-								</td> <!-- End third row -->
-							</tr>							
+								</td>  <!--  End third row -->
+							</tr>	
+					</c:if>		
 							
 							<tr height="3"><td>&nbsp;</td></tr>
 							
