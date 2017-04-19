@@ -71,6 +71,7 @@ public final class SkatExportConstants {
 	public static final String RESOURCE_MODEL_KEY_CODE_124_SUPPL_ENHEDER_YM_LIST = "suppUomKoderCodeList";
 	public static final String RESOURCE_MODEL_KEY_CODE_126_EU_ANGIVELSESARTER_LIST = "euAngivelsesArterCodeList";
 	public static final String RESOURCE_MODEL_KEY_CODE_127_STATUS_KODER_LIST = "statusCodeList";
+	public static final String RESOURCE_MODEL_KEY_CODE_ARCHIVE_CODE_LIST = "typeArchiveCodeList";
 	
 	//external URLs (if applicable)
 	public static final String URL_EXTERNAL_TOLDSTEDXXX_CODE = "toldstedXXXCodesURL";
@@ -83,5 +84,6 @@ public final class SkatExportConstants {
 	public static final String URL_EXTERNAL_VAB_CERTIFIKATCODES_R44_3_SKAT_CODE = "skatVabCertifikatk44_3CodesURL";
 	public static final String URL_EXTERNAL_STAMDATALISTE_SKAT_CODE = "skatStamdataCodesURL";
 	public static final String URL_EXTERNAL_EXPORTARTER_CODE = "exportArterCodesURL";
+
 	   
 }

@@ -113,6 +113,8 @@ public final class SkatExportUrlDataStore {
 	//------------------------------------------
 	static public String SKAT_EXPORT_BASE_PRINT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE014R.pgm";	//this function is actually general for all modules byt
 	//http://gw.systema.no/sycgip/TDKE014R.pgm?user=OSCAR&avd=1&opd=218	
+	static public String SKAT_EXPORT_BASE_PRINT_SKILLEARK_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TARC000R.pgm";	
+	//http://gw.systema.no/sycgip/TARC000R.pgm?user=OSCAR&avd=1&opd=218&type=Z
 
 	//----------------------------------------------
 	//[9] OMBUD default values for every new record

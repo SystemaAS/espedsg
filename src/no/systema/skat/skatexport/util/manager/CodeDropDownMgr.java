@@ -18,6 +18,12 @@ import no.systema.skat.model.jsonjackson.codes.JsonSkatCodeRecord;
 import no.systema.skat.service.html.dropdown.SkatDropDownListPopulationService;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Container;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Record;
+import no.systema.tvinn.sad.sadexport.util.SadExportConstants;
+import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
+import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.skat.skatexport.util.SkatExportConstants;
 import no.systema.skat.skatimport.util.SkatImportConstants;
 
@@ -231,6 +237,51 @@ public class CodeDropDownMgr {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param urlCgiProxyService
+	 * @param tvinnSadDropDownListPopulationService
+	 * @param model
+	 * @param appUser
+	 * @param paramTYP
+	 */
+	public void populateCodesHtmlDropDownsFromJsonString2(UrlCgiProxyService urlCgiProxyService, SkatDropDownListPopulationService skatDropDownListPopulationService,
+			Map model, SystemaWebUser appUser, String paramTYP){
+			//fill in html lists here
+			try{
+			
+			String CODES_URL = SkatUrlDataStore.SKAT_CODES2_URL;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "type=" + paramTYP);
+			//logger.info("CODES_URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+			//debug
+			//logger.info(utfPayload);
+			
+			JsonSkatCode2Container codeContainer = skatDropDownListPopulationService.getCodeContainer2(utfPayload);
+			List<JsonSkatCode2Record> list = new ArrayList();
+			
+			//Take some exception into consideration here or run the default to populate the final list
+			for(JsonSkatCode2Record codeRecord: codeContainer.getArkivkodelist()){
+				//default
+				list.add(codeRecord);
+				//logger.info("CODE_RECORD: " + codeRecord.getArtype());
+			}
+			model.put(SkatExportConstants.RESOURCE_MODEL_KEY_CODE_ARCHIVE_CODE_LIST,list);
+			
+			
+			
+			//we put tolltariffen here since there is no other related list on ITEMS jsp
+			//model.put(SadImportConstants.URL_EXTERNAL_TOLLTARIFFEN, new UrlTvinnSadTolltariffenObject() );
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+	}
+	
 	/**
 	 * 
 	 * @param hashSet_019

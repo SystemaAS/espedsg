@@ -9,6 +9,7 @@ import no.systema.skat.mapper.jsonjackson.avdsignature.SkatSignatureMapper;
 
 
 import no.systema.skat.model.jsonjackson.codes.JsonSkatCodeContainer;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Container;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatSignatureContainer;
@@ -38,6 +39,9 @@ public class SkatDropDownListPopulationService {
 		return this.codeMapper.getContainer(utfPayload);
 	}
 	
+	public JsonSkatCode2Container getCodeContainer2(String utfPayload) throws Exception{
+		return this.codeMapper.getContainer2(utfPayload);
+	}
 	
 	public JsonSkatNctsCodeContainer getNctsCodeContainer(String utfPayload) throws Exception{
 		return this.codeMapper.getNctsContainer(utfPayload);

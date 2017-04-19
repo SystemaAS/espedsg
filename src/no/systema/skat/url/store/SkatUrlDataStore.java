@@ -27,6 +27,8 @@ public final class SkatUrlDataStore {
 	// (008,020,etc)
 	static public String SKAT_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKG005R.pgm"; 
 	//http://gw.systema.no/sycgip/TDKG005R.pgm?user=OSCAR&typ=008
+	static public String SKAT_CODES2_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TARC001R.pgm"; 
+	//http://gw.systema.no/sycgip/TARC001R.pgm?user=OSCAR&type=Z..
 	
 	//FETCH VARUKODER-TARIC (ITEM LINES)
 	static public String SKAT_FETCH_TARIC_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKG006R.pgm";

@@ -169,9 +169,10 @@
 						<input type="checkbox" name="dkeh_0035" id="dkeh_0035" value="1" <c:if test="${model.record.dkeh_0035 == '1'}"> checked </c:if>  ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<a tabindex=-1 href="skatexport_edit_printTopic.do?avd=${model.record.dkeh_syav}&opd=${model.record.dkeh_syop}">
-					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
-						&nbsp;&nbsp;&nbsp;
+					 	<img style="vertical-align: bottom;cursor: pointer;"  src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 					</a>
+					&nbsp;&nbsp;<img title="Print delere" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print skilleark">
+					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
 			<tr>
@@ -2626,14 +2627,13 @@
 	</td>
  </tr>
  
- 		<%-- change status admin dialog --%>	
- 		<tr>
- 		<td>
+ <%-- change status admin dialog --%>	
+ <tr>
+	<td>
 		<div id="dialogUpdateStatus" title="Dialog">
 			 	<form action="skatexport_updateStatus.do" name="updateStatusForm" id="updateStatusForm" >
 			 	<input type="hidden" name="currentAvd" id="currentAvd" value='${model.record.dkeh_syav}'>
 			 	<input type="hidden" name="currentOpd" id="currentOpd" value='${model.record.dkeh_syop}'>
-			 		
 				<p class="text12" >Change status as needed.</p>
 				<table>
 					<tr>
@@ -2650,6 +2650,32 @@
 				</table>
 				</form>
 		</div>
- 		</td>
- 		</tr>
+	</td>
+</tr>
  
+ <%-- -------------------------- --%>	
+ <%-- print skilleark dialog    --%>	
+ <%-- -------------------------- --%>	
+ <tr>
+	<td>
+		<div id="dialogPrintSkilleArk" title="Dialog">
+			<form action="skatexport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
+			 	<input type="hidden" name="currentAvd" id="currentAvd" value="${model.record.dkeh_syav}">
+			 	<input type="hidden" name="currentOpd" id="currentOpd" value="${model.record.dkeh_syop}">
+				<table>
+					<tr>
+						<td class="text12" align="left" >&nbsp;Type</td>
+						<td class="text12MediumBlue">
+							<select name="selectedType" id="selectedType">
+			            		<option value="">-velg-</option>
+			            		<c:forEach var="record" items="${model.typeArchiveCodeList}" >
+			 				  		<option value="${record.artype}">${record.artype}&nbsp;${record.artxt}</option>
+								</c:forEach>  
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</td>
+</tr> 

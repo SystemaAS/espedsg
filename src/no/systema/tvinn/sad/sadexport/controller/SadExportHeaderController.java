@@ -556,7 +556,12 @@ public class SadExportHeaderController {
 		
 		return successView;
 	}
-
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="tvinnsadexport_edit_printSkilleArkTopic.do",  method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doSadExportEditPrintSkilleArkTopic(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
