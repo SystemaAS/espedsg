@@ -56,7 +56,7 @@ public final class SkatImportConstants {
 	public static final String RESOURCE_MODEL_KEY_CODE_022_SUPP_ENHEDER_R41_1_LIST = "uomKoderR411CodeList"; 
 	public static final String RESOURCE_MODEL_KEY_CODE_109_BETALING_FOR_TRANSPORT_RS29_LIST = "betalningForTransportRS29CodeList"; 
 	public static final String RESOURCE_MODEL_KEY_CODE_106_INCOTERMS_LIST = "incotermsCodeList";
-
+	public static final String RESOURCE_MODEL_KEY_CODE_ARCHIVE_CODE_LIST = "typeArchiveCodeList";
 	
 	//external URLs (if applicable)
 	public static final String URL_EXTERNAL_TOLDSTED_CODE = "toldstedCodesURL";

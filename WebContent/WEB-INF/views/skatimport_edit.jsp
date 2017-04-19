@@ -216,9 +216,10 @@
 						<input type="checkbox" name="dkih_0035" id="dkih_0035" value="1" <c:if test="${model.record.dkih_0035 == '1'}"> checked </c:if> ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;						
 					</c:if>
 					<a tabindex=-1 href="skatimport_edit_printTopic.do?avd=${model.record.dkih_syav}&opd=${model.record.dkih_syop}">
-					 	<img style="cursor:pointer;" src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
-						&nbsp;&nbsp;&nbsp;
+					 	<img style="vertical-align: bottom;cursor: pointer;"  src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 					</a>
+					&nbsp;&nbsp;<img title="Print delere" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print skilleark">
+					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
 			<%-- test indicator /per avdelning --%> 
@@ -2472,4 +2473,32 @@
 		</div>
 	</td>
 	</tr> 
+
+ <%-- -------------------------- --%>	
+ <%-- print skilleark dialog    --%>	
+ <%-- -------------------------- --%>	
+ <tr>
+	<td>
+		<div id="dialogPrintSkilleArk" title="Dialog">
+			<form action="skatimport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
+			 	<input type="hidden" name="currentAvd" id="currentAvd" value="${model.record.dkih_syav}">
+			 	<input type="hidden" name="currentOpd" id="currentOpd" value="${model.record.dkih_syop}">
+				<table>
+					<tr>
+						<td class="text12" align="left" >&nbsp;Type</td>
+						<td class="text12MediumBlue">
+							<select name="selectedType" id="selectedType">
+			            		<option value="">-velg-</option>
+			            		<c:forEach var="record" items="${model.typeArchiveCodeList}" >
+			 				  		<option value="${record.artype}">${record.artype}&nbsp;${record.artxt}</option>
+								</c:forEach>  
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</td>
+</tr> 	
+	
  

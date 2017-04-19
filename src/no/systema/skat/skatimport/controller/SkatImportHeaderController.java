@@ -566,6 +566,54 @@ public class SkatImportHeaderController {
 		return successView;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatimport_edit_printSkilleArkTopic.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doSkatImportEditPrintSkilleArkTopic(HttpSession session, HttpServletRequest request){
+		Map model = new HashMap();
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		ModelAndView successView = new ModelAndView("redirect:skatimport.do?action=doFind&sign=" + appUser.getSkatSign());
+		
+		String method = "doSadImportEditPrintSkilleArkTopic [RequestMapping-->skatimport_edit_printSkilleArkTopic.do]";
+		logger.info("Method: " + method);
+		String opd = request.getParameter("currentOpd");
+		String avd = request.getParameter("currentAvd");
+		String archiveType = request.getParameter("selectedType");
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+		}else{
+			//-------------------------------------
+			//get BASE URL = RPG-PROGRAM for PRINT
+            //-------------------------------------
+			String BASE_URL = SkatImportUrlDataStore.SKAT_IMPORT_BASE_PRINT_SKILLEARK_FOR_SPECIFIC_TOPIC_URL;
+			//url params
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForPrintSkilleArk( avd, opd, appUser, archiveType);
+			//for debug purposes in GUI
+			session.setAttribute(SkatConstants.ACTIVE_URL_RPG_SKAT, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+	    	//--------------------------------------
+	    	//EXECUTE the Print (RPG program) here
+	    	//--------------------------------------
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    //END of PRINT here and now
+	    	logger.info("Method PRINT END - " + method);	
+		}
+		
+		return successView;
+	}
+
 
 	/**
 	 * Copies one topic(angivelse) to a new one (clones the source topic)
@@ -970,6 +1018,10 @@ public class SkatImportHeaderController {
 				     model,appUser,CodeDropDownMgr.CODE_109_BETALING_FOR_TRANSPORT_RS29, null, null,null);
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.skatDropDownListPopulationService,
 				     model,appUser,CodeDropDownMgr.CODE_106_INCOTERMS, null, null,null);
+			
+			//drop down to print skilleark (must be Z type)
+			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString2(urlCgiProxyService, skatDropDownListPopulationService, 
+					model, appUser, "Z");
 	}
 	
 	
@@ -1077,7 +1129,25 @@ public class SkatImportHeaderController {
 	    
 	    	return totalItemLinesObject;
 	}
+	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @param type
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForPrintSkilleArk(String avd, String opd, SystemaWebUser appUser, String type){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "type=" + type);
+		
+		return urlRequestParamsKeys.toString();	
+	}
 	
 	/**
 	 * Generates key seeds for an upcoming update (the generation of this keys creates also a new record ready to be updated)

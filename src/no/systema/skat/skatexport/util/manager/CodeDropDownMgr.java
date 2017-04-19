@@ -20,12 +20,7 @@ import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Container;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Record;
-import no.systema.tvinn.sad.sadexport.util.SadExportConstants;
-import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
-import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.skat.skatexport.util.SkatExportConstants;
-import no.systema.skat.skatimport.util.SkatImportConstants;
 
 
 /**
