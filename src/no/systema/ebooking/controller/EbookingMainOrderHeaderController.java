@@ -162,11 +162,11 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser, request, null );
+				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
 				    		
 				    		//Update the order lines if applicable
 			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			this.processOrderLine(request, recordToValidate, appUser);
+				    			this.processOrderLine(model, request, recordToValidate, appUser);
 				    		}
 				    		//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
@@ -182,11 +182,11 @@ public class EbookingMainOrderHeaderController {
 							logger.info("[INFO] Record successfully created, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser, request, "doCreate" );
+				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
 				    		
 				    		//Create the order line if applicable
 				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			this.processOrderLine(request, recordToValidate, appUser);
+				    			this.processOrderLine(model, request, recordToValidate, appUser);
 				    		}
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
@@ -361,13 +361,13 @@ public class EbookingMainOrderHeaderController {
 	}
 	
 	/**
-	 * 
+	 * @param model
 	 * @param recordToValidate
 	 * @param appUser
 	 * @param request
 	 * @param dmlModeCreateNew
 	 */
-	private void processNewMessageNotes(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
+	private void processNewMessageNotes(Map model, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
 		//-------------------------------------------------------
 		//get the key values for a DML operation in messageNote
 		//-------------------------------------------------------
@@ -396,7 +396,7 @@ public class EbookingMainOrderHeaderController {
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-				this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 				//init values
 				//recordToValidate.setMessageNoteConsigneeOriginal(recordToValidate.getMessageNoteConsignee());
 				
@@ -405,7 +405,7 @@ public class EbookingMainOrderHeaderController {
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-					this.updateMessageNote(messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 				}else{
 					//do not update
 				}	
@@ -419,13 +419,13 @@ public class EbookingMainOrderHeaderController {
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
 				//Add new values
 				String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-				this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 			}else{
 				logger.info("CARRIER EQUAL"); 
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-					this.updateMessageNote(messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 				}else{
 					//do not update
 				}
@@ -439,13 +439,13 @@ public class EbookingMainOrderHeaderController {
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
 				//Add new values
 				String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-				this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 			}else{
 				logger.info("INTERNAL EQUAL"); 
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-					this.updateMessageNote(messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 				}else{
 					//do not update
 				}
@@ -469,13 +469,13 @@ public class EbookingMainOrderHeaderController {
 	}
 	
 	/**
-	 * 
+	 * @param model
 	 * @param messageNote
 	 * @param messageParty
 	 * @param record
 	 * @param appUser
 	 */
-	private void updateMessageNote(String[] messageNote, String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
+	private void updateMessageNote(Map model, String[] messageNote, String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
 		String CARRIAGE_RETURN = "[\n\r]";
 		List<String> messageNotePayload = Arrays.asList(messageNote);
 		//logger.info("A" + messageNotePayload);
@@ -513,7 +513,9 @@ public class EbookingMainOrderHeaderController {
 					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
 					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
 						//Debug
-						logger.info("[ERROR]:" + jsonNotisblockContainer.getErrMsg());
+						String fatalError = "[ERROR]:" + jsonNotisblockContainer.getErrMsg(); 
+						model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, fatalError);
+						logger.info(fatalError);
 					}
 				}
 
@@ -734,7 +736,7 @@ public class EbookingMainOrderHeaderController {
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private void processOrderLine(HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+	private void processOrderLine(Map model, HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
 		logger.info("Inside:processOrderLines");
 		//check the total number of lines in order to input a new linenr
 		String upperCurrentItemlineNr = request.getParameter("upperCurrentItemlineNr");
@@ -759,6 +761,9 @@ public class EbookingMainOrderHeaderController {
 					int lastLineNr = Integer.parseInt(upperCurrentItemlineNr);
 					lineNr = String.valueOf(++lastLineNr);
 					logger.info("lineNr (new):" + lineNr);
+				}else{
+					logger.info("lineNr start from scratch:" + lineNr);
+					lineNr = "1";
 				}
 			}
 			//only when at least the mandatory fields are in place
@@ -791,7 +796,10 @@ public class EbookingMainOrderHeaderController {
 						//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
 						if( !"".equals(fraktbrevContainer.getErrMsg()) ){
 							//Debug
-							logger.info("[ERROR]:" + fraktbrevContainer.getErrMsg());
+							String fatalError = "[ERROR]:" + fraktbrevContainer.getErrMsg(); 
+							model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, fatalError);
+							logger.info(fatalError);
+							
 						}
 					}
 				}
