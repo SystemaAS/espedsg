@@ -64,6 +64,18 @@
 		<%-- space separator --%>
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20"><td>&nbsp;</td></tr>
+
+	 	    <%-- search --%>
+	 	    <tr >
+	 	    	<td width="5%">&nbsp;</td>
+				<td width="100%" class="text12">
+					<form action="mainmaintenancearkiv_arc007.do?" name="formRecord" id="formRecord" method="POST" >
+						<input tabindex=-1 type="checkbox" name="showUpload" id="showUpload" value="J" <c:if test="${model.showUpload == 'J'}"> checked </c:if> >
+						<font class="text11">Kun skanning/upload</font>&nbsp;&nbsp;						
+						&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.main.maintenance.search"/>'/>
+					</form>
+				</td>
+			</tr>
 	 	    
 			<%-- list component --%>
 			<tr>
@@ -77,10 +89,12 @@
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center"><spring:message code="systema.edit"/></th>                                        
 								<th width="2%" class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.artype"/></th>
-								<th width="15%" class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.artxt"/></th>
-			                    <th class="tableHeaderField" align="left">&nbsp;<spring:message code="systema.main.maintenance.arkiv.document.arkjn"/></th>
-			                    <th class="tableHeaderField" align="left">&nbsp;<spring:message code="systema.main.maintenance.arkiv.document.arksnd"/></th>
+								<th width="10%" class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.artxt"/></th>
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arkjn"/></th>
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arksnd"/></th>
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arklag"/></th>
+			                    <th class="tableHeaderField" align="center">Vedlegg</th>
+			                    <th class="tableHeaderField" align="center">Opplastingsbane</th>
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.delete"/></th>
 			                </tr>  
 			                </thead> 
@@ -93,7 +107,7 @@
 				               		</a>
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.artype}</td>
-				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.artxt}&nbsp;</td>
+				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.artxt}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 			    					<c:if test="${record.arkjn=='J'}">
 		                       			<font class="text12">&nbsp;&nbsp;&nbsp;<spring:message code="systema.yes"/>&nbsp;</font>
@@ -111,6 +125,39 @@
 		                       		</c:if>
 		                       </td>				               
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arklag}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               		${record.arkved1}&nbsp;
+				               		${record.arkved2}&nbsp;
+				               		${record.arkved3}&nbsp;
+				               		${record.arkved4}&nbsp;
+				               		${record.arkved5}&nbsp;
+				               		${record.arkved6}&nbsp;
+				               		${record.arkved7}&nbsp;
+				               		${record.arkved8}&nbsp;
+				               		${record.arkved9}&nbsp;
+				               		${record.arkved10}&nbsp;
+				               		${record.arkved11}&nbsp;
+				               		${record.arkved12}&nbsp;
+				               		${record.arkved13}&nbsp;
+				               		${record.arkved14}&nbsp;
+				               		${record.arkved15}&nbsp;
+				               		${record.arkved16}&nbsp;
+				               		${record.arkved17}&nbsp;
+				               		${record.arkved18}&nbsp;
+				               		${record.arkved19}&nbsp;
+				               		${record.arkved20}&nbsp;
+				               		${record.arkved21}&nbsp;
+				               		${record.arkved22}&nbsp;
+				               		${record.arkved23}&nbsp;
+				               		${record.arkved24}&nbsp;
+				               		${record.arkved25}&nbsp;
+				               		${record.arkved26}&nbsp;
+				               		${record.arkved27}&nbsp;
+				               		${record.arkved28}&nbsp;
+				               		${record.arkved29}&nbsp;
+				               		${record.arkved30}&nbsp;
+				               </td>
+		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arsban}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancearkiv_arc007_edit.do?action=doDelete&artype=${record.artype}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">

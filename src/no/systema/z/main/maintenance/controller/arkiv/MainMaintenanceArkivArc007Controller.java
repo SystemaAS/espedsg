@@ -57,6 +57,8 @@ public class MainMaintenanceArkivArc007Controller {
 		ModelAndView successView = new ModelAndView("mainmaintenancearkiv_arc007");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
+		String showUpload = request.getParameter("showUpload");
+		
 		if(appUser==null){
 			return this.loginView;
 		}else{
@@ -64,14 +66,13 @@ public class MainMaintenanceArkivArc007Controller {
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
+
 			//Get list
-			List<ArktxtDto> list = fetchList(appUser.getUser());
+			List<ArktxtDto> list = fetchList(appUser.getUser(),showUpload);
 			model.put("list", list);
+			model.put("showUpload", showUpload);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
 			return successView;
 			
 		}
@@ -137,11 +138,7 @@ public class MainMaintenanceArkivArc007Controller {
 						//refresh
 						ArktxtDto record = fetchRecord(appUser.getUser(), recordToValidate.getArtype());
 						if (record != null) {
-							if (record.getArtype().startsWith("Z")) {
-								model.put("view_scanning", "J");
-							} else {
-								model.put("view_scanning", "N");
-							}
+							adjustView(model, record);
 						}
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
@@ -174,11 +171,7 @@ public class MainMaintenanceArkivArc007Controller {
 				if(artype!=null && !"".equals(artype)){
 					record = fetchRecord(appUser.getUser(), artype);
 					if (record != null) {
-						if (record.getArtype().startsWith("Z")) {
-							model.put("view_scanning", "J");
-						} else {
-							model.put("view_scanning", "N");
-						}
+						adjustView(model, record);
 					}
 				}
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -194,15 +187,21 @@ public class MainMaintenanceArkivArc007Controller {
 			model.put("updateId", updateId);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
 			return successView;
 			
 		}
 	}
+
+	private void adjustView(Map model, ArktxtDto record) {
+		if (record.getArtype().startsWith("Z") || record.getArtype().startsWith("*")) {
+			model.put("view_scanning", "J");
+		} else {
+			model.put("view_scanning", "N");
+		}
+	}
 	
 	/*
-	 * Specia handling of arkved. Arkved contains 2*30 fields. Note that its the dao that is delivered to service layer
+	 * Special handling of arkved. Arkved contains 2*30 fields. Note that its the dao that is delivered to service layer
 	 */
 	private void adjustRecordToValidate(ArktxtDto dto) {
 		StringBuilder arkved = new StringBuilder();
@@ -257,12 +256,15 @@ public class MainMaintenanceArkivArc007Controller {
 	}	
 	
 	
-	private List<ArktxtDto> fetchList(String applicationUser) {
+	private List<ArktxtDto> fetchList(String applicationUser, String showUpload) {
 		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
 		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
+		if (showUpload != null) {
+			urlRequestParams.append("&showupload=" + showUpload);
+		}
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
