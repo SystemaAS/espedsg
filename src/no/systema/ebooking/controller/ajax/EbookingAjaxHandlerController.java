@@ -36,14 +36,15 @@ import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesReco
 import no.systema.ebooking.model.EbookingOrderLineValidationObject;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
+import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
+
 
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.service.EbookingMainOrderHeaderService;
@@ -207,13 +208,14 @@ public class EbookingAjaxHandlerController {
 	  public @ResponseBody List<JsonEbookingCustomerContainer> searchCustomer(@RequestParam String applicationUser, @RequestParam String customerName, @RequestParam String customerNumber) {
 		  logger.info("Inside searchCustomer");
 		  List result = new ArrayList();
-		  /*
-		  JsonMainOrderHeaderCustomerDeliveryAddressRecord deliveryAddressRecord = getDeliveryAddress(applicationUser, customerNumber);
+		  
+		  JsonEbookingCustomerDeliveryAddressRecord deliveryAddressRecord = getDeliveryAddress(applicationUser, customerNumber);
 		  JsonEbookingCustomerRecord targetRecord = null;
 		  //check if this customer has an existent Delivery address. In that case use it!
 		  if(deliveryAddressRecord!=null){
 			  targetRecord = new JsonEbookingCustomerRecord();
 			  //Hand over the delivery address fields to the customer fields
+			  /*from TranspDisp 
 			  targetRecord.setAuxnavn(deliveryAddressRecord.getVadrna());
 			  targetRecord.setAdr1(deliveryAddressRecord.getVadrn1());
 			  targetRecord.setAdr2(deliveryAddressRecord.getVadrn2());
@@ -221,7 +223,14 @@ public class EbookingAjaxHandlerController {
 			  targetRecord.setAuxtlf(deliveryAddressRecord.getVatlf());
 			  targetRecord.setAuxfax(deliveryAddressRecord.getVafax());
 			  targetRecord.setAuxmail(deliveryAddressRecord.getVamail());
-			  
+			  */
+			  targetRecord.setAuxnavn(deliveryAddressRecord.getVadrna());
+			  targetRecord.setGateAdr(deliveryAddressRecord.getVadrn1());
+			  targetRecord.setAdresse2(deliveryAddressRecord.getVadrn2());
+			  targetRecord.setPostnrSted(deliveryAddressRecord.getVadrn3());
+			  targetRecord.setAuxtlf(deliveryAddressRecord.getVatlf());
+			  targetRecord.setAuxfax(deliveryAddressRecord.getVafax());
+			  targetRecord.setAuxmail(deliveryAddressRecord.getVamail());
 		  }
 		  //search in the customer register (deep search)
 		  String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
@@ -236,7 +245,7 @@ public class EbookingAjaxHandlerController {
     		  if(jsonPayload!=null){
     			  JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
 	    		if(container!=null){
-	    			for(JsonEbookingCustomerRecord  record : container.getInqcustomer()){
+	    			for(JsonEbookingCustomerRecord  record : container.getInqFkund()){
 	    				if(record.getKundnr().equals(customerNumber)){
 	    					//logger.info("CUSTOMER via AJAX: " + record.getNavn() + " NUMBER:" + record.getKundnr());
 	    					if(targetRecord!=null){
@@ -244,12 +253,12 @@ public class EbookingAjaxHandlerController {
 	    						//Set the real customer name & land
 	    						targetRecord.setNavn(record.getNavn());
 	    						targetRecord.setLand(record.getLand());
-	    						targetRecord.setFakknr(record.getFakknr());
+	    						//targetRecord.setFakknr(record.getFakknr());
 	    						//DEBUG
 	    						logger.info("TJINQKUND.pgm:");
 	    						logger.info("navn:" + targetRecord.getNavn());
-	    						logger.info("auxnavn:" + targetRecord.getAuxnavn());
-	    						logger.info("fakknr:" + targetRecord.getFakknr());
+	    						//logger.info("auxnavn:" + targetRecord.getAuxnavn());
+	    						//logger.info("fakknr:" + targetRecord.getFakknr());
 	    						//logger.info(targetRecord.getAdr1());
 	    						//logger.info(targetRecord.getLand());
 	    						result.add(targetRecord);
@@ -261,7 +270,7 @@ public class EbookingAjaxHandlerController {
 	    			}
 	    		}
 	    	  }
-	    	  */
+	    	  
 	    	  return result;
 	  }
 	  
@@ -460,9 +469,8 @@ public class EbookingAjaxHandlerController {
 	   * @param customerNumber
 	   * @return
 	   */
-	  /* TO BE DECIDED ...
-	  private JsonMainOrderHeaderCustomerDeliveryAddressRecord getDeliveryAddress(String applicationUser, String customerNumber){
-		  JsonMainOrderHeaderCustomerDeliveryAddressRecord retval = null;
+	  private JsonEbookingCustomerDeliveryAddressRecord getDeliveryAddress(String applicationUser, String customerNumber){
+		  JsonEbookingCustomerDeliveryAddressRecord retval = null;
 		//prepare the access CGI with RPG back-end
 		  String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
 		  String urlRequestParamsKeys = "user=" + applicationUser + "&wkundnr=" + customerNumber + "&wvadrnr=1" ;
@@ -472,9 +480,9 @@ public class EbookingAjaxHandlerController {
 		  //Should be removed as soon as RPG return the correct container name = customerlist (not capitalized in the first letter)
 		  logger.info(jsonPayload);
     		  if(jsonPayload!=null){
-    			  JsonMainOrderHeaderCustomerDeliveryAddressContainer container = this.ebookingMainOrderHeaderService.getDeliveryAddressContainer(jsonPayload);
+    			  JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingMainOrderHeaderService.getDeliveryAddressContainer(jsonPayload);
 	    		if(container!=null){
-	    			for(JsonMainOrderHeaderCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
+	    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
 	    				if(record!=null & record.getVadrnr()!=null){
 	    					retval = record;
 	    					logger.info("AA");
@@ -490,10 +498,6 @@ public class EbookingAjaxHandlerController {
 	    	  }
     		  return retval;
 	  }
-	  */
-	  
-
-	 
 			
 	  /**
 	   * 

@@ -58,6 +58,23 @@ public class JsonEbookingCustomerRecord extends JsonAbstractGrandFatherRecord  {
 	public void setKundPnSt(String value){ this.kundPnSt = value;}
 	public String getKundPnSt(){ return this.kundPnSt; }
 	
+		//Delivery Address fields
+		private String auxnavn = "";
+		public void setAuxnavn(String value){ this.auxnavn = value;}
+		public String getAuxnavn(){ return this.auxnavn; }
+		
+		private String auxtlf = "";
+		public void setAuxtlf(String value){ this.auxtlf = value;}
+		public String getAuxtlf(){ return this.auxtlf; }
+		
+		private String auxfax = "";
+		public void setAuxfax(String value){ this.auxfax = value;}
+		public String getAuxfax(){ return this.auxfax; }
+		
+		private String auxmail = "";
+		public void setAuxmail(String value){ this.auxmail = value;}
+		public String getAuxmail(){ return this.auxmail; }
+		
 	
 	/**
 	 * User for java reflection in other classes

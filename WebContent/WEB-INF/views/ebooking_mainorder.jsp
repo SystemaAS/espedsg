@@ -828,7 +828,7 @@
 							</td>
 						</tr>
 						
-						<c:if test="${not empty model.record.heunik}">
+						<%-- <c:if test="${not empty model.record.heunik}"> --%>
 							<tr height="10"><td align="left" ></td></tr>
 							
 					 		<%-- CREATE NEW / UPDATE LINE only when the ORDER has been saved first (heunik!=null) --%>
@@ -951,7 +951,7 @@
 						 			</table>
 					 			</td>
 				 			</tr>
-				 			</c:if>
+				 			<%-- </c:if>  --%>
 						<tr height="5"><td ></td></tr>
 	 				</table>
            		</td>

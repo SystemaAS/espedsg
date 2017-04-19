@@ -289,11 +289,12 @@
   jq(function() {  
 	  	//SHIPPER/CONSIGNOR
 	    jq('#hekns').blur(function() {
-	    	//getConsignor(); N/A	
+	    	getConsignor();
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
 	    jq('#henas').focus(function() {
+	    	
 	    	if(jq('#henas').val()!=''){
 	  			refreshCustomValidity(jq('#henas')[0]);
 	  		}
@@ -315,15 +316,17 @@
 						customer.kundnr = data[i].kundnr;
 						customer.knavn = data[i].navn;
 						customer.auxnavn = data[i].auxnavn;
-						customer.adr1 = data[i].adr1;
-						customer.adr2 = data[i].adr2;
-						customer.adr3 = data[i].adresse;
+						customer.adr1 = data[i].gateAdr;
+						customer.adr2 = data[i].adresse2;
+						customer.adr3 = data[i].postnrSted;
 						customer.land = data[i].land;
 						customer.auxtlf = data[i].auxtlf;
 						customer.auxmail = data[i].auxmail;
 						map[customer.kundnr] = customer;
 					}
 					if(len > 0){
+						jq('#henas').removeClass( "isa_error" );
+						
 						//always show seller
 						var seller = customer.knavn;
 						jq('#whenas').val(seller);
@@ -331,7 +334,7 @@
 						var name = jq('#henas').val().trim();
 		    			//var address = jq('#heads1').val().trim();
 		    			//only if name is empty
-		    			if(name==''){
+		    			//if(name==''){
 							jq('#hekns').val(customer.kundnr);
 							jq('#whenas').val(seller);
 							if(customer.auxnavn!=''){
@@ -348,12 +351,21 @@
 							jq('#wssmail').val(customer.auxmail);
 							//Form field on "Fra"
 							jq('#helka').val(customer.land);
-		    			}	
+							//Fra sted
+							if(jq('#heads3').val()!=''){
+				  				var tmp = jq('#heads3').val();
+				  				var postNr = tmp.substring(0,4);
+				  				jq('#hesdf').val(postNr);
+				  			}
+		    			//}	
 					}else{
 						//init fields
-						jq('#hekns').val("");
+						//jq('#hekns').val("");
 						jq('#whenas').val("");
-						jq('#henas').val("");
+						//
+						jq('#henas').val("NOT EXISTS");
+						jq('#henas').addClass( "isa_error" );
+						//
 						jq('#heads1').val("");
 						jq('#heads2').val("");
 						jq('#heads3').val("");
@@ -365,7 +377,7 @@
 	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {
-	    	//getConsignee(); N/A
+	    	getConsignee();
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
@@ -389,9 +401,9 @@
 						customer = new Object();
 						customer.kundnr = data[i].kundnr;
 						customer.knavn = data[i].navn;
-						customer.adr1 = data[i].adr1;
-						customer.adr2 = data[i].adr2;
-						customer.adr3 = data[i].adresse;
+						customer.adr1 = data[i].gateAdr;
+						customer.adr2 = data[i].adresse2;
+						customer.adr3 = data[i].postnrSted;
 						customer.land = data[i].land;
 						customer.auxnavn = data[i].auxnavn;
 						customer.auxtlf = data[i].auxtlf;
@@ -399,13 +411,15 @@
 						map[customer.kundnr] = customer;
 					}
 					if(len > 0){
+						jq('#henak').removeClass( "isa_error" );
+						
 						var buyer = customer.knavn;
 						jq('#whenak').val(buyer);
 						
 						var name = jq('#henak').val().trim();
 	    				//var address = jq('#headk1').val().trim();
 	    				//only if name is empty
-	    				if(name==''){
+	    				//if(name==''){
 							jq('#heknk').val(customer.kundnr);
 							jq('#whenak').val(buyer);
 							if(customer.auxnavn!=''){
@@ -422,12 +436,21 @@
 							jq('#wskmail').val(customer.auxmail);
 							//Form field on "Til"
 							jq('#hetri').val(customer.land);
-	    				}
+							//Til sted
+							if(jq('#headk3').val()!=''){
+				  				var tmp = jq('#headk3').val();
+				  				var postNr = tmp.substring(0,4);
+				  				jq('#hesdt').val(postNr);
+				  			}
+	    				//}
 					}else{
 						//init fields
-						jq('#heknk').val("");
+						//jq('#heknk').val("");
 						jq('#whenak').val("");
-						jq('#henak').val("");
+						//
+						jq('#henak').val("NOT EXISTS");
+						jq('#henak').addClass( "isa_error" );
+						//
 						jq('#headk1').val("");
 						jq('#headk2').val("");
 						jq('#headk3').val("");

@@ -32,12 +32,15 @@
 		  if(jq('#ctype').val()=='s'){
 			  //shipper/consignor 	
 			  opener.jq('#hekns').val(kundNr);
+			  
 			  if(opener.jq('#xfakBet').val() != 'M'){
 				  opener.jq('#heknsf').val(kundNr);
 		  	  }
 			  opener.jq('#whenas').val(kundName + " - " + kundAddress);
 			  
 			  opener.jq('#henas').val(navn);
+			  opener.jq('#henas').removeClass( "isa_error" );
+			  
 			  opener.jq('#heads1').val(adr1);
 			  opener.jq('#heads2').val(adr2);
 			  opener.jq('#heads3').val(postnrsted);
@@ -57,6 +60,8 @@
 			  opener.jq('#whenak').val(kundName + " - " + kundAddress);
 			  
 			  opener.jq('#henak').val(navn);
+			  opener.jq('#henak').removeClass( "isa_error" );
+			  
 			  opener.jq('#headk1').val(adr1);
 			  opener.jq('#headk2').val(adr2);
 			  opener.jq('#headk3').val(postnrsted);

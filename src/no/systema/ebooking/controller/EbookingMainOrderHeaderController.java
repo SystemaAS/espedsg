@@ -136,6 +136,8 @@ public class EbookingMainOrderHeaderController {
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
 				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
+				//populate list of record for validation purposes
+				this.populateFraktbrev(appUser, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
@@ -704,6 +706,7 @@ public class EbookingMainOrderHeaderController {
 			fraktbrevRecord.setFfantk(request.getParameter("ffantk"));
 			fraktbrevRecord.setFfante(request.getParameter("ffante"));
 			fraktbrevRecord.setFfenh(request.getParameter("ffenh"));
+			//set record
 			recordToValidate.setFraktbrevRecord(fraktbrevRecord);
 		
 	}

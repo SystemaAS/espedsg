@@ -148,13 +148,31 @@ public class OrderHeaderValidator implements Validator {
 				}
 			}
 			
-			
 			//Check that there is at least one item line
-			/*if(this.itemLineRecordExist(record)){
+			if(this.itemLineRecordExist(record)){
 				//OK = valid
 			}else{
-				errors.rejectValue("hereff", "systema.ebooking.orders.form.update.error.rule.itemLines.atleastOneLine.mustExist");
-			}*/
+				//check fraktbrev lines (if applicable)
+				if(this.fraktbrevRecordExists(record.getFraktbrevRecord())){
+					//OK go on
+				}else{
+					errors.rejectValue("hereff", "systema.ebooking.orders.form.update.error.rule.itemLines.atleastOneLine.mustExist");
+				}
+			}
+			
+			//Check Dangerous goods
+			if(record.getFraktbrevRecord()!=null){
+				JsonMainOrderHeaderFraktbrevRecord fr = record.getFraktbrevRecord();
+				if(this.isNotNull(fr.getFfunnr()) ){
+					if( !this.isNotNull(fr.getFfantk())){
+						errors.rejectValue("frbPhantom", "systema.ebooking.orders.form.update.error.rule.itemLines.mandatoryFields.dangerousGoods.antal.mustExist");
+					}else if( !this.isNotNull(fr.getFfante())){
+						errors.rejectValue("frbPhantom", "systema.ebooking.orders.form.update.error.rule.itemLines.mandatoryFields.dangerousGoods.mengde.mustExist");
+					}else if( !this.isNotNull(fr.getFfenh())){
+						errors.rejectValue("frbPhantom", "systema.ebooking.orders.form.update.error.rule.itemLines.mandatoryFields.dangerousGoods.enhet.mustExist");
+					}
+				}
+			}
 			
 			//Check validity of email address
 			if(record.getWsmail()!=null && !"".equals(record.getWsmail())){
