@@ -777,29 +777,20 @@
   }
   function calculateVolume(element) {
 	  var id = element.id;
-	  if(jq(element).val()==''){
-		  var counter; var antal; var length; var width; var height; var result;
-		  if(id.indexOf("_") > -1){
-			  counter = id.replace("fvvol_","");
-			  //now get all parameters
-			  antal = jq('#fvant_'+counter).val();
-			  length = jq('#fvlen_'+counter).val();
-			  width= jq('#fvbrd_'+counter).val();
-			  height= jq('#fvhoy_'+counter).val();
-			  
-		  }else{
-			  antal = jq('#fvant').val();
-			  length = jq('#fvlen').val();
-			  width= jq('#fvbrd').val();
-			  height= jq('#fvhoy').val();
-		  }	
+	  //if(jq(element).val()==''){
+		  var antal; var length; var width; var height; var result;
+		  antal = jq('#fvant').val();
+		  length = jq('#fvlen').val();
+		  width= jq('#fvbrd').val();
+		  height= jq('#fvhoy').val();
+		  	
 		  result = Number(antal)*Number(length)*Number(width)*Number(height);
 		  //Now to the math
 		  if(result>0){
 			  result = result * 0.000001;
-			  jq(element).val(result.toLocaleString('de-DE', { useGrouping: false }));
+			  jq("#fvvol").val(result.toLocaleString('de-DE', { useGrouping: false }));
 		  }
-	  }
+	  //}
   }
   function sumLm() {
 	  var MAX_VALUE = 99.99;

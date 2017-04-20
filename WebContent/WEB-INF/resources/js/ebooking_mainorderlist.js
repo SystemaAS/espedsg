@@ -125,7 +125,7 @@
 	  	//Start dialog
 	  	jq('<div></div>').dialog({
 	        modal: true,
-	        title: "Dialog - Slett Oppdrag " + opd,
+	        title: "Dialog - Slett Oppdrag: " + hereff,
 	        buttons: {
 		        Fortsett: function() {
 	        		jq( this ).dialog( "close" );
