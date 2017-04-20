@@ -71,7 +71,7 @@
 				<td width="100%" class="text12">
 					<form action="mainmaintenancearkiv_arc007.do?" name="formRecord" id="formRecord" method="POST" >
 						<input tabindex=-1 type="checkbox" name="showUpload" id="showUpload" value="J" <c:if test="${model.showUpload == 'J'}"> checked </c:if> >
-						<font class="text11">Kun skanning/upload</font>&nbsp;&nbsp;						
+						<font class="text11"><spring:message code="systema.main.maintenance.arkiv.document.onlyscanning"/></font>&nbsp;&nbsp;						
 						&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="systema.main.maintenance.search"/>'/>
 					</form>
 				</td>
@@ -93,8 +93,8 @@
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arkjn"/></th>
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arksnd"/></th>
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arklag"/></th>
-			                    <th class="tableHeaderField" align="center">Vedlegg</th>
-			                    <th class="tableHeaderField" align="center">Opplastingsbane</th>
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arkved"/></th>   
+			                    <th class="tableHeaderField" align="center"><spring:message code="systema.main.maintenance.arkiv.document.arsban"/></th>
 			                    <th class="tableHeaderField" align="center"><spring:message code="systema.delete"/></th>
 			                </tr>  
 			                </thead> 
@@ -159,7 +159,7 @@
 				               </td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.arsban}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancearkiv_arc007_edit.do?action=doDelete&artype=${record.artype}">
+		               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancearkiv_arc007_edit.do?action=doDelete&artype=${record.artype}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>

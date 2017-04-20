@@ -20,6 +20,7 @@ import no.systema.main.util.AppConstants;
 //models
 import no.systema.z.main.maintenance.model.MainMaintenanceMainListObject;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.util.MessageSourceHelper;
 
 
 /**
@@ -35,12 +36,14 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 public class MainMaintenanceArkivGateController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceArkivGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
+	private MessageSourceHelper messageSourceHelper = null;
 	
 	@RequestMapping(value="mainmaintenancearkivgate.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenanceavdgate(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancearkivgate");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
+		messageSourceHelper = new MessageSourceHelper(request);
 		if(appUser==null){
 			return this.loginView;
 		}else{
@@ -64,9 +67,10 @@ public class MainMaintenanceArkivGateController {
 	private List<MainMaintenanceMainListObject> populateMaintenanceMainList(){
 		List<MainMaintenanceMainListObject> listObject = new ArrayList<MainMaintenanceMainListObject>();
 		MainMaintenanceMainListObject object = new  MainMaintenanceMainListObject();
+
 		
 		object.setId("1");
-		object.setSubject("Dokumenter");
+		object.setSubject(messageSourceHelper.getMessage("systema.main.maintenance.arkiv.documents", null));
 		object.setCode("mainmaintenancearkiv");
 		object.setText("ARC007 / ARKTXT");
 		object.setDbTable("ARKTXT");

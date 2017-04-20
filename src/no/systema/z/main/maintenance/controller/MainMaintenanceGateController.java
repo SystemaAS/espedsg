@@ -22,6 +22,7 @@ import no.systema.main.util.AppConstants;
 //models
 import no.systema.z.main.maintenance.model.MainMaintenanceMainListObject;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.util.MessageSourceHelper;
 
 
 /**
@@ -41,6 +42,7 @@ public class MainMaintenanceGateController {
 	private final String LANGUAGE_CODE_NORWAY = "NO";
 	private final String LANGUAGE_CODE_SWEDEN = "SV";
 	private final String LANGUAGE_CODE_DENMARK = "DA";
+	private MessageSourceHelper messageSourceHelper = null;
 	
 	/**
 	 * 
@@ -55,6 +57,7 @@ public class MainMaintenanceGateController {
 		ModelAndView successView = new ModelAndView("mainmaintenancegate");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
+		messageSourceHelper = new MessageSourceHelper(request);
 		if(appUser==null){
 			return this.loginView;
 		}else{
@@ -155,12 +158,10 @@ public class MainMaintenanceGateController {
 		
 		object = new  MainMaintenanceMainListObject();
 		object.setId("5");
-		object.setSubject("Arkiv");
+		object.setSubject(messageSourceHelper.getMessage("systema.main.maintenance.arkiv", null));
 		object.setCode("mainmaintenancearkivgate");
 		object.setText("ARKIV / ARKTXT,...");
-		//object.setDbTable("NO_NAME");
-		object.setStatus("Y");
-		//object.setPgm("no name");
+		object.setStatus("G");
 		listObject.add(object);		
 		
 		
