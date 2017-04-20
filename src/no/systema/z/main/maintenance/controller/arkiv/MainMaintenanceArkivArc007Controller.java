@@ -303,7 +303,6 @@ public class MainMaintenanceArkivArc007Controller {
 				}
 			}
 		}
-		logger.info("Record="+ReflectionToStringBuilder.toString(record));
 		return record;
 	}
 	

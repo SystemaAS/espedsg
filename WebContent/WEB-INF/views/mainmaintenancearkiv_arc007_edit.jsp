@@ -321,7 +321,11 @@
 														<td class="text12" title="arsban">&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsban"/>:
 														</td>													
-														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arsban" id="arsban" size="55" maxlength="50" value='${model.record.arsban}'></td>
+														<td colspan="8"><input type="text" class="inputTextMediumBlue" name="arsban" id="arsban" size="55" maxlength="50" value='${model.record.arsban}'>
+															<a tabindex="-1" id="arsbanIdLink">
+																<img style="cursor:pointer;vertical-align:middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+															</a>													
+														</td>
 														<td  class="text12" title="arsfsk">&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancearc007.arsfsk"/>:
 														</td>

@@ -56,7 +56,7 @@
 									</c:choose>
 
 									<td nowrap style="cursor: pointer;" class="text11MediumBlue"
-										id="code${record.code}@caller${model.caller}">&nbsp;<img
+										id="code${record.code}@description${record.description}@caller${model.caller}">&nbsp;<img
 										title="select" valign="bottom"
 										src="resources/images/update.gif" border="0" alt="edit">
 										&nbsp;&nbsp;${record.code}

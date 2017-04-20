@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.ArkextDao;
+import no.systema.jservices.common.dto.ArktxtDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.values.FasteKoder;
@@ -84,6 +86,8 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 		if ("arklag".equals(caller)) { // Mappe
 			list = getArklagKoder(appUser);
 		} else if ("arkved".equals(caller)) { //Vedlegg
+			list = getArktxtKoder(appUser);
+		} else if ("arsban".equals(caller)) { //Opplastingsbane
 			list = getArkivuKoder(appUser);
 		} 
 		else {
@@ -151,18 +155,94 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Error:",e);
 		}
 		return kodeList;
 	}
+	
+	
+	private List<ChildWindowKode> getArktxtKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
+		jsonReader.set(new JsonDtoContainer<ArktxtDto>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_ARKTXT_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		try {
+			if (jsonPayload != null) {
+				JsonDtoContainer<ArktxtDto> container = (JsonDtoContainer<ArktxtDto>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (ArktxtDto arktxtDto : container.getDtoList()) {
+						kode = getChildWindowKode(arktxtDto);
+						kodeList.add(kode);
+
+					}
+
+				}
+			}
+		} catch (Exception e) {
+			logger.info("Error:",e);
+		}
+		return kodeList;
+
+	}	
+	
+	private List<ChildWindowKode> getFunksjonsKoder(SystemaWebUser appUser) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&kftyp=" + FasteKoder.FUNKSJON.toString());
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		JsonMaintMainChildWindowKofastContainer container = null;
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		try {
+			if (jsonPayload != null) {
+				container = maintMainKofastService.getContainer(jsonPayload);
+				if (container != null) {
+					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
+						if (!"DEFN".equals(record.getKfkod())) {
+							kode = getChildWindowKode(record);
+							kodeList.add(kode);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.info("Error:",e);
+		}
+		return kodeList;
+	}	
+	
 	
 	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowKofastRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
 		kode.setCode(record.getKfkod());
 		kode.setDescription(record.getKftxt());
+		
+		return kode;
+	}	
+	
+	private ChildWindowKode getChildWindowKode(ArktxtDto dto) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dto.getArtype());
+		kode.setDescription(dto.getArtxt());
 
 		return kode;
 	}	
+
+	
+	
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

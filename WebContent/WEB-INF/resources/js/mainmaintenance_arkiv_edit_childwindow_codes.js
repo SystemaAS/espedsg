@@ -7,11 +7,16 @@ jq(function() {
 		var id = this.id;
 		var record = id.split('@');
 		var code = record[0].replace("code", "");
-		var caller = record[1].replace("caller", "");
+		var description = record[1].replace("description", "");
+		var caller = record[2].replace("caller", "");
 
 		caller = "#" + caller;
 		
-		opener.jq(caller).val(code);
+		if (caller == '#arsban') {
+			opener.jq(caller).val(description);			
+		} else {
+			opener.jq(caller).val(code);
+		}
 		opener.jq(caller).change();
 		opener.jq(caller).focus();
 		
