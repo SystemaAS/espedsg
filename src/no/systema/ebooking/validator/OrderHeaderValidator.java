@@ -99,7 +99,7 @@ public class OrderHeaderValidator implements Validator {
 					}
 				}
 			}else{
-				errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderOrReceiverRef.mustExist");
+				//OBSOLETE?--> errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderOrReceiverRef.mustExist");
 			}
 			
 			//Specific Invoicee validation

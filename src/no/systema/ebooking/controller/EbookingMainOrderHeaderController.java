@@ -111,6 +111,8 @@ public class EbookingMainOrderHeaderController {
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
+		boolean isValidItemLineRecord = true;
+		
 		//String orderLineTotalsString = request.getParameter("oltotals");
 		String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
 		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
@@ -168,7 +170,9 @@ public class EbookingMainOrderHeaderController {
 				    		
 				    		//Update the order lines if applicable
 			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			this.processOrderLine(model, request, recordToValidate, appUser);
+				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
+				    				isValidItemLineRecord = false;
+				    			}
 				    		}
 				    		//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
@@ -188,7 +192,9 @@ public class EbookingMainOrderHeaderController {
 				    		
 				    		//Create the order line if applicable
 				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			this.processOrderLine(model, request, recordToValidate, appUser);
+				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
+				    				isValidItemLineRecord = false;
+				    			}
 				    		}
 							//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
@@ -216,7 +222,12 @@ public class EbookingMainOrderHeaderController {
 				this.populateMessageNotes( appUser, headerOrderRecord);
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
-
+				
+				//check if there was an error in item line "save" and put values back in that line
+				//Note: the header is already saved but at this stage: shit happens (TODO another day when I feel happier)
+				if(!isValidItemLineRecord){
+					headerOrderRecord.setFraktbrevRecord(recordToValidate.getFraktbrevRecord());
+				}
 				//Only in case of Create new order (INSERT ORDER)
 				if(orderTypes!=null){
 					if( "".equals(headerOrderRecord.getXfakBet()) ){
@@ -739,7 +750,9 @@ public class EbookingMainOrderHeaderController {
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private void processOrderLine(Map model, HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+	private boolean processOrderLine(Map model, HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+		boolean retval = true;
+		
 		logger.info("Inside:processOrderLines");
 		//check the total number of lines in order to input a new linenr
 		String upperCurrentItemlineNr = request.getParameter("upperCurrentItemlineNr");
@@ -802,12 +815,13 @@ public class EbookingMainOrderHeaderController {
 							String fatalError = "[ERROR]:" + fraktbrevContainer.getErrMsg(); 
 							model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, fatalError);
 							logger.info(fatalError);
-							
+							retval = false;
 						}
 					}
 				}
 			}
 		}
+		return retval;
 	}
 	
 	/**
