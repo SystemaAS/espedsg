@@ -31,19 +31,18 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
-import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdfvContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdfvRecord;
-
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.skat.MaintMainDkxstdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
-
-//import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
-import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+
+import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
+
 
 /**
  * Gateway to the Main Maintenance Application
@@ -63,7 +62,6 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgrSkat codeDropDownMgr = new CodeDropDownMgrSkat();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
-	//private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	/**
 	 * 
 	 * @param user

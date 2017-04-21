@@ -171,7 +171,9 @@
 					<a tabindex=-1 href="skatexport_edit_printTopic.do?avd=${model.record.dkeh_syav}&opd=${model.record.dkeh_syop}">
 					 	<img style="vertical-align: bottom;cursor: pointer;"  src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
 					</a>
-					&nbsp;&nbsp;<img title="Print delere" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print skilleark">
+					&nbsp;&nbsp;<img title="Print delere" style="vertical-align: bottom;cursor: pointer;" id="printSkilleArkImg" width="30px" height="30px" src="resources/images/printer2.png" border="0" alt="Print delere">
+					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;<img title="Upload dokument" style="vertical-align: bottom;cursor: pointer;" id="uploadFileImg" width="25px" height="25px" src="resources/images/upload.png" border="0" alt="Upload dokument">
 					&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
@@ -2679,3 +2681,68 @@
 		</div>
 	</td>
 </tr> 
+
+ <%-- -------------------------- --%>	
+ <%-- upload file dialog         --%>	
+ <%-- -------------------------- --%>	
+	<tr>
+		<td valign="bottom" >
+			<div id="dialogUploadArchiveDocument" title="Dialog">
+				<table align="left" class="popupFloatingWithRoundCorners3D">
+				    <tr height="2"><td></td></tr>
+			    	<tr>
+					<td valign="top">
+					<form name="uploadFileForm" id="uploadFileForm" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="applicationUserUpload" id="applicationUserUpload" value='${user.user}'>
+						<input type="hidden" name="wsavd" id="wsavd" value='${model.record.dkeh_syav}'>
+						<input type="hidden" name="wsopd" id="wsopd" value='${model.record.dkeh_syop}'>
+						<input type="hidden" name="userDate" id="userDate" value=''>
+						<input type="hidden" name="userTime" id="userTime" value=''>
+						
+							<table id="containerdatatableTable" cellspacing="2" align="left">
+								<tr>
+									<td colspan="3" class="text12Bold">&nbsp;
+										<img style="vertical-align:bottom;" src="resources/images/upload.png" border="0" width="20" height="20" alt="upload">
+										&nbsp;File Upload&nbsp;							
+									</td>
+								</tr>
+								<tr>
+								<tr height="5"><td></td></tr>
+								<tr>
+								<td>
+									<table>
+									<%--
+									<tr>
+										<td class="text11">&nbsp;Nytt filnavn:</td>
+										<td class="text11">&nbsp;<input tabindex=-1 type="text" class="inputText" name="fileNameNew" id="fileNameNew" size="20" maxlength="20" value=""></td>
+									</tr>
+									 --%>
+									<tr>
+										<td class="text11">&nbsp;Arkiv typen:</td>
+										<td class="text11">&nbsp;
+											<select tabindex=-1 name="wstype" id="wstype">
+												<c:forEach var="record" items="${user.arkivKodOpdList}" >
+						                       	 	<option value="${record.arkKod}">${record.arkKod}-${record.arkTxt}</option>
+												</c:forEach> 
+											</select>	
+										</td>
+									</tr>
+									<tr height="5"><td></td></tr>
+									<tr>	
+										<td class="text11">&nbsp;Fil:</td>
+										<td class="text11">
+			           						&nbsp;<input type="file" name="fileUpload" id="fileUpload" />
+			       						</td>
+					           		</tr>
+					           		</table>
+								</td>
+								</tr>
+								<tr height="5"><td></td></tr>
+			       			</table>
+					</form>	
+					</td>
+					</tr>
+				</table>
+		</div>		
+		</td>
+	</tr>
