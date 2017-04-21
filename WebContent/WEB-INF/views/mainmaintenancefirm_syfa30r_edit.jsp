@@ -1126,7 +1126,24 @@
 																				<span title="fibise">&nbsp;Bilagsserie for tr.avregn (når via L-resk.)</span>
 																				</td>
 																				<td class="text12" >
-																					<input onKeyPress="return numberKey(event)" style="text-align: right;" type="text" class="inputTextMediumBlue" name="fibise" id="fibise" size="2" maxlength="1" value="${model.record.fibise}"/>
+																					<select name="fibise" id="fibise" class="inputTextMediumBlueMandatoryField">
+																	  					<option value="">-velg-</option>
+																	  					<c:forEach var="record" items="${model.costList}" >
+																 				  			<option value="${record.kttyp}"<c:if test="${ model.record.fibise == record.kttyp}"> selected </c:if> >${record.kttyp}</option>
+																					  	</c:forEach>  
+																					</select>
+																					<img onMouseOver="showPop('cost_info');" onMouseOut="hidePop('cost_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																					
+																					<div class="text11" style="position: relative;" align="left">
+																 					<span style="position:absolute; top:2px; width:250px;" id="cost_info" class="popupWithInputText text11"  >
+																		           			<b>Bilagsnr. (type/nr/beskr.)</b>
+																		           			<ul>
+																		           				<c:forEach var="record" items="${model.costList}" >
+																		 				  			<li><b>${record.kttyp}</b>&nbsp;&nbsp;${record.ktnr}&nbsp;${record.ktna}</li>
+																							  	</c:forEach>
+																		           			</ul>
+																					</span>	
+																					</div>	
 																				</td>
 																			</tr>
 																			<tr>

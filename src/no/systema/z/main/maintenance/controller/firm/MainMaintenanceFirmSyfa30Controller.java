@@ -28,10 +28,13 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.service.MaintMainFirmService;
+import no.systema.z.main.maintenance.service.MaintMainKosttService;
 
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKosttContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKosttRecord;
 
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
@@ -82,6 +85,9 @@ public class MainMaintenanceFirmSyfa30Controller {
 	 			model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 	 			model.put("updateId", record.getFifirm());
 	 		}
+	 		//dropdowns
+	 		this.populateDropDownKost(model, appUser.getUser());
+	 		
 	 		//for comming update
 	 		model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 	 		
@@ -215,6 +221,9 @@ public class MainMaintenanceFirmSyfa30Controller {
 			if(action==null || "".equals(action)){
 				action = MainMaintenanceConstants.ACTION_UPDATE;
 			}
+			//dropdowns
+	 		this.populateDropDownKost(model, appUser.getUser());
+	 		
 			model.put("action", action);
 			//model.put("avd", avd);
 			model.put("updateId", updateId);
@@ -277,6 +286,31 @@ public class MainMaintenanceFirmSyfa30Controller {
     	}
     	return list;
     	
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param applicationUser
+	 */
+	private void populateDropDownKost(Map model, String applicationUser){ 
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYKS01R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	List<JsonMaintMainKosttRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKosttContainer container = this.maintMainKosttService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	model.put("costList", list);
+	        }
+    	}
 	}
 	
 	/**
@@ -358,7 +392,6 @@ public class MainMaintenanceFirmSyfa30Controller {
     	return retval;
 	}
 	
-	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -367,13 +400,20 @@ public class MainMaintenanceFirmSyfa30Controller {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	
 	@Qualifier ("maintMainFirmService")
 	private MaintMainFirmService maintMainFirmService;
 	@Autowired
 	@Required
 	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
 	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
+	
+	@Qualifier ("maintMainKosttService")
+	private MaintMainKosttService maintMainKosttService;
+	@Autowired
+	@Required
+	public void setMaintMainKosttService (MaintMainKosttService value){ this.maintMainKosttService = value; }
+	public MaintMainKosttService getMaintMainKosttService(){ return this.maintMainKosttService; }
+	
 	
 
 }
