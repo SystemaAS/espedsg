@@ -191,7 +191,12 @@ public class CodeDropDownMgrSkat {
 		
 		}else if (code.equals(MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE)) {
 			model.put(MainMaintenanceConstants.CODE_MGR_CODE_NCTS_EXPORT_DEKLARASJONS_TYPE_LIST, list);
+		
+		}else if (code.equals(MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE)) {
+			model.put(MainMaintenanceConstants.CODE_MGR_CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATER_LIST, list);
+		
 		}
+		
 
 	}
 

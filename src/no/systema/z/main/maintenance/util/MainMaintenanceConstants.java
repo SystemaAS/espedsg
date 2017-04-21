@@ -99,6 +99,8 @@ public final class MainMaintenanceConstants {
 	public static final String CODE_MGR_CODE_SAD_IMPORT_EKSPEDTYPER_LIST = "ekspedisjonstyperImportCodeList";
 	public static final String CODE_MGR_CODE_SAD_EXPORT_EKSPEDTYPER_LIST = "ekspedisjonstyperExportCodeList";
 	public static final String CODE_MGR_CODE_NCTS_EXPORT_DEKLARASJONS_TYPE_LIST = "deklarasjonsTypeCodeList";
+	//SKAT
+	public static final String CODE_MGR_CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATER_LIST = "transportmaterCodeList";
 	
 	
 	public static final String CODE_MGR_CODE_NCTS_096_LIST = "ncts096_SpecOmst_CodeList";
@@ -109,7 +111,9 @@ public final class MainMaintenanceConstants {
 	public static final String CODE_SAD_4_TRANSPORTMATE = "4";
 	public static final String CODE_NCTS_DEKLARASJONS_TYPE = "031";
 
-	//GENERAL CODES
+	//SKAT
+	public static final String CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE = "108";
+	
 	
 	
 	/**

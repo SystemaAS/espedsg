@@ -262,7 +262,7 @@
 	 				<select name="thdk" id="thdk" class="inputTextMediumBlue" TABINDEX=1>
 	 				  <option value="">-vælg-</option>
 	 				  	<c:forEach var="code" items="${model.deklarasjonsTypeCodeList}" >
-                             	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
+                       	 	<option value="${code.tkkode}"<c:if test="${model.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 						</c:forEach> 
 					</select>
  				</td>
@@ -807,7 +807,7 @@
 											                <table align="left" border="0" cellspacing="0" cellpadding="0">
 														 		<tr>
 														 			<td class="text12"><b><span title="thgpr">Garanti %&nbsp;</span></b></td>
-														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgpr" id="thgpr" size="6" maxlength="5" value="${model.record.thgprNO}"></td>
+														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgpr" id="thgpr" size="6" maxlength="5" value="${model.record.thgpr}"></td>
 														 			<td class="text12"><b>&nbsp;<span title="thgbl">Garantibeløb&nbsp;</span></b></td>
 														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${model.record.thgbl}"></td>
 														 			<td class="text12">&nbsp;<span title="thgvk">Møntsort</span>
@@ -988,7 +988,7 @@
 								            		<select class="inputTextMediumBlue" name="thtrm" id="thtrm">
 							 						<option value="">-vælg-</option>
 								 				  	<c:forEach var="code" items="${model.transportmaterCodeList}" >
-								 				  		<option value="${code.ks4trm}"<c:if test="${model.record.thtrm == code.ks4trm}"> selected </c:if> >${code.ks4trm}</option>
+								 				  		<option value="${code.tkkode}"<c:if test="${model.record.thtrm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 													</c:forEach> 
 													</select>
 									            	<div class="text11" style="position: relative;" align="left">
@@ -1000,7 +1000,7 @@
 														</p>		
 														<ul>
 									           				<c:forEach var="code" items="${model.transportmaterCodeList}" >
-										 				  		<li><b>${code.ks4trm}</b>&nbsp;${code.ks4ftx}</li>
+										 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxte}</li>
 									 				  		</c:forEach>	
 									           			</ul>
 													</span>
@@ -1080,13 +1080,12 @@
 								        <tr>
 								            <td class="text12" align="left">
 								            <img onMouseOver="showPop('sprakkod_foljedok_info');" onMouseOut="hidePop('sprakkod_foljedok_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-								            <span title="thskfd">Språkkode på følgedok.&nbsp;</span>
+								            <span title="thskfd">Sprogkode på følgedok.&nbsp;</span>
 								            <div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
-								           			<b>Språkkode på følgedok</b>
+								           			<b>Sprogkode på følgedok</b>
 								           			<p>
-								           			Følgedokumenter (T-papir, lasteliste/vareliste) utstedt i Sysped er på norsk.<br/>
-								           			Språkkode = <b>NO</b> legges inn som standardverdi på avdelingen.
+								           			Følgedokumenter (T-papir, lasteliste/vareliste)
 								           			</p>
 								           	</span>	
 											</div>
@@ -1236,7 +1235,7 @@
 												</div>
 												</td>
 									           	<td class="text12" align="left">
-									           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thddt" id="thddt" size="8" maxlength="6" value="${model.record.thddtNO}">
+									           		<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="thddt" id="thddt" size="8" maxlength="6" value="${model.record.thddt}">
 									           		&nbsp;
 									           	</td>
 								           	</tr>
@@ -1585,7 +1584,7 @@
 									 				  <option value="0"<c:if test="${model.record.sikkerhedChildRecord.thsik == '0'}"> selected </c:if> >0</option>
 													  <option value="1"<c:if test="${model.record.sikkerhedChildRecord.thsik == '1'}"> selected </c:if> >1</option>
 													</select>
-													&nbsp;&nbsp;<span title="thdta">Ank.dato</span>&nbsp;<input onKeyPress="return numberKey(event) type="text" class="inputTextMediumBlue" name="thdta" id="thdta" size="9" maxlength="8" value="${model.record.sikkerhedChildRecord.thdtaNO}">
+													&nbsp;&nbsp;<span title="thdta">Ank.dato</span>&nbsp;<input onKeyPress="return numberKey(event) type="text" class="inputTextMediumBlue" name="thdta" id="thdta" size="9" maxlength="8" value="${model.record.sikkerhedChildRecord.thdta}">
 													&nbsp;<span title="thtma">Tid</span>&nbsp;<input onKeyPress="return numberKey(event) type="text" class="inputTextMediumBlue" name="thtma" id="thtma" size="5" maxlength="4" value="${model.record.sikkerhedChildRecord.thtma}">
 												</td>
 							            		</tr>

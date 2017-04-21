@@ -9,10 +9,10 @@
  
   jq(function() {
 	  jq("#thdta").datepicker({ 
-		  dateFormat: 'ddmmy' 	  
+		  dateFormat: 'yymmdd' 	  
 	  });
 	  jq("#thddt").datepicker({ 
-		  dateFormat: 'ddmmy' 	  
+		  dateFormat: 'yymmdd' 	  
 	  });
 	  
 	  //Sender EDI

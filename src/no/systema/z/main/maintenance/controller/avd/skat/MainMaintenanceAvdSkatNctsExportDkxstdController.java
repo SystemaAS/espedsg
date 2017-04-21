@@ -28,14 +28,10 @@ import no.systema.main.util.DateTimeManager;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.sad.MaintMainTrkodfService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdService;
 import no.systema.z.main.maintenance.service.skat.MaintMainDkxstdfvService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
-import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfContainer;
-import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfRecord;
-
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkxstdfvContainer;
@@ -45,11 +41,8 @@ import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMappe
 import no.systema.z.main.maintenance.validator.skat.MaintMainDkxstdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
 
-import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
-//import no.systema.tvinn.sad.z.maintenance.main.service.MaintKodtvaService;
+//import no.systema.tvinn.sad.util.TvinnSadDateFormatter;
 import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 /**
@@ -70,7 +63,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgrSkat codeDropDownMgr = new CodeDropDownMgrSkat();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
-	private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
+	//private TvinnSadDateFormatter dateFormatter = new TvinnSadDateFormatter();
 	/**
 	 * 
 	 * @param user
@@ -441,6 +434,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 		//----------
 		//Dates
 		//----------
+		/*N/A for DK
 		if(recordToValidate.getThddt()!=null && !"".equals(recordToValidate.getThddt()) ){
 			if(recordToValidate.getThddt().length()== 6){
 				recordToValidate.setThddt(dateFormatter.convertToDate_ISO(recordToValidate.getThddt()));
@@ -452,7 +446,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 				sikkerhedChildRecord.setThdta(dateFormatter.convertToDate_ISO(sikkerhedChildRecord.getThdta()));
 			}
 		}
-		
+		*/
 	}
 	
 	/**
@@ -466,8 +460,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 		//Code lists in NCTS domain
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
-		//Borrowed from TVINN domain
-		//TODO this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsSadKodts4(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, applicationUser, MainMaintenanceConstants.CODE_SAD_4_TRANSPORTMATE);
+		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE);
 		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
 	}
 	
@@ -539,16 +532,7 @@ public class MainMaintenanceAvdSkatNctsExportDkxstdController {
 	public void setMaintDkxkodfService (MaintDkxkodfService value){ this.maintDkxkodfService = value; }
 	public MaintDkxkodfService getMaintDkxkodfService(){ return this.maintDkxkodfService; }
 	
-	
-	
-	@Qualifier ("maintSadImportKodts4Service")
-	private MaintSadImportKodts4Service maintSadImportKodts4Service;
-	@Autowired
-	@Required
-	public void setMaintSadImportKodts4Service (MaintSadImportKodts4Service value){ this.maintSadImportKodts4Service = value; }
-	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
-	
-	
+
 	
 }
 
