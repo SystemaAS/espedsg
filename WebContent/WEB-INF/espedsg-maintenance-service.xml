@@ -124,6 +124,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainEdiiService" class="no.systema.z.main.maintenance.service.MaintMainEdiiServiceImpl"/>
 	<bean id="maintMainKodtot2Service" class="no.systema.z.main.maintenance.service.MaintMainKodtot2ServiceImpl"/>
 	<bean id="maintMainKodtsfSyparfService" class="no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfServiceImpl"/>
+	<bean id="maintMainKosttService" class="no.systema.z.main.maintenance.service.MaintMainKosttServiceImpl"/>
 	
 	<!-- SAD avd maintenance -->
 	<bean id="maintMainStandiService" class="no.systema.z.main.maintenance.service.sad.MaintMainStandiServiceImpl"/>

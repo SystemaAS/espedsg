@@ -203,13 +203,11 @@
 																</td>
 																<td class="text12">
 																	<input type="text" class="inputTextMediumBlue" name="fistft" id="fistft" size="3" maxlength="2" value="${model.record.fistft}">
-																</td>
-									 						
+																</td>									 						
 									 						</tr>
-									 						
 									 					</table>
-									 					
 									 				</td>
+									 				
 									 				<td valign="top" width="25%">
 									 					<table align="left" cellspacing="2" border="0" >
 									 						<tr>
@@ -225,7 +223,19 @@
 																	<input type="text" class="inputTextMediumBlue" name="fiups" id="fiups" size="6" maxlength="5" value="${model.record.fiupsNO}">
 																</td>
 									 						</tr>
-									 						
+									 						<tr>
+									 							<td class="text12"><img onMouseOver="showPop('fiupm_info');" onMouseOut="hidePop('fiupm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																	<span title="fiupm">Min.bel.utl.pro</span>
+																	<div class="text11" style="position: relative;" align="left">
+																	<span style="position:absolute;top:2px" id="fiupm_info" class="popupWithInputText text11"  >	
+													           			todo
+																	</span>
+																	</div>
+																</td>
+																<td class="text12">
+																	<input type="text" class="inputTextMediumBlue" name="fiupm" id="fiupm" size="3" maxlength="2" value="${model.record.fiupm}">
+																</td>
+									 						</tr>
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('todo_info');" onMouseOut="hidePop('todo_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="todo">Fakturanr.</span>
@@ -265,19 +275,7 @@
 																	<input type="text" class="inputTextMediumBlue" name="filand" id="filand" size="3" maxlength="2" value="${model.record.filand}">
 																</td>
 									 						</tr>
-									 						<tr>
-									 							<td class="text12"><img onMouseOver="showPop('fiupm_info');" onMouseOut="hidePop('fiupm_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="fiupm">Min.bel.utl.pro</span>
-																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="fiupm_info" class="popupWithInputText text11"  >	
-													           			todo
-																	</span>
-																	</div>
-																</td>
-																<td class="text12">
-																	<input type="text" class="inputTextMediumBlue" name="fiupm" id="fiupm" size="3" maxlength="2" value="${model.record.fiupm}">
-																</td>
-									 						</tr>
+									 						
 									 						<tr>
 									 							<td class="text12"><img onMouseOver="showPop('ficurr_info');" onMouseOut="hidePop('ficurr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																	<span title="ficurr">Valutakode</span>
@@ -427,23 +425,7 @@
 													  				</select>	
 																</td>
 									 						</tr>
-									 						<tr>
-									 							<td class="text12"><img onMouseOver="showPop('filfb_info');" onMouseOut="hidePop('filfb_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-																	<span title="filfb">Fr.brev/TP, R28.Belast</span>
-																	<div class="text11" style="position: relative;" align="left">
-																	<span style="position:absolute;top:2px" id="filfb_info" class="popupWithInputText text11"  >	
-													           			todo
-																	</span>
-																	</div>
-																</td>
-																<td class="text12">
-																	<select name="filfb" id="filfb" class="inputTextMediumBlue">
-								 					  					<option value="">-velg-</option>
-								 					  					<option value="S"<c:if test="${model.record.filfb == 'S'}"> selected </c:if> >S</option>
-													  					<option value="M"<c:if test="${model.record.filfb == 'M'}"> selected </c:if> >M</option>
-													  				</select>	
-																</td>
-									 						</tr>
+									 						
 									 					</table>		
 									 				</td>
 									 			</tr>
@@ -463,7 +445,7 @@
 														<table width="90%" class="formFrame" cellspacing="0" border="0" align="center">
 															<tr>
 																<td>
-																<table width="55%" cellspacing="0" border="0" >
+																<table width="90%" cellspacing="0" border="0" >
 																	<tr>
 											 							<td class="text12"><img onMouseOver="showPop('fitpnr_info');" onMouseOut="hidePop('fitpnr_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 																			<span title="fitpnr">Tollpass - tildel send.nr</span>
@@ -479,6 +461,23 @@
 										 					  					<option value="J"<c:if test="${model.record.fitpnr == 'J'}"> selected </c:if> >J</option>
 															  					<option value="N"<c:if test="${model.record.fitpnr == 'N'}"> selected </c:if> >N</option>
 															  					<option value="U"<c:if test="${model.record.fitpnr == 'U'}"> selected </c:if> >U</option>
+															  				</select>	
+																		</td>
+																		<td class="text11">&nbsp;&nbsp;&nbsp;</td>
+																		
+																		<td class="text12"><img onMouseOver="showPop('filfb_info');" onMouseOut="hidePop('filfb_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+																			<span title="filfb">Fr.brev/TP, R28.Belast</span>
+																			<div class="text11" style="position: relative;" align="left">
+																			<span style="position:absolute;top:2px" id="filfb_info" class="popupWithInputText text11"  >	
+															           			todo
+																			</span>
+																			</div>
+																		</td>
+																		<td class="text12">
+																			<select name="filfb" id="filfb" class="inputTextMediumBlue">
+										 					  					<option value="">-velg-</option>
+										 					  					<option value="S"<c:if test="${model.record.filfb == 'S'}"> selected </c:if> >S</option>
+															  					<option value="M"<c:if test="${model.record.filfb == 'M'}"> selected </c:if> >M</option>
 															  				</select>	
 																		</td>
 											 						</tr>
