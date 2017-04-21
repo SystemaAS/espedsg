@@ -146,6 +146,7 @@ function getRecord(record){
 	  contentType: 'application/json',
 	  success: function(data) {
 	  	var len = data.length;
+	  	var cconta;
 		for ( var i = 0; i < len; i++) {
 			jq('#cconta').val("");jq('#cconta').val(data[i].cconta);
 			jq('#ccontaorg').val("");jq('#ccontaorg').val(data[i].ccontaorg);
@@ -224,6 +225,14 @@ function getRecord(record){
 			
 			//Enable Kopiere
 			jq('#copyRecordButton').attr("disabled", false);
+			
+			cconta = data[i].cconta;
+			if(cconta =='EMMA-XML'){  //No merge pdf
+				jq("#cmerge").prop("disabled", true);    
+		  	} else {
+		  		jq("#cmerge").prop("disabled", false);    
+		  	}			
+			
 			
 		}
 	  }, 

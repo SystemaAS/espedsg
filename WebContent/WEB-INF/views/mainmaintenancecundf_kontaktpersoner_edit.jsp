@@ -311,15 +311,27 @@
 											</table>			
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="50%" >
-														<table>
+													<td width="60%" >
+														<table id="contactTable"  width="100%" border="0">
 															<tr>
 																<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>
 																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.contact"/>:&nbsp;&nbsp;&nbsp;
 																</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="cconta" id="cconta" size="35" maxlength="30" value='${model.record.cconta}'></td>
-																<td class="text12" title="cphone">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>:&nbsp;&nbsp;</td>
+																<td class="text12" title="cphone">
+																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>:&nbsp;
+														 				<img onMouseOver="showPop('phone_info');" onMouseOut="hidePop('phone_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+														 				<div class="text11" style="position: relative;" align="left">
+														 				<span style="position:absolute; top:2px; width:250px;" id="phone_info" class="popupWithInputText text11">
+																           		<b>
+																           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>
+																           		</b>
+																           		<p>
+																           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phoneinfo"/>
+																           		</p> 
+																		</span>
+																		</div>																	
+																	</td>
 																<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="15" maxlength="15" value='${model.record.cphone}'></td>
 															</tr>
 															<tr>
@@ -344,36 +356,31 @@
 																</div>
 																</td>
 																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="ctype" id="ctype" size="35" maxlength="30" value='${model.record.ctype}'>
-																</td>
-																<td class="text12" title="cmobil">
 																	<a tabindex="-1" id="ctypeIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																	&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mobil"/>:
+																	</a>							
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="15" maxlength="15" value='${model.record.cmobil}'></td>
+																<td class="text12" title="cmobil">
+																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mobil"/>:&nbsp;
+																	<img onMouseOver="showPop('mobil_info');" onMouseOut="hidePop('mobil_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+													 				<div class="text11" style="position: relative;" align="left">
+													 				<span style="position:absolute; top:2px; width:250px;" id="mobil_info" class="popupWithInputText text11">
+															           		<b>
+															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mobil"/>
+															           		</b>
+															           		<p>
+															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mobilinfo"/>
+															           		</p> 
+																	</span>
+																	</div>	
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cmobil" id="cmobil" size="15" maxlength="15" value='${model.record.cmobil}'>																
+																</td>
 															</tr>
 															<tr>
-																<td class="text12" title="cmerge">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mergepdf"/>
-																</td>
 																<td>
-																	<select name="cmerge" id="cmerge" >
-								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
-								 					  					<option value="J"<c:if test="${model.record.cmerge == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
-													  					<option value="N"<c:if test="${ model.record.cmerge == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
-													  				</select>
-																	
-																 	<font class="text12" title="cprint">&nbsp;Print:</font> 
-																	<select name="cprint" id="cprint" >
-								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
-								 					  					<option value="J"<c:if test="${model.record.cprint == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
-													  					<option value="N"<c:if test="${ model.record.cprint == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
-													  				</select>
-																</td>
-																<td>
-																 	<font class="text12" title="clive">&nbsp;
-																 		<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.vedlegg"/>
+																 	<font class="text12" title="clive">&nbsp;&nbsp;&nbsp;
+																 		<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.vedlegg"/>:&nbsp;
 																 	</font> 
 																	<img onMouseOver="showPop('vedlegg_info');" onMouseOut="hidePop('vedlegg_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 													 				<div class="text11" style="position: relative;" align="left">
@@ -387,26 +394,63 @@
 																	</span>
 																	</div> 	
 																</td>
-																<td>
+
+																<td colspan="3">
 																	<select name="clive" id="clive" >
 								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
 								 					  					<option value="V"<c:if test="${model.record.clive == 'V'}"> selected </c:if>><spring:message code="systema.yes"/></option>
 								 					  					<option value="X"<c:if test="${model.record.clive == 'X'}"> selected </c:if>><spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emmaxml"/></option>
 													  				</select>
+													  				<font class="text12" title="cmerge">&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.mergepdf"/>:&nbsp;</font> 
+																	<select name="cmerge" id="cmerge" >
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								 					  					<option value="J"<c:if test="${model.record.cmerge == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+													  					<option value="N"<c:if test="${ model.record.cmerge == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+													  				</select>
+																 	<font class="text12" title="cprint">&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.print"/>:&nbsp;</font> 
+																	<select name="cprint" id="cprint" >
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								 					  					<option value="J"<c:if test="${model.record.cprint == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+													  					<option value="N"<c:if test="${ model.record.cprint == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+													  				</select>
+													  				
+													  				
 																</td>
 															</tr>
 														</table>
 													</td>
-													<td width="50%" valign="top">
+													<td width="40%" valign="top">
+														<table border="0">
+															<tr>
+																<td class="text12" title="cfax">
+																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.fax"/>:&nbsp;
+													 				<img onMouseOver="showPop('fax_info');" onMouseOut="hidePop('fax_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+													 				<div class="text11" style="position: relative;" align="left">
+													 				<span style="position:absolute; top:2px; width:250px;" id="fax_info" class="popupWithInputText text11">
+															           		<b>
+															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.fax"/>
+															           		</b>
+															           		<p>
+															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.faxinfo"/>
+															           		</p> 
+																	</span>
+																	</div>																	
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="cfax" id="cfax" size="15" maxlength="15" value='${model.record.cfax}'></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
 														<table>
 															<tr>
-																<td colspan="2" class="text12" title="cemail">&nbsp;
+																<td  class="text12" title="cemail">&nbsp;&nbsp;&nbsp;
 																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.email"/>:
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="70" maxlength="70" value='${model.record.cemail}'></td>
-															<tr>
-																<td colspan="2" class="text12" title="cemne">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emailemne"/>
+																<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="68" maxlength="70" value='${model.record.cemail}'></td>
+																<td class="text12" title="cemne">&nbsp;
+																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emailemne"/>:
 																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="70" maxlength="80" value='${model.record.cemne}'></td>
 															</tr>
@@ -497,10 +541,10 @@
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
 													<td width="20%" >
-														<table>
+														<table border="0">
 															<tr>
 																<td class="text12" title="cavdio">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.io"/>:
-																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	&nbsp;
 																</td>
 																<td>
 																	<select name="cavdio" id="cavdio" >
@@ -509,7 +553,7 @@
 													  					<option value="O"<c:if test="${ model.record.cmerge == 'O'}"> selected </c:if>><spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.o"/></option>
 													  				</select>
 																</td>
-																<td class="text12" title="cavd">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.io"/>:
+																<td class="text12" title="cavd">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.department"/>:
 																</td>
 															</tr>
 															<tr>
@@ -517,7 +561,7 @@
 															</tr>
 															<tr>
 																<td class="text12" title="copdio">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.io"/>:
-																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	&nbsp;
 																</td>
 																<td>
 																	<select name="copdio" id="copdio" >
@@ -526,13 +570,13 @@
 													  					<option value="O"<c:if test="${ model.record.cmerge == 'O'}"> selected </c:if>><spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.o"/></option>
 													  				</select>
 																</td>
-																<td class="text12" title="copd">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.order"/>
+																<td class="text12" title="copd">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.order"/>:
 																</td>
 															</tr>
 														</table>
 													</td>
 													<td width="80%" valign="top">
-														<table>
+														<table border="0">
 															<tr>
 																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd1" id="cavd1" size="4" maxlength="4" value='${model.record.cavd1}'></td>
 																<td><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="cavd2" id="cavd2" size="4" maxlength="4" value='${model.record.cavd2}'></td>
