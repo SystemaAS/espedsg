@@ -150,6 +150,11 @@
   jq(function() {
 	  	//must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
+	  	jq('#helka').focus(function() {
+	    	if(jq('#helka').val()!=''){
+	    		refreshCustomValidity(jq('#helka')[0]);
+	  		}
+	  	});
 	  	jq('#hesdf').focus(function() {
 	  		if(jq('#hesdf').val()!=''){
 	    		refreshCustomValidity(jq('#hesdf')[0]);
@@ -161,6 +166,8 @@
 	  			}
 	  		}
 	  	});
+	  	
+	  	
 	    jq('#hesdf').blur(function() {
 	    	var id = jq('#hesdf').val();
 	    	if(id!=null && id!=""){
@@ -185,6 +192,11 @@
 	    //------
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
+	    jq('#hetri').focus(function() {
+	    	if(jq('#hetri').val()!=''){
+	    		refreshCustomValidity(jq('#hetri')[0]);
+	  		}
+	  	});
 	    jq('#hesdt').focus(function() {
 	    	if(jq('#hesdt').val()!=''){
 	    		refreshCustomValidity(jq('#hesdt')[0]);
@@ -299,6 +311,11 @@
 	  			refreshCustomValidity(jq('#henas')[0]);
 	  		}
 	  	});
+	    jq('#heads1').focus(function() {
+	    	if(jq('#heads1').val()!=''){
+	    		refreshCustomValidity(jq('#heads1')[0]);
+	  		}
+	  	});
 	    
 	    function getConsignor(){
 	    	var hekns = jq('#hekns').val();
@@ -384,6 +401,11 @@
 	    jq('#henak').focus(function() {
 	    	if(jq('#henak').val()!=''){
 	    		refreshCustomValidity(jq('#henak')[0]);
+	  		}
+	  	});
+	    jq('#headk1').focus(function() {
+	    	if(jq('#headk1').val()!=''){
+	    		refreshCustomValidity(jq('#headk1')[0]);
 	  		}
 	  	});
 	    function getConsignee(){
