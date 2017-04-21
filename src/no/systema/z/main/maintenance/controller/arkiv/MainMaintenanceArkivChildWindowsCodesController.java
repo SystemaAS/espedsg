@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -142,24 +141,25 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		JsonMaintMainChildWindowKofastContainer container = null;
-		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		try {
 			if (jsonPayload != null) {
 				container = maintMainKofastService.getContainer(jsonPayload);
 				if (container != null) {
 					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
-						kode = getChildWindowKode(record);
-						kodeList.add(kode);
+						if (!"DEFN".equals(record.getKfkod())) {
+							kode = getChildWindowKode(record);
+							kodeList.add(kode);
+						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			logger.info("Error:",e);
+			logger.info("Error:", e);
 		}
 		return kodeList;
-	}
-	
+	}	
 	
 	private List<ChildWindowKode> getArktxtKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<ArktxtDto>> jsonReader = new JsonReader<JsonDtoContainer<ArktxtDto>>();
@@ -194,37 +194,6 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 
 	}	
 	
-	private List<ChildWindowKode> getFunksjonsKoder(SystemaWebUser appUser) {
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KOFAST_GET_LIST_URL;
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&kftyp=" + FasteKoder.FUNKSJON.toString());
-		logger.info(BASE_URL);
-		logger.info(urlRequestParams);
-
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		JsonMaintMainChildWindowKofastContainer container = null;
-		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
-		ChildWindowKode kode = null;
-		try {
-			if (jsonPayload != null) {
-				container = maintMainKofastService.getContainer(jsonPayload);
-				if (container != null) {
-					for (JsonMaintMainChildWindowKofastRecord record : container.getDtoList()) {
-						if (!"DEFN".equals(record.getKfkod())) {
-							kode = getChildWindowKode(record);
-							kodeList.add(kode);
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			logger.info("Error:",e);
-		}
-		return kodeList;
-	}	
-	
-	
 	private ChildWindowKode getChildWindowKode(JsonMaintMainChildWindowKofastRecord record) {
 		ChildWindowKode kode = new ChildWindowKode();
 		kode.setCode(record.getKfkod());
@@ -241,9 +210,6 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 		return kode;
 	}	
 
-	
-	
-	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -258,9 +224,6 @@ public class MainMaintenanceArkivChildWindowsCodesController {
 	@Required
 	public void setMaintMainKofastService (MaintMainKofastService value){ this.maintMainKofastService = value; }
 	public MaintMainKofastService getMaintMainKofastService(){ return this.maintMainKofastService; }
-	
-	
-	
 	
 	
 }
