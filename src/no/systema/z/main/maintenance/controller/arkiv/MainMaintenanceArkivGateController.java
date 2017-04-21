@@ -74,7 +74,7 @@ public class MainMaintenanceArkivGateController {
 		object.setCode("mainmaintenancearkiv");
 		object.setText("ARC007 / ARKTXT");
 		object.setDbTable("ARKTXT");
-		object.setStatus("Y");
+		object.setStatus("G");
 		object.setPgm("arc007");
 		listObject.add(object);
 		//
