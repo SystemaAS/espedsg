@@ -137,5 +137,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- SKAT avd maintenance -->
 	<bean id="maintMainDkxstdService" class="no.systema.z.main.maintenance.service.skat.MaintMainDkxstdServiceImpl"/>
 	<bean id="maintMainDkxstdfvService" class="no.systema.z.main.maintenance.service.skat.MaintMainDkxstdfvServiceImpl"/>
+	<bean id="maintMainDknstdService" class="no.systema.z.main.maintenance.service.skat.MaintMainDknstdServiceImpl"/>
 	
 </beans>
