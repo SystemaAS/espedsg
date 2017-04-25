@@ -37,7 +37,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
 					<td width="18%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r.do?id=${model.id}">
+						<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsimport_dkx053r.do?id=${model.id}">
                   			<font class="tabLink">&nbsp;<spring:message code="systema.skat.ncts.import.tab.description.avd"/></font>&nbsp;
 						</a>
 					</td>
@@ -134,19 +134,19 @@
 				    	    <tr>
 				    	    	<c:choose>
 					    	    	<c:when test="${not empty model.updateId}">
-					    	    		<input type="hidden" name="thavd" id="thavd" value="${model.avd}">
+					    	    		<input type="hidden" name="tiavd" id="tiavd" value="${model.avd}">
 					    	    	</c:when>
 					    	    	<c:otherwise>
-					    	    		<td class="text12" title="thavd"><font class="text12RedBold" >*</font>Afdeling
-					    	    			<a tabindex="-1" id="thavdIdLink">
+					    	    		<td class="text12" title="tiavd"><font class="text12RedBold" >*</font>Afdeling
+					    	    			<a tabindex="-1" id="tiavdIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
 					    	    		</td>
 										<td class="text12" >
-										<select name="thavd" id="thavd" class="inputTextMediumBlueMandatoryField">
+										<select name="tiavd" id="tiavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-vælg-</option>
 						  					<c:forEach var="record" items="${model.avdGeneralList}" >
-						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
+						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.tiavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 										</td>	
@@ -470,7 +470,7 @@
 									            <td class="text12" align="left" >
 									            <img onMouseOver="showPop('titsb_info');" onMouseOut="hidePop('titsb_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									            
-									            <span title="titsb">Best.toldsted&nbsp;(kode)</span>
+									            <span title="titsb">Bestemmelsestoldsted&nbsp;(kode)</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="titsb_info" class="popupWithInputText text11"  >
 								           			Todo
@@ -480,13 +480,22 @@
 									            
 									            <td class="text12" align="left" >
 									            	<input type="text" class="inputTextMediumBlue" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
+									            	<a tabindex="-1" id="titsbIdLink">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+													</a>
 									            	&nbsp;&nbsp;&nbsp;
 									            	<span title="tiskb">Sprogkode</span>
 									            	&nbsp;
 									            	<input type="text" class="inputTextMediumBlue" name="tiskb" id="tiskb" size="3" maxlength="2" value="${model.record.tiskb}">
 												</td>
 									        </tr>
-					        		
+									        <tr height="10"><td></td></tr>
+					        				<tr>
+									            <td class="text12" align="left">&nbsp;</td>
+												<td class="text9BlueGreen" valign="bottom"  >
+					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare' onClick="setBlockUI(this);"/>
+					 							</td>								           	
+					 						</tr>
 										</table>
 									</td>
 								</tr>

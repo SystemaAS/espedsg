@@ -18,6 +18,9 @@
 			  }else if(callerType == 'seavd'){
 				  opener.jq('#seavd').val(avd);
 				  
+			  }else if(callerType == 'thavd'){
+				  opener.jq('#thavd').val(avd);
+				  
 			  }else if(callerType == 'tiavd'){
 				  opener.jq('#tiavd').val(avd);
 				  
