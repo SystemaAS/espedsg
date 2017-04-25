@@ -277,7 +277,6 @@ public class MainMaintenanceAvdSkatNctsImportDknstdController {
 	        	list = (List)container.getList();
 	        	for(JsonMaintMainDknstdRecord tmp : list){
 	        		record = tmp;
-
 	        	}
 	        }
     	}

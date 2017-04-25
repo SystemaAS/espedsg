@@ -214,18 +214,18 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("13");
 		object.setSubject("SKAT - NCTS Import");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
-		//object.setStatus("Y");
-		object.setPgm("todo");
+		object.setCode("mainmaintenanceavdskatnctsimport");
+		object.setText("DKX053R / DKNSTD");
+		object.setDbTable("DKNSTD");
+		object.setStatus("G");
+		object.setPgm("dkx053r");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("14");
 		object.setSubject("SKAT - NCTS Eksport");
 		object.setCode("mainmaintenanceavdskatnctsexport");
-		object.setText("DKX003R / TRUSTD not (ENTRY, EXIT, SS)");
+		object.setText("DKX003R / DKXSTD not (ENTRY, EXIT, SS)");
 		object.setDbTable("DKXSTD");
 		object.setStatus("G");
 		object.setPgm("dkx003r");

@@ -52,7 +52,7 @@
 				  opener.jq('#seads2').val(adr2);
 				  opener.jq('#seads3').val(adr3);
 				  
-			  //SAD NCTS Import	  
+			  //SAD/SKAT NCTS Import	  
 			  }else if(callerType == 'tina'){
 				  opener.jq('#tikn').val(knr);
 				  opener.jq('#tina').val(knavn);
@@ -62,7 +62,7 @@
 				  opener.jq('#tipn').val(postnr);
 				  opener.jq('#tilk').val(land);
 				  
-			  //SAD NCTS Eksport	  	  
+			  //SAD/SKAT NCTS Eksport	  	  
 			  }else if(callerType == 'thnas'){
 				  opener.jq('#thkns').val(knr);
 				  opener.jq('#thnas').val(knavn);
