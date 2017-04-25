@@ -196,6 +196,7 @@ public class MainMaintenanceCundfVkundController {
 	@RequestMapping(value="mainmaintenance_vkund_edit_childwindow_codes.do",  method={RequestMethod.GET} )
 	public ModelAndView getCodes(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenance_vkund_edit_childwindow_codes");
+		ModelAndView successViewCustomer = new ModelAndView("mainmaintenance_childwindow_customer");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String caller = request.getParameter("caller");  //Field in jsp
@@ -208,9 +209,15 @@ public class MainMaintenanceCundfVkundController {
 			model.put("codeList", list);
 			model.put("caller", caller);
 			
-			successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
-			
-	    	return successView;
+			if ("fmot".equals(caller)) {  //Reuse of mainmaintenance_childwindow_customer
+				model.put("ctype", caller);
+				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+				return successViewCustomer;
+			} else {
+				model.put("caller", caller);
+				successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+				return successView;
+			}
 		}
 	}
 		
@@ -249,6 +256,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getKommrefKoder(appUser);
 		} else if ("w2val".equals(caller)) { //Valutakod
 			list = getValutaKoder(appUser);
+		} else if ("fmot".equals(caller)) { //Fakturamottager
+			list = getKunder(appUser);
 		} 
 		
 		else {
@@ -257,6 +266,26 @@ public class MainMaintenanceCundfVkundController {
 
 		return list;
 	}
+	
+	
+	private List<ChildWindowKode> getKunder(SystemaWebUser appUser) {
+		Collection<JsonMaintMainCundfRecord> list = fetchList(appUser.getUser(), null, null);
+		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		for (JsonMaintMainCundfRecord record : list) {
+			kode = getChildWindowKode(record);
+			kodeList.add(kode);
+		}
+
+		return kodeList;
+	}
+	
+	private ChildWindowKode getChildWindowKode(JsonMaintMainCundfRecord record) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(record.getKundnr());
+		kode.setDescription(record.getKnavn());
+		return kode;
+	}	
 	
 	
 	private List<ChildWindowKode>  getValutaKoder(SystemaWebUser appUser) {
@@ -289,7 +318,6 @@ public class MainMaintenanceCundfVkundController {
 		ChildWindowKode kode = new ChildWindowKode();
 		kode.setCode(dao.getKvakod());
 		kode.setDescription(dao.getKvaxxx());
-
 		return kode;
 	}		
 	
@@ -783,13 +811,7 @@ public class MainMaintenanceCundfVkundController {
 		return record;
 
 	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param kundnr
-	 * @param firma
-	 * @return
-	 */
+
 	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
@@ -817,14 +839,6 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param kundnr
-	 * @param firma
-	 * @param knavn
-	 * @return
-	 */
 	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma, String knavn) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
@@ -854,15 +868,6 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param kundnr
-	 * @param firma
-	 * @param mode
-	 * @param errMsg
-	 * @return
-	 */
 	private int deleteRecord(String applicationUser, String kundnr, String firma, String mode, StringBuffer errMsg) {
 		int retval = 0;
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_DML_UPDATE_URL;

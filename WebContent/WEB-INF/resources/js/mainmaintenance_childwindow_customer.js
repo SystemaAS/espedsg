@@ -21,7 +21,6 @@
 			  //default on Generella Avd
 			  opener.jq('#koaknr').val(knr);
 			  
-			  
 			  //SAD Import - AVD
 			  if(callerType == 'sinak'){
 				  opener.jq('#siknk').val(knr);
@@ -115,10 +114,12 @@
 			  //SKAT Import - Certifikatkoder
 			  }else if(callerType == 'dkse_knr'){ 
 				  opener.jq('#dkse_knr').val(knr);
-				  
+			  } else if (callerType == 'fmot'){ //Kunderegister, Fakturamottager
+					opener.jq('#fmot').val(knr);
+					opener.jq('#fmot').change();
+					opener.jq('#fmot').focus();			  
 			  }
 			  
-				  
 			  //close child window
 			  window.close();
 		  });

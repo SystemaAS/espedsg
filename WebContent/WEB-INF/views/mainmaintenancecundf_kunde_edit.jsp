@@ -422,6 +422,9 @@
 														</td>
 														<td colspan="3">
 															<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="fmot" id="fmot" size="8" maxlength="8" value='${model.record.fmot}'>
+															<a tabindex="-1" id="fmotIdLink">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+															</a>&nbsp;	
 															<input type="text" readonly class="inputTextReadOnly" name="fmotname" id="fmotname" size="30" maxlength="30" value='${model.record.fmotname}'>
 														
 														</td>
@@ -525,8 +528,8 @@
 														</td>
 														<td>
 															<input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="syutlp" id="syutlp" size="5" maxlength="4" value='${model.record.syutlp}'>%
-														<td class="text12" title="syopdt">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="syopdt">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.mission"/>:
 														</td>
 														<td>
@@ -543,8 +546,8 @@
 														<td>
 														 <input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="syminu" id="syminu" size="5" maxlength="4" value='${model.record.syminu}'>%
 														</td>
-														<td class="text12" title="sylikv">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<td class="text12" title="sylikv">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.sylikv"/>:
 														</td>
 														<td><input type="text" class="inputTextMediumBlue" name="sylikv" id="sylikv" size="1" maxlength="1" value='${model.record.sylikv}'>

@@ -4,16 +4,6 @@
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
   function setBlockUI(element){
-	  
-	  //jq("#dialog").dialog("open");  
-	  //Funkar inte att anropas rått. Behöver <div> alt .click
-	  
-//	  if(jq("#dirty").val() =="isDirty") {
-//
-//		  alert("Du har ändra, utan att spara. Vill du gå vidare.....");
-//
-//	  }
-
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
@@ -73,7 +63,7 @@
 		success : function(data) {
 			var rows = 1;
 			var cols = 46;
-			jq("#ehp").text("Ikke tilgjengelig");  //default, in missing in  brreg
+			jq("#ehp").text("Ikke nedlasted.");  //default, in missing in  brreg
 			if (data.length > 0) {
 				var len = data.length;
 				var rows = len/cols;
@@ -124,6 +114,12 @@ jq(function() {
     	jq('#sylikvIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sylikv', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });
+
+    jq('#fmotIdLink').click(function() {
+    	jq('#fmotIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=fmot', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });    
+    
     
 }); 
   
