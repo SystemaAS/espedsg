@@ -766,7 +766,7 @@ public class MainMaintenanceCundfVkundController {
 	}
 
 	private JsonMaintMainCundfRecord fetchRecord(String applicationUser, String kundnr, String firma) {
-		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord();
+		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord(), fmotRecord = new JsonMaintMainCundfRecord();
 		Collection<JsonMaintMainCundfRecord> recordList = fetchList(applicationUser, kundnr, firma);
 		if (recordList.size() > 1) {
 			// abort
@@ -776,7 +776,8 @@ public class MainMaintenanceCundfVkundController {
 		}
 		for (Iterator<JsonMaintMainCundfRecord> iterator = recordList.iterator(); iterator.hasNext();) {
 			record = (JsonMaintMainCundfRecord) iterator.next();
-
+			fmotRecord= fetchRecord(applicationUser,record.getFmot(),firma);
+			record.setFmotname(fmotRecord.getKnavn());
 		}
 
 		return record;

@@ -102,7 +102,12 @@ public class JsonMaintMainCundfRecord extends JsonAbstractGrandFatherRecord {
 	
 	private String fmot = null;                                
 	public void setFmot (String value){ this.fmot = value;   }   
-	public String getFmot(){ return this.fmot;   }    	
+	public String getFmot(){ return this.fmot;   }    
+	
+	private String fmotname = null;                                
+	public void setFmotname (String value){ this.fmotname = value;   }   
+	public String getFmotname(){ return this.fmotname;   }   	
+	
 
 	private String bankg = null;                                
 	public void setBankg (String value){ this.bankg = value;   }   

@@ -142,13 +142,15 @@ public class MainMaintenanceCundfKundeController {
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		logger.info(jsonPayload);
 
-		JsonMaintMainCundfRecord record = null;
+		JsonMaintMainCundfRecord record = new JsonMaintMainCundfRecord(), fmotRecord = new JsonMaintMainCundfRecord();
 		if (jsonPayload != null) {
 			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist"); //??
 			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 			if (container != null) {
 				for (Iterator<JsonMaintMainCundfRecord> iterator = container.getList().iterator(); iterator.hasNext();) {
 					record = (JsonMaintMainCundfRecord) iterator.next();
+					fmotRecord= fetchRecord(applicationUser,record.getFmot(),firma);
+					record.setFmotname(fmotRecord.getKnavn());
 				}
 			}
 		}
