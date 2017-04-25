@@ -33,7 +33,7 @@ import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDknstdContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDknstdRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.skat.MaintMainDkxstdValidator;
+import no.systema.z.main.maintenance.validator.skat.MaintMainDknstdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -50,8 +50,8 @@ import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
  */
 
 @Controller
-public class MainMaintenanceAvdSkatNctsImportDkxstdController {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdSkatNctsImportDkxstdController.class.getName());
+public class MainMaintenanceAvdSkatNctsImportDknstdController {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceAvdSkatNctsImportDknstdController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
@@ -127,7 +127,7 @@ public class MainMaintenanceAvdSkatNctsImportDkxstdController {
 				//Adjust
 				this.adjustSomeRecordValues(recordToValidate);
 				//Validate
-				MaintMainDkxstdValidator validator = new MaintMainDkxstdValidator();
+				MaintMainDknstdValidator validator = new MaintMainDknstdValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS
@@ -381,7 +381,7 @@ public class MainMaintenanceAvdSkatNctsImportDkxstdController {
 	private MaintMainDknstdService maintMainDknstdService;
 	@Autowired
 	@Required
-	public void setMaintMainDkxstdService (MaintMainDknstdService value){ this.maintMainDknstdService = value; }
+	public void setMaintMainDknstdService (MaintMainDknstdService value){ this.maintMainDknstdService = value; }
 	public MaintMainDknstdService getMaintMainDknstdService(){ return this.maintMainDknstdService; }
 	
 	

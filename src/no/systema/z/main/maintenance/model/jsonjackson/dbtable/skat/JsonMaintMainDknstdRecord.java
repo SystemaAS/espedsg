@@ -28,6 +28,21 @@ public class JsonMaintMainDknstdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setTiavd (String value){ this.tiavd = value;   }   
 	public String getTiavd (){ return this.tiavd;   }  
 	
+	private String koanvn = "";                                
+	public String getKoanvnPropertyName (){ return "koanvn"; }
+	public void setKoanvn (String value){ this.koanvn = value;   }   
+	public String getKoanvn (){ return this.koanvn;   }  
+	
+	private String koaknr = "";                                
+	public String getKoaknrPropertyName (){ return "koaknr"; }
+	public void setKoaknr (String value){ this.koaknr = value;   }   
+	public String getKoaknr (){ return this.koaknr;   }  
+	
+	private String syrg = "";                                
+	public String getSyrgPropertyName (){ return "syrg"; }
+	public void setSyrg (String value){ this.syrg = value;   }   
+	public String getSyrg (){ return this.syrg;   }  
+	
 	private String tisg = "";                                
 	public String getTisgPropertyName (){ return "tisg"; }
 	public void setTisg (String value){ this.tisg = value;   }   
