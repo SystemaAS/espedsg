@@ -244,18 +244,18 @@
 							<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Varenr.&nbsp;</th>
-			                    <th class="tableHeaderField" >&nbsp;Beskrivelse&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;VF&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;LK&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Tariffnr.&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Tn&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Pref.&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;PVA&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Tollsats&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;MF&nbsp;</th>
-			                    <th align="center" class="tableHeaderField">Slett</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;<spring:message code="systema.edit"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varenr"/>&nbsp;</th>
+			                    <th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varebe"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vf"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2lk"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vnti"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2tn"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pre"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2as"/>&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2mfr"/>&nbsp;</th>
+			                    <th align="center" class="tableHeaderField"><spring:message code="systema.delete"/></th>
 			                </tr>  
 				             </thead> 
 				             <tbody >  
@@ -276,7 +276,7 @@
 						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2mfr}&nbsp;</font></td>
 						               
 						               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-				               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_vareimp_no_edit.do?action=doDelete&varenr=${record.varenr}&levenr=${record.levenr}">
+				               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancecundf_vareimp_no_edit.do?action=doDelete&varenr=${record.varenr}&levenr=${record.levenr}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 							               	</a>
 						               </td>
@@ -347,7 +347,7 @@
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
-														Artikelinfo
+														<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.productinfo"/>
 													</td>
 												</tr>
 											</table>			
@@ -357,9 +357,9 @@
 													<td width="50%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="varenr">&nbsp;Artikelnr:</td>
+																<td class="text12" title="varenr">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varenr"/>:</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
-																<td class="text12" title="w2vf">&nbsp;Verdi fast:</td>
+																<td class="text12" title="w2vf">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vf"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vf" id="w2vf" size="1" maxlength="1" value='${model.record.w2vf}'>
 																	<a tabindex="-1" id="w2vfIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -368,10 +368,10 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="varebe">&nbsp;Beskrivelse:</td>
+																<td class="text12" title="varebe">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varebe"/>:</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="varebe" id="varebe" size="40" maxlength="50" value='${model.record.varebe}'></td>
 															
-																<td class="text12" title="w2lk">&nbsp;Land:</td>
+																<td class="text12" title="w2lk">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2lk"/>:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2lk" id="w2lk" size="2" maxlength="2" value='${model.record.w2lk}'>
 																	<a tabindex="-1" id="w2lkIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -380,13 +380,13 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2vnti">&nbsp;Varenr:</td>
+																<td class="text12" title="w2vnti">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vnti"/>:</td>
 																<td><input type="text"  onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vnti" id="w2vnti" size="30" maxlength="30" value='${model.record.w2vnti}'>
 																	<a tabindex="-1" id="w2vntiIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
 																</td>
-																<td class="text12" title="spraak">&nbsp;Preferanse:</td>
+																<td class="text12" title="w2pre">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pre"/>:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2pre" id="w2pre" size="1" maxlength="1" value='${model.record.w2pre}'>
 																	<a tabindex="-1" id="w2preIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -395,16 +395,16 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2belt">&nbsp;Tolverdi:</td>
+																<td class="text12" title="w2belt">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2belt"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2belt" id="w2belt" size="15" maxlength="15" value='${model.record.w2belt}'></td>
-																<td class="text12" title="w2vktb">&nbsp;Bruttovekt:</td>
+																<td class="text12" title="w2vktb">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vktb"/>:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2vktb" id="w2vktb" size="15" maxlength="15" value='${model.record.w2vktb}'></td>
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2vktn">&nbsp;Nettovikt:</td>
+																<td class="text12" title="w2vktn">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vktn"/>:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2vktn" id="w2vktn" size="15" maxlength="15" value='${model.record.w2vktn}'></td>
-																<td class="text12" title="w2ntm">&nbsp;Mengde:</td>
+																<td class="text12" title="w2ntm">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2ntm"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2ntm" id="w2ntm" size="10" maxlength="9" value='${model.record.w2ntm}'></td>
 															</tr>
 														</table>
@@ -413,32 +413,32 @@
 													<td width="50%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="w2mfr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Momsfri:</td>
+																<td class="text12" title="w2mfr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2mfr"/>:</td>
 																<td>								
-																	<select name="w2mfr" id="w2mfr" > <!-- TODO: nordify, now norwegian -->
-								 					  					<option value="">-velg-</option>
-								 					  					<option value="F"<c:if test="${model.record.wmfr == 'F'}"> selected </c:if> >Momsfri</option>
-													  					<option value="1"<c:if test="${ model.record.w2mfr == '1'}"> selected </c:if> >MVA høy sats</option>
-													  					<option value="2"<c:if test="${ model.record.w2mfr == '2'}"> selected </c:if> >MVA lav sats</option>
+																	<select name="w2mfr" id="w2mfr" > 
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>  
+								 					  					<option value="F"<c:if test="${model.record.wmfr == 'F'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2mfr"/></option>
+													  					<option value="1"<c:if test="${ model.record.w2mfr == '1'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.vathigh"/></option>
+													  					<option value="2"<c:if test="${ model.record.w2mfr == '2'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.vatlow"/></option>
 													  				</select>
 																</td>																
-																<td class="text12" title="w2beln">&nbsp;&nbsp;Bel. NOK:</td>
+																<td class="text12" title="w2beln">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2beln"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2beln" id="w2beln" size="15" maxlength="15" value='${model.record.w2beln}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="w2bel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avg. just:</td>
+																<td class="text12" title="w2bel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2bel"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2bel" id="w2bel" size="15" maxlength="13" value='${model.record.w2bel}'></td>
-																<td class="text12" title="w2pros">&nbsp;&nbsp;Varev.(proc):</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'></td>
+																<td class="text12" title="w2pros">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pros"/>:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2pros" id="w2pros" size="6" maxlength="6" value='${model.record.w2pros}'>%</td>
 															</tr>
 															<tr>
-																<td class="text12" title="w2val">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valutakod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="3" maxlength="3" value='${model.record.w2val}'>
+																<td class="text12" title="w2val">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2val"/>:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="w2val" id="w2val" size="4" maxlength="3" value='${model.record.w2val}'>
 																	<a tabindex="-1" id="w2valIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
 																</td>
-																<td class="text12" title="w2tn">&nbsp;&nbsp;Tollned:</td>
+																<td class="text12" title="w2tn">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2tn"/>:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="w2tn" id="w2tn" size="1" maxlength="1" value='${model.record.w2tn}'>
 																	<a tabindex="-1" id="w2tnIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -447,18 +447,18 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="w2pva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pvaf:</td>
+																<td class="text12" title="w2pva">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva"/>:</td>
 																<td>								
-																	<select name="w2pva" id="w2pva" > <!-- TODO: nordify, now norwegian -->
-								 					  					<option value="">-velg-</option>
-								 					  					<option value="P"<c:if test="${model.record.w2pva == 'P'}"> selected </c:if> >PROCENTTOLL</option>
-													  					<option value="V"<c:if test="${ model.record.w2pva == 'V'}"> selected </c:if> >pr kg</option>
-													  					<option value="W"<c:if test="${ model.record.w2pva == 'W'}"> selected </c:if> >pr 100 kg</option>
-													  					<option value="A"<c:if test="${ model.record.w2pva == 'A'}"> selected </c:if> >pr. liter</option>
-													  					<option value="F"<c:if test="${ model.record.w2pva == 'F'}"> selected </c:if> >FRI</option>
+																	<select name="w2pva" id="w2pva" >
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								 					  					<option value="P"<c:if test="${model.record.w2pva == 'P'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva.proc"/></option>
+													  					<option value="V"<c:if test="${ model.record.w2pva == 'V'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva.prkg"/></option>
+													  					<option value="W"<c:if test="${ model.record.w2pva == 'W'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva.pr100kg"/></option>
+													  					<option value="A"<c:if test="${ model.record.w2pva == 'A'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva.prliter"/></option>
+													  					<option value="F"<c:if test="${ model.record.w2pva == 'F'}"> selected </c:if> ><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva.fri"/></option>
 													  				</select>
 																</td>
-																<td class="text12" title="w2as">&nbsp;&nbsp;Avsats:</td>
+																<td class="text12" title="w2as">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2as"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2as" id="w2as" size="10" maxlength="9" value='${model.record.w2as}'></td>
 															</tr>
 															
@@ -477,7 +477,7 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;Artikelbeskrivelse</td>
+													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.productdesc"/></td>
 												</tr>
 											</table>			
 
@@ -490,10 +490,10 @@
 													</td>
 												</tr>
 												<tr> 
-													<td class="text12" title="w2vt01">Beskrivelse</td>
-													<td class="text12" title="w2ft01">Merke og nr</td>
-													<td class="text12" title="w2nt01">Antall kolli</td>
-													<td class="text12" title="w2eh01">Enhet</td>
+													<td class="text12" title="w2vt01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vt01"/></td>
+													<td class="text12" title="w2ft01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2ft01"/></td>
+													<td class="text12" title="w2nt01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2nt01"/></td>
+													<td class="text12" title="w2eh01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2eh01"/></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="31" maxlength="30" value='${model.record.w2vt01}'></td>
@@ -546,7 +546,7 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;Avgifter</td>
+													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.fee"/></td>
 												</tr>
 											</table>			
 									
@@ -559,11 +559,11 @@
 													</td>
 												</tr>
 												<tr>
-													<td class="text12" title="w2mfr">Kode</td>
-													<td class="text12" title="w2bel">Sekvens</td>
-													<td class="text12" title="w2pros">Sats</td>
-													<td class="text12" title="w2beln">Grunnlag</td>
-													<td class="text12" title="w2beln">Belop</td>
+													<td class="text12" title="w2akd"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2akd"/></td>
+													<td class="text12" title="w2asv"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2asv"/></td>
+													<td class="text12" title="w2asa"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2asa"/></td>
+													<td class="text12" title="w2agr"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2agr"/></td>
+													<td class="text12" title="w2abl"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2abl"/></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2akd1" id="w2akd1" size="2" maxlength="2" value='${model.record.w2akd1}'></td>
@@ -631,7 +631,7 @@
 										<td width="50%"  valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;Tilleggsopplysninger(a)</td>
+													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.supplementsa"/></td>
 												</tr>
 											</table>			
 
@@ -645,8 +645,8 @@
 													</td>
 												</tr>
 												<tr> 
-													<td class="text12" title="w2mfr">Tilleggsopplysning</td>
-													<td class="text12" title="w2bel">Ref.</td>
+													<td class="text12" title="w2top"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2top"/></td>
+													<td class="text12" title="w2cre"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2cre"/></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2top1" id="w2top1" size="20" maxlength="17" value='${model.record.w2top1}'></td>
@@ -674,7 +674,7 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;Tilleggsopplysninger(b)</td>
+													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.supplementsb"/></td>
 												</tr>
 											</table>			
 
@@ -688,8 +688,8 @@
 													</td>
 												</tr>
 												<tr> 
-													<td class="text12" title="w2mfr">Tilleggsopplysning</td>
-													<td class="text12" title="w2bel">Ref.</td>
+													<td class="text12" title="w2top"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2top"/></td>
+													<td class="text12" title="w2cre"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2cre"/></td>
 												</tr>
 												<tr>
 													<td><input type="text" class="inputTextMediumBlue" name="w2top6" id="w2top6" size="20" maxlength="17" value='${model.record.w2top6}'></td>
