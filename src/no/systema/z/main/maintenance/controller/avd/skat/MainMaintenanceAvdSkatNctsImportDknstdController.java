@@ -188,7 +188,7 @@ public class MainMaintenanceAvdSkatNctsImportDknstdController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavdskatnctsimport_dkx053r.do");
+					successView = new ModelAndView("redirect:mainmaintenanceavdskatnctsimport_dkx053r.do?id=DKNSTD");
 					
 				}
 			}
