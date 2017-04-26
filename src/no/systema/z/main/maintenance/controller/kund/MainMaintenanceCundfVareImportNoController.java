@@ -87,11 +87,6 @@ public class MainMaintenanceCundfVareImportNoController {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 
-		logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
-		
-		//model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate); //TODO This is a fucker!
-		
-		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
