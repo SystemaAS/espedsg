@@ -128,12 +128,7 @@ public class MainMaintenanceGateController {
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("3");
-		object.setSubject("Kunderegister");
-		if(LANGUAGE_CODE_SWEDEN.equals(appUser.getUsrLang())){
-			object.setSubject("Kundregister");
-		}else if(LANGUAGE_CODE_DENMARK.equals(appUser.getUsrLang())){
-			object.setSubject("Kunderegister");
-		}
+		object.setSubject(messageSourceHelper.getMessage("systema.main.maintenance.customerreg", null));
 		object.setCode("mainmaintenancecundf");
 		object.setText("VKUND / CUNDF, CUNDC, FRATXT, SYPARF, CUNDMAF,....");
 		object.setDbTable("CUNDF");
