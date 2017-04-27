@@ -35,10 +35,7 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMai
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.skat.MaintMainDkeaValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
-//import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-
-//import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-//import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 
 /**
@@ -97,14 +94,14 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="mainmaintenanceavdskatnctsimport_dkx053r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdskatnctsexport_dkx003_edit(@ModelAttribute ("record") JsonMaintMainDknstdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatnctsimport_dkx053r_edit");
+	@RequestMapping(value="mainmaintenanceavdskatexport_dke051r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenanceavdskatexport_dkx051_edit(@ModelAttribute ("record") JsonMaintMainDkeaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatexport_dke051r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
 		String avdnavn = request.getParameter("avdnavn");
+		String opd = request.getParameter("opd");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		String id = request.getParameter("id");
@@ -113,7 +110,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			logger.info("Inside method: mainmaintenanceavdskatnctsimport_dkx053r_edit");
+			logger.info("Inside method: mainmaintenanceavdskatexport_dke051r_edit");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
@@ -123,7 +120,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				
-				avd = recordToValidate.getTiavd();
+				avd = recordToValidate.getDkea_syav();
 				//Adjust
 				this.adjustSomeRecordValues(recordToValidate);
 				//Validate
@@ -165,7 +162,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 						isValidOnUpdate = false;
 					}else{
 						//post successful update operations
-						updateId = recordToValidate.getTiavd();
+						updateId = recordToValidate.getDkea_syav();
 						
 					}
 					
@@ -188,7 +185,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavdskatnctsimport_dkx053r.do?id=DKNSTD");
+					successView = new ModelAndView("redirect:mainmaintenanceavdskatexport_dke051r.do?id=DKEA");
 					
 				}
 			}
@@ -196,7 +193,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 			//Fetch record
 			//-------------
 			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
-				JsonMaintMainDknstdRecord record = this.fetchRecord(appUser.getUser(), avd);
+				JsonMaintMainDkeaRecord record = this.fetchRecord(appUser.getUser(), avd, opd);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -208,6 +205,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 			model.put("action", action);
 			model.put("avd", avd);
 			model.put("avdnavn", avdnavn);
+			model.put("opd", opd);
 			model.put("updateId", updateId);
 			model.put("id", id);
 			
@@ -219,7 +217,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 			
 		}
 	}
-	*/
+	
 	
 	/**
 	 * 
@@ -356,14 +354,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		/*this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSkat(this.urlCgiProxyService, this.maintDktvkService, model, applicationUser);
-		this.codeDropDownMgr.populateAvdListHtmlDropDownsSkat(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "snealist");
-		//Code lists in NCTS domain
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
-		*/
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsSkat(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "ssealist");
 	}
 	
 	
@@ -392,7 +383,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 	@Required
 	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
 	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
-
+	*/
 	
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
@@ -400,7 +391,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 	@Required
 	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
 	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
-	*/
+	
 	
 	@Qualifier ("maintMainEdiiService")
 	private MaintMainEdiiService maintMainEdiiService;

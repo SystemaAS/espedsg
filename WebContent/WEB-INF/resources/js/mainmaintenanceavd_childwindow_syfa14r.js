@@ -24,7 +24,13 @@
 			  }else if(callerType == 'tiavd'){
 				  opener.jq('#tiavd').val(avd);
 				  
-			  }   
+			  }else if(callerType == 'dkea_syav'){
+				  opener.jq('#dkea_syav').val(avd);
+				  
+			  }else if(callerType == 'dkia_syav'){
+				  opener.jq('#dkia_syav').val(avd);
+				  
+			  }    
 			  //close child window
 			  window.close();
 		  });

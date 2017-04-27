@@ -73,13 +73,14 @@
 								<th class="tableHeaderField" align="center" >Angivelsesnr.</th>
 								<th class="tableHeaderField" align="center" >Navn</th>
 								<th class="tableHeaderField" align="center" >Test SKAT</th>
+								<th class="tableHeaderField" align="center" >Slett</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdskatexport_dke051r_edit.do?avd=${record.dkea_syav}&opd=${record.dkea_syop}&updateId=${record.dkea_syav}&navn=${record.dkea_14c}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdskatexport_dke051r_edit.do?avd=${record.dkea_syav}&opd=${record.dkea_syop}&updateId=${record.dkea_syav}&avdnavn=${record.dkea_14c}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
