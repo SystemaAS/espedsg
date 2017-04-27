@@ -36,13 +36,13 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="18%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdSkatDke051" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dke051r.do?id=${model.id}">
+						<a id="alinkMainMaintAvdSkatDki051" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dki051r.do?id=${model.id}">
                       			<font class="tabLink">&nbsp;<spring:message code="systema.skat.import.tab.description.avd"/></font>&nbsp;
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center">
-						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dke051r_edit.do?id=${model.id}">
+						<a id="alinkMainMaintAvdGate" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dki051r_edit.do?id=${model.id}">
 							<font class="tabDisabledLink">&nbsp;Skabe ny afd.</font>&nbsp;						
 							<img style="vertical-align: middle;"  src="resources/images/add.png" width="12" height="12" border="0" alt="new">
 						</a>
@@ -80,7 +80,7 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dke051r_edit.do?avd=${record.dkia_syav}&opd=${record.dkia_syop}&updateId=${record.dkia_syav}&avdnavn=${record.dkia_14c}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdskatimport_dki051r_edit.do?avd=${record.dkia_syav}&opd=${record.dkia_syop}&updateId=${record.dkia_syav}&avdnavn=${record.dkia_14c}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
@@ -90,7 +90,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.dkia_0035}&nbsp;</td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdskatimport_dke051r_edit.do?action=doDelete&dkia_syav=${record.dkia_syav}&dkia_syop=${record.dkia_syop}">
+		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdskatimport_dki051r_edit.do?action=doDelete&dkia_syav=${record.dkia_syav}&dkia_syop=${record.dkia_syop}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
