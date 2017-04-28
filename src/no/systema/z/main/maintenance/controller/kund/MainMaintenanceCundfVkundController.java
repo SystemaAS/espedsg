@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.dao.KodtftDao;
 import no.systema.jservices.common.dao.KodtlkDao;
 import no.systema.jservices.common.dao.KodtotyDao;
 import no.systema.jservices.common.dao.Kodts2Dao;
@@ -259,6 +259,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getValutaKoder(appUser);
 		} else if ("fmot".equals(caller)) { //Fakturamottager
 			list = getKunder(appUser);
+		} else if ("syfr03".equals(caller)) { //Fritekstkode
+			list = getFritekstKoder(appUser);
 		} 
 		
 		else {
@@ -268,6 +270,39 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 	
+	
+	private List<ChildWindowKode>  getFritekstKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<KodtftDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtftDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtftDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_KODTFT_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<KodtftDao> container = (JsonDtoContainer<KodtftDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (KodtftDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+	}	
+	
+	private ChildWindowKode getChildWindowKode(KodtftDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getKfttyp());
+		kode.setDescription(dao.getKftftx());
+		return kode;
+	}		
 	
 	private List<ChildWindowKode> getKunder(SystemaWebUser appUser) {
 		Collection<JsonMaintMainCundfRecord> list = fetchList(appUser.getUser(), null, null);

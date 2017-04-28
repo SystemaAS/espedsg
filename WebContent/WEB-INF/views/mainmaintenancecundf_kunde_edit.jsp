@@ -437,11 +437,15 @@
 														<td class="text12" title="sysalu">
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.saldo"/>:
 														</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="sysalu" id="sysalu" size="15" maxlength="13" value='${model.record.sysalu}'></td>
+														<td><input type="text" readonly class="inputTextReadOnly" name="sysalu" id="sysalu" size="15" maxlength="13" value='${model.record.sysalu}'></td>
 														<td class="text12" title="syfr03">&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicetext"/>:
 														</td>
-														<td><input type="text" class="inputTextMediumBlue" name="syfr03" id="syfr03" size="5" maxlength="2" value='${model.record.syfr03}'></td>
+														<td><input type="text" class="inputTextMediumBlue" name="syfr03" id="syfr03" size="5" maxlength="2" value='${model.record.syfr03}'>
+															<a tabindex="-1" id="syfr03IdLink">
+																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+															</a>
+														</td>
 													</tr>
 													<tr>
 														<td class="text12" title="xxinm3">
@@ -463,13 +467,7 @@
 														<td class="text12" title="sfakt">&nbsp;
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicecoll"/>:
 														</td>
-														<td>
-															<select name="sfakt" id="sfakt" >
-						 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
-						 					  					<option value="J"<c:if test="${model.record.sfakt == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
-											  					<option value="N"<c:if test="${model.record.sfakt == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
-											  				</select>
-														</td>
+														<td><input type="text" class="inputTextMediumBlue" name="sfakt" id="sfakt" size="2" maxlength="1" value='${model.record.sfakt}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="symvjn">

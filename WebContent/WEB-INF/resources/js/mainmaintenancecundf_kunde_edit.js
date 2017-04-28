@@ -118,7 +118,12 @@ jq(function() {
     jq('#fmotIdLink').click(function() {
     	jq('#fmotIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=fmot', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });    
+    });   
+    
+    jq('#syfr03IdLink').click(function() {
+    	jq('#syfr03IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=syfr03', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });      
     
     
 }); 

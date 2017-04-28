@@ -257,6 +257,14 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_KODTVALF_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTVALF.do";	
 	
 	/**
+	 * Retrieve a List of KodtftDao
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKODTFT.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_KODTFT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTFT.do";		
+	
+	/**
 	 * Retrieve a List of FratxtDao
 	 * 
 	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesbcore/syjsFRATXT.do?user=OSCAR&fxknr=24&delsys=A
