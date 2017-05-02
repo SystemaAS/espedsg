@@ -116,7 +116,7 @@ public class MaintSkatFellesDkt055rController {
 	 * @return
 	 */
 	@RequestMapping(value="skatmaintenancefelles_dkt055r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDktfiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doSkatmaintenanceFellesEdit(@ModelAttribute ("record") JsonMaintDktfiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt055r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		boolean isValidRecord = true;
@@ -233,6 +233,7 @@ public class MaintSkatFellesDkt055rController {
 	        	for(JsonMaintDktfiRecord record : list){
 	        		//put record since this is the only one in whole table
 	        		model.put(SkatMaintenanceConstants.DOMAIN_RECORD, record);
+	        		model.put("updateId", record.getDktf_0004t());
 	        	}
 	        }
     	}

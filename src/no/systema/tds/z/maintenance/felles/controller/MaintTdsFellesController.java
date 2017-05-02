@@ -64,7 +64,7 @@ public class MaintTdsFellesController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_MAINTENANCE_FELLES);
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TDS_MAINTENANCE_FELLES);
 			session.setAttribute(TdsMaintenanceConstants.ACTIVE_URL_RPG_TDS_MAINTENANCE, TdsMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
