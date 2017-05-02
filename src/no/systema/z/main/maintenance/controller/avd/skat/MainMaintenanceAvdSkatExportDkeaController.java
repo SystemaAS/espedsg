@@ -163,6 +163,8 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 					}else{
 						//post successful update operations
 						updateId = recordToValidate.getDkea_syav();
+						avd = recordToValidate.getDkea_syav();
+						opd = recordToValidate.getDkea_syop();
 						
 					}
 					

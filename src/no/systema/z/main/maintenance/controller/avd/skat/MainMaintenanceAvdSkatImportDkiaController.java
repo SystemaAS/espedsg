@@ -165,6 +165,8 @@ public class MainMaintenanceAvdSkatImportDkiaController {
 					}else{
 						//post successful update operations
 						updateId = recordToValidate.getDkia_syav();
+						avd = recordToValidate.getDkia_syav();
+						opd = recordToValidate.getDkia_syop();
 						
 					}
 					
