@@ -150,8 +150,7 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 						if(dmlRetval >= 0){
 							//TODO more ?
-						}
-							
+						}	
 					}
 					
 					//check for Update errors
@@ -165,7 +164,6 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 						updateId = recordToValidate.getDkea_syav();
 						avd = recordToValidate.getDkea_syav();
 						opd = recordToValidate.getDkea_syop();
-						
 					}
 					
 				}
@@ -188,7 +186,6 @@ public class MainMaintenanceAvdSkatExportDkeaController {
 				}else{
 					//post successful update operations
 					successView = new ModelAndView("redirect:mainmaintenanceavdskatexport_dke051r.do?id=DKEA");
-					
 				}
 			}
 			//-------------

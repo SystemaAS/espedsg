@@ -190,7 +190,14 @@
 		               			</c:choose>
 		               			>&nbsp;&nbsp;<spring:message code="systema.tds.admin.label"/>&nbsp;&nbsp;</font>
 				    			</a>
-				    			
+				    			&nbsp;<font color="#FFFFFF"; style="font-weight: bold;">|</font>
+				    			<%-- ------------------- --%>
+				    			<%-- Maintenance  MENU    --%>
+				    			<%-- -------------------- --%>
+				    			<a tabindex=-1 href="tdsmaintenancegate.do">
+				    				&nbsp;<font class="headerMenuAdmin">
+			                   		&nbsp;&nbsp;Underhåll&nbsp;&nbsp;</font>
+				    			</a>
 		      				</td>		      				
 		      				<td class="text11" width="50%" align="right">
 		      					<img valign="bottom" src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">

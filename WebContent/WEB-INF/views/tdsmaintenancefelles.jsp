@@ -2,11 +2,11 @@
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header ===========================-->
-<jsp:include page="/WEB-INF/views/headerSkatMaintenance.jsp" />
+<jsp:include page="/WEB-INF/views/headerTdsMaintenance.jsp" />
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/skatmaintenancefelles.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/tdsmaintenancefelles.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -22,7 +22,7 @@
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;SKAT - Vedligehold</font>&nbsp;
+						<font class="tabLink">&nbsp;TDS - Underhåll</font>&nbsp;
 						<img style="vertical-align: middle;"  src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -48,10 +48,10 @@
 							<thead>
 							<tr>
 								<th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
-								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Opdater</th>
-			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
-								<th class="tableHeaderField" align="left" >&nbsp;Tekst&nbsp;</th>
+								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Uppdatera</th>
+			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivning&nbsp;</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;Kod&nbsp;</th>
+								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
 			                </tr>  
 			                </thead> 
@@ -63,7 +63,7 @@
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
 				               	<c:choose>
 				               		<c:when test="${record.status == 'G'}">
-					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="skatmaintenancefelles_${record.pgm}.do?id=${record.dbTable}">
+					               		<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="tdsmaintenancefelles_${record.pgm}.do?id=${record.dbTable}">
 		               						<img src="resources/images/update.gif" border="0" alt="edit">
 					               		</a>
 				               		</c:when>
@@ -75,7 +75,7 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="40%" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G'}">
-					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="skatmaintenancefelles_${record.pgm}.do?id=${record.dbTable}">
+					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="tdsmaintenancefelles_${record.pgm}.do?id=${record.dbTable}">
 		               							<font class="text12SkyBlue">&nbsp;&nbsp;${record.subject}&nbsp;</font>
 		               						</a>
 					               		</c:when>
