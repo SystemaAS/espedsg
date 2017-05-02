@@ -1,13 +1,17 @@
 package no.systema.main.controller;
 
 import org.springframework.web.servlet.ModelAndView;
+
+import no.systema.main.util.AppConstants;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.ui.Model;
 import org.springframework.context.annotation.Scope;
 import org.apache.log4j.Logger;
-
+import no.systema.main.model.SystemaWebUser;
+import no.systema.main.util.AppConstants;
 
 
 
@@ -28,6 +32,13 @@ public class LoginController {
 		
 		String message = "Welcome till Systema eSped";
 		model.addAttribute("messageTag", message);
+		//This SystemaWebUser instance is just to comply to the dynamic css property that MUST be in place in the JSP-Login window BEFORE the login
+		//NOTE: The real SystemaWebUser is set in the Dashboard controller after the approval of the login
+		SystemaWebUser userForCssPurposes = new SystemaWebUser();
+		userForCssPurposes.setCssEspedsg(AppConstants.CSS_ESPEDSG);
+		model.addAttribute(AppConstants.SYSTEMA_WEB_USER_KEY, userForCssPurposes);
+		loginView.addObject("model",model);
+		//
 		logger.info("After login controller execution");
 		
 		return this.loginView;

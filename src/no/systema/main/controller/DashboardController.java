@@ -33,7 +33,6 @@ import no.systema.main.validator.UserValidator;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.JsonSystemaUserContainer;
 import no.systema.main.model.jsonjackson.JsonSystemaUserRecord;
-import no.systema.main.model.jsonjackson.JsonSystemaUserExtensionsArchiveRecord;
 import no.systema.main.model.jsonjackson.JsonFirmLoginContainer;
 import no.systema.main.model.jsonjackson.JsonFirmLoginRecord;
 
@@ -44,7 +43,7 @@ import no.systema.main.service.FirmLoginService;
 
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
-import no.systema.main.util.ApplicationPropertiesUtil;
+
 
 
 
@@ -98,7 +97,13 @@ public class DashboardController {
 		    validator.validate(appUser, bindingResult);
 		    if(bindingResult.hasErrors()){
 			    	logger.info("[ERROR Fatal] User not valid (user/password ?)");
-			    	this.loginView.addObject("model", null);
+			    	//
+			    	SystemaWebUser userForCssPurposes = new SystemaWebUser();
+			    	userForCssPurposes.setCssEspedsg(AppConstants.CSS_ESPEDSG);
+					model.put(AppConstants.SYSTEMA_WEB_USER_KEY, userForCssPurposes);
+					this.loginView.addObject("model",model);
+					
+			    	//this.loginView.addObject("model", null);
 			    	return loginView;
 	
 		    }else{
@@ -243,6 +248,9 @@ public class DashboardController {
 		
 		//get Cgi root in case we must have direct access to the AS400 services directly from a JSP (e.g. Use Case for print in eBooking)
 		appUser.setHttpCgiRoot(AppConstants.HTTP_ROOT_CGI);
+		//CSS
+		appUser.setCssEspedsg(AppConstants.CSS_ESPEDSG);
+		appUser.setCssEspedsgMaintenance(AppConstants.CSS_ESPEDSG_MAINTENANCE);
 		
 	}
 	

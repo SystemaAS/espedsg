@@ -4,8 +4,15 @@
 
 <html>
 	<head>
-		<link href="resources/espedsg.css" rel="stylesheet" type="text/css"/>
-		
+		<c:choose>
+			<%-- set up BEFORE login --%>
+			<c:when test="${not empty model.user.cssEspedsg}">
+				<link href="resources/${model.user.cssEspedsg}" rel="stylesheet" type="text/css"/>
+			</c:when>
+			<c:otherwise>
+				<link href="resources/espedsg.css" rel="stylesheet" type="text/css"/>
+			</c:otherwise>
+		</c:choose>
 		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

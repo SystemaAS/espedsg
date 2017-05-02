@@ -26,6 +26,9 @@ public final class AppConstants {
 	public static final String VERSION_SPRING = ApplicationPropertiesUtil.getProperty("version.spring");
 	//http protocol
 	public static final String HTTP_PROTOCOL = ApplicationPropertiesUtil.getProperty("http.protocol");
+	//css files
+	public static final String CSS_ESPEDSG = ApplicationPropertiesUtil.getProperty("css.espedsg");
+	public static final String CSS_ESPEDSG_MAINTENANCE = ApplicationPropertiesUtil.getProperty("css.espedsg.maintenance");
 	
 	//session constants
 	public static final String SYSTEMA_WEB_USER_KEY = "user";

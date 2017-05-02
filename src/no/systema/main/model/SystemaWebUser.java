@@ -89,6 +89,15 @@ public class SystemaWebUser {
 	public void setCompanyCode(String value) {  this.companyCode = value; }
 	public String getCompanyCode() { return this.companyCode;}
 	
+	private String cssEspedsg = "espedsg.css"; 
+	public void setCssEspedsg(String value) {  this.cssEspedsg = value; }
+	public String getCssEspedsg() { return this.cssEspedsg;}
+	
+	private String cssEspedsgMaintenance = "espedsgmaintenance.css"; 
+	public void setCssEspedsgMaintenance(String value) {  this.cssEspedsgMaintenance = value; }
+	public String getCssEspedsgMaintenance() { return this.cssEspedsgMaintenance;}
+	
+	
 	//---------------------------------------------
 	//Return parameters after valid login in AS400
 	//---------------------------------------------

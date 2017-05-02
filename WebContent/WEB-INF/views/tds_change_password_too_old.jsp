@@ -10,7 +10,7 @@ It has been a design decision in order to keep this function explicitly separate
  
 <html>
 	<head>
-		<link href="resources/espedsg.css" rel="stylesheet" type="text/css"/>
+		<link href="resources/${user.cssEspedsg}" rel="stylesheet" type="text/css"/>
 		<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/overcast/jquery-ui.css" rel="stylesheet">
 		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
