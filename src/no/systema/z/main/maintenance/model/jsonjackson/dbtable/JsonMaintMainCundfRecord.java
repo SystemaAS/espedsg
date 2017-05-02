@@ -232,6 +232,14 @@ public class JsonMaintMainCundfRecord extends JsonAbstractGrandFatherRecord {
 	private String syiat2 = null;                                
 	public void setSyiat2(String value){ this.syiat2 = value;   }   
 	public String getSyiat2(){ return this.syiat2;   }  
+
+	private String mllm = null;                                
+	public void setMllm(String value){ this.mllm = value;   }   
+	public String getMllm(){ return this.mllm;   }  
+	
+	private String m3m3 = null;                                
+	public void setM3m3(String value){ this.m3m3 = value;   }   
+	public String getM3m3(){ return this.m3m3;   }  	
 	
 	/**
 	 * 

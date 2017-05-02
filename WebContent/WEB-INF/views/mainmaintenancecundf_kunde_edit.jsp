@@ -448,14 +448,14 @@
 														</td>
 													</tr>
 													<tr>
-														<td class="text12" title="xxinm3">
+														<td class="text12" title="cum3lm:m3m3">
 															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicem3"/>:
 														</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="xxinm3" id="xxinm3" size="5" maxlength="3" value='${model.record.xxinm3}'></td>
-														<td class="text12" title="xxinlm">&nbsp;
-															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicelm"/>
+														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="m3m3" id="m3m3" size="6" maxlength="5" value='${model.record.m3m3}'></td>
+														<td class="text12" title="cum3lm:mllm">&nbsp;
+															<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.invoicelm"/>:
 														</td>
-														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="xxinlm" id="xxinlm" size="5" maxlength="4" value='${model.record.xxinlm}'></td>
+														<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="mllm" id="mllm" size="6" maxlength="5" value='${model.record.mllm}'></td>
 													</tr>
 													<tr>
 														<td class="text12" title="rnraku">
