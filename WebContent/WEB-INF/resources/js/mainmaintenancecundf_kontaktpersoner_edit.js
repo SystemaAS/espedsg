@@ -114,14 +114,38 @@ jq(function() {
     	jq('#ctypeRefLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype_ref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
- 
-	
+
+    jq('#cconta').blur(function() {
+		var cconta = jq("#cconta").val();
+		var firmaIn = jq('#firma').val();
+		var appUser = jq('#applicationUser').val();
+		if (cconta == 'EMMA-XML') {
+			jq("#cmerge").prop("disabled", true);
+			jq('#clive').val("X");
+			jq.getJSON('getDefaultEmmaXmlInfo.do', {
+				applicationUser : appUser,
+				firma : firmaIn,
+				ajax : 'true'
+			}, function(data) {
+				//alert("Hello, data fetched");
+				var len = data.length;
+				for (var i = 0; i < len; i++) {
+					jq('#cmobil').val(data[i].cmobil);
+					jq('#cphone').val(data[i].cphone);
+					jq('#cfax').val(data[i].cfax);
+				}
+			});
+		} else {
+			// do nothing
+		}
+	});    
+
 }); 
 
 
-//-----------------------
-//GET specific db-record
-//-----------------------
+// -----------------------
+// GET specific db-record
+// -----------------------
 
 function getRecord(record){
 	var rawId = record.id;

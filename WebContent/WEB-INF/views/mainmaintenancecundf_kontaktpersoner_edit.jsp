@@ -18,7 +18,7 @@
 		<td>
 			<%-- tab container component --%>
 			<table id="tabContainer"  width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
-				<tr height="2"><td></td></tr>
+				<tr height="2"><td><input type="hidden" name="firma" id="firma" value="${kundeSessionParams.firma}"> </td></tr>
 				<tr height="25"> 
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a id="alinkMainMaintGate" tabindex=-1 style="display:block;" href="mainmaintenancegate.do">

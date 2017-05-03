@@ -53,7 +53,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_sadvare.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Collection<SadvareDao> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
 		final String METHOD = "[DEBUG] getSpecificRecord_sadvare ";
-		logger.info(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
 
 		return fetchSpecificSadvare(applicationUser, levenr, varenr);
 	}	
@@ -61,7 +61,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syparf ";
-		logger.info(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
 
 		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
 	}	
@@ -70,7 +70,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta, String ctype) {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
-		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
 
 		return (List<JsonMaintMainCundcRecord>) fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta, ctype);
 	}
@@ -79,12 +79,20 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	public @ResponseBody Collection<Enhet> getRecordHovedEnhetBrreg(@RequestParam String applicationUser, @RequestParam String orgnr) {
 		VkundControllerUtil util = new VkundControllerUtil(urlCgiProxyService);
 		final String METHOD = "[DEBUG] getSpecificRecord_enhet_brreg ";
-		logger.info(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
 
 		Collection<Enhet> list =  util.fetchSpecificEnhet(applicationUser, orgnr);
 		
 		return list;
 	}
+	
+	@RequestMapping(value = "getDefaultEmmaXmlInfo.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JsonMaintMainCundcRecord> getDefaultEmmaXmlInfo(@RequestParam String applicationUser, @RequestParam String firma) {
+		final String METHOD = "[DEBUG] getDefaultEmmaXmlInfo ";
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", firma=" + firma );
+
+		return (List<JsonMaintMainCundcRecord>) fetchDefaultEmmaXmlInfo(applicationUser, firma);
+	}	
 	
 	private Collection<SadvareDao> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
 		JsonReader<JsonDtoContainer<SadvareDao>> jsonReader = new JsonReader<JsonDtoContainer<SadvareDao>>();
@@ -107,8 +115,6 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 			return null;
 		}
 	}		
-	
-	
 	
 	private List<JsonMaintMainSyparfRecord> fetchSpecificSyparf(String appUser, String sykunr, String syrecn) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_GET_URL;
@@ -163,6 +169,34 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 
 		return list;
 	}
+	
+	private Collection<JsonMaintMainCundcRecord> fetchDefaultEmmaXmlInfo(String applicationUser, String cfirma) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LATEST_EMMA_XML_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + applicationUser);
+		urlRequestParams.append("&cfirma=" + cfirma);
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		// debugger
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() + " CGI-end timestamp");
+		List<JsonMaintMainCundcRecord> list = new ArrayList();
+		if (jsonPayload != null) {
+			JsonMaintMainCundcContainer container = maintMainCundcService.getList(jsonPayload);
+			if (container != null) {
+				list = (List) container.getList();
+//				for (JsonMaintMainCundcRecord record : list) {
+//					logger.info("record=" + record);
+//				}
+			}
+		}
+
+		return list;
+	}
+	
 
 	// SERVICES
 	@Qualifier("urlCgiProxyService")

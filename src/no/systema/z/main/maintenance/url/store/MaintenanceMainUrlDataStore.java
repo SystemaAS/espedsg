@@ -90,6 +90,14 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsCUNDC.do";
 	
+	//GET Default Emma Xml (cundc)
+	/**
+	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesbcore/syjsCUNDC_LATEST_EMMA_XML_INFO.do?user=OSCAR&cfirma=SY
+	 * 
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_CUNDC_GET_LATEST_EMMA_XML_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsCUNDC_LATEST_EMMA_XML_INFO.do";
+
 	/**
 	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=FUNKSJON&kfkod=ad
 	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=FUNKSJON
