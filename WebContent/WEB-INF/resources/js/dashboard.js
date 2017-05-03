@@ -10,12 +10,24 @@
     }
   	
   	
-  		/* call this with onClick() in <a>link (in case a user pass. is sent to another WAR file)
-  		function postdata(){
-  		   jq.post("transportdisp_mainorderlist.do", { id: "lang=${user.usrLang}", next_id: "myother_placeholder" },
-  		       function(data) {
-  		         alert("Data Loaded: " + data);
-  		       });
-  		}*/
+	//call this with onClick() from an html-element
+	function doPostMultiUser(element){
+		var id = element.id;
+		//already in the jsp: --> jq('#formMU_'+ id).append('<input type="hidden" name="user" value="oscar">');
+		jq('#formMU_'+ id).append('<input type="hidden" name="password" value="mltid">');
+		//
+		jq('#formMU_'+ id).submit();
+		
+	/*	
+	 * //call this with onClick() in <a>link (in case a user pass. is sent to another WAR file)
+	   jq.post("logonDashboard.do", { user: "jovo", password: "mltid" },
+		   function(data) {
+	         window.location = "logonDashboard.do";
+	       });	   
+
+	   
+	   not working --> jq.redirect('logonDashboard.do', {'user': 'oscar', 'pwd': 'mltid'});
+	   */
+	}
   
   	

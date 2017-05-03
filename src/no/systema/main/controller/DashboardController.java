@@ -33,6 +33,7 @@ import no.systema.main.validator.UserValidator;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.JsonSystemaUserContainer;
 import no.systema.main.model.jsonjackson.JsonSystemaUserRecord;
+import no.systema.main.model.jsonjackson.JsonSystemaUserExtensionsMultiUserSwitchRecord;
 import no.systema.main.model.jsonjackson.JsonFirmLoginContainer;
 import no.systema.main.model.jsonjackson.JsonFirmLoginRecord;
 
@@ -80,7 +81,7 @@ public class DashboardController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="logonDashboard.do", method= { RequestMethod.POST })
+	@RequestMapping(value="logonDashboard.do", method= { RequestMethod.POST})
 	public ModelAndView logon(@ModelAttribute (AppConstants.SYSTEMA_WEB_USER_KEY) SystemaWebUser appUser, BindingResult bindingResult, HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		ModelAndView successView = new ModelAndView("dashboard");
 		Map model = new HashMap();
@@ -238,6 +239,9 @@ public class DashboardController {
 		}
 		if(jsonSystemaUserContainer.getArkivKodTurList()!=null){
 			appUser.setArkivKodTurList(jsonSystemaUserContainer.getArkivKodTurList());
+		}
+		if(jsonSystemaUserContainer.getMultiUser()!=null){
+			appUser.setMultiUser(jsonSystemaUserContainer.getMultiUser());
 		}
 		
 		//This host parameter below is used for reaching external resources since images or other static resources

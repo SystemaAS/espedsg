@@ -3,6 +3,7 @@ package no.systema.main.model;
 import java.util.Collection;
 
 import no.systema.main.model.jsonjackson.JsonSystemaUserExtensionsArchiveRecord;
+import no.systema.main.model.jsonjackson.JsonSystemaUserExtensionsMultiUserSwitchRecord;
 import no.systema.main.util.AppConstants;
 
 /**
@@ -256,6 +257,11 @@ public class SystemaWebUser {
 	private Collection<JsonSystemaUserExtensionsArchiveRecord> arkivKodTurList;
 	public void setArkivKodTurList(Collection<JsonSystemaUserExtensionsArchiveRecord> value){ this.arkivKodTurList = value; }
 	public Collection<JsonSystemaUserExtensionsArchiveRecord> getArkivKodTurList(){ return arkivKodTurList; }
+	
+	private Collection<JsonSystemaUserExtensionsMultiUserSwitchRecord> multiUser;
+	public void setMultiUser(Collection<JsonSystemaUserExtensionsMultiUserSwitchRecord> value){ this.multiUser = value; }
+	public Collection<JsonSystemaUserExtensionsMultiUserSwitchRecord> getMultiUser(){ return multiUser; }
+	
 	
 
 }
