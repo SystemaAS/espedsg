@@ -38,7 +38,18 @@
 				  opener.jq('#dktf_0010p').val(inid);
 				  opener.jq('#dktf_0010p').focus();
 			  } //END DK Vedlikehold
+			
+			  //TDS Felles Underhåll	  
+			  else if(callerType == 'svtf_0004'){
+			  opener.jq('#svtf_0004').val(inid);
+			  opener.jq('#svtf_0004').focus();
 			  
+			  }else if(callerType == 'svtf_0010'){
+				  opener.jq('#svtf_0010').val(inid);
+				  opener.jq('#svtf_0010').focus();
+				  
+			  }//END TDS Underhåll
+		  
 			  //close child window
 			  window.close();
 		  });

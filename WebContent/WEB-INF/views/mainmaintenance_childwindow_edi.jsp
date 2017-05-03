@@ -30,7 +30,7 @@
 						
 						<tr>
 							<td class="text11">&nbsp;UtvekslingsId</td>
-							<td class="text11">&nbsp;<input type="text" class="inputText" name="id" id="id" size="10" maxlength="10" value="${model.id}"></td>
+							<td class="text11">&nbsp;<input type="text" class="inputText" name="id" id="id" size="25" maxlength="35" value="${model.id}"></td>
 							<td class="text11">&nbsp;</td>
 							<td class="text11">&nbsp;Navn</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="navn" id="navn" size="30" maxlength="50" value="${model.navn}"></td>

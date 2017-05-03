@@ -19,6 +19,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintDktfiService" class="no.systema.skat.z.maintenance.main.service.MaintDktfiServiceImpl"/>
 	<bean id="maintDkthaService" class="no.systema.skat.z.maintenance.main.service.MaintDkthaServiceImpl"/>
 	<bean id="skatMaintMainDropDownListPopulationService" class="no.systema.skat.z.maintenance.main.service.html.dropdown.SkatMaintMainDropDownListPopulationService"/>
+	<bean id="maintSvtfiService" class="no.systema.tds.z.maintenance.main.service.MaintSvtfiServiceImpl"/>
+	<bean id="tdsMaintMainDropDownListPopulationService" class="no.systema.tds.z.maintenance.main.service.html.dropdown.TdsMaintMainDropDownListPopulationService"/>
 	
 
 	<!-- =================  -->

@@ -1,5 +1,5 @@
 META;ID;NAME
-C25;Accelerator@http://192.168.70.16:8080/espedsg@7.0 / 8.0 / V11
+C25;Accelerator@http://192.168.70.16:8080/espedsg@<b>8.0</b> / 8.0 / V11
 C30;Bring@http://139.114.151.52:8080/espedsg@7.0 / 8.0 / V11
 C35;Collicare@http://217.65.230.10:8080/espedsg@<b>8.0</b> / 8.0 / V11
 C100;DHL@http://165.72.19.220:8443/espedsg@7.0 / 8.0 / <b>V12</b>

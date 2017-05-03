@@ -93,11 +93,11 @@ public class MaintTdsFellesController {
 		        
 		object.setId("1");
 		object.setSubject("Underhåll av firmaupplysningar");
-		object.setCode("TDS_FIRMOPL");
-		object.setText("DKT055XXX / DKTFIXXX");
-		object.setDbTable("DKTFI");
-		object.setStatus("Y");
-		object.setPgm("dkt055r");
+		object.setCode("TDS_FIRMUPPL");
+		object.setText("SVT055 / SVTFI");
+		object.setDbTable("SVTFI");
+		object.setStatus("G");
+		object.setPgm("svt055r");
 		listObject.add(object);
 		//
 		/*
