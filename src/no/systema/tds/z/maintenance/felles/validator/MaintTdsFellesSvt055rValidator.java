@@ -35,7 +35,17 @@ public class MaintTdsFellesSvt055rValidator implements Validator {
 		JsonMaintSvtfiRecord record = (JsonMaintSvtfiRecord)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_0004", "", " UNB - Avsändarid  är obligatorisk"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_0010", "", " UNB - Mottag.id  är obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_pref", "", " UNB - Lösenord är obligatorisk"); 
+		//
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_0022", "", " Lösenord är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_pref", "", " Tullid prefix är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_numb", "", " Sist använda nr. är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_usri", "", " SMS-sender Userid är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_usra", "", " SMS-sender Adress är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_sec1", "", " Security party id - Egen är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_sec2", "", " Security party id - Tullverket är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_cer1", "", " Certifikatserienr. - Egen är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svtf_cer2", "", " Certifikatserienr. - Tullverket är obligatorisk"); 
+		
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){

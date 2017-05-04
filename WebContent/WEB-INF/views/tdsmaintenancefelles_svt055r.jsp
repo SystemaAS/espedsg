@@ -111,19 +111,18 @@
 						<tr height="8"><td colspan="3"></td>
 						<tr>
 							<td colspan="2" class="text14" title=""><b>&nbsp;UNB</b>&nbsp;
-								<img style="vertical-align: middle;"  src="resources/images/checkmarkOK.png" border="0" width="12px" height="12px" alt="FTP">
+								<img style="vertical-align: middle;"  src="resources/images/checkmarkOK.png" border="0" width="12px" height="12px" alt="UNB">
 								<font class="text12">&nbsp;&nbsp;&nbsp;Test&nbsp;</font>
 								<select name="svtf_0035" id="svtf_0035">
 			 						<option value="1" <c:if test="${model.record.svtf_0035 == '1'}"> selected </c:if> >Ja</option>
-			 						<option value="" <c:if test="${empty model.record.svtf_0035 || model.record.svtf_0035 == ''}"> selected </c:if> >Nej</option>
-			 						<option value="">-blank-</option>
+			 						<option value="" <c:if test="${empty model.record.svtf_0035}"> selected </c:if> >Nej</option>
 								</select>
 								
 							</td>	
 						</tr>
 						<tr height="5"><td></td>
 						<tr>
-							<td class="text12" title="svtf_0004">&nbsp;Avsändarid
+							<td class="text12" title="svtf_0004"><font class="text12RedBold" >*</font>Avsändarid
 								<a tabindex="-1" id="svtf_0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
@@ -131,47 +130,45 @@
 							<td class="text12" title="svtf_0008">&nbsp;Avs.vidareadress</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="svtf_0004" id="svtf_0004" size="30" maxlength="35" value='${model.record.svtf_0004}'></td>
+							<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_0004" id="svtf_0004" size="36" maxlength="35" value='${model.record.svtf_0004}'></td>
 							<td ><input type="text" class="inputTextMediumBlue" name="svtf_0008" id="svtf_0008" size="15" maxlength="14" value='${model.record.svtf_0008}'></td>
 						</tr>
 						<tr>
-							<td class="text12" title="svtf_0010">&nbsp;Mottagarid
+							<td class="text12" title="svtf_0010"><font class="text12RedBold" >*</font>Mottagarid
 								<a tabindex="-1" id="svtf_0010IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
 							</td>
 							<td class="text12" title="svtf_0014">&nbsp;Mottag.vidareadress</td>
-							
-							<td class="text12" title="svtf_0022">&nbsp;Lösenord</td>
+							<td class="text12" title="svtf_0022"><font class="text12RedBold" >*</font>Lösenord</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="svtf_0010" id="svtf_0010" size="30" maxlength="35" value='${model.record.svtf_0010}'></td>
+							<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_0010" id="svtf_0010" size="36" maxlength="35" value='${model.record.svtf_0010}'></td>
 							<td ><input type="text" class="inputTextMediumBlue" name="svtf_0014" id="svtf_0014" size="15" maxlength="14" value='${model.record.svtf_0014}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="svtf_0022" id="dktf_0022" size="15" maxlength="14" value='${model.record.svtf_0022}'></td>
+							<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_0022" id="dktf_0022" size="15" maxlength="14" value='${model.record.svtf_0022}'></td>
 						</tr>
 						<tr height="20"><td></td>
 						<tr>
-							<td class="text12" title="svtf_pref">&nbsp;Tullid prefix</td>
-							<td class="text12" title="svtf_numb">&nbsp;Sist använda nr.</td>
+							<td class="text12" title="svtf_pref"><font class="text12RedBold" >*</font>Tullid prefix</td>
+							<td class="text12" title="svtf_numb"><font class="text12RedBold" >*</font>Sist använda nr.</td>
 							<td class="text12" title="svtf_kval">&nbsp;Kvalitetsäkrad</td>
-							<td class="text12" title="svtf_usri">&nbsp;SMS-sender Userid</td>
-							<td class="text12" title="svtf_usra">&nbsp;SMS-sender Adress</td>
+							<td class="text12" title="svtf_usri"><font class="text12RedBold" >*</font>SMS-sender Userid</td>
+							<td class="text12" title="svtf_usra"><font class="text12RedBold" >*</font>SMS-sender Adress</td>
 						</tr>
 						<tr>
-							<td ><input type="text" class="inputTextMediumBlue" name="svtf_pref" id="svtf_pref" size="4" maxlength="3" value='${model.record.svtf_pref}'></td>
-							<td ><input type="text" class="inputTextMediumBlue" name="svtf_numb" id="svtf_numb" size="7" maxlength="6" value='${model.record.svtf_numb}'></td>
+							<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_pref" id="svtf_pref" size="4" maxlength="3" value='${model.record.svtf_pref}'></td>
+							<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_numb" id="svtf_numb" size="7" maxlength="6" value='${model.record.svtf_numb}'></td>
 							<td >
 								<select name="svtf_kval" id="svtf_kval">
 			 						<option value="J" <c:if test="${model.record.svtf_kval == '1'}"> selected </c:if> >Ja</option>
-			 						<option value="N" <c:if test="${empty model.record.svtf_kval || model.record.svtf_kval == ''}"> selected </c:if> >Nej</option>
-			 						<option value="">-blank-</option>
+			 						<option value="" <c:if test="${empty model.record.svtf_kval}"> selected </c:if> >Nej</option>
 								</select>
 							</td>
 							<td >
-								<input type="text" class="inputTextMediumBlue" name="svtf_usri" id="svtf_usri" size="15" maxlength="14" value='${model.record.svtf_usri}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_usri" id="svtf_usri" size="15" maxlength="14" value='${model.record.svtf_usri}'>
 							</td>
 							<td >
-								<input type="text" class="inputTextMediumBlue" name="svtf_usra" id="svtf_usra" size="15" maxlength="14" value='${model.record.svtf_usra}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_usra" id="svtf_usra" size="15" maxlength="14" value='${model.record.svtf_usra}'>
 							</td>
 						</tr>
 						
@@ -179,44 +176,59 @@
 						<tr>
 							<td colspan="10">
 								<table class="formFrameTitaniumWhite" width="99%" cellspacing="0" border="0" align="left">
-									<tr height="5"><td>&nbsp;</td></tr>
+									<tr height="5"><td></td></tr>
 									<tr>
-										<td class="text12" title="svtf_pref">&nbsp;<b>Säkerhet och Certifikat</b></td>
+										<td class="text14" >&nbsp;<b>Säkerhet och Certifikat</b></td>
 									</tr>
 									<tr height="5"><td></td>
 									<tr>
-										<td class="text12" title="svtf_sec1">&nbsp;Security party id, egen</td>
-										<td class="text12" title="svtf_sec2">&nbsp;Tullverket</td>
+										<td class="text12" >&nbsp;<b>Security party id</b></td>
+									</tr>
+									<tr>
+										<td class="text12" title="svtf_sec1"><font class="text12RedBold" >*</font>Egen</td>
+										<td class="text12" title="svtf_sec2"><font class="text12RedBold" >*</font>Tullverket</td>
 									</tr>
 									<tr>
 										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_sec1" id="svtf_sec1" size="18" maxlength="17" value='${model.record.svtf_sec1}'>
+											<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_sec1" id="svtf_sec1" size="18" maxlength="17" value='${model.record.svtf_sec1}'>
 										</td>
 										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_sec2" id="svtf_sec2" size="18" maxlength="17" value='${model.record.svtf_sec2}'>
+											<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_sec2" id="svtf_sec2" size="18" maxlength="17" value='${model.record.svtf_sec2}'>
 										</td>
 									</tr>
-									<tr height="5"><td></td>
+									<tr height="10"><td></td>
 									<tr>
-										<td class="text12" title="svtf_cer1">&nbsp;Certifikat serienr., egen</td>
-										<td class="text12" title="svtf_cer3">&nbsp;Tullverket</td>
-										<td class="text12" title="svtf_cer2">&nbsp;Certifikat nyckelid, egen</td>
+										<td class="text12" >&nbsp;<b>Certifikatserienr.</b></td>
+									</tr>
+									<tr>
+										<td class="text12" title="svtf_cer1"><font class="text12RedBold" >*</font>Egen</td>
+										<td class="text12" title="svtf_cer2"><font class="text12RedBold" >*</font>Tullverket</td>
+									</tr>
+									<tr>
+										<td >
+											<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_cer1" id="svtf_cer1" size="36" maxlength="35" value='${model.record.svtf_cer1}'>
+										</td>
+										<td >
+											<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svtf_cer2" id="svtf_cer2" size="36" maxlength="35" value='${model.record.svtf_cer2}'>
+										</td>
+									</tr>
+									<tr height="10"><td></td>
+									<tr>
+										<td class="text12" >&nbsp;<b>Certifikatnyckelid</b></td>
+									</tr>
+									<tr>
+										<td class="text12" title="svtf_cer3">&nbsp;Egen</td>
 										<td class="text12" title="svtf_cer4">&nbsp;Tullverket</td>
 									</tr>
 									<tr>
 										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_cer1" id="svtf_cer1" size="20" maxlength="35" value='${model.record.svtf_cer1}'>
+											<input type="text" class="inputTextMediumBlue" name="svtf_cer3" id="svtf_cer3" size="36" maxlength="35" value='${model.record.svtf_cer3}'>
 										</td>
 										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_cer3" id="svtf_cer3" size="20" maxlength="35" value='${model.record.svtf_cer3}'>
-										</td>
-										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_cer2" id="svtf_cer2" size="20" maxlength="35" value='${model.record.svtf_cer2}'>
-										</td>
-										<td >
-											<input type="text" class="inputTextMediumBlue" name="svtf_cer4" id="svtf_cer4" size="20" maxlength="35" value='${model.record.svtf_cer4}'>
+											<input type="text" class="inputTextMediumBlue" name="svtf_cer4" id="svtf_cer4" size="36" maxlength="35" value='${model.record.svtf_cer4}'>
 										</td>
 									</tr>
+									
 									<tr height="10"><td>&nbsp;</td></tr>
 								</table>
 							</td>

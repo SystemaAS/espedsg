@@ -44,6 +44,64 @@
   		  }
   	  });
 	  
-	
+	  
+	  //START CUSTOMER VALIDITY refreshes
+	    //must be done since CustomValidity is HTML 5 and not jQuery
+	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
+	    jq('#svtf_0004').focus(function() {
+	    	if(jq('#svtf_0004').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_0004')[0]);
+	  		}
+	  	});
+	    jq('#svtf_0010').focus(function() {
+	    	if(jq('#svtf_0010').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_0010')[0]);
+	  		}
+	  	});
+	    jq('#svtf_0022').focus(function() {
+	    	if(jq('#svtf_0022').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_0022')[0]);
+	  		}
+	  	});
+	    jq('#svtf_pref').focus(function() {
+	    	if(jq('#svtf_pref').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_pref')[0]);
+	  		}
+	  	});
+	    jq('#svtf_numb').focus(function() {
+	    	if(jq('#svtf_numb').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_numb')[0]);
+	  		}
+	  	});
+	    jq('#svtf_usri').focus(function() {
+	    	if(jq('#svtf_usri').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_usri')[0]);
+	  		}
+	  	});
+	    jq('#svtf_usra').focus(function() {
+	    	if(jq('#svtf_usra').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_usra')[0]);
+	  		}
+	  	});
+	    jq('#svtf_sec1').focus(function() {
+	    	if(jq('#svtf_sec1').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_sec1')[0]);
+	  		}
+	  	});
+	    jq('#svtf_sec2').focus(function() {
+	    	if(jq('#svtf_sec2').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_sec2')[0]);
+	  		}
+	  	});
+	    jq('#svtf_cer1').focus(function() {
+	    	if(jq('#svtf_cer1').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_cer1')[0]);
+	  		}
+	  	});
+	    jq('#svtf_cer3').focus(function() {
+	    	if(jq('#svtf_cer3').val()!=''){
+	  			refreshCustomValidity(jq('#svtf_cer3')[0]);
+	  		}
+	  	});
 	  
   });
