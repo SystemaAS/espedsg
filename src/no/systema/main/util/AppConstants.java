@@ -29,6 +29,8 @@ public final class AppConstants {
 	//css files
 	public static final String CSS_ESPEDSG = ApplicationPropertiesUtil.getProperty("css.espedsg");
 	public static final String CSS_ESPEDSG_MAINTENANCE = ApplicationPropertiesUtil.getProperty("css.espedsg.maintenance");
+	//login firma code required
+	public static final String LOGIN_FIRMA_CODE_REQUIRED = ApplicationPropertiesUtil.getProperty("login.firma.code.required");
 	
 	//session constants
 	public static final String SYSTEMA_WEB_USER_KEY = "user";

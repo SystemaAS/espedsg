@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
@@ -59,6 +65,7 @@ import no.systema.main.util.AppConstants;
 @Scope("session")
 public class DashboardController {
 	private static final Logger logger = Logger.getLogger(DashboardController.class.getName());
+	private final String COMPANY_CODE_REQUIRED_FLAG_VALUE = "1";
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	
@@ -82,7 +89,7 @@ public class DashboardController {
 	 * @return
 	 */
 	@RequestMapping(value="logonDashboard.do", method= { RequestMethod.POST})
-	public ModelAndView logon(@ModelAttribute (AppConstants.SYSTEMA_WEB_USER_KEY) SystemaWebUser appUser, BindingResult bindingResult, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView logon(@ModelAttribute (AppConstants.SYSTEMA_WEB_USER_KEY) SystemaWebUser appUser, BindingResult bindingResult, HttpSession session, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttr){
 		ModelAndView successView = new ModelAndView("dashboard");
 		Map model = new HashMap();
 		
@@ -110,7 +117,10 @@ public class DashboardController {
 		    }else{
 		    	//get the company code for the comming user
 		    	//this routine was triggered by Totens upgrade (Jan-2017 V12). Ref. JOVOs requirement
-		    	String companyCode = this.getCompanyCodeForLogin();
+		    	String companyCode = null;
+		    	if(COMPANY_CODE_REQUIRED_FLAG_VALUE.equals(AppConstants.LOGIN_FIRMA_CODE_REQUIRED)){
+		    		companyCode = this.getCompanyCodeForLogin();
+		    	}
 		    	
 		    	//---------------------------
 				//get BASE URL = RPG-PROGRAM
@@ -172,11 +182,140 @@ public class DashboardController {
 					return loginView;
 			    		
 			    	}
-			    	return successView;
+			    	
+			    	
+			    	//successView = new ModelAndView("redirect:http://localhost:8080/espedsg/logonWRedDashboard.do");
+			    	//request.setAttribute("user", "oscar");
+			    	//request.setAttribute("password", "demo");
+			    	//successView.addObject("user", "oscar");
+			    	//successView.addObject("password", "demo");
+			    	//rw.setUrl("http://localhost:8080/espedsg/logonWRedDashboard.do?user=oscar&password=demo");
+			    	RedirectView rw = new RedirectView();
+			    	rw.setUrl("http://localhost:8080/espedsg/logonWRedDashboard.do");
+			    	
+			    	//redirectAttr.addAttribute("user", "oscar");
+			    	//redirectAttr.addAttribute("password", "demo");
+			    	//?user=oscar&password=demo
+			    	//rw.setExposeModelAttributes(false);
+			    	//rw.setAttributes("user","oscar","");
+			    	//return successView;
+			    	
+			    	return new ModelAndView(rw);
 		    }
 		}
 	}
 	
+	/**
+	 * This method is user ONLY when the normal logonDashboard is required to redirect to another Tomcat Server (same IP but different port)
+	 * Toten being the trigger company of this functionality (to allow for automatic logon into a subsidiary firm.
+	 * 
+	 * @param appUser
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="logonWRedDashboard.do", method= { RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView logonRedirected(RedirectAttributes redirectAttrs, Model modelX, @ModelAttribute (AppConstants.SYSTEMA_WEB_USER_KEY) SystemaWebUser appUser, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		ModelAndView successView = new ModelAndView("dashboard");
+		Map model = new HashMap();
+		
+		if(appUser==null){
+			return this.loginView;
+		
+		}else{
+			//TEST from {catalina.home}..context.xml => logger.info(request.getServletContext().getInitParameter("xxx"));
+			//TEST from {catalina.home}..application.properties => logger.info(ApplicationPropertiesUtil.getProperty("http.as400.root.cgi"));
+			//UserValidator validator = new UserValidator();
+			SystemaWebUser appUserX = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+			//logger.info("%%%%%%%%%%%:" + appUserX.getUser());
+			//logger.info("%%%%%%%%%%%:" + appUserX.getPassword());
+			appUser.setUser(appUserX.getUser());
+			appUser.setPassword(appUserX.getPassword());
+			
+			//appUser.setUser((String)modelX.asMap().get("user"));
+			//appUser.setPassword((String)modelX.asMap().get("password"));
+			
+		    //validator.validate(appUser, bindingResult);
+		    /*if(bindingResult.hasErrors()){
+			    	logger.info("[ERROR Fatal] User not valid (user/password ?)");
+			    	//
+			    	SystemaWebUser userForCssPurposes = new SystemaWebUser();
+			    	userForCssPurposes.setCssEspedsg(AppConstants.CSS_ESPEDSG);
+					model.put(AppConstants.SYSTEMA_WEB_USER_KEY, userForCssPurposes);
+					this.loginView.addObject("model",model);
+					
+			    	//this.loginView.addObject("model", null);
+			    	return loginView;
+	
+		    }else{
+		    	*/
+		    	//---------------------------
+				//get BASE URL = RPG-PROGRAM
+	            //---------------------------
+				String BASE_URL = MainUrlDataStore.SYSTEMA_WEB_LOGIN_URL;
+				
+				//url params
+				String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser, null);
+				
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			    	logger.info("URL: " + BASE_URL);
+			    	//don't show the pwd
+			    	//int pwd = urlRequestParamsKeys.indexOf("&pwd");
+			    	//String credentailsPwd = urlRequestParamsKeys.substring(pwd + 5);
+			    	//logger.info("URL PARAMS: " + urlRequestParamsKeys.substring(0,pwd)+"&md5");
+			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+			    	
+			    	//--------------------------------------
+			    	//EXECUTE the FETCH (RPG program) here
+			    	//--------------------------------------
+			    	try{
+				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				    	//Debug --> 
+				    	//System.out.println(jsonPayload);
+				    	logger.info(jsonPayload);
+				    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp " + new StringBuilder(credentailsPwd).reverse().toString() + "carebum");
+				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp ");
+				    	if(jsonPayload!=null){ 
+				    		JsonSystemaUserContainer jsonSystemaUserContainer = this.systemaWebLoginService.getSystemaUserContainer(jsonPayload);
+				    		//check for errors
+				    		if(jsonSystemaUserContainer!=null){
+				    			if(jsonSystemaUserContainer.getErrMsg()!=null && !"".equals(jsonSystemaUserContainer.getErrMsg())){
+				    				logger.info("[ERROR Fatal] User not valid (user/password) Check your credentials...");
+				    				this.setFatalAS400LoginError(model, jsonSystemaUserContainer.getErrMsg());
+				    				this.loginView.addObject("model", model);
+				    				return this.loginView;
+				    			}else{
+				    				this.setDashboardMenuObjectsInSession(session, jsonSystemaUserContainer);
+				    				//hand-over to appUser from JsonUser
+				    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer, null);
+				    				
+				    			}
+				    		}
+				    	}else{
+				    		String msg = "NO CONTENT on jsonPayload";
+				    		logger.info("[ERROR Fatal] " + msg);
+				    		this.setFatalAS400LoginError(model, msg);
+	    					this.loginView.addObject("model", model);
+						
+	    					return loginView;
+				    	}
+				    	session.setAttribute(AppConstants.SYSTEMA_WEB_USER_KEY, appUser);
+			    	}catch(Exception e){
+			    		String msg = "NO CONNECTION:" + e.toString();
+			    		logger.info("[ERROR Fatal] NO CONNECTION ");
+			    		this.setFatalAS400LoginError(model, msg);
+    					this.loginView.addObject("model", model);
+					
+					return loginView;
+			    		
+			    	}
+			    
+			    	return successView;
+		    //}
+		}
+	}
 	/**
 	 * This method must be used as long as we use AS400 login service
 	 * When migrating to JAVA services the method and procedure will be obsolete...
@@ -195,6 +334,7 @@ public class DashboardController {
     		companyCode = record.getFifirm();
     	}
     	logger.info(companyCode);
+	
     	return companyCode;
 	}
 	/**
@@ -217,6 +357,8 @@ public class DashboardController {
 		//customer values
 		appUser.setCustNr(jsonSystemaUserContainer.getCustNr());
 		appUser.setCustName(jsonSystemaUserContainer.getCustName());
+		//tomcat specific port
+		appUser.setTomcatPort(jsonSystemaUserContainer.getTcPort());
 		
 		//logo and banner
 		appUser.setLogo(jsonSystemaUserContainer.getLogo());
@@ -225,14 +367,15 @@ public class DashboardController {
 		appUser.setSignatur(jsonSystemaUserContainer.getSignatur());
 		appUser.setFiland(jsonSystemaUserContainer.getFiland());
 		
-		/*logger.info("[INFO] user logo:" + appUser.getLogo() );
+		/* DEBUG
+		logger.info("[INFO] user logo:" + appUser.getLogo() );
 		logger.info("[INFO] user banner:" + appUser.getBanner() );
 		logger.info("[INFO] user sign:" + appUser.getTdsSign() );
 		logger.info("[INFO] user Systema logo:" + appUser.getSystemaLogo() );
-		
 		//end user - login url
 		logger.info("[INFO] servlet host (on Login):" + appUser.getServletHost() );
 		*/
+		
 		//User extensions
 		if(jsonSystemaUserContainer.getArkivKodOpdList()!=null){
 			appUser.setArkivKodOpdList(jsonSystemaUserContainer.getArkivKodOpdList());

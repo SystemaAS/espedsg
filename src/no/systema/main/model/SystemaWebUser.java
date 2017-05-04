@@ -104,6 +104,10 @@ public class SystemaWebUser {
 	public void setCssEspedsgMaintenance(String value) {  this.cssEspedsgMaintenance = value; }
 	public String getCssEspedsgMaintenance() { return this.cssEspedsgMaintenance;}
 	
+	private String tomcatPort = null; 
+	public void setTomcatPort(String value) {  this.tomcatPort = value; }
+	public String getTomcatPort() { return this.tomcatPort;}
+	
 	
 	//---------------------------------------------
 	//Return parameters after valid login in AS400

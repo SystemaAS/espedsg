@@ -26,7 +26,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
  		 Exception at bootstrap (WAR)-->
 	<mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> 
 	<mvc:annotation-driven />
-
+	
     <!-- This class provides an application-wide access to the Spring ApplicationContext --> 
     <bean id="contextApplicationContextProvider" class="no.systema.main.context.TdsApplicationContextProvider"></bean>  
     <!-- This class provides an application-wide access to the ServletContext --> 

@@ -68,6 +68,11 @@ public class JsonSystemaUserContainer {
 	public void setFiland(String value) {  this.filand = value; }
 	public String getFiland() { return this.filand;}
 	
+	private String tcPort = null;
+	public void setTcPort(String value) {  this.tcPort = value; }
+	public String getTcPort() { return this.tcPort;}
+	
+	
 	private Collection<JsonSystemaUserRecord> menuList;
 	public void setMenuList(Collection<JsonSystemaUserRecord> value){ this.menuList = value; }
 	public Collection<JsonSystemaUserRecord> getMenuList(){ return menuList; }
