@@ -154,6 +154,8 @@ public class MainMaintenanceCundfVkundController {
 				kundeSessionParams.setFirma(firma);
 				kundeSessionParams.setSonavn(recordToValidate.getSonavn());
 
+				setInstalledModules(kundeSessionParams);
+				
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				
@@ -185,6 +187,45 @@ public class MainMaintenanceCundfVkundController {
 		}
 
 	}
+
+	private void setInstalledModules(KundeSessionParams kundeSessionParams) {
+		kundeSessionParams.setExportNo(true);
+		kundeSessionParams.setImportNo(true);
+		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
+		
+		//Test
+//		kundeSessionParams.setExportDk(true);
+//		kundeSessionParams.setImportDk(true);
+//		kundeSessionParams.setImportSv(true);
+		
+		//TODO fill in more
+	}
+
+
+	private int getFantomSpaceWidth(KundeSessionParams kundeSessionParams) {
+		int spaceTotal = 1090;
+		if (kundeSessionParams.isExportNo()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportNo()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isExportDk()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportDk()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isExportSv()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportSv()) {
+			spaceTotal = spaceTotal - 100;
+		}
+
+		return spaceTotal;
+	}
+
 
 	/**
 	 * This method serve as data populater for all child windows for Kunderegister - VKUND.

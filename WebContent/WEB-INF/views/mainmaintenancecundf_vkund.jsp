@@ -89,7 +89,9 @@
 				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.landcode"/></th>
 				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.customs"/></th>
 				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.firm"/></th>
+<!--  
 				                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
+-->				                    
 				                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -110,11 +112,13 @@
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.syland}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.syfr02}&nbsp;${record.sykont}&nbsp;</td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.firma}&nbsp;</td>
+<!--  
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne og all tilhørende informasjon?')" tabindex=-1 href="mainmaintenancecundf_vkund_edit.do?action=doDelete&kundnr=${record.kundnr}&firma=${record.firma}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
+-->
 				            </tr> 
 				            </c:forEach>
 				            </tbody>

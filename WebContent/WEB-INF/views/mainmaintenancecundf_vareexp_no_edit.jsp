@@ -189,47 +189,58 @@
 					  <tr height="20"> 
 							<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;
-										<spring:message code="systema.main.maintenance.customer.vareregister.exp.no"/>
-									</font>&nbsp;						
-							</td>
-							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintVareImpNoGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_no.do">
-									<font class="tabDisabledLinkMinor">&nbsp;
-									   <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
+									   <spring:message code="systema.main.maintenance.customer.vareregister.exp.no"/>
 									</font>
-								</a>
 							</td>
-							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-							<!--  	<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_dk_edit.do"> -->
-									<font class="tabDisabledLinkMinor">&nbsp;
-										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.dk"/>
-									</font>&nbsp;						
-							<!--  	</a> -->
-							</td>
-							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_dk_edit.do">  -->
-									<font class="tabDisabledLinkMinor">&nbsp;
-										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.dk"/>
-									</font>&nbsp;						
-							<!--  	</a> -->
-							</td>							
-							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-							<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">  -->
-									<font class="tabDisabledLinkMinor">&nbsp;
-										 <spring:message code="systema.main.maintenance.customer.vareregister.imp.se"/>
-									</font>&nbsp;						
-							<!--  	</a> -->
-							</td>
-							<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-							<!--  	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se_edit.do"> -->
-									<font class="tabDisabledLinkMinor">&nbsp;
-										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
-									</font>&nbsp;						
-							<!-- 	</a>  -->
-							</td>		
+	
+							<c:if test="${kundeSessionParams.importNo == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+									<a id="alinkMainMaintVareImpNoGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_no.do">
+											<font class="tabDisabledLinkMinor">&nbsp;
+												  <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
+											</font>&nbsp;						
+									</a>
+								</td>
+							</c:if>
+							<c:if test="${kundeSessionParams.exportDk == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_dk_edit.do">  -->
+										<font class="tabDisabledLinkMinor">&nbsp;
+											 <spring:message code="systema.main.maintenance.customer.vareregister.exp.dk"/>
+										</font>&nbsp;						
+								<!--  	</a> -->
+								</td>							
+							</c:if>
+							<c:if test="${kundeSessionParams.importDk == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<!--  	<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_dk_edit.do"> -->
+										<font class="tabDisabledLinkMinor">&nbsp;
+											 <spring:message code="systema.main.maintenance.customer.vareregister.imp.dk"/>
+										</font>&nbsp;						
+								<!--  	</a> -->
+								</td>
+							</c:if>
+							<c:if test="${kundeSessionParams.exportSv == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<!--  	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se_edit.do"> -->
+										<font class="tabDisabledLinkMinor">&nbsp;
+											 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
+										</font>&nbsp;						
+								<!-- 	</a>  -->
+								</td>		
+							</c:if>
+							<c:if test="${kundeSessionParams.importSv == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+								<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">  -->
+										<font class="tabDisabledLinkMinor">&nbsp;
+											 <spring:message code="systema.main.maintenance.customer.vareregister.imp.se"/>
+										</font>&nbsp;						
+								<!--  	</a> -->
+								</td>
+							</c:if>
 							
-						 	<td width="490" class="tabFantomSpace" align="center" nowrap></td>
-
+							<td width="${kundeSessionParams.fantomSpaceWidth}" class="tabFantomSpace" align="center" nowrap></td>
+						 	
 						</tr>
 					</table>
 				</td>
