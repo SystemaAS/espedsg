@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_vareimp_no_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/mainmaintenancecundf_vareexp_no_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -258,41 +258,46 @@
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Endre&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Varenr.&nbsp;</th>
 			                    <th class="tableHeaderField" >&nbsp;Beskrivelse&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;VF&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;LK&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;R31&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;L/F&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Tariffnr.&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Tn&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Pref.&nbsp;</th>
+								<th class="tableHeaderField" >&nbsp;Vekt&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;PVA&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;Tollsats&nbsp;</th>
 								<th class="tableHeaderField" >&nbsp;MF&nbsp;</th>
-			                    <th align="center" class="tableHeaderField">Slett</th>
+								<th class="tableHeaderField" >&nbsp;Avgift&nbsp;</th>
+								<th align="center" class="tableHeaderField">Slett</th>
 			                </tr>  
 				             </thead> 
 				             <tbody >  
 					            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 					               <tr class="tableRow" height="20" >
-						               <td id="recordUpdate_${record.varenr}_${record.levenr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+						               <td id="recordUpdate_${record.slalfa}_${record.slknr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 				               				<img src="resources/images/update.gif" border="0" alt="edit">
 						               </td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.varenr}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.varebe}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2vf}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2lk}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2vnti}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2tn}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2pre}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2pva}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2as}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2mfr}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.slalfa}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sltxt}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.r31}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sloppl}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sltanr}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.sltn}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.pref}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.slvekt}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.slpva}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.slsats}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.mf}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.slkdae}&nbsp;${record.slkdse}</font></td>
 						               
 						               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-				               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadmaintenanceimport_sad001ar_edit.do?action=doDelete&id=${model.dbTable}&varenr=${record.varenr}&levenr=${record.levenr}">
+				               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancecundf_vareexp_no_edit.do?action=doDelete&id=${model.dbTable}&slalfa=${record.slalfa}&slknr=${record.slknr}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 							               	</a>
 						               </td>
-					               </tr> 
+								</tr> 
 					            </c:forEach>
+				            				            
 					          </tbody>
 				            </table>
  	   	 		 		</td>
@@ -303,10 +308,10 @@
 						<td>&nbsp;</td>
 					</tr>
 
-<!-- 
+ 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
-							<form action="mainmaintenancecundf_vareimp_no_edit.do" name="formRecord" id="formRecord" method="POST" >
+							<form action="mainmaintenancecundf_vareexp_no_edit.do" name="formRecord" id="formRecord" method="POST" >
 								<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
 								<input type="hidden" name="action" id=action value="doUpdate">
@@ -359,91 +364,149 @@
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
-														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.param"/>
+														Artikelinfo
 													</td>
 												</tr>
 											</table>			
-
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
 													<td width="50%" >
-														<table>
+														<table border="0">
 															<tr>
-																<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaid"/>:&nbsp;&nbsp;&nbsp;
+																<td class="text12" title="slalfa">&nbsp;
+																	<font class="text14RedBold" >*</font>Varenr:
 																</td>
-																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${model.record.sypaid}'></td>
-																<td class="text12" title="sypaid">
-																	<a tabindex="-1" id="sypaidIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
+																<td><input type="text"required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="slalfa" id="slalfa" size="30" maxlength="28" value='${model.record.slalfa}'></td>
+																<td class="text12" title="sltxt">&nbsp;
+																	<font class="text14RedBold" >*</font>Beskrivelse:
 																</td>
-																
-																<td class="text12" title="sypaidDesc">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
-																<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="50" maxlength="50" value='${model.record.sypaidDesc}'></td>
-																
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sltxt" id="sltxt" size="20" maxlength="20" value='${model.record.sltxt}'></td>
 															</tr>
-
 															<tr>
-																<td class="text12" title="sysort">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>:
+																<td class="text12" title="r31">&nbsp;
+																	R31:
 																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${model.record.sysort}'>
+																<td>
+												            		<select name="r31" id="r31">
+												 						<option value="">-velg-</option>
+												 						<!--  
+													 				  	<c:forEach var="r31" items="${model.r31List}" >
+													 				  		<option value="${r31}"<c:if test="${model.record.r31 == r31}"> selected </c:if> >${r31}</option>
+																		</c:forEach>  
+																		-->
+																	</select>														
+																
 																</td>
+																<td class="text12" title="sloppl">&nbsp;
+																	<font class="text14RedBold" >*</font>L/F:
+																</td>
+																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
 															</tr>
-
+															<tr>
+																<td class="text12" title="sltanr">&nbsp;
+																	<font class="text14RedBold" >*</font>Tariffnr:
+																</td>
+																<td>
+																	<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="10" maxlength="8" value='${model.record.sltanr}'>
+																</td>
+																<td class="text12" title="sltn">&nbsp;
+																	Tn:
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="sltn" id="sltn" size="10" maxlength="7" value='${model.record.sltn}'></td>
+					
+															</tr>
+															<tr>
+																<td class="text12" title="SLTO">&nbsp;
+																	Till.Opplysn.:
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="slto" id="slto" size="30" maxlength="45" value='${model.record.slto}'></td>
+																<td class="text12" title="SLCREF">&nbsp;
+																	Ref.:
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="slcref" id="slcref" size="4" maxlength="3" value='${model.record.slcref}'></td>
+															</tr>
 														</table>
 													</td>
 													<td width="50%" valign="top">
-														<table>
+														<table border="0">
 															<tr>
-																<td colspan="2" class="text12" title="syvrdn">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:
+																<td class="text12" title="pref">
+																	Pref:
 																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="20" maxlength="15" value='${model.record.syvrdn}'>
+																<td>
+																	<select name="pref" id="pref">
+												 						<option value="">-velg-</option>
+													 				  	<c:forEach var="kalle" items="${model.kalle}" >
+													 				  		<option value="${kalle.ks6pre}"<c:if test="${model.record.pref == kalle.ks6pre}"> selected </c:if> >${kalle.ks6pre}</option>
+																		</c:forEach>  
+																	</select>						
 																</td>
+																<td class="text12" title="slvekt">&nbsp;
+																	Vekt:
+																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="slvekt" id="slvekt" size="15" maxlength="12" value='${model.record.slvekt}'>
+																</td>
+															</tr>
 															<tr>
-																<td colspan="2" class="text12" title="syvrda">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrda"/>:
+																<td class="text12" title="slpva">
+																	PVA:
 																</td>
-																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="60" maxlength="50" value='${model.record.syvrda}'>
+																<td><input type="text" class="inputTextMediumBlue" name="slpva" id="slpva" size="2" maxlength="1" value='${model.record.slpva}'></td>
+																<td class="text12" title="slsats">&nbsp;
+																	Tollsats:
 																</td>
+																<td><input type="text" class="inputTextMediumBlue" name="slsats" id="slsats" size="8" maxlength="7" value='${model.record.slsats}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="mf">
+																	MF:
+																</td>
+																<td>
+																	<select name="mf" id="mf">
+												 						<option value="">-velg-</option>
+													 				  	<c:forEach var="mf" items="${model.mfList}" >
+													 				  		<option value="${mf}"<c:if test="${model.record.mf == mf}"> selected </c:if> >${mf}</option>
+																		</c:forEach>  
+																	</select>
+																</td>
+																<td class="text12" title="slkdae/slkdse:">&nbsp;
+																	Avgift(kode/sekv):
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="slkdae" id="slkdae" size="3" maxlength="2" value='${model.record.slkdae}'>
+																	<input type="text" class="inputTextMediumBlue" name="slkdse" id="slkdse" size="4" maxlength="3" value='${model.record.slkdse}'>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="4">&nbsp;</td>
 															</tr>
 														</table>
 													</td>
 												</tr>
 											</table>
-										</td>
-									</tr>
-
-									<tr><td>&nbsp;</td></tr>
-									<tr> 
-										<td align="right">
-											<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
-										</td>
-									</tr>
-								</table>
+ 			   	 		 		</table>
 			 	    		</form>
  	   	 		 		</td>
  	   	 		 	</tr>
- 	
-  -->	   	 		 
- 	   	 		 </table>
- 	   	 		
- 	   	 		</td>
  
- 	   	 		<td width="30">
- 	   	 			&nbsp;
- 	   	 		</td>
- 	   	 		
- 	   	 	</tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr> 
+						<td align="right">
+							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
+						</td>
+					</tr>
  
-	 	    <tr height="20"><td>&nbsp;</td></tr>	
-	 	    
 	 		</table>
 		</td>
+		
+ 		<td width="30">
+	 		&nbsp;
+	 	</td>		
+		
 	</tr>
+	
+	<tr height="20"><td>&nbsp;</td></tr>		
+	
 </table>	
 
 <!-- ======================= footer ===========================-->

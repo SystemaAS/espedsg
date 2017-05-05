@@ -367,7 +367,7 @@
 													<td width="50%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="varenr">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varenr"/>:</td>
+																<td class="text12" title="varenr">&nbsp;<font class="text14RedBold" >*</font><spring:message code="systema.main.maintenance.mainmaintenancesadvare.varenr"/>:</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="varenr" id="varenr" size="30" maxlength="28" value='${model.record.varenr}'></td>
 																<td class="text12" title="w2vf">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vf"/>:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2vf" id="w2vf" size="1" maxlength="1" value='${model.record.w2vf}'>
@@ -378,7 +378,7 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="varebe">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varebe"/>:</td>
+																<td class="text12" title="varebe">&nbsp;<font class="text14RedBold" >*</font><spring:message code="systema.main.maintenance.mainmaintenancesadvare.varebe"/>:</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="varebe" id="varebe" size="40" maxlength="50" value='${model.record.varebe}'></td>
 															
 																<td class="text12" title="w2lk">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2lk"/>:</td>
