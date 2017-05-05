@@ -161,7 +161,6 @@ public class DashboardController {
 				    				this.setDashboardMenuObjectsInSession(session, jsonSystemaUserContainer);
 				    				//hand-over to appUser from JsonUser
 				    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer, companyCode);
-				    				
 				    			}
 				    		}
 				    	}else{
@@ -179,28 +178,23 @@ public class DashboardController {
 			    		this.setFatalAS400LoginError(model, msg);
     					this.loginView.addObject("model", model);
 					
-					return loginView;
+    					return loginView;
 			    		
 			    	}
 			    	
-			    	
-			    	//successView = new ModelAndView("redirect:http://localhost:8080/espedsg/logonWRedDashboard.do");
-			    	//request.setAttribute("user", "oscar");
-			    	//request.setAttribute("password", "demo");
-			    	//successView.addObject("user", "oscar");
-			    	//successView.addObject("password", "demo");
-			    	//rw.setUrl("http://localhost:8080/espedsg/logonWRedDashboard.do?user=oscar&password=demo");
-			    	RedirectView rw = new RedirectView();
-			    	rw.setUrl("http://localhost:8080/espedsg/logonWRedDashboard.do");
-			    	
-			    	//redirectAttr.addAttribute("user", "oscar");
-			    	//redirectAttr.addAttribute("password", "demo");
-			    	//?user=oscar&password=demo
-			    	//rw.setExposeModelAttributes(false);
-			    	//rw.setAttributes("user","oscar","");
-			    	//return successView;
-			    	
-			    	return new ModelAndView(rw);
+			    	//------------------------------------------------------------------------------------------------------
+			    	//If this tomcat port exists then the user will be redirect to the correct subsidiary-company tomcat.
+			    	//Note: To allow for a correct Company Tomcat from a Holding Company Web Portal.
+			    	//TOTEN AS triggered this requirement
+			    	//------------------------------------------------------------------------------------------------------
+			    	if(appUser.getTomcatPort()!=null && !"".equals(appUser.getTomcatPort())){
+				    	String urlRedirectTomcatToSubsidiaryCompany = this.getTomcatServerRedirectionUrl(appUser);
+				    	RedirectView rw = new RedirectView();
+				    	logger.info("Redirecting to:" + urlRedirectTomcatToSubsidiaryCompany);
+				    	rw.setUrl(urlRedirectTomcatToSubsidiaryCompany);
+				    	successView = new ModelAndView(rw);
+			    	}
+			    	return successView;
 		    }
 		}
 	}
@@ -225,94 +219,93 @@ public class DashboardController {
 			return this.loginView;
 		
 		}else{
-			//TEST from {catalina.home}..context.xml => logger.info(request.getServletContext().getInitParameter("xxx"));
-			//TEST from {catalina.home}..application.properties => logger.info(ApplicationPropertiesUtil.getProperty("http.as400.root.cgi"));
-			//UserValidator validator = new UserValidator();
 			SystemaWebUser appUserX = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+			//must be done through the session in order to hide pwd through URI via redirect...
 			appUser.setUser(appUserX.getUser());
 			appUser.setPassword(appUserX.getPassword());
 			
-			//appUser.setUser((String)modelX.asMap().get("user"));
-			//appUser.setPassword((String)modelX.asMap().get("password"));
+	    	//---------------------------
+			//get BASE URL = RPG-PROGRAM
+	        //---------------------------
+			String BASE_URL = MainUrlDataStore.SYSTEMA_WEB_LOGIN_URL;
 			
-		    //validator.validate(appUser, bindingResult);
-		    /*if(bindingResult.hasErrors()){
-			    	logger.info("[ERROR Fatal] User not valid (user/password ?)");
-			    	//
-			    	SystemaWebUser userForCssPurposes = new SystemaWebUser();
-			    	userForCssPurposes.setCssEspedsg(AppConstants.CSS_ESPEDSG);
-					model.put(AppConstants.SYSTEMA_WEB_USER_KEY, userForCssPurposes);
-					this.loginView.addObject("model",model);
-					
-			    	//this.loginView.addObject("model", null);
-			    	return loginView;
-	
-		    }else{
-		    	*/
-		    	//---------------------------
-				//get BASE URL = RPG-PROGRAM
-	            //---------------------------
-				String BASE_URL = MainUrlDataStore.SYSTEMA_WEB_LOGIN_URL;
-				
-				//url params
-				String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser, null);
-				
-				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			    	logger.info("URL: " + BASE_URL);
-			    	//don't show the pwd
-			    	//int pwd = urlRequestParamsKeys.indexOf("&pwd");
-			    	//String credentailsPwd = urlRequestParamsKeys.substring(pwd + 5);
-			    	//logger.info("URL PARAMS: " + urlRequestParamsKeys.substring(0,pwd)+"&md5");
-			    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-			    	
-			    	//--------------------------------------
-			    	//EXECUTE the FETCH (RPG program) here
-			    	//--------------------------------------
-			    	try{
-				    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				    	//Debug --> 
-				    	//System.out.println(jsonPayload);
-				    	logger.info(jsonPayload);
-				    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp " + new StringBuilder(credentailsPwd).reverse().toString() + "carebum");
-				    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp ");
-				    	if(jsonPayload!=null){ 
-				    		JsonSystemaUserContainer jsonSystemaUserContainer = this.systemaWebLoginService.getSystemaUserContainer(jsonPayload);
-				    		//check for errors
-				    		if(jsonSystemaUserContainer!=null){
-				    			if(jsonSystemaUserContainer.getErrMsg()!=null && !"".equals(jsonSystemaUserContainer.getErrMsg())){
-				    				logger.info("[ERROR Fatal] User not valid (user/password) Check your credentials...");
-				    				this.setFatalAS400LoginError(model, jsonSystemaUserContainer.getErrMsg());
-				    				this.loginView.addObject("model", model);
-				    				return this.loginView;
-				    			}else{
-				    				this.setDashboardMenuObjectsInSession(session, jsonSystemaUserContainer);
-				    				//hand-over to appUser from JsonUser
-				    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer, null);
-				    				
-				    			}
-				    		}
-				    	}else{
-				    		String msg = "NO CONTENT on jsonPayload";
-				    		logger.info("[ERROR Fatal] " + msg);
-				    		this.setFatalAS400LoginError(model, msg);
-	    					this.loginView.addObject("model", model);
-						
-	    					return loginView;
-				    	}
-				    	session.setAttribute(AppConstants.SYSTEMA_WEB_USER_KEY, appUser);
-			    	}catch(Exception e){
-			    		String msg = "NO CONNECTION:" + e.toString();
-			    		logger.info("[ERROR Fatal] NO CONNECTION ");
+			//url params
+			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser, null);
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	//don't show the pwd - not in use right now 
+		    	//int pwd = urlRequestParamsKeys.indexOf("&pwd");
+		    	//String credentailsPwd = urlRequestParamsKeys.substring(pwd + 5);
+		    	//logger.info("URL PARAMS: " + urlRequestParamsKeys.substring(0,pwd)+"&md5");
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	
+		    	//--------------------------------------
+		    	//EXECUTE the FETCH (RPG program) here
+		    	//--------------------------------------
+		    	try{
+			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			    	//Debug --> 
+			    	//System.out.println(jsonPayload);
+			    	logger.info(jsonPayload);
+			    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp " + new StringBuilder(credentailsPwd).reverse().toString() + "carebum");
+			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp ");
+			    	if(jsonPayload!=null){ 
+			    		JsonSystemaUserContainer jsonSystemaUserContainer = this.systemaWebLoginService.getSystemaUserContainer(jsonPayload);
+			    		//check for errors
+			    		if(jsonSystemaUserContainer!=null){
+			    			if(jsonSystemaUserContainer.getErrMsg()!=null && !"".equals(jsonSystemaUserContainer.getErrMsg())){
+			    				logger.info("[ERROR Fatal] User not valid (user/password) Check your credentials...");
+			    				this.setFatalAS400LoginError(model, jsonSystemaUserContainer.getErrMsg());
+			    				this.loginView.addObject("model", model);
+			    				return this.loginView;
+			    			}else{
+			    				this.setDashboardMenuObjectsInSession(session, jsonSystemaUserContainer);
+			    				//hand-over to appUser from JsonUser
+			    				this.doHandOverToSystemaWebUser(request, appUser, jsonSystemaUserContainer, null);
+			    			}
+			    		}
+			    	}else{
+			    		String msg = "NO CONTENT on jsonPayload";
+			    		logger.info("[ERROR Fatal] " + msg);
 			    		this.setFatalAS400LoginError(model, msg);
-    					this.loginView.addObject("model", model);
+						this.loginView.addObject("model", model);
 					
-					return loginView;
-			    		
+						return loginView;
 			    	}
-			    
-			    	return successView;
-		    //}
+			    	session.setAttribute(AppConstants.SYSTEMA_WEB_USER_KEY, appUser);
+		    	}catch(Exception e){
+		    		String msg = "NO CONNECTION:" + e.toString();
+		    		logger.info("[ERROR Fatal] NO CONNECTION ");
+		    		this.setFatalAS400LoginError(model, msg);
+					this.loginView.addObject("model", model);
+				
+				return loginView;
+		    		
+		    	}
+		    
+		    	return successView;
+			   
+			}
+	}
+	
+	/**
+	 * Gets the java services host name from application.properties.
+	 * Needed in order to use the host name WITHOUT the port number.
+	 * 
+	 * @return
+	 */
+	private String getTomcatServerRedirectionUrl(SystemaWebUser appUser){
+		String retval = null;
+		
+		String javaServices = AppConstants.HTTP_ROOT_SERVLET_JSERVICES;
+		String host = javaServices.replace("http://", "");
+		int separator = host.indexOf(":");
+		if(separator>=0){
+			host = host.substring(0, separator);
+			retval = "http://" + host + ":" + appUser.getTomcatPort() + "/espedsg/logonWRedDashboard.do";
 		}
+		return retval;
 	}
 	/**
 	 * This method must be used as long as we use AS400 login service
