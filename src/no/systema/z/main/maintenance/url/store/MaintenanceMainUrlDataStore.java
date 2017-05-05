@@ -28,6 +28,8 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SYFA68R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFA68R.do";
 	//ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFIRMR.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYFIRMR.do";
+	//ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFIRMR.do?user=OSCAR
+	static public String MAINTENANCE_MAIN_BASE_SYFIRMONLY_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFIRMONLY.do";
 	//ALL --> http://gw.systema.no:8080/syjservicesbcore/syjsSYKS01R.do?user=OSCAR (drop down on cost(kostt) for firmaopplysningar)
 	static public String MAINTENANCE_MAIN_BASE_SYKS01R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYKS01R.do";
 		

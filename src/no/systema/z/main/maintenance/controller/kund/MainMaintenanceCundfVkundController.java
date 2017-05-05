@@ -7,10 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import no.systema.jservices.common.dao.FirmDao;
 import no.systema.jservices.common.dao.KodtftDao;
 import no.systema.jservices.common.dao.KodtlkDao;
 import no.systema.jservices.common.dao.KodtotyDao;
@@ -49,7 +47,6 @@ import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.Js
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.MaintSadImportKodtlikService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStore;
 import no.systema.z.main.maintenance.controller.ChildWindowKode;
-import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
@@ -67,7 +64,6 @@ import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.service.MaintMainValufService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-
 /**
  * Gateway for Kunderegister
  * 
@@ -84,14 +80,12 @@ import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
  * 
  * 	
  */
-
 @Controller
 public class MainMaintenanceCundfVkundController {
 	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVkundController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private boolean KOFAST_NO_ID = true; 
-	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
 	@RequestMapping(value="mainmaintenancecundf_vkund.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vkund(HttpSession session, HttpServletRequest request){
@@ -114,12 +108,12 @@ public class MainMaintenanceCundfVkundController {
 			}else if( (knavn!=null && !"".equals(knavn)) ){
 				list = this.fetchList(appUser.getUser(), null, null, knavn);
 			}
-			//set domain objets
-	    	model.put("dbTable", dbTable);
+
+			model.put("dbTable", dbTable);
 	    	model.put("knavn", knavn);
 	    	model.put("kundnr", kundnr);
-	    	
 			model.put("list", list);
+
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 
 			return successView;
@@ -154,7 +148,7 @@ public class MainMaintenanceCundfVkundController {
 				kundeSessionParams.setFirma(firma);
 				kundeSessionParams.setSonavn(recordToValidate.getSonavn());
 
-				setInstalledModules(kundeSessionParams);
+				setInstalledModules(kundeSessionParams, appUser.getUser());
 				
 				JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -188,17 +182,46 @@ public class MainMaintenanceCundfVkundController {
 
 	}
 
-	private void setInstalledModules(KundeSessionParams kundeSessionParams) {
-		kundeSessionParams.setExportNo(true);
-		kundeSessionParams.setImportNo(true);
+	private void setInstalledModules(KundeSessionParams kundeSessionParams, String appUser) { //Used for views in Vareregister
+		FirmDao firmDao = getFirmDao(appUser);
+		if ("J".equals(firmDao.getFiurse())) {
+			kundeSessionParams.setExportNo(true);
+		}
+		if ("J".equals(firmDao.getFiursi())) {
+			kundeSessionParams.setImportNo(true);
+		}
+
 		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
 		
-		//Test
+		//TODO when available in table FIRM
 //		kundeSessionParams.setExportDk(true);
 //		kundeSessionParams.setImportDk(true);
 //		kundeSessionParams.setImportSv(true);
-		
-		//TODO fill in more
+//		kundeSessionParams.setExportSv(true);
+	}
+
+	private FirmDao getFirmDao(String appUser) {
+		JsonReader<JsonDtoContainer<FirmDao>> jsonReader = new JsonReader<JsonDtoContainer<FirmDao>>();
+		jsonReader.set(new JsonDtoContainer<FirmDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMONLY_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser);
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		FirmDao firmDao = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<FirmDao> container = (JsonDtoContainer<FirmDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					if (container.getDtoList().size() > 0) {
+						firmDao = container.getDtoList().get(0);
+					}
+				}
+		}
+		return firmDao;
 	}
 
 
