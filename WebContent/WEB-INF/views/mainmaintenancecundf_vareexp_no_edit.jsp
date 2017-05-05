@@ -373,12 +373,12 @@
 													<td width="50%" >
 														<table border="0">
 															<tr>
-																<td class="text12" title="slalfa">&nbsp;
-																	<font class="text14RedBold" >*</font>Varenr:
+																<td class="text12" title="slalfa">
+																	<font class="text14RedBold" >*</font>&nbsp;Varenr:
 																</td>
 																<td><input type="text"required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="slalfa" id="slalfa" size="30" maxlength="28" value='${model.record.slalfa}'></td>
-																<td class="text12" title="sltxt">&nbsp;
-																	<font class="text14RedBold" >*</font>Beskrivelse:
+																<td class="text12" title="sltxt">
+																	<font class="text14RedBold" >*</font>&nbsp;Beskrivelse:
 																</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sltxt" id="sltxt" size="20" maxlength="20" value='${model.record.sltxt}'></td>
 															</tr>
@@ -389,22 +389,20 @@
 																<td>
 												            		<select name="r31" id="r31">
 												 						<option value="">-velg-</option>
-												 						<!--  
 													 				  	<c:forEach var="r31" items="${model.r31List}" >
 													 				  		<option value="${r31}"<c:if test="${model.record.r31 == r31}"> selected </c:if> >${r31}</option>
 																		</c:forEach>  
-																		-->
 																	</select>														
 																
 																</td>
-																<td class="text12" title="sloppl">&nbsp;
-																	<font class="text14RedBold" >*</font>L/F:
+																<td class="text12" title="sloppl">
+																	<font class="text14RedBold" >*</font>&nbsp;L/F:
 																</td>
 																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sloppl" id="sloppl" size="3" maxlength="2" value='${model.record.sloppl}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="sltanr">&nbsp;
-																	<font class="text14RedBold" >*</font>Tariffnr:
+																<td class="text12" title="sltanr">
+																	<font class="text14RedBold" >*</font>&nbsp;Tariffnr:
 																</td>
 																<td>
 																	<input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sltanr" id="sltanr" size="10" maxlength="8" value='${model.record.sltanr}'>
