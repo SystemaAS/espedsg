@@ -16,10 +16,19 @@ public class GeneralTester {
 	 */
 	public static void main(String[] args) {
 		try{
-			StringManager mgr = new StringManager();
+			/*StringManager mgr = new StringManager();
 			String str = "888,89";
 			String s = mgr.trailingStringWithNumericFiller(mgr.removeChar(str, ","), 7, "0");
-			System.out.println(mgr.removeChar(s, ","));
+			System.out.println(mgr.removeChar(s, ","));*/
+			
+			String tmp = "http://localhost:8080";
+			String x = tmp.replace("http://", "");
+			int i = x.indexOf(":");
+			x = x.substring(0, i);
+			
+			System.out.println(x);
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
