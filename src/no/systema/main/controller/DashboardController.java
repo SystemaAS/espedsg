@@ -229,8 +229,6 @@ public class DashboardController {
 			//TEST from {catalina.home}..application.properties => logger.info(ApplicationPropertiesUtil.getProperty("http.as400.root.cgi"));
 			//UserValidator validator = new UserValidator();
 			SystemaWebUser appUserX = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-			//logger.info("%%%%%%%%%%%:" + appUserX.getUser());
-			//logger.info("%%%%%%%%%%%:" + appUserX.getPassword());
 			appUser.setUser(appUserX.getUser());
 			appUser.setPassword(appUserX.getPassword());
 			

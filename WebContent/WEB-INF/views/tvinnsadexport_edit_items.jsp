@@ -882,15 +882,15 @@
 					           					<c:when test="${not empty model.recordItemContainerTopic.w2fyl && empty model.record.svfyl}">
 						 				  			<c:choose>
 														<c:when test="${fn:contains(model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount,'-')}">
-															<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="10" maxlength="11" value="${fn:replace(model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount,'-','')}">
+															<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="12" maxlength="14" value="${fn:replace(model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount,'-','')}">
 														</c:when>
 														<c:otherwise>
-															<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="10" maxlength="11" value="${model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount}">
+															<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="12" maxlength="14" value="${model.recordItemContainerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount}">
 														</c:otherwise>
 						 				  			</c:choose>
 						 				  		</c:when>		
 					 				  			<c:otherwise>
-					 				  				<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="10" maxlength="11" value="${model.record.svbelt}">
+					 				  				<input onKeyPress="return amountKey(event)" type="text" class="inputText" name="svbelt" id="svbelt" size="12" maxlength="14" value="${model.record.svbelt}">
 					 				  			</c:otherwise>
 											</c:choose>
 						            	</td>
