@@ -100,17 +100,17 @@ public class MaintTdsFellesController {
 		object.setPgm("svt055r");
 		listObject.add(object);
 		//
-		/*
+		
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
-		object.setSubject("Vedligeholdelse af sagsbehandler");
-		object.setCode("SKAT_SAGSBEH");
-		object.setText("DKT056 / DKTHA");
-		object.setDbTable("DKTHA");
+		object.setSubject("Underhåll av handläggare");
+		object.setCode("TDS_HANDL");
+		object.setText("SVT056 / SVTHA");
+		object.setDbTable("SVTHA");
 		object.setStatus("G");
-		object.setPgm("dkt056r");
+		object.setPgm("svt056r");
 		listObject.add(object);
-		//
+		/*
 		object = new  MaintenanceMainListObject();
 		object.setId("3");
 		object.setSubject("Vedligeholdelse af Toldtariffen");
