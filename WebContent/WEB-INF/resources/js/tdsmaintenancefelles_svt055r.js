@@ -43,6 +43,16 @@
   			  jq('#svtf_0010IdLink').click();
   		  }
   	  });
+	  //SMS Sender
+	  jq('#svtf_usriIdLink').click(function() {
+		  jq('#svtf_usriIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_osusers.do?action=doFind&id=' + jq('#svtf_usri').val() + '&ctype=svtf_usri', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#svtf_usriIdLink').keypress(function(e){ //extra feature for the end user
+  		  if(e.which == 13) {
+  			  jq('#svtf_usriIdLink').click();
+  		  }
+  	  });
 	  
 	  
 	  //START CUSTOMER VALIDITY refreshes

@@ -26,6 +26,10 @@ public class JsonMaintSvtfiRecord extends JsonAbstractGrandFatherRecord  {
 	public void setValidReceiverId (boolean value){ this.validReceiverId = value;   }   
 	public boolean isValidReceiverId (){ return this.validReceiverId;   }  
 	
+	private boolean validSmsUserId = false;                                
+	public void setValidSmsUserId (boolean value){ this.validSmsUserId = value;   }   
+	public boolean isValidSmsUserId (){ return this.validSmsUserId;   }  
+	
 	private String svtf_sigm = null;                                
 	public void setSvtf_sigm (String value){ this.svtf_sigm = value;   }   
 	public String getSvtf_sigm (){ return this.svtf_sigm;   }  

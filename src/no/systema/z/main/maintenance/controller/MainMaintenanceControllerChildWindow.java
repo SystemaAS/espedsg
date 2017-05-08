@@ -44,6 +44,7 @@ import no.systema.z.main.maintenance.service.MaintMainCundfService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
 import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfService;
+import no.systema.z.main.maintenance.service.MaintMainQaokp08aService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
@@ -52,6 +53,8 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Record;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aRecord;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.controller.sign.MainMaintenanceSignSyfa60Controller;
@@ -315,6 +318,61 @@ public class MainMaintenanceControllerChildWindow {
  	
 	/**
 	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenance_childwindow_osusers.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView searchOsUsers(HttpSession session, HttpServletRequest request){
+		logger.info("Inside searchOsUsers");
+		
+		ModelAndView successView = new ModelAndView("mainmaintenance_childwindow_osusers");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		logger.info(callerType);
+		String id = request.getParameter("id");
+		
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		if(appUser==null){
+			return this.loginView;
+				
+		}else{
+			Collection<JsonMaintMainQaokp08aRecord> list = new ArrayList<JsonMaintMainQaokp08aRecord>();
+			//prepare the access CGI with RPG back-end
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYQAOKP08A_GET_LIST_URL;
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchOsUsers(appUser.getUser(), id);
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//debugger
+			logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonMaintMainQaokp08aContainer container = this.maintMainQaokp08aService.getList(jsonPayload);
+	    		if(container!=null){
+	    			list = container.getList();
+	    			for(JsonMaintMainQaokp08aRecord  record : list){
+	    				
+	    			}
+	    		}
+	    	}
+			model.put("list", list);
+			
+			model.put("id", id);
+			//model.put("adress", id);
+			model.put("ctype", callerType);
+			
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;	
+		  	
+		}
+		
+	}
+	/**
+	 * 
 	 * @param applicationUser
 	 * @param customerName
 	 * @param customerNumber
@@ -385,6 +443,22 @@ public class MainMaintenanceControllerChildWindow {
 		  return sb.toString();
 	  }
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForSearchOsUsers(String applicationUser, String id){
+		  StringBuffer sb = new StringBuffer();
+		  sb.append("user=" + applicationUser);
+		  if(id!=null && !"".equals(id) ){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wos8dden=" + id.toUpperCase() );
+		  }
+
+		  return sb.toString();
+	  }
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -426,6 +500,12 @@ public class MainMaintenanceControllerChildWindow {
 	public void setMaintMainKodtsfSyparfService (MaintMainKodtsfSyparfService value){ this.maintMainKodtsfSyparfService = value; }
 	public MaintMainKodtsfSyparfService getMaintMainKodtsfSyparfService(){ return this.maintMainKodtsfSyparfService; }
 	
+	@Qualifier ("maintMainQaokp08aService")
+	private MaintMainQaokp08aService maintMainQaokp08aService;
+	@Autowired
+	@Required
+	public void setMaintMainQaokp08aService (MaintMainQaokp08aService value){ this.maintMainQaokp08aService = value; }
+	public MaintMainQaokp08aService getMaintMainQaokp08aService(){ return this.maintMainQaokp08aService; }
 	
 	
 }

@@ -32,8 +32,12 @@ import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aRecord;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+import no.systema.z.main.maintenance.service.MaintMainQaokp08aService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.tds.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtfiContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtfiRecord;
@@ -133,7 +137,10 @@ public class MaintTdsFellesSvt055rController {
 			if(TdsMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
+				//extra criteria
 				this.validateEdiiChildren (recordToValidate, appUser.getUser());
+				this.validateOsUsers(recordToValidate, appUser.getUser());
+				//validate
 				validator.validate(recordToValidate, bindingResult);
 			}
 			
@@ -327,6 +334,56 @@ public class MaintTdsFellesSvt055rController {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param applicationUser
+	 */
+	private void validateOsUsers(JsonMaintSvtfiRecord recordToValidate, String applicationUser){
+		
+		Collection<JsonMaintMainQaokp08aRecord> list = new ArrayList<JsonMaintMainQaokp08aRecord>();
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYQAOKP08A_GET_LIST_URL;
+		String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchOsUsers(applicationUser, recordToValidate.getSvtf_usri());
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//debugger
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonMaintMainQaokp08aContainer container = this.maintMainQaokp08aService.getList(jsonPayload);
+    		if(container!=null){
+    			list = container.getList();
+    			for(JsonMaintMainQaokp08aRecord  record : list){
+    				if( record.getWos8dden().equals(recordToValidate.getSvtf_usri()) && 
+						record.getWos8ddgn().equals(recordToValidate.getSvtf_usra()) 	){
+    					//set flag
+    					recordToValidate.setValidSmsUserId(true);
+    					
+    				}
+    			}
+    		}
+    	}
+			
+	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForSearchOsUsers(String applicationUser, String id){
+		  StringBuffer sb = new StringBuffer();
+		  sb.append("user=" + applicationUser);
+		  if(id!=null && !"".equals(id) ){
+			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wos8dden=" + id.toUpperCase() );
+		  }
+
+		  return sb.toString();
+	  }
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -359,6 +416,13 @@ public class MaintTdsFellesSvt055rController {
 	public void setMaintMainEdiiService(MaintMainEdiiService value){this.maintMainEdiiService = value;}
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
+	
+	@Qualifier ("maintMainQaokp08aService")
+	private MaintMainQaokp08aService maintMainQaokp08aService;
+	@Autowired
+	@Required
+	public void setMaintMainQaokp08aService (MaintMainQaokp08aService value){ this.maintMainQaokp08aService = value; }
+	public MaintMainQaokp08aService getMaintMainQaokp08aService(){ return this.maintMainQaokp08aService; }
 	
 	
 	

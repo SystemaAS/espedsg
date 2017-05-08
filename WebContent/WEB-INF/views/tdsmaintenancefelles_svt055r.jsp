@@ -152,7 +152,11 @@
 							<td class="text12" title="svtf_pref"><font class="text12RedBold" >*</font>Tullid prefix</td>
 							<td class="text12" title="svtf_numb"><font class="text12RedBold" >*</font>Sist använda nr.</td>
 							<td class="text12" title="svtf_kval">&nbsp;Kvalitetsäkrad</td>
-							<td class="text12" title="svtf_usri"><font class="text12RedBold" >*</font>SMS-sender Userid</td>
+							<td class="text12" title="svtf_usri"><font class="text12RedBold" >*</font>SMS-sender Userid
+								<a tabindex="-1" id="svtf_usriIdLink">
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							</td>
 							<td class="text12" title="svtf_usra"><font class="text12RedBold" >*</font>SMS-sender Adress</td>
 						</tr>
 						<tr>

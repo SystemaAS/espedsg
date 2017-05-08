@@ -322,6 +322,9 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_ARKEXT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKEXT.do";
 
+	//OS-Users (general)
+	//http://gw.systema.no:8080/syjservicesbcore/syjsSYQAOKP08AR.do?user=OSCAR&wos8dden==ROGER
+	static public String MAINTENANCE_MAIN_BASE_SYQAOKP08A_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYQAOKP08AR.do";	
 	//GET EDI (edii)
 	//ALL --> http://http://gw.systema.no:8080/syjservicesbcore/syjsSYEDIIR.do?user=OSCAR&inid=1&inna=TOLD
 	static public String MAINTENANCE_MAIN_BASE_SYEDIIR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYEDIIR.do";

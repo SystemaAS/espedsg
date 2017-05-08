@@ -57,6 +57,9 @@ public class MaintTdsFellesSvt055rValidator implements Validator {
 				if (!record.isValidReceiverId()){
 					errors.rejectValue("validReceiverId", " ", " UNB - Mottag.id är ogiltigt"); 
 				}
+				if (!record.isValidSmsUserId()){
+					errors.rejectValue("validSmsUserId", " ", " SMS-sender Userid/Adress är ogiltigt"); 
+				}
 			}
 		}
 	}
