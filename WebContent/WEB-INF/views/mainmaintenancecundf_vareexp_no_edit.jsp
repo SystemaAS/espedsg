@@ -387,13 +387,11 @@
 																	R31:
 																</td>
 																<td>
-												            		<select name="r31" id="r31">
-												 						<option value="">-velg-</option>
-													 				  	<c:forEach var="r31" items="${model.r31List}" >
-													 				  		<option value="${r31}"<c:if test="${model.record.r31 == r31}"> selected </c:if> >${r31}</option>
-																		</c:forEach>  
-																	</select>														
-																
+																	<select name="r31" id="r31" >
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								 					  					<option value="J"<c:if test="${model.record.r31 == 'J'}"> selected </c:if>><spring:message code="systema.yes"/></option>
+													  					<option value="N"<c:if test="${ model.record.r31 == 'N'}"> selected </c:if>><spring:message code="systema.no"/></option>
+													  				</select>
 																</td>
 																<td class="text12" title="sloppl">
 																	<font class="text14RedBold" >*</font>&nbsp;L/F:
@@ -434,8 +432,8 @@
 																<td>
 																	<select name="pref" id="pref">
 												 						<option value="">-velg-</option>
-													 				  	<c:forEach var="kalle" items="${model.kalle}" >
-													 				  		<option value="${kalle.ks6pre}"<c:if test="${model.record.pref == kalle.ks6pre}"> selected </c:if> >${kalle.ks6pre}</option>
+													 				  	<c:forEach var="pref" items="${model.kalle}" >
+													 				  		<option value="${pref.ks6pre}"<c:if test="${model.record.pref == pref.ks6pre}"> selected </c:if> >${pref.ks6pre}</option>
 																		</c:forEach>  
 																	</select>						
 																</td>
@@ -460,12 +458,10 @@
 																	MF:
 																</td>
 																<td>
-																	<select name="mf" id="mf">
-												 						<option value="">-velg-</option>
-													 				  	<c:forEach var="mf" items="${model.mfList}" >
-													 				  		<option value="${mf}"<c:if test="${model.record.mf == mf}"> selected </c:if> >${mf}</option>
-																		</c:forEach>  
-																	</select>
+																	<select name="mf" id="mf" >
+								 					  					<option value="">-<spring:message code="systema.choose"/>-</option>
+								 					  					<option value="F"<c:if test="${model.record.mf == 'F'}"> selected </c:if>>F</option>
+													  				</select>
 																</td>
 																<td class="text12" title="slkdae/slkdse:">&nbsp;
 																	Avgift(kode/sekv):
@@ -481,18 +477,21 @@
 														</table>
 													</td>
 												</tr>
+												
 											</table>
+
+										<tr><td>&nbsp;</td></tr>
+										<tr> 
+											<td align="right">
+												<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
+											</td>
+										</tr>
+												
  			   	 		 		</table>
 			 	    		</form>
  	   	 		 		</td>
  	   	 		 	</tr>
  
-					<tr><td>&nbsp;</td></tr>
-					<tr> 
-						<td align="right">
-							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
-						</td>
-					</tr>
  
 	 		</table>
 		</td>

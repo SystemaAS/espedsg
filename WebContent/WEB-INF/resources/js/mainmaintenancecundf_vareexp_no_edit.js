@@ -17,6 +17,10 @@ jq(function() {
 		jq("#slalfa").removeClass("inputTextReadOnly");
 		jq("#slalfa").addClass("inputTextMediumBlueMandatoryField");
 		
+		jq('#r31').val("");
+		jq('#mf').val("");
+		jq('#pref').val("");	
+		
 		//for update
 		jq('#updateId').val("");
 		

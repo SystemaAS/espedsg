@@ -34,9 +34,9 @@ import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMain
 import no.systema.tvinn.sad.z.maintenance.sad.model.jsonjackson.dbtable.JsonMaintSadSadlRecord;
 import no.systema.tvinn.sad.z.maintenance.sad.service.MaintSadSadlService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.MaintSadExportKodts6Service;
-import no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodtseService;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadexport.validator.MaintSadExportSad004Validator;
+import no.systema.z.main.maintenance.controller.kund.MainMaintenanceCundfVareExportNoController;
 
 
 /**
@@ -56,22 +56,30 @@ public class MaintSadExportSad004Controller {
 	private ModelAndView loginView = new ModelAndView("login");
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private boolean hasError;
 
 
 	/**
+	 * This method support calls from other views that defined inside, e.g. from Bore. See {@link  MainMaintenanceCundfVareExportNoController}
 	 * 
-	 * @param user
-	 * @param result
+	 * 
+	 * @param session
 	 * @param request
-	 * @return
+	 * @param String nr the kundnr if called from Bcore.
+	 * @return a populated {@link ModelAndView}. Be aware of viewname.
 	 */
 	@RequestMapping(value="tvinnsadmaintenanceexport_sad004.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
+	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request, String nr){
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad004");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
-		String kundnr = request.getParameter("searchKundnr");
+		String kundnr = null;
+		
+		if (request.getParameter("searchKundnr") != null) {
+			kundnr = request.getParameter("searchKundnr");
+		} else if (nr != null) { //From Bcore
+			kundnr = nr;
+		}
 		
 		Map model = new HashMap();
 		if(appUser==null){
@@ -93,14 +101,6 @@ public class MaintSadExportSad004Controller {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param bindingResult
-	 * @param session
-	 * @param request
-	 * @return
-	 */
 	@RequestMapping(value="tvinnsadmaintenanceexport_sad004_edit.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintSadSadlRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tvinnsadmaintenanceexport_sad004");
@@ -164,7 +164,7 @@ public class MaintSadExportSad004Controller {
 				}
 				//check for Update errors
 				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
+					logger.info("[ERROR on UPDATE] Record is not valid");
 					logger.info("errMsg.toString():"+errMsg.toString());
 					model.put("dbTable", dbTable);
 					model.put("kundnr", recordToValidate.getSlknr());
@@ -172,8 +172,8 @@ public class MaintSadExportSad004Controller {
 					//adjust back the free text (prior to the appends: r31, pref and mf
 					recordToValidate.setSltxt(originalFreeText);
 					model.put(TvinnSadMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					hasError= true;
 					model.put(TvinnSadMaintenanceConstants.DOMAIN_RECORD, recordToValidateOrg);
-					
 				}
 				
 			}
@@ -191,11 +191,19 @@ public class MaintSadExportSad004Controller {
 			this.populateDropDowns(model, appUser.getUser()); 
 			successView.addObject(TvinnSadMaintenanceConstants.DOMAIN_MODEL , model);
 		
-			
 	    	return successView;
 		}
 	}
 	
+	/**
+	 * Humble trick of exposing if crud gone bad, viewed outside this controller.
+	 * 
+	 * @return false if record is invalid in service/db.
+	 */
+	public boolean hasError() {
+		return hasError;
+	}
+ 	
 	private void populateDropDowns(Map model, String applicationUser){
 		codeDropDownMgr.populatePrefCodesHtmlDropDownsSadExport(this.urlCgiProxyService, this.maintSadExportKodts6Service, model, applicationUser); 
 		codeDropDownMgr.populateR31HtmlDropDownsSadExport( model);
