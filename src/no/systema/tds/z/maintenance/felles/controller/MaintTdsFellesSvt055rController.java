@@ -101,7 +101,6 @@ public class MaintTdsFellesSvt055rController {
 	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	
 	    	model.put(TdsMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
 			

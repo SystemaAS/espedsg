@@ -72,6 +72,7 @@
   	  //-----------------------
     	  jq('#mainList').dataTable( {
     		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+    		  //"columnDefs": [{ "type": "natural", "targets": 0 }],
     		  "lengthMenu": [ 75, 100, 200, 500]
     	  });
       //event on input field for search
