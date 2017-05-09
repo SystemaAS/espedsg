@@ -22,6 +22,10 @@ public class JsonMaintDkthaRecord extends JsonAbstractGrandFatherRecord  {
 	public void setValidSignature (boolean value){ this.validSignature = value;   }   
 	public boolean isValidSignature (){ return this.validSignature;   }  
 	
+	private boolean duplicateSignature = false;
+	public void setDuplicateSignature (boolean value){ this.duplicateSignature = value;   }   
+	public boolean getDuplicateSignature (){ return this.duplicateSignature;   }  
+	
 	
 	private String dkth_sysg = null;                                
 	public void setDkth_sysg (String value){ this.dkth_sysg = value;   }   

@@ -37,6 +37,7 @@ import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkt
 import no.systema.skat.z.maintenance.main.service.MaintDkthaService;
 import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
+import no.systema.tds.z.maintenance.main.util.TdsMaintenanceConstants;
 import no.systema.skat.z.maintenance.felles.validator.MaintSkatFellesDkt056Validator;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
@@ -69,7 +70,7 @@ public class MaintSkatFellesDkt056Controller {
 	 * @return
 	 */
 	@RequestMapping(value="skatmaintenancefelles_dkt056r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportList(HttpSession session, HttpServletRequest request){
+	public ModelAndView doSkatMaintImportList(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt056r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
@@ -102,7 +103,7 @@ public class MaintSkatFellesDkt056Controller {
 	 * @return
 	 */
 	@RequestMapping(value="skatmaintenancefelles_dkt056r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doSadMaintImportEdit(@ModelAttribute ("record") JsonMaintDkthaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doSkatMaintImportEdit(@ModelAttribute ("record") JsonMaintDkthaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("skatmaintenancefelles_dkt056r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
@@ -119,7 +120,14 @@ public class MaintSkatFellesDkt056Controller {
 			if(SkatMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
+				//check validity of signature
 				this.validateSignature(appUser.getUser(), recordToValidate);
+				//only with create new
+				if(TdsMaintenanceConstants.ACTION_UPDATE.equals(action)){
+					if (updateId==null || "".equals(updateId)){
+						this.isDuplicateSignature(appUser.getUser(), recordToValidate);
+					}
+				}
 				validator.validate(recordToValidate, bindingResult);
 			}
 			
@@ -209,7 +217,7 @@ public class MaintSkatFellesDkt056Controller {
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
 	        	for(JsonMaintDkthaRecord record : list){
-	        		//logger.info("TEKST:" + record.getDkth_namn() + "END");
+	        		//logger.info("NAME:" + record.getDkth_namn() + "END");
 	        	}
 	        }
     	}
@@ -254,7 +262,36 @@ public class MaintSkatFellesDkt056Controller {
 	    	
 		}
 	}
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 */
+	private void isDuplicateSignature(String applicationUser, JsonMaintDkthaRecord recordToValidate){
+		
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT056R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser);
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintDkthaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintDkthaContainer container = this.maintDkthaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getDtoList();
+	        	for(JsonMaintDkthaRecord record : list){
+	        		if(record.getDkth_sysg().equals(recordToValidate.getDkth_sysg())){
+	        			recordToValidate.setDuplicateSignature(true);
+	        		}
+	        	}
+	        }
+    	}
+	}
 	
 	/**
 	 * UPDATE/CREATE/DELETE

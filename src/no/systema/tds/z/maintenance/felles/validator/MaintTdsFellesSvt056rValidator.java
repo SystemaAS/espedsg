@@ -41,19 +41,15 @@ public class MaintTdsFellesSvt056rValidator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				
-				//TODO validity
-				/*
-				if (!record.isValidSenderId()){
-					errors.rejectValue("validSenderId", " ", " UNB - Avsändarid är ogiltigt"); 
+				//validation of parent Sign
+				if (!record.isValidSignature()){
+					errors.rejectValue("validSignature", " ", "Signatur är ogiltig"); 
+				}else{
+					//check for duplicate
+					if (record.getDuplicateSignature()){
+						errors.rejectValue("duplicateSignature", " ", "Signatur är ogiltig. Den existerar redan. ");
+					}
 				}
-				if (!record.isValidReceiverId()){
-					errors.rejectValue("validReceiverId", " ", " UNB - Mottag.id är ogiltigt"); 
-				}
-				if (!record.isValidSmsUserId()){
-					errors.rejectValue("validSmsUserId", " ", " SMS-sender Userid/Adress är ogiltigt"); 
-				}
-				*/
 			}
 		}
 	}
@@ -62,7 +58,6 @@ public class MaintTdsFellesSvt056rValidator implements Validator {
 	 * @param obj
 	 * @param errors
 	 */
-	
 	public void validateDelete(Object obj, Errors errors) { 
 		// N/A
 		

@@ -21,6 +21,13 @@
 				  //
 				  opener.jq('#dkth_sysg').focus();
 				  
+			  }else if(callerType == 'svth_sysg'){
+				  opener.jq('#svth_sysg').val(kosfsi);
+				  opener.jq('#svth_namn').val(kosfnv);
+				  opener.jq('#svth_usid').val(syuser);
+				  //
+				  opener.jq('#svth_sysg').focus();
+				  
 			  }/*TODO if more ... else if(callerType == 's0010'){
 				  opener.jq('#s0010').val(inid);
 				  opener.jq('#s0010').focus();

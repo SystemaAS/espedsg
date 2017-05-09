@@ -26,15 +26,19 @@ import org.springframework.web.bind.WebDataBinder;
 import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
+import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaRecord;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainEdiiRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainQaokp08aRecord;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
+import no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfService;
 import no.systema.z.main.maintenance.service.MaintMainQaokp08aService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -94,7 +98,7 @@ public class MaintTdsFellesSvt056rController {
 		}else{
 			//get table
 	    	List<JsonMaintSvthaRecord> list = new ArrayList();
-	    	list = this.fetchList(appUser.getUser(), model);
+	    	list = this.fetchList(appUser.getUser());
 	    	//drop downs
 	    	//List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
 	    	//List codeListToldsatstype = this.skatMaintMainDropDownListPopulationService.getToldsatstypeList();
@@ -117,9 +121,8 @@ public class MaintTdsFellesSvt056rController {
 	 * @param request
 	 * @return
 	 */
-	/*
 	@RequestMapping(value="tdsmaintenancefelles_svt056r_edit.do", method={RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView doTdsmaintenanceFellesEdit(@ModelAttribute ("record") JsonMaintSvtfiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doTdsmaintenanceFellesEdit(@ModelAttribute ("record") JsonMaintSvthaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tdsmaintenancefelles_svt056r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		boolean isValidRecord = true;
@@ -137,10 +140,15 @@ public class MaintTdsFellesSvt056rController {
 			if(TdsMaintenanceConstants.ACTION_DELETE.equals(action)){
 				validator.validateDelete(recordToValidate, bindingResult);
 			}else{
-				//extra criteria
-				this.validateEdiiChildren (recordToValidate, appUser.getUser());
-				this.validateOsUsers(recordToValidate, appUser.getUser());
-				//validate
+				//check validity of signature
+				this.validateSignature(appUser.getUser(), recordToValidate);
+				//only with create new
+				if(TdsMaintenanceConstants.ACTION_UPDATE.equals(action)){
+					if (updateId==null || "".equals(updateId)){
+						this.isDuplicateSignature(appUser.getUser(), recordToValidate);
+					}
+				}
+				//now validate
 				validator.validate(recordToValidate, bindingResult);
 			}
 			
@@ -154,7 +162,7 @@ public class MaintTdsFellesSvt056rController {
 					model.put("updateId", updateId);
 					
 				}
-				logger.info(recordToValidate.getSvtf_0004());
+				logger.info(recordToValidate.getSvth_sysg());
 				model.put(TdsMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 			}else{
 				
@@ -194,31 +202,27 @@ public class MaintTdsFellesSvt056rController {
 			//FETCH table
 			//------------
 			if(TdsMaintenanceConstants.ACTION_DELETE.equals(action) || TdsMaintenanceConstants.ACTION_UPDATE.equals(action) ){
-				//TODO
+				//TODO ?
 			}
 			//fetch the newly updated record if valid
-			List<JsonMaintSvtfiRecord> list = null;
-			if(isValidRecord){
-				list = this.fetchList(appUser.getUser(), model);
-			}
-			//drop downs TODO
-			logger.info(recordToValidate.getSvtf_0004());
-	    	//set domain objets
+			List<JsonMaintSvthaRecord> list = this.fetchList(appUser.getUser());
+			
+			//set domain objects
 	    	model.put("dbTable", dbTable);
-	    	//model.put(SkatMaintenanceConstants.DOMAIN_LIST, list);
+	    	model.put(TdsMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;
 		}
 	}
-*/
+
 	/**
 	 * 
 	 * @param applicationUser
 	 * @param model
 	 * @return
 	 */
-	private List<JsonMaintSvthaRecord> fetchList(String applicationUser, Map model){
+	private List<JsonMaintSvthaRecord> fetchList(String applicationUser){
 		
 		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT056R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
@@ -236,17 +240,42 @@ public class MaintTdsFellesSvt056rController {
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
 	        	for(JsonMaintSvthaRecord record : list){
-	        		//put record since this is the only one in whole table
-	        		model.put(TdsMaintenanceConstants.DOMAIN_RECORD, record);
-	        		model.put("updateId", record.getSvth_sysg());
+	        		//logger.info("NAME:" + record.getSvth_namn() + "END");
 	        	}
 	        }
     	}
     	return list;
     	
 	}
+	/**
+	 * 
+	 * @param applicationUser
+	 * @return
+	 */
+	private void isDuplicateSignature(String applicationUser, JsonMaintSvthaRecord recordToValidate){
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT056R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ applicationUser + "&svth_sysg=" + recordToValidate.getSvth_sysg());
 	
-	
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintSvthaRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSvthaContainer container = this.maintSvthaService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getDtoList();
+	        	for(JsonMaintSvthaRecord record : list){
+	        		if(record.getSvth_sysg().equals(recordToValidate.getSvth_sysg())){
+	        			recordToValidate.setDuplicateSignature(true);
+	        		}
+	        	}
+	        }
+    	}
+	}
 	
 	
 	/**
@@ -329,54 +358,47 @@ public class MaintTdsFellesSvt056rController {
 	}
 	
 	*/
+	
 	/**
 	 * 
+	 * @param applicationUser
 	 * @param recordToValidate
-	 * @param applicationUser
+	 * @param duplicateControl
 	 */
-	private void validateOsUsers(JsonMaintSvthaRecord recordToValidate, String applicationUser){
+	private void validateSignature(String applicationUser, JsonMaintSvthaRecord recordToValidate ){
 		
-		Collection<JsonMaintMainQaokp08aRecord> list = new ArrayList<JsonMaintMainQaokp08aRecord>();
-		//prepare the access CGI with RPG back-end
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYQAOKP08A_GET_LIST_URL;
-		String urlRequestParamsKeys = this.getRequestUrlKeyParametersForSearchOsUsers(applicationUser, recordToValidate.getSvth_usid());
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParamsKeys);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		//debugger
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-    	if(jsonPayload!=null){
-    		JsonMaintMainQaokp08aContainer container = this.maintMainQaokp08aService.getList(jsonPayload);
-    		if(container!=null){
-    			list = container.getList();
-    			for(JsonMaintMainQaokp08aRecord  record : list){
-    				if( record.getWos8dden().equals(recordToValidate.getSvth_usid()) ){
-    					//set flag
-    					//TODO -->recordToValidate.setValidSmsUserId(true);
-    					
-    				}
-    			}
-    		}
-    	}
+		if( (applicationUser!=null && !"".equals(applicationUser)) && (recordToValidate!=null) ){
 			
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL;
+			String urlRequestParams = "user=" + applicationUser;
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	    	//DEBUG
+	    	//this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+	    	//extract
+	    	List<JsonMaintMainKodtsfSyparfRecord> list = new ArrayList();
+	    	if(jsonPayload!=null){
+				//lists
+	    		JsonMaintMainKodtsfSyparfContainer container = this.maintMainKodtsfSyparfService.getList(jsonPayload);
+		        if(container!=null){
+		        	list = (List)container.getList();
+		        	if (list!=null){
+						for(JsonMaintMainKodtsfSyparfRecord record : list){
+							if( recordToValidate.getSvth_sysg().equals(record.getKosfsi()) ){
+								recordToValidate.setValidSignature(true);
+								//logger.info("AAAAAA");
+							}
+						}
+					}
+		        }
+	    	}
+	    	
+		}
 	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @return
-	 */
-	private String getRequestUrlKeyParametersForSearchOsUsers(String applicationUser, String id){
-		  StringBuffer sb = new StringBuffer();
-		  sb.append("user=" + applicationUser);
-		  if(id!=null && !"".equals(id) ){
-			  sb.append( MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wos8dden=" + id.toUpperCase() );
-		  }
 
-		  return sb.toString();
-	  }
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -401,6 +423,7 @@ public class MaintTdsFellesSvt056rController {
 	public void setTdsMaintMainDropDownListPopulationService (TdsMaintMainDropDownListPopulationService value){ this.tdsMaintMainDropDownListPopulationService = value; }
 	public TdsMaintMainDropDownListPopulationService getTdsMaintMainDropDownListPopulationService(){ return this.tdsMaintMainDropDownListPopulationService; }
 	
+	/*
 	
 	@Qualifier 
 	private MaintMainEdiiService maintMainEdiiService;
@@ -409,13 +432,20 @@ public class MaintTdsFellesSvt056rController {
 	public void setMaintMainEdiiService(MaintMainEdiiService value){this.maintMainEdiiService = value;}
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
-	
 	@Qualifier ("maintMainQaokp08aService")
 	private MaintMainQaokp08aService maintMainQaokp08aService;
 	@Autowired
 	@Required
 	public void setMaintMainQaokp08aService (MaintMainQaokp08aService value){ this.maintMainQaokp08aService = value; }
 	public MaintMainQaokp08aService getMaintMainQaokp08aService(){ return this.maintMainQaokp08aService; }
+	*/
+	
+	@Qualifier ("maintMainKodtsfSyparfService")
+	private MaintMainKodtsfSyparfService maintMainKodtsfSyparfService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtsfSyparfService (MaintMainKodtsfSyparfService value){ this.maintMainKodtsfSyparfService = value; }
+	public MaintMainKodtsfSyparfService getMaintMainKodtsfSyparfService(){ return this.maintMainKodtsfSyparfService; }
 	
 	
 	

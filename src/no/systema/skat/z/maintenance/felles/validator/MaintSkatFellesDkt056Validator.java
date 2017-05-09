@@ -42,9 +42,14 @@ public class MaintSkatFellesDkt056Validator implements Validator {
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				//TODO validation of parent Sign
+				//validation of parent Sign
 				if (!record.isValidSignature()){
 					errors.rejectValue("validSignature", " ", "Signatur er ugyldig"); 
+				}else{
+					//check for duplicate
+					if (record.getDuplicateSignature()){
+						errors.rejectValue("duplicateSignature", " ", "Signatur er ugyldig. Den eksisterer ");
+					}
 				}
 			}
 		}
