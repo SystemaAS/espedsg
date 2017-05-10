@@ -64,7 +64,15 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		logger.debug(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
 
 		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
-	}	
+	}
+	
+	@RequestMapping(value = "getSpecificRecord_syparf2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf2(@RequestParam String applicationUser, @RequestParam String syuser, String syrecn) {
+		final String METHOD = "[DEBUG] getSpecificRecord_syparf2 ";
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", syuser=" + syuser + ", syrecn=" + syrecn);
+		syrecn = null;
+		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf2(applicationUser, syuser, syrecn);
+	}
 	
 	
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -137,7 +145,32 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		}		
 		
 		return list;
-	}		
+	}
+	
+	private List<JsonMaintMainSyparfRecord> fetchSpecificSyparf2(String appUser, String sykunr, String syrecn) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF2_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&syuser=" + sykunr);
+		if(syrecn!=null){
+			urlRequestParams.append("&syrecn=" + syrecn);
+		}
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+		List<JsonMaintMainSyparfRecord> list = new ArrayList<JsonMaintMainSyparfRecord>();
+
+ 		JsonMaintMainSyparfContainer container = maintMainSyparfService.getContainer(jsonPayload);
+		if (container != null) {
+			for (JsonMaintMainSyparfRecord syparfDto : container.getDtoList()) {
+				list.add(syparfDto);
+			}
+		}		
+		
+		return list;
+	}
 	
 	private Collection<JsonMaintMainCundcRecord> fetchSpecificCundc(String applicationUser, String cfirma, String ccompn, String cconta, String ctype) {
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_CUNDC_GET_LIST_URL;

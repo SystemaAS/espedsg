@@ -65,6 +65,7 @@
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
 								<th width="2%" class="tableHeaderField" align="center" >Signatur</th>
 								<th width="40%" class="tableHeaderField" align="center" >Navn</th>
+								<th class="tableHeaderField" align="left" >&nbsp;Param.</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
 			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
 			                    
@@ -78,6 +79,13 @@
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.kosfsi}</td>
 				               <td width="40%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.kosfnv}&nbsp;</td>
+				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+					               	<c:if test="${not empty record.syuser}">
+					               		<a id="alinkMainMaintParamSyuser" tabindex=-1 style="display:block;" href="mainmaintenancesign_syfa60r_params.do?syuser=${record.syuser}">
+					               			<img src="resources/images/textContent.gif" width="10px" height="14px" border="0" alt="edit">
+					               		</a>
+					               	</c:if>
+				               </td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.syuser}&nbsp;</td>
 		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenancesign_syfa60r_edit.do?action=doDelete&kosfsi=${record.kosfsi}">
