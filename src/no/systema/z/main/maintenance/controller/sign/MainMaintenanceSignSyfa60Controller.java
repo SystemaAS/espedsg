@@ -36,8 +36,11 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodt
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainSyparfRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaTellRecord;
+import no.systema.z.main.maintenance.controller.kund.VkundControllerUtil;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.MaintMainKodtsfSyparfValidator;
+import no.systema.z.main.maintenance.validator.MaintMainSyparf2Validator;
+
 
 
 /**
@@ -81,41 +84,6 @@ public class MainMaintenanceSignSyfa60Controller {
 			//Get list
 	 		List list = this.fetchList(appUser.getUser());
 			model.put("list", list);
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
-			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
-			return successView;
-			
-		}
-	}
-	/**
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="mainmaintenancesign_syfa60r_params.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancesign_syfa60r_params(HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenancesign_syfa60r_edit_params");
-		
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		String syuser = request.getParameter("syuser");
-		String syrecn = request.getParameter("syrecn");
-		
-		Map model = new HashMap();
-		if(appUser==null){
-			return this.loginView;
-		}else{
-			logger.info("Inside method: mainmaintenancesign_syfa60r_params");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
-			//Get list
-	 		List list = this.fetchListParams(appUser, syuser, syrecn );
-			model.put("list", list);
-			model.put("syuser", syuser);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -257,6 +225,42 @@ public class MainMaintenanceSignSyfa60Controller {
 	
 	/**
 	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="mainmaintenancesign_syfa60r_params.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenancesign_syfa60r_params(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenancesign_syfa60r_edit_params");
+		
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		String syuser = request.getParameter("syuser");
+		String syrecn = request.getParameter("syrecn");
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			logger.info("Inside method: mainmaintenancesign_syfa60r_params");
+			logger.info("appUser user:" + appUser.getUser());
+			logger.info("appUser lang:" + appUser.getUsrLang());
+			logger.info("appUser userAS400:" + appUser.getUserAS400());
+			
+			//Get list
+	 		List list = this.fetchListParams(appUser, syuser, syrecn );
+			model.put("list", list);
+			model.put("syuser", syuser);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    
+			return successView;
+			
+		}
+	}
+	
+	/**
+	 * 
 	 * @param recordToValidate
 	 * @param bindingResult
 	 * @param session
@@ -268,128 +272,63 @@ public class MainMaintenanceSignSyfa60Controller {
 		ModelAndView successView = new ModelAndView("mainmaintenancesign_syfa60r_edit_params");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
-		//String id = request.getParameter("kosfsi");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		
+		//to freeze
+		String syuser = recordToValidate.getSyuser();
+		String syrecn = recordToValidate.getSyrecn();
 		
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			/*
-			appUser.setActiveMenu("INIT");
-			logger.info("Inside method: mainmaintenancesign_syfa60r_edit");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
 			
-			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_MAIN_MAINTENANCE);
-			session.setAttribute(MainMaintenanceConstants.ACTIVE_URL_RPG_MAIN_MAINTENANCE, MainMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
-			//--------------
-			//UPDATE record
-			//--------------
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				//avd = recordToValidate.getKosfsi();
-				//bind child records
-				//JsonMaintMainKodtaKodthRecord listeHodeRecord = this.bindChildListeHode(request);
-				//JsonMaintMainKodtaTellRecord oppnrTurRecord = this.bindChildOppnrTur(request);
-				
-				
-				//Validate
-				MaintMainKodtsfSyparfValidator validator = new MaintMainKodtsfSyparfValidator();
+			MaintMainSyparf2Validator validator = new MaintMainSyparf2Validator();
+			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
+				validator.validateDelete(recordToValidate, bindingResult);
+			} else {
 				validator.validate(recordToValidate, bindingResult);
-				if(bindingResult.hasErrors()){
-					//ERRORS
-					logger.info("[ERROR Validation] Record does not validate)");
-					//reload children
-					//recordToValidate.setListeHodeRecord(listeHodeRecord);
-					//recordToValidate.setOppnrTurRecord(oppnrTurRecord);
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					//get list
-					model.put("list", this.fetchList(appUser.getUser()));
-					
-				}else{
-					//Update table
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-					
-					if(updateId!=null && !"".equals(updateId)){
-						//update
-						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-						
-					}else{
-						//create new
-						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						
-					}
-					
-					//check for Update errors
-					if( dmlRetval < 0){
-						logger.info("[ERROR Validation] Record does not validate)");
-						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-						//get list
-						model.put("list", this.fetchList(appUser.getUser()));
-					}else{
-						//post successful update operations
-						updateId = recordToValidate.getKosfsi();
-						//refresh
-						JsonMaintMainKodtsfSyparfRecord record = this.fetchRecord(appUser.getUser(), recordToValidate.getKosfsi());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-						//post successful update operations
-						successView = new ModelAndView("redirect:mainmaintenancesign_syfa60r.do?id=KODTSF");
-					}
+			}
+			if (bindingResult.hasErrors()) {
+				logger.info("[ERROR Validation] Record does not validate)");
+				if (updateId != null && !"".equals(updateId)) {
+					// meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
 				}
-					
-			//DELETE	
-			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+			} else {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
 				
-				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				
-				//check for Update errors
-				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
+				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {
+					if (updateId != null && !"".equals(updateId)) {
+						//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+					} else {
+						//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					}
+				} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
+					//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				}
+				// check for Update errors
+				if (dmlRetval < 0) {
+					logger.info("[ERROR DML] Record does not validate)");
+					if (updateId != null && !"".equals(updateId)) {
+						// meaning bounced in an Update and not a Create new
+						model.put("updateId", updateId);
+					}
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					//get list
-					model.put("list", this.fetchList(appUser.getUser()));
-				}else{
-					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenancesign_syfa60r.do?id=KODTSF");
 				}
-				
-			}*/
-			
-			//Get list
-	 		//List list = (List)this.fetchListParams(appUser, recordToValidate.getSyuser(), recordToValidate.getSyrecn());
-			//model.put("list", list);
-			//successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
-			
-			//--------------
-			//Fetch record
-			//--------------
-			//JsonMaintMainKodtsfSyparfRecord record = new JsonMaintMainKodtsfSyparfRecord();
-			//if(recordToValidate.getKosfsi()!=null && !"".equals(recordToValidate.getKosfsi())){
-			//	record = this.fetchRecord(appUser.getUser(), recordToValidate.getKosfsi());
-			//}
-			//model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			
-			//populate model
-			if(action==null || "".equals(action)){
-				action = "doUpdate";
+
 			}
-			model.put("action", action);
-			//model.put("avd", avd);
-			model.put("updateId", updateId);
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
+			//in order to get full list
+			syrecn = null;
+			List list = this.fetchListParams(appUser, syuser, syrecn );
+			//
+			model.put("list", list);
+			model.put("syuser", syuser);
+			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
+			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
 			return successView;
 			
 		}

@@ -54,7 +54,7 @@
 	 	    
 			<%-- list component --%>
 			<tr>
-				<td width="1%">&nbsp;</td>
+				<td width="3%">&nbsp;</td>
 				<td width="100%">
 				<table id="containerdatatableTable" width="99%" cellspacing="1" border="0" align="left">
 			    	    <tr>
@@ -103,7 +103,7 @@
 			<%-- ----------------- --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
-				<td width="1%">&nbsp;</td>
+				<td width="3%">&nbsp;</td>
 				<td >
 		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
 		           	<tr >
@@ -125,7 +125,7 @@
 			<%-- Other errors (none validation errors) --%>
 			<c:if test="${not empty model.errorMessage}">
 			<tr>
-				<td width="1%">&nbsp;</td>
+				<td width="3%">&nbsp;</td>
 				<td >
 		           	<table align="left" border="0" cellspacing="0" cellpadding="0">
 				 		<tr>
@@ -141,7 +141,7 @@
 			</c:if>
 	 	    
  	   	 		 	<tr id="details">
- 	   	 		 		<td width="1%">&nbsp;</td>
+ 	   	 		 		<td width="3%">&nbsp;</td>
 	   	 		 		<td>
 						<form action="mainmaintenancesign_syfa60r_edit_params.do" name="formRecord" id="formRecord" method="POST" >
 							<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
@@ -198,7 +198,7 @@
 								</tr>
 								<tr>
 									<td>
-										<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+										<table class="formFrameHeaderPeachWithBorder" width="99%" 	cellspacing="0" border="0" align="left">
 											<tr>
 												<td class="text12Bold">&nbsp;
 													<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.param"/>
@@ -206,9 +206,9 @@
 											</tr>
 										</table>			
 
-										<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+										<table class="formFramePeachGrayRoundBottom"  width="99%" cellspacing="0" border="0" align="left">
 											<tr> 
-												<td width="50%" >
+												<td width="50%" valign="top">
 													<table>
 														<tr>
 															<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
@@ -220,16 +220,11 @@
 																	<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																</a>
 															</td>
-															
-															<td class="text12" title="sypaidDesc">&nbsp;
-																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
-															<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="40" maxlength="50" value='${Xmodel.record.sypaidDesc}'></td>
-															
 														</tr>
 
 														<tr>
 															<td class="text12" title="sysort">&nbsp;
-																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>:
+																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>
 															</td>
 															<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${Xmodel.record.sysort}'>
 															</td>
@@ -238,7 +233,11 @@
 													</table>
 												</td>
 												<td width="50%" valign="top">
-													<table>
+													<table >
+														<tr>
+															<td colspan="2" class="text12" title="sypaidDesc">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
+															<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="51" maxlength="50" value='${Xmodel.record.sypaidDesc}'></td>
+														</tr>	
 														<tr>
 															<td colspan="2" class="text12" title="syvrdn">&nbsp;<font class="text14RedBold" >*</font>
 																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:

@@ -82,7 +82,7 @@
 				               <td align="center" width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 					               	<c:if test="${not empty record.syuser}">
 					               		<a id="alinkMainMaintParamSyuser" tabindex=-1 style="display:block;" href="mainmaintenancesign_syfa60r_params.do?syuser=${record.syuser}">
-					               			<img src="resources/images/textContent.gif" width="10px" height="14px" border="0" alt="edit">
+					               			<img src="resources/images/textContent.gif" width="12px" height="14px" border="0" alt="edit">
 					               		</a>
 					               	</c:if>
 				               </td>

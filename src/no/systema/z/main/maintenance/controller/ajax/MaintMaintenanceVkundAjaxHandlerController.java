@@ -69,8 +69,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_syparf2.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf2(@RequestParam String applicationUser, @RequestParam String syuser, String syrecn) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syparf2 ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", syuser=" + syuser + ", syrecn=" + syrecn);
-		syrecn = null;
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", syuser=" + syuser + ", syrecn=" + syrecn);
 		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf2(applicationUser, syuser, syrecn);
 	}
 	
