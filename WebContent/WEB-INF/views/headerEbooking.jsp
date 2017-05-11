@@ -40,7 +40,7 @@
 	 	<tr class="clazzTdsBanner" id="tdsBanner" style="visibility:visible">
 	 	 	<%-- class="grayTitanBg" --%>
 		 	<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-	    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
+	    			 <table width="1480" border="0" cellspacing="0" cellpadding="0">
 	    			 	<tr>
 				        	<td>&nbsp;</td>
 				        	<td>&nbsp;</td>
@@ -125,11 +125,11 @@
 						           			<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('specialInformationAdmin');">Close</button> 
 						           		</div>
 						        </span>   		
-			    				<font style="color:#000000" >${user.user}&nbsp;</font>${user.usrLang}</font>
+			    				<font class="text11User" >${user.user}&nbsp;</font>${user.usrLang}</font>
 			    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
 				    			<a tabindex=-1 href="logoutEbooking.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
-				    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
+				    					<font class="text11User" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>
 				    			</a>
 				    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;</font>

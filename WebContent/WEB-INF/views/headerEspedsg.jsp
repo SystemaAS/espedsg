@@ -59,12 +59,11 @@
 	      				<td class="text11" width="50%" align="right">
 	      					<font class="headerMenuGreen">
 				    				<img src="resources/images/appUser.gif" border="0" > 
-								<font style="color:#000000" >${user.user}&nbsp;</font>${user.usrLang}
-				    			</font>
+								<font class="text11User" >${user.user}&nbsp;</font>${user.usrLang}</font>
 				    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
 				    			<a tabindex=-1 href="logout_espedsgAdmin.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
-				    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
+				    					<font class="text11User" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>
 				    			</a>
 				    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;</font>

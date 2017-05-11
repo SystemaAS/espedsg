@@ -37,7 +37,7 @@
 				 		<td style="min-width: 300px; max-width: 300px;" class="text22Bold" align=left valign="middle" >
 				 			<c:if test="${not empty user.logo}">
 								<img src="${user.logo}" border="0" >
-    			 				</c:if>
+   			 				</c:if>
 						</td>
 						
 						
@@ -76,7 +76,7 @@
 	      				<td class="text11" width="50%" align="right">
 	      					<font class="headerMenuGreenNoPointer">
 	      						<img title="${user.logo}" src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');">&nbsp;
-      							<font style="color:#000000">${user.user}&nbsp;</font>${user.usrLang}&nbsp;
+      							<font class="text11User">${user.user}&nbsp;</font>${user.usrLang}&nbsp;
       								<c:if test="${not empty user.multiUser}">
       									<img title="${user.logo}" src="resources/images/sort_down.png" width="10px" height="10px" border="0" onClick="showPop('multiUserList');">&nbsp;
       								</c:if>
@@ -95,7 +95,7 @@
 				    			<a href="logout.do">
 				    				<font class="headerMenuGreen">
 				    					<img src="resources/images/lock.gif" border="0">&nbsp;
-				    					<font style="color:#000000" ><spring:message code="logout.logout"/>&nbsp;</font>
+				    					<font class="text11User" ><spring:message code="logout.logout"/>&nbsp;</font>
 				    				</font>
 			    				</a>
 			    			</td>
