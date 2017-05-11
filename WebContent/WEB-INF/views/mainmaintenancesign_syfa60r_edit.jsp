@@ -67,8 +67,7 @@
 								<th width="40%" class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.name"/></th>
 								<th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa60.parameters"/></th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa60.userid"/></th>
-			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
-			                    
+			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>			                    
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -179,7 +178,7 @@
  	    						&nbsp;&nbsp;&nbsp;<span title="syuser"><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.userid"/></span>
  	    						<input type="text" class="inputTextMediumBlue" name="syuser" id="syuser" size="11" maxlength="10" value="${model.record.syuser}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' />
 						
  	    					</td>
 		    	    	</tr>

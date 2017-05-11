@@ -112,7 +112,7 @@ public class MainMaintenanceSignSyfa60Controller {
 		//String id = request.getParameter("kosfsi");
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-		
+		logger.info("UPDATEID:" + updateId);
 		
 		if(appUser==null){
 			return this.loginView;

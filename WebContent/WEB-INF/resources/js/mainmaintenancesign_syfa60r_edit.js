@@ -7,6 +7,13 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  jq(function() {
+	  jq("#formRecord").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+	  
+  });
+  
 //called from form-submit, otherwise the select-disabled won't send the value
   function enableDisabledFields() {
 	    document.getElementById('kosfsi').disabled= "";
