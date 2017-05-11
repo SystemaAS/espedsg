@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import no.systema.main.service.UrlCgiProxyService;
-
+import no.systema.jservices.common.dto.SyparfDto;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
@@ -268,7 +270,7 @@ public class MainMaintenanceSignSyfa60Controller {
 	 * @return
 	 */
 	@RequestMapping(value="mainmaintenancesign_syfa60r_edit_params.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancesign_syfa60r_edit_param(@ModelAttribute ("record") JsonMaintMainSyparfRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenancesign_syfa60r_edit_param(@ModelAttribute ("record") SyparfDto recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancesign_syfa60r_edit_params");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -301,12 +303,12 @@ public class MainMaintenanceSignSyfa60Controller {
 				
 				if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
-						//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
+						dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					} else {
-						//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+						dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					}
 				} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
-					//dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+					dmlRetval = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				}
 				// check for Update errors
 				if (dmlRetval < 0) {
@@ -326,6 +328,7 @@ public class MainMaintenanceSignSyfa60Controller {
 			//
 			model.put("list", list);
 			model.put("syuser", syuser);
+			
 			model.put(MainMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			
@@ -494,6 +497,41 @@ public class MainMaintenanceSignSyfa60Controller {
     	}    	
     	return retval;
 	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateRecord(SystemaWebUser appUser, SyparfDto record, String mode, StringBuffer errMsg) {
+		int retval = 0;
+		JsonReader<JsonDtoContainer<SyparfDto>> jsonReader = new JsonReader<JsonDtoContainer<SyparfDto>>();
+		jsonReader.set(new JsonDtoContainer<SyparfDto>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYPARF_DML_UPDATE_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode+ "&lang=" +appUser.getUsrLang();
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		logger.info("jsonPayload=" + jsonPayload);
+		if (jsonPayload != null) {
+			JsonDtoContainer<SyparfDto> container = (JsonDtoContainer<SyparfDto>) jsonReader.get(jsonPayload);
+			if (container != null) {
+				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
+					errMsg.append(container.getErrMsg());
+					retval = MainMaintenanceConstants.ERROR_CODE;
+				}
+			}			
+		}
+
+		return retval;
+	}	
 	
 	
 	

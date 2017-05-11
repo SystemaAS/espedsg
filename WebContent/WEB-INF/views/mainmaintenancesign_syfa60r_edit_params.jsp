@@ -83,7 +83,7 @@
 					               <td width="15%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.syvrdn}&nbsp;</font></td>
 					               <td width="40%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.syvrda}&nbsp;</font></td>
 			                       <td align="center" width="5%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-			               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancesign_syfa60r_edit_params_edit.do?action=doDelete&syuser=${record.syuser}&syrecn=${record.syrecn}">
+			               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancesign_syfa60r_edit_params.do?action=doDelete&syuser=${record.syuser}&syrecn=${record.syrecn}&sykunr=0">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 						               	</a>
 					               </td>
@@ -147,8 +147,8 @@
 							<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 							<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
 							<input type="hidden" name="action" id=action value="doUpdate">
-							<input type="hidden" name="syuser" id="syuser" value='${Xmodel.record.syuser}'>
-							<input type="hidden" name="syrecn" id="syrecn" value='${Xmodel.record.syrecn}'>
+							<input type="hidden" name="syuser" id="syuser" value='${model.syuser}'>
+							<input type="hidden" name="syrecn" id="syrecn" value='${model.record.syrecn}'>
 							<input type="hidden" name="sykunr" id="sykunr" value='0'>
 							<input type="hidden" name="syavd" id="syavd" value='0'>
 							
@@ -214,7 +214,7 @@
 															<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
 																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaid"/>:&nbsp;&nbsp;&nbsp;
 															</td>
-															<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${Xmodel.record.sypaid}'></td>
+															<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${model.record.sypaid}'></td>
 															<td class="text12" title="sypaid">
 																<a tabindex="-1" id="sypaidIdLink">
 																	<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
@@ -226,7 +226,7 @@
 															<td class="text12" title="sysort">&nbsp;
 																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>
 															</td>
-															<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${Xmodel.record.sysort}'>
+															<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${model.record.sysort}'>
 															</td>
 														</tr>
 
@@ -236,19 +236,19 @@
 													<table >
 														<tr>
 															<td colspan="2" class="text12" title="sypaidDesc">&nbsp;&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
-															<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="51" maxlength="50" value='${Xmodel.record.sypaidDesc}'></td>
+															<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="51" maxlength="50" value='${model.record.sypaidDesc}'></td>
 														</tr>	
 														<tr>
 															<td colspan="2" class="text12" title="syvrdn">&nbsp;<font class="text14RedBold" >*</font>
 																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:
 															</td>
-															<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="16" maxlength="15" value='${Xmodel.record.syvrdn}'>
+															<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="16" maxlength="15" value='${model.record.syvrdn}'>
 															</td>
 														<tr>
 															<td colspan="2" class="text12" title="syvrda">&nbsp;<font class="text14RedBold" >*</font>
 																<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrda"/>:
 															</td>
-															<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="51" maxlength="50" value='${Xmodel.record.syvrda}'>
+															<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="51" maxlength="50" value='${model.record.syvrda}'>
 															</td>
 														</tr>
 													</table>
