@@ -14,6 +14,18 @@
   
   
   jq(function() {
+	  //custom validity
+	  jq('#kosfnv').blur(function() {
+	  		if(jq('#kosfnv').val()!=''){
+	    		refreshCustomValidity(jq('#kosfnv')[0]);
+	  		}
+	  });
+	  jq('#kosfsi').blur(function() {
+	  		if(jq('#kosfsi').val()!=''){
+	    		refreshCustomValidity(jq('#kosfsi')[0]);
+	  		}
+	  });
+	  
 		//Clean values for createing new record
 		jq('#newRecordButton').click(function() {
 			jq('#kosfsi').val("");

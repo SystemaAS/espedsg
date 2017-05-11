@@ -25,7 +25,10 @@ import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaContainer;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaRecord;
+import no.systema.tds.z.maintenance.main.url.store.MaintenanceUrlDataStore;
+import no.systema.tds.z.maintenance.main.util.TdsMaintenanceConstants;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -126,14 +129,15 @@ public class MainMaintenanceSignSyfa60Controller {
 			//UPDATE record
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				//avd = recordToValidate.getKosfsi();
-				//bind child records
-				//JsonMaintMainKodtaKodthRecord listeHodeRecord = this.bindChildListeHode(request);
-				//JsonMaintMainKodtaTellRecord oppnrTurRecord = this.bindChildOppnrTur(request);
-				
 				
 				//Validate
 				MaintMainKodtsfSyparfValidator validator = new MaintMainKodtsfSyparfValidator();
+				//duplicate check --> only with create new
+				if(TdsMaintenanceConstants.ACTION_UPDATE.equals(action)){
+					if (updateId==null || "".equals(updateId)){
+						this.isDuplicateSignature(appUser.getUser(), recordToValidate);
+					}
+				}
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS
@@ -533,8 +537,38 @@ public class MainMaintenanceSignSyfa60Controller {
 		return retval;
 	}	
 	
-	
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 */
+	private void isDuplicateSignature(String applicationUser, JsonMaintMainKodtsfSyparfRecord recordToValidate){
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA60R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&kosfsi=" + recordToValidate.getKosfsi();
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	//extract
+    	List<JsonMaintMainKodtsfSyparfRecord> list = new ArrayList();
+    	
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainKodtsfSyparfContainer container = this.maintMainKodtsfSyparfService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        	for(JsonMaintMainKodtsfSyparfRecord record : list){
+	        		if(record.getKosfsi().equals(recordToValidate.getKosfsi())){
+	        			recordToValidate.setDuplicateSignature(true);
+	        		}
+	        	}
+	        }
+    	}
+	}
 	
 	//Wired - SERVICES
 	@Qualifier ("urlCgiProxyService")

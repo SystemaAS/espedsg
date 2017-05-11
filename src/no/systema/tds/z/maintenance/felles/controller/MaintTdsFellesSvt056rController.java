@@ -99,10 +99,6 @@ public class MaintTdsFellesSvt056rController {
 			//get table
 	    	List<JsonMaintSvthaRecord> list = new ArrayList();
 	    	list = this.fetchList(appUser.getUser());
-	    	//drop downs
-	    	//List codeList022 = this.fetchListKoder(appUser.getUser(), this.SKAT_IMPORT_SUPPL_ENHETER_KODE);
-	    	//List codeListToldsatstype = this.skatMaintMainDropDownListPopulationService.getToldsatstypeList();
-	    	
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
 	    	

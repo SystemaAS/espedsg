@@ -67,7 +67,6 @@ public class MaintTdsFellesSvt055rController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	private String SKAT_IMPORT_SUPPL_ENHETER_KODE = "022"; //We use the ones in Skat-Import
 	private final String ID_INTERNAL = "I";
 	private final String ID_EXTERNAL = "E";
 	private final String ID_INFO_SENDER = "senderId";

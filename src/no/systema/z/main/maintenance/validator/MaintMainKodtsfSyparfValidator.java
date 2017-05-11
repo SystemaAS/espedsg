@@ -33,24 +33,16 @@ public class MaintMainKodtsfSyparfValidator implements Validator {
 	public void validate(Object obj, Errors errors) { 
 		JsonMaintMainKodtsfSyparfRecord record = (JsonMaintMainKodtsfSyparfRecord)obj;
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfsi", "", "Signatur er obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfnv", "", "Navn er obligatorisk"); 
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfsi", "systema.main.maintenance.error.mainmaintenancesyfa60.kosfsi.signature.null"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfnv", "systema.main.maintenance.error.mainmaintenancesyfa60.kosfnv.name.null"); 
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
 		if(!errors.hasFieldErrors()){
 			if(record!=null){
-				/* TODO
-				if( !this.validInteger( record.getTeopdn()) ){
-					errors.rejectValue("teopdn", "", "Oppnr er ugyldig. Oppdragsnr. må være større enn 0.");
-					
-				}else if( !this.validInteger( record.getTeturn()) ){
-					errors.rejectValue("teturn", "", "Turnr. er ugyldig. Turnr. må være større enn 0. ");
-				
-				}else if( !this.validNumberTetmin(record) ){
-					errors.rejectValue("tetmin", "", "Minm.turnr er ugyldig. Minmumturnr. kan ikke være større enn turnr. ");
+				//check for duplicate
+				if (record.getDuplicateSignature()){
+					errors.rejectValue("duplicateSignature", "systema.main.maintenance.error.mainmaintenancesyfa60.kosfsi.signature.duplicate");
 				}
-				*/
 			}
 		}
 		
@@ -64,7 +56,7 @@ public class MaintMainKodtsfSyparfValidator implements Validator {
 	public void validateDelete(Object obj, Errors errors) { 
 		
 		JsonMaintMainKodtsfSyparfRecord record = (JsonMaintMainKodtsfSyparfRecord)obj;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfsi", "", "Signatur er obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "kosfsi", "systema.main.maintenance.error.mainmaintenancesyfa60.kosfsi.signature.null"); 
 		
 	}
 	

@@ -16,6 +16,11 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonMaintMainKodtsfSyparfRecord extends JsonAbstractGrandFatherRecord  {
 	
+	private boolean duplicateSignature = false;
+	public void setDuplicateSignature (boolean value){ this.duplicateSignature = value;   }   
+	public boolean getDuplicateSignature (){ return this.duplicateSignature;   }  
+	
+	
 	//KODTSF table
 	private String kosfst = null;                                
 	public void setKosfst (String value){ this.kosfst = value;   }   

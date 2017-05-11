@@ -62,11 +62,11 @@
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Endre</th>                                                            
-								<th width="2%" class="tableHeaderField" align="center" >Signatur</th>
-								<th width="40%" class="tableHeaderField" align="center" >Navn</th>
-								<th class="tableHeaderField" align="left" >&nbsp;Param.</th>
-			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
+							    <th width="2%" class="tableHeaderFieldFirst" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.update"/></th>                                                            
+								<th width="2%" class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.signature"/></th>
+								<th width="40%" class="tableHeaderField" align="center" ><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.name"/></th>
+								<th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa60.parameters"/></th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesyfa60.userid"/></th>
 			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
 			                    
 			                </tr>  
@@ -164,19 +164,19 @@
 						</tr>
 						<tr height="20"><td></td></tr>
 						<tr>
-							<td class="text12" ><font class="text14RedBold" >*</font><span title="kosfsi">Signatur&nbsp;</span>
+							<td class="text12" ><font class="text14RedBold" >*</font><span title="kosfsi"><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.signature"/>&nbsp;</span>
 								<c:choose>
 									<c:when test="${not empty model.updateId}">
 										<input readonly type="text" class="inputTextReadOnly"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
 									</c:when>
 									<c:otherwise>
-										<input type="text" class="inputTextMediumBlueMandatoryField"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
+										<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="kosfsi" id="kosfsi" size="5" maxlength="3" value='${model.record.kosfsi}'>
 									</c:otherwise>
 								</c:choose>
-								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="kosfnv">Navn&nbsp;</span>
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="kosfnv" id="kosfnv" size="20" maxlength="16" value='${model.record.kosfnv}'>
+								&nbsp;&nbsp;<font class="text14RedBold" >*</font><span title="kosfnv"><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.name"/>&nbsp;</span>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="kosfnv" id="kosfnv" size="20" maxlength="16" value='${model.record.kosfnv}'>
 								
- 	    						&nbsp;&nbsp;&nbsp;<span title="syuser">Userid</span>
+ 	    						&nbsp;&nbsp;&nbsp;<span title="syuser"><spring:message code="systema.main.maintenance.mainmaintenancesyfa60.userid"/></span>
  	    						<input type="text" class="inputTextMediumBlue" name="syuser" id="syuser" size="11" maxlength="10" value="${model.record.syuser}" />
  	    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>' onClick="setBlockUI(this);"/>
