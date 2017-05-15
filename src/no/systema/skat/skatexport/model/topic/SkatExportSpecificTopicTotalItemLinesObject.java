@@ -22,7 +22,6 @@ public class SkatExportSpecificTopicTotalItemLinesObject {
 	public void setSumOfAntalItemLines(Integer value) {  this.sumOfAntalItemLines = value; }
 	public Integer getSumOfAntalItemLines() {return this.sumOfAntalItemLines;}
 	
-	
 	private double sumTotalAmountItemLines = 0.00D;
 	public void setSumTotalAmountItemLines(Double value) {  this.sumTotalAmountItemLines = value; }
 	public Double getSumTotalAmountItemLines() {return this.sumTotalAmountItemLines;}

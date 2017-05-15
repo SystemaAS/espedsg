@@ -46,7 +46,8 @@ public class JsonSkatExportSpecificTopicRecord extends JsonAbstractGrandFatherRe
 	
 	private String sumTotalAmountItemLinesStr = null;
 	public String getSumTotalAmountItemLinesStr() {
-		this.sumTotalAmountItemLinesStr = String.valueOf(this.sumTotalAmountItemLines);
+		String tmpStr = this.numberFormatter.getDoubleToPlainString(sumTotalAmountItemLines, 3);
+		this.sumTotalAmountItemLinesStr = tmpStr;
 		return this.sumTotalAmountItemLinesStr;
 	}
 	

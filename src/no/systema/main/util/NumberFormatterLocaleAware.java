@@ -194,11 +194,43 @@ public class NumberFormatterLocaleAware {
 		 Double retval = sourceNumber;
 		 try{
 			retval = new BigDecimal(sourceNumber).setScale(numberOfDecimals, RoundingMode.HALF_UP).doubleValue();
+			
 		 }catch(Exception e){
 			 e.printStackTrace();
 		 }
 		 return retval;
 	 }
-	 
+	 /**
+	  * 
+	  * @param sourceNumber (usually in scientific notation from a BigDecimal)
+	  * @return
+	  */
+	 public String getDoubleToPlainString(Double sourceNumber){
+		 String retval = "0";
+		 try{
+			retval = new BigDecimal(sourceNumber).toPlainString();
+			
+		 }catch(Exception e){
+			e.printStackTrace();				 
+		 }
+		 return retval;
+	 }
+	 /**
+	  * 
+	  * @param sourceNumber
+	  * @param numberOfDecimals
+	  * @return
+	  */
+	 public String getDoubleToPlainString(Double sourceNumber, int numberOfDecimals){
+		 String retval = "0";
+		 try{
+			retval = new BigDecimal(sourceNumber).setScale(numberOfDecimals, RoundingMode.HALF_UP).toPlainString();
+			retval = retval.replace(".", ","); //Always to European notation
+			
+		 }catch(Exception e){
+			e.printStackTrace();				 
+		 }
+		 return retval;
+	 }
 	 
 }

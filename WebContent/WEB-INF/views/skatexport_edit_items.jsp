@@ -693,7 +693,7 @@
 											</a>	
 						 				</td>
 						 				<td class="text12" align="left" nowrap>
-							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_42" id="dkev_42" size="14" maxlength="13" value="${model.record.dkev_42}">
+							            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_42" id="dkev_42" size="16" maxlength="19" value="${model.record.dkev_42}">
 							            	</td>
 								        	<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_35" id="dkev_35" size="13" maxlength="12" value="${model.record.dkev_35}"></td>
 										<td class="text12" align="left"><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkev_38" id="dkev_38" size="13" maxlength="12" value="${model.record.dkev_38}"></td>

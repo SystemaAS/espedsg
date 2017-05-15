@@ -114,6 +114,7 @@
    				    <form name="searchForm" id="searchForm" action="ebooking_mainorderlist.do?action=doFind" method="post" >
 					<input type="hidden" name="userAvd" id="userAvd" value=''>
 					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
+					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHost}'>
 					
 			    	<td> 
 			    	<table width="100%">

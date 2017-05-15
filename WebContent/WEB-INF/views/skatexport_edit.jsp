@@ -950,7 +950,7 @@
 				 				<span title="dkeh_222" id="v_dkeh_222" class="validation">Fakturabeløb&nbsp;</span>
 				 			</td>
 				 			<td align="left" >
-				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_222" id="dkeh_222" size="20" maxlength="20" value="${model.record.dkeh_222}">
+				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_222" id="dkeh_222" size="20" maxlength="19" value="${model.record.dkeh_222}">
 				 			</td>
 				 			<td class="text12">
 				 				<b>&nbsp;22.1</b>&nbsp;
@@ -1516,7 +1516,7 @@
 					        			Antal kollin (i vareposterne)&nbsp;
 					        		</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalKolliInItemLines" id="sumOfAntalKolliInItemLines" size="8" value="${ model.record.sumOfAntalKolliInItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalKolliInItemLines" id="sumOfAntalKolliInItemLines" size="20" value="${ model.record.sumOfAntalKolliInItemLinesStr}">
 					            		<c:if test="${not empty ( model.record.sumOfAntalKolliInItemLinesStr &&  model.record.dkeh_06)}">
 						            		<c:if test="${ model.record.dkeh_06 !=  model.record.sumOfAntalKolliInItemLinesStr}">
 								            <img onMouseOver="showPop('itemsKolliSum_info');" onMouseOut="hidePop('itemsKolliSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="kolliantal warning">	
@@ -1542,7 +1542,7 @@
 					        			Antal vareposter &nbsp;
 					        		</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalItemLines" id="sumOfAntalItemLines" size="8" value="${ model.record.sumOfAntalItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfAntalItemLines" id="sumOfAntalItemLines" size="20" value="${ model.record.sumOfAntalItemLinesStr}">
 					            		<c:if test="${not empty ( model.record.sumOfAntalItemLinesStr)}">
 						            		<c:if test="${ model.record.sumOfAntalItemLines <= 0 && model.record.dkeh_aart != '50'}">
 								            <img onMouseOver="showPop('itemsSum_info');" onMouseOut="hidePop('itemsSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="varelinjerantal warning">	
@@ -1565,7 +1565,7 @@
 					        			Sum av varelinjebeløp&nbsp;
 					        		</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLines" id="sumTotalAmountItemLines" size="8" value="${ model.record.sumTotalAmountItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLines" id="sumTotalAmountItemLines" size="20" maxlength="20" value="${ model.record.sumTotalAmountItemLinesStr}">
 						            	<c:if test="${model.record.sumTotalAmountItemLines != model.record.dkeh_222Dbl}">
 						            		<img onMouseOver="showPop('itemsAmountSum_info');" onMouseOut="hidePop('itemsAmountSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="vare-sum warning">	
 							            <div class="text11" style="position: relative;" align="left">

@@ -29,6 +29,8 @@ import org.springframework.web.bind.WebDataBinder;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.NumberFormatterLocaleAware;
+
 
 
 import no.systema.main.model.SystemaWebUser;
@@ -83,7 +85,7 @@ public class SkatExportHeaderController {
 	private static final Logger logger = Logger.getLogger(SkatExportHeaderController.class.getName());
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
-	
+	NumberFormatterLocaleAware numFormatter = new NumberFormatterLocaleAware();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -1091,7 +1093,8 @@ public class SkatExportHeaderController {
 		    		//============
 		    		if(record.getDkev_42()!=null && !"".equals(record.getDkev_42())){
 		    			try{
-		    				totalAmount += Double.parseDouble(record.getDkev_42());
+		    				totalAmount += Double.parseDouble(record.getDkev_42().replace(",", "."));
+		    				
 		    			}catch(Exception e){
 		    				logger.info("[ERROR] on VARANS PRIS CATCH");
 		    			}
@@ -1105,7 +1108,10 @@ public class SkatExportHeaderController {
 	    	}
 	    	totalItemLinesObject.setSumOfAntalItemLines(numberOfItemLines);
 	    	totalItemLinesObject.setSumOfAntalKolliInItemLines(antalKolli);
+	    	//Round up doubles
+	    	totalAmount = this.numFormatter.getDouble(totalAmount, 3);
 	    	totalItemLinesObject.setSumTotalAmountItemLines(totalAmount);
+	    	
 	    	//DEBUG
 	    	logger.info("AntalKolli: " + totalItemLinesObject.getSumOfAntalKolliInItemLines());
 	    	logger.info("AntalItems: " + totalItemLinesObject.getSumOfAntalItemLines());
