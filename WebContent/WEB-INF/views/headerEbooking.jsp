@@ -56,9 +56,20 @@
 											</td>
 										</c:when>
 										<c:otherwise>
-											<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;
-												<img src="resources/images/${user.logo}" border="0" >
-											</td>
+											<c:choose>
+												<c:when test="${fn:contains(user.logo, 'systema')}">
+												<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;
+													<img src="resources/images/${user.logo}" border="0" width=80px height=50px>
+												</td>
+												</c:when>
+												<c:otherwise>
+													<c:if test="${fn:contains(user.logo, 'logo')}">
+														<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;
+															<img src="resources/images/${user.logo}" border="0" >
+														</td>
+													</c:if>
+												</c:otherwise>
+											</c:choose>	
 										</c:otherwise>
 									</c:choose>
 	   			 				</c:when> 

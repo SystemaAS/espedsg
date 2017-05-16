@@ -48,7 +48,16 @@
 										<img src="${user.logo}" border="0" width="30px" height="20px">
 									</c:when>
 									<c:otherwise>
-										<img src="resources/images/${user.logo}" border="0" >
+										<c:choose>
+											<c:when test="${fn:contains(user.logo, 'systema')}">
+												<img src="resources/images/${user.logo}" border="0" width=80px height=50px>
+											</c:when>
+											<c:otherwise>
+												<c:if test="${fn:contains(user.logo, 'logo')}">
+													<img src="resources/images/${user.logo}" border="0" >
+												</c:if>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
    			 				</c:if>
