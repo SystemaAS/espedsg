@@ -27,16 +27,30 @@
 		<tr class="text" height="10"><td></td></tr>
 		<tr >
     		<td height="60" align="center" colspan="2"> 
-			 <table width="1150" height="100" class="dashboardBanner" border="0" cellspacing="0" cellpadding="0" align="center" 
-    			 		<c:if test="${ not empty user.banner }">
-    			 			style="background-image:url('${user.banner}');background-repeat:no-repeat;" 
-    			 		</c:if>  >
+    		
+			 <table width="1150" height="100" class="dashboardBanner" border="0" cellspacing="0" cellpadding="0" align="center"
+			 			<c:choose> 
+	    			 		<c:when test="${ not empty user.banner && fn:contains(user.banner, '/')}">
+	    			 			style="background-image:url('${user.banner}');background-repeat:no-repeat;" 
+	    			 		</c:when>  
+	    			 		<c:otherwise>
+	    			 			style="background-image:url('resources/images/${user.banner}');background-repeat:no-repeat;" 
+	    			 		</c:otherwise>
+    			 		</c:choose>
+    			 		>
     			 
     			 		<tr height="5"><td></td></tr>
 				 	<tr>
 				 		<td style="min-width: 300px; max-width: 300px;" class="text22Bold" align=left valign="middle" >
 				 			<c:if test="${not empty user.logo}">
-								<img src="${user.logo}" border="0" >
+				 				<c:choose>
+					 				<c:when test="${fn:contains(user.logo, '/')}">
+										<img src="${user.logo}" border="0" width="30px" height="20px">
+									</c:when>
+									<c:otherwise>
+										<img src="resources/images/${user.logo}" border="0" >
+									</c:otherwise>
+								</c:choose>
    			 				</c:if>
 						</td>
 						
@@ -53,12 +67,12 @@
 						>
 				 			eSped<font style="color:#003300;">sg</font>
 				 		</td>
-			    			<td width="30%" align="right" valign="middle">
-							<c:if test="${not empty user.systemaLogo && (user.systemaLogo=='Y')}">
-				    				<img src="resources/images/systema_logo.png" border="0" width=75px height=45px>
-								&nbsp; 
-							</c:if>		
-		    				</td>
+		    			<td width="30%" align="right" valign="middle">
+						<c:if test="${not empty user.systemaLogo && (user.systemaLogo=='Y')}">
+		    				<img src="resources/images/systema_logo.png" border="0" width=75px height=45px>
+							&nbsp; 
+						</c:if>		
+	    				</td>
 			      		
 			        </tr>
     			 		<tr height="5"><td></td></tr>

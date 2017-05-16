@@ -42,14 +42,37 @@
 				 		<td>&nbsp;</td>
 			        </tr>
 				 	<tr>
-				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
+				 		<c:choose>
+					 		<c:when test="${not empty user.logo}">
+				 				<c:choose>
+					 				<c:when test="${fn:contains(user.logo, '/')}">
+					 					<td class="text12" width="10%" align="center" valign="middle" >
+											<img src="${user.logo}" border="0" width="30px" height="20px">
+										</td>
+									</c:when>
+									<c:otherwise>
+										<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;
+											<img src="resources/images/${user.logo}" border="0" >
+										</td>
+									</c:otherwise>
+								</c:choose>
+   			 				</c:when> 
+   			 				<c:otherwise>
+						 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
+						 		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
+					 		</c:otherwise>
+				 		</c:choose>
+				 		
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
 				 			eSped<font style="color:#003300;">sg</font> - <spring:message code="systema.sporringoppdrag.mainlist.label"/>
-				 			
 				 		</td>
 				 		 
-			    		<td class="text12" width="10%" align="center" valign="middle" ><img src="resources/images/systema_logo.png" border="0" width=80px height=50px ></td>
-			      		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
+			    		<td class="text12" width="10%" align="center" valign="middle" >
+				 			<c:if test="${not empty user.systemaLogo && (user.systemaLogo=='Y')}">
+				 				<img src="resources/images/systema_logo.png" border="0" width=80px height=50px >
+				 			</c:if>
+				 		</td>
+				 		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
 			        </tr>
 			        <tr>
 			        	<td>&nbsp;</td>
@@ -114,11 +137,11 @@
 						           			<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('specialInformationAdmin');">Close</button> 
 						           		</div>
 						        </span>   		
-			    				<font style="color:#000000" >${user.user}&nbsp;</font>${user.usrLang}</font>
+			    				<font class="text11User" >${user.user}&nbsp;</font>${user.usrLang}</font>
 			    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
 				    			<a tabindex=-1 href="logoutSporringOppdrag.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
-				    					<font style="color:#000000;" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
+				    					<font class="text11User" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>
 				    			</a>
 				    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;</font>

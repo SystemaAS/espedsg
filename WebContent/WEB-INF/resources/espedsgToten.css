@@ -258,8 +258,11 @@ END override jQuery elements
 	font-family: Verdana, Arial, Helvetica, sans-serif; 
 	font-size: 12px; 
 	color:#000000; 
-	border-color:#2E64FE;
-    background-color: #778899
+	background-color: #404040;
+    border-style: solid; 
+    border-width: 0px 1px 1px 0px; 
+    border-color:#e52320;
+    
 }
 
 .dashboardFrame{
@@ -272,12 +275,12 @@ END override jQuery elements
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	padding: 2px 4px;
-	background-color:#FCFFF0;
+	background-color:#F9F9F9;
 	outline: 0;
 	-webkit-appearance: none;
 	border-style: solid; 
     border-width: 0px 1px 1px 0px; 
-    border-color:#EEEEEE
+    border-color:#000000;
 }
 .grayTitanBg { 
 	background-color:#3D3D3D;
@@ -1890,7 +1893,7 @@ END override jQuery elements
     background-color:#FFFFFF;
     border-style: solid; 
     border-width: 0px 1px 1px 1px; 
-    border-color: #4E78A0;
+    border-color: #858585;
 }
 
 .tabThinBorderWhiteWithTopBorder {  
@@ -1933,7 +1936,7 @@ END override jQuery elements
     background-color:#FFFFFF;
     border-style: solid; 
     border-width: 1px 1px 0px 1px; 
-    border-color: #4E78A0;
+    border-color: #858585;
     margin: 2px;
     padding: 2px
 }
@@ -1948,7 +1951,7 @@ END override jQuery elements
     background-color:#DDDDDD;
     border-style: solid; 
     border-width: 1px 1px 1px 1px; 
-    border-color: #4E78A0;
+    border-color: #858585;
     margin: 2px;
     padding: 2px      
 }

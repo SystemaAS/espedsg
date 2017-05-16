@@ -47,14 +47,38 @@
 					 		<td>&nbsp;</td>
 				        </tr>
 					 	<tr>
-					 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
+					 		<c:choose>
+						 		<c:when test="${not empty user.logo}">
+					 				<c:choose>
+						 				<c:when test="${fn:contains(user.logo, '/')}">
+						 					<td class="text12" width="10%" align="center" valign="middle" >
+												<img src="${user.logo}" border="0" width="30px" height="20px">
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;
+												<img src="resources/images/${user.logo}" border="0" >
+											</td>
+										</c:otherwise>
+									</c:choose>
+	   			 				</c:when> 
+	   			 				<c:otherwise>
+							 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
+							 		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
+						 		</c:otherwise>
+					 		</c:choose>
+					 		
+					 		
 					 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
 					 			eSped<font style="color:#003300;">sg</font> - <spring:message code="systema.ebooking.title"/>
-					 			
 					 		</td>
-					 		 
-				    		<td class="text12" width="10%" align="center" valign="middle" ><img src="resources/images/systema_logo.png" border="0" width=80px height=50px ></td>
-				      		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
+					 		
+					 		<td class="text12" width="10%" align="center" valign="middle" >
+					 			<c:if test="${not empty user.systemaLogo && (user.systemaLogo=='Y')}">
+					 				<img src="resources/images/systema_logo.png" border="0" width=80px height=50px >
+					 			</c:if>
+					 		</td>
+					 		<%-- <td class="text12white" width="10%" align=right valign="bottom" >&nbsp;</td>--%>
 				        </tr>
 				        <tr>
 				        	<td>&nbsp;</td>
@@ -116,7 +140,7 @@
 			               		<img src="resources/images/countryFlags/Flag_UK.gif" height="12" border="0" alt="country">
 			               	</c:if>
 		      				&nbsp;
-		      				<font class="headerMenuGreen">
+		      				<font class="headerMenuGreenNoPointer">
 			    				<img src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');" > 
 						        <span style="position:absolute; left:100px; top:150px; width:1000px; height:400px;" id="specialInformationAdmin" class="popupWithInputText"  >
 						           		<div class="text11" align="left">
@@ -134,18 +158,19 @@
 				    			</a>
 				    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;</font>
 				    			<font class="text12LightGreen" style="cursor:pointer;" onClick="showPop('versionInfo');">${user.versionSpring}&nbsp;</font>
-			    				    <span style="position:absolute; left:800px; top:105px; width:150px; height:100px;" id="versionInfo" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
-						           			&nbsp;<b>${user.versionEspedsg}</b>
-						           			<br/><br/>
-						           			&nbsp;<a href="renderLocalLog4j.do" target="_blank">log4j</a>
-						           			<br/><br/><br/>
-						           			<button name="versionInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('versionInfo');">Close</button> 
-						           		</div>
-						        </span> 
-						        
+				    			<div class="text11" style="position: relative;" align="left">
+									<span style="position:absolute; left:5px; top:30px; width:250px" id="versionInfo" class="popupWithInputText"  >	
+					           			
+					           			&nbsp;<b>${user.versionEspedsg}</b>
+					           			<br/><br/>
+					           			&nbsp;<a href="renderLocalLog4j.do" target="_blank">log4j</a>
+					           			<br/><br/><br/>
+					           			<button name="versionInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('versionInfo');">Close</button> 
+					           		</span>
+								</div>  
+
 				    		</td>
-	      				
+	      					
 			        </tr>
 			     </table> 
 			</td>
