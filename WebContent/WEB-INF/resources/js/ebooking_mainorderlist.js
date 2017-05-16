@@ -18,24 +18,24 @@
 	  //jq(id).attr('target','_blank');  //not needed in order to avoid strange behavior in non-Chrome browsers... (example: Firefox pop-up blank tab in addition of the PDF tab ??)
   	  
 	  if(prefix.indexOf("fraktbrev")>=0){
-		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11fb.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId, 
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11fb.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&UserIP=' + jq("#userServletHost").val(), 
   			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  
 	  }else if(prefix.indexOf("cmr")>=0){
-		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11cm.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId, 
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/esop11cm.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&UserIP=' + jq("#userServletHost").val(), 
   			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  
 	  }else if(prefix.indexOf("merkPdf")>=0){
-		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&lay=HZ&copyprt=J&labeltyp=L', 
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&UserIP=' + jq("#userServletHost").val() + '&lay=HZ&copyprt=J&labeltyp=L', 
   			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  
 	  }else if(prefix.indexOf("merkZpl")>=0){
-		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + '&lay=HZ&copyprt=J&labeltyp=Z', 
+		  window.open(jq("#userHttpCgiRoot").val() + '/sycgip/ss115.pgm?user=' + jq("#applicationUser").val() + '&curtur=' + unikId + + '&UserIP=' + jq("#userServletHost").val() + '&lay=HZ&copyprt=J&labeltyp=Z', 
   			  "printDocWin", "top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  }
 	  
 	  //refresh parent window
-	  setTimeout(refreshOrderListWindow, 4500);
+	  setTimeout(refreshOrderListWindow, 4000);
   }
   
   function refreshOrderListWindow(){

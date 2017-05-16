@@ -382,6 +382,7 @@ public class DashboardController {
 		//might be available either for internal ip-addresses or external but not both.
 		//If the user reaches the login-page then he/she will reach static resources on this ip-address
 		String host = this.getServletHostWithNoPort(request.getHeader("Host"));
+		appUser.setServletHostWithoutHttpPrefix(host);
 		appUser.setServletHost("http://" + host);
 		
 		//get Cgi root in case we must have direct access to the AS400 services directly from a JSP (e.g. Use Case for print in eBooking)

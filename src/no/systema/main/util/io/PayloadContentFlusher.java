@@ -98,10 +98,8 @@ public class PayloadContentFlusher {
     		//InputStream is = new FileInputStream(filePath);
     		writer.write(errorMsg.getBytes("UTF-8"));
             writer.flush();
-            writer.close();
-            
+            writer.close();         
         }
-
     }
 	
 	/**

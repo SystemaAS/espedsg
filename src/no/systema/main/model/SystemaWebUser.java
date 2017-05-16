@@ -75,6 +75,10 @@ public class SystemaWebUser {
 	public void setServletHost(String value) {  this.servletHost = value; }
 	public String getServletHost() { return this.servletHost;}
 	
+	private String servletHostWithoutHttpPrefix = null;
+	public void setServletHostWithoutHttpPrefix(String value) {  this.servletHostWithoutHttpPrefix = value; }
+	public String getServletHostWithoutHttpPrefix() { return this.servletHostWithoutHttpPrefix;}
+	
 	//In order to get the application.properties: http.as400.root.cgi
 	private String httpCgiRoot = null;
 	public void setHttpCgiRoot(String value) {  this.httpCgiRoot = value; }
