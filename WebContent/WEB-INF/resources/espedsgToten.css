@@ -258,16 +258,15 @@ END override jQuery elements
 	font-family: Verdana, Arial, Helvetica, sans-serif; 
 	font-size: 12px; 
 	color:#000000; 
-	background-color: #404040;
+	background-color: #c5c5c5;
     border-style: solid; 
-    border-width: 0px 1px 1px 0px; 
-    border-color:#e52320;
+    border-width: 0px 2px 2px 0px; 
+    border-color:#000000;
     
 }
 
 .dashboardFrame{
-	border: 1px solid #4169E1;
-	/*border: 0px solid #ccc;*/
+	border: 0px solid #ccc;
 	-webkit-border-bottom-right-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
 	-moz-border-bottom-right-radius: 5px;
@@ -275,12 +274,12 @@ END override jQuery elements
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	padding: 2px 4px;
-	background-color:#F9F9F9;
 	outline: 0;
 	-webkit-appearance: none;
+	background-color:#FFFFFF;
 	border-style: solid; 
-    border-width: 0px 1px 1px 0px; 
-    border-color:#000000;
+    border-width: 0px 2px 2px 0px; 
+    border-color:#e52320;
 }
 .grayTitanBg { 
 	background-color:#3D3D3D;
