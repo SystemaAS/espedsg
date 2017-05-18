@@ -68,7 +68,7 @@
 						<td width="99%" valign="top">
 							<table class="dashboardFrameHeader" align="center" style="width:90%" cellspacing="1" cellpadding="0">
 					 			<tr height="18">
-						 			<td class="text14">
+						 			<td class="text14White">
 							 			&nbsp;<img style="vertical-align: middle" src="resources/images/bulletGreen.png" width="8" hight="8" border="0" alt="alt">
 							 			Beregningskriteriene
 						 			</td>
