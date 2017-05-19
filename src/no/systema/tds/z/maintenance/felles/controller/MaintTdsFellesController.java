@@ -100,7 +100,6 @@ public class MaintTdsFellesController {
 		object.setPgm("svt055r");
 		listObject.add(object);
 		//
-		
 		object = new  MaintenanceMainListObject();
 		object.setId("2");
 		object.setSubject("Underhåll av handläggare");
@@ -110,27 +109,17 @@ public class MaintTdsFellesController {
 		object.setStatus("G");
 		object.setPgm("svt056r");
 		listObject.add(object);
-		/*
-		object = new  MaintenanceMainListObject();
-		object.setId("3");
-		object.setSubject("Vedligeholdelse af Toldtariffen");
-		object.setCode("SKAT_TOLDTARIF");
-		object.setText("DKTARD");
-		object.setDbTable("DKTARD");
-		object.setStatus("G");
-		object.setPgm("dktard");
-		listObject.add(object);
 		//
 		object = new  MaintenanceMainListObject();
-		object.setId("4");
-		object.setSubject("Vedligeholdelse af valutakurser");
-		object.setCode("SKAT_VALUTAKRS");
-		object.setText("DKT057 / DKTVK");
-		object.setDbTable("DKTVK");
+		object.setId("3");
+		object.setSubject("Underhåll av valutakurser");
+		object.setCode("TDS_VALUTA");
+		object.setText("SVT057 / SVTVK");
+		object.setDbTable("SVTVK");
 		object.setStatus("G");
-		object.setPgm("dkt057r");
+		object.setPgm("svt057r");
 		listObject.add(object);
-		*/
+		
 		return listObject;
 	}
 	

@@ -59,7 +59,7 @@
 								<th width="10%" class="tableHeaderField" align="center" >Signatur</th>
 								<th class="tableHeaderField" align="center" >Namn</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Userid</th>
-			                    <th class="tableHeaderField" align="center" ><spring:message code="systema.delete"/></th>
+			                    <th nowrap class="tableHeaderField" align="center" >Ta bort</th>
 			                    
 			                </tr>  
 			                </thead> 
@@ -72,8 +72,8 @@
 				               <td width="10%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.svth_sysg}</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svth_namn}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >&nbsp;${record.svth_usid}&nbsp;</td>
-		                       <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tdsmaintenancefelles_svt056r_edit.do?action=doDelete&svth_sysg=${record.svth_sysg}">
+		                       <td nowrap align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+		               				<a onclick="javascript:return confirm('Är du säker på at du vill ta bort denna?')" tabindex=-1 href="tdsmaintenancefelles_svt056r_edit.do?action=doDelete&svth_sysg=${record.svth_sysg}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
