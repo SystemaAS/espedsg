@@ -28,12 +28,7 @@ public class MaintSvthaMapper {
 		
 		//At this point we now have an UTF-8 payload
 		JsonMaintSvthaContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintSvthaContainer.class); 
-		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
-		//DEBUG
-		/*Collection<JsonMaintDktardRecord> list = container.getList();
-		for(JsonMaintDktardRecord record : list){
-			//logger.info(record.getKlikod());
-		}*/
+		
 		return container;
 	}
 }
