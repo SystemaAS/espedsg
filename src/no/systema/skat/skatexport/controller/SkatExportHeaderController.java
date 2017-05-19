@@ -246,6 +246,11 @@ public class SkatExportHeaderController {
 					}
 					//(1) Populate with item lines in order to validate them in the validator
 					this.setItemLinesForValidation(recordToValidate, appUser);
+					//FIX
+					String tmp = String.valueOf(recordToValidate.getSumTotalAmountItemLines());
+					tmp = tmp.replace(",", ".");
+					recordToValidate.setSumTotalAmountItemLines(Double.parseDouble(tmp));
+					logger.info(recordToValidate.getSumTotalAmountItemLines());
 					//(2) Validate the record
 					SkatExportHeaderValidator validator = new SkatExportHeaderValidator();
 					//required validation only for production avd

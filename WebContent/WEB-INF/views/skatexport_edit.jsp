@@ -1565,7 +1565,7 @@
 					        			Sum av varelinjebeløp&nbsp;
 					        		</td>
 						        	<td >
-					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLines" id="sumTotalAmountItemLines" size="20" maxlength="20" value="${ model.record.sumTotalAmountItemLinesStr}">
+					            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumTotalAmountItemLinesStr---Dummy" id="sumTotalAmountItemLinesStr---Dummy" size="20" maxlength="20" value="${ model.record.sumTotalAmountItemLinesStr}">
 						            	<c:if test="${model.record.sumTotalAmountItemLines != model.record.dkeh_222Dbl}">
 						            		<img onMouseOver="showPop('itemsAmountSum_info');" onMouseOut="hidePop('itemsAmountSum_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="vare-sum warning">	
 							            <div class="text11" style="position: relative;" align="left">
