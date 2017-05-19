@@ -27,7 +27,9 @@
 				for (var i = 0; i < len; i++) {
 					jq("#knavn").val(data[i].navn);
 					jq("#knavn").change();
+					alert("len="+len);
 					if (data[i].postadresse !== undefined ) {
+						alert("postadresse !== undefined");
 						jq("#adr1").val(data[i].postadresse.adresse);
 						jq("#adr1").change();
 						jq("#adr3").val(data[i].postadresse.poststed);
@@ -36,6 +38,19 @@
 						jq("#postnr").change();
 						jq("#syland").val(data[i].postadresse.landkode);
 						jq("#syland").change();
+					} else {
+						if (data[i].forretningsadresse !== undefined ) {
+							alert("forretningsadresse !== undefined");
+							jq("#adr1").val(data[i].forretningsadresse.adresse);
+							jq("#adr1").change();
+							jq("#adr3").val(data[i].forretningsadresse.poststed);
+							jq("#adr3").change();
+							jq("#postnr").val(data[i].forretningsadresse.postnummer);
+							jq("#postnr").change();
+							jq("#syland").val(data[i].forretningsadresse.landkode);
+							jq("#syland").change();
+						}
+						
 					}
 					jq("#spraak").val("N");
 					jq("#spraak").change();

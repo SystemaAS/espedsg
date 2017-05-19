@@ -216,12 +216,8 @@
 											           		<b>
 											           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.customer.orgnr"/>
 											 	          	</b><br><br>
-											           		Hvis nedlastningknappen till høyre brukes , og addressinformation mangler, lastes information om postadresse fra Brønnøysundregistrene:
+											           		Hvis nedlastningknappen till høyre brukes , og addressinformation mangler, lastes information om adresse fra Brønnøysundregistrene.
 															<br><br>
-															postadresse.adresse<br>
-															postadresse.poststed<br>
-															postadresse.postnummer<br>
-															postadresse.landkode<br>
 													</span>
 													</div>
 												</c:if>
