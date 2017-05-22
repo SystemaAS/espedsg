@@ -191,13 +191,11 @@ public class MainMaintenanceCundfVkundController {
 			kundeSessionParams.setImportNo(true);
 		}
 
-		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
-		
 		//TODO when available in table FIRM
-//		kundeSessionParams.setExportDk(true);
-//		kundeSessionParams.setImportDk(true);
-//		kundeSessionParams.setImportSv(true);
-//		kundeSessionParams.setExportSv(true);
+		kundeSessionParams.setImportSe(true);
+		kundeSessionParams.setExportSe(true);
+		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
+	
 	}
 
 	private FirmDao getFirmDao(String appUser) {
@@ -239,10 +237,10 @@ public class MainMaintenanceCundfVkundController {
 		if (kundeSessionParams.isImportDk()) {
 			spaceTotal = spaceTotal - 100;
 		}
-		if (kundeSessionParams.isExportSv()) {
+		if (kundeSessionParams.isExportSe()) {
 			spaceTotal = spaceTotal - 100;
 		}
-		if (kundeSessionParams.isImportSv()) {
+		if (kundeSessionParams.isImportSe()) {
 			spaceTotal = spaceTotal - 100;
 		}
 

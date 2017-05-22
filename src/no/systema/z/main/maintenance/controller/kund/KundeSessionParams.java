@@ -23,9 +23,25 @@ public class KundeSessionParams implements Serializable {
 	private boolean importNo;
 	private boolean exportDk;
 	private boolean importDk;
-	private boolean exportSv;
-	private boolean importSv;
+	private boolean exportSe;
+	private boolean importSe;
 	private int fantomSpaceWidth;
+
+	public boolean isExportSe() {
+		return exportSe;
+	}
+
+	public void setExportSe(boolean exportSe) {
+		this.exportSe = exportSe;
+	}
+
+	public boolean isImportSe() {
+		return importSe;
+	}
+
+	public void setImportSe(boolean importSe) {
+		this.importSe = importSe;
+	}
 
 	public boolean isExportNo() {
 		return exportNo;
@@ -57,22 +73,6 @@ public class KundeSessionParams implements Serializable {
 
 	public void setImportDk(boolean importDk) {
 		this.importDk = importDk;
-	}
-
-	public boolean isExportSv() {
-		return exportSv;
-	}
-
-	public void setExportSv(boolean exportSv) {
-		this.exportSv = exportSv;
-	}
-
-	public boolean isImportSv() {
-		return importSv;
-	}
-
-	public void setImportSv(boolean importSv) {
-		this.importSv = importSv;
 	}
 
 	public int getFantomSpaceWidth() {

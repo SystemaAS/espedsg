@@ -327,6 +327,19 @@ public final class MaintenanceMainUrlDataStore {
 	 * 
 	 */
 	static public String MAINTENANCE_MAIN_BASE_ARKEXT_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsARKEXT.do";
+	
+
+	/**
+	 * Retrieve a List of SvewDao
+	 * 
+	 * @Example SELECT
+	 *          specific:http://gw.systema.no:8080/syjservicesbcore/syjsSVEW.do?user=OSCAR&svew_knnr=1&svew_knso=Tarzan
+	 * @Example SELECT list:
+	 *          http://gw.systema.no:8080/syjservicesbcore/syjsSVEW.do?user=OSCAR&svew_knnr=1
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SVEW_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVEW.do";	
+	
 
 	//OS-Users (general)
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSYQAOKP08AR.do?user=OSCAR&wos8dden==ROGER

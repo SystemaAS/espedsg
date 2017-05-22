@@ -48,7 +48,7 @@ public class MainMaintenanceCundfVareRegisterController {
 			} else if ("DK".equals(appUser.getFiland())) {
 				// TODO
 			} else if ("SE".equals(appUser.getFiland())) {
-				// TODO
+				successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_se.do");
 			} else { // default Export(no)
 				successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_no.do");
 			}

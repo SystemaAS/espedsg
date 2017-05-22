@@ -6,7 +6,7 @@
 <!-- =====================end header ==========================-->
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
-	<script type="text/javascript" src="resources/js/mainmaintenancecundf_vareimp_no_edit.js?ver=${user.versionEspedsg}"></script>	
+	<script type="text/javascript" src="resources/js/mainmaintenancecundf_vareexp_se_edit.js?ver=${user.versionEspedsg}"></script>	
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
@@ -196,11 +196,15 @@
 									</a>
 								</td>
 							</c:if>
-							<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
-									<font class="tabLinkMinor">&nbsp;
-									   <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
-									</font>
-							</td>
+							<c:if test="${kundeSessionParams.importNo == true}">
+								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+									<a id="alinkMainMaintVareImpNoGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_no.do">
+											<font class="tabDisabledLinkMinor">&nbsp;
+												  <spring:message code="systema.main.maintenance.customer.vareregister.imp.no"/>
+											</font>&nbsp;						
+									</a>
+								</td>
+							</c:if>
 							<c:if test="${kundeSessionParams.exportDk == true}">
 								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_dk_edit.do">  -->
@@ -219,15 +223,11 @@
 								<!--  	</a> -->
 								</td>
 							</c:if>
-							<c:if test="${kundeSessionParams.exportSe == true}">
-								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintExpSeGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se.do"> 
-											<font class="tabDisabledLinkMinor">&nbsp;
-												 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
-											</font>&nbsp;						
-									</a> 
-								</td>		
-							</c:if>
+							<td width="100" valign="bottom" class="tabSub" align="center" nowrap>
+									<font class="tabLinkMinor">&nbsp;
+										 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
+									</font>&nbsp;						
+							</td>		
 							<c:if test="${kundeSessionParams.importSe == true}">
 								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 								<!-- 	<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">  -->
@@ -255,38 +255,38 @@
 							<thead>
 							<tr>
 								<th align="center" width="2%" class="tableHeaderField" >&nbsp;<spring:message code="systema.edit"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varenr"/>&nbsp;</th>
-			                    <th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.varebe"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vf"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2lk"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vnti"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2tn"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pre"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2pva"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2as"/>&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2mfr"/>&nbsp;</th>
+								<th class="tableHeaderField" title="svew_knso">&nbsp;Sökbegrepp&nbsp;</th>
+			                    <th class="tableHeaderField" title="svew_vasl">&nbsp;Varubeskrivning&nbsp;</th>
+								<th class="tableHeaderField" title="svew_vano">&nbsp;Varupost nr.&nbsp;</th>
+								<th class="tableHeaderField" title="svew_vata">&nbsp;Varukod Taric nr&nbsp;</th>
+								<th class="tableHeaderField" title="svew_ulkd">&nbsp;Ursprungsland&nbsp;</th>
+								<th class="tableHeaderField" title="svew_brut">&nbsp;Bruttovikt&nbsp;</th>
+								<th class="tableHeaderField" title="svew_neto">&nbsp;Nettovikt&nbsp;</th>
+								<th class="tableHeaderField" title="svew_eup1">&nbsp;Förfarande 37:1&nbsp;</th>
+								<th class="tableHeaderField" title="svew_eup2">&nbsp;Förfarande 37:2&nbsp;</th>
+								<th class="tableHeaderField" title="svew_kono">&nbsp;Kontigentnummer&nbsp;</th>
 			                    <th align="center" class="tableHeaderField"><spring:message code="systema.delete"/></th>
 			                </tr>  
 				             </thead> 
 				             <tbody >  
 					            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 					               <tr class="tableRow" height="20" >
-						               <td id="recordUpdate_${record.levenr}_${record.varenr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+						               <td id="recordUpdate_${record.svew_knnr}_${record.svew_knso}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 				               				<img src="resources/images/update.gif" border="0" alt="edit">
 						               </td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.varenr}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.varebe}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2vf}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2lk}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2vnti}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2tn}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2pre}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2pva}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2as}&nbsp;</font></td>
-						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.w2mfr}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.svew_knso}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_vasl}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_vano}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_vata}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_ulkd}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_brut}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_neto}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_eup1}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_eup2}&nbsp;</font></td>
+						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_kono}&nbsp;</font></td>
 						               
 						               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-				               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancecundf_vareimp_no_edit.do?action=doDelete&varenr=${record.varenr}&levenr=${record.levenr}">
+				               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancecundf_vareexp_se_edit.do?action=doDelete&svew_knnr=${record.svew_knnr}&svew_knso=${record.svew_knso}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 							               	</a>
 						               </td>
@@ -304,7 +304,7 @@
 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
-							<form action="mainmaintenancecundf_vareimp_no_edit.do" name="formRecord" id="formRecord" method="POST" >
+							<form action="mainmaintenancecundf_vareexp_se_edit.do" name="formRecord" id="formRecord" method="POST" >
 								<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
 								<input type="hidden" name="action" id=action value="doUpdate">

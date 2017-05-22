@@ -29,7 +29,6 @@
 					jq("#knavn").change();
 					alert("len="+len);
 					if (data[i].postadresse !== undefined ) {
-						alert("postadresse !== undefined");
 						jq("#adr1").val(data[i].postadresse.adresse);
 						jq("#adr1").change();
 						jq("#adr3").val(data[i].postadresse.poststed);
@@ -40,7 +39,6 @@
 						jq("#syland").change();
 					} else {
 						if (data[i].forretningsadresse !== undefined ) {
-							alert("forretningsadresse !== undefined");
 							jq("#adr1").val(data[i].forretningsadresse.adresse);
 							jq("#adr1").change();
 							jq("#adr3").val(data[i].forretningsadresse.poststed);
