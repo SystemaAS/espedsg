@@ -188,7 +188,7 @@ public class DashboardController {
 			    	//TOTEN AS triggered this requirement
 			    	//------------------------------------------------------------------------------------------------------
 			    	if(appUser.getTomcatPort()!=null && !"".equals(appUser.getTomcatPort())){
-				    	String urlRedirectTomcatToSubsidiaryCompany = this.getTomcatServerRedirectionUrl(appUser);
+				    	String urlRedirectTomcatToSubsidiaryCompany = this.getTomcatServerRedirectionUrl(appUser, request);
 				    	RedirectView rw = new RedirectView();
 				    	logger.info("Redirecting to:" + urlRedirectTomcatToSubsidiaryCompany);
 				    	rw.setUrl(urlRedirectTomcatToSubsidiaryCompany);
@@ -295,16 +295,27 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	private String getTomcatServerRedirectionUrl(SystemaWebUser appUser){
+	private String getTomcatServerRedirectionUrl(SystemaWebUser appUser, HttpServletRequest request){
 		String retval = null;
+		//get host from url
+		StringBuffer url = request.getRequestURL();
+		String uri = request.getRequestURI();
+		String hostRaw = url.substring(0, url.indexOf(uri)); 
+		retval = hostRaw + "/espedsg/logonWRedDashboard.do";
 		
+		//START -->OBSOLETE-OLD version 
+		//due to DMZ-firewall problems. We get it from the request and nothing else
+		/*logger.info("HOST:" + host);
 		String javaServices = AppConstants.HTTP_ROOT_SERVLET_JSERVICES;
-		String host = javaServices.replace("http://", "");
+		String host = hostRaw.replace("http://", "");
 		int separator = host.indexOf(":");
 		if(separator>=0){
 			host = host.substring(0, separator);
 			retval = "http://" + host + ":" + appUser.getTomcatPort() + "/espedsg/logonWRedDashboard.do";
-		}
+		} 
+		//END
+		*/
+		
 		return retval;
 	}
 	/**
