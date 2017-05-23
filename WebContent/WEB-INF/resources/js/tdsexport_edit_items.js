@@ -331,6 +331,21 @@
   		return retval;
   	}
   	
+  //-----------------------------------------------------------------------------
+  	//jQuery CALCULATOR (related to jquery.calculator.js and jquery.calculator.css
+  	//-----------------------------------------------------------------------------
+  	jq(function() {
+  		jq('#svev_fabl').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#svev_brut').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#svev_neto').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#svev_kota').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#svev_ankv').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  	});
   	
   	/**
   	 * gets a specific item line
@@ -706,6 +721,8 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY":    "800px",
   		  "scrollCollapse":  true,
+  		  "columnDefs": [{ "type": "num", "targets": 0 }],
+  		  "order": [[ 10, "desc" ], [ 0, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table
   		  "lengthMenu": [ 75, 100, 300, 400, 900]
   	  });
@@ -714,6 +731,8 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY":    "180px",
   		  "scrollCollapse":  true,
+  		  "columnDefs": [{ "type": "num", "targets": 1 }],
+  		  "order": [[ 11, "desc" ], [ 1, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table
   		  "lengthMenu": [ 75, 100, 300, 400, 900]
   	  });

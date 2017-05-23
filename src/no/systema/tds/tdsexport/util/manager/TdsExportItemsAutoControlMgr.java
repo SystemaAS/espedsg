@@ -210,8 +210,8 @@ public class TdsExportItemsAutoControlMgr {
 	 * 
 	 * @param applicationUser
 	 */
-	public void checkValidExtraMangdEnhet(String applicationUser){
-		if(getMandatoryMangdEnhetDirective(applicationUser)){
+	public void checkValidExtraMangdEnhet(String applicationUser, String sveh_aube){
+		if(getMandatoryMangdEnhetDirective(applicationUser, sveh_aube)){
 			if(this.record.getSvev_ankv()!=null && !"".equals(this.record.getSvev_ankv())){
 				//valid
 			}else{
@@ -318,14 +318,19 @@ public class TdsExportItemsAutoControlMgr {
 		}
 		return retval;
 	}
-	
-	private boolean getMandatoryMangdEnhetDirective(String applicationUser){
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param sveh_aube
+	 * @return
+	 */
+	private boolean getMandatoryMangdEnhetDirective(String applicationUser, String sveh_aube){
 		boolean retval = false;
 		String TDS_IE = "E";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
-		
-		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + this.record.getSvev_ulkd();
+		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + sveh_aube;
+		//String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + this.record.getSvev_ulkd();
 		/*DEBUG
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");

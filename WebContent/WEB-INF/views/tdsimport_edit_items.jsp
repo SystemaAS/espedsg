@@ -208,8 +208,7 @@
 																<table id="tblItemLinesAll" class="display compact cell-border" width="95%" >
 																	<thead> 
 																	<tr style="background-color:#DDDDDD">
-																	    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_syli.linjeNr"/>&nbsp;</th>
-																	     <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vano.varupostNr"/>&nbsp;</th>   
+																	    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vano.varupostNr"/>&nbsp;</th>   
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_ulkd.urspLand"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vata.varukod"/><font class="text9">Taric.nr</font>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_fokd.formanskod"/>&nbsp;</th>
@@ -231,8 +230,7 @@
 																	<tbody>
 														           <c:forEach items="${model.list}" var="record" varStatus="counter">    
 													               	 <tr class="tableRow" >
-														               <td class="text11" align="center">&nbsp;${record.sviv_syli}</td>
-   														               <td class="text11" >&nbsp;${record.sviv_vano}</td>
+														               <td class="text11" >&nbsp;${record.sviv_vano}</td>
 														               <td class="text11" >&nbsp;${record.sviv_ulkd}</td>
 														               <td class="text11" >&nbsp;${record.sviv_vata}</td>
 														               <%--<td class="text11" >&nbsp;${record.sviv_vati}</td> --%>
@@ -332,7 +330,7 @@
 								<table id="tblItemLines" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_syli.linjeNr"/>&nbsp;</th>   
+										<td class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.update"/>&nbsp;</td>   
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vano.varupostNr"/>&nbsp;</th>   
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_ulkd.urspLand"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vata.varukod"/><font class="text9">Taric.nr</font>&nbsp;</th>
@@ -354,13 +352,12 @@
 					               <tbody>	 
 							           <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <tr class="tableRow" >
-							               <td class="text11" align="center">&nbsp;
-							               		<%--<a id="recordUpdate_${counter.count}_${record.sviv_vano}" href="#" onClick="getItemData(this);">${record.sviv_syli} --%>
-							               		<a tabindex=-1 id="recordUpdate_${record.sviv_syli}_${record.sviv_vano}" href="#" onClick="getItemData(this);">${record.sviv_syli}
-							               			<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
-							               		</a>
+							               <td class="text11" align="center">
+					               				<a tabindex=-1 id="recordUpdate_${record.sviv_syli}_${record.sviv_vano}" href="#" onClick="getItemData(this);">
+					               					<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+						               			</a>
 							               </td>
-							               <td class="text11" >&nbsp;${record.sviv_vano}</td>
+							               <td class="text11" align="center">&nbsp;${record.sviv_vano}</td>
 							               <td class="text11" >&nbsp;${record.sviv_ulkd}</td>
 							               <td class="text11" >&nbsp;${record.sviv_vata}&nbsp;&nbsp;
 							               	  <img id="recordUpdate_${record.sviv_syli}_${record.sviv_vano}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Lägg till i kundensvarureg.">

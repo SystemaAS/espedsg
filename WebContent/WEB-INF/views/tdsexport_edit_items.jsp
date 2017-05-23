@@ -7,6 +7,8 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tdsexport_edit_items.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>	
+	
 	<%-- for dialog popup 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
 	--%>
@@ -92,6 +94,7 @@
 	 				<table width="100%" align="center" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text11MediumBlue">
+				 				&nbsp;Avd&nbsp;<b>${model.avd}</b>
 				 				&nbsp;Ärende&nbsp;<b>${model.opd}</b>
 				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
 				 				&nbsp;&nbsp;&nbsp;&nbsp;Tullid:&nbsp;<b>${model.tullId}</b>
@@ -196,8 +199,7 @@
 																<table id="tblItemLinesAll" class="display compact cell-border" width="95%" >
 																	<thead> 
 																	<tr style="background-color:#DDDDDD">
-																	    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_syli.linjeNr"/>Linjenr.&nbsp;</th>   
-													                    
+																	    
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</th>   
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</th>
@@ -225,8 +227,6 @@
 														                       <tr class="tableOddRow" >
 														                   </c:otherwise>
 														               </c:choose>
-														               
-														               <td class="text11" align="center">&nbsp;${record.svev_syli}</td>
 														               <td class="text11" >&nbsp;${record.svev_vano}</td>
 														               <td class="text11" >&nbsp;${record.svev_ulkd}</td>
 														               <td class="text11" >&nbsp;${record.svev_vata}</td>
@@ -320,7 +320,10 @@
 								<table id="tblItemLines" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_syli.linjeNr"/>&nbsp;</td>   
+									    <%-- 
+									    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_syli.linjeNr"/>&nbsp;</td> 
+									    --%>
+					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.update"/>&nbsp;</td>   
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</td>   
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</td>
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</td>
@@ -349,10 +352,13 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               
-							               <td class="text11" align="center">&nbsp;
-							               		<%--<a id="recordUpdate_${counter.count}_${record.svev_vano}" href="#" onClick="getItemData(this);">${record.svev_syli} --%>
-							               		<a tabindex=-1 id="recordUpdate_${record.svev_syli}_${record.svev_vano}" href="#" onClick="getItemData(this);">${record.svev_syli}
-							               		<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;</a>
+							               <%-- Internal to CB. Does not have to bee visible to the end user 
+							               <td class="text11" align="center">${record.svev_syli}</td> 
+							               --%>
+						               	   <td class="text11" align="center">&nbsp;
+							               		<a tabindex=-1 id="recordUpdate_${record.svev_syli}_${record.svev_vano}" href="#" onClick="getItemData(this);">
+							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+							               		</a>
 						               	   </td>
    							               <td class="text11" >&nbsp;${record.svev_vano}</td>
 							               <td class="text11" >&nbsp;${record.svev_ulkd}</td>

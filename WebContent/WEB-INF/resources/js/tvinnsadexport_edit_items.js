@@ -563,7 +563,7 @@
 	    	  "dom": '<"top">t<"bottom"flip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
-	  		  "order": [[ 10, "desc" ], [ 1, 'asc' ]],
+	  		  "order": [[ 10, "desc" ], [ 2, 'asc' ]],
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]
 	  	  });
 	      

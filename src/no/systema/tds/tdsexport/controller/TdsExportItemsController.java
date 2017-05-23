@@ -172,7 +172,6 @@ public class TdsExportItemsController {
 				if(!this.MATCH.equals(varukodValidNumber)){
 					recordToValidate.setSvev_vata(null); 
 				}
-				
 				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord));
 				
 				TdsExportItemsValidator validator = new TdsExportItemsValidator();
@@ -458,7 +457,7 @@ public class TdsExportItemsController {
     					if(autoControlMgr.isValidRecord()){
     						//Go to level 3
     						//logger.info("level check (3) " + idDebug);
-							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
+							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser(), headerRecord.getSveh_aube());
 							if(autoControlMgr.isValidRecord()){
 	    						//Go to level FINAL MandatoryFields (must be the last check)
 	    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
@@ -595,6 +594,7 @@ public class TdsExportItemsController {
 	 * @param recordToValidate
 	 * @return
 	 */
+	
 	private String getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
 		String retval = "N";
 		String TDS_IE = "E";

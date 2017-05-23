@@ -42,6 +42,14 @@
   	jq(function() {
   		jq('#sviv_fabl').calculator({ showOn: 'button',  
   			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#sviv_brut').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#sviv_neto').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#sviv_kota').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		jq('#sviv_ankv').calculator({ showOn: 'button',  
+  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
   	});
   	
   	//---------------------------------------
