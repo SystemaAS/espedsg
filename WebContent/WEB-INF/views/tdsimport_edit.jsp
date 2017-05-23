@@ -1306,7 +1306,7 @@
 				        			Bruttovikt (varuposter)&nbsp;
 				        		</td>
 						        <td colspan="2">
-				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfGrossWeightInItemLines" id="sumOfGrossWeightInItemLines" size="13" maxlength="13" value="${model.record.sumOfGrossWeightInItemLinesStr}">
+				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfGrossWeightInItemLinesStr" id="sumOfGrossWeightInItemLinesStr" size="13" maxlength="13" value="${model.record.sumOfGrossWeightInItemLinesStr}">
 				            		
 				            		<c:if test="${not empty (model.record.sumOfGrossWeightInItemLinesStr && model.record.svih_brut)}">
 				            			<c:if test="${model.record.sumOfGrossWeightInItemLines != model.record.svih_brut_dbl}">

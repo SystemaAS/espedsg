@@ -1291,11 +1291,11 @@ public class TdsImportHeaderController {
     	//This is to flag the fact that no antal kolli exist DESPITE the fact that there is 1 or more item lines
     	//to be used in validation...
     	if(numberOfItemLines>0 && antalKolli==0){ antalKolli = -1; }
-    	/*DEBUG
-    	logger.info("AntalKolli(sum): " + antalKolli);
+    	//DEBUG
+    	//logger.info("AntalKolli(sum): " + antalKolli);
     	logger.info("Bruttovikt(sum): " + grossWeight);
-    	logger.info("Fakt.belopp(sum): " + invoiceAmount);
-    	*/
+    	//logger.info("Fakt.belopp(sum): " + invoiceAmount);
+    
     	topicRecord.setSumOfAntalKolliInItemLines(antalKolli);
     	topicRecord.setSumOfGrossWeightInItemLines(grossWeight);
     	topicRecord.setSumOfInvoiceAmountInItemLines(invoiceAmount);
@@ -1588,6 +1588,7 @@ public class TdsImportHeaderController {
 			//(1) handover to final object
 			record.setSumOfAntalKolliInItemLines(sumTopicRecord.getSumOfAntalKolliInItemLines());
 			record.setSumOfGrossWeightInItemLines(sumTopicRecord.getSumOfGrossWeightInItemLines());
+			//logger.info("Bruttovikt B:" + record.getSumOfGrossWeightInItemLinesStr());
 			record.setSumOfInvoiceAmountInItemLines(sumTopicRecord.getSumOfInvoiceAmountInItemLines());
 			record.setInvoiceListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
 			record.setInvoiceListTotSum(sumFaktTotalRecord.getTot_fabl());

@@ -34,9 +34,12 @@ public class JsonTdsExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	
 	private String sumOfGrossWeightInItemLinesStr = null;
 	public String getSumOfGrossWeightInItemLinesStr() {
-		this.sumOfGrossWeightInItemLinesStr = String.valueOf(this.sumOfGrossWeightInItemLines);
+		//this.sumOfGrossWeightInItemLinesStr = String.valueOf(this.sumOfGrossWeightInItemLines);
+		String tmpStr = this.numberFormatter.getDoubleToPlainString(this.sumOfGrossWeightInItemLines, 3);
+		this.sumOfGrossWeightInItemLinesStr = tmpStr;
 		return this.sumOfGrossWeightInItemLinesStr;
 	}
+	
 	//Fakt.belopp (SUM) (3 decimals)
 	private Double sumOfInvoiceAmountInItemLines = 0.00D;
 	public void setSumOfInvoiceAmountInItemLines(Double value) {  this.sumOfInvoiceAmountInItemLines = value; }
