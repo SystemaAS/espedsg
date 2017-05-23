@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
-import no.systema.main.util.JsonDebugger;
-import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
 /**
@@ -39,14 +37,9 @@ public class MainMaintenanceCundfVareRegisterController {
 			return this.loginView;
 		} else { 
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
-			String firma = kundeSessionParams.getFirma();
-			String kundnr = kundeSessionParams.getKundnr();
-			String knavn = kundeSessionParams.getKnavn();
 			
 			if ("NO".equals(appUser.getFiland())) {
 				successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_no.do");
-			} else if ("DK".equals(appUser.getFiland())) {
-				// TODO
 			} else if ("SE".equals(appUser.getFiland())) {
 				successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_se.do");
 			} else { // default Export(no)

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
 import no.systema.jservices.common.dao.SadvareDao;
+import no.systema.jservices.common.dao.SvewDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.service.UrlCgiProxyService;
@@ -50,6 +51,14 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
 
 
+	@RequestMapping(value = "getSpecificRecord_svew.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Collection<SvewDao> getRecordSvew(@RequestParam String applicationUser, @RequestParam String svew_knnr, String svew_knso) {
+		final String METHOD = "[DEBUG] getSpecificRecord_svew ";
+		logger.debug(METHOD + " applicationUser=" + applicationUser + ", svew_knnr=" + svew_knnr + ", svew_knso=" + svew_knso);
+
+		return fetchSpecificSvew(applicationUser, svew_knnr, svew_knso);
+	}		
+	
 	@RequestMapping(value = "getSpecificRecord_sadvare.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Collection<SadvareDao> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
 		final String METHOD = "[DEBUG] getSpecificRecord_sadvare ";
@@ -100,6 +109,30 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 
 		return (List<JsonMaintMainCundcRecord>) fetchDefaultEmmaXmlInfo(applicationUser, firma);
 	}	
+	
+	private Collection<SvewDao> fetchSpecificSvew(String appUser, String svew_knnr, String svew_knso) {
+		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
+		jsonReader.set(new JsonDtoContainer<SvewDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&svew_knnr=" + svew_knnr);
+		urlRequestParams.append("&svew_knso=" + svew_knso);
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+
+		JsonDtoContainer<SvewDao> container = (JsonDtoContainer<SvewDao>) jsonReader.get(jsonPayload);
+		if (container != null) {
+			return container.getDtoList();
+		} else {
+			return null;
+		}
+	}		
+
+	
 	
 	private Collection<SadvareDao> fetchSpecificSadvare(String appUser, String levenr, String varenr) {
 		JsonReader<JsonDtoContainer<SadvareDao>> jsonReader = new JsonReader<JsonDtoContainer<SadvareDao>>();
