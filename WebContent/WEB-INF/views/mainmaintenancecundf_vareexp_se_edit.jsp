@@ -378,7 +378,7 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="svew_vasl">&nbsp;Varubeskrivning:</td>
+																<td class="text12" title="svew_vasl">&nbsp;Beskrivning:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl}'></td>
 																<td class="text12" title="svew_ulkd">&nbsp;Land:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_ulkd" id="svew_ulkd" size="2" maxlength="2" value='${model.record.svew_ulkd}'>
@@ -386,7 +386,7 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="svew_vasl2">&nbsp;Varubeskrivning:</td>
+																<td class="text12" title="svew_vasl2">&nbsp;Beskrivning:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl2}'></td>
 																<td class="text12" title="svew_vati">&nbsp;Varukod (33:3):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vati" id="svew_vati" size="5" maxlength="4" value='${model.record.svew_vati}'>
@@ -394,22 +394,22 @@
 															</tr>
 															
 															<tr>
-																<td class="text12" title="svew_vasl3">&nbsp;Varubeskrivning:</td>
+																<td class="text12" title="svew_vasl3">&nbsp;Beskrivning:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl3" id="svew_vasl3" size="70" maxlength="70" value='${model.record.svew_vasl3}'></td>
 																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
 															</tr>
 															
 															<tr>
-																<td class="text12" title="svew_vasl4">&nbsp;Varubeskrivning:</td>
+																<td class="text12" title="svew_vasl4">&nbsp;Beskrivning:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl4" id="svew_vasl4" size="70" maxlength="70" value='${model.record.svew_vasl4}'></td>
 																<td class="text12" title="svew_vat5">&nbsp;Varukod (33:5):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl5">&nbsp;Varubeskrivning:</td>
+																<td class="text12" title="svew_vasl5">&nbsp;Beskrivning:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl5" id="svew_vasl5" size="70" maxlength="70" value='${model.record.svew_vasl5}'></td>
-																<td class="text12" title="svew_vano">&nbsp;Varupost nr::</td>
+																<td class="text12" title="svew_vano">&nbsp;Varupost nr:</td>
 																<td>
 																	<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_vano" id="svew_vano" size="5" maxlength="5" value='${model.record.svew_vano}'>
 																</td>
@@ -417,7 +417,7 @@
 															<tr>
 																<td class="text12" title="svew_komr">&nbsp;Komm. ref.nr:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_komr" id="svew_komr" size="70" maxlength="70" value='${model.record.svew_komr}'></td>
-																<td class="text12" title="svew_fnkd">&nbsp;FN-kod för farligt gods:</td>
+																<td class="text12" title="svew_fnkd">&nbsp;FN-kod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
 															</tr>
 
@@ -445,9 +445,9 @@
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_ankv" id="svew_ankv" size="10" maxlength="10" value='${model.record.svew_ankv}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_kono">Kontigentnr.:</td>
+																<td class="text12" title="svew_kono">Kont. nr.:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_kono" id="svew_kono" size="5" maxlength="3" value='${model.record.svew_kono}'></td>
-																<td class="text12" title="svew_stva">Statistiskt värde:</td>
+																<td class="text12" title="svew_stva">Stat. värde:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva" id="svew_stva" size="12" maxlength="11" value='${model.record.svew_stva}'></td>
 															</tr>
 															
@@ -459,11 +459,17 @@
 															</tr>
 
 															<tr>
-																<td class="text12" title="svew_fabl">Fakturabelopp:</td>
-																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_fabl" id="svew_fabl" size="15" maxlength="14" value='${model.record.svew_fabl}'></td>
-																<td colspan="2">
-																	&nbsp;
-																</td>
+																<td class="text12" title="svew_call">Call me:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_call" id="svew_call" size="3" maxlength="2" value='${model.record.svew_call}'></td>
+																<td class="text12" title="svew_fabl">Belopp, fakt.:</td>
+																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_fabl" id="svew_fabl" size="12" maxlength="14" value='${model.record.svew_fabl}'></td>
+															</tr>
+
+															<tr>
+																<td class="text12" title="svew_lagt">Lager id:</td>
+																<td><input type="text"  class="inputTextMediumBlue" name="svew_lagt" id="svew_lagt" size="2" maxlength="1" value='${model.record.svew_lagt}'></td>
+																<td class="text12" title="svew_lagl">Landkod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'></td>
 															</tr>
 
 														</table>
@@ -472,74 +478,132 @@
 											</table>
 										</td>
 									</tr>  <!-- End Artikelinfo -->
-									
-									
-									<tr> <!-- Artikelbesk o avgift -->
+
+
+									<tr> <!-- Bilagda handlingar -->
+										<td colspan="2">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">&nbsp;
+														Bilagda handlingar
+													</td>
+												</tr>
+											</table>			
+
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr> 
+													<td width="50%" valign="top">
+														<table border="0">
+															<tr>
+																<td class="text12" title="svew_bit1">1. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit1" id="svew_bit1" size="5" maxlength="4" value='${model.record.svew_bit1}'></td>
+																<td class="text12" title="svew_bii1">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii1" size="35" maxlength="35" value='${model.record.svew_bii1}'></td>
+															</tr>
+															
+															<tr>
+																<td class="text12" title="svew_bit2">2. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit2" id="svew_bit2" size="5" maxlength="4" value='${model.record.svew_bit2}'></td>
+																<td class="text12" title="svew_bii2">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii2" size="35" maxlength="35" value='${model.record.svew_bii2}'></td>
+															</tr>
+															
+															<tr>
+																<td class="text12" title="svew_bit3">3. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit3" id="svew_bit3" size="5" maxlength="4" value='${model.record.svew_bit3}'></td>
+																<td class="text12" title="svew_bii3">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii3" id="svew_bii3" size="35" maxlength="35" value='${model.record.svew_bii3}'></td>
+															</tr>
+															
+															<tr>
+																<td class="text12" title="svew_bit4">4. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit4" id="svew_bit4" size="5" maxlength="4" value='${model.record.svew_bit4}'></td>
+																<td class="text12" title="svew_bii4">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii4" id="svew_bii4" size="35" maxlength="35" value='${model.record.svew_bii4}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_bit5">5. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit5" id="svew_bit5" size="5" maxlength="4" value='${model.record.svew_bit5}'></td>
+																<td class="text12" title="svew_bii5">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii5" id="svew_bii5" size="35" maxlength="35" value='${model.record.svew_bii5}'></td>
+															</tr>
+
+														</table>
+													</td>
+													
+													<td width="50%" valign="top">
+														<table border="0">
+															<tr>
+																<td class="text12" title="svew_bit6">6. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit6" id="svew_bit6" size="5" maxlength="4" value='${model.record.svew_bit6}'></td>
+																<td class="text12" title="svew_bii6">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii6" id="svew_bii6" size="35" maxlength="35" value='${model.record.svew_bii6}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_bii7">7. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii7" id="svew_bii7" size="5" maxlength="4" value='${model.record.svew_bii7}'></td>
+																<td class="text12" title="svew_bii7">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii7" id="svew_bii7" size="35" maxlength="35" value='${model.record.svew_bii7}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_bit8">8. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit8" id="svew_bit8" size="5" maxlength="4" value='${model.record.svew_bit8}'></td>
+																<td class="text12" title="svew_bii8">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii8" id="svew_bii8" size="35" maxlength="35" value='${model.record.svew_bii8}'></td>
+															</tr>
+															
+															<tr>
+																<td class="text12" title="svew_bit9">9. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit9" id="svew_bit9" size="5" maxlength="4" value='${model.record.svew_bit9}'></td>
+																<td class="text12" title="svew_bii9">&nbsp;Identitet:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii9" id="svew_bii9" size="35" maxlength="35" value='${model.record.svew_bii9}'></td>
+															</tr>
+
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>  <!-- End Bilagda handlingar -->
+
+									<tr> <!-- Särskilda uppl. o Särskilda uppl. -->
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.productdesc"/></td>
+													<td class="text12Bold">
+														&nbsp;
+														Särskilda upplysningar
+													</td>
 												</tr>
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr>
-													<td  class="text12" colspan="4" align="right">
-														<a tabindex="-1" id="enhetIdLink">Ref.
-															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-														</a>&nbsp;&nbsp;&nbsp;
-													</td>
-												</tr>
-												<tr> 
-													<td class="text12" title="w2vt01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2vt01"/></td>
-													<td class="text12" title="w2ft01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2ft01"/></td>
-													<td class="text12" title="w2nt01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2nt01"/></td>
-													<td class="text12" title="w2eh01"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2eh01"/></td>
+													<td class="text12" title="svew_suko">1. Kod:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_suko" id="svew_suko" size="7" maxlength="5" value='${model.record.svew_suko}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt01" id="w2vt01" size="31" maxlength="30" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft01" id="w2ft01" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt01" id="w2nt01" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh01" id="w2eh01" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutx">1. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx" id="svew_sutx" size="70" maxlength="70" value='${model.record.svew_sutx}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt02" id="w2vt02" size="31" maxlength="30" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft02" id="w2ft02" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt02" id="w2nt02" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh02" id="w2eh02" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutx2">2. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx2" id="svew_sutx2" size="70" maxlength="70" value='${model.record.svew_sutx2}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt03" id="w2vt03" size="31" maxlength="30" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft03" id="w2ft03" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt03" id="w2nt03" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh03" id="w2eh03" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutx3">3. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx3" id="svew_sutx3" size="70" maxlength="70" value='${model.record.svew_sutx3}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt04" id="w2vt04" size="31" maxlength="30" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft04" id="w2ft04" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt04" id="w2nt04" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh04" id="w2eh04" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutx4">4. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx4" id="svew_sutx4" size="70" maxlength="70" value='${model.record.svew_sutx4}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2vt05" id="w2vt05" size="31" maxlength="30" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft05" id="w2ft05" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt05" id="w2nt05" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh05" id="w2eh05" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutx5">5. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx5" id="svew_sutx5" size="70" maxlength="70" value='${model.record.svew_sutx5}'></td>
 												</tr>
 												<tr>
-													<td>&nbsp;</td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft06" id="w2ft06" size="29" maxlength="28" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt06" id="w2nt06" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2eh06" id="w2eh06" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
-												</tr>
-												<tr>
-													<td>&nbsp;</td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2ft07" id="w2ft07" size="29" maxlength="28" value='${model.record.w2fsvew_knso07}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2nt07" id="w2nt07" size="10" maxlength="6" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2eh07" id="w2eh07" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
-												</tr>												
-												<tr>
-													<td colspan="4" class="text12" height="25">&nbsp;</td>
+													<td colspan="4" class="text12" height="187">&nbsp;</td>
 												</tr>
 											</table>
 										</td>
@@ -547,69 +611,157 @@
 										<td width="50%" valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
-													<td class="text12Bold">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancesadvare.header.fee"/></td>
+													<td class="text12Bold">
+														&nbsp;
+														Särskilda upplysningar
+													</td>
 												</tr>
 											</table>			
 									
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="left">
 												<tr>
-													<td  class="text12" colspan="4" align="left">
-														<a tabindex="-1" id="avgkodeIdLink">Ref.
-															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-														</a>
-													</td>
+													<td class="text12" title="svew_suk6">2. Kod:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_suk6" id="svew_suk6" size="7" maxlength="5" value='${model.record.svew_suk6}'></td>
 												</tr>
 												<tr>
-													<td class="text12" title="w2akd"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2akd"/></td>
-													<td class="text12" title="w2asv"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2asv"/></td>
-													<td class="text12" title="w2asa"><spring:message code="systema.main.maintenance.mainmaintenancesadvare.w2asa"/></td>
+													<td class="text12" title="svew_sut6">1. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sut6" id="svew_sut6" size="70" maxlength="70" value='${model.record.svew_sut6}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd1" id="w2akd1" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv1" id="w2asv1" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa1" id="w2asa1" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sut7">2. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sut7" id="svew_sut7" size="70" maxlength="70" value='${model.record.svew_sut7}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd2" id="w2akd2" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv2" id="w2asv2" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa2" id="w2asa2" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sut8">3. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sut8" id="svew_sut8" size="70" maxlength="70" value='${model.record.svew_sut8}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd3" id="w2akd3" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv3" id="w2asv3" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa3" id="w2asa3" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sut9">4. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sut9" id="svew_sut9" size="70" maxlength="70" value='${model.record.svew_sut9}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd4" id="w2akd4" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv4" id="w2asv4" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa4" id="w2asa4" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_suta">5. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_suta" id="svew_suta" size="70" maxlength="70" value='${model.record.svew_suta}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd5" id="w2akd5" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv5" id="w2asv5" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa5" id="w2asa5" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td colspan="4" class="text12" height="25">&nbsp;</td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd6" id="w2akd6" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv6" id="w2asv6" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa6" id="w2asa6" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sukb">3. Kod:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sukb" id="svew_sukb" size="7" maxlength="5" value='${model.record.svew_sukb}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd7" id="w2akd7" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv7" id="w2asv7" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa7" id="w2asa7" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutb">1. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutb" id="svew_sutb" size="70" maxlength="70" value='${model.record.svew_sutb}'></td>
 												</tr>
 												<tr>
-													<td><input type="text" class="inputTextMediumBlue" name="w2akd8" id="w2akd8" size="2" maxlength="2" value='${model.record.svew_knso}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="w2asv8" id="w2asv8" size="3" maxlength="3" value='${model.record.svew_knso}'></td>
-													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="w2asa8" id="w2asa8" size="15" maxlength="13" value='${model.record.svew_knso}'></td>
+													<td class="text12" title="svew_sutc">2. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutc" id="svew_sutc" size="70" maxlength="70" value='${model.record.svew_sutc}'></td>
+												</tr>
+												<tr>
+													<td class="text12" title="svew_sutd">3. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutd" id="svew_sutd" size="70" maxlength="70" value='${model.record.svew_sutd}'></td>
+												</tr>
+												<tr>
+													<td class="text12" title="svew_sute">4. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sute" id="svew_sute" size="70" maxlength="70" value='${model.record.svew_sute}'></td>
+												</tr>
+												<tr>
+													<td class="text12" title="svew_sutf">5. Text:</td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_sutf" id="svew_sutf" size="70" maxlength="70" value='${model.record.svew_sutf}'></td>
 												</tr>
 											</table>
-										
+										</td>
+									</tr>  <!-- End Särskilda uppl. / Särskilda uppl. -->
+		
+									<tr> <!-- Tidigare handlingar -->
+										<td width="50%" valign="top">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">
+														&nbsp;
+														Tidigare handlingar
+													</td>
+												</tr>
+											</table>			
+
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
+												<tr>
+													<td class="text12" title="svew_tik1..9">&nbsp;&nbsp;&nbsp;Kategori:</td>
+													<td class="text12" title="svew_tit1..9">Type:</td>
+													<td class="text12" title="svew_tix1..9">Identitet:</td>
+												</tr>
+												<tr>
+													<td class="text12">1.<input type="text" class="inputTextMediumBlue" name="svew_tik1" id="svew_tik1" size="1" maxlength="1" value='${model.record.svew_tik1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit1" id="svew_tit1" size="3" maxlength="3" value='${model.record.svew_tit1}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix1" id="svew_tix1" size="35" maxlength="35" value='${model.record.svew_tix1}'></td>
+												</tr>
+												<tr>
+													<td class="text12">2.<input type="text" class="inputTextMediumBlue" name="svew_tik2" id="svew_tik2" size="1" maxlength="1" value='${model.record.svew_tik2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit2" id="svew_tit2" size="3" maxlength="3" value='${model.record.svew_tit2}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix2" id="svew_tix2" size="35" maxlength="35" value='${model.record.svew_tix2}'></td>
+												</tr>
+												<tr>
+													<td class="text12">3.<input type="text" class="inputTextMediumBlue" name="svew_tik3" id="svew_tik3" size="1" maxlength="1" value='${model.record.svew_tik3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit3" id="svew_tit3" size="3"  maxlength="3" value='${model.record.svew_tit3}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix3" id="svew_tix3" size="35" maxlength="35" value='${model.record.svew_tix3}'></td>
+												</tr>
+												<tr>
+													<td class="text12">4.<input type="text" class="inputTextMediumBlue" name="svew_tik4" id="svew_tik4" size="1" maxlength="1" value='${model.record.svew_tik4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit4" id="svew_tit4" size="3" maxlength="3" value='${model.record.svew_tit4}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix4" id="svew_tix4" size="35" maxlength="35" value='${model.record.svew_tix4}'></td>
+												</tr>
+												<tr>
+													<td class="text12">5.<input type="text" class="inputTextMediumBlue" name="svew_tik5" id="svew_tik5" size="1" maxlength="1" value='${model.record.svew_tik5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit5" id="svew_tit5" size="3" maxlength="3" value='${model.record.svew_tit5}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix5" id="svew_tix5" size="35" maxlength="35" value='${model.record.svew_tix5}'></td>
+												</tr>
+											</table>
 										</td>
 										
-									</tr>  <!-- End Artikelbesk / Avgift -->
-		
+										<td width="50%" valign="top">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12Bold">
+														&nbsp;
+														Tidigare handlingar
+													</td>
+												</tr>
+											</table>			
+											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="left">
+												<tr>
+													<td class="text12" title="svew_tik1..9">&nbsp;&nbsp;&nbsp;Kategori:</td>
+													<td class="text12" title="svew_tit1..9">Type:</td>
+													<td class="text12" title="svew_tix1..9">Identitet:</td>
+												</tr>
+												<tr>
+													<td class="text12">6.<input type="text" class="inputTextMediumBlue" name="svew_tik6" id="svew_tik6" size="1" maxlength="1" value='${model.record.svew_tik6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit6" id="svew_tit6" size="3" maxlength="3" value='${model.record.svew_tit6}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix6" id="svew_tix6" size="35" maxlength="35" value='${model.record.svew_tix6}'></td>
+												</tr>
+												<tr>
+													<td class="text12">7.<input type="text" class="inputTextMediumBlue" name="svew_tik7" id="svew_tik7" size="1" maxlength="1" value='${model.record.svew_tik7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit7" id="svew_tit7" size="3" maxlength="3" value='${model.record.svew_tit7}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix7" id="svew_tix7" size="35" maxlength="35" value='${model.record.svew_tix7}'></td>
+												</tr>
+												<tr>
+													<td class="text12">8.<input type="text" class="inputTextMediumBlue" name="svew_tik8" id="svew_tik8" size="1" maxlength="1" value='${model.record.svew_tik8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit8" id="svew_tit8" size="3" maxlength="3" value='${model.record.svew_tit8}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix3" id="svew_tix8" size="35" maxlength="35" value='${model.record.svew_tix8}'></td>
+												</tr>
+												<tr>
+													<td class="text12">9.<input type="text" class="inputTextMediumBlue" name="svew_tik9" id="svew_tik9" size="1" maxlength="1" value='${model.record.svew_tik9}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tit9" id="svew_tit9" size="3" maxlength="3" value='${model.record.svew_tit9}'></td>
+													<td><input type="text" class="inputTextMediumBlue" name="svew_tix9" id="svew_tix9" size="35" maxlength="35" value='${model.record.svew_tix9}'></td>
+												</tr>
+												<tr>
+													<td colspan="3" class="text12" height="25">&nbsp;</td>
+												</tr>
+											</table>
+										</td>
+									</tr>  <!-- End Tidigare handlingar -->
+
+
 									<tr> <!-- Tilleggsopplysningar -->
 										<td width="50%"  valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
