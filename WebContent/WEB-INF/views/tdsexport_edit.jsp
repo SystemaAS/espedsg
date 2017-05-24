@@ -440,7 +440,10 @@
 			 				<td class="text12">&nbsp;</td>
 		 				</tr>
 		 				<tr>
-				 			
+				 			<td class="text12"><span title="sveh_xref">Ext.ref.&nbsp;</span></td>
+				 			<td>
+				 				<input type="text" class="inputText" name="sveh_xref" id="sveh_xref" size="10" maxlength="20" value='${model.record.sveh_xref}'>
+			 				</td>
 				 		</tr>	
 		 				<tr height="10"><td></td></tr>
 	 				</table>

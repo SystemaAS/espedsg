@@ -28,6 +28,10 @@ public class SearchFilterTdsExportTopicList {
 	public void setOpd(String value) {  this.opd = value; }
 	public String getOpd() { return this.opd;}
 	
+	private String xref = null;
+	public void setXref(String value) {  this.xref = value; }
+	public String getXref() { return this.xref;}
+	
 	private String tullId = null;
 	public void setTullId(String value) {  this.tullId = value; }
 	public String getTullId() { return this.tullId;}

@@ -54,12 +54,13 @@ public class TdsExportItemsValidator implements Validator {
 					Double grossWeight = Double.parseDouble(record.getSvev_brut().replace(",", "."));
 					//Check on decimals (requirement)
 					if(grossWeight>=1){
+						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//check if there are decimals (not valid when bruto >=1)
 						if(grossWeight % 1 == 0){
 							//OK
 						}else{
 							errors.rejectValue("svev_brut", "systema.tds.export.header.error.rule.item.svev_brut.invalidDecimals");
-						}
+						}*/
 					}
 				}
 				
@@ -70,6 +71,7 @@ public class TdsExportItemsValidator implements Validator {
 						if(netoWeight==0.00D){
 							errors.rejectValue("svev_neto", "systema.tds.export.header.error.rule.item.svev_neto.biggerThanZero");
 						}
+						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//Check on decimals (requirement)
 						if(netoWeight>=1){
 							//check if there are decimals (not valid when bruto >=1)
@@ -79,6 +81,7 @@ public class TdsExportItemsValidator implements Validator {
 								errors.rejectValue("svev_neto", "systema.tds.export.header.error.rule.item.svev_neto.invalidDecimals");
 							}
 						}
+						*/
 					}catch(Exception e){
 						errors.rejectValue("svev_neto", "systema.tds.export.header.error.rule.item.svev_neto.biggerThanZero");
 					}

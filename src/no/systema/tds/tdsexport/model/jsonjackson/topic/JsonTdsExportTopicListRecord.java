@@ -24,6 +24,10 @@ public class JsonTdsExportTopicListRecord extends JsonAbstractGrandFatherRecord 
 	public void setOpd(String value) {  this.opd = value; }
 	public String getOpd() { return this.opd;}
 	
+	private String h_xref = null;
+	public void setH_xref(String value) {  this.h_xref = value; }
+	public String getH_xref() { return this.h_xref;}
+	
 	private String tullId = null;
 	public void setTullId(String value) {  this.tullId = value; }
 	public String getTullId() { return this.tullId;}

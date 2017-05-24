@@ -60,12 +60,14 @@ public class TdsImportItemsValidator implements Validator {
 					Double grossWeight = Double.parseDouble(record.getSviv_brut().replace(",", "."));
 					//Check on decimals (requirement)
 					if(grossWeight>=1){
+						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//check if there are decimals (not valid when bruto >=1)
 						if(grossWeight % 1 == 0){
 							//OK
 						}else{
 							errors.rejectValue("sviv_brut", "systema.tds.import.header.error.rule.item.sviv_brut.invalidDecimals");
 						}
+						*/
 					}
 				}
 				//Nettovikt
@@ -75,6 +77,7 @@ public class TdsImportItemsValidator implements Validator {
 						if(netoWeight==0.00D){
 							errors.rejectValue("sviv_neto", "systema.tds.import.header.error.rule.item.sviv_neto.biggerThanZero");
 						}
+						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//Check on decimals (requirement)
 						if(netoWeight>=1){
 							//check if there are decimals (not valid when bruto >=1)
@@ -84,6 +87,7 @@ public class TdsImportItemsValidator implements Validator {
 								errors.rejectValue("sviv_neto", "systema.tds.import.header.error.rule.item.sviv_neto.invalidDecimals");
 							}
 						}
+						*/
 					}catch(Exception e){
 						errors.rejectValue("sviv_neto", "systema.tds.import.header.error.rule.item.sviv_neto.biggerThanZero");
 					}

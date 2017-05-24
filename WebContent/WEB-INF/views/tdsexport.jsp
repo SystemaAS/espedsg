@@ -51,6 +51,8 @@
                 <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.avd"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.signatur"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.arende"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.extRef"/></td>
+                
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.tullid"/>
 					<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
 	            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
@@ -152,6 +154,7 @@
 					</select>
 				</td>
 				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value='${searchFilter.opd}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="xref" id="xref" size="10" maxlength="20" value='${searchFilter.xref}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId" size="14" maxlength="35" value='${searchFilter.tullId}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="mtyp" id="mtyp" size="3" maxlength="3" value='${searchFilter.mtyp}'>&nbsp;</td>
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
@@ -249,6 +252,7 @@
 						</span>	
 					
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.arende"/>&nbsp;</td>
+	                    <td class="tableHeaderField" >&nbsp;<spring:message code="systema.tds.export.list.search.label.extRef"/></td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.tullid"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.mtyp"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.datum"/>&nbsp;</td>
@@ -356,7 +360,7 @@
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>
-		               
+		               <td class="tableCell" >&nbsp;${topic.h_xref}</td>
 		               <td class="tableCell" >&nbsp;${topic.tullid}</td>
 		               <td class="tableCell" >&nbsp;${topic.mtyp}</td>
 		               <td class="tableCell" >&nbsp;${topic.datum}</td>

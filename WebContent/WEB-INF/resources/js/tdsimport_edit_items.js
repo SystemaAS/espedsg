@@ -830,6 +830,17 @@
 				  jq('#sviv_neto').val(net.replace(".", ","));
 			  }
     	  }else{
+    		  if(jq('#sviv_neto').val()==''){
+				  var net = grossWeight * 0.9;
+				  if(net>1 && Math.floor(net) != net){
+					//Round the value in order to eliminate the decimal part
+					net = Math.round(net);  
+				  }	  
+				  net = net.toString();
+				  jq('#sviv_neto').val(net.replace(".", ","));
+			  }
+    		  
+    		  /*OBSOLETE after DHL's meeting Larvik
     		  //Check if there are decimals...
     		  if(Math.floor(grossWeight) != grossWeight){ 
     			  var msg = "Fel, inga decimaler på vikter lika eller över 1 kg!";
@@ -864,12 +875,16 @@
 					  jq('#sviv_neto').val(net.replace(".", ","));
 				  }
 	    	  }
+	    	  */
     	  }
 		});
 	    jq('#sviv_neto').blur(function() {
-			  //init field(s)
+	    	  
+	    	  /*OBSOLETE after DHL's meeting Larvik
+	    	  //init field(s)
 	    	  var netWeight = jq('#sviv_neto').val();
 	    	  if(netWeight!=''){ netWeight = netWeight.replace(",","."); }
+	    	  
 	    	  netWeight = Number(netWeight);
 	    	  if(netWeight < 1){
 	    		  jq('#sviv_neto').val(net.replace(".", ","));
@@ -895,6 +910,7 @@
 	    			  });  //end dialog
 		    	  }
 	    	  }
+	    	  */
 		});
 	});
   	
