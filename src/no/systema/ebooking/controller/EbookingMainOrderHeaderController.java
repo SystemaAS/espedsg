@@ -161,6 +161,24 @@ public class EbookingMainOrderHeaderController {
 					if(recordToValidate.getHeunik()!=null && !"".equals(recordToValidate.getHeunik())){
 						//update
 						logger.info("doUpdate");
+						
+						//First in order to update totals (for the new item line)
+						/*
+						if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
+			    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
+			    				isValidItemLineRecord = false;
+			    			}else{
+			    				JsonMainOrderHeaderRecord headerOrderRecordForTotals = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
+			    				this.populateFraktbrev( appUser, headerOrderRecordForTotals);
+			    				//hand-over
+			    				recordToValidate.setHent(headerOrderRecordForTotals.getHent());
+			    				recordToValidate.setHevkt(headerOrderRecordForTotals.getHevkt());
+			    				recordToValidate.setHem3(headerOrderRecordForTotals.getHem3());
+			    				recordToValidate.setHelm(headerOrderRecordForTotals.getHelm());
+			    			}
+			    		}*/
+						
+						//update
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_UPDATE, errMsg);
 						if(dmlRetval==0){
 							logger.info("[INFO] Record successfully updated, OK ");
@@ -169,11 +187,25 @@ public class EbookingMainOrderHeaderController {
 				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
 				    		
 				    		//Update the order lines if applicable
+				    		
 			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
 				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
 				    				isValidItemLineRecord = false;
+				    			}else{
+				    				//------------------------
+				    	    		//update item line totals
+				    	    		//------------------------
+				    	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
+				    				this.populateFraktbrev( appUser, headerOrderRecord);
+				    				//update with new totals
+				    				errMsg = new StringBuffer(); //init
+				    				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
+				    				if(dmlRetvalIL<0){
+				    					logger.info("[ERROR]: Unsuccessful item line totals' update ... ? ");
+				    				}
 				    			}
 				    		}
+			    			
 				    		//postUpdate events on back-end
 			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children update");
@@ -186,7 +218,7 @@ public class EbookingMainOrderHeaderController {
 						if(dmlRetval==0){
 							orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully created, OK ");
-							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc create... ");
+							logger.info("[START]: process children <meessageNotes>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
 				    		
@@ -194,12 +226,23 @@ public class EbookingMainOrderHeaderController {
 				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
 				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
 				    				isValidItemLineRecord = false;
+				    			}else{
+				    				//------------------------
+				    	    		//update item line totals
+				    	    		//------------------------
+				    	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
+				    				this.populateFraktbrev( appUser, headerOrderRecord);
+				    				//update with new totals
+				    				errMsg = new StringBuffer(); //init
+				    				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
+				    				if(dmlRetvalIL<0){
+				    					logger.info("[ERROR]: Unsuccessful item line totals' update ... ? ");
+				    				}
 				    			}
 				    		}
-							//postUpdate events on back-end
-			    			//this.processPostUpdateEvents(recordToValidate, appUser);
 			    			logger.info("[END]: children create new...");
 						}
+			    		
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
@@ -255,36 +298,7 @@ public class EbookingMainOrderHeaderController {
 		}
 		
 	}
-	/**
-	 * 
-	 * @param headerOrderRecord
-	 * @param appUser
-	 */
-	public void setFakturaBetalareFlag(JsonMainOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
-		//prepare the access CGI with RPG back-end
-		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
-		String urlRequestParamsKeys = "user=" + appUser.getUser();
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParamsKeys);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		//Debug -->
-    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-    
-		if(jsonPayload!=null){
-			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
-    		if(container!=null){
-    			if(container.getInqFkund()!=null && container.getInqFkund().size()>0){
-    				//nothing. At least one record
-    			}else{
-    				//this makes the user not allowed to choose faktura part
-    				headerOrderRecord.setFakBetExists(false);
-    			}
-    			
-    		}
-		}	
-	}
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -336,12 +350,56 @@ public class EbookingMainOrderHeaderController {
 	    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
 	    	}else{
 	    		//Update successfully done!
-	    		logger.info("[INFO] Record successfully updated, OK ");
+	    		logger.info("[INFO] Record successfully deleted, OK ");
+	    		//now update totals
+	    		
+	    		//------------------------
+	    		//update item line totals
+	    		//------------------------
+	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
+				this.populateFraktbrev( appUser, headerOrderRecord);
+				//update with new totals
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
+				if(dmlRetvalIL<0){
+					logger.info("[ERROR]: Unsuccessful item lines totals' update ... ? ");
+				}
     		}	
 	    	
     		return successView;
 		
 		}
+	}
+	
+	/**
+	 * 
+	 * @param headerOrderRecord
+	 * @param appUser
+	 */
+	public void setFakturaBetalareFlag(JsonMainOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser();
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug -->
+    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    
+		if(jsonPayload!=null){
+			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
+    		if(container!=null){
+    			if(container.getInqFkund()!=null && container.getInqFkund().size()>0){
+    				//nothing. At least one record
+    			}else{
+    				//this makes the user not allowed to choose faktura part
+    				headerOrderRecord.setFakBetExists(false);
+    			}
+    			
+    		}
+		}	
 	}
 	/**
 	 * 
@@ -923,8 +981,6 @@ public class EbookingMainOrderHeaderController {
 		    		//set totals
 		    		this.setFraktbrevsTotals(container, orderRecord);
 					
-		    		//Ensures that the array ALWAYS shows the required 4 lines (with value or empty)
-		    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
 				}
 	    	}
     	}else{

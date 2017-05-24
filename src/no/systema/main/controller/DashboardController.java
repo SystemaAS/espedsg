@@ -215,22 +215,34 @@ public class DashboardController {
 		ModelAndView successView = new ModelAndView("dashboard");
 		Map model = new HashMap();
 		
+		String user = request.getParameter("ru");
+		String pwd = request.getParameter("dp");
+		//create new
+		SystemaWebUser appUserLocal = new SystemaWebUser();
+		appUserLocal.setUser(user);
+		appUserLocal.setPassword(pwd);
+		
+		logger.info("AAAAA:" + user);
+		logger.info("BBBBB:" + pwd);
+		
 		if(appUser==null){
 			return this.loginView;
 		
 		}else{
+			/*NOT with change och port: cust.toten.as:8080 to cust.toten.as:8083
 			SystemaWebUser appUserX = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 			//must be done through the session in order to hide pwd through URI via redirect...
 			appUser.setUser(appUserX.getUser());
 			appUser.setPassword(appUserX.getPassword());
-			
+			*/
 	    	//---------------------------
 			//get BASE URL = RPG-PROGRAM
 	        //---------------------------
 			String BASE_URL = MainUrlDataStore.SYSTEMA_WEB_LOGIN_URL;
 			
 			//url params
-			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUser, null);
+			String firmaCode = null; //always null in this method (because of multi-firm redirection)
+			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(appUserLocal, firmaCode);
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		    	logger.info("URL: " + BASE_URL);
@@ -300,21 +312,36 @@ public class DashboardController {
 		//get host from url
 		StringBuffer url = request.getRequestURL();
 		String uri = request.getRequestURI();
-		String hostRaw = url.substring(0, url.indexOf(uri)); 
-		retval = hostRaw + "/espedsg/logonWRedDashboard.do";
+		String hostRaw = url.substring(0, url.indexOf(uri));
 		
-		//START -->OBSOLETE-OLD version 
-		//due to DMZ-firewall problems. We get it from the request and nothing else
-		/*logger.info("HOST:" + host);
-		String javaServices = AppConstants.HTTP_ROOT_SERVLET_JSERVICES;
-		String host = hostRaw.replace("http://", "");
-		int separator = host.indexOf(":");
-		if(separator>=0){
-			host = host.substring(0, separator);
-			retval = "http://" + host + ":" + appUser.getTomcatPort() + "/espedsg/logonWRedDashboard.do";
-		} 
-		//END
-		*/
+		//update Tomcat port if it exist from DB-login return (when a user must be redirected to the same http but different port (TOTEN-case. Multi-firm)
+		if(appUser.getTomcatPort()!=null){
+			Integer indexHttps = hostRaw.indexOf("https:");
+			Integer indexHttp = hostRaw.indexOf("http:");
+			//default
+			hostRaw = hostRaw.replace("http://", "");
+			//https (if applicable)
+			if(indexHttps > 0){
+				hostRaw = hostRaw.replace("https://", "");
+			}
+			//now to the issue
+			Integer indx = hostRaw.indexOf(":");
+			if(indx > 0){
+				String host = hostRaw.substring(0, indx + 1);
+				String protocol = "http://";
+				if(indexHttps > 0){
+					protocol = "https://";
+				}
+				//http + port string
+				hostRaw = protocol + host + appUser.getTomcatPort();
+				logger.info("HTTP host with port: " + hostRaw);
+			}
+		}
+		//POST not working (with change of port-TOTEN) - OBSOLETE 
+		//retval = hostRaw + "/espedsg/logonWRedDashboard.do";
+		
+		//We must user GET until we get Spring 4 (in order to send params on POST)
+		retval = hostRaw + "/espedsg/logonWRedDashboard.do?" + "ru=" + appUser.getUser() + "&dp=" + appUser.getPassword();
 		
 		return retval;
 	}
@@ -369,8 +396,8 @@ public class DashboardController {
 		appUser.setSignatur(jsonSystemaUserContainer.getSignatur());
 		appUser.setFiland(jsonSystemaUserContainer.getFiland());
 		
-		/* DEBUG
-		logger.info("[INFO] user logo:" + appUser.getLogo() );
+		//DEBUG
+		/*logger.info("[INFO] user logo:" + appUser.getLogo() );
 		logger.info("[INFO] user banner:" + appUser.getBanner() );
 		logger.info("[INFO] user sign:" + appUser.getTdsSign() );
 		logger.info("[INFO] user Systema logo:" + appUser.getSystemaLogo() );

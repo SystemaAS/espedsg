@@ -133,7 +133,7 @@
 								</span>
 							</div> 
 							<div class="text11" style="position: relative;" align="left">
-								<span style="position:absolute; left:1000px; top:30px; width:250px" id="multiUserList" class="popupWithInputText"  >
+								<span style="position:absolute; left:900px; top:25px; width:280px" id="multiUserList" class="popupWithInputText"  >
 									<p class="text12"><b>Multi user - Switch</b></p>
 									<font class="text11BlueGreen">
 										<ul>
@@ -141,7 +141,7 @@
 											<form id="formMU_${counter.count}" action="logonDashboard.do" method="POST">
 											<input type="hidden" name="user" id="user" value='${record.multiID}'> 
 											<li>
-                       	 						<span id="${counter.count}" onClick="doPostMultiUser(this);">${record.multiTxt}</span>
+                       	 						<span id="${counter.count}" onClick="doPostMultiUser(this);"><b>${record.multiID}</b>&nbsp;-&nbsp;${record.multiTxt}</span>
                        	 					</li>
                        	 					</form>
 										</c:forEach>
