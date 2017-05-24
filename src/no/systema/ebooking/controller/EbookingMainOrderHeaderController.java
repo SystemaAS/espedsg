@@ -942,7 +942,7 @@ public class EbookingMainOrderHeaderController {
 	 */
 	private void setFraktbrevsTotals(JsonMainOrderHeaderFraktbrevContainer container, JsonMainOrderHeaderRecord orderRecord ){
 		Integer hent = 0;
-		Double hevkt = 0.00D;
+		Integer hevkt = 0;
 		Double hem3 = 0.00D;
 		Double helm = 0.00D;
 		
@@ -950,15 +950,15 @@ public class EbookingMainOrderHeaderController {
     		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
 				hent += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvant()));
 				//logger.info(hent);
-				hevkt += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
+				hevkt += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
 				hem3 += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvol()));
 				helm += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvlm()));
 				
 			}
     		orderRecord.setHent(String.valueOf(hent));
-    		orderRecord.setHevkt( String.valueOf( this.numberFormatter.getDouble(hevkt, 3)) );
-    		orderRecord.setHem3( String.valueOf( this.numberFormatter.getDouble(hem3, 3)) );
-    		orderRecord.setHelm( String.valueOf( this.numberFormatter.getDouble(helm, 3)) );
+    		orderRecord.setHevkt( String.valueOf( hevkt));
+    		orderRecord.setHem3( this.numberFormatter.getDoubleToPlainString(hem3, 3)); //3 decimals in DB
+    		orderRecord.setHelm( this.numberFormatter.getDoubleToPlainString(helm, 2)); //2 decimals in DB
 		}	
 	}
 	/**

@@ -415,7 +415,6 @@
 								  <option value="X"<c:if test="${model.record.svih_dek2 == 'X'}"> selected </c:if> >X</option>
 								  <option value="Y"<c:if test="${model.record.svih_dek2 == 'Y'}"> selected </c:if> >Y</option>
 								  <option value="Z"<c:if test="${model.record.svih_dek2 == 'Z'}"> selected </c:if> >Z</option>
-								  
 								</select>
 			 				</td>
 			 				
@@ -478,9 +477,13 @@
 			 				<td class="text12">&nbsp;</td>
 			 				<td class="text12">&nbsp;</td>
 		 				</tr>
+		 				<tr height="5"><td></td></tr>
 		 				<tr>
-				 			
-				 		</tr>	
+				 			<td class="text12"><span title="h_xref">&nbsp;&nbsp;&nbsp;&nbsp;Ext.ref.&nbsp;</span></td>
+				 			<td colspan="3">
+				 				<input type="text" class="inputText" name="h_xref" id="h_xref" size="20" maxlength="35" value='${model.record.h_xref}'>
+			 				</td>
+				 		</tr>		
 		 				<tr height="10"><td></td></tr>
 	 				</table>
  				</td>

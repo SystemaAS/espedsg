@@ -89,9 +89,9 @@ public class JsonTdsExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setSveh_syop(String value) {  this.sveh_syop = value; }
 	public String getSveh_syop() {return this.sveh_syop;}
 	
-	private String sveh_xref = null;
-	public void setSveh_xref(String value) {  this.sveh_xref = value; }
-	public String getSveh_xref() { return this.sveh_xref;}
+	private String h_xref = null;
+	public void setH_xref(String value) {  this.h_xref = value; }
+	public String getH_xref() { return this.h_xref;}
 	
 	private String sveh_tart = null;
 	public void setSveh_tart(String value) {  this.sveh_tart = value; }

@@ -87,9 +87,9 @@ public class JsonTdsImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setSvih_syop(String value) {  this.svih_syop = value; }
 	public String getSvih_syop() {return this.svih_syop;}
 	
-	private String svih_xref = null;
-	public void setSvih_xref(String value) {  this.svih_xref = value; }
-	public String getSvih_xref() { return this.svih_xref;}
+	private String h_xref = null;
+	public void setH_xref(String value) {  this.h_xref = value; }
+	public String getH_xref() { return this.h_xref;}
 	
 	private String svih_tart = null;
 	public void setSvih_tart(String value) {  this.svih_tart = value; }
