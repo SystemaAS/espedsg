@@ -126,7 +126,6 @@ function getRecord(record){
 			jq('#svew_sutd').val("");jq('#svew_sutd').val(data[i].svew_sutd);
 			jq('#svew_sute').val("");jq('#svew_sute').val(data[i].svew_sute);
 			jq('#svew_sutf').val("");jq('#svew_sutf').val(data[i].svew_sutf);
-		
 			jq('#svew_tik1').val("");jq('#svew_tik1').val(data[i].svew_tik1);
 			jq('#svew_tik2').val("");jq('#svew_tik2').val(data[i].svew_tik2);
 			jq('#svew_tik3').val("");jq('#svew_tik3').val(data[i].svew_tik3);
@@ -154,7 +153,41 @@ function getRecord(record){
 			jq('#svew_tix7').val("");jq('#svew_tix7').val(data[i].svew_tix7);
 			jq('#svew_tix8').val("");jq('#svew_tix8').val(data[i].svew_tix8);
 			jq('#svew_tix9').val("");jq('#svew_tix9').val(data[i].svew_tix9);
-			
+			jq('#svew_godm').val("");jq('#svew_godm').val(data[i].svew_godm);
+			jq('#svew_god2').val("");jq('#svew_god2').val(data[i].svew_god2);
+			jq('#svew_god3').val("");jq('#svew_god3').val(data[i].svew_god3);
+			jq('#svew_god4').val("");jq('#svew_god4').val(data[i].svew_god4);
+			jq('#svew_god5').val("");jq('#svew_god5').val(data[i].svew_god5);
+			jq('#svew_kota').val("");jq('#svew_kota').val(data[i].svew_kota);
+			jq('#svew_kot2').val("");jq('#svew_kot2').val(data[i].svew_kot2);
+			jq('#svew_kot3').val("");jq('#svew_kot3').val(data[i].svew_kot3);
+			jq('#svew_kot4').val("");jq('#svew_kot4').val(data[i].svew_kot4);
+			jq('#svew_kot5').val("");jq('#svew_kot5').val(data[i].svew_kot5);
+			jq('#svew_kosl').val("");jq('#svew_kosl').val(data[i].svew_kosl);
+			jq('#svew_kos2').val("");jq('#svew_kos2').val(data[i].svew_kos2);
+			jq('#svew_kos3').val("");jq('#svew_kos3').val(data[i].svew_kos3);
+			jq('#svew_kos4').val("");jq('#svew_kos4').val(data[i].svew_kos4);
+			jq('#svew_kos5').val("");jq('#svew_kos5').val(data[i].svew_kos5);
+			jq('#svew_co01').val("");jq('#svew_co01').val(data[i].svew_co01);
+			jq('#svew_co02').val("");jq('#svew_co02').val(data[i].svew_co02);
+			jq('#svew_co03').val("");jq('#svew_co03').val(data[i].svew_co03);
+			jq('#svew_co04').val("");jq('#svew_co04').val(data[i].svew_co04);
+			jq('#svew_co05').val("");jq('#svew_co05').val(data[i].svew_co05);
+			jq('#svew_co06').val("");jq('#svew_co06').val(data[i].svew_co06);
+			jq('#svew_co07').val("");jq('#svew_co07').val(data[i].svew_co07);
+			jq('#svew_co08').val("");jq('#svew_co08').val(data[i].svew_co08);
+			jq('#svew_co09').val("");jq('#svew_co09').val(data[i].svew_co09);
+			jq('#svew_co10').val("");jq('#svew_co10').val(data[i].svew_co10);
+			jq('#svew_co11').val("");jq('#svew_co11').val(data[i].svew_co11);
+			jq('#svew_co12').val("");jq('#svew_co12').val(data[i].svew_co12);
+			jq('#svew_co13').val("");jq('#svew_co13').val(data[i].svew_co13);
+			jq('#svew_co14').val("");jq('#svew_co14').val(data[i].svew_co14);
+			jq('#svew_co15').val("");jq('#svew_co15').val(data[i].svew_co15);
+			jq('#svew_co16').val("");jq('#svew_co16').val(data[i].svew_co16);
+			jq('#svew_co17').val("");jq('#svew_co17').val(data[i].svew_co17);
+			jq('#svew_co18').val("");jq('#svew_co18').val(data[i].svew_co18);
+			jq('#svew_co19').val("");jq('#svew_co19').val(data[i].svew_co19);
+			jq('#svew_co20').val("");jq('#svew_co20').val(data[i].svew_co20);
 			
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].svew_knso);
