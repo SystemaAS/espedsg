@@ -222,9 +222,6 @@ public class DashboardController {
 		appUserLocal.setUser(user);
 		appUserLocal.setPassword(pwd);
 		
-		logger.info("AAAAA:" + user);
-		logger.info("BBBBB:" + pwd);
-		
 		if(appUser==null){
 			return this.loginView;
 		
@@ -232,6 +229,8 @@ public class DashboardController {
 			/*NOT with change och port: cust.toten.as:8080 to cust.toten.as:8083
 			SystemaWebUser appUserX = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 			//must be done through the session in order to hide pwd through URI via redirect...
+			//Spring 4 has a robust set to emulate this session in order to pass parameters as POST
+			 * 
 			appUser.setUser(appUserX.getUser());
 			appUser.setPassword(appUserX.getPassword());
 			*/

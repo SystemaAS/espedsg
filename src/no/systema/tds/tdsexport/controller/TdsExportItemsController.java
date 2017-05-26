@@ -172,7 +172,8 @@ public class TdsExportItemsController {
 				if(!this.MATCH.equals(varukodValidNumber)){
 					recordToValidate.setSvev_vata(null); 
 				}
-				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord));
+				//set Mangd Enhet Directives if applicable
+				this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord);
 				
 				TdsExportItemsValidator validator = new TdsExportItemsValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -209,6 +210,8 @@ public class TdsExportItemsController {
 			            jsonTdsExportSpecificTopicItemRecord.setSvev_vano(lineNr);
 			            jsonTdsExportSpecificTopicItemRecord.setSvev_syop(opd);
 			            jsonTdsExportSpecificTopicItemRecord.setSvev_syav(avd);
+			            //Extra Mängd completion after validation
+			            jsonTdsExportSpecificTopicItemRecord.setSvev_ankv(recordToValidate.getSvev_ankv());
 			            
 					}else{
 						//-------
@@ -238,6 +241,8 @@ public class TdsExportItemsController {
 				            jsonTdsExportSpecificTopicItemRecord.setSvev_vano(newLineNr);
 				            jsonTdsExportSpecificTopicItemRecord.setSvev_syop(opd);
 				            jsonTdsExportSpecificTopicItemRecord.setSvev_syav(avd);
+				            //Extra Mängd completion after validation
+				            jsonTdsExportSpecificTopicItemRecord.setSvev_ankv(recordToValidate.getSvev_ankv());
 				            
 						}else{
 							isValidCreatedRecordTransactionOnRPG = false;
@@ -592,11 +597,9 @@ public class TdsExportItemsController {
 	 * 
 	 * @param applicationUser
 	 * @param recordToValidate
-	 * @return
 	 */
 	
-	private String getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
-		String retval = "N";
+	private void getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
 		String TDS_IE = "E";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
@@ -616,13 +619,39 @@ public class TdsExportItemsController {
 		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
 		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
 			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
-				retval = "Y";
+				//Set all values
+				recordToValidate.setExtraMangdEnhet(record.getXtra().toUpperCase());
+				recordToValidate.setExtraMangdEnhetCode(record.getSvtx15_33());
+				recordToValidate.setExtraMangdEnhetDescription(record.getSvtx03_04());
+				//------------------------------------------
+				//Rules of engagement to help the end-user
+				//(Validation will not fire then ...)
+				//------------------------------------------
+				//RULE 1: NAR
+				if("NAR".equals(recordToValidate.getExtraMangdEnhetCode())){
+					if(this.isNotNull(recordToValidate.getSvev_ankv())){
+					 //Nothing	
+					}else{
+						if(this.isNotNull(recordToValidate.getSvev_kota()) && !"0".equals(recordToValidate.getSvev_kota()) ){
+							recordToValidate.setSvev_ankv(recordToValidate.getSvev_kota());
+							logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+						}
+					}
+				}
+				//RULE 2: TODO
+				//here ...
 			}
 		}
 		
-		return retval;
 	}
 	
+	private boolean isNotNull(String value){
+		boolean retval = false;
+		if(value!=null && !"".equals(value)){
+			retval = true;
+		}
+		return retval;
+	}
 	/**
 	 * 
 	 * @param applicationUser

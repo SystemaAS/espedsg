@@ -108,12 +108,53 @@ public class TdsExportItemsValidator implements Validator {
 						//valid
 					}else{
 						errors.rejectValue("svev_ankv", "systema.tds.export.header.error.rule.item.svev_ankv.extraMangd.mustExist");
+						errors.rejectValue("svev_ankv", "", "(Extra mängd enhet: antal " + record.getExtraMangdEnhetDescription() + ")");
 					}
 				}else{
 					if(record.getSvev_ankv()!=null && !"".equals(record.getSvev_ankv())){
 						errors.rejectValue("svev_ankv", "systema.tds.export.header.error.rule.item.svev_ankv.extraMangd.mustNotExist");
 					}
 				}
+				
+				
+				//-------------------
+				//Bilagda Handlingar
+				//-------------------
+				if(this.isNotNull(record.getSvev_bit1()) ){
+					if(record.getSvev_bit1().startsWith("Y") || record.getSvev_bit1().startsWith("X") ){
+						//nothing
+					}else{
+						/*REVISE it ? ... with CB
+						if(this.isNotNull(record.getSvev_bit2()) ){
+							if(record.getSvev_bit2().startsWith("Y") || record.getSvev_bit2().startsWith("X")){
+								//nothing
+							}else{
+								if(this.isNotNull(record.getSvev_bit3()) ){
+									if(record.getSvev_bit3().startsWith("Y") || record.getSvev_bit3().startsWith("X")){
+										//nothing
+									}else{
+										if(this.isNotNull(record.getSvev_bit4()) ){
+											if(record.getSvev_bit4().startsWith("Y") || record.getSvev_bit4().startsWith("X")){
+												//nothing
+											}else{
+												errors.rejectValue("svev_bit4", "TODO ?");
+											}
+										}else{
+											errors.rejectValue("svev_bit4", "TODO ?");
+										}
+									}
+								}else{
+									errors.rejectValue("svev_bit3", "TODO ?");
+								}
+							}
+						}else{
+							errors.rejectValue("svev_bit2", "TODO ?");
+						}*/
+					}
+				}else{
+					errors.rejectValue("svev_bit1", "systema.tds.export.header.error.rule.item.svev_bit1.mustExist");
+				}
+
 				
 				//-------------------
 				//Tidigare Handlingar
@@ -209,4 +250,16 @@ public class TdsExportItemsValidator implements Validator {
 			
 	}
 	
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private boolean isNotNull(String value){
+		boolean retval = false;
+		if(value!=null && !"".equals(value)){
+			retval = true;
+		}
+		return retval;
+	}
 }
