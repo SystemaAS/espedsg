@@ -28,7 +28,33 @@ jq(function() {
 		});
 	});
 
+	
+    jq( "#accordion" ).accordion({
+      collapsible: true,
+	  classes: {
+  	    "ui-accordion": "text12",
+  	    "ui-accordion-header": "text12",
+  	    "ui-accordion-header-active": "text12",
+  	    "ui-accordion-header-collapsed": "text12",
+  	    "ui-accordion-content":  "text12",
+  	    "ui-accordion-content-active": "text12"
+  	  }
+    });
     
+    jq( "#accordion2" ).accordion({
+        collapsible: true,
+  	  classes: {
+    	    "ui-accordion": "text12",
+    	    "ui-accordion-header": "text12",
+    	    "ui-accordion-header-active": "text12",
+    	    "ui-accordion-header-collapsed": "text12",
+    	    "ui-accordion-content":  "text12",
+    	    "ui-accordion-content-active": "text12"
+    	  }
+      });    
+    
+    
+	
 }); 
 
 
@@ -212,6 +238,7 @@ function getRecord(record){
 function filterGlobal() {
 	jq('#mainList').dataTable().search(jq('#mainList_filter').val()).draw();
 }
+
 
 jq(document).ready(function() {
 	var lang = jq('#language').val();

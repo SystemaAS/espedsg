@@ -12,6 +12,8 @@
 	.ui-datepicker { font-size:9pt;}
 	</style>
 
+
+
 <table id="parentTab" width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr height="15"><td>&nbsp;</td></tr>
 	<tr>
@@ -352,7 +354,10 @@
 									</tr>
 									<tr> <!-- Artikelinfo -->
 										<td colspan="2">
-											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+		
+									<div id="accordion">
+		
+											<table class="formFrameHeaderPeachWithBorder" width="97%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
 														Artikelinfo
@@ -476,13 +481,25 @@
 													</td>
 												</tr>
 											</table>
+			
+		 					</div>  
+			
 										</td>
 									</tr>  <!-- End Artikelinfo -->
 
 
 									<tr> <!-- Bilagda handlingar -->
+	
+	
+	
 										<td colspan="2">
-											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
+
+
+		  						<div id="accordion2"> 
+
+
+
+											<table class="formFrameHeaderPeachWithBorder" width="97%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
 														Bilagda handlingar
@@ -563,7 +580,15 @@
 													</td>
 												</tr>
 											</table>
+	
+							</div>
+		
+	
 										</td>
+										
+										
+										
+										
 									</tr>  <!-- End Bilagda handlingar -->
 
 									<tr> <!-- Särskilda uppl. o Särskilda uppl. -->
@@ -762,6 +787,8 @@
 									</tr>  <!-- End Tidigare handlingar -->
 
 
+
+
 									<tr> <!-- Godsmärkning / container -->
 										<td width="50%"  valign="top">
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
@@ -804,10 +831,15 @@
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kot5" id="svew_kot5" size="5" maxlength="5" value='${model.record.svew_kot5}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos5" id="svew_kos5" size="5" maxlength="5" value='${model.record.svew_kos5}'></td>
 												</tr>
+												<tr>
+													<td colspan="3" class="text12" height="25">&nbsp;</td>
+												</tr>
+												
 											</table>
 										</td>
 										
 										<td width="50%" valign="top">
+
 											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">
@@ -854,12 +886,11 @@
 												</tr>
 
 
-
-
-
 											</table>
 										
 										</td>
+
+
 										
 									</tr>  <!-- End Godsmärkning / container -->
 
