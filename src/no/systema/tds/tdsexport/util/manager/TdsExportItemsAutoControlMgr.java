@@ -172,9 +172,10 @@ public class TdsExportItemsAutoControlMgr {
 		List<JsonTdsBilagdaHandlingarYKoderRecord> list = this.commonMgr.fetchBilagdaHandlingar(tdsBilagdaHandlingarYKoderService, applicationUser, this.headerRecord.getSveh_aube(), this.record.getSvev_vata());
 		if(list!=null && list.size()>0){
 			if(this.isNotNull(this.record.getSvev_bit1()) ){
-				if(this.record.getSvev_bit1().startsWith("Y") || this.record.getSvev_bit1().startsWith("X")){
+				if(this.record.getSvev_bit1().startsWith("Y") || this.record.getSvev_bit1().startsWith("X") ){
 					//nothing
 				}else{
+					/*REVISE it ... with CB
 					if(this.isNotNull(this.record.getSvev_bit2()) ){
 						if(this.record.getSvev_bit2().startsWith("Y") || this.record.getSvev_bit2().startsWith("X")){
 							//nothing
@@ -199,7 +200,7 @@ public class TdsExportItemsAutoControlMgr {
 						}
 					}else{
 						this.validRecord = false;
-					}
+					}*/
 				}
 			}else{
 				this.validRecord = false;

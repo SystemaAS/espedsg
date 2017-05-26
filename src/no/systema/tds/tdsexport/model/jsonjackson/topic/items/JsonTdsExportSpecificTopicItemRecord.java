@@ -15,10 +15,18 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonTdsExportSpecificTopicItemRecord extends JsonAbstractGrandFatherRecord  {
 	
-	//Aux. attribute to validate mangdenhet
+	//Aux. attribute to validate extra mängd
 	private String extraMangdEnhet = null;
 	public void setExtraMangdEnhet(String value) {  this.extraMangdEnhet = value; }
 	public String getExtraMangdEnhet() {return this.extraMangdEnhet;}
+	//Code
+	private String extraMangdEnhetCode = null;
+	public void setExtraMangdEnhetCode(String value) {  this.extraMangdEnhetCode = value; }
+	public String getExtraMangdEnhetCode() {return this.extraMangdEnhetCode;}
+	//Description
+	private String extraMangdEnhetDescription = null;
+	public void setExtraMangdEnhetDescription(String value) {  this.extraMangdEnhetDescription = value; }
+	public String getExtraMangdEnhetDescription() {return this.extraMangdEnhetDescription;}
 	
 	
 	//Aux. attr. in order to sum all svev_kota + svev_kot2 + svev_kot3 + svev_kot4 + svev_kot5 on HTML GUI
