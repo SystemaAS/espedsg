@@ -609,11 +609,11 @@ public class TdsExportItemsController {
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");
-	    	logger.info("URL: " + BASE_URL_FETCH);
-	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-	    	//-----------------
-	    	//Json and execute 
-	    	//-----------------
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//-----------------
+    	//Json and execute 
+    	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);

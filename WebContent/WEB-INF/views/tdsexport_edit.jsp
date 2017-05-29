@@ -1407,7 +1407,7 @@
 						        <td colspan="2">
 				            		<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="sumOfGrossWeightInItemLinesStr" id="sumOfGrossWeightInItemLinesStr" size="13" maxlength="13" value="${model.record.sumOfGrossWeightInItemLinesStr}">
 				            		<c:if test="${not empty (model.record.sumOfGrossWeightInItemLinesStr && model.record.sveh_brut)}">
-				            			<c:if test="${model.record.sumOfGrossWeightInItemLines != model.record.sveh_brut_dbl}">
+				            			<c:if test="${model.record.sumOfGrossWeightInItemLinesStr != model.record.sveh_brut}">
 							            	<img onMouseOver="showPop('itemsSumGrossweight_info');" onMouseOut="hidePop('itemsSumGrossweight_info');" width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="kolliantal warning">	
 					            		</c:if>
 					            	</c:if>
