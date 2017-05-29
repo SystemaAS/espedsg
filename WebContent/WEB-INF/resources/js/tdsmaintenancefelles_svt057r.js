@@ -58,15 +58,15 @@
   	
   	rawId = rawId.replace("recordUpdate_", "");
   	var record = rawId.split('_');
-	var kvakod = record[0];
-	var kvadt = record[1];
+	var currencyCode = record[0];
+	var startDate = record[1];
 	
 	jq.ajax({
   	  type: 'GET',
   	  url: 'getSpecificRecord_svt057r.do',
   	  data: { applicationUser : jq('#applicationUser').val(), 
-  		  	  id : kvakod,
-  		  	  date : kvadt},
+  		  	  id : currencyCode,
+  		  	  date : startDate},
   	  dataType: 'json',
   	  cache: false,
   	  contentType: 'application/json',

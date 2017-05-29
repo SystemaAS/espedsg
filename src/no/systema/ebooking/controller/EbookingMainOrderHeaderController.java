@@ -145,13 +145,15 @@ public class EbookingMainOrderHeaderController {
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
-		    		//populate all message notes
+		    		//check if user is allowed to choose invoicee (fakturaBetalare)
+					this.setFakturaBetalareFlag(recordToValidate, appUser);
+					//populate all message notes
 					this.populateMessageNotes( appUser, recordToValidate);
 		    		//populate fraktbrev lines
 					this.populateFraktbrev( appUser, recordToValidate);
 					//set always status as in list (since we do not get this value from back-end)
 					recordToValidate.setStatus(orderStatus);
-
+					
 		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		
 			    }else{	
@@ -258,6 +260,7 @@ public class EbookingMainOrderHeaderController {
 			//Fetch record
 			//--------------
 			if(isValidRecord){
+				logger.info("UNIK:" + recordToValidate.getHeunik());
 				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
 				//check if user is allowed to choose invoicee (fakturaBetalare)
 				this.setFakturaBetalareFlag(headerOrderRecord, appUser);

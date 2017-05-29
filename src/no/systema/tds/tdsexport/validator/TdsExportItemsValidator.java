@@ -108,7 +108,7 @@ public class TdsExportItemsValidator implements Validator {
 						//valid
 					}else{
 						errors.rejectValue("svev_ankv", "systema.tds.export.header.error.rule.item.svev_ankv.extraMangd.mustExist");
-						errors.rejectValue("svev_ankv", "", "(Extra mängd enhet: antal " + record.getExtraMangdEnhetDescription() + ")");
+						errors.rejectValue("svev_ankv", "", "(Extra mängdenhet: antal " + record.getExtraMangdEnhetDescription() + ")");
 					}
 				}else{
 					if(record.getSvev_ankv()!=null && !"".equals(record.getSvev_ankv())){

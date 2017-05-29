@@ -33,14 +33,15 @@ import no.systema.main.util.JsonDebugger;
 //import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
 //import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
 //import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardContainer;
-//import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardRecord;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkContainer;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkRecord;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaRecord;
 
 //import no.systema.skat.z.maintenance.main.service.MaintDktardService;
 //import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
 import no.systema.tds.z.maintenance.main.service.MaintSvthaService;
-
+import no.systema.tds.z.maintenance.main.service.MaintSvtvkService;
 import no.systema.tds.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 
 
@@ -68,20 +69,19 @@ public class MaintTdsFellesAjaxHandlerController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="getSpecificRecord_dkt057r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintDktvkRecord> getRecordDkt057
+	@RequestMapping(value="getSpecificRecord_svt057r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSvtvkRecord> getRecordDkt057
 	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String date) {
 		final String METHOD = "[DEBUG] getSpecificRecord_dkt057r";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintDktvkRecord> result = new ArrayList();
+		List<JsonMaintSvtvkRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListDkt057(applicationUser, id, date);
+    	result = (List)this.fetchListSvt057(applicationUser, id, date);
     	
     	return result;
 	
 	}
-	*/
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -159,34 +159,32 @@ public class MaintTdsFellesAjaxHandlerController {
 	 * 
 	 * @param applicationUser
 	 * @param id
-	 * @param fromDate
-	 * @param toDate
+	 * @param startDate
 	 * @return
 	 */
-	/*
-	private Collection<JsonMaintDktardRecord> fetchListDktard(String applicationUser, String id, String fromDate, String toDate){
+	private Collection<JsonMaintSvtvkRecord> fetchListSvt057(String applicationUser, String id, String startDate ){
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKTARDR_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&dktard01=" + id + "&dktard02=" + fromDate + "&dktard03=" + toDate;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT057R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&svvk_kd=" + id + "&svvk_dts=" + startDate;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
-    	List<JsonMaintDktardRecord> list = new ArrayList();
+    	List<JsonMaintSvtvkRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDktardContainer container = this.maintDktardService.getList(jsonPayload);
+    		JsonMaintSvtvkContainer container = this.maintSvtvkService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
-	        	for(JsonMaintDktardRecord record: list){
-	        		//logger.info(record.getDktard01());
+	        	for(JsonMaintSvtvkRecord record: list){
+	        		//logger.info(record.getDkth_sysg());
 	        	}
 	        }
     	}
     	return list;
 	}
-	*/
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -225,15 +223,16 @@ public class MaintTdsFellesAjaxHandlerController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	/*
-	@Qualifier ("maintDktvkService")
-	private MaintDktvkService maintDktvkService;
+
+	@Qualifier ("maintSvtvkService")
+	private MaintSvtvkService maintSvtvkService;
 	@Autowired
 	@Required
-	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
-	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
+	public void setMaintSvtvkService (MaintSvtvkService value){ this.maintSvtvkService = value; }
+	public MaintSvtvkService getMaintSvtvkService(){ return this.maintSvtvkService; }
 	
 	
+	/*
 	@Qualifier ("maintDktardService")
 	private MaintDktardService maintDktardService;
 	@Autowired

@@ -189,6 +189,11 @@
 				 							<option value='M' <c:if test="${model.record.xfakBet == 'M'}"> selected </c:if> ><spring:message code="systema.ebooking.orders.form.update.label.consignee"/></option>
 				 							<option value='A' <c:if test="${model.record.xfakBet == 'A'}"> selected </c:if> ><spring:message code="systema.ebooking.orders.form.update.label.annen"/></option>
 										</select>
+										
+										<c:if test="${not model.record.fakBetExists}">
+											<%-- EXTRA FIX for select- with disabled --> since the disabled select does not send the value --%>
+											<input type="hidden" name="xfakBet" id="xfakBet" value="${model.record.xfakBet}" >
+										</c:if>
 					 				</td>
 					 				 
 					 			</tr>
@@ -248,11 +253,11 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.ebooking.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<c:if test="${model.record.fakBetExists}">
+					 					<%-- <c:if test="${model.record.fakBetExists}">  --%>
 						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
-	 									</c:if>
+	 									<%-- </c:if> --%>
 					 				</td>
 					 				<td class="text11">
 					 					&nbsp;<span title="whenas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.seller"/>&nbsp;</span>
@@ -266,11 +271,11 @@
 								<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henas"><spring:message code="systema.ebooking.orders.form.update.label.shipper.name"/></span>
-					 					<c:if test="${model.record.fakBetExists}">
+					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
-	 									</c:if>
+	 									<%-- </c:if> --%>
 					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr1"/></span></td>
 					 			</tr>
@@ -412,11 +417,11 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.ebooking.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<c:if test="${model.record.fakBetExists}">
+					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer.do?action=doFind&ctype=c','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>	
-	 									</c:if>
+	 									<%-- </c:if> --%>
 					 				</td>
 					 				<td class="text11">
 					 					&nbsp;<span title="whenak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.buyer"/>&nbsp;</span>
@@ -429,11 +434,11 @@
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.name"/></span>
-					 					<c:if test="${model.record.fakBetExists}">
+					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses.do?action=doFind&ctype=c&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
-	 									</c:if>
+	 									<%-- </c:if> --%>
 					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>

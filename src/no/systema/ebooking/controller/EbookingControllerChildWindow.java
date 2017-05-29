@@ -346,7 +346,7 @@ public class EbookingControllerChildWindow {
 				
 		    		//prepare the access CGI with RPG back-end
 		    		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
-		    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wkundnr=" + recordToValidate.getWkundnr() + "&wvadrna=A"; //A=all addresses
+		    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wkundnr=" + recordToValidate.getWkundnr(); //"&wvadrna=A"; //A=all addresses
 		    		logger.info("URL: " + BASE_URL);
 		    		logger.info("PARAMS: " + urlRequestParamsKeys);
 		    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");

@@ -80,11 +80,14 @@ public class OrderHeaderValidator implements Validator {
 			//START Check References & Invoicees (one of them is always mandatory. In certain cases, both are mandatory)
 			//These keys replaced hereff (ref.JOVO).
 			//-----------------------------------------------------------------------------------------------------------
+			boolean herfaTrigger = false;
+			
 			if( (record.getHerfa()!=null && !"".equals(record.getHerfa())) || (record.getHerfk()!=null && !"".equals(record.getHerfk())) ){
 				//OK. Go on with further validation
 				//(2)
 				if(this.isInvoiceeOnSeller(record)){
 					if (record.getHerfa()==null || "".equals(record.getHerfa()) ){
+						herfaTrigger = true;
 						errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderRef.mustExist");
 					}
 				}else{
@@ -112,9 +115,12 @@ public class OrderHeaderValidator implements Validator {
 				}
 				
 			}else if("S".equals(record.getXfakBet()) ){
-				if(record.getHerfa()==null || "".equals(record.getHerfa()) ){
-					errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderRef.mustExist");
+				if(!herfaTrigger){
+					if(record.getHerfa()==null || "".equals(record.getHerfa()) ){
+						errors.rejectValue("herfa", "systema.ebooking.orders.form.update.error.rule.senderRef.mustExist");
+					}
 				}
+				
 				if(record.getHeknsf()==null || "".equals(record.getHeknsf()) ){
 					errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.sendersInvoicee.mustExist");
 				}
