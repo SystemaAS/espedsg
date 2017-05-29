@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
 import no.systema.tds.service.TdsTillaggskoderService;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderRecord;
@@ -26,7 +28,10 @@ import no.systema.tds.model.jsonjackson.JsonTdsAutoControlErrorContainer;
 
 
 public class TdsImportItemsAutoControlMgr {
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private static final Logger logger = Logger.getLogger(TdsImportItemsAutoControlMgr.class.getName());
+	private final StringManager strMgr = new StringManager();
+	
 	private UrlCgiProxyService urlCgiProxyService = null;
 	private TdsImportSpecificTopicItemService tdsImportSpecificTopicItemService = null;
 	
@@ -167,6 +172,7 @@ public class TdsImportItemsAutoControlMgr {
 			double grossWeight = Double.valueOf(this.record.getSviv_brut().replace(",", "."));
 			double netWeight = Double.valueOf(this.record.getSviv_neto().replace(",", "."));
 			//check gross
+			/*OBSOLETE -- DHL requirement 
 			if(grossWeight>=1){
 				if(Math.floor(grossWeight)!= grossWeight){
 					this.validRecord = false;
@@ -178,6 +184,7 @@ public class TdsImportItemsAutoControlMgr {
 					this.validRecord = false;
 				}
 			}
+			*/
 			//compare gross vs net
 			if(netWeight>grossWeight){
 				this.validRecord = false;
@@ -200,9 +207,12 @@ public class TdsImportItemsAutoControlMgr {
 		List<JsonTdsBilagdaHandlingarYKoderRecord> list = commonMgr.fetchBilagdaHandlingar(tdsBilagdaHandlingarYKoderService, applicationUser, this.headerRecord.getSvih_avut(), 
 																							this.record.getSviv_vata(), this.record.getSviv_fokd());
 		if(list!=null && list.size()>0){
+			/* OBSOLETE after DHL's requirement (does not exist in Validator)
 			if(this.isNotNull(this.record.getSviv_bit1()) ){
+				
 				if(this.record.getSviv_bit1().startsWith("Y")){
-					//nothing
+				//nothing
+					
 				}else{
 					if(this.isNotNull(this.record.getSviv_bit2()) ){
 						if(this.record.getSviv_bit2().startsWith("Y")){
@@ -223,7 +233,7 @@ public class TdsImportItemsAutoControlMgr {
 				}
 			}else{
 				this.validRecord = false;
-			}
+			}*/
 		}
 	}
 	/**
@@ -268,7 +278,7 @@ public class TdsImportItemsAutoControlMgr {
 	 * @param applicationUser
 	 */
 	public void checkValidExtraMangdEnhet(String applicationUser){
-		if(getMandatoryMangdEnhetDirective(applicationUser)){
+		if("Y".equals(this.record.getExtraMangdEnhet())){
 			if(this.record.getSviv_ankv()!=null && !"".equals(this.record.getSviv_ankv())){
 				//valid
 			}else{
@@ -331,34 +341,50 @@ public class TdsImportItemsAutoControlMgr {
 	/**
 	 * 
 	 * @param applicationUser
-	 * @param recordToValidate
-	 * @return
+	 * @param headerRecord
 	 */
-	private boolean getMandatoryMangdEnhetDirective(String applicationUser){
-		boolean retval = false;
+	public void getMandatoryMangdEnhetDirective(String applicationUser){
+		String TDS_IE = "I";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
-		
-		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=I&kod=" + this.record.getSviv_vata() + "&lk=" + this.record.getSviv_ulkd();
-		/*DEBUG
+		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSviv_vata() + "&lk=" + this.record.getSviv_ulkd();
+
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");
     	logger.info("URL: " + BASE_URL_FETCH);
     	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-    	*/
     	//-----------------
     	//Json and execute 
     	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsImportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
-		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
-			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
-				retval = true;
+		for(JsonTdsMangdEnhetRecord enhetRecord: container.getXtramangdenhet()){
+			if(enhetRecord.getXtra()!=null && enhetRecord.getXtra().toUpperCase().equals("Y")){
+				//Set all values
+				this.record.setExtraMangdEnhet(enhetRecord.getXtra().toUpperCase());
+				this.record.setExtraMangdEnhetCode(enhetRecord.getSvtx15_33());
+				this.record.setExtraMangdEnhetDescription(enhetRecord.getSvtx03_04());
+				//------------------------------------------
+				//Rules of engagement to help the end-user
+				//(Validation will not fire then ...)
+				//------------------------------------------
+				//RULE 1: NAR
+				if("NAR".equals(this.record.getExtraMangdEnhetCode())){
+					if(strMgr.isNotNull(this.record.getSviv_ankv())){
+					 //Nothing	
+					}else{
+						if(strMgr.isNotNull(this.record.getSviv_kota()) && !"0".equals(this.record.getSviv_kota()) ){
+							this.record.setSviv_ankv(this.record.getSviv_kota());
+							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+						}
+					}
+				}
+				//RULE 2: TODO
+				//here ...
 			}
 		}
 		
-		return retval;
 	}
 	
 	/**Check for bulk goods

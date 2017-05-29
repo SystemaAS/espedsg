@@ -32,6 +32,8 @@ import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
+
 
 import no.systema.tds.tdsimport.util.manager.TdsImportItemsAutoControlMgr;
 import no.systema.tds.tdsimport.mapper.url.request.UrlRequestParameterMapper;
@@ -53,17 +55,13 @@ import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
 import no.systema.tds.service.TdsTaricVarukodService;
 import no.systema.tds.service.TdsTillaggskoderService;
 import no.systema.tds.service.html.dropdown.TdsDropDownListPopulationService;
+
 import no.systema.tds.util.manager.CodeDropDownMgr;
-import no.systema.tds.model.external.url.UrlTaricCountryObject;
-import no.systema.tds.model.external.url.UrlTaricCurrencyObject;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeContainer;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeRecord;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsTaricVarukodContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsTaricVarukodRecord;
 import no.systema.tds.url.store.TdsUrlDataStore;
 import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetContainer;
 import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetRecord;
-
 
 
 /**
@@ -80,6 +78,7 @@ import no.systema.tds.model.jsonjackson.validation.JsonTdsMangdEnhetRecord;
 public class TdsImportItemsController {
 	private static final Logger logger = Logger.getLogger(TdsImportItemsController.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
+	private final StringManager strMgr = new StringManager();
 	
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
@@ -178,7 +177,8 @@ public class TdsImportItemsController {
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable
 				recordToValidate.setHeader_svih_cont(header_svih_cont);
 				recordToValidate.setHeader_svih_mtyp(header_svih_mtyp);
-				recordToValidate.setExtraMangdEnhet(this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate));
+				//set MangdEnhet Directives if applicable
+				this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate);
 				
 				TdsImportItemsValidator validator = new TdsImportItemsValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -187,7 +187,7 @@ public class TdsImportItemsController {
 				if(bindingResult.hasErrors()){
 				    	logger.info("[ERROR Validation] Item Record does not validate)");
 				    	logger.info("[INFO lineNr] " + lineNr);
-				    	
+				    	model.put("sign", sign);
 				    	model.put("record", recordToValidate);
 				    	if(lineNr!=null && !"".equals(lineNr)){
 				    		logger.info("[INFO lineNr] ... filling old value: lineNr:" + lineNr);
@@ -501,6 +501,7 @@ public class TdsImportItemsController {
     						if(autoControlMgr.isValidRecord()){
     							//Go to level 4
 	    						//logger.info("level check (4) " + idDebug);
+    							autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser());
     							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
     							if(autoControlMgr.isValidRecord()){
     								//Go to level 5
@@ -619,34 +620,53 @@ public class TdsImportItemsController {
 	 * 
 	 * @param applicationUser
 	 * @param recordToValidate
+	 * @param headerRecord
 	 * @return
 	 */
-	private String getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsImportSpecificTopicItemRecord recordToValidate){
-		String retval = "N";
+	private void getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsImportSpecificTopicItemRecord recordToValidate){
 		String TDS_IE = "I";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
-		
 		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSviv_vata() + "&lk=" + recordToValidate.getSviv_ulkd();
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");
-	    	logger.info("URL: " + BASE_URL_FETCH);
-	    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-	    	//-----------------
-	    	//Json and execute 
-	    	//-----------------
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//-----------------
+    	//Json and execute 
+    	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
 		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsImportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
 		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
 			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
-				retval = "Y";
+				//Set all values
+				recordToValidate.setExtraMangdEnhet(record.getXtra().toUpperCase());
+				recordToValidate.setExtraMangdEnhetCode(record.getSvtx15_33());
+				recordToValidate.setExtraMangdEnhetDescription(record.getSvtx03_04());
+				//------------------------------------------
+				//Rules of engagement to help the end-user
+				//(Validation will not fire then ...)
+				//------------------------------------------
+				//RULE 1: NAR
+				if("NAR".equals(recordToValidate.getExtraMangdEnhetCode())){
+					if(strMgr.isNotNull(recordToValidate.getSviv_ankv())){
+					 //Nothing	
+					}else{
+						if(strMgr.isNotNull(recordToValidate.getSviv_kota()) && !"0".equals(recordToValidate.getSviv_kota()) ){
+							recordToValidate.setSviv_ankv(recordToValidate.getSviv_kota());
+							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+						}
+					}
+				}
+				//RULE 2: TODO
+				//here ...
 			}
 		}
 		
-		return retval;
 	}
+	
 	
 	/**
 	 * 

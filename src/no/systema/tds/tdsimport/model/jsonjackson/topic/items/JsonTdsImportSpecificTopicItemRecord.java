@@ -15,6 +15,19 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonTdsImportSpecificTopicItemRecord  extends JsonAbstractGrandFatherRecord   {
 	
+	//Aux. attribute to validate extra mängd
+	private String extraMangdEnhet = null;
+	public void setExtraMangdEnhet(String value) {  this.extraMangdEnhet = value; }
+	public String getExtraMangdEnhet() {return this.extraMangdEnhet;}
+	//Code
+	private String extraMangdEnhetCode = null;
+	public void setExtraMangdEnhetCode(String value) {  this.extraMangdEnhetCode = value; }
+	public String getExtraMangdEnhetCode() {return this.extraMangdEnhetCode;}
+	//Description
+	private String extraMangdEnhetDescription = null;
+	public void setExtraMangdEnhetDescription(String value) {  this.extraMangdEnhetDescription = value; }
+	public String getExtraMangdEnhetDescription() {return this.extraMangdEnhetDescription;}
+		
 	
 	//Aux. attr. in order to sum all sviv_kota + sviv_kot2 + sviv_kot3 + sviv_kot4 + sviv_kot5 on HTML GUI
 	private Integer sum_of_sviv_kotas = 0;
@@ -54,12 +67,7 @@ public class JsonTdsImportSpecificTopicItemRecord  extends JsonAbstractGrandFath
 	public void setHeader_svih_mtyp(String value) {  this.header_svih_mtyp = value; }
 	public String getHeader_svih_mtyp() {return this.header_svih_mtyp;}
 	
-	
-	//Aux. attribute to validate mangdenhet
-	private String extraMangdEnhet = null;
-	public void setExtraMangdEnhet(String value) {  this.extraMangdEnhet = value; }
-	public String getExtraMangdEnhet() {return this.extraMangdEnhet;}
-	
+
 	private String sviv_syav = null;
 	public void setSviv_syav(String value) {  this.sviv_syav = value; }
 	public String getSviv_syav() {return this.sviv_syav;}

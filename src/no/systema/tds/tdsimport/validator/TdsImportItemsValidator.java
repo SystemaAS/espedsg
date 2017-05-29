@@ -8,6 +8,7 @@ import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpeci
 
 /**
  * 
+ * 
  * @author oscardelatorre
  *
  */
@@ -59,23 +60,28 @@ public class TdsImportItemsValidator implements Validator {
 				if(record.getSviv_brut()!=null && !"".equals(record.getSviv_brut())){
 					Double grossWeight = Double.parseDouble(record.getSviv_brut().replace(",", "."));
 					//Check on decimals (requirement)
+					/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
+					//check if there are decimals (not valid when bruto >=1)
 					if(grossWeight>=1){
-						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
-						//check if there are decimals (not valid when bruto >=1)
 						if(grossWeight % 1 == 0){
 							//OK
 						}else{
 							errors.rejectValue("sviv_brut", "systema.tds.import.header.error.rule.item.sviv_brut.invalidDecimals");
 						}
-						*/
-					}
+						
+					}*/
 				}
 				//Nettovikt
 				if(record.getSviv_neto()!=null && !"".equals(record.getSviv_neto())){
 					try{
-						Double netoWeight = Double.parseDouble(record.getSviv_neto().replace(",", "."));
-						if(netoWeight==0.00D){
+						Double grossWeight = Double.parseDouble(record.getSviv_brut().replace(",", "."));
+						Double netWeight = Double.parseDouble(record.getSviv_neto().replace(",", "."));
+						if(netWeight==0.00D){
 							errors.rejectValue("sviv_neto", "systema.tds.import.header.error.rule.item.sviv_neto.biggerThanZero");
+						}else{
+							if(netWeight>grossWeight){
+								errors.rejectValue("sviv_neto", "systema.tds.import.header.error.rule.item.sviv_neto.notBiggerThanGross");
+							}
 						}
 						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//Check on decimals (requirement)
@@ -451,6 +457,7 @@ public class TdsImportItemsValidator implements Validator {
 						//valid
 					}else{
 						errors.rejectValue("sviv_ankv", "systema.tds.import.header.error.rule.item.sviv_ankv.extraMangd.mustExist");
+						errors.rejectValue("sviv_ankv", "", "(Extra mängdenhet: antal " + record.getExtraMangdEnhetDescription() + ")");
 					}
 				}else{
 					if(record.getSviv_ankv()!=null && !"".equals(record.getSviv_ankv())){

@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
 import no.systema.tds.service.TdsTillaggskoderService;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderRecord;
@@ -27,7 +29,10 @@ import no.systema.tds.model.jsonjackson.JsonTdsAutoControlErrorContainer;
 
 
 public class TdsExportItemsAutoControlMgr {
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private static final Logger logger = Logger.getLogger(TdsExportItemsAutoControlMgr.class.getName());
+	private final StringManager strMgr = new StringManager();
+	
 	private UrlCgiProxyService urlCgiProxyService = null;
 	private TdsExportSpecificTopicItemService tdsExportSpecificTopicItemService = null;
 	TdsExportControllerAjaxCommonFunctionsMgr commonMgr = new TdsExportControllerAjaxCommonFunctionsMgr();
@@ -103,10 +108,10 @@ public class TdsExportItemsAutoControlMgr {
 	 * Mandatory fields
 	 */
 	public void checkValidMandatoryFields(){
-		if( this.isNotNull(record.getSvev_ulkd()) && this.isNotNull(record.getSvev_vata()) && this.isNotNull(record.getSvev_eup1()) && 
-			this.isNotNull(record.getSvev_brut()) && this.isNotNull(record.getSvev_neto()) && this.isNotNull(record.getSvev_kosl()) && 
-			this.isNotNull(record.getSvev_vasl()) && this.isNotNull(record.getSvev_godm()) && this.isNotNull(record.getSvev_fabl()) &&
-			this.isNotNull(record.getSvev_call()) && this.isNotNull(record.getSvev_stva()) && this.isNotNull(record.getSvev_stva2()) ){
+		if( strMgr.isNotNull(record.getSvev_ulkd()) && strMgr.isNotNull(record.getSvev_vata()) && strMgr.isNotNull(record.getSvev_eup1()) && 
+			strMgr.isNotNull(record.getSvev_brut()) && strMgr.isNotNull(record.getSvev_neto()) && strMgr.isNotNull(record.getSvev_kosl()) && 
+			strMgr.isNotNull(record.getSvev_vasl()) && strMgr.isNotNull(record.getSvev_godm()) && strMgr.isNotNull(record.getSvev_fabl()) &&
+			strMgr.isNotNull(record.getSvev_call()) && strMgr.isNotNull(record.getSvev_stva()) && strMgr.isNotNull(record.getSvev_stva2()) ){
 			//nothing
 		}else{
 			logger.info("FALSE");
@@ -124,7 +129,7 @@ public class TdsExportItemsAutoControlMgr {
 	public void checkValidTillaggsKoder(TdsTillaggskoderService tdsTillaggskoderService, String applicationUser){
 		List<JsonTdsTillaggskodRecord> list = this.commonMgr.fetchTillagskoder(tdsTillaggskoderService, applicationUser, this.headerRecord.getSveh_aube(), this.record.getSvev_vata());
 		if(list!=null && list.size()>0){
-			if(this.isNotNull(this.record.getSvev_vati()) ){
+			if(strMgr.isNotNull(this.record.getSvev_vati()) ){
 				//nothing
 			}else{
 				for(JsonTdsTillaggskodRecord record: list){
@@ -143,6 +148,7 @@ public class TdsExportItemsAutoControlMgr {
 			double grossWeight = Double.valueOf(this.record.getSvev_brut().replace(",", "."));
 			double netWeight = Double.valueOf(this.record.getSvev_neto().replace(",", "."));
 			//check gross
+			/* OBSOLETE. Valid with decimals 
 			if(grossWeight>=1){
 				if(Math.floor(grossWeight)!= grossWeight){
 					this.validRecord = false;
@@ -153,7 +159,8 @@ public class TdsExportItemsAutoControlMgr {
 				if(Math.floor(netWeight)!= netWeight){
 					this.validRecord = false;
 				}
-			}
+			}*/
+			
 			//compare gross vs net
 			if(netWeight>grossWeight){
 				this.validRecord = false;
@@ -171,7 +178,7 @@ public class TdsExportItemsAutoControlMgr {
 	public void checkValidBilagdaHandlingar(TdsBilagdaHandlingarYKoderService tdsBilagdaHandlingarYKoderService, String applicationUser){
 		List<JsonTdsBilagdaHandlingarYKoderRecord> list = this.commonMgr.fetchBilagdaHandlingar(tdsBilagdaHandlingarYKoderService, applicationUser, this.headerRecord.getSveh_aube(), this.record.getSvev_vata());
 		if(list!=null && list.size()>0){
-			if(this.isNotNull(this.record.getSvev_bit1()) ){
+			if(strMgr.isNotNull(this.record.getSvev_bit1()) ){
 				if(this.record.getSvev_bit1().startsWith("Y") || this.record.getSvev_bit1().startsWith("X") ){
 					//nothing
 				}else{
@@ -211,8 +218,8 @@ public class TdsExportItemsAutoControlMgr {
 	 * 
 	 * @param applicationUser
 	 */
-	public void checkValidExtraMangdEnhet(String applicationUser, String sveh_aube){
-		if(getMandatoryMangdEnhetDirective(applicationUser, sveh_aube)){
+	public void checkValidExtraMangdEnhet(String applicationUser){
+		if("Y".equals(this.record.getExtraMangdEnhet())){
 			if(this.record.getSvev_ankv()!=null && !"".equals(this.record.getSvev_ankv())){
 				//valid
 			}else{
@@ -224,6 +231,7 @@ public class TdsExportItemsAutoControlMgr {
 			}
 		}
 	}
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -305,52 +313,58 @@ public class TdsExportItemsAutoControlMgr {
     		}
     	}
     }
+
 	
-	
-	/**
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private boolean isNotNull(String value){
-		boolean retval = false;
-		if(value!=null && !"".equals(value)){
-			retval = true;
-		}
-		return retval;
-	}
 	/**
 	 * 
 	 * @param applicationUser
-	 * @param sveh_aube
-	 * @return
+	 * @param headerRecord
 	 */
-	private boolean getMandatoryMangdEnhetDirective(String applicationUser, String sveh_aube){
-		boolean retval = false;
+	public void getMandatoryMangdEnhetDirective(String applicationUser , JsonTdsExportSpecificTopicRecord headerRecord){
 		String TDS_IE = "E";
 		
 		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
-		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + sveh_aube;
-		//String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + this.record.getSvev_ulkd();
-		/*DEBUG
+		
+		//Changed 03.jan.2017--> DHL discover this error: String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + recordToValidate.getSvev_ulkd();
+		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + this.record.getSvev_vata() + "&lk=" + headerRecord.getSveh_aube();
+
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("FETCH av mangdenhet... ");
     	logger.info("URL: " + BASE_URL_FETCH);
     	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-    	*/
     	//-----------------
     	//Json and execute 
     	//-----------------
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		logger.info(jsonPayload);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
-		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
-			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
-				retval = true;
+		for(JsonTdsMangdEnhetRecord enhetRecord: container.getXtramangdenhet()){
+			if(enhetRecord.getXtra()!=null && enhetRecord.getXtra().toUpperCase().equals("Y")){
+				//Set all values
+				this.record.setExtraMangdEnhet(enhetRecord.getXtra().toUpperCase());
+				this.record.setExtraMangdEnhetCode(enhetRecord.getSvtx15_33());
+				this.record.setExtraMangdEnhetDescription(enhetRecord.getSvtx03_04());
+				//------------------------------------------
+				//Rules of engagement to help the end-user
+				//(Validation will not fire then ...)
+				//------------------------------------------
+				//RULE 1: NAR
+				if("NAR".equals(this.record.getExtraMangdEnhetCode()) ){
+					if(strMgr.isNotNull(this.record.getSvev_ankv())){
+					 //Nothing	
+					}else{
+						if(strMgr.isNotNull(this.record.getSvev_kota()) && !"0".equals(this.record.getSvev_kota()) ){
+							this.record.setSvev_ankv(this.record.getSvev_kota());
+							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+						}
+					}
+				}
+				//RULE 2: TODO
+				//here ...
 			}
 		}
 		
-		return retval;
 	}
+	
 	
 }

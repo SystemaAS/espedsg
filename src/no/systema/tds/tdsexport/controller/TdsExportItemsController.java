@@ -32,6 +32,7 @@ import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 
 import no.systema.tds.tdsexport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
@@ -86,6 +87,8 @@ import no.systema.tds.url.store.TdsUrlDataStore;
 public class TdsExportItemsController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private static final Logger logger = Logger.getLogger(TdsExportItemsController.class.getName());
+	private final StringManager strMgr = new StringManager();
+	
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private TdsExportCalculator tdsExportCalculator = new TdsExportCalculator();
@@ -172,7 +175,7 @@ public class TdsExportItemsController {
 				if(!this.MATCH.equals(varukodValidNumber)){
 					recordToValidate.setSvev_vata(null); 
 				}
-				//set Mangd Enhet Directives if applicable
+				//set MangdEnhet Directives if applicable
 				this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord);
 				
 				TdsExportItemsValidator validator = new TdsExportItemsValidator();
@@ -182,7 +185,7 @@ public class TdsExportItemsController {
 				if(bindingResult.hasErrors()){
 			    	logger.info("[ERROR Validation] Item Record does not validate)");
 			    	logger.info("[INFO lineNr] " + lineNr);
-			    	
+			    	model.put("sign", sign);
 			    	model.put("record", recordToValidate);
 			    	if(lineNr!=null && !"".equals(lineNr)){
 			    		logger.info("[INFO lineNr] ... filling old value: lineNr:" + lineNr);
@@ -462,7 +465,8 @@ public class TdsExportItemsController {
     					if(autoControlMgr.isValidRecord()){
     						//Go to level 3
     						//logger.info("level check (3) " + idDebug);
-							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser(), headerRecord.getSveh_aube());
+    						autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser(), headerRecord);
+							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
 							if(autoControlMgr.isValidRecord()){
 	    						//Go to level FINAL MandatoryFields (must be the last check)
 	    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
@@ -590,68 +594,9 @@ public class TdsExportItemsController {
 		}else{
 			//copy invoice amount to the statistical value
 			record.setSvev_stva2(record.getSvev_fabl());
-		}
-		
-	}
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param recordToValidate
-	 */
-	
-	private void getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
-		String TDS_IE = "E";
-		
-		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
-		
-		//Changed 03.jan.2017--> DHL discover this error: String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + recordToValidate.getSvev_ulkd();
-		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + headerRecord.getSveh_aube();
-
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		logger.info("FETCH av mangdenhet... ");
-    	logger.info("URL: " + BASE_URL_FETCH);
-    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-    	//-----------------
-    	//Json and execute 
-    	//-----------------
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
-		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
-			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
-				//Set all values
-				recordToValidate.setExtraMangdEnhet(record.getXtra().toUpperCase());
-				recordToValidate.setExtraMangdEnhetCode(record.getSvtx15_33());
-				recordToValidate.setExtraMangdEnhetDescription(record.getSvtx03_04());
-				//------------------------------------------
-				//Rules of engagement to help the end-user
-				//(Validation will not fire then ...)
-				//------------------------------------------
-				//RULE 1: NAR
-				if("NAR".equals(recordToValidate.getExtraMangdEnhetCode())){
-					if(this.isNotNull(recordToValidate.getSvev_ankv())){
-					 //Nothing	
-					}else{
-						if(this.isNotNull(recordToValidate.getSvev_kota()) && !"0".equals(recordToValidate.getSvev_kota()) ){
-							recordToValidate.setSvev_ankv(recordToValidate.getSvev_kota());
-							logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
-						}
-					}
-				}
-				//RULE 2: TODO
-				//here ...
-			}
-		}
-		
+		}	
 	}
 	
-	private boolean isNotNull(String value){
-		boolean retval = false;
-		if(value!=null && !"".equals(value)){
-			retval = true;
-		}
-		return retval;
-	}
 	/**
 	 * 
 	 * @param applicationUser
@@ -844,10 +789,59 @@ public class TdsExportItemsController {
 		return urlRequestParamsKeys.toString();
 	}
 	
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param recordToValidate
+	 * @param headerRecord
+	 */
+	public void getMandatoryMangdEnhetDirective(String applicationUser, JsonTdsExportSpecificTopicItemRecord recordToValidate, JsonTdsExportSpecificTopicRecord headerRecord){
+		String TDS_IE = "E";
+		
+		String BASE_URL_FETCH = TdsUrlDataStore.TDS_CHECK_EXTRA_MANGDENHET;
+		
+		//Changed 03.jan.2017--> DHL discover this error: String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + recordToValidate.getSvev_ulkd();
+		String urlRequestParamsKeys = "user="+ applicationUser + "&ie=" + TDS_IE + "&kod=" + recordToValidate.getSvev_vata() + "&lk=" + headerRecord.getSveh_aube();
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH av mangdenhet... ");
+    	logger.info("URL: " + BASE_URL_FETCH);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//-----------------
+    	//Json and execute 
+    	//-----------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		JsonTdsMangdEnhetContainer container = this.tdsExportSpecificTopicItemService.getTdsMangdEnhetContainer(jsonPayload);
+		for(JsonTdsMangdEnhetRecord record: container.getXtramangdenhet()){
+			if(record.getXtra()!=null && record.getXtra().toUpperCase().equals("Y")){
+				//Set all values
+				recordToValidate.setExtraMangdEnhet(record.getXtra().toUpperCase());
+				recordToValidate.setExtraMangdEnhetCode(record.getSvtx15_33());
+				recordToValidate.setExtraMangdEnhetDescription(record.getSvtx03_04());
+				//------------------------------------------
+				//Rules of engagement to help the end-user
+				//(Validation will not fire then ...)
+				//------------------------------------------
+				//RULE 1: NAR
+				if("NAR".equals(recordToValidate.getExtraMangdEnhetCode())){
+					if(strMgr.isNotNull(recordToValidate.getSvev_ankv())){
+					 //Nothing	
+					}else{
+						if(strMgr.isNotNull(recordToValidate.getSvev_kota()) && !"0".equals(recordToValidate.getSvev_kota()) ){
+							recordToValidate.setSvev_ankv(recordToValidate.getSvev_kota());
+							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+						}
+					}
+				}
+				//RULE 2: TODO
+				//here ...
+			}
+		}
+		
+	}
 	
 	//SERVICES
-	
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
 	@Autowired

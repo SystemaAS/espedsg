@@ -67,9 +67,15 @@ public class TdsExportItemsValidator implements Validator {
 				//Nettovikt
 				if(record.getSvev_neto()!=null && !"".equals(record.getSvev_neto())){
 					try{
-						Double netoWeight = Double.parseDouble(record.getSvev_neto().replace(",", "."));
-						if(netoWeight==0.00D){
+						Double grossWeight = Double.parseDouble(record.getSvev_brut().replace(",", "."));
+						Double netWeight = Double.parseDouble(record.getSvev_neto().replace(",", "."));
+						if(netWeight==0.00D){
 							errors.rejectValue("svev_neto", "systema.tds.export.header.error.rule.item.svev_neto.biggerThanZero");
+						}else{
+							if(netWeight>grossWeight){
+								errors.rejectValue("svev_neto", "systema.tds.export.header.error.rule.item.svev_neto.notBiggerThanGross");
+								
+							}
 						}
 						/*OBSOLETE after DHL's meeting Larvik 21.Maj.2017 (CB/OT/OLA plus avd)
 						//Check on decimals (requirement)
