@@ -19,20 +19,15 @@ import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
-
 //application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
+
 import no.systema.main.model.SystemaWebUser;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtsfSyparfRecord;
 import no.systema.z.main.maintenance.service.MaintMainKodtsfSyparfService;
-import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.tds.z.maintenance.main.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkRecord;
@@ -41,6 +36,7 @@ import no.systema.tds.z.maintenance.main.service.html.dropdown.TdsMaintMainDropD
 import no.systema.tds.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.tds.z.maintenance.main.util.TdsMaintenanceConstants;
 import no.systema.tds.z.maintenance.felles.validator.MaintTdsFellesSvt057rValidator;
+
 
 
 /**
@@ -58,6 +54,7 @@ public class MaintTdsFellesSvt057rController {
 	
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintTdsFellesSvt057rController.class.getName());
+	private final StringManager strMgr = new StringManager();
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -80,8 +77,8 @@ public class MaintTdsFellesSvt057rController {
 	public ModelAndView doList(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tdsmaintenancefelles_svt057r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
 		String dbTable = request.getParameter("id");
+		String id = request.getParameter("searchKode");
 		
 		Map model = new HashMap();
 		if(appUser==null){
@@ -89,10 +86,10 @@ public class MaintTdsFellesSvt057rController {
 		}else{
 			//get table
 	    	List<JsonMaintSvtvkRecord> list = new ArrayList();
-	    	list = this.fetchList(appUser.getUser());
+	    	list = this.fetchList(appUser.getUser(), id);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	
+	    	model.put("searchKode", id);
 	    	model.put(TdsMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -190,11 +187,12 @@ public class MaintTdsFellesSvt057rController {
 			if(TdsMaintenanceConstants.ACTION_DELETE.equals(action) || TdsMaintenanceConstants.ACTION_UPDATE.equals(action) ){
 				//TODO ?
 			}
-			//fetch the newly updated record if valid
-			List<JsonMaintSvtvkRecord> list = this.fetchList(appUser.getUser());
+			//fetch if valid
+			List<JsonMaintSvtvkRecord> list = this.fetchList(appUser.getUser(), null);
 			
 			//set domain objects
 	    	model.put("dbTable", dbTable);
+	    	
 	    	model.put(TdsMaintenanceConstants.DOMAIN_LIST, list);
 			successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
 			
@@ -205,14 +203,17 @@ public class MaintTdsFellesSvt057rController {
 	/**
 	 * 
 	 * @param applicationUser
-	 * @param model
+	 * @param id
 	 * @return
 	 */
-	private List<JsonMaintSvtvkRecord> fetchList(String applicationUser){
+	private List<JsonMaintSvtvkRecord> fetchList(String applicationUser, String id){
 		
 		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT057R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user="+ applicationUser);
+		if(strMgr.isNotNull(id)){
+			urlRequestParams.append("&svvk_kd=" + id);
+		}
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -276,7 +277,7 @@ public class MaintTdsFellesSvt057rController {
 	private int updateRecord(String applicationUser, JsonMaintSvtvkRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT056R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT057R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
