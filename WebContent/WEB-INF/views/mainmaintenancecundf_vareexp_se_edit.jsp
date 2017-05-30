@@ -462,61 +462,43 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="55%" valign="top">
+													<td width="50%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_lagi">&nbsp;Id:</td>
-																<td>
+																<td class="text12" >
 																	<input type="text" class="inputTextMediumBlue" name="svew_lagi" id="svew_lagi" size="15" maxlength="14" value='${model.record.svew_lagi}'>
+																	&nbsp;Landkod:
+																	<input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'>
+																	&nbsp;Förf.(37:2):
+																	<input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'>
 																</td>
 															</tr>
-															
 															<tr>
-															</tr>
-															
-															<tr>
-																<td class="text12" title="svew_vasl2">&nbsp;Beskrivning 2:</td>
+																<td class="text12" title="svew_vasl2">&nbsp;Varubeskr. 2:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl2}'></td>
-																<td class="text12" title="svew_vati">&nbsp;Varukod (33:3):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vati" id="svew_vati" size="5" maxlength="4" value='${model.record.svew_vati}'>
-																</td>
 															</tr>
-															
 															<tr>
-																<td class="text12" title="svew_vasl3">&nbsp;Beskrivning 3:</td>
+																<td class="text12" title="svew_vasl3">&nbsp;Varubeskr. 3:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl3" id="svew_vasl3" size="70" maxlength="70" value='${model.record.svew_vasl3}'></td>
-																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
 															</tr>
-															
 															<tr>
-																<td class="text12" title="svew_vasl4">&nbsp;Beskrivning 4:</td>
+																<td class="text12" title="svew_vasl4">&nbsp;Varubeskr. 4:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl4" id="svew_vasl4" size="70" maxlength="70" value='${model.record.svew_vasl4}'></td>
-																<td class="text12" title="svew_vat5">&nbsp;Varukod (33:5):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl5">&nbsp;Beskrivning 5:</td>
+																<td class="text12" title="svew_vasl5">&nbsp;Varubeskr. 5:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl5" id="svew_vasl5" size="70" maxlength="70" value='${model.record.svew_vasl5}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_komr">&nbsp;Komm. ref.nr:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_komr" id="svew_komr" size="70" maxlength="70" value='${model.record.svew_komr}'></td>
-																<td class="text12" title="svew_fnkd">&nbsp;FN-kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
 															</tr>
-
 														</table>
 													</td>
 													
-													<td width="45%" valign="top">
+													<td width="50%" valign="top">
 														<table border="0">
-															<tr>
-															</tr>
-															<tr>
-																<td class="text12" title="svew_eup2">Förf.(37:2):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'></td>
-															</tr>
 															<tr>
 																<td class="text12" title="svew_betk">Betalkod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_betk" id="svew_betk" size="2" maxlength="1" value='${model.record.svew_betk}'></td>
@@ -529,26 +511,30 @@
 																<td class="text12" title="svew_stva">Stat. värde:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva" id="svew_stva" size="12" maxlength="11" value='${model.record.svew_stva}'></td>
 															</tr>
-															
 															<tr>
 																<td class="text12" title="svew_atin">Indikator:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_atin" id="svew_atin" size="5" maxlength="3" value='${model.record.svew_atin}'></td>
 																<td class="text12" title="svew_stva2">Tullvärde:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva2" id="svew_stva2" size="12" maxlength="11" value='${model.record.svew_stva2}'></td>
 															</tr>
-
 															<tr>
 																<td class="text12" title="svew_call">Call me:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_call" id="svew_call" size="3" maxlength="2" value='${model.record.svew_call}'></td>
+																<td class="text12" title="svew_vati">&nbsp;Varukod (33:3):</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vati" id="svew_vati" size="5" maxlength="4" value='${model.record.svew_vati}'></td>
 															</tr>
-
 															<tr>
 																<td class="text12" title="svew_lagt">Lager id:</td>
 																<td><input type="text"  class="inputTextMediumBlue" name="svew_lagt" id="svew_lagt" size="2" maxlength="1" value='${model.record.svew_lagt}'></td>
-																<td class="text12" title="svew_lagl">Landkod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'></td>
+																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
 															</tr>
-
+															<tr>
+																<td class="text12" title="svew_fnkd">&nbsp;FN-kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
+															</tr>
 														</table>
 													</td>
 												</tr>
@@ -571,7 +557,7 @@
 
 
 
-											<table class="formFrameHeaderPeachWithBorder" width="97%" 	cellspacing="0" border="0" align="left">
+											<table class="formFrameHeaderPeachWithBorder" width="100%" 	cellspacing="0" border="0" align="left">
 												<tr>
 													<td class="text12Bold">&nbsp;
 														Bilagda handlingar
@@ -583,13 +569,6 @@
 												<tr> 
 													<td width="50%" valign="top">
 														<table border="0">
-															<tr>
-																<td class="text12" title="svew_bit1">1. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit1" id="svew_bit1" size="5" maxlength="4" value='${model.record.svew_bit1}'></td>
-																<td class="text12" title="svew_bii1">&nbsp;Identitet:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii1" size="35" maxlength="35" value='${model.record.svew_bii1}'></td>
-															</tr>
-															
 															<tr>
 																<td class="text12" title="svew_bit2">2. Kod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bit2" id="svew_bit2" size="5" maxlength="4" value='${model.record.svew_bit2}'></td>
@@ -675,14 +654,6 @@
 											</table>			
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
-												<tr>
-													<td class="text12" title="svew_suko">1. Kod:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_suko" id="svew_suko" size="7" maxlength="5" value='${model.record.svew_suko}'></td>
-												</tr>
-												<tr>
-													<td class="text12" title="svew_sutx">1. Text:</td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx" id="svew_sutx" size="70" maxlength="70" value='${model.record.svew_sutx}'></td>
-												</tr>
 												<tr>
 													<td class="text12" title="svew_sutx2">2. Text:</td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_sutx2" id="svew_sutx2" size="70" maxlength="70" value='${model.record.svew_sutx2}'></td>
@@ -877,11 +848,6 @@
 													<td class="text12" title="svew_god1..5">&nbsp;&nbsp;&nbsp;Godsmärkning:</td>
 													<td class="text12" title="svew_kot1..5">Kolli antal:</td>
 													<td class="text12" title="svew_kos1..5">Kolli slag [kod]:</td>
-												</tr>
-												<tr>
-													<td class="text12">1.<input type="text" class="inputTextMediumBlue" name="svew_godm" id="svew_godm" size="45" maxlength="42" value='${model.record.svew_godm}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'></td>
 												</tr>
 												<tr>
 													<td class="text12">2.<input type="text" class="inputTextMediumBlue" name="svew_god2" id="svew_god2" size="45" maxlength="42" value='${model.record.svew_god2}'></td>
