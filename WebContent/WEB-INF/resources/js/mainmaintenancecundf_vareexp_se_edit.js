@@ -31,30 +31,25 @@ jq(function() {
 	
     jq( "#accordion" ).accordion({
       collapsible: true,
-	  classes: {
-  	    "ui-accordion": "text12",
-  	    "ui-accordion-header": "text12",
-  	    "ui-accordion-header-active": "text12",
-  	    "ui-accordion-header-collapsed": "text12",
-  	    "ui-accordion-content":  "text12",
-  	    "ui-accordion-content-active": "text12"
-  	  }
+      active: false
     });
     
     jq( "#accordion2" ).accordion({
         collapsible: true,
-  	  classes: {
-    	    "ui-accordion": "text12",
-    	    "ui-accordion-header": "text12",
-    	    "ui-accordion-header-active": "text12",
-    	    "ui-accordion-header-collapsed": "text12",
-    	    "ui-accordion-content":  "text12",
-    	    "ui-accordion-content-active": "text12"
-    	  }
-      });    
+        active: false
+    }); 
     
+    jq( "#accordion3" ).accordion({
+        collapsible: true,
+        active: false
+    });  
     
-	
+    jq( "#accordion4" ).accordion({
+        collapsible: true,
+        active: false
+    });    
+  
+
 }); 
 
 
