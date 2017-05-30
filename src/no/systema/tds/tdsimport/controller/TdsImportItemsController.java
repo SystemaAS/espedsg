@@ -214,6 +214,8 @@ public class TdsImportItemsController {
 			            jsonTdsImportSpecificTopicItemRecord.setSviv_vano(lineNr);
 			            jsonTdsImportSpecificTopicItemRecord.setSviv_syop(opd);
 			            jsonTdsImportSpecificTopicItemRecord.setSviv_syav(avd);
+			            //Extra Mängd completion after validation
+			            jsonTdsImportSpecificTopicItemRecord.setSviv_ankv(recordToValidate.getSviv_ankv());
 			            
 					}else{
 						//-------
@@ -244,6 +246,9 @@ public class TdsImportItemsController {
 				            jsonTdsImportSpecificTopicItemRecord.setSviv_vano(newLineNr);
 				            jsonTdsImportSpecificTopicItemRecord.setSviv_syop(opd);
 				            jsonTdsImportSpecificTopicItemRecord.setSviv_syav(avd);
+				            //Extra Mängd completion after validation
+				            jsonTdsImportSpecificTopicItemRecord.setSviv_ankv(recordToValidate.getSviv_ankv());
+				            
 				            //-----------------------------------------------------------------------
 				            //Now calculate the charges (Avgiftsberäkningen) always with CREATE NEW
 				            //-----------------------------------------------------------------------
@@ -656,7 +661,7 @@ public class TdsImportItemsController {
 					}else{
 						if(strMgr.isNotNull(recordToValidate.getSviv_kota()) && !"0".equals(recordToValidate.getSviv_kota()) ){
 							recordToValidate.setSviv_ankv(recordToValidate.getSviv_kota());
-							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+							logger.info("YES!!!:" + recordToValidate.getSviv_ankv());
 						}
 					}
 				}
