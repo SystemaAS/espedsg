@@ -31,6 +31,7 @@ import no.systema.jservices.common.dao.Kodts8Dao;
 import no.systema.jservices.common.dao.KodtsaDao;
 import no.systema.jservices.common.dao.KodtsbDao;
 import no.systema.jservices.common.dao.KodtvalfDao;
+import no.systema.jservices.common.dao.Svtx03fDao;
 import no.systema.jservices.common.dao.TariDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
@@ -323,6 +324,14 @@ public class MainMaintenanceCundfVkundController {
 			list = getKunder(appUser);
 		} else if ("syfr03".equals(caller)) { //Fritekstkode
 			list = getFritekstKoder(appUser);
+		} else if ("svew_ulkd".equals(caller)) { //Ursprungsland
+			list = getLandKoderSvKoder(appUser);
+		} else if ("svew_vata".equals(caller)) { //Taric nr
+			list = getTaricnrKoder(appUser);
+		} else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
+			list = getEup1Koder(appUser);
+		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
+			list = getEup2Koder(appUser);
 		} 
 		
 		else {
@@ -332,6 +341,58 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 	
+	
+	private List<ChildWindowKode> getEup2Koder(SystemaWebUser appUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private List<ChildWindowKode> getEup1Koder(SystemaWebUser appUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private List<ChildWindowKode> getTaricnrKoder(SystemaWebUser appUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private List<ChildWindowKode> getLandKoderSvKoder(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
+		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Svtx03fDao> container = (JsonDtoContainer<Svtx03fDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Svtx03fDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+
+	}
+
+	private ChildWindowKode getChildWindowKode(Svtx03fDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getSvtx03_03());
+		kode.setDescription(dao.getSvtx03_04());
+		return kode;
+	}	
 	
 	private List<ChildWindowKode>  getFritekstKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<KodtftDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtftDao>>();

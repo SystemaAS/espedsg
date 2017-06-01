@@ -406,7 +406,7 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="63%" valign="top">
+													<td width="70%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_knso">&nbsp;<font class="text14RedBold" >*</font>Sökbegrepp:</td>
@@ -414,23 +414,32 @@
 																	<input type="text"  required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svew_knso" id="svew_knso" size="35" maxlength="35" value='${model.record.svew_knnr}'>
 																	&nbsp;Ursprungsland:
 																	<input type="text" class="inputTextMediumBlue" name="svew_ulkd" id="svew_ulkd" size="2" maxlength="2" value='${model.record.svew_ulkd}'>
+																	<a tabindex="-1" id="svew_ulkdIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																</td>
 																<td class="text12" title="svew_vata">Taric nr:</td>
 																<td>
 																	<input type="text" class="inputTextMediumBlue" name="svew_vata" id="svew_vata" size="10" maxlength="8" value='${model.record.svew_vata}'>
+																	<a tabindex="-1" id="svew_vataIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																</td>	
 															</tr>
-															
 															<tr>
 																<td class="text12" title="svew_vasl">&nbsp;Varubeskr. 1:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl}'></td>
 																<td class="text12" title="svew_eup1">Förf.(37:1):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_eup1" id="svew_eup1" size="5" maxlength="4" value='${model.record.svew_eup1}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_eup1" id="svew_eup1" size="5" maxlength="4" value='${model.record.svew_eup1}'>
+																	<a tabindex="-1" id="svew_eup1IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 														</table>
 													</td>
 													
-													<td width="35%" valign="top">
+													<td width="30%" valign="top">
 														<table border="0" align="right">
 															<tr>
 																<td class="text12" title="svew_brut">Brutv.(kg):</td>
@@ -511,6 +520,9 @@
 																	<input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'>
 																	&nbsp;Förf.(37:2):
 																	<input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'>
+																	<a tabindex="-1" id="svew_eup2IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																</td>
 															</tr>
 															<tr>

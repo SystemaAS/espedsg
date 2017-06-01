@@ -340,6 +340,13 @@ public final class MaintenanceMainUrlDataStore {
 	 */
 	static public String MAINTENANCE_MAIN_BASE_SVEW_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVEW.do";	
 	
+	/**
+	 * Retrieve a List of Svtx03fDao
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsSVTX03F.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVTX03F.do";		
 
 	//OS-Users (general)
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSYQAOKP08AR.do?user=OSCAR&wos8dden==ROGER
