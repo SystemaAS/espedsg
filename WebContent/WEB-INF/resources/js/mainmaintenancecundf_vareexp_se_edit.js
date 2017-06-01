@@ -48,8 +48,18 @@ jq(function() {
         collapsible: true,
         active: false
     });    
-  
 
+    jq( "#accordion-half1" ).accordion({
+        collapsible: true,
+        active: false
+    });     
+    
+    jq( "#accordion-half2" ).accordion({
+        collapsible: true,
+        active: false
+    }); 
+    
+    
 }); 
 
 
