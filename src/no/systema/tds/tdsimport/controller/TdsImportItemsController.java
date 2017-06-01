@@ -171,7 +171,8 @@ public class TdsImportItemsController {
 				//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search routine
 				String varukodValidNumber = this.getTaricVarukod(appUser.getUser(), recordToValidate.getSviv_vata());
 				if(!this.MATCH.equals(varukodValidNumber)){
-					recordToValidate.setSviv_vata(null); //re-established on Jan.07.2015 after having been removed after Kingrød meeting 10.Dec.2013
+					//REMOVED - DHL req. 1.Jun.2017
+					//recordToValidate.setSviv_vata(null); 
 				}
 				
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable
@@ -509,6 +510,9 @@ public class TdsImportItemsController {
     							autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser());
     							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
     							if(autoControlMgr.isValidRecord()){
+    								//Update with Extramangd
+	    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
+	    		    				
     								//Go to level 5
 		    						//logger.info("level check (5) " + idDebug);
     								autoControlMgr.checkValidUrsprungslandKod(appUser.getUser());

@@ -221,7 +221,7 @@ public class TdsExportItemsAutoControlMgr {
 	public void checkValidExtraMangdEnhet(String applicationUser){
 		if("Y".equals(this.record.getExtraMangdEnhet())){
 			if(this.record.getSvev_ankv()!=null && !"".equals(this.record.getSvev_ankv())){
-				//valid
+				//nothing
 			}else{
 				this.validRecord = false;
 			}
@@ -313,6 +313,40 @@ public class TdsExportItemsAutoControlMgr {
     		}
     	}
     }
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param errorFlag
+	 */
+	public void updateItemWithExgraMangdEnhet(String applicationUser){
+		String BASE_URL_UPDATE_ERR = TdsExportUrlDataStore.TDS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_EXTRAMANGD_ENHET_URL;
+		StringBuffer urlRequestParamsKeysAutoControl = new StringBuffer();
+		urlRequestParamsKeysAutoControl.append("user=" + applicationUser);
+		urlRequestParamsKeysAutoControl.append("&avd=" + this.record.getSvev_syav());
+		urlRequestParamsKeysAutoControl.append("&opd=" + this.record.getSvev_syop());
+		urlRequestParamsKeysAutoControl.append("&lin=" + this.record.getSvev_syli());
+		//new value
+		urlRequestParamsKeysAutoControl.append("&svev_ankv=" + this.record.getSvev_ankv());
+		
+		/*DEBUG
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH item list... ");
+    	logger.info("URL: " + BASE_URL_UPDATE_ERR);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeysAutoControl);
+    	*/
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE_ERR, urlRequestParamsKeysAutoControl.toString());
+		JsonTdsAutoControlErrorContainer container = this.tdsExportSpecificTopicItemService.getTdsExportSpecificTopicItemAutoControlErrorContainer(jsonPayload);
+    	if(container!=null){
+    		if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+    			logger.info(container.getErrMsg());
+    		}else{
+    			logger.info("[OK] Update successfully done on AutoControl");
+    		}
+    	}
+    }
 
 	
 	/**
@@ -355,7 +389,7 @@ public class TdsExportItemsAutoControlMgr {
 					}else{
 						if(strMgr.isNotNull(this.record.getSvev_kota()) && !"0".equals(this.record.getSvev_kota()) ){
 							this.record.setSvev_ankv(this.record.getSvev_kota());
-							//logger.info("YES!!!:" + recordToValidate.getSvev_ankv());
+							logger.info("YES!!!:" + this.record.getSvev_ankv());
 						}
 					}
 				}

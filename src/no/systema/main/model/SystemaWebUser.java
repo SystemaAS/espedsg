@@ -84,6 +84,11 @@ public class SystemaWebUser {
 	public void setHttpCgiRoot(String value) {  this.httpCgiRoot = value; }
 	public String getHttpCgiRoot() { return this.httpCgiRoot;}
 	
+	//In order to get the application.properties: http.as400.root.jquery.docs.host
+	private String httpJQueryDocRoot = null;
+	public void setHttpJQueryDocRoot(String value) {  this.httpJQueryDocRoot = value; }
+	public String getHttpJQueryDocRoot() { return this.httpJQueryDocRoot;}
+		
 	private String user = null; 
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}

@@ -75,7 +75,12 @@ public final class TdsImportUrlDataStore {
 	//--------------------------------------
 	static public String TDS_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI022R.pgm";
 	//http://gw.systema.no/sycgip/tsvi022r.pgm?user=OSCAR&avd=1&opd=900077&lin=1&sviv_err=X
-	
+	//--------------------------------------
+	//[6.1.2] Update AutoControl error line  
+	//--------------------------------------
+	static public String TDS_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_EXTRAMANGD_ENHET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI023R.pgm";
+	//http://gw.systema.no/sycgip/tsvi023r.pgm?user=OSCAR&avd=1&opd=155216&lin=1&svev_ankv=XXX
+		
 	
 	//-----------------------------------
 	//[6.2] LIST/EDIT  INVOICE RECORD(s)

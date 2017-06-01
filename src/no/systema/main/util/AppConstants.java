@@ -20,6 +20,7 @@ public final class AppConstants {
 	public static final String LOG4J_LOGGER_LEVEL = ApplicationPropertiesUtil.getProperty("log4j.logger.level");
 	public static final String HTTP_ROOT_CGI =  ApplicationPropertiesUtil.getProperty("http.as400.root.cgi");  //resources.getString("http.as400.root.cgi");
 	public static final String HTTP_ROOT_SERVLET_JSERVICES = ApplicationPropertiesUtil.getProperty("http.syjservices.root.servlet");
+	public static final String HTTP_ROOT_JQUERY_DOCS_ROOT = ApplicationPropertiesUtil.getProperty("http.as400.root.jquery.docs.host");
 	
 	//version
 	public static final String VERSION_ESPSEDSG = ApplicationPropertiesUtil.getProperty("version.espedsg");

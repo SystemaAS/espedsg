@@ -73,7 +73,12 @@ public final class TdsExportUrlDataStore {
 	//--------------------------------------
 	static public String TDS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_AUTOCONTROL_ERROR_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE022R.pgm";
 	//http://gw.systema.no/sycgip/tsve022r.pgm?user=OSCAR&avd=1&opd=155216&lin=1&svev_err=X
-	
+	//--------------------------------------
+	//[6.0.3] Update AutoControl error line  
+	//--------------------------------------
+	static public String TDS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_EXTRAMANGD_ENHET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE023R.pgm";
+	//http://gw.systema.no/sycgip/tsve023r.pgm?user=OSCAR&avd=1&opd=155216&lin=1&svev_err=X
+		
 	//-----------------------------------
 	//[6.1] LIST/EDIT  INVOICE RECORD(s)
 	//(mode=A (Add new), 

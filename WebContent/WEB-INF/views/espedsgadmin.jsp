@@ -83,7 +83,7 @@
 		                       <td width="10%" class="tableCell" nowrap ><font class="text12MediumBlue">&nbsp;${customer.version}&nbsp;</font></td>
 		                       <td width="20%" class="tableCell" nowrap >
 		                       	<c:choose>
-				               		<c:when test="${'DSV' == customer.name || 'DHL' == customer.name}">
+				               		<c:when test="${'DSV' == customer.name || 'DHL' == customer.name || 'Schenker NO' == customer.name}">
 	                       				<font class="text12Gray">&nbsp;&nbsp;${customer.url}&nbsp;&nbsp;</font>		                       			
 		                       		</c:when>
 		                       		<c:otherwise>

@@ -173,7 +173,8 @@ public class TdsExportItemsController {
 				//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search routine
 				String varukodValidNumber = this.getTaricVarukod(appUser.getUser(), recordToValidate.getSvev_vata());
 				if(!this.MATCH.equals(varukodValidNumber)){
-					recordToValidate.setSvev_vata(null); 
+					//REMOVED - DHL req. 1.Jun.2017
+					//recordToValidate.setSvev_vata(null); 
 				}
 				//set MangdEnhet Directives if applicable
 				this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord);
@@ -471,9 +472,12 @@ public class TdsExportItemsController {
 	    						//Go to level FINAL MandatoryFields (must be the last check)
 	    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
 	    						autoControlMgr.checkValidMandatoryFields();
-	    		    			if(autoControlMgr.isValidRecord()){
-	    		    				//Update in order to remove precvious error flags, if any...
+	    						if(autoControlMgr.isValidRecord()){
+	    		    				//Update in order to remove previous error flags, if any...
 	    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
+	    		    				//Update with Extramangd
+	    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
+	    		    				
 	    		    			}else{
 	    		    				//Set error
 	    		    				logger.info(ERROR_FRAME_STD_OUTPUT);

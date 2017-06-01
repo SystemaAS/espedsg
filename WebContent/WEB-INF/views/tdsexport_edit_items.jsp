@@ -313,7 +313,7 @@
 		 						<input type="hidden" name="avdItemList" id="avdItemList" value='${model.avd}'> 
 		 						<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 						
-								<table id="containerdatatableTable" align="left" width="100%" >
+								<table width="100%" id="containerdatatableTable" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">	
 							
@@ -323,7 +323,7 @@
 									    <%-- 
 									    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_syli.linjeNr"/>&nbsp;</td> 
 									    --%>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.update"/>&nbsp;</td>   
+					                    <td width="2%" class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.update"/>&nbsp;</td>   
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</td>   
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</td>
 					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</td>
@@ -355,12 +355,12 @@
 							               <%-- Internal to CB. Does not have to bee visible to the end user 
 							               <td class="text11" align="center">${record.svev_syli}</td> 
 							               --%>
-						               	   <td class="text11" align="center">&nbsp;
+						               	   <td width="2%" class="text11" align="center">&nbsp;
 							               		<a tabindex=-1 id="recordUpdate_${record.svev_syli}_${record.svev_vano}" href="#" onClick="getItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 						               	   </td>
-   							               <td class="text11" >&nbsp;${record.svev_vano}</td>
+   							               <td width="4%" class="text11" >&nbsp;${record.svev_vano}</td>
 							               <td class="text11" >&nbsp;${record.svev_ulkd}</td>
 							               <td class="text11" >&nbsp;${record.svev_vata}&nbsp;&nbsp;
 							               	  <img id="recordUpdate_${record.svev_syli}_${record.svev_vano}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Lägg till i kundensvarureg.">

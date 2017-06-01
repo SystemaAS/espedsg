@@ -115,6 +115,8 @@
 					<input type="hidden" name="userAvd" id="userAvd" value=''>
 					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
 					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHostWithoutHttpPrefix}'>
+					<input type="hidden" name="userHttpJQueryDocRoot" id="userHttpJQueryDocRoot" value='${user.httpJQueryDocRoot}'>
+					
 					
 			    	<td> 
 			    	<table width="100%">

@@ -535,7 +535,39 @@ public class TdsImportItemsAutoControlMgr {
     		}
     	}
     }
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 */
+	public void updateItemWithExgraMangdEnhet(String applicationUser){
+		String BASE_URL_UPDATE_ERR = TdsImportUrlDataStore.TDS_IMPORT_BASE_UPDATE_SPECIFIC_TOPIC_ITEM_EXTRAMANGD_ENHET_URL;
+		StringBuffer urlRequestParamsKeysAutoControl = new StringBuffer();
+		urlRequestParamsKeysAutoControl.append("user=" + applicationUser);
+		urlRequestParamsKeysAutoControl.append("&avd=" + this.record.getSviv_syav());
+		urlRequestParamsKeysAutoControl.append("&opd=" + this.record.getSviv_syop());
+		urlRequestParamsKeysAutoControl.append("&lin=" + this.record.getSviv_syli());
+		//new value
+		urlRequestParamsKeysAutoControl.append("&sviv_ankv=" + this.record.getSviv_ankv());
+		
+		/* DEBUG
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("FETCH item list... ");
+    	logger.info("URL: " + BASE_URL_UPDATE_ERR);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeysAutoControl);
+    	*/
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE_ERR, urlRequestParamsKeysAutoControl.toString());
+		JsonTdsAutoControlErrorContainer container = this.tdsImportSpecificTopicItemService.getTdsImportSpecificTopicItemAutoControlErrorContainer(jsonPayload);
+    	if(container!=null){
+    		if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+    			logger.info(container.getErrMsg());
+    		}else{
+    			logger.info("[OK] Update successfully done on AutoControl");
+    		}
+    	}
+    }
 	
 	/**
 	 * 

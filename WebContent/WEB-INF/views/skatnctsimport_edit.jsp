@@ -503,7 +503,7 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><font class="text16RedBold" >*</font><span title="titsb">Best.toldsted</span></td>
-				            <td ><input type="text" class="inputTextMediumBlueMandatoryField" name="titsb" id="titsb" size="9" maxlength="8" value="${model.record.titsb}">
+				            <td ><input type="text" class="inputTextMediumBlueMandatoryField" name="titsb" id="titsb" size="10" maxlength="8" value="${model.record.titsb}">
 				            		<a id="titsbIdLink" OnClick="triggerChildWindowTullkontorCodes(this)">
 				            			<img style="cursor:pointer;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 				            		</a>
@@ -524,7 +524,7 @@
 			            <tr>
 				            <td >&nbsp;</td>
 				            <td ><span title="tidtf">Frigivelsesdato</span></td>
-				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="8" maxlength="8" value="${model.record.tidtf}"></td>
+				            <td ><input readonly type="text" class="inputTextReadOnly" name="tidtf" id="tidtf" size="10" maxlength="8" value="${model.record.tidtf}"></td>
 			            </tr>
 			            
 			            <tr height="2"><td>&nbsp;</td></tr>
