@@ -65,7 +65,7 @@
   		//Auto control - autoförtullning
   		jq('#itemListControlButton').click(function() {
   			jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
-			window.location = 'tdsexport_edit_items_autocontrol.do?svev_syav='+ jq('#avd').val() + '&svev_syop=' + jq('#opd').val();
+			window.location = 'tdsexport_edit_items_autocontrol.do?svev_syav='+ jq('#avd').val() + '&svev_syop=' + jq('#opd').val() + '&fablAutoControl=' + jq('#fablAutoControl').val();
   		});
   		
   		

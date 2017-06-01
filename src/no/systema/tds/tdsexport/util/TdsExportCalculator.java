@@ -90,6 +90,7 @@ public class TdsExportCalculator {
 			
 			Double invoiceAmount = tmp;
 			retval = invoiceAmount - calculatedItemLinesTotalAmount;
+			//logger.info("################### 'FABL vs itemLinesTotal: " + invoiceAmount + "X" + calculatedItemLinesTotalAmount);
 			//logger.info("################### FINAL CONVERSION IMPORT FABL (diff): " + retval);
 			
 		}catch(Exception e){

@@ -428,13 +428,14 @@ public class TdsImportItemsController {
 		
 		Map model = new HashMap();
 		String urlRequestParamsKeys = null;
-		
+		//
+		String fabl = request.getParameter("fablAutoControl");
 		
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			StringBuffer params = new StringBuffer();
-			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSviv_syav() + "&opd=" + recordToValidate.getSviv_syop());
+			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSviv_syav() + "&opd=" + recordToValidate.getSviv_syop() + "&fabl=" + fabl);
 			successView = new ModelAndView("redirect:tdsimport_edit_items.do?" + params);
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------

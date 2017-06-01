@@ -189,6 +189,7 @@
 				 				<input type="hidden" name="status" id="status" value='${model.status}'>
 				 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
 				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopic.svih_fabl}'>
+				 				<input type="hidden" name="fablAutoControl" id="fablAutoControl" value='${recordTopic.svih_fabl}'/>
 				 				<input type="hidden" name="receiverId" id="receiverId" value='${recordTopic.svih_mokn}'>
 				 										
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">

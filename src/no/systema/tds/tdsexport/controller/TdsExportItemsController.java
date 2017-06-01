@@ -400,16 +400,16 @@ public class TdsExportItemsController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//this fragment gets some header fields needed for the validator
 		JsonTdsExportSpecificTopicRecord headerRecord = (JsonTdsExportSpecificTopicRecord)session.getAttribute(TdsConstants.DOMAIN_RECORD_TOPIC);
-		
 		Map model = new HashMap();
 		String urlRequestParamsKeys = null;
-		
+		//
+		String fabl = request.getParameter("fablAutoControl");
 		
 		if(appUser==null){
 			return this.loginView;
 		}else{
 			StringBuffer params = new StringBuffer();
-			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&opd=" + recordToValidate.getSvev_syop());
+			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&opd=" + recordToValidate.getSvev_syop() + "&fabl=" + fabl);
 			successView = new ModelAndView("redirect:tdsexport_edit_items.do?" + params);
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------
@@ -435,7 +435,9 @@ public class TdsExportItemsController {
 			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			//logger.info("AA");
 	    	JsonTdsExportSpecificTopicItemContainer container = this.tdsExportSpecificTopicItemService.getTdsExportSpecificTopicItemContainer(jsonPayloadFetch);
+	    	
 	    	if(container!=null){
+	    		
 	    		//INIT Autocontrol Manager...
 	    		TdsExportItemsAutoControlMgr autoControlMgr = new TdsExportItemsAutoControlMgr(this.urlCgiProxyService, this.tdsExportSpecificTopicItemService);
 	    		//Iterate on every line to control the requirements
