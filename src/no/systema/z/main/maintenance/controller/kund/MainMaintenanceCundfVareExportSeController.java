@@ -14,14 +14,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.dao.SadvareDao;
 import no.systema.jservices.common.dao.SvewDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -32,7 +34,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.validator.MaintMainSadvareValidator;
+import no.systema.z.main.maintenance.validator.MaintMainSvewValidator;
 
 /**
  * Controller for Export(se) for Vareregister in Kunderegister
@@ -51,7 +53,6 @@ public class MainMaintenanceCundfVareExportSeController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 
-	//TODO
 	@RequestMapping(value = "mainmaintenancecundf_vareexp_se.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doVareExportSe(HttpSession session, HttpServletRequest request) {
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
@@ -78,7 +79,6 @@ public class MainMaintenanceCundfVareExportSeController {
 		return successView;
 	}
 
-	//TODO
 	@RequestMapping(value="mainmaintenancecundf_vareexp_se_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_params_edit(@ModelAttribute ("record") SvewDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
@@ -93,7 +93,7 @@ public class MainMaintenanceCundfVareExportSeController {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
-			MaintMainSadvareValidator validator = new MaintMainSadvareValidator();
+			MaintMainSvewValidator validator = new MaintMainSvewValidator();
 			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
 				validator.validateDelete(recordToValidate, bindingResult);
 			} else {
@@ -105,7 +105,7 @@ public class MainMaintenanceCundfVareExportSeController {
 					// meaning bounced in an Update and not a Create new
 					model.put("updateId", updateId);
 				}
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);  //TODO This is a fucker!
+				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate); 
 			} else {
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
@@ -126,7 +126,10 @@ public class MainMaintenanceCundfVareExportSeController {
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
 
-					//model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate); //TODO This is a fucker!
+					logger.debug("about to put recordToValidate");
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate); 
+					logger.debug("recordToValidate putted, hur ser gui ut?");
+					
 					if (updateId != null && !"".equals(updateId)) {
 						// meaning bounced in an Update and not a Create new
 						model.put("updateId", updateId);
@@ -151,12 +154,11 @@ public class MainMaintenanceCundfVareExportSeController {
 
 	}
 	
-	//TODO
 	private int updateRecord(SystemaWebUser appUser, SvewDao record, String mode, StringBuffer errMsg) {
 		int retval = 0;
 		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
 		jsonReader.set(new JsonDtoContainer<SvewDao>());
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SADVARE_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;

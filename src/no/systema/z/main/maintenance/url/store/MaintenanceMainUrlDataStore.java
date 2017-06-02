@@ -341,6 +341,15 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SVEW_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVEW.do";	
 	
 	/**
+	 * DML of SvewDao
+	 * 
+	 * @Example UPDATE:
+	 *          http://gw.systema.no:8080/syjservicesbcore/syjsSVEW_U.do?user=OSCAR&svew_knnr=1&svew_knso=Tarzan&...and many more...&mode=U/A/D
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_SVEW_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVEW_U.do";	
+	
+	/**
 	 * Retrieve a List of Svtx03fDao
 	 * 
 	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsSVTX03F.do?user=OSCAR

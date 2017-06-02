@@ -526,20 +526,20 @@
 																</td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl2">&nbsp;Varubeskr. 2:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl2}'></td>
+																<td class="text12" title="svew_vas2">&nbsp;Varubeskr. 2:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vas2" id="svew_vas2" size="70" maxlength="70" value='${model.record.svew_vas2}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl3">&nbsp;Varubeskr. 3:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl3" id="svew_vasl3" size="70" maxlength="70" value='${model.record.svew_vasl3}'></td>
+																<td class="text12" title="svew_vas3">&nbsp;Varubeskr. 3:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vas3" id="svew_vas3" size="70" maxlength="70" value='${model.record.svew_vas3}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl4">&nbsp;Varubeskr. 4:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl4" id="svew_vasl4" size="70" maxlength="70" value='${model.record.svew_vasl4}'></td>
+																<td class="text12" title="svew_vas4">&nbsp;Varubeskr. 4:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vas4" id="svew_vas4" size="70" maxlength="70" value='${model.record.svew_vas4}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_vasl5">&nbsp;Varubeskr. 5:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl5" id="svew_vasl5" size="70" maxlength="70" value='${model.record.svew_vasl5}'></td>
+																<td class="text12" title="svew_vas5">&nbsp;Varubeskr. 5:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vas5" id="svew_vas5" size="70" maxlength="70" value='${model.record.svew_vas5}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_komr">&nbsp;Komm. ref.nr:</td>
@@ -581,10 +581,10 @@
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_fnkd">&nbsp;FN-kod:</td>
+																<td class="text12" title="svew_fnkd">FN-kod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
-																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
+																<td class="text12" title="svew_vat5">&nbsp;Varukod (33:5):</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
 															</tr>
 														</table>
 													</td>
@@ -611,7 +611,7 @@
 																<td class="text12" title="svew_bit2">2. Kod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bit2" id="svew_bit2" size="5" maxlength="4" value='${model.record.svew_bit2}'></td>
 																<td class="text12" title="svew_bii2">&nbsp;Identitet:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii2" size="35" maxlength="35" value='${model.record.svew_bii2}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bii2" id="svew_bii2" size="35" maxlength="35" value='${model.record.svew_bii2}'></td>
 															</tr>
 															
 															<tr>
@@ -645,8 +645,8 @@
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii6" id="svew_bii6" size="35" maxlength="35" value='${model.record.svew_bii6}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_bii7">7. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bii7" id="svew_bii7" size="5" maxlength="4" value='${model.record.svew_bii7}'></td>
+																<td class="text12" title="svew_bit7">7. Kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_bit7" id="svew_bit7" size="5" maxlength="4" value='${model.record.svew_bit7}'></td>
 																<td class="text12" title="svew_bii7">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii7" id="svew_bii7" size="35" maxlength="35" value='${model.record.svew_bii7}'></td>
 															</tr>
@@ -688,20 +688,20 @@
 													<td width="50%" valign="top">
 														<table>
 															<tr>
-																<td class="text12" title="svew_sutx2">2. Text:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_sutx2" id="svew_sutx2" size="70" maxlength="70" value='${model.record.svew_sutx2}'></td>
+																<td class="text12" title="svew_sut2">2. Text:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_sut2" id="svew_sut2" size="70" maxlength="70" value='${model.record.svew_sut2}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_sutx3">3. Text:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_sutx3" id="svew_sutx3" size="70" maxlength="70" value='${model.record.svew_sutx3}'></td>
+																<td class="text12" title="svew_sut3">3. Text:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_sut3" id="svew_sut3" size="70" maxlength="70" value='${model.record.svew_sut3}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_sutx4">4. Text:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_sutx4" id="svew_sutx4" size="70" maxlength="70" value='${model.record.svew_sutx4}'></td>
+																<td class="text12" title="svew_sut4">4. Text:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_sut4" id="svew_sut4" size="70" maxlength="70" value='${model.record.svew_sut4}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_sutx5">5. Text:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_sutx5" id="svew_sutx5" size="70" maxlength="70" value='${model.record.svew_sutx5}'></td>
+																<td class="text12" title="svew_sut5">5. Text:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_sut5" id="svew_sut5" size="70" maxlength="70" value='${model.record.svew_sut5}'></td>
 															</tr>
 															<tr>
 																<td colspan="4" class="text12" height="233">&nbsp;</td>
@@ -837,7 +837,7 @@
 															<tr>
 																<td class="text12">8.<input type="text" class="inputTextMediumBlue" name="svew_tik8" id="svew_tik8" size="1" maxlength="1" value='${model.record.svew_tik8}'></td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tit8" id="svew_tit8" size="3" maxlength="3" value='${model.record.svew_tit8}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tix3" id="svew_tix8" size="35" maxlength="35" value='${model.record.svew_tix8}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_tix8" id="svew_tix8" size="35" maxlength="35" value='${model.record.svew_tix8}'></td>
 															</tr>
 															<tr>
 																<td class="text12">9.<input type="text" class="inputTextMediumBlue" name="svew_tik9" id="svew_tik9" size="1" maxlength="1" value='${model.record.svew_tik9}'></td>
@@ -895,7 +895,7 @@
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos5" id="svew_kos5" size="5" maxlength="5" value='${model.record.svew_kos5}'></td>
 												</tr>
 												<tr>
-													<td colspan="3" class="text12" height="50">&nbsp;</td>
+													<td colspan="3" class="text12" height="76">&nbsp;</td>
 												</tr>
 											</table>
 										</div>
@@ -921,28 +921,32 @@
 												</tr>
 												<tr>
 													<td class="text12">&nbsp;&nbsp;4.<input type="text" class="inputTextMediumBlue" name="svew_co04" id="svew_co04" size="20" maxlength="17" value='${model.record.svew_co04}'></td>
-													<td class="text12">&nbsp;&nbsp;5.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
-													<td class="text12">&nbsp;&nbsp;6.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
+													<td class="text12">&nbsp;&nbsp;5.<input type="text" class="inputTextMediumBlue" name="svew_co05" id="svew_co05" size="20" maxlength="17" value='${model.record.svew_co05}'></td>
+													<td class="text12">&nbsp;&nbsp;6.<input type="text" class="inputTextMediumBlue" name="svew_co06" id="svew_co06" size="20" maxlength="17" value='${model.record.svew_co06}'></td>
 												</tr>
 												<tr>
-													<td class="text12">&nbsp;&nbsp;7.<input type="text" class="inputTextMediumBlue" name="svew_co04" id="svew_co04" size="20" maxlength="17" value='${model.record.svew_co04}'></td>
-													<td class="text12">&nbsp;&nbsp;8.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
-													<td class="text12">&nbsp;&nbsp;9.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
+													<td class="text12">&nbsp;&nbsp;7.<input type="text" class="inputTextMediumBlue" name="svew_co07" id="svew_co07" size="20" maxlength="17" value='${model.record.svew_co07}'></td>
+													<td class="text12">&nbsp;&nbsp;8.<input type="text" class="inputTextMediumBlue" name="svew_co08" id="svew_co08" size="20" maxlength="17" value='${model.record.svew_co08}'></td>
+													<td class="text12">&nbsp;&nbsp;9.<input type="text" class="inputTextMediumBlue" name="svew_co09" id="svew_co09" size="20" maxlength="17" value='${model.record.svew_co09}'></td>
 												</tr>
 												<tr>
-													<td class="text12">11.<input type="text" class="inputTextMediumBlue" name="svew_co04" id="svew_co04" size="20" maxlength="17" value='${model.record.svew_co04}'></td>
-													<td class="text12">12.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
-													<td class="text12">13.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
+													<td class="text12">10.<input type="text" class="inputTextMediumBlue" name="svew_co10" id="svew_co10" size="20" maxlength="17" value='${model.record.svew_co10}'></td>
+													<td class="text12">11.<input type="text" class="inputTextMediumBlue" name="svew_co11" id="svew_co11" size="20" maxlength="17" value='${model.record.svew_co11}'></td>
+													<td class="text12">12.<input type="text" class="inputTextMediumBlue" name="svew_co12" id="svew_co12" size="20" maxlength="17" value='${model.record.svew_co12}'></td>
 												</tr>
 												<tr>
-													<td class="text12">14.<input type="text" class="inputTextMediumBlue" name="svew_co04" id="svew_co04" size="20" maxlength="17" value='${model.record.svew_co04}'></td>
-													<td class="text12">15.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
-													<td class="text12">16.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
+													<td class="text12">13.<input type="text" class="inputTextMediumBlue" name="svew_co13" id="svew_co13" size="20" maxlength="17" value='${model.record.svew_co13}'></td>
+													<td class="text12">14.<input type="text" class="inputTextMediumBlue" name="svew_co14" id="svew_co14" size="20" maxlength="17" value='${model.record.svew_co14}'></td>
+													<td class="text12">15.<input type="text" class="inputTextMediumBlue" name="svew_co15" id="svew_co15" size="20" maxlength="17" value='${model.record.svew_co15}'></td>
 												</tr>
 												<tr>
-													<td class="text12">17.<input type="text" class="inputTextMediumBlue" name="svew_co04" id="svew_co04" size="20" maxlength="17" value='${model.record.svew_co04}'></td>
-													<td class="text12">18.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
-													<td class="text12">19.<input type="text" class="inputTextMediumBlue" name="svew_co01" id="svew_co01" size="20" maxlength="17" value='${model.record.svew_co01}'></td>
+													<td class="text12">16.<input type="text" class="inputTextMediumBlue" name="svew_co16" id="svew_co16" size="20" maxlength="17" value='${model.record.svew_co16}'></td>
+													<td class="text12">17.<input type="text" class="inputTextMediumBlue" name="svew_co17" id="svew_co17" size="20" maxlength="17" value='${model.record.svew_co17}'></td>
+													<td class="text12">18.<input type="text" class="inputTextMediumBlue" name="svew_co18" id="svew_co18" size="20" maxlength="17" value='${model.record.svew_co18}'></td>
+												</tr>
+												<tr>
+													<td class="text12">19.<input type="text" class="inputTextMediumBlue" name="svew_co19" id="svew_co19" size="20" maxlength="17" value='${model.record.svew_co19}'></td>
+													<td class="text12">20.<input type="text" class="inputTextMediumBlue" name="svew_co20" id="svew_co20" size="20" maxlength="17" value='${model.record.svew_co20}'></td>
 												</tr>
 											</table>
 										</div>

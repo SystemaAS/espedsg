@@ -17,12 +17,69 @@ jq(function() {
 		jq("#svew_knso").removeClass("inputTextReadOnly");
 		jq("#svew_knso").addClass("inputTextMediumBlueMandatoryField");
 		
+		//init of int and floats
+		jq('#svew_ankv').val("0");	
+		jq('#svew_brut').val("0");	
+		jq('#svew_fabl').val("0");	
+		jq('#svew_kota').val("0");	
+		jq('#svew_kot2').val("0");	
+		jq('#svew_kot3').val("0");	
+		jq('#svew_kot4').val("0");	
+		jq('#svew_kot5').val("0");	
+		jq('#svew_neto').val("0");	
+		jq('#svew_stva').val("0");	
+		jq('#svew_stva2').val("0");	
+		
 		//for update
 		jq('#updateId').val("");
 		
 	});
 
 	jq("#formRecord").submit(function() {
+		if (jq('#svew_ankv').val() =='' ) {
+			jq('#svew_ankv').val("0");
+		}
+		if (jq('#svew_brut').val() =='' ) {
+			jq('#svew_brut').val("0");
+		} else if (jq('#svew_brut').val() !='') {  //float
+			jq("#svew_brut").val(jq("#svew_brut").val().replace(',', '.'));
+		}
+		if (jq('#svew_fabl').val() =='' ) {
+			jq('#svew_fabl').val("0");
+		} else if (jq('#svew_fabl').val() !='') {  //float
+			jq("#svew_fabl").val(jq("#svew_fabl").val().replace(',', '.'));
+			
+		}
+		if (jq('#svew_kota').val() =='' ) {
+			jq('#svew_kota').val("0");
+		}
+		if (jq('#svew_kot2').val() =='' ) {
+			jq('#svew_kot2').val("0");
+		}
+		if (jq('#svew_kot3').val() =='' ) {
+			jq('#svew_kot3').val("0");
+		}
+		if (jq('#svew_kot4').val() =='' ) {
+			jq('#svew_kot4').val("0");
+		}
+		if (jq('#svew_kot5').val() =='' ) {
+			jq('#svew_kot5').val("0");
+		}
+		if (jq('#svew_neto').val() =='' ) {
+			jq('#svew_neto').val("0");
+		} else if (jq('#svew_neto').val() !='') {  //float
+			jq("#svew_neto").val(jq("#svew_neto").val().replace(',', '.'));
+		}		
+		if (jq('#svew_stva').val() =='' ) {
+			jq('#svew_stva').val("0");
+		}
+		if (jq('#svew_stva').val() =='' ) {
+			jq('#svew_stva').val("0");
+		}
+		if (jq('#svew_stva2').val() =='' ) {
+			jq('#svew_stva2').val("0");
+		}
+		
 		jq.blockUI({
 			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
 		});
@@ -118,10 +175,10 @@ function getRecord(record){
 		for ( var i = 0; i < len; i++) {
 			jq('#svew_knso').val("");jq('#svew_knso').val(data[i].svew_knso);
 			jq('#svew_vasl').val("");jq('#svew_vasl').val(data[i].svew_vasl);
-			jq('#svew_vasl2').val("");jq('#svew_vasl2').val(data[i].svew_vasl2);
-			jq('#svew_vasl3').val("");jq('#svew_vasl3').val(data[i].svew_vasl3);
-			jq('#svew_vasl4').val("");jq('#svew_vasl4').val(data[i].svew_vasl4);
-			jq('#svew_vasl5').val("");jq('#svew_vasl5').val(data[i].svew_vasl5);
+			jq('#svew_vas2').val("");jq('#svew_vas2').val(data[i].svew_vas2);
+			jq('#svew_vas3').val("");jq('#svew_vas3').val(data[i].svew_vas3);
+			jq('#svew_vas4').val("");jq('#svew_vas4').val(data[i].svew_vas4);
+			jq('#svew_vas5').val("");jq('#svew_vas5').val(data[i].svew_vas5);
 			jq('#svew_vano').val("");jq('#svew_vano').val(data[i].svew_vano);
 			jq('#svew_vata').val("");jq('#svew_vata').val(data[i].svew_vata);
 			jq('#svew_lagi').val("");jq('#svew_lagi').val(data[i].svew_lagi);

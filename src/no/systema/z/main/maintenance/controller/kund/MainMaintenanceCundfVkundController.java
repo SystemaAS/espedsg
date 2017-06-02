@@ -327,9 +327,9 @@ public class MainMaintenanceCundfVkundController {
 		} else if ("svew_ulkd".equals(caller)) { //Ursprungsland
 			list = getLandKoderSvKoder(appUser);
 		} else if ("svew_vata".equals(caller)) { //Taric nr
-			list = getTaricnrKoder(appUser);
+			list = getTaricnrKoder(appUser); //TODO
 		} else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
-			list = getEup1Koder(appUser);
+			list = getEup1Koder(appUser);  //TODO
 		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
 			list = getEup2Koder(appUser);
 		} 
