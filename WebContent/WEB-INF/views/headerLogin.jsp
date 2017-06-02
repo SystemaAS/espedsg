@@ -13,11 +13,19 @@
 				<link href="resources/espedsg.css?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
 			</c:otherwise>
 		</c:choose>
-		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
+		<c:choose>
+			<%-- set up BEFORE login --%>
+			<c:when test="${ fn:contains(model.user.cssEspedsg, 'Toten') }"> 
+				<link rel="SHORTCUT ICON" type="image/png" href="resources/images/lockOrig.png"></link>
+			</c:when>
+			<c:otherwise>
+				<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
+			</c:otherwise>
+		</c:choose>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-		<title>Systema AS - eSpedsg Application</title>
+		<title>${model.user.espedsgLoginTitle}</title>
 	</head>
 
 	<body>

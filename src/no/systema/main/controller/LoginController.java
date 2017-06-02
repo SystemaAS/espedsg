@@ -35,7 +35,14 @@ public class LoginController {
 		//This SystemaWebUser instance is just to comply to the dynamic css property that MUST be in place in the JSP-Login window BEFORE the login
 		//NOTE: The real SystemaWebUser is set in the Dashboard controller after the approval of the login
 		SystemaWebUser userForCssPurposes = new SystemaWebUser();
+		
+		//Override default
 		userForCssPurposes.setCssEspedsg(AppConstants.CSS_ESPEDSG);
+		if(userForCssPurposes.getCssEspedsg().toLowerCase().contains("toten")){
+			//Override default
+			userForCssPurposes.setEspedsgLoginTitle("Toten Transport AS – EspedSG");
+		}
+		
 		model.addAttribute(AppConstants.SYSTEMA_WEB_USER_KEY, userForCssPurposes);
 		loginView.addObject("model",model);
 		//

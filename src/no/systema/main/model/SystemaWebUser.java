@@ -117,6 +117,10 @@ public class SystemaWebUser {
 	public void setTomcatPort(String value) {  this.tomcatPort = value; }
 	public String getTomcatPort() { return this.tomcatPort;}
 	
+	private String espedsgLoginTitle = "Systema AS - eSpedsg Application"; 
+	public void setEspedsgLoginTitle(String value) {  this.espedsgLoginTitle = value; }
+	public String getEspedsgLoginTitle() { return this.espedsgLoginTitle;}
+	
 	
 	//---------------------------------------------
 	//Return parameters after valid login in AS400

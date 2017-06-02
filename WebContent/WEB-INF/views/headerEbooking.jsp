@@ -22,7 +22,7 @@
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		
-		<title>eSpedsg - <spring:message code="systema.transportdisp.title"/></title>
+		<title>eSpedsg - <spring:message code="systema.ebooking.title"/></title>
 	</head>
 	<body>
 	<%-- include som javascript functions --%>
