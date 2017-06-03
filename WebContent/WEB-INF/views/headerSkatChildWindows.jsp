@@ -12,7 +12,14 @@
 		<%-- datatables grid CSS --%>
 		<link type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css" rel="stylesheet">
 		
-		<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
+		<c:choose>
+			<c:when test="${ fn:contains(user.cssEspedsg, 'Toten') }"> 
+				<link rel="SHORTCUT ICON" type="image/ico" href="resources/images/toten_ico.ico"></link>
+			</c:when>
+			<c:otherwise>
+				<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
+			</c:otherwise>
+		</c:choose>
 		<%-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> --%>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />

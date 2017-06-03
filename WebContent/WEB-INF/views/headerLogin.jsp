@@ -16,7 +16,7 @@
 		<c:choose>
 			<%-- set up BEFORE login --%>
 			<c:when test="${ fn:contains(model.user.cssEspedsg, 'Toten') }"> 
-				<link rel="SHORTCUT ICON" type="image/png" href="resources/images/lockOrig.png"></link>
+				<link rel="SHORTCUT ICON" type="image/ico" href="resources/images/toten_ico.ico"></link>
 			</c:when>
 			<c:otherwise>
 				<link rel="SHORTCUT ICON" type="image/png" href="resources/images/systema_logo.png"></link>
