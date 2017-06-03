@@ -32,13 +32,15 @@ public class DateTester {
 		}*/
 		
 		DateTimeManager mgr = new DateTimeManager();
-		
+		/*
 		boolean isValid = mgr.validTodayBetweenLimits("20160512", "yyyyMMdd");
 		if(isValid){
 			System.out.println("Valid date");
 		}else{
 			System.out.println("Invalid");
-		}
+		}*/
+		
+		System.out.println(mgr.getNewDateFromNow(-10));
 			
 		
 	}

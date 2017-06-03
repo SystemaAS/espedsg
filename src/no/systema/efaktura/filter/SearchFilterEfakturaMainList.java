@@ -8,6 +8,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import no.systema.main.util.DateTimeManager;
+
 /**
  * This search class is used at the GUI search behavior
  * It is MANDATORY to have the same attribute name convention as the JSON-object fetched from the JSON-payload at the back-end.
@@ -39,7 +41,14 @@ public class SearchFilterEfakturaMainList {
 	
 	private String from = null;
 	public void setFrom(String value) {  this.from = value; }
-	public String getFrom() { return this.from;}
+	public String getFrom() { 
+		if (this.from!=null){
+			//nothing
+		}else{
+			this.from = new DateTimeManager().getNewDateFromNow(-15);
+		}
+		return this.from;
+	}
 	
 	private String to = null;
 	public void setTo(String value) {  this.to = value; }
