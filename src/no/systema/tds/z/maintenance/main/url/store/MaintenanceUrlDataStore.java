@@ -34,6 +34,9 @@ public final class MaintenanceUrlDataStore {
 	//SVT057R
 	//Specific code --> http://gw.systema.no:8080/syjservices/syjsSVT057R.do?user=OSCAR
 	static public String MAINTENANCE_BASE_SVT057R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVT057R.do";
+	//SVT058R
+	//Specific code --> http://gw.systema.no:8080/syjservices/syjsSVT057R.do?user=OSCAR
+	static public String MAINTENANCE_BASE_SVT058R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVT058R.do";
 
 		
 	//----------------------------------
@@ -58,5 +61,8 @@ public final class MaintenanceUrlDataStore {
 	//SVT057R
 	//Specific code --> TODO http://gw.systema.no:8080/syjservices/syjsSVT057R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String MAINTENANCE_BASE_SVT057R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVT057R_U.do";
-					
+	//SVT058R
+	//Specific code --> TODO http://gw.systema.no:8080/syjservices/syjsSVT058R_U.do?user=OSCAR&mode=U&<record>attributes...
+	static public String MAINTENANCE_BASE_SVT058R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVT058R_U.do";
+						
 }
