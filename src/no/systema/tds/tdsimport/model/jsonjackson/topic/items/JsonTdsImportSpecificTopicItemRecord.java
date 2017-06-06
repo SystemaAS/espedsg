@@ -28,6 +28,11 @@ public class JsonTdsImportSpecificTopicItemRecord  extends JsonAbstractGrandFath
 	public void setExtraMangdEnhetDescription(String value) {  this.extraMangdEnhetDescription = value; }
 	public String getExtraMangdEnhetDescription() {return this.extraMangdEnhetDescription;}
 		
+	//varukod validity
+	private boolean validNumberVata = true;
+	public void setValidNumberVata(boolean value) {  this.validNumberVata = value; }
+	public boolean isValidNumberVata() {return this.validNumberVata;}
+		
 	
 	//Aux. attr. in order to sum all sviv_kota + sviv_kot2 + sviv_kot3 + sviv_kot4 + sviv_kot5 on HTML GUI
 	private Integer sum_of_sviv_kotas = 0;

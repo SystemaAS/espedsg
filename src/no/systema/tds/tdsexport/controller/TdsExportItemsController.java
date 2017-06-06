@@ -175,6 +175,7 @@ public class TdsExportItemsController {
 				if(!this.MATCH.equals(varukodValidNumber)){
 					//REMOVED - DHL req. 1.Jun.2017
 					//recordToValidate.setSvev_vata(null); 
+					recordToValidate.setValidNumberVata(false);
 				}
 				//set MangdEnhet Directives if applicable
 				this.getMandatoryMangdEnhetDirective(appUser.getUser(), recordToValidate, headerRecord);
@@ -447,68 +448,79 @@ public class TdsExportItemsController {
 	    			autoControlMgr.setHeaderRecord(headerRecord);
 	    			//Begin with the validity checks
 	    			String idDebug = record.getSvev_syli() + "-" + record.getSvev_vata();
-	    			//---------------------------
-	    			//START with calculations
-	    			//---------------------------
-    				//logger.info("Check Calculations " + idDebug);
-	    			autoControlMgr.calculateStatisticalValuesOnItem(headerRecord, appUser.getUser());
-	    			autoControlMgr.checkValidTillaggsKoder(this.tdsTillaggskoderService, appUser.getUser());
-	    			//Update (back-end) the record after the above calculations
-	    			autoControlMgr.updateItemRecord(appUser.getUser());
-					//---------------------------
-	    			//START with validations now
-	    			//---------------------------
-					//Go to level 1
-					//logger.info("level check (1) " + idDebug);
-					autoControlMgr.checkValidGrossAndNetWeight();
-					if(autoControlMgr.isValidRecord()){
-						//Go to level 2
-						//logger.info("level check (2) " + idDebug);
-    					autoControlMgr.checkValidBilagdaHandlingar(this.tdsBilagdaHandlingarYKoderService, appUser.getUser());
-    					if(autoControlMgr.isValidRecord()){
-    						//Go to level 3
-    						//logger.info("level check (3) " + idDebug);
-    						autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser(), headerRecord);
-							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
-							if(autoControlMgr.isValidRecord()){
-	    						//Go to level FINAL MandatoryFields (must be the last check)
-	    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
-	    						autoControlMgr.checkValidMandatoryFields();
-	    						if(autoControlMgr.isValidRecord()){
-	    		    				//Update in order to remove previous error flags, if any...
-	    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
-	    		    				//Update with Extramangd
-	    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
-	    		    				
-	    		    			}else{
+	    			//----------------------------------------------
+	    			//Check varukod and stop everything if invalid
+	    			//----------------------------------------------
+	    			String varukodValidNumber = this.getTaricVarukod(appUser.getUser(), record.getSvev_vata());
+	    			if(!this.MATCH.equals(varukodValidNumber)){
+	    				//Set error
+						logger.info(ERROR_FRAME_STD_OUTPUT);
+						logger.info("ERROR level (0) - Varukod invalid:" + idDebug);
+						logger.info(ERROR_FRAME_STD_OUTPUT);
+						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    			}else{
+	    				//---------------------------
+		    			//START with calculations
+		    			//---------------------------
+	    				//logger.info("Check Calculations " + idDebug);
+		    			autoControlMgr.calculateStatisticalValuesOnItem(headerRecord, appUser.getUser());
+		    			autoControlMgr.checkValidTillaggsKoder(this.tdsTillaggskoderService, appUser.getUser());
+		    			//Update (back-end) the record after the above calculations
+		    			autoControlMgr.updateItemRecord(appUser.getUser());
+						//---------------------------
+		    			//START with validations now
+		    			//---------------------------
+						//Go to level 1
+						//logger.info("level check (1) " + idDebug);
+						autoControlMgr.checkValidGrossAndNetWeight();
+						if(autoControlMgr.isValidRecord()){
+							//Go to level 2
+							//logger.info("level check (2) " + idDebug);
+	    					autoControlMgr.checkValidBilagdaHandlingar(this.tdsBilagdaHandlingarYKoderService, appUser.getUser());
+	    					if(autoControlMgr.isValidRecord()){
+	    						//Go to level 3
+	    						//logger.info("level check (3) " + idDebug);
+	    						autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser(), headerRecord);
+								autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
+								if(autoControlMgr.isValidRecord()){
+		    						//Go to level FINAL MandatoryFields (must be the last check)
+		    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
+		    						autoControlMgr.checkValidMandatoryFields();
+		    						if(autoControlMgr.isValidRecord()){
+		    		    				//Update in order to remove previous error flags, if any...
+		    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
+		    		    				//Update with Extramangd
+		    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
+		    		    				
+		    		    			}else{
+		    		    				//Set error
+		    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
+			    						logger.info("ERROR level (FINAL) - Mandatory Fields:" + idDebug);
+			    						logger.info(ERROR_FRAME_STD_OUTPUT);
+			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE );
+		    		    			}
+								}else{
 	    		    				//Set error
 	    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
-		    						logger.info("ERROR level (FINAL) - Mandatory Fields:" + idDebug);
+		    						logger.info("ERROR level (3) - Extra Mangd Enhet" + idDebug);
 		    						logger.info(ERROR_FRAME_STD_OUTPUT);
 		    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE );
 	    		    			}
-							}else{
-    		    				//Set error
-    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						logger.info("ERROR level (3) - Extra Mangd Enhet" + idDebug);
+	    					}else{
+	    						//Set error
 	    						logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE );
-    		    			}
-    					}else{
-    						//Set error
-    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    						logger.info("ERROR level (2) - Bilagda handlingar:" + idDebug);
-    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    					}
-					}else{
-						//Set error
-						logger.info(ERROR_FRAME_STD_OUTPUT);
-						logger.info("ERROR level (1) - Weights:" + idDebug);
-						logger.info(ERROR_FRAME_STD_OUTPUT);
-						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-					}
-    				
+	    						logger.info("ERROR level (2) - Bilagda handlingar:" + idDebug);
+	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    					}
+						}else{
+							//Set error
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							logger.info("ERROR level (1) - Weights:" + idDebug);
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+						}
+	    			}
 	    			
 	    		}
 	    	}
@@ -622,8 +634,10 @@ public class TdsExportItemsController {
 		  JsonTdsTaricVarukodContainer container = this.tdsTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonTdsTaricVarukodRecord record : container.getTullTaxalist()){
-				  logger.info("MATCH on VARUKOD !!!!: " + record.getSvvs_vata());
-				  retval = this.MATCH;
+				  if(taricVarukod.equals(record.getSvvs_vata())){
+					  logger.info("MATCH on VARUKOD !!!!: " + record.getSvvs_vata());
+					  retval = this.MATCH;
+				  }
 			  }	
 		  }
 		}catch(Exception e){

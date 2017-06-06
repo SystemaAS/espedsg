@@ -173,6 +173,7 @@ public class TdsImportItemsController {
 				if(!this.MATCH.equals(varukodValidNumber)){
 					//REMOVED - DHL req. 1.Jun.2017
 					//recordToValidate.setSviv_vata(null); 
+					recordToValidate.setValidNumberVata(false);
 				}
 				
 				//put some header records in aux.attributes (in order to send to validator)... Add more if applicable
@@ -468,106 +469,119 @@ public class TdsImportItemsController {
 	    			//Init record
 	    			autoControlMgr.setRecord(record);
 	    			autoControlMgr.setHeaderRecord(headerRecord);
-	    			
-	    			//---------------------------
-	    			//START with calculations
-	    			//---------------------------
-	    			//logger.info("Check Calculations " + idDebug);
-	    			autoControlMgr.calculateChargesOnItem(headerRecord, appUser.getUser());
-	    			autoControlMgr.checkValidTillaggsKoder(this.tdsTillaggskoderService, appUser.getUser());
-	    			autoControlMgr.checkValidFormansKod(this.tdsImportSpecificTopicItemService, appUser.getUser());
-	    			
-	    			//------------------------------------------------
-		            //Now calculate the charges (Avgiftsberäkningen) 
-		            //------------------------------------------------
-	    			String urlRequestParamsCharges = avgifterMgr.getRequestUrlKeyParametersAvgiftsberakning(headerRecord, record, appUser);
-		            JsonTdsImportSpecificTopicItemAvgifterRecord itemAvgiftsRecord = avgifterMgr.calculateChargesOnItem(appUser.getUser(), urlRequestParamsCharges);
-		            if(itemAvgiftsRecord!=null){
-	            		avgifterMgr.handOverAttributesOnUpdate(itemAvgiftsRecord, record);
-            			//logger.info("stva: " + record.getSviv_stva());logger.info("stva2: " + record.getSviv_stva2());
-            			//logger.info("abb1: " + record.getSviva_abb1());logger.info("abg1: " + record.getSviva_abg1());
-		            }
-	    			
-	    			//Update (back-end) the record after the above calculations
-	    			autoControlMgr.updateItemRecord(appUser.getUser());
-					//---------------------------
-	    			//START with validations now
-	    			//---------------------------
-					//Begin with the validity checks
+	    			//Begin with the validity checks
 	    			String idDebug = record.getSviv_syli() + "-" + record.getSviv_vata();
-	    			//logger.info("level check (1) " + idDebug);
-					autoControlMgr.checkValidGrossAndNetWeight();
-					if(autoControlMgr.isValidRecord()){
-						//Go to level 2
-						//logger.info("level check (2) " + idDebug);
-    					autoControlMgr.checkValidBilagdaHandlingar(this.tdsBilagdaHandlingarYKoderService, appUser.getUser());
-    					if(autoControlMgr.isValidRecord()){
-    						//Go to level 3
-    						//logger.info("level check (3) " + idDebug);
-    						autoControlMgr.checkValidAntalKolli();
-    						if(autoControlMgr.isValidRecord()){
-    							//Go to level 4
-	    						//logger.info("level check (4) " + idDebug);
-    							autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser());
-    							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
-    							if(autoControlMgr.isValidRecord()){
-    								//Update with Extramangd
-	    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
-	    		    				
-    								//Go to level 5
-		    						//logger.info("level check (5) " + idDebug);
-    								autoControlMgr.checkValidUrsprungslandKod(appUser.getUser());
-    								if(autoControlMgr.isValidRecord()){
-    									//Go to level FINAL MandatoryFields (must be the last check)
-    		    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
-    		    						autoControlMgr.checkValidMandatoryFields();
-    									if(autoControlMgr.isValidRecord()){
-    										//Update in order to remove previous error flags, if any...
-    		    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
-    		    		    			}else{
-    		    		    				//Set error
-    		    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
-    			    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
-    			    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    		    		    			}
-    					    			
-    								}else{
-    									//Set error
-    									logger.info(ERROR_FRAME_STD_OUTPUT);
-    		    						logger.info("ERROR level (5) - UrsprungslandKod" + idDebug);
-    		    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    		    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    								}
-    							}else{
-    								//Set error
-    								logger.info(ERROR_FRAME_STD_OUTPUT);
-    	    						logger.info("ERROR level (4) - Extra Mangd Enhet" + idDebug);
-    	    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    							}
-    							
-    						}else{
-    							//Set error
-    							logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						logger.info("ERROR level (3) - Antal kolli" + idDebug);
-	    						logger.info(ERROR_FRAME_STD_OUTPUT);
-	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    						}
-    					}else{
-    						//Set error
-    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    						logger.info("ERROR level (2) - Bilagda handlingar" + idDebug);
-    						logger.info(ERROR_FRAME_STD_OUTPUT);
-    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-    					}
-					}else{
-						//Set error
+	    			//----------------------------------------------
+	    			//Check varukod and stop everything if invalid
+	    			//----------------------------------------------
+	    			String varukodValidNumber = this.getTaricVarukod(appUser.getUser(), record.getSviv_vata());
+	    			if(!this.MATCH.equals(varukodValidNumber)){
+	    				//Set error
 						logger.info(ERROR_FRAME_STD_OUTPUT);
-						logger.info("ERROR level (1) - Weights" + idDebug);
+						logger.info("ERROR level (0) - Varukod invalid:" + idDebug);
 						logger.info(ERROR_FRAME_STD_OUTPUT);
 						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
-					}
+	    			}else{
+		    			//---------------------------
+		    			//START with calculations
+		    			//---------------------------
+		    			//logger.info("Check Calculations " + idDebug);
+		    			autoControlMgr.calculateChargesOnItem(headerRecord, appUser.getUser());
+		    			autoControlMgr.checkValidTillaggsKoder(this.tdsTillaggskoderService, appUser.getUser());
+		    			autoControlMgr.checkValidFormansKod(this.tdsImportSpecificTopicItemService, appUser.getUser());
+		    			
+		    			//------------------------------------------------
+			            //Now calculate the charges (Avgiftsberäkningen) 
+			            //------------------------------------------------
+		    			String urlRequestParamsCharges = avgifterMgr.getRequestUrlKeyParametersAvgiftsberakning(headerRecord, record, appUser);
+			            JsonTdsImportSpecificTopicItemAvgifterRecord itemAvgiftsRecord = avgifterMgr.calculateChargesOnItem(appUser.getUser(), urlRequestParamsCharges);
+			            if(itemAvgiftsRecord!=null){
+		            		avgifterMgr.handOverAttributesOnUpdate(itemAvgiftsRecord, record);
+	            			//logger.info("stva: " + record.getSviv_stva());logger.info("stva2: " + record.getSviv_stva2());
+	            			//logger.info("abb1: " + record.getSviva_abb1());logger.info("abg1: " + record.getSviva_abg1());
+			            }
+		    			
+		    			//Update (back-end) the record after the above calculations
+		    			autoControlMgr.updateItemRecord(appUser.getUser());
+						//---------------------------
+		    			//START with validations now
+		    			//---------------------------
+						//Begin with the validity checks
+		    			idDebug = record.getSviv_syli() + "-" + record.getSviv_vata();
+		    			//logger.info("level check (1) " + idDebug);
+						autoControlMgr.checkValidGrossAndNetWeight();
+						if(autoControlMgr.isValidRecord()){
+							//Go to level 2
+							//logger.info("level check (2) " + idDebug);
+	    					autoControlMgr.checkValidBilagdaHandlingar(this.tdsBilagdaHandlingarYKoderService, appUser.getUser());
+	    					if(autoControlMgr.isValidRecord()){
+	    						//Go to level 3
+	    						//logger.info("level check (3) " + idDebug);
+	    						autoControlMgr.checkValidAntalKolli();
+	    						if(autoControlMgr.isValidRecord()){
+	    							//Go to level 4
+		    						//logger.info("level check (4) " + idDebug);
+	    							autoControlMgr.getMandatoryMangdEnhetDirective(appUser.getUser());
+	    							autoControlMgr.checkValidExtraMangdEnhet(appUser.getUser());
+	    							if(autoControlMgr.isValidRecord()){
+	    								//Update with Extramangd
+		    		    				autoControlMgr.updateItemWithExgraMangdEnhet(appUser.getUser());
+		    		    				
+	    								//Go to level 5
+			    						//logger.info("level check (5) " + idDebug);
+	    								autoControlMgr.checkValidUrsprungslandKod(appUser.getUser());
+	    								if(autoControlMgr.isValidRecord()){
+	    									//Go to level FINAL MandatoryFields (must be the last check)
+	    		    						//Nothing more below this level. New requirements must be insert between previous level and this FINAL level!
+	    		    						autoControlMgr.checkValidMandatoryFields();
+	    									if(autoControlMgr.isValidRecord()){
+	    										//Update in order to remove previous error flags, if any...
+	    		    		    				autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), null );
+	    		    		    			}else{
+	    		    		    				//Set error
+	    		    		    				logger.info(ERROR_FRAME_STD_OUTPUT);
+	    			    						logger.info("ERROR level (FINAL) - Mandatory Fields" + idDebug);
+	    			    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    			    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    		    		    			}
+	    					    			
+	    								}else{
+	    									//Set error
+	    									logger.info(ERROR_FRAME_STD_OUTPUT);
+	    		    						logger.info("ERROR level (5) - UrsprungslandKod" + idDebug);
+	    		    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    		    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    								}
+	    							}else{
+	    								//Set error
+	    								logger.info(ERROR_FRAME_STD_OUTPUT);
+	    	    						logger.info("ERROR level (4) - Extra Mangd Enhet" + idDebug);
+	    	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    							}
+	    							
+	    						}else{
+	    							//Set error
+	    							logger.info(ERROR_FRAME_STD_OUTPUT);
+		    						logger.info("ERROR level (3) - Antal kolli" + idDebug);
+		    						logger.info(ERROR_FRAME_STD_OUTPUT);
+		    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    						}
+	    					}else{
+	    						//Set error
+	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    						logger.info("ERROR level (2) - Bilagda handlingar" + idDebug);
+	    						logger.info(ERROR_FRAME_STD_OUTPUT);
+	    						autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+	    					}
+						}else{
+							//Set error
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							logger.info("ERROR level (1) - Weights" + idDebug);
+							logger.info(ERROR_FRAME_STD_OUTPUT);
+							autoControlMgr.updateItemWithAutoControlError(appUser.getUser(), AUTO_CONTROL_ERROR_FLAG_VALUE);
+						}
+	    			}
 	    		}
 	    	}
 			
@@ -697,8 +711,10 @@ public class TdsImportItemsController {
 		  JsonTdsTaricVarukodContainer container = this.tdsTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonTdsTaricVarukodRecord record : container.getTullTaxalist()){
-				  logger.info("MATCH on VARUKOD !!!!: " + record.getSvvs_vata());
-				  retval = this.MATCH;
+				  if(taricVarukod.equals(record.getSvvs_vata())){
+					  logger.info("MATCH on VARUKOD !!!!: " + record.getSvvs_vata());
+					  retval = this.MATCH;
+				  }
 			  }	
 		  }
 		}catch(Exception e){

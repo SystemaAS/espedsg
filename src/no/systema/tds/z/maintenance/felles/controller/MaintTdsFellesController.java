@@ -119,6 +119,16 @@ public class MaintTdsFellesController {
 		object.setStatus("G");
 		object.setPgm("svt057r");
 		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("4");
+		object.setSubject("Underhåll av Leveransvillkår");
+		object.setCode("TDS_LEVVILLKAR");
+		object.setText("SVT058 / SVTLV");
+		object.setDbTable("SVTLV");
+		object.setStatus("G");
+		object.setPgm("svt058r");
+		listObject.add(object);
 		
 		return listObject;
 	}
