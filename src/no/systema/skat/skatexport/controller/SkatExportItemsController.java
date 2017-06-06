@@ -178,7 +178,6 @@ public class SkatExportItemsController {
 				//we must validate towards the back-end here in order to avoid injection problems in Validator
 				//The validation routine for Taric Varukod pinpoints those input values in which the user HAVE NOT used the search routine
 				String varukodValidNumber = this.getTaricVarukod(appUser.getUser(), recordToValidate.getDkev_331());
-				logger.info("#############:" + varukodValidNumber);
 				if(!this.MATCH.equals(varukodValidNumber)){
 					recordToValidate.setDkev_331(null);
 				}

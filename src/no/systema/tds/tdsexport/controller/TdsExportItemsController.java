@@ -634,7 +634,7 @@ public class TdsExportItemsController {
 		  JsonTdsTaricVarukodContainer container = this.tdsTaricVarukodService.getContainer(jsonPayload);
 		  if(container!=null){
 			  for(JsonTdsTaricVarukodRecord record : container.getTullTaxalist()){
-				  if(taricVarukod.equals(record.getSvvs_vata())){
+				  if(taricVarukod!=null && taricVarukod.equals(record.getSvvs_vata())){
 					  logger.info("MATCH on VARUKOD !!!!: " + record.getSvvs_vata());
 					  retval = this.MATCH;
 				  }
