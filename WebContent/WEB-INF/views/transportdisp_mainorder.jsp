@@ -388,7 +388,7 @@
 								   				&nbsp;<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
 								   				<%-- TODO -->expose when Bring accepts estimates - COVI!!! --%>
 								   				&nbsp;<button name="planleggingButton" id="planleggingButton" class="buttonGrayWithGreenFrame" type="button" >Til planlegging</button>
-								   				
+								   				&nbsp;<button name="frisokveiButton" id="frisokveiButton" class="buttonGrayWithGreenFrame" type="button" >Frie søkeveier</button>
 										</c:if>
 			 						</td>
 			 						

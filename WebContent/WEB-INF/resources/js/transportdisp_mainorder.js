@@ -114,7 +114,10 @@
   	jq('#planleggingButton').click(function() {
   		window.open('transportdisp_workflow_getTrip_cw.do?tuavd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val(), 'planleggingWin','top=120px,left=100px,height=800px,width=1400px,scrollbars=no,status=no,location=no');
   	});
-
+  	
+  	jq('#frisokveiButton').click(function() {
+  		window.open('transportdisp_workflow_frisokvei.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#tripNr').val(), 'frisokveiWin','top=120px,left=100px,height=600px,width=900px,scrollbars=no,status=no,location=no');
+  	});
   });
   //-------------------------------------------------------------
   //START Detect Form changes on input fields (including selects)

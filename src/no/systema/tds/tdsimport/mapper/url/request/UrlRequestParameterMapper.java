@@ -96,9 +96,20 @@ public class UrlRequestParameterMapper {
 					}
 				}catch(Exception e){
 					//Try Integer
-					Integer value = (Integer)field.get(object); 
-					sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
-					sb.append(value);
+					if(field.get(object) instanceof Integer){
+						Integer value = (Integer)field.get(object); 
+						sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(value);
+					
+					}else if(field.get(object) instanceof Double){
+						Double value = (Double)field.get(object); 
+						sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(value);
+					}else{
+						logger.info(" [INFO]data type not yet supported...");
+					}
+					//add more instances if you need...					
+					
 				}
 			}
 		}catch(Exception e){
@@ -177,9 +188,20 @@ public class UrlRequestParameterMapper {
 					}
 				}catch(Exception e){
 					//Try Integer
-					Integer value = (Integer)field.get(object); 
-					sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
-					sb.append(value);
+					if(field.get(object) instanceof Integer){
+						Integer value = (Integer)field.get(object); 
+						sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(value);
+					
+					}else if(field.get(object) instanceof Double){
+						Double value = (Double)field.get(object); 
+						sb.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(value);
+					}else{
+						logger.info(" [INFO]data type not yet supported...");
+					}
+					//add more instances if you need...					
+					
 				}
 			}
 		}catch(Exception e){
