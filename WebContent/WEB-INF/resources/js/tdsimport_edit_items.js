@@ -595,6 +595,8 @@
 				}
 				//extra behavior in other fields
 				//jq('#calcAvgifterAjax').show();
+				
+				jq('#sviv_vata').focus();
 			}
 	  	  },
 	  	  error: function() {

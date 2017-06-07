@@ -68,49 +68,48 @@
 			  //TDS Import Module 
 			  //=========================
 		      //AVS		  
-			  }else if(callerType == 'dkih_02b'){
-				  opener.jq('#dkih_avkn').val(knr);
-				  opener.jq('#dkih_02b').val(knavn);
-				  opener.jq('#dkih_02a').val(eori);
-				  opener.jq('#dkih_02c').val(adr1);
-				  opener.jq('#dkih_02e').val(adr3);
-				  opener.jq('#dkih_02d').val(postnr);
-				  opener.jq('#dkih_02f').val(land);
-				  opener.jq('#dkih_02b').focus();
+			  }else if(callerType == 'svih_avna'){
+				  opener.jq('#svih_avkn').val(knr);
+				  opener.jq('#svih_avna').val(knavn);
+				  opener.jq('#svih_aveo').val(eori);
+				  opener.jq('#svih_ava1').val(adr1);
+				  opener.jq('#svih_ava2').val(adr2);
+				  opener.jq('#svih_avpa').val(adr3);
+				  opener.jq('#svih_avpn').val(postnr);
+				  opener.jq('#svih_avlk').val(land);
+				  
+				  //focus
+				  opener.jq('#svih_avna').focus();
 			  //MOTTAGARE		 
-			  }else if(callerType == 'dkih_08b'){
-				  opener.jq('#dkih_mokn').val(knr);
-				  opener.jq('#dkih_08b').val(knavn);
-				  opener.jq('#dkih_08a').val(eori);
-				  opener.jq('#dkih_08c').val(adr1);
-				  opener.jq('#dkih_08e').val(adr3);
-				  opener.jq('#dkih_08d').val(postnr);
-				  opener.jq('#dkih_08f').val(land);
-				  opener.jq('#dkih_08b').focus();
-
-			  //CARRIER
-			  }else if(callerType == 'dkih_trna'){
-				  opener.jq('#dkih_trkn').val(knr);
-				  opener.jq('#dkih_trna').val(knavn);
-				  opener.jq('#dkih_treo').val(eori);
-				  opener.jq('#dkih_trga').val(adr1);
-				  opener.jq('#dkih_trby').val(adr3);
-				  opener.jq('#dkih_trpo').val(postnr);
-				  opener.jq('#dkih_trlk').val(land);
-				  opener.jq('#dkih_trna').focus();
-			  
-			  //UNDERETTES
-			  }else if(callerType == 'dkih_nina'){
-				  opener.jq('#dkih_nikn').val(knr);
-				  opener.jq('#dkih_nina').val(knavn);
-				  opener.jq('#dkih_nieo').val(eori);
-				  opener.jq('#dkih_niga').val(adr1);
-				  opener.jq('#dkih_niby').val(adr3);
-				  opener.jq('#dkih_nipo').val(postnr);
-				  opener.jq('#dkih_nilk').val(land);
-				  opener.jq('#dkih_nina').focus();		  
-			  
-			  }
+			  }else if(callerType == 'svih_mona'){
+				  opener.jq('#svih_mokn').val(knr);
+				  opener.jq('#svih_mona').val(knavn);
+				  opener.jq('#svih_moeo').val(eori);
+				  opener.jq('#svih_moa1').val(adr1);
+				  opener.jq('#svih_moa2').val(adr2);
+				  opener.jq('#svih_mopa').val(adr3);
+				  opener.jq('#svih_mopn').val(postnr);
+				  opener.jq('#svih_molk').val(land);
+				  opener.jq('#svih_moha').val("");
+				  opener.jq('#svih_motl').val(tlf);
+				  //focus
+				  opener.jq('#svih_mona').focus();
+				  
+			  //Deklarant
+			  }else if(callerType == 'svih_dkna'){
+				  opener.jq('#svih_dkkn').val(knr);
+				  opener.jq('#svih_dkna').val(knavn);
+				  opener.jq('#svih_dkeo').val(eori);
+				  opener.jq('#svih_dka1').val(adr1);
+				  opener.jq('#svih_dka2').val(adr2);
+				  opener.jq('#svih_dkpa').val(adr3);
+				  opener.jq('#svih_dkpn').val(postnr);
+				  opener.jq('#svih_dklk').val(land);
+				  opener.jq('#svih_dkha').val("");
+				  opener.jq('#svih_dktl').val(tlf);
+				  //focus
+				  opener.jq('#svih_dkna').focus();
+			  }	  
 			  //close child window
 			  window.close();
 		  });

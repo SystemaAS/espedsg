@@ -590,51 +590,9 @@
 							            <span title="svih_avkn">Kundnummer</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font>
 							            <span title="svih_avna">Namn&nbsp;</span>
-							            	<img id="imgCustomerSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog');">
-							            	<%-- =====================================================  --%>
-							            	<%-- Here we have the search Sender [Customer] popup window --%>
-							            	<%-- =====================================================  --%>
-							            	<span style="position:absolute; left:500px; top:280px; width:300px; height:212px;" id="searchCustomerDialog" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-								           			<table>
-								           				<tr>
-															<td class="text11">&nbsp;Kundnummer</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_avkn" id="search_svih_avkn" size="18" maxlength="8" value=''></td>
-														</tr>
-									           			<tr>
-															<td class="text11">&nbsp;Namn</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_avna" id="search_svih_avna" size="18" maxlength="35" value=''></td>
-														</tr>
-									           			<tr>
-									           				<td class="text11">&nbsp;</td>
-										           			<td align="right">&nbsp;<button name="searchCustomer" id="searchCustomer" class="buttonGray" type="button" onClick="searchSenderOwnWindow()">Sök</button></td>
-										           		</tr>
-										           		<tr height="4"><td ></td></tr>
-										           		<tr>
-									           				<td class="text11">&nbsp;Urval</td>
-										           			<td>&nbsp;</td>
-										           		</tr>
-										           		<tr>
-															<td colspan="2">&nbsp;
-																<%-- check jQuery events (onChange) for this list --%>
-																<select class="text11" id="senderList" name="senderList" size="3" onDblClick="hidePop('searchCustomerDialog');">
-				 													<option value="">-Välj-</option>
-				 							 					</select>
-															</td>
-															
-															<%-- <input type="hidden" name="hidden_svih_avkn" id="hidden_svih_avkn" value=''> --%>
-														</tr>
-								           			</table>
-													<table width="30%" align="left" border="0">
-														<tr align="left" >
-															<td colspan="2" >
-																&nbsp;<button name="searchCustomerCloseOk" id="searchCustomerCloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog');">Ok</button>
-																&nbsp;<button name="searchCustomerCloseCancel" id="searchCustomerCloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog');">Avbryt</button>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>				
+							            	<a tabindex="-1" id="svih_avnaIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>		
 							            </td>
 							        </tr>
 							        <tr>
@@ -774,50 +732,9 @@
 							            <span title="svih_mokn">Kundnummer</span></td>
 							            <td class="text12" align="left" >&nbsp;&nbsp;<font class="text16RedBold" >*</font>
 							            <span title="svih_mona">Namn</span>&nbsp;
-							            <img id="imgReceiverSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog10');">
-							            	<%-- ======================================================== --%>
-							            	<%-- Here we have the search Receiver [Customer] popup window --%>
-							            	<%-- ======================================================== --%>
-							            	<span style="position:absolute; left:500px; top:550px; width:300px; height:212px;" id="searchCustomerDialog10" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-								           			<table>
-								           				<tr>
-															<td class="text11">&nbsp;Kundnummer</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_mokn" id="search_svih_mokn" size="18" maxlength="8" value=''></td>
-														</tr>
-									           			<tr>
-															<td class="text11">&nbsp;Namn</td>
-															<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_mona" id="search_svih_mona" size="18" maxlength="35" value=''></td>
-														</tr>
-									           			<tr>
-									           				<td class="text11">&nbsp;</td>
-										           			<td align="right">&nbsp;<button name="searchCustomer10" id="searchCustomer10" class="buttonGray" type="button" onClick="searchReceiverOwnWindow()">Sök</button></td>
-										           		</tr>
-										           		<tr height="4"><td ></td></tr>
-										           		<tr>
-									           				<td class="text11">&nbsp;Urval</td>
-										           			<td>&nbsp;</td>
-										           		</tr>
-										           		<tr>
-															<td colspan="2">&nbsp;
-																<select class="text11" id="receiverList" name="receiverList" size="3" onChange="setReceiver();" onDblClick="hidePop('searchCustomerDialog10');">
-				 													<option selected value="">-Välj-</option>
-				 							 					</select>
-															</td>
-															
-															<%-- <input type="hidden" name="hidden_svih_avkn" id="hidden_svih_avkn" value=''> --%>
-														</tr>
-								           			</table>
-													<table width="30%" align="left" border="0">
-														<tr align="left" >
-															<td colspan="2">
-																&nbsp;<button name="searchCustomer10CloseOk" id="searchCustomer10CloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');">Ok</button>
-																&nbsp;<button name="searchCustomer10CloseCancel" id="searchCustomer10CloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog10');">Avbryt</button>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>	
+							            	<a tabindex="-1" id="svih_monaIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+											</a>
 										</td>
 							        </tr>
 							        <tr>
@@ -1542,50 +1459,9 @@
 									            <span title="svih_dkkn">Kundnummer</span></td>
 									            <td class="text12" align="left" >&nbsp;&nbsp;
 									            <span title="svih_dkna">Namn</span>
-									            <img id="imgDeklarantSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchCustomerDialog20');">
-									            	<%-- ======================================================== --%>
-									            	<%-- Here we have the search Deklarant [Customer] popup window --%>
-									            	<%-- ======================================================== --%>
-									            	<span style="position:absolute; left:500px; top:1000px; width:300px; height:212px;" id="searchCustomerDialog20" class="popupWithInputText"  >
-										           		<div class="text10" align="left">
-										           			<table>
-										           				<tr>
-																	<td class="text11">&nbsp;Kundnummer</td>
-																	<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_dkkn" id="search_svih_dkkn" size="18" maxlength="8" value=''></td>
-																</tr>
-											           			<tr>
-																	<td class="text11">&nbsp;Namn</td>
-																	<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svih_dkna" id="search_svih_dkna" size="18" maxlength="35" value=''></td>
-																</tr>
-											           			<tr>
-											           				<td class="text11">&nbsp;</td>
-												           			<td align="right">&nbsp;<button name="searchCustomer20" class="buttonGray" type="button" onClick="searchDeklarantOwnWindow()">Sök</button></td>
-												           		</tr>
-												           		<tr height="4"><td ></td></tr>
-												           		<tr>
-											           				<td class="text11">&nbsp;Urval</td>
-												           			<td>&nbsp;</td>
-												           		</tr>
-												           		<tr>
-																	<td colspan="2">&nbsp;
-																		<select class="text11" id="deklarantList" name="deklarantList" size="3" onDblClick="hidePop('searchCustomerDialog20');">
-						 													<option selected value="">-Välj-</option>
-						 							 					</select>
-																	</td>
-																	
-																	<%-- <input type="hidden" name="hidden_svih_avkn" id="hidden_svih_avkn" value=''> --%>
-																</tr>
-										           			</table>
-															<table width="30%" align="left" border="0">
-																<tr align="left" >
-																	<td colspan="2" >
-																		&nbsp;<button name="searchCustomer20CloseOk" id="searchCustomer20CloseOk" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog20');">Ok</button>
-																		&nbsp;<button name="searchCustomer20CloseCancel" id="searchCustomer20CloseCancel" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchCustomerDialog20');">Avbryt</button>
-																	</td>
-																</tr>
-															</table>
-														</div>
-													</span>	
+									            	<a tabindex="-1" id="svih_dknaIdLink">
+														<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+													</a>
 									            </td>
 									        </tr>
 									        <tr>

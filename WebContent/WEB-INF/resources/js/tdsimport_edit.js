@@ -107,6 +107,37 @@
 			}
 	    });
 	    
+	    
+	    //Customer SENDER
+  	  	jq('#svih_avnaIdLink').click(function() {
+  	  		jq('#svih_avnaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#svih_avna').val() + '&ctype=svih_avna', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#svih_avnaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#svih_avnaIdLink').click();
+  	  		}
+  	  	});
+  	  	//Customer RECEIVER
+  	  	jq('#svih_monaIdLink').click(function() {
+  	  		jq('#svih_monaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#svih_mona').val() + '&ctype=svih_mona', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#svih_monaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#svih_monaIdLink').click();
+  	  		}
+  	  	});
+  	  	//Customer DEKLARANT
+  	  	jq('#svih_dknaIdLink').click(function() {
+  	  		jq('#svih_dknaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#svih_dkna').val() + '&ctype=svih_dkna', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#svih_dknaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#svih_dknaIdLink').click();
+  	  		}
+  	  	});
 	    //=====================================
 	  	//END Child window for general codes
 	  	//=====================================

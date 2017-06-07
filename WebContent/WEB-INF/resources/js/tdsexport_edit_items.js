@@ -450,6 +450,7 @@
 					jq('#kotaRubrik').css("color", "green");
 				}
 				
+				jq('#svev_vata').focus();
 			}
 	  	  },
 	  	  error: function() {
