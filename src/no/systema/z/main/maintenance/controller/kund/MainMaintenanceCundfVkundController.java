@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import no.systema.jservices.common.dao.FirmDao;
 import no.systema.jservices.common.dao.KodtftDao;
 import no.systema.jservices.common.dao.KodtlkDao;
@@ -32,6 +35,7 @@ import no.systema.jservices.common.dao.KodtsaDao;
 import no.systema.jservices.common.dao.KodtsbDao;
 import no.systema.jservices.common.dao.KodtvalfDao;
 import no.systema.jservices.common.dao.Svtx03fDao;
+import no.systema.jservices.common.dao.Svtx10fDao;
 import no.systema.jservices.common.dao.TariDao;
 import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
@@ -355,10 +359,38 @@ public class MainMaintenanceCundfVkundController {
 
 
 	private List<ChildWindowKode> getTaricnrKoder(SystemaWebUser appUser) {
-		// TODO Auto-generated method stub
-		return null;
+		JsonReader<JsonDtoContainer<Svtx10fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx10fDao>>();
+		jsonReader.set(new JsonDtoContainer<Svtx10fDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX10F_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Svtx10fDao> container = (JsonDtoContainer<Svtx10fDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Svtx10fDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
 	}
 
+	private ChildWindowKode getChildWindowKode(Svtx10fDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getSvtx10_01());
+		kode.setDescription(dao.getSvtx10_03());
+		return kode;
+	}		
+	
 
 	private List<ChildWindowKode> getLandKoderSvKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();

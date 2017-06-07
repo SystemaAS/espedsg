@@ -7,6 +7,7 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<script type="text/javascript" src="resources/js/mainmaintenancecundf_vareexp_se_edit.js?ver=${user.versionEspedsg}"></script>	
+	<script type="text/javascript" src="resources/js/jquery.calculator.js"></script>	
 	
 <style type="text/css">
 #accordion .ui-accordion-header, #accordion2 .ui-accordion-header, #accordion3 .ui-accordion-header , #accordion4 .ui-accordion-header, #accordion-half1 .ui-accordion-header, #accordion-half2 .ui-accordion-header {
@@ -406,12 +407,12 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="70%" valign="top">
+													<td width="68%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_knso">&nbsp;<font class="text14RedBold" >*</font>Sökbegrepp:</td>
 																<td class="text12">
-																	<input type="text"  required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svew_knso" id="svew_knso" size="35" maxlength="35" value='${model.record.svew_knnr}'>
+																	<input type="text"  required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svew_knso" id="svew_knso" size="35" maxlength="35" value='${model.record.svew_knso}'>
 																	&nbsp;Ursprungsland:
 																	<input type="text" class="inputTextMediumBlue" name="svew_ulkd" id="svew_ulkd" size="2" maxlength="2" value='${model.record.svew_ulkd}'>
 																	<a tabindex="-1" id="svew_ulkdIdLink">
@@ -421,9 +422,6 @@
 																<td class="text12" title="svew_vata">Taric nr:</td>
 																<td>
 																	<input type="text" class="inputTextMediumBlue" name="svew_vata" id="svew_vata" size="10" maxlength="8" value='${model.record.svew_vata}'>
-																	<a tabindex="-1" id="svew_vataIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
 																</td>	
 															</tr>
 															<tr>
@@ -440,16 +438,18 @@
 													</td>
 													
 													<td width="30%" valign="top">
-														<table border="0" align="right">
+														<table border="0">
 															<tr>
 																<td class="text12" title="svew_brut">Brutv.(kg):</td>
-																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_brut" id="svew_brut" size="15" maxlength="18" value='${model.record.svew_knso}'></td>
-																<td class="text12" title="svew_neto">Netv.(kg):</td>
-																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_neto" id="svew_neto" size="15" maxlength="18" value='${model.record.svew_neto}'></td>
+																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_brut" id="svew_brut" size="20" maxlength="18" value='${model.record.svew_brut}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_fabl">Fakturabelopp:</td>
-																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_fabl" id="svew_fabl" size="12" maxlength="14" value='${model.record.svew_fabl}'></td>
+																<td class="text12" title="svew_neto">Netv.(kg):</td>
+																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_neto" id="svew_neto" size="20" maxlength="18" value='${model.record.svew_neto}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_fabl">Varans pris:</td>
+																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_fabl" id="svew_fabl" size="15" maxlength="14" value='${model.record.svew_fabl}'></td>
 															</tr>
 														</table>
 													</td>
@@ -473,7 +473,7 @@
 																	<input type="text" class="inputTextMediumBlue" name="svew_godm" id="svew_godm" size="45" maxlength="42" value='${model.record.svew_godm}'>
 																</td>
 																<td class="text12">Kolli antal:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'></td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'></td>
 																<td class="text12">Kolli slag:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'></td>
 															</tr>
@@ -553,8 +553,10 @@
 															<tr>
 																<td class="text12" title="svew_betk">Betalkod:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_betk" id="svew_betk" size="2" maxlength="1" value='${model.record.svew_betk}'></td>
-																<td class="text12" title="svew_ankv">Kvantitet:</td>
+																<td class="text12" title="svew_ankv">Extra mängd:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_ankv" id="svew_ankv" size="10" maxlength="10" value='${model.record.svew_ankv}'></td>
+																<td class="text12" title="svew_vano">&nbsp;Varupost nr:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_vano" id="svew_vano" size="5" maxlength="5" value='${model.record.svew_vano}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_kono">Kont. nr.:</td>
@@ -564,7 +566,7 @@
 															</tr>
 															<tr>
 																<td class="text12" title="svew_atin">Indikator:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_atin" id="svew_atin" size="5" maxlength="3" value='${model.record.svew_atin}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_atin" id="svew_atin" size="5" maxlength="3" value='${model.record.svew_atin}'></td>
 																<td class="text12" title="svew_stva2">Tullvärde:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva2" id="svew_stva2" size="12" maxlength="11" value='${model.record.svew_stva2}'></td>
 															</tr>
@@ -582,7 +584,7 @@
 															</tr>
 															<tr>
 																<td class="text12" title="svew_fnkd">FN-kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_knso}'></td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_fnkd}'></td>
 																<td class="text12" title="svew_vat5">&nbsp;Varukod (33:5):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
 															</tr>
@@ -704,7 +706,19 @@
 																<td><input type="text" class="inputTextMediumBlue" name="svew_sut5" id="svew_sut5" size="70" maxlength="70" value='${model.record.svew_sut5}'></td>
 															</tr>
 															<tr>
-																<td colspan="4" class="text12" height="233">&nbsp;</td>
+																<td colspan="4" class="text12" height="83">&nbsp;</td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_suok">Övrig kostnad:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_suok" id="svew_suok" size="12" maxlength="11" value='${model.record.svew_suok}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_sukr">Kassa:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_sukr" id="svew_sukr" size="12" maxlength="11" value='${model.record.svew_sukr}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_suar">Annan kostnad:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_suar" id="svew_suar" size="12" maxlength="11" value='${model.record.svew_suar}'></td>
 															</tr>
 														</table>
 													</td>
@@ -876,22 +890,22 @@
 												</tr>
 												<tr>
 													<td class="text12">2.<input type="text" class="inputTextMediumBlue" name="svew_god2" id="svew_god2" size="45" maxlength="42" value='${model.record.svew_god2}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kot2" id="svew_kot2" size="5" maxlength="5" value='${model.record.svew_kot2}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot2" id="svew_kot2" size="5" maxlength="5" value='${model.record.svew_kot2}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos2" id="svew_kos2" size="5" maxlength="4" value='${model.record.svew_kos2}'></td>
 												</tr>
 												<tr>
 													<td class="text12">3.<input type="text" class="inputTextMediumBlue" name="svew_god3" id="svew_god3" size="45" maxlength="42" value='${model.record.svew_god3}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kot3" id="svew_kot3" size="5" maxlength="5" value='${model.record.svew_kot3}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot3" id="svew_kot3" size="5" maxlength="5" value='${model.record.svew_kot3}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos3" id="svew_kos3" size="5" maxlength="4" value='${model.record.svew_kos3}'></td>
 												</tr>
 												<tr>
 													<td class="text12">4.<input type="text" class="inputTextMediumBlue" name="svew_god4" id="svew_god4" size="45" maxlength="42" value='${model.record.svew_god4}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kot4" id="svew_kot4" size="5" maxlength="5" value='${model.record.svew_kot4}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot4" id="svew_kot4" size="5" maxlength="5" value='${model.record.svew_kot4}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos4" id="svew_kos4" size="5" maxlength="5" value='${model.record.svew_kos4}'></td>
 												</tr>
 												<tr>
 													<td class="text12">5.<input type="text" class="inputTextMediumBlue" name="svew_god5" id="svew_god5" size="45" maxlength="42" value='${model.record.svew_god5}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kot5" id="svew_kot5" size="5" maxlength="5" value='${model.record.svew_kot5}'></td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot5" id="svew_kot5" size="5" maxlength="5" value='${model.record.svew_kot5}'></td>
 													<td><input type="text" class="inputTextMediumBlue" name="svew_kos5" id="svew_kos5" size="5" maxlength="5" value='${model.record.svew_kos5}'></td>
 												</tr>
 												<tr>

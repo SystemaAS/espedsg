@@ -122,11 +122,11 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_ulkd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	   
    
-    jq('#svew_vataIdLink').click(function() {
-    	alert("svew_vataIdLink");
-    	jq('#svew_vataIdLink').attr('target','_blank');
-    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });	   
+//    jq('#svew_vataIdLink').click(function() {
+//    	alert("Ikke implementert, för stor lista...");
+//   	jq('#svew_vataIdLink').attr('target','_blank');
+//   	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+//    });	   
  
     jq('#svew_eup1IdLink').click(function() {
     	alert("svew_eup1IdLink");
@@ -139,7 +139,28 @@ jq(function() {
     	jq('#svew_eup2IdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_eup2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	    
-        
+  
+    
+	jq('#svew_fabl').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_brut').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_neto').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kota').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kota').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kot2').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kot3').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kot4').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_kot5').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_ankv').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
     
 }); 
 
@@ -300,6 +321,10 @@ function getRecord(record){
 			jq('#svew_co18').val("");jq('#svew_co18').val(data[i].svew_co18);
 			jq('#svew_co19').val("");jq('#svew_co19').val(data[i].svew_co19);
 			jq('#svew_co20').val("");jq('#svew_co20').val(data[i].svew_co20);
+			jq('#svew_suok').val("");jq('#svew_suok').val(data[i].svew_suok);
+			jq('#svew_sukr').val("");jq('#svew_sukr').val(data[i].svew_sukr);
+			jq('#svew_suar').val("");jq('#svew_suar').val(data[i].svew_suar);
+			
 			
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].svew_knso);

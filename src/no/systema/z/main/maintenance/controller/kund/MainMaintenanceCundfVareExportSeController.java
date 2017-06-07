@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ public class MainMaintenanceCundfVareExportSeController {
 		Map model = new HashMap();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
-
+		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
@@ -124,11 +125,8 @@ public class MainMaintenanceCundfVareExportSeController {
 					logger.info("[ERROR DML] Record does not validate)");
 					logger.info(" errMsg.toString()="+ errMsg.toString());
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					logger.info("recordToValidate="+ReflectionToStringBuilder.toString(recordToValidate));
-
-					logger.debug("about to put recordToValidate");
+					logger.info("recordToValidate, err="+ReflectionToStringBuilder.toString(recordToValidate));
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate); 
-					logger.debug("recordToValidate putted, hur ser gui ut?");
 					
 					if (updateId != null && !"".equals(updateId)) {
 						// meaning bounced in an Update and not a Create new
