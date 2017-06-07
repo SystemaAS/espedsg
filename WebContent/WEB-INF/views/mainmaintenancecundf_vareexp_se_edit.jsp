@@ -429,9 +429,6 @@
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vasl" id="svew_vasl" size="70" maxlength="70" value='${model.record.svew_vasl}'></td>
 																<td class="text12" title="svew_eup1">Förf.(37:1):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_eup1" id="svew_eup1" size="5" maxlength="4" value='${model.record.svew_eup1}'>
-																	<a tabindex="-1" id="svew_eup1IdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
 																</td>
 															</tr>
 														</table>
