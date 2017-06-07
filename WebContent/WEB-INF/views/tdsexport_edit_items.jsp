@@ -984,8 +984,9 @@
 												<c:choose>	
 													<c:when test="${model.status == 'M' || empty model.status}">
 														<div style="float:right;" id="warningCodesFlagDiv" >
-															<a id="warningCodesLink">
+															<a id="warningCodesLink" style="cursor:pointer;">
 																<img width="18px" height="20px" src="resources/images/redFlag.png" border="0" alt="warning">
+																<font class="text12Red">Det finns Tilläggskoder/Bilagda Handlingar att välja. Klicka här</font>
 															</a>
 														</div>
 														<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tds.export.item.createnew.submit"/>'>

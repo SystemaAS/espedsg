@@ -84,7 +84,7 @@ public class MaintTdsFellesSvt058rController {
 	    	list = this.fetchList(appUser.getUser(), id);
 	    	//set domain objets
 	    	model.put("dbTable", dbTable);
-	    	//model.put("searchKode", id);
+	    	model.put("searchKode", id);
 	    	model.put(TdsMaintenanceConstants.DOMAIN_LIST, list);
 	    	successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
 			

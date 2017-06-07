@@ -122,7 +122,7 @@ public class MaintTdsFellesController {
 		//
 		object = new  MaintenanceMainListObject();
 		object.setId("4");
-		object.setSubject("Underhåll av Leveransvillkår");
+		object.setSubject("Underhåll av leveransvillkår");
 		object.setCode("TDS_LEVVILLKAR");
 		object.setText("SVT058 / SVTLV");
 		object.setDbTable("SVTLV");

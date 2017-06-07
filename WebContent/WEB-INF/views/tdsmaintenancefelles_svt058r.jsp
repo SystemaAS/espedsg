@@ -51,10 +51,6 @@
 					<form action="tdsmaintenancefelles_svt058r.do?id=${model.dbTable}" name="formRecordSearch" id="formRecordSearch" method="POST" >
 					Kode&nbsp;
 					<input type="text" class="inputTextMediumBlue" name="searchKode" id="searchKode" size="5" maxlength="3" value='${model.searchKode}'>
-					<%--
-					&nbsp;Søkebegrep&nbsp;
-					<input type="text" class="inputTextMediumBlue" name="searchTaalfa" id="searchTaalfa" size="15" maxlength="25" value='${model.taalfa}'>
-					--%>
 					&nbsp;&nbsp;<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submitSearch" id="submitSearch" value='<spring:message code="search.label"/>'/>
 					
 					</form>
@@ -70,30 +66,63 @@
 						<td class="text11">
 						<table id="mainList" class="display compact cell-border" >
 							<thead>
-							<tr>
-								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Ändra&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Kod&nbsp;</th>
-			                    <th class="tableHeaderField" >&nbsp;Kurs&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Faktor&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Från datum&nbsp;</th>
-								<th class="tableHeaderField" >&nbsp;Till datum&nbsp;</th>
-			                    <th align="center" class="tableHeaderField">Ta bort</th>
-			                </tr>  
+								<tr>
+									<th rowspan="2" align="center" width="2%" class="tableHeaderField" >&nbsp;Ändra&nbsp;</th>
+									<th rowspan="2" class="tableHeaderField" >&nbsp;Kod&nbsp;</th>
+				                    <th colspan="2" class="tableHeaderField" >&nbsp;Transport&nbsp;</th>
+									<th colspan="2" class="tableHeaderField" >&nbsp;Fösäkring&nbsp;</th>
+									<th rowspan="2" class="tableHeaderField" >&nbsp;Övr.kost.&nbsp;</th>
+									<th rowspan="2" class="tableHeaderField" >&nbsp;Kassarab.&nbsp;</th>
+									<th rowspan="2" class="tableHeaderField" >&nbsp;Annan rab.&nbsp;</th>
+									<th rowspan="2" align="center" class="tableHeaderField">Ta bort</th>
+				                </tr>
+				                <tr>
+				                	<th>Stat.värde</th>
+            						<th>Tullvärde</th>
+            						<th>Stat.värde</th>
+            						<th>Tullvärde</th>
+            					</tr>	  
 			                </thead> 
 			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
-				               <td id="recordUpdate_${record.svvk_kd}_${record.svvk_dts}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td id="recordUpdate_${record.svlv_kd}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<img src="resources/images/update.gif" border="0" alt="edit">
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.svvk_kd}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svvk_krs}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svvk_omr}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svvk_dts}&nbsp;</font></td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svvk_dte}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.svlv_kd}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_trText}&nbsp;</font></td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_tr2Text}&nbsp;</font></td>
+				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               		<table width="70%" >
+				               			<tr class="tableRow">
+				               				<td class="tableCell" align="left" >	
+					               				<font class="text12">&nbsp;&nbsp;${record.svlv_fsText}</font>
+					               			</td>
+					               			<td class="tableCell" align="right" >	
+					               				<font class="text12">${record.svlv_fspFormatted}&nbsp;</font>
+					               			</td>
+				               			</tr>
+				               		</table>
+				               	</td>
+				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               		<table width="70%" >
+				               			<tr class="tableRow">
+				               				<td class="tableCell" align="left" >	
+					               				<font class="text12">&nbsp;&nbsp;${record.svlv_fs2Text}</font>
+					               			</td>
+					               			<td class="tableCell" align="right" >	
+					               				<font class="text12">${record.svlv_fs2pFormatted}&nbsp;</font>
+					               			</td>
+				               			</tr>
+				               		</table>
+				               </td>
+				               
+				               <td width="4%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_okText}&nbsp;</font></td>
+				               <td width="4%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_krText}&nbsp;</font></td>
+				               <td width="4%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_arText}&nbsp;</font></td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Är du säker på at du vill ta bort denna?')" tabindex=-1 href="tdsmaintenancefelles_svt058r_edit.do?action=doDelete&id=${model.dbTable}&svvk_kd=${record.svvk_kd}&svvk_dts=${record.svvk_dts}">
+		               				<a onclick="javascript:return confirm('Är du säker på at du vill ta bort denna?')" tabindex=-1 href="tdsmaintenancefelles_svt058r_edit.do?action=doDelete&id=${model.dbTable}&svlv_kd=${record.svlv_kd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
@@ -157,28 +186,76 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td width="100%">
-				<form action="tdsmaintenancefelles_svt057r_edit.do" name="formRecord" id="formRecord" method="POST" >
+				<form action="tdsmaintenancefelles_svt058r_edit.do" name="formRecord" id="formRecord" method="POST" >
 					<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 					<input type="hidden" name="updateId" id=updateId value="${model.updateId}"> 
 					<input type="hidden" name="action" id=action value="doUpdate">
 					
-					<table width="80%" cellspacing="1" border="0" align="left">
+					<table width="99%" cellspacing="1" border="0" align="left">
 			    	    <tr>
-							<td class="text12" title="SVVK_KD">&nbsp;<font class="text14RedBold" >*</font>Kod</td>
-							<td class="text12" title="SVVK_KRS">&nbsp;<font class="text14RedBold" >*</font>Kurs</td>
-							<td class="text12" title="SVVK_OMR">&nbsp;<font class="text14RedBold" >*</font>Faktor</td>
-							<td class="text12" title="SVVK_DTS">&nbsp;<font class="text14RedBold" >*</font>Från datum</td>
-							<td class="text12" title="SVVK_DTE">&nbsp;Till datum</td>
+							<td width="8%" class="text12" title="svlv_kd">&nbsp;<font class="text14RedBold" >*</font>Kod</td>
+							<td class="text12" title="svlv_tr">&nbsp;Transport - Stat.värde/Tullvärde</td>
+							<td class="text12" title="svlv_tr2">&nbsp;Försäkring - Stat.värde/Tullvärde</td>
+							<td class="text12" title="svlv_ok">&nbsp;Övr.kost.</td>
+							<td class="text12" title="svlv_kr">&nbsp;Kassarab.</td>
+							<td class="text12" title="svlv_ar">&nbsp;Annan rab.</td>
 						</tr>
 						<tr>
-						<td ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svvk_kd" id="svvk_kd" size="4" maxlength="3" value='${Xmodel.record.svvk_kd}'></td>
-						<td ><input onKeyPress="return amountKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svvk_krs" id="svvk_krs" size="10" maxlength="11" value='${Xmodel.record.svvk_krs}'></td>
-						<td ><input onKeyPress="return numberKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svvk_omr" id="svvk_omr" size="8" maxlength="7" value='${Xmodel.record.svvk_omr}'></td>
-						<td ><input onKeyPress="return numberKey(event)" type="text" required class="inputTextMediumBlueMandatoryField" name="svvk_dts" id="svvk_dts" size="9" maxlength="8" value='${Xmodel.record.svvk_dts}'></td>
-						<td ><input type="text" class="inputTextMediumBlue" name="svvk_dte" id="svvk_dte" size="9" maxlength="8" value='${Xmodel.record.svvk_dte}'></td>
-						<td>
-							<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara'/>
-						</td>
+							<td width="8%" ><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svlv_kd" id="svlv_kd" size="4" maxlength="3" value='${model.record.svlv_kd}'></td>
+							<td class="text12" >Stat.v.
+								<select name="svlv_tr" id="svlv_tr">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_tr == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_tr == 'N'}"> selected </c:if> >Nej</option>
+								</select>&nbsp;
+								Tullv.
+								<select name="svlv_tr2" id="svlv_tr2">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_tr2 == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_tr2 == 'N'}"> selected </c:if> >Nej</option>
+								</select>						
+							</td>
+							<td class="text12">Stat.v
+								<select name="svlv_fs" id="svlv_fs">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_fs == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_fs == 'N'}"> selected </c:if> >Nej</option>
+			 						<option value="P" <c:if test="${model.record.svlv_fs == 'N'}"> selected </c:if> >Procent</option>
+								</select>	
+								<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="svlv_fsp" id="svlv_fsp" size="7" maxlength="6" value='${model.record.svlv_fs}'>
+								Tullv.
+								<select name="svlv_fs2" id="svlv_fs2">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_fs2 == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_fs2 == 'N'}"> selected </c:if> >Nej</option>
+			 						<option value="P" <c:if test="${model.record.svlv_fs2 == 'N'}"> selected </c:if> >Procent</option>
+								</select>
+								<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="svlv_fs2p" id="svlv_fs2p" size="7" maxlength="6" value='${model.record.svlv_fs2p}'>
+							</td>
+							<td >
+								<select name="svlv_ok" id="svlv_ok">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_ok == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_ok == 'N'}"> selected </c:if> >Nej</option>
+								</select>							
+							</td>
+							<td >
+								<select name="svlv_kr" id="svlv_kr">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_kr == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_kr == 'N'}"> selected </c:if> >Nej</option>
+								</select>		
+							</td>
+							<td >
+								<select name="svlv_ar" id="svlv_ar">
+									<option value="" >-Välj-</option>
+			 						<option value="J" <c:if test="${model.record.svlv_ar == 'J'}"> selected </c:if> >Ja</option>
+			 						<option value="N" <c:if test="${model.record.svlv_ar == 'N'}"> selected </c:if> >Nej</option>
+								</select>
+							</td>
+							<td>
+								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara'/>
+							</td>
 						</tr>
 						<tr height="3"><td></td>
 					</table>

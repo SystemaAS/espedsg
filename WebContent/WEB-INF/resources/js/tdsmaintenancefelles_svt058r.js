@@ -35,12 +35,20 @@
 			jq("#svlv_kd").prop("readonly", false);
 			jq("#svlv_kd").removeClass("inputTextReadOnly");
 			jq("#svlv_kd").addClass("inputTextMediumBlueMandatoryField");
-			/*TODO
+			
 			//rest of the gang
-			jq('#svvk_krs').val("");
-			jq('#svvk_omr').val("");
-			jq('#svvk_dte').val("");
-			*/
+			jq('#svlv_ok').val("");
+  			jq('#svlv_tr').val("");
+  			jq('#svlv_tr2').val("");
+  			jq('#svlv_fs').val("");
+  			jq('#svlv_fsp').val("");
+  			jq('#svlv_fs2').val("");
+  			jq('#svlv_fs2p').val("");
+  			
+  			jq('#svlv_ok').val("");
+  			jq('#svlv_kr').val("");
+  			jq('#svlv_ar').val("");
+			
 			//for update
 			jq('#updateId').val("");
 		});
@@ -54,8 +62,9 @@
   	var applicationUserParam = jq('#applicationUser').val();
   	
   	rawId = rawId.replace("recordUpdate_", "");
-  	var record = rawId.split('_');
-	var id = record[0];
+  	//var record = rawId.split('_');
+	//var id = record[0];
+	var id = rawId;
 	
 	jq.ajax({
   	  type: 'GET',
@@ -68,23 +77,27 @@
   	  success: function(data) {
 	  	var len = data.length;
   		for ( var i = 0; i < len; i++) {
-  			jq('#svlv_kd').val("");jq('#svlv_kd').val(data[i].svvk_kd);
+  			jq('#svlv_kd').val("");jq('#svlv_kd').val(data[i].svlv_kd);
   			jq("#svlv_kd").prop("readonly", true);
   			jq("#svlv_kd").removeClass("inputTextMediumBlueMandatoryField");
   			jq("#svlv_kd").addClass("inputTextReadOnly");
-  			/*TODO
-  			jq('#svvk_dts').val("");jq('#svvk_dts').val(data[i].svvk_dts);
-  			jq("#svvk_dts").prop("readonly", true);
-  			jq("#svvk_dts").removeClass("inputTextMediumBlueMandatoryField");
-  			jq("#svvk_dts").addClass("inputTextReadOnly");
+  			
   			
   			//rest of the gang
-  			jq('#svvk_krs').val("");jq('#svvk_krs').val(data[i].svvk_krs);
-  			jq('#svvk_omr').val("");jq('#svvk_omr').val(data[i].svvk_omr);
-  			jq('#svvk_dte').val("");jq('#svvk_dte').val(data[i].svvk_dte);
-  			*/
+  			jq('#svlv_ok').val("");jq('#svlv_ok').val(data[i].svlv_ok);
+  			jq('#svlv_tr').val("");jq('#svlv_tr').val(data[i].svlv_tr);
+  			jq('#svlv_tr2').val("");jq('#svlv_tr2').val(data[i].svlv_tr2);
+  			jq('#svlv_fs').val("");jq('#svlv_fs').val(data[i].svlv_fs);
+  			jq('#svlv_fsp').val("");jq('#svlv_fsp').val(data[i].svlv_fspFormatted);
+  			jq('#svlv_fs2').val("");jq('#svlv_fs2').val(data[i].svlv_fs2);
+  			jq('#svlv_fs2p').val("");jq('#svlv_fs2p').val(data[i].svlv_fs2pFormatted);
+  			
+  			jq('#svlv_ok').val("");jq('#svlv_ok').val(data[i].svlv_ok);
+  			jq('#svlv_kr').val("");jq('#svlv_kr').val(data[i].svlv_kr);
+  			jq('#svlv_ar').val("");jq('#svlv_ar').val(data[i].svlv_ar);
+  			
   			//for a future update
-  			jq('#updateId').val("");jq('#updateId').val(data[i].svvk_kd);
+  			jq('#updateId').val("");jq('#updateId').val(data[i].svlv_kd);
   			
   		}
   	  }, 
@@ -112,6 +125,7 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY": "250px",
     	  "scrollCollapse":  false,
+    	  "order": [[ 1, "asc" ]],
     	  "lengthMenu": [ 75, 100]
   	  });
       

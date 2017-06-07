@@ -29,19 +29,17 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 
-
-//import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
-//import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
-//import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktardContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkRecord;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaContainer;
 import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvthaRecord;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtlvContainer;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtlvRecord;
 
-//import no.systema.skat.z.maintenance.main.service.MaintDktardService;
-//import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
 import no.systema.tds.z.maintenance.main.service.MaintSvthaService;
 import no.systema.tds.z.maintenance.main.service.MaintSvtvkService;
+import no.systema.tds.z.maintenance.main.service.MaintSvtlvService;
+
 import no.systema.tds.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 
 
@@ -86,23 +84,20 @@ public class MaintTdsFellesAjaxHandlerController {
 	 * 
 	 * @param applicationUser
 	 * @param id
-	 * @param date
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="getSpecificRecord_dktard.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintDktardRecord> getRecordDktard
-	  	(@RequestParam String applicationUser, @RequestParam String id, @RequestParam String fromDate, String toDate) {
-		final String METHOD = "[DEBUG] getSpecificRecord_dktard";
+	@RequestMapping(value="getSpecificRecord_svt058r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSvtlvRecord> getRecordSvt058
+	  	(@RequestParam String applicationUser, @RequestParam String id) {
+		final String METHOD = "[DEBUG] getSpecificRecord_svt058r";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintDktardRecord> result = new ArrayList();
+		List<JsonMaintSvtlvRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListDktard(applicationUser, id, fromDate, toDate);
+    	result = (List)this.fetchListSvt058(applicationUser, id);
     	
     	return result;
 	
 	}
-	*/
 	/**
 	 * 
 	 * @param applicationUser
@@ -121,40 +116,7 @@ public class MaintTdsFellesAjaxHandlerController {
     	return result;
 	
 	}
-	
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param id
-	 * @param date
-	 * 
-	 * @return
-	 * 
-	 */
-	/*
-	private Collection<JsonMaintDktvkRecord> fetchListDkt057(String applicationUser, String id, String fromDate){
-		
-		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_DKT057R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&dkvk_kd=" + id + "&dkvk_dts=" + fromDate;
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    	logger.info("URL PARAMS: " + urlRequestParams);
-    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	//extract
-    	List<JsonMaintDktvkRecord> list = new ArrayList();
-    	if(jsonPayload!=null){
-			//lists
-    		JsonMaintDktvkContainer container = this.maintDktvkService.getList(jsonPayload);
-	        if(container!=null){
-	        	list = (List)container.getList();
-	        	for(JsonMaintDktvkRecord record: list){
-	        		//logger.info(record.getDkvk_kd());
-	        	}
-	        }
-    	}
-    	return list;
-	}
-	*/
+
 	/**
 	 * 
 	 * @param applicationUser
@@ -214,6 +176,35 @@ public class MaintTdsFellesAjaxHandlerController {
     	return list;
 	}
 	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 * @return
+	 */
+	private Collection<JsonMaintSvtlvRecord> fetchListSvt058(String applicationUser, String id){
+		
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT058R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&svlv_kd=" + id ;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//extract
+    	List<JsonMaintSvtlvRecord> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSvtlvContainer container = this.maintSvtlvService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getDtoList();
+	        	for(JsonMaintSvtlvRecord record: list){
+	        		//logger.info(record.getSvlv_kd());
+	        	}
+	        }
+    	}
+    	return list;
+	}
+	
 
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -232,14 +223,14 @@ public class MaintTdsFellesAjaxHandlerController {
 	public MaintSvtvkService getMaintSvtvkService(){ return this.maintSvtvkService; }
 	
 	
-	/*
-	@Qualifier ("maintDktardService")
-	private MaintDktardService maintDktardService;
+	@Qualifier ("maintSvtlvService")
+	private MaintSvtlvService maintSvtlvService;
 	@Autowired
 	@Required
-	public void setMaintDktardService (MaintDktardService value){ this.maintDktardService = value; }
-	public MaintDktardService getMaintDktardService(){ return this.maintDktardService; }
-	*/
+	public void setMaintSvtlvService (MaintSvtlvService value){ this.maintSvtlvService = value; }
+	public MaintSvtlvService getMaintSvtlvService(){ return this.maintSvtlvService; }
+	
+	
 	@Qualifier ("maintSvthaService")
 	private MaintSvthaService maintSvthaService;
 	@Autowired
