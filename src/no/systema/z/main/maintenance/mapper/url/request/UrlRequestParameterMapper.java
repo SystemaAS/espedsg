@@ -4,6 +4,7 @@
 package no.systema.z.main.maintenance.mapper.url.request;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
@@ -117,7 +118,12 @@ public class UrlRequestParameterMapper {
 						Float value = (Float)field.get(object); 
 						sb.append(MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 						sb.append(value);
+					} else if(field.get(object) instanceof BigDecimal){
+						BigDecimal value = (BigDecimal)field.get(object); 
+						sb.append(MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
+						sb.append(value);
 					}
+					
 					else{
 						logger.info(" [INFO]data type not yet supported..." + e.getMessage());
 					}

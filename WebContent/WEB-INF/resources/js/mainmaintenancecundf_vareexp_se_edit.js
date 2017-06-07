@@ -79,10 +79,20 @@ jq(function() {
 		if (jq('#svew_stva2').val() =='' ) {
 			jq('#svew_stva2').val("0");
 		}
+		if (jq('#svew_suar').val() =='' ) {
+			jq('#svew_suar').val("0");
+		}
+		if (jq('#svew_sukr').val() =='' ) {
+			jq('#svew_sukr').val("0");
+		}
+		if (jq('#svew_suok').val() =='' ) {
+			jq('#svew_suok').val("0");
+		}		
 		
 		jq.blockUI({
 			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
 		});
+		
 	});
 
 	
@@ -129,16 +139,15 @@ jq(function() {
 //    });	   
  
 //    jq('#svew_eup1IdLink').click(function() {
-//    	alert("svew_eup1IdLink");
+//    	alert("Ikke implementer, nycklar saknas");
 //    	jq('#svew_eup1IdLink').attr('target','_blank');
 //    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_eup1', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 //    });	
 //    
-//    jq('#svew_eup2IdLink').click(function() {
-//    	alert("svew_eup2IdLink");
-//    	jq('#svew_eup2IdLink').attr('target','_blank');
-//    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_eup2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-//    });	    
+    jq('#svew_eup2IdLink').click(function() {
+    	jq('#svew_eup2IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_eup2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
   
     
 	jq('#svew_fabl').calculator({ showOn: 'button',  
@@ -209,9 +218,9 @@ function getRecord(record){
 			jq('#svew_vat5').val("");jq('#svew_vat5').val(data[i].svew_vat5);
 			jq('#svew_komr').val("");jq('#svew_komr').val(data[i].svew_komr);
 			jq('#svew_fnkd').val("");jq('#svew_fnkd').val(data[i].svew_fnkd);
-			jq('#svew_brut').val("");jq('#svew_brut').val(data[i].svew_brut);
+			jq('#svew_brut').val(data[i].svew_brut);jq('#svew_brut').val(jq('#svew_brut').val().replace('.',','))
 			jq('#svew_eup1').val("");jq('#svew_eup1').val(data[i].svew_eup1);
-			jq('#svew_neto').val("");jq('#svew_neto').val(data[i].svew_neto);
+			jq('#svew_neto').val(data[i].svew_neto);jq('#svew_neto').val(jq('#svew_neto').val().replace('.',','))			
 			jq('#svew_eup2').val("");jq('#svew_eup2').val(data[i].svew_eup2);
 			jq('#svew_betk').val("");jq('#svew_betk').val(data[i].svew_betk);
 			jq('#svew_atin').val("");jq('#svew_atin').val(data[i].svew_atin);
@@ -219,7 +228,7 @@ function getRecord(record){
 			jq('#svew_ankv').val("");jq('#svew_ankv').val(data[i].svew_ankv);
 			jq('#svew_stva').val("");jq('#svew_stva').val(data[i].svew_stva);
 			jq('#svew_stva2').val("");jq('#svew_stva2').val(data[i].svew_stva2);
-			jq('#svew_fabl').val("");jq('#svew_fabl').val(data[i].svew_fabl);
+			jq('#svew_fabl').val(data[i].svew_fabl);jq('#svew_fabl').val(jq('#svew_fabl').val().replace('.',','))
 			jq('#svew_lagt').val("");jq('#svew_lagt').val(data[i].svew_lagt);
 			jq('#svew_lagl').val("");jq('#svew_lagl').val(data[i].svew_lagl);
 			jq('#svew_call').val("");jq('#svew_call').val(data[i].svew_call);

@@ -41,6 +41,7 @@ import no.systema.jservices.common.dao.ValufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.values.FasteKoder;
+import no.systema.jservices.common.values.Svtx03fKodTyper;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
@@ -329,13 +330,11 @@ public class MainMaintenanceCundfVkundController {
 		} else if ("syfr03".equals(caller)) { //Fritekstkode
 			list = getFritekstKoder(appUser);
 		} else if ("svew_ulkd".equals(caller)) { //Ursprungsland
-			list = getLandKoderSvKoder(appUser);
+			list = getLandKoderSvKoderFromSvtx03f(appUser);
 		} else if ("svew_vata".equals(caller)) { //Taric nr
-			list = getTaricnrKoder(appUser); //TODO
-		} else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
-			list = getEup1Koder(appUser);  //TODO
+			list = getTaricnrKoder(appUser); 
 		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
-			list = getEup2Koder(appUser);
+			list = getEup2KoderFromSvtx03f(appUser);
 		} 
 		
 		else {
@@ -346,17 +345,33 @@ public class MainMaintenanceCundfVkundController {
 	}
 	
 	
-	private List<ChildWindowKode> getEup2Koder(SystemaWebUser appUser) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<ChildWindowKode> getEup2KoderFromSvtx03f(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
+		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&02=" + Svtx03fKodTyper.FFK.toString());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Svtx03fDao> container = (JsonDtoContainer<Svtx03fDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Svtx03fDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+
 	}
-
-
-	private List<ChildWindowKode> getEup1Koder(SystemaWebUser appUser) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	private List<ChildWindowKode> getTaricnrKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx10fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx10fDao>>();
@@ -369,7 +384,7 @@ public class MainMaintenanceCundfVkundController {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//logger.info("jsonPayload="+jsonPayload);
+		//logger.debug("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		if (jsonPayload != null) {
@@ -392,18 +407,19 @@ public class MainMaintenanceCundfVkundController {
 	}		
 	
 
-	private List<ChildWindowKode> getLandKoderSvKoder(SystemaWebUser appUser) {
+	private List<ChildWindowKode> getLandKoderSvKoderFromSvtx03f(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
 		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&02=" + Svtx03fKodTyper.GCY.toString());
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//logger.info("jsonPayload="+jsonPayload);
+		//logger.debug("jsonPayload="+jsonPayload);
 		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
 		ChildWindowKode kode = null;
 		if (jsonPayload != null) {

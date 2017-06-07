@@ -9,25 +9,23 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.SvewDao;
+import no.systema.jservices.common.dto.SvewDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
+import no.systema.jservices.common.util.StringUtils;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
@@ -65,7 +63,7 @@ public class MainMaintenanceCundfVareExportSeController {
 		} else  {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 
-			List<SvewDao> list = new ArrayList<SvewDao>();
+			List<SvewDto> list = new ArrayList<SvewDto>();
 			list = fetchList(appUser.getUser(), kundeSessionParams.getKundnr());
 
 			model.put("kundnr", kundeSessionParams.getKundnr());
@@ -136,7 +134,7 @@ public class MainMaintenanceCundfVareExportSeController {
 
 			}
 
-			List<SvewDao> list = new ArrayList<SvewDao>();
+			List<SvewDto> list = new ArrayList<SvewDto>();
 			list = fetchList(appUser.getUser(),  kundeSessionParams.getKundnr());
 
 			model.put("kundnr", kundeSessionParams.getKundnr());
@@ -184,7 +182,7 @@ public class MainMaintenanceCundfVareExportSeController {
 	}	
 	
 	
-	private List<SvewDao> fetchList(String applicationUser, String kundnr) {
+	private List<SvewDto> fetchList(String applicationUser, String kundnr) {
 		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
 		jsonReader.set(new JsonDtoContainer<SvewDao>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_GET_URL;
@@ -196,15 +194,26 @@ public class MainMaintenanceCundfVareExportSeController {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.debug("jsonPayload="+jsonPayload);
-		List<SvewDao> list = null;
+		logger.info("jsonPayload="+jsonPayload);
+		List<SvewDto> adjustedlist = new ArrayList<SvewDto>();
 		if (jsonPayload != null) {
 			JsonDtoContainer<SvewDao> container = (JsonDtoContainer<SvewDao>) jsonReader.get(jsonPayload);
 				if (container != null) {
-					list = (List<SvewDao>) container.getDtoList();
+					SvewDto uiDao = null;
+					for (SvewDao svewDao : container.getDtoList()) {
+						uiDao = new SvewDto();
+						uiDao.setSvew_knnr(kundnr);
+						uiDao.setSvew_brut(StringUtils.convertToSystemaUIFormat(svewDao.getSvew_brut()));
+						uiDao.setSvew_knso(svewDao.getSvew_knso());
+						uiDao.setSvew_neto(StringUtils.convertToSystemaUIFormat(svewDao.getSvew_neto()));
+						uiDao.setSvew_ulkd(svewDao.getSvew_ulkd());
+						uiDao.setSvew_vasl(svewDao.getSvew_vasl());
+						uiDao.setSvew_vata(svewDao.getSvew_vata());
+						adjustedlist.add(uiDao);
+					}
 				}
 		}
-		return list;
+		return adjustedlist;
 	}	
 	
 	// Wired - SERVICES
