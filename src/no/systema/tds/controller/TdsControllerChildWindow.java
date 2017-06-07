@@ -27,31 +27,20 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.ServletRequestDataBinder;
 
 //application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
-import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
 
 import no.systema.tds.model.jsonjackson.customer.JsonTdsCustomerContainer;
 import no.systema.tds.model.jsonjackson.customer.JsonTdsCustomerRecord;
 import no.systema.tds.service.TdsCustomerService;
 import no.systema.tds.url.store.TdsUrlDataStore;
 import no.systema.tds.util.TdsConstants;
-
-
-
-
-
-
 
 
 /**

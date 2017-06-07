@@ -136,6 +136,37 @@
   	  			jq('#sveh_utfaIdLink').click();
   	  		}
   	  	});
+  	  	
+  	  	//Customer SENDER
+  	  	jq('#sveh_avnaIdLink').click(function() {
+  	  		jq('#sveh_avnaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#sveh_avna').val() + '&ctype=sveh_avna', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#sveh_avnaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#sveh_avnaIdLink').click();
+  	  		}
+  	  	});
+  	  	//Customer RECEIVER
+  	  	jq('#sveh_monaIdLink').click(function() {
+  	  		jq('#sveh_monaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#sveh_mona').val() + '&ctype=sveh_mona', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#sveh_monaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#sveh_monaIdLink').click();
+  	  		}
+  	  	});
+  	  	//Customer DEKLARANT
+  	  	jq('#sveh_dknaIdLink').click(function() {
+  	  		jq('#sveh_dknaIdLink').attr('target','_blank');
+  	  		window.open('tds_childwindow_customer.do?action=doFind&sonavn=' + jq('#sveh_dkna').val() + '&ctype=sveh_dkna', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#sveh_dknaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#sveh_dknaIdLink').click();
+  	  		}
+  	  	});
 	    
 	    
 	    //=====================================

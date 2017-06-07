@@ -72,7 +72,7 @@
 			                       <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${record.syland}@keori${record.eori}@ctype${model.ctype}@kadr2${record.adr2}" >
+			               <td style="cursor:pointer;" class="text11MediumBlue" id="knr${record.kundnr}@knavn${record.knavn}@kadr1${record.adr1}@kadr3${record.adr3}@kpostnr${record.postnr}@kland${record.syland}@keori${record.eori}@ctype${model.ctype}@kadr2${record.adr2}@tlf${record.tlf}" >
 			               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.kundnr}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.knavn}</td>

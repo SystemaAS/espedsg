@@ -17,46 +17,52 @@
 			  var eori = record[6].replace("keori", "");
 			  var callerType = record[7].replace("ctype", "");
 			  var adr2 = record[8].replace("kadr2", "");
+			  var tlf = record[9].replace("tlf", "");
+			  
 			  //addressing a parent field from this child window
 			  
 			  //=========================
 			  //TDS Export Module 
 			  //=========================
 			  //AVS
-			  if(callerType == 'dkeh_02b'){
-				  opener.jq('#dkeh_avkn').val(knr);
-				  opener.jq('#dkeh_02b').val(knavn);
-				  opener.jq('#dkeh_02a').val(eori);
-				  opener.jq('#dkeh_02c').val(adr1);
-				  opener.jq('#dkeh_02e').val(adr3);
-				  opener.jq('#dkeh_02d').val(postnr);
-				  opener.jq('#dkeh_02f').val(land);
-				  opener.jq('#dkeh_02b').focus();
+			  if(callerType == 'sveh_avna'){
+				  opener.jq('#sveh_avkn').val(knr);
+				  opener.jq('#sveh_avna').val(knavn);
+				  opener.jq('#sveh_aveo').val(eori);
+				  opener.jq('#sveh_ava1').val(adr1);
+				  opener.jq('#sveh_ava2').val(adr2);
+				  opener.jq('#sveh_avpa').val(adr3);
+				  opener.jq('#sveh_avpn').val(postnr);
+				  opener.jq('#sveh_avlk').val(land);
+				  opener.jq('#sveh_avha').val("");
+				  opener.jq('#sveh_avtl').val(tlf);
+				  //focus
+				  opener.jq('#sveh_avna').focus();
 			  //MOTTAGARE		 
-			  }else if(callerType == 'dkeh_08b'){
-				  opener.jq('#dkeh_mokn').val(knr);
-				  opener.jq('#dkeh_08b').val(knavn);
-				  opener.jq('#dkeh_08a').val(eori);
-				  opener.jq('#dkeh_08c').val(adr1);
-				  opener.jq('#dkeh_08e').val(adr3);
-				  opener.jq('#dkeh_08d').val(postnr);
-				  opener.jq('#dkeh_08f').val(land);
-				  opener.jq('#dkeh_08b').focus();
-			  //CARRIER	  
-			  }else if(callerType == 'dkeh_treo'){
-				  opener.jq('#dkeh_trkn').val(knr);
-				  opener.jq('#dkeh_treo').val(eori);
-				  opener.jq('#dkeh_trkn').focus();
-			  //Representant ved udpassage
-			  }else if(callerType == 'dkeh_rena'){
-				  opener.jq('#dkeh_rekn').val(knr);
-				  opener.jq('#dkeh_rena').val(knavn);
-				  opener.jq('#dkeh_reeo').val(eori);
-				  opener.jq('#dkeh_rega').val(adr1);
-				  opener.jq('#dkeh_reby').val(adr3);
-				  opener.jq('#dkeh_repo').val(postnr);
-				  opener.jq('#dkeh_relk').val(land);
-				  opener.jq('#dkeh_rena').focus();
+			  }else if(callerType == 'sveh_mona'){
+				  opener.jq('#sveh_mokn').val(knr);
+				  opener.jq('#sveh_mona').val(knavn);
+				  opener.jq('#sveh_moeo').val(eori);
+				  opener.jq('#sveh_moa1').val(adr1);
+				  opener.jq('#sveh_moa2').val(adr2);
+				  opener.jq('#sveh_mopa').val(adr3);
+				  opener.jq('#sveh_mopn').val(postnr);
+				  opener.jq('#sveh_molk').val(land);
+				  //focus
+				  opener.jq('#sveh_mona').focus();
+				  
+			  //Deklarant
+			  }else if(callerType == 'sveh_dkna'){
+				  opener.jq('#sveh_dkkn').val(knr);
+				  opener.jq('#sveh_dkna').val(knavn);
+				  opener.jq('#sveh_dkeo').val(eori);
+				  opener.jq('#sveh_dka1').val(adr1);
+				  opener.jq('#sveh_dka2').val(adr2);
+				  opener.jq('#sveh_dkpa').val(adr3);
+				  opener.jq('#sveh_dkpn').val(postnr);
+				  opener.jq('#sveh_dklk').val(land);
+				  //focus
+				  opener.jq('#sveh_dkna').focus();
 
 			  //=========================
 			  //TDS Import Module 
