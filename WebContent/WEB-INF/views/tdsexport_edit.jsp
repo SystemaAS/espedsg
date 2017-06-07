@@ -1294,8 +1294,14 @@
 					            
 							    <td nowrap>
 							    <input type="text" class="inputTextMediumBlueMandatoryField" name="sveh_utfa" id="sveh_utfa" size="9" maxlength="8" value="${model.record.sveh_utfa}">
+							    <a tabindex="-1" id="sveh_utfaIdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>
+							    <%-- OBSOLETE
 							    <img id="imgUtfartstullKontor" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTullkontorDialog10');">
-					            
+					             --%>
+					             
+					             
 							    <%-- ======================================================== --%>
 				            		<%-- Here we have the search Tullkontor popup window --%>
 				            		<%-- ======================================================== --%>

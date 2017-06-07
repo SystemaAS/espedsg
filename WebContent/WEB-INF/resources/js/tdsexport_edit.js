@@ -126,6 +126,17 @@
 				jq('#sveh_tralIdLink').click();
 			}
 	    });
+	    //Utfartstullkontor
+  	  	jq('#sveh_utfaIdLink').click(function() {
+  	  		jq('#sveh_utfaIdLink').attr('target','_blank');
+  	  		window.open('tdsexport_edit_childwindow_tullkontor.do?action=doInit&ctype=sveh_utfa&tkkode=' + jq('#sveh_utfa').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+  	  	});
+  	  	jq('#sveh_utfaIdLink').keypress(function(e){ //extra feature for the end user
+  	  		if(e.which == 13) {
+  	  			jq('#sveh_utfaIdLink').click();
+  	  		}
+  	  	});
+	    
 	    
 	    //=====================================
 	  	//END Child window for general codes

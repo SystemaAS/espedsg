@@ -38,13 +38,18 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
+
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeRecord;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsTaricVarukodContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsTaricVarukodRecord;
+import no.systema.tds.tdsexport.model.jsonjackson.tullkontor.JsonTdsExportTullkontorContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.tullkontor.JsonTdsExportTullkontorRecord;
 
+import no.systema.tds.tdsexport.service.TdsExportTullkontorService;
 import no.systema.tds.service.TdsGeneralCodesChildWindowService;
 import no.systema.tds.service.TdsTaricVarukodService;
 import no.systema.tds.service.TdsTaricVarukodServiceImpl;
@@ -67,7 +72,7 @@ import no.systema.tds.util.TdsConstants;
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
 public class TdsExportHeaderControllerChildWindow {
-	
+	private final StringManager strMgr = new StringManager();
 	private static final Logger logger = Logger.getLogger(TdsExportHeaderControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	//customer
@@ -156,7 +161,84 @@ public class TdsExportHeaderControllerChildWindow {
 	    	return successView;
 		}
 	}
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tdsexport_edit_childwindow_tullkontor", params="action=doInit",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doInitTullkontor(@ModelAttribute ("record") JsonTdsExportTullkontorRecord recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitGeneralCodes");
+		Map model = new HashMap();
+		String callerType = request.getParameter("ctype");
+		String code = request.getParameter("tkkode");
+		String soName = request.getParameter("tktxtn");
+		
+		ModelAndView successView = new ModelAndView("tdsexport_edit_childwindow_tullkontor");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			  
+			List list = this.getTullkontorList(appUser, soName, code);
+			model.put("tullkontorList", list);
+			model.put("callerType", callerType);
+			model.put("tkkode", code);
+			model.put("tktxtn", soName);
+			
+			successView.addObject(TdsConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param soName
+	 * @param code
+	 * @return
+	 */
+	private List<JsonTdsExportTullkontorRecord> getTullkontorList(SystemaWebUser appUser, String soName, String code){
+		List<JsonTdsExportTullkontorRecord> list = new ArrayList<JsonTdsExportTullkontorRecord>();
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		String BASE_URL = TdsUrlDataStore.TDS_FETCH_UTFARTS_TULLKONTOR_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		if(strMgr.isNotNull(soName) && strMgr.isNotNull(code)){
+			urlRequestParams.append( TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
+			urlRequestParams.append( TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
+		}else if (strMgr.isNotNull(soName)){
+			urlRequestParams.append( TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sonavn=" + soName );
+		}else if (strMgr.isNotNull(code)){
+			urlRequestParams.append( TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kod=" + code );
+		}
+		
+		logger.info(BASE_URL);
+		logger.info(urlRequestParams);
+		
+		UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		JsonTdsExportTullkontorContainer container = null;
+		try{
+			if(jsonPayload!=null){
+				container = this.tdsExportTullkontorService.getTdsExportTullkontorContainer(jsonPayload);
+				if(container!=null){
+					for(JsonTdsExportTullkontorRecord  record : container.getCustomslist()){
+						list.add(record);
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	/**
 	 * 
@@ -237,7 +319,6 @@ public class TdsExportHeaderControllerChildWindow {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	
 	@Qualifier 
 	private TdsGeneralCodesChildWindowService tdsGeneralCodesChildWindowService;
 	@Autowired
@@ -253,6 +334,13 @@ public class TdsExportHeaderControllerChildWindow {
 	public void setTdsTaricVarukodService(TdsTaricVarukodService value){this.tdsTaricVarukodService = value;}
 	public TdsTaricVarukodService getTdsTaricVarukodService(){ return this.tdsTaricVarukodService; }
 	
+	
+	@Qualifier 
+	private TdsExportTullkontorService tdsExportTullkontorService;
+	@Autowired
+	@Required	
+	public void setTdsExportTullkontorService(TdsExportTullkontorService value){this.tdsExportTullkontorService = value;}
+	public TdsExportTullkontorService getTdsExportTullkontorService(){ return this.tdsExportTullkontorService; }
 	
 }
 
