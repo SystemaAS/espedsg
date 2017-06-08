@@ -472,7 +472,12 @@
 																<td class="text12">Kolli antal:</td>
 																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'></td>
 																<td class="text12">Kolli slag:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'>
+																	<a tabindex="-1" id="svew_koslIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 															<tr>
 																<td colspan="4"  class="text12Gray">&nbsp;Särskilda upplysningar</td>
@@ -569,7 +574,13 @@
 															</tr>
 															<tr>
 																<td class="text12" title="svew_call">Call me:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_call" id="svew_call" size="3" maxlength="2" value='${model.record.svew_call}'></td>
+																<td>
+																	<select name="svew_call" id="svew_call" > 
+						 							  					<option value="">-<spring:message code="systema.choose"/>-</option>
+						 							  					<option value="0"<c:if test="${model.record.svew_call == '0'}"> selected </c:if> >0</option>
+											  							<option value="1"<c:if test="${ model.record.svew_call == '1'}"> selected </c:if> >1</option>
+																  	</select>
+																</td>
 																<td class="text12" title="svew_vati">&nbsp;Varukod (33:3):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vati" id="svew_vati" size="5" maxlength="4" value='${model.record.svew_vati}'></td>
 															</tr>
@@ -888,22 +899,42 @@
 												<tr>
 													<td class="text12">2.<input type="text" class="inputTextMediumBlue" name="svew_god2" id="svew_god2" size="45" maxlength="42" value='${model.record.svew_god2}'></td>
 													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot2" id="svew_kot2" size="5" maxlength="5" value='${model.record.svew_kot2}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kos2" id="svew_kos2" size="5" maxlength="4" value='${model.record.svew_kos2}'></td>
+													<td>
+														<input type="text" class="inputTextMediumBlue" name="svew_kos2" id="svew_kos2" size="5" maxlength="4" value='${model.record.svew_kos2}'>
+														<a tabindex="-1" id="svew_kos2IdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
 												</tr>
 												<tr>
 													<td class="text12">3.<input type="text" class="inputTextMediumBlue" name="svew_god3" id="svew_god3" size="45" maxlength="42" value='${model.record.svew_god3}'></td>
 													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot3" id="svew_kot3" size="5" maxlength="5" value='${model.record.svew_kot3}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kos3" id="svew_kos3" size="5" maxlength="4" value='${model.record.svew_kos3}'></td>
+													<td>
+														<input type="text" class="inputTextMediumBlue" name="svew_kos3" id="svew_kos3" size="5" maxlength="4" value='${model.record.svew_kos3}'>
+														<a tabindex="-1" id="svew_kos3IdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
 												</tr>
 												<tr>
 													<td class="text12">4.<input type="text" class="inputTextMediumBlue" name="svew_god4" id="svew_god4" size="45" maxlength="42" value='${model.record.svew_god4}'></td>
 													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot4" id="svew_kot4" size="5" maxlength="5" value='${model.record.svew_kot4}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kos4" id="svew_kos4" size="5" maxlength="5" value='${model.record.svew_kos4}'></td>
+													<td>
+														<input type="text" class="inputTextMediumBlue" name="svew_kos4" id="svew_kos4" size="5" maxlength="5" value='${model.record.svew_kos4}'>
+														<a tabindex="-1" id="svew_kos4IdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
 												</tr>
 												<tr>
 													<td class="text12">5.<input type="text" class="inputTextMediumBlue" name="svew_god5" id="svew_god5" size="45" maxlength="42" value='${model.record.svew_god5}'></td>
 													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kot5" id="svew_kot5" size="5" maxlength="5" value='${model.record.svew_kot5}'></td>
-													<td><input type="text" class="inputTextMediumBlue" name="svew_kos5" id="svew_kos5" size="5" maxlength="5" value='${model.record.svew_kos5}'></td>
+													<td>
+														<input type="text" class="inputTextMediumBlue" name="svew_kos5" id="svew_kos5" size="5" maxlength="5" value='${model.record.svew_kos5}'>
+														<a tabindex="-1" id="svew_kos5IdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
 												</tr>
 												<tr>
 													<td colspan="3" class="text12" height="76">&nbsp;</td>

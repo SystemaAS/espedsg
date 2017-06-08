@@ -335,6 +335,16 @@ public class MainMaintenanceCundfVkundController {
 			list = getTaricnrKoder(appUser); 
 		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
 			list = getEup2KoderFromSvtx03f(appUser);
+		} else if ("svew_kosl".equals(caller)) { //Kollislag
+			list = getKollislagKoderFromSvtx03f(appUser);
+		} else if ("svew_kos2".equals(caller)) { //Kollislag
+			list = getKollislagKoderFromSvtx03f(appUser);
+		} else if ("svew_kos3".equals(caller)) { //Kollislag
+			list = getKollislagKoderFromSvtx03f(appUser);
+		} else if ("svew_kos4".equals(caller)) { //Kollislag
+			list = getKollislagKoderFromSvtx03f(appUser);
+		} else if ("svew_kos5".equals(caller)) { //Kollislag
+			list = getKollislagKoderFromSvtx03f(appUser);
 		} 
 		
 		else {
@@ -343,6 +353,36 @@ public class MainMaintenanceCundfVkundController {
 
 		return list;
 	}
+	
+	private List<ChildWindowKode> getKollislagKoderFromSvtx03f(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
+		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&02=" + Svtx03fKodTyper.KLI.toString());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Svtx03fDao> container = (JsonDtoContainer<Svtx03fDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Svtx03fDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+
+	}	
+	
+	
 	
 	
 	private List<ChildWindowKode> getEup2KoderFromSvtx03f(SystemaWebUser appUser) {

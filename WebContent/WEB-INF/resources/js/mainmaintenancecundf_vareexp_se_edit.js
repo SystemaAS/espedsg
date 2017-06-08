@@ -29,6 +29,10 @@ jq(function() {
 		jq('#svew_neto').val("0");	
 		jq('#svew_stva').val("0");	
 		jq('#svew_stva2').val("0");	
+		jq('#svew_vano').val("0");	
+		jq('#svew_suar').val("0");	
+		jq('#svew_suok').val("0");	
+		jq('#svew_sukr').val("0");
 		
 		//for update
 		jq('#updateId').val("");
@@ -87,6 +91,9 @@ jq(function() {
 		}
 		if (jq('#svew_suok').val() =='' ) {
 			jq('#svew_suok').val("0");
+		}	
+		if (jq('#svew_vano').val() =='' ) {
+			jq('#svew_vano').val("0");
 		}		
 		
 		jq.blockUI({
@@ -149,6 +156,30 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_eup2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	    
   
+    jq('#svew_koslIdLink').click(function() {
+    	jq('#svew_koslIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kosl', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    
+    jq('#svew_kos2IdLink').click(function() {
+    	jq('#svew_kos2IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kos2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_kos3IdLink').click(function() {
+    	jq('#svew_kos3IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kos3', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_kos4IdLink').click(function() {
+    	jq('#svew_kos4IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kos4', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_kos5IdLink').click(function() {
+    	jq('#svew_kos5IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kos5', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+     
+    
+    
     
 	jq('#svew_fabl').calculator({ showOn: 'button',  
 		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
