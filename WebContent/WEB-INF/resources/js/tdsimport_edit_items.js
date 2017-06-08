@@ -1037,7 +1037,8 @@
 	  	  });
 	      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
 	      jq('#tblItemLines').dataTable( {
-	    	  "dom": '<"top">t<"bottom"flip><"clear">',
+	    	  "tabIndex": -1,
+	    	  "dom": '<"top">t<"bottom"fip><"clear">',
 	    	  "scrollY":    "180px",
 	  		  "scrollCollapse":  true,
 	  		  "lengthMenu": [ 75, 100, 300, 400, 900]

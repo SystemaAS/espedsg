@@ -92,27 +92,19 @@
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;"><font class="text12">&nbsp;${record.svlv_kd}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_trText}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svlv_tr2Text}&nbsp;</font></td>
-				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               <td align="center" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 				               		<table width="70%" >
-				               			<tr class="tableRow">
-				               				<td class="tableCell" align="left" >	
-					               				<font class="text12">&nbsp;&nbsp;${record.svlv_fsText}</font>
-					               			</td>
-					               			<td class="tableCell" align="right" >	
-					               				<font class="text12">${record.svlv_fspFormatted}&nbsp;</font>
-					               			</td>
+				               			<tr >
+				               				<td style="border-style: solid;border-width: 0px 0px 0px 0px;" align="left" ><font class="text12">&nbsp;&nbsp;${record.svlv_fsText}</font></td>
+					               			<td style="border-style: solid;border-width: 0px 0px 0px 0px;"	 align="right" ><font class="text12MediumBlue">${record.svlv_fspFormatted}&nbsp;</font></td>
 				               			</tr>
 				               		</table>
 				               	</td>
-				               <td align="center" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
+				               <td align="center" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 				               		<table width="70%" >
-				               			<tr class="tableRow">
-				               				<td class="tableCell" align="left" >	
-					               				<font class="text12">&nbsp;&nbsp;${record.svlv_fs2Text}</font>
-					               			</td>
-					               			<td class="tableCell" align="right" >	
-					               				<font class="text12">${record.svlv_fs2pFormatted}&nbsp;</font>
-					               			</td>
+				               			<tr >
+				               				<td style="border-style: solid;border-width: 0px 0px 0px 0px;" align="left" ><font class="text12">&nbsp;&nbsp;${record.svlv_fs2Text}</font></td>
+					               			<td style="border-style: solid;border-width: 0px 0px 0px 0px;" align="right" ><font class="text12MediumBlue">${record.svlv_fs2pFormatted}&nbsp;</font></td>
 				               			</tr>
 				               		</table>
 				               </td>

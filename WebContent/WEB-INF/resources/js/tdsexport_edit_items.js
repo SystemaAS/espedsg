@@ -735,7 +735,7 @@
       jq('#tblItemLinesAll').dataTable( {
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY":    "800px",
-  		  "scrollCollapse":  true,
+  		  //"scrollCollapse":  true,
   		  "columnDefs": [{ "type": "num", "targets": 0 }],
   		  "order": [[ 10, "desc" ], [ 0, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table
@@ -743,9 +743,10 @@
   	  });
       //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
       jq('#tblItemLines').dataTable( {
-    	  "dom": '<"top">t<"bottom"flip><"clear">',
+    	  "tabIndex": -1,
+    	  "dom": '<"top">t<"bottom"fip><"clear">',
     	  "scrollY":    "180px",
-  		  "scrollCollapse":  true,
+  		  //"scrollCollapse":  true,
   		  "columnDefs": [{ "type": "num", "targets": 1 }],
   		  "order": [[ 11, "desc" ], [ 1, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table

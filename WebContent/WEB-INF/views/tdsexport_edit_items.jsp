@@ -189,7 +189,7 @@
 											<c:if test="${model.status == 'M' || empty model.status}">
 												<input tabindex=-1  class="inputFormSubmitStd" type="submit" name="submitSkapaNy" value='Skapa ny'>
 											</c:if>
-											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Visa alla</button> 
+											<button tabindex=-1 name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Visa alla</button> 
 											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 										           		
 										           			<table id="containerdatatableTable" align="left" >
@@ -279,7 +279,7 @@
 											   				</div>
 									   					</span>	
 									   		<c:if test="${model.status == 'M' || empty model.status}">		
-												&nbsp;<button title="Kontrollera varuposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varupostkontroll</button>
+												&nbsp;<button tabindex=-1 title="Kontrollera varuposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varupostkontroll</button>
 											</c:if>
 										</td>
 										<td width="5%" class="text12">&nbsp;</td>
@@ -400,6 +400,8 @@
 						</form>
 					</td>
 			</tr>
+			
+			
 			<tr height="3"><td></td></tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
@@ -607,9 +609,9 @@
 										
 							        </tr>
 							        <tr>
-							        	<td align="left" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
+							        	<td align="left" >&nbsp;<button tabIndex=-1 title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select autofocus="autofocus" class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
+							            	<select tabindex=1 class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.svev_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>

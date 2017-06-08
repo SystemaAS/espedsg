@@ -133,7 +133,7 @@ public class MainMaintenanceAvdGateController {
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("5");
-		object.setSubject("TVINN - NCTS Export");
+		object.setSubject("TVINN - NCTS Eksport");
 		object.setCode("mainmaintenanceavdsadnctsexport");
 		object.setText("TR003R / TRUSTD not (ENTRY, EXIT, SS)");
 		object.setDbTable("TRUSTD");
@@ -164,12 +164,13 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("8");
 		object.setSubject("TDS - Export");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
+		object.setCode("mainmaintenanceavdtdsexport");
+		object.setText("SVE051R / SVEA");
+		object.setDbTable("G");
 		//object.setStatus("Y");
-		object.setPgm("todo");
+		object.setPgm("sve051r");
 		listObject.add(object);
+		
 		//
 		object = new  MainMaintenanceMainListObject();
 		object.setId("9");

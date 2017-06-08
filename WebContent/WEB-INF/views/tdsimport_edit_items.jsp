@@ -710,9 +710,9 @@
 										
 							        </tr>
 							        <tr>
-							        	<td align="left" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
+							        	<td align="left" >&nbsp;<button tabindex=-1 title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select autofocus="autofocus" class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
+							            	<select tabindex=1 class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.sviv_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>
