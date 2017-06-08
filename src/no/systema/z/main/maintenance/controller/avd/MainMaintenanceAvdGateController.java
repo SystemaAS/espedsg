@@ -166,8 +166,8 @@ public class MainMaintenanceAvdGateController {
 		object.setSubject("TDS - Export");
 		object.setCode("mainmaintenanceavdtdsexport");
 		object.setText("SVE051R / SVEA");
-		object.setDbTable("G");
-		//object.setStatus("Y");
+		object.setDbTable("SVEA");
+		object.setStatus("G");
 		object.setPgm("sve051r");
 		listObject.add(object);
 		

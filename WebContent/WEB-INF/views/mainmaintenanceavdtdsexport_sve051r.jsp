@@ -37,7 +37,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="18%" valign="bottom" class="tabDisabled" align="center">
 						<a id="alinkMainMaintAvdTdsSve051" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsexport_sve051r.do?id=${model.id}">
-                      			<font class="tabLink">&nbsp;<spring:message code="systema.skat.export.tab.description.avd"/></font>&nbsp;
+                      			<font class="tabLink">&nbsp;<spring:message code="systema.tds.export.label"/></font>&nbsp;
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
