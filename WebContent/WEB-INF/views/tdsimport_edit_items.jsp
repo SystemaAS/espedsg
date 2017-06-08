@@ -331,7 +331,7 @@
 								<table id="tblItemLines" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-										<td width="2%" class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.update"/>&nbsp;</td>   
+										<th width="2%" class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.update"/>&nbsp;</th>   
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vano.varupostNr"/>&nbsp;</th>   
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_ulkd.urspLand"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_vata.varukod"/><font class="text9">Taric.nr</font>&nbsp;</th>
@@ -712,7 +712,7 @@
 							        <tr>
 							        	<td align="left" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
+							            	<select autofocus="autofocus" class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.sviv_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>

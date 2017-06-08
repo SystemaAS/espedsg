@@ -235,6 +235,7 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
+										<th class="text12">&nbsp;Uppd.&nbsp;</th>
 									    <th class="text12"><span title="svef_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
 					                    <th class="text12" ><span title="svef_faty">&nbsp;Typ&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="svef_fabl">&nbsp;Belopp&nbsp;</span></th>
@@ -256,10 +257,13 @@
 							                       <tr class="tableOddRow" height="20" >
 							                   </c:otherwise>
 							               </c:choose>
-							               <td width="20%" class="text11" >
+							               <td width="2%" class="text11" >
 							               		<a tabindex=-1 id="recordUpdate_${record.svef_fatx}" href="#" onClick="getItemData(this);">
-							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.svef_fatx}
+							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
+							               </td>
+							               <td width="20%" class="text11" >
+							               		<a tabindex=-1 id="recordUpdate_${record.svef_fatx}" href="#" onClick="getItemData(this);">${record.svef_fatx}</a>
 							               </td>
 							               <td class="text11" >&nbsp;${record.svef_faty}</td>
 							               <td align="right" class="text11" >&nbsp;${record.svef_fabl}&nbsp;</td>
@@ -426,7 +430,7 @@
 							        </tr>
 							        <tr>
 						        		<td align="left">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="svef_fatx" id="svef_fatx" size="20" maxlength="17" value="${model.record.svef_fatx}">
+						        			<input autofocus="autofocus" type="text" class="inputTextMediumBlueMandatoryField" name="svef_fatx" id="svef_fatx" size="20" maxlength="17" value="${model.record.svef_fatx}">
 										</td>
 										<td>
 											<%--

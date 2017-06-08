@@ -94,6 +94,7 @@
   	  			jq("#svef_vaku").val(data[i].svef_vaku);
   	  			jq("#svef_faty").val(data[i].svef_faty);
   	  		}
+  	  		jq("#svef_fatx").focus();
   	  	  },
 	  	  error: function() {
   	  	    alert('Error loading ...');

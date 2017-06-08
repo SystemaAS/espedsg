@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+	<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header ===========================-->
@@ -240,6 +240,7 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
+										<th width="2%" class="text12">&nbsp;Uppd.&nbsp;</th> 
 									    <th class="text12"><span title="svif_fatx">&nbsp;Fakturanr.&nbsp;</span></th>   
 					                    <th class="text12" ><span title="svif_faty">&nbsp;Typ&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="svif_fabl">&nbsp;Belopp&nbsp;</span></th>
@@ -262,10 +263,13 @@
 							                       <tr class="tableOddRow" height="20" >
 							                   </c:otherwise>
 							               </c:choose>
-							               <td width="20%" class="text11" >
+							               <td width="2%" class="text11" >
 							               		<a tabindex=-1 id="recordUpdate_${record.svif_fatx}" href="#" onClick="getItemData(this);">
-							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.svif_fatx}
+							               			&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
+							               </td>
+							               <td width="10%" class="text11" >
+							               		<a tabindex=-1 id="recordUpdate_${record.svif_fatx}" href="#" onClick="getItemData(this);">&nbsp;${record.svif_fatx}</a>
 							               </td>
 							               <td class="text11" >&nbsp;${record.svif_faty}</td>
 							               <td align="right" class="text11" >&nbsp;${record.svif_fabl}&nbsp;</td>
@@ -432,7 +436,7 @@
 							        </tr>
 							        <tr>
 						        		<td align="left">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="svif_fatx" id="svif_fatx" size="20" maxlength="17" value="${model.record.svif_fatx}">
+						        			<input autofocus="autofocus" type="text" class="inputTextMediumBlueMandatoryField" name="svif_fatx" id="svif_fatx" size="20" maxlength="17" value="${model.record.svif_fatx}">
 										</td>
 										<td>
 											<select class="inputTextMediumBlueMandatoryField" name="svif_faty" id="svif_faty">

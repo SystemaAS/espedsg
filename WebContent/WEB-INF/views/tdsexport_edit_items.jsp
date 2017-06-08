@@ -325,21 +325,21 @@
 									    <%-- 
 									    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_syli.linjeNr"/>&nbsp;</td> 
 									    --%>
-					                    <td width="2%" class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.update"/>&nbsp;</td>   
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</td>   
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vati.tillagskod"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_eup1.forfarande1"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_brut.bruttoVikt"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_neto.nettoVikt"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ankv.extraMangd"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.sum_of_svev_kotas.kolliAnt"/>(&Sigma;)</td>					                    					                    
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vasl.varuBeskrivning"/>&nbsp;</td>
-					                    <td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_err.error"/>&nbsp;</td>
-										<td class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_fabl.fbelopp"/>&nbsp;</td>
+					                    <th width="2%" class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.update"/>&nbsp;</th>   
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</th>   
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vati.tillagskod"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_eup1.forfarande1"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_brut.bruttoVikt"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_neto.nettoVikt"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ankv.extraMangd"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.sum_of_svev_kotas.kolliAnt"/>(&Sigma;)</th>					                    					                    
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vasl.varuBeskrivning"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_err.error"/>&nbsp;</th>
+										<th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_fabl.fbelopp"/>&nbsp;</th>
 					                    <c:if test="${model.status == 'M' || empty model.status}">
-					                    	<td align="center" class="text12" nowrap>Radera</td>
+					                    	<th align="center" class="text12" nowrap>Radera</th>
 					                    </c:if>
 					               </tr> 
 					               </thead>
@@ -496,63 +496,6 @@
 							            <img onMouseOver="showPop('33_info');" onMouseOut="hidePop('33_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 						<b>33.</b><font class="text16RedBold" >*</font><span title="svev_vata">Varukod</span>
 							            
-							            <%--
-							            <img id="imgTaricVarukodSearch" style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" onClick="showPop('searchTaricCodesDialog');">
-							            <%-- ======================================================== --%>
-						            	<%-- Here we have the search Taric codes popup window --%>
-						            	<%-- ======================================================== --%>
-						            	<%--
-						            	<span style="position:absolute; left:300px; top:450px; width:500px; height:210px;" id="searchTaricCodesDialog" class="popupWithInputText"  >
-							           		<div class="text10" align="left">
-							           			<table>
-								           			<tr>
-								           			<td>
-									           			<table>
-									           				<tr>
-																<td class="text11">&nbsp;Varukod</td>
-																<td class="text11">&nbsp;<input type="text" class="inputText" name="search_svvs_vata" id="search_svvs_vata" size="10" maxlength="8" value=''></td>
-															</tr>
-										           			<tr>
-										           				<td align="right">&nbsp;<button name="searchTaricCode" class="buttonGray" type="button" onClick="searchTaricVarukod();">Sök</button></td>
-										           				<td class="text11">&nbsp;</td>
-											           			
-											           		</tr>
-											           		<tr height="4"><td ></td></tr>
-										           		</table>
-									           		</td>
-									           		</tr>
-													
-													<tr>
-								           			<td>
-									           			<table>							           		
-											           		<tr>
-										           				<td class="text11">&nbsp;Lista</td>
-											           			<td>&nbsp;</td>
-											           		</tr>
-											           		<tr>
-																<td colspan="2">&nbsp;
-																	<select class="text11" id="taricVarukodList" name="taricVarukodList" size="5" onDblClick="hidePop('searchTaricCodesDialog');">
-					 													<option selected value="">-Välj-</option>
-					 							 					</select>
-																</td>
-															</tr>
-									           			</table>
-								           			</td>
-								           			</tr>
-														
-													<tr>
-								           			<td>								           			
-														<table width="100%" align="left" border="0">
-															<tr align="left" >
-																<td >&nbsp;<button name="searchTaricCodesClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('searchTaricCodesDialog');">Ok</button></td>
-															</tr>
-														</table>
-													</td>
-													</tr>
-												</table>
-											</div>
-										</span>	
-							            --%>
 							            
 							            <div class="text11" style="position: relative;" align="left">
 							            <span style="position:absolute;top:2px; width:250px;" id="33_info" class="popupWithInputText text11"  >
@@ -666,7 +609,7 @@
 							        <tr>
 							        	<td align="left" >&nbsp;<button title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
+							            	<select autofocus="autofocus" class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.svev_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>
