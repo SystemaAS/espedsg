@@ -62,16 +62,16 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @return
 	 * 
 	 */
-	@RequestMapping(value="mainmaintenanceavdskatexport_dke051r.do", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="mainmaintenanceavdtdsexport_sve051r.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenanceavdskatexport_dke051r (HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatexport_dke051r");
+		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsexport_sve051r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		String id = request.getParameter("id");  //DKEA
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			logger.info("Inside method: mainmaintenanceavdskatexport_dke051r");
+			logger.info("Inside method: mainmaintenanceavdtdsexport_sve051r");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
@@ -94,9 +94,9 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="mainmaintenanceavdskatexport_dke051r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="mainmaintenanceavdtdsexport_sve051r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenanceavdskatexport_dkx051_edit(@ModelAttribute ("record") JsonMaintMainDkeaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavdskatexport_dke051r_edit");
+		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsexport_sve051r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String avd = request.getParameter("avd");
@@ -110,7 +110,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
-			logger.info("Inside method: mainmaintenanceavdskatexport_dke051r_edit");
+			logger.info("Inside method: mainmaintenanceavdtdsexport_sve051r_edit");
 			logger.info("appUser user:" + appUser.getUser());
 			logger.info("appUser lang:" + appUser.getUsrLang());
 			logger.info("appUser userAS400:" + appUser.getUserAS400());
@@ -185,7 +185,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}else{
 					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavdskatexport_dke051r.do?id=DKEA");
+					successView = new ModelAndView("redirect:mainmaintenanceavdtdsexport_sve051r.do?id=SVEA");
 				}
 			}
 			//-------------
