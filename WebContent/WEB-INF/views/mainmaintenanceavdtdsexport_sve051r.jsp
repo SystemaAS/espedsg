@@ -71,25 +71,27 @@
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Uppd.</th>                                                            
 								<th width="2%" class="tableHeaderField" align="center" >Avd.</th>
 								<th class="tableHeaderField" align="center" >Ärendenr.</th>
-								<th class="tableHeaderField" align="center" >Namn</th>
-								<th class="tableHeaderField" align="center" >Test TDS</th>
-								<th class="tableHeaderField" align="center" >Ta bort</th>
+								<th class="tableHeaderField" align="center" >Eori</th>
+								<th width="2%" class="tableHeaderField" align="center" >Typ</th>
+								<th width="2%" class="tableHeaderField" align="center" >Test</th>
+								<th nowrap class="tableHeaderField" align="center" >Ta bort</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
-				            <c:forEach var="record" items="${Xmodel.list}" varStatus="counter">   
+				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsexport_sve051r_edit.do?avd=${record.svea_syav}&opd=${record.svea_syop}&updateId=${record.svea_syav}&avdnavn=${Xrecord.svea_14c}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsexport_sve051r_edit.do?avd=${record.svea_syav}&opd=${record.svea_syop}&updateId=${record.svea_syav}&eori=${record.svea_omeo}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.svea_syav}</td>
 				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svea_syop}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${Xrecord.svea_14c}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svea_0035}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svea_omeo}&nbsp;</td>
+				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svea_omty}&nbsp;</td>
+				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.svea_0035}&nbsp;</td>
 				               
-				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+				               <td nowrap align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
 		               				<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="mainmaintenanceavdtdsexport_sve051r_edit.do?action=doDelete&svea_syav=${record.svea_syav}&svea_syop=${record.svea_syop}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>

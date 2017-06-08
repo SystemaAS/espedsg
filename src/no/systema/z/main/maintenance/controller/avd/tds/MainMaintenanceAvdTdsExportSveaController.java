@@ -28,12 +28,12 @@ import no.systema.main.util.DateTimeManager;
 //models
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.service.skat.MaintMainDkeaService;
+import no.systema.z.main.maintenance.service.tds.MaintMainSveaService;
 import no.systema.z.main.maintenance.service.MaintMainEdiiService;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkeaContainer;
-import no.systema.z.main.maintenance.model.jsonjackson.dbtable.skat.JsonMaintMainDkeaRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMainSveaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMainSveaRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.skat.MaintMainDkeaValidator;
+import no.systema.z.main.maintenance.validator.tds.MaintMainSveaValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -95,7 +95,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @return
 	 */
 	@RequestMapping(value="mainmaintenanceavdtdsexport_sve051r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdskatexport_dkx051_edit(@ModelAttribute ("record") JsonMaintMainDkeaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdskatexport_dkx051_edit(@ModelAttribute ("record") JsonMaintMainSveaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsexport_sve051r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -120,11 +120,11 @@ public class MainMaintenanceAvdTdsExportSveaController {
 			//--------------
 			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
 				
-				avd = recordToValidate.getDkea_syav();
+				avd = recordToValidate.getSvea_syav();
 				//Adjust
 				this.adjustSomeRecordValues(recordToValidate);
 				//Validate
-				MaintMainDkeaValidator validator = new MaintMainDkeaValidator();
+				MaintMainSveaValidator validator = new MaintMainSveaValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if(bindingResult.hasErrors()){
 					//ERRORS
@@ -161,9 +161,9 @@ public class MainMaintenanceAvdTdsExportSveaController {
 						isValidOnUpdate = false;
 					}else{
 						//post successful update operations
-						updateId = recordToValidate.getDkea_syav();
-						avd = recordToValidate.getDkea_syav();
-						opd = recordToValidate.getDkea_syop();
+						updateId = recordToValidate.getSvea_syav();
+						avd = recordToValidate.getSvea_syav();
+						opd = recordToValidate.getSvea_syop();
 					}
 					
 				}
@@ -192,7 +192,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 			//Fetch record
 			//-------------
 			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
-				JsonMaintMainDkeaRecord record = this.fetchRecord(appUser.getUser(), avd, opd);
+				JsonMaintMainSveaRecord record = this.fetchRecord(appUser.getUser(), avd, opd);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			
@@ -223,9 +223,9 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @param applicationUser
 	 * @return
 	 */
-	private List<JsonMaintMainDkeaRecord> fetchList(String applicationUser, String id){
+	private List<JsonMaintMainSveaRecord> fetchList(String applicationUser, String id){
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DKE051R_GET_LIST_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVE051R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&id=" + id;
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -234,10 +234,10 @@ public class MainMaintenanceAvdTdsExportSveaController {
     	//DEBUG
     	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
     	//extract
-    	List<JsonMaintMainDkeaRecord> list = new ArrayList();
+    	List<JsonMaintMainSveaRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainDkeaContainer container = this.maintMainDkeaService.getList(jsonPayload);
+    		JsonMaintMainSveaContainer container = this.maintMainSveaService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
 	        }
@@ -253,11 +253,11 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @param opd
 	 * @return
 	 */
-	private JsonMaintMainDkeaRecord fetchRecord(String applicationUser, String avd, String opd){
-		JsonMaintMainDkeaRecord record = new JsonMaintMainDkeaRecord();
+	private JsonMaintMainSveaRecord fetchRecord(String applicationUser, String avd, String opd){
+		JsonMaintMainSveaRecord record = new JsonMaintMainSveaRecord();
     	
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DKE051R_GET_LIST_URL;
-		String urlRequestParams = "user=" + applicationUser + "&dkea_syav=" + avd + "&dkea_syop=" + opd;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVE051R_GET_LIST_URL;
+		String urlRequestParams = "user=" + applicationUser + "&svea_syav=" + avd + "&svea_syop=" + opd;
 		
 		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -266,14 +266,14 @@ public class MainMaintenanceAvdTdsExportSveaController {
     	//DEBUG
     	//this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
     	//extract
-    	List<JsonMaintMainDkeaRecord> list = new ArrayList();
+    	List<JsonMaintMainSveaRecord> list = new ArrayList();
     	
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainDkeaContainer container = this.maintMainDkeaService.getList(jsonPayload);
+    		JsonMaintMainSveaContainer container = this.maintMainSveaService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintMainDkeaRecord tmp : list){
+	        	for(JsonMaintMainSveaRecord tmp : list){
 	        		record = tmp;
 	        	}
 	        }
@@ -292,10 +292,10 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(String applicationUser, JsonMaintMainDkeaRecord record, String mode, StringBuffer errMsg){
+	private int updateRecord(String applicationUser, JsonMaintMainSveaRecord record, String mode, StringBuffer errMsg){
 		int retval = 0;
 		
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DKE051R_DML_UPDATE_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVE051R_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((record));
 		//put the final valid param. string
@@ -309,7 +309,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
     	//extract
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintMainDkeaContainer container = this.maintMainDkeaService.doUpdate(jsonPayload);
+    		JsonMaintMainSveaContainer container = this.maintMainSveaService.doUpdate(jsonPayload);
 	        if(container!=null){
 	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
@@ -328,7 +328,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @param recordToValidate
 	 * @param sikkerhedChildRecord
 	 */
-	private void adjustSomeRecordValues(JsonMaintMainDkeaRecord recordToValidate){
+	private void adjustSomeRecordValues(JsonMaintMainSveaRecord recordToValidate){
 		//----------
 		//Dates
 		//----------
@@ -368,12 +368,12 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("maintMainDkeaService")
-	private MaintMainDkeaService maintMainDkeaService;
+	@Qualifier ("maintMainSveaService")
+	private MaintMainSveaService maintMainSveaService;
 	@Autowired
 	@Required
-	public void setMaintMainDkeaService (MaintMainDkeaService value){ this.maintMainDkeaService = value; }
-	public MaintMainDkeaService getMaintMainDkeaService(){ return this.maintMainDkeaService; }
+	public void setMaintMainSveaService (MaintMainSveaService value){ this.maintMainSveaService = value; }
+	public MaintMainSveaService getMaintMainSveaService(){ return this.maintMainSveaService; }
 	
 	
 	@Qualifier ("maintMainKodtaService")
