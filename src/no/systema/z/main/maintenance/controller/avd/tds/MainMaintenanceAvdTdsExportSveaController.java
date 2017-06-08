@@ -375,14 +375,6 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	public void setMaintMainDkeaService (MaintMainDkeaService value){ this.maintMainDkeaService = value; }
 	public MaintMainDkeaService getMaintMainDkeaService(){ return this.maintMainDkeaService; }
 	
-	/*
-	@Qualifier ("maintDktvkService")
-	private MaintDktvkService maintDktvkService;
-	@Autowired
-	@Required
-	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
-	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
-	*/
 	
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
