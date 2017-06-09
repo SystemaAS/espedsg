@@ -34,6 +34,7 @@ import no.systema.jservices.common.dao.Kodts8Dao;
 import no.systema.jservices.common.dao.KodtsaDao;
 import no.systema.jservices.common.dao.KodtsbDao;
 import no.systema.jservices.common.dao.KodtvalfDao;
+import no.systema.jservices.common.dao.SvtproDao;
 import no.systema.jservices.common.dao.Svtx03fDao;
 import no.systema.jservices.common.dao.Svtx10fDao;
 import no.systema.jservices.common.dao.TariDao;
@@ -333,6 +334,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getLandKoderSvKoderFromSvtx03f(appUser);
 		} else if ("svew_vata".equals(caller)) { //Taric nr
 			list = getTaricnrKoder(appUser); 
+		}	else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
+			list = getEup1KoderFromSvtpro(appUser);
 		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
 			list = getEup2KoderFromSvtx03f(appUser);
 		} else if ("svew_kosl".equals(caller)) { //Kollislag
@@ -382,8 +385,39 @@ public class MainMaintenanceCundfVkundController {
 
 	}	
 	
+	private List<ChildWindowKode> getEup1KoderFromSvtpro(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<SvtproDao>> jsonReader = new JsonReader<JsonDtoContainer<SvtproDao>>();
+		jsonReader.set(new JsonDtoContainer<SvtproDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTPRO_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<SvtproDao> container = (JsonDtoContainer<SvtproDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (SvtproDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+
+	}	
 	
-	
+	private ChildWindowKode getChildWindowKode(SvtproDao dao) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(dao.getSvpr_pr());
+		kode.setDescription(dao.getSvpr_tx1());
+		return kode;
+	}
 	
 	private List<ChildWindowKode> getEup2KoderFromSvtx03f(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
