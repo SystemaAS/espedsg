@@ -371,6 +371,39 @@
 	  });
 	});
 
+	//Select frie sokeveier codes
+	jq(function() {
+		jq('#frisokveiCodesList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+	  	  var kode = record[0].replace("kode", "");
+		  var text = record[1].replace("text", "");
+		  //alert(callerLineCounter);
+		  //addressing a parent field from this child window
+		  opener.jq('#fskode').val(kode);
+		  opener.jq('#fskode').focus();
+		  //close child window
+		  window.close();
+		  
+	  });
+	});
+	
+	//Select frie sokeveier codes
+	jq(function() {
+		jq('#frisokveiDocCodesList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+	  	  var kode = record[0].replace("kode", "");
+		  var text = record[1].replace("text", "");
+		  //alert(callerLineCounter);
+		  //addressing a parent field from this child window
+		  opener.jq('#fsdokk').val(kode);
+		  opener.jq('#fsdokk').focus();
+		  //close child window
+		  window.close();
+		  
+	  });
+	});
 	//Select tollsted codes
 	jq(function() {
 		jq('#tollstedCodesList').on('click', 'td', function(){
@@ -392,6 +425,8 @@
 		  
 	  });
 	});
+	
+	
 	
 	//Supplier
 	jq(function() {
@@ -527,6 +562,16 @@
     function filterPackingCodesList (){
         jq('#packingCodesList').DataTable().search(
     		jq('#packingCodesList_filter').val()
+        ).draw();
+    }
+    function filterFrisokveiCodesList (){
+        jq('#frisokveiCodesList').DataTable().search(
+    		jq('#frisokveiCodesList_filter').val()
+        ).draw();
+    }
+    function filterFrisokveiDocCodesList (){
+        jq('#frisokveiDocCodesList').DataTable().search(
+    		jq('#frisokveiDocCodesList_filter').val()
         ).draw();
     }
     function filterTollstedCodesList (){
@@ -680,6 +725,29 @@
 	  //event on input field for search
 	  jq('input.packingCodesList_filter').on( 'keyup click', function () {
 		  filterPackingCodesList();
+	  });
+	  
+	  //------------------------------
+	  //tables [frie søkeveier codes]
+	  //----------------------------
+	  jq('#frisokveiCodesList').dataTable( {
+		  "dom": '<"top"f>rt<"bottom"><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.frisokveiCodesList_filter').on( 'keyup click', function () {
+		  filterFrisokveiCodesList();
+	  });
+	  //---------------------------------
+	  //tables [frie søkeveier doc.codes]
+	  //---------------------------------
+	  jq('#frisokveiDocCodesList').dataTable( {
+		  "dom": '<"top"f>rt<"bottom"><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.frisokveiDocCodesList_filter').on( 'keyup click', function () {
+		  filterFrisokveiDocCodesList();
 	  });
 	  
 	  //------------------------------

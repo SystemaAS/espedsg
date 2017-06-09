@@ -21,6 +21,8 @@ import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.
 
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
 
 /**
  * 
@@ -224,5 +226,33 @@ public class TransportDispChildWindowServiceImpl implements TransportDispChildWi
 		return container;
 	}
 	
+	/**
+	 * Frie søkeveier
+	 */
+	public JsonTransportDispFrisokveiCodesContainer getFrisokveiCodesContainer(String utfPayload){
+		JsonTransportDispFrisokveiCodesContainer container = null;
+		try{
+			JsonTransportDispChildWindowMapper mapper = new JsonTransportDispChildWindowMapper();
+			container = mapper.getFrisokveiContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	/**
+	 * Frie søkeveier Doks
+	 */
+	public JsonTransportDispFrisokveiDocCodesContainer getFrisokveiDocCodesContainer(String utfPayload){
+		JsonTransportDispFrisokveiDocCodesContainer container = null;
+		try{
+			JsonTransportDispChildWindowMapper mapper = new JsonTransportDispChildWindowMapper();
+			container = mapper.getFrisokveiDocContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
 	
 }

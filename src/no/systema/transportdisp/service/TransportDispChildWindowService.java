@@ -17,6 +17,8 @@ import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispFileUploadValidationContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
 
 
 
@@ -42,4 +44,7 @@ public interface TransportDispChildWindowService {
 	public JsonTransportDispTollstedCodesContainer getTollstedCodesContainer(String utfPayload);
 	public JsonTransportDispSupplierContainer getSupplierContainer(String utfPayload);
 	public JsonTransportDispGebyrCodeContainer getGebyrCodeContainer(String utfPayload);
+	public JsonTransportDispFrisokveiCodesContainer getFrisokveiCodesContainer(String utfPayload);
+	public JsonTransportDispFrisokveiDocCodesContainer getFrisokveiDocCodesContainer(String utfPayload);
+	
 }

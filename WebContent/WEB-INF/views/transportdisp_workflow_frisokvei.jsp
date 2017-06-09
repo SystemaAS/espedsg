@@ -207,12 +207,16 @@
 						 			<tr >
 						 				
 						            	<td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fskode">&nbsp;Kode</span>
-							            	<a tabindex=-1 id="TODObuvkIdLink">
-	 											<img id="imgGebyrCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+							            	<a tabindex=-1 id="fskodeIdLink">
+	 											<img id="imgFrisokveiCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 							            </td>
 							            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span>
+					            			<a tabindex=-1 id="fsdokkIdLink">
+	 											<img id="imgFrisokveiDocCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+					            		</td>
 					            		
 							        </tr>
 							        <tr>

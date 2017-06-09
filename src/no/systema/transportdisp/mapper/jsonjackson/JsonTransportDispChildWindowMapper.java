@@ -36,8 +36,10 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeRecord;
-
-
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesRecord;
 
 
 /**
@@ -277,6 +279,40 @@ public class JsonTransportDispChildWindowMapper {
 		JsonTransportDispGebyrCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispGebyrCodeContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
 		for (JsonTransportDispGebyrCodeRecord record : container.getGebyrKoder()){
+			//record.getAdindx();
+		}
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTransportDispFrisokveiCodesContainer getFrisokveiContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonTransportDispFrisokveiCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiCodesContainer.class); 
+		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
+		for (JsonTransportDispFrisokveiCodesRecord record : container.getAwblinelist()){
+			//record.getAdindx();
+		}
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTransportDispFrisokveiDocCodesContainer getFrisokveiDocContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonTransportDispFrisokveiDocCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiDocCodesContainer.class); 
+		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
+		for (JsonTransportDispFrisokveiDocCodesRecord record : container.getAwblinelist()){
 			//record.getAdindx();
 		}
 		return container;

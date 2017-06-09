@@ -75,6 +75,10 @@ public final class TransportDispUrlDataStore {
 	//http://gw.systema.no/sycgip/TJINQGEB.pgm?user=JOVO&kode=&tekst=&fullinfo=J
 	static public String TRANSPORT_DISP_BASE_CHILDWINDOW_SUPPLIER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQLEV.pgm";
 	//http://gw.systema.no/sycgip/TJINQLEV.pgm?user=JOVO&kode=5000&tekst=&Getval=N&fullInfo=J
+	static public String TRANSPORT_DISP_BASE_CHILDWINDOW_FRISOKVEI_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE30R.pgm";
+	//http://gw.systema.no/sycgip/tjge30r.pgm?user=JOVO
+	static public String TRANSPORT_DISP_BASE_CHILDWINDOW_FRISOKVEI_DOCCODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE32R.pgm";
+	//http://gw.systema.no/sycgip/tjge32r.pgm?user=JOVO&kftyp=FSDOKK
 	
 	//---------------------------------------------------
 	//[1] GENERAL CODES - for country (AS400 from TVINN) 

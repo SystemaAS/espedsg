@@ -70,6 +70,11 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeRecord;
 
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesRecord;
+
 
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispAvdContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispAvdRecord;
@@ -124,7 +129,8 @@ public class TransportDispWorkflowControllerChildWindow {
 	private final String DATATABLE_SUPPLIER_LIST = "supplierList";
 	private final String DATATABLE_GEBYRCODE_LIST = "gebyrCodeList";
 	private final String DATATABLE_COUNTRYCODE_LIST = "countryCodeList";
-	
+	private final String DATATABLE_FRISOKVEI_CODES_LIST = "frisokveiCodesList";
+	private final String DATATABLE_FRISOKVEI_DOCCODES_LIST = "frisokveiDocCodesList";
 	
 	
 	
@@ -1258,6 +1264,184 @@ public class TransportDispWorkflowControllerChildWindow {
 				}
 		    	
     			model.put(this.DATATABLE_PACKING_CODES_LIST, outputList);
+    			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+    			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+				
+		    }
+			
+		}
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_frisokveicodes.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitFrisokveiCodes(@ModelAttribute ("record") JsonTransportDispFrisokveiCodesContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitFrisokveiCodes");
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_frisokveicodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TransportDispConstants.DOMAIN_RECORD, recordToValidate);
+			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_frisokveicodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindFrisokveiCodes(@ModelAttribute ("record") JsonTransportDispFrisokveiCodesRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindFrisokveiCodes");
+		Collection<JsonTransportDispFrisokveiCodesRecord> outputList = new ArrayList();
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_frisokveicodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_FRISOKVEI_CODES_URL;
+		    	String urlRequestParamsKeys = "user=" + appUser.getUser();
+				
+		    	logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParamsKeys);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				
+				if(jsonPayload!=null){
+					JsonTransportDispFrisokveiCodesContainer container = this.transportDispChildWindowService.getFrisokveiCodesContainer(jsonPayload);
+		    			if(container!=null){
+		    				outputList = container.getAwblinelist();
+		    			}
+				}
+		    	
+    			model.put(this.DATATABLE_FRISOKVEI_CODES_LIST, outputList);
+    			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+    			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+				
+		    }
+			
+		}
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_frisokveidoccodes.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitFrisokveiDocCodes(@ModelAttribute ("record") JsonTransportDispFrisokveiCodesContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitFrisokveiDocCodes");
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_frisokveidoccodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TransportDispConstants.DOMAIN_RECORD, recordToValidate);
+			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_frisokveidoccodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindFrisokveiDocCodes(@ModelAttribute ("record") JsonTransportDispFrisokveiDocCodesRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindFrisokveiDocCodes");
+		Collection<JsonTransportDispFrisokveiDocCodesRecord> outputList = new ArrayList();
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_frisokveidoccodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_FRISOKVEI_DOCCODES_URL;
+		    	String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kftyp=FSDOKK";
+				
+		    	logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParamsKeys);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				
+				if(jsonPayload!=null){
+					JsonTransportDispFrisokveiDocCodesContainer container = this.transportDispChildWindowService.getFrisokveiDocCodesContainer(jsonPayload);
+		    			if(container!=null){
+		    				outputList = container.getAwblinelist();
+		    			}
+				}
+		    	
+    			model.put(this.DATATABLE_FRISOKVEI_DOCCODES_LIST, outputList);
     			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
     			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
     			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");

@@ -611,7 +611,7 @@
 							        <tr>
 							        	<td align="left" >&nbsp;<button tabIndex=-1 title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select tabindex=1 class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
+							            	<select tabindex="0" class="inputTextMediumBlue" name="svev_ulkd" id="svev_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.svev_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>

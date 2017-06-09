@@ -198,7 +198,7 @@
 											<c:if test="${model.status == 'M' || empty model.status}">
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submitSkapaNy" value='Skapa ny'>
 											</c:if>
-											<button name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Visa alla</button>
+											<button tabindex=-1 name="allItemsButton" class="inputFormSubmitStd" type="button" onClick="showPop('allItems');" >Visa alla</button>
 											        <span style="background-color:#EEEEEE; position:absolute; left:50px; top:200px; width:1200px; height:1000px;" id="allItems" class="popupWithInputTextThickBorder"  >
 										           			<table id="containerdatatableTable" align="left" >
 										           			<tr>
@@ -289,7 +289,7 @@
 															</span>
 							   						
 									   			<c:if test="${model.status == 'M' || empty model.status}">		
-													&nbsp;<button title="Kontrollera varuposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varupostkontroll</button>
+													&nbsp;<button tabindex=-1 title="Kontrollera varuposter" name="itemListControlButton" id="itemListControlButton" class="buttonGrayWithGreenFrame11" type="button" >Varupostkontroll</button>
 												</c:if>			
 										</td>
 										<td width="5%" class="text12">&nbsp;</td>
@@ -712,13 +712,13 @@
 							        <tr>
 							        	<td align="left" >&nbsp;<button tabindex=-1 title="Kundens vareregister" name="kundensVaruregisterControlButton" id="kundensVaruregisterControlButton" class="buttonGrayWithGreenFrame" type="button" >Sök i kund.varureg.</button></td>
 							        	<td align="left">
-							            	<select tabindex=1 class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
+							            	<select tabindex="0" class="inputTextMediumBlueMandatoryField" name="sviv_ulkd" id="sviv_ulkd">
 						 						<option value="">-Välj-</option>
 							 				  	<c:forEach var="country" items="${model.gcyCodeList}" >
 							 				  		<option value="${country.svkd_kd}"<c:if test="${model.record.sviv_ulkd == country.svkd_kd}"> selected </c:if> >${country.svkd_kd}</option>
 												</c:forEach>  
 											</select>
-											<a tabindex="-1" id="sviv_ulkdIdLink" >
+											<a id="sviv_ulkdIdLink" >
 						            			<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 						            		</a>																	 			
 										</td>

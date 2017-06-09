@@ -64,28 +64,22 @@
 		  
 	  });
   });
-  /*
+  
   //Links on child windows
   jq(function() {
-	  //supplier child window search
-	  jq('#bulnrIdLink').click(function() {
-		jq('#bulnrIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_supplier.do?action=doInit&kode=' + jq('#bulnr').val(),"supplierWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  //frisokvei koder child window search
+	  jq('#fskodeIdLink').click(function() {
+		jq('#fskodeIdLink').attr('target','_blank');  
+		window.open('transportdisp_workflow_childwindow_frisokveicodes.do?action=doFind',"frisokveiCodesWin","top=300px,left=50px,height=600px,width=550px,scrollbars=no,status=no,location=no");
 	  });
-	  //gebyr koder child window search
-	  jq('#buvkIdLink').click(function() {
-		jq('#buvkIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_gebyrcode.do?action=doInit&kode=' + jq('#buvk').val(),"gebyrCodesWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  //frisokvei dok.koder child window search
+	  jq('#fsdokkIdLink').click(function() {
+		jq('#fsdokkIdLink').attr('target','_blank');  
+		window.open('transportdisp_workflow_childwindow_frisokveidoccodes.do?action=doFind',"frisokveiDocCodesWin","top=300px,left=150px,height=600px,width=550px,scrollbars=no,status=no,location=no");
 	  });
-	  //Transport carrier id-numbers child window search
-	  jq('#butnrIdLink').click(function() {
-		jq('#butnrIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_transpcarrier.do?action=doInit&soktnr=' + jq('#butnr').val(),"transpcarrierWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
-	  });
-	  
   });
   
-  
+  /*
 
   jq(function() {
   	//----------------------
