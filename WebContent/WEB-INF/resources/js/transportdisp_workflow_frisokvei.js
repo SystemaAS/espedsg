@@ -50,9 +50,13 @@
   });
   */
   jq(function() {
-	  jq('#"clearButton"').click(function() {
-		  //fields
+	  jq('#newRecordButton').click(function() {
 		  jq('#fskode').val("");
+		  jq('#fskode').prop("readonly", false);
+		  jq('#fskode').removeClass("inputTextReadOnly");
+		  jq('#fskode').addClass("inputTextMediumBlueMandatoryField");
+		  
+		  //rest of the gang
 		  jq('#fssok').val("");
 		  jq('#fsdokk').val("");
 		  //
@@ -198,7 +202,13 @@
 				//alert(data[i].fask);
 				
 				jq('#isModeUpdate').val("");jq('#isModeUpdate').val("true");
-				//jq('#updCancelButton').show(); //in order to be able to cancel (implicit reload)
+				jq('#fskodeKey').val("");jq('#fskodeKey').val(data[i].kode); //hidden field
+				jq('#fssokKey').val("");jq('#fssokKey').val(data[i].sok); //hidden field
+				//read only field(s)
+				jq('#fskode').val("");
+				jq('#fskode').prop("readonly", true);
+				jq('#fskode').removeClass("inputTextMediumBlueMandatoryField");
+				jq('#fskode').addClass("inputTextReadOnly");
 				//fields
 				jq('#fskode').val("");jq('#fskode').val(data[i].kode);
 				jq('#fssok').val("");jq('#fssok').val(data[i].sok);
@@ -224,29 +234,25 @@
 	//This is done in order to present a jquery
 	//Alert modal pop-up
 	//----------------------------------------
-  /* TODO
-	function doPermanentlyDeleteInvoiceLine(element){
+	function doDeleteItemLine(element){
 	  //start
+		//avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}
 		var record = element.id.split('@');
-		var avd = record[0];
-		var opd = record[1];
-		var tur = record[2];
-		var bubnr = record[3];
-		avd= avd.replace("avd_","");
-		opd= opd.replace("opd_","");
-		tur= tur.replace("tur_","");
-		bubnr= bubnr.replace("bubnr_","");
+		var avd = record[0].replace("avd_","");
+		var opd = record[1].replace("opd_","");
+		var kode = record[2].replace("kode_","");
+		var sok = record[3].replace("sok_","");
 		
 	  //Start dialog
 	  jq('<div></div>').dialog({
       modal: true,
-      title: "Dialog - Slett Rekvnr: " + bubnr,
+      title: "Dialog - Slett kode: " + kode + " " + sok,
       buttons: {
 	        Fortsett: function() {
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "transportdisp_workflow_budget_edit.do?action=doDelete" + "&bubnr=" + bubnr + "&avd=" + avd + "&opd=" + opd + "&tur=" + tur;
+	            window.location = "transportdisp_workflow_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );
@@ -260,5 +266,5 @@
 	     }
 	  });  //end dialog
 	}
-	*/	  
+	 
   

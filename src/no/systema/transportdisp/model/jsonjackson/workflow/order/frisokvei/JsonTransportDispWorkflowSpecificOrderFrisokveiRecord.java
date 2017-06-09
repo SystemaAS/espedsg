@@ -15,6 +15,13 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonTransportDispWorkflowSpecificOrderFrisokveiRecord extends JsonAbstractGrandFatherRecord {
 	
+	//This is required in order to know if is an update or create new record
+	//Since there is id, we must have a mechanism to know if the user is updating or creating a new record
+	private String isModeUpdate = null;
+	public void setIsModeUpdate(String value) {  this.isModeUpdate = value; }
+	public String getIsModeUpdate() {return this.isModeUpdate;}
+		
+	
 	private String fsavd = null;
 	public void setFsavd(String value) {  this.fsavd = value; }
 	public String getFsavd() {return this.fsavd;}
@@ -28,9 +35,17 @@ public class JsonTransportDispWorkflowSpecificOrderFrisokveiRecord extends JsonA
 	public void setFskode(String value) {  this.fskode = value; }
 	public String getFskode() {return this.fskode;}
 	
+	private String fskodeKey = null;
+	public void setFskodeKey(String value) {  this.fskodeKey = value; }
+	public String getFskodeKey() {return this.fskodeKey;}
+	
 	private String fssok = null;
 	public void setFssok(String value) {  this.fssok = value; }
 	public String getFssok() {return this.fssok;}
+	
+	private String fssokKey = null;
+	public void setFssokKey(String value) {  this.fssokKey = value; }
+	public String getFssokKey() {return this.fssokKey;}
 	
 	private String fsdokk = null;
 	public void setFsdokk(String value) {  this.fsdokk = value; }

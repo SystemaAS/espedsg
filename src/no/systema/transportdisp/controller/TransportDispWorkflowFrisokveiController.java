@@ -42,7 +42,6 @@ import no.systema.main.model.SystemaWebUser;
 
 //Trans.Disp
 import no.systema.transportdisp.service.TransportDispChildWindowService;
-import no.systema.transportdisp.service.TransportDispWorkflowBudgetService;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
@@ -50,11 +49,9 @@ import no.systema.transportdisp.mapper.url.request.UrlRequestParameterMapper;
 
 import no.systema.transportdisp.util.manager.CodeDropDownMgr;
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiRecord;
-
+import no.systema.transportdisp.validator.TransportDispWorkflowSpecificFrisokveiValidator;
 
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
@@ -109,13 +106,11 @@ public class TransportDispWorkflowFrisokveiController {
 		Map model = new HashMap();
 		
 		String action = request.getParameter("action");
-		String parentTrip = request.getParameter("tur");
 		String avd = request.getParameter("avd"); 
 		String opd = request.getParameter("opd"); 
 		
 		
 		logger.info("ACTION: " + action);
-		logger.info("parentTrip:" + parentTrip);
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
 		ModelAndView successView = new ModelAndView("transportdisp_workflow_frisokvei");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
@@ -126,42 +121,8 @@ public class TransportDispWorkflowFrisokveiController {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_URL;
-			//add URL-parameters
-    		StringBuffer urlRequestParams = new StringBuffer();
-    		urlRequestParams.append("user=" + appUser.getUser());
-    		urlRequestParams.append("&avd=" + avd); 
-    		urlRequestParams.append("&opd=" + opd);
-    		
-    		logger.info("URL: " + BASE_URL);
-    		logger.info("PARAMS: " + urlRequestParams.toString());
-    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-    		logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-    		if(jsonPayload!=null){
-    			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
-    			if(container!=null){
-    				this.setDomainObjectsInView(model, container, session);
-    			}	
-    		}
-    		//get the trip header since we need some values in JSP
-    		/*
-    		if(parentTrip!=null && !"".equals(parentTrip)){
-				this.controllerAjaxCommonFunctionsMgr = new ControllerAjaxCommonFunctionsMgr(this.urlCgiProxyService, this.transportDispWorkflowSpecificTripService);
-				JsonTransportDispWorkflowSpecificTripContainer specificTripContainer = this.controllerAjaxCommonFunctionsMgr.fetchTripHeading(appUser.getUser(), avd, parentTrip);
-				if(specificTripContainer!=null && specificTripContainer.getGetonetrip()!=null){
-					for(JsonTransportDispWorkflowSpecificTripRecord record: specificTripContainer.getGetonetrip()){
-						//logger.info(record.getTunat());
-						model.put("recordSpecificTrip", record);
-					}
-				}
-			}
-    		*/
-			//populate drop downs
-			this.setCodeDropDownMgr(appUser, model);
-			this.setDropDownsFromFiles(model);
-	    	model.put("record", recordToValidate);
-	    	model.put("parentTrip", parentTrip);
+			this.fetchItemLines(appUser, avd, opd, model, session);
+			model.put("record", recordToValidate);
 	    	//
 	    	successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
 	    	return successView;
@@ -183,23 +144,13 @@ public class TransportDispWorkflowFrisokveiController {
 		String action = request.getParameter("action");
 		String avd = request.getParameter("avd");
 		String opd = request.getParameter("opd");
-		String parentTrip = request.getParameter("hepro");
-		String tur = request.getParameter("tur"); //for delete
-		
-		//this is the key for all update (U/D)
-		String lineId = recordToValidate.getFskode();
-		//logger.info("isModeUpdate:" + recordToValidate.getIsModeUpdate());
+		logger.info("isModeUpdate:" + recordToValidate.getIsModeUpdate());
 		
 		//Params
 		StringBuffer params = new StringBuffer();
-		params.append("&bnr=" + lineId);
+		//params.append("&bnr=" + lineId);
 		if(avd!=null && !"".equals(avd)){ params.append("&avd=" + avd); }
 		if(opd!=null && !"".equals(opd)){ params.append("&opd=" + opd); }
-		if(parentTrip!=null && !"".equals(parentTrip)){ 	
-			params.append("&tur=" + parentTrip); 
-		}else if(tur!=null && !"".equals(tur)){ 
-			params.append("&tur=" + tur); //delete on tur
-		}
 		
 		logger.info("ACTION: " + action);
 		ModelAndView successView = new ModelAndView("redirect:transportdisp_workflow_frisokvei.do?action=doFind" + params.toString() );
@@ -212,40 +163,31 @@ public class TransportDispWorkflowFrisokveiController {
 			return loginView;
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			/* TODO TODO TODO !!
+			
 			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
 				logger.info("[INFO] doUpdate action ...");
-				TransportDispWorkflowSpecificBudgetValidator validator = new TransportDispWorkflowSpecificBudgetValidator();
+				TransportDispWorkflowSpecificFrisokveiValidator validator = new TransportDispWorkflowSpecificFrisokveiValidator();
 				
 				//Validate
 				validator.validate(recordToValidate, bindingResult);
 				//check for ERRORS
 				if(bindingResult.hasErrors()){
 					logger.info("[ERROR Validation] Record does not validate)");
-			    	logger.info("[INFO Rekvnr] " + lineId);
-			    	//this.populateAspectsOnBackendError(appUser, "ERROR-?", recordToValidate, model, parentTrip, session);
-			    	
-			    	//populate drop downs
-					this.setCodeDropDownMgr(appUser, model);
-					this.setDropDownsFromFiles(model);
-					model.put(TransportDispConstants.DOMAIN_LIST, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST));
-					model.put(TransportDispConstants.DOMAIN_CONTAINER, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER));
+			    	logger.info("[INFO Kod/sokText] " + recordToValidate.getFskode() + " " + recordToValidate.getFssok());
+			    	//fetch of lines
+					this.fetchItemLines(appUser, avd, opd, model, session);
 					model.put("record", recordToValidate);
-			    	model.put("parentTrip", parentTrip);
 			    	
 					errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
 			    	
 			    	return errorView;
 			    	
 				}else{
-					//adjust fields
-					recordToValidate.setBupCc(this.getCentury2digits(recordToValidate.getBupAr()));
-					recordToValidate.setBupAr(this.getYear2digits(recordToValidate.getBupAr()));
 					
 					String MODE = "U";
 					if(recordToValidate.getIsModeUpdate()!=null && "true".equalsIgnoreCase(recordToValidate.getIsModeUpdate())){
 						//UPDATE
-						logger.info("[INFO] UPDATE line nr: " + lineId + " start process... ");
+						logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " start process... ");
 					}else{
 						//CREATE NEW
 						MODE = "A";
@@ -255,11 +197,14 @@ public class TransportDispWorkflowFrisokveiController {
 					//-------------------------------
 					//Execute back-end Update/Create
 					//-------------------------------
-					JsonTransportDispWorkflowSpecificBudgetContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE,avd,opd,parentTrip);
+					JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE, avd, opd);
 					if(container!=null){
 	    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	    					logger.info("[ERROR] Back-end Error: " + container.getErrMsg());
-	    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, parentTrip, session);
+	    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
+	    					//fetch item lines
+	    					this.fetchItemLines(appUser, avd, opd, model, session);
+	    					
 	    			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
 	    					return errorView;
 	    				}else{
@@ -267,15 +212,15 @@ public class TransportDispWorkflowFrisokveiController {
 	    		    		logger.info("[INFO] Valid Update -- Record successfully updated, OK ");
 	    				}
 	    			}
-					logger.info("[INFO] UPDATE line nr: " + lineId + " end process. ");
+					logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " end process. ");
 				}
 				
 			}else if(TvinnSadConstants.ACTION_DELETE.equals(action)){
 				String DELETE_MODE = "D";
-				JsonTransportDispWorkflowSpecificBudgetContainer container = this.executeUpdateLine(appUser, recordToValidate, DELETE_MODE, avd, opd, parentTrip);
+				JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, DELETE_MODE, avd, opd);
 				if(container!=null){
     				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, tur, session);
+    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
     			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
     					return errorView;
     				}else{
@@ -285,7 +230,9 @@ public class TransportDispWorkflowFrisokveiController {
     			}
 				
 			}
-			*/
+			//fetch of lines
+			this.fetchItemLines(appUser, avd, opd, model, session);
+			
 	    	return successView;
 		}
 	}
@@ -297,34 +244,39 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param mode
 	 * @param avd
 	 * @param opd
-	 * @param parentTrip
 	 * @return
 	 */
 	private JsonTransportDispWorkflowSpecificOrderFrisokveiContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String mode,
-																				String avd, String opd, String parentTrip){
+										String avd, String opd){
 		JsonTransportDispWorkflowSpecificOrderFrisokveiContainer retval = null;
 		
 		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getFskode() + " start process... ");
 		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
     	//add URL-parameters
 		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser.getUser()); 
-		if("U".equals(mode) || "D".equals(mode)){
-			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
-		}else if("A".equals(mode)){
-			if(parentTrip!=null && !"".equals(parentTrip)){
-				urlRequestParams.append("&tur=" + parentTrip);
-			}else{
-				urlRequestParams.append("&avd=" + avd);
-				urlRequestParams.append("&opd=" + opd);
-			}
-		}
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&avd=" + avd);
+		urlRequestParams.append("&opd=" + opd);
 		urlRequestParams.append("&mode=" + mode);
-		//We need to fill out the record in case Update/Create
-		if(!"D".equals(mode)){
-			 String urlRequestParamsRecord = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
-			 urlRequestParams.append(urlRequestParamsRecord);
+		
+		if("U".equals(mode)){
+			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
+			urlRequestParams.append("&fssok=" + recordToValidate.getFssok());
+			urlRequestParams.append("&fsdokk=" + recordToValidate.getFsdokk());
+			urlRequestParams.append("&o_fskode=" + recordToValidate.getFskodeKey());
+			urlRequestParams.append("&o_fssok=" + recordToValidate.getFssokKey());
+			
+		}else if("A".equals(mode)){
+			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
+			urlRequestParams.append("&fssok=" + recordToValidate.getFssok());
+			urlRequestParams.append("&fsdokk=" + recordToValidate.getFsdokk());
+			
+		}else if("D".equals(mode)){
+			urlRequestParams.append("&o_fskode=" + recordToValidate.getFskode());
+			urlRequestParams.append("&o_fssok=" + recordToValidate.getFssok());
+			
 		}
+		
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams);
 		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
@@ -342,6 +294,34 @@ public class TransportDispWorkflowFrisokveiController {
 		}
 		return retval;
 	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @param model
+	 * @param session
+	 */
+	private void fetchItemLines(SystemaWebUser appUser, String avd, String opd, Map model, HttpSession session ){
+		final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_URL;
+		//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&avd=" + avd); 
+		urlRequestParams.append("&opd=" + opd);
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
+			if(container!=null){
+				this.setDomainObjectsInView(model, container, session);
+			}	
+		}
+	}
 	
 	/**
 	 * 
@@ -352,16 +332,11 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param parentTrip
 	 * @param session
 	 */
-	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, Map model, String parentTrip, HttpSession session ){
-		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Linenr:[" + recordToValidate.getFskode() + "] " +  errorMessage);
-		//populate drop downs
-		this.setCodeDropDownMgr(appUser, model);
-		this.setDropDownsFromFiles(model);
+	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, Map model, HttpSession session ){
+		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Kode/sokText:[" + recordToValidate.getFskode() + " " +  recordToValidate.getFssok() + "] " +  errorMessage);
+		
     	//return objects on validation errors
-    	model.put(TransportDispConstants.DOMAIN_CONTAINER, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER));
-    	model.put(TransportDispConstants.DOMAIN_LIST, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST));
-    	model.put("record", recordToValidate);
-    	model.put("parentTrip", parentTrip);
+		model.put("record", recordToValidate);
 	}
 	
 	/**

@@ -41,16 +41,7 @@
 			<td colspan="3" class="text16Bold">&nbsp;&nbsp;&nbsp;
 				<img width="20px" height="20px" src="resources/images/find.png" border="0" alt="frisok">
 				<spring:message code="systema.transportdisp.title"/> - <spring:message code="systema.transportdisp.workflow.frisokvei.label"/>
-				<c:choose>
-				<c:when test="${not empty model.parentTrip}">
-					<c:if test="${empty model.container.opd}">
-						&nbsp;-<font class="text16MediumBlue">Turnr&nbsp;${model.parentTrip}</font>
-					</c:if>
-				</c:when>
-				<c:otherwise>
-					&nbsp;<font class="text16MediumBlue">Avd/Opd&nbsp;&nbsp;&nbsp;${Xmodel.container.avd}/${Xmodel.container.opd}</font>	
-				</c:otherwise>
-				</c:choose>
+				&nbsp;<font class="text16MediumBlue">Avd/Opd&nbsp;&nbsp;&nbsp;<b>${model.container.avd}</b>/<b>${model.container.opd}</b></font>	
 			</td>
 		</tr>
 		<tr height="5"><td colspan="2">&nbsp;</td></tr>
@@ -113,8 +104,8 @@
 							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="tableCell" align="center">
-							               	   <c:if test="${not empty record.fskode}">
-							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@tur_${Xrecord.butunr}@kode_${record.fskode}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+							               	   <c:if test="${not empty record.fskode && not empty record.fssok}">
+							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 									               	</a>&nbsp;
 									               	
@@ -179,7 +170,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td class="text12" align="left" >
-					<input tabindex=-1  class="inputFormSubmitStd" type="button" name="clearButton" id="clearButton"value='Lage ny'>
+					<input tabindex=-1  class="inputFormSubmitStd" type="button" name="newRecordButton" id="newRecordButton" value='Lage ny'>
 				</td>
 			</tr>
 			<tr height="5"><td class="text12" align="left" ></td></tr>
@@ -191,8 +182,9 @@
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 					<input type="hidden" name="avd" id="avd" value='${model.container.avd}'>
 					<input type="hidden" name="opd" id="opd" value='${model.container.opd}'>
-					<input type="hidden" name="hepro" id="hepro" value='${Xmodel.container.tur}'>
-					<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${Xmodel.record.isModeUpdate}">
+					<input type="hidden" name="fskodeKey" id="fskodeKey" value='${model.record.fskodeKey}'>
+					<input type="hidden" name="fssokKey" id="fssokKey" value='${model.record.fssokKey}'>
+					<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}">
 					
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -201,24 +193,8 @@
 	 					
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
-				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
- 									<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="debugPrintlnAjaxItemFetchAdmin" class="popupWithInputText"  >
-						           		<div class="text11" align="left">
-						           			<label id="debugPrintlnAjaxItemFetchInfo"></label>
-						           			<br/>
-						           			&nbsp;&nbsp;
-						           			<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('debugPrintlnAjaxItemFetchAdmin');">
-						           			Close
-						           			</button> 
-						           		</div>
-					        		</span>
-				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">&nbsp;&nbsp;<font id="editLineNr"></font>
-				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
-		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${XactiveUrlRPGUpdate_TvinnSad}<br/><br/>
-		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
-		           		   			</div>
-						        </span>  
+				 				<b>&nbsp;&nbsp;Varelinje&nbsp;</b>
+ 								<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">&nbsp;&nbsp;<font id="editLineNr"></font>
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -240,11 +216,11 @@
 					            		
 							        </tr>
 							        <tr>
-						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fskode" id="fskode" size="4" maxlength="3" value="${Xmodel.container.kode}"></td>
+						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fskode" id="fskode" size="4" maxlength="3" value="${model.record.fskode}"></td>
 							            <td class="text12" align="left" >
-						        			&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fssok" id="fssok" size="36" maxlength="35" value="${Xmodel.container.sok}">
+						        			&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fssok" id="fssok" size="36" maxlength="35" value="${model.record.fssok}">
 						        		</td>
-						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="fsdokk" id="fsdokk" size="11" maxlength="10" value="${Xmodel.container.dokk}"></td>
+						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="fsdokk" id="fsdokk" size="11" maxlength="10" value="${model.record.fsdokk}"></td>
 							            
 							        </tr>
 							        
