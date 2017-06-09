@@ -219,7 +219,8 @@
 						 	  <table width="90%" cellspacing="0" border="0" align="left">
 				 				 <tr>
 									<td>
-						 				 <textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="fxtxt" name="fxtxt" cols="80" rows="30">${model.fxtxt}</textarea> 
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="fxtxt" name="fxtxt" cols="80" rows="30">${model.fxtxt}</textarea> 
+										<div><span id="linesUsed"></span> <spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.rows"/></div>
 				 				   </td>
 				 				   
 				 				   <td class="text12" valign="top">&nbsp;<spring:message code="systema.main.maintenance.mainmaintenancecundf.fratxt.changelog"/>

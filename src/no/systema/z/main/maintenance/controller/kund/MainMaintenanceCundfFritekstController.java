@@ -165,7 +165,8 @@ public class MainMaintenanceCundfFritekstController {
 			dao = new FratxtDao();
 			dao.setFxknr(orgRecord.getFxknr());
 			dao.setFxlnr(orgRecord.getFxlnr());
-			
+			dao.setDelsys(orgRecord.getDelsys());
+		
 			deleteList.add(dao);
 		}
 
