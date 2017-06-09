@@ -286,7 +286,10 @@
 											 --%>
 								 		</c:otherwise>	
 								 		</c:choose>
-								 			
+								 		
+								 		<c:if test="${not empty model.record.heopd}">
+								 			&nbsp;<button name="frisokveiButton" id="frisokveiButton" class="buttonGrayWithGreenFrame" type="button" >Frie søkeveier</button>
+								 		</c:if>
 								 		<c:if test="${not empty model.record.hesgm}">
 								 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font title="hesgm" class="inputText11" style="background-color: #DFF2BF;color: #4F8A10;">Levert:&nbsp;${model.record.hesgm}&nbsp;-&nbsp;${model.record.hedtmo}:${model.record.heklmo}</font>
 								 		</c:if>	
@@ -296,7 +299,7 @@
 							 	</table>	
 							</td>
 							<td valign="top">
-								<table>
+								<table >
 								<tr>
 				 					<td class="text11">
 				 						<img onMouseOver="showPop('iu_info');" onMouseOut="hidePop('iu_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -323,8 +326,9 @@
 				 						<span title="travd0-tropd0" >&nbsp;Opphav.</span>
 				 						<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="travd0" id="travd0" size="3" value="${model.record.travd0}">
 				 						<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="tropd0" id="tropd0" size="7" value="${model.record.tropd0}">
+				 						
 				 						<c:if test="${not empty model.record.heopd}">
-					 						&nbsp;&nbsp;&nbsp;
+					 						&nbsp;&nbsp;
 											<button tabindex=-1 name="trackAndTraceButton" class="inputFormSubmitStd" type="button" onClick="showPop('trackAndTraceFields');" >Hend.logg</button> 
 										        <span style="background-color:#EEEEEE; position:absolute; left:200px; top:200px; width:900px; height:500px;" id="trackAndTraceFields" class="popupWithInputTextThickBorder"  >
 									           		<table width="95%" border="0" align="left" cellspacing="2">
@@ -388,7 +392,7 @@
 								   				&nbsp;<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
 								   				<%-- TODO -->expose when Bring accepts estimates - COVI!!! --%>
 								   				&nbsp;<button name="planleggingButton" id="planleggingButton" class="buttonGrayWithGreenFrame" type="button" >Til planlegging</button>
-								   				&nbsp;<button name="frisokveiButton" id="frisokveiButton" class="buttonGrayWithGreenFrame" type="button" >Frie søkeveier</button>
+								   				
 										</c:if>
 			 						</td>
 			 						
