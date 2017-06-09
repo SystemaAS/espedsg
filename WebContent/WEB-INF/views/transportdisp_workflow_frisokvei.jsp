@@ -83,17 +83,17 @@
 							</td>
 						</tr> 
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:99%; height:15em;">
+							<td class="ownScrollableSubWindow" style="width:90%; height:15em;">
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 										<td align="center" width="4%" class="tableHeaderFieldFirst" >&nbsp;<span title="todo">Kode&nbsp;</span></td>
 										<td align="center" width="2%" class="tableHeaderField" >&nbsp;<span title="todo">Oppd.&nbsp;</span></td>
-										<td class="tableHeaderField" >&nbsp;<span title="bust">Søtekst&nbsp;</span></td>   
+										<td class="tableHeaderField" >&nbsp;<span title="bust">Søketekst&nbsp;</span></td>   
 					                    <td class="tableHeaderField" >&nbsp;<span title="bubnr">Dok.kode&nbsp;</span></td>
-					        			<td class="tableHeaderField" >&nbsp;Slett&nbsp;</td>
+					        			<td align="center" width="2%" class="tableHeaderField" >&nbsp;Slett&nbsp;</td>
 					               </tr> 
 					               
-				 					  <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
+				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 							               <c:choose>           
 							                   <c:when test="${counter.count%2==0}">
 							                   	   <%--highlight cost lines --%>	
@@ -103,18 +103,18 @@
 							                       <tr class="tableOddRow" height="20" >
 							                   </c:otherwise>
 							               </c:choose>
-							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${Xrecord.bukdm}</td>
+							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${record.fskode}</td>
 							               <td align="center" width="2%" class="tableCell" >&nbsp;
-							     				<a id="recordUpdate_${Xrecord.bubnr}" href="#" onClick="getBudgetItemData(this);">
+							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
 					               					<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
 					               				</a>
 						               	   </td>
-							               <td class="tableCell" >&nbsp;${Xrecord.bust}</td>
-							               <td class="tableCell" >&nbsp;${Xrecord.buvk}</td>
+							               <td class="tableCell" >&nbsp;${record.fssok}</td>
+							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
-							               <td class="tableCell" align="center">
-							               	   <c:if test="${not empty Xrecord.bubnr}">
-							                   		<a style="cursor:pointer;" id="avd_${Xrecord.buoavd}@opd_${Xrecord.buopd}@tur_${Xrecord.butunr}@bubnr_${Xrecord.bubnr}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+							               <td width="2%" class="tableCell" align="center">
+							               	   <c:if test="${not empty record.fskode}">
+							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@tur_${Xrecord.butunr}@kode_${record.fskode}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 									               	</a>&nbsp;
 									               	
@@ -162,7 +162,7 @@
 			<c:if test="${not empty model.errorMessage}">
 				<tr>
 				<td>
-		           	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+		           	<table class="tabThinBorderWhiteWithSideBorders" width="90%" align="left" border="0" cellspacing="0" cellpadding="0">
 		           	<tr>
 					<td valign="bottom" class="textError">					
 			            <ul>
@@ -178,6 +178,12 @@
            	<%-- DETAIL Section - Create Item line PRIMARY SECTION --%>
            	<%-- ------------------------------------------------- --%>
            	<tr>
+	 			<td class="text12" align="left" >
+					<input tabindex=-1  class="inputFormSubmitStd" type="button" name="clearButton" id="clearButton"value='Lage ny'>
+				</td>
+			</tr>
+			<tr height="5"><td class="text12" align="left" ></td></tr>
+           	<tr>
 	 			<td >
 	 				<form action="transportdisp_workflow_frisokvei_edit.do" name="transportDispInvoiceUpdateItemForm" id="transportDispInvoiceUpdateItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
@@ -185,13 +191,14 @@
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 					<input type="hidden" name="avd" id="avd" value='${model.container.avd}'>
 					<input type="hidden" name="opd" id="opd" value='${model.container.opd}'>
-					<input type="hidden" name="hepro" id="hepro" value='${model.container.tur}'>
-					<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}">
+					<input type="hidden" name="hepro" id="hepro" value='${Xmodel.container.tur}'>
+					<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${Xmodel.record.isModeUpdate}">
 					
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="99%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 					
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
@@ -215,29 +222,29 @@
 			 				</td>
 		 				</tr>
 	 				</table>
-					<table width="99%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="12"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
-						 		<table  class="tableBorderWithRoundCornersGray" width="100%" border="0" cellspacing="0" cellpadding="0">
+						 		<table  class="tableBorderWithRoundCornersGray" width="90%" border="0" cellspacing="0" cellpadding="0">
 						 			<tr height="5"><td class="text" align="left"></td></tr>
 						 			<tr >
 						 				
-						            	<td class="text12" align="left"><span title="buvk">&nbsp;Kode</span>
+						            	<td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fskode">&nbsp;Kode</span>
 							            	<a tabindex=-1 id="TODObuvkIdLink">
 	 											<img id="imgGebyrCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 							            </td>
-							            <td class="text12" align="left"><span title="bubl">&nbsp;Søktekst</span></td>
-					            		<td class="text12" align="left"><span title="buval">&nbsp;Dok.kode</span></td>
+							            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span></td>
 					            		
 							        </tr>
 							        <tr>
-						        		<td class="text12" align="left" ><input type="text" class="inputText" name="TODObusg" id="TODObusg" size="4" maxlength="3" value="${user.signatur}"></td>
+						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fskode" id="fskode" size="4" maxlength="3" value="${Xmodel.container.kode}"></td>
 							            <td class="text12" align="left" >
-						        			<input type="text" class="inputText" name="TODObutunr" id="TODObutunr" size="36" maxlength="35" value="${model.container.tur}">
+						        			&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fssok" id="fssok" size="36" maxlength="35" value="${Xmodel.container.sok}">
 						        		</td>
-						        		<td class="text12" align="left" ><input type="text" class="inputText" name="TODObusg" id="TODObusg" size="11" maxlength="10" value="${user.signatur}"></td>
+						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="fsdokk" id="fsdokk" size="11" maxlength="10" value="${Xmodel.container.dokk}"></td>
 							            
 							        </tr>
 							        
@@ -249,7 +256,9 @@
 					    <tr>	
 						    <td align="left" colspan="5">
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.transportdisp.submit.save"/>'>
+								<%-- 
 								&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.transportdisp.cancel"/>'>
+								--%>
 							</td>
 														        	
 				        </tr>

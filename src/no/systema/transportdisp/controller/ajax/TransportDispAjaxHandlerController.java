@@ -66,6 +66,8 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiRecord;
 
 
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
@@ -1332,6 +1334,37 @@ public class TransportDispAjaxHandlerController {
 			    				list.add(record);
 			    			}
 			    			result = list;
+			    		}
+			    	  }
+				 }
+				 return result;
+			}	
+			/**
+			 * 
+			 * @param applicationUser
+			 * @param requestString
+			 * @return
+			 */
+			@RequestMapping(value = "getFrisokveiDetailLine_TransportDisp.do", method = RequestMethod.GET)
+		    public @ResponseBody List<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer> getFrisokveiDetailLine
+			  						(@RequestParam String applicationUser, @RequestParam String requestString){
+				 logger.info("Inside: getFrisokveiDetailLine");
+				 List<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer> result = new ArrayList<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer>();
+				 //logger.info(requestString);
+				 if(requestString!=null && !"".equals(requestString)){
+				 	 final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
+				 	 
+					 //add URL-parameters
+					 String urlRequestParams = requestString;
+					 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+					 logger.info("URL: " + BASE_URL);
+					 logger.info("URL PARAMS: " + urlRequestParams);
+					 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+					 
+					 if(jsonPayload!=null){
+						 JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
+			    		if(container!=null){
+			    			result.add(container);
 			    		}
 			    	  }
 				 }

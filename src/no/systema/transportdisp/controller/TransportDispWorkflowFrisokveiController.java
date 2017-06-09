@@ -44,20 +44,17 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.transportdisp.service.TransportDispChildWindowService;
 import no.systema.transportdisp.service.TransportDispWorkflowBudgetService;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
+import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
 import no.systema.transportdisp.mapper.url.request.UrlRequestParameterMapper;
 
 import no.systema.transportdisp.util.manager.CodeDropDownMgr;
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
-import no.systema.transportdisp.validator.TransportDispWorkflowSpecificBudgetValidator;
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowSpecificTripRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiRecord;
+
 
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
@@ -107,7 +104,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @return
 	 */
 	@RequestMapping(value="transportdisp_workflow_frisokvei.do", method={RequestMethod.GET} )
-	public ModelAndView doInit(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificBudgetRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doInit(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
@@ -129,16 +126,12 @@ public class TransportDispWorkflowFrisokveiController {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_BUDGET_URL;
+			final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_URL;
 			//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
     		urlRequestParams.append("&avd=" + avd); 
     		urlRequestParams.append("&opd=" + opd);
-    		if(parentTrip!=null && !"".equals(parentTrip)){
-    			urlRequestParams.append("&tur=" + parentTrip);
-    		}
-    		urlRequestParams.append("&type=A");
     		
     		logger.info("URL: " + BASE_URL);
     		logger.info("PARAMS: " + urlRequestParams.toString());
@@ -146,12 +139,13 @@ public class TransportDispWorkflowFrisokveiController {
     		logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     		if(jsonPayload!=null){
-    			JsonTransportDispWorkflowSpecificBudgetContainer container = this.transportDispWorkflowBudgetService.getContainer(jsonPayload);
+    			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
     			if(container!=null){
     				this.setDomainObjectsInView(model, container, session);
     			}	
     		}
     		//get the trip header since we need some values in JSP
+    		/*
     		if(parentTrip!=null && !"".equals(parentTrip)){
 				this.controllerAjaxCommonFunctionsMgr = new ControllerAjaxCommonFunctionsMgr(this.urlCgiProxyService, this.transportDispWorkflowSpecificTripService);
 				JsonTransportDispWorkflowSpecificTripContainer specificTripContainer = this.controllerAjaxCommonFunctionsMgr.fetchTripHeading(appUser.getUser(), avd, parentTrip);
@@ -162,8 +156,7 @@ public class TransportDispWorkflowFrisokveiController {
 					}
 				}
 			}
-    		
-			//this.setGebyrMomsCode(appUser, recordToValidate);
+    		*/
 			//populate drop downs
 			this.setCodeDropDownMgr(appUser, model);
 			this.setDropDownsFromFiles(model);
@@ -183,7 +176,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @return
 	 */
 	@RequestMapping(value="transportdisp_workflow_frisokvei_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificBudgetRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
@@ -194,8 +187,8 @@ public class TransportDispWorkflowFrisokveiController {
 		String tur = request.getParameter("tur"); //for delete
 		
 		//this is the key for all update (U/D)
-		String lineId = recordToValidate.getBubnr();
-		logger.info("isModeUpdate:" + recordToValidate.getIsModeUpdate());
+		String lineId = recordToValidate.getFskode();
+		//logger.info("isModeUpdate:" + recordToValidate.getIsModeUpdate());
 		
 		//Params
 		StringBuffer params = new StringBuffer();
@@ -307,17 +300,17 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param parentTrip
 	 * @return
 	 */
-	private JsonTransportDispWorkflowSpecificBudgetContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificBudgetRecord recordToValidate, String mode,
+	private JsonTransportDispWorkflowSpecificOrderFrisokveiContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String mode,
 																				String avd, String opd, String parentTrip){
-		JsonTransportDispWorkflowSpecificBudgetContainer retval = null;
+		JsonTransportDispWorkflowSpecificOrderFrisokveiContainer retval = null;
 		
-		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getBubnr() + " start process... ");
-		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_BUDGET_URL;
+		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getFskode() + " start process... ");
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
     	//add URL-parameters
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser()); 
 		if("U".equals(mode) || "D".equals(mode)){
-			urlRequestParams.append("&bnr=" + recordToValidate.getBubnr());
+			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
 		}else if("A".equals(mode)){
 			if(parentTrip!=null && !"".equals(parentTrip)){
 				urlRequestParams.append("&tur=" + parentTrip);
@@ -341,7 +334,7 @@ public class TransportDispWorkflowFrisokveiController {
 		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	
 		if(jsonPayload!=null){
-			JsonTransportDispWorkflowSpecificBudgetContainer container = this.transportDispWorkflowBudgetService.getContainer(jsonPayload);
+			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
 			retval = container;
 			if(container.getErrMsg()!=null){
 				logger.info(container.getErrMsg());
@@ -359,8 +352,8 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param parentTrip
 	 * @param session
 	 */
-	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTransportDispWorkflowSpecificBudgetRecord recordToValidate, Map model, String parentTrip, HttpSession session ){
-		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Linenr:[" + recordToValidate.getBubnr() + "] " +  errorMessage);
+	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, Map model, String parentTrip, HttpSession session ){
+		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Linenr:[" + recordToValidate.getFskode() + "] " +  errorMessage);
 		//populate drop downs
 		this.setCodeDropDownMgr(appUser, model);
 		this.setDropDownsFromFiles(model);
@@ -377,10 +370,11 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.transportDispDropDownListPopulationService,
+		/*this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.transportDispDropDownListPopulationService,
 				model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
 		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringGebyrCodes(this.urlCgiProxyService, this.transportDispDropDownListPopulationService, 
 				model, appUser);
+		*/		
 	}
 	
 	/**
@@ -388,7 +382,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param model
 	 */
 	private void setDropDownsFromFiles(Map<String, Object> model){
-		model.put(TransportDispConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.transportDispDropDownListPopulationService.getCurrencyList());
+		//model.put(TransportDispConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.transportDispDropDownListPopulationService.getCurrencyList());
 	}
 	
 	/**
@@ -397,37 +391,28 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param container
 	 * @param session
 	 */
-	private void setDomainObjectsInView(Map model, JsonTransportDispWorkflowSpecificBudgetContainer container, HttpSession session){
-		List<JsonTransportDispWorkflowSpecificBudgetRecord> list = new ArrayList<JsonTransportDispWorkflowSpecificBudgetRecord>();
+	private void setDomainObjectsInView(Map model, JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container, HttpSession session){
+		Collection<JsonTransportDispWorkflowSpecificOrderFrisokveiRecord> list = new ArrayList<JsonTransportDispWorkflowSpecificOrderFrisokveiRecord>();
 		//could be two options
-		if(container.getBudgetLines()!=null){
-			for (JsonTransportDispWorkflowSpecificBudgetRecord record: container.getBudgetLines()){
-				//DEBUG logger.info("A RECORD:" + record.getFask());
+		if(container.getAwblinelist()!=null){
+			list = container.getAwblinelist();
+			/*
+			for (JsonTransportDispWorkflowSpecificOrderFrisokveiRecord record: container.getAwblinelist()){
+				
 				list.add(record);
-			}
-		}else if (container.getBudgetLineUpdate()!=null){
-			for (JsonTransportDispWorkflowSpecificBudgetRecord record: container.getBudgetLines()){
-				//DEBUG logger.info("A RECORD:" + record.getFask());
-				list.add(record);
-			}
+			}*/
 		}
-		//[1] Sort the list after: fask(code part (S,K,X,etc) and fafakt(inv.nr)
-		//Collections.sort(list, new JsonTransportDispWorkflowSpecificOrderInvoiceRecord.OrderByCodeAndInvoiceNr());
-		//[1.1] Group the list in sub-lists of related records
-		//Map listGroupsMap = this.setListGroups(list);
-		//[2] Set totals in each group
-		//list = this.getListWithTotals(listGroupsMap);
 		
 		//always keep track of the total nr of item lines
-		String nrOfItems = String.valueOf(list.size());
-		container.setTotalNumberOfItemLines(nrOfItems);
+		//String nrOfItems = String.valueOf(list.size());
+		//container.setTotalNumberOfItemLines(nrOfItems);
 		
 		logger.info("putting on model...");
 		model.put(TransportDispConstants.DOMAIN_CONTAINER, container);
 		model.put(TransportDispConstants.DOMAIN_LIST, list);
 		//put the objects in session ONLY for the validation errors routine in an UPDATE. Otherwise we do have to retrive th
-		session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER, container);
-		session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST, list);
+		//session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER, container);
+		//session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST, list);
 		
 	}
 	
@@ -484,11 +469,11 @@ public class TransportDispWorkflowFrisokveiController {
 	public void setTransportDispDropDownListPopulationService (TransportDispDropDownListPopulationService value){ this.transportDispDropDownListPopulationService=value; }
 	public TransportDispDropDownListPopulationService getTransportDispDropDownListPopulationService(){return this.transportDispDropDownListPopulationService;}
 	
-	@Qualifier ("transportDispWorkflowBudgetService")
-	private TransportDispWorkflowBudgetService transportDispWorkflowBudgetService;
+	@Qualifier ("transportDispWorkflowSpecificOrderService")
+	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
 	@Autowired
-	public void setTransportDispWorkflowBudgetService (TransportDispWorkflowBudgetService value){ this.transportDispWorkflowBudgetService=value; }
-	public TransportDispWorkflowBudgetService getTransportDispWorkflowBudgetService(){return this.transportDispWorkflowBudgetService;}
+	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService=value; }
+	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){return this.transportDispWorkflowSpecificOrderService;}
 	
 	@Qualifier 
 	private TransportDispWorkflowSpecificTripService transportDispWorkflowSpecificTripService;

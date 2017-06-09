@@ -231,12 +231,25 @@ public final class TransportDispUrlDataStore {
 	// mode=U (update)
 	// mode=D (delete)
 	//----------------------------------------------------------
-	static public String TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_BUDGET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE27RU.pgm";
-	//http://gw.systema.no/sycgip/tjge27ru.pgm?user=JOVO&bnr=1318923&mode=U&bupCc=20&bupAr=15&bupMn
 	static public String TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_BUDGET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE27RG.pgm";
 	//http://gw.systema.no/sycgip/TJGE27RG.pgm?user=JOVO&avd=75&opd=&tur=75000038&bnr=1319143&type=A
+	static public String TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_BUDGET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE27RU.pgm";
+	//http://gw.systema.no/sycgip/tjge27ru.pgm?user=JOVO&bnr=1318923&mode=U&bupCc=20&bupAr=15&bupMn
 	
 	
+	//----------------------------------------------------------------
+	//[3] FETCH/UPDATE/CREATE/DELETE Frie søkeveier
+	// It might or might not have a trip cross reference
+	// mode=A (add)
+	// mode=U (update)
+	// mode=D (delete)
+	// mode=I (inquiry)
+	//----------------------------------------------------------
+	static public String TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE28R.pgm";
+	//http://gw.systema.no/sycgip/TJGE28R.pgm?user=JOVO&avd=75&opd=155651
+	static public String TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE29R.pgm";
+	//http://gw.systema.no/sycgip/tjge29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
+		
 	
 	//----------------------------------------------------------------------------------------------------------
 	// Post Update service call (in order to use some last-resource pgm)

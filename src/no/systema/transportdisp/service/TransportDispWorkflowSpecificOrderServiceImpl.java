@@ -11,8 +11,8 @@ import org.apache.log4j.Logger;
 import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispWorkflowSpecificOrderMapper;
 import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispWorkflowSpecificOrderInvoiceMapper;
 import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispWorkflowSpecificOrderLoggingMapper;
-
 import no.systema.transportdisp.mapper.jsonjackson.validationbackend.JsonTransportDispWorkflowSpecificOrderValidationBackendMapper;
+import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispWorkflowSpecificOrderFrisokveiMapper;
 
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispCustomerDeliveryAddressContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
@@ -20,6 +20,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevPdfContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderMessageNoteContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.logging.JsonTransportDispWorkflowSpecificOrderLoggingContainer;
@@ -193,6 +194,23 @@ public class TransportDispWorkflowSpecificOrderServiceImpl implements TransportD
 		JsonTransportDispWorkflowSpecificOrderLoggingContainer container = null;
 		try{
 			JsonTransportDispWorkflowSpecificOrderLoggingMapper mapper = new JsonTransportDispWorkflowSpecificOrderLoggingMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			logger.info(errors);
+		}
+		
+		return container;
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonTransportDispWorkflowSpecificOrderFrisokveiContainer getOrderFrisokveiContainer(String utfPayload){
+		JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = null;
+		try{
+			JsonTransportDispWorkflowSpecificOrderFrisokveiMapper mapper = new JsonTransportDispWorkflowSpecificOrderFrisokveiMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			StringWriter errors = new StringWriter();

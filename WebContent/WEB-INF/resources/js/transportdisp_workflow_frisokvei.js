@@ -4,7 +4,7 @@
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
   jq(document).ready(function() {
-		jq('#updCancelButton').hide();
+		//jq('#updCancelButton').hide();
   });
   
   //Global functions
@@ -48,13 +48,19 @@
 	  });
 	  
   });
-  
+  */
   jq(function() {
-	  jq('#updCancelButton').click(function() {
-  		window.open('transportdisp_workflow_budget.do?avd='+ jq('#avd').val() + '&opd=' + jq('#opd').val() + "&tur=" + jq('#hepro').val(), 'budgetWin','top=120px,left=100px,height=800px,width=1600px,scrollbars=no,status=no,location=no');
+	  jq('#"clearButton"').click(function() {
+		  //fields
+		  jq('#fskode').val("");
+		  jq('#fssok').val("");
+		  jq('#fsdokk').val("");
+		  //
+		  jq('#isModeUpdate').val("");
+		  
 	  });
   });
-  
+  /*
   //Links on child windows
   jq(function() {
 	  //supplier child window search
@@ -166,21 +172,21 @@
   //-------------------
   //Fetch specific line
   //-------------------
-  function TODOgetBudgetItemData(record) {
+  function getItemData(record) {
 		var FIELD_SEPARATOR = "_";
 	  	var htmlValue = record.id;
 	  	var applicationUser = jq('#applicationUser').val();
 	  	//alert(htmlValue);
-	  	var field = htmlValue.split(FIELD_SEPARATOR);
-	  	var lineId = field[1];
-	  	var requestString = "user=" + jq('#applicationUser').val() + "&avd=" + jq('#avd').val() + "&opd=" + jq('#opd').val() + 
-	  						"&tur=" + jq('#hepro').val() + "&bnr=" + lineId + "&type=A";
-	  	//alert(requestString);
-	  	//http://gw.systema.no/sycgip/TJGE26R.pgm?user=JOVO&avd=80&opd=201523&lin=&type=A
+	  	htmlValue = htmlValue.replace("recordUpdate_","");
+	  	var fields = htmlValue.split(FIELD_SEPARATOR);
+	  	var requestString = "user=" + jq('#applicationUser').val() + "&avd=" + jq('#avd').val() + "&opd=" + jq('#opd').val() + "&mode=I" +
+	  						"&o_fskode=" + fields[0] + "&o_fssok=" + fields[1];
+	  	//DEBUG--> alert(requestString);
+	  	//http://user=JOVO&avd=75&opd=103&mode=I&o_fskode=IFB&o_fssok=70701550001424817 
 	  	
 	  	jq.ajax({
 	  	  type: 'GET',
-	  	  url: 'TODOgetBudgetDetailLine_TransportDisp.do',
+	  	  url: 'getFrisokveiDetailLine_TransportDisp.do',
 	  	  data: { applicationUser : applicationUser, 
 	  		  	  requestString : requestString }, 
 	  	  dataType: 'json',
@@ -190,59 +196,20 @@
 	  		var len = data.length;
 			for ( var i = 0; i < len; i++) {
 				//alert(data[i].fask);
+				
 				jq('#isModeUpdate').val("");jq('#isModeUpdate').val("true");
-				jq('#updCancelButton').show(); //in order to be able to cancel (implicit reload)
-				//rekvnr
-				jq('#bubnr').val("");jq('#bubnr').val(data[i].bubnr);
-				//jq("#bubnr").prop('readonly', true);
-				
-				jq('#buvk').val("");jq('#buvk').val(data[i].buvk);
-				jq('#bukdm').val("");jq('#bukdm').val(data[i].bukdm);
-				jq('#bubl').val("");jq('#bubl').val(data[i].bubl);
-				jq('#buval').val("");jq('#buval').val(data[i].buval);
-					
-				jq('#bulnr').val("");
-				if(data[i].bulnr!='0'){
-					jq('#bulnr').val(data[i].bulnr);
-				}
-				
-				jq('#levNavn').val("");jq('#levNavn').val(data[i].levNavn);
-				jq('#butype').val("");jq('#butype').val(data[i].butype);
-				jq('#bublst').val("");jq('#bublst').val(data[i].bublst);
-				jq('#busg').val("");jq('#busg').val(data[i].busg);
-				
+				//jq('#updCancelButton').show(); //in order to be able to cancel (implicit reload)
+				//fields
+				jq('#fskode').val("");jq('#fskode').val(data[i].kode);
+				jq('#fssok').val("");jq('#fssok').val(data[i].sok);
+				jq('#fsdokk').val("");jq('#fsdokk').val(data[i].dokk);
+				/*
 				jq('#buoavd').val("");
 				if(data[i].buoavd!='0'){
 					jq('#buoavd').val(data[i].buoavd);
 				}
-				
-				jq('#buopd').val("");
-				if(data[i].buopd!='0'){
-					jq('#buopd').val(data[i].buopd);
-				}
-				
-				jq('#butunr').val("");
-				if(data[i].butunr!='0'){
-					jq('#butunr').val(data[i].butunr);
-  		  	  	}
-				
-				jq('#butnr').val("");
-				if(data[i].butnr!='0'){
-					jq('#butnr').val(data[i].butnr);
-				}
-				jq('#traNavn').val("");jq('#traNavn').val(data[i].traNavn);
-				
-				jq('#butxt').val("");jq('#butxt').val(data[i].butxt);
-				jq('#bubiln').val("");jq('#bubiln').val(data[i].bubiln);
-				
-				jq('#bufedt').val("");
-				if(data[i].bufedt!='0'){
-					jq('#bufedt').val(data[i].bufedt);
-				}
-				jq('#bupMn').val("");jq('#bupMn').val(data[i].bupMn);
-				jq('#bupAr').val("");jq('#bupAr').val(data[i].bupCc + data[i].bupAr);
-				jq('#bubilk').val("");jq('#bubilk').val(data[i].bubilk);
-				
+				*/
+					
 			}
 	  	  },
 	  	  error: function() {
