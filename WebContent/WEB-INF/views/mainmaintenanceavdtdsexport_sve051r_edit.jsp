@@ -125,36 +125,37 @@
 				    	    	<c:choose>
 					    	    	<c:when test="${not empty model.updateId}">
 					    	    		<input type="hidden" name="svea_syav" id="svea_syav" value="${model.avd}">
+					    	    		<input type="hidden" name="svea_syop" id="svea_syop" value="${model.opd}">
 					    	    		<input type="hidden" name="avd" id="avd" value="${model.avd}">
 					    	    		<input type="hidden" name="opd" id="opd" value="${model.opd}">
 					    	    		
-					    	    		<td colspan="4" class="text14MediumBlue" title=".">Afd.navn&nbsp;&nbsp;&nbsp;
-											<input readonly class="inputTextReadOnly" id="avdnavn" name="avdnavn" type="text" size="45" value="${model.avdnavn}">
+					    	    		<td colspan="4" class="text14MediumBlue" title="avdReadOnly">Avd&nbsp;&nbsp;&nbsp;
+											<input readonly type="text" class="inputTextReadOnly" id="avdReadOnly" name="avdReadOnly" size="4" value="${model.avd}">
 										</td>
-										<td class="text12" title="dkea_syop">&nbsp;&nbsp;&nbsp;<font class="text12RedBold" >*</font>Ärendenr. - nr.räknare</td>
+										<td class="text12" title="opdReadOnly">&nbsp;&nbsp;&nbsp;Ärendenr. - nr.räknare</td>
 										<td class="text12" >
-											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="dkea_syop" id="dkea_syop" size="10" maxlength="8" value='${Xmodel.record.svea_syop}'>
+											<input readonly type="text" class="inputTextReadOnly" name="opdReadOnly" id="opdReadOnly" size="10" value='${model.record.svea_syop}'>
 										</td>
 					    	    		
 					    	    	</c:when>
 					    	    	<c:otherwise>
-					    	    		<td class="text12" title="dkea_syav"><font class="text12RedBold" >*</font>Avdelning
+					    	    		<td class="text12" title="svea_syav"><font class="text12RedBold" >*</font>Avdelning
 					    	    			<a tabindex="-1" id="avdIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
 					    	    		</td>
 										<td class="text12" >
 										<select name="svea_syav" id="svea_syav" class="inputTextMediumBlueMandatoryField">
-						  					<option value="">-vælg-</option>
-						  					<c:forEach var="record" items="${Xmodel.avdGeneralList}" >
-						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.dkea_syav == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
+						  					<option value="">-Välj-</option>
+						  					<c:forEach var="record" items="${model.avdGeneralList}" >
+						 				  		<option value="${Xrecord.koaavd}"<c:if test="${ model.record.svea_syav == Xrecord.koaavd}"> selected </c:if> >${Xrecord.koaavd}</option>
 											  </c:forEach>  
 											</select>
 										</td>
 										
-										<td class="text12" title="svea_syop">&nbsp;&nbsp;&nbsp;<font class="text12RedBold" >*</font>Ärendenr - nr.räknare</td>
+										<td class="text12" title="svea_syop">&nbsp;&nbsp;&nbsp;<font class="text12RedBold" >*</font>Ärendenr.</td>
 										<td class="text12" >
-											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svea_syop" id="svea_syop" size="10" maxlength="8" value='${Xmodel.record.svea_syop}'>
+											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svea_syop" id="svea_syop" size="10" maxlength="7" value='${model.record.svea_syop}'>
 										</td>
 										
 					    	    	</c:otherwise>
@@ -170,39 +171,39 @@
 				<td width="100%">
 					
 					<table width="95%" class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
-						<tr><td colspan="2" class="text12"><b>&nbsp;FTP</b><font class="text11" >&nbsp;</font></td></tr>
+						<tr><td class="text12"></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    
 						<tr>
-							<td class="text12" title="dkea_ftip"><font class="text12RedBold" >*</font>FTP-adresse</td>
-							<td colspan="5" class="text12">
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="dkea_ftip" id="dkea_ftip" size="60" maxlength="64" value='${Xmodel.record.dkea_ftip}'>
-							</td>
+							<td class="text12" title="svea_omeo"><font class="text12RedBold" >*</font>EORI</td>
+							<td class="text12" title="svea_omty">&nbsp;Typ</td>
+							<td class="text12" title="svea_omha">&nbsp;Handläggare</td>
+							<td class="text12" title="svea_omtl">&nbsp;Telefon</td>
+							<td class="text12" title="svea_0035">&nbsp;Testindikator</td>
+							
 						</tr>
 						<tr>
-							<td class="text12" title="dkea_us">FTP-brukerid</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="dkea_us" id="dkea_us" size="11" maxlength="10" value='${Xmodel.record.dkea_us}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="svea_omeo" id="svea_omeo" size="18" maxlength="17" value='${model.record.svea_omeo}'>
 							</td>
-							<td class="text12" title="dkea_pw">FTP-passord</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="dkea_pw" id="dkea_pw" size="11" maxlength="10" value='${Xmodel.record.dkea_pw}'>
+								<input type="text" class="inputTextMediumBlue" name="svea_omty" id="svea_omty" size="2" maxlength="1" value='${model.record.svea_omty}'>
 							</td>
-							<td class="text12" title="dkea_prtf">FTP Skriverfil</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="dkea_prtf" id="dkea_prtf" size="17" maxlength="16" value='${model.record.dkea_prtf}'>
+								<input type="text" class="inputTextMediumBlue" name="svea_omha" id="svea_omha" size="36" maxlength="35" value='${model.record.svea_omha}'>
 							</td>
-						</tr>
-						<tr>	
-							<td class="text12" title="dkea_0035">Testindikator</td>
 							<td class="text12">
-								<select name="dkea_0035" id="dkea_0035" class="inputTextMediumBlue">
-				  					<option value="1"<c:if test="${ Xmodel.record.dkea_0035 == '1'}"> selected </c:if> >Test</option>
-				  					<option value=""<c:if test="${ empty Xmodel.record.dkea_0035}"> selected </c:if> >Prod</option>
+								<input type="text" class="inputTextMediumBlue" name="svea_omtl" id="svea_omtl" size="26" maxlength="25" value='${model.record.svea_omtl}'>
+							</td>
+							<td class="text12">
+								<select name="svea_0035" id="svea_0035" class="inputTextMediumBlue">
+				  					<option value="1"<c:if test="${ model.record.svea_0035 == '1'}"> selected </c:if> >Test</option>
+				  					<option value=""<c:if test="${ empty model.record.svea_0035 }"> selected </c:if> >Prod</option>
+				  					
 							  	</select>
 							</td>
 						</tr>
-						
+					
 						<tr height="5"><td></td></tr>
 					</table>
 				</td>
@@ -227,7 +228,7 @@
 					        				<tr>
 									            <td class="text12" align="left">&nbsp;</td>
 												<td class="text9BlueGreen" valign="bottom"  >
-					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spare' onClick="setBlockUI(this);"/>
+					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara' onClick="setBlockUI(this);"/>
 					 							</td>								           	
 					 						</tr>
 							 				

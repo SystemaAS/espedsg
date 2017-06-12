@@ -49,7 +49,7 @@
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkItemLines" tabindex=-1 style="display:block;" href="tdsimport_edit_items.do?action=doFetch&avd=${model.avd}&sign=${model.sign}
 											&opd=${model.opd}&tullId=${model.tullId}
-											&status=${model.status}&datum=${model.datum}&fabl=">
+											&status=${model.status}&datum=${model.datum}&fabl=${recordTopic.svih_fabl}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tds.import.item.createnew.tab"/>
 					</font>
