@@ -308,7 +308,7 @@
 								<th class="tableHeaderField" title="svew_knso">&nbsp;Sökbegrepp&nbsp;</th>
 			                    <th class="tableHeaderField" title="svew_vasl">&nbsp;Varubeskrivning&nbsp;</th>
 								<th class="tableHeaderField" title="svew_ulkd">&nbsp;Ursp.Land&nbsp;</th>
-								<th class="tableHeaderField" title="svew_vata">&nbsp;Varukod Taric nr&nbsp;</th>
+								<th class="tableHeaderField" title="svew_vata">&nbsp;Varukod&nbsp;</th>
 								<th class="tableHeaderField" title="svew_brut">&nbsp;Bruttovikt&nbsp;</th>
 								<th class="tableHeaderField" title="svew_neto">&nbsp;Nettovikt&nbsp;</th>
 			                    <th align="center" class="tableHeaderField"><spring:message code="systema.delete"/></th>
@@ -419,7 +419,7 @@
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
 																</td>
-																<td class="text12" title="svew_vata">Taric nr:</td>
+																<td class="text12" title="svew_vata">Varukod:</td>
 																<td>
 																	<input type="text" class="inputTextMediumBlue" name="svew_vata" id="svew_vata" size="10" maxlength="8" value='${model.record.svew_vata}'>
 																</td>	
@@ -466,7 +466,11 @@
 															</tr>
 															<tr>
 																<td class="text12" title="svew_bit1">&nbsp;1. Kod:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-																<td class="text12"><input type="text" class="inputTextMediumBlue" name="svew_bit1" id="svew_bit1" size="5" maxlength="4" value='${model.record.svew_bit1}'>
+																<td class="text12">
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit1" id="svew_bit1" size="5" maxlength="4" value='${model.record.svew_bit1}'>
+																	<a tabindex="-1" id="svew_bit1IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																	&nbsp;Identitet:
 																	<input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii1" size="35" maxlength="35" value='${model.record.svew_bii1}'>
 																</td>
@@ -623,27 +627,47 @@
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_bit2">2. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit2" id="svew_bit2" size="5" maxlength="4" value='${model.record.svew_bit2}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit2" id="svew_bit2" size="5" maxlength="4" value='${model.record.svew_bit2}'>
+																	<a tabindex="-1" id="svew_bit2IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii2">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii2" id="svew_bii2" size="35" maxlength="35" value='${model.record.svew_bii2}'></td>
 															</tr>
 															
 															<tr>
 																<td class="text12" title="svew_bit3">3. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit3" id="svew_bit3" size="5" maxlength="4" value='${model.record.svew_bit3}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit3" id="svew_bit3" size="5" maxlength="4" value='${model.record.svew_bit3}'>
+																	<a tabindex="-1" id="svew_bit3IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii3">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii3" id="svew_bii3" size="35" maxlength="35" value='${model.record.svew_bii3}'></td>
 															</tr>
 															
 															<tr>
 																<td class="text12" title="svew_bit4">4. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit4" id="svew_bit4" size="5" maxlength="4" value='${model.record.svew_bit4}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit4" id="svew_bit4" size="5" maxlength="4" value='${model.record.svew_bit4}'>
+																	<a tabindex="-1" id="svew_bit4IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii4">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii4" id="svew_bii4" size="35" maxlength="35" value='${model.record.svew_bii4}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_bit5">5. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit5" id="svew_bit5" size="5" maxlength="4" value='${model.record.svew_bit5}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit5" id="svew_bit5" size="5" maxlength="4" value='${model.record.svew_bit5}'>
+																	<a tabindex="-1" id="svew_bit5IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii5">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii5" id="svew_bii5" size="35" maxlength="35" value='${model.record.svew_bii5}'></td>
 															</tr>
@@ -654,26 +678,47 @@
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_bit6">6. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit6" id="svew_bit6" size="5" maxlength="4" value='${model.record.svew_bit6}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit6" id="svew_bit6" size="5" maxlength="4" value='${model.record.svew_bit6}'>
+																	<a tabindex="-1" id="svew_bit6IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii6">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii6" id="svew_bii6" size="35" maxlength="35" value='${model.record.svew_bii6}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_bit7">7. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit7" id="svew_bit7" size="5" maxlength="4" value='${model.record.svew_bit7}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit7" id="svew_bit7" size="5" maxlength="4" value='${model.record.svew_bit7}'>
+																	<a tabindex="-1" id="svew_bit7IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii7">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii7" id="svew_bii7" size="35" maxlength="35" value='${model.record.svew_bii7}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_bit8">8. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit8" id="svew_bit8" size="5" maxlength="4" value='${model.record.svew_bit8}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit8" id="svew_bit8" size="5" maxlength="4" value='${model.record.svew_bit8}'>
+																	<a tabindex="-1" id="svew_bit8IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																
+																</td>
 																<td class="text12" title="svew_bii8">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii8" id="svew_bii8" size="35" maxlength="35" value='${model.record.svew_bii8}'></td>
 															</tr>
 															
 															<tr>
 																<td class="text12" title="svew_bit9">9. Kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_bit9" id="svew_bit9" size="5" maxlength="4" value='${model.record.svew_bit9}'></td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_bit9" id="svew_bit9" size="5" maxlength="4" value='${model.record.svew_bit9}'>
+																	<a tabindex="-1" id="svew_bit9IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td class="text12" title="svew_bii9">&nbsp;Identitet:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_bii9" id="svew_bii9" size="35" maxlength="35" value='${model.record.svew_bii9}'></td>
 															</tr>

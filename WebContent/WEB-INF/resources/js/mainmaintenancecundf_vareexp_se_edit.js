@@ -176,8 +176,42 @@ jq(function() {
     	jq('#svew_kos5IdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_kos5', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	    
-     
-    
+    jq('#svew_bit1IdLink').click(function() {
+    	jq('#svew_bit1IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit1', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit2IdLink').click(function() {
+    	jq('#svew_bit2IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit3IdLink').click(function() {
+    	jq('#svew_bit3IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit3', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit4IdLink').click(function() {
+    	jq('#svew_bit4IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit4', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit5IdLink').click(function() {
+    	jq('#svew_bit5IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit5', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit6IdLink').click(function() {
+    	jq('#svew_bit6IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit6', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit7IdLink').click(function() {
+    	jq('#svew_bit7IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit7', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit8IdLink').click(function() {
+    	jq('#svew_bit8IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit8', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_bit9IdLink').click(function() {
+    	jq('#svew_bit9IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit9', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
     
     
 	jq('#svew_fabl').calculator({ showOn: 'button',  
@@ -200,7 +234,11 @@ jq(function() {
 		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
 	jq('#svew_ankv').calculator({ showOn: 'button',  
 		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
-    
+	jq('#svew_stva').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	jq('#svew_stva2').calculator({ showOn: 'button',  
+		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+	
 }); 
 
 
