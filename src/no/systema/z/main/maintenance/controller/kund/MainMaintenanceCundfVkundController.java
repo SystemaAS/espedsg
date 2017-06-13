@@ -267,25 +267,28 @@ public class MainMaintenanceCundfVkundController {
 	public ModelAndView getCodes(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenance_vkund_edit_childwindow_codes");
 		ModelAndView successViewCustomer = new ModelAndView("mainmaintenance_childwindow_customer");
+		ModelAndView successViewTulltaxa = new ModelAndView("tdsexport_edit_items_childwindow_tulltaxa");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String caller = request.getParameter("caller");  //Field in jsp
 		
-		if(appUser==null){
+		if (appUser == null) {
 			return this.loginView;
-		}else{
-			  
+		} else {
+
 			List list = getCodeList(appUser, caller);
 			model.put("codeList", list);
 			model.put("caller", caller);
-			
-			if ("fmot".equals(caller)) {  //Reuse of mainmaintenance_childwindow_customer
+
+			if ("fmot".equals(caller)) { // Reuse of mainmaintenance_childwindow_customer.jsp
 				model.put("ctype", caller);
-				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 				return successViewCustomer;
+			} else if ("svew_vata".equals(caller)) { // Reuse of tdsexport_edit_items_childwindow_tulltaxa.do
+				return successViewTulltaxa;
 			} else {
 				model.put("caller", caller);
-				successView.addObject(TvinnSadConstants.DOMAIN_MODEL , model);
+				successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 				return successView;
 			}
 		}
@@ -333,8 +336,10 @@ public class MainMaintenanceCundfVkundController {
 		} else if ("svew_ulkd".equals(caller)) { //Ursprungsland
 			list = getLandKoderSvKoderFromSvtx03f(appUser);
 		} else if ("svew_vata".equals(caller)) { //Taric nr
-			list = getTaricnrKoder(appUser); 
-		}	else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
+			//list = getTaricnrKoder(appUser); 
+			//continue, using tdsexport_edit_items_childwindow_tulltaxa
+		}	
+		else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
 			list = getEup1KoderFromSvtpro(appUser);
 		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
 			list = getEup2KoderFromSvtx03f(appUser);

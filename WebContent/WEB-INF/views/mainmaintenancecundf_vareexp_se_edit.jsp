@@ -427,6 +427,9 @@
 																<td class="text12" title="svew_vata">Varukod:</td>
 																<td>
 																	<input type="text" class="inputTextMediumBlue" name="svew_vata" id="svew_vata" size="10" maxlength="8" value='${model.record.svew_vata}'>
+																	<a tabindex="-1" id="svew_vataIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																</td>	
 															</tr>
 															<tr>
@@ -525,7 +528,7 @@
 											</table>			
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="50%" valign="top">
+													<td width="55%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_lagi">&nbsp;Id:</td>
@@ -595,7 +598,7 @@
 													</table>
 													</td>
 													
-													<td width="50%" valign="top">
+													<td width="45%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_betk">Betalkod:</td>

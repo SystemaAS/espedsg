@@ -143,6 +143,7 @@ public class TdsExportItemsControllerChildWindow {
 		String varuKod = request.getParameter("vkod");
 		String text = request.getParameter("tekst");
 		String ieMode = "E";
+		String caller = request.getParameter("caller");  //Field in jsp
 		
 		ModelAndView successView = new ModelAndView("tdsexport_edit_items_childwindow_tulltaxa");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
@@ -161,6 +162,7 @@ public class TdsExportItemsControllerChildWindow {
 				model.put("vkod", varuKod);
 			}
 			model.put("tullTaxaList", list);
+			model.put("caller", caller);
 			successView.addObject(TdsConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;

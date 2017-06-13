@@ -139,11 +139,10 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_ulkd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	   
    
-//    jq('#svew_vataIdLink').click(function() {
-//    	alert("Ikke implementert, för stor lista...");
-//   	jq('#svew_vataIdLink').attr('target','_blank');
-//   	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-//    });	   
+    jq('#svew_vataIdLink').click(function() {
+    	jq('#svew_vataIdLink').attr('target','_blank');
+	    window.open('tdsexport_edit_items_childwindow_tulltaxa.do?action=doInit&vkod=' + jq('#svew_vata').val() + '&caller=svew_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	   
  
     jq('#svew_eup1IdLink').click(function() {
     	jq('#svew_eup1IdLink').attr('target','_blank');
