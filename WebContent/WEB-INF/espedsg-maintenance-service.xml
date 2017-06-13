@@ -149,6 +149,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
 	<!-- TDS avd maintenance -->
 	<bean id="maintMainSveaService" class="no.systema.z.main.maintenance.service.tds.MaintMainSveaServiceImpl"/>
+	<bean id="maintMainSviaService" class="no.systema.z.main.maintenance.service.tds.MaintMainSviaServiceImpl"/>
 	
 	
 </beans>
