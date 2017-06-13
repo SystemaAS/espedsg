@@ -132,7 +132,7 @@
 					    	    		<td colspan="4" class="text14MediumBlue" title="avdReadOnly">Avd&nbsp;&nbsp;&nbsp;
 											<input readonly type="text" class="inputTextReadOnly" id="avdReadOnly" name="avdReadOnly" size="4" value="${model.avd}">
 										</td>
-										<td class="text12" title="opdReadOnly">&nbsp;&nbsp;&nbsp;Ärendenr. - nr.räknare</td>
+										<td class="text12" title="opdReadOnly">&nbsp;&nbsp;&nbsp;Ärendenr.</td>
 										<td class="text12" >
 											<input readonly type="text" class="inputTextReadOnly" name="opdReadOnly" id="opdReadOnly" size="10" value='${model.record.svea_syop}'>
 										</td>
@@ -228,7 +228,7 @@
 					        				<tr>
 									            <td class="text12" align="left">&nbsp;</td>
 												<td class="text9BlueGreen" valign="bottom"  >
-					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara' onClick="setBlockUI(this);"/>
+					 				    			<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara' />
 					 							</td>								           	
 					 						</tr>
 							 				
