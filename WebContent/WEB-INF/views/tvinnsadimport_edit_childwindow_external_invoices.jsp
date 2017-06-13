@@ -62,9 +62,11 @@
 					               <td align="right" class="text11" >&nbsp;${record.sfbl28}</td>
 					               <td align="right" class="text11" >&nbsp;${record.sfvk28}</td>
 					               <td align="right" class="text11" >&nbsp;${record.sfkr28}</td>
-					               <a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_childwindow_external_invoices_delete.do?action=doDelete&sfavd=${model.avd}&sfopdn=${model.opd}&sfreff=${record.sfreff}&sfunik=${record.sfunik}">
+					               <td width="4%" class="text11" align="center" nowrap>
+					               		<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_childwindow_external_invoices_delete.do?action=doDelete&sfavd=${model.avd}&sfopdn=${model.opd}&sfreff=${record.sfreff}&sfunik=${record.sfunik}">
 						               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 						               	</a>
+				               	   </td>
 				               </tr>
 				               </c:forEach>
 				               </tbody>

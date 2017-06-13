@@ -154,11 +154,11 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("7");
 		object.setSubject("TDS - Import");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
-		//object.setStatus("Y");
-		object.setPgm("todo");
+		object.setCode("mainmaintenanceavdtdsimport");
+		object.setText("SVI051R / SVIA");
+		object.setDbTable("SVIA");
+		object.setStatus("G");
+		object.setPgm("svi051r");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();
