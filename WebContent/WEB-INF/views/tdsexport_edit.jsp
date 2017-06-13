@@ -1185,9 +1185,11 @@
 									<input type="text" class="inputTextMediumBlue" name="sveh_godn" id="sveh_godn" size="15" maxlength="14" value="${model.record.sveh_godn}">
 								</td>
 								<c:if test="${not empty model.record.sveh_syav && not empty model.record.sveh_syop}">
-									<td nowrap >&nbsp;
-										<button name="godsnrButton" id="godsnrButton" class="buttonGrayWithGreenFrame" type="button" >Uppd. alla vp.</button>
-									</td>	
+									<c:if test="${model.record.sveh_syst == 'M' || empty model.record.sveh_syst}">
+										<td nowrap >&nbsp;
+											<button name="godsnrButton" id="godsnrButton" class="buttonGrayWithGreenFrame" type="button" >Uppd. alla vp.</button>
+										</td>
+									</c:if>	
 								</c:if>				       
 	        				</tr>
 	        				<tr height="5"><td class="text">&nbsp;</td> </tr>

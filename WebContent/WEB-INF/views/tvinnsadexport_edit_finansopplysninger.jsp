@@ -266,8 +266,8 @@
 										<td class="text12Bold">
 											<c:if test="${model.status == 'M' || empty model.status}">
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_finansopplysninger.do';" value="<spring:message code="systema.tvinn.sad.import.item.line.init.createnew.submit"/>">
+												&nbsp;<button title="Import av eksterna fakturaer" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera eksterna fakturaer</button>
 											</c:if>
-											&nbsp;<button title="Import av eksterna fakturaer" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera eksterna fakturaer</button>
 										</td>
 									</tr>
 									<tr>

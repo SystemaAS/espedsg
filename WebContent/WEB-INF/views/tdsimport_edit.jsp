@@ -1152,9 +1152,11 @@
 								</td>	
 								<td ><input type="text" class="inputTextMediumBlue" name="svih_godn" id="svih_godn" size="15" maxlength="14" value="${model.record.svih_godn}"></td>
 								<c:if test="${not empty model.record.svih_syav && not empty model.record.svih_syop}">
-									<td nowrap >&nbsp;
-										<button name="godsnrButton" id="godsnrButton" class="buttonGrayWithGreenFrame" type="button" >Uppd. alla vp.</button>
-									</td>
+									<c:if test="${model.record.svih_syst == 'M' || empty model.record.svih_syst}">
+										<td nowrap >&nbsp;
+											<button name="godsnrButton" id="godsnrButton" class="buttonGrayWithGreenFrame" type="button" >Uppd. alla vp.</button>
+										</td>
+									</c:if>
 								</c:if>					       
 	        				</tr>
 				            <tr height="5"><td class="text">&nbsp;</td> </tr>

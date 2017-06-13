@@ -357,10 +357,10 @@
 	 				<table width="80%" cellspacing="0" border="0" cellpadding="0">
 						<tr>
 							<td class="text12Bold">
-								<c:if test="${Xmodel.status == 'M' || empty Xmodel.status}">
+								<c:if test="${model.status == 'M' || empty model.status}">
 									<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='tdsexport_edit_invoice.do';" value="Skapa ny">
+									&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera externa fakturor</button>
 								</c:if>
-								&nbsp;<button title="Import av externa fakturor" name="importInvoicesButton" id="importInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera externa fakturor</button>
 							</td>
 						</tr>
 					</table>
