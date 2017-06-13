@@ -212,7 +212,47 @@ jq(function() {
     	jq('#svew_bit9IdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_bit9', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	    
-    
+    jq('#svew_tit1IdLink').click(function() {
+    	jq('#svew_tit1IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit1', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit2IdLink').click(function() {
+    	jq('#svew_tit2IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit2', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit3IdLink').click(function() {
+    	jq('#svew_tit3IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit3', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit4IdLink').click(function() {
+    	jq('#svew_tit4IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit4', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit5IdLink').click(function() {
+    	jq('#svew_tit5IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit5', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit6IdLink').click(function() {
+    	jq('#svew_tit6IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit6', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit7IdLink').click(function() {
+    	jq('#svew_tit7IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit7', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit8IdLink').click(function() {
+    	jq('#svew_tit8IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit8', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_tit9IdLink').click(function() {
+    	jq('#svew_tit9IdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_tit9', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+    jq('#svew_laglIdLink').click(function() {
+    	jq('#svew_laglIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=svew_lagl', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
+
     
 	jq('#svew_fabl').calculator({ showOn: 'button',  
 		buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
@@ -443,5 +483,5 @@ jq(document).ready(function() {
 			"url": getLanguage(lang)
         }
 	});
-
+	
 });

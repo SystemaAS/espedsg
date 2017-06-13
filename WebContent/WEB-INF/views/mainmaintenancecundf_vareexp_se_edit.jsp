@@ -59,6 +59,11 @@
 	background: #EEEEEE;
 	color: #3383bb;
 }
+
+.ui-widget select {
+	font: 11px system-ui;
+}
+
 </style>
 
 
@@ -528,6 +533,9 @@
 																	<input type="text" class="inputTextMediumBlue" name="svew_lagi" id="svew_lagi" size="15" maxlength="14" value='${model.record.svew_lagi}'>
 																	&nbsp;Landkod:
 																	<input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'>
+																	<a tabindex="-1" id="svew_laglIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
 																	&nbsp;Förf.(37:2):
 																	<input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'>
 																	<a tabindex="-1" id="svew_eup2IdLink">
@@ -555,53 +563,83 @@
 																<td class="text12" title="svew_komr">&nbsp;Komm. ref.nr:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_komr" id="svew_komr" size="70" maxlength="70" value='${model.record.svew_komr}'></td>
 															</tr>
-														</table>
-													</td>
-													
-													<td width="50%" valign="top">
-														<table border="0">
 															<tr>
-																<td class="text12" title="svew_betk">Betalkod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_betk" id="svew_betk" size="2" maxlength="1" value='${model.record.svew_betk}'></td>
-																<td class="text12" title="svew_ankv">Extra mängd:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_ankv" id="svew_ankv" size="10" maxlength="10" value='${model.record.svew_ankv}'></td>
-																<td class="text12" title="svew_vano">&nbsp;Varupost nr:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_vano" id="svew_vano" size="5" maxlength="5" value='${model.record.svew_vano}'></td>
-															</tr>
-															<tr>
-																<td class="text12" title="svew_kono">Kont. nr.:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_kono" id="svew_kono" size="5" maxlength="3" value='${model.record.svew_kono}'></td>
-																<td class="text12" title="svew_stva">Stat. värde:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva" id="svew_stva" size="12" maxlength="11" value='${model.record.svew_stva}'></td>
-															</tr>
-															<tr>
-																<td class="text12" title="svew_atin">Indikator:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_atin" id="svew_atin" size="5" maxlength="3" value='${model.record.svew_atin}'></td>
-																<td class="text12" title="svew_stva2">Tullvärde:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva2" id="svew_stva2" size="12" maxlength="11" value='${model.record.svew_stva2}'></td>
+																<td class="text12" title="svew_lagt">&nbsp;Lager id:</td>
+																<td>
+																	<select name="svew_lagt" id="svew_lagt" > 
+																		<option value="A" <c:if test="${model.record.svew_lagt == 'A'}"> selected </c:if> >A-Allmänt tullager , typ A, där lagerhav har ansv för lagret.</option>
+														  				<option value="C" <c:if test="${model.record.svew_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
+														  				<option value="D" <c:if test="${model.record.svew_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
+														  				<option value="E" <c:if test="${model.record.svew_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
+														  				<option value="F" <c:if test="${model.record.svew_lagt == 'F'}"> selected </c:if> >F-Tullager, typ F, drivs av Tullverket. Beslag - hävs/utlämnas från Tullv tulllage</option>
+																	</select>					
+																</td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_call">Call me:</td>
 																<td>
 																	<select name="svew_call" id="svew_call" > 
 						 							  					<option value="">-<spring:message code="systema.choose"/>-</option>
-						 							  					<option value="0"<c:if test="${model.record.svew_call == '0'}"> selected </c:if> >0</option>
-											  							<option value="1"<c:if test="${ model.record.svew_call == '1'}"> selected </c:if> >1</option>
+										 								<option value="00" <c:if test="${model.record.svew_call == '00' || empty model.record.svew_call}"> selected </c:if> >00-CM Inga exportrestr.</option>
+														  				<option value="01" <c:if test="${model.record.svew_call == '01'}"> selected </c:if> >01-CM Exportrestr. villkor uppfyllda</option>
+														  				<option value="10" <c:if test="${model.record.svew_call == '10'}"> selected </c:if> >10-CM Inga exportrestr. Call me</option>
+														  				<option value="11" <c:if test="${model.record.svew_call == '11'}"> selected </c:if> >11-CM Exportrestr. villkor uppfyllda Call me</option>
+														  				<option value="12" <c:if test="${model.record.svew_call == '12'}"> selected </c:if> >12-CM Exportrestr. villkor ej uppfyllda</option>
+														  				<option value="13" <c:if test="${model.record.svew_call == '13'}"> selected </c:if> >13-CM Exportlicens</option>
+														  				<option value="14" <c:if test="${model.record.svew_call == '14'}"> selected </c:if> >14-CM Exportlicens Call me</option>
+														  				<option value="15" <c:if test="${model.record.svew_call == '15'}"> selected </c:if> >15-CM Ansökan om vissa Tullverkets tillstånd</option>
+														  				<option value="16" <c:if test="${model.record.svew_call == '16'}"> selected </c:if> >16-CM Exp.bidragsärende som ska kompletteras. Kontakta exp.bidragsgrp. för klarering</option>
 																  	</select>
 																</td>
-																<td class="text12" title="svew_vati">&nbsp;Varukod (33:3):</td>
+															</tr>
+													</table>
+													</td>
+													
+													<td width="50%" valign="top">
+														<table border="0">
+															<tr>
+																<td class="text12" title="svew_betk">Betalkod:</td>
+																<td>
+													 				<select name="svew_betk" id="svew_betk" >
+													 				  <option value="">-<spring:message code="systema.choose"/>-</option>
+																	  <option value="A"<c:if test="${model.record.svew_betk == 'A'}"> selected </c:if> >A</option>
+																	  <option value="B"<c:if test="${model.record.svew_betk == 'B'}"> selected </c:if> >B</option>
+																	  <option value="C"<c:if test="${model.record.svew_betk == 'C'}"> selected </c:if> >C</option>
+																	  <option value="D"<c:if test="${model.record.svew_betk == 'D'}"> selected </c:if> >D</option>
+																	  <option value="H"<c:if test="${model.record.svew_betk == 'H'}"> selected </c:if> >H</option>
+																	  <option value="Y"<c:if test="${model.record.svew_betk == 'Y'}"> selected </c:if> >Y</option>
+																	  <option value="Z"<c:if test="${model.record.svew_betk == 'Z'}"> selected </c:if> >Z</option>
+																	</select>
+																</td>
+																<td class="text12" title="svew_ankv">&nbsp;Extra mängd:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_ankv" id="svew_ankv" size="10" maxlength="10" value='${model.record.svew_ankv}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_kono">Kont. nr.:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_kono" id="svew_kono" size="5" maxlength="3" value='${model.record.svew_kono}'></td>
+																<td class="text12" title="svew_stva">&nbsp;Stat. värde:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva" id="svew_stva" size="12" maxlength="11" value='${model.record.svew_stva}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_atin">Indikator:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_atin" id="svew_atin" size="5" maxlength="3" value='${model.record.svew_atin}'></td>
+																<td class="text12" title="svew_stva2">&nbsp;Tullvärde:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_stva2" id="svew_stva2" size="12" maxlength="11" value='${model.record.svew_stva2}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="svew_vati">Varukod (33:3):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vati" id="svew_vati" size="5" maxlength="4" value='${model.record.svew_vati}'></td>
+																<td class="text12" title="svew_vano">&nbsp;Varupost nr:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_vano" id="svew_vano" size="5" maxlength="5" value='${model.record.svew_vano}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_lagt">Lager id:</td>
-																<td><input type="text"  class="inputTextMediumBlue" name="svew_lagt" id="svew_lagt" size="2" maxlength="1" value='${model.record.svew_lagt}'></td>
-																<td class="text12" title="svew_vat4">&nbsp;Varukod (33:4):</td>
+																<td class="text12" title="svew_vat4">Varukod (33:4):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat4" id="svew_vat4" size="5" maxlength="4" value='${model.record.svew_vat4}'></td>
+																	<td class="text12" title="svew_fnkd">&nbsp;FN-kod:</td>
+																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_fnkd}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_fnkd">FN-kod:</td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_fnkd" id="svew_fnkd" size="5" maxlength="4" value='${model.record.svew_fnkd}'></td>
-																<td class="text12" title="svew_vat5">&nbsp;Varukod (33:5):</td>
+																<td class="text12" title="svew_vat5">Varukod (33:5):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
 															</tr>
 														</table>
@@ -861,28 +899,90 @@
 																<td class="text12" title="svew_tix1..9">Identitet:</td>
 															</tr>
 															<tr>
-																<td class="text12">1.<input type="text" class="inputTextMediumBlue" name="svew_tik1" id="svew_tik1" size="1" maxlength="1" value='${model.record.svew_tik1}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit1" id="svew_tit1" size="3" maxlength="3" value='${model.record.svew_tit1}'></td>
+											           			<td class="text12">1.
+											           				<select class="selectAppleChromeDefault" name="svew_tik1" id="svew_tik1" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik1 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik1 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik1 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+											           			</td>
+																<td>
+																<input type="text" class="inputTextMediumBlue" name="svew_tit1" id="svew_tit1" size="3" maxlength="3" value='${model.record.svew_tit1}'>
+																	<a tabindex="-1" id="svew_tit1IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix1" id="svew_tix1" size="35" maxlength="35" value='${model.record.svew_tix1}'></td>
 															</tr>
 															<tr>
-																<td class="text12">2.<input type="text" class="inputTextMediumBlue" name="svew_tik2" id="svew_tik2" size="1" maxlength="1" value='${model.record.svew_tik2}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit2" id="svew_tit2" size="3" maxlength="3" value='${model.record.svew_tit2}'></td>
+																<td class="text12">2.
+											           				<select name="svew_tik2" id="svew_tik2" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik2 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik2 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik2 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit2" id="svew_tit2" size="3" maxlength="3" value='${model.record.svew_tit2}'>
+																	<a tabindex="-1" id="svew_tit2IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix2" id="svew_tix2" size="35" maxlength="35" value='${model.record.svew_tix2}'></td>
 															</tr>
 															<tr>
-																<td class="text12">3.<input type="text" class="inputTextMediumBlue" name="svew_tik3" id="svew_tik3" size="1" maxlength="1" value='${model.record.svew_tik3}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit3" id="svew_tit3" size="3"  maxlength="3" value='${model.record.svew_tit3}'></td>
+																<td class="text12">3.
+											           				<select name="svew_tik3" id="svew_tik3" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik3 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik3 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik3 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit3" id="svew_tit3" size="3"  maxlength="3" value='${model.record.svew_tit3}'>
+																	<a tabindex="-1" id="svew_tit3IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix3" id="svew_tix3" size="35" maxlength="35" value='${model.record.svew_tix3}'></td>
 															</tr>
 															<tr>
-																<td class="text12">4.<input type="text" class="inputTextMediumBlue" name="svew_tik4" id="svew_tik4" size="1" maxlength="1" value='${model.record.svew_tik4}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit4" id="svew_tit4" size="3" maxlength="3" value='${model.record.svew_tit4}'></td>
+																<td class="text12">4.
+												           			<select name="svew_tik4" id="svew_tik4" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik4 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik4 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik4 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit4" id="svew_tit4" size="3" maxlength="3" value='${model.record.svew_tit4}'>
+																	<a tabindex="-1" id="svew_tit4IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix4" id="svew_tix4" size="35" maxlength="35" value='${model.record.svew_tix4}'></td>
 															</tr>
 															<tr>
-																<td class="text12">5.<input type="text" class="inputTextMediumBlue" name="svew_tik5" id="svew_tik5" size="1" maxlength="1" value='${model.record.svew_tik5}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit5" id="svew_tit5" size="3" maxlength="3" value='${model.record.svew_tit5}'></td>
+																<td class="text12">5.
+												           			<select name="svew_tik5" id="svew_tik5" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik5 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik5 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik5 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																
+																
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit5" id="svew_tit5" size="3" maxlength="3" value='${model.record.svew_tit5}'>
+																	<a tabindex="-1" id="svew_tit5IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix5" id="svew_tix5" size="35" maxlength="35" value='${model.record.svew_tix5}'></td>
 															</tr>
 																	
@@ -896,23 +996,71 @@
 																<td class="text12" title="svew_tix1..9">Identitet:</td>
 															</tr>
 															<tr>
-																<td class="text12">6.<input type="text" class="inputTextMediumBlue" name="svew_tik6" id="svew_tik6" size="1" maxlength="1" value='${model.record.svew_tik6}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit6" id="svew_tit6" size="3" maxlength="3" value='${model.record.svew_tit6}'></td>
+																<td class="text12">6.
+												           			<select name="svew_tik6" id="svew_tik6" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik6 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik6 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik6 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit6" id="svew_tit6" size="3" maxlength="3" value='${model.record.svew_tit6}'>
+																	<a tabindex="-1" id="svew_tit6IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix6" id="svew_tix6" size="35" maxlength="35" value='${model.record.svew_tix6}'></td>
 															</tr>
 															<tr>
-																<td class="text12">7.<input type="text" class="inputTextMediumBlue" name="svew_tik7" id="svew_tik7" size="1" maxlength="1" value='${model.record.svew_tik7}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit7" id="svew_tit7" size="3" maxlength="3" value='${model.record.svew_tit7}'></td>
+																<td class="text12">7.
+												           			<select name="svew_tik7" id="svew_tik7" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik7 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik7 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik7 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit7" id="svew_tit7" size="3" maxlength="3" value='${model.record.svew_tit7}'>
+																	<a tabindex="-1" id="svew_tit7IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix7" id="svew_tix7" size="35" maxlength="35" value='${model.record.svew_tix7}'></td>
 															</tr>
 															<tr>
-																<td class="text12">8.<input type="text" class="inputTextMediumBlue" name="svew_tik8" id="svew_tik8" size="1" maxlength="1" value='${model.record.svew_tik8}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit8" id="svew_tit8" size="3" maxlength="3" value='${model.record.svew_tit8}'></td>
+																<td class="text12">8.
+												           			<select name="svew_tik8" id="svew_tik8" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik8 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik8 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik8 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit8" id="svew_tit8" size="3" maxlength="3" value='${model.record.svew_tit8}'>
+																	<a tabindex="-1" id="svew_tit8IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix8" id="svew_tix8" size="35" maxlength="35" value='${model.record.svew_tix8}'></td>
 															</tr>
 															<tr>
-																<td class="text12">9.<input type="text" class="inputTextMediumBlue" name="svew_tik9" id="svew_tik9" size="1" maxlength="1" value='${model.record.svew_tik9}'></td>
-																<td><input type="text" class="inputTextMediumBlue" name="svew_tit9" id="svew_tit9" size="3" maxlength="3" value='${model.record.svew_tit9}'></td>
+																<td class="text12">9.
+											           				<select name="svew_tik9" id="svew_tik9" >
+												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+																  		<option value="X" <c:if test="${model.record.svew_tik9 == 'X'}"> selected </c:if> >X</option>
+																  		<option value="Y" <c:if test="${model.record.svew_tik9 == 'Y'}"> selected </c:if> >Y</option>
+																  		<option value="Z" <c:if test="${model.record.svew_tik9 == 'Z'}"> selected </c:if> >Z</option>
+																  	</select>										           			
+																</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_tit9" id="svew_tit9" size="3" maxlength="3" value='${model.record.svew_tit9}'>
+																	<a tabindex="-1" id="svew_tit9IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_tix9" id="svew_tix9" size="35" maxlength="35" value='${model.record.svew_tix9}'></td>
 															</tr>
 															<tr>
