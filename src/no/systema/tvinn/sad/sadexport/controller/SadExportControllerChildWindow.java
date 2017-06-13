@@ -27,28 +27,17 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.ServletRequestDataBinder;
 
 //application imports
-import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
-import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-/*
-import no.systema.tds.model.jsonjackson.codes.JsonTdsTillaggskodContainer;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsTillaggskodRecord;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderContainer;
-import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderRecord;
-import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
-import no.systema.tds.service.TdsTillaggskoderService;
-*/
 
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalContainer;
+import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalForUpdateContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.JsonSadExportTopicFinansOpplysningerExternalRecord;
 import no.systema.tvinn.sad.sadexport.service.SadExportSpecificTopicService;
 import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
@@ -156,6 +145,51 @@ public class SadExportControllerChildWindow {
 			
 	    	logger.info("END of method");
 	    	return successView;
+		}
+		
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadexport_edit_childwindow_external_invoices_delete.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView tvinnsadexportExternalInvoicesDelete(@ModelAttribute ("record") JsonSadExportTopicFinansOpplysningerExternalRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		logger.info("Inside: tvinnsadexportExternalInvoicesDelete");
+		
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		//redirect view
+		StringBuffer paramsRedirect = new StringBuffer();
+		paramsRedirect.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSfavd() + "&opd=" + recordToValidate.getSfopdn());
+		ModelAndView successView = new ModelAndView("redirect:tvinnsadexport_edit_childwindow_external_invoices.do?" + paramsRedirect);
+		
+		String urlRequestParamsKeys = null;
+		//Catch required action (doFetch or doUpdate)
+		String action = request.getParameter("action");
+		logger.info("ACTION: " + action);
+		
+		if(appUser == null || "".equals(appUser)){
+		  return this.loginView;
+		}else{
+		
+		  String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_INVOICE_EXTERNAL_URL;
+		  String params = "user=" + appUser.getUser() + "&mode=D" + "&reff=" + recordToValidate.getSfreff() + "&unik=" + recordToValidate.getSfunik();
+		  logger.info("URL:" + BASE_URL);
+		  logger.info("PARAMS:" + params);
+		  
+		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, params);
+		  JsonSadExportTopicFinansOpplysningerExternalForUpdateContainer container = this.sadExportSpecificTopicService.getSadExportTopicFinansOpplysningerContainerOneInvoiceExternalForUpdate(jsonPayload);
+		  
+		  if(container!=null && ( container.getErrmsg()!=null && !"".equals(container.getErrmsg())) ){
+			  logger.info("[ERROR] " + container.getErrmsg());
+		  }else{
+			  logger.info("[INFO]" + " Update successfully done!");
+		  }
+		  //logger.info("END of method");
+		  return successView;
 		}
 		
 	}

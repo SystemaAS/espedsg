@@ -9,7 +9,7 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tvinnsadimport_edit_childwindow_external_invoices.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
-	<table width="90%" height="100px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
+	<table width="99%" height="100px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 	
 		<tr><td valign="top" colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
 		<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
@@ -35,12 +35,13 @@
 							<table id="tblInvoices" class="display compact cell-border" width="100%">
 								<thead>
 								<tr style="background-color:#DDDDDD">
-									<th align="center" class="text12">&nbsp;Velg&nbsp;</th>
-								    <th align="center" class="text12">&nbsp;Fakturanr.&nbsp;</th>   
+									<th align="center" width="2%" class="text12">&nbsp;Velg&nbsp;</th>
+								    <th align="center" width="20%" class="text12">&nbsp;Fakturanr.&nbsp;</th>   
 				                    <th align="center" class="text12">&nbsp;Dato&nbsp;</th> 
 				                    <th align="right" class="text12">&nbsp;Beløp&nbsp;</th> 
 				                    <th align="right" class="text12">&nbsp;Valuta&nbsp;</th> 
 				                    <th align="right" class="text12">&nbsp;Kurs&nbsp;</th> 
+				                    <th align="center" class="text12">Slett</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
@@ -53,14 +54,17 @@
 					                       <tr class="tableOddRow" height="20" >
 					                   </c:otherwise>
 					               </c:choose>
-					               <td align="center" class="text11" >
+					               <td align="center" class="text11" width="2%" >
 					               		<input class="clazzInvoiceAware" type="checkbox" value="J" id="id${record.sfreff}__unik${record.sfunik}" name="id${record.sfreff}__unik${record.sfunik}" >
 					               </td>
-					               <td align="center"width="10%" class="text11">&nbsp;<span title="reff/unik:${record.sfreff}/${record.sfunik}">${record.sftxt}</span></td>
+					               <td align="center" width="20%" class="text11">&nbsp;<span title="reff/unik:${record.sfreff}/${record.sfunik}">${record.sftxt}</span></td>
 					               <td align="center" class="text11" >&nbsp;${record.sfdt}</td>
 					               <td align="right" class="text11" >&nbsp;${record.sfbl28}</td>
 					               <td align="right" class="text11" >&nbsp;${record.sfvk28}</td>
 					               <td align="right" class="text11" >&nbsp;${record.sfkr28}</td>
+					               <a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadimport_edit_childwindow_external_invoices_delete.do?action=doDelete&sfavd=${model.avd}&sfopdn=${model.opd}&sfreff=${record.sfreff}&sfunik=${record.sfunik}">
+						               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+						               	</a>
 				               </tr>
 				               </c:forEach>
 				               </tbody>
