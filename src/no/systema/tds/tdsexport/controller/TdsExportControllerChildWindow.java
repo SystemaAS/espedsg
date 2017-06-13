@@ -47,9 +47,6 @@ import no.systema.tds.model.jsonjackson.codes.JsonTdsBilagdaHandlingarYKoderReco
 
 import no.systema.tds.service.TdsBilagdaHandlingarYKoderService;
 import no.systema.tds.service.TdsTillaggskoderService;
-import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
-import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceContainer;
-import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceRecord;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceExternalContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceExternalForUpdateContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceExternalRecord;

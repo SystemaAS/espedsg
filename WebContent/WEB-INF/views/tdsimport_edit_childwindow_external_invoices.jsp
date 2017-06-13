@@ -39,6 +39,8 @@
 				                    <th class="text12">&nbsp;Typ&nbsp;</th> 
 				                    <th align="right" class="text12">&nbsp;Belopp&nbsp;</th> 
 				                    <th class="text12">&nbsp;Valuta&nbsp;</th> 
+				                    <th align="center" class="text12">Radera</th>
+				                    
 			                    </tr>
 			                    </thead>
 			                    <tbody>
@@ -58,6 +60,11 @@
 					               <td class="text11" >&nbsp;${record.svif_faty}</td>
 					               <td align="right" class="text11" >&nbsp;${record.svif_fabl}</td>
 					               <td class="text11" >&nbsp;${record.svif_vakd}</td>
+					               <td width="4%" class="text11" align="center" nowrap>
+						               	<a onclick="javascript:return confirm('Är du säker att du vill radera raden?')" tabindex=-1 href="tdsimport_edit_childwindow_external_invoices_delete.do?action=doDelete&svif_syav=${model.avd}&svif_syop=${model.opd}&svif_reff=${record.svif_reff}&svif_unik=${record.svif_unik}">
+						               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+						               	</a>
+					               </td>
 				               </tr>
 				               </c:forEach>
 				               </tbody>
