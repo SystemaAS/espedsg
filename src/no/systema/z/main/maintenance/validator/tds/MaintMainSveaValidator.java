@@ -37,7 +37,8 @@ public class MaintMainSveaValidator implements Validator {
 		JsonMaintMainSveaRecord record = (JsonMaintMainSveaRecord)obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syav", "", "Avd är obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syop", "", "Ärendenr - nr.räknare är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syop", "", "Ärendenr är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_omeo", "", "EORI är obligatorisk"); 
 		
 		
 		//Logical (RULES) controls if we passed the NOT NULL errors
@@ -56,7 +57,7 @@ public class MaintMainSveaValidator implements Validator {
 	public void validateDelete(Object obj, Errors errors) { 
 		JsonMaintMainSveaRecord record = (JsonMaintMainSveaRecord)obj;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syav", "", "Avd är obligatorisk"); 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syop", "", "Ärendenr - nr.räknare är obligatorisk"); 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svea_syop", "", "Ärendenr. är obligatorisk"); 
 		
 	}
 	

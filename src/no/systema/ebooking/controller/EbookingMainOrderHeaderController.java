@@ -105,7 +105,7 @@ public class EbookingMainOrderHeaderController {
 	 * @return
 	 */
 	@RequestMapping(value="ebooking_mainorder.do", method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
@@ -180,7 +180,7 @@ public class EbookingMainOrderHeaderController {
 			    			}
 			    		}*/
 						
-						//update
+						//update with integrated back-end validity (in case of user parameterized )
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_UPDATE, errMsg);
 						if(dmlRetval==0){
 							logger.info("[INFO] Record successfully updated, OK ");

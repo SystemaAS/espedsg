@@ -63,10 +63,10 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * 
 	 */
 	@RequestMapping(value="mainmaintenanceavdtdsexport_sve051r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdskatexport_dke051r (HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdskatexport_sve051r (HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsexport_sve051r");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		String id = request.getParameter("id");  //DKEA
+		String id = request.getParameter("id");  //SVEA
 		Map model = new HashMap();
 		if(appUser==null){
 			return this.loginView;
@@ -95,7 +95,7 @@ public class MainMaintenanceAvdTdsExportSveaController {
 	 * @return
 	 */
 	@RequestMapping(value="mainmaintenanceavdtdsexport_sve051r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdskatexport_dkx051_edit(@ModelAttribute ("record") JsonMaintMainSveaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView mainmaintenanceavdskatexport_sve051_edit(@ModelAttribute ("record") JsonMaintMainSveaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsexport_sve051r_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();

@@ -145,17 +145,17 @@
 											</a>
 					    	    		</td>
 										<td class="text12" >
-										<select name="svea_syav" id="svea_syav" class="inputTextMediumBlueMandatoryField">
+										<select name="svea_syav" id="svea_syav" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-Välj-</option>
 						  					<c:forEach var="record" items="${model.avdGeneralList}" >
-						 				  		<option value="${Xrecord.koaavd}"<c:if test="${ model.record.svea_syav == Xrecord.koaavd}"> selected </c:if> >${Xrecord.koaavd}</option>
+						 				  		<option value="${record.koaavd}"<c:if test="${ model.record.svea_syav == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
 										</td>
 										
 										<td class="text12" title="svea_syop">&nbsp;&nbsp;&nbsp;<font class="text12RedBold" >*</font>Ärendenr.</td>
 										<td class="text12" >
-											<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svea_syop" id="svea_syop" size="10" maxlength="7" value='${model.record.svea_syop}'>
+											<input onKeyPress="return numberKey(event)" type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_syop" id="svea_syop" size="10" maxlength="7" value='${model.record.svea_syop}'>
 										</td>
 										
 					    	    	</c:otherwise>
@@ -184,7 +184,7 @@
 						</tr>
 						<tr>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="svea_omeo" id="svea_omeo" size="18" maxlength="17" value='${model.record.svea_omeo}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_omeo" id="svea_omeo" size="18" maxlength="17" value='${model.record.svea_omeo}'>
 							</td>
 							<td class="text12">
 								<input type="text" class="inputTextMediumBlue" name="svea_omty" id="svea_omty" size="2" maxlength="1" value='${model.record.svea_omty}'>

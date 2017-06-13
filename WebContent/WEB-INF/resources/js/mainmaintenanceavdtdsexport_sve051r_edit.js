@@ -22,6 +22,24 @@
   			  jq('#avdIdLink').click();
   		  }
   	  });
+	  
+	  //START Customer Validity init
+	  jq('#svea_syav').focus(function() {
+    	if(jq('#svea_syav').val()!=''){
+    		refreshCustomValidity(jq('#svea_syav')[0]);
+  		}
+ 	  });
+	  jq('#svea_syop').focus(function() {
+    	if(jq('#svea_syop').val()!=''){
+    		refreshCustomValidity(jq('#svea_syop')[0]);
+  		}
+ 	  });
+	  jq('#svea_omeo').focus(function() {
+    	if(jq('#svea_omeo').val()!=''){
+    		refreshCustomValidity(jq('#svea_omeo')[0]);
+  		}
+ 	  });
+	  //END Customer Validity init
   	  
   });
   
