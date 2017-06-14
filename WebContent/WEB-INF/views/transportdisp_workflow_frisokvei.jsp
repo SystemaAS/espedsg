@@ -77,10 +77,11 @@
 							<td class="ownScrollableSubWindow" style="width:90%; height:15em;">
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
-										<td align="center" width="4%" class="tableHeaderFieldFirst" >&nbsp;<span title="todo">Kode&nbsp;</span></td>
+										<td align="center" width="4%" class="tableHeaderFieldFirst" >&nbsp;<span title="fskode">Kode&nbsp;</span></td>
 										<td align="center" width="2%" class="tableHeaderField" >&nbsp;<span title="todo">Oppd.&nbsp;</span></td>
-										<td class="tableHeaderField" >&nbsp;<span title="bust">Søketekst&nbsp;</span></td>   
-					                    <td class="tableHeaderField" >&nbsp;<span title="bubnr">Dok.kode&nbsp;</span></td>
+										<td class="tableHeaderField" >&nbsp;<span title="fssok">Søketekst&nbsp;</span></td>  
+										<td width="4%" class="tableHeaderField" >&nbsp;<span title="krav">Krav&nbsp;</span></td>
+					                    <td class="tableHeaderField" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></td>
 					        			<td align="center" width="2%" class="tableHeaderField" >&nbsp;Slett&nbsp;</td>
 					               </tr> 
 					               
@@ -95,12 +96,20 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${record.fskode}</td>
-							               <td align="center" width="2%" class="tableCell" >&nbsp;
+							               <td align="center" width="2%" class="tableCell" >
 							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
-					               					<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+							     					<c:choose>
+								     					<c:when test="${not empty record.fskode && not empty record.fssok}">
+						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+						               					</c:when>
+						               					<c:otherwise>
+						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="update">&nbsp;
+						               					</c:otherwise>
+					               					</c:choose>
 					               				</a>
 						               	   </td>
 							               <td class="tableCell" >&nbsp;${record.fssok}</td>
+							               <td width="4%" class="tableCell" >&nbsp;${record.krav}</td>
 							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="tableCell" align="center">
