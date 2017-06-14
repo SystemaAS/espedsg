@@ -9,63 +9,6 @@
 	<script type="text/javascript" src="resources/js/mainmaintenancecundf_vareexp_se_edit.js?ver=${user.versionEspedsg}"></script>	
 	<script type="text/javascript" src="resources/js/jquery.calculator.js"></script>	
 	
-<style type="text/css">
-#accordion .ui-accordion-header, #accordion2 .ui-accordion-header, #accordion3 .ui-accordion-header , #accordion4 .ui-accordion-header, #accordion-half1 .ui-accordion-header, #accordion-half2 .ui-accordion-header {
-	display: block;
-	cursor: pointer;
-	position: relative;
-	margin: 2px 0 0 0;
-	padding: .0em .0em .0em .0em;
-	font-size: 100%;	
-	width: 96%;
-}
-#accordion-half1 .ui-accordion-header, #accordion-half2 .ui-accordion-header {
-	width: 92%;
-}
-#accordion .ui-accordion-icons, #accordion2 .ui-accordion-icons , #accordion3 .ui-accordion-icons, #accordion4 .ui-accordion-icons, #accordion-half1 .ui-accordion-icons, #accordion-half2 .ui-accordion-icons  {
-	padding-left: 3.4em;
-}
-#accordion .ui-accordion-header-icon, #accordion2 .ui-accordion-header-icon, #accordion3 .ui-accordion-header-icon, #accordion4 .ui-accordion-header-icon, #accordion-half1 .ui-accordion-header-icon, #accordion-half2 .ui-accordion-header-icon {
-	position: absolute;
-	left: .5em;
-	top: 50%;
-	margin-top: -8px;
-}
-#accordion .ui-accordion-content, #accordion2 .ui-accordion-content, #accordion3 .ui-accordion-content, #accordion4 .ui-accordion-content, #accordion-half1 .ui-accordion-content, #accordion-half2 .ui-accordion-content    {
-	padding: 0em 0.0em;
-    width: 100%;
-  	background-color: #f3f3f3;
-  	color: #777;
- 	font-size: 12px; 
-}
-#accordion .ui-state-active, #accordion2 .ui-state-active, #accordion3 .ui-state-active, #accordion4 .ui-state-active, #accordion-half1 .ui-state-active, #accordion-half2 .ui-state-active  {
-	border:1px solid #F3D5BD;
-	background-color:#EEEEEE;
-}
-#accordion .ui-state-default, #accordion2 .ui-state-default , #accordion3 .ui-state-default, #accordion4 .ui-state-default, #accordion-half1 .ui-state-default, #accordion-half2 .ui-state-default  {
-	border: 1px solid #cccccc;
-	background: #F3D5BD;
-	font-size: 12px; 
-	color: #3383bb;
-}
-#accordion .ui-state-focus, #accordion2 .ui-state-focus, #accordion3 .ui-state-focus, #accordion4 .ui-state-focus, #accordion-half1 .ui-state-focus, #accordion-half2 .ui-state-focus {
-	border: 1px solid #cccccc;
-	background: #F3D5BD;
-	font-size: 12px; 
-	color: #3383bb;
-}
-#accordion .ui-widget-content, #accordion2 .ui-widget-content, #accordion3 .ui-widget-content, #accordion4 .ui-widget-content, #accordion-half1 .ui-widget-content, #accordion-half2 .ui-widget-content {
-	border: 1px solid #F3D5BD;
-	background: #EEEEEE;
-	color: #3383bb;
-}
-
-.ui-widget select {
-	font: 11px system-ui;
-}
-
-</style>
-
 
 <table id="parentTab" width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr height="15"><td>&nbsp;</td></tr>
