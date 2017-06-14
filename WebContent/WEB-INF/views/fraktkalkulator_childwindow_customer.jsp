@@ -73,7 +73,7 @@
 					<table id="customerList" class="display compact cell-border">
 						<thead>
 						<tr style="background-color:#EEEEEE">
-						    <th class="text11">&nbsp;Kundnr.&nbsp;</th>   
+						    <th width="20%" class="text11">&nbsp;Kundnr.&nbsp;</th>   
 		                    <th class="text11">&nbsp;Navn&nbsp;</th>
 		                </tr> 
 		                </thead>
@@ -88,7 +88,7 @@
 			                       <tr class="text11 clazzDtRowKund" id="${record.kundnr}@dt_kundnr_${counter.count}" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11">&nbsp;${record.kundnr}</td>
+			               <td width="20%" style="cursor:pointer;" class="text11">&nbsp;${record.kundnr}</td>
 			               <td class="text11">&nbsp;${record.knavn}</td>
 			               
 			            </tr> 

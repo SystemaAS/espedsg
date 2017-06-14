@@ -50,6 +50,7 @@
 				<input type="hidden" name="wsuser" id="wsuser" value='${model.user.wsuser}'>
 				<input type="hidden" name="xkunfrakt" id="xkunfrakt" value='${model.user.xkunfrakt}'>
 				<input type="hidden" name="overskr" id="overskr" value='${model.user.overskr}'>
+				<input type="hidden" name="userCustnr" id="userCustnr" value='${user.custNr}'>
 				
 				<table width="80%" align="left" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >

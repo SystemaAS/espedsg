@@ -33,6 +33,7 @@ import no.systema.fraktkalkulator.service.FraktKalkulatorDropDownService;
 
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorDropDownContainer;
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorOppdragTypeRecord;
+import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorProductRecord;
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorIncotermsRecord;
 
 
@@ -89,28 +90,33 @@ public class FraktKalkulatorAjaxHandlerController {
 	   * 
 	   * @param applicationUser
 	   * @param wsavd
+	   * @param avvknr
 	   * @return
 	   */
-	  @RequestMapping(value = "updateOppdragType_Fraktkalkulator.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonFraktKalkulatorOppdragTypeRecord> updateOppdragType(@RequestParam String applicationUser, @RequestParam String wsavd) {
-		  String method = "updateOppdragType() ";
+	  @RequestMapping(value = "updateProductList_Fraktkalkulator.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonFraktKalkulatorProductRecord> updateProduktList(@RequestParam String applicationUser, @RequestParam String wsavd,  @RequestParam String avvknr) {
+		  String method = "updateProduktList() ";
 		  logger.info(method + " Inside...");
-		  Set<JsonFraktKalkulatorOppdragTypeRecord> result = new HashSet<JsonFraktKalkulatorOppdragTypeRecord>();
+		  Set<JsonFraktKalkulatorProductRecord> result = new HashSet<JsonFraktKalkulatorProductRecord>();
 		  //prepare the access CGI with RPG back-end
-		  String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_DROPDOWN_OPPDRAG_TYPE_DATA_URL;
-		  String urlRequestParamsKeys = "user=" + applicationUser + "&wsavd=" + wsavd;
+		  String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_DROPDOWN_PRODUCT_DATA_URL;
+		  StringBuffer urlRequestParamsKeys = new StringBuffer();
+		  urlRequestParamsKeys.append("user=" + applicationUser + "&wsavd=" + wsavd);
+		  if(avvknr!=null && !"".equals(avvknr)){
+			  urlRequestParamsKeys.append("&avvknr=" + avvknr);
+		  }
 		  logger.info("URL: " + BASE_URL);
 		  logger.info("PARAMS: " + urlRequestParamsKeys);
 		  logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
 		  logger.info(jsonPayload);
 		  logger.info(method + Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	  if(jsonPayload!=null){
 	    		  JsonFraktKalkulatorDropDownContainer container = this.fraktKalkulatorDropDownService.getContainer(jsonPayload);
 	    		  if(container!=null){
-	    			  for(JsonFraktKalkulatorOppdragTypeRecord  record : container.getPricecalclist_ot()){
-	    				  //logger.info(method + "TEXT: " + record.getWsot2());
-	    				  result.add(record);
+	    			  for(JsonFraktKalkulatorProductRecord  record : container.getPricecalclist_prod()){
+	    				  //logger.info(method + "TEXT: " + record.getProdtxt());
+	    				  result.add(record); 
 	    			  }
 	    		  }
 	    	  }
@@ -124,18 +130,60 @@ public class FraktKalkulatorAjaxHandlerController {
 	   * @param wsavd
 	   * @return
 	   */
+	  @RequestMapping(value = "updateOppdragType_Fraktkalkulator.do", method = RequestMethod.GET)
+	  public @ResponseBody Set<JsonFraktKalkulatorOppdragTypeRecord> updateOppdragType(@RequestParam String applicationUser, @RequestParam String wsavd, @RequestParam String avvknr) {
+		  String method = "updateOppdragType() ";
+		  logger.info(method + " Inside...");
+		  Set<JsonFraktKalkulatorOppdragTypeRecord> result = new HashSet<JsonFraktKalkulatorOppdragTypeRecord>();
+		  //prepare the access CGI with RPG back-end
+		  String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_DROPDOWN_OPPDRAG_TYPE_DATA_URL;
+		  StringBuffer urlRequestParamsKeys = new StringBuffer();
+		  urlRequestParamsKeys.append("user=" + applicationUser + "&wsavd=" + wsavd);
+		  if(avvknr!=null && !"".equals(avvknr)){
+			  urlRequestParamsKeys.append("&avvknr=" + avvknr);
+		  }
+		  
+		  logger.info("URL: " + BASE_URL);
+		  logger.info("PARAMS: " + urlRequestParamsKeys);
+		  logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		  logger.info(jsonPayload);
+		  logger.info(method + Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	  if(jsonPayload!=null){
+	    		  JsonFraktKalkulatorDropDownContainer container = this.fraktKalkulatorDropDownService.getContainer(jsonPayload);
+	    		  if(container!=null){
+	    			  for(JsonFraktKalkulatorOppdragTypeRecord  record : container.getPricecalclist_ot()){
+	    				  //logger.info(method + "TEXT: " + record.getWsot2());
+	    				  result.add(record);
+	    			  }
+	    		  }
+	    	  }
+	    	return result;
+		  
+	  }
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param wsavd
+	   * @return
+	   */
 	  @RequestMapping(value = "updateIncoterms_Fraktkalkulator.do", method = RequestMethod.GET)
-	  public @ResponseBody Set<JsonFraktKalkulatorIncotermsRecord> updateIncoterms(@RequestParam String applicationUser, @RequestParam String wsavd) {
+	  public @ResponseBody Set<JsonFraktKalkulatorIncotermsRecord> updateIncoterms(@RequestParam String applicationUser, @RequestParam String wsavd, @RequestParam String avvknr) {
 		  String method = "updateIncoterms() ";
 		  logger.info(method + " Inside...");
 		  Set<JsonFraktKalkulatorIncotermsRecord> result = new HashSet<JsonFraktKalkulatorIncotermsRecord>();
 		  //prepare the access CGI with RPG back-end
 		  String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_DROPDOWN_INCOTERMS_DATA_URL;
-		  String urlRequestParamsKeys = "user=" + applicationUser + "&wsavd=" + wsavd;
+		  StringBuffer urlRequestParamsKeys = new StringBuffer();
+		  urlRequestParamsKeys.append("user=" + applicationUser + "&wsavd=" + wsavd);
+		  if(avvknr!=null && !"".equals(avvknr)){
+			  urlRequestParamsKeys.append("&avvknr=" + avvknr);
+		  }
+		  
 		  logger.info("URL: " + BASE_URL);
 		  logger.info("PARAMS: " + urlRequestParamsKeys);
 		  logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
 		  logger.info(jsonPayload);
 		  logger.info(method + Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	  if(jsonPayload!=null){

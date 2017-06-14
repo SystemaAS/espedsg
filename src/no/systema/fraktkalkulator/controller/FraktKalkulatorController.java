@@ -260,11 +260,11 @@ public class FraktKalkulatorController {
 		  sb.append("user=" + applicationUser);
 		  sb.append("&wsavd=" + userContainer.getWsavd());
 		  String urlRequestParamsKeys = sb.toString();
-		  
+		  /*
 		  logger.info("URL: " + BASE_URL);
 		  logger.info("PARAMS: " + urlRequestParamsKeys);
 		  logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		  
+		  */
 		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 
 		  //logger.info (jsonPayload);

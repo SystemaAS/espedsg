@@ -6,20 +6,21 @@
   	
   	//Select Kundnr
 	jq(function() {
-	  jq(".clazzDtRowKund").dblclick(function() {
+	  jq(".clazzDtRowKund").click(function() {
 		  var id = this.id;
 		  var record = id.split('@');
 		  var kundNr = record[0];
 		  //DEBUG --> alert(kundNr);
 		  //addressing a parent field from this child window
 		  opener.jq('#avvknr').val(kundNr);
+		  opener.jq('#avvknr').focus();
 		  //close child window
 		  window.close();
 	  });
 	});
 	//Select Postal Code Fra
 	jq(function() {
-	  jq(".clazzDtRowPostalCodeFra").dblclick(function() {
+	  jq(".clazzDtRowPostalCodeFra").click(function() {
 		  var id = this.id;
 		  var record = id.split('@');
 		  var postalCodeRaw = record[0];
@@ -33,7 +34,7 @@
 	});
 	//Select Postal Code Til
 	jq(function() {
-	  jq(".clazzDtRowPostalCodeTil").dblclick(function() {
+	  jq(".clazzDtRowPostalCodeTil").click(function() {
 		  var id = this.id;
 		  var record = id.split('@');
 		  var postalCodeRaw = record[0];

@@ -111,7 +111,7 @@
 									</c:choose>
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11">&nbsp;${record.st2kod}</td>
+			               <td style="cursor:pointer;" class="text11">&nbsp;${record.st2kod}</td>
 			               <td class="text11">&nbsp;${record.st2nvn}</td>
 			               <td class="text11">&nbsp;${record.st2lk}</td>
 			            </tr> 

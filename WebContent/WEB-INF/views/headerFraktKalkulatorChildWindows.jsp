@@ -26,10 +26,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 		<c:choose>
 			<c:when test="${empty model.direction}">
-				<title>eSpedsg - Inquire about Orders - Customer Search</title>
+				<title>eSpedsg - Priskalkulator - Customer Search</title>
 			</c:when>
 			<c:otherwise>
-				<title>eSpedsg - Inquire about Orders - Postal Code Search</title>
+				<title>eSpedsg - Priskalkulator - Postal Code Search</title>
 			</c:otherwise>
 		</c:choose>
 	</head>
