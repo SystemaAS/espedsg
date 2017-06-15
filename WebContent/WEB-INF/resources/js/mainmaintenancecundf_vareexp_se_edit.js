@@ -13,6 +13,8 @@ function setBlockUI(element) {
 jq(function() {
 	jq('#newRecordButton').click(function() {
 		jq("input[type='text']").val("");
+		jq('select').find('option').prop("selected", false);
+
 		jq("#svew_knso").prop("readonly", false);
 		jq("#svew_knso").removeClass("inputTextReadOnly");
 		jq("#svew_knso").addClass("inputTextMediumBlueMandatoryField");
@@ -468,7 +470,6 @@ function filterGlobal() {
 
 
 jq(document).ready(function() {
-	var lang = jq('#language').val();
 	jq('#mainList').dataTable({
 		"dom" : '<"top">t<"bottom"flip><"clear">',
 		"scrollY" : "200px",
@@ -479,8 +480,11 @@ jq(document).ready(function() {
 		} ],
 		"lengthMenu" : [ 75, 100 ],
 		"language": {
-			"url": getLanguage(lang)
+			"url": getLanguage('SE')
         }
 	});
+	
+	jq('#language').val("SE");
+	
 	
 });

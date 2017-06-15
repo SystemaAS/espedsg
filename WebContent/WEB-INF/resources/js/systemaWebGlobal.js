@@ -6,7 +6,7 @@
 	}
 
 	function getLanguage(lang) {
-	    return '/espedsg/resources/localization/'+langMap[lang]+'.json'
+	    return '/espedsg/resources/localization/'+langMap[lang]+'.json';
 	}
 	
 	//for mouse-over for css popup

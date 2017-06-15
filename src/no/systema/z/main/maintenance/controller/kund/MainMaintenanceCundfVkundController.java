@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,7 @@ import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.service.MaintMainValufService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
+import no.systema.z.main.maintenance.util.MessageSourceHelper;
 /**
  * Gateway for Kunderegister
  * 
@@ -280,6 +282,8 @@ public class MainMaintenanceCundfVkundController {
 			model.put("codeList", list);
 			model.put("caller", caller);
 
+			setLabels(appUser, model, caller);
+			
 			if ("fmot".equals(caller)) { // Reuse of mainmaintenance_childwindow_customer.jsp
 				model.put("ctype", caller);
 				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
@@ -294,6 +298,42 @@ public class MainMaintenanceCundfVkundController {
 		}
 	}
 		
+	private void setLabels(SystemaWebUser appUser, Map model, String caller) {
+		MessageSourceHelper messageSourceHelper = new MessageSourceHelper();
+		Locale locale = null;
+
+		if ("SE".equals(appUser.getUsrLang())) {
+			locale = new Locale("sv", "SE");
+		} else if ("NO".equals(appUser.getUsrLang())) {
+			locale = new Locale("no", "NO");
+		} else if ("DK".equals(appUser.getUsrLang())) {
+			locale = new Locale("dk", "DK");
+		} else {
+			locale = Locale.getDefault();
+		}
+		
+		//Potential override of Locale
+		if (isSweden(caller)) {
+			locale = new Locale("sv", "SE");
+		}
+		
+		String labelSearch = messageSourceHelper.getMessage("systema.main.maintenance.search", null, locale);
+		String labelCode = messageSourceHelper.getMessage("systema.main.maintenance.main.gate.code", null, locale);
+		String labelDesc = messageSourceHelper.getMessage("systema.main.maintenance.main.gate.description", null, locale);
+
+		model.put("lang", locale.getLanguage());
+		
+		model.put("labelSearch", labelSearch);
+		model.put("labelCode", labelCode);
+		model.put("labelDesc", labelDesc);
+		
+	}
+
+
+	private boolean isSweden(String caller) {
+		return caller.startsWith("svew") || caller.startsWith("sviw");
+	}
+
 	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {
 		List<ChildWindowKode> list = null;
 

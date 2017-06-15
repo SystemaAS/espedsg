@@ -252,14 +252,14 @@
 							<table id="mainList" class="display compact cell-border" >
 							<thead>
 							<tr>
-								<th align="center" width="2%" class="tableHeaderField" >&nbsp;<spring:message code="systema.edit"/>&nbsp;</th>
+								<th align="center" width="2%" class="tableHeaderField" >&nbsp;Ändra&nbsp;</th>
 								<th class="tableHeaderField" title="svew_knso">&nbsp;Sökbegrepp&nbsp;</th>
 			                    <th class="tableHeaderField" title="svew_vasl">&nbsp;Varubeskrivning&nbsp;</th>
 								<th class="tableHeaderField" title="svew_ulkd">&nbsp;Ursp.Land&nbsp;</th>
 								<th class="tableHeaderField" title="svew_vata">&nbsp;Varukod&nbsp;</th>
 								<th class="tableHeaderField" title="svew_brut">&nbsp;Bruttovikt&nbsp;</th>
 								<th class="tableHeaderField" title="svew_neto">&nbsp;Nettovikt&nbsp;</th>
-			                    <th align="center" class="tableHeaderField"><spring:message code="systema.delete"/></th>
+			                    <th align="center" class="tableHeaderField">&nbsp;Ta bort&nbsp;</th>
 			                </tr>  
 				             </thead> 
 				             <tbody >  
@@ -275,7 +275,7 @@
 						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_brut}&nbsp;</font></td>
 						               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.svew_neto}&nbsp;</font></td>
 						               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-				               				<a onclick="javascript:return confirm('<spring:message code="systema.delete.confirm"/>')" tabindex=-1 href="mainmaintenancecundf_vareexp_se_edit.do?action=doDelete&svew_knnr=${record.svew_knnr}&svew_knso=${record.svew_knso}">
+				               				<a onclick="javascript:return confirm('Är du säker på att du vill ta  bort denna?')" tabindex=-1 href="mainmaintenancecundf_vareexp_se_edit.do?action=doDelete&svew_knnr=${record.svew_knnr}&svew_knso=${record.svew_knso}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 							               	</a>
 						               </td>
@@ -335,7 +335,7 @@
 									<tr>
 										<td>
 											<button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button">
-												<spring:message code="systema.new"/>
+												Skapa ny
 											</button>&nbsp;&nbsp;
 									</tr>
 									<tr height="2">
@@ -513,7 +513,7 @@
 																<td class="text12" title="svew_lagt">&nbsp;Lager id:</td>
 																<td>
 																	<select name="svew_lagt" id="svew_lagt" > 
-																		<option value="A" <c:if test="${model.record.svew_lagt == 'A'}"> selected </c:if> >A-Allmänt tullager , typ A, där lagerhav har ansv för lagret.</option>
+						 							  					<option value="">-välj-</option>
 														  				<option value="C" <c:if test="${model.record.svew_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
 														  				<option value="D" <c:if test="${model.record.svew_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
 														  				<option value="E" <c:if test="${model.record.svew_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
@@ -525,8 +525,8 @@
 																<td class="text12" title="svew_call">Call me:</td>
 																<td>
 																	<select name="svew_call" id="svew_call" > 
-						 							  					<option value="">-<spring:message code="systema.choose"/>-</option>
-										 								<option value="00" <c:if test="${model.record.svew_call == '00' || empty model.record.svew_call}"> selected </c:if> >00-CM Inga exportrestr.</option>
+						 							  					<option value="">-välj-</option>
+										 								<option value="00" <c:if test="${model.record.svew_call == '00'}"> selected </c:if> >00-CM Inga exportrestr.</option>
 														  				<option value="01" <c:if test="${model.record.svew_call == '01'}"> selected </c:if> >01-CM Exportrestr. villkor uppfyllda</option>
 														  				<option value="10" <c:if test="${model.record.svew_call == '10'}"> selected </c:if> >10-CM Inga exportrestr. Call me</option>
 														  				<option value="11" <c:if test="${model.record.svew_call == '11'}"> selected </c:if> >11-CM Exportrestr. villkor uppfyllda Call me</option>
@@ -547,7 +547,7 @@
 																<td class="text12" title="svew_betk">Betalkod:</td>
 																<td>
 													 				<select name="svew_betk" id="svew_betk" >
-													 				  <option value="">-<spring:message code="systema.choose"/>-</option>
+													 				  <option value="">-välj-</option>
 																	  <option value="A"<c:if test="${model.record.svew_betk == 'A'}"> selected </c:if> >A</option>
 																	  <option value="B"<c:if test="${model.record.svew_betk == 'B'}"> selected </c:if> >B</option>
 																	  <option value="C"<c:if test="${model.record.svew_betk == 'C'}"> selected </c:if> >C</option>
@@ -846,8 +846,8 @@
 															</tr>
 															<tr>
 											           			<td class="text12">1.
-											           				<select class="selectAppleChromeDefault" name="svew_tik1" id="svew_tik1" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+											           				<select name="svew_tik1" id="svew_tik1" >
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik1 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik1 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik1 == 'Z'}"> selected </c:if> >Z</option>
@@ -864,7 +864,7 @@
 															<tr>
 																<td class="text12">2.
 											           				<select name="svew_tik2" id="svew_tik2" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik2 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik2 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik2 == 'Z'}"> selected </c:if> >Z</option>
@@ -881,7 +881,7 @@
 															<tr>
 																<td class="text12">3.
 											           				<select name="svew_tik3" id="svew_tik3" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik3 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik3 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik3 == 'Z'}"> selected </c:if> >Z</option>
@@ -898,7 +898,7 @@
 															<tr>
 																<td class="text12">4.
 												           			<select name="svew_tik4" id="svew_tik4" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik4 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik4 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik4 == 'Z'}"> selected </c:if> >Z</option>
@@ -915,7 +915,7 @@
 															<tr>
 																<td class="text12">5.
 												           			<select name="svew_tik5" id="svew_tik5" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik5 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik5 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik5 == 'Z'}"> selected </c:if> >Z</option>
@@ -944,7 +944,7 @@
 															<tr>
 																<td class="text12">6.
 												           			<select name="svew_tik6" id="svew_tik6" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik6 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik6 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik6 == 'Z'}"> selected </c:if> >Z</option>
@@ -961,7 +961,7 @@
 															<tr>
 																<td class="text12">7.
 												           			<select name="svew_tik7" id="svew_tik7" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik7 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik7 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik7 == 'Z'}"> selected </c:if> >Z</option>
@@ -978,7 +978,7 @@
 															<tr>
 																<td class="text12">8.
 												           			<select name="svew_tik8" id="svew_tik8" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik8 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik8 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik8 == 'Z'}"> selected </c:if> >Z</option>
@@ -995,7 +995,7 @@
 															<tr>
 																<td class="text12">9.
 											           				<select name="svew_tik9" id="svew_tik9" >
-												 						<option value="">-<spring:message code="systema.choose"/>-</option>
+												 						<option value="">-välj-</option>
 																  		<option value="X" <c:if test="${model.record.svew_tik9 == 'X'}"> selected </c:if> >X</option>
 																  		<option value="Y" <c:if test="${model.record.svew_tik9 == 'Y'}"> selected </c:if> >Y</option>
 																  		<option value="Z" <c:if test="${model.record.svew_tik9 == 'Z'}"> selected </c:if> >Z</option>
@@ -1142,7 +1142,7 @@
 									
 									<tr> 
 										<td colspan="2" align="right">
-											<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.save"/>'/>
+											<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Spara'/>
 										</td>
 									</tr>
 									

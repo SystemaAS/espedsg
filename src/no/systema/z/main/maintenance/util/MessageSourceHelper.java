@@ -23,13 +23,24 @@ public class MessageSourceHelper {
 	private ApplicationContext context = null;
 	private Locale locale = null;
 
+	/**
+	 * Initialize locale from whatever is in the {@linkplain CookieLocaleResolver}
+	 * @param request
+	 */
 	public MessageSourceHelper(HttpServletRequest request) {
 		context = TdsAppContext.getApplicationContext();
 		CookieLocaleResolver localeResolver = (CookieLocaleResolver) context.getBean("localeResolver");
 		locale = localeResolver.resolveLocale(request);
 	}
 	
-	
+	/**
+	 * Setting {@linkplain ApplicationContext}
+	 */
+	public MessageSourceHelper() {
+		context = TdsAppContext.getApplicationContext();
+	}
+
+
 	/**
 	 * Decode key/id into messages from message.properties.
 	 * Using locale from CookieLocaleResolver
@@ -39,6 +50,22 @@ public class MessageSourceHelper {
 	 * @return decoded message
 	 */
 	public String getMessage(String id, Object[] params) {
+		if (locale == null) {
+			logger.fatal("locale has not been initilized.");
+			throw new IllegalArgumentException("locale has not been initilized. Check use of constructor: public MessageSourceHelper(HttpServletRequest request)");
+		}
+		return context.getMessage(id, params, locale);
+	}
+
+	/**
+	 * Decode key/id into messages from message.properties.
+	 * 
+	 * @param id, key in message.properties
+	 * @param params
+	 * @param locale
+	 * @return decoded message
+	 */
+	public String getMessage(String id, Object[] params, Locale locale) {
 		return context.getMessage(id, params, locale);
 	}
 	
