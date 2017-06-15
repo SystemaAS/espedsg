@@ -330,6 +330,12 @@ public class MainMaintenanceCundfVkundController {
 	}
 
 
+	/**
+	 * caller starts with svew or sviw
+	 * 
+	 * @param caller
+	 * @return true if caller starts with svew or sviw
+	 */
 	private boolean isSweden(String caller) {
 		return caller.startsWith("svew") || caller.startsWith("sviw");
 	}

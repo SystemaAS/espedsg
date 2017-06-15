@@ -412,8 +412,6 @@
 														<table border="0">
 															<tr>
 																<td colspan="2"  class="text12Gray">&nbsp;Bilagda handlingar</td>
-																<td colspan="5" class="text12Gray">&nbsp;Godsmärkning
-																</td>
 															</tr>
 															<tr>
 																<td class="text12" title="svew_bit1">&nbsp;1. Kod:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -425,19 +423,8 @@
 																	&nbsp;Identitet:
 																	<input type="text" class="inputTextMediumBlue" name="svew_bii1" id="svew_bii1" size="35" maxlength="35" value='${model.record.svew_bii1}'>
 																</td>
-																<td class="text12">&nbsp;1.
-																	<input type="text" class="inputTextMediumBlue" name="svew_godm" id="svew_godm" size="45" maxlength="42" value='${model.record.svew_godm}'>
-																</td>
-																<td class="text12">Kolli antal:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'></td>
-																<td class="text12">Kolli slag:</td>
-																<td>
-																	<input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'>
-																	<a tabindex="-1" id="svew_koslIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																</td>
 															</tr>
+	
 															<tr>
 																<td colspan="4"  class="text12Gray">&nbsp;Särskilda upplysningar</td>
 															</tr>															
@@ -453,6 +440,26 @@
 																<td>&nbsp;</td>
 																<td>&nbsp;</td>
 															</tr>
+															
+															<tr>
+																<td colspan="4" class="text12Gray">&nbsp;Godsmärkning</td>
+															</tr>
+															<tr>	
+																<td colspan="2" class="text12">&nbsp;1.
+																	<input type="text" class="inputTextMediumBlue" name="svew_godm" id="svew_godm" size="45" maxlength="42" value='${model.record.svew_godm}'>
+																	&nbsp;Kolli antal:
+																	<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="svew_kota" id="svew_kota" size="5" maxlength="5" value='${model.record.svew_kota}'>
+																</td>
+																<td class="text12">Kolli slag:</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_kosl" id="svew_kosl" size="5" maxlength="4" value='${model.record.svew_kosl}'>
+																	<a tabindex="-1" id="svew_koslIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
+															</tr>
+	
+															
 														</table>
 													</td>
 												</tr>		
