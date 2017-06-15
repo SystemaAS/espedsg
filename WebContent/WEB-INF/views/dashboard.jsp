@@ -71,10 +71,29 @@
 									 						<%-- uncomment this line IF more menu choices appear...
 											 					<a class="text14" href="transportdispgate.do" >
 											 				 --%>
-											 				<a class="text14" href="transportdisp_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
+											 				<a class="text14" href="transportdisp_mainorderlist.do?lang=${user.usrLang}&action=doFind" onMouseOver="showPop('infoWRKTRIPS');" onMouseOut="hidePop('infoWRKTRIPS');" onClick="setBlockUI(this);" > 	
 							 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 							 									<font class="text14NavyBlue">${record.prTxt}</font>
 					 										</a>
+					 										<%-- ===========================================  --%>
+											            	<%-- Here we have the info popup window wrkTrips --%>
+											            	<%-- ===========================================  --%>
+											            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoWRKTRIPS" class="popupPlain"  >
+											           		<div align="center">
+											           			<table>
+											           				<tr>
+																		<td align="left" class="text12" ><b>Work with trips / Lastetorg</b> 
+																		</td>
+																	</tr>
+																	<tr class="text" height="10"><td></td></tr>
+																	<tr>
+																		<td align="center" >
+																			<img src="resources/images/miniLastetorg.png" border="0" width="350px"; height="210px">
+																		</td>
+																	</tr>
+												           		</table>
+															</div>
+															</span>
 														</font>
 													</c:when>
 													<c:otherwise>
@@ -93,42 +112,140 @@
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-EBOOKING') }">
 							 					<font class="text14">
-							 						<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
+							 						<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" onMouseOver="showPop('infoEBOOKING');" onMouseOut="hidePop('infoEBOOKING');" onClick="setBlockUI(this);" > 	
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
+			 										<%-- ===========================================  --%>
+									            	<%-- Here we have the info popup window eBooking --%>
+									            	<%-- ===========================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoEBOOKING" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>eBooking</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
 												</font>
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-eFaktura') }">
 							 					<font class="text14">
-									 				<a class="text14" href="efaktura_mainlist.do?action=doFind" > 	
+									 				<a class="text14" href="efaktura_mainlist.do?action=doFind" onMouseOver="showPop('infoEFAKTURA');" onMouseOut="hidePop('infoEFAKTURA');" onClick="setBlockUI(this);" > 	
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
+			 										<%-- ===========================================  --%>
+									            	<%-- Here we have the info popup window eFaktura --%>
+									            	<%-- ===========================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoEFAKTURA" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>eFaktura</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniEfaktura.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
+			 										
 												</font>
 											</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-SPORROPP') }">
 							 					<font class="text14">
-									 				<a class="text14" href="sporringoppdraggate.do?lang=${user.usrLang}" >
+									 				<a class="text14" href="sporringoppdraggate.do?lang=${user.usrLang}" onMouseOver="showPop('infoSPORROPPD');" onMouseOut="hidePop('infoSPORROPPD');" onClick="setBlockUI(this);" >
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
+			 										
+			 										<%-- ==============================================  --%>
+									            	<%-- Here we have the info popup window SporringOpp. --%>
+									            	<%-- ==============================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoSPORROPPD" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>Spørring på Oppdrag</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniSporringOppdrag.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
 												</font>
 											</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-PRISKALK') }">
 						 						<font class="text14">
-									 				<a class="text14" href="fraktkalkulatorgate.do?lang=${user.usrLang}" >
+									 				<a class="text14" href="fraktkalkulatorgate.do?lang=${user.usrLang}" onMouseOver="showPop('infoPRISKALK');" onMouseOut="hidePop('infoPRISKALK');" onClick="setBlockUI(this);" >
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 														<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
+			 										<%-- ===========================================  --%>
+									            	<%-- Here we have the info popup window Priskalk. --%>
+									            	<%-- ===========================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoPRISKALK" class="popupPlain" >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>Priskalkulator</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniPriskalkulator.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
 												</font>
 						 					</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-VEDLIKEHOLD') }">
 							 					<font class="text14">
-								 				<a class="text14" href="mainmaintenancegate.do?lang=${user.usrLang}" > 	
+								 				<a class="text14" href="mainmaintenancegate.do?lang=${user.usrLang}" onMouseOver="showPop('infoVEDLIKEHOLD');" onMouseOut="hidePop('infoVEDLIKEHOLD');" onClick="setBlockUI(this);" > 	
 				 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
 				 									<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
+		 											<%-- ===========================================  --%>
+									            	<%-- Here we have the info popup window Vedlik. --%>
+									            	<%-- ===========================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoVEDLIKEHOLD" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>Vedlikehold Firmanivå</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniVedlikehold.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
+		 										
 												</font>
 											</c:if>
 											<%-- ONLY for external customers --%>
@@ -179,24 +296,24 @@
 
 								 			</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-TVINN') }">
-				 								<a class="text14" href="tvinnsadgate.do" onMouseOver="showPop('infoTVINN');" onMouseOut="hidePop('infoTVINN');" >
+				 								<a class="text14" href="tvinnsadgate.do" onMouseOver="showPop('infoTVINN');" onMouseOut="hidePop('infoTVINN');" onClick="setBlockUI(this);" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 	 												<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
-				 								<%-- ===========================================  --%>
+				 									<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window TVINN --%>
 									            	<%-- ===========================================  --%>
-									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTVINN" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
 									           				<tr>
-																<td align="left" class="text12" ><b>TVINN</b> 
+																<td align="left" class="text12" ><b>TVINN</b>, Tollsystemet 
 																</td>
 															</tr>
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniSKAT.png" border="0" width="350px"; height="210px">
+																	<img src="resources/images/miniTVINN.png" border="0" width="350px"; height="210px">
 																</td>
 															</tr>
 										           		</table>
@@ -204,11 +321,11 @@
 												</span>
 											</c:if>
 						 					<c:if test="${fn:contains(record.prog,'-SKAT') }">
-				 								<a class="text14" href="skatgate.do" onMouseOver="showPop('infoSKAT');" onMouseOut="hidePop('infoSKAT');" >
+				 								<a class="text14" href="skatgate.do" onMouseOver="showPop('infoSKAT');" onMouseOut="hidePop('infoSKAT');" onClick="setBlockUI(this);" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 	 												<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
-				 								<%-- ===========================================  --%>
+				 									<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window SKAT --%>
 									            	<%-- ===========================================  --%>
 									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoSKAT" class="popupPlain"  >
@@ -229,26 +346,28 @@
 												</span>
 											</c:if>
 				 							<c:if test="${fn:contains(record.prog,'-TDS') }">
-				 								<a class="text14" href="tdsgate.do" onMouseOver="showPop('infoTDS');" onMouseOut="hidePop('infoTDS');" >
+				 								<a class="text14" href="tdsgate.do" onMouseOver="showPop('infoTDS');" onMouseOut="hidePop('infoTDS');" onClick="setBlockUI(this);" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 	 												<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
 				 								
-				 								<%-- ===========================================  --%>
+				 									<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window TDS --%>
 									            	<%-- ===========================================  --%>
 									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTDS" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
 									           				<tr>
-																<td align="left" class="text12" ><b>TDS</b>, Tulldatasystemet, är det datasystem som används i Sverige för klarering av import-och exportärenden och för att debitera tull och moms.
-																TDS inkluderar också Transitering som kallas för NCTS.<br/><br/><b>NCTS</b> är en förkortning av New Computerised Transit System och är en datorisering av gemensam och gemenskapstransitering.
+																<td align="left" class="text11" >
+																	<b>TDS</b>, Tulldatasystemet, är det datasystem som används i Sverige för klarering av import-och exportärenden och för att debitera tull och moms.
+																	TDS inkluderar också Transitering som kallas för NCTS.<br/>
+																	<b>NCTS</b> är en förkortning av New Computerised Transit System och är en datorisering av gemensam och gemenskapstransitering.
 																</td>
 															</tr>
-															<tr class="text" height="10"><td></td></tr>
+															<tr class="text" height="5"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniTDS.png" border="0" width="350px"; height="210px">
+																	<img src="resources/images/miniTds.png" border="0" width="320px"; height="180px">
 																</td>
 															</tr>
 										           		</table>
@@ -256,18 +375,18 @@
 												</span>
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-UFORTOPPD') }">
-				 								<a class="text14" href="uoppdraggate.do?deepSubmit=do" onMouseOver="showPop('infoUOpp');" onMouseOut="hidePop('infoUOpp');" >
+				 								<a class="text14" href="uoppdraggate.do?deepSubmit=do" onMouseOver="showPop('infoUOpp');" onMouseOut="hidePop('infoUOpp');" onClick="setBlockUI(this);" >
 	 												<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 													<font class="text14NavyBlue">${record.prTxt}</font>
 													</a>
-				 								<%-- ======================================================  --%>
+				 									<%-- ======================================================  --%>
 									            	<%-- Here we have the info popup window Ufortollede Oppdrag  --%>
 									            	<%-- ======================================================  --%>
 									            		<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoUOpp" class="popupPlain"  >
 										           		<div align="center">
 										           			<table>
 										           				<tr>
-																	<td align="left" class="text12" ><b>Ufortollede Oppdrag</b>, info here<br/><br/>
+																	<td align="left" class="text12" ><b>Ufortollede Oppdrag</b><br/>
 																	</td>
 																</tr>
 																<tr class="text" height="10"><td></td></tr>
