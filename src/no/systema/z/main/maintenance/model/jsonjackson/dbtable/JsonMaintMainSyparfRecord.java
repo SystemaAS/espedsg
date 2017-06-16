@@ -91,6 +91,10 @@ public class JsonMaintMainSyparfRecord extends JsonAbstractGrandFatherRecord {
 
 
 	public String getSyvrdn() {
+		if(syvrdn!=null){
+			syvrdn = syvrdn.replace(".", ",");
+		}
+		
 		return syvrdn;
 	}
 

@@ -5,15 +5,6 @@ var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 
 function setBlockUI(element) {
 
-	//jq("#dialog").dialog("open");  
-	//Funkar inte att anropas rått. Behöver <div> alt .click
-
-	if (jq("#dirty").val() == "isDirty") {
-
-		alert("Du har ändrat, utan att spara. Vill du gå vidare.....");
-
-	}
-
 	jq.blockUI({
 		message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
 	});
@@ -35,16 +26,16 @@ jq(function() {
 	});
 
 	jq("#formRecord").submit(function() {
+		if (jq('#syvrdn').val() !='') {  //float
+			jq("#syvrdn").val(jq("#syvrdn").val().replace(',', '.'));
+		}
+		
 		jq.blockUI({
 			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
 		});
+		
 	});
 
-	jq("input[type='text']").change(function() {
-		jq('#dirty').val("isDirty");
-
-	});
-	
     jq('#sypaidIdLink').click(function() {
     	jq('#sypaidIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sypaid', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
@@ -83,12 +74,11 @@ function getRecord(record){
 			jq('#sypaid').val("");jq('#sypaid').val(data[i].sypaid);
 			jq('#sypaidDesc').val("");jq('#sypaidDesc').val(data[i].sypaidDesc);
 			jq('#sysort').val("");jq('#sysort').val(data[i].sysort);
-			jq('#syvrdn').val("");jq('#syvrdn').val(data[i].syvrdn);
 			jq('#syvrda').val("");jq('#syvrda').val(data[i].syvrda);
-	
+			jq('#syvrdn').val(data[i].syvrdn);jq('#syvrdn').val(jq('#syvrdn').val().replace('.',','))			
+			
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].sypaid);
-			
 			
 		}
 	  }, 

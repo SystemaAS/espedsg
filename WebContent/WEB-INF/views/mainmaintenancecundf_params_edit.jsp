@@ -305,51 +305,35 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="50%" >
-														<table>
-															<tr>
-																<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaid"/>:&nbsp;&nbsp;&nbsp;
-																</td>
-																<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${model.record.sypaid}'></td>
-																<td class="text12" title="sypaid">
-																	<a tabindex="-1" id="sypaidIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																</td>
-																
-																<td class="text12" title="sypaidDesc">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
-																<td><input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="50" maxlength="50" value='${model.record.sypaidDesc}'></td>
-																
-															</tr>
-
-															<tr>
-																<td class="text12" title="sysort">&nbsp;
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>:
-																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${model.record.sysort}'>
-																</td>
-															</tr>
-
-														</table>
+													<td class="text12" title="sypaid">&nbsp;<font class="text14RedBold" >*</font>
+														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaid"/>:
 													</td>
-													<td width="50%" valign="top">
-														<table>
-															<tr>
-																<td colspan="2" class="text12" title="syvrdn">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:
-																</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="20" maxlength="15" value='${model.record.syvrdn}'>
-																</td>
-															<tr>
-																<td colspan="2" class="text12" title="syvrda">&nbsp;<font class="text14RedBold" >*</font>
-																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrda"/>:
-																</td>
-																<td><input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="60" maxlength="50" value='${model.record.syvrda}'>
-																</td>
-															</tr>
-														</table>
+													<td><input type="text" required oninvalid="this.setCustomValidity('Obligatoriskt')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="sypaid" id="sypaid" size="10" maxlength="5" value='${model.record.sypaid}'></td>
+													<td class="text12" title="sypaid">
+														<a tabindex="-1" id="sypaidIdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
+													<td class="text12" title="sypaidDesc">&nbsp;
+														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sypaidDesc"/>:&nbsp;&nbsp;</td>
+													<td class="text12">
+														<input type="text" readonly class="inputTextReadOnly" name="sypaidDesc" id="sypaidDesc" size="50" maxlength="50" value='${model.record.sypaidDesc}'>
+														&nbsp;&nbsp;<font class="text14RedBold" >*</font><spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrdn"/>:
+														<input type="text" onKeyPress="return amountKey(event)" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrdn" id="syvrdn" size="20" maxlength="15" value='${model.record.syvrdn}'>
+														
+													</td>
+												</tr>
+												<tr>
+													<td class="text12" title="sysort">&nbsp;
+														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.sysort"/>:
+													</td>
+													<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue"  name="sysort" id="sysort" size="10" maxlength="3" value='${model.record.sysort}'>
+													</td>
+													<td colspan="2" class="text12" title="syvrda">&nbsp;<font class="text14RedBold" >*</font>
+														<spring:message code="systema.main.maintenance.mainmaintenancecundf.syparf.syvrda"/>:
+													</td>
+													<td colspan="2">
+														<input type="text" required oninvalid="setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" onchange="setCustomValidity('')" class="inputTextMediumBlueMandatoryField"  name="syvrda" id="syvrda" size="60" maxlength="50" value='${model.record.syvrda}'>
 													</td>
 												</tr>
 											</table>
