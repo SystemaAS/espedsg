@@ -355,7 +355,7 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="68%" valign="top">
+													<td width="75%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_knso">&nbsp;<font class="text14RedBold" >*</font>Sökbegrepp:</td>
@@ -389,7 +389,7 @@
 														</table>
 													</td>
 													
-													<td width="30%" valign="top">
+													<td width="25%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_brut">Bruttov.(kg):</td>

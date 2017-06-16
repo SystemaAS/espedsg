@@ -311,7 +311,7 @@
 											</table>			
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="60%" >
+													<td width="70%" >
 														<table id="contactTable"  width="100%" border="0">
 															<tr>
 																<td class="text12" title="cconta">&nbsp;<font class="text14RedBold" >*</font>
@@ -321,17 +321,17 @@
 																<td class="text12" title="cphone">
 																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>:&nbsp;
 														 				<img onMouseOver="showPop('phone_info');" onMouseOut="hidePop('phone_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+														 				<div class="text11" style="position: relative;" align="left">
+														 				<span style="position:absolute; top:2px; width:250px;" id="phone_info" class="popupWithInputText text11">
+																           		<b>
+																           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>
+																           		</b>
+																           		<p>
+																           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phoneinfo"/>
+																           		</p> 
+																		</span>
+																		</div>																	
 																	</td>
-													 				<div class="text11" style="position: relative;" align="left">
-													 				<span style="position:absolute; top:2px; width:250px;" id="phone_info" class="popupWithInputText text11">
-															           		<b>
-															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phone"/>
-															           		</b>
-															           		<p>
-															           			<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.phoneinfo"/>
-															           		</p> 
-																	</span>
-																	</div>																	
 																<td><input type="text" class="inputTextMediumBlue" name="cphone" id="cphone" size="15" maxlength="15" value='${model.record.cphone}'></td>
 															</tr>
 															<tr>
@@ -419,7 +419,7 @@
 															</tr>
 														</table>
 													</td>
-													<td width="40%" valign="top">
+													<td width="30%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="cfax">
