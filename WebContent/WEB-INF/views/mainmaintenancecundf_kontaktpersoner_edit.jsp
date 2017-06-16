@@ -444,16 +444,20 @@
 												<tr>
 													<td colspan="2">
 														<table>
+	
 															<tr>
 																<td  class="text12" title="cemail">&nbsp;&nbsp;&nbsp;
 																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.email"/>:
 																</td>
-																<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="68" maxlength="70" value='${model.record.cemail}'></td>
-																<td class="text12" title="cemne">&nbsp;
+																<td>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="inputTextMediumBlue" name="cemail" id="cemail" size="70" maxlength="70" value='${model.record.cemail}'></td>
+															</tr>
+															<tr>
+																<td class="text12" title="cemne">&nbsp;&nbsp;&nbsp;
 																	<spring:message code="systema.main.maintenance.mainmaintenancecundf.cundc.emailemne"/>:
 																</td>
-																<td><input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="70" maxlength="80" value='${model.record.cemne}'></td>
+																<td>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="inputTextMediumBlue" name="cemne" id="cemne" size="70" maxlength="80" value='${model.record.cemne}'></td>
 															</tr>
+
 														</table>
 													</td>
 												</tr>
