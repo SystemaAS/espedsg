@@ -20,6 +20,8 @@ function setBlockUI(element) {
 }
 
 jq(function() {
+	var selectedElement;
+	
 	//Clean values for createing new record
 	jq('#newRecordButton').click(function() {
 		jq('#cconta').val("")
@@ -112,7 +114,7 @@ jq(function() {
 
     jq('#ctypeRefLink').click(function() {
     	jq('#ctypeRefLink').attr('target','_blank');
-    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype_ref', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=' + selectedElement, "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
 
     jq('#cconta').blur(function() {
@@ -138,7 +140,99 @@ jq(function() {
 		} else {
 			// do nothing
 		}
-	});    
+	});  
+    
+    jq('#avkved1').focus(function() {
+    	selectedElement = "avkved1";
+    });  
+    jq('#avkved2').focus(function() {
+    	selectedElement = "avkved2";
+    });  
+    jq('#avkved3').focus(function() {
+    	selectedElement = "avkved3";
+    });  
+    jq('#avkved4').focus(function() {
+    	selectedElement = "avkved4";
+    });  
+    jq('#avkved5').focus(function() {
+    	selectedElement = "avkved5";
+    });  
+    jq('#avkved6').focus(function() {
+    	selectedElement = "avkved6";
+    });  
+    jq('#avkved7').focus(function() {
+    	selectedElement = "avkved7";
+    });  
+    jq('#avkved8').focus(function() {
+    	selectedElement = "avkved8";
+    });  
+    jq('#avkved9').focus(function() {
+    	selectedElement = "avkved9";
+    });  
+    jq('#avkved10').focus(function() {
+    	selectedElement = "avkved10";
+    });  
+    jq('#avkved11').focus(function() {
+    	selectedElement = "avkved11";
+    });  
+    jq('#avkved12').focus(function() {
+    	selectedElement = "avkved12";
+    });  
+    jq('#avkved13').focus(function() {
+    	selectedElement = "avkved13";
+    });  
+    jq('#avkved14').focus(function() {
+    	selectedElement = "avkved14";
+    });  
+    jq('#avkved15').focus(function() {
+    	selectedElement = "avkved15";
+    });  
+    jq('#avkved16').focus(function() {
+    	selectedElement = "avkved16";
+    });  
+    jq('#avkved17').focus(function() {
+    	selectedElement = "avkved17";
+    });  
+    jq('#avkved18').focus(function() {
+    	selectedElement = "avkved18";
+    });  
+    jq('#avkved19').focus(function() {
+    	selectedElement = "avkved19";
+    });  
+    jq('#avkved20').focus(function() {
+    	selectedElement = "avkved20";
+    });  
+    jq('#avkved21').focus(function() {
+    	selectedElement = "avkved21";
+    });  
+    jq('#avkved22').focus(function() {
+    	selectedElement = "avkved22";
+    });  
+    jq('#avkved23').focus(function() {
+    	selectedElement = "avkved23";
+    });  
+    jq('#avkved24').focus(function() {
+    	selectedElement = "avkved24";
+    });  
+    jq('#avkved25').focus(function() {
+    	selectedElement = "avkved25";
+    });  
+    jq('#avkved26').focus(function() {
+    	selectedElement = "avkved26";
+    });  
+    jq('#avkved27').focus(function() {
+    	selectedElement = "avkved27";
+    });  
+    jq('#avkved28').focus(function() {
+    	selectedElement = "avkved28";
+    });  
+    jq('#avkved29').focus(function() {
+    	selectedElement = "avkved29";
+    });  
+    jq('#avkved30').focus(function() {
+    	selectedElement = "avkved30";
+    });  
+    
 
 }); 
 

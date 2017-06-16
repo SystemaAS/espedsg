@@ -345,7 +345,7 @@ public class MainMaintenanceCundfVkundController {
 
 		if ("ctype".equals(caller)) { // Funksjon
 			list = getFunksjonKoder(appUser, KOFAST_NO_ID);
-		} else if ("ctype_ref".equals(caller)) {
+		} else if (isAvkved(caller)) {  //Faste koder
 			list = getFunksjonKoder(appUser, !KOFAST_NO_ID);
 		} else if ("valkod".equals(caller)) { //Valutakod
 			list = getValkoder(appUser);
@@ -446,6 +446,10 @@ public class MainMaintenanceCundfVkundController {
 		return list;
 	}
 	
+	private boolean isAvkved(String caller) {
+		return caller.startsWith("avkved");
+	}
+
 	private List<ChildWindowKode> getTidigareHandlingarKoderFromSvtx03f(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
 		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
