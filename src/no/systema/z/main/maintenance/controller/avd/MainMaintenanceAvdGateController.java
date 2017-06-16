@@ -185,11 +185,11 @@ public class MainMaintenanceAvdGateController {
 		object = new  MainMaintenanceMainListObject();
 		object.setId("10");
 		object.setSubject("TDS - NCTS Export");
-		object.setCode("TODO");
-		object.setText("X / Y");
-		object.setDbTable("TODO");
-		//object.setStatus("Y");
-		object.setPgm("todo");
+		object.setCode("mainmaintenanceavdtdsnctsexport");
+		object.setText("SVX003R / SVXSTD not (ENTRY, EXIT, SS)");
+		object.setDbTable("SVXSTD");
+		object.setStatus("G");
+		object.setPgm("svx003r");
 		listObject.add(object);
 		//
 		object = new  MainMaintenanceMainListObject();

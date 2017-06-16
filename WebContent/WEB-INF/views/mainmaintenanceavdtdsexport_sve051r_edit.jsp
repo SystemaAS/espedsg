@@ -176,10 +176,10 @@
 			    	    
 						<tr>
 							<td class="text12" title="svea_omeo"><font class="text12RedBold" >*</font>EORI</td>
-							<td class="text12" title="svea_omty">&nbsp;Typ</td>
-							<td class="text12" title="svea_omha">&nbsp;Handläggare</td>
-							<td class="text12" title="svea_omtl">&nbsp;Telefon</td>
-							<td class="text12" title="svea_0035">&nbsp;Testindikator</td>
+							<td class="text12" title="svea_omty"><font class="text12RedBold" >*</font>Typ</td>
+							<td class="text12" title="svea_omha"><font class="text12RedBold" >*</font>Handläggare</td>
+							<td class="text12" title="svea_omtl"><font class="text12RedBold" >*</font>Telefon</td>
+							<td class="text12" title="svea_0035"><font class="text12RedBold" >*</font>Testindikator</td>
 							
 						</tr>
 						<tr>
@@ -187,16 +187,16 @@
 								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_omeo" id="svea_omeo" size="18" maxlength="17" value='${model.record.svea_omeo}'>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="svea_omty" id="svea_omty" size="2" maxlength="1" value='${model.record.svea_omty}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_omty" id="svea_omty" size="2" maxlength="1" value='${model.record.svea_omty}'>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="svea_omha" id="svea_omha" size="36" maxlength="35" value='${model.record.svea_omha}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_omha" id="svea_omha" size="36" maxlength="35" value='${model.record.svea_omha}'>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="svea_omtl" id="svea_omtl" size="26" maxlength="25" value='${model.record.svea_omtl}'>
+								<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="svea_omtl" id="svea_omtl" size="26" maxlength="25" value='${model.record.svea_omtl}'>
 							</td>
 							<td class="text12">
-								<select name="svea_0035" id="svea_0035" class="inputTextMediumBlue">
+								<select name="svea_0035" id="svea_0035" class="inputTextMediumBlueMandatoryField">
 				  					<option value="1"<c:if test="${ model.record.svea_0035 == '1'}"> selected </c:if> >Test</option>
 				  					<option value=""<c:if test="${ empty model.record.svea_0035 }"> selected </c:if> >Prod</option>
 				  					
