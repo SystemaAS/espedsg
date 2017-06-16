@@ -392,11 +392,11 @@
 													<td width="30%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="svew_brut">Brutv.(kg):</td>
+																<td class="text12" title="svew_brut">Bruttov.(kg):</td>
 																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_brut" id="svew_brut" size="20" maxlength="18" value='${model.record.svew_brut}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_neto">Netv.(kg):</td>
+																<td class="text12" title="svew_neto">Nettov.(kg):</td>
 																<td><input type="text" onKeyPress="return amountKey(event)" class="inputTextMediumBlue" name="svew_neto" id="svew_neto" size="20" maxlength="18" value='${model.record.svew_neto}'></td>
 															</tr>
 															<tr>
