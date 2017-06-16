@@ -30,6 +30,22 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public String getThavdPropertyName (){ return "thavd"; }
 	public void setThavd(String value) {  this.thavd = value; }
 	public String getThavd() {return this.thavd;}
+	
+	private String koanvn = null;                                
+	public String getKoanvnPropertyName (){ return "koanvn"; }
+	public void setKoanvn (String value){ this.koanvn = value;   }   
+	public String getKoanvn (){ return this.koanvn;   }  
+	
+	private String koaknr = null;                                
+	public String getKoaknrPropertyName (){ return "koaknr"; }
+	public void setKoaknr (String value){ this.koaknr = value;   }   
+	public String getKoaknr (){ return this.koaknr;   }  
+	
+	private String syrg = null;                                
+	public String getSyrgPropertyName (){ return "syrg"; }
+	public void setSyrg (String value){ this.syrg = value;   }   
+	public String getSyrg (){ return this.syrg;   }  
+	
 	//thtdn Oppdragsnr
 	private String thtdn = null;
 	public String getThtdnPropertyName (){ return "thtdn"; }
@@ -603,6 +619,11 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setTgprm(String value) {  this.tgprm = value; }
 	public String getTgprm() { return this.tgprm;}
 	
+	private String s0004 = "";                                
+	public String getS0004PropertyName (){ return "s0004"; }
+	public void setS0004 (String value){ this.s0004 = value;   }   
+	public String getS0004 (){ return this.s0004;   }  
+	
 	//Criteria in order to present a warranty alarm
 	private boolean warrantyAlarm = false;
 	public boolean getWarrantyAlarm() { 
@@ -634,6 +655,7 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 		
 		return this.warrantyAlarm;
 	}
+	
 	
 	
 	

@@ -84,7 +84,7 @@
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >Uppd.</th>                                                            
 								<th width="2%" class="tableHeaderField" align="center" >Avd.</th>
 								<th class="tableHeaderField" align="center" >Avd.navn</th>
-								<th class="tableHeaderField" align="center" >Bestemmelsestoldsted</th>
+								<th class="tableHeaderField" align="center" >Avgångstullkontor</th>
 								<th class="tableHeaderField" align="center" >Avs. Utväxlingsid</th>
 								<th class="tableHeaderField" align="center" >Foretagsnr.</th>
 								<th class="tableHeaderField" align="center" >Ta bort</th>
@@ -94,18 +94,18 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsnctsexport_svx003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${Xrecord.koanvn}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="TODOmainmaintenanceavdtdsnctsexport_svx003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>
 				               <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">${record.thavd}</td>
-				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${Xrecord.koanvn}&nbsp;</td>
+				               <td width="20%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.koanvn}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.thcats}&nbsp;</td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${Xrecord.s0004}&nbsp;</td>
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.s0004}&nbsp;</td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 1px;border-color:#FAEBD7;">&nbsp;${record.thtina}&nbsp;</td>
 				               
 				               <td align="center" width="2%" class="tableCell" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
-		               				<a onclick="javascript:return confirm('Är du säker på att du vill ta bort denna?')" tabindex=-1 href="mainmaintenanceavdtdsnctsexport_svx003r_edit.do?action=doDelete&thavd=${record.thavd}">
+		               				<a onclick="javascript:return confirm('Är du säker på att du vill ta bort denna?')" tabindex=-1 href="TODOmainmaintenanceavdtdsnctsexport_svx003r_edit.do?action=doDelete&thavd=${record.thavd}">
 					               		<img valign="bottom" src="resources/images/delete.gif" border="0" width="15px" height="15px" alt="remove">
 					               	</a>
 				               </td>
