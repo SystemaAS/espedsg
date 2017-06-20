@@ -211,11 +211,11 @@ public class TransportDispWorkflowSpecificOrderValidator implements Validator {
 					boolean atLeastOneLineExists = false;
 					//iterate and check that at least one line has mandatory fields (least required fields)
 					for ( JsonTransportDispWorkflowSpecificOrderFraktbrevRecord lineRecord : record.getFraktbrevList()){
-						logger.info("AAAAAA:" + lineRecord.getFvlinr());
+						//DEBUG logger.info("AAAAAA:" + lineRecord.getFvlinr());
 						if(lineRecord.getFvlinr()!=null && !"".equals(lineRecord.getFvlinr())){
 							atLeastOneLineExists = true;
 							if(!this.isValidOrderLine(lineRecord)){
-								logger.info("BBBBBB:" + lineRecord.getFvlinr());
+								//DEBUG logger.info("BBBBBB:" + lineRecord.getFvlinr());
 								errors.rejectValue("heopd", "systema.transportdisp.orders.form.error.rule.mandatory.fields.orderlines.invalid");
 								break;
 							}
@@ -224,12 +224,12 @@ public class TransportDispWorkflowSpecificOrderValidator implements Validator {
 							if( (lineRecord.getFvant()!=null && lineRecord.getFvant()!="") && 
 								(lineRecord.getFvvt()!=null && lineRecord.getFvvt()!="")&& 
 								(lineRecord.getFvvkt()!=null && lineRecord.getFvvkt()!="") ) {
-									logger.info("ZZZZZZ:" + lineRecord.getFvlinr());
+									//DEBUG logger.info("ZZZZZZ:" + lineRecord.getFvlinr());
 									atLeastOneLineExists = true;
 									break;
 							}else{
 								if(!this.isValidOrderLine(lineRecord)){
-									logger.info("CCCCCCC:" + lineRecord.getFvlinr());
+									//DEBUG logger.info("CCCCCCC:" + lineRecord.getFvlinr());
 									errors.rejectValue("heopd", "systema.transportdisp.orders.form.error.rule.mandatory.fields.orderlines.invalid");
 									break;
 								}

@@ -42,7 +42,7 @@ import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
-
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
@@ -112,7 +112,7 @@ public class TransportDispMainOrderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private TransportDispPercentageFormatter percentageFormatter = new TransportDispPercentageFormatter();
 	private ReflectionSpecificOrderHeaderMgr reflectionSpecificOrderHeaderMgr = new ReflectionSpecificOrderHeaderMgr();
-	
+	private StringManager strMgr = new StringManager();
 	private String MESSAGE_NOTE_CONSIGNEE = "R";
 	private String MESSAGE_NOTE_CARRIER = "G";
 	private String MESSAGE_NOTE_INTERNAL = "b";
@@ -362,80 +362,101 @@ public class TransportDispMainOrderController {
 					return returnView;
 					
 		    	}else{
-		    		//At this point all validation (at an ORDER-HEADER level) has been successfully passed.
-					//CREATE NEW (ADD)
-			    	if(this.isNewRecord(recordToValidate)){
-		    			logger.info("PURE CREATE NEW transaction...");
-						//Create new order
-						Map<String,String> map = this.createNewOrder(recordToValidate.getHeavd(), appUser);
-						//Now we have got an OPD for further UPDATE
-						String opd = (String)map.get("heopd");
-						recordToValidate.setHeopd(opd);
-						isCreateNewTransaction = true;
-		    		}
-		    		//UPDATE (this will be executed after an ADD (when applicable)
-		    		if(this.isQualifiedForUpdate(recordToValidate)){
-		    			logger.info("UPDATE transaction...");
-		    			//--------------------
-	    				//Start HEADER UPDATE
-		    			//--------------------
-		    			final String UPDATE_BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_URL;
-		    			String urlRequestKeyParams = this.getRequestUrlKeyParameters(recordToValidate, appUser, TransportDispConstants.MODE_UPDATE );
-		    			
-		    			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		    			String urlRequestParamsOrder = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
-		    			String urlRequestParams = urlRequestKeyParams.toString() + urlRequestParamsOrder;
-				    	logger.info("URL: " + UPDATE_BASE_URL);
-				    	logger.info("URL PARAMS: " + urlRequestParams );
-				    	//----------------------------------------------------------------------------
-				    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-				    	//----------------------------------------------------------------------------
-				    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(UPDATE_BASE_URL, urlRequestParams);
-				    	//Debug --> 
-				    	logger.info("Checking errMsg in rpgReturnPayload [UPDATE]:" + rpgReturnPayload);
-				    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-				    	rpgReturnResponseHandler.evaluateRpgResponseOnEditSpecificOrder(rpgReturnPayload);
-				    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-				    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-				    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
-				    		//isValidCreatedRecordTransactionOnRPG = false;
-				    	}else{
-				    		//Update successfully done!
-				    		logger.info("[INFO] Record successfully updated, OK ");
-				    		//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(recordToValidate, appUser);
-				    		
-				    		//-------------------------------------------------------
-				    		//START ITEM LINES UPDATE
-			    			//Validation [3] Back-end-Order lines
-			    			//------------------------------------------------
-			    			//Validate order lines
-			    			//[3.1] Execute back end validation for order lines (now that the order has been created)
-				    		this.specificOrderValidatorBackend.validateOrderLines(appUser, recordToValidate, request);
-				    		//update with the return values of the back-end (if any). 
-			    			this.reflectionSpecificOrderHeaderMgr.updateOriginalAttributesOnTargetFraktbrevLines(recordToValidate, this.specificOrderValidatorBackend.getValidationOutputOderLinesList());
-			    			recordToValidate.setFraktbrevList(this.reflectionSpecificOrderHeaderMgr.getTargetFraktbrevListUpdated());
-			    			if(this.specificOrderValidatorBackend.getValidationOutputErrMsgList()!=null && this.specificOrderValidatorBackend.getValidationOutputErrMsgList().size()>0){
-					    		validationOutputContainer = this.specificOrderValidatorBackend.getValidationOutputContainer();
-					    		//ERRORs at the back-end. Abort everything and return to the end-user with the clear error messages
-					    		logger.info("VALIDATION BACK-END ERROR (ORDER LINES)");
-					    		//logger.info(" size:" + validationOutputContainer.getErrMsgListFromValidationBackend().size());
-					    		model.put(TransportDispConstants.DOMAIN_CONTAINER_VALIDATION_BACKEND, validationOutputContainer);
-					    		//restore percentage GUI-formatted
-					    		//recordToValidate.setHevalp(percentageFormatter.adjustPercentageNotationToFrontEndOnSpecificOrder(recordToValidate.getHevalp()));
-					    		//set domain objects
-					    		this.setDomainObjectsOnValidationErrors(appUser, recordToValidate, model, parentTrip);
-								returnView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
-								return returnView;
-			    			}else{
-			    				logger.info("[START]: processOrderLines...");
-			    				//Update the order lines
-				    			this.processOrderLines(recordToValidate, appUser);
-				    			//postUpdate events on back-end
-				    			this.processPostUpdateEvents(recordToValidate, appUser);
-				    			logger.info("[END]: processOrderLines");
-			    			}
-			    		}	
+		    		//-----------------------------------------------------
+					//Validation [3] Back-end FRISOKVEI
+			    	//Note: only if it validates we proceed to the UPDATE
+					//-----------------------------------------------------
+		    		this.specificOrderValidatorBackend.validateFriSokvei(appUser, recordToValidate.getHeavd(), recordToValidate.getHereff());
+		    		if (strMgr.isNotNull(this.specificOrderValidatorBackend.getValidationOutputContainer().getErrMsg()) ){
+		    			//ERRORs at the frisokvei back-end. Abort everything and return to the end-user with the clear error messages
+			    		logger.info("VALIDATION BACK-END ERROR (ORDER - FRISOKVEI)");
+			    		//logger.info(" size:" + validationOutputContainer.getErrMsgListFromValidationBackend().size());
+			    		model.put(TransportDispConstants.DOMAIN_CONTAINER_VALIDATION_BACKEND, this.specificOrderValidatorBackend.getValidationOutputContainer());
+			    		//restore percentage GUI-formatted
+			    		//recordToValidate.setHevalp(percentageFormatter.adjustPercentageNotationToFrontEndOnSpecificOrder(recordToValidate.getHevalp()));
+					
+			    		//set domain objects
+			    		this.setDomainObjectsOnValidationErrors(appUser, recordToValidate, model, parentTrip);
+						returnView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+						return returnView;
+						
+		    		}else{
+		    		
+			    		//At this point all validation (at an ORDER-HEADER level) has been successfully passed.
+						//CREATE NEW (ADD)
+				    	if(this.isNewRecord(recordToValidate)){
+			    			logger.info("PURE CREATE NEW transaction...");
+							//Create new order
+							Map<String,String> map = this.createNewOrder(recordToValidate.getHeavd(), appUser);
+							//Now we have got an OPD for further UPDATE
+							String opd = (String)map.get("heopd");
+							recordToValidate.setHeopd(opd);
+							isCreateNewTransaction = true;
+			    		}
+			    		//UPDATE (this will be executed after an ADD (when applicable)
+			    		if(this.isQualifiedForUpdate(recordToValidate)){
+			    			logger.info("UPDATE transaction...");
+			    			//--------------------
+		    				//Start HEADER UPDATE
+			    			//--------------------
+			    			final String UPDATE_BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_URL;
+			    			String urlRequestKeyParams = this.getRequestUrlKeyParameters(recordToValidate, appUser, TransportDispConstants.MODE_UPDATE );
+			    			
+			    			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			    			String urlRequestParamsOrder = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+			    			String urlRequestParams = urlRequestKeyParams.toString() + urlRequestParamsOrder;
+					    	logger.info("URL: " + UPDATE_BASE_URL);
+					    	logger.info("URL PARAMS: " + urlRequestParams );
+					    	//----------------------------------------------------------------------------
+					    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+					    	//----------------------------------------------------------------------------
+					    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(UPDATE_BASE_URL, urlRequestParams);
+					    	//Debug --> 
+					    	logger.info("Checking errMsg in rpgReturnPayload [UPDATE]:" + rpgReturnPayload);
+					    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+					    	rpgReturnResponseHandler.evaluateRpgResponseOnEditSpecificOrder(rpgReturnPayload);
+					    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+					    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+					    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+					    		//isValidCreatedRecordTransactionOnRPG = false;
+					    	}else{
+					    		//Update successfully done!
+					    		logger.info("[INFO] Record successfully updated, OK ");
+					    		//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
+					    		this.processNewMessageNotes(recordToValidate, appUser);
+					    		
+					    		//-------------------------------------------------------
+					    		//START ITEM LINES UPDATE
+				    			//Validation [3] Back-end-Order lines
+				    			//------------------------------------------------
+				    			//Validate order lines
+				    			//[3.1] Execute back end validation for order lines (now that the order has been created)
+					    		this.specificOrderValidatorBackend.validateOrderLines(appUser, recordToValidate, request);
+					    		//update with the return values of the back-end (if any). 
+				    			this.reflectionSpecificOrderHeaderMgr.updateOriginalAttributesOnTargetFraktbrevLines(recordToValidate, this.specificOrderValidatorBackend.getValidationOutputOderLinesList());
+				    			recordToValidate.setFraktbrevList(this.reflectionSpecificOrderHeaderMgr.getTargetFraktbrevListUpdated());
+				    			if(this.specificOrderValidatorBackend.getValidationOutputErrMsgList()!=null && this.specificOrderValidatorBackend.getValidationOutputErrMsgList().size()>0){
+						    		validationOutputContainer = this.specificOrderValidatorBackend.getValidationOutputContainer();
+						    		//ERRORs at the back-end. Abort everything and return to the end-user with the clear error messages
+						    		logger.info("VALIDATION BACK-END ERROR (ORDER LINES)");
+						    		//logger.info(" size:" + validationOutputContainer.getErrMsgListFromValidationBackend().size());
+						    		model.put(TransportDispConstants.DOMAIN_CONTAINER_VALIDATION_BACKEND, validationOutputContainer);
+						    		//restore percentage GUI-formatted
+						    		//recordToValidate.setHevalp(percentageFormatter.adjustPercentageNotationToFrontEndOnSpecificOrder(recordToValidate.getHevalp()));
+						    		//set domain objects
+						    		this.setDomainObjectsOnValidationErrors(appUser, recordToValidate, model, parentTrip);
+									returnView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+									return returnView;
+				    			}else{
+				    				logger.info("[START]: processOrderLines...");
+				    				//Update the order lines
+					    			this.processOrderLines(recordToValidate, appUser);
+					    			//postUpdate events on back-end
+					    			this.processPostUpdateEvents(recordToValidate, appUser);
+					    			logger.info("[END]: processOrderLines");
+				    			}
+				    		}	
+			    		}
 		    		}
 		    	}
 	    		//------------------------------------------
@@ -642,11 +663,11 @@ public class TransportDispMainOrderController {
 				urlRequestParamsKeysBuffer.append("&mode=" + mode);
 				
 				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-				logger.info("URL: " + BASE_URL_UPDATE);
-				logger.info("PARAMS: " + urlRequestParams);
+				//logger.info("URL: " + BASE_URL_UPDATE);
+				//logger.info("PARAMS: " + urlRequestParams);
 				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
 				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-				logger.info(jsonPayload);
+				//logger.info(jsonPayload);
 				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 				if(jsonPayload!=null){ 
 					JsonTransportDispWorkflowSpecificOrderFraktbrevContainer fraktbrevContainer = this.transportDispWorkflowSpecificOrderService.getFraktbrevContainer(jsonPayload);
@@ -1534,17 +1555,17 @@ public class TransportDispMainOrderController {
     		
     		
     		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-	    	logger.info("URL: " + BASE_LIST_URL);
+    		logger.info("URL: " + BASE_LIST_URL);
 	    	logger.info("URL PARAMS: " + urlRequestParams);
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
-		//Debug --> 
-	    	logger.debug(jsonPayload);
-	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	//Debug --> 
+	    	//logger.debug(jsonPayload);
+	    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonTransportDispWorkflowSpecificOrderMessageNoteContainer messageNoteContainer = this.transportDispWorkflowSpecificOrderService.getMessageNoteContainer(jsonPayload);
 	    		outputList = messageNoteContainer.getFreetextlistA();
 	    		for(JsonTransportDispWorkflowSpecificOrderMessageNoteRecord note: outputList){
-	    			logger.info(note.getFrttxt());
+	    			//logger.info(note.getFrttxt());
 	    		}
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 		}

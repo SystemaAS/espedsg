@@ -128,6 +128,25 @@
 		</td>
 		</tr>		
 	</c:if>
+	<%-- -------------------------------------- --%>
+	<%-- Validation errors BACK END independent --%>
+	<%-- Usually Frie sokveier (FRISOK)         --%>
+	<%-- -------------------------------------- --%>
+	<c:if test="${not empty model.containerValidationBackend && not empty model.containerValidationBackend.errMsg}">
+		<tr>
+		<td>
+           	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+           	<tr>
+			<td valign="bottom" class="textError">					
+	            <ul>
+	            	<li >${model.containerValidationBackend.errMsg}</li>
+	            </ul>
+			</td>
+			</tr>
+			</table>
+		</td>
+		</tr>		
+	</c:if>
 	<%-- -------------------------- --%>
 	<%-- Validation errors on model --%>
 	<%-- -------------------------- --%>

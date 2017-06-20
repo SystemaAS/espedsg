@@ -21,6 +21,7 @@ import no.systema.transportdisp.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.validationbackend.JsonTransportDispWorkflowSpecificOrderValidationBackendContainer;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.TransportDispConstants;
@@ -142,9 +143,43 @@ public class SpecificOrderValidatorBackend {
 			logger.info(errors);
 		}
 		
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	public void validateFriSokvei(SystemaWebUser appUser, String avd, String opd){
+		final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_URL;
+		//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&avd=" + avd); 
+		urlRequestParams.append("&opd=" + opd);
 		
-		
-		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
+			if(container!=null){
+				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+					logger.info("ERROR Frisokvei:" + container.getErrMsg());
+					this.validationOutputContainer = new JsonTransportDispWorkflowSpecificOrderValidationBackendContainer();
+					this.validationOutputContainer.setHeavd(avd);
+					this.validationOutputContainer.setHeopd(opd);
+					this.validationOutputContainer.setErrMsg(container.getErrMsg());
+				}
+			}	
+		}
+
 	}
 	/**
 	 * 
