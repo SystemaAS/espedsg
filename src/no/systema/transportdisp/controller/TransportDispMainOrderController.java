@@ -343,7 +343,7 @@ public class TransportDispMainOrderController {
 		    	//[2.2] This next call updates the recordToValidate values (either there is an error or not, depending on what the back-end sends in its JSON-return values)
 		    	//Note:Sometimes the back-end could send updated values (without failing on validation) and then we must update them right here
 		    	this.reflectionSpecificOrderHeaderMgr.updateOriginalAttributesOnTargetRecord(recordToValidate, this.specificOrderValidatorBackend.getValidationOutputRecord());
-    			
+		    	//logger.info("INITTTTTT");
 		    	//At this point we now have a recordToValidate updated with all fields (JSON) returned by the validator
 		    	JsonTransportDispWorkflowSpecificOrderValidationBackendContainer validationOutputContainer = new JsonTransportDispWorkflowSpecificOrderValidationBackendContainer();
 		    	//Check for error on back-end
@@ -366,7 +366,7 @@ public class TransportDispMainOrderController {
 					//Validation [3] Back-end FRISOKVEI
 			    	//Note: only if it validates we proceed to the UPDATE
 					//-----------------------------------------------------
-		    		this.specificOrderValidatorBackend.validateFriSokvei(appUser, recordToValidate.getHeavd(), recordToValidate.getHereff());
+		    		this.specificOrderValidatorBackend.validateFriSokvei(appUser, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 		    		if (strMgr.isNotNull(this.specificOrderValidatorBackend.getValidationOutputContainer().getErrMsg()) ){
 		    			//ERRORs at the frisokvei back-end. Abort everything and return to the end-user with the clear error messages
 			    		logger.info("VALIDATION BACK-END ERROR (ORDER - FRISOKVEI)");
@@ -381,8 +381,7 @@ public class TransportDispMainOrderController {
 						return returnView;
 						
 		    		}else{
-		    		
-			    		//At this point all validation (at an ORDER-HEADER level) has been successfully passed.
+		    			//At this point all validation (at an ORDER-HEADER level) has been successfully passed.
 						//CREATE NEW (ADD)
 				    	if(this.isNewRecord(recordToValidate)){
 			    			logger.info("PURE CREATE NEW transaction...");

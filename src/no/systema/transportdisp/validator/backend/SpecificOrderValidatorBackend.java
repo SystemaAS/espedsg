@@ -169,7 +169,9 @@ public class SpecificOrderValidatorBackend {
 		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		if(jsonPayload!=null){
 			JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
+			
 			if(container!=null){
+				logger.info("Inside container:" + container.getErrMsg());
 				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 					logger.info("ERROR Frisokvei:" + container.getErrMsg());
 					this.validationOutputContainer = new JsonTransportDispWorkflowSpecificOrderValidationBackendContainer();
