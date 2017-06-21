@@ -3,6 +3,7 @@ package no.systema.z.main.maintenance.controller.kund;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -104,6 +105,46 @@ public class VkundControllerUtil {
 		} else {
 			return null;
 		}
+	}	
+	
+	/**
+	 * Return a Locale based on the SystemaWebUser's defined usrlang
+	 * 
+	 * If caller is svew or sviw Locale is set to sv, SE.
+	 * 
+	 * @param usrLang
+	 * @param caller typically naming from ui or dao
+	 * @return a Locale
+	 */
+	public static Locale getLocale(String usrLang, String caller){
+		Locale locale = null;
+
+		if ("SE".equals(usrLang)) {
+			locale = new Locale("sv", "SE");
+		} else if ("NO".equals(usrLang)) {
+			locale = new Locale("no", "NO");
+		} else if ("DK".equals(usrLang)) {
+			locale = new Locale("dk", "DK");
+		} else {
+			locale = Locale.getDefault();
+		}		
+		
+		//Potential override of Locale
+		if (isSweden(caller)) {
+			locale = new Locale("sv", "SE");
+		}		
+		
+		return locale;
+	}
+	
+	/*
+	 * caller starts with svew or sviw
+	 * 
+	 * @param caller
+	 * @return true if caller starts with svew or sviw
+	 */
+	private static boolean isSweden(String caller) {
+		return caller.startsWith("svew") || caller.startsWith("sviw");
 	}	
 
 }

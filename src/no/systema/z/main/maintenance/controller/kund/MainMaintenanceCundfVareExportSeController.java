@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -151,11 +152,12 @@ public class MainMaintenanceCundfVareExportSeController {
 	}
 	
 	private int updateRecord(SystemaWebUser appUser, SvewDao record, String mode, StringBuffer errMsg) {
+		Locale locale = VkundControllerUtil.getLocale(appUser.getUsrLang(), "svew");
 		int retval = 0;
 		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
 		jsonReader.set(new JsonDtoContainer<SvewDao>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_DML_UPDATE_URL;
-		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +locale.getCountry();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 

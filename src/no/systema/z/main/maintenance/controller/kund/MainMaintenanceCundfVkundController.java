@@ -231,7 +231,9 @@ public class MainMaintenanceCundfVkundController {
 		return firmDao;
 	}
 
-
+	/*
+	 * For dynamically adjust tabs in Vareregister
+	 */
 	private int getFantomSpaceWidth(KundeSessionParams kundeSessionParams) {
 		int spaceTotal = 1090;
 		if (kundeSessionParams.isExportNo()) {
@@ -303,22 +305,7 @@ public class MainMaintenanceCundfVkundController {
 		
 	private void setLabels(SystemaWebUser appUser, Map model, String caller) {
 		MessageSourceHelper messageSourceHelper = new MessageSourceHelper();
-		Locale locale = null;
-
-		if ("SE".equals(appUser.getUsrLang())) {
-			locale = new Locale("sv", "SE");
-		} else if ("NO".equals(appUser.getUsrLang())) {
-			locale = new Locale("no", "NO");
-		} else if ("DK".equals(appUser.getUsrLang())) {
-			locale = new Locale("dk", "DK");
-		} else {
-			locale = Locale.getDefault();
-		}
-		
-		//Potential override of Locale
-		if (isSweden(caller)) {
-			locale = new Locale("sv", "SE");
-		}
+		Locale locale  = VkundControllerUtil.getLocale(appUser.getUsrLang(), caller);
 		
 		String labelSearch = messageSourceHelper.getMessage("systema.main.maintenance.search", null, locale);
 		String labelCode = messageSourceHelper.getMessage("systema.main.maintenance.main.gate.code", null, locale);
@@ -332,16 +319,6 @@ public class MainMaintenanceCundfVkundController {
 		
 	}
 
-
-	/**
-	 * caller starts with svew or sviw
-	 * 
-	 * @param caller
-	 * @return true if caller starts with svew or sviw
-	 */
-	private boolean isSweden(String caller) {
-		return caller.startsWith("svew") || caller.startsWith("sviw");
-	}
 
 	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {
 		List<ChildWindowKode> list = null;

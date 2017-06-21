@@ -293,7 +293,7 @@
 
  	   	 		 	<tr id="details">
  	   	 		 		<td>
-							<form action="mainmaintenancecundf_vareexp_se_edit.do" name="formRecord" id="formRecord" method="POST" >
+							<form action="mainmaintenancecundf_vareimp_se_edit.do" name="formRecord" id="formRecord" method="POST" >
 								<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 								<input type="hidden" name="updateId" id="updateId" value="${model.updateId}"> 
 								<input type="hidden" name="action" id=action value="doUpdate">
