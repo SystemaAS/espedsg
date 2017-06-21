@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import no.systema.jservices.common.brreg.proxy.entities.Enhet;
 import no.systema.jservices.common.dao.SadvareDao;
 import no.systema.jservices.common.dao.SvewDao;
+import no.systema.jservices.common.dao.SviwDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.service.UrlCgiProxyService;
@@ -50,11 +51,18 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private static final Logger logger = Logger.getLogger(MaintMaintenanceVkundAjaxHandlerController.class.getName());
 
+	@RequestMapping(value = "getSpecificRecord_sviw.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public @ResponseBody Collection<SviwDao> getRecordSviw(@RequestParam String applicationUser, @RequestParam String sviw_knnr, String sviw_knso) {
+		final String METHOD = "[DEBUG] getSpecificRecord_sviw ";
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", sviw_knnr=" + sviw_knnr + ", sviw_knso=" + sviw_knso);
 
+		return fetchSpecificSviw(applicationUser, sviw_knnr, sviw_knso);
+	}		
+	
 	@RequestMapping(value = "getSpecificRecord_svew.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Collection<SvewDao> getRecordSvew(@RequestParam String applicationUser, @RequestParam String svew_knnr, String svew_knso) {
 		final String METHOD = "[DEBUG] getSpecificRecord_svew ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", svew_knnr=" + svew_knnr + ", svew_knso=" + svew_knso);
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", svew_knnr=" + svew_knnr + ", svew_knso=" + svew_knso);
 
 		return fetchSpecificSvew(applicationUser, svew_knnr, svew_knso);
 	}		
@@ -62,7 +70,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_sadvare.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody Collection<SadvareDao> getRecordSadvare(@RequestParam String applicationUser, @RequestParam String levenr, String varenr) {
 		final String METHOD = "[DEBUG] getSpecificRecord_sadvare ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", levenr=" + levenr + ", varenr=" + varenr);
 
 		return fetchSpecificSadvare(applicationUser, levenr, varenr);
 	}	
@@ -70,7 +78,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_syparf.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainSyparfRecord> getRecordSyparf(@RequestParam String applicationUser, @RequestParam String sykunr, String syrecn) {
 		final String METHOD = "[DEBUG] getSpecificRecord_syparf ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", sykunr=" + sykunr + ", syrecn=" + syrecn);
 
 		return (List<JsonMaintMainSyparfRecord>) fetchSpecificSyparf(applicationUser, sykunr, syrecn);
 	}
@@ -86,7 +94,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	@RequestMapping(value = "getSpecificRecord_cundc.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody List<JsonMaintMainCundcRecord> getRecordCundc(@RequestParam String applicationUser, @RequestParam String cfirma, String ccompn, String cconta, String ctype) {
 		final String METHOD = "[DEBUG] getSpecificRecord_cundc ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", cfirma=" + cfirma + ", ccompn=" + ccompn+ ", cconta="+cconta+", ctype="+ctype);
 
 		return (List<JsonMaintMainCundcRecord>) fetchSpecificCundc(applicationUser, cfirma, ccompn, cconta, ctype);
 	}
@@ -95,7 +103,7 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 	public @ResponseBody Collection<Enhet> getRecordHovedEnhetBrreg(@RequestParam String applicationUser, @RequestParam String orgnr) {
 		VkundControllerUtil util = new VkundControllerUtil(urlCgiProxyService);
 		final String METHOD = "[DEBUG] getSpecificRecord_enhet_brreg ";
-		logger.debug(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
+		logger.info(METHOD + " applicationUser=" + applicationUser + ", orgnr=" + orgnr );
 
 		Collection<Enhet> list =  util.fetchSpecificEnhet(applicationUser, orgnr);
 		
@@ -110,6 +118,28 @@ public class MaintMaintenanceVkundAjaxHandlerController {
 		return (List<JsonMaintMainCundcRecord>) fetchDefaultEmmaXmlInfo(applicationUser, firma);
 	}	
 	
+	private Collection<SviwDao> fetchSpecificSviw(String appUser, String sviw_knnr, String sviw_knso) {
+		JsonReader<JsonDtoContainer<SviwDao>> jsonReader = new JsonReader<JsonDtoContainer<SviwDao>>();
+		jsonReader.set(new JsonDtoContainer<SviwDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVIW_GET_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser);
+		urlRequestParams.append("&sviw_knnr=" + sviw_knnr);
+		urlRequestParams.append("&sviw_knso=" + sviw_knso);
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+
+		JsonDtoContainer<SviwDao> container = (JsonDtoContainer<SviwDao>) jsonReader.get(jsonPayload);
+		if (container != null) {
+			return container.getDtoList();
+		} else {
+			return null;
+		}
+	}		
+
 	private Collection<SvewDao> fetchSpecificSvew(String appUser, String svew_knnr, String svew_knso) {
 		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
 		jsonReader.set(new JsonDtoContainer<SvewDao>());

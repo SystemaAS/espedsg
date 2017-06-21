@@ -143,7 +143,7 @@ jq(function() {
    
     jq('#sviw_vataIdLink').click(function() {
     	jq('#sviw_vataIdLink').attr('target','_blank');
-	    window.open('tdsexport_edit_items_childwindow_tulltaxa.do?action=doInit&vkod=' + jq('#sviw_vata').val() + '&caller=sviw_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    window.open('tdsimport_edit_items_childwindow_tulltaxa.do?action=doInit&vkod=' + jq('#sviw_vata').val() + '&caller=sviw_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	   
  
     jq('#sviw_eup1IdLink').click(function() {
@@ -302,7 +302,7 @@ function getRecord(record){
 	
 	jq.ajax({
 	  type: 'GET',
-	  url: 'getSpecificRecord_svew.do',
+	  url: 'getSpecificRecord_sviw.do',
 	  data: { applicationUser : jq('#applicationUser').val(), 
 		  sviw_knnr : sviw_knnr,
 		  sviw_knso  : sviw_knso },
@@ -438,8 +438,7 @@ function getRecord(record){
 			jq('#sviw_suok').val("");jq('#sviw_suok').val(data[i].sviw_suok);
 			jq('#sviw_sukr').val("");jq('#sviw_sukr').val(data[i].sviw_sukr);
 			jq('#sviw_suar').val("");jq('#sviw_suar').val(data[i].sviw_suar);
-			
-			
+					
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].sviw_knso);
 			

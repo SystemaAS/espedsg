@@ -9,10 +9,14 @@
 			  var record = id.split('@');
 			  var vkod = record[0].replace("vkod", "");
 			  var text = record[1].replace("text", "");
-			  var callerType = record[2].replace("ctype", "");
-			  //alert(kod + " " + text + " " + callerType);
-			  opener.jq('#sviv_vata').val(vkod);
-			  //close child window
+			  var caller = record[2].replace("caller", "");
+
+			  caller = "#" + caller;
+				
+			  opener.jq(caller).val(vkod);
+			  opener.jq(caller).change();
+			  opener.jq(caller).focus();		  
+			  
 			  window.close();
 		  });
 	});

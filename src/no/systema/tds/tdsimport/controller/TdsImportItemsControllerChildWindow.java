@@ -141,6 +141,7 @@ public class TdsImportItemsControllerChildWindow {
 		Map model = new HashMap();
 		String varuKod = request.getParameter("vkod");
 		String text = request.getParameter("tekst");
+		String caller = request.getParameter("caller");  //Field in jsp
 		
 		String ieMode = "I";
 		
@@ -161,6 +162,7 @@ public class TdsImportItemsControllerChildWindow {
 				model.put("vkod", varuKod);
 			}
 			model.put("tullTaxaList", list);
+			model.put("caller", caller);
 			successView.addObject(TdsConstants.DOMAIN_MODEL , model);
 			
 	    	return successView;

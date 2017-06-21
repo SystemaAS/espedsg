@@ -369,7 +369,7 @@
 																</td>
 																<td class="text12" title="sviw_vata">Varukod:</td>
 																<td>
-																	<input type="text" class="inputTextMediumBlue" name="sviw_vata" id="sviw_vata" size="10" maxlength="8" value='${model.record.sviw_vata}'>
+																	<input type="text" class="inputTextMediumBlue" name="sviw_vata" id="sviw_vata" size="12" maxlength="10" value='${model.record.sviw_vata}'>
 																	<a tabindex="-1" id="sviw_vataIdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
 																	</a>
@@ -509,16 +509,6 @@
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_vas4" id="sviw_vas4" size="70" maxlength="70" value='${model.record.sviw_vas4}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="">&nbsp;REMOVE. 5:</td>
-																<td>&nbsp;
-																</td>
-															</tr>
-															<tr>
-																<td class="text12" title="sviw_komr">&nbsp; REMOVEKomm. ref.nr:</td>
-																<td>&nbsp;
-																</td>
-															</tr>
-															<tr>
 																<td class="text12" title="sviw_lagt">&nbsp;Lager id:</td>
 																<td>
 																	<select name="sviw_lagt" id="sviw_lagt" > 
@@ -553,13 +543,6 @@
 													<td width="45%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="sviw_betk"> REMOVE Betalkod:</td>
-																<td>&nbsp;
-																</td>
-																<td class="text12" title="sviw_ankv">&nbsp;Extra mängd:</td>
-																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="sviw_ankv" id="sviw_ankv" size="10" maxlength="10" value='${model.record.sviw_ankv}'></td>
-															</tr>
-															<tr>
 																<td class="text12" title="sviw_kono">Kont. nr.:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_kono" id="sviw_kono" size="5" maxlength="3" value='${model.record.sviw_kono}'></td>
 																<td class="text12" title="sviw_stva">&nbsp;Stat. värde:</td>
@@ -580,10 +563,8 @@
 															<tr>
 																<td class="text12" title="sviw_vat4">Varukod (33:4):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_vat4" id="sviw_vat4" size="5" maxlength="4" value='${model.record.sviw_vat4}'></td>
-														<td class="text12" title="sviw_fnkd">&nbsp; REMOVE FN-kod:</td>
-														<td>&nbsp;
-														
-														</td>
+																<td class="text12" title="sviw_ankv">&nbsp;Extra mängd:</td>
+																<td><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="sviw_ankv" id="sviw_ankv" size="10" maxlength="10" value='${model.record.sviw_ankv}'></td>
 															</tr>
 															<tr>
 																<td class="text12" title="sviw_vat5">Varukod (33:5):</td>

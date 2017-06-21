@@ -25,7 +25,7 @@
 					<tr>
 					<td>
 						<table>
-						<form name="tdsImportTulltaxaForm" id="tdsImportTulltaxaForm" action="tdsimport_edit_items_childwindow_tulltaxa.do?action=doInit" method="post">
+						<form name="tdsImportTulltaxaForm" id="tdsImportTulltaxaForm" action="tdsimport_edit_items_childwindow_tulltaxa.do?action=doInit&caller=${model.caller}" method="post">
 						<tr>
 							<td class="text11">&nbsp;Varukod</td>
 							<td class="text11">&nbsp;<input type="text" class="inputText" name="vkod" id="vkod" size="10" maxlength="10" value="${model.vkod}"></td>
@@ -68,7 +68,7 @@
 			               </c:choose>
 			               
 		               	   <td class="text11" > &nbsp;&nbsp;${record.svvs_vatak} </td>
-			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.svvs_vata}@text${record.svvs_txtk}@ctype${Xmodel.callerType}" >
+			               <td nowrap style="cursor:pointer;" class="text11MediumBlue" id="vkod${record.svvs_vata}@text${record.svvs_txtk}@caller${model.caller}" >
 			               		<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;${record.svvs_vata}
 			               	</td>
 		               	   <td class="text11">&nbsp;${record.svvs_txtk}</td>

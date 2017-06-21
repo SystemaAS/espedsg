@@ -269,7 +269,8 @@ public class MainMaintenanceCundfVkundController {
 	public ModelAndView getCodes(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenance_vkund_edit_childwindow_codes");
 		ModelAndView successViewCustomer = new ModelAndView("mainmaintenance_childwindow_customer");
-		ModelAndView successViewTulltaxa = new ModelAndView("tdsexport_edit_items_childwindow_tulltaxa");
+		ModelAndView successViewExportTulltaxa = new ModelAndView("tdsexport_edit_items_childwindow_tulltaxa");
+		ModelAndView successViewImportTulltaxa = new ModelAndView("tdsimport_edit_items_childwindow_tulltaxa");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String caller = request.getParameter("caller");  //Field in jsp
@@ -289,7 +290,9 @@ public class MainMaintenanceCundfVkundController {
 				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 				return successViewCustomer;
 			} else if ("svew_vata".equals(caller)) { // Reuse of tdsexport_edit_items_childwindow_tulltaxa.do
-				return successViewTulltaxa;
+				return successViewExportTulltaxa;
+			} else if ("sviw_vata".equals(caller)) { // Reuse of tdsimport_edit_items_childwindow_tulltaxa.do
+				return successViewImportTulltaxa;
 			} else {
 				model.put("caller", caller);
 				successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
@@ -379,63 +382,63 @@ public class MainMaintenanceCundfVkundController {
 			list = getKunder(appUser);
 		} else if ("syfr03".equals(caller)) { //Fritekstkode
 			list = getFritekstKoder(appUser);
-		} else if ("svew_ulkd".equals(caller)) { //Ursprungsland
+		} else if ("svew_ulkd".equals(caller) || "sviw_ulkd".equals(caller)) { //Ursprungsland
 			list = getLandKoderSvKoderFromSvtx03f(appUser);
-		} else if ("svew_vata".equals(caller)) { //Taric nr
-			//list = getTaricnrKoder(appUser); 
-			//continue, using tdsexport_edit_items_childwindow_tulltaxa
-		}	
-		else if ("svew_eup1".equals(caller)) { //Förfarande 37:1
+		} else if ("svew_vata".equals(caller)) { //Varukod
+			logger.info("Calling child_window for svew_vata, re-use of tdsexport_edit_items_childwindow_tulltaxa.");
+		} else if ("sviw_vata".equals(caller)) { //Varukod
+			logger.info("Calling child_window for sviw_vata, re-use of tdsimport_edit_items_childwindow_tulltaxa.");
+		} else if ("svew_eup1".equals(caller) || "sviw_eup1".equals(caller)) { //Förfarande 37:1
 			list = getEup1KoderFromSvtpro(appUser);
-		} else if ("svew_eup2".equals(caller)) { //Förfarande 37:2
+		} else if ("svew_eup2".equals(caller) || "sviw_eup2".equals(caller)) { //Förfarande 37:2
 			list = getEup2KoderFromSvtx03f(appUser);
-		} else if ("svew_kosl".equals(caller)) { //Kollislag
+		} else if ("svew_kosl".equals(caller)  || "sviw_kosl".equals(caller)) { //Kollislag
 			list = getKollislagKoderFromSvtx03f(appUser);
-		} else if ("svew_kos2".equals(caller)) { //Kollislag
+		} else if ("svew_kos2".equals(caller) || "sviw_kos2".equals(caller)) { //Kollislag
 			list = getKollislagKoderFromSvtx03f(appUser);
-		} else if ("svew_kos3".equals(caller)) { //Kollislag
+		} else if ("svew_kos3".equals(caller) || "sviw_kos3".equals(caller)) { //Kollislag
 			list = getKollislagKoderFromSvtx03f(appUser);
-		} else if ("svew_kos4".equals(caller)) { //Kollislag
+		} else if ("svew_kos4".equals(caller) || "sviw_kos4".equals(caller)) { //Kollislag
 			list = getKollislagKoderFromSvtx03f(appUser);
-		} else if ("svew_kos5".equals(caller)) { //Kollislag
+		} else if ("svew_kos5".equals(caller) || "sviw_kos5".equals(caller)) { //Kollislag
 			list = getKollislagKoderFromSvtx03f(appUser);
-		} else if ("svew_bit1".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit1".equals(caller) || "sviw_bit1".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit2".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit2".equals(caller) || "sviw_bit2".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit3".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit3".equals(caller) || "sviw_bit3".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit4".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit4".equals(caller) || "sviw_bit4".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit5".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit5".equals(caller) || "sviw_bit5".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit6".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit6".equals(caller) || "sviw_bit6".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit7".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit7".equals(caller) || "sviw_bit7".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit8".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit8".equals(caller) || "sviw_bit8".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_bit9".equals(caller)) { //Bilagda handlingar
+		} else if ("svew_bit9".equals(caller) || "sviw_bit9".equals(caller)) { //Bilagda handlingar
 			list = getBilagdaHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit1".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit1".equals(caller) || "sviw_tit1".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit2".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit2".equals(caller) || "sviw_tit2".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit3".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit3".equals(caller) || "sviw_tit3".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit4".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit4".equals(caller) || "sviw_tit4".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit5".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit5".equals(caller) || "sviw_tit5".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit6".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit6".equals(caller) || "sviw_tit6".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit7".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit7".equals(caller) || "sviw_tit7".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit8".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit8".equals(caller) || "sviw_tit8".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_tit9".equals(caller)) { //Tidigare handlingar
+		} else if ("svew_tit9".equals(caller) || "sviw_tit9".equals(caller)) { //Tidigare handlingar
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
-		} else if ("svew_lagl".equals(caller)) { //Land
+		} else if ("svew_lagl".equals(caller) || "sviw_lagl".equals(caller)) { //Land
 			list = getLandKoderSvKoderFromSvtx03f(appUser);
 		}
 		
@@ -600,6 +603,7 @@ public class MainMaintenanceCundfVkundController {
 
 	}
 
+	/*Draft impl, for lists to Varukod, export/import*/
 	private List<ChildWindowKode> getTaricnrKoder(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx10fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx10fDao>>();
 		jsonReader.set(new JsonDtoContainer<Svtx10fDao>());

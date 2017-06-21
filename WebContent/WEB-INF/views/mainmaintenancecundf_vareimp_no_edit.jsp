@@ -230,7 +230,7 @@
 							</c:if>
 							<c:if test="${kundeSessionParams.importSe == true}">
 								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se_edit.do">
+									<a id="alinkMainMaintParamsGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareimp_se.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											 <spring:message code="systema.main.maintenance.customer.vareregister.imp.se"/>
 										</font>&nbsp;						

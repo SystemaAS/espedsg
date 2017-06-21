@@ -256,7 +256,7 @@
 	  	//=====================================
 	  	jq('#sviv_vataIdLink').click(function() {
 	    	jq('#sviv_vataIdLink').attr('target','_blank');
-	    	window.open('tdsimport_edit_items_childwindow_tulltaxa.do?action=doInit&vkod=' + jq('#sviv_vata').val(), "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('tdsimport_edit_items_childwindow_tulltaxa.do?action=doInit&vkod=' + jq('#sviv_vata').val() + '&caller=sviv_vata', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#sviv_vataIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
