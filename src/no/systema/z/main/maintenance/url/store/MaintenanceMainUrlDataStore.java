@@ -80,8 +80,8 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD TDS NCTS EKSPORT ON GENERAL MAINT	
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSVX003R.do?user=OSCAR
 	static public String MAINTENANCE_MAIN_BASE_SVX003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003R.do";
-	//CHILD RECORD - Sikkerhet -->http://gw.systema.no:8080/syjservicesbcore/syjsDKX003fvR.do?user=OSCAR&thavd=1
-	//static public String MAINTENANCE_MAIN_BASE_DKX003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX003fvR.do";
+	//CHILD RECORD - Sikkerhet -->http://gw.systema.no:8080/syjservicesbcore/syjsSVX003fvR.do?user=OSCAR&thavd=1
+	static public String MAINTENANCE_MAIN_BASE_SVX003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003fvR.do";
 	//AVD SKAT NCTS IMPORT ON GENERAL MAINT	
 	//http://gw.systema.no:8080/syjservicesbcore/syjsDKX053R.do?user=OSCAR
 	//static public String MAINTENANCE_MAIN_BASE_DKX053R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX053R.do";
@@ -475,6 +475,7 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SVI051R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVI051R_U.do";
 	//AVD TDS NCTS EKSPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_SVX003R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003R_U.do";
+	static public String MAINTENANCE_MAIN_BASE_SVX003fvR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003fvR_U.do";
 			
 	
 	//--------------------------

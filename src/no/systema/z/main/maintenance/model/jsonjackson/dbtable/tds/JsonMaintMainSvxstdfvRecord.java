@@ -239,6 +239,7 @@ public class JsonMaintMainSvxstdfvRecord extends JsonAbstractGrandFatherRecord  
 	public void setThtint (String value){ this.thtint = value;   }   
 	public String getThtint (){ return this.thtint;   }  
 	
+	
 	/**
 	 * 
 	 * @return

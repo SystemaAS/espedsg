@@ -46,7 +46,7 @@
 	                    </c:when>
 	                    <c:otherwise> <!--  SVXST_FHV = NCTS Forhåndsvarsling -->
 							<td width="28%" valign="bottom" class="tabDisabled" align="center">
-								<a id="alinkMainMaintAvdSkatDkx003" onClick="setBlockUI(this);" href="mainmaintenanceavdskatnctsexport_dkx003r.do?id=${model.id}">
+								<a id="alinkMainMaintAvdSkatDkx003" onClick="setBlockUI(this);" href="TODOmainmaintenanceavdskatnctsexport_dkx003r.do?id=${model.id}">
 	                        		<font class="tabLink">&nbsp;<spring:message code="systema.skat.ncts.import.tab.description.avd.forhandsvarsling"/></font>&nbsp;
 								</a>
 							</td>
@@ -94,7 +94,7 @@
 				            <c:forEach var="record" items="${model.list}" varStatus="counter">   
 				               <tr class="tableRow" height="20" >
 				               <td width="2%" class="tableCellFirst" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" align="center">
-					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="TODOmainmaintenanceavdtdsnctsexport_svx003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
+					               	<a id="alinkRecordId_${counter.count}" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsnctsexport_svx003r_edit.do?avd=${record.thavd}&updateId=${record.thavd}&avdnavn=${record.koanvn}&id=${model.id}">
 	               						<img src="resources/images/update.gif" border="0" alt="edit">
 				               		</a>
 				               </td>

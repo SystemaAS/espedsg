@@ -36,12 +36,10 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMain
 //import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMainSvxstdfvContainer;
 //import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMainSvxstdfvRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.z.main.maintenance.validator.tds.MaintMainSvxstdValidator;
 import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-
-import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
+//import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+//import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
 
 
 /**
@@ -62,197 +60,6 @@ public class MainMaintenanceAvdTdsExportSvxstdController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgrSkat codeDropDownMgr = new CodeDropDownMgrSkat();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
-	/**
-	 * 
-	 * @param user
-	 * @param result
-	 * @param request
-	 * @return
-	 * 
-	 */
-	@RequestMapping(value="mainmaintenanceavdtdsnctsexport_svx003r.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdtdsnctsexport_svx003r (HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsnctsexport_svx003r");
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		String id = request.getParameter("id");  //TRUST or TRUST_FHV, for correct selection
-		Map model = new HashMap();
-		if(appUser==null){
-			return this.loginView;
-		}else{
-			logger.info("Inside method: mainmaintenanceavdtdsnctsexport_svx003r");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			
-			//Get list
-	 		List list = this.fetchList(appUser.getUser(), id);
-			model.put("list", list);
-			model.put("id", id);
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
-			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
-			return successView;
-			
-		}
-	}
-	/**
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="mainmaintenanceavdtdsnctsexport_svx003r_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenanceavdtdsnctsexport_svx003_edit(@ModelAttribute ("record") JsonMaintMainDkxstdRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenanceavdtdsnctsexport_svx003r_edit");
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		Map model = new HashMap();
-		String avd = request.getParameter("avd");
-		String avdnavn = request.getParameter("avdnavn");
-		String action = request.getParameter("action");
-		String updateId = request.getParameter("updateId");
-		JsonMaintMainDkxstdfvRecord dbChildRecord = null;
-		String id = request.getParameter("id");
-		
-		//bind child record (only for validation purposes, even in back-end)
-		JsonMaintMainDkxstdfvRecord sikkerhedChildRecord = this.bindChildSikkerhed(request);
-		
-		
-		if(appUser==null){
-			return this.loginView;
-		}else{
-			logger.info("Inside method: mainmaintenanceavdtdsnctsexport_svx003r_edit");
-			logger.info("appUser user:" + appUser.getUser());
-			logger.info("appUser lang:" + appUser.getUsrLang());
-			logger.info("appUser userAS400:" + appUser.getUserAS400());
-			boolean isValidOnUpdate = true;
-			//--------------
-			//UPDATE record
-			//--------------
-			if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)){
-				
-				avd = recordToValidate.getThavd();
-				//Adjust
-				this.adjustSomeRecordValues(recordToValidate, sikkerhedChildRecord);
-				recordToValidate.setSikkerhedChildRecord(sikkerhedChildRecord);
-				//Validate
-				MaintMainSvxstdValidator validator = new MaintMainSvxstdValidator();
-				validator.validate(recordToValidate, bindingResult);
-				if(bindingResult.hasErrors()){
-					//ERRORS
-					logger.info("[ERROR Validation] Record does not validate)");
-					//model.put("dbTable", dbTable);
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					isValidOnUpdate = false;
-				}else{
-					
-					//Update table
-					StringBuffer errMsg = new StringBuffer();
-					int dmlRetval = 0;
-					if(updateId!=null && !"".equals(updateId)){
-						//update
-						logger.info(MainMaintenanceConstants.MODE_UPDATE);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
-						if(dmlRetval >= 0){
-							//check if this child record exists
-							dbChildRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
-							if(dbChildRecord!=null && (dbChildRecord.getThavd()!=null && !"".equals(dbChildRecord.getThavd())) ){
-								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_UPDATE, errMsg);
-							}else{
-								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_ADD, errMsg);
-							}
-						}
-					}else{
-						//create new
-						logger.info(MainMaintenanceConstants.MODE_ADD);
-						dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
-						if(dmlRetval >= 0){
-							//check if this child record exists (it should NOT)
-							dbChildRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
-							if(dbChildRecord!=null && (dbChildRecord.getThavd()!=null && !"".equals(dbChildRecord.getThavd())) ){
-								//something is wrong (corrupt record)
-								//TODO ...
-							}else{
-								//should be the default behavior
-								dmlRetval = this.updateChildRecord(appUser.getUser(), recordToValidate.getSikkerhedChildRecord(), MainMaintenanceConstants.MODE_ADD, errMsg);
-							}
-						}
-							
-					}
-					
-					//check for Update errors
-					if( dmlRetval < 0){
-						logger.info("[ERROR Validation] Record does not validate)");
-						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-						isValidOnUpdate = false;
-					}else{
-						//post successful update operations
-						updateId = recordToValidate.getThavd();
-						
-					}
-					
-				}
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				
-				
-			//DELETE	
-			}else if(MainMaintenanceConstants.ACTION_DELETE.equals(action)){
-				StringBuffer errMsg = new StringBuffer();
-				int dmlRetval = 0;
-				logger.info(MainMaintenanceConstants.MODE_DELETE);
-				dmlRetval = this.updateRecord(appUser.getUser(), recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				//remove child record
-				if(dmlRetval >= 0){
-					dmlRetval = this.updateChildRecord(appUser.getUser(), sikkerhedChildRecord, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				}
-				
-				//check for Update errors
-				if( dmlRetval < 0){
-					logger.info("[ERROR Validation] Record does not validate)");
-					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				}else{
-					//post successful update operations
-					successView = new ModelAndView("redirect:mainmaintenanceavdtdsnctsexport_svx003r.do?id=SVXSTD");
-					
-				}
-			}
-			//-------------
-			//Fetch record
-			//-------------
-			if(isValidOnUpdate && (avd!=null && !"".equals(avd)) ){
-				JsonMaintMainDkxstdRecord record = this.fetchRecord(appUser.getUser(), avd);
-				JsonMaintMainDkxstdfvRecord childRecord = this.fetchChildRecordSikkerhed(appUser.getUser(), avd);
-				if(childRecord!=null){
-					record.setSikkerhedChildRecord(childRecord);
-				}else{
-					record.setSikkerhedChildRecord(new JsonMaintMainDkxstdfvRecord());
-				}
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			}
-			
-			//populate model
-			if(action==null || "".equals(action)){
-				action = "doUpdate";
-			}
-			this.populateDropDowns(model, appUser.getUser());
-			model.put("action", action);
-			model.put("avd", avd);
-			model.put("avdnavn", avdnavn);
-			model.put("updateId", updateId);
-			model.put("id", id);
-			
-			successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL , model);
-			
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    
-			return successView;
-			
-		}
-	}
-	*/
 	
 	/**
 	 * 
@@ -508,15 +315,16 @@ public class MainMaintenanceAvdTdsExportSvxstdController {
 	@Required
 	public void setMaintMainDkxstdfvService (MaintMainDkxstdfvService value){ this.maintMainDkxstdfvService = value; }
 	public MaintMainDkxstdfvService getMaintMainDkxstdfvService(){ return this.maintMainDkxstdfvService; }
-	*/
+
 	
+
 	@Qualifier ("maintDktvkService")
 	private MaintDktvkService maintDktvkService;
 	@Autowired
 	@Required
 	public void setMaintDktvkService (MaintDktvkService value){ this.maintDktvkService = value; }
 	public MaintDktvkService getMaintDktvkService(){ return this.maintDktvkService; }
-	
+	*/
 	
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
@@ -533,14 +341,14 @@ public class MainMaintenanceAvdTdsExportSvxstdController {
 	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
-	
+	/*
 	@Qualifier ("maintDkxkodfService")
 	private MaintDkxkodfService maintDkxkodfService;
 	@Autowired
 	@Required
 	public void setMaintDkxkodfService (MaintDkxkodfService value){ this.maintDkxkodfService = value; }
 	public MaintDkxkodfService getMaintDkxkodfService(){ return this.maintDkxkodfService; }
-	
+	*/
 
 	
 }

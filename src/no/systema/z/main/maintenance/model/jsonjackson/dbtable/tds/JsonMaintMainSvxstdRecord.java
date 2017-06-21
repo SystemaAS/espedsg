@@ -624,6 +624,21 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setS0004 (String value){ this.s0004 = value;   }   
 	public String getS0004 (){ return this.s0004;   }  
 	
+	private String s0010 = null;                                
+	public String getS0010PropertyName (){ return "s0010"; }
+	public void setS0010 (String value){ this.s0010 = value;   }   
+	public String getS0010 (){ return this.s0010;   }
+	
+	private String s0035 = null;                                
+	public String getS0035PropertyName (){ return "s0035"; }
+	public void setS0035 (String value){ this.s0035 = value;   }   
+	public String getS0035 (){ return this.s0035;   }  
+
+	private String s0026 = null;                                
+	public String getS0026PropertyName (){ return "s0026"; }
+	public void setS0026 (String value){ this.s0026 = value;   }   
+	public String getS0026 (){ return this.s0026;   }  
+	
 	//Criteria in order to present a warranty alarm
 	private boolean warrantyAlarm = false;
 	public boolean getWarrantyAlarm() { 
@@ -656,6 +671,10 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 		return this.warrantyAlarm;
 	}
 	
+
+	private JsonMaintMainSvxstdfvRecord sakerhetChildRecord;
+	public void setSakerhetChildRecord(JsonMaintMainSvxstdfvRecord value){ this.sakerhetChildRecord = value; }
+	public JsonMaintMainSvxstdfvRecord getSakerhetChildRecord(){ return sakerhetChildRecord; }
 	
 	
 	
