@@ -703,12 +703,12 @@
 													        	<tr>
 														        	<td  colspan="3" class="text12" align="left" >
 														        	&nbsp;<img onMouseOver="showPop('52_info');" onMouseOut="hidePop('52_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-														        	<b>52.</b><b>Garantikode</b>&nbsp;
+														        	<b>52.</b><b>Säkerhet - Garantikoder</b>&nbsp;
 														        	
 																	<div class="text11" style="position: relative;" align="left">
 																		<span style="position:absolute;top:2px; width:250px;" id="52_info" class="popupWithInputText text11"  >
 														           			<br/>
-														           			<b>52. Garantikode</b>
+														           			<b>52. Säkerhet - Garantikoder</b>
 														           			<ul>
 															           			<li>
 															           				<b>0</b>&nbsp;Garantifritak.
@@ -739,52 +739,52 @@
 													        	</tr>
 													        	<tr height="5"><td></td></tr>
 											            		<tr>
-											            			<td class="text12">&nbsp;<span title="thgkd">Kode</span></td>
+											            			<td class="text12">&nbsp;<span title="thgkd">Kod</span></td>
 											            			<td class="text12">&nbsp;<span title="thgft1">Garantinummer</span></td>
-											            			<td class="text12">&nbsp;<span title="thgadk">Adgangskode</span></td>
+											            			<td class="text12">&nbsp;<span title="thgadk">Åtkomstkod</span></td>
 											            		</tr>
 											            		<tr>
 											            			<td>
 											            				<select class="inputTextMediumBlue" name="thgkd" id="thgkd" >
 														 				  <option value="">-välj-</option>
-																		  <option value="0"<c:if test="${Xmodel.record.thgkd == '0'}"> selected </c:if> >0</option>
-																		  <option value="1"<c:if test="${Xmodel.record.thgkd == '1'}"> selected </c:if> >1</option>
-																		  <option value="2"<c:if test="${Xmodel.record.thgkd == '2'}"> selected </c:if> >2</option>
-																		  <option value="3"<c:if test="${Xmodel.record.thgkd == '3'}"> selected </c:if> >3</option>
-																		  <option value="4"<c:if test="${Xmodel.record.thgkd == '4'}"> selected </c:if> >4</option>
-																		  <option value="6"<c:if test="${Xmodel.record.thgkd == '6'}"> selected </c:if> >6</option>
-																		  <option value="7"<c:if test="${Xmodel.record.thgkd == '7'}"> selected </c:if> >7</option>
+																		  <option value="0"<c:if test="${model.record.thgkd == '0'}"> selected </c:if> >0</option>
+																		  <option value="1"<c:if test="${model.record.thgkd == '1'}"> selected </c:if> >1</option>
+																		  <option value="2"<c:if test="${model.record.thgkd == '2'}"> selected </c:if> >2</option>
+																		  <option value="3"<c:if test="${model.record.thgkd == '3'}"> selected </c:if> >3</option>
+																		  <option value="4"<c:if test="${model.record.thgkd == '4'}"> selected </c:if> >4</option>
+																		  <option value="6"<c:if test="${model.record.thgkd == '6'}"> selected </c:if> >6</option>
+																		  <option value="7"<c:if test="${model.record.thgkd == '7'}"> selected </c:if> >7</option>
 																		  
 																		</select>
 											            			</td>
-											            			<td><input type="text" class="inputTextMediumBlue" name="thgft1" id="thgft1" size="24" maxlength="24" value="${Xmodel.record.thgft1}"></td>
-											            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${Xmodel.record.thgadk}"></td>
+											            			<td><input type="text" class="inputTextMediumBlue" name="thgft1" id="thgft1" size="24" maxlength="24" value="${model.record.thgft1}"></td>
+											            			<td><input type="text" class="inputTextMediumBlue" name="thgadk" id="thgadk" size="5" maxlength="4" value="${model.record.thgadk}"></td>
 											            		</tr>
 											            		<tr>
 											            			
-											            			<td class="text12">&nbsp;<span title="thgbgi">Ikke gyl.EU</span></td>
-											            			<td class="text12">&nbsp;<span title="thgbgu">Garant. gjelder ikke [land]</span></td>
+											            			<td class="text12">&nbsp;<span title="thgbgi">Begränsning inom EF</span></td>
+											            			<td class="text12">&nbsp;<span title="thgbgu">Begränsning utanför [landkod]</span></td>
 											            			<td>&nbsp;</td>
 											            		</tr>
 											            		<tr>
 											            			<td>
 												            			<select name="thgbgi" id="thgbgi" >
-													 				  <option value="0"<c:if test="${Xmodel.record.thgbgi == '0'}"> selected </c:if> >0</option>
-																	  <option value="1"<c:if test="${Xmodel.record.thgbgi == '1'}"> selected </c:if> >1</option>
+													 				  <option value="0"<c:if test="${model.record.thgbgi == '0'}"> selected </c:if> >0</option>
+																	  <option value="1"<c:if test="${model.record.thgbgi == '1'}"> selected </c:if> >1</option>
 																	</select>
 											            			</td>
 											            			<td align="left">
-											            				<input type="text" class="inputTextMediumBlue" name="thgbgu" id="thgbgu" size="3" maxlength="2" value="${Xmodel.record.thgbgu}">
+											            				<input type="text" class="inputTextMediumBlue" name="thgbgu" id="thgbgu" size="3" maxlength="2" value="${model.record.thgbgu}">
 												            			
 													            	</td>
 													            	<td>&nbsp;</td> 
 											            		</tr>
 											            		<tr height="5"><td></td></tr>
 											            		<tr>
-											            			<td colspan="3" class="text12">&nbsp;<span title="thgft2">Annen Garanti</span></td>
+											            			<td colspan="3" class="text12">&nbsp;<span title="thgft2">Annan garanti</span></td>
 											            		</tr>
 											            		<tr>
-											            			<td colspan="3"><input type="text" class="inputTextMediumBlue" name="thgft2" id="thgft2" size="35" maxlength="35" value="${Xmodel.record.thgft2}"></td>
+											            			<td colspan="3"><input type="text" class="inputTextMediumBlue" name="thgft2" id="thgft2" size="35" maxlength="35" value="${model.record.thgft2}"></td>
 											            		</tr>
 											            		<tr height="2"><td></td></tr>
 											            	</table>
@@ -792,7 +792,7 @@
 											            <td>&nbsp;</td>
 											        </tr>
 											        <tr height="10">
-											        <%-- Garantibeløp --%>
+											        <%-- Garantibeløp 
 										            <tr>
 											            <td colspan="2">
 											                <table align="left" border="0" cellspacing="0" cellpadding="0">
@@ -802,7 +802,7 @@
 														 			<td class="text12"><b>&nbsp;<span title="thgbl">Garantibeløb&nbsp;</span></b></td>
 														 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="thgbl" id="thgbl" size="20" maxlength="20" value="${Xmodel.record.thgbl}"></td>
 														 			<td class="text12">&nbsp;<span title="thgvk">Møntsort</span>
-														 				<%-- Note: onChange event in jQuery for this currency list --%>
+														 				<%-- Note: onChange event in jQuery for this currency list
 														 				<select name="thgvk" id="thgvk" >
 														 				  <option value="">-välj-</option>	
 														 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
@@ -817,12 +817,13 @@
 														 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value='${vaku}'></td>
 														 			
 												 				</tr>
-												 				--%> 
+												 				 
 												 				 
 												 				<tr height="15"><td></td></tr>
 															</table>
 															</td>
 													</tr>
+													--%>
 											        <tr height="10">
 											            <td class="text12Bold" align="left" >&nbsp;</td> 
 											            <td class="text12Bold" align="left" >&nbsp;</td> 
@@ -847,10 +848,10 @@
 							 				<tr>
 							 				<td class="text12" align="left" >
 									            <img onMouseOver="showPop('15_info');" onMouseOut="hidePop('15_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 					<b>15.</b><span title="thalk">Avs./utf.land&nbsp;</span>
+							 					<b>15.</b><span title="thalk">Avsändnings-/Utf.land&nbsp;</span>
 							 					<div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="15_info" class="popupWithInputText text11"  >
-									           			<b>15. Avs./utf.land</b>
+									           			<b>15. Avsändnings-/Utf.land</b>
 									           			<ul>
 									           				<li>The name of the country from which goods are to be dispatched/exported shall be
 																entered.
@@ -860,7 +861,7 @@
 												</div>	
 									            </td>
 									            <td >
-									            	<input type="text" class="inputTextMediumBlue" name="thalk" id="thalk" size="3" maxlength="2" value="${Xmodel.record.thalk}">
+									            	<input type="text" class="inputTextMediumBlue" name="thalk" id="thalk" size="3" maxlength="2" value="${model.record.thalk}">
 									            	
 												</td>
 							 				</tr>
@@ -868,10 +869,10 @@
 							 				<tr>
 									            <td class="text12" align="left" >
 									            <img onMouseOver="showPop('17_info');" onMouseOut="hidePop('17_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									            <b>17.</b><span title="thblk">Best.land&nbsp;</span>
+									            <b>17.</b><span title="thblk">Bestämmelseland, kod&nbsp;</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="17_info" class="popupWithInputText text11"  >
-								           			<b>17. Best.land</b>
+								           			<b>17. Bestämmelseland, kod</b>
 								           			<p>
 								           			The name of the country of destination shall be entered.
 								           			</p>
@@ -880,7 +881,7 @@
 									            </td>
 									            
 									            <td >
-									            	<input type="text" class="inputTextMediumBlue" name="thblk" id="thblk" size="3" maxlength="2" value="${Xmodel.record.thblk}">
+									            	<input type="text" class="inputTextMediumBlue" name="thblk" id="thblk" size="3" maxlength="2" value="${model.record.thblk}">
 									            	
 												</td>
 									        </tr>
@@ -890,10 +891,10 @@
 							 				<tr>
 									            <td class="text12" align="left" >
 									            <img onMouseOver="showPop('18_info');" onMouseOut="hidePop('18_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									            <b>18.</b><span title="thtaid">Tr.middelets identitet ved avgang </span>
+									            <b>18.</b><span title="thtaid">Transportmedlets identitet och nationalitet vid avgången</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="18_info" class="popupWithInputText text11"  >
-									           			<b>18.Tr.middelets identitet ved avgang</b>
+									           			<b>18.Transportmedlets identitet och nationalitet vid avgången</b>
 									           			<p>
 														Oppgi transportmiddelets <b>identitet</b> ved avgang, f.eks. registreringsnr. for trekkenheten og eventuell tilhenger/semitrailer. 
 														Oppgi med fastsatt landkode transportmiddelets <b>nasjonalitet</b> med tillhørende <b>språkkode</b>.
@@ -911,18 +912,18 @@
 												</div>
 												</td>
 												<td >
-								            		<input type="text" class="inputTextMediumBlue" name="thtaid" id="thtaid" size="25" maxlength="35" value="${Xmodel.record.thtaid}">
+								            		<input type="text" class="inputTextMediumBlue" name="thtaid" id="thtaid" size="25" maxlength="35" value="${model.record.thtaid}">
 								            	</td>
 					        				</tr>
 					        				<tr>
 								            	<td class="text12" align="left">
-								            		&nbsp;<span title="thtalk">Nasjonalitet</span>
-								            		<input type="text" class="inputTextMediumBlue" name="thtalk" id="thtalk" size="3" maxlength="2" value="${Xmodel.record.thtalk}">
+								            		&nbsp;<span title="thtalk">Nationalitet</span>
+								            		<input type="text" class="inputTextMediumBlue" name="thtalk" id="thtalk" size="3" maxlength="2" value="${model.record.thtalk}">
 								            	
 												</td>
 												<td class="text12">	
 													<span title="thtask">Språk</span>
-													<input type="text" class="inputTextMediumBlue" name="thtask" id="thtask" size="3" maxlength="2" value="${Xmodel.record.thtask}">
+													<input type="text" class="inputTextMediumBlue" name="thtask" id="thtask" size="3" maxlength="2" value="${model.record.thtask}">
 													
 								            	</td>
 					        				</tr>
@@ -931,10 +932,10 @@
 					        				<tr>
 									            <td class="text12" align="left">
 									            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									            <b>21.</b><span title="thtgid">Tr.middelets identitet ved grense</span>
+									            <b>21.</b><span title="thtgid">Transportmedlets identitet och nationalitet vid gränspassagen</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >
-									           			<b>21. Tr.middelets identitet ved grense</b>
+									           			<b>21. Transportmedlets identitet och nationalitet vid gränspassagen</b>
 									           			<p>
 									           			Oppgi transportmiddelets identitet ved grensepassering, f.eks.registringsnr.for trekkenheten og eventuell tilhenger/semitrailer. Oppgi med fastsatt landkode transportmiddelets nasjonalitet med tillhørende språkkode.I de tilfeller hvor f.eks. trekkenheten og tilhengeren/semitraileren har forskjellig nasjonalitet, oppgis trekkenhetens nasjonalitet i feltet.<br/>
 														</p>
@@ -952,18 +953,18 @@
 												</div>
 												</td>
 									            <td >
-								            		<input type="text" class="inputTextMediumBlue" name="thtgid" id="thtgid" size="25" maxlength="35" value="${Xmodel.record.thtgid}">
+								            		<input type="text" class="inputTextMediumBlue" name="thtgid" id="thtgid" size="25" maxlength="35" value="${model.record.thtgid}">
 								            	</td>
 					        				</tr>
 					        				<tr>
 								            	<td class="text12" align="left">
-								            		&nbsp;<span title="thtglk">Nasjonalitet</span>
-								            		<input type="text" class="inputTextMediumBlue" name="thtglk" id="thtglk" size="3" maxlength="2" value="${Xmodel.record.thtglk}">
+								            		&nbsp;<span title="thtglk">Nationalitet</span>
+								            		<input type="text" class="inputTextMediumBlue" name="thtglk" id="thtglk" size="3" maxlength="2" value="${model.record.thtglk}">
 								            		
 												</td>
 												<td class="text12">	
 													<span title="thtgsk">Språk</span>
-													<input type="text" class="inputTextMediumBlue" name="thtgsk" id="thtgsk" size="3" maxlength="2" value="${Xmodel.record.thtgsk}">
+													<input type="text" class="inputTextMediumBlue" name="thtgsk" id="thtgsk" size="3" maxlength="2" value="${model.record.thtgsk}">
 										            
 								            	</td>
 					        				</tr>
@@ -973,24 +974,24 @@
 				 		       				<tr>
 								            	<td class="text12">
 								            		<img onMouseOver="showPop('thtrm_info');" onMouseOut="hidePop('thtrm_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-						            				<b>25.</b><span title="thtrm">Transp.måte ved utpass.&nbsp;</span>
+						            				<b>25.</b><span title="thtrm">Transportsätt vid gränsen&nbsp;</span>
 						            			</td>
 						            			<td class="text12">	
 								            		<select class="inputTextMediumBlue" name="thtrm" id="thtrm">
 							 						<option value="">-välj-</option>
-								 				  	<c:forEach var="code" items="${model.transportmaterCodeList}" >
+								 				  	<c:forEach var="code" items="${Xmodel.transportmaterCodeList}" >
 								 				  		<option value="${code.tkkode}"<c:if test="${Xmodel.record.thtrm == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 													</c:forEach> 
 													</select>
 									            	<div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute;top:2px; width:250px;" id="thtrm_info" class="popupWithInputText text11"  >
-									           			<b>25. Transp.måte ved utpass.</b>
+									           			<b>25.Transportsätt vid gränsen</b>
 									           			<p>
 														Oppgi med kode transportmåten ved utpassering fra Norge.<br/>
 														Koden kan legges inn som standardverdi for avdelingen.
 														</p>		
 														<ul>
-									           				<c:forEach var="code" items="${model.transportmaterCodeList}" >
+									           				<c:forEach var="code" items="${Xmodel.transportmaterCodeList}" >
 										 				  		<li><b>${code.tkkode}</b>&nbsp;${code.tktxte}</li>
 									 				  		</c:forEach>	
 									           			</ul>
@@ -1018,8 +1019,8 @@
 									           	</td>
 								 				<td class="text12" >
 						 							<select class="inputTextMediumBlue" name="thkdc" id="thkdc">
-								 						<option value="0"<c:if test="${Xmodel.record.thkdc == 0}"> selected </c:if> >0</option>
-												  		<option value="1"<c:if test="${Xmodel.record.thkdc == 1}"> selected </c:if> >1</option>
+								 						<option value="0"<c:if test="${model.record.thkdc == 0}"> selected </c:if> >0</option>
+												  		<option value="1"<c:if test="${model.record.thkdc == 1}"> selected </c:if> >1</option>
 												  	</select>
 						 						</td>
 											</tr>
@@ -1027,11 +1028,11 @@
 											<tr>
 								            <td class="text12" align="left" >
 								            <img onMouseOver="showPop('lastplats_info');" onMouseOut="hidePop('lastplats_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-								            <b>27.</b>&nbsp;<span title="thlsd">Lastested</span>
+								            <b>27.</b>&nbsp;<span title="thlsd">Lastningsplats</span>
 								            
 								            <div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="lastplats_info" class="popupWithInputText text11"  >
-								           			<b>27. Lastested</b>
+								           			<b>27. Lastningsplats</b>
 								           			<p>
 													Dette er ikke et obligatorisk felt. Rent tekstfelt. Fyll ut med f.eks. terminalnavn etc.								
 													</p>
@@ -1039,17 +1040,17 @@
 											</div>
 											</td>
 											<td class="text12" >
-										    	<input type="text" class="inputTextMediumBlue" name="thlsd" id="thlsd" size="17" maxlength="17" value="${Xmodel.record.thlsd}">
+										    	<input type="text" class="inputTextMediumBlue" name="thlsd" id="thlsd" size="17" maxlength="17" value="${model.record.thlsd}">
 										    </td>
 										</tr>
 				        				<tr height="10"><td class="text">&nbsp;</td> </tr>
 					 					<tr>
 								            <td class="text12" align="left">
 								            <img onMouseOver="showPop('tullkontor_info');" onMouseOut="hidePop('tullkontor_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-								            <b>C.</b><span title="thcats">Avg.tollsted&nbsp;</span>
+								            <b>C.</b><span title="thcats">Avgångstullkontor&nbsp;</span>
 								            <div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="tullkontor_info" class="popupWithInputText text11"  >
-								           		<b>C. Avg.tollsted</b>
+								           		<b>C. Avgångstullkontor</b>
 									           		<p>
 									           		Kode for avgangstollsted.<br/>
 													Merk at dette er tollstedskoden som er knyttet opp mot Ansvarlig's organisasjonsnr., ikke nødvendigvis stedet varene går ut fra.
@@ -1061,7 +1062,7 @@
 											</div>
 								            </td>
 										    <td class="text">
-										    <input type="text" class="inputTextMediumBlue" name="thcats" id="thcats" size="10" maxlength="8" value='${Xmodel.record.thcats}'>
+										    <input type="text" class="inputTextMediumBlue" name="thcats" id="thcats" size="10" maxlength="8" value='${model.record.thcats}'>
 										    <a tabindex="-1" id="thcatsIdLink">
 												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 											</a>
@@ -1071,10 +1072,10 @@
 								        <tr>
 								            <td class="text12" align="left">
 								            <img onMouseOver="showPop('sprakkod_foljedok_info');" onMouseOut="hidePop('sprakkod_foljedok_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-								            <span title="thskfd">Sprogkode på følgedok.&nbsp;</span>
+								            <span title="thskfd">Språkkod följedok.&nbsp;</span>
 								            <div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >
-								           			<b>Sprogkode på følgedok</b>
+								           			<b>Språkkod följedok</b>
 								           			<p>
 								           			Følgedokumenter (T-papir, lasteliste/vareliste)
 								           			</p>
@@ -1082,16 +1083,16 @@
 											</div>
 											</td>
 								            <td align="left">
-								            	<input type="text" class="inputTextMediumBlue" name="thskfd" id="thskfd" size="3" maxlength="2" value="${Xmodel.record.thskfd}">
+								            	<input type="text" class="inputTextMediumBlue" name="thskfd" id="thskfd" size="3" maxlength="2" value="${model.record.thskfd}">
 				            					
 											</td> 
 										</tr>
 										<tr height="2"><td>&nbsp;</td></tr>
 										
 								        <tr>
-								            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtrdt">Transittdato</span></td>
+								            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thtrdt">Transiteringsdatum</span></td>
 								            <td class="text12" >
-								            	<input readonly type="text" class="inputTextReadOnly" name="thtrdt" id="thtrdt" size="8" value="${Xmodel.record.thtrdt}">
+								            	<input readonly type="text" class="inputTextReadOnly" name="thtrdt" id="thtrdt" size="8" value="${model.record.thtrdt}">
 								            	&nbsp;
 								            </td>
 								        </tr>
@@ -1101,17 +1102,17 @@
 										<tr>
 								            <td class="text12" align="left" >
 								            <img onMouseOver="showPop('deklarantplats_info');" onMouseOut="hidePop('deklarantplats_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-								            <span title="thdst">Dekl.sted</span>
+								            <span title="thdst">Deklarantens plats</span>
 								            <div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="deklarantplats_info" class="popupWithInputText text11"  >
-								           			<b>Dekl.sted</b>
+								           			<b>Deklarantens plats</b>
 								           			<p>Plats (inklusive landkod)</p>
 											</span>	
 											</div>
 											</td>
 								            
 								            <td class="text12">
-								            	<input type="text" class="inputTextMediumBlue" name="thdst" id="thdst" size="10" maxlength="15" value="${Xmodel.record.thdst}">
+								            	<input type="text" class="inputTextMediumBlue" name="thdst" id="thdst" size="10" maxlength="15" value="${model.record.thdst}">
 								            </td>
 								         </tr>
 								         <tr>
@@ -1119,7 +1120,7 @@
 								            	&nbsp;&nbsp;<span title="thdsk">Dekl.språk</span>
 								            </td>
 								            <td class="text12" >
-								            	<input type="text" class="inputTextMediumBlue" name="thdsk" id="thdsk" size="3" maxlength="2" value="${Xmodel.record.thdsk}">	
+								            	<input type="text" class="inputTextMediumBlue" name="thdsk" id="thdsk" size="3" maxlength="2" value="${model.record.thdsk}">	
 								            	
 								            </td>
 								        </tr>
@@ -1141,16 +1142,16 @@
 												</span>
 												</div>
 												</td>	
-									            <td ><input readonly onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thntk" id="thntk" size="8" maxlength="7" value="${Xmodel.record.thntk}"></td>
+									            <td ><input readonly onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thntk" id="thntk" size="8" maxlength="7" value="${model.record.thntk}"></td>
 									        </tr>
 								            <tr>
 									            <td class="text12" align="left" >
 									            <img onMouseOver="showPop('bruttovikt_info');" onMouseOut="hidePop('bruttovikt_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-									            <span title="thvkb">Bruttovekt</span>
+									            <span title="thvkb">Bruttovikt</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="bruttovikt_info" class="popupWithInputText text11"  >
 									           	
-									           			<b>Bruttovekt</b>
+									           			<b>Bruttovikt</b>
 									           			<p>
 									           			Summeres fra varelinjer. 
 									           			Feltet er blokeret. 
@@ -1161,6 +1162,7 @@
 									            
 									            <td ><input readonly onKeyPress="return amountKey(event)" style="text-align: right" type="text" class="inputTextReadOnly" name="thvkb" id="thvkb" size="10" maxlength="9" value="${Xmodel.record.thvkb}"></td>
 									        </tr>
+									        <%--
 									     	<tr height="10"><td>&nbsp;</td></tr>
 						     	            	<tr>
 									            <td class="text12" align="left">
@@ -1230,6 +1232,7 @@
 									           		&nbsp;
 									           	</td>
 								           	</tr>
+								           	 --%>
 								           	<tr>
 									            <td class="text12" align="left">&nbsp;</td>
 												<td class="text9BlueGreen" valign="bottom"  >
