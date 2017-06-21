@@ -280,7 +280,7 @@
 						<td width="50%" valign="top">
 						<table width="100%" cellspacing="0" border="0" align="left">
 						<tr>
-					            <td >		
+					            <td width="95%" >		
 					 				<%-- SENDER --%>
 					 				<table width="95%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 								 		<tr height="15">
@@ -293,7 +293,6 @@
 										           		
 												</span>
 												</div>
-								 				
 							 				</td>
 						 				</tr>
 					 				</table>
@@ -304,10 +303,9 @@
 									<%-- create record --%>
 								 	<table width="95%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 								 		<tr>
-									 		<td width="100%">
-										 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									 		<td width="95%" >
+										 		<table width="95%" border="0" cellspacing="0" cellpadding="0">
 											 		<tr height="10"><td ></td></tr>
-											        
 											        <tr>
 											        	<%-- ================================================================================== --%>
 											        	<%-- This hidden values are used when an AJAX event from within a dialog box is fired.  
@@ -427,8 +425,8 @@
 								<%-- create record --%>
 							 	<table width="95%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-								 		<td width="100%">
-									 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								 		<td width="95%" >
+									 		<table width="95%" border="0" cellspacing="0" cellpadding="0">
 										 		<tr height="10"><td ></td></tr>
 										        
 										        <tr>
@@ -891,7 +889,7 @@
 							 				<tr>
 									            <td class="text12" align="left" >
 									            <img onMouseOver="showPop('18_info');" onMouseOut="hidePop('18_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									            <b>18.</b><span title="thtaid">Transportmedlets identitet och nationalitet vid avgången</span>
+									            <b>18.</b><span title="thtaid">Trans.medlets id. och nationalitet vid avgången</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="18_info" class="popupWithInputText text11"  >
 									           			<b>18.Transportmedlets identitet och nationalitet vid avgången</b>
@@ -932,7 +930,7 @@
 					        				<tr>
 									            <td class="text12" align="left">
 									            <img onMouseOver="showPop('21_info');" onMouseOut="hidePop('21_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									            <b>21.</b><span title="thtgid">Transportmedlets identitet och nationalitet vid gränspassagen</span>
+									            <b>21.</b><span title="thtgid">Trans.medlets id och nationalitet vid gränspassagen</span>
 									            <div class="text11" style="position: relative;" align="left">
 												<span style="position:absolute;top:2px; width:250px;" id="21_info" class="popupWithInputText text11"  >
 									           			<b>21. Transportmedlets identitet och nationalitet vid gränspassagen</b>
