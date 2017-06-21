@@ -50,6 +50,15 @@ public class TdsExportItemsValidator implements Validator {
 			if(record!=null){
 				//varukodkontroll
 				if(record.isValidNumberVata()){
+					//Statvärde
+					if("0".equals(record.getSvev_stva()) ){
+						errors.rejectValue("svev_stva", "systema.tds.export.header.error.null.item.svev_stva");
+					}
+					//Tullvärde
+					if("0".equals(record.getSvev_stva2()) ){
+						errors.rejectValue("svev_stva2", "systema.tds.export.header.error.null.item.svev_stva2");
+					}
+					
 					//Bruttovikt
 					if(record.getSvev_brut()!=null && !"".equals(record.getSvev_brut())){
 						Double grossWeight = Double.parseDouble(record.getSvev_brut().replace(",", "."));

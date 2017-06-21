@@ -65,7 +65,8 @@ public class TdsExportItemsAutoControlMgr {
 	 */
 	public void calculateStatisticalValuesOnItem(JsonTdsExportSpecificTopicRecord headerRecord, String applicationUser){
 		StringBuffer urlRequestParams = new StringBuffer();
-		if( (this.record.getSvev_stva()!=null && !"".equals(this.record.getSvev_stva()) ) && (this.record.getSvev_stva2()!=null && !"".equals(this.record.getSvev_stva2())) ){
+		if( (strMgr.isNotNull(this.record.getSvev_stva()) && "0".equals(this.record.getSvev_stva()) ) && 
+			(strMgr.isNotNull(this.record.getSvev_stva2()) && "0".equals(this.record.getSvev_stva2()) ) ){
 			//nothing 
 		}else{
 			if(validStatisticalValuesParameters(headerRecord)){

@@ -42,7 +42,7 @@
   		});
   		
   		jq('#svev_fabl').blur(function() {
-  			if(jq('#svev_stva').val()=='' && jq('#svev_stva2').val()==''){
+  			if( (jq('#svev_stva').val()=='' && jq('#svev_stva2').val()=='') || (jq('#svev_stva').val()=='0' && jq('#svev_stva2').val()=='0' ) ){
   				//(1) Calculate
   				calculateStatisticalValues();
   			}

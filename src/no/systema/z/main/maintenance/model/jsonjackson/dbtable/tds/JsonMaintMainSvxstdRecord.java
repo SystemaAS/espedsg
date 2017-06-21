@@ -619,6 +619,26 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setTgprm(String value) {  this.tgprm = value; }
 	public String getTgprm() { return this.tgprm;}
 	
+	private String thnttd = "";                                
+	public String getThnttdPropertyName (){ return "thnttd"; }
+	public void setThnttd (String value){ this.thnttd = value;   }   
+	public String getThnttd (){ return this.thnttd;   }  
+	
+	private String thntll = "";                                
+	public String getThntllPropertyName (){ return "thntll"; }
+	public void setThntll (String value){ this.thntll = value;   }   
+	public String getThntll (){ return this.thntll;   }
+	
+	private String thfmll = "";                                
+	public String getThfmllPropertyName (){ return "thfmll"; }
+	public void setThfmll (String value){ this.thfmll = value;   }   
+	public String getThfmll (){ return this.thfmll;   }  
+
+	private String thnpns = "";                                
+	public String getThnpnsPropertyName (){ return "thnpns"; }
+	public void setThnpns (String value){ this.thnpns = value;   }   
+	public String getThnpns (){ return this.thnpns;   }  
+	
 	private String s0004 = "";                                
 	public String getS0004PropertyName (){ return "s0004"; }
 	public void setS0004 (String value){ this.s0004 = value;   }   
@@ -638,6 +658,11 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public String getS0026PropertyName (){ return "s0026"; }
 	public void setS0026 (String value){ this.s0026 = value;   }   
 	public String getS0026 (){ return this.s0026;   }  
+	
+	private String thekst = null;                                
+	public String getThekstPropertyName (){ return "thekst"; }
+	public void setThekst (String value){ this.thekst = value;   }   
+	public String getThekst (){ return this.thekst;   }  
 	
 	//Criteria in order to present a warranty alarm
 	private boolean warrantyAlarm = false;

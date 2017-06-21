@@ -156,7 +156,7 @@
 										<td class="text12" >
 										<select name="thavd" id="thavd" class="inputTextMediumBlueMandatoryField">
 						  					<option value="">-välj-</option>
-						  					<c:forEach var="record" items="${model.avdGeneralList}" >
+						  					<c:forEach var="record" items="${Xmodel.avdGeneralList}" >
 						 				  		<option value="${record.koaavd}"<c:if test="${ Xmodel.record.thavd == record.koaavd}"> selected </c:if> >${record.koaavd}</option>
 											  </c:forEach>  
 											</select>
@@ -164,33 +164,33 @@
 					    	    	</c:otherwise>
 				    	    	</c:choose>
 				    	    	
-				    	    	<td class="text12" title="thnttd"><font class="text12RedBold" >*</font>Antal eksemplar følgeseddel</td>
+				    	    	<td class="text12" title="thnttd"><font class="text12RedBold" >*</font>Antal exemplar följesedel</td>
 								<td class="text12" >
-									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thnttd" id="thnttd" size="2" maxlength="1" value='${Xmodel.record.thnttd}'>
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thnttd" id="thnttd" size="2" maxlength="1" value='${model.record.thnttd}'>
 								</td>
-								<td class="text12" title="thntll"><font class="text12RedBold" >*</font>Antal eksemplar lasteliste</td>
+								<td class="text12" title="thntll"><font class="text12RedBold" >*</font>Antal exemplar lastlista</td>
 								<td class="text12" >
-									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thntll" id="thntll" size="2" maxlength="1" value='${Xmodel.record.thntll}'>
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thntll" id="thntll" size="2" maxlength="1" value='${model.record.thntll}'>
 								</td>
-								<td class="text12" title="thfmll"><font class="text12RedBold" >*</font>Trykk lastelisteformular</td>
+								<td class="text12" title="thfmll"><font class="text12RedBold" >*</font>Tryck för formulär till lastlista</td>
 								<td class="text12" >
 									<select name="thfmll" id="thfmll" class="inputTextMediumBlueMandatoryField">
-					  					<option value="J"<c:if test="${ Xmodel.record.thfmll == 'J' || empty Xmodel.record.thfmll}"> selected </c:if> >Ja</option>
-					  					<option value="N"<c:if test="${ Xmodel.record.thfmll == 'N'}"> selected </c:if> >Nei</option>
+					  					<option value="J"<c:if test="${ model.record.thfmll == 'J' || empty model.record.thfmll}"> selected </c:if> >Ja</option>
+					  					<option value="N"<c:if test="${ model.record.thfmll == 'N'}"> selected </c:if> >Nei</option>
 								  	</select>
 								</td>
 							</tr>
 							<tr>	
-								<td class="text12" title="thenkl"><font class="text12RedBold" >*</font>Prosedyre</td>
+								<td class="text12" title="thenkl"><font class="text12RedBold" >*</font>Procedur</td>
 								<td class="text12" >
 									<select name="thenkl" id="thenkl" class="inputTextMediumBlueMandatoryField">
-					  					<option value="J"<c:if test="${ Xmodel.record.thenkl == 'J' || empty Xmodel.record.thenkl}"> selected </c:if> >Forenklet</option>
-					  					<option value="N"<c:if test="${ Xmodel.record.thenkl == 'N'}"> selected </c:if> >Normal</option>
+					  					<option value="J"<c:if test="${ model.record.thenkl == 'J' || empty model.record.thenkl}"> selected </c:if> >Forenklet</option>
+					  					<option value="N"<c:if test="${ model.record.thenkl == 'N'}"> selected </c:if> >Normal</option>
 								  	</select>
 								</td>
-								<td class="text12" title="thtdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Nr.teller intern ref.</td>
+								<td class="text12" title="thtdn">&nbsp;&nbsp;<font class="text12RedBold" >*</font>Sist använda internnr.</td>
 								<td class="text12" >
-									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thtdn" id="thtdn" size="10" maxlength="7" value='${Xmodel.record.thtdn}'>
+									<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="thtdn" id="thtdn" size="10" maxlength="7" value='${model.record.thtdn}'>
 								</td>
 							
 							</tr>
@@ -208,44 +208,44 @@
 						<tr height="5"><td></td></tr>
 			    	    
 						<tr>
-							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtvekslingsId Afdeling 
+							<td class="text12" title="s0004"><font class="text12RedBold" >*</font>UtväxlingsId Avdelning 
 								<a tabindex="-1" id="s0004IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0004" id="s0004" size="20" maxlength="35" value='${Xmodel.record.s0004}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0004" id="s0004" size="20" maxlength="35" value='${model.record.s0004}'>
 							</td>
 						
-							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtvekslingsId SKAT 
+							<td class="text12" title="s0010"><font class="text12RedBold" >*</font>UtväxlingsId Tullverket 
 								<a tabindex="-1" id="s0010IdLink">
 									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 								</a>
 							</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0010" id="s0010" size="20" maxlength="35" value='${Xmodel.record.s0010}'>
+								<input type="text" class="inputTextMediumBlueMandatoryField" name="s0010" id="s0010" size="20" maxlength="35" value='${model.record.s0010}'>
 							</td>
 						</tr>
 						<tr>	
 							
-							<td class="text12" title="s0026">&nbsp;&nbsp;Applikasjonsreferanse</td>
+							<td class="text12" title="s0026">&nbsp;&nbsp;Applikationsreference</td>
 							<td class="text12">
-								<input type="text" class="inputTextMediumBlue" name="s0026" id="s0026" size="11" maxlength="10" value='${Xmodel.record.s0026}'>
+								<input type="text" class="inputTextMediumBlue" name="s0026" id="s0026" size="11" maxlength="10" value='${model.record.s0026}'>
 							</td>
 							<td class="text12" title="s0035">Testindikator</td>
 							<td class="text12">
 								<select name="s0035" id="s0035" class="inputTextMediumBlue">
-				  					<option value="1"<c:if test="${ Xmodel.record.s0035 == '1'}"> selected </c:if> >Test</option>
-				  					<option value=""<c:if test="${ empty Xmodel.record.s0035}"> selected </c:if> >Prod</option>
+				  					<option value="1"<c:if test="${ model.record.s0035 == '1'}"> selected </c:if> >Test</option>
+				  					<option value=""<c:if test="${ empty model.record.s0035}"> selected </c:if> >Prod</option>
 							  	</select>
 							</td>
-							<td class="text12" title="thekst">Importeres eksterne data</td>
+							<td class="text12" title="thekst">Importeras extern data</td>
 							<td class="text12">
 								<select name="thekst" id="thekst" class="inputTextMediumBlue">
 				  					<option value="">-välj-</option>
-				  					<option value="J"<c:if test="${ Xmodel.record.thekst == 'J'}"> selected </c:if> >Ja</option>
-				  					<option value="N"<c:if test="${ Xmodel.record.thekst == 'N'}"> selected </c:if> >Nei</option>
-				  					<option value="R"<c:if test="${ Xmodel.record.thekst == 'R'}"> selected </c:if> >R</option>
+				  					<option value="J"<c:if test="${ model.record.thekst == 'J'}"> selected </c:if> >Ja</option>
+				  					<option value="N"<c:if test="${ model.record.thekst == 'N'}"> selected </c:if> >Nei</option>
+				  					<option value="R"<c:if test="${ model.record.thekst == 'R'}"> selected </c:if> >R</option>
 							  	</select>
 							</td>
 						</tr>
@@ -258,10 +258,10 @@
 			
 			<tr>
 				<td width="5%">&nbsp;</td>
-	 			<td class="text12" title="thdk">&nbsp;&nbsp;Angivelsestype&nbsp;
+	 			<td class="text12" title="thdk">&nbsp;&nbsp;Dekl&nbsp;
 	 				<select name="thdk" id="thdk" class="inputTextMediumBlue" TABINDEX=1>
 	 				  <option value="">-välj-</option>
-	 				  	<c:forEach var="code" items="${model.deklarasjonsTypeCodeList}" >
+	 				  	<c:forEach var="code" items="${Xmodel.deklarasjonsTypeCodeList}" >
                        	 	<option value="${code.tkkode}"<c:if test="${Xmodel.record.thdk == code.tkkode}"> selected </c:if> >${code.tkkode}</option>
 						</c:forEach> 
 					</select>
@@ -286,15 +286,11 @@
 								 		<tr height="15">
 								 			<td class="text12White">
 												&nbsp;<img onMouseOver="showPop('2_info');" onMouseOut="hidePop('2_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									 			<b>&nbsp;2.</b>Afsender&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+									 			<b>&nbsp;2.</b>Avsändare&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 								 				<div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute;top:2px; width:250px;" id="2_info" class="popupWithInputText text11"  >
-									           		<b>2. Afsender</b>
-										           		<ul>
-									           			<li>Kundenr. Overføres fra tolldekl./oppdrag hvis CVR/SE-nr basert på tolldeklarasjon/oppdrag.</li>
-														<li>Avsenders CVR/SE-nr<br/>
-														Benytt organisasjonsnr.,evt. bedriftsnummer for avdeling av sentralt registrert enhet.</li>
-														</ul>
+									           		<b>2. Avsändare</b>
+										           		
 												</span>
 												</div>
 								 				
@@ -328,37 +324,37 @@
 											        	<input type="hidden" name="orig_thsks" id="orig_thsks" value='${XXmodel.record.thsks}'>
 											        	
 											        	
-											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thkns">Kundenummer</span></td>
-											            <td class="text12" align="left" >&nbsp;<span title="thnas">Navn&nbsp;</span>
+											            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thkns">Kundnummer</span></td>
+											            <td class="text12" align="left" >&nbsp;<span title="thnas">Namn&nbsp;</span>
 											            	<a tabindex="-1" id="thnasIdLink">
 																<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 															</a>
 											            </td>
 											        </tr>
 											        <tr>
-											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thkns" id="thkns" size="8" maxlength="8" value="${Xmodel.record.thkns}"></td>
-											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thnas" id="thnas" size="30" maxlength="35" value="${Xmodel.record.thnas}"></td>
+											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thkns" id="thkns" size="8" maxlength="8" value="${model.record.thkns}"></td>
+											            <td class="text12" align="left"><input type="text" class="inputTextMediumBlue" name="thnas" id="thnas" size="30" maxlength="35" value="${model.record.thnas}"></td>
 											            
 											        </tr>
 											        
 											        <tr>
-											            <td class="text12" align="left" >&nbsp;<span title="thtins">CVR/SE</span></td>
+											            <td class="text12" align="left" >&nbsp;<span title="thtins">TIN</span></td>
 											            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 											        </tr>
 											        <tr>
-											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtins" id="thtins" size="20" maxlength="17" value="${Xmodel.record.thtins}"></td>
+											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtins" id="thtins" size="20" maxlength="17" value="${model.record.thtins}"></td>
 											            <td align="left">&nbsp;</td>
 											        </tr>
 											        <tr height="4"><td>&nbsp;</td></tr>
 											        <tr>
-											            <td class="text12" align="left" >&nbsp;<span title="thads1">Adresse</span></td>
-											            <td class="text12" align="left" >&nbsp;<span title="thsks">Sprogkode</span>
+											            <td class="text12" align="left" >&nbsp;<span title="thads1">Adress</span></td>
+											            <td class="text12" align="left" >&nbsp;<span title="thsks">Språkkode</span>
 											            </td>
 											        </tr>
 											        <tr>
-											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thads1" id="thads1" size="30" maxlength="35" value="${Xmodel.record.thads1}"></td>
+											            <td align="left"><input type="text" class="inputTextMediumBlue" name="thads1" id="thads1" size="30" maxlength="35" value="${model.record.thads1}"></td>
 											            <td align="left" >&nbsp;
-											            	<input type="text" class="inputTextMediumBlue" name="thsks" id="thsks" size="3" maxlength="2" value="${Xmodel.record.thsks}">
+											            	<input type="text" class="inputTextMediumBlue" name="thsks" id="thsks" size="3" maxlength="2" value="${model.record.thsks}">
 									            		
 														</td>
 											        </tr>
@@ -366,12 +362,12 @@
 											        		<td>
 												        		<table>
 												        		<tr>
-												            		<td class="text12" align="left" >&nbsp;<span title="thpss">By</span></td>
+												            		<td class="text12" align="left" >&nbsp;<span title="thpss">Postadress</span></td>
 												            		<td align="left">&nbsp;</td>
 												            	</tr>
 												        		<tr>
 												            		<td align="left">
-												       				<input type="text" class="inputTextMediumBlue" name="thpss" id="thpss" size="30" maxlength="35" value="${Xmodel.record.thpss}">
+												       				<input type="text" class="inputTextMediumBlue" name="thpss" id="thpss" size="30" maxlength="35" value="${model.record.thpss}">
 											            			</td> 
 												            		<td align="left">&nbsp;</td>
 												        		</tr>    	
@@ -386,9 +382,9 @@
 												            		</td>
 												            	</tr>
 												        		<tr >
-												        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpns" id="thpns" size="10" maxlength="9" value="${Xmodel.record.thpns}"></td> 
+												        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpns" id="thpns" size="10" maxlength="9" value="${model.record.thpns}"></td> 
 												            		<td align="left">
-												            			<input type="text" class="inputTextMediumBlue" name="thlks" id="thlks" size="3" maxlength="2" value="${Xmodel.record.thlks}">
+												            			<input type="text" class="inputTextMediumBlue" name="thlks" id="thlks" size="3" maxlength="2" value="${model.record.thlks}">
 												            			
 												            		</td> 
 												        		</tr>  
@@ -413,16 +409,12 @@
 							 		<tr height="15">
 							 			<td class="text12White">
 							 				&nbsp;<img onMouseOver="showPop('8_info');" onMouseOut="hidePop('8_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 				<b>8.</b>Modtager&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 				<b>8.</b>Mottagare&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 							 				<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute;top:2px; width:250px;" id="8_info" class="popupWithInputText text11"  >
-												<b>8. Modtager</b>
+												<b>8. Mottagare</b>
 							           			<br>
-								           			<ul>
-								           				<li>Kundenr.</li>
-														<li>Modtagers EORI <br/>
-														Dette er et valgfritt felt som benyttes dersom EORI til den autoriserte mottaker i bestemmelseslandet er kjent.</li>
-									           		</ul>
+								           			
 											</span>
 											</div>
 						 				</td>
@@ -454,16 +446,16 @@
 										        	<input type="hidden" name="orig_thlkk" id="orig_thlkk" value='${XXmodel.record.thlkk}'>
 										        	<input type="hidden" name="orig_thskk" id="orig_thskk" value='${XXmodel.record.thskk}'>
 										        	
-										            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknk">Kundenummer</span></td>
-										            <td class="text12" align="left" >&nbsp;<span title="thnak">Navn&nbsp;</span>
+										            <td class="text12" align="left" >&nbsp;&nbsp;<span title="thknk">Kundnummer</span></td>
+										            <td class="text12" align="left" >&nbsp;<span title="thnak">Namn&nbsp;</span>
 										            	<a tabindex="-1" id="thnakIdLink">
 															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
 														</a>
 													</td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thknk" id="thknk" size="8" maxlength="8" value="${Xmodel.record.thknk}"></td>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnak" id="thnak" size="30" maxlength="35" value="${Xmodel.record.thnak}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thknk" id="thknk" size="8" maxlength="8" value="${model.record.thknk}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thnak" id="thnak" size="30" maxlength="35" value="${model.record.thnak}"></td>
 										        </tr>
 			
 										        <tr>
@@ -471,20 +463,20 @@
 										            <td class="text12" align="left" >&nbsp;&nbsp;</td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtink" id="thtink" size="20" maxlength="17" value="${Xmodel.record.thtink}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thtink" id="thtink" size="20" maxlength="17" value="${model.record.thtink}"></td>
 										            <td align="left">&nbsp;</td>
 										        </tr>
 										        <tr height="4"><td>&nbsp;</td></tr>
 										        <tr>
-										            <td class="text12" align="left" >&nbsp;<span title="thadk1">Adresse</span></td>
-										            <td class="text12" align="left" >&nbsp;<span title="thskk">Sprogkode</span>
+										            <td class="text12" align="left" >&nbsp;<span title="thadk1">Adress</span></td>
+										            <td class="text12" align="left" >&nbsp;<span title="thskk">Språkkode</span>
 									            		
 										            </td>
 										        </tr>
 										        <tr>
-										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadk1" id="thadk1" size="30" maxlength="35" value="${Xmodel.record.thadk1}"></td>
+										            <td align="left"><input type="text" class="inputTextMediumBlue" name="thadk1" id="thadk1" size="30" maxlength="35" value="${model.record.thadk1}"></td>
 										            <td class="text12" align="left" >&nbsp;
-										            	<input type="text" class="inputTextMediumBlue" name="thskk" id="thskk" size="3" maxlength="2" value="${Xmodel.record.thskk}">
+										            	<input type="text" class="inputTextMediumBlue" name="thskk" id="thskk" size="3" maxlength="2" value="${model.record.thskk}">
 										            
 													</td>
 										        </tr>
@@ -492,12 +484,12 @@
 										        		<td>
 											        		<table>
 											        		<tr>
-											            		<td class="text12" align="left" >&nbsp;<span title="thpsk">By</span></td>
+											            		<td class="text12" align="left" >&nbsp;<span title="thpsk">Postadress</span></td>
 											            		<td align="left">&nbsp;</td>
 											            	</tr>
 											        		<tr>
 											            		<td align="left">
-											       				<input type="text" class="inputTextMediumBlue" name="thpsk" id="thpsk" size="30" maxlength="35" value="${Xmodel.record.thpsk}">
+											       				<input type="text" class="inputTextMediumBlue" name="thpsk" id="thpsk" size="30" maxlength="35" value="${model.record.thpsk}">
 										            			</td> 
 											            		<td align="left">&nbsp;</td>
 											        		</tr>    	
@@ -512,9 +504,9 @@
 											            		</td>
 											            	</tr>
 											        		<tr >
-											        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnk" id="thpnk" size="10" maxlength="9" value="${Xmodel.record.thpnk}"></td> 
+											        			<td align="left"><input type="text" class="inputTextMediumBlue" name="thpnk" id="thpnk" size="10" maxlength="9" value="${model.record.thpnk}"></td> 
 											            		<td align="left">
-											            			<input type="text" class="inputTextMediumBlue" name="thlkk" id="thlkk" size="3" maxlength="2" value="${Xmodel.record.thlkk}">
+											            			<input type="text" class="inputTextMediumBlue" name="thlkk" id="thlkk" size="3" maxlength="2" value="${model.record.thlkk}">
 											            			
 											            		</td> 
 											        		</tr>  
@@ -539,7 +531,7 @@
 									<table align="left" class="formFrameHeader" width="95%" border="0" cellspacing="0" cellpadding="0">
 								 		<tr height="15">
 								 			<td class="text12White">
-								 				&nbsp;Specifikke oplysninger om rejseruten og garanti&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+								 				&nbsp;Särskilda upplysningar kring resplan och garanti&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 							 				</td>
 						 				</tr>
 					 				</table>
@@ -561,10 +553,10 @@
 											        	<td class="text12" align="left" >
 											        	&nbsp;<img onMouseOver="showPop('51_info');" onMouseOut="hidePop('51_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 											        
-											        	<b>51.</b><span title="thtsd1/thtsd2...">Planlagte grænseovergangssteder&nbsp;</span>
+											        	<b>51.</b><span title="thtsd1/thtsd2...">Planerade transittullkontor - i ruttordning&nbsp;</span>
 											        	<div class="text11" style="position: relative;" align="left">
 														<span style="position:absolute;top:2px; width:250px;" id="51_info" class="popupWithInputText text11"  >
-										           			<b>51. Planlagte grænseovergangssteder</b>
+										           			<b>51. Planerade transittullkontor - i ruttordning</b>
 										           			<p>
 											           			Oppgi kodene for de planlagte innpasseringstollstedene for hver avtalepart som skal passeres under transporten, f.eks. SE603340 for Svinesund (SE).
 																EU anses som én avtalepart. Hvis transporten skal passere andre områder enn det som tilhører avtalepartene, oppgis utpasseringstollstedet fra avtalepartenes område som
@@ -591,7 +583,7 @@
 											            		<tr>
 											            			
 										            			<td>
-										            				<input type="text" class="inputTextMediumBlue" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${Xmodel.record.thtsd1}">
+										            				<input type="text" class="inputTextMediumBlue" name="thtsd1" id="thtsd1" size="10" maxlength="8" value="${model.record.thtsd1}">
 											            			<a tabindex="-1" id="thtsd1IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -599,17 +591,16 @@
 																<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${Xmodel.record.thtsd2}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd2" id="thtsd2" size="10" maxlength="8" value='${model.record.thtsd2}'>
 											            			<a tabindex="-1" id="thtsd2IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
 											            			</td>
 											            			
-											            			
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${Xmodel.record.thtsd3}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd3" id="thtsd3" size="10" maxlength="8" value='${model.record.thtsd3}'>
 											            			<a tabindex="-1" id="thtsd3IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -619,7 +610,7 @@
 											            		
 											            		<tr>
 											            			<td>
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${Xmodel.record.thtsd4}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd4" id="thtsd4" size="10" maxlength="8" value='${model.record.thtsd4}'>
 											            			<a tabindex="-1" id="thtsd4IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -628,7 +619,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${Xmodel.record.thtsd5}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd5" id="thtsd5" size="10" maxlength="8" value='${model.record.thtsd5}'>
 											            			<a tabindex="-1" id="thtsd5IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -637,7 +628,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${Xmodel.record.thtsd6}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd6" id="thtsd6" size="10" maxlength="8" value='${model.record.thtsd6}'>
 											            			<a tabindex="-1" id="thtsd6IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -645,7 +636,7 @@
 											            		</tr>
 											            		<tr>
 											            			<td>
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${Xmodel.record.thtsd7}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd7" id="thtsd7" size="10" maxlength="8" value='${model.record.thtsd7}'>
 											            			<a tabindex="-1" id="thtsd7IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -655,7 +646,7 @@
 											            			<td>
 											            			&nbsp;
 											            			&nbsp;
-											            			<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${Xmodel.record.thtsd8}'>
+											            			<input type="text" class="inputTextMediumBlue" name="thtsd8" id="thtsd8" size="10" maxlength="8" value='${model.record.thtsd8}'>
 											            			<a tabindex="-1" id="thtsd8IdLink">
 																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																	</a>
@@ -674,12 +665,12 @@
 												        	<td class="text12" align="left" >
 												        	
 												        	&nbsp;<img onMouseOver="showPop('53_info');" onMouseOut="hidePop('53_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-												        	<b>53.</b><span title="thtsb">Bestemmelsestoldsted</span>&nbsp;
+												        	<b>53.</b><span title="thtsb">Bestämmelsetullkontor</span>&nbsp;
 												        	
 												        	<div class="text11" style="position: relative;" align="left">
 															<span style="position:absolute;top:2px; width:250px;" id="53_info" class="popupWithInputText text11"  >
 											           			<br/>
-											           			<b>53. Bestemmelsestoldsted</b>
+											           			<b>53. Bestämmelsetullkontor</b>
 										           				<p>
 											           			Oppgi kode for tollstedet hvor varen skal fremlegges for å fullføre transitteringen.<br/> 
 											           			Hvis mottaker av varene er hjemmehørende i et land utenfor Transitteringskonvensjonens avtaleområde, oppgis
@@ -694,7 +685,7 @@
 															</td>		
 												        	
 										            		<td >
-										            			<input type="text" class="inputTextMediumBlue" name="thtsb" id="thtsb" size="10" maxlength="8" value="${Xmodel.record.thtsb}">
+										            			<input type="text" class="inputTextMediumBlue" name="thtsb" id="thtsb" size="10" maxlength="8" value="${model.record.thtsb}">
 																<a tabindex="-1" id="thtsbIdLink">
 																	<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
 																</a>

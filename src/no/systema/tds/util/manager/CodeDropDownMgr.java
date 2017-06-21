@@ -71,10 +71,10 @@ public class CodeDropDownMgr {
 			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "typ=" + paramTYP);
 			//Now build the payload and send to the back end via the drop down service
 			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
-			/*logger.info("CODES_URL:" + CODES_URL);
+			logger.info("CODES_URL:" + CODES_URL);
 			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
 			logger.info(utfPayload);
-			*/
+			
 			
 			JsonTdsCodeContainer codeContainer = tdsDropDownListPopulationService.getCodeContainer(utfPayload);
 			List<JsonTdsCodeRecord> list = new ArrayList();
