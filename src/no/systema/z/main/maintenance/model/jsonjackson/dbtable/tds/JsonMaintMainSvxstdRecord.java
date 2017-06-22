@@ -405,6 +405,11 @@ public class JsonMaintMainSvxstdRecord extends JsonAbstractGrandFatherRecord  {
 	public void setThgadk(String value) {  this.thgadk = value; }
 	public String getThgadk() { return this.thgadk;}
 	
+	private String thgpr = "";                                
+	public String getThgprPropertyName (){ return "thgpr"; }
+	public void setThgpr (String value){ this.thgpr = value;   }   
+	public String getThgpr (){ return this.thgpr;   }  
+	
 	private String thgbl = null;
 	public String getThgblPropertyName (){ return "thgbl"; }
 	public void setThgbl(String value) {  this.thgbl = value; }
