@@ -355,7 +355,7 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="75%" valign="top">
+													<td width="74%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="sviw_knso">&nbsp;<font class="text14RedBold" >*</font>Sökbegrepp:</td>
@@ -389,7 +389,7 @@
 														</table>
 													</td>
 													
-													<td width="25%" valign="top">
+													<td width="26%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="sviw_brut">Bruttov.(kg):</td>
@@ -481,22 +481,6 @@
 													<td width="55%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="sviw_lagi">&nbsp;Id:</td>
-																<td class="text12" >
-																	<input type="text" class="inputTextMediumBlue" name="sviw_lagi" id="sviw_lagi" size="15" maxlength="14" value='${model.record.sviw_lagi}'>
-																	&nbsp;Landkod:
-																	<input type="text" class="inputTextMediumBlue" name="sviw_lagl" id="sviw_lagl" size="3" maxlength="2" value='${model.record.sviw_lagl}'>
-																	<a tabindex="-1" id="sviw_laglIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																	&nbsp;Förf.(37:2):
-																	<input type="text" class="inputTextMediumBlue" name="sviw_eup2" id="sviw_eup2" size="5" maxlength="4" value='${model.record.sviw_eup2}'>
-																	<a tabindex="-1" id="sviw_eup2IdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																</td>
-															</tr>
-															<tr>
 																<td class="text12" title="sviw_vas2">&nbsp;Varubeskr. 2:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_vas2" id="sviw_vas2" size="70" maxlength="70" value='${model.record.sviw_vas2}'></td>
 															</tr>
@@ -509,19 +493,7 @@
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_vas4" id="sviw_vas4" size="70" maxlength="70" value='${model.record.sviw_vas4}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="sviw_lagt">&nbsp;Lager id:</td>
-																<td>
-																	<select name="sviw_lagt" id="sviw_lagt" > 
-						 							  					<option value="">-välj-</option>
-														  				<option value="C" <c:if test="${model.record.sviw_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
-														  				<option value="D" <c:if test="${model.record.sviw_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
-														  				<option value="E" <c:if test="${model.record.sviw_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
-														  				<option value="F" <c:if test="${model.record.sviw_lagt == 'F'}"> selected </c:if> >F-Tullager, typ F, drivs av Tullverket. Beslag - hävs/utlämnas från Tullv tulllage</option>
-																	</select>					
-																</td>
-															</tr>
-															<tr>
-																<td class="text12" title="sviw_call">Call me:</td>
+																<td class="text12" title="sviw_call">&nbsp;Call me:</td>
 																<td>
 																	<select name="sviw_call" id="sviw_call" > 
 						 							  					<option value="">-välj-</option>
@@ -537,7 +509,7 @@
 																  	</select>
 																</td>
 															</tr>
-													</table>
+														</table>
 													</td>
 													
 													<td width="45%" valign="top">
@@ -569,8 +541,36 @@
 															<tr>
 																<td class="text12" title="sviw_vat5">Varukod (33:5):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="sviw_vat5" id="sviw_vat5" size="5" maxlength="4" value='${model.record.sviw_vat5}'></td>
+																<td class="text12" title="sviw_eup2">&nbsp;Förf.(37:2):</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="sviw_eup2" id="sviw_eup2" size="5" maxlength="4" value='${model.record.sviw_eup2}'>
+																	<a tabindex="-1" id="sviw_eup2IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
 															</tr>
 														</table>
+													</td>
+												</tr>
+												<tr height="10">
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td colspan="2"  class="text12">&nbsp;&nbsp;Identifiering av lager:
+														<select name="sviw_lagt" id="sviw_lagt" > 
+			 							  					<option value="">-välj-</option>
+											  				<option value="C" <c:if test="${model.record.sviw_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
+											  				<option value="D" <c:if test="${model.record.sviw_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
+											  				<option value="E" <c:if test="${model.record.sviw_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
+											  				<option value="F" <c:if test="${model.record.sviw_lagt == 'F'}"> selected </c:if> >F-Tullager, typ F, drivs av Tullverket. Beslag - hävs/utlämnas från Tullv tulllage</option>
+														</select>					
+														&nbsp;Id:
+														<input type="text" class="inputTextMediumBlue" name="sviw_lagi" id="sviw_lagi" size="15" maxlength="14" value='${model.record.sviw_lagi}'>
+														&nbsp;Landkod:
+														<input type="text" class="inputTextMediumBlue" name="sviw_lagl" id="sviw_lagl" size="3" maxlength="2" value='${model.record.sviw_lagl}'>
+														<a tabindex="-1" id="sviw_laglIdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
 													</td>
 												</tr>
 											</table>

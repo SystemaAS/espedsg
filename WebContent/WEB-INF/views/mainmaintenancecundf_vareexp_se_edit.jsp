@@ -355,7 +355,7 @@
 
 											<table class="formFramePeachGrayRoundBottom"  width="100%" cellspacing="0" border="0" align="center">
 												<tr> 
-													<td width="75%" valign="top">
+													<td width="74%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_knso">&nbsp;<font class="text14RedBold" >*</font>Sökbegrepp:</td>
@@ -389,7 +389,7 @@
 														</table>
 													</td>
 													
-													<td width="25%" valign="top">
+													<td width="26%" valign="top">
 														<table border="0">
 															<tr>
 																<td class="text12" title="svew_brut">Bruttov.(kg):</td>
@@ -481,22 +481,6 @@
 													<td width="55%" valign="top">
 														<table border="0">
 															<tr>
-																<td class="text12" title="svew_lagi">&nbsp;Id:</td>
-																<td class="text12" >
-																	<input type="text" class="inputTextMediumBlue" name="svew_lagi" id="svew_lagi" size="15" maxlength="14" value='${model.record.svew_lagi}'>
-																	&nbsp;Landkod:
-																	<input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'>
-																	<a tabindex="-1" id="svew_laglIdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																	&nbsp;Förf.(37:2):
-																	<input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'>
-																	<a tabindex="-1" id="svew_eup2IdLink">
-																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
-																	</a>
-																</td>
-															</tr>
-															<tr>
 																<td class="text12" title="svew_vas2">&nbsp;Varubeskr. 2:</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vas2" id="svew_vas2" size="70" maxlength="70" value='${model.record.svew_vas2}'></td>
 															</tr>
@@ -517,19 +501,7 @@
 																<td><input type="text" class="inputTextMediumBlue" name="svew_komr" id="svew_komr" size="70" maxlength="70" value='${model.record.svew_komr}'></td>
 															</tr>
 															<tr>
-																<td class="text12" title="svew_lagt">&nbsp;Lager id:</td>
-																<td>
-																	<select name="svew_lagt" id="svew_lagt" > 
-						 							  					<option value="">-välj-</option>
-														  				<option value="C" <c:if test="${model.record.svew_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
-														  				<option value="D" <c:if test="${model.record.svew_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
-														  				<option value="E" <c:if test="${model.record.svew_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
-														  				<option value="F" <c:if test="${model.record.svew_lagt == 'F'}"> selected </c:if> >F-Tullager, typ F, drivs av Tullverket. Beslag - hävs/utlämnas från Tullv tulllage</option>
-																	</select>					
-																</td>
-															</tr>
-															<tr>
-																<td class="text12" title="svew_call">Call me:</td>
+																<td class="text12" title="svew_call">&nbsp;Call me:</td>
 																<td>
 																	<select name="svew_call" id="svew_call" > 
 						 							  					<option value="">-välj-</option>
@@ -594,10 +566,42 @@
 															<tr>
 																<td class="text12" title="svew_vat5">Varukod (33:5):</td>
 																<td><input type="text" class="inputTextMediumBlue" name="svew_vat5" id="svew_vat5" size="5" maxlength="4" value='${model.record.svew_vat5}'></td>
+																<td class="text12" title="svew_eup2">&nbsp;Förf.(37:2):</td>
+																<td>
+																	<input type="text" class="inputTextMediumBlue" name="svew_eup2" id="svew_eup2" size="5" maxlength="4" value='${model.record.svew_eup2}'>
+																	<a tabindex="-1" id="svew_eup2IdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
+
 															</tr>
 														</table>
 													</td>
 												</tr>
+												<tr height="10">
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<td colspan="2"  class="text12">&nbsp;&nbsp;Identifiering av lager:
+														<select name="svew_lagt" id="svew_lagt" > 
+			 							  					<option value="">-välj-</option>
+											  				<option value="C" <c:if test="${model.record.svew_lagt == 'C'}"> selected </c:if> >C-Privat tullager, typ C, där lagerhav har ansv för lagret.</option>
+											  				<option value="D" <c:if test="${model.record.svew_lagt == 'D'}"> selected </c:if> >D-Privat tulllager, typ D, där lagerhav h ansv för lagret. Taxeringsgr fastställda</option>
+											  				<option value="E" <c:if test="${model.record.svew_lagt == 'E'}"> selected </c:if> >E-Privat tulllager, typ E, där lagerhav har ansv för lagret. Kvalitetsäkrad förvar</option>
+											  				<option value="F" <c:if test="${model.record.svew_lagt == 'F'}"> selected </c:if> >F-Tullager, typ F, drivs av Tullverket. Beslag - hävs/utlämnas från Tullv tulllage</option>
+														</select>					
+														&nbsp;Id:
+														<input type="text" class="inputTextMediumBlue" name="svew_lagi" id="svew_lagi" size="15" maxlength="14" value='${model.record.svew_lagi}'>
+														&nbsp;Landkod:
+														<input type="text" class="inputTextMediumBlue" name="svew_lagl" id="svew_lagl" size="3" maxlength="2" value='${model.record.svew_lagl}'>
+														<a tabindex="-1" id="svew_laglIdLink">
+															<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+														</a>
+													</td>
+												</tr>
+												
+												
+												
 											</table>
 										</td>
 									</tr>  <!-- End Artikelinfo -->
