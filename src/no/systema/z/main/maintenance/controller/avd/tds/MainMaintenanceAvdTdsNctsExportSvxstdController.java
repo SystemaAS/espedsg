@@ -281,7 +281,12 @@ public class MainMaintenanceAvdTdsNctsExportSvxstdController {
     	return list;
     	
 	}
-	
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param avd
+	 * @return
+	 */
 	private JsonMaintMainSvxstdRecord fetchRecord(String applicationUser, String avd){
 		JsonMaintMainSvxstdRecord record = new JsonMaintMainSvxstdRecord();
     	
