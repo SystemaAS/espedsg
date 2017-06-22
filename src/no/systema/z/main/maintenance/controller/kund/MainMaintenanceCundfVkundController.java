@@ -417,6 +417,8 @@ public class MainMaintenanceCundfVkundController {
 			list = getTidigareHandlingarKoderFromSvtx03f(appUser);
 		} else if ("svew_lagl".equals(caller) || "sviw_lagl".equals(caller)) { //Land
 			list = getLandKoderSvKoderFromSvtx03f(appUser);
+		} else if ("sviw_fokd".equals(caller) ) { //Förmånskoder
+			list = getFormansKoderFromSvtx03f(appUser);
 		}
 		
 		else {
@@ -430,6 +432,34 @@ public class MainMaintenanceCundfVkundController {
 		return caller.startsWith("avkved");
 	}
 
+	private List<ChildWindowKode> getFormansKoderFromSvtx03f(SystemaWebUser appUser) {
+		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
+		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVTX03F_GET_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&02=" + Svtx03fKodTyper.FOR.toString());
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		List <ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<Svtx03fDao> container = (JsonDtoContainer<Svtx03fDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (Svtx03fDao kodtftDao :  container.getDtoList()) {
+						kode = getChildWindowKode(kodtftDao);
+						kodeList.add(kode);					
+					}
+				}
+		}
+		return kodeList;
+
+	}	
+		
 	private List<ChildWindowKode> getTidigareHandlingarKoderFromSvtx03f(SystemaWebUser appUser) {
 		JsonReader<JsonDtoContainer<Svtx03fDao>> jsonReader = new JsonReader<JsonDtoContainer<Svtx03fDao>>();
 		jsonReader.set(new JsonDtoContainer<Svtx03fDao>());

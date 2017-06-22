@@ -253,6 +253,10 @@ jq(function() {
     	jq('#sviw_laglIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sviw_lagl', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	    
+    jq('#sviw_fokdIdLink').click(function() {
+    	jq('#sviw_fokdIdLink').attr('target','_blank');
+    	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sviw_fokd', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });	    
 
     
 	jq('#sviw_fabl').calculator({ showOn: 'button',  
@@ -438,6 +442,7 @@ function getRecord(record){
 			jq('#sviw_suok').val("");jq('#sviw_suok').val(data[i].sviw_suok);
 			jq('#sviw_sukr').val("");jq('#sviw_sukr').val(data[i].sviw_sukr);
 			jq('#sviw_suar').val("");jq('#sviw_suar').val(data[i].sviw_suar);
+			jq('#sviw_fokd').val("");jq('#sviw_fokd').val(data[i].sviw_fokd);
 					
 			//for a future update
 			jq('#updateId').val("");jq('#updateId').val(data[i].sviw_knso);

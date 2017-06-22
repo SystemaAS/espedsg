@@ -386,6 +386,15 @@
 																	</a>
 																</td>
 															</tr>
+															<tr>
+																<td class="text12" title="sviw_fokd">&nbsp;Förmåner:</td>
+																<td>
+																<input type="text" class="inputTextMediumBlue" name="sviw_fokd" id="sviw_fokd" size="5" maxlength="3" value='${model.record.sviw_fokd}'>
+																	<a tabindex="-1" id="sviw_fokdIdLink">
+																		<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="Søk" >
+																	</a>
+																</td>
+															</tr>
 														</table>
 													</td>
 													
