@@ -296,7 +296,7 @@ public class MaintTdsNctsExportSvx030rController {
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
 	        	for(JsonMaintSvtvkRecord record : list){
-	        		logger.info("Valutakod:" + record.getSvvk_kd());
+	        		//logger.info("Valutakod:" + record.getSvvk_kd());
 	        	}
 	        }
     	}
