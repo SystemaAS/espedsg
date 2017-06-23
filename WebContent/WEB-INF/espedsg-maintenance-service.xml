@@ -103,12 +103,11 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- =================  -->
 	<bean id="maintSkatImportDktseService" class="no.systema.skat.z.maintenance.skatimport.service.MaintSkatImportDktseServiceImpl"/>
 	
-	
 	<!-- =========  -->
 	<!-- TDS NCTS   -->
 	<!-- ========== -->
 	<bean id="maintSvxkodfService" class="no.systema.tds.z.maintenance.tdsncts.service.MaintSvxkodfServiceImpl"/>
-	
+	<bean id="maintSvxghService" class="no.systema.tds.z.maintenance.tdsnctsexport.service.MaintSvxghServiceImpl"/>
 	
 	<!-- ===================  -->
 	<!-- MAINTENANCE GENERAL  -->
