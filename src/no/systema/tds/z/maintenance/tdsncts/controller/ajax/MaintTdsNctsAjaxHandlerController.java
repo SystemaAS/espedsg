@@ -87,7 +87,7 @@ public class MaintTdsNctsAjaxHandlerController {
 		logger.info(METHOD + " Inside...");
 		List<JsonMaintSvxkodfRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListDkx001r(applicationUser, tkunik, tkkode);
+    	result = (List)this.fetchListSvx001r(applicationUser, tkunik, tkkode);
     	
     	return result;
 	
@@ -131,7 +131,7 @@ public class MaintTdsNctsAjaxHandlerController {
 	 * @param tkkode
 	 * @return
 	 */
-	private Collection<JsonMaintSvxkodfRecord> fetchListDkx001r(String applicationUser, String tkunik, String tkkode){
+	private Collection<JsonMaintSvxkodfRecord> fetchListSvx001r(String applicationUser, String tkunik, String tkkode){
 		
 		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVX001R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&tkunik=" + tkunik + "&tkkode=" + tkkode ; 
