@@ -1,4 +1,4 @@
-package no.systema.tds.z.maintenance.tdsnctsexport.controller.ajax;
+package no.systema.tds.z.maintenance.tdsncts.controller.ajax;
 
 import java.util.*;
 
@@ -49,9 +49,9 @@ import no.systema.tds.z.maintenance.tdsncts.model.jsonjackson.dbtable.JsonMaintS
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintTdsNctsExportAjaxHandlerController {
+public class MaintTdsNctsAjaxHandlerController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintTdsNctsExportAjaxHandlerController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintTdsNctsAjaxHandlerController.class.getName());
 	
 	/**
 	 * 

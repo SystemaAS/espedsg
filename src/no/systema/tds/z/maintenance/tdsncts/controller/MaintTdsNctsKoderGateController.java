@@ -1,4 +1,4 @@
-package no.systema.tds.z.maintenance.tdsnctsexport.controller;
+package no.systema.tds.z.maintenance.tdsncts.controller;
 
 import java.util.*;
 
@@ -44,9 +44,9 @@ import no.systema.tds.z.maintenance.main.util.TdsMaintenanceConstants;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class MaintTdsNctsExportKoderGateController {
+public class MaintTdsNctsKoderGateController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(MaintTdsNctsExportKoderGateController.class.getName());
+	private static final Logger logger = Logger.getLogger(MaintTdsNctsKoderGateController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -59,7 +59,7 @@ public class MaintTdsNctsExportKoderGateController {
 	 * @return
 	 */
 	@RequestMapping(value="tdsmaintenancenctsexport_kodergate.do", method=RequestMethod.GET)
-	public ModelAndView doSkatImportList(HttpSession session, HttpServletRequest request){
+	public ModelAndView doKoderGateExportList(HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tdsmaintenancenctsexport_kodergate");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
@@ -69,6 +69,33 @@ public class MaintTdsNctsExportKoderGateController {
 			return this.loginView;
 		}else{
 			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TDS_MAINTENANCE_NCTS_EXPORT);
+			session.setAttribute(TdsMaintenanceConstants.ACTIVE_URL_RPG_TDS_MAINTENANCE, TdsMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
+		
+			//lists
+			List list = this.populateMaintenanceMainList();
+			model.put("list", list);
+			successView.addObject(TdsMaintenanceConstants.DOMAIN_MODEL , model);
+			
+	    	return successView;
+		}
+	}
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tdsmaintenancenctsimport_kodergate.do", method=RequestMethod.GET)
+	public ModelAndView doKoderGateImportList(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("tdsmaintenancenctsimport_kodergate");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		//SearchFilterSadExportTopicList searchFilter = new SearchFilterSadExportTopicList();
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TDS_MAINTENANCE_NCTS_IMPORT);
 			session.setAttribute(TdsMaintenanceConstants.ACTIVE_URL_RPG_TDS_MAINTENANCE, TdsMaintenanceConstants.ACTIVE_URL_RPG_INITVALUE); 
 		
 			//lists
