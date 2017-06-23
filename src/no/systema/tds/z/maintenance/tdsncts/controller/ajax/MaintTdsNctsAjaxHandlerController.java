@@ -30,10 +30,9 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tds.z.maintenance.main.url.store.MaintenanceUrlDataStore;
 import no.systema.tds.z.maintenance.tdsncts.service.MaintSvxkodfService;
-//import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghContainer;
-//import no.systema.skat.z.maintenance.skatnctsexport.model.jsonjackson.dbtable.JsonMaintDkxghRecord;
-//import no.systema.skat.z.maintenance.skatnctsexport.service.MaintDkxghService;
-//import no.systema.skat.z.maintenance.skatnctsexport.url.store.MaintenanceNctsExportUrlDataStore;
+import no.systema.tds.z.maintenance.tdsnctsexport.model.jsonjackson.dbtable.JsonMaintSvxghContainer;
+import no.systema.tds.z.maintenance.tdsnctsexport.model.jsonjackson.dbtable.JsonMaintSvxghRecord;
+import no.systema.tds.z.maintenance.tdsnctsexport.service.MaintSvxghService;
 import no.systema.tds.z.maintenance.tdsncts.model.jsonjackson.dbtable.JsonMaintSvxkodfContainer;
 import no.systema.tds.z.maintenance.tdsncts.model.jsonjackson.dbtable.JsonMaintSvxkodfRecord;
 
@@ -60,20 +59,20 @@ public class MaintTdsNctsAjaxHandlerController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="TODOgetSpecificRecord_dkx030r.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<JsonMaintDkxghRecord> getRecordDkx030
+	
+	@RequestMapping(value="getSpecificRecord_svx030r.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody List<JsonMaintSvxghRecord> getRecordSvx030
 	  	(@RequestParam String applicationUser, @RequestParam String id) {
-		final String METHOD = "[DEBUG] getRecordDkx030r";
+		final String METHOD = "[DEBUG] getRecordSvx030r";
 		logger.info(METHOD + " Inside...");
-		List<JsonMaintDkxghRecord> result = new ArrayList();
+		List<JsonMaintSvxghRecord> result = new ArrayList();
 	 	//get table
-    	result = (List)this.fetchListDkx030(applicationUser, id);
+    	result = (List)this.fetchListSvx030(applicationUser, id);
     	
     	return result;
 	
 	}
-	*/
+	
 	/**
 	 * 
 	 * @param applicationUser
@@ -100,23 +99,23 @@ public class MaintTdsNctsAjaxHandlerController {
 	 * @param id
 	 * @return
 	 */
-	/*
-	private Collection<JsonMaintDkxghRecord> fetchListDkx030(String applicationUser, String id){
+	
+	private Collection<JsonMaintSvxghRecord> fetchListSvx030(String applicationUser, String id){
 		
-		String BASE_URL = MaintenanceNctsExportUrlDataStore.MAINTENANCE_BASE_DKX030R_GET_LIST_URL;
+		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVX030R_GET_LIST_URL;
 		String urlRequestParams = "user=" + applicationUser + "&tggnr=" + id + "&om=1" ; //OneMatch ...
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
     	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
     	logger.info("URL PARAMS: " + urlRequestParams);
     	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
     	//extract
-    	List<JsonMaintDkxghRecord> list = new ArrayList();
+    	List<JsonMaintSvxghRecord> list = new ArrayList();
     	if(jsonPayload!=null){
 			//lists
-    		JsonMaintDkxghContainer container = this.maintDkxghService.getList(jsonPayload);
+    		JsonMaintSvxghContainer container = this.maintSvxghService.getList(jsonPayload);
 	        if(container!=null){
 	        	list = (List)container.getList();
-	        	for(JsonMaintDkxghRecord record: list){
+	        	for(JsonMaintSvxghRecord record: list){
 	        		//logger.info(record.getTggnr());
 	        	}
 	        }
@@ -124,7 +123,7 @@ public class MaintTdsNctsAjaxHandlerController {
     	
     	return list;
     	
-	}*/
+	}
 	/**
 	 * 
 	 * @param applicationUser
@@ -165,14 +164,13 @@ public class MaintTdsNctsAjaxHandlerController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	/*
-	@Qualifier ("maintDkxghService")
-	private MaintDkxghService maintDkxghService;
+	
+	@Qualifier ("maintSvxghService")
+	private MaintSvxghService maintSvxghService;
 	@Autowired
 	@Required
-	public void setMaintDkxghService (MaintDkxghService value){ this.maintDkxghService = value; }
-	public MaintDkxghService getMaintDkxghService(){ return this.maintDkxghService; }
-	*/
+	public void setMaintSvxghService (MaintSvxghService value){ this.maintSvxghService = value; }
+	public MaintSvxghService getMaintSvxghService(){ return this.maintSvxghService; }
 	
 	
 	@Qualifier ("maintSvxkodfService")

@@ -103,7 +103,7 @@ public class MaintTdsNctsExportController {
 		object.setCode("TDS_GARANTI");
 		object.setText("SVXGH / ...");
 		object.setDbTable("SVXGH");
-		object.setStatus("R");
+		object.setStatus("G");
 		object.setPgm("svx030r");
 		listObject.add(object);
 		

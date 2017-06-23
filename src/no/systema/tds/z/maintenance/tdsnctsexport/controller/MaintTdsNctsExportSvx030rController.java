@@ -281,7 +281,7 @@ public class MaintTdsNctsExportSvx030rController {
 		
 		String BASE_URL = MaintenanceUrlDataStore.MAINTENANCE_BASE_SVT057R_GET_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user="+ applicationUser);
+		urlRequestParams.append("user="+ applicationUser + "&distinct=1");
 		
 		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -296,7 +296,7 @@ public class MaintTdsNctsExportSvx030rController {
 	        if(container!=null){
 	        	list = (List)container.getDtoList();
 	        	for(JsonMaintSvtvkRecord record : list){
-	        		//logger.info("your text");
+	        		logger.info("Valutakod:" + record.getSvvk_kd());
 	        	}
 	        }
     	}
