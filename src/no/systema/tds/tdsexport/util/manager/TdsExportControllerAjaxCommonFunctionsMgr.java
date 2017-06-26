@@ -76,8 +76,9 @@ public class TdsExportControllerAjaxCommonFunctionsMgr {
 					if(jsonPayload!=null){
 						container = service.getContainer(jsonPayload);
 						if(container!=null){
+							//logger.info("AAAAAAAA");
 							for(JsonTdsTillaggskodRecord  record : container.getR33tillkoder()){
-								//logger.info(record.getKod());
+								//logger.info("BBBBBBBB" + record.getKod());
 								list.add(record);
 			    			}
 						}

@@ -18,7 +18,7 @@
 				  opener.jq('#titsb').val(tkkode);
 				  opener.jq('#titsb').focus();
 				
-			  //TDS NCTS Eksport	  
+			  //SAD NCTS Eksport	  
 			  }else if(callerType == 'thcats'){
 				  opener.jq('#thcats').val(tkkode);
 				  opener.jq('#thcats').focus();
@@ -26,6 +26,7 @@
 			  }else if(callerType == 'thtsb'){
 				  opener.jq('#thtsb').val(tkkode);
 				  opener.jq('#thtsb').focus();
+				  
 			  }else if(callerType == 'thtsd1'){
 				  opener.jq('#thtsd1').val(tkkode);
 				  opener.jq('#thtsd1').focus();
