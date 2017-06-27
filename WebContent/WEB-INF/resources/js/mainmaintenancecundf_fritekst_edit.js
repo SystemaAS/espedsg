@@ -24,4 +24,23 @@
         }
 
     });
+    
+    
+    jq('#alinkMainMaintKontaktGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_fritekst_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintKundeGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_fritekst_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintParamsGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_fritekst_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintVareRegGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_fritekst_edit.do', "formRecord");
+    });      
+    
 });

@@ -127,14 +127,14 @@
  					<table id= "secondTabRow" class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kunde_edit.do">
+								<a id="alinkMainMaintKundeGate" href="mainmaintenancecundf_kunde_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer"/>
 									</font>
 								</a>
 							</td>
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kontaktpersoner_list.do">
+								<a id="alinkMainMaintKontaktGate" href="mainmaintenancecundf_kontaktpersoner_list.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer.contacts"/>
 									</font>&nbsp;						
@@ -142,7 +142,7 @@
 							</td>
 							
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintFritextGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_fritekst_edit.do">
+								<a id="alinkMainMaintFritextGate" href="mainmaintenancecundf_fritekst_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer.text"/>
 									</font>&nbsp;						
@@ -154,7 +154,7 @@
 									</font>&nbsp;						
 							</td>
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintVareImpGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareregister.do">
+									<a id="alinkMainMaintVareRegGate" href="mainmaintenancecundf_vareregister.do">
 										<font class="tabDisabledLinkMinor">&nbsp;
 											<spring:message code="systema.main.maintenance.customer.vareregister"/>
 										</font>&nbsp;						

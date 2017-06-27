@@ -5,15 +5,6 @@ var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 
 function setBlockUI(element) {
 
-	//jq("#dialog").dialog("open");  
-	//Funkar inte att anropas rått. Behöver <div> alt .click
-
-	if (jq("#dirty").val() == "isDirty") {
-
-		alert("Du har ändrat, utan att spara. Vill du gå vidare.....");
-
-	}
-
 	jq.blockUI({
 		message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
 	});
@@ -96,17 +87,12 @@ jq(function() {
 	});
 	
 	
-	jq("#formRecord").submit(function() {
-		jq.blockUI({
-			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
-		});
-	});
+//	jq("#formRecord").submit(function() {
+//		jq.blockUI({
+//			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
+//		});
+//	});
 
-	jq("input[type='text']").change(function() {
-		jq('#dirty').val("isDirty");
-
-	});
-	
     jq('#ctypeIdLink').click(function() {
     	jq('#ctypeIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
@@ -232,6 +218,23 @@ jq(function() {
     jq('#avkved30').focus(function() {
     	selectedElement = "avkved30";
     });  
+
+    jq('#alinkMainMaintFritextGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintKundeGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintParamsGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintVareRegGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });        
     
 
 }); 
