@@ -65,6 +65,11 @@ jq(function() {
 //-----------------------
 
 function getRecord(record){
+	if (jq('#syvrdn').val() !='') {  //float
+		jq("#syvrdn").val(jq("#syvrdn").val().replace(',', '.'));
+	}
+	autoSave("mainmaintenancecundf_params_edit.do","formRecord");
+	
 	var rawId = record.id;
 	var applicationUserParam = jq('#applicationUser').val();
 	rawId = rawId.replace("recordUpdate_", "");

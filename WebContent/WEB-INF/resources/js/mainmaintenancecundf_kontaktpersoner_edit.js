@@ -86,13 +86,6 @@ jq(function() {
 		jq('#updateId').val("");
 	});
 	
-	
-//	jq("#formRecord").submit(function() {
-//		jq.blockUI({
-//			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
-//		});
-//	});
-
     jq('#ctypeIdLink').click(function() {
     	jq('#ctypeIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=ctype', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
@@ -245,6 +238,9 @@ jq(function() {
 // -----------------------
 
 function getRecord(record){
+	
+	autoSave("mainmaintenancecundf_kontaktpersoner_edit.do","formRecord");
+	
 	var rawId = record.id;
 	var applicationUserParam = jq('#applicationUser').val();
 	rawId = rawId.replace("recordUpdate_", "");
