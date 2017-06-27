@@ -7,7 +7,6 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
-  
   function getDataFromBrreg(element){
 		var orgnr = jq('#syrg').val();
 		var knavn = jq('#knavn').val();
@@ -27,7 +26,6 @@
 				for (var i = 0; i < len; i++) {
 					jq("#knavn").val(data[i].navn);
 					jq("#knavn").change();
-					alert("len="+len);
 					if (data[i].postadresse !== undefined ) {
 						jq("#adr1").val(data[i].postadresse.adresse);
 						jq("#adr1").change();
@@ -97,16 +95,6 @@
 		
 		
 jq(function() {
-	jq("#formRecord").submit(function() {
-		jq.blockUI({
-			message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
-		});
-	});
-
-	jq("input[type='text']").change(function() {
-		jq('#dirty').val("isDirty");
-
-	});	
 
     jq('#sylandIdLink').click(function() {
     	jq('#sylandIdLink').attr('target','_blank');
@@ -136,6 +124,23 @@ jq(function() {
     jq('#syfr03IdLink').click(function() {
     	jq('#syfr03IdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=syfr03', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+    });      
+ 
+    jq('#alinkMainMaintKontaktGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintFritextGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintParamsGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
+    });         
+    jq('#alinkMainMaintVareRegGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
     });      
     
     

@@ -4,9 +4,18 @@
 			   'SE' : 'Swedish',
 			   'NO' : 'Norwegian-Bokmal'
 	}
-
+	//for setting user lang to datatables
 	function getLanguage(lang) {
 	    return '/espedsg/resources/localization/'+langMap[lang]+'.json';
+	}
+
+	//for submit when user navigating
+	function autoSave(postUrl, formId){
+		jq.ajax({
+			type : 'POST',
+			url : postUrl,
+			data : jq("#"+ formId).serialize()
+		});    	  
 	}
 	
 	//for mouse-over for css popup
