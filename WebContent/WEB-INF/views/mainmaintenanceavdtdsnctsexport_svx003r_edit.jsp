@@ -40,7 +40,7 @@
 		    			<c:when test="${model.id=='SVXSTD'}">
 		    				<td width="18%" valign="bottom" class="tabDisabled" align="center">
 								<a id="alinkMainMaintAvdSadiSyftaaar" onClick="setBlockUI(this);" href="mainmaintenanceavdtdsnctsexport_svx003r.do?id=${model.id}">
-			                       			<font class="tabLink">&nbsp;<spring:message code="systema.ncts.export.label"/></font>&nbsp;
+	                       			<font class="tabDisabledLink">&nbsp;<spring:message code="systema.ncts.export.label"/></font>&nbsp;
 								</a>
 							</td>
 	                    </c:when>
@@ -204,7 +204,7 @@
 				<td width="100%">
 					
 					<table width="95%" class="formFrameTitaniumWhite" cellspacing="1" border="0" align="left">
-						<tr><td colspan="2" class="text12"><b>Kommunikasjon </b><font class="text11" >&nbsp;</font></td></tr>
+						<tr><td colspan="2" class="text12"><b>Kommunikation </b><font class="text11" >&nbsp;</font></td></tr>
 						<tr height="5"><td></td></tr>
 			    	    
 						<tr>

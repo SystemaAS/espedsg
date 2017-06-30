@@ -100,6 +100,9 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 		String skatExportAvdList = request.getParameter("ssealist"); //SkatExportAvdlist
 		String skatNctsImportAvdList = request.getParameter("snialist"); //SkatNctsImportAvdlist
 		String skatNctsExportAvdList = request.getParameter("snealist"); //SkatNctsExportAvdlist
+		//TDS
+		String tdsNctsImportAvdList = request.getParameter("tnialist"); //TdsNctsImportAvdlist
+		String tdsNctsExportAvdList = request.getParameter("tnealist"); //TdsNctsExportAvdlist
 		
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
@@ -143,10 +146,15 @@ public class MainMaintenanceAvdGeneralSyfa14ControllerChildWindow {
 			if(skatNctsExportAvdList!=null && !"".equals(skatNctsExportAvdList)){
 				urlRequestParamsKeys = urlRequestParamsKeys + "&snealist=1"; //only the available avd. (skat ncts export)
 			}
-			//---------
-			//TDS TODO
-			//---------
-			
+			//-----
+			//TDS 
+			//-----
+			if(tdsNctsImportAvdList!=null && !"".equals(skatNctsImportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&tnialist=1"; //only the available avd. (tds ncts import)
+			}
+			if(tdsNctsExportAvdList!=null && !"".equals(skatNctsExportAvdList)){
+				urlRequestParamsKeys = urlRequestParamsKeys + "&tnealist=1"; //only the available avd. (tds ncts export)
+			}
 			
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);

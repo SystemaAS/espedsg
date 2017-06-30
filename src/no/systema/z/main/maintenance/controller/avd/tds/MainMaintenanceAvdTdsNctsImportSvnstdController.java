@@ -355,15 +355,15 @@ public class MainMaintenanceAvdTdsNctsImportSvnstdController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
-		/* TODO check!
-		this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsTds(this.urlCgiProxyService, this.maintSvtvkService, model, applicationUser);
-		this.codeDropDownMgr.populateAvdListHtmlDropDownsTds(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "snealist");
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsTds(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "tnialist");
+		
+		//TODO ?!?!?
 		//Code lists in NCTS domain
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE);
-		this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
-		*/
+		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
+		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
+		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE);
+		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
+		
 	}
 	
 	

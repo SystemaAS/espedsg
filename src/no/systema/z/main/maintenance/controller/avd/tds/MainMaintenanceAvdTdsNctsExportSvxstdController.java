@@ -37,11 +37,11 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMain
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.tds.JsonMaintMainSvxstdfvRecord;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.validator.tds.MaintMainSvxstdValidator;
-//import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrSkat;
+import no.systema.z.main.maintenance.util.manager.CodeDropDownMgrTds;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
-//import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
+
 import no.systema.tds.z.maintenance.main.service.MaintSvtvkService;
-//import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
+import no.systema.tds.z.maintenance.tdsncts.service.MaintSvxkodfService;
 
 
 /**
@@ -60,7 +60,7 @@ public class MainMaintenanceAvdTdsNctsExportSvxstdController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	//TODO private CodeDropDownMgrSkat codeDropDownMgr = new CodeDropDownMgrSkat();
+	private CodeDropDownMgrTds codeDropDownMgr = new CodeDropDownMgrTds();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	/**
 	 * 
@@ -458,11 +458,12 @@ public class MainMaintenanceAvdTdsNctsExportSvxstdController {
 	 * @param applicationUser
 	 */
 	private void populateDropDowns(Map model, String applicationUser){
+		this.codeDropDownMgr.populateAvdListHtmlDropDownsTds(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "tnealist");
+		
 		//TODO !!!
 		//this.codeDropDownMgr.populateCurrencyCodesHtmlDropDownsSkat(this.urlCgiProxyService, this.maintDktvkService, model, applicationUser);
-		//this.codeDropDownMgr.populateAvdListHtmlDropDownsSkat(this.urlCgiProxyService, this.maintMainKodtaService, model, applicationUser, "snealist");
 		//Code lists in NCTS domain
-		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
+		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintSvxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_096_SPES_OMSTAND);
 		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_SIKKERHET_116_TRANSP_KOST_BETAL_MATE);
 		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_SKAT_NCTS_EXPORT_108_TRANSPORTMATE);
 		//this.codeDropDownMgr.populateGeneralCodesHtmlDropDownsNcts(this.urlCgiProxyService, this.maintDkxkodfService, model, applicationUser, MainMaintenanceConstants.CODE_NCTS_DEKLARASJONS_TYPE);
@@ -528,15 +529,6 @@ public class MainMaintenanceAvdTdsNctsExportSvxstdController {
 	public void setMaintMainEdiiService (MaintMainEdiiService value){ this.maintMainEdiiService = value; }
 	public MaintMainEdiiService getMaintMainEdiiService(){ return this.maintMainEdiiService; }
 	
-	/*
-	@Qualifier ("maintDkxkodfService")
-	private MaintDkxkodfService maintDkxkodfService;
-	@Autowired
-	@Required
-	public void setMaintDkxkodfService (MaintDkxkodfService value){ this.maintDkxkodfService = value; }
-	public MaintDkxkodfService getMaintDkxkodfService(){ return this.maintDkxkodfService; }
-	*/
 
-	
 }
 
