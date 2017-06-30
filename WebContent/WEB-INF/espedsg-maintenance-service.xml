@@ -157,6 +157,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="maintMainSvxstdfvService" class="no.systema.z.main.maintenance.service.tds.MaintMainSvxstdfvServiceImpl"/>
 	<bean id="maintMainSveaService" class="no.systema.z.main.maintenance.service.tds.MaintMainSveaServiceImpl"/>
 	<bean id="maintMainSviaService" class="no.systema.z.main.maintenance.service.tds.MaintMainSviaServiceImpl"/>
+	<bean id="maintMainSvnstdService" class="no.systema.z.main.maintenance.service.tds.MaintMainSvnstdServiceImpl"/>
 	
 	
 </beans>

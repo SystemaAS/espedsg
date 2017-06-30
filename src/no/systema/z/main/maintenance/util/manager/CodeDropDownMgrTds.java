@@ -15,6 +15,7 @@ import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtlbSer
 import no.systema.tvinn.sad.z.maintenance.felles.url.store.TvinnSadMaintenanceFellesUrlDataStore;
 
 //sad import
+/*
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts1Container;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts1Record;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Container;
@@ -27,7 +28,7 @@ import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gy
 import no.systema.tvinn.sad.z.maintenance.sadexport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadExportKodts9Record;
 import no.systema.tvinn.sad.z.maintenance.sadexport.service.gyldigekoder.MaintSadExportKodts9Service;
 import no.systema.tvinn.sad.z.maintenance.sadexport.url.store.TvinnSadMaintenanceExportUrlDataStoreGyldigeKoder;
-
+*/
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Container;
@@ -37,36 +38,34 @@ import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkContainer;
-import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDktvkRecord;
-import no.systema.skat.z.maintenance.main.service.MaintDktvkService;
-import no.systema.skat.z.maintenance.main.url.store.MaintenanceUrlDataStore;
-import no.systema.skat.z.maintenance.main.util.SkatMaintenanceConstants;
-import no.systema.skat.z.maintenance.skatncts.service.MaintDkxkodfService;
-import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfContainer;
-import no.systema.skat.z.maintenance.skatncts.model.jsonjackson.dbtable.JsonMaintDkxkodfRecord;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkContainer;
+import no.systema.tds.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintSvtvkRecord;
+import no.systema.tds.z.maintenance.main.service.MaintSvtvkService;
+import no.systema.tds.z.maintenance.tdsncts.service.MaintSvxkodfService;
+import no.systema.tds.z.maintenance.tdsncts.model.jsonjackson.dbtable.JsonMaintSvxkodfContainer;
+import no.systema.tds.z.maintenance.tdsncts.model.jsonjackson.dbtable.JsonMaintSvxkodfRecord;
 
 /**
  * 
  * @author oscardelatorre
- * @date Apr 18, 2017
+ * @date Jun 26, 2017
  * 
  */
-public class CodeDropDownMgrSkat {
-	private static final Logger logger = Logger.getLogger(CodeDropDownMgrSkat.class.getName());
+public class CodeDropDownMgrTds {
+	private static final Logger logger = Logger.getLogger(CodeDropDownMgrTds.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 
 	/**
 	 * 
 	 * @param urlCgiProxyService
-	 * @param maintDktvkService
+	 * @param maintSvtvkService
 	 * @param model
 	 * @param applicationUser
 	 */
-	public void populateCurrencyCodesHtmlDropDownsSkat(UrlCgiProxyService urlCgiProxyService,
-			MaintDktvkService maintDktvkService, Map model, String applicationUser) {
+	public void populateCurrencyCodesHtmlDropDownsTds(UrlCgiProxyService urlCgiProxyService,
+			MaintSvtvkService maintSvtvkService, Map model, String applicationUser) {
 
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_DKT057R_GET_CURRENCY_LIST_URL;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SVT057R_GET_CURRENCY_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser + "&distinct=1");
 
@@ -75,12 +74,12 @@ public class CodeDropDownMgrSkat {
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		// extract
-		List<JsonMaintDktvkRecord> list = new ArrayList();
+		List<JsonMaintSvtvkRecord> list = new ArrayList();
 		if (jsonPayload != null) {
 			// lists
-			JsonMaintDktvkContainer container = maintDktvkService.getList(jsonPayload);
+			JsonMaintSvtvkContainer container = maintSvtvkService.getList(jsonPayload);
 			if (container != null) {
-				list = (List) container.getList();
+				list = (List) container.getDtoList();
 			}
 		}
 		model.put(MainMaintenanceConstants.CODE_MGR_CURRENCY_LIST, list);
@@ -96,7 +95,7 @@ public class CodeDropDownMgrSkat {
 	 *  (SAD Import or Export parameter: sialist/sealist; NCTS
 	 * 	Import/Eksport: nialist/nealist
 	 */
-	public void populateAvdListHtmlDropDownsSkat(UrlCgiProxyService urlCgiProxyService,
+	public void populateAvdListHtmlDropDownsTds(UrlCgiProxyService urlCgiProxyService,
 			MaintMainKodtaService maintMainKodtaService, Map model, String applicationUser, String sadType) {
 
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
@@ -159,8 +158,8 @@ public class CodeDropDownMgrSkat {
 	 * @param code
 	 */
 	public void populateGeneralCodesHtmlDropDownsNcts(UrlCgiProxyService urlCgiProxyService,
-			MaintDkxkodfService maintDkxkodfService, Map model, String applicationUser, String code) {
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SKAT_LIST_URL;
+			MaintSvxkodfService maintSvxkodfService, Map model, String applicationUser, String code) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_TDS_LIST_URL;
 
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser + "&tkunik=" + code);
@@ -169,10 +168,10 @@ public class CodeDropDownMgrSkat {
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL + " PARAMS:" + urlRequestParams));
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		// extract
-		List<JsonMaintDkxkodfRecord> list = new ArrayList();
+		List<JsonMaintSvxkodfRecord> list = new ArrayList();
 		if (jsonPayload != null) {
 			// lists
-			JsonMaintDkxkodfContainer container = maintDkxkodfService.getList(jsonPayload);
+			JsonMaintSvxkodfContainer container = maintSvxkodfService.getList(jsonPayload);
 			if (container != null) {
 				list = (List) container.getList();
 			}
@@ -203,6 +202,7 @@ public class CodeDropDownMgrSkat {
 	 * @param applicationUser
 	 * @param code
 	 */
+	/*
 	public void populateGeneralCodesHtmlDropDownsSadKodts4(UrlCgiProxyService urlCgiProxyService,
 			MaintSadImportKodts4Service maintSadImportKodts4Service, Map model, String applicationUser, String code) {
 		// Default
@@ -224,6 +224,7 @@ public class CodeDropDownMgrSkat {
 		}
 		model.put(MainMaintenanceConstants.CODE_MGR_CODE_SAD_4_TRANSPORTMATER_LIST, list);
 	}
+	*/
 
 	/**
 	 * 
@@ -233,6 +234,7 @@ public class CodeDropDownMgrSkat {
 	 * @param applicationUser
 	 * @param code
 	 */
+	/*
 	public void populateGeneralCodesHtmlDropDownsSad012Incoterms(UrlCgiProxyService urlCgiProxyService,
 			MaintSadFellesKodtlbService maintSadImportKodtlbService, Map model, String applicationUser) {
 		String BASE_URL = TvinnSadMaintenanceFellesUrlDataStore.TVINN_SAD_MAINTENANCE_FELLES_BASE_SAD012R_GET_LIST_URL;
@@ -253,7 +255,7 @@ public class CodeDropDownMgrSkat {
 		model.put(MainMaintenanceConstants.CODE_MGR_CODE_SAD_INCOTERMS_LIST, list);
 
 	}
-
+*/
 	/**
 	 * 
 	 * @param urlCgiProxyService
@@ -261,6 +263,7 @@ public class CodeDropDownMgrSkat {
 	 * @param model
 	 * @param applicationUser
 	 */
+	/*
 	public void populateGeneralCodesHtmlDropDownsSad002EkspedtyperImport(UrlCgiProxyService urlCgiProxyService,
 			MaintSadImportKodts1Service maintSadImportKodts1Service, Map model, String applicationUser) {
 
@@ -283,7 +286,7 @@ public class CodeDropDownMgrSkat {
 		}
 		model.put(MainMaintenanceConstants.CODE_MGR_CODE_SAD_IMPORT_EKSPEDTYPER_LIST, list);
 	}
-
+*/
 	/**
 	 * 
 	 * @param urlCgiProxyService
@@ -291,6 +294,7 @@ public class CodeDropDownMgrSkat {
 	 * @param model
 	 * @param applicationUser
 	 */
+	/*
 	public void populateGeneralCodesHtmlDropDownsSad002EkspedtyperExport(UrlCgiProxyService urlCgiProxyService,
 			MaintSadExportKodts9Service maintSadImportKodts9Service, Map model, String applicationUser) {
 
@@ -313,7 +317,7 @@ public class CodeDropDownMgrSkat {
 		}
 		model.put(MainMaintenanceConstants.CODE_MGR_CODE_SAD_EXPORT_EKSPEDTYPER_LIST, list);
 	}
-
+*/
 	
 	/**
 	 * Populate deklarasjontyper for dropdown, primary used in TR001, Avd. NCTS - Export and Forhandsvarsling. 

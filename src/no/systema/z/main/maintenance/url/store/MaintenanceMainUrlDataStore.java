@@ -82,11 +82,10 @@ public final class MaintenanceMainUrlDataStore {
 	static public String MAINTENANCE_MAIN_BASE_SVX003R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003R.do";
 	//CHILD RECORD - Sikkerhet -->http://gw.systema.no:8080/syjservicesbcore/syjsSVX003fvR.do?user=OSCAR&thavd=1
 	static public String MAINTENANCE_MAIN_BASE_SVX003fvR_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003fvR.do";
-	//AVD SKAT NCTS IMPORT ON GENERAL MAINT	
-	//http://gw.systema.no:8080/syjservicesbcore/syjsDKX053R.do?user=OSCAR
-	//static public String MAINTENANCE_MAIN_BASE_DKX053R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsDKX053R.do";
+	//AVD TDS NCTS IMPORT ON GENERAL MAINT	
+	//http://gw.systema.no:8080/syjservicesbcore/syjsSVX053R.do?user=OSCAR
+	static public String MAINTENANCE_MAIN_BASE_SVX053R_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX053R.do";
 	
-			
 	
 	//CHILDREN List on SYFA28 --> http://gw.systema.no:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333
 	//ONE CHILD on SYFA28 --> http://localhost:8080/syjservicesbcore/syjsSYFA28ChildR.do?user=OSCAR&kopavd=333&koplnr=4
@@ -476,7 +475,9 @@ public final class MaintenanceMainUrlDataStore {
 	//AVD TDS NCTS EKSPORT ON GENERAL MAINT
 	static public String MAINTENANCE_MAIN_BASE_SVX003R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003R_U.do";
 	static public String MAINTENANCE_MAIN_BASE_SVX003fvR_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX003fvR_U.do";
-			
+	//AVD TDS NCTS IMPORT ON GENERAL MAINT
+	static public String MAINTENANCE_MAIN_BASE_SVX053R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVX053R_U.do";
+		
 	
 	//--------------------------
 	//[3] GUI lists drop downs
@@ -488,6 +489,9 @@ public final class MaintenanceMainUrlDataStore {
 	//DK
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_DKT057R_GET_CURRENCY_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKT057R.do";
 	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_SKAT_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKX001R.do";
+	//TDS
+	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_SVT057R_GET_CURRENCY_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVT057R.do";
+	static public String MAINTENANCE_MAIN_BASE_DROPDOWN_GET_CODES_TDS_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservices/syjsSVX001R.do";
 	
 	 
 	
