@@ -37,12 +37,12 @@
 	<%--datatables grid --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	
-    <table class="noBg" width="1200" border="0" cellspacing="0" cellpadding="0">
+    <table class="noBg" width="1250" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 	 	<tr>
 	 		 <%-- class="grayTitanBg" --%>
     		<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1250" border="0" cellspacing="0" cellpadding="0">
     			 	<tr>
 			        	<td>&nbsp;</td>
 			        	<td>&nbsp;</td>
@@ -101,9 +101,9 @@
 		<c:when test="${user.authorizedTdsUserAS400 == 'Y'}">
 			<tr >
 				<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-	    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
+	    			 <table width="1250" border="0" cellspacing="0" cellpadding="0">
 					 	<tr >
-				    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
+				    		<td class="text11" width="75%" align="left" >&nbsp;&nbsp;
 				    			<%-- --------------- --%>
 				    			<%-- TDS EXPORT MENU --%>
 				    			<%-- --------------- --%>
@@ -235,10 +235,10 @@
 				    			<%-- -------------------- --%>
 				    			<a tabindex=-1 href="tdsmaintenancegate.do">
 				    				&nbsp;<font class="headerMenuAdmin">
-			                   		&nbsp;&nbsp;Underhåll&nbsp;&nbsp;</font>
+			                   		&nbsp;&nbsp;Underhåll&nbsp;</font>
 				    			</a>
 		      				</td>		      				
-		      				<td class="text11" width="50%" align="right">
+		      				<td class="text11"  align="right">
 		      					<img valign="bottom" src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">
 		      					&nbsp;
 		      					<font class="headerMenuGreen">
@@ -251,13 +251,13 @@
 						           		</div>
 						        		</span>	
 				    				<font class="text11User"  >${user.user}&nbsp;</font>${user.usrLang}</font>
-				    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
+				    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
 					    			<a tabindex=-1 href="logoutTds.do">
-					    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
-					    					<font class="text11User"  ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
+					    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">
+					    					<font class="text11User"  ><spring:message code="dashboard.menu.button"/></font>
 					    				</font>
 					    			</a>
-					    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;&nbsp;|&nbsp;</font>
+					    			<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;</font>
 					    			<font class="text12LightGreen" style="cursor:pointer;"  onClick="showPop('versionInfo');">${user.versionSpring}&nbsp;</font>
 			    				    <div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute; left:5px; top:30px; width:250px" id="versionInfo" class="popupWithInputText"  >	
@@ -279,7 +279,7 @@
 	    <c:otherwise>
 	    		<tr>
 				<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-	    			 <table width="1200" border="0" cellspacing="1" cellpadding="1">
+	    			 <table width="1250" border="0" cellspacing="1" cellpadding="1">
 					 	<tr >
 				    		<td class="text11" width="50%" align="left" >&nbsp;&nbsp;</td>
 	      				<td class="text11" width="50%" align="right">
