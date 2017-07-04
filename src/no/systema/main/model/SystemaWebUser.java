@@ -67,7 +67,9 @@ public class SystemaWebUser {
 	public static final String ACTIVE_MENU_EFAKTURA = "EFAKTURA";
 	//EBOOKING
 	public static final String ACTIVE_MENU_EBOOKING = "EBOOKING";
-	
+	//OPPDRAGSREGISTRERING - TROR (TransportOppdrag)
+	public static final String ACTIVE_MENU_TROR = "TROR";
+		
 	//----------------------------------------------------------------------
 	//In order to get the login host (request.getHost()) (when applicable)
 	//----------------------------------------------------------------------

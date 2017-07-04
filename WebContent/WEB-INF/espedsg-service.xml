@@ -270,6 +270,11 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- Drop down bean --> 
 	<bean id="ebookingDropDownListPopulationService" class="no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService"/>
 	
+	<!-- ============================  -->
+	<!-- TROR - Oppdragsregistrering   -->
+	<!-- ============================  -->
+	<bean id="trorMainOrderListService" class="no.systema.tror.service.TrorMainOrderListServiceImpl"/>
+	
     
 	<!-- ==============================  -->
 	<!-- SYSTEMA SPECIFIC CUSTOMER/APPL  -->

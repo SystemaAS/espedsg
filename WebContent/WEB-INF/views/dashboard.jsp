@@ -137,6 +137,34 @@
 													</span>
 												</font>
 											</c:if>
+											<c:if test="${fn:contains(record.prog,'-TROR') }">
+							 					<font class="text14">
+							 						<a class="text14" href="tror_mainorderlist.do?lang=${user.usrLang}&action=doFind" onMouseOver="showPop('infoTROR');" onMouseOut="hidePop('infoTROR');" onClick="setBlockUI(this);" > 	
+					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
+					 									<font class="text14NavyBlue">${record.prTxt}</font>
+			 										</a>
+			 										<%-- ===========================================  --%>
+									            	<%-- Here we have the info popup window eBooking --%>
+									            	<%-- ===========================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTROR" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>${record.prTxt}</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
+												</font>
+											</c:if>
+											
 											<c:if test="${fn:contains(record.prog,'-eFaktura') }">
 							 					<font class="text14">
 									 				<a class="text14" href="efaktura_mainlist.do?action=doFind" onMouseOver="showPop('infoEFAKTURA');" onMouseOut="hidePop('infoEFAKTURA');" onClick="setBlockUI(this);" > 	
