@@ -44,20 +44,19 @@ import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureRecord;
 
 import no.systema.tds.service.html.dropdown.TdsDropDownListPopulationService;
 import no.systema.tds.tdsexport.validator.TdsExportListValidator;
+import no.systema.tds.tdsexport.validator.TdsExportZemListValidator;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tds.tdsexport.filter.SearchFilterTdsExportTopicList;
+import no.systema.tds.tdsexport.filter.SearchFilterTdsExportTopicZemList;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicListContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicListRecord;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicZemListContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicZemListRecord;
 
-import no.systema.tds.tdsexport.service.TdsExportSpecificTopicService;
 import no.systema.tds.tdsexport.service.TdsExportTopicListService;
-import no.systema.tds.tdsexport.service.html.dropdown.DropDownListPopulationService;
 import no.systema.tds.tdsexport.url.store.TdsExportUrlDataStore;
 import no.systema.tds.tdsexport.util.RpgReturnResponseHandler;
-import no.systema.tds.tdsexport.filter.SearchFilterTdsExportTopicList;
-import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicListRecord;
-import no.systema.tds.tdsexport.url.store.TdsExportUrlDataStore;
 import no.systema.tds.url.store.TdsUrlDataStore;
 import no.systema.tds.util.TdsConstants;
 import no.systema.tds.util.manager.TaricDirectAccessorMgr;
@@ -280,7 +279,7 @@ public class TdsExportController {
 	 * @return
 	 */
 	@RequestMapping(value="tdsexportzem", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindZem(@ModelAttribute ("record") SearchFilterTdsExportTopicList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFindZem(@ModelAttribute ("record") SearchFilterTdsExportTopicZemList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
@@ -301,7 +300,7 @@ public class TdsExportController {
 			//-----------
 			//Validation
 			//-----------
-			TdsExportListValidator validator = new TdsExportListValidator();
+			TdsExportZemListValidator validator = new TdsExportZemListValidator();
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    validator.validate(recordToValidate, bindingResult);
 		    
@@ -323,13 +322,13 @@ public class TdsExportController {
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
-				SearchFilterTdsExportTopicList searchFilter = new SearchFilterTdsExportTopicList();
+				SearchFilterTdsExportTopicZemList searchFilter = new SearchFilterTdsExportTopicZemList();
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            
 	            //populate list
-	            outputList = this.getTopicList(searchFilter, appUser);
+	            outputList = this.getTopicZemList(searchFilter, appUser);
 	            					
 				//--------------------------------------
 				//Final successView with domain objects
@@ -378,6 +377,38 @@ public class TdsExportController {
 			//now filter the topic list with the search filter (if applicable)
 			//-----------------------------------------------------------
 			outputList = jsonTdsExportTopicListContainer.getOrderList();				    	
+		}
+		return outputList;
+	}
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private Collection<JsonTdsExportTopicZemListRecord> getTopicZemList(SearchFilterTdsExportTopicZemList searchFilter, SystemaWebUser appUser){
+		Collection<JsonTdsExportTopicZemListRecord> outputList = new ArrayList();	
+		
+		//get BASE URL
+		final String BASE_URL = TdsExportUrlDataStore.TDS_EXPORT_BASE_TOPICLIST_ZEM_URL;
+		//add URL-parameters
+		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+		//session.setAttribute(TdsConstants.ACTIVE_URL_RPG, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + BASE_URL);
+		logger.info("URL PARAMS: " + urlRequestParams);
+		
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	
+		//Debug --> 
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			JsonTdsExportTopicZemListContainer jsonTdsExportTopicListContainer = this.tdsExportTopicListService.getTdsExportTopicZemListContainer(jsonPayload);
+			//-----------------------------------------------------------
+			//now filter the topic list with the search filter (if applicable)
+			//-----------------------------------------------------------
+			outputList = jsonTdsExportTopicListContainer.getZemList();				    	
 		}
 		return outputList;
 	}
@@ -533,6 +564,38 @@ public class TdsExportController {
 			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mtyp=" + searchFilter.getMtyp());
 		}
 		
+		return urlRequestParamsKeys.toString();
+	}
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParameters(SearchFilterTdsExportTopicZemList searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		//String action = request.getParameter("action");
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		if(searchFilter.getMrnnr()!=null && !"".equals(searchFilter.getMrnnr())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mrnnr=" + searchFilter.getMrnnr());
+		}
+		if(searchFilter.getTullid()!=null && !"".equals(searchFilter.getTullid())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tullid=" + searchFilter.getTullid());
+		}
+		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
+		}
+		if(searchFilter.getDatumt()!=null && !"".equals(searchFilter.getDatumt())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datumt=" + searchFilter.getDatumt());
+		}
+		if(searchFilter.getAvsNavn()!=null && !"".equals(searchFilter.getAvsNavn())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avsnavn=" + searchFilter.getAvsNavn());
+		}
+		if(searchFilter.getMotNavn()!=null && !"".equals(searchFilter.getMotNavn())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "motnavn=" + searchFilter.getMotNavn());
+		}
+			
 		return urlRequestParamsKeys.toString();
 	}
 	

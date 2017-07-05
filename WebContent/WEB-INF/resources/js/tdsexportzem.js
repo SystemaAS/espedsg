@@ -9,8 +9,10 @@
   
   jq(function() {
 	  jq("#datum").datepicker({ 
-		  dateFormat: 'yymmdd', 
-		  defaultDate: "-6m"	  
+		  dateFormat: 'yymmdd'  
+	  });
+	  jq("#datumt").datepicker({ 
+		  dateFormat: 'yymmdd'  
 	  });
 	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });

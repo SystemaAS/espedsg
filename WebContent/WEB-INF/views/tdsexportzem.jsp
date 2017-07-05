@@ -50,80 +50,30 @@
 	<%-- search filter component --%>
 		
  		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
- 	        <tr height="3"><td></td></tr>
+ 	        <tr height="15"><td></td></tr>
  	        <form name="tdsExportSearchForm" id="searchForm" action="tdsexportzem?action=doFind" method="post" >
+ 	        <input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
  	        <tr>	
-                <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.avd"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.signatur"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.arende"/></td>
-                
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.tullid"/>
-					<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
-	            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
-	            		</a>																	 			
+                <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.tullid"/>
+                	<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
+            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
+            		</a>																	 			
                 </td>
-                <td class="text12" align="left" >
-	 				<img onMouseOver="showPop('meddTyp_info');" onMouseOut="hidePop('meddTyp_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-	 				<spring:message code="systema.tds.export.list.search.label.mtyp"/>
-	 				
-	 				<div class="text11" style="position: relative;" align="left" >
-	 				<span style="position:absolute;top:2px; width:250px;" id="meddTyp_info" class="popupWithInputText text11"  >
-		           			<ul>
-			           			<li><b>UNU</b>&nbsp;Normalförfarande export</li>
-			           			<li><b>URT</b>&nbsp;Normalförfarande export, rättelse av ej klarerad UNU</li>
-			           			<li><b>UKO</b>&nbsp;Komplettering av UNU eller URT</li>
-			           			<li><b>UGE</b>&nbsp;Lokalt klareringsförfarande export (godkänd exportör) </li>
-			           			<li><b>UGO</b>&nbsp;Komplettering av en klarerad UGE.</li>
-			           			<li><b>UFF</b>&nbsp;Kompletterande deklaration efter lokalt klareringsförfarande export med notering i bokföringen.</li>
-			           			<li><b>UBK</b>&nbsp;Elektronisk begäran om klarering.</li>
-			           			
-			           		</ul>
-					</span>
-					</div>
-					
-                </td>
-                
-                <td class="text12" align="left" >
-                	<img onMouseOver="showPop('datum_info');" onMouseOut="hidePop('datum_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-                	<spring:message code="systema.tds.export.list.search.label.datum"/>
-                	<div class="text11" style="position: relative;" align="left" >
-	                <span style="position:absolute;top:2px; width:250px;" id="datum_info" class="popupWithInputText text11"  >
-		           		
-		           		Standardsök (tomt datum) gäller <b>15 dagar bakåt</b> i tiden.<br/><br/> 
-		           		Om du vill söka längre bak i tiden måste du ange fom datum.<br/>
-		           		T.ex. 20130101 söker från 1-jan och fram till idag.
-		           		
-					</span>
-					</div>	
-                	</td>
-                
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.avsandare"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.mottagare"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.datum"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.datumt"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mrn"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.avsandare"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/></td>
                 <td>&nbsp;</td>
 			</tr>
  	        <tr>
-				<td align="left" >&nbsp;
-           			<select name="avd" id="avd">
-	            		<option value="">-Välj-</option>
-	 				  	<c:forEach var="record" items="${model.avdList}" >
-                          	 	<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>
-						</c:forEach> 
-					</select>
-				</td>
-				<td align="left" >
-           			<select name="sign" id="sign">
-	            		<option value="">-Välj-</option>
-	 				  	<c:forEach var="record" items="${model.signList}" >
-                       	 	<option value="${record.sign}" <c:if test="${searchFilter.sign == record.sign}"> selected </c:if> > ${record.sign}</option>
-						</c:forEach> 
-					</select>
-				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value='${searchFilter.opd}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId" size="14" maxlength="35" value='${searchFilter.tullId}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mtyp" id="mtyp" size="3" maxlength="3" value='${searchFilter.mtyp}'>&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
+				<td align="left" >&nbsp;&nbsp;<input type="text" class="inputText" name="tullId" id="tullId" size="20" maxlength="35" value='${searchFilter.tullid}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${searchFilter.datumt}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="mrnnr" id="mrnnr" size="24" maxlength="22" value='${searchFilter.mrnnr}'>&nbsp;</td>
+								
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
@@ -179,14 +129,12 @@
 				<td>
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
 					<tr class="tableHeaderField" height="20" valign="left">
-	                    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tds.export.list.search.label.avd"/>&nbsp;</td>   
-	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.signatur"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.arende"/>&nbsp;</td>
-	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.tullid"/>&nbsp;</td>
-	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.mtyp"/>&nbsp;</td>
-	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.datum"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.avsandare"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.mottagare"/>&nbsp;</td>
+	                    <td class="tableHeaderFieldFirst" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.tullid"/>&nbsp;</td>
+	                    <td class="tableHeaderField" nowrap>&nbsp;Datum&nbsp;</td>
+	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mrn"/>&nbsp;</td>
+	                    
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.avsandare"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/>&nbsp;</td>
 	                    
 	                </tr>     
 		            <c:forEach items="${list}" var="topic" varStatus="counter">    
@@ -198,19 +146,12 @@
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
-		               <td class="tableCell" >&nbsp;${topic.sign}</td>
+		               <td class="tableCellFirst" >&nbsp;${topic.svzh_tuid}</td>
+		               <td class="tableCell" >&nbsp;${topic.svzh_utdt}</td>
+		               <td class="tableCell" >&nbsp;${topic.svzh_mrnn}</td>
 		               
-               		   <td class="tableCell" >&nbsp;
-               		   		<%--TODO <a id="alinkCurrentHeaderOpdId_${counter.count}" onClick="setBlockUI(this);" href="TODOtdsexport_edit.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sysg=${topic.sign}&tuid=${topic.tullid}&syst=${topic.status}&sydt=${topic.datum}"> --%>
-	               				&nbsp;${topic.opd}
-		               		<%--TODO </a>  --%>
-		               </td>
-		               <td class="tableCell" >&nbsp;${topic.tullid}</td>
-		               <td class="tableCell" >&nbsp;${topic.mtyp}</td>
-		               <td class="tableCell" >&nbsp;${topic.datum}</td>
-		               <td class="tableCell" >&nbsp;${topic.avsNavn}</td>
-		               <td class="tableCell" >&nbsp;${topic.motNavn}</td>
+		               <td class="tableCell" >&nbsp;${topic.svzh_avna}</td>
+		               <td class="tableCell" >&nbsp;${topic.svzh_molk}&nbsp;&nbsp;${topic.svzh_mona}</td>
 		               
 		            </tr> 
 		            </c:forEach>
