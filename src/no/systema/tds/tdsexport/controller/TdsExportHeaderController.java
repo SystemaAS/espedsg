@@ -116,8 +116,8 @@ public class TdsExportHeaderController {
 	@RequestMapping(value="tdsexport_edit.do",  params="action=doPrepareCreate", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doPrepareCreate(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
+		String sign = request.getParameter("sign");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		ModelAndView successView = new ModelAndView("tdsexport_edit");
 		logger.info("Method: doPrepareCreate [RequestMapping-->tdsexport_edit.do]");
 		//check user (should be in session already)
@@ -132,7 +132,9 @@ public class TdsExportHeaderController {
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","GCY");
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","MDX");
     		//domain
-    		successView.addObject("model", model);
+			model.put("sign", sign);
+			logger.info("AAAAA:" + sign);
+			successView.addObject("model", model);
     		successView.addObject(TdsConstants.EDIT_ACTION_ON_TOPIC, TdsConstants.ACTION_CREATE);
 		}
 		
@@ -690,9 +692,6 @@ public class TdsExportHeaderController {
 	public ModelAndView doFetchTopicFromTransportUppdrag( HttpSession session, HttpServletRequest request){
 		JsonTdsExportTopicCopiedFromTransportUppdragContainer jsonContainer = null;
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-
-		ModelAndView successView = new ModelAndView("tdsexport_edit");
-		ModelAndView fallbackView = new ModelAndView("redirect:tdsexport_edit.do?action=doPrepareCreate&user="+appUser.getUser());
 		
 		String method = "[RequestMapping-->tdsexport_doFetchTopicFromTransportUppdrag.do]";
 		logger.info("Method: " + method);
@@ -702,6 +701,10 @@ public class TdsExportHeaderController {
 		String action=request.getParameter("actionGS");;
 		String avd=request.getParameter("selectedAvd");
 		String opd=request.getParameter("selectedOpd");
+		String sign = request.getParameter("sign");
+		
+		ModelAndView successView = new ModelAndView("tdsexport_edit");
+		ModelAndView fallbackView = new ModelAndView("redirect:tdsexport_edit.do?action=doPrepareCreate&user="+appUser.getUser()+"&sign=" + sign);
 		
 		//check user (should be in session already)
 		if(appUser==null){
@@ -724,7 +727,7 @@ public class TdsExportHeaderController {
 			    	//EXECUTE (RPG program) here
 			    	//--------------------------------------
 			    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				//Debug --> 
+			    	//Debug --> 
 			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 			    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    	if(jsonPayload!=null){
@@ -744,8 +747,8 @@ public class TdsExportHeaderController {
 				}
 			    
 				
-			    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
-			    	//--------------------
+		    	//At this point we do now have a cloned record with its own data. The only thing left is to present it in edit mode
+		    	//--------------------
 				//STEP 2: FETCH record
 				//--------------------
 				logger.info("starting FETCH record transaction...");

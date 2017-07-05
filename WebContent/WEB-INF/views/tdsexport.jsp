@@ -34,7 +34,13 @@
 					</a>
 					 
 			</td>
-			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+          		<a style="display:block;" href="tdsexportzem.do?action=doFind&sign=${searchFilter.sign}">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.export.list.zem.tab"/></font>
+				</a>					 
+			</td>
+			<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
 	</td>
@@ -476,6 +482,7 @@
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
 				<form  action="tdsexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
+					<input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
 						
 					<p class="text12" >Du kan hämta ett nytt ärende från Norsk Importförtullning eller från ett Transportuppdrag.
 					 	Du måste då välja:&nbsp;<b>Avdelning</b>&nbsp;och&nbsp;<b>Ärendenummer</b>.

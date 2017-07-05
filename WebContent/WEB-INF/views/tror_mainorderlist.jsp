@@ -26,13 +26,13 @@
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 				<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
-				<font class="tabLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>
+				<font class="tabLink">&nbsp;<spring:message code="systema.tror.orderlist.tab" /></font>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="createNewOrderTabIdLink" style="display:block;" runat="server" href="#">
 					<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
-					<font class="tabDisabledLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
+					<font class="tabDisabledLink"><spring:message code="systema.tror.createnew.order.tab" /></font>
 				</a>
 			</td>
 			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	

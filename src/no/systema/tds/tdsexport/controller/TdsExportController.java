@@ -272,6 +272,83 @@ public class TdsExportController {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tdsexportzem", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindZem(@ModelAttribute ("record") SearchFilterTdsExportTopicList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
+		
+		ModelAndView successView = new ModelAndView("tdsexportzem");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TDS_EXPORT);
+			session.setAttribute(TdsConstants.ACTIVE_URL_RPG, TdsConstants.ACTIVE_URL_RPG_INITVALUE); 
+
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+	    	
+			//-----------
+			//Validation
+			//-----------
+			TdsExportListValidator validator = new TdsExportListValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
+				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
+				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+				this.taricDirectAccessorMgr.askTullid(model);
+				successView.addObject(TdsConstants.DOMAIN_MODEL, model);
+		    	
+				successView.addObject(TdsConstants.DOMAIN_LIST, new ArrayList());
+				successView.addObject("searchFilter", recordToValidate);
+				return successView;
+	    		
+		    }else{
+				//----------------------------------------------
+				//get Search Filter and populate (bind) it here
+				//----------------------------------------------
+				SearchFilterTdsExportTopicList searchFilter = new SearchFilterTdsExportTopicList();
+				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
+	            //binder.registerCustomEditor(...); // if needed
+	            binder.bind(request);
+	            
+	            //populate list
+	            outputList = this.getTopicList(searchFilter, appUser);
+	            					
+				//--------------------------------------
+				//Final successView with domain objects
+				//--------------------------------------
+				//drop downs
+				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
+				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+				this.taricDirectAccessorMgr.askTullid(model);
+				successView.addObject(TdsConstants.DOMAIN_MODEL , model);
+	    		//domain and search filter
+				successView.addObject(TdsConstants.DOMAIN_LIST,outputList);
+				successView.addObject("searchFilter", searchFilter);
+				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+		    	
+				return successView;
+		    }
+		}
+		
+	}
 	/**
 	 * 
 	 * @param searchFilter
