@@ -3,6 +3,7 @@
  */
 package no.systema.tds.tdsimport.service;
 
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicUtlamListContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicListContainer;
 
 /**
@@ -12,4 +13,5 @@ import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicListCo
  */
 public interface TdsImportTopicListService {
 	public JsonTdsImportTopicListContainer getTdsImportTopicListContainer(String utfPayload);
+	public JsonTdsImportTopicUtlamListContainer getTdsImportTopicUtlamListContainer(String utfPayload);
 }

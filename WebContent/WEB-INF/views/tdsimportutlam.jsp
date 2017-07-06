@@ -49,7 +49,7 @@
 	<%-- search filter component --%>
 		
  		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
- 	        <tr height="3"><td></td></tr>
+ 	        <tr height="15"><td></td></tr>
  	        <form name="tdsImportSearchForm" id="searchForm" action="tdsimportutlam?action=doFind" method="post" >
  	        <input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
  	        <tr>	
@@ -145,11 +145,11 @@
 		                   </c:otherwise>
 		               </c:choose>
 		               
-		               <td class="tableCell" >&nbsp;${Xtopic.doc_1004}</td>
-		               <td class="tableCell" >&nbsp;${Xtopic.dtm_2380B}</td>
-		               <td class="tableCell" >&nbsp;${Xtopic.loc_1131}</td>
-		               <td class="tableCell" >&nbsp;${Xtopic.nad_3036D}</td>
-		               <td class="tableCell" >&nbsp;<b>${Xtopic.nad_3036E}</b></td>
+		               <td class="tableCell" >&nbsp;${topic.doc_1004}</td>
+		               <td class="tableCell" >&nbsp;${topic.dtm_2380B}</td>
+		               <td class="tableCell" >&nbsp;${topic.loc_1131}</td>
+		               <td class="tableCell" >&nbsp;${topic.nad_3036D}</td>
+		               <td class="tableCell" >&nbsp;<b>${topic.nad_3036E}</b></td>
 		               
 		            </tr> 
 		            </c:forEach>

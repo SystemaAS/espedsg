@@ -42,13 +42,16 @@ import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureRecord;
 
 import no.systema.tds.service.html.dropdown.TdsDropDownListPopulationService;
 import no.systema.tds.tdsimport.validator.TdsImportListValidator;
+import no.systema.tds.tdsimport.validator.TdsImportUtlamListValidator;
+
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.tds.tdsimport.filter.SearchFilterTdsImportTopicList;
+import no.systema.tds.tdsimport.filter.SearchFilterTdsImportTopicUtlamList;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicListContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicListRecord;
-
-
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicUtlamListContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicUtlamListRecord;
 import no.systema.tds.tdsimport.service.TdsImportTopicListService;
 import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
 import no.systema.tds.url.store.TdsUrlDataStore;
@@ -275,9 +278,9 @@ public class TdsImportController {
 	 * @return
 	 */
 	@RequestMapping(value="tdsimportutlam", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindUtlam(@ModelAttribute ("record") SearchFilterTdsImportTopicList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFindUtlam(@ModelAttribute ("record") SearchFilterTdsImportTopicUtlamList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		Collection<JsonTdsImportTopicListRecord> outputList = new ArrayList();
+		Collection<JsonTdsImportTopicUtlamListRecord> outputList = new ArrayList();
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		
@@ -296,7 +299,7 @@ public class TdsImportController {
 			//-----------
 			//Validation
 			//-----------
-			TdsImportListValidator validator = new TdsImportListValidator();
+			TdsImportUtlamListValidator validator = new TdsImportUtlamListValidator();
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    validator.validate(recordToValidate, bindingResult);
 		    
@@ -318,12 +321,12 @@ public class TdsImportController {
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
-	    		SearchFilterTdsImportTopicList searchFilter = new SearchFilterTdsImportTopicList();
+	    		SearchFilterTdsImportTopicUtlamList searchFilter = new SearchFilterTdsImportTopicUtlamList();
 				ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            //populate list
-	            outputList = this.getTopicList(searchFilter, appUser);
+	            outputList = this.getTopicUtlamList(searchFilter, appUser);
 	            				    	
 				//--------------------------------------
 				//Final successView with domain objects
@@ -371,6 +374,39 @@ public class TdsImportController {
 			//now filter the topic list with the search filter (if applicable)
 			//-----------------------------------------------------------
 			outputList = jsonTdsImportTopicListContainer.getOrderList();				    	
+		}
+		return outputList;
+	}
+	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private Collection<JsonTdsImportTopicUtlamListRecord> getTopicUtlamList(SearchFilterTdsImportTopicUtlamList searchFilter, SystemaWebUser appUser){
+		Collection<JsonTdsImportTopicUtlamListRecord> outputList = new ArrayList();	
+		
+		//get BASE URL
+		final String BASE_URL = TdsImportUrlDataStore.TDS_IMPORT_BASE_TOPICLIST_UTLAM_URL;
+		//add URL-parameters
+		String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
+		//session.setAttribute(TdsConstants.ACTIVE_URL_RPG, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + BASE_URL);
+		logger.info("URL PARAMS: " + urlRequestParams);
+		
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+	
+		//Debug --> 
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			JsonTdsImportTopicUtlamListContainer container = this.tdsImportTopicListService.getTdsImportTopicUtlamListContainer(jsonPayload);
+			//-----------------------------------------------------------
+			//now filter the topic list with the search filter (if applicable)
+			//-----------------------------------------------------------
+			outputList = container.getZemList();				    	
 		}
 		return outputList;
 	}
@@ -530,8 +566,41 @@ public class TdsImportController {
 		
 		return urlRequestParamsKeys.toString();
 	}
-
 	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParameters(SearchFilterTdsImportTopicUtlamList searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		//String action = request.getParameter("action");
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		if(searchFilter.getTullid()!=null && !"".equals(searchFilter.getTullid())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tullid=" + searchFilter.getTullid());
+		}
+		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
+		}
+		if(searchFilter.getDatumt()!=null && !"".equals(searchFilter.getDatumt())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datumt=" + searchFilter.getDatumt());
+		}
+		if(searchFilter.getTyp()!=null && !"".equals(searchFilter.getTyp())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "typ=" + searchFilter.getTyp());
+		}
+		if(searchFilter.getAvsNavn()!=null && !"".equals(searchFilter.getAvsNavn())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avsnavn=" + searchFilter.getAvsNavn());
+		}
+		if(searchFilter.getMotNavn()!=null && !"".equals(searchFilter.getMotNavn())){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "motnavn=" + searchFilter.getMotNavn());
+		}
+		
+		
+		return urlRequestParamsKeys.toString();
+	}
+
 	//SERVICES
 	
 	@Qualifier ("urlCgiProxyService")

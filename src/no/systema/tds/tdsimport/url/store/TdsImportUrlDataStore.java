@@ -16,6 +16,8 @@ public final class TdsImportUrlDataStore {
 	//----------------------------
 	//TEST static public String TDS_EXPORT_BASE_TOPICLIST_URL = "http://gw.systema.no/sycgip/TSVI000R.pgm?user=OSCAR&avd=1&sign=CB";
 	static public String TDS_IMPORT_BASE_TOPICLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI000R.pgm";
+	//http://gw.systema.no/sycgip/TSVU000R.pgm?user=OSCAR...;
+	static public String TDS_IMPORT_BASE_TOPICLIST_UTLAM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVU000R.pgm";
 	
 	//----------------------------
 	//[2] FETCH A SPECIFIC ARENDE
