@@ -107,6 +107,7 @@ public class TdsImportHeaderController {
 	@RequestMapping(value="tdsimport_edit.do",  params="action=doPrepareCreate", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doPrepareCreate(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
+		String sign = request.getParameter("sign");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		ModelAndView successView = new ModelAndView("tdsimport_edit");
@@ -124,7 +125,7 @@ public class TdsImportHeaderController {
     		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","MDX");
 	    
     		//domain
-    		//logger.info("#######" + request.getAttribute("errorMessageOnCopyFromTransportOppdrag"));
+    		model.put("sign", sign);
     		successView.addObject("model", model);
     		successView.addObject(TdsConstants.EDIT_ACTION_ON_TOPIC, TdsConstants.ACTION_CREATE);
 		}
@@ -702,6 +703,7 @@ public class TdsImportHeaderController {
 		String action=request.getParameter("actionGS");;
 		String avd=request.getParameter("selectedAvd");
 		String opd=request.getParameter("selectedOpd");
+		String sign = request.getParameter("sign");
 		
 		//check user (should be in session already)
 		if(appUser==null){
@@ -796,7 +798,7 @@ public class TdsImportHeaderController {
 			}
 		}else{
 			logger.warn("[INFO] Opdnr is NULL. Redirecting to: tdsimport_edit.do?action=doPrepareCreate... ");
-			return new ModelAndView("redirect:tdsimport_edit.do?action=doPrepareCreate");
+			return new ModelAndView("redirect:tdsimport_edit.do?action=doPrepareCreate&user=" + appUser.getUser() + "&sign=" + sign);
 		}
 		
 		return successView;

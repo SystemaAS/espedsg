@@ -7,8 +7,8 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tdsglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
-	<SCRIPT type="text/javascript" src="resources/js/tdsexportzem.js?ver=${user.versionEspedsg}"></SCRIPT>	
-			
+	<SCRIPT type="text/javascript" src="resources/js/tdsimportutlam.js?ver=${user.versionEspedsg}"></SCRIPT>	
+	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
 	</style>
@@ -22,23 +22,21 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="tdsexport.do?action=doFind&sign=${searchFilter.sign}">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.export.list.tab"/></font>
+				<a tabindex=-1 style="display:block;" href="tdsimport.do?action=doFind&sign=${searchFilter.sign}">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.list.tab"/></font>
 					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-					
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-               		<a style="display:block;" id="copyFromTransportUppdragLink" runat="server" href="#">
-						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.export.createnew.tab"/></font>
+					<a style="display:block;" id="copyFromTransportUppdragLink" runat="server" href="#">
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.createnew.tab"/></font>
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 					</a>
-					 
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-            	<font class="tabLink">&nbsp;<spring:message code="systema.tds.export.list.zem.tab"/></font> 
+            	<font class="tabLink">&nbsp;<spring:message code="systema.tds.import.list.utlam.tab"/></font> 
 			</td>
 			<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
@@ -51,30 +49,30 @@
 	<%-- search filter component --%>
 		
  		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
- 	        <tr height="15"><td></td></tr>
- 	        <form name="tdsExportSearchForm" id="searchForm" action="tdsexportzem?action=doFind" method="post" >
+ 	        <tr height="3"><td></td></tr>
+ 	        <form name="tdsImportSearchForm" id="searchForm" action="tdsimportutlam?action=doFind" method="post" >
  	        <input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
  	        <tr>	
-                <td class="text12" align="left" >&nbsp;&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.tullid"/>
-                	<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
-            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
-            		</a>																	 			
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.tullid"/>
+					<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
+	            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
+	            		</a>																	 			
                 </td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.datum"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.datumt"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mrn"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.avsandare"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.datum"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.datumt"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.typ"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.avsandare"/></td>
+                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.mottagare"/></td>
                 <td>&nbsp;</td>
 			</tr>
  	        <tr>
-				<td align="left" >&nbsp;&nbsp;<input type="text" class="inputText" name="tullId" id="tullId" size="20" maxlength="35" value='${searchFilter.tullid}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${searchFilter.datumt}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mrnnr" id="mrnnr" size="24" maxlength="22" value='${searchFilter.mrnnr}'>&nbsp;</td>
+ 	        	<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId"size="14" maxlength="35" value='${XsearchFilter.tullId}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${XsearchFilter.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${XsearchFilter.datumt}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="mrnnr" id="mrnnr" size="24" maxlength="22" value='${XsearchFilter.typ}'>&nbsp;</td>
 								
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="50" value='${XsearchFilter.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="50" value='${XsearchFilter.motNavn}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
@@ -118,7 +116,7 @@
 			</table>
 		</td>
 		</tr>
-	</c:if>			
+	</c:if>		
 	<%-- list component --%>
 	<c:if test="${not empty list}">
 	<tr>
@@ -130,11 +128,11 @@
 				<td>
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
 					<tr class="tableHeaderField" height="20" valign="left">
-	                    <td class="tableHeaderFieldFirst" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.tullid"/>&nbsp;</td>
+	                    <td class="tableHeaderFieldFirst" nowrap>&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.tullid"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;Datum&nbsp;</td>
-	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mrn"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.avsandare"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.typ"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.avsandare"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.mottagare"/>&nbsp;</td>
 	                    
 	                </tr>     
 		            <c:forEach items="${list}" var="topic" varStatus="counter">    
@@ -146,46 +144,44 @@
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" >&nbsp;${topic.svzh_tuid}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_utdt}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_mrnn}</td>
 		               
-		               <td class="tableCell" >&nbsp;${topic.svzh_avna}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_molk}&nbsp;&nbsp;${topic.svzh_mona}</td>
+		               <td class="tableCell" >&nbsp;${Xtopic.doc_1004}</td>
+		               <td class="tableCell" >&nbsp;${Xtopic.dtm_2380B}</td>
+		               <td class="tableCell" >&nbsp;${Xtopic.loc_1131}</td>
+		               <td class="tableCell" >&nbsp;${Xtopic.nad_3036D}</td>
+		               <td class="tableCell" >&nbsp;<b>${Xtopic.nad_3036E}</b></td>
 		               
 		            </tr> 
 		            </c:forEach>
-					
 	            </table>
-	            
 			</td>	
 			</tr>
 		</table>
 		</td>
-	</tr>
-	
+		</tr>
+		
     </c:if> 
     
-    	<tr>
-	<td>
+   		<tr>
+		<td>
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
-				<form  action="tdsexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
+				<form  action="tdsimport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
 					<input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
-											
-					<p class="text12" >Du kan hämta ett nytt ärende från Norsk Importförtullning eller från ett Transportuppdrag.
+						
+					<p class="text12" >Du kan hämta ett nytt ärende från Norsk Exportförtullning eller från ett Transportuppdrag.
 					 	Du måste då välja:&nbsp;<b>Avdelning</b>&nbsp;och&nbsp;<b>Ärendenummer</b>.
 					</p>
 					<p class="text12">Flödet för att hämta är:
 					</p>
 					<ol class="text12" >
 						<li class="text12" >
-							Ett nytt ärende kommer att skapas om det ärendet du matar in finns i antingen 
-							(a)&nbsp;<b>Norsk Importförtullning</b> eller (b)&nbsp;<b>Transportuppdrag</b>
+							Ett nytt ärendenummer kommer att skapas om det ärendet du matar in finns i antingen 
+							(a)&nbsp;<b>Norsk Exportförtullning</b> eller (b)&nbsp;<b>Transportuppdrag</b>
 						</li>
 						<br/>
 						<li class="text12" >
-							Om ärendet inte finns varken i Norsk Importförtullning eller i Transportuppdrag måste du skapa ett nytt ärende. Du omdirigeras dit automatiskt.
+							Om ärendet inte finns varken i Norsk Exportförtullning eller i Transportuppdrag måste du skapa ett nytt ärende. Du omdirigeras dit automatiskt.
 						</li>
 					</ol>
 					
@@ -207,7 +203,7 @@
 								</select>
 							</td>
 							<td class="text12MediumBlue">
-								<input type="text" class="inputText" id="selectedOpd" name="selectedOpd" size="10" maxlength="35" value=''>&nbsp;
+								<input type="text" class="inputText" id="selectedOpd" name="selectedOpd" size="10" maxlength="35" value=''>&nbsp;</td>
 							</td>
 						</tr>
 					</table>
@@ -215,6 +211,7 @@
 			</div>
 		</td>
 		</tr>
+		
     
 </table>	
 		

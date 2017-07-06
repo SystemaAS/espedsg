@@ -21,10 +21,20 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a tabindex=-1 style="display:block;" href="tdsimport.do?action=doFind&sign=${model.record.svih_sysg}">
-					<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.list.tab"/></font>
-				</a>
+				<c:choose>
+					<c:when test="${not empty model.record.svih_sysg}">
+						<a tabindex=-1 style="display:block;" href="tdsimport.do?action=doFind&sign=${model.record.svih_sysg}">
+							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.list.tab"/></font>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a tabindex=-1 style="display:block;" href="tdsimport.do?action=doFind&sign=${model.sign}">
+							<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.list.tab"/></font>
+						</a>
+					</c:otherwise>	
+				</c:choose>	
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<c:choose> 

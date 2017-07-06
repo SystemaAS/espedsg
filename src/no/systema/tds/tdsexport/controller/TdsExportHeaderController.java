@@ -133,7 +133,6 @@ public class TdsExportHeaderController {
 			this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tdsDropDownListPopulationService, model,appUser,"A","MDX");
     		//domain
 			model.put("sign", sign);
-			logger.info("AAAAA:" + sign);
 			successView.addObject("model", model);
     		successView.addObject(TdsConstants.EDIT_ACTION_ON_TOPIC, TdsConstants.ACTION_CREATE);
 		}

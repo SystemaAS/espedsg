@@ -32,9 +32,14 @@
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.createnew.tab"/></font>
 						<img valign="bottom" src="resources/images/add.png" width="12" hight="12" border="0" alt="create new">
 					</a>
-				
 			</td>
-			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+          		<a style="display:block;" href="tdsimportutlam.do?action=doFind&sign=${searchFilter.sign}">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.import.list.utlam.tab"/></font>
+				</a>					 
+			</td>
+			<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
 	</table>
 	</td>
@@ -479,6 +484,7 @@
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
 				<form  action="tdsimport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
+					<input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
 						
 					<p class="text12" >Du kan hämta ett nytt ärende från Norsk Exportförtullning eller från ett Transportuppdrag.
 					 	Du måste då välja:&nbsp;<b>Avdelning</b>&nbsp;och&nbsp;<b>Ärendenummer</b>.
