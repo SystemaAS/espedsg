@@ -325,6 +325,9 @@ public class SkatNctsImportController {
 		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
 		}
+		if(searchFilter.getDatumt()!=null && !"".equals(searchFilter.getDatumt())){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datumt=" + searchFilter.getDatumt());
+		}
 		if(searchFilter.getStatus()!=null && !"".equals(searchFilter.getStatus())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "status=" + searchFilter.getStatus());
 		}

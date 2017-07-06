@@ -31,6 +31,9 @@
 	  jq("#datum").datepicker({ 
 		  dateFormat: 'yymmdd'	  
 	  });
+	  jq("#datumt").datepicker({ 
+		  dateFormat: 'yymmdd'	  
+	  });
 	  
 	  jq("#sendAllDtm2").datetimepicker({ 
   		  dateFormat: 'yymmdd',

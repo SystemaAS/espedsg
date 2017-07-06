@@ -135,7 +135,7 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.mottagare"/>&nbsp;</td>
 	                    
 	                </tr>     
-		            <c:forEach items="${list}" var="topic" varStatus="counter">    
+		            <c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
 		                   <c:when test="${counter.count%2==0}">
 		                       <tr class="tableRow" height="20" >
@@ -145,11 +145,11 @@
 		                   </c:otherwise>
 		               </c:choose>
 		               
-		               <td class="tableCell" >&nbsp;${topic.doc_1004}</td>
-		               <td class="tableCell" >&nbsp;${topic.dtm_2380B}</td>
-		               <td class="tableCell" >&nbsp;${topic.loc_1131}</td>
-		               <td class="tableCell" >&nbsp;${topic.nad_3036D}</td>
-		               <td class="tableCell" >&nbsp;<b>${topic.nad_3036E}</b></td>
+		               <td class="tableCell" >&nbsp;${record.doc_1004}</td>
+		               <td class="tableCell" >&nbsp;${record.dtm_2380B}</td>
+		               <td class="tableCell" >&nbsp;${record.loc_1131}</td>
+		               <td class="tableCell" >&nbsp;${record.nad_3036D}</td>
+		               <td class="tableCell" >&nbsp;<b>${record.nad_3036E}</b></td>
 		               
 		            </tr> 
 		            </c:forEach>

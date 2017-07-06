@@ -290,8 +290,12 @@ public class SkatNctsExportController {
 		
 	}	
 	
-
-	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
 	private String getRequestUrlKeyParameters(SearchFilterSkatNctsExportTopicList searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		//String action = request.getParameter("action");
@@ -300,6 +304,7 @@ public class SkatNctsExportController {
 		if(searchFilter.getAvd()!=null && !"".equals(searchFilter.getAvd())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + searchFilter.getAvd());
 		}
+		
 		if(searchFilter.getOpd()!=null && !"".equals(searchFilter.getOpd())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + searchFilter.getOpd());
 		}
@@ -318,6 +323,10 @@ public class SkatNctsExportController {
 		if(searchFilter.getDatum()!=null && !"".equals(searchFilter.getDatum())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datum=" + searchFilter.getDatum());
 		}
+		if(searchFilter.getDatumt()!=null && !"".equals(searchFilter.getDatumt())){
+			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "datumt=" + searchFilter.getDatumt());
+		}
+		
 		if(searchFilter.getStatus()!=null && !"".equals(searchFilter.getStatus())){
 			urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "status=" + searchFilter.getStatus());
 		}

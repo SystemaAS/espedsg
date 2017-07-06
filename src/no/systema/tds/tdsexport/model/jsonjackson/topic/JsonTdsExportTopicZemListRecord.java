@@ -41,6 +41,35 @@ public class JsonTdsExportTopicZemListRecord extends JsonAbstractGrandFatherReco
 	public void setSvzh_molk(String value) {  this.svzh_molk = value; }
 	public String getSvzh_molk() { return this.svzh_molk;}
 
+	private String pdfh = null;
+	public void setPdfh(String value) {  this.pdfh = value; }
+	public String getPdfh() { return this.pdfh;}
+	
+	//gets the file name without any path
+	private String pdfhName = null;
+	public String getPdfhName() {
+		this.pdfhName = this.pdfh; //default
+		if(this.pdfh!=null){
+			int i = this.pdfh.lastIndexOf("/");
+			this.pdfhName = this.pdfh.substring( i+1 );
+		}
+		return this.pdfhName;
+	}
+
+	private String pdfv = null;
+	public void setPdfv(String value) {  this.pdfv = value; }
+	public String getPdfv() { return this.pdfv;}
+	
+	//gets the file name without any path
+	private String pdfvName = null;
+	public String getPdfvName() {
+		this.pdfvName = this.pdfv; //default
+		if(this.pdfv!=null){
+			int i = this.pdfv.lastIndexOf("/");
+			this.pdfvName = this.pdfv.substring( i+1 );
+		}
+		return this.pdfvName;
+	}
 	
 	/**
 	 * 

@@ -15,6 +15,9 @@
 	  jq("#datum").datepicker({ 
 		  dateFormat: 'yymmdd'  
 	  });
+	  jq("#datumt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
 	  
 	  jq("#datumFr").datepicker({ 
 		  dateFormat: 'yymmdd' 

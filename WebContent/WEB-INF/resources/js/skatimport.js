@@ -12,6 +12,9 @@
 	  jq("#datum").datepicker({ 
 		  dateFormat: 'yymmdd'	  
 	  });
+	  jq("#datumt").datepicker({ 
+		  dateFormat: 'yymmdd'	  
+	  });
 	  //
 	  jq("#opd").focus();
 	  

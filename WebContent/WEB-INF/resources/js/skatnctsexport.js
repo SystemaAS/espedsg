@@ -15,6 +15,9 @@
 	  jq("#datum").datepicker({ 
 		  dateFormat: 'yymmdd'   
 	  });
+	  jq("#datumt").datepicker({ 
+		  dateFormat: 'yymmdd'   
+	  });
 	  //Overlay
 	  jq( "#submit" ).click(function( event ) {
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });

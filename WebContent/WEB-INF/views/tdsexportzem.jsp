@@ -135,9 +135,12 @@
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mrn"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.avsandare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.arkivpdfh"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.arkivpdfv"/>&nbsp;</td>
 	                    
+
 	                </tr>     
-		            <c:forEach items="${list}" var="topic" varStatus="counter">    
+		            <c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
 		                   <c:when test="${counter.count%2==0}">
 		                       <tr class="tableRow" height="20" >
@@ -146,12 +149,28 @@
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" >&nbsp;${topic.svzh_tuid}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_utdt}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_mrnn}</td>
+		               <td class="tableCellFirst" >&nbsp;${record.svzh_tuid}</td>
+		               <td class="tableCell" >&nbsp;${record.svzh_utdt}</td>
+		               <td class="tableCell" >&nbsp;${record.svzh_mrnn}</td>
 		               
-		               <td class="tableCell" >&nbsp;${topic.svzh_avna}</td>
-		               <td class="tableCell" >&nbsp;${topic.svzh_molk}&nbsp;&nbsp;${topic.svzh_mona}</td>
+		               <td class="tableCell" >&nbsp;${record.svzh_avna}</td>
+		               <td class="tableCell" >&nbsp;${record.svzh_molk}&nbsp;&nbsp;${record.svzh_mona}</td>
+		               <td class="tableCell" >&nbsp;
+		               		<c:if test="${not empty record.pdfh}">
+		               			<a href="tds_export_renderArchive.do?fp=${record.pdfh}" target="_new" >
+			               			<img src="resources/images/pdf.png" border="0" width="15px" height="15px" alt="Visa arkivdokument" >
+			               			${record.pdfhName}
+		               			</a>
+		               		</c:if>
+		               </td>
+		               <td class="tableCell" >&nbsp;
+		               		<c:if test="${not empty record.pdfv}">
+		               		<a href="tds_export_renderArchive.do?fp=${record.pdfv}" target="_new" >
+			               		<img src="resources/images/pdf.png" border="0" width="15px" height="15px" alt="Visa arkivdokument" >
+			               		${record.pdfvName}
+		               		</a>
+		               		</c:if>
+		               </td>
 		               
 		            </tr> 
 		            </c:forEach>

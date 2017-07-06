@@ -66,6 +66,7 @@
 				</span>
 				</div>	
                 </td>
+                <td class="text12" align="left" >Til dato</td>
                 <td class="text12" align="left" >
 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.skat.ncts.export.list.search.label.status"/>
@@ -105,6 +106,7 @@
 				<td align="left" ><input type="text" class="inputText" name="lrnNr" id="lrnNr" size="14" maxlength="35" value='${searchFilterSkatExportNcts.lrnNr}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="mrnNr" id="mrnNr" size="14" maxlength="35" value='${searchFilterSkatExportNcts.mrnNr}'>&nbsp;</td>
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilterSkatExportNcts.datum}'>&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumt" id="datumt" size="10" maxlength="8" value='${searchFilterSkatExportNcts.datumt}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value='${searchFilterSkatExportNcts.status}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterSkatExportNcts.motNavn}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="bruttoVikt" id="bruttoVikt" size="10" maxlength="50" value='${searchFilterSkatExportNcts.bruttoVikt}'>&nbsp;</td>

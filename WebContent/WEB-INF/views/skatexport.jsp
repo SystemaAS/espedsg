@@ -81,6 +81,7 @@
 				</span>	
 				</div>
                 </td>
+                <td class="text12" align="left" >Til dato</td>
                 <td class="text12" align="left" >
                 <img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
                 <spring:message code="systema.skat.export.list.search.label.status"/>
@@ -144,6 +145,7 @@
 					</select>					
 				</td>
 				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilterSkatExport.datum}'>&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${searchFilterSkatExport.datumt}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="2" value='${searchFilterSkatExport.status}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilterSkatExport.avsNavn}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterSkatExport.motNavn}'>&nbsp;</td>
