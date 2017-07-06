@@ -68,13 +68,13 @@
                 <td>&nbsp;</td>
 			</tr>
  	        <tr>
-				<td align="left" >&nbsp;&nbsp;<input type="text" class="inputText" name="tullId" id="tullId" size="20" maxlength="35" value='${searchFilter.tullid}'>&nbsp;</td>
+				<td align="left" >&nbsp;&nbsp;<input type="text" class="inputText" name="tullid" id="tullid" size="20" maxlength="35" value='${searchFilter.tullid}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${searchFilter.datumt}'>&nbsp;</td>
 				<td align="left" ><input type="text" class="inputText" name="mrnnr" id="mrnnr" size="24" maxlength="22" value='${searchFilter.mrnnr}'>&nbsp;</td>
 								
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="25" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="25" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
@@ -137,8 +137,6 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.mottagare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.arkivpdfh"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.zem.arkivpdfv"/>&nbsp;</td>
-	                    
-
 	                </tr>     
 		            <c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
@@ -174,9 +172,7 @@
 		               
 		            </tr> 
 		            </c:forEach>
-					
 	            </table>
-	            
 			</td>	
 			</tr>
 		</table>
@@ -184,9 +180,8 @@
 	</tr>
 	
     </c:if> 
-    
     	<tr>
-	<td>
+		<td>
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
 				<form  action="tdsexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>

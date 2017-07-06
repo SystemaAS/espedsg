@@ -55,24 +55,21 @@
  	        <tr>	
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.tullid"/>
 					<a class="text14" target="_blank" href="${model.taricFragaTullidURL.value}" onclick="${model.taricFragaTullidURL.windowOpenDimensions}" >
-	            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
-	            		</a>																	 			
+            			<img title="Fråga Tullid (hos Tullverket)" style="vertical-align:bottom;" width="14px" height="14px" src="resources/images/help.png" border="0" alt="question">                		
+            		</a>																	 			
                 </td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.datum"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.datumt"/></td>
-                <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.typ"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.avsandare"/></td>
                 <td class="text12" align="left" >&nbsp;&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.mottagare"/></td>
                 <td>&nbsp;</td>
 			</tr>
  	        <tr>
- 	        	<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId"size="14" maxlength="35" value='${XsearchFilter.tullId}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${XsearchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${XsearchFilter.datumt}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mrnnr" id="mrnnr" size="24" maxlength="22" value='${XsearchFilter.typ}'>&nbsp;</td>
-								
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="15" maxlength="50" value='${XsearchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="15" maxlength="50" value='${XsearchFilter.motNavn}'>&nbsp;</td>
+ 	        	<td align="left" >&nbsp;&nbsp;<input type="text" class="inputText" name="tullid" id="tullid"size="14" maxlength="35" value='${searchFilter.tullid}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="datumt" id="datumt" size="9" maxlength="8" value='${searchFilter.datumt}'>&nbsp;</td>				
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="25" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="25" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
@@ -133,7 +130,8 @@
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.typ"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.avsandare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.import.list.search.label.utlam.mottagare"/>&nbsp;</td>
-	                    
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tds.export.list.search.label.utlam.arkivpdfh"/>&nbsp;</td>
+	                   
 	                </tr>     
 		            <c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
@@ -145,12 +143,19 @@
 		                   </c:otherwise>
 		               </c:choose>
 		               
-		               <td class="tableCell" >&nbsp;${record.doc_1004}</td>
-		               <td class="tableCell" >&nbsp;${record.dtm_2380B}</td>
-		               <td class="tableCell" >&nbsp;${record.loc_1131}</td>
-		               <td class="tableCell" >&nbsp;${record.nad_3036D}</td>
-		               <td class="tableCell" >&nbsp;<b>${record.nad_3036E}</b></td>
-		               
+		               <td class="tableCellFirst" >&nbsp;${record.doc_1004}</td>
+		               <td class="tableCell" >&nbsp;${record.dtm_2380b}</td>
+		               <td class="tableCell" >&nbsp;${record.doc_1001}</td>
+		               <td class="tableCell" >&nbsp;${record.nad_3207d}&nbsp;&nbsp;${record.nad_3036d}</td>
+		               <td class="tableCell" >&nbsp;${record.nad_3036e}</td>
+		               <td class="tableCell" >&nbsp;
+		               		<c:if test="${not empty record.pdfh}">
+		               			<a href="tds_export_renderArchive.do?fp=${record.pdfh}" target="_new" >
+			               			<img src="resources/images/pdf.png" border="0" width="15px" height="15px" alt="Visa arkivdokument" >
+			               			${record.pdfhName}
+		               			</a>
+		               		</c:if>
+		               </td>
 		            </tr> 
 		            </c:forEach>
 	            </table>

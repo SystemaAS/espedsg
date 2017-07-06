@@ -21,23 +21,60 @@ public class JsonTdsImportTopicUtlamListRecord extends JsonAbstractGrandFatherRe
 	public void setDoc_1004(String value) {  this.doc_1004 = value; }
 	public String getDoc_1004() { return this.doc_1004;}
 	
-	private String dtm_2380B = null; //utlämningsdatum
-	public void setDtm_2380B(String value) {  this.dtm_2380B = value; }
-	public String getDtm_2380B() { return this.dtm_2380B;}
-	
-	private String loc_1131 = null; //typ
-	public void setLoc_1131(String value) {  this.loc_1131 = value; }
-	public String getLoc_1131() { return this.loc_1131;}
-	
-	private String nad_3036D = null; //avsändare
-	public void setNad_3036D(String value) {  this.nad_3036D = value; }
-	public String getNad_3036D() { return this.nad_3036D;}
-	
-	private String nad_3036E = null; //mottagare
-	public void setNad_3036E(String value) {  this.nad_3036E = value; }
-	public String getNad_3036E() { return this.nad_3036E;}
+	private String doc_1001 = null; //typ
+	public void setDoc_1001(String value) {  this.doc_1001 = value; }
+	public String getDoc_1001() { return this.doc_1001;}
 	
 	
+	private String dtm_2380b = null; //utlämningsdatum
+	public void setDtm_2380b(String value) {  this.dtm_2380b = value; }
+	public String getDtm_2380b() { return this.dtm_2380b;}
+	
+	
+	
+	private String nad_3036d = null; //avsändare
+	public void setNad_3036d(String value) {  this.nad_3036d = value; }
+	public String getNad_3036d() { return this.nad_3036d;}
+	
+	private String nad_3036e = null; //mottagare
+	public void setNad_3036e(String value) {  this.nad_3036e = value; }
+	public String getNad_3036e() { return this.nad_3036e;}
+	
+	private String nad_3207d = null; //lk
+	public void setNad_3207d(String value) {  this.nad_3207d = value; }
+	public String getNad_3207d() { return this.nad_3207d;}
+	
+	
+	
+	private String pdfh = null;
+	public void setPdfh(String value) {  this.pdfh = value; }
+	public String getPdfh() { return this.pdfh;}
+	
+	//gets the file name without any path
+	private String pdfhName = null;
+	public String getPdfhName() {
+		this.pdfhName = this.pdfh; //default
+		if(this.pdfh!=null){
+			int i = this.pdfh.lastIndexOf("/");
+			this.pdfhName = this.pdfh.substring( i+1 );
+		}
+		return this.pdfhName;
+	}
+
+	private String pdfv = null;
+	public void setPdfv(String value) {  this.pdfv = value; }
+	public String getPdfv() { return this.pdfv;}
+	
+	//gets the file name without any path
+	private String pdfvName = null;
+	public String getPdfvName() {
+		this.pdfvName = this.pdfv; //default
+		if(this.pdfv!=null){
+			int i = this.pdfv.lastIndexOf("/");
+			this.pdfvName = this.pdfv.substring( i+1 );
+		}
+		return this.pdfvName;
+	}
 	
 	/**
 	 * 

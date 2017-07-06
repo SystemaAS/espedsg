@@ -34,8 +34,8 @@ public class JsonTdsImportTopicUtlamListContainer {
 	public String getErrmsg() { return this.errmsg;}
 	
 	
-	private Collection<JsonTdsImportTopicUtlamListRecord> zemList;
-	public void setZemList(Collection<JsonTdsImportTopicUtlamListRecord> value){ this.zemList = value; }
-	public Collection<JsonTdsImportTopicUtlamListRecord> getZemList(){ return zemList; }
+	private Collection<JsonTdsImportTopicUtlamListRecord> utlList;
+	public void setUtlList(Collection<JsonTdsImportTopicUtlamListRecord> value){ this.utlList = value; }
+	public Collection<JsonTdsImportTopicUtlamListRecord> getUtlList(){ return utlList; }
 	
 }

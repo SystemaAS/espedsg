@@ -22,6 +22,9 @@ public class GeneralTester {
 			System.out.println(mgr.removeChar(s, ","));*/
 			
 			String tmp = "http://localhost:8080";
+			int m = tmp.lastIndexOf("/");
+			System.out.println(tmp.substring(m + 1));
+			
 			String x = tmp.replace("http://", "");
 			int i = x.indexOf(":");
 			x = x.substring(0, i);

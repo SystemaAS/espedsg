@@ -406,7 +406,7 @@ public class TdsImportController {
 			//-----------------------------------------------------------
 			//now filter the topic list with the search filter (if applicable)
 			//-----------------------------------------------------------
-			outputList = container.getZemList();				    	
+			outputList = container.getUtlList();				    	
 		}
 		return outputList;
 	}
