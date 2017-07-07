@@ -17,6 +17,8 @@
 			  var eori = record[6].replace("keori", "");
 			  var callerType = record[7].replace("ctype", "");
 			  var adr2 = record[8].replace("kadr2", "");
+			  var firma = record[9].replace("firma", "");
+			  
 			  //addressing a parent field from this child window
 			  //default on Generella Avd
 			  opener.jq('#koaknr').val(knr);
@@ -114,10 +116,16 @@
 			  //SKAT Import - Certifikatkoder
 			  }else if(callerType == 'dkse_knr'){ 
 				  opener.jq('#dkse_knr').val(knr);
-			  } else if (callerType == 'fmot'){ //Kunderegister, Fakturamottager
-					opener.jq('#fmot').val(knr);
-					opener.jq('#fmot').change();
-					opener.jq('#fmot').focus();			  
+				  
+			  }else if (callerType == 'fmot'){ //Kunderegister, Fakturamottager
+				  opener.jq('#fmot').val(knr);
+				  opener.jq('#fmot').change();
+				  opener.jq('#fmot').focus();
+					
+			  //Maintenance TDS Export Kunders vareregister		
+			  }else if(callerType == 'mainttdsexport_kundreg'){
+				  //must redirect on parent window
+				  window.opener.location.href = "mainmaintenancecundf_vareexp_se_from_tdsexportmaint.do?kundnr=" + knr + "&knavn=" + knavn + "&firma=" + firma;
 			  }
 			  
 			  //close child window
@@ -125,6 +133,7 @@
 		  });
 	});
 	
+
 	
 	//======================
     //Datatables jquery 

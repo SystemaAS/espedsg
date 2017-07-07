@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.dao.FirmDao;
 import no.systema.jservices.common.dao.SvewDao;
 import no.systema.jservices.common.dto.SvewDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
@@ -32,6 +33,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainSvewValidator;
@@ -53,6 +55,55 @@ public class MainMaintenanceCundfVareExportSeController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 
+	/**
+	 * This method is called from TDS-Export Maintenance.
+	 * The goal is to redirect to and use the UX-element of the general maintenance routine: Vedlikehold Frimanivå.
+	 *  
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "mainmaintenancecundf_vareexp_se_from_tdsexportmaint.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doVareExportSeFromTdsExportMaintenance(HttpSession session, HttpServletRequest request) {
+		ModelAndView successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_se.do"); 
+
+		String kundnr = request.getParameter("kundnr");
+		String knavn = request.getParameter("knavn");
+		String firma = request.getParameter("firma");
+		
+		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+
+		if (appUser == null) {
+			return this.loginView;
+		} else  {
+			KundeSessionParams kundeSessionParams = new KundeSessionParams();
+			kundeSessionParams.setKundnr(kundnr);
+			kundeSessionParams.setKnavn(knavn);
+			kundeSessionParams.setFirma(firma);
+			
+			this.setInstalledModules(kundeSessionParams, appUser.getUser());
+			
+			//JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
+			//model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+			
+			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
+			model.put("kundnr", kundnr);
+			model.put("firma", firma);
+			session.setAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
+			
+		}
+
+		return successView;
+	}
+	
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "mainmaintenancecundf_vareexp_se.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doVareExportSe(HttpSession session, HttpServletRequest request) {
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
@@ -79,6 +130,14 @@ public class MainMaintenanceCundfVareExportSeController {
 		return successView;
 	}
 
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="mainmaintenancecundf_vareexp_se_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_params_edit(@ModelAttribute ("record") SvewDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
@@ -217,6 +276,86 @@ public class MainMaintenanceCundfVareExportSeController {
 		}
 		return adjustedlist;
 	}	
+	
+	/**
+	 * 
+	 * @param kundeSessionParams
+	 * @param appUser
+	 */
+	private void setInstalledModules(KundeSessionParams kundeSessionParams, String appUser) { //Used for views in Vareregister
+		FirmDao firmDao = getFirmDao(appUser);
+		if ("J".equals(firmDao.getFiurse())) {
+			kundeSessionParams.setExportNo(true);
+		}
+		if ("J".equals(firmDao.getFiursi())) {
+			kundeSessionParams.setImportNo(true);
+		}
+
+		//TODO when available in table FIRM
+		kundeSessionParams.setImportSe(true);
+		kundeSessionParams.setExportSe(true);
+		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
+	
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @return
+	 */
+	private FirmDao getFirmDao(String appUser) {
+		JsonReader<JsonDtoContainer<FirmDao>> jsonReader = new JsonReader<JsonDtoContainer<FirmDao>>();
+		jsonReader.set(new JsonDtoContainer<FirmDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMONLY_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser);
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//logger.info("jsonPayload="+jsonPayload);
+		FirmDao firmDao = null;
+		if (jsonPayload != null) {
+			JsonDtoContainer<FirmDao> container = (JsonDtoContainer<FirmDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					if (container.getDtoList().size() > 0) {
+						firmDao = container.getDtoList().get(0);
+					}
+				}
+		}
+		return firmDao;
+	}
+
+	/**
+	 * 
+	 * @param kundeSessionParams
+	 * @return
+	 */
+	private int getFantomSpaceWidth(KundeSessionParams kundeSessionParams) {
+		int spaceTotal = 1090;
+		if (kundeSessionParams.isExportNo()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportNo()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isExportDk()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportDk()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isExportSe()) {
+			spaceTotal = spaceTotal - 100;
+		}
+		if (kundeSessionParams.isImportSe()) {
+			spaceTotal = spaceTotal - 100;
+		}
+
+		return spaceTotal;
+	}
+
+	
 	
 	// Wired - SERVICES
 	@Qualifier("urlCgiProxyService")
