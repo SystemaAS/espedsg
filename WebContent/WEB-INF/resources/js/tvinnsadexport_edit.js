@@ -4,27 +4,39 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+  	var saveUrl = "tvinnsadexport_edit.do";
+  	var formId = "sadExportSaveNewTopicForm";
     
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {
       jq('#alinkTopicList').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
   	  });
       jq('#alinkOmberegning').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
   	  });      
   	  jq('#alinkInvoices').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
 	  });
   	  jq('#alinkItemLines').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
   	  });
   	  jq('#alinkLogging').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
 	  });
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId); 		  
 	  });
+  	  jq('#alinkNotis').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+     	  autoSave(saveUrl,formId); 	
+	  }); 	  
   	  jq('#getFinansOpplSumButton').click(function() { 
   		if(jq('#finansOpplysningarTotSum').val()!='' && jq('#finansOpplysningarTotValidCurrency').val()!='' ){  
 	  		jq('#sebel1').val(jq('#finansOpplysningarTotSum').val());

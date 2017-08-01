@@ -1,6 +1,9 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
 	var jq = jQuery.noConflict();
 	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+  	var saveUrl = "editNotisblock.do";
+  	var formId = "sadExportEditTopicNotisblockItemForm"; 
+
     
 	jq(function() {
 		jq("#frtdt").datepicker({ 
@@ -12,24 +15,31 @@
     jq(function() {
 	  jq('#alinkTopicList').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
   	  });	
   	  jq('#alinkHeader').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
   	  });
       jq('#alinkOmberegning').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
   	  });
   	  jq('#alinkInvoices').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
 	  });
   	  jq('#alinkItemLines').click(function() { 
   		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
   	  });
   	  jq('#alinkLogging').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
 	  });
   	  jq('#alinkArchive').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+      	  autoSave(saveUrl,formId);    	
 	  });
     });
 	 
