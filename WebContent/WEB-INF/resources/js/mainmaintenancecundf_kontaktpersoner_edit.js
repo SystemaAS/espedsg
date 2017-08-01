@@ -212,6 +212,15 @@ jq(function() {
     	selectedElement = "avkved30";
     });  
 
+    jq('#alinkMainMaintGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });      
+    jq('#alinkMainCundfGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");
+    });  
+    
     jq('#alinkMainMaintFritextGate').click(function() {
     	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
     	autoSave('mainmaintenancecundf_kontaktpersoner_edit.do', "formRecord");

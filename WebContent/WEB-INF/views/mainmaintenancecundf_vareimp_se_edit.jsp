@@ -125,7 +125,7 @@
  					<table id= "secondTabRow" class="formFrameHeaderTransparent" style="width:1000px" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
 							<td width="110" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-								<a id="alinkMainMaintKontaktGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kunde_edit.do">
+								<a id="alinkMainMaintKundeGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_kunde_edit.do">
 									<font class="tabDisabledLinkMinor">&nbsp;
 										<spring:message code="systema.main.maintenance.customer"/>
 									</font>
@@ -223,7 +223,7 @@
 							</c:if>
 							<c:if test="${kundeSessionParams.exportSe == true}">
 								<td width="100" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintExpSeGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se.do"> 
+									<a id="alinkMainMaintVareExpSeGate" onClick="setBlockUI(this);" href="mainmaintenancecundf_vareexp_se.do"> 
 											<font class="tabDisabledLinkMinor">&nbsp;
 												 <spring:message code="systema.main.maintenance.customer.vareregister.exp.se"/>
 											</font>&nbsp;						

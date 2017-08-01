@@ -126,6 +126,15 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=syfr03', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });      
  
+    jq('#alinkMainMaintGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
+    });      
+    jq('#alinkMainCundfGate').click(function() {
+    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
+    });  
+    
     jq('#alinkMainMaintKontaktGate').click(function() {
     	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
     	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
@@ -142,7 +151,7 @@ jq(function() {
     	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
     	autoSave('mainmaintenancecundf_kunde_edit.do', "formRecord");
     });      
-    
+
     
 }); 
   
