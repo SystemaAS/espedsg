@@ -35,7 +35,11 @@
 	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
-		<tr height="2"><td></td></tr>
+		<tr height="2">
+			<td>
+				<input type="hidden" name="modelStatus" id="modelStatus" value='${model.status}'>
+			</td>
+		</tr>
 		<tr height="25"> 
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkTopicList" style="display:block;" href="tvinnsadimport.do?action=doFind&sg=${model.sign}">
@@ -68,7 +72,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
+				<a id="alinkNotis" style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.avd}&sign=${ model.sign}
 											&opd=${ model.opd}&o2_sist=${ model.o2_sist}&o2_sidt=${ model.o2_sidt}&o2_simf=${ model.o2_simf}">
 					<font class="tabDisabledLink">
 						&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>

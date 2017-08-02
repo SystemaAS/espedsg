@@ -1,27 +1,42 @@
 	//this variable is a global jQuery var instead of using "$" all the time. Very handy
 	var jq = jQuery.noConflict();
 	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+ 	var saveUrl = "tvinnsadimport_edit_finansopplysninger.do";
+  	var formId = "sadImportEditTopicFinansOpplysningerItemForm";   
+  
+	//Check if do call to autoSave when user is UI-navigating
+	function doSave(){
+  	  var modelStatus = jq('#modelStatus').val();
+	  if ( modelStatus == 'M' || modelStatus == '' ) {
+		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  	autoSave(saveUrl,formId);  
+  	  }
+	}  	
   	
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {
       jq('#alinkTopicList').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+    	  doSave();
 	  });	
   	  jq('#alinkHeader').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	   	  doSave();
   	  });
   	  jq('#alinkOmberegning').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	   	  doSave(); 
 	  });
   	  jq('#alinkItemLines').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	   	  doSave();
   	  });
   	  jq('#alinkLogging').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	   	  doSave();
 	  });
   	  jq('#alinkArchive').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	   	  doSave();
 	  });
+  	  jq('#alinkNotis').click(function() { 
+  	   	  doSave();  
+	  }); 	 	  
+ 	  
     });
 	
 	jq(function() {

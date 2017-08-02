@@ -33,7 +33,11 @@
  <td>	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
-		<tr height="2"><td></td></tr>
+		<tr height="2">
+			<td>
+				<input type="hidden" name="modelStatus" id="modelStatus" value='${model.record.sist}'>
+			</td>
+		</tr>
 		<tr height="25"> 
 			<c:choose> 
 			    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
@@ -69,7 +73,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.record.siavd}&sign=${ model.record.sisg}
+						<a id="alinkNotis" style="display:block;" href="editNotisblock.do?action=doFetch&subsys=sadi&orig=topic&avd=${ model.record.siavd}&sign=${ model.record.sisg}
 													&opd=${ model.record.sitdn}&o2_sist=${ model.record.o2_sist}&o2_sidt=${ model.record.o2_sidt}&o2_simf=${ model.record.o2_simf}">
 							<font class="tabDisabledLink">
 								&nbsp;<spring:message code="systema.tvinn.sad.import.notisblock.createnew.tab"/>
