@@ -34,7 +34,11 @@
  <td>	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
-		<tr height="2"><td></td></tr>
+		<tr height="2">
+			<td>
+				<input type="hidden" name="modelStatus" id="modelStatus" value='${model.record.sest}'>
+			</td>
+		</tr>
 		<tr height="25"> 
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a id="alinkTopicList" style="display:block;" 

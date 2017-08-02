@@ -7,35 +7,37 @@
   	var saveUrl = "tvinnsadexport_edit.do";
   	var formId = "sadExportSaveNewTopicForm";
     
+	//Check if do call to autoSave when user is UI-navigating
+	function doSave(){
+  	  var modelStatus = jq('#modelStatus').val();
+	  if ( modelStatus == 'M' || modelStatus == '' ) {
+		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  	autoSave(saveUrl,formId);  
+  	  }
+	}    	
+  	
   	//Overlay on tab (to mark visually a delay...)
     jq(function() {
       jq('#alinkTopicList').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+    	  doSave();		  
   	  });
       jq('#alinkOmberegning').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+    	  doSave();		  
   	  });      
   	  jq('#alinkInvoices').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+  		 doSave();			  
 	  });
   	  jq('#alinkItemLines').click(function() { 
-  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+  		 doSave();	 		  
   	  });
   	  jq('#alinkLogging').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+  		 doSave();		  
 	  });
   	  jq('#alinkArchive').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-      	  autoSave(saveUrl,formId); 		  
+  		 doSave();			  
 	  });
   	  jq('#alinkNotis').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-     	  autoSave(saveUrl,formId); 	
+  		 doSave();		
 	  }); 	  
   	  jq('#getFinansOpplSumButton').click(function() { 
   		if(jq('#finansOpplysningarTotSum').val()!='' && jq('#finansOpplysningarTotValidCurrency').val()!='' ){  
