@@ -4,7 +4,7 @@
     <title>The Systema report module!</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css">
     <style>
       #table td {
         padding-left: 10px;
@@ -32,25 +32,6 @@
   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- not sure why all these styles necessary, not the point of this -->
   <div style="clear: both; margin: 30px; float: left">
     <div id="table"></div>
@@ -63,11 +44,15 @@
     </div>
   </div>
 
-  <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css" />
-  <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/bootstrap.min.css">
-  <script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
+ <script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
   <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
   <script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
+  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<!--  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+-->
   <script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
   <script src="https://npmcdn.com/universe@latest/universe.js"></script>
   <script src="http://colorbrewer2.org/export/colorbrewer.js"></script>
@@ -95,25 +80,47 @@ var spendData = [
 ];
 */
 
-var faktCsv = "resources/files/fakt_no_nulls.csv";   
+//var faktCsv = "resources/files/fakt_no_nulls.csv";   
+//var faktCsv = "resources/files/fakt.csv";   
 
 //jQuery.getJson('data.json', function(data){...}); eller d3.json('data.json', function(data) {...});
+/*
+d3.request("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017")
+	.mimeType("text/csv")
+	.response(function (xhr) { return d3.csvParse(xhr.responseText); })
+	.get(function(spendData) {
+*/
 
-
-d3.csv(faktCsv, function(error, spendData) {
-
+//d3.csv(faktCsv, function(error, spendData) {
+d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error, data) {
+	var faktData = data.dtoList;
+    //console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
 // normalize/parse data
-spendData.forEach(function(d) {
-	  d.Spent = d.Spent;
+//data.forEach(function(d) {
+	 _.each(faktData, function(d) {
+	  d.faavd = d.faavd;
+	  d.faopd = d.faopd;
+	  d.sumfabeln = +d.sumfabeln;
+	  d.fadato = d.fadato;
+	  d.fakda = d.fakda;
 });
-
+  
+/*
+	private int faavd;  //avdelning
+	private int faopd; //oppdrag
+	private int sumfabeln; //sum pengarader
+	private int fadato; //datum
+	private String fakda;
+  
+  
+	*/
 // set crossfilter
-var ndx = crossfilter(spendData),
+var ndx = crossfilter(faktData),
     yearDim  = ndx.dimension(function(d) {return +d.fadato;}),
-    nameDim  = ndx.dimension(function(d) {return d.falevn;}),
-    yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.fabeln;}),
-    nameDimGroup = nameDim.group().reduceSum(function(d) {return +d.fabeln/1000;}),
-    allDollars = ndx.groupAll().reduceSum(function(d) { return +d.fabeln; });
+    nameDim  = ndx.dimension(function(d) {return d.faavd;}),
+    yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;}),
+    nameDimGroup = nameDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;}),
+    allDollars = ndx.groupAll().reduceSum(function(d) { return +d.sumfabeln; });
 
   yearRingChart
     .width(300)
@@ -151,20 +158,20 @@ var ndx = crossfilter(spendData),
     .group(function(d) {
         return d.value;
     })
-    .sortBy(function(d) { return +d.fabeln; })
+    .sortBy(function(d) { return +d.sumfabeln; })
     .showGroups(false)
-    .columns(['falevn',
+    .columns(['sumfabeln',
               {
-                  label: 'Fabeln',
+                  label: 'sumfabeln',
                   format: function(d) {
-                      return d.fabeln;
+                      return d.sumfabeln;
                   }
               },
               'fadato',
               {
                   label: 'Percent of Total',
                   format: function(d) {
-                      return Math.floor((d.fabeln / allDollars.value()) * 100) + '%';
+                      return Math.floor((d.sumfabeln / allDollars.value()) * 100) + '%';
                   }
               }]);
 

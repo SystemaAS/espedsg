@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css">
  <!--   <link rel="stylesheet" type="text/css" href="css/leaflet.css">   --> 
 <!--   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">  -->  
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--  <link rel="stylesheet" type="text/css" href="css/main.css">  --> 
 </head>
 <body>
 <div class="container-fluid">

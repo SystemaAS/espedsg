@@ -30,9 +30,9 @@ public class ReportDashboardController {
 	 */
 	@RequestMapping(value = "report_dashboard.do", method = RequestMethod.GET)
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
-		ModelAndView successView = new ModelAndView("report_dashboard_SYS");  //default
+		ModelAndView successView = new ModelAndView("report_dashboard");  //default
 		logger.info("Inside: doReportDashboard");
-		String lib = request.getParameter("lib");
+		String lib = request.getParameter("lib"); //For PoC testing
 		logger.info("lib="+lib);
 		
 		if (StringUtils.hasValue(lib)) {

@@ -107,6 +107,8 @@ var nasdaqTable = dc.dataTable('.dc-data-table');
     var dateFormat = d3.time.format('%m/%d/%Y');
     var numberFormat = d3.format('.2f');
 
+    console.log("data="+data);
+    
     data.forEach(function (d) {
         d.dd = dateFormat.parse(d.date);
         d.month = d3.time.month(d.dd); // pre-calculate month for better performance

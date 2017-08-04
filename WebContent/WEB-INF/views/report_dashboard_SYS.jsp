@@ -81,7 +81,7 @@
 	  
 	  
 	  
-	  alert("groupByFadato="+groupByFadato.top(Infinity).length);
+//	  alert("groupByFadato="+groupByFadato.top(Infinity).length);
 	  
 	  var top1 = groupByFadato.top(1);
 	 // var top5 = groupByFadato.top(15);
@@ -96,14 +96,14 @@
 	        return d3.time.year(d.dd).getFullYear();
 	    });
 	  
-	   alert("yearlyDimension="+yearlyDimension.top(Infinity).length);
-	   alert("yearlyDimension top(1)="+yearlyDimension.top(1));  
+//	   alert("yearlyDimension="+yearlyDimension.top(Infinity).length);
+//	   alert("yearlyDimension top(1)="+yearlyDimension.top(1));  
 	    
 		var groupByYearly = yearlyDimension.group().reduceSum(function(d) { return d.fabeln; });
 	    
 		var top11 = groupByYearly.top(1);
 		
-		 alert("top11="+top11[0].key+" value="+top1[0].value);
+//		 alert("top11="+top11[0].key+" value="+top1[0].value);
 		
 		
 		
