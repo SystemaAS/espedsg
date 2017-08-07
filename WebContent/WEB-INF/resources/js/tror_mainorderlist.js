@@ -162,7 +162,7 @@
 	  "scrollY":        	"700px",
 	  "scrollCollapse":  	true,
 	  //"columnDefs": [{ className: "dt-head-left", "targets": [ 2 ] }],
-	  "order": [[ 1, "desc" ]],
+	  "order": [[ 3, "desc" ]], //date
 	  //"autoWidth": false, //for optimization purposes when initializing the table
 	  "lengthMenu": [ 50, 75, 100],
 	  "language": { "url": getLanguage(lang) }

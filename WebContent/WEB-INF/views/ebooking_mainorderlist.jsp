@@ -123,7 +123,7 @@
 			    		<tr> 
 			    		<td>	
 			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.ordernr"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.orderNr}'>
+			        		&nbsp;<input type="text" class="inputText" name="orderNr" id="orderNr" size="10" maxlength="15" value='${searchFilter.orderNr}'>
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="date" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.date"/></font>
@@ -136,11 +136,11 @@
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="sender" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.sender}'>
+				        	&nbsp;<input type="text" class="inputText" name="sender" id="sender" size="10" maxlength="15" value='${searchFilter.sender}'>
 				        </td>
 			        	<td>	
 			        		&nbsp;<font title="receiver" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.receiver}'>
+				        	&nbsp;<input type="text" class="inputText" name="receiver" id="receiver" size="10" maxlength="15" value='${searchFilter.receiver}'>
 				        </td>
 			        	<td>	
 			        		&nbsp;<font title="from" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.from"/></font>

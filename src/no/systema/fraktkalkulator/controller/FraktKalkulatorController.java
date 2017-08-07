@@ -252,7 +252,7 @@ public class FraktKalkulatorController {
 	 * @param userContainer
 	 */
 	private void getProductList(Map model, String applicationUser, JsonFraktKalkulatorUserContainer userContainer) {
-		  //logger.info("Inside getProductList");
+		  logger.info("Inside getProductList");
 		  List list = new ArrayList();
 		  //prepare the access CGI with RPG back-end
 		  String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_DROPDOWN_PRODUCT_DATA_URL;
@@ -260,15 +260,15 @@ public class FraktKalkulatorController {
 		  sb.append("user=" + applicationUser);
 		  sb.append("&wsavd=" + userContainer.getWsavd());
 		  String urlRequestParamsKeys = sb.toString();
-		  /*
+		  
 		  logger.info("URL: " + BASE_URL);
 		  logger.info("PARAMS: " + urlRequestParamsKeys);
 		  logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		  */
+		  
 		  String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 
-		  //logger.info (jsonPayload);
-		  //logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		  logger.info (jsonPayload);
+		  logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
 	    		JsonFraktKalkulatorDropDownContainer container = this.fraktKalkulatorDropDownService.getContainer(jsonPayload);

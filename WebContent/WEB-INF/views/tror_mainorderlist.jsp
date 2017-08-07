@@ -122,9 +122,18 @@
 			    	<table width="100%">
 			    		<tr> 
 			    		<td>	
-			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.orderNr}'>
+			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font>
+			        		&nbsp;<input type="text" class="inputText" name="avd" id="avd" size="10" maxlength="15" value='${searchFilter.avd}'>
 				        </td>
+				        <td>	
+			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font>
+			        		&nbsp;<input type="text" class="inputText" name="sign" id="sign" size="10" maxlength="15" value='${searchFilter.sign}'>
+				        </td>
+			    		<td>	
+			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font>
+			        		&nbsp;<input type="text" class="inputText" name="orderNr" id="orderNr" size="10" maxlength="15" value='${searchFilter.orderNr}'>
+				        </td>
+				        
 				        <td>	
 			        		&nbsp;<font title="date" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></font>
 				        	&nbsp;<input type="text" class="inputText" name="date" id="date" size="10" maxlength="15" value='${searchFilter.date}'>
@@ -136,11 +145,11 @@
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="sender" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.sender}'>
+				        	&nbsp;<input type="text" class="inputText" name="sender" id="sender" size="10" maxlength="15" value='${searchFilter.sender}'>
 				        </td>
 			        	<td>	
 			        		&nbsp;<font title="receiver" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="todo" id="todo" size="10" maxlength="15" value='${searchFilter.receiver}'>
+				        	&nbsp;<input type="text" class="inputText" name="receiver" id="receiver" size="10" maxlength="15" value='${searchFilter.receiver}'>
 				        </td>
 			        	<td>	
 			        		&nbsp;<font title="from" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></font>
@@ -174,7 +183,9 @@
 				<table style="width:100%;" id="openOrders" class="display compact cell-border" cellspacing="0" >
 					<thead >
 					<tr style="background-color:#BCC6CC">
-						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></th>   
+						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></th>
+						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></th> 
+						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></th>
@@ -183,7 +194,7 @@
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.m3"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></th>
-	                    <%-- START Print --%>
+	                    <%-- START Print 
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;F.br&nbsp;</td>
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Cmr&nbsp;</td>
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Merk Pdf&nbsp;</td>
@@ -198,29 +209,30 @@
 	                
 	                <tbody >
 		            <c:forEach items="${listOpenOrders}" var="record" varStatus="counter">  
-		            <input type="hidden" name="unik_${counter.count}" id="unik_${counter.count}" value='${record.unik}'>
+		            <input type="hidden" name="unik_${counter.count}" id="unik_${counter.count}" value='${Xrecord.unik}'>
 		            <tr class="tex11" >
-		            	
-		               <td title="${record.unik}" class="text11MediumBlue" id="opd_${record.hereff}@${counter.count}" >
-			           		<div id="opd${record.hereff}_linkcontainer${counter.count}" >
-			           		<a style="cursor:pointer;" id="@opd_${record.hereff}@alinkOpenOrdersListId_${counter.count}"
-			           			onClick="setBlockUI(this);" href="tror_mainorder.do?action=doFetch&heunik=${record.unik}&hereff=${record.hereff}&status=${record.status}">
+		               <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.heavd}</td>	
+		               <td title="${record.heopd}" class="text11MediumBlue" id="opd_${record.heopd}@${counter.count}" >
+			           		<div id="opd${record.heopd}_linkcontainer${counter.count}" >
+			           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+			           			onClick="setBlockUI(this);" href="tror_mainorder.do?action=doFetch&heunik=${Xrecord.unik}&hereff=${Xrecord.hereff}&status=${Xrecord.status}">
     		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-    		    				<font class="text11MediumBlue">${record.hereff}</font>
+    		    				<font class="text11MediumBlue">${record.heopd}</font>
     		    			</a>
     		    			</div>
 			           </td>
-			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
+			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
+			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtr}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.xfralk}${record.hesdf}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
-		               <%-- START Print --%>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hent}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hevkt}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hem3}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xfralk}${Xrecord.hesdf}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xtillk}${Xrecord.hesdt}</td>
+		               <%-- START Print 
 	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<%-- only those status that have a real state. Status=null is not allowed to print --%>
+	                    	<%-- only those status that have a real state. Status=null is not allowed to print 
 	                    	<c:if test="${not empty record.status}"> 
 		                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" onClick="TODOprintDocument(this);" >
 		                    		<img onMouseOver="showPop('fraktbrev_info${counter.count}');" onMouseOut="hidePop('fraktbrev_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
@@ -332,10 +344,10 @@
 		               
 		               <td align="center" class="text11MediumBlue">
 		               		<c:choose>
-			               		<c:when test="${record.status == 'E'}">
+			               		<c:when test="${Xrecord.status == 'E'}">
 			               			<c:choose>
-			               			<c:when test="${record.hepk1 != 'Y' && record.hepk2 != 'Y' && record.hepk3 != 'Y'}">
-					               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="TODOebooking_mainorderlist_send_order.do?heunik=${record.unik}">
+			               			<c:when test="${Xrecord.hepk1 != 'Y' && Xrecord.hepk2 != 'Y' && Xrecord.hepk3 != 'Y'}">
+					               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="TODOebooking_mainorderlist_send_order.do?heunik=${Xrecord.unik}">
 					               			<span title="Bookingen kan sendes">
 					               			<img src="resources/images/send-file.png" height="18px" width="18px" border="0" alt="send">
 					               			</span>
@@ -347,12 +359,12 @@
 				               		</c:choose>
 			               		</c:when>
 			               		<c:otherwise>
-			               			<c:if test="${record.status == 'P'}">
+			               			<c:if test="${Xrecord.status == 'P'}">
 			               				<span title="Bookingen er plukket">
 			               					<img src="resources/images/complete-icon.png" height="12px" width="12px" border="0" alt="completed">
 			               				</span>
 			               			</c:if>
-			               			<c:if test="${empty record.status}">
+			               			<c:if test="${empty Xrecord.status}">
 			               				<span title="Booking er sendt inn men ennå ikke plukket til oppdrag">
 			               					<img src="resources/images/engines.png" height="16px" width="16px" border="0" alt="in process">
 			               				</span>
@@ -362,7 +374,7 @@
 		               </td>
 		               
 		               <td align="center" class="text11MediumBlue">
-            		  	 	<a sytle="cursor:pointer;" id="hereff_${record.hereff}@heunik_${record.unik}" title="delete" onClick="TODOdoPermanentlyDeleteOrder(this)" tabindex=-1>
+            		  	 	<a sytle="cursor:pointer;" id="hereff_${Xrecord.hereff}@heunik_${Xrecord.unik}" title="delete" onClick="TODOdoPermanentlyDeleteOrder(this)" tabindex=-1>
 			               		<img src="resources/images/delete.gif" border="0" alt="remove">
 			               	</a>&nbsp;
 					   </td>
@@ -397,7 +409,7 @@
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
 								<select name="selectedType" id="selectedType">
-									<c:forEach var="record" items="${model.containerOpenOrders.orderTypesNew}" >
+									<c:forEach var="record" items="${Xmodel.containerOpenOrders.orderTypesNew}" >
 	                             	 	<option value="${record.newAvd}@${record.newModul}@${record.newModul2}@${record.newLandKode}@${record.newSideSK}@${record.newText}" >${record.newText}</option>
 									</c:forEach>
 									
