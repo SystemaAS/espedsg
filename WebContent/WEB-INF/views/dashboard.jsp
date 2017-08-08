@@ -353,7 +353,7 @@
 												</font>
 								 			</c:if>
 								 			<c:if test="${fn:contains(record.prog,'-TBRREG') }">
-				 								<a class="text14" href="tvinnsad_brreg_kundekontroll.do" onMouseOver="showPop('infoTBRREG');" onMouseOut="hidePop('infoTBRREG');" onClick="setBlockUI(this);" >
+				 								<a id="dialogRunKundedatakontrollLink" class="text14" style="display:block;" runat="server" href="#" onMouseOver="showPop('infoTBRREG');" onMouseOut="hidePop('infoTBRREG');" >
 				 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 	 												<font class="text14NavyBlue">${record.prTxt}</font>
 		 										</a>
@@ -364,7 +364,7 @@
 									           		<div align="center">
 									           			<table border = "0">
 															<tr>
-																<td align="left" class="text10"><i>Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av:</i><br/>
+																<td align="left" class="text10"><i>KALLE ANKA  xXx  Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av:</i><br/>
 																	<img src="http://scf.brreg.no/bilder/brreg_logo.svg" width="150px" height="25px" align="left">
 																</td>
 															</tr>
@@ -637,6 +637,19 @@
 			     </table> 
 			</td>
 		</tr>
+		<%-- Pop-up window --%>
+		<tr>
+		<td>
+			<div id="dialogRunKundedatakontroll" title="Dialog">
+				<form  action="tvinnsad_brreg_kundekontroll.do" name="runKundedatakontrollForm" id="runKundedatakontrollForm" method="post">
+					<p class="text12">
+						Utførelse av denne funksjonen kan ta litt tid.
+					</p>
+				</form>
+			</div>
+		</td>
+		</tr>
+		
 		<tr class="text" height="30"><td></td></tr>	
 	
 	
