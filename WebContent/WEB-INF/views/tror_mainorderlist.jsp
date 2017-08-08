@@ -222,12 +222,12 @@
     		    			</div>
 			           </td>
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
-			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtr}</td>
+			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hent}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hevkt}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.hem3}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
+		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xfralk}${Xrecord.hesdf}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xtillk}${Xrecord.hesdt}</td>
 		               <%-- START Print 

@@ -15,8 +15,8 @@ public class TrorUrlDataStore {
 	//----------------------------
 	//[1] FETCH MAIN ORDER LIST
 	//----------------------------
-	//http://localhost:8080/syjservicestror/syjsHEADF.do?user=OSCAR&csv=true&limit=50
-	static public String TROR_BASE_MAIN_ORDER_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF.do";
+	//http://localhost:8080/syjservicestror/syjsHEADF_LITE.do?user=OSCAR
+	static public String TROR_BASE_MAIN_ORDER_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_LITE.do";
 		
 	
 	//http://gw.systema.no/sycgip/TBOK002R.pgm?user=OSCAR&mode=G&HEUNIK=&HEREFF=&newavd=80&newmodul=H&newmodul=E&newlandkode=DK&newsidesk=S&newtext=

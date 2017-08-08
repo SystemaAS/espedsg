@@ -280,7 +280,8 @@ public class TrorMainOrderListController {
     		urlRequestParams.append("user=" + appUser.getUser());
     		urlRequestParams.append("&limit=500"); //make this limit dynamic
     		
-    		if(!"".equals(recordToValidate.getOrderNr())&& recordToValidate.getOrderNr()!=null ){ urlRequestParams.append("&hereff=" + recordToValidate.getOrderNr()); }
+    		if(!"".equals(recordToValidate.getAvd())&& recordToValidate.getAvd()!=null ){ urlRequestParams.append("&heavd=" + recordToValidate.getAvd()); }
+    		if(!"".equals(recordToValidate.getOrderNr())&& recordToValidate.getOrderNr()!=null ){ urlRequestParams.append("&heopd=" + recordToValidate.getOrderNr()); }
     		if(!"".equals(recordToValidate.getDate())&& recordToValidate.getDate()!=null ){ urlRequestParams.append("&hedtop=" + recordToValidate.getDate()); }
     		if(!"".equals(recordToValidate.getFromDate())&& recordToValidate.getFromDate()!=null ){ urlRequestParams.append("&todoFromDate=" + recordToValidate.getFromDate()); }
     		if(!"".equals(recordToValidate.getToDate())&& recordToValidate.getToDate()!=null ){ urlRequestParams.append("&todoToDate=" + recordToValidate.getToDate()); }

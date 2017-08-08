@@ -1,6 +1,7 @@
 package no.systema.tror.model.jsonjackson;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,201 +11,64 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 
+	/* Avdeling */
 	private int heavd; 
-	private int heopd; 
-	private String heur; 
-	private String hest;
-	private int hedtop;
-	private String helka;
-	private String heot;
-	private String hekdpl;
+	/* Ordernr */
+	private int heopd;
+	/* Signatur */
 	private String hesg;
-	private int hedtr;
-	private String hesdff;
-	private String hesdt;
-	private String hesdvt;
-	private String hegn;
-	private String hegnn;
-	private int hepro;
-	private String heplan;
-	private int trrund;
-	private String hesaml;
-	private String hehawb;
-	private String hesdla;
-	private String hesdl;
-	private String hevalt;
-	private int hevalp;
-	private int heknt;
-	private int hekns;
+	/*  Oppdragsdato  */
+	private String hedtop;
+	/* Avsender */
 	private String henas;
-	private String hekdfs;
-	private String hevals;
-	private int heknsf;
-	private int heans;
-	private String henasf;
-	private int heknk;
+	/* Mottaker */
 	private String henak;
-	private String hekdfk;
-	private String hevalk;
-	private int heknkf;
-	private int heank;
-	private String henakf;
-	private String hekft1;
-	private String heft1;
-	private int hedtcp;
-	private int hedtmp;
-	private String hekdkk;
+	/* Antall */
+	private int hent;
+	/* Vekt */
+	private int hevkt;
+	/* M3 */
+	private BigDecimal hem3;
+	/* Landkode selger */
+	private String helks;
+	/* Postnr selger */
+	private String hepns;
+	/* Landkode kjøper */
+	private String helkk;
+	/* Postnr kjøper */
+	private String hepnk;
 
-	public int getHevalp() {
-		return hevalp;
+	public int getHeopd() {
+		return heopd;
 	}
 
-	public void setHevalp(int hevalp) {
-		this.hevalp = hevalp;
+	public void setHeopd(int heopd) {
+		this.heopd = heopd;
 	}
 
-	public int getHedtmp() {
-		return hedtmp;
+	public String getHedtop() {
+		return hedtop;
 	}
 
-	public void setHedtmp(int hedtmp) {
-		this.hedtmp = hedtmp;
+	public void setHedtop(String hedtop) {
+		this.hedtop = hedtop;
+	}
+	
+	public String getHesg() {
+		return hesg;
 	}
 
-	public String getHekft1() {
-		return hekft1;
+	public void setHesg(String heopd) {
+		this.hesg = hesg;
 	}
 
-	public void setHekft1(String hekft1) {
-		this.hekft1 = hekft1;
-	}
-
-	public String getHeft1() {
-		return heft1;
-	}
-
-	public void setHeft1(String heft1) {
-		this.heft1 = heft1;
-	}
-
-	public int getHedtcp() {
-		return hedtcp;
-	}
-
-	public void setHedtcp(int hedtcp) {
-		this.hedtcp = hedtcp;
-	}
-
-	public String getHekdkk() {
-		return hekdkk;
-	}
-
-	public void setHekdkk(String hekdkk) {
-		this.hekdkk = hekdkk;
-	}
-
-	public String getHekdfk() {
-		return hekdfk;
-	}
-
-	public void setHekdfk(String hekdfk) {
-		this.hekdfk = hekdfk;
-	}
-
-	public String getHevalk() {
-		return hevalk;
-	}
-
-	public void setHevalk(String hevalk) {
-		this.hevalk = hevalk;
-	}
-
-	public int getHeknkf() {
-		return heknkf;
-	}
-
-	public void setHeknkf(int heknkf) {
-		this.heknkf = heknkf;
-	}
-
-	public int getHeank() {
-		return heank;
-	}
-
-	public void setHeank(int heank) {
-		this.heank = heank;
-	}
-
-	public String getHenakf() {
-		return henakf;
-	}
-
-	public void setHenakf(String henakf) {
-		this.henakf = henakf;
-	}
-
-	public int getHekns() {
-		return hekns;
-	}
-
-	public void setHekns(int hekns) {
-		this.hekns = hekns;
-	}
-
+	
 	public String getHenas() {
 		return henas;
 	}
 
 	public void setHenas(String henas) {
 		this.henas = henas;
-	}
-
-	public String getHekdfs() {
-		return hekdfs;
-	}
-
-	public void setHekdfs(String hekdfs) {
-		this.hekdfs = hekdfs;
-	}
-
-	public String getHevals() {
-		return hevals;
-	}
-
-	public void setHevals(String hevals) {
-		this.hevals = hevals;
-	}
-
-	public int getHeknsf() {
-		return heknsf;
-	}
-
-	public void setHeknsf(int heknsf) {
-		this.heknsf = heknsf;
-	}
-
-	public int getHeans() {
-		return heans;
-	}
-
-	public void setHeans(int heans) {
-		this.heans = heans;
-	}
-
-	public String getHenasf() {
-		return henasf;
-	}
-
-	public void setHenasf(String henasf) {
-		this.henasf = henasf;
-	}
-
-	public int getHeknk() {
-		return heknk;
-	}
-
-	public void setHeknk(int heknk) {
-		this.heknk = heknk;
 	}
 
 	public String getHenak() {
@@ -215,132 +79,60 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 		this.henak = henak;
 	}
 
-	public String getHesaml() {
-		return hesaml;
+	public int getHent() {
+		return hent;
 	}
 
-	public void setHesaml(String hesaml) {
-		this.hesaml = hesaml;
+	public void setHent(int hent) {
+		this.hent = hent;
 	}
 
-	public String getHehawb() {
-		return hehawb;
+	public int getHevkt() {
+		return hevkt;
 	}
 
-	public void setHehawb(String hehawb) {
-		this.hehawb = hehawb;
+	public void setHevkt(int hevkt) {
+		this.hevkt = hevkt;
 	}
 
-	public String getHesdla() {
-		return hesdla;
+	public BigDecimal getHem3() {
+		return hem3;
 	}
 
-	public void setHesdla(String hesdla) {
-		this.hesdla = hesdla;
+	public void setHem3(BigDecimal hem3) {
+		this.hem3 = hem3;
 	}
 
-	public String getHesdl() {
-		return hesdl;
+	public String getHelks() {
+		return helks;
 	}
 
-	public void setHesdl(String hesdl) {
-		this.hesdl = hesdl;
+	public void setHelks(String helks) {
+		this.helks = helks;
 	}
 
-	public String getHevalt() {
-		return hevalt;
+	public String getHepns() {
+		return hepns;
 	}
 
-	public void setHevalt(String hevalt) {
-		this.hevalt = hevalt;
+	public void setHepns(String hepns) {
+		this.hepns = hepns;
 	}
 
-	public int getHeknt() {
-		return heknt;
+	public String getHelkk() {
+		return helkk;
 	}
 
-	public void setHeknt(int heknt) {
-		this.heknt = heknt;
+	public void setHelkk(String helkk) {
+		this.helkk = helkk;
 	}
 
-	public String getHesdt() {
-		return hesdt;
+	public String getHepnk() {
+		return hepnk;
 	}
 
-	public void setHesdt(String hesdt) {
-		this.hesdt = hesdt;
-	}
-
-	public String getHesdvt() {
-		return hesdvt;
-	}
-
-	public void setHesdvt(String hesdvt) {
-		this.hesdvt = hesdvt;
-	}
-
-	public String getHegn() {
-		return hegn;
-	}
-
-	public void setHegn(String hegn) {
-		this.hegn = hegn;
-	}
-
-	public String getHegnn() {
-		return hegnn;
-	}
-
-	public void setHegnn(String hegnn) {
-		this.hegnn = hegnn;
-	}
-
-	public int getHepro() {
-		return hepro;
-	}
-
-	public void setHepro(int hepro) {
-		this.hepro = hepro;
-	}
-
-	public String getHeplan() {
-		return heplan;
-	}
-
-	public void setHeplan(String heplan) {
-		this.heplan = heplan;
-	}
-
-	public int getTrrund() {
-		return trrund;
-	}
-
-	public void setTrrund(int trrund) {
-		this.trrund = trrund;
-	}
-
-	public String getHesg() {
-		return hesg;
-	}
-
-	public void setHesg(String hesg) {
-		this.hesg = hesg;
-	}
-
-	public int getHedtr() {
-		return hedtr;
-	}
-
-	public void setHedtr(int hedtr) {
-		this.hedtr = hedtr;
-	}
-
-	public String getHesdff() {
-		return hesdff;
-	}
-
-	public void setHesdff(String hesdff) {
-		this.hesdff = hesdff;
+	public void setHepnk(String hepnk) {
+		this.hepnk = hepnk;
 	}
 
 	public int getHeavd() {
@@ -351,63 +143,7 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 		this.heavd = heavd;
 	}
 
-	public int getHeopd() {
-		return heopd;
-	}
-
-	public void setHeopd(int heopd) {
-		this.heopd = heopd;
-	}
-
-	public String getHeur() {
-		return heur;
-	}
-
-	public void setHeur(String heur) {
-		this.heur = heur;
-	}
-
-	public String getHest() {
-		return hest;
-	}
-
-	public void setHest(String hest) {
-		this.hest = hest;
-	}
-
-	public int getHedtop() {
-		return hedtop;
-	}
-
-	public void setHedtop(int hedtop) {
-		this.hedtop = hedtop;
-	}
-
-	public String getHelka() {
-		return helka;
-	}
-
-	public void setHelka(String helka) {
-		this.helka = helka;
-	}
-
-	public String getHeot() {
-		return heot;
-	}
-
-	public void setHeot(String heot) {
-		this.heot = heot;
-	}
-
-	public String getHekdpl() {
-		return hekdpl;
-	}
-
-	public void setHekdpl(String hekdpl) {
-		this.hekdpl = hekdpl;
-	}
 	
-
 	/**
 	 * Used for java reflection in other classes
 	 * @return
