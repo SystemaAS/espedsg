@@ -136,8 +136,8 @@
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
 			 										<c:if test="${not empty record.veiledning}">
-			 											<a class="text14" href="${record.veiledning}" target="_parent">	
-			 												<img title="Brukerveiledning" style="vertical-align:middle;" src="resources/images/veiledning.png" border="0" width="14px"; height="14px">
+			 											<a class="text14" href="${record.veiledning}" target="_blank">	
+			 												<img title="Brukerveiledning" style="vertical-align:middle;" src="resources/images/pdf2.png" border="0" width="14px"; height="14px">
 			 											</a>
 			 										</c:if>
 			 										
