@@ -37,6 +37,7 @@
 			 									<img src="resources/images/bulletYellow.png" width="10px" height="10px" border="0">&nbsp;
 			 									<font class="text14NavyBlue">Report Dashboard</font>
 	 										</a>
+	 										
 										</font>
 										</li>
 						 			</c:if>
@@ -98,7 +99,15 @@
 																	<tr class="text" height="10"><td></td></tr>
 																	<tr>
 																		<td align="center" >
-																			<img src="resources/images/miniLastetorg.png" border="0" width="350px"; height="210px">
+																			<c:choose>
+								 											<c:when test="${not empty record.infoImg}">
+																				<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																			</c:when>
+																			<c:otherwise>
+																				<img src="resources/images/miniLastetorg.png" border="0" width="350px"; height="210px">
+																			</c:otherwise>
+																			</c:choose>
+																			
 																		</td>
 																	</tr>
 												           		</table>
@@ -126,6 +135,12 @@
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
+			 										<c:if test="${not empty record.veiledning}">
+			 											<a class="text14" href="${record.veiledning}" target="_parent">	
+			 												<img title="Brukerveiledning" style="vertical-align:middle;" src="resources/images/veiledning.png" border="0" width="14px"; height="14px">
+			 											</a>
+			 										</c:if>
+			 										
 			 										<%-- ===========================================  --%>
 									            	<%-- Here we have the info popup window eBooking --%>
 									            	<%-- ===========================================  --%>
@@ -133,13 +148,19 @@
 									           		<div align="center">
 									           			<table>
 									           				<tr>
-																<td align="left" class="text12" ><b>eBooking</b> 
-																</td>
+																<td align="left" class="text12" ><b>eBooking</b></td>
 															</tr>
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>	
 																</td>
 															</tr>
 										           		</table>
@@ -153,9 +174,9 @@
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
-			 										<%-- ===========================================  --%>
-									            	<%-- Here we have the info popup window eBooking --%>
-									            	<%-- ===========================================  --%>
+			 										<%-- ====================================================  --%>
+									            	<%-- Here we have the info popup window TROR - Oppdragsreg --%>
+									            	<%-- ====================================================  --%>
 									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoTROR" class="popupPlain"  >
 									           		<div align="center">
 									           			<table>
@@ -166,7 +187,14 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniEbooking.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>	
 																</td>
 															</tr>
 										           		</table>
@@ -194,7 +222,14 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniEfaktura.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniEfaktura.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>	
 																</td>
 															</tr>
 										           		</table>
@@ -223,7 +258,14 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniSporringOppdrag.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniSporringOppdrag.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
 																</td>
 															</tr>
 										           		</table>
@@ -250,7 +292,14 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniPriskalkulator.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniPriskalkulator.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
 																</td>
 															</tr>
 										           		</table>
@@ -277,7 +326,15 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniVedlikehold.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniVedlikehold.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
+																	
 																</td>
 															</tr>
 										           		</table>
@@ -351,7 +408,15 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniTVINN.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniTVINN.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
+																	
 																</td>
 															</tr>
 										           		</table>
@@ -376,7 +441,15 @@
 															<tr class="text" height="10"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniSKAT.png" border="0" width="350px"; height="210px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniSKAT.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
+																	
 																</td>
 															</tr>
 										           		</table>
@@ -405,7 +478,15 @@
 															<tr class="text" height="5"><td></td></tr>
 															<tr>
 																<td align="center" >
-																	<img src="resources/images/miniTds.png" border="0" width="320px"; height="180px">
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniTds.png" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																	</c:choose>
+																	
 																</td>
 															</tr>
 										           		</table>
@@ -430,7 +511,15 @@
 																<tr class="text" height="10"><td></td></tr>
 																<tr>
 																	<td align="center" >
-																		<img src="resources/images/miniUoppdChart.jpg" border="0" width="350px"; height="210px">
+																		<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<img src="resources/images/miniUoppdChart.jpg" border="0" width="350px"; height="210px">
+																		</c:otherwise>
+																		</c:choose>
+																		
 																	</td>
 																</tr>
 											           		</table>

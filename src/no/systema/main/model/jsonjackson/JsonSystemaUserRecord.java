@@ -65,7 +65,16 @@ public class JsonSystemaUserRecord extends JsonAbstractGrandFatherRecord {
 			retval = this.progChunksUrl.replaceAll("'", "");
 		}
 		return retval;
-	} 
+	}
+	
+	private String veiledning = null; 
+	public void setVeiledning(String value) {  this.veiledning = value; }
+	public String getVeiledning() { return this.veiledning;}
+	
+	private String infoImg = null; 
+	public void setInfoImg(String value) {  this.infoImg = value; }
+	public String getInfoImg() { return this.infoImg;}
+	
 	
 	/**
 	 * Required for java reflection in other classes

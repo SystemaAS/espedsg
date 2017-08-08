@@ -487,8 +487,11 @@ public class DashboardController {
 		List list = new ArrayList();
 		for (JsonSystemaUserRecord record : jsonSystemaUserContainer.getMenuList()){
 			list.add(record);
-			//logger.info("PrTxt:" + record.getPrTxt());
-			//logger.info("Prog:" + record.getProg());
+			/*logger.info("PrTxt:" + record.getPrTxt());
+			logger.info("Prog:" + record.getProg());
+			logger.info("Veiledning:" + record.getVeiledning());
+			logger.info("infoImg:" + record.getInfoImg());
+			*/
 		}
 		//model.put(Constants.DOMAIN_LIST, list);
 		session.setAttribute(AppConstants.DOMAIN_LIST, list);
