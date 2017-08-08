@@ -31,6 +31,7 @@
 	<%--datatables grid JS --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
+	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
     <table class="noBg" width="1100" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>

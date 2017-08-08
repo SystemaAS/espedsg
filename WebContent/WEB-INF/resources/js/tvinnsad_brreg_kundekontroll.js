@@ -11,10 +11,13 @@
   //Datatables jquery
   //-------------------
   jq(document).ready(function() {
-    //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+	var lang = jq('#language').val();
   	  jq('#invalideKunderList').dataTable( {
   		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-  		  "lengthMenu": [ 25, 50, 75, 100, 500, 1000 ]
+  		  "lengthMenu": [ 25, 50, 75, 100, 500, 1000 ],
+  		  "language": {
+			"url": getLanguage(lang)
+          }
   	  } );
     
   } );
