@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.ServletRequestDataBinder;
 
@@ -34,20 +33,17 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 
 //EBOOKING
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderListContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderListRecord;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
 
-import no.systema.ebooking.filter.SearchFilterEbookingMainList;
-import no.systema.ebooking.service.EbookingMainOrderListService;
-import no.systema.ebooking.url.store.EbookingUrlDataStore;
-import no.systema.ebooking.util.EbookingConstants;
-import no.systema.ebooking.util.RpgReturnResponseHandler;
+import no.systema.tror.filter.SearchFilterTrorMainList;
+import no.systema.tror.service.TrorMainOrderListService;
+import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.TrorConstants;
+import no.systema.tror.util.RpgReturnResponseHandler;
 
 /**
  * Transport-Oppdragregistrering Order List Controller 
@@ -81,10 +77,10 @@ public class TrorMainOrderListController {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorderlist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterEbookingMainList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFind(@ModelAttribute ("record") SearchFilterTrorMainList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		this.context = TdsAppContext.getApplicationContext();
-		Collection<JsonMainOrderListRecord> outputListOpenOrders = new ArrayList<JsonMainOrderListRecord>();
+		Collection<JsonTrorOrderListRecord> outputListOpenOrders = new ArrayList<JsonTrorOrderListRecord>();
 
 		
 		Map model = new HashMap();
@@ -118,9 +114,9 @@ public class TrorMainOrderListController {
 				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
 				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
 				
-				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
-	    		successView.addObject(EbookingConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
-	    		successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+	    		successView.addObject(TrorConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
+	    		successView.addObject(TrorConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
 	    		successView.addObject("searchFilter", recordToValidate);
 				return successView;
 	    		
@@ -134,12 +130,12 @@ public class TrorMainOrderListController {
 				//--------------------------------------
 				//drop downs
 				//this.setCodeDropDownMgr(appUser, model);
-				successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+				successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 	    		//domain and search filter
-				successView.addObject(EbookingConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
+				successView.addObject(TrorConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
 				//Put list for upcomming view (PDF, Excel, etc)
 				if(outputListOpenOrders!=null){
-					session.setAttribute(session.getId() + EbookingConstants.SESSION_LIST, outputListOpenOrders);
+					session.setAttribute(session.getId() + TrorConstants.SESSION_LIST, outputListOpenOrders);
 				}
 				successView.addObject("searchFilter", recordToValidate);
 				
@@ -161,6 +157,7 @@ public class TrorMainOrderListController {
 	 * @param request
 	 * @return
 	 */
+	/*
 	
 	@RequestMapping(value="tror_mainorderlist_permanently_delete_order.do",  method={RequestMethod.GET} )
 	public ModelAndView doPermanentlyDeleteOrder(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
@@ -212,7 +209,7 @@ public class TrorMainOrderListController {
 		}
 		return successView;
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param recordToValidate
@@ -271,16 +268,18 @@ public class TrorMainOrderListController {
 	 * @param wssavd
 	 * @return
 	 */
-	private Collection<JsonMainOrderListRecord> getListOpenOrders(SystemaWebUser appUser, SearchFilterEbookingMainList recordToValidate, Map model){
-		Collection<JsonMainOrderListRecord> outputListOpenOrders = new ArrayList();
+	private Collection<JsonTrorOrderListRecord> getListOpenOrders(SystemaWebUser appUser, SearchFilterTrorMainList recordToValidate, Map model){
+		Collection<JsonTrorOrderListRecord> outputListOpenOrders = new ArrayList();
 		//------------------------------------
         //[STEP 2] get Open Orders BASE URL
     		//------------------------------------
 			
-    		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_MAIN_ORDER_LIST_URL;
+    		final String BASE_URL = TrorUrlDataStore.TROR_BASE_MAIN_ORDER_LIST_URL;
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
+    		urlRequestParams.append("&limit=500"); //make this limit dynamic
+    		
     		if(!"".equals(recordToValidate.getOrderNr())&& recordToValidate.getOrderNr()!=null ){ urlRequestParams.append("&hereff=" + recordToValidate.getOrderNr()); }
     		if(!"".equals(recordToValidate.getDate())&& recordToValidate.getDate()!=null ){ urlRequestParams.append("&hedtop=" + recordToValidate.getDate()); }
     		if(!"".equals(recordToValidate.getFromDate())&& recordToValidate.getFromDate()!=null ){ urlRequestParams.append("&todoFromDate=" + recordToValidate.getFromDate()); }
@@ -302,10 +301,10 @@ public class TrorMainOrderListController {
 	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
-	    		JsonMainOrderListContainer orderListContainer = this.ebookingMainOrderListService.getMainListContainer(jsonPayload);
-	    		model.put(EbookingConstants.DOMAIN_CONTAINER_OPEN_ORDERS, orderListContainer);
+	    		JsonTrorOrderListContainer orderListContainer = this.trorMainOrderListService.getMainListContainer(jsonPayload);
+	    		model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, orderListContainer);
 	    		if(orderListContainer!=null){
-		    		outputListOpenOrders = orderListContainer.getOrderList();
+		    		outputListOpenOrders = orderListContainer.getDtoList();
 	    		}
 	    	}		
 
@@ -317,9 +316,9 @@ public class TrorMainOrderListController {
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, SearchFilterEbookingMainList record){
+	private void setDomainObjectsInView(Map model, SearchFilterTrorMainList record){
 		//SET HEADER RECORDS  (from RPG)
-		model.put(EbookingConstants.DOMAIN_RECORD, record);
+		model.put(TrorConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -343,12 +342,12 @@ public class TrorMainOrderListController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("ebookingMainOrderListService")
-	private EbookingMainOrderListService ebookingMainOrderListService;
+	@Qualifier ("trorMainOrderListService")
+	private TrorMainOrderListService trorMainOrderListService;
 	@Autowired
 	@Required
-	public void setEbookingMainOrderListService (EbookingMainOrderListService value){ this.ebookingMainOrderListService = value; }
-	public EbookingMainOrderListService getEbookingMainOrderListService(){ return this.ebookingMainOrderListService; }
+	public void setTrorMainOrderListService (TrorMainOrderListService value){ this.trorMainOrderListService = value; }
+	public TrorMainOrderListService getTrorMainOrderListService(){ return this.trorMainOrderListService; }
 	
 	
 }
