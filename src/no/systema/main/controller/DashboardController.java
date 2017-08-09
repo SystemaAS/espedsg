@@ -308,28 +308,31 @@ public class DashboardController {
 	 */
 	private String getTomcatServerRedirectionUrl(SystemaWebUser appUser, HttpServletRequest request){
 		String retval = null;
+		String HTTP_PREFIX = "http://";
+		String HTTPS_PREFIX = "https://";
+		
 		//get host from url
 		StringBuffer url = request.getRequestURL();
 		String uri = request.getRequestURI();
 		String hostRaw = url.substring(0, url.indexOf(uri));
 		
-		//update Tomcat port if it exist from DB-login return (when a user must be redirected to the same http but different port (TOTEN-case. Multi-firm)
+		//update Tomcat port if it exists from DB-login return (when a user must be redirected to the same http but different port (TOTEN-case. Multi-firm)
 		if(appUser.getTomcatPort()!=null){
-			Integer indexHttps = hostRaw.indexOf("https:");
-			Integer indexHttp = hostRaw.indexOf("http:");
+			Integer indexHttps = hostRaw.indexOf(HTTPS_PREFIX);
+			Integer indexHttp = hostRaw.indexOf(HTTP_PREFIX);
 			//default
-			hostRaw = hostRaw.replace("http://", "");
+			hostRaw = hostRaw.replace(HTTP_PREFIX, "");
 			//https (if applicable)
 			if(indexHttps > 0){
-				hostRaw = hostRaw.replace("https://", "");
+				hostRaw = hostRaw.replace(HTTPS_PREFIX, "");
 			}
 			//now to the issue
 			Integer indx = hostRaw.indexOf(":");
 			if(indx > 0){
 				String host = hostRaw.substring(0, indx + 1);
-				String protocol = "http://";
+				String protocol = HTTP_PREFIX;
 				if(indexHttps > 0){
-					protocol = "https://";
+					protocol = HTTPS_PREFIX;
 				}
 				//http + port string
 				hostRaw = protocol + host + appUser.getTomcatPort();
