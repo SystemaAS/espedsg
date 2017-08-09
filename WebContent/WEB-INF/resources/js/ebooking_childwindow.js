@@ -13,6 +13,27 @@
 		});
   	});
   	
+  	//Vedlikehold adresser
+  	jq(function() {
+	  	jq('#deliveryAdrMaintButton').click(function() {
+	  		window.open('ebooking_childwindow_customer_addresses_vedlikehold.do?action=doInit', "deliveryAdrMaintWin", "top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no");
+	    });
+	  	
+	    jq('#deliveryAdrMaintButton').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#deliveryAdrMaintButton').click();
+			}
+	    });
+	    /*TODO
+	    jq('#todo').focus(function() {
+	    	if(jq('#todo').val()!=''){
+	    		refreshCustomValidity(jq('#todo')[0]);
+	  		}
+	  	});
+	  	*/
+	    
+  	});
+  	
   //Customer
 	jq(function() {
 		jq('#customerList').on('click', 'td', function(){

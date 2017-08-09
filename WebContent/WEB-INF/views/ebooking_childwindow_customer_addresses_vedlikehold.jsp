@@ -9,18 +9,18 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/ebooking_childwindow.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
-	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
+	<table width="90%" height="300px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="1" cellpadding="0">
 		<tr height="5"><td colspan="2"></td></tr>
 		<tr>
-			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
-			<img title="search" valign="bottom" src="resources/images/search.gif" width="24px" height="24px" border="0" alt="search">
-			<spring:message code="systema.ebooking.childwindow.customeraddresses.label.title"/>
+			<td valign="top" colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
+			<img title="search" valign="bottom" src="resources/images/vedlikehold.png" width="30px" height="30px" border="0" alt="search">
+			<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.title"/>
 			</td>
 		</tr>
 		<tr height="20"><td colspan="2"></td></tr>
 		<tr>
 		<td valign="top">
-		<form action="ebooking_childwindow_customer_addresses.do?action=doFind" name="searchCustomerForm" id="searchCustomerForm" method="post">
+		<form action="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doFind" name="searchCustomerForm" id="searchCustomerForm" method="post">
 			<input type="hidden" name="ctype" id="ctype" value="${model.container.ctype}">
 			<%-- =====================================================  --%>
           	<%-- Here we have the search [Customer] popup window --%>
@@ -75,40 +75,23 @@
 					</tr>
 					</spring:hasBindErrors>
 					--%>					
-					<tr><td><button name="deliveryAdrMaintButton" id="deliveryAdrMaintButton" class="inputFormSubmit" type="button" >Vedlikehold ...</button></td></tr>
-					<tr><td><hr size="1" width="100%"/></td></tr>								           		
-	           		<tr height="15"><td></td></tr>
+					
+													           		
+	           		<tr height="10"><td></td></tr>
 					
 					<tr class="text12" >
-					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:50em;">
+					<td valign="top" >
 					<%-- this is the datatables grid (content)--%>
-					<table id="customerAddressesList" class="display compact cell-border" width="100%">
-						<thead>
-						<tr style="background-color:#EEEEEE">
-							<th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
-		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.name"/></th>
-		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.address"/></th>
-		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.postnrStedLand"/></th>
-		                </tr> 
-		                </thead>
-		                
-		                <tbody>
-		                <c:forEach var="record" items="${model.customerAdressesList}" varStatus="counter">    
-			               <c:choose>           
-			                   <c:when test="${counter.count%2==0}">
-			                       <tr class="text11" >
-			                   </c:when>
-			                   <c:otherwise>   
-			                       <tr class="text11" >
-			                   </c:otherwise>
-			               </c:choose>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">&nbsp;${record.vadrnr}</td>
-			               <td class="text11" >&nbsp;${record.vadrna}</td>
-			               <td class="text11" >&nbsp;${record.vadrn1}&nbsp;${record.vadrn2}</td>
-			               <td class="text11" >&nbsp;${record.vadrn3}&nbsp;${record.valand}</td>
-			            </tr> 
-			            </c:forEach>
-			            </tbody>
+					<table id="fieldTable" width="90%">
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
+							</td>
+							<td class="text11">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+							</td>
+						</tr>
+						
 		            </table>
 		            </td>
 	           		</tr>

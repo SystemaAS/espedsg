@@ -377,6 +377,31 @@ public class EbookingControllerChildWindow {
 		    }
 		}
 	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_customer_addresses_vedlikehold.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitCustomerAddressesVedlikehold");
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses_vedlikehold");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
 	
 	/**
 	 * 
