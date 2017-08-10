@@ -58,7 +58,7 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 		return hesg;
 	}
 
-	public void setHesg(String heopd) {
+	public void setHesg(String hesg) {
 		this.hesg = hesg;
 	}
 

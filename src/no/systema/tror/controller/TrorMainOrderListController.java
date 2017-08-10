@@ -33,7 +33,9 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
+
 
 //EBOOKING
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
@@ -63,6 +65,7 @@ public class TrorMainOrderListController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	private StringManager strMgr = new StringManager();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -123,7 +126,7 @@ public class TrorMainOrderListController {
 		    }else{
 				//STEP [1]
 		    	StringBuffer userAvd = new StringBuffer();
-	    		outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model);
+		    	outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model);
 	    		
 	   		 	//--------------------------------------
 				//Final successView with domain objects
@@ -278,19 +281,20 @@ public class TrorMainOrderListController {
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
-    		urlRequestParams.append("&limit=500"); //make this limit dynamic
+    		urlRequestParams.append("&limit=" + appUser.getDftdg());
     		
-    		if(!"".equals(recordToValidate.getAvd())&& recordToValidate.getAvd()!=null ){ urlRequestParams.append("&heavd=" + recordToValidate.getAvd()); }
-    		if(!"".equals(recordToValidate.getOrderNr())&& recordToValidate.getOrderNr()!=null ){ urlRequestParams.append("&heopd=" + recordToValidate.getOrderNr()); }
-    		if(!"".equals(recordToValidate.getDate())&& recordToValidate.getDate()!=null ){ urlRequestParams.append("&hedtop=" + recordToValidate.getDate()); }
-    		if(!"".equals(recordToValidate.getFromDate())&& recordToValidate.getFromDate()!=null ){ urlRequestParams.append("&todoFromDate=" + recordToValidate.getFromDate()); }
-    		if(!"".equals(recordToValidate.getToDate())&& recordToValidate.getToDate()!=null ){ urlRequestParams.append("&todoToDate=" + recordToValidate.getToDate()); }
+    		if(strMgr.isNotNull(recordToValidate.getAvd())){ urlRequestParams.append("&heavd=" + recordToValidate.getAvd()); }
+    		if(strMgr.isNotNull(recordToValidate.getOrderNr())){ urlRequestParams.append("&heopd=" + recordToValidate.getOrderNr()); }
+    		if(strMgr.isNotNull(recordToValidate.getSign())){ urlRequestParams.append("&hesg=" + recordToValidate.getSign()); }
+    		if(strMgr.isNotNull(recordToValidate.getDate())){ urlRequestParams.append("&hedtop=" + recordToValidate.getDate()); }
+    		if(strMgr.isNotNull(recordToValidate.getFromDate())){ urlRequestParams.append("&todoFromDate=" + recordToValidate.getFromDate()); }
+    		if(strMgr.isNotNull(recordToValidate.getToDate())){ urlRequestParams.append("&todoToDate=" + recordToValidate.getToDate()); }
     		//From and dates
-    		if(!"".equals(recordToValidate.getSender())&& recordToValidate.getSender()!=null ){ urlRequestParams.append("&henas=" + recordToValidate.getSender()); }
-    		if(!"".equals(recordToValidate.getReceiver())&& recordToValidate.getReceiver()!=null ){ urlRequestParams.append("&henak=" + recordToValidate.getReceiver()); }
-    		if(!"".equals(recordToValidate.getFrom())&& recordToValidate.getFrom()!=null ){ urlRequestParams.append("&hesdf=" + recordToValidate.getFrom()); }
+    		if(strMgr.isNotNull(recordToValidate.getSender())){ urlRequestParams.append("&henas=" + recordToValidate.getSender()); }
+    		if(strMgr.isNotNull(recordToValidate.getReceiver())){ urlRequestParams.append("&henak=" + recordToValidate.getReceiver()); }
+    		if(strMgr.isNotNull(recordToValidate.getFrom())){ urlRequestParams.append("&hesdf=" + recordToValidate.getFrom()); }
     		//To and dates
-    		if(!"".equals(recordToValidate.getTo())&& recordToValidate.getTo()!=null ){ urlRequestParams.append("&hesdt=" + recordToValidate.getTo()); }
+    		if(strMgr.isNotNull(recordToValidate.getTo())){ urlRequestParams.append("&hesdt=" + recordToValidate.getTo()); }
     		
     		
     		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 

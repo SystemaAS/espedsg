@@ -96,8 +96,7 @@
 		</td>
 		</tr>		
 	</c:if>
-	
-	
+
 		<tr>
 		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
@@ -106,66 +105,53 @@
 			<%-- search filter component --%>
 			<tr>
 				<td>
-					
-				<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
-					 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
-				<table id="containerdatatableTable" width="100%" cellspacing="2" align="left" >
-				<tr>
-   				    <form name="searchForm" id="searchForm" action="tror_mainorderlist.do?action=doFind" method="post" >
+				<form name="searchForm" id="searchForm" action="tror_mainorderlist.do?action=doFind" method="post" >
 					<input type="hidden" name="userAvd" id="userAvd" value=''>
 					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
 					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHostWithoutHttpPrefix}'>
 					<input type="hidden" name="userHttpJQueryDocRoot" id="userHttpJQueryDocRoot" value='${user.httpJQueryDocRoot}'>
 					
-					
-			    	<td> 
-			    	<table width="100%">
-			    		<tr> 
-			    		<td>	
-			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="avd" id="avd" size="10" maxlength="15" value='${searchFilter.avd}'>
-				        </td>
-				        <td>	
-			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="sign" id="sign" size="10" maxlength="15" value='${searchFilter.sign}'>
-				        </td>
-			    		<td>	
-			        		&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font>
-			        		&nbsp;<input type="text" class="inputText" name="orderNr" id="orderNr" size="10" maxlength="15" value='${searchFilter.orderNr}'>
-				        </td>
-				        
-				        <td>	
-			        		&nbsp;<font title="date" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="date" id="date" size="10" maxlength="15" value='${searchFilter.date}'>
-				        </td>
-				        <td>	
-			        		&nbsp;<font title="fromDate/fromDate" class="text12"></font>
-				        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilter.fromDate}'>
-				        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>
-				        </td>
-				        <td>	
-			        		&nbsp;<font title="sender" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="sender" id="sender" size="10" maxlength="15" value='${searchFilter.sender}'>
-				        </td>
-			        	<td>	
-			        		&nbsp;<font title="receiver" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="receiver" id="receiver" size="10" maxlength="15" value='${searchFilter.receiver}'>
-				        </td>
-			        	<td>	
-			        		&nbsp;<font title="from" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'>
-				        </td>
-				        <td>	
-				        	&nbsp;<font title="to" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;&nbsp;&nbsp;
-				        </td>
-				        <td>	
-				        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
-				        </td>   
+				<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
+					 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
+				<table id="containerdatatableTable" width="100%" cellspacing="2" align="left" >
+				
+				<tr>
+   				    <td> 
+			    	<table width="90%">
+			    		<tr > 
+				    		<td>&nbsp;<font title="avd" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font></td>
+				        	<td>&nbsp;<font title="sign" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font></td>
+				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font></td>
+				        	<td>&nbsp;<font title="date" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></font></td>
+				        	<%--<td>&nbsp;</td> --%>
+				        	<td>&nbsp;<font title="sender" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></font></td>
+				        	<td>&nbsp;<font title="receiver" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></font></td>
+				        	<td>&nbsp;<font title="from" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></font></td>
+				        	<td>&nbsp;<font title="to" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></font></td>
+			        	</tr>
+			        	<tr>
+				        	<td><input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value='${searchFilter.avd}'></td>
+					        <td><input type="text" class="inputText" name="sign" id="sign" size="5" maxlength="3" value='${searchFilter.sign}'></td>
+				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilter.orderNr}'></td>
+					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilter.date}'></td>
+					        <%--
+					        <td nowrap>	
+				        		<font title="fromDate/fromDate" class="text12"></font>
+					        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilter.fromDate}'>
+					        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>
+					        </td>
+					         --%>
+					        <td><input type="text" class="inputText" name="sender" id="sender" size="10" maxlength="15" value='${searchFilter.sender}'></td>
+				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="10" maxlength="15" value='${searchFilter.receiver}'></td>
+				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'></td>
+					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;</td>
+					        <td>	
+					        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
+					        </td>   
 				        </tr>
 				    </table>    
 					</td>
-					</form>
+					
 				</tr>
 				<%--
 				<c:if test="${not empty model.containerOpenOrders.maxWarning}">
@@ -200,7 +186,9 @@
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Merk Pdf&nbsp;</td>
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Merk Zpl&nbsp;</td>
 	                    <%-- END Print --%>
+	                    <%-- Transmission 
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.transmit"/></th>
+	                    --%>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delete"/></th>
 	                    
 	                </tr> 
@@ -342,6 +330,7 @@
 	                    </td>
 	                    <%-- END Print --%>
 		               
+		               <%--
 		               <td align="center" class="text11MediumBlue">
 		               		<c:choose>
 			               		<c:when test="${Xrecord.status == 'E'}">
@@ -372,7 +361,8 @@
 			               		</c:otherwise>
 		               		</c:choose>
 		               </td>
-		               
+		                --%>
+		                
 		               <td align="center" class="text11MediumBlue">
             		  	 	<a sytle="cursor:pointer;" id="hereff_${Xrecord.hereff}@heunik_${Xrecord.unik}" title="delete" onClick="TODOdoPermanentlyDeleteOrder(this)" tabindex=-1>
 			               		<img src="resources/images/delete.gif" border="0" alt="remove">

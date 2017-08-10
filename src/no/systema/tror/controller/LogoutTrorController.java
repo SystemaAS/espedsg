@@ -27,7 +27,7 @@ public class LogoutTrorController {
 	
 	
 	@RequestMapping(value="logoutTror.do", method=RequestMethod.GET)
-	public ModelAndView logoutTds(HttpSession session, HttpServletResponse response){
+	public ModelAndView logoutTror(HttpSession session, HttpServletResponse response){
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		ModelAndView view = null;
 		
