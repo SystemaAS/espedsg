@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
-public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
+public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	
 	private String hest;// TEGN            1       1         1        Begge    Statuskode      
 	private String heur; //    TEGN            1       1         2        Begge    Delsystem-kode    
