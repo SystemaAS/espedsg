@@ -27,6 +27,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.validator.LoginValidator;
 
 //ebooking
@@ -68,7 +69,7 @@ public class EbookingControllerChildWindow {
 	private static final Logger logger = Logger.getLogger(EbookingControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private DateTimeManager dateTimeManager = new DateTimeManager();
-	
+	private StringManager strMgr = new StringManager();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -396,6 +397,42 @@ public class EbookingControllerChildWindow {
 			return this.loginView;
 			
 		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="ebooking_childwindow_customer_addresses_vedlikehold.do", params="action=doUpdate",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doUpdateCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doUpdateCustomerAddressesVedlikehold");
+		Map model = new HashMap();
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		
+		//check if it is a delete action
+		String removeFlag = request.getParameter("rm");
+		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses_vedlikehold");
+		if(strMgr.isNotNull(removeFlag)){
+			successView = new ModelAndView("redirect:ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr());
+		}
+		
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			//TODO massor med Create or Update or Delete
+			//väntar på JOVOs CRUD
+			//...
+			
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
 			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);

@@ -710,133 +710,10 @@
             <tr>
             		<td>
 	        			<table width="98%" id="containerdatatableTable" cellspacing="2" align="left" >
-				 		<tr height="6"><td></td></tr>
-				 		<%-- UPDATE LINEs SECTION --%>
-				 		<tr>
-							<td >
-				 				<table id="tblItemLines" class="display compact cell-border" >
-								<thead>
-						 		<tr style="background-color:#DDDDDD" >
-						 			<th align="center" class="text11"><spring:message code="systema.tror.orders.form.detail.update.label.update"/></th>
-							 		<th align="left" class="text11"><span title="fvlinr">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.linenr"/></span></th>
-							 		<th align="left" class="text11"><span title="fmmrk1/hegm1(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></th>
-						 			<th align="right" class="text11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></th>
-						 			<th align="left" class="text11"><span title="fvpakn">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></th>
-						 			<th align="left" class="text11"><span title="fvvt/hevs1(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.goodsDesc"/></span></th>
-						 			<th align="right" class="text11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.weight"/>&nbsp;</span></th>
-						 			<th align="right" class="text11"><span title="fvlen">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.length"/>&nbsp;</span></th>
-						 			<th align="right" class="text11"><span title="fvbrd">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.width"/>&nbsp;</span></th>
-						 			<th align="right" class="text11"><span title="fvhoy">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.height"/>&nbsp;</span></th>
-						 			<th align="right" class="text11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.m3"/>&nbsp;</span></th>
-						 			<th align="right" class="text11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></th>
-						 			<th width="3%" align="left" valign="bottom" class="tableHeaderFieldFirst10"><span title="FARLIG GODS ffunnr">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.unNr"/>&nbsp;</span></th>
-						 			<th width="3%" align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffembg">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.emg"/>&nbsp;</span></th>
-						 			<th width="3%" align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffindx">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.emg.index"/>&nbsp;</span></th>
-						 			<th width="5%" align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffantk">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.ant2"/>&nbsp;</span></th>
-						 			<th width="5%" align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffante">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.mengd"/>&nbsp;</span></th>
-						 			<th width="5%" align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffenh">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.unit"/>&nbsp;</span></th>
-						 			<th align="right" valign="bottom" class="tableHeaderField10"><span title="FARLIG GODS ffpoen/hepoen(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.adr"/>&nbsp;</span></th>
-						 			<%--<th align="center"  class="text11"><span title="Farlig gods">&nbsp;Farlig gods&nbsp;</span></th> --%>
-						 			<th align="center" class="text11"><span title=""><spring:message code="systema.tror.orders.form.detail.update.label.remove"/></span></th>										 			
-						 		</tr>
-						 		</thead>
-						 		<tbody>
-						 		
-						 		<c:forEach items="${model.record.fraktbrevList}" var="fraktbrevRecord" varStatus="counter">
-						 			<c:if test="${not empty fraktbrevRecord.fvlinr}">
-						 				<c:set var="upperCurrentItemlineNr" scope="request" value="${fraktbrevRecord.fvlinr}"/>
-						 				<c:set var="totalNumberOfLines" scope="request" value="${counter.count}"/>
-						 			</c:if>
-						 			
-							 		<tr >
-							 			<%-- lineNr will always be sent(to the controller) in case this is a new line (when fvlinr=null) --%>
-						 				<input type="hidden" name="lineNr_${counter.count}" id="lineNr_${counter.count}" value="${counter.count}" >   
-							 			<input type="hidden" name="fvlinr_${counter.count}" id="fvlinr_${counter.count}" value="${fraktbrevRecord.fvlinr}" >
-							 			
-							 			<td align="center" class="text11" >
-							 				<a tabindex=-1 id="recordUpdate_${fraktbrevRecord.fvlinr}" href="#" onClick="getItemData(this);">
-					               				<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update line">
-						               		</a>
-							 			</td>
-							 			<td align="center" class="text11" nowrap>${counter.count}</td>
-					               		<td align="left" class="text11" nowrap>${fraktbrevRecord.fmmrk1}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvant}</td>
-						 				<td align="left" class="text11" nowrap>${fraktbrevRecord.fvpakn}</td>
-						 				<td align="left" class="text11" nowrap>${fraktbrevRecord.fvvt}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvvkt}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvlen}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvbrd}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvhoy}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvvol}</td>
-						 				<td align="right" class="text11" nowrap>${fraktbrevRecord.fvlm}</td>
-						 				
-						 				<td width="3%" align="left" class="tableCellDangerousGoods" nowrap >${fraktbrevRecord.ffunnr}</td>
-						 				<td width="3%" align="right" class="tableCellDangerousGoods" >${fraktbrevRecord.ffembg}</td>
-						 				<td width="3%" align="right" class="tableCellDangerousGoods" >${fraktbrevRecord.ffindx}</td>
-						 				<td width="5%" align="right" class="tableCellDangerousGoods" >${fraktbrevRecord.ffantk}</td>
-						 				<td width="5%" align="right" class="tableCellDangerousGoods" >${fraktbrevRecord.ffante}</td>
-						 				<td width="5%" align="right" class="tableCellDangerousGoods">${fraktbrevRecord.ffenh}</td>
-						 				<td align="right" class="tableCellDangerousGoods" >${fraktbrevRecord.ffpoen}</td>
-						 				
-					 					<td width="2%" align="center" class="text11" >
-						               		<c:if test="${not empty fraktbrevRecord.fvlinr}">
-						               			<c:if test="${ model.record.singleLine == 'N' }">
-							               			<a id="deleteLine_${counter.count}" onClick="deleteItemLine(this);">
-							               				<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               		</a>
-							               		</c:if>
-						               		</c:if> 	
-							 			</td>
-						 			</tr>
-					 			</c:forEach>					 			
-					 			</tbody>
-					 			<tfoot>
-					 				<tr style="background-color:#DDDDDD" >	
-									
-									<td align="center" class="text11"><b>TOT</b></td>
-									<td align="left" class="text11"></td>
-									<td align="left" class="text11">${model.record.hegm1}</td>
-						 			<td align="right" class="text11">${model.record.hent}</td>
-						 			<td align="left" class="text11">&nbsp;</td>
-						 			<td align="left" class="text11">${model.record.hevs1}</td>
-						 			<td align="right" class="text11">${model.record.hevkt}</td>
-						 			<td align="right" class="text11">&nbsp;</td>
-						 			<td align="right" class="text11">&nbsp;</td>
-						 			<td align="right" class="text11">&nbsp;</td>
-						 			<td align="right" class="text11">${model.record.hem3}</td>
-						 			<td align="right" class="text11"><span title="helm"></span>${model.record.helm}</td>
-					 				<%--
-						 			<td align="right" class="text11"><span title="helmla">&nbsp;</span>
-						 				<input onBlur="checkHelmla(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10Bold" style="text-align:right;" name="helmla" id="helmla" size="5" maxlength="5" value="${model.record.helmla}">
-						 			</td>
-						 			 --%>
-						 			<td width="3%" align="left" class="text11">&nbsp;</td>
-						 			<td width="3%" align="right" class="text11">&nbsp;</td>
-						 			<td width="3%" align="right" class="text11">&nbsp;</td>
-						 			<td width="5%" align="right" class="text11">&nbsp;</td>
-						 			<td width="5%" align="right" class="text11">&nbsp;</td>
-						 			<td width="5%" align="right" class="text11">&nbsp;</td>
-						 			<%--heopen = sum of ADR field (Dang.goods) --%>
-						 			<td align="right" class="text11"><span title="hepoen">&nbsp;</span>${model.record.hepoen}</td>
-						 			
-						 			<td width="2%" align="right" class="text11" ></td>
-						 			</tr>
-					 			</tfoot>
-					 			</table>
-							</td>
-						</tr>
-						<tr height="1">
-							<td >
-								<input type="hidden" name="totalNumberOfLines" id="totalNumberOfLines" value="${totalNumberOfLines}" >
-				 				<%--this hidden field is crucial for ADD NEW line functionality. We will send the new line = upperCurrentItemlineNr + 1 --%>
-								<input type="hidden" id="upperCurrentItemlineNr" name="upperCurrentItemlineNr" value="${upperCurrentItemlineNr}">
-							</td>
-						</tr>
-						
+
 						<%-- <c:if test="${not empty model.record.heunik}"> --%>
 							<tr height="10"><td align="left" ></td></tr>
 							
-					 		<%-- CREATE NEW / UPDATE LINE only when the ORDER has been saved first (heunik!=null) --%>
 					 		<tr >
 								<td align="bottom" colspan="3" class="text11">&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" width="10px" height="10px" border="0" alt="update item line">
 								&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.itemLine"/>
@@ -844,115 +721,69 @@
 							</tr>
 					 		<tr>
 								<td colspan="2" style="padding: 3px;">
-									<table align="left" border="0" style="width:100%; background-color:#778899">
+									<table align="left" border="0" style="width:100%;" >
 									<tr class="tableHeaderField10" >
 										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">&nbsp;Lnr</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="fmmrk1">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvant/hent(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
+							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hegm1/hegm2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hent">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
 							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvvt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.goodsDesc"/></span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvkt/hevkt(Tot)">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlen">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.length"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvbrd">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.width"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvhoy">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.height"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvvol/hem3(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
-							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="fvlm/helm(Tot)">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="Farlig gods">&nbsp;Farlig gods&nbsp;</span></td>
-						 			
+							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hevs1/hevs2">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.goodsDesc"/></span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hevkt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hem3">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
+							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="helm">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
 							 		</tr>
-							 		<tr >
-							 			<td align="center" >&nbsp;
-											<input title="from model" tabindex=-1 class="text12BoldLightGreenForItemLinenrBookingBg" readonly type="text" name="fvlinr" id="fvlinr" size="3" value='${model.record.fraktbrevRecord.fvlinr}'>
+							 		<tr class="tableRow">
+							 			<td align="center" class="tableCellFirst" >&nbsp;
+											<input title="from model" tabindex=-1 class="inputTextMediumBlue11" readonly type="text" name="fvlinr" id="fvlinr" size="3" value='${model.record.fraktbrevRecord.fvlinr}'>
 										</td>	
-							 			<td align="center" class="text11" nowrap>
-						 					<input type="text" class="inputTextMediumBlue10" name="fmmrk1" id="fmmrk1" size="16" maxlength="15" value="${model.record.fraktbrevRecord.fmmrk1}">
+							 			<td align="left" class="tableCell" nowrap>
+						 					<input type="text" class="inputTextMediumBlue11" name="hegm1" id="hegm1" size="16" maxlength="15" value="${model.record.hegm1}">
 						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="fvant" id="fvant" size="7" maxlength="7" value="${model.record.fraktbrevRecord.fvant}">
+						 				<td align="right" class="tableCell" nowrap>
+							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
 						 				</td>
-						 				<td align="center" class="text11" nowrap>
-							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue10" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${model.record.fraktbrevRecord.fvpakn}">
+						 				<td align="center" class="tableCell" nowrap>
+							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${model.record.fraktbrevRecord.fvpakn}">
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
 						 				</td>
-						 				<td align="center" class="text11" nowrap>
-							 				<input type="text" class="inputTextMediumBlue10MandatoryField" name="fvvt" id="fvvt" size="20" maxlength="25" value="${model.record.fraktbrevRecord.fvvt}">
+						 				<td align="left" class="tableCell" nowrap>
+							 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="20" maxlength="25" value="${model.record.hevs1}">
 						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10MandatoryField" style="text-align:right;" name="fvvkt" id="fvvkt" size="5" maxlength="9" value="${model.record.fraktbrevRecord.fvvkt}">
-						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onBlur="calculateVolume(this);" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="fvlen" id="fvlen" size="4" maxlength="4" value="${model.record.fraktbrevRecord.fvlen}">
-						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onBlur="calculateVolume(this);" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="fvbrd" id="fvbrd" size="4" maxlength="4" value="${model.record.fraktbrevRecord.fvbrd}">
-						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onBlur="calculateVolume(this);validateNewItemLine();" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="fvhoy" id="fvhoy" size="4" maxlength="4" value="${model.record.fraktbrevRecord.fvhoy}">
-						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="fvvol" id="fvvol" size="6" maxlength="8" value="${model.record.fraktbrevRecord.fvvol}">
-						 				</td>
-						 				<td align="right" class="text11" nowrap>
-							 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="fvlm" id="fvlm" size="4" maxlength="5" value="${model.record.fraktbrevRecord.fvlm}">
+						 				<td align="right" class="tableCell" nowrap>
+							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="10" maxlength="9" value="${model.record.hevkt}">
 						 				</td>
 						 				
-						 				<td align="center" class="tableCell" >
-							 				<button name="dangerousGoodsNewLineButton" class="buttonGray" type="button" onClick="showPop('dangerousGoodsNewLine');" >Mere...</button>
-							 					<div class="text11" style="position: relative;" align="left">
-							 					<span style="position:absolute;left:-350px;top:-25px;" id="dangerousGoodsNewLine" class="popupWithInputText"  >
-								           		<table>
-								        			<tr>
-								        				<td align="center" valign="bottom" class="tableHeaderField11"><span title="ffunnr">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.unNr"/>&nbsp;</span></td>
-											 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffembg">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.emg"/>&nbsp;</span></td>
-											 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffindx">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.emg.index"/>&nbsp;</span></td>
-											 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffantk">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.ant2"/>&nbsp;</span></td>
-											 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffante">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.mengd"/>&nbsp;</span></td>
-											 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="ffenh">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.unit"/>&nbsp;</span></td>
-								        			</tr>
-								        			<tr>
-								        				<td align="center" class="tableCellDangerousGoods" nowrap>
-											 				<input onBlur="validateDangerousGoodsUnnrNewLine();"  type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffunnr" id="ffunnr" size="5" maxlength="4" value="${model.record.fraktbrevRecord.ffunnr}">
-											 				<a tabindex=0 id="ffunnrIdLinkNewLine" onClick="searchDangerousGoodsNewLine(this);">
-					 											<img id="imgUnnrSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
-					 										</a>
-										 				</td>
-										 				<td align="right" class="tableCellDangerousGoods" nowrap>
-											 				<input onBlur="validateDangerousGoodsUnnrNewLine();" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffembg" id="ffembg" size="5" maxlength="3" value="${model.record.fraktbrevRecord.ffembg}">
-										 				</td>
-										 				<td align="right" class="tableCellDangerousGoods" nowrap>
-											 				<input onBlur="validateDangerousGoodsUnnrNewLine();" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffindx" id="ffindx" size="2" maxlength="2" value="${model.record.fraktbrevRecord.ffindx}">
-										 				</td>
-										 				<td align="right" class="tableCellDangerousGoods" nowrap>
-											 				<input onBlur="validateDangerousGoodsUnnrNewLine();" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffantk" id="ffantk" size="5" maxlength="5" value="${model.record.fraktbrevRecord.ffantk}">
-										 				</td>
-										 				<td align="right" class="tableCellDangerousGoods" nowrap>
-											 				<input onBlur="validateDangerousGoodsUnnrNewLine();" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue10" style="text-align:right;" name="ffante" id="ffante" size="7" maxlength="7" value="${model.record.fraktbrevRecord.ffante}">
-										 				</td>
-										 				<input type="hidden" id="ownAdrFaktNewLine" name="ownAdrFaktNewLine" value="">
-										 				<td align="right" class="tableCellDangerousGoods" nowrap>
-											 				<select onChange="validateDangerousGoodsUnnrNewLine();" name="ffenh" id="ffenh">
-									 							<option value="">?</option>
-									 							<option value="KG">KG</option>
-									 							<option value="LTR">LTR</option>
-									 							<option value="GR">GR</option>
-															</select>
-										 				</td>
-										 				<td class="text11"><button name="dangerousGoodsNewLineButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('dangerousGoodsNewLine');">&nbsp;Ok</button> 
-														</td>
-								        			</tr>
-						 						</table>
-						 						</span>
-						 						</div>
-						 				</td>		
-						 				<%-- OBSOLETE: the functionality has been moved to the form post "Save" 
-						 				<c:if test="${not empty model.record.status}">
-						 					<td align="center"><input onClick="updateItemLine();" class="inputFormSubmit11Slim" type="button" value='<spring:message code="systema.tror.orders.form.detail.update.saveLine"/>'></td>
-						 				</c:if>
-						 				--%>
+						 				<td align="right" class="tableCell" nowrap>
+							 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="hem3" id="hem3" size="12" maxlength="11" value="${model.record.hem3}">
+						 				</td>
+						 				<td align="right" class="tableCell" nowrap>
+							 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="helm" id="helm" size="8" maxlength="7" value="${model.record.helm}">
+						 				</td>
 						 			</tr>
-						 			<tr></tr>
+						 			<tr class="tableRow">
+							 			<td align="center" class="tableCellFirst">&nbsp;
+											<input title="from model" tabindex=-1 class="inputTextMediumBlue11" readonly type="text" name="fvlinr" id="fvlinr" size="3" value='${model.record.fraktbrevRecord.fvlinr}'>
+										</td>	
+							 			<td align="left" class="tableCell" nowrap>
+						 					<input type="text" class="inputTextMediumBlue11" name="hegm2" id="hegm2" size="16" maxlength="15" value="${model.record.hegm2}">
+						 				</td>
+						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
+						 				<td align="center" class="tableCell" nowrap>
+							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${model.record.fraktbrevRecord.fvpakn}">
+							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
+	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
+	 										</a>
+						 				</td>
+						 				<td align="left" class="tableCell" nowrap>
+						 					<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs2" id="hevs2" size="20" maxlength="25" value="${model.record.hevs2}">
+						 				</td>
+						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
+						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
+						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
+						 			</tr>
+						 			
 						 			</table>
 					 			</td>
 				 			</tr>

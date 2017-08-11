@@ -281,7 +281,10 @@ public class TrorMainOrderListController {
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
-    		urlRequestParams.append("&limit=" + appUser.getDftdg());
+    		//user parameter dftdg (go esped-->8 (parameters). If not present it will default to 7 days
+    		if(strMgr.isNotNull(appUser.getDftdg())){
+    			urlRequestParams.append("&dftdg=" + appUser.getDftdg());
+    		}
     		
     		if(strMgr.isNotNull(recordToValidate.getAvd())){ urlRequestParams.append("&heavd=" + recordToValidate.getAvd()); }
     		if(strMgr.isNotNull(recordToValidate.getOrderNr())){ urlRequestParams.append("&heopd=" + recordToValidate.getOrderNr()); }

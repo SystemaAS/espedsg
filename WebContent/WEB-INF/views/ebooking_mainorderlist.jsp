@@ -129,7 +129,7 @@
 			        		&nbsp;<font title="date" class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.date"/></font>
 				        	&nbsp;<input type="text" class="inputText" name="date" id="date" size="10" maxlength="15" value='${searchFilter.date}'>
 				        </td>
-				        <td>	
+				        <td nowrap>	
 			        		&nbsp;<font title="fromDate/fromDate" class="text12"></font>
 				        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilter.fromDate}'>
 				        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>

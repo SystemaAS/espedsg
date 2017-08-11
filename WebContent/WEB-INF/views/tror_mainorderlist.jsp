@@ -117,7 +117,7 @@
 				
 				<tr>
    				    <td> 
-			    	<table width="90%">
+			    	<table width="95%">
 			    		<tr > 
 				    		<td>&nbsp;<font title="avd" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font></td>
 				        	<td>&nbsp;<font title="sign" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font></td>
@@ -141,8 +141,8 @@
 					        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>
 					        </td>
 					         --%>
-					        <td><input type="text" class="inputText" name="sender" id="sender" size="10" maxlength="15" value='${searchFilter.sender}'></td>
-				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="10" maxlength="15" value='${searchFilter.receiver}'></td>
+					        <td><input type="text" class="inputText" name="sender" id="sender" size="15" maxlength="15" value='${searchFilter.sender}'></td>
+				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="15" maxlength="15" value='${searchFilter.receiver}'></td>
 				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'></td>
 					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;</td>
 					        <td>	

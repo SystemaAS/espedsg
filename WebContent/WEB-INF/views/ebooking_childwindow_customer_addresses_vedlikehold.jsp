@@ -9,19 +9,18 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/ebooking_childwindow.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
-	<table width="90%" height="300px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="1" cellpadding="0">
+	<table width="90%" height="300px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr height="5"><td colspan="2"></td></tr>
 		<tr>
 			<td valign="top" colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
-			<img title="search" valign="bottom" src="resources/images/vedlikehold.png" width="30px" height="30px" border="0" alt="search">
+			<img title="search" valign="bottom" src="resources/images/vedlikehold.png" width="40px" height="40px" border="0" alt="search">
 			<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.title"/>
 			</td>
 		</tr>
 		<tr height="20"><td colspan="2"></td></tr>
 		<tr>
 		<td valign="top">
-		<form action="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doFind" name="searchCustomerForm" id="searchCustomerForm" method="post">
-			<input type="hidden" name="ctype" id="ctype" value="${model.container.ctype}">
+			
 			<%-- =====================================================  --%>
           	<%-- Here we have the search [Customer] popup window --%>
           	<%-- =====================================================  --%>
@@ -81,23 +80,74 @@
 					
 					<tr class="text12" >
 					<td valign="top" >
-					<%-- this is the datatables grid (content)--%>
-					<table id="fieldTable" width="90%">
+					<%-- form --%>
+					<form action="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate" name="searchAdressMaintForm" id="searchAdressMaintForm" method="post">
+					<input type="hidden" name="ctype" id="ctype" value="${model.container.ctype}">
+					<table id="fieldTable" >
 						<tr>
 							<td class="text11">
 								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
 							</td>
 							<td class="text11">
 								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+								<font class="text16RedBold" >*</font>
 							</td>
 						</tr>
-						
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.name"/></span>
+							</td>
+							<td class="text11">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+								<font class="text16RedBold" >*</font>
+							</td>
+						</tr>
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.address1"/></span>
+							</td>
+							<td class="text11">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+								<font class="text16RedBold" >*</font>
+							</td>
+						</tr>
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.address2"/></span>
+							</td>
+							<td class="text11">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+							</td>
+						</tr>
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.postnrSted"/></span>
+								
+							</td>
+							<td class="text11">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="todo" id="todo" size="35" maxlength="30" value="${Xmodel.record.todo}">
+								<font class="text16RedBold" >*</font>
+							</td>
+						</tr>
+						<tr>
+							<td class="text11">
+								<span title="todo"><spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.countryCode"/></span>
+							</td>
+							<td class="text11">
+								<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="3" maxlength="2" value="${Xmodel.record.todo}">
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>
+								<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
+							</td>
+						</tr>	
 		            </table>
+		            </form>
 		            </td>
 	           		</tr>
         			</table>
-				
-		</form>	
 		</td>
 		</tr>
 	</table> 

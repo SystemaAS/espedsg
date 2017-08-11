@@ -72,6 +72,9 @@ public class JsonSystemaUserContainer {
 	public void setTcPort(String value) {  this.tcPort = value; }
 	public String getTcPort() { return this.tcPort;}
 	
+	private String dftdg = null;
+	public void setDftdg(String value) {  this.dftdg = value; }
+	public String getDftdg() { return this.dftdg;}
 	
 	private Collection<JsonSystemaUserRecord> menuList;
 	public void setMenuList(Collection<JsonSystemaUserRecord> value){ this.menuList = value; }

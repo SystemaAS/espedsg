@@ -42,12 +42,12 @@
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
-    <table class="noBg" width="1480" border="0" cellspacing="0" cellpadding="0">
+    <table class="noBg" width="1300" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 	 	<tr class="clazzTdsBanner" id="tdsBanner" style="visibility:visible">
 	 	 	<%-- class="grayTitanBg" --%>
 		 	<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-	    			 <table width="1480" border="0" cellspacing="0" cellpadding="0">
+	    			 <table width="1300" border="0" cellspacing="0" cellpadding="0">
 	    			 	<tr>
 				        	<td>&nbsp;</td>
 				        	<td>&nbsp;</td>
@@ -110,14 +110,14 @@
 		
 		<tr >
 			<td height="23" class="tabThinBorderLightSlateGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1480" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1300" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------------------- --%>
 			    			<%-- Workflow Shipping trip MENU --%>
 			    			<%-- ---------------------------
 			    			<a tabindex=-1 href="transportdisp_workflow.do?action=doFind"> --%>
-			    			<a tabindex=-1 href="ebooking_mainorderlist.do?action=doFind">
+			    			<a tabindex=-1 href="tror_mainorderlist.do?lang=${user.usrLang}&action=doFind">
 			    				&nbsp;<font 
 			    				<c:choose>           
 		                   			<c:when test="${user.activeMenu=='TROR'}">
@@ -169,7 +169,7 @@
 						        </span>   		
 			    				<font class="text11User" >${user.user}&nbsp;</font>${user.usrLang}</font>
 			    				<font color="#FFFFFF"; style="font-weight: bold;">&nbsp;|&nbsp;&nbsp;</font>
-				    			<a tabindex=-1 href="logoutEbooking.do">
+				    			<a tabindex=-1 href="logoutTror.do">
 				    				<font class="headerMenuGreen"><img src="resources/images/home.gif" border="0">&nbsp;
 				    					<font class="text11User" ><spring:message code="dashboard.menu.button"/>&nbsp;</font>
 				    				</font>

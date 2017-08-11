@@ -75,7 +75,7 @@
 					</tr>
 					</spring:hasBindErrors>
 					--%>					
-					<tr><td><button name="deliveryAdrMaintButton" id="deliveryAdrMaintButton" class="inputFormSubmit" type="button" >Vedlikehold ...</button></td></tr>
+					<tr><td>&nbsp;&nbsp;<button name="deliveryAdrMaintButton" id="deliveryAdrMaintButton" class="inputFormSubmit" type="button" ><spring:message code="systema.ebooking.childwindow.customeraddresses.label.createNewButton"/></button></td></tr>
 					<tr><td><hr size="1" width="100%"/></td></tr>								           		
 	           		<tr height="15"><td></td></tr>
 					
@@ -87,8 +87,11 @@
 						<tr style="background-color:#EEEEEE">
 							<th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.name"/></th>
+		                    <th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.update"/></th>
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.address"/></th>
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.postnrStedLand"/></th>
+		                    <th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.delete"/></th>
+		                    
 		                </tr> 
 		                </thead>
 		                
@@ -102,10 +105,29 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">&nbsp;${record.vadrnr}</td>
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">
+			               	 <img style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" ><font class="text12SkyBlue" >&nbsp;${record.vadrnr}</font>
+			               </td>
 			               <td class="text11" >&nbsp;${record.vadrna}</td>
+			               <td width="2%" align="center" class="text11" >&nbsp;
+			               		<%--
+			               		<a style="cursor:pointer;" id="@opd_${Xrecord.hereff}@alinkOpenOrdersListId_${counter.count}"
+				           			onClick="setBlockUI(this);" href="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate">
+	    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+    		    				</a>
+    		    				--%>
+    		    				<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate','deliveryAdrMaintWin','top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no')">
+		 							<img id="imgDelAdrUpdate" style="vertical-align:bottom; cursor:pointer;" src="resources/images/update.gif" border="0" alt="update">
+								</a>
+			               </td>
 			               <td class="text11" >&nbsp;${record.vadrn1}&nbsp;${record.vadrn2}</td>
 			               <td class="text11" >&nbsp;${record.vadrn3}&nbsp;${record.valand}</td>
+			               <td width="2%" align="center" class="text11" >&nbsp;
+			               		<a style="cursor:pointer;" id="@opd_${Xrecord.hereff}@alinkOpenOrdersListId_${counter.count}"
+				           			onClick="setBlockUI(this);" href="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate&rm=1">
+	    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/delete.gif" border="0" alt="delete">
+    		    				</a>
+			               </td>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

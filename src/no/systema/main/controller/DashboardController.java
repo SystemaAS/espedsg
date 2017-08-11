@@ -397,7 +397,7 @@ public class DashboardController {
 		appUser.setSystemaLogo(jsonSystemaUserContainer.getSystemaLogo());
 		appUser.setSignatur(jsonSystemaUserContainer.getSignatur());
 		appUser.setFiland(jsonSystemaUserContainer.getFiland());
-		
+		appUser.setDftdg(jsonSystemaUserContainer.getDftdg());
 		//DEBUG
 		/*logger.info("[INFO] user logo:" + appUser.getLogo() );
 		logger.info("[INFO] user banner:" + appUser.getBanner() );
