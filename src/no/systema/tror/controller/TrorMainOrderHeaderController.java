@@ -51,9 +51,11 @@ import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContai
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
-import no.systema.ebooking.util.manager.CodeDropDownMgr;
+import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
-//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
+
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
@@ -64,7 +66,7 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
-import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.ebooking.validator.OrderHeaderValidator;
 
@@ -114,8 +116,6 @@ public class TrorMainOrderHeaderController {
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
-		boolean isValidItemLineRecord = true;
-		
 		
 		//TODO String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
 		
@@ -206,7 +206,8 @@ public class TrorMainOrderHeaderController {
 			//--------------
 			//Fetch record
 			//--------------
-			if(isValidRecord){
+			if(strMgr.isNotNull(recordToValidate.getHeopd()) && strMgr.isNotNull(recordToValidate.getHeavd()) ){
+			//if(isValidRecord){
 				logger.info("HEOPD:" + recordToValidate.getHeopd());
 				JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 				//check if user is allowed to choose invoicee (fakturaBetalare)
@@ -975,12 +976,10 @@ public class TrorMainOrderHeaderController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		/*
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.ebookingDropDownListPopulationService,
-				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringFrankatur(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringOppdragsType(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
-		*/
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
+		//this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringFrankatur(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringOppdragsType(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		
 	}
 	
 	private void setDropDownsFromFiles(Map<String, Object> model){
@@ -1066,12 +1065,12 @@ public class TrorMainOrderHeaderController {
 	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
 	
 	
-	@Qualifier ("ebookingDropDownListPopulationService")
-	private EbookingDropDownListPopulationService ebookingDropDownListPopulationService;
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
 	@Autowired
 	@Required
-	public void setEbookingDropDownListPopulationService (EbookingDropDownListPopulationService value){ this.ebookingDropDownListPopulationService = value; }
-	public EbookingDropDownListPopulationService getEbookingDropDownListPopulationService(){ return this.ebookingDropDownListPopulationService; }
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
 	
 	@Qualifier ("notisblockService")

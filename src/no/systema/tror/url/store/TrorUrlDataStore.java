@@ -114,22 +114,23 @@ public class TrorUrlDataStore {
 	//---------------------------------------------------
 	static public String EBOOKING_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG005R.pgm"; 
 	//http://gw.systema.no/sycgip/TNOG005R.pgm?user=OSCAR&typ=2 //country list
+	**/
 	
 	//---------------------------------------------------
 	//[1.1] GENERAL FUNCTIONS eg.(signature, other...) 
 	//---------------------------------------------------
-	static public String EBOOKING_GENERAL_SIGN_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE24R.pgm"; 
-	//http://gw.systema.no/sycgip/TJGE24R.pgm?user=JOVO	
+	//http://localhost:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=DELSYS
+	static public String TROR_GENERAL_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKOFAST.do";
 	
-	static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQOTYB.pgm";
 	//http://gw.systema.no/sycgip/TJINQOTYB.pgm?user=JOVO
+	//static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQOTYB.pgm";
 	
-	static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQFRAB.pgm";
 	//http://gw.systema.no/sycgip/TJINQFRAB.pgm?user=JOVO
+	//static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQFRAB.pgm";
 	
-	static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE002.pgm";
 	//http://gw.systema.no/sycgip/TJGE002.pgm?user=JOVO&avd=75&opd=19
-	**/
+	//static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJGE002.pgm";
+	
 	
 	
 }

@@ -11,6 +11,10 @@ import no.systema.main.context.TdsServletContext;
 import no.systema.main.util.io.TextFileReaderService;
 import no.systema.tror.util.TrorConstants;
 
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
+import no.systema.tror.mapper.jsonjackson.JsonTrorCodeMapper;
+
 
 
 
@@ -33,6 +37,7 @@ public class TrorDropDownListPopulationService {
 	
 	private final String FILE_RESOURCE_PATH = TrorConstants.RESOURCE_FILES_PATH;
 	private TextFileReaderService textFileReaderService = new TextFileReaderService();
+	private JsonTrorCodeMapper codeMapper = new JsonTrorCodeMapper(); 
 	
 	/**
 	 * Years
@@ -79,6 +84,27 @@ public class TrorDropDownListPopulationService {
 	}
 	
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	/*
+	public JsonTransportDispSignatureContainer getSignContainer(String utfPayload) throws Exception{
+		return this.signMapper.getContainer(utfPayload);
+	}*/
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	
+	public JsonTrorCodeContainer getContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getContainer(utfPayload);
+	}
 	
 	
 }
