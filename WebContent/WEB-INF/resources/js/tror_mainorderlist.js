@@ -73,7 +73,9 @@
 		  modal: true
 	  });
   });
+  
   //Present dialog box onClick (href in parent JSP)
+  /*NOT RELEVANT in this module ?
   jq(function() {
 	  jq("#createNewOrderTabIdLink").click(function() {
 		  //setters (add more if needed)
@@ -110,7 +112,7 @@
   //-----------------------------
   //END Create new order - Dialog
   //-----------------------------
-  
+  */
   
 //---------------------------------------
   //DELETE Order

@@ -40,30 +40,34 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.util.StringManager;
+
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
 
 
 //eBooking
-import no.systema.ebooking.url.store.EbookingUrlDataStore;
-import no.systema.ebooking.util.EbookingConstants;
-import no.systema.ebooking.util.RpgReturnResponseHandler;
-import no.systema.ebooking.util.manager.CodeDropDownMgr;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
+import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.TrorConstants;
+import no.systema.tror.util.RpgReturnResponseHandler;
+import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
 
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
+//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
+//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
+//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
+
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
+//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
+//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
-import no.systema.ebooking.service.EbookingMainOrderHeaderService;
-import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
-import no.systema.ebooking.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tror.service.TrorMainOrderHeaderService;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
+import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.ebooking.validator.OrderHeaderValidator;
 
 
@@ -90,6 +94,7 @@ public class TrorMainOrderHeaderController {
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
+	private StringManager strMgr = new StringManager();
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -105,16 +110,15 @@ public class TrorMainOrderHeaderController {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorder.do", method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
-		boolean isValidItemLineRecord = true;
 		
-		//String orderLineTotalsString = request.getParameter("oltotals");
-		String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
+		//TODO String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
+		
 		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
@@ -130,32 +134,32 @@ public class TrorMainOrderHeaderController {
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			
-			if(EbookingConstants.ACTION_UPDATE.equals(action)){
+			if(TrorConstants.ACTION_UPDATE.equals(action)){
 				//Validation here TODO ... 
 				//don't forget model.put("selectedTypeWithCreateNew", selectedTypeWithCreateNew) --> if selectedTypeWithCreateNew!=null...
 				//...
 				OrderHeaderValidator validator = new OrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 				//populate all order lines with end-user input in order to validate that at least one line exists.
-				this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
+				//TODO this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
 				//populate list of record for validation purposes
-				this.populateFraktbrev(appUser, recordToValidate);
+				//TODO this.populateFraktbrev(appUser, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
 		    		//check if user is allowed to choose invoicee (fakturaBetalare)
-					this.setFakturaBetalareFlag(recordToValidate, appUser);
+					//TODO this.setFakturaBetalareFlag(recordToValidate, appUser);
 					//populate all message notes
-					this.populateMessageNotes( appUser, recordToValidate);
+					//TODO this.populateMessageNotes( appUser, recordToValidate);
 		    		//populate fraktbrev lines
-					this.populateFraktbrev( appUser, recordToValidate);
+					//TODO this.populateFraktbrev( appUser, recordToValidate);
 					//set always status as in list (since we do not get this value from back-end)
-					recordToValidate.setStatus(orderStatus);
+					//TODO recordToValidate.setStatus(orderStatus);
 					
-		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
-		    		
+		    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    
 			    }else{	
 					//Start DML operations if applicable
 					StringBuffer errMsg = new StringBuffer();
@@ -164,136 +168,78 @@ public class TrorMainOrderHeaderController {
 						//update
 						logger.info("doUpdate");
 						
-						//First in order to update totals (for the new item line)
-						/*
-						if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-			    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
-			    				isValidItemLineRecord = false;
-			    			}else{
-			    				JsonMainOrderHeaderRecord headerOrderRecordForTotals = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
-			    				this.populateFraktbrev( appUser, headerOrderRecordForTotals);
-			    				//hand-over
-			    				recordToValidate.setHent(headerOrderRecordForTotals.getHent());
-			    				recordToValidate.setHevkt(headerOrderRecordForTotals.getHevkt());
-			    				recordToValidate.setHem3(headerOrderRecordForTotals.getHem3());
-			    				recordToValidate.setHelm(headerOrderRecordForTotals.getHelm());
-			    			}
-			    		}*/
 						
 						//update with integrated back-end validity (in case of user parameterized )
-						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_UPDATE, errMsg);
+						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, TrorConstants.MODE_UPDATE, errMsg);
 						if(dmlRetval==0){
 							logger.info("[INFO] Record successfully updated, OK ");
 							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
-				    		
-				    		//Update the order lines if applicable
-				    		
-			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
-				    				isValidItemLineRecord = false;
-				    			}else{
-				    				//------------------------
-				    	    		//update item line totals
-				    	    		//------------------------
-				    	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
-				    				this.populateFraktbrev( appUser, headerOrderRecord);
-				    				//update with new totals
-				    				errMsg = new StringBuffer(); //init
-				    				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
-				    				if(dmlRetvalIL<0){
-				    					logger.info("[ERROR]: Unsuccessful item line totals' update ... ? ");
-				    				}
-				    			}
-				    		}
-			    			
-				    		//postUpdate events on back-end
-			    			//this.processPostUpdateEvents(recordToValidate, appUser);
-			    			logger.info("[END]: children update");
+				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
+				    			
 						}
 					}else{
 						//create new
 						logger.info("doCreate");
-						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, EbookingConstants.MODE_ADD, errMsg);
+						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, TrorConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
 						if(dmlRetval==0){
-							orderStatus = "E"; //since we do not get the value from back-end
+							//TODO orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully created, OK ");
 							logger.info("[START]: process children <meessageNotes>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
+				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
 				    		
-				    		//Create the order line if applicable
-				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
-				    				isValidItemLineRecord = false;
-				    			}else{
-				    				//------------------------
-				    	    		//update item line totals
-				    	    		//------------------------
-				    	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
-				    				this.populateFraktbrev( appUser, headerOrderRecord);
-				    				//update with new totals
-				    				errMsg = new StringBuffer(); //init
-				    				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
-				    				if(dmlRetvalIL<0){
-				    					logger.info("[ERROR]: Unsuccessful item line totals' update ... ? ");
-				    				}
-				    			}
-				    		}
-			    			logger.info("[END]: children create new...");
 						}
 			    		
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
-						model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+						model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 					}
 			    }
 				
-			}else if(EbookingConstants.ACTION_DELETE.equals(action)){
+			}else if(TrorConstants.ACTION_DELETE.equals(action)){
 				
 			}
 			
 			//--------------
 			//Fetch record
 			//--------------
-			if(isValidRecord){
-				logger.info("UNIK:" + recordToValidate.getHeunik());
-				JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHereff(), recordToValidate.getHeunik());
+			if(strMgr.isNotNull(recordToValidate.getHeopd()) && strMgr.isNotNull(recordToValidate.getHeavd()) ){
+			//if(isValidRecord){
+				logger.info("HEOPD:" + recordToValidate.getHeopd());
+				JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 				//check if user is allowed to choose invoicee (fakturaBetalare)
-				this.setFakturaBetalareFlag(headerOrderRecord, appUser);
+				//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
-				this.populateMessageNotes( appUser, headerOrderRecord);
+				//TODO this.populateMessageNotes( appUser, headerOrderRecord);
 				//populate fraktbrev lines
-				this.populateFraktbrev( appUser, headerOrderRecord);
+				//TODO this.populateFraktbrev( appUser, headerOrderRecord);
 				
-				//check if there was an error in item line "save" and put values back in that line
-				//Note: the header is already saved but at this stage: shit happens (TODO another day when I feel happier)
-				if(!isValidItemLineRecord){
-					headerOrderRecord.setFraktbrevRecord(recordToValidate.getFraktbrevRecord());
-				}
+				
 				//Only in case of Create new order (INSERT ORDER)
 				if(orderTypes!=null){
+					/*TODO 
 					if( "".equals(headerOrderRecord.getXfakBet()) ){
 						headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
 					}
+					*/
 				}
 				//set always status as in list (since we do not get this value from back-end)
-				headerOrderRecord.setStatus(orderStatus);
+				//TODO headerOrderRecord.setStatus(orderStatus);
 				//domain objects
-				model.put(EbookingConstants.DOMAIN_RECORD, headerOrderRecord);
+				model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
 			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
-			this.setDropDownsFromFiles(model);
+			//TODO this.setDropDownsFromFiles(model);
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
 			}
 			model.put("action", action);
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 			return successView;
@@ -310,6 +256,7 @@ public class TrorMainOrderHeaderController {
 	 * @param request
 	 * @return
 	 */
+	/*
 	@RequestMapping(value="tror_delete_order_line.do",  method={RequestMethod.GET} )
 	public ModelAndView doDeleteOrderLine(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
@@ -373,14 +320,15 @@ public class TrorMainOrderHeaderController {
 		
 		}
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param headerOrderRecord
 	 * @param appUser
 	 */
-	public void setFakturaBetalareFlag(JsonMainOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
+	public void setFakturaBetalareFlag(JsonTrorOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
 		//prepare the access CGI with RPG back-end
+		/*TODO 
 		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser();
 		logger.info("URL: " + BASE_URL);
@@ -403,6 +351,7 @@ public class TrorMainOrderHeaderController {
     			
     		}
 		}	
+		*/
 	}
 	/**
 	 * 
@@ -411,23 +360,21 @@ public class TrorMainOrderHeaderController {
 	 * @param mode
 	 * @return
 	 */
-	private String getRequestUrlKeyParameters(JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, String mode){
+	private String getRequestUrlKeyParameters(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser, String mode){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		
-		if(EbookingConstants.MODE_UPDATE.equalsIgnoreCase(mode) || EbookingConstants.MODE_ADD.equalsIgnoreCase(mode)){
+		if(TrorConstants.MODE_UPDATE.equalsIgnoreCase(mode) || TrorConstants.MODE_ADD.equalsIgnoreCase(mode)){
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append("&unik=" + recordToValidate.getHeunik());
-			urlRequestParamsKeys.append("&reff=" + recordToValidate.getHereff());
+			urlRequestParamsKeys.append("&heavd=" + recordToValidate.getHeavd());
+			urlRequestParamsKeys.append("&heopd=" + recordToValidate.getHeopd());
 			urlRequestParamsKeys.append("&mode=" + mode);
 			
 			
-		}else if(EbookingConstants.MODE_DELETE.equalsIgnoreCase(mode)){
+		}else if(TrorConstants.MODE_DELETE.equalsIgnoreCase(mode)){
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append("&unik=" + recordToValidate.getHeunik());
-			urlRequestParamsKeys.append("&reff=" + recordToValidate.getHereff());
-			urlRequestParamsKeys.append("&fbn=1");
-			urlRequestParamsKeys.append("&lin=" + recordToValidate.getOrderLineToDelete());
-			urlRequestParamsKeys.append("&mode=" + EbookingConstants.MODE_DELETE);
+			urlRequestParamsKeys.append("&heavd=" + recordToValidate.getHeavd());
+			urlRequestParamsKeys.append("&heopd=" + recordToValidate.getHeopd());
+			urlRequestParamsKeys.append("&mode=" + TrorConstants.MODE_DELETE);
 			
 		}
 		
@@ -441,7 +388,8 @@ public class TrorMainOrderHeaderController {
 	 * @param request
 	 * @param dmlModeCreateNew
 	 */
-	private void processNewMessageNotes(Map model, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
+	/*
+	private void processNewMessageNotes(Map model, JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
 		//-------------------------------------------------------
 		//get the key values for a DML operation in messageNote
 		//-------------------------------------------------------
@@ -467,10 +415,10 @@ public class TrorMainOrderHeaderController {
 				//CONSIGNEE (RECEIVER)
 				//Delete all values
 				logger.info("BB:" + ownMessageNoteReceiverLineNrRawList.size());
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
+				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-				this.updateMessageNote(model, messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteConsignee, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 				//init values
 				//recordToValidate.setMessageNoteConsigneeOriginal(recordToValidate.getMessageNoteConsignee());
 				
@@ -479,7 +427,7 @@ public class TrorMainOrderHeaderController {
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-					this.updateMessageNote(model, messageNoteConsignee, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteConsignee, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
 				}else{
 					//do not update
 				}	
@@ -490,16 +438,16 @@ public class TrorMainOrderHeaderController {
 				logger.info("CARRIER NOT EQUAL");
 				//CARRIER
 				//Delete all values
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
+				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
 				//Add new values
 				String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-				this.updateMessageNote(model, messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteCarrier, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 			}else{
 				logger.info("CARRIER EQUAL"); 
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-					this.updateMessageNote(model, messageNoteCarrier, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteCarrier, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
 				}else{
 					//do not update
 				}
@@ -510,37 +458,26 @@ public class TrorMainOrderHeaderController {
 				logger.info("INTERNAL NOT EQUAL");
 				//INTERNAL
 				//Delete all values
-				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
+				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
 				//Add new values
 				String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-				this.updateMessageNote(model, messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+				this.updateMessageNote(model, messageNoteInternal, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 			}else{
 				logger.info("INTERNAL EQUAL"); 
 				if(dmlModeCreateNew!=null){
 					//Add new values
 					String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-					this.updateMessageNote(model, messageNoteInternal, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
+					this.updateMessageNote(model, messageNoteInternal, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
 				}else{
 					//do not update
 				}
 			}
 
 		}
-	}
+		
+	}*/
 	
 	
-	/**
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private boolean isNull(String value){
-		boolean retval = true;
-		if(value!=null && !"".equals(value)){
-			retval = false;
-		}
-		return retval;
-	}
 	
 	/**
 	 * @param model
@@ -549,7 +486,8 @@ public class TrorMainOrderHeaderController {
 	 * @param record
 	 * @param appUser
 	 */
-	private void updateMessageNote(Map model, String[] messageNote, String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser){
+	/*
+	private void updateMessageNote(Map model, String[] messageNote, String messageParty, JsonTrorOrderHeaderRecord record, SystemaWebUser appUser){
 		String CARRIAGE_RETURN = "[\n\r]";
 		List<String> messageNotePayload = Arrays.asList(messageNote);
 		//logger.info("A" + messageNotePayload);
@@ -595,14 +533,15 @@ public class TrorMainOrderHeaderController {
 
 			}
 		}
-	}
+	}*/
 	/**
 	 * 
 	 * @param messageParty
 	 * @param record
 	 * @param appUser
 	 */
-	private void deleteOriginalMessageNote( String messageParty, JsonMainOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
+	/*
+	private void deleteOriginalMessageNote( String messageParty, JsonTrorOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
 		logger.info("LIST:" + ownMessageNoteLineNrRawList);
 		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
 			String [] msgNoteRecord = msgNoteRawRecord.split("@");
@@ -644,20 +583,22 @@ public class TrorMainOrderHeaderController {
 			}
 		}
 	}
+	*/
 	/**
 	 * 
 	 * @param appUser
 	 * @param orderRecord
 	 */
-	private void populateMessageNotes(SystemaWebUser appUser, JsonMainOrderHeaderRecord orderRecord){
+	/*
+	private void populateMessageNotes(SystemaWebUser appUser, JsonTrorOrderHeaderRecord orderRecord){
 		
 		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteConsignee = null;
 		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteCarrier = null;
 		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteInternal = null;
 		
-		messageNoteConsignee = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE);
-		messageNoteCarrier = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER);
-		messageNoteInternal = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL);
+		messageNoteConsignee = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE);
+		messageNoteCarrier = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER);
+		messageNoteInternal = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL);
 		
 		StringBuffer brConsignee = new StringBuffer();
 		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteConsignee ){
@@ -695,7 +636,7 @@ public class TrorMainOrderHeaderController {
 		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);
 		orderRecord.setMessageNoteInternalRaw((List)messageNoteInternal);
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param applicationUser
@@ -703,7 +644,8 @@ public class TrorMainOrderHeaderController {
 	 * @param type
 	 * @return
 	 */
-	public Collection<JsonMainOrderHeaderMessageNoteRecord> fetchMessageNote(String applicationUser, JsonMainOrderHeaderRecord orderRecord, String type){
+	/*
+	public Collection<JsonMainOrderHeaderMessageNoteRecord> fetchMessageNote(String applicationUser, JsonTrorOrderHeaderRecord orderRecord, String type){
 		Collection<JsonMainOrderHeaderMessageNoteRecord> outputList = new ArrayList<JsonMainOrderHeaderMessageNoteRecord>();
 		//===========
 		//FETCH LIST
@@ -746,13 +688,14 @@ public class TrorMainOrderHeaderController {
 	    	return outputList;
 		
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param request
 	 * @param recordToValidate
 	 */
-	private void populateOrderLineRecordsWithUserInput(HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate){
+	/*
+	private void populateOrderLineRecordsWithUserInput(HttpServletRequest request, JsonTrorOrderHeaderRecord recordToValidate){
 		JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord = new JsonMainOrderHeaderFraktbrevRecord();
 		
 			String lineNr = request.getParameter("fvlinr");
@@ -781,13 +724,16 @@ public class TrorMainOrderHeaderController {
 			//set record
 			recordToValidate.setFraktbrevRecord(fraktbrevRecord);
 		
+		
 	}
+	*/
 	/**
 	 * 
 	 * @param recordToValidate
 	 * @return
 	 */
-	private int getTotalNumberOfLines(JsonMainOrderHeaderRecord recordToValidate){
+	/*
+	private int getTotalNumberOfLines(JsonTrorOrderHeaderRecord recordToValidate){
 		//check the total number of lines
 		int totalNumberOfLines = EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES; //Default
 		if(!"".equals(recordToValidate.getTotalNumberOfLines()) && recordToValidate.getTotalNumberOfLines()!=null){
@@ -804,14 +750,15 @@ public class TrorMainOrderHeaderController {
 		}
 		return totalNumberOfLines;
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param request
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private boolean processOrderLine(Map model, HttpServletRequest request, JsonMainOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
+	/*
+	private boolean processOrderLine(Map model, HttpServletRequest request, JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
 		boolean retval = true;
 		
 		logger.info("Inside:processOrderLines");
@@ -826,7 +773,7 @@ public class TrorMainOrderHeaderController {
 			logger.info("RETURN RECORD ant:" + fraktbrevRecord.getFvant());
 			logger.info("RETURN RECORD brd:" + fraktbrevRecord.getFvbrd());
 			logger.info("RETURN RECORD lm:" + fraktbrevRecord.getFvlm());
-			*/
+			
 			
 			String mode = EbookingConstants.MODE_ADD;
 			if(lineNr!=null && !"".equals(lineNr) ){ 
@@ -883,143 +830,11 @@ public class TrorMainOrderHeaderController {
 			}
 		}
 		return retval;
-	}
+	}*/
 	
-	/**
-	 * 
-	 * @param fraktbrevRecord
-	 * @return
-	 */
-	private boolean validMandatoryFieldsFraktbrev(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord){
-		boolean retval = false;
-		if( this.isNotNull(fraktbrevRecord.getFvant())  && this.isNotNull(fraktbrevRecord.getFvvt())  && this.isNotNull(fraktbrevRecord.getFvvkt()) ){
-			retval = true;
-		}
-		return retval;
-	}
-	/**
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private boolean isNotNull(String value){
-		boolean retval = false;
-		if(value!=null && !"".equals(value)){
-			retval = true;
-		}
-		return retval;
-	}
-	/**
-	 * 
-	 * @param fraktbrevRecord
-	 * @return
-	 */
-	private String getFvUrlRequestParamsForUpdate(JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord){
-		StringBuffer urlRequestParams = new StringBuffer();
-		//Build the param-string
-		if(fraktbrevRecord.getFvlinr()!=null && !"".equals(fraktbrevRecord.getFvlinr())){
-			urlRequestParams.append("&fvlinr=" + fraktbrevRecord.getFvlinr());
-		}
-		urlRequestParams.append("&fmmrk1=" + fraktbrevRecord.getFmmrk1());
-		urlRequestParams.append("&fvant=" + fraktbrevRecord.getFvant());
-		urlRequestParams.append("&fvpakn=" + fraktbrevRecord.getFvpakn());
-		urlRequestParams.append("&fvvt=" + fraktbrevRecord.getFvvt());
-		urlRequestParams.append("&fvvkt=" + fraktbrevRecord.getFvvkt());
-		urlRequestParams.append("&fvvol=" + fraktbrevRecord.getFvvol());
-		urlRequestParams.append("&fvlm=" + fraktbrevRecord.getFvlm());
-		urlRequestParams.append("&fvlm2=" + fraktbrevRecord.getFvlm2());
-		urlRequestParams.append("&fvlen=" + fraktbrevRecord.getFvlen());
-		urlRequestParams.append("&fvbrd=" + fraktbrevRecord.getFvbrd());
-		urlRequestParams.append("&fvhoy=" + fraktbrevRecord.getFvhoy());
-		//farlig goods
-		urlRequestParams.append("&ffunnr=" + fraktbrevRecord.getFfunnr());
-		urlRequestParams.append("&ffembg=" + fraktbrevRecord.getFfembg());
-		urlRequestParams.append("&ffindx=" + fraktbrevRecord.getFfindx());
-		
-		urlRequestParams.append("&ffantk=" + fraktbrevRecord.getFfantk());
-		urlRequestParams.append("&ffante=" + fraktbrevRecord.getFfante());
-		urlRequestParams.append("&ffenh=" + fraktbrevRecord.getFfenh());
-		
-		return urlRequestParams.toString();
-	}
-	/**
-	 * 
-	 * @param appUser
-	 * @param orderRecord
-	 */
-	private void populateFraktbrev(SystemaWebUser appUser, JsonMainOrderHeaderRecord orderRecord){
-		
-		//---------------------------
-		//get BASE URL = RPG-PROGRAM
-        //---------------------------
-		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_LIST_MAIN_ORDER_FRAKTBREV_URL;
-		
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append("&unik=" + orderRecord.getHeunik());
-		urlRequestParamsKeys.append("&reff=" + orderRecord.getHereff());
-		urlRequestParamsKeys.append("&fbn=1");
-		
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    	List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = new ArrayList<JsonMainOrderHeaderFraktbrevRecord>();
-    	
-    		
-    	//Only with EXISTENT ORDER
-    	if( (orderRecord.getHereff()!=null && !"".equals(orderRecord.getHereff())) &&
-			(orderRecord.getHeunik()!=null && !"".equals(orderRecord.getHeunik())) 	){
-			//----------------------------------------------------------------------------
-	    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
-	    	//----------------------------------------------------------------------------
-    		logger.info("URL: " + BASE_URL);
-        	logger.info("URL PARAMS: " + urlRequestParamsKeys.toString());
-        	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
-	    	//Debug -->
-		    logger.info(jsonPayload);
-		    if(jsonPayload!=null){
-		    	JsonMainOrderHeaderFraktbrevContainer container = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
-				if(container!=null){
-		    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
-						fraktbrevList.add(fraktbrevRecord);
-					}
-		    		//set totals
-		    		this.setFraktbrevsTotals(container, orderRecord);
-					
-				}
-	    	}
-    	}else{
-    		//OBSOLETE this.populateEmptyFraktbrevList(fraktbrevList);
-    	}
-    	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
-    	
-    	//populate the list on parent record
-		orderRecord.setFraktbrevList(fraktbrevList);
-	}
-	/**
-	 * 
-	 * @param container
-	 * @param orderRecord
-	 */
-	private void setFraktbrevsTotals(JsonMainOrderHeaderFraktbrevContainer container, JsonMainOrderHeaderRecord orderRecord ){
-		Integer hent = 0;
-		Integer hevkt = 0;
-		Double hem3 = 0.00D;
-		Double helm = 0.00D;
-		
-		if(container!=null){
-    		for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblinelist()){
-				hent += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvant()));
-				//logger.info(hent);
-				hevkt += Integer.valueOf(this.getNumericString(fraktbrevRecord.getFvvkt()));
-				hem3 += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvvol()));
-				helm += Double.valueOf(this.getNumericString(fraktbrevRecord.getFvlm()));
-				
-			}
-    		orderRecord.setHent(String.valueOf(hent));
-    		orderRecord.setHevkt( String.valueOf( hevkt));
-    		orderRecord.setHem3( this.numberFormatter.getDoubleToPlainString(hem3, 3)); //3 decimals in DB
-    		orderRecord.setHelm( this.numberFormatter.getDoubleToPlainString(helm, 2)); //2 decimals in DB
-		}	
-	}
+	
+	
+	
 	/**
 	 * help function
 	 * @param value
@@ -1032,21 +847,8 @@ public class TrorMainOrderHeaderController {
 		}
 		return retval;
 	}
-	/**
-	 * 
-	 * @param fraktbrevList
-	 */
-	/** N/A
-	private void populateEmptyFraktbrevList (List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList){
-		if(fraktbrevList==null || fraktbrevList.size()<EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES){
-			int start = fraktbrevList.size();
-			for(int i = ++start;i<=EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES;i++){
-				//logger.info("#########################:" + i);
-				fraktbrevList.add(new JsonMainOrderHeaderFraktbrevRecord());
-			}
-		}
-	}
-	**/
+	
+	
 	/**
 	 * 
 	 * @param model
@@ -1056,10 +858,10 @@ public class TrorMainOrderHeaderController {
 	 * @param errMsg
 	 * @return
 	 */
-	private int updateRecord(Map model, String applicationUser, JsonMainOrderHeaderRecord recordToValidate, String mode, StringBuffer errMsg){
+	private int updateRecord(Map model, String applicationUser, JsonTrorOrderHeaderRecord recordToValidate, String mode, StringBuffer errMsg){
 		int retval = 0;
-		
-		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
+		/*TODO 
+		final String BASE_URL = TrorUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
 		//put the final valid param. string
@@ -1102,12 +904,12 @@ public class TrorMainOrderHeaderController {
     		}
     		recordToValidate.setMessageNote(br.toString());
     		//logger.info(recordToValidate.getMessageNote());
-    		*/ 
+    		
 			//put domain objects
 	    	//this.setDomainObjectsInView(session, model, recordToValidate );
 	    	
     	}
-    	
+    	*/
     	  	
     	return retval;
 	}
@@ -1117,25 +919,23 @@ public class TrorMainOrderHeaderController {
 	 * @param appUser
 	 * @param model
 	 * @param orderTypes
-	 * @param hereff
-	 * @param heunik
+	 * @param heavd
+	 * @param heopd
 	 * @return
 	 */
-	private JsonMainOrderHeaderRecord getOrderRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String hereff, String heunik ){
-		JsonMainOrderHeaderRecord record = new JsonMainOrderHeaderRecord();
+	private JsonTrorOrderHeaderRecord getOrderRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String heavd, String heopd ){
+		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
 			
-		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_FETCH_SPECIFIC_ORDER_URL;
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_ORDER_URL;
 		//add URL-parameters
 		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser.getUser() + "&mode=G");
-		if( (hereff!=null && !"".equals(hereff)) && (heunik!=null && !"".equals(heunik)) ){
+		urlRequestParams.append("user=" + appUser.getUser());
+		if( strMgr.isNotNull(heavd) && strMgr.isNotNull(heopd) ){
 			//Meaning fetching to an update
-			urlRequestParams.append("&heunik=" + heunik + "&hereff=" + hereff );
+			urlRequestParams.append("&heavd=" + heavd + "&heopd=" + heopd );
 		}else{
 			//Meaning preparing a create new ...
-			urlRequestParams.append("&heunik=&hereff=");
-			urlRequestParams.append("&newavd=" + orderTypes.getNewAvd() + "&newmodul=" + orderTypes.getNewModul()+ "&newmodul2=" + orderTypes.getNewModul2());
-			urlRequestParams.append("&newlandkode=" + orderTypes.getNewLandKode() + "&newsidesk=" + orderTypes.getNewSideSK() + "&newtext=" +  orderTypes.getNewText());
+			urlRequestParams.append("&heavd=&heopd=");
 		}
 		
 		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
@@ -1147,11 +947,11 @@ public class TrorMainOrderHeaderController {
     	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
-    		JsonMainOrderHeaderContainer container = this.ebookingMainOrderHeaderService.getContainer(jsonPayload);
-    		model.put(EbookingConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderService.getOrderHeaderContainer(jsonPayload);
+    		model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
     		if(container!=null){
-    			if(container.getOneorder()!=null){
-	    			for( JsonMainOrderHeaderRecord headerRecord: container.getOneorder()){
+    			if(container.getDtoList()!=null){
+	    			for( JsonTrorOrderHeaderRecord headerRecord: container.getDtoList()){
 	    				record = headerRecord;
 		    		}
     			}
@@ -1166,8 +966,8 @@ public class TrorMainOrderHeaderController {
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, JsonMainOrderHeaderRecord record){
-		model.put(EbookingConstants.DOMAIN_RECORD, record);
+	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderRecord record){
+		model.put(TrorConstants.DOMAIN_RECORD, record);
 	}
 	
 	/**
@@ -1176,14 +976,16 @@ public class TrorMainOrderHeaderController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.ebookingDropDownListPopulationService,
-				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringFrankatur(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringOppdragsType(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
+		//this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringFrankatur(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringOppdragsType(this.urlCgiProxyService, this.ebookingDropDownListPopulationService, model, appUser);
+		
 	}
 	
 	private void setDropDownsFromFiles(Map<String, Object> model){
-		model.put(EbookingConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.ebookingDropDownListPopulationService.getCurrencyList());
+		/*
+		model.put(TrorConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.ebookingDropDownListPopulationService.getCurrencyList());
+		*/
 	}
 
 
@@ -1194,6 +996,7 @@ public class TrorMainOrderHeaderController {
 	 * @return
 	 */
 	private JsonMainOrderTypesNewRecord getDefaultValuesForCreateNewOrder(Map model, String selectedTypeWithCreateNew){
+		/*
 		final String FIELD_SEPARATOR = "@";
 		JsonMainOrderTypesNewRecord record = new JsonMainOrderTypesNewRecord();
 		//this will be true ONLY when the record is new. Normal Updates of existent records will not be in this category...
@@ -1215,6 +1018,8 @@ public class TrorMainOrderHeaderController {
 			}
 		}
 		return record;
+		*/
+		return null;
 	}
 	
 	/**
@@ -1223,7 +1028,7 @@ public class TrorMainOrderHeaderController {
 	 * @param rpgReturnResponseHandler
 	 * @param record
 	 */
-	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonMainOrderHeaderRecord record){
+	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonTrorOrderHeaderRecord record){
 		logger.info(rpgReturnResponseHandler.getErrorMessage());
 		this.setAspectsInView(model, rpgReturnResponseHandler);
 		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
@@ -1235,12 +1040,12 @@ public class TrorMainOrderHeaderController {
 	 * @param rpgReturnResponseHandler
 	 */
 	private void setAspectsInView (Map model, RpgReturnResponseHandler rpgReturnResponseHandler){
-		model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		model.put(TrorConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
 		//extra error information
 		StringBuffer errorMetaInformation = new StringBuffer();
 		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
 		errorMetaInformation.append(rpgReturnResponseHandler.getHereff());
-		model.put(EbookingConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		model.put(TrorConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
 	}
 	
 	
@@ -1252,20 +1057,20 @@ public class TrorMainOrderHeaderController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("ebookingMainOrderHeaderService")
-	private EbookingMainOrderHeaderService ebookingMainOrderHeaderService;
+	@Qualifier ("trorMainOrderHeaderService")
+	private TrorMainOrderHeaderService trorMainOrderHeaderService;
 	@Autowired
 	@Required
-	public void setEbookingMainOrderHeaderService (EbookingMainOrderHeaderService value){ this.ebookingMainOrderHeaderService = value; }
-	public EbookingMainOrderHeaderService getEbookingMainOrderHeaderService(){ return this.ebookingMainOrderHeaderService; }
+	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService = value; }
+	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
 	
 	
-	@Qualifier ("ebookingDropDownListPopulationService")
-	private EbookingDropDownListPopulationService ebookingDropDownListPopulationService;
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
 	@Autowired
 	@Required
-	public void setEbookingDropDownListPopulationService (EbookingDropDownListPopulationService value){ this.ebookingDropDownListPopulationService = value; }
-	public EbookingDropDownListPopulationService getEbookingDropDownListPopulationService(){ return this.ebookingDropDownListPopulationService; }
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
 	
 	@Qualifier ("notisblockService")

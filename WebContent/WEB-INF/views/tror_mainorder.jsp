@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
+<form action="TODOebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -32,7 +32,7 @@
 				
 			</td>
 			<c:choose>
-				<c:when test="${empty model.record.heunik}">
+				<c:when test="${empty model.record.heopd}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
@@ -43,7 +43,7 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
-						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.hereff}</font>
+						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>
 					</td>
 				</c:otherwise>
 			</c:choose>
@@ -120,7 +120,6 @@
 		<tr>
 		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
-			<input type="hidden" name="parentTrip" id="parentTrip" value="${model.parentTrip}">
 			<table style="width:100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
 			<tr height="10"><td>&nbsp;</td></tr> 
 			<%-- FORM HEADER --%>
@@ -129,11 +128,11 @@
 	        			<table style="width:98%;" align="left" class="formFrameHeader" border="1" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<c:choose>
-					 			<c:when test="${not empty model.record.heunik}">
+					 			<c:when test="${not empty model.record.heopd}">
 						 			<td align="left" class="text12White">
 										&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">	
 										&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.edit"/>
-										&nbsp;&nbsp;<b>${model.record.heunik} / ${model.record.hereff}</b>
+										&nbsp;&nbsp;<b>${model.record.heavd} / ${model.record.heopd}</b>
 					 				</td>
 				 				</c:when>
 				 				<c:otherwise>
@@ -144,7 +143,7 @@
 			 				</c:choose>
 			 				<td align="right" class="text12White" width="50%">
 								&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.customerIdAndName"/>	
-								&nbsp;&nbsp;&nbsp;&nbsp;<b>${model.record.trknfaNavn}&nbsp;&nbsp;</b>${model.record.trknfa}&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;<b>${XXmodel.record.trknfaNavn}&nbsp;&nbsp;</b>${XXmodel.record.trknfa}&nbsp;&nbsp;
 								
 			 				</td>
 		 				</tr>
@@ -155,18 +154,13 @@
             <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-					<input type="hidden" name="heunik" id="heunik" value='${model.record.heunik}'>
-					<input type="hidden" name="hereff" id="hereff" value='${model.record.hereff}'>
-					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'>
-					<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
-					<input type="hidden" name="trknfa" id="trknfa" value='${model.record.trknfa}'>
-					<input type="hidden" name="status" id="status" value='${model.record.status}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
-
-					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${model.record.messageNoteConsigneeOriginal}'>
-					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${model.record.messageNoteCarrierOriginal}'>
-					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${model.record.messageNoteInternalOriginal}'>
+					<%--
+					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsigneeOriginal}'>
+					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrierOriginal}'>
+					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternalOriginal}'>
+					 --%>
 					<table style="width:98%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
@@ -176,23 +170,23 @@
 							 		<%-- hereff has been replaced by: Avs.ref (herfa) or Mott.ref (herfk) 
 						 		 	<td class="text11">&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hereff"><spring:message code="systema.tror.orders.form.update.label.orderref"/>&nbsp;</span></td>
 				 					<td class="text11">
-					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${model.record.hereff}">
+					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${Xmodel.record.hereff}">
 					 				</td>
 					 				--%>
 					 				<td align="left" class="text14Bold" >
-					 					&nbsp;&nbsp;&nbsp;<span title="xfakBet"><spring:message code="systema.tror.orders.form.update.label.fraktbetaler"/></span>
+					 					&nbsp;&nbsp;&nbsp;<span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span>
 					 				</td>
 					 				<td class="text11">
-										<select <c:if test="${not model.record.fakBetExists}"> disabled </c:if> name="xfakBet" id="xfakBet">
-											<option value=''>-velg-</option>
-						 					<option value='S' <c:if test="${model.record.xfakBet == 'S'}"> selected </c:if> ><spring:message code="systema.tror.orders.form.update.label.shipper.seller"/></option>
-				 							<option value='M' <c:if test="${model.record.xfakBet == 'M'}"> selected </c:if> ><spring:message code="systema.tror.orders.form.update.label.consignee"/></option>
-				 							<option value='A' <c:if test="${model.record.xfakBet == 'A'}"> selected </c:if> ><spring:message code="systema.tror.orders.form.update.label.annen"/></option>
+					 					<select name="heur" id="heur">
+					 						<option value="">-velg-</option>
+						 				  	<c:forEach var="record" items="${model.delsystemList}" >
+						 				  		<option value="${record.kfkod}"<c:if test="${model.record.heur == record.kfkod }"> selected </c:if> >${record.kftxt}</option>
+											</c:forEach>  
 										</select>
 										
-										<c:if test="${not model.record.fakBetExists}">
+										<c:if test="${not XXmodel.record.fakBetExists}">
 											<%-- EXTRA FIX for select- with disabled --> since the disabled select does not send the value --%>
-											<input type="hidden" name="xfakBet" id="xfakBet" value="${model.record.xfakBet}" >
+											<input type="hidden" name="xfakBet" id="xfakBet" value="${XXmodel.record.xfakBet}" >
 										</c:if>
 					 				</td>
 					 				 
@@ -221,9 +215,9 @@
 									<td class="text12Bold"><spring:message code="systema.tror.orders.form.update.label.shippingDates"/></td>
 									<td class="text11">&nbsp;<span title="wsetdd/wsetdk"><spring:message code="systema.tror.orders.form.update.label.shippingDates.etd"/></span></td>
 									<td class="text11">
-										<input type="text" class="inputTextMediumBlue11" name="wsetdd" id="wsetdd" size="9" maxlength="8" value="${model.record.wsetdd}">
+										<input type="text" class="inputTextMediumBlue11" name="wsetdd" id="wsetdd" size="9" maxlength="8" value="${XXmodel.record.wsetdd}">
 									</td>
-									<td class="text11"><input type="text" class="inputTextMediumBlue11" name="wsetdk" id="wsetdk" size="4" maxlength="4" value="${model.record.wsetdk}"></td>
+									<td class="text11"><input type="text" class="inputTextMediumBlue11" name="wsetdk" id="wsetdk" size="4" maxlength="4" value="${XXmodel.record.wsetdk}"></td>
 									
 						
 								</tr>
@@ -235,9 +229,9 @@
 									<td class="text12Bold"><spring:message code="systema.tror.orders.form.update.label.arrivalDates"/></td>
 									<td class="text11">&nbsp;<span title="wsetad/wsetak"><spring:message code="systema.tror.orders.form.update.label.arrivalDates.eta"/></span></td>
 									<td class="text11">
-										<input type="text" class="inputTextMediumBlue11" name="wsetad" id="wsetad" size="9" maxlength="8" value="${model.record.wsetad}">
+										<input type="text" class="inputTextMediumBlue11" name="wsetad" id="wsetad" size="9" maxlength="8" value="${XXmodel.record.wsetad}">
 									</td>
-									<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="wsetak" id="wsetak" size="4" maxlength="4" value="${model.record.wsetak}"></td>
+									<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="wsetak" id="wsetak" size="4" maxlength="4" value="${XXmodel.record.wsetak}"></td>
 									
 								</tr>
 							</table>
@@ -253,7 +247,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.tror.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<%-- <c:if test="${model.record.fakBetExists}">  --%>
+					 					<%-- <c:if test="${Xmodel.record.fakBetExists}">  --%>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
@@ -266,12 +260,12 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
-								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${model.record.heknsNavn}&nbsp;-&nbsp;${model.record.heknsPnSt}"></td>
+								 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${XXmodel.record.heknsNavn}&nbsp;-&nbsp;${XXmodel.record.heknsPnSt}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henas"><spring:message code="systema.tror.orders.form.update.label.shipper.name"/></span>
-					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
+					 					<%-- <c:if test="${Xmodel.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
@@ -336,19 +330,19 @@
 					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.tror.orders.form.update.label.shipper.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${Xmodel.record.wsscont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${Xmodel.record.wsstlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.tror.orders.form.update.label.shipper.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${model.record.wssmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${Xmodel.record.wssmail}"></td>
 				 				</tr>
 				 				<tr height="8"><td ></td></tr>
 				 				
 				 				<c:choose>
-				 				<c:when test="${model.record.fakBetExists}">													 				
+				 				<c:when test="${Xmodel.record.fakBetExists}">													 				
 									<tr>
 					 					<td class="text12Bold">&nbsp;
 					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
@@ -387,13 +381,13 @@
 								 				
 							 				</tr>
 							 				<tr>	
-							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
-											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenasf" id="whenasf" size="50" value="${model.record.heknsfNavn} - ${model.record.heknsfPnSt}"></td>
+							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknsf" id="heknsf" size="10" maxlength="8" value="${Xmodel.record.heknsf}"></td>
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenasf" id="whenasf" size="50" value="${Xmodel.record.heknsfNavn} - ${Xmodel.record.heknsfPnSt}"></td>
 							 					<td class="text11" >
 							 						<select name="hevals" id="hevals">
 								 						<option value="">-valuta-</option>
 									 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
-									 				  		<option value="${currency}"<c:if test="${model.record.hevals == currency || (empty model.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
+									 				  		<option value="${currency}"<c:if test="${Xmodel.record.hevals == currency || (empty Xmodel.record.hevals && currency=='NOK')}"> selected </c:if> >${currency}</option>
 														</c:forEach>  
 													</select>
 							 					</td>
@@ -404,7 +398,7 @@
 						 			</tr>
 					 			</c:when>
 					 			<c:otherwise>
-					 				<input type="hidden" name="heknsf" id="heknsf" value="${model.record.heknsf}" >   
+					 				<input type="hidden" name="heknsf" id="heknsf" value="${Xmodel.record.heknsf}" >   
 					 			</c:otherwise>	
 					 			</c:choose>			
 					 			 	
@@ -417,7 +411,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.tror.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
+					 					<%-- <c:if test="${Xmodel.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer.do?action=doFind&ctype=c','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>	
@@ -429,12 +423,12 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
-				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${model.record.heknkNavn}&nbsp;-&nbsp;${model.record.heknkPnSt}"></td>
+				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${Xmodel.record.heknkNavn}&nbsp;-&nbsp;${Xmodel.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="henak"><spring:message code="systema.tror.orders.form.update.label.consignee.name"/></span>
-					 					<%-- <c:if test="${model.record.fakBetExists}"> --%>
+					 					<%-- <c:if test="${Xmodel.record.fakBetExists}"> --%>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer_addresses.do?action=doFind&ctype=c&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
@@ -493,19 +487,19 @@
 					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.tror.orders.form.update.label.consignee.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${Xmodel.record.wskcont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${Xmodel.record.wsktlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.tror.orders.form.update.label.consignee.email"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${model.record.wskmail}"></td>
+				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${Xmodel.record.wskmail}"></td>
 				 				</tr>
 				 				<tr height="8"><td ></td></tr>
 				 				
 				 				<c:choose>
-				 				<c:when test="${model.record.fakBetExists}">
+				 				<c:when test="${Xmodel.record.fakBetExists}">
 									<tr>
 					 					<td class="text12Bold">&nbsp;
 					 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/invoice.png" border="0" alt="invoice">
@@ -529,7 +523,7 @@
 							 				</tr>
 							 				<tr>	
 							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
-											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenakf" id="whenakf" size="50" value="${model.record.heknkfNavn} - ${model.record.heknkfPnSt}"></td>
+											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenakf" id="whenakf" size="50" value="${Xmodel.record.heknkfNavn} - ${Xmodel.record.heknkfPnSt}"></td>
 							 					<td class="text11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						 					</tr>
 										</table>
@@ -588,7 +582,7 @@
 	 									</a>
 					 				</td>
 					 				<td class="text11" colspan="2">
-						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${Xmodel.record.wppns1}">
+						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${XXmodel.record.wppns1}">
 					 				</td>
 					 				<td class="text11">&nbsp;&nbsp;</td>
 					 			</tr>
@@ -631,7 +625,7 @@
 			 									</a>
 							 				</td>
 											<td class="text11" colspan="2">
-								 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${Xmodel.record.wppns2}">
+								 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${XXmodel.record.wppns2}">
 							 				</td>
 							 				<td class="text11">&nbsp;&nbsp;</td>
 							 			</tr>			
@@ -660,11 +654,11 @@
 							 			<td class="text11">
 							 				<select name="heot" id="heot">
 							 					<c:forEach var="record" items="${model.oppdragstypeList}" varStatus="counter">
-							 						<option value='${record.opdTyp}' <c:if test="${record.opdTyp == model.record.heot}"> selected </c:if> >${record.opdTyp}</option>
+							 						<option value='${record.opdTyp}' <c:if test="${record.opdTyp == Xmodel.record.heot}"> selected </c:if> >${record.opdTyp}</option>
 							 						<c:set var="listSizeHeot" value="${counter.count}" scope="request" /> 
 							 					</c:forEach>
 							 					<c:if test="${listSizeHeot > 1}">
-							 						<option value="" <c:if test="${empty model.record.heot}"> selected </c:if> >-velg-</option>
+							 						<option value="" <c:if test="${empty Xmodel.record.heot}"> selected </c:if> >-velg-</option>
 							 					</c:if>
 											</select>
 							 			</td>
@@ -675,11 +669,11 @@
 							 			<td class="text11">
 							 				<select name="hefr" id="hefr">
 							 					<c:forEach var="record" items="${model.incotermsList}" varStatus="counter">
-							 						<option value='${record.franka}' <c:if test="${record.franka == model.record.hefr}"> selected </c:if> >${record.franka}</option>
+							 						<option value='${record.franka}' <c:if test="${record.franka == Xmodel.record.hefr}"> selected </c:if> >${record.franka}</option>
 							 						<c:set var="listSizeHefr" value="${counter.count}" scope="request" />
 							 					</c:forEach>
 							 					<c:if test="${listSizeHefr > 1}">
-							 						<option value="" <c:if test="${empty model.record.hefr}"> selected </c:if> >-velg-</option>
+							 						<option value="" <c:if test="${empty Xmodel.record.hefr}"> selected </c:if> >-velg-</option>
 							 					</c:if>
 											</select>
 							 			</td>
@@ -689,7 +683,7 @@
 							 			</td>
 							 			<td class="text11">
 							 				<select name="todo" id="todo">
-							 					<option value='todo' <c:if test="${fraktbrevRecord.ffenh == 'KG' || fraktbrevRecord.ffenh == 'kg'}"> selected </c:if> >Normalfrakt</option>
+							 					<option value='todo'>todo</option>
 											</select>
 							 			</td>
 						 			</tr>
@@ -711,7 +705,7 @@
             		<td>
 	        			<table width="98%" id="containerdatatableTable" cellspacing="2" align="left" >
 
-						<%-- <c:if test="${not empty model.record.heunik}"> --%>
+						<%-- <c:if test="${not empty Xmodel.record.heunik}"> --%>
 							<tr height="10"><td align="left" ></td></tr>
 							
 					 		<tr >
@@ -723,7 +717,7 @@
 								<td colspan="2" style="padding: 3px;">
 									<table align="left" border="0" style="width:100%;" >
 									<tr class="tableHeaderField10" >
-										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">&nbsp;Lnr</span></td>
+										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">L.nr.</span></td>
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hegm1/hegm2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hent">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
 							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
@@ -733,9 +727,7 @@
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="helm">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
 							 		</tr>
 							 		<tr class="tableRow">
-							 			<td align="center" class="tableCellFirst" >&nbsp;
-											<input title="from model" tabindex=-1 class="inputTextMediumBlue11" readonly type="text" name="fvlinr" id="fvlinr" size="3" value='${model.record.fraktbrevRecord.fvlinr}'>
-										</td>	
+							 			<td align="center" class="tableCellFirst" ><b>1</b></td>	
 							 			<td align="left" class="tableCell" nowrap>
 						 					<input type="text" class="inputTextMediumBlue11" name="hegm1" id="hegm1" size="16" maxlength="15" value="${model.record.hegm1}">
 						 				</td>
@@ -743,13 +735,13 @@
 							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
 						 				</td>
 						 				<td align="center" class="tableCell" nowrap>
-							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${model.record.fraktbrevRecord.fvpakn}">
+							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${Xmodel.record.fraktbrevRecord.fvpakn}">
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
-							 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="20" maxlength="25" value="${model.record.hevs1}">
+							 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${model.record.hevs1}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="10" maxlength="9" value="${model.record.hevkt}">
@@ -763,21 +755,19 @@
 						 				</td>
 						 			</tr>
 						 			<tr class="tableRow">
-							 			<td align="center" class="tableCellFirst">&nbsp;
-											<input title="from model" tabindex=-1 class="inputTextMediumBlue11" readonly type="text" name="fvlinr" id="fvlinr" size="3" value='${model.record.fraktbrevRecord.fvlinr}'>
-										</td>	
+							 			<td align="center" class="tableCellFirst"><b>2</b></td>	
 							 			<td align="left" class="tableCell" nowrap>
 						 					<input type="text" class="inputTextMediumBlue11" name="hegm2" id="hegm2" size="16" maxlength="15" value="${model.record.hegm2}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 						 				<td align="center" class="tableCell" nowrap>
-							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${model.record.fraktbrevRecord.fvpakn}">
+							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${Xmodel.record.fraktbrevRecord.fvpakn}">
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
-						 					<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs2" id="hevs2" size="20" maxlength="25" value="${model.record.hevs2}">
+						 					<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs2" id="hevs2" size="30" maxlength="25" value="${model.record.hevs2}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
@@ -803,10 +793,8 @@
 	 				    </td>
 						<td align="right">
 							<c:choose>
-			 				    <c:when test="${ not empty model.record.heunik }">
-			 				    	<c:if test="${not empty model.record.status}">
-				 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
-				 				    </c:if>
+			 				    <c:when test="${ not empty model.record.heopd }">
+			 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 			 				    </c:when>
 			 				    <c:otherwise>
 		 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.tror.submit.createnew.order"/>'/>
@@ -855,46 +843,46 @@
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.receiver"/></td>
 						 			<td class="text11">
 						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
-						 				<c:forEach items="${model.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
+						 				<c:forEach items="${Xmodel.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if>
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${model.record.messageNoteConsignee}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.carrier"/></td>
 						 			<td class="text11">
 						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
-						 				<c:forEach items="${model.record.messageNoteCarrierRaw}" var="freeTextRecord" varStatus="counter">
+						 				<c:forEach items="${Xmodel.record.messageNoteCarrierRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" name="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					 </c:if>
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${model.record.messageNoteCarrier}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.sender"/></td>
 						 			<td class="text11">
 						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
-						 				<c:forEach items="${model.record.messageNoteInternalRaw}" var="freeTextRecord" varStatus="counter">
+						 				<c:forEach items="${Xmodel.record.messageNoteInternalRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" name="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if> 
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${model.record.messageNoteInternal}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr height="5"><td></td></tr>
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.email"/></td>
 						 			<td class="text11">
-						 				<input type="text" class="inputTextMediumBlue11" size="55" maxlength="70" name="wsmail" id="wsmail" value="${model.record.wsmail}">
+						 				<input type="text" class="inputTextMediumBlue11" size="55" maxlength="70" name="wsmail" id="wsmail" value="${Xmodel.record.wsmail}">
 						 				&nbsp;(ekstra booking bekreftelse)
 					 				</td>									
 				 				</tr>
@@ -908,7 +896,7 @@
 									<tr>
 							 			<td valign="top" class="text12">Arkiv docs. &nbsp;
 						 					<ul>
-						 					<c:forEach items="${Xmodel.record.archivedDocsRecord}" var="record" varStatus="counter">
+						 					<c:forEach items="${XXmodel.record.archivedDocsRecord}" var="record" varStatus="counter">
 						 						<li>
 						 						<a target="_blank" href="TODOtransportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
 		    		    							<img title="Archive" style="vertical-align:middle;" src="resources/images/pdf.png" width="14" height="14" border="0" alt="PDF arch.">
