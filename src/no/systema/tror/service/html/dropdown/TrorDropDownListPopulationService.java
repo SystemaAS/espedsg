@@ -12,7 +12,12 @@ import no.systema.main.util.io.TextFileReaderService;
 import no.systema.tror.util.TrorConstants;
 
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
-import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCountryCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCurrencyCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
+
 import no.systema.tror.mapper.jsonjackson.JsonTrorCodeMapper;
 
 
@@ -106,5 +111,53 @@ public class TrorDropDownListPopulationService {
 		return this.codeMapper.getContainer(utfPayload);
 	}
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorCountryCodeContainer getCountryContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getCountryCodeContainer(utfPayload);
+	}
 	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorCurrencyCodeContainer getCurrencyContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getCurrencyCodeContainer(utfPayload);
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorOppdragsTypeCodeContainer getOppdragsTypeContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getOppdragsTypeCodeContainer(utfPayload);
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorIncotermsCodeContainer getIncotermsContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getIncotermsCodeContainer(utfPayload);
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorProductCodeContainer getProductContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getProductCodeContainer(utfPayload);
+	}
 }

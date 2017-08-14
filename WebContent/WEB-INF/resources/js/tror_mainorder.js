@@ -25,6 +25,27 @@
 		  dateFormat: 'yymmdd'
 		  //,defaultDate: "-1m"	  
 	  });
+	  //custom validity
+	  jq('#heur').focus(function() {
+	    	if(jq('#heur').val()!=''){
+	    		refreshCustomValidity(jq('#heur')[0]);
+	  		}
+	  	});
+	  jq('#hent').focus(function() {
+	    	if(jq('#hent').val()!=''){
+	    		refreshCustomValidity(jq('#hent')[0]);
+	  		}
+	  	});
+	  jq('#hevs1').focus(function() {
+	    	if(jq('#hevs1').val()!=''){
+	    		refreshCustomValidity(jq('#hevs1')[0]);
+	  		}
+	  	});
+	  jq('#hevkt').focus(function() {
+	    	if(jq('#hevkt').val()!=''){
+	    		refreshCustomValidity(jq('#hevkt')[0]);
+	  		}
+	  	});
   });
   
   

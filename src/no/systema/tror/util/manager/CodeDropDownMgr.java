@@ -14,6 +14,17 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCountryCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCountryCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCurrencyCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorCurrencyCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeRecord;
+
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 /*
 import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturContainer;
@@ -48,8 +59,6 @@ public class CodeDropDownMgr {
 	 * @param model
 	 * @param appUser
 	 * @param paramTYP
-	 * @param paramKODE2
-	 * @param paramKODE3
 	 */
 	public void populateCodesHtmlDropDownsFromJsonString(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
 														Map model, SystemaWebUser appUser, String paramTYP){
@@ -94,33 +103,40 @@ public class CodeDropDownMgr {
 	 * @param model
 	 * @param appUser
 	 */
-	/*
-	public void populateHtmlDropDownsFromJsonStringFrankatur(UrlCgiProxyService urlCgiProxyService, EbookingDropDownListPopulationService listPopulationService,
-		Map model, SystemaWebUser appUser){
+	public void populateCodesHtmlDropDownsFromJsonCountry(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+			Map model, SystemaWebUser appUser){
 		//fill in html lists here
 		try{
-			String URL = EbookingUrlDataStore.EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL;
+		
+			String CODES_URL = TrorUrlDataStore.TROR_COUNTRY_CODES_URL;
 			StringBuffer urlRequestParamsKeys = new StringBuffer();
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			
 			//Now build the payload and send to the back end via the drop down service
-			//logger.info("URL:" + URL);
-			String utfPayload = urlCgiProxyService.getJsonContent(URL, urlRequestParamsKeys.toString());
+			logger.info("CODES_URL:" + CODES_URL);
+			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+			//debug
 			//logger.info(utfPayload);
-			JsonEbookingFrankaturContainer frankaturContainer = listPopulationService.getFrankaturContainer(utfPayload);
+			JsonTrorCountryCodeContainer codeContainer = listPopulationService.getCountryContainer(utfPayload);
+			List<JsonTrorCountryCodeRecord> list = new ArrayList<JsonTrorCountryCodeRecord>();
 			
 			//Take some exception into consideration here or run the default to populate the final list
-			for(JsonEbookingFrankaturRecord record: frankaturContainer.getFrankaturer()){
-				//logger.info("FRANKATUR RECORD: " + record.getFranka());
+			for(JsonTrorCountryCodeRecord codeRecord: codeContainer.getDtoList()){
+				//default
+				list.add(codeRecord);
+				//logger.info(codeRecord.getKlklk());
 			}
-			model.put(EbookingConstants.RESOURCE_MODEL_KEY_INCOTERMS_LIST,frankaturContainer.getFrankaturer());
 			
+			model.put(TrorConstants.RESOURCE_MODEL_KEY_COUNTRY_CODE_LIST, list);
+			
+		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-			
-	}	
-	*/
+	
+	}
+	
 	/**
 	 * 
 	 * @param urlCgiProxyService
@@ -128,32 +144,119 @@ public class CodeDropDownMgr {
 	 * @param model
 	 * @param appUser
 	 */
-	/*
-	public void populateHtmlDropDownsFromJsonStringOppdragsType(UrlCgiProxyService urlCgiProxyService, EbookingDropDownListPopulationService listPopulationService,
+	public void populateCodesHtmlDropDownsFromJsonCurrency(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
 			Map model, SystemaWebUser appUser){
-			//fill in html lists here
-			try{
-				String URL = EbookingUrlDataStore.EBOOKING_GENERAL_OPPDRAGSTYPE_URL;
-				StringBuffer urlRequestParamsKeys = new StringBuffer();
-				urlRequestParamsKeys.append("user=" + appUser.getUser());
-				
-				//Now build the payload and send to the back end via the drop down service
-				//logger.info("URL:" + URL);
-				String utfPayload = urlCgiProxyService.getJsonContent(URL, urlRequestParamsKeys.toString());
-				//logger.info(utfPayload);
-				JsonEbookingOppdragTypeContainer container = listPopulationService.getOppdragTypeContainer(utfPayload);
-				
-				//Take some exception into consideration here or run the default to populate the final list
-				for(JsonEbookingOppdragTypeRecord record: container.getOppdragsTyper()){
-					//logger.info("FRANKATUR RECORD: " + record.getFranka());
-				}
-				model.put(EbookingConstants.RESOURCE_MODEL_KEY_OPPDRAGSTYPE_LIST, container.getOppdragsTyper());
-				
-			}catch(Exception e){
-				e.printStackTrace();
+		//fill in html lists here
+		try{
+		
+			String CODES_URL = TrorUrlDataStore.TROR_CURRENCY_CODES_URL;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			
+			//Now build the payload and send to the back end via the drop down service
+			//logger.info("CODES_URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+			//debug
+			//logger.info(utfPayload);
+			JsonTrorCurrencyCodeContainer codeContainer = listPopulationService.getCurrencyContainer(utfPayload);
+			List<JsonTrorCurrencyCodeRecord> list = new ArrayList();
+			
+			//Take some exception into consideration here or run the default to populate the final list
+			for(JsonTrorCurrencyCodeRecord codeRecord: codeContainer.getDtoList()){
+				//default
+				list.add(codeRecord);
 			}
+			
+			model.put(TrorConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, list);
+			
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	/**
+	 * 
+	 * @param urlCgiProxyService
+	 * @param listPopulationService
+	 * @param model
+	 * @param appUser
+	 */
+	
+	public void populateCodesHtmlDropDownsFromJsonOppdragsType(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+			Map model, SystemaWebUser appUser){
+		//fill in html lists here
+				try{
 				
-		}	
+					String CODES_URL = TrorUrlDataStore.TROR_OPPDRAGSTYPE_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorOppdragsTypeCodeContainer codeContainer = listPopulationService.getOppdragsTypeContainer(utfPayload);
+					List<JsonTrorOppdragsTypeCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorOppdragsTypeCodeRecord codeRecord: codeContainer.getDtoList()){
+						//default
+						list.add(codeRecord);
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_OPPDRAGSTYPE_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+		}
+
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateCodesHtmlDropDownsFromJsonIncoterms(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+				
+					String CODES_URL = TrorUrlDataStore.TROR_INCOTERMS_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorIncotermsCodeContainer codeContainer = listPopulationService.getIncotermsContainer(utfPayload);
+					List<JsonTrorIncotermsCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorIncotermsCodeRecord codeRecord: codeContainer.getDtoList()){
+						//default
+						list.add(codeRecord);
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_INCOTERMS_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
 		
 		/**
 		 * 
@@ -161,36 +264,40 @@ public class CodeDropDownMgr {
 		 * @param listPopulationService
 		 * @param model
 		 * @param appUser
-		 * @param paramsMap
 		 */
-	/*
-		public void populateHtmlDropDownsFromJsonStringGebyrCodes(UrlCgiProxyService urlCgiProxyService, TransportDispDropDownListPopulationService listPopulationService,
-			Map model, SystemaWebUser appUser){
-			//fill in html lists here
-			try{
-				String URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_GEBYR_CODES_URL;
-				StringBuffer urlRequestParamsKeys = new StringBuffer();
-				urlRequestParamsKeys.append("user=" + appUser.getUser() + "&fullinfo=N");
+		public void populateCodesHtmlDropDownsFromJsonProduct(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
 				
-				//Now build the payload and send to the back end via the drop down service
-				logger.info("URL:" + URL);
-				logger.info("PARAMS:" + urlRequestParamsKeys.toString());
+					String CODES_URL = TrorUrlDataStore.TROR_PRODUCT_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					urlRequestParamsKeys.append("&kftyp=PRODTYPE");
+					
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorProductCodeContainer codeContainer = listPopulationService.getProductContainer(utfPayload);
+					List<JsonTrorProductCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorProductCodeRecord codeRecord: codeContainer.getDtoList()){
+						//default
+						list.add(codeRecord);
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST, list);
+					
 				
-				String utfPayload = urlCgiProxyService.getJsonContent(URL, urlRequestParamsKeys.toString());
-				//logger.info(utfPayload);
-				JsonTransportDispGebyrCodeContainer container = listPopulationService.getGebyrCodeContainer(utfPayload);
-				
-				//Take some exception into consideration here or run the default to populate the final list
-				for(JsonTransportDispGebyrCodeRecord record: container.getGebyrKoder()){
-					//logger.info("GEBYR RECORD: " + record.getKgekod());
+				}catch(Exception e){
+					e.printStackTrace();
 				}
-				model.put(TransportDispConstants.RESOURCE_MODEL_KEY_GEBYRCODES_LIST, container.getGebyrKoder());
-				
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-				
-		}	
-	
-	*/
+		}
+		
+		
 }

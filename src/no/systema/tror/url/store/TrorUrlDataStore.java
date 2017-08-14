@@ -131,15 +131,17 @@ public class TrorUrlDataStore {
 	//---------------------------------------------------
 	//http://localhost:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=DELSYS
 	static public String TROR_GENERAL_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKOFAST.do";
-	
-	//http://gw.systema.no/sycgip/TJINQOTYB.pgm?user=JOVO
-	//static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQOTYB.pgm";
-	
-	//http://gw.systema.no/sycgip/TJINQFRAB.pgm?user=JOVO
-	//static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQFRAB.pgm";
-	
-	//http://gw.systema.no/sycgip/TJGE002.pgm?user=JOVO&avd=75&opd=19
-	//static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJGE002.pgm";
+	//http://gw.systema.no:8080/syjservicesbcore/syjsKODTLK.do?user=OSCAR
+	static public String TROR_COUNTRY_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTLK.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR
+	static public String TROR_CURRENCY_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTVA.do";
+	//http://gw.systema.no:8080/syjservicesbcore/syjsKODTOTY.do?user=OSCAR
+	static public String TROR_OPPDRAGSTYPE_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKODTOTY.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTFR.do?user=OSCAR
+	static public String TROR_INCOTERMS_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTFR.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKUFAST.do?user=OSCAR
+	static public String TROR_PRODUCT_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKUFAST.do";
+		
 	
 	
 	

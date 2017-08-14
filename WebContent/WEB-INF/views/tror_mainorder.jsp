@@ -177,16 +177,17 @@
 					 					&nbsp;&nbsp;&nbsp;<span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span>
 					 				</td>
 					 				<td class="text11">
-					 					<select name="heur" id="heur">
+					 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heur" id="heur">
 					 						<option value="">-velg-</option>
 						 				  	<c:forEach var="record" items="${model.delsystemList}" >
 						 				  		<option value="${record.kfkod}"<c:if test="${model.record.heur == record.kfkod }"> selected </c:if> >${record.kftxt}</option>
 											</c:forEach>  
 										</select>
-										
+
 										<c:if test="${not XXmodel.record.fakBetExists}">
-											<%-- EXTRA FIX for select- with disabled --> since the disabled select does not send the value --%>
+											<%-- EXTRA FIX for select- with disabled --> since the disabled select does not send the value 
 											<input type="hidden" name="xfakBet" id="xfakBet" value="${XXmodel.record.xfakBet}" >
+											--%>
 										</c:if>
 					 				</td>
 					 				 
@@ -274,8 +275,8 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.tror.orders.form.update.label.shipper.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="henas" id="henas" size="25" maxlength="30" value="${model.record.henas}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="heads1" id="heads1" size="25" maxlength="30" value="${model.record.heads1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="heads2"><spring:message code="systema.tror.orders.form.update.label.shipper.adr2"/></span></td>
@@ -285,7 +286,7 @@
 				 					<td class="text11" >
 				 					<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${model.record.heads2}">
 				 					</td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heads3" id="heads3" size="25" maxlength="30" value="${model.record.heads3}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="heads3" id="heads3" size="25" maxlength="30" value="${model.record.heads3}"></td>
 				 				</tr>
 				 				
 				 				<tr height="15"><td ></td></tr>	
@@ -317,7 +318,7 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
+				 						<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
 								 	</td>
 				 					<td class="text11" >
 						 				<input type="text" class="inputTextMediumBlue11" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">
@@ -422,7 +423,7 @@
 					 				</td>	
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
 				 					<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${Xmodel.record.heknkNavn}&nbsp;-&nbsp;${Xmodel.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
@@ -437,16 +438,16 @@
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.tror.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11">&nbsp;<span title="headk2"><spring:message code="systema.tror.orders.form.update.label.consignee.adr2"/></span></td>
 					 				<td class="text11">&nbsp;<span title="headk3"><spring:message code="systema.tror.orders.form.update.label.consignee.adr3"/></span></td>
 					 			</tr>
 								<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
 				 				</tr>
 				 				
 				 				<tr height="15"><td ></td></tr>
@@ -474,7 +475,7 @@
 				 				</tr>
 				 				<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
+				 						<input type="text" class="inputTextMediumBlue" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
 				 					</td>
 				 					<td class="text11" >
 						 				<input type="text" class="inputTextMediumBlue11" name="hesdl" id="hesdl" size="21" maxlength="20" value="${model.record.hesdl}">
@@ -522,7 +523,7 @@
 								 				
 							 				</tr>
 							 				<tr>	
-							 					<td class="text11" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
+							 					<td class="text11" ><input type="text" class="inputTextMediumBlue" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
 											 	<td class="text11" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenakf" id="whenakf" size="50" value="${Xmodel.record.heknkfNavn} - ${Xmodel.record.heknkfPnSt}"></td>
 							 					<td class="text11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						 					</tr>
@@ -569,9 +570,10 @@
 					 				<td class="text11">
 					 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="helka" id="helka">
 					 						<option value="">-landkode-</option>
-						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						 				  		<option value="${country.zkod}"<c:if test="${model.record.helka == country.zkod}"> selected </c:if> >${country.zkod}</option>
+					 						<c:forEach var="record" items="${model.countryCodeList}" >
+						 				  		<option value="${record.klklk}"<c:if test="${model.record.helka == record.klklk}"> selected </c:if> >${record.klklk}</option>
 											</c:forEach>  
+											
 										</select>
 										
 					 				</td>
@@ -613,8 +615,8 @@
 							 				<td class="text11">
 							 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hetri" id="hetri">
 							 						<option value="">-landkode-</option>
-								 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-								 				  		<option value="${country.zkod}"<c:if test="${model.record.hetri == country.zkod}"> selected </c:if> >${country.zkod}</option>
+								 				  	<c:forEach var="record" items="${model.countryCodeList}" >
+						 				  				<option value="${record.klklk}"<c:if test="${model.record.hetri == record.klklk}"> selected </c:if> >${record.klklk}</option>
 													</c:forEach>  
 												</select>
 							 				</td>
@@ -653,12 +655,13 @@
 							 			</td>
 							 			<td class="text11">
 							 				<select name="heot" id="heot">
+							 					<option value="" >-velg-</option>
 							 					<c:forEach var="record" items="${model.oppdragstypeList}" varStatus="counter">
-							 						<option value='${record.opdTyp}' <c:if test="${record.opdTyp == Xmodel.record.heot}"> selected </c:if> >${record.opdTyp}</option>
+							 						<option value='${record.ko1kod}' <c:if test="${record.ko1kod == model.record.heot}"> selected </c:if> >${record.ko1kod}</option>
 							 						<c:set var="listSizeHeot" value="${counter.count}" scope="request" /> 
 							 					</c:forEach>
 							 					<c:if test="${listSizeHeot > 1}">
-							 						<option value="" <c:if test="${empty Xmodel.record.heot}"> selected </c:if> >-velg-</option>
+							 						
 							 					</c:if>
 											</select>
 							 			</td>
@@ -668,13 +671,12 @@
 							 			</td>
 							 			<td class="text11">
 							 				<select name="hefr" id="hefr">
+							 					<option value="" >-velg-</option>
 							 					<c:forEach var="record" items="${model.incotermsList}" varStatus="counter">
-							 						<option value='${record.franka}' <c:if test="${record.franka == Xmodel.record.hefr}"> selected </c:if> >${record.franka}</option>
+							 						<option value='${record.kfrkod}' <c:if test="${record.kfrkod == model.record.hefr}"> selected </c:if> >${record.kfrkod}</option>
 							 						<c:set var="listSizeHefr" value="${counter.count}" scope="request" />
 							 					</c:forEach>
-							 					<c:if test="${listSizeHefr > 1}">
-							 						<option value="" <c:if test="${empty Xmodel.record.hefr}"> selected </c:if> >-velg-</option>
-							 					</c:if>
+							 					
 											</select>
 							 			</td>
 										<td width="30px">&nbsp;</td>
@@ -682,8 +684,12 @@
 											<span title="todo"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
 							 			</td>
 							 			<td class="text11">
-							 				<select name="todo" id="todo">
-							 					<option value='todo'>todo</option>
+							 				<select name="hekdpl" id="hekdpl">
+							 					<option value="" >-velg-</option>
+							 					<c:forEach var="record" items="${model.produktList}" varStatus="counter">
+							 						<option value='${record.kfkod}' <c:if test="${record.kfkod == model.record.hekdpl}"> selected </c:if> >${record.kfkod}</option>
+							 						<c:set var="listSizeHefr" value="${counter.count}" scope="request" />
+							 					</c:forEach>
 											</select>
 							 			</td>
 						 			</tr>
@@ -732,7 +738,7 @@
 						 					<input type="text" class="inputTextMediumBlue11" name="hegm1" id="hegm1" size="16" maxlength="15" value="${model.record.hegm1}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>
-							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
+							 				<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
 						 				</td>
 						 				<td align="center" class="tableCell" nowrap>
 							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${Xmodel.record.fraktbrevRecord.fvpakn}">
@@ -767,7 +773,7 @@
 	 										</a>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
-						 					<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs2" id="hevs2" size="30" maxlength="25" value="${model.record.hevs2}">
+						 					<input type="text" class="inputTextMediumBlue11" name="hevs2" id="hevs2" size="30" maxlength="25" value="${model.record.hevs2}">
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
