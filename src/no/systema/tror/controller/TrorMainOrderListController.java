@@ -1,51 +1,56 @@
 package no.systema.tror.controller;
 
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-
+import no.systema.jservices.common.dao.KodtvaDao;
+import no.systema.jservices.common.dao.KufastDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
+import no.systema.jservices.common.values.FasteKoder;
 //application imports
 import no.systema.main.context.TdsAppContext;
+import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
-import no.systema.main.model.SystemaWebUser;
-
-
+import no.systema.main.validator.LoginValidator;
+import no.systema.tror.filter.SearchFilterTrorMainList;
 //EBOOKING
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
-
-import no.systema.tror.filter.SearchFilterTrorMainList;
 import no.systema.tror.service.TrorMainOrderListService;
 import no.systema.tror.url.store.TrorUrlDataStore;
-import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
+import no.systema.tror.util.TrorConstants;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
+import no.systema.z.main.maintenance.service.MaintMainKofastService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
  * Transport-Oppdragregistrering Order List Controller 
@@ -342,6 +347,59 @@ public class TrorMainOrderListController {
 		*/
 	}
 
+	/* @Example on KODTVA, pattern works also for KODTLK, KODTOTY, KODTFR, KODTSF  */
+	private List<KodtvaDao> getValutaKoder(String applicationUser, String kundnr) {
+		JsonReader<JsonDtoContainer<KodtvaDao>> jsonReader = new JsonReader<JsonDtoContainer<KodtvaDao>>();
+		jsonReader.set(new JsonDtoContainer<KodtvaDao>());
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_KODTVA_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + applicationUser);
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		List<KodtvaDao> daoList = new ArrayList<KodtvaDao>();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+
+		if (jsonPayload != null) {
+			JsonDtoContainer<KodtvaDao> container = (JsonDtoContainer<KodtvaDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					logger.info("Do your thingy...or just return list");
+					daoList = container.getDtoList();
+				}
+		}
+		return daoList;
+	}
+	
+	/* @Example on KUFAST  */
+	private List<KufastDao> getProduktKoder(String applicationUser, String kundnr) {
+		JsonReader<JsonDtoContainer<KufastDao>> jsonReader = new JsonReader<JsonDtoContainer<KufastDao>>();
+		jsonReader.set(new JsonDtoContainer<KufastDao>());
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_KUFAST_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + applicationUser);
+		urlRequestParams.append("&kftyp=" + FasteKoder.PRODTYPE.name());
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		List<KufastDao> daoList = new ArrayList<KufastDao>();
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+
+		if (jsonPayload != null) {
+			JsonDtoContainer<KufastDao> container = (JsonDtoContainer<KufastDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (KufastDao dao :  container.getDtoList()) {
+						if (!"DEFN".equals(dao.getKfkod())) {  //Remove header
+							daoList.add(dao);
+							logger.info("Do your thingy...or just return list");
+						}
+					}
+				}
+		}
+		return daoList;
+	}	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

@@ -21,7 +21,17 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no/sycgip/syjsHEADF_LITE.do?user=OSCAR&heavd=1&heopd=11111 (mandatory fields)
 	static public String TROR_BASE_FETCH_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF.do";
 	
+	/**
+	 * @Example SELECT http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR
+	 */
+	static public String TROR_BASE_KODTVA_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTVA.do";
 	
+	/**
+	 * @Example SELECT specific: http://gw.systema.no:8080/syjservicestror/syjsKUFAST.do?user=OSCAR&kftyp=PRODTYPE&kfkod=L
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicestror/syjsKUFAST.do?user=OSCAR&kftyp=PRODTYPE
+	 */
+	static public String TROR_BASE_KUFAST_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKUFAST.do";
+
 	/**
 	//--------------------
 	//[3] EDIT Order
@@ -114,22 +124,23 @@ public class TrorUrlDataStore {
 	//---------------------------------------------------
 	static public String EBOOKING_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOG005R.pgm"; 
 	//http://gw.systema.no/sycgip/TNOG005R.pgm?user=OSCAR&typ=2 //country list
+	**/
 	
 	//---------------------------------------------------
 	//[1.1] GENERAL FUNCTIONS eg.(signature, other...) 
 	//---------------------------------------------------
-	static public String EBOOKING_GENERAL_SIGN_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE24R.pgm"; 
-	//http://gw.systema.no/sycgip/TJGE24R.pgm?user=JOVO	
+	//http://localhost:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=DELSYS
+	static public String TROR_GENERAL_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKOFAST.do";
 	
-	static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQOTYB.pgm";
 	//http://gw.systema.no/sycgip/TJINQOTYB.pgm?user=JOVO
+	//static public String EBOOKING_GENERAL_OPPDRAGSTYPE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQOTYB.pgm";
 	
-	static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQFRAB.pgm";
 	//http://gw.systema.no/sycgip/TJINQFRAB.pgm?user=JOVO
+	//static public String EBOOKING_GENERAL_FRANKATUR_INCOTERMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJINQFRAB.pgm";
 	
-	static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE002.pgm";
 	//http://gw.systema.no/sycgip/TJGE002.pgm?user=JOVO&avd=75&opd=19
-	**/
+	//static public String EBOOKING_GENERAL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TODO_TJGE002.pgm";
+	
 	
 	
 }
