@@ -68,7 +68,7 @@ import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.ebooking.validator.OrderHeaderValidator;
+import no.systema.tror.validator.TrorOrderHeaderValidator;
 
 
 /**
@@ -138,49 +138,40 @@ public class TrorMainOrderHeaderController {
 				//Validation here TODO ... 
 				//don't forget model.put("selectedTypeWithCreateNew", selectedTypeWithCreateNew) --> if selectedTypeWithCreateNew!=null...
 				//...
-				OrderHeaderValidator validator = new OrderHeaderValidator();
+				TrorOrderHeaderValidator validator = new TrorOrderHeaderValidator();
 				logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-				//populate all order lines with end-user input in order to validate that at least one line exists.
-				//TODO this.populateOrderLineRecordsWithUserInput(request, recordToValidate);
-				//populate list of record for validation purposes
-				//TODO this.populateFraktbrev(appUser, recordToValidate);
 				//validate
 			    validator.validate(recordToValidate, bindingResult);
 			    if(bindingResult.hasErrors()){
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
-		    		//check if user is allowed to choose invoicee (fakturaBetalare)
-					//TODO this.setFakturaBetalareFlag(recordToValidate, appUser);
-					//populate all message notes
-					//TODO this.populateMessageNotes( appUser, recordToValidate);
-		    		//populate fraktbrev lines
-					//TODO this.populateFraktbrev( appUser, recordToValidate);
-					//set always status as in list (since we do not get this value from back-end)
+		    		//set always status as in list (since we do not get this value from back-end)
 					//TODO recordToValidate.setStatus(orderStatus);
 					
 		    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 		    
 			    }else{	
+			    	//adjust some db-fields
+			    	this.adjustFields(recordToValidate);
 					//Start DML operations if applicable
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
-					if(recordToValidate.getHeunik()!=null && !"".equals(recordToValidate.getHeunik())){
+					if(recordToValidate.getHeopd()!=null && !"".equals(recordToValidate.getHeopd())){
 						//update
 						logger.info("doUpdate");
-						
-						
 						//update with integrated back-end validity (in case of user parameterized )
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, TrorConstants.MODE_UPDATE, errMsg);
+						
 						if(dmlRetval==0){
 							logger.info("[INFO] Record successfully updated, OK ");
-							logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
+							//logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
-				    			
 						}
 					}else{
 						//create new
 						logger.info("doCreate");
+						/*TODO
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, TrorConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
 						if(dmlRetval==0){
@@ -191,7 +182,7 @@ public class TrorMainOrderHeaderController {
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
 				    		
 						}
-			    		
+			    		*/
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
@@ -245,6 +236,24 @@ public class TrorMainOrderHeaderController {
 			return successView;
 
 		}
+		
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 */
+	private void adjustFields(JsonTrorOrderHeaderRecord recordToValidate){
+		//Vareslag must be concatenated since there is no Enhet-field in target db-table. The enhet is part of the Vareslag as the 2-first characters of hevs1, hevs2
+		String SPACE = " ";
+		if(strMgr.isNotNull(recordToValidate.getOwnEnhet1()) && strMgr.isNotNull(recordToValidate.getHevs1()) ){
+			recordToValidate.setHevs1(recordToValidate.getOwnEnhet1() + SPACE + recordToValidate.getHevs1());
+		}
+		if(strMgr.isNotNull(recordToValidate.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getHevs2()) ){
+			recordToValidate.setHevs2(recordToValidate.getOwnEnhet2() + SPACE + recordToValidate.getHevs2());
+		}
+		//Decimal numbers
+		recordToValidate.setHem3(recordToValidate.getHem3()); //M3
+		recordToValidate.setHelm(recordToValidate.getHelm()); //LM
 		
 	}
 	
@@ -840,10 +849,10 @@ public class TrorMainOrderHeaderController {
 	 * @param value
 	 * @return
 	 */
-	private String getNumericString(String value){
+	private String updateToDecimal(String value){
 		String retval = "0";
-		if(value!=null && !"".equals(value)){
-			retval = value.replace("," , ".");
+		if(strMgr.isNotNull(value)){
+			retval = value.replace("." , ",");
 		}
 		return retval;
 	}
@@ -860,8 +869,8 @@ public class TrorMainOrderHeaderController {
 	 */
 	private int updateRecord(Map model, String applicationUser, JsonTrorOrderHeaderRecord recordToValidate, String mode, StringBuffer errMsg){
 		int retval = 0;
-		/*TODO 
-		final String BASE_URL = TrorUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
+		
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_SPECIFIC_ORDER_URL;
 		String urlRequestParamsKeys = "user=" + applicationUser + "&mode=" + mode;
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
 		//put the final valid param. string
@@ -876,7 +885,7 @@ public class TrorMainOrderHeaderController {
     	logger.info(jsonDebugger.debugJsonPayloadWithLog4J(rpgReturnPayload));
     	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
     	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
-    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+    	if( strMgr.isNotNull(rpgReturnResponseHandler.getErrorMessage()) && !"null".equals(rpgReturnResponseHandler.getErrorMessage()) ){
     		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
     		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
     		//isValidCreatedRecordTransactionOnRPG = false;
@@ -886,12 +895,12 @@ public class TrorMainOrderHeaderController {
     		//Update successfully done!
     		logger.info("[INFO] Record successfully updated, OK ");
     		//newly created id. Set it in the recordToValidate in order to fetch (refresh) later on
-    		if(EbookingConstants.MODE_ADD.equals(mode)){
-    			recordToValidate.setHeunik(rpgReturnResponseHandler.getHeunik());
-    			recordToValidate.setHereff(rpgReturnResponseHandler.getHereff());
+    		/*TODO
+    		if(TrorConstants.MODE_ADD.equals(mode)){
+    			recordToValidate.setHeopd(rpgReturnResponseHandler.getHeopd());
     			
     		}
-    		
+    		*/
     		/*TODO messages ...
     		this.updateMessageNote(messageNote, recordToValidate.getTuavd(), recordToValidate.getTupro(), appUser);
     		
@@ -907,9 +916,9 @@ public class TrorMainOrderHeaderController {
     		
 			//put domain objects
 	    	//this.setDomainObjectsInView(session, model, recordToValidate );
-	    	
+	    	*/
     	}
-    	*/
+    	
     	  	
     	return retval;
 	}

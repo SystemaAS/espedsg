@@ -20,6 +20,7 @@ public class TrorUrlDataStore {
 	
 	//http://gw.systema.no/sycgip/syjsHEADF_LITE.do?user=OSCAR&heavd=1&heopd=11111 (mandatory fields)
 	static public String TROR_BASE_FETCH_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF.do";
+		
 	
 	/**
 	 * @Example SELECT http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR
@@ -32,19 +33,18 @@ public class TrorUrlDataStore {
 	 */
 	static public String TROR_BASE_KUFAST_GET_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKUFAST.do";
 
-	/**
+	
 	//--------------------
 	//[3] EDIT Order
 	//mode=A  = Add
 	//mode=U  = Update
 	//mode=D  = Delete
 	//OG et tillegg ...:
-	//&mode=G  = Get    
-	//(og G=Get med &HEUNIK / &HEREFF=blank   betyr å hente defaulter   MEN  &HEUNIK / &HEREFF ulik blank = hente en konkret sak (for visning/edit mm..)
 	//----------------------
-	//http://gw.systema.no/sycgip/TBOK002R.pgm?user=OSCAR&mode=G&HEUNIK=&HEREFF=&newavd=80&newmodul=H&newmodul=E&newlandkode=DK&newsidesk=S&newtext=
-	static public String EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TBOK002R.pgm";
+	//http://gw.systema.no/syjservicestror/syjsHEADF_U.do?user=OSCAR&heavd=2&heopd=100&...
+	static public String TROR_BASE_UPDATE_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_U.do?";
 	
+	/**
 	//[2.1] Message Note management (Consignee, Carrier, Internal)
 	static public String EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_MESSAGE_NOTE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE08R.pgm";
 	//http://gw.systema.no/sycgip/TJGE08R.pgm?user=OSCAR&unik=75&reff=11&part=R (R=Receiver, G=Carrier, Blank=internal melding)

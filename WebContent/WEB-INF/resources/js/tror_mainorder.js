@@ -25,7 +25,18 @@
 		  dateFormat: 'yymmdd'
 		  //,defaultDate: "-1m"	  
 	  });
+	  
 	  //custom validity
+	  jq('#heavd').focus(function() {
+	    	if(jq('#heavd').val()!=''){
+	    		refreshCustomValidity(jq('#heavd')[0]);
+	  		}
+	  	});
+	  jq('#hesg').focus(function() {
+	    	if(jq('#hesg').val()!=''){
+	    		refreshCustomValidity(jq('#hesg')[0]);
+	  		}
+	  	});
 	  jq('#heur').focus(function() {
 	    	if(jq('#heur').val()!=''){
 	    		refreshCustomValidity(jq('#heur')[0]);

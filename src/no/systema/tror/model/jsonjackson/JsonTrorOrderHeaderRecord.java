@@ -213,6 +213,16 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String heunik; //     pakket       9  0       5      1662        begge    recordnr      
 	private String hereff; //     tegn           17      17      1667        begge    referanse     
 
+	private String ownEnhet1 = null;
+	public void setOwnEnhet1(String value){ this.ownEnhet1 = value;}
+	public String getOwnEnhet1(){ return this.ownEnhet1; }
+	
+	private String ownEnhet2 = null;
+	public void setOwnEnhet2(String value){ this.ownEnhet2 = value;}
+	public String getOwnEnhet2(){ return this.ownEnhet2; }
+	
+	
+	
 	public String getHedtop() {
 		return hedtop;
 	}

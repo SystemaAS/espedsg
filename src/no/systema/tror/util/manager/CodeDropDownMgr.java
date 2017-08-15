@@ -278,7 +278,6 @@ public class CodeDropDownMgr {
 					urlRequestParamsKeys.append("user=" + appUser.getUser());
 					urlRequestParamsKeys.append("&kftyp=PRODTYPE");
 					
-					
 					//Now build the payload and send to the back end via the drop down service
 					//logger.info("CODES_URL:" + CODES_URL);
 					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
@@ -319,7 +318,6 @@ public class CodeDropDownMgr {
 					urlRequestParamsKeys.append("user=" + appUser.getUser());
 					urlRequestParamsKeys.append("&tkunik=017");
 					
-					
 					//Now build the payload and send to the back end via the drop down service
 					//logger.info("CODES_URL:" + CODES_URL);
 					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
@@ -333,7 +331,6 @@ public class CodeDropDownMgr {
 					for(JsonTrorEnhetCodeRecord codeRecord: codeContainer.getList()){
 						//default
 						list.add(codeRecord);
-						
 					}
 					
 					model.put(TrorConstants.RESOURCE_MODEL_KEY_ENHET_CODE_LIST, list);

@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="TODOebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
+<form action="tror_mainorder.do"  name="trorOrderForm" id="trorOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -142,7 +142,8 @@
 				 				</c:otherwise>
 			 				</c:choose>
 			 				<td align="right" class="text12White" width="50%">
-								&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.customerIdAndName"/>	
+			 					STATUS&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.hest}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.customerIdAndName"/>	
 								&nbsp;&nbsp;&nbsp;&nbsp;<b>${XXmodel.record.trknfaNavn}&nbsp;&nbsp;</b>${XXmodel.record.trknfa}&nbsp;&nbsp;
 								
 			 				</td>
@@ -156,6 +157,16 @@
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
+					
+					<c:if test="${not empty model.record.heopd}">
+						<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
+						<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
+						<input type="hidden" name="hesg" id="hesg" value='${model.record.hesg}'> <%--sign --%>
+						<input type="hidden" name="hedtop" id="hedtop" value='${model.record.hedtop}'> <%--datum --%>
+						<input type="hidden" name="hepro" id="hepro" value='${model.record.hepro}'> <%--turnr. --%>
+						<input type="hidden" name="hest" id="hest" value='${model.record.hest}'> <%--status --%>
+						
+					</c:if>
 					<%--
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsigneeOriginal}'>
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrierOriginal}'>
@@ -164,17 +175,23 @@
 					<table style="width:98%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="10"><td ></td></tr>
 				 		<tr>
-							<td colspan="2">
+							<td colspan="4">
 							<table border="0">
+								<c:if test="${empty model.record.heopd}">
+									<tr>
+										<td align="left" class="text14Bold" >
+						 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
+						 				</td>
+						 				<td class="text14Bold">
+						 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heavd" id="heavd" size="5" maxlength="4" value="" >
+											&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hesg"><spring:message code="systema.tror.orders.form.update.label.signature"/></span>
+						 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesg" id="hesg" size="3" maxlength="3" value="" >
+						 				</td>
+						 			</tr>
+					 			</c:if>
 							 	<tr>
-							 		<%-- hereff has been replaced by: Avs.ref (herfa) or Mott.ref (herfk) 
-						 		 	<td class="text11">&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hereff"><spring:message code="systema.tror.orders.form.update.label.orderref"/>&nbsp;</span></td>
-				 					<td class="text11">
-					 					<input required oninvalid="this.setCustomValidity('Obligatoriskt')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="hereff" id="hereff" size="10" maxlength="10" value="${Xmodel.record.hereff}">
-					 				</td>
-					 				--%>
-					 				<td align="left" class="text14Bold" >
-					 					&nbsp;&nbsp;&nbsp;<span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span>
+							 		<td align="left" class="text14Bold" >
+					 					&nbsp;<font class="text16RedBold" >*</font><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span>
 					 				</td>
 					 				<td class="text11">
 					 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heur" id="heur">
@@ -183,16 +200,11 @@
 						 				  		<option value="${record.kfkod}"<c:if test="${model.record.heur == record.kfkod }"> selected </c:if> >${record.kftxt}</option>
 											</c:forEach>  
 										</select>
-
-										<c:if test="${not XXmodel.record.fakBetExists}">
-											<%-- EXTRA FIX for select- with disabled --> since the disabled select does not send the value 
-											<input type="hidden" name="xfakBet" id="xfakBet" value="${XXmodel.record.xfakBet}" >
-											--%>
-										</c:if>
 					 				</td>
-					 				 
+					 				<td class="text12">&nbsp;&nbsp;<b>Datum</b>&nbsp;${model.record.hedtop}</td>
+					 				<td class="text12">&nbsp;&nbsp;<b>Turnr.</b>&nbsp;${model.record.hepro}</td>
+					 				
 					 			</tr>
-					 			
 							</table>
 							</td>
 						</tr>
@@ -201,11 +213,8 @@
 						<tr height="3"><td colspan="2" style="border-bottom:1px solid;border-color:#DDDDDD;" class="text"></td></tr>
 						<tr height="5"><td ></td></tr>
 						<tr>
-							<td class="text14Bold">&nbsp;<font class="text16RedBold" >*</font>
-								<spring:message code="systema.tror.orders.form.update.label.shipper"/></td>
-							<td class="text14Bold">&nbsp;<font class="text16RedBold" >*</font>
-								<spring:message code="systema.tror.orders.form.update.label.consignee"/>
-							</td>
+							<td class="text14Bold">&nbsp;<font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.shipper"/></td>
+							<td class="text14Bold">&nbsp;<font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.consignee"/></td>
 						</tr>
 						<tr height="5"><td ></td></tr>
 						
@@ -681,14 +690,13 @@
 							 			</td>
 										<td width="30px">&nbsp;</td>
 										<td class="text11">&nbsp;
-											<span title="todo"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
+											<span title="hekdpl"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
 							 			</td>
 							 			<td class="text11">
 							 				<select name="hekdpl" id="hekdpl">
 							 					<option value="" >-velg-</option>
 							 					<c:forEach var="record" items="${model.produktList}" varStatus="counter">
 							 						<option value='${record.kfkod}' <c:if test="${record.kfkod == model.record.hekdpl}"> selected </c:if> >${record.kfkod}</option>
-							 						<c:set var="listSizeHefr" value="${counter.count}" scope="request" />
 							 					</c:forEach>
 											</select>
 							 			</td>
@@ -744,7 +752,14 @@
 							 				<select name="ownEnhet1" id="ownEnhet1">
 							 					<option value="" >-velg-</option>
 							 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
-							 						<option value='${record.tkkode}' <c:if test="${record.tkkode == Xmodel.record.todo}"> selected </c:if> >${record.tkkode}</option>
+							 						<c:choose>
+								 						<c:when test="${not empty model.record.hevs1 && fn:length(model.record.hevs1) > 2}" >
+								 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.hevs1, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
+								 						</c:when>
+								 						<c:otherwise>
+								 							<option value='${record.tkkode}'>${record.tkkode}</option>
+								 						</c:otherwise>
+							 						</c:choose>
 							 					</c:forEach>
 											</select>
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
@@ -752,7 +767,14 @@
 	 										</a>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
-							 				<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${model.record.hevs1}">
+						 					<c:choose>
+							 					<c:when test="${not empty model.record.hevs1 && fn:length(model.record.hevs1) > 3}" >
+							 						<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ fn:substring(model.record.hevs1, 3, fn:length(model.record.hevs1)) }">		
+							 					</c:when>
+							 					<c:otherwise>
+							 						<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ model.record.hevs1 }">
+							 					</c:otherwise>
+						 					</c:choose>
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>
 							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="10" maxlength="9" value="${model.record.hevkt}">
@@ -775,15 +797,30 @@
 							 				<select name="ownEnhet2" id="ownEnhet2">
 							 					<option value="" >-velg-</option>
 							 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
-							 						<option value='${record.tkkode}' <c:if test="${record.tkkode == Xmodel.record.todo}"> selected </c:if> >${record.tkkode}</option>
-							 					</c:forEach>
+								 					<c:choose>
+								 						<c:when test="${not empty model.record.hevs2 && fn:length(model.record.hevs2) > 2}" >
+								 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.hevs2, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
+								 						</c:when>
+								 						<c:otherwise>
+								 							<option value='${record.tkkode}' >${record.tkkode}</option>
+								 						</c:otherwise>
+							 						</c:choose>
+						 						</c:forEach>
 											</select>
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
-						 					<input type="text" class="inputTextMediumBlue11" name="hevs2" id="hevs2" size="30" maxlength="25" value="${model.record.hevs2}">
+						 					<c:choose>
+							 					<c:when test="${not empty model.record.hevs2 && fn:length(model.record.hevs2) > 3}" >
+							 						<input type="text" class="inputTextMediumBlue11" name="hevs2" id="hevs2" size="30" maxlength="25" value="${ fn:substring(model.record.hevs2, 3, fn:length(model.record.hevs2)) }">		
+							 					</c:when>
+							 					<c:otherwise>
+							 						<input type="text" class="inputTextMediumBlue11" name="hevs2" id="hevs2" size="30" maxlength="25" value="${ model.record.hevs2 }">
+							 					</c:otherwise>
+						 					</c:choose>
+						 					
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
