@@ -726,7 +726,7 @@
 										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">L.nr.</span></td>
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hegm1/hegm2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hent">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="fvpakn">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="intern">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hevs1/hevs2">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.goodsDesc"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hevkt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hem3">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
@@ -741,7 +741,12 @@
 							 				<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hent" id="hent" size="8" maxlength="7" value="${model.record.hent}">
 						 				</td>
 						 				<td align="center" class="tableCell" nowrap>
-							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${Xmodel.record.fraktbrevRecord.fvpakn}">
+							 				<select name="ownEnhet1" id="ownEnhet1">
+							 					<option value="" >-velg-</option>
+							 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
+							 						<option value='${record.tkkode}' <c:if test="${record.tkkode == Xmodel.record.todo}"> selected </c:if> >${record.tkkode}</option>
+							 					</c:forEach>
+											</select>
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
@@ -767,7 +772,12 @@
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 						 				<td align="center" class="tableCell" nowrap>
-							 				<input type="text" onBlur="searchPackingCodesNewLineOnBlur(this);" class="inputTextMediumBlue11" name="fvpakn" id="fvpakn" size="8" maxlength="7" value="${Xmodel.record.fraktbrevRecord.fvpakn}">
+							 				<select name="ownEnhet2" id="ownEnhet2">
+							 					<option value="" >-velg-</option>
+							 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
+							 						<option value='${record.tkkode}' <c:if test="${record.tkkode == Xmodel.record.todo}"> selected </c:if> >${record.tkkode}</option>
+							 					</c:forEach>
+											</select>
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>

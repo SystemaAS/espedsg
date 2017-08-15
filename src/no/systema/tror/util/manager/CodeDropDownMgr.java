@@ -24,6 +24,9 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeRecord;
+
 
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 /*
@@ -113,8 +116,8 @@ public class CodeDropDownMgr {
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			
 			//Now build the payload and send to the back end via the drop down service
-			logger.info("CODES_URL:" + CODES_URL);
-			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			//logger.info("CODES_URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
 			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
 			//debug
 			//logger.info(utfPayload);
@@ -289,9 +292,51 @@ public class CodeDropDownMgr {
 					for(JsonTrorProductCodeRecord codeRecord: codeContainer.getDtoList()){
 						//default
 						list.add(codeRecord);
+						//logger.info("PROD:" + codeRecord.getKfkod	());
 					}
 					
 					model.put(TrorConstants.RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateCodesHtmlDropDownsFromJsonEnhet(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+				
+					String CODES_URL = TrorUrlDataStore.TROR_ENHET_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					urlRequestParamsKeys.append("&tkunik=017");
+					
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorEnhetCodeContainer codeContainer = listPopulationService.getEnhetContainer(utfPayload);
+					List<JsonTrorEnhetCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorEnhetCodeRecord codeRecord: codeContainer.getList()){
+						//default
+						list.add(codeRecord);
+						
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_ENHET_CODE_LIST, list);
 					
 				
 				}catch(Exception e){

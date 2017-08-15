@@ -17,6 +17,7 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorCurrencyCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeContainer;
 
 import no.systema.tror.mapper.jsonjackson.JsonTrorCodeMapper;
 
@@ -159,5 +160,15 @@ public class TrorDropDownListPopulationService {
 	 */
 	public JsonTrorProductCodeContainer getProductContainer(String utfPayload) throws Exception{
 		return this.codeMapper.getProductCodeContainer(utfPayload);
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorEnhetCodeContainer getEnhetContainer(String utfPayload) throws Exception{
+		return this.codeMapper.getEnhetCodeContainer(utfPayload);
 	}
 }
