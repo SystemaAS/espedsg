@@ -331,6 +331,7 @@ public class CodeDropDownMgr {
 					for(JsonTrorEnhetCodeRecord codeRecord: codeContainer.getList()){
 						//default
 						list.add(codeRecord);
+						//logger.info(codeRecord.getTkkode());
 					}
 					
 					model.put(TrorConstants.RESOURCE_MODEL_KEY_ENHET_CODE_LIST, list);

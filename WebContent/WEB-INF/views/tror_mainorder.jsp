@@ -29,7 +29,6 @@
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>
 				</a>
-				
 			</td>
 			<c:choose>
 				<c:when test="${empty model.record.heopd}">
@@ -45,6 +44,42 @@
 						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
 						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>
 					</td>
+					<c:if test="${ not empty model.record.heur }">
+						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+						<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+							<c:choose>
+								<c:when test="${ model.record.heur == 'A' || model.record.heur == 'B' || model.record.heur == 'C' || model.record.heur == 'D' }">
+									<c:if test="${ model.record.heur == 'A' }">
+										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
+											<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="14px" height="14px" border="0" alt="update sub-order">
+											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.landimport.tab"/></font>
+										</a>
+									</c:if>
+									<c:if test="${ model.record.heur == 'B' }">
+										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
+											<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="14px" height="14px" border="0" alt="update sub-order">
+											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.landexport.tab"/></font>
+										</a>
+									</c:if>
+									<c:if test="${ model.record.heur == 'C' }">
+										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
+											<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="18px" height="18px" border="0" alt="update sub-order">
+											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.airimport.tab"/></font>
+										</a>
+									</c:if>
+									<c:if test="${ model.record.heur == 'D' }">
+										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
+											<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="18px" height="18px" border="0" alt="update sub-order">
+											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.airexport.tab"/></font>
+										</a>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<font class="tabDisabledLink">Not yet implemented</font>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -731,7 +766,7 @@
 								<td colspan="2" style="padding: 3px;">
 									<table align="left" border="0" style="width:100%;" >
 									<tr class="tableHeaderField10" >
-										<td align="center" valign="bottom" class="tableHeaderFieldFirst11"><span title="">L.nr.</span></td>
+										
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hegm1/hegm2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hent">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
 							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="intern">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
@@ -741,7 +776,6 @@
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="helm">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
 							 		</tr>
 							 		<tr class="tableRow">
-							 			<td align="center" class="tableCellFirst" ><b>1</b></td>	
 							 			<td align="left" class="tableCell" nowrap>
 						 					<input type="text" class="inputTextMediumBlue11" name="hegm1" id="hegm1" size="16" maxlength="15" value="${model.record.hegm1}">
 						 				</td>
@@ -788,7 +822,6 @@
 						 				</td>
 						 			</tr>
 						 			<tr class="tableRow">
-							 			<td align="center" class="tableCellFirst"><b>2</b></td>	
 							 			<td align="left" class="tableCell" nowrap>
 						 					<input type="text" class="inputTextMediumBlue11" name="hegm2" id="hegm2" size="16" maxlength="15" value="${model.record.hegm2}">
 						 				</td>
@@ -857,8 +890,12 @@
 				    </tr>
 				    </table>
 			    </td>
-			</tr> 	
-            <%-- HEADER --%>
+			</tr>
+			
+			
+			
+				
+            <%-- HEADER 
 	 		<tr>
             		<td>
 	        			<table style="width:98%;" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
@@ -885,6 +922,7 @@
 	 				</table>
             		</td>
             </tr>
+            
             <tr>
 				<td valign="top" colspan="10">
 					<table style="width:98%" class="formFrame" > 		
@@ -895,39 +933,39 @@
 								<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.receiver"/></td>
 						 			<td class="text11">
-						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) 
 						 				<c:forEach items="${Xmodel.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if>
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.carrier"/></td>
 						 			<td class="text11">
-						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) 
 						 				<c:forEach items="${Xmodel.record.messageNoteCarrierRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" name="ownMessageNoteCarrierLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					 </c:if>
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
 						 			<td class="text12"><spring:message code="systema.tror.orders.form.update.label.messageNotes.sender"/></td>
 						 			<td class="text11">
-						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
+						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) 
 						 				<c:forEach items="${Xmodel.record.messageNoteInternalRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
 						 						<input type="hidden" id="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" name="ownMessageNoteInternalLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if> 
 						 				</c:forEach>
-						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
+						 				<%-- this is ONLY for presentation issues and the INSERT DML  
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${Xmodel.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
@@ -969,6 +1007,7 @@
 					</table>
 				</td>
 			</tr>
+			 --%>
 			<tr height="10"><td ></td></tr>
 	</table>
 </form>

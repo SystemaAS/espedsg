@@ -173,7 +173,10 @@
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></th>
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></th> 
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
+						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.turnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.antall"/></th>
@@ -211,7 +214,35 @@
     		    			</div>
 			           </td>
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
+			           <td align="center" class="text11MediumBlue">&nbsp;${record.hepro}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
+			           <td align="left" class="text11MediumBlue">
+			           		<c:choose>
+								<c:when test="${ record.heur == 'A' || record.heur == 'B' || record.heur == 'C' || record.heur == 'D' }">
+									<c:if test="${ record.heur == 'A' }">
+										<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="16px" height="16px" border="0" alt="update sub-order">
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.landimport.tab"/>
+			           				</c:if>
+			           				<c:if test="${ record.heur == 'B' }">
+			           					<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="16px" height="16px" border="0" alt="update sub-order">
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.landexport.tab"/>
+			           				</c:if>
+			           				<c:if test="${ record.heur == 'C' }">
+			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="16px" height="16px" border="0" alt="update sub-order">
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.airimport.tab"/>
+			           				</c:if>
+			           				<c:if test="${ record.heur == 'D' }">
+			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="16px" height="16px" border="0" alt="update sub-order">
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.airexport.tab"/>
+			           				</c:if>
+			           			</c:when>
+			           			<c:otherwise>
+			           					&nbsp;${record.heur}
+			           			</c:otherwise>
+		        			</c:choose>
+			           				
+			           </td>
+		               <td align="left" class="text11MediumBlue">&nbsp;${record.hegn}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>

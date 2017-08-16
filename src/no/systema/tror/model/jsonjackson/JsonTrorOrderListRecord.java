@@ -37,6 +37,35 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 	private String helkk;
 	/* Postnr kjøper */
 	private String hepnk;
+	
+	private String heur;
+	private String hepro;
+	private String hegn;
+	
+
+	public String getHeur() {
+		return heur;
+	}
+
+	public void setHeur(String heur) {
+		this.heur = heur;
+	}
+
+	public String getHepro() {
+		return hepro;
+	}
+
+	public void setHepro(String hepro) {
+		this.hepro = hepro;
+	}
+
+	public String getHegn() {
+		return hegn;
+	}
+
+	public void setHegn(String hegn) {
+		this.hegn = hegn;
+	}
 
 	public int getHeopd() {
 		return heopd;
