@@ -8,6 +8,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import no.systema.main.util.StringManager;
+
 /**
  * This search class is used at the GUI search behavior
  * It is MANDATORY to have the same attribute name convention as the JSON-object fetched from the JSON-payload at the back-end.
@@ -20,6 +22,7 @@ import org.apache.log4j.Logger;
  */
 public class SearchFilterTrorMainList {
 	private static final Logger logger = Logger.getLogger(SearchFilterTrorMainList.class.getName());
+	private StringManager strMgr = new StringManager();
 	
 	private String avd = null;
 	public void setAvd(String value) {  this.avd = value; }
@@ -61,6 +64,41 @@ public class SearchFilterTrorMainList {
 	public void setTo(String value) {  this.to = value; }
 	public String getTo() { return this.to;}
 	
+	
+	/**
+	 * In order to check if ALL fields are empty
+	 * @return
+	 */
+	public boolean isEmpty(){
+		boolean retval = true;
+		if(strMgr.isNotNull(this.getAvd())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getOrderNr())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getSign())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getDate())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getSender())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getReceiver())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getFrom())){
+			retval = false;
+		}
+		if(strMgr.isNotNull(this.getTo())){
+			retval = false;
+		}
+		
+		
+		return retval;
+	}
 	
 	/**
 	 * Gets the populated values by reflection

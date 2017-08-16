@@ -286,7 +286,7 @@ public class TrorMainOrderListController {
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
     		urlRequestParams.append("user=" + appUser.getUser());
-    		//user parameter dftdg (go esped-->8 (parameters). If not present it will default to 7 days
+    		//user parameter dftdg (go esped-->8 (parameters).
     		if(strMgr.isNotNull(appUser.getDftdg())){
     			urlRequestParams.append("&dftdg=" + appUser.getDftdg());
     		}
@@ -323,6 +323,7 @@ public class TrorMainOrderListController {
 
 		return outputListOpenOrders;
 	}
+	
 	
 	/**
 	 * 
