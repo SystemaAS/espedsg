@@ -1,4 +1,3 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header ===========================-->
@@ -7,6 +6,7 @@
   <script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
   <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
   <script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
+  <script src="http://colorbrewer2.org/export/colorbrewer.js"></script>
 
   <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -14,6 +14,10 @@
 
   <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
+  <script src="https://npmcdn.com/universe@latest/universe.js"></script>
+
 
 <style>
 
@@ -36,6 +40,7 @@
 
 text {
   font-size: 16px;
+   fill: black;
 }
 
 #map {
@@ -43,7 +48,7 @@ text {
 }
 
 #control-row {
-  padding-bottom: 20px;
+  padding-bottom: 50px;
 }
 
 a { cursor: pointer }
@@ -55,88 +60,114 @@ a { cursor: pointer }
     background-color: #eee !important;
 }
 
+
+.dc-chart g.row text {
+    fill: #403131;
+    font-size: 12px;
+    cursor: pointer;
+}
+
 </style>
 
 
 <script type="text/javascript">
 
-var untappedJson = "resources/files/untappd.json";   
+// http://localhost:8080/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017
+d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error, data) {
+	var faktData = data.dtoList;
+   // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
+    
+    var dateFormat = d3.time.format('%Y%m%d');   
+    var fullDateFormat = d3.time.format('%Y%m%d');
+    var yearFormat = d3.time.format('%Y');
+    var monthFormat = d3.time.format('%m');
+   
+    // normalize/parse data
+	 _.each(faktData, function(d) {
+	  d.dd = fullDateFormat.parse(d.fadato);
+	  d.year = yearFormat(d.dd);
+	  d.month = monthFormat(d.dd);
+	  d.faavd = d.faavd;
+	  d.faopd = d.faopd;
+	  d.sumfabeln = +d.sumfabeln;
+	  d.fadato = d.fadato;
+	  d.fakda = d.fakda;
+	});
+ 
+	// set crossfilter
+	var ndx = crossfilter(faktData);	
+	var all = ndx.groupAll();
+	
+	var  yearDim  = ndx.dimension(function(d) {return d.year;});
+	var  avdDim  = ndx.dimension(function(d) {return d.faavd;});
+	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;});
+	
+	 var monthDim  = ndx.dimension(function(d) {return +d.month;});
+	 var countPerMonth = monthDim.group().reduceCount();
 
-/* Parse JSON file, create charts, draw markers on map */
-d3.json(untappedJson, function (error, data) {
-  var beerData = data.response.beers.items;
+	 var countAvdDim = avdDim.group().reduceCount();
+	 
+	 
+	 
+	 var  yearChart   = dc.pieChart("#chart-ring-year");
+	 var  monthChart   = dc.pieChart('#chart-ring-month');
+	 var  avdChart   = dc.pieChart('#chart-ring-avd');
+	 var  dataTable = dc.dataTable('#data-table');
+	 var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 
-  var fullDateFormat = d3.time.format('%a, %d %b %Y %X %Z');
-  var yearFormat = d3.time.format('%Y');
-  var monthFormat = d3.time.format('%b');
-  var dayOfWeekFormat = d3.time.format('%a');
+	 var avdFabelnRowChart = dc.rowChart("#chart-row-avdfabeln");	 
+	 
+	 
+	 var allDim = ndx.dimension(function(d) {return d;});	 
+	 var dataCount = dc.dataCount('#data-count')	 
 
-  // normalize/parse data so dc can correctly sort & bin them
-  // I like to think of each "d" as a row in a spreadsheet
-  _.each(beerData, function(d) {
-    d.count = +d.count;
-    // round to nearest 0.25
-    d.rating_score = Math.round(+d.rating_score * 4) / 4;
-    d.beer.rating_score = Math.round(+d.beer.rating_score *4) / 4;
-    // round to nearest 0.5
-    d.beer.beer_abv = Math.round(+d.beer.beer_abv * 2) / 2;
-    // round to nearest 10
-    d.beer.beer_ibu = Math.floor(+d.beer.beer_ibu / 10) * 10;
+    var yearPerformanceGroup = yearDim.group().reduce(
+        /* callback for when data is added to the current filter results */
+        function (p, v) {
+        	++p.faavd;
+        	++p.faopd;
+            ++p.sumfabeln;
+            ++p.count;
+            p.sumAvd += p.faavd;
+            p.sumIndex += p.sumfabeln;
+            p.avgIndex = p.sumIndex / p.count;
+            p.percentageGain = p.avgIndex ? (p.sumfabeln / p.avgIndex) * 100 : 0;
+            return p;    
+        },
+        /* callback for when data is removed from the current filter results */
+        function (p, v) {
+        	--p.faavd;
+        	--p.faopd;
+            --p.sumfabeln;
+            --p.count;
+            p.sumAvd -= p.faavd;
+            p.sumIndex -= p.sumfabeln;
+            p.avgIndex = p.count ? p.sumIndex / p.count : 0;
+            p.percentageGain = p.avgIndex ? (p.sumfabel / p.avgIndex) * 100 : 0;
+            return p;
+        },
+        /* initialize p */
+        function () {
+            return {faavd: 0,faopd: 0, sumfabeln: 0, sumIndex: 0,sumAvd: 0, avgIndex: 0, percentageGain: 0, count: 0};
+        }
+    );	
+	 
 
-    d.first_had_dt = fullDateFormat.parse(d.first_had);
-    d.first_had_year = +yearFormat(d.first_had_dt);
-    d.first_had_month = monthFormat(d.first_had_dt);
-    d.first_had_day = dayOfWeekFormat(d.first_had_dt);
-  });
-
-  // set crossfilter
-  var ndx = crossfilter(beerData);
-
-  // create dimensions (x-axis values)
-  var yearDim  = ndx.dimension(function(d) {return d.first_had_year;}),
-      // dc.pluck: short-hand for same kind of anon. function we used for yearDim
-      monthDim  = ndx.dimension(dc.pluck('first_had_month')),
-      dayOfWeekDim = ndx.dimension(dc.pluck('first_had_day')),
-      ratingDim = ndx.dimension(dc.pluck('rating_score')),
-      commRatingDim = ndx.dimension(function(d) {return d.beer.rating_score;}),
-      abvDim = ndx.dimension(function(d) {return d.beer.beer_abv;}),
-      ibuDim = ndx.dimension(function(d) {return d.beer.beer_ibu;}),
-      allDim = ndx.dimension(function(d) {return d;});
-
-  // create groups (y-axis values)
-  var all = ndx.groupAll();
-  var countPerYear = yearDim.group().reduceCount(),
-      countPerMonth = monthDim.group().reduceCount(),
-      countPerDay = dayOfWeekDim.group().reduceCount(),
-      countPerRating = ratingDim.group().reduceCount(),
-      countPerCommRating = commRatingDim.group().reduceCount(),
-      countPerABV = abvDim.group().reduceCount(),
-      countPerIBU = ibuDim.group().reduceCount();
-
-  // specify charts
-  var yearChart   = dc.pieChart('#chart-ring-year'),
-      monthChart   = dc.pieChart('#chart-ring-month'),
-      dayChart   = dc.pieChart('#chart-ring-day'),
-      ratingCountChart  = dc.barChart('#chart-rating-count'),
-      commRatingCountChart  = dc.barChart('#chart-community-rating-count'),
-      abvCountChart  = dc.barChart('#chart-abv-count'),
-  //    ibuCountChart  = dc.barChart('#chart-ibu-count'),
-      dataCount = dc.dataCount('#data-count')
-      dataTable = dc.dataTable('#data-table');
-
-  yearChart
-      .width(150)
-      .height(150)
-      .dimension(yearDim)
-      .group(countPerYear)
-      .innerRadius(20);
-
-  monthChart
+	  yearChart
+	    .width(150)
+	    .height(150)
+	    .dimension(yearDim)
+	    .group(yearDimGroup)
+	    .innerRadius(30)
+	    .controlsUseVisibility(true);
+   
+	  monthChart
       .width(150)
       .height(150)
       .dimension(monthDim)
       .group(countPerMonth)
-      .innerRadius(20)
+      .innerRadius(30)
       .ordering(function (d) {
         var order = {
           'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4,
@@ -144,150 +175,176 @@ d3.json(untappedJson, function (error, data) {
           'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
         };
         return order[d.key];
+      });	  
+	  
+
+	  avdChart
+	    .width(150)
+	    .height(150)
+	    .dimension(avdDim)
+	    .group(avdDimGroup)
+	    .innerRadius(30)
+	    .controlsUseVisibility(true);
+	  
+	  
+	  var fabelnPerAvd = avdDim.group().reduceSum(function (d) {
+          return +d.sumfabeln /1000 ; 
       });
 
-  dayChart
-      .width(150)
-      .height(150)
-      .dimension(dayOfWeekDim)
-      .group(countPerDay)
-      .innerRadius(20)
-      .ordering(function (d) {
-        var order = {
-          'Mon': 0, 'Tue': 1, 'Wed': 2, 'Thu': 3,
-          'Fri': 4, 'Sat': 5, 'Sun': 6
-        }
-        return order[d.key];
-      }
-     );
+	  avdFabelnRowChart
+	  	.width(900)
+	  	.height(250)
+       .dimension(avdDim)
+       .group(fabelnPerAvd)
+       .colors(d3.scale.ordinal().range(['red','green','blue']))
+       .elasticX(true);
+	  
+	  
+	    //#### Bubble Chart
 
-  ratingCountChart
-      .width(300)
-      .height(180)
-      .dimension(ratingDim)
-      .group(countPerRating)
-      .x(d3.scale.linear().domain([0,5.2]))
-      .elasticY(true)
-      .centerBar(true)
-      .barPadding(5)
-      .xAxisLabel('My rating')
-      .yAxisLabel('Count')
-      .margins({top: 10, right: 20, bottom: 50, left: 50});
-  ratingCountChart.xAxis().tickValues([0, 1, 2, 3, 4, 5]);
+	    //Create a bubble chart and use the given css selector as anchor. You can also specify
+	    //an optional chart group for this chart to be scoped within. When a chart belongs
+	    //to a specific group then any interaction with the chart will only trigger redraws
+	    //on charts within the same chart group.
+	    // <br>API: [Bubble Chart](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#bubble-chart)
 
-  commRatingCountChart
-      .width(300)
-      .height(180)
-      .dimension(commRatingDim)
-      .group(countPerCommRating)
-      .x(d3.scale.linear().domain([0,5.2]))
-      .elasticY(true)
-      .centerBar(true)
-      .barPadding(5)
-      .xAxisLabel('Community rating')
-      .yAxisLabel('Count')
-      .margins({top: 10, right: 20, bottom: 50, left: 50});
-  commRatingCountChart.xAxis().tickValues([0, 1, 2, 3, 4, 5]);
+	    yearlyBubbleChart /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') */
+	        // (_optional_) define chart width, `default = 200`
+	        .width(900)
+	        // (_optional_) define chart height, `default = 200`
+	        .height(250)
+	        // (_optional_) define chart transition duration, `default = 750`
+	        .transitionDuration(1500)
+	        .margins({top: 10, right: 50, bottom: 30, left: 40})
+	        .dimension(yearDim)
+	        //The bubble chart expects the groups are reduced to multiple values which are used
+	        //to generate x, y, and radius for each key (bubble) in the group
+	        .group(yearPerformanceGroup)
+	        // (_optional_) define color function or array for bubbles: [ColorBrewer](http://colorbrewer2.org/)
+	        .colors(colorbrewer.RdYlGn[9])
+	        //(optional) define color domain to match your data domain if you want to bind data or color
+	        .colorDomain([-500, 500])
+	    //##### Accessors
 
-  abvCountChart
-      .width(300)
-      .height(180)
-      .dimension(abvDim)
-      .group(countPerABV)
-      .x(d3.scale.linear().domain([-0.2, d3.max(beerData, function (d) { return d.beer.beer_abv; }) + 0.2]))
-      .elasticY(true)
-      .centerBar(true)
-      .barPadding(2)
-      .xAxisLabel('Alcohol By Volume (%)')
-      .yAxisLabel('Count')
-      .margins({top: 10, right: 20, bottom: 50, left: 50});
+	        //Accessor functions are applied to each value returned by the grouping
 
-  dataCount
-      .dimension(ndx)
-      .group(all);
+	        // `.colorAccessor` - the returned value will be passed to the `.colors()` scale to determine a fill color
+	        .colorAccessor(function (d) {
+	            return d.value.sumfabeln;
+	        })
+	        // `.keyAccessor` - the `X` value will be passed to the `.x()` scale to determine pixel location
+	        .keyAccessor(function (p) {
+	           // return p.value.sumfabeln;
+	            return p.value.sumIndex;
+	        })
+	        // `.valueAccessor` - the `Y` value will be passed to the `.y()` scale to determine pixel location
+	        .valueAccessor(function (p) {
+	            return p.value.sumfabeln;
+	            //return p.value.sumIndex;
+	        })
+	        // `.radiusValueAccessor` - the value will be passed to the `.r()` scale to determine radius size;
+	        //   by default this maps linearly to [0,100]
+	        .radiusValueAccessor(function (p) {
+	            return p.value.sumfabeln;
+	        })
+	        .maxBubbleRelativeSize(0.3)
+	        .x(d3.scale.linear().domain([-2500, 2500]))
+	        .y(d3.scale.linear().domain([-100, 100]))  //-100, 100
+	        .r(d3.scale.linear().domain([0, 4000]))
+	        //##### Elastic Scaling
 
-   dataTable
-    .dimension(allDim)
-    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
-    .size(100)
-    .columns([
-      function (d) { return d.brewery.brewery_name; },
-      function (d) { return d.beer.beer_name; },
-      function (d) { return d.beer.beer_style; },
-      function (d) { return d.rating_score; },
-      function (d) { return d.beer.rating_score; },
-      function (d) { return d.beer.beer_abv; },
-      function (d) { return d.beer.beer_ibu; }
-    ])
-    .sortBy(dc.pluck('rating_score'))
-    .order(d3.descending)
-    .on('renderlet', function (table) {
-      // each time table is rendered remove nasty extra row dc.js insists on adding
-      table.select('tr.dc-table-group').remove();
+	        //`.elasticY` and `.elasticX` determine whether the chart should rescale each axis to fit the data.
+	        .elasticY(true)
+	        .elasticX(true)
+	        //`.yAxisPadding` and `.xAxisPadding` add padding to data above and below their max values in the same unit
+	        //domains as the Accessors.
+	        .yAxisPadding(100)
+	        .xAxisPadding(500)
+	        // (_optional_) render horizontal grid lines, `default=false`
+	        .renderHorizontalGridLines(true)
+	        // (_optional_) render vertical grid lines, `default=false`
+	        .renderVerticalGridLines(true)
+	        // (_optional_) render an axis label below the x axis
+	        .xAxisLabel('Summa fabeln per oppdrag')
+	        // (_optional_) render a vertical axis lable left of the y axis
+	        .yAxisLabel('Antall oppdrag')
+	        //##### Labels and  Titles
 
-      
-  });
+	        //Labels are displayed on the chart for each bubble. Titles displayed on mouseover.
+	        // (_optional_) whether chart should render labels, `default = true`
+	        .renderLabel(true)
+	        .label(function (p) {
+	            return p.key;
+	        })
 
-   // register handlers
-   d3.selectAll('a#all').on('click', function () {
-     dc.filterAll();
-     dc.renderAll();
-   });
+	        .renderTitle(true)
+	        .title(function (p) {
+	            return [
+	                p.key,
+	                'NOK: ' + p.value.sumIndex,
+	                'Antall oppdrag: ' + p.value.sumfabeln
+	            ].join('\n');
+	        })	        
+	        
+	        
+	        
+	        //#### Customize Axes
 
-   d3.selectAll('a#year').on('click', function () {
-     yearChart.filterAll();
-     dc.redrawAll();
-   });
+	        // Set a custom tick format. Both `.yAxis()` and `.xAxis()` return an axis object,
+	        // so any additional method chaining applies to the axis, not the chart.
+	    //    .yAxis().tickFormat(function (v) {
+	    //        return v + '%';
+	    //    });
+ 	 
+ 	 
+	   // register handlers
+	   d3.selectAll('a#all').on('click', function () {
+	     dc.filterAll();
+	     dc.renderAll();
+	   });
 
-   d3.selectAll('a#month').on('click', function () {
-     monthChart.filterAll();
-     dc.redrawAll();
-   });
+	   d3.selectAll('a#year').on('click', function () {
+	     yearChart.filterAll();
+	     dc.redrawAll();
+	   });
 
-   d3.selectAll('a#day').on('click', function () {
-     dayChart.filterAll();
-     dc.redrawAll();
-   });
+	   d3.selectAll('a#month').on('click', function () {
+	     monthChart.filterAll();
+	     dc.redrawAll();
+	   });
+	   
+	   d3.selectAll('a#avd').on('click', function () {
+		 avdChart.filterAll();
+		 dc.redrawAll();
+	   });	   
+	   
 
-   // showtime!
-   dc.renderAll();
+	   dataCount
+	      .dimension(ndx)
+	      .group(all);  
 
- });
- 
-//var yearRingChart2   = dc.pieChart("#chart-ring-year2");
- 
-d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error, data) {
-	var faktData = data.dtoList;
-    console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
-
-    // normalize/parse data
-	 _.each(faktData, function(d) {
-	  d.faavd = d.faavd;
-	  d.faopd = d.faopd;
-	  d.sumfabeln = +d.sumfabeln;
-	  d.fadato = +d.fadato;
-	  d.fakda = d.fakda;
-	});
- 
-	// set crossfilter
-	 var ndx = crossfilter(faktData);
+	   
+	   dataTable
+	    .dimension(allDim)
+	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
+	    .size(1000)
+	    .columns([
+	      function (d) { return d.faavd; },
+	      function (d) { return d.faopd; },
+	      function (d) { return d.sumfabeln; },
+	      function (d) { return d.fadato; },
+	      function (d) { return d.fakda; }
+	    ])
+	   // .sortBy(dc.pluck('rating_score'))
+	    .order(d3.descending)
+	    .on('renderlet', function (table) {
+	      // each time table is rendered remove nasty extra row dc.js insists on adding
+	      table.select('tr.dc-table-group').remove();
+	      
+	  });
+	  
 	
-	 var datoDim  = ndx.dimension(function(d) {return d.fadato;}),
-	     avdDim  = ndx.dimension(function(d) {return d.faavd;}),
-	     pengarDimGroup = datoDim.group().reduceSum(function(d) {return d.sumfabeln;});
-  
-	 
-	 //TODO fix dimension
-/*
-	 yearRingChart2
-	     .width(300)
-	     .height(300)
-	     .dimension(datoDim)
-	     .group(pengarDimGroup)
-	     .innerRadius(50)
-	     .controlsUseVisibility(true);  
-*/    
-    
+	  dc.renderAll(); 
     
  });
  
@@ -302,7 +359,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;LÃ¸nnsomhetsanalyse</font>
+						<font class="tabLink">&nbsp;Lønnsomhetsanalyse</font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -327,76 +384,74 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 
 	<tr>
 		<td>
-		<%-- space separator --%>
+			<!--  
+			The Bootstrap 3 grid system has four tiers of classes: xs (phones), sm (tablets), md (desktops), and lg (larger desktops). 
+			You can use nearly any combination of these classes to create more dynamic and flexible layouts.
+			Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
+			-->
 	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
 				<div class="container-fluid">
-				  <div class="row show-grid">
-				    <div class="col-xs-12 dc-data-count dc-chart text12" id="data-count">
-				       Faktura poster
+				  <div class="row"> <!-- show-grid -->
+				    <div class="col-xs-9 dc-data-count dc-chart text12" id="data-count"> 
+				       <h3>Faktura poster
 				        <small>
 				          <span class="filter-count"></span> valgt ut av <span class="total-count"></span> poster |
 				           <a id="all" href="#">Tilbakestill alt</a>
 				        </small>
+				        </h3>
 				    </div>
 				  </div>
-				  <div class="row show-grid" id="control-row">
-				    <div class="col-xs-2 pie-chart">
-				      <h4>Ã…r <small><a id="year">tilbakestill</a></small></h4>
+				  
+				  <div class="row" id="control-row">  <!-- show-grid -->
+				    <div class="col-xs-4 col-md-3 pie-chart">
+				      <h4>År <small><a id="year">tilbakestill&nbsp;&nbsp;</a></small></h4>
 				      <div class="dc-chart" id="chart-ring-year"></div>
 				    </div>
-				    <div class="col-xs-2 pie-chart">
-				      <h4>MÃ¥ned <small><a id="month" href="#">tilbakestill</a></small></h4>
+				    <div class="col-xs-4 col-md-3 pie-chart">
+				      <h4>Måned <small><a id="month">tilbakestill&nbsp;&nbsp;</a></small></h4>
 				      <div class="dc-chart" id="chart-ring-month"></div>
 				    </div>
-				    <div class="col-xs-2 pie-chart">
-				      <h4>Dag <small><a id="day">tilbakestill</a></small></h4>
-				      <div id="chart-ring-day" class="dc-chart"></div>
+
+				    <div class="col-xs-4 col-md-3 pie-chart">
+				      <h4>Avdeling <small><a id="avd">tilbakestill</a></small></h4>
+				      <div class="dc-chart" id="chart-ring-avd"></div>
 				    </div>
-<!--  
-				    <div class="col-xs-6">
-				      <h4>Breweries</h4>
-				      <div id="map"></div>
-				    </div>
--->		
+  
 				  </div>
-				  <div class="row show-grid">
-				    <div class="col-xs-6 col-md-3">
-				      <div class="dc-chart" id="chart-rating-count"></div>
+				 
+				  <div class="row">
+				    <div class="col-xs-6 col-md-9">
+					  <strong>Sum fabeln / 1000, per avdeling</strong>
+				      <div class="dc-chart" id="chart-row-avdfabeln"></div>
 				    </div>
-				    <div class="col-xs-6 col-md-3">
-				      <div class="dc-chart" id="chart-community-rating-count"></div>
+
+				  <div class="row"> 
+				    <div class="col-xs-6 col-md-9">
+	      				<div class="dc-chart" id="yearly-bubble-chart"></div>
 				    </div>
-				    <div class="col-xs-6 col-md-3">
-				      <div class="dc-chart" id="chart-abv-count"></div>
-				    </div>
-<!-- 
-				    <div class="col-xs-6 col-md-3">
-				      <div class="dc-chart" id="chart-ibu-count"></div>
-				    </div>
- -->
 				  </div>
-				  <div class="row show-grid">
-				    <div class="col-xs-12">
+	
+				  <div class="row"> <!-- show-grid -->
+				    <div class="col-xs-9 col-md-9">
 				      <table class="table table-bordered table-striped" id="data-table">
 				        <thead>
 				          <tr class="header">
-				            <th>Brewery</th>
-				            <th>Beer</th>
-				            <th>Style</th>
-				            <th>My Rating</th>
-				            <th>Community Rating</th>
-				            <th>ABV %</th>
-				            <th>IBU</th>
+				            <th>faavd</th>
+				            <th>faopd</th>
+				            <th>sumfabeln</th>
+				            <th>fadato</th>
+				            <th>fakda</th>
 				          </tr>
 				        </thead>
 				      </table>
 				    </div>
 				  </div>
-				</div>	 	    
-		 	    </td>
+				</div>	 
+			</div>	    
+		 	   </td>
 	 	    </tr>
 	 	    
 	 		</table>

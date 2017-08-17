@@ -103,7 +103,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  d.sumfabeln = +d.sumfabeln;
 	  d.fadato = d.fadato;
 	  d.fakda = d.fakda;
-});
+	});
   
 /*
 	private int faavd;  //avdelning
@@ -115,12 +115,16 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
   
 	*/
 // set crossfilter
-var ndx = crossfilter(faktData),
-    yearDim  = ndx.dimension(function(d) {return +d.fadato;}),
-    nameDim  = ndx.dimension(function(d) {return d.faavd;}),
-    yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;}),
-    nameDimGroup = nameDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;}),
-    allDollars = ndx.groupAll().reduceSum(function(d) { return +d.sumfabeln; });
+var ndx = crossfilter(faktData);	
+var all = ndx.groupAll();
+
+var  yearDim  = ndx.dimension(function(d) {return +d.fadato;});
+var  nameDim  = ndx.dimension(function(d) {return d.faavd;});
+var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
+var  nameDimGroup = nameDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;});
+var  allDollars = ndx.groupAll().reduceSum(function(d) { return +d.sumfabeln; });
+	
+	
 
   yearRingChart
     .width(300)
