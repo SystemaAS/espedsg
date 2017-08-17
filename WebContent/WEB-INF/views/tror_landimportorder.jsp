@@ -215,30 +215,33 @@
 					 			<td colspan="10">
 					 				<table width="40%">
 						    		<tr>
-						    			<td class="text12" title="wsetd">&nbsp;Transportmåte</td>
+						    			<td class="text12" title="hekdtm">&nbsp;Transportmåte</td>
 							    		<td class="text12">
-							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							    			<select class="inputTextMediumBlue" name="hekdtm" id="hekdtm" >
 							 				  <option value="">-velg-</option>
 											  <%-- TODO --%>
 											</select>
 						    			</td>
 						    		</tr>
 						    		<tr>
-						    			<td class="text12" title="wsetd">&nbsp;Transportid</td>
+						    			<td class="text12" title="hetrm">&nbsp;Transportkode</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
+							    			<select class="inputTextMediumBlue" name="hetrm" id="hetrm" >
+							 				  <c:forEach var="record" items="${model.countryCodeList}" >
+						 				  		<option value="${record.klklk}"<c:if test="${model.record.helka == record.klklk}"> selected </c:if> >${record.klklk}</option>
+											</c:forEach>
 						    			</td>
 						    		</tr>
 								    <tr>
-						    			<td class="text12" title="wsetd">&nbsp;Container</td>
+						    			<td class="text12" title="hetrc">&nbsp;Container</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
+							    			<input type="text" class="inputTextMediumBlue11" name="hetrc" id="hetrc" size="1" maxlength="1" value="${model.record.hetrc}">
 						    			</td>
 						    		</tr>
 						    		<tr>
-						    			<td class="text12" title="wsetd">&nbsp;Containernr.</td>
+						    			<td class="text12" title="hetrcn">&nbsp;Containernr.</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
+							    			<input type="text" class="inputTextMediumBlue11" name="hetrcn" id="hetrcn" size="18" maxlength="17" value="${model.record.hetrcn}">
 						    			</td>
 						    		</tr>
 						    		</table>
@@ -253,34 +256,34 @@
 							 			<td class="text12" title="todo">&nbsp;Fraktbrev</td>
 							 			
 							    		<td class="text12">
-							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							    			<select class="inputTextMediumBlue" name="hepk1" id="hepk1" >
 							 				  <option value="">-velg-</option>
-											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
-											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="J"<c:if test="${model.record.hepk1 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk1 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
 							 			<td class="text12" title="todo">&nbsp;Forpassing SAD</td>
 							    		<td class="text12">
-							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							    			<select class="inputTextMediumBlue" name="hepk2" id="hepk2" >
 							 				  <option value="">-velg-</option>
-											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
-											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="J"<c:if test="${model.record.hepk2 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk2 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
 							    		<td class="text12" title="todo">&nbsp;Kjørekvittering</td>
 							    		<td class="text12">
-							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							    			<select class="inputTextMediumBlue" name="hepk3" id="hepk3" >
 							 				  <option value="">-velg-</option>
-											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
-											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="J"<c:if test="${model.record.hepk3 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk3 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
 						    			<td class="text12" title="todo">&nbsp;Tolldekl.</td>
 							    		<td class="text12">
-							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							    			<select class="inputTextMediumBlue" name="hepk4" id="hepk4" >
 							 				  <option value="">-velg-</option>
-											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
-											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="J"<c:if test="${model.record.hepk4 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk4 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
 						    			</tr>

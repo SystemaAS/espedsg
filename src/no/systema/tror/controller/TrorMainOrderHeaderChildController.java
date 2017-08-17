@@ -224,6 +224,7 @@ public class TrorMainOrderHeaderChildController {
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
 			//TODO this.setDropDownsFromFiles(model);
+			
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
@@ -984,12 +985,11 @@ public class TrorMainOrderHeaderChildController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCountry(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonIncoterms(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonOppdragsType(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonIncoterms(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonOppdragsType(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCurrency(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		
 	}
