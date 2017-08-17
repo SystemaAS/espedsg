@@ -103,7 +103,17 @@ public final class TdsConstants {
 	public static final String DOMAIN_LIST = "list";
 	public static final String DOMAIN_RECORD_ITEM_CONTAINER_TOPIC = "recordItemContainerTopic";
 	public static final String DOMAIN_RECORD_ITEM_CONTAINER_INVOICE_TOPIC = "recordItemContainerInvoiceTopic";
+	public static final String DOMAIN_SEARCH_FILTER_TDSIMPORT = "searchFilterTdsImport";
+	public static final String DOMAIN_SEARCH_FILTER_TDSEXPORT = "searchFilterTdsExport";
+	public static final String DOMAIN_SEARCH_FILTER_TDSIMPORT_NCTS = "searchFilterTdsImportNcts";
+	public static final String DOMAIN_SEARCH_FILTER_TDSEXPORT_NCTS = "searchFilterTdsExportNcts";
+	
 	public static final String SESSION_LIST = "sessionList";
+	public static final String SESSION_SEARCH_FILTER_TDSIMPORT = "searchFilterTdsImport";
+	public static final String SESSION_SEARCH_FILTER_TDSEXPORT = "searchFilterTdsExport";
+	public static final String SESSION_SEARCH_FILTER_TDSIMPORT_NCTS = "searchFilterTdsImportNcts";
+	public static final String SESSION_SEARCH_FILTER_TDSEXPORT_NCTS = "searchFilterTdsExportNcts";
+	
 	public static final String ITEM_LIST = "itemList";	
 	
 	

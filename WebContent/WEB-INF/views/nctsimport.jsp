@@ -106,7 +106,7 @@
            			<select name="avd" id="avd">
 	            		<option value="">-Välj-</option>
 	 				  	<c:forEach var="record" items="${model.avdList}" >
-                        	 	<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>
+                        	 	<option value="${record.avd}"<c:if test="${searchFilterTdsImportNcts.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>
 						</c:forEach> 
 					</select>
 				</td>
@@ -114,24 +114,24 @@
            			<select name="sign" id="sign">
 	            		<option value="">-Välj-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                             	 	<option value="${record.sign}"<c:if test="${searchFilter.sign == record.sign}"> selected </c:if> >${record.sign}</option>
+                             	 	<option value="${record.sign}"<c:if test="${searchFilterTdsImportNcts.sign == record.sign}"> selected </c:if> >${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value="${searchFilter.opd}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mrnNr" id="mrnNr" size="15" maxlength="18" value="${searchFilter.mrnNr}">&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value="${searchFilter.datum}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value="${searchFilter.status}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value="${searchFilterTdsImportNcts.opd}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="mrnNr" id="mrnNr" size="15" maxlength="18" value="${searchFilterTdsImportNcts.mrnNr}">&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="9" maxlength="8" value="${searchFilterTdsImportNcts.datum}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value="${searchFilterTdsImportNcts.status}">&nbsp;</td>
 				<td align="left" >
 					<select name="forenklad" id="forenklad">
 		            		<option value="">-Välj-</option>
-		            		<option value="J" <c:if test="${searchFilter.forenklad == 'J'}"> selected </c:if> >Förenkl.</option>
-		            		<option value="N" <c:if test="${searchFilter.forenklad == 'N'}"> selected </c:if> >Normal</option>
+		            		<option value="J" <c:if test="${searchFilterTdsImportNcts.forenklad == 'J'}"> selected </c:if> >Förenkl.</option>
+		            		<option value="N" <c:if test="${searchFilterTdsImportNcts.forenklad == 'N'}"> selected </c:if> >Normal</option>
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="ansNavn" id="ansNavn" size="12" maxlength="50" value="${searchFilter.ansNavn}">&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="godsNr" id="godsNr" size="12" maxlength="35" value="${searchFilter.godsNr}">&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumFr" id="datumFr" size="9" maxlength="8" value="${searchFilter.datumFr}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="ansNavn" id="ansNavn" size="12" maxlength="50" value="${searchFilterTdsImportNcts.ansNavn}">&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="godsNr" id="godsNr" size="12" maxlength="35" value="${searchFilterTdsImportNcts.godsNr}">&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datumFr" id="datumFr" size="9" maxlength="8" value="${searchFilterTdsImportNcts.datumFr}">&nbsp;</td>
 
 				
 				<td valign="top" align="left" >

@@ -35,7 +35,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsNctsCodeContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsNctsCodeRecord;
-
+import no.systema.tds.nctsexport.filter.SearchFilterNctsExportTopicList;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureContainer;
@@ -154,10 +154,10 @@ public class NctsImportController {
 		    	//drop downs
 				this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 				this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-				successView.addObject("model" , model);
+				successView.addObject(TdsConstants.DOMAIN_MODEL , model);
 		    	
-		    		successView.addObject("list",new ArrayList());
-				successView.addObject("searchFilter", recordToValidate);
+	    		successView.addObject(TdsConstants.DOMAIN_LIST,new ArrayList());
+				successView.addObject(TdsConstants.DOMAIN_SEARCH_FILTER_TDSIMPORT_NCTS, recordToValidate);
 				return successView;
 	    		
 		    }else{
@@ -169,9 +169,20 @@ public class NctsImportController {
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 				
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+	            	session.setAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSIMPORT_NCTS, searchFilter);
+	            }else{
+	            	SearchFilterNctsImportTopicList sessionFilter = (SearchFilterNctsImportTopicList)session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSIMPORT_NCTS);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		searchFilter = sessionFilter;
+	            	}
+	            }
+	            
 	            //get BASE URL
-		    		final String BASE_URL = UrlDataStore.NCTS_IMPORT_BASE_TOPICLIST_URL;
-		    		//add URL-parameters
+	    		final String BASE_URL = UrlDataStore.NCTS_IMPORT_BASE_TOPICLIST_URL;
+	    		//add URL-parameters
 				String urlRequestParams = this.getRequestUrlKeyParameters(searchFilter, appUser);
 				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			    	logger.info("URL: " + BASE_URL);
@@ -195,10 +206,14 @@ public class NctsImportController {
 					//drop downs
 					this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser, session);
 					this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
-					successView.addObject("model" , model);
+					successView.addObject(TdsConstants.DOMAIN_MODEL , model);
 			    		//domain and search filter
-					successView.addObject("list",outputList);
-					successView.addObject("searchFilter", searchFilter);
+					successView.addObject(TdsConstants.DOMAIN_LIST,outputList);
+					
+					if(session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSIMPORT_NCTS) ==null || "".equals(session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSIMPORT_NCTS)) ){
+						successView.addObject(TdsConstants.SESSION_SEARCH_FILTER_TDSIMPORT_NCTS, searchFilter);
+					}
+					
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 					
 					return successView;

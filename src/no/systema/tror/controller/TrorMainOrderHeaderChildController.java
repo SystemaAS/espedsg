@@ -114,8 +114,6 @@ public class TrorMainOrderHeaderChildController {
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		String action = request.getParameter("action");
-		String heavd = request.getParameter("heavd");
-		String heopd = request.getParameter("heopd");
 		boolean isValidRecord = true;
 		
 		//TODO String orderStatus = recordToValidate.getStatus(); //Since this is not coming from the back-end
@@ -194,7 +192,7 @@ public class TrorMainOrderHeaderChildController {
 			}else if(TrorConstants.ACTION_DELETE.equals(action)){
 				
 			}
-			
+			*/
 			//--------------
 			//Fetch record
 			//--------------
@@ -215,7 +213,7 @@ public class TrorMainOrderHeaderChildController {
 					/*TODO 
 					if( "".equals(headerOrderRecord.getXfakBet()) ){
 						headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
-					}
+					}*/
 					
 				}
 				//set always status as in list (since we do not get this value from back-end)
@@ -230,10 +228,6 @@ public class TrorMainOrderHeaderChildController {
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
 			}
-			*/
-			model.put("action", action);
-			model.put("heavd", heavd);
-			model.put("heopd", heopd);
 			
 			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 			

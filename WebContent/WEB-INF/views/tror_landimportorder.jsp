@@ -33,9 +33,9 @@
 			
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" href="tror_mainorder.do?action=doFetch&heavd=${model.heavd}&heopd=${model.heopd}" >
+				<a class="text14" href="tror_mainorder.do?action=doFetch&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
 					<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
-					<font class="tabDisabledLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.heavd}/${model.heopd}</font>
+					<font class="tabDisabledLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>
 				</a>
 			</td>
 			
@@ -137,11 +137,7 @@
 						<input type="hidden" name="hest" id="hest" value='${XXmodel.record.hest}'> <%--status --%>
 						
 					</c:if>
-					<%--
-					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${XXXmodel.record.messageNoteConsigneeOriginal}'>
-					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${XXXmodel.record.messageNoteCarrierOriginal}'>
-					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${XXXmodel.record.messageNoteInternalOriginal}'>
-					 --%>
+					
 					<table style="width:85%;" align="center" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="10"><td ></td></tr>
 			 		<tr>
@@ -151,11 +147,11 @@
 						 			<td align="left" class="text12White">
 										&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">	
 										&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.edit"/>
-										&nbsp;&nbsp;<b>${model.heavd} / ${model.heopd}</b>
+										&nbsp;&nbsp;<b>${model.record.heavd} / ${model.record.heopd}</b>
 					 				</td>
 						 				
 					 				<td align="right" class="text12White" width="50%">
-					 					STATUS&nbsp;&nbsp;<font style="color: yellow"><b>${XXmodel.record.hest}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 					STATUS&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.hest}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.customerIdAndName"/>	
 										&nbsp;&nbsp;&nbsp;&nbsp;<b>${XXXXmodel.record.trknfaNavn}&nbsp;&nbsp;</b>${XXXXmodel.record.trknfa}&nbsp;&nbsp;
 										
@@ -175,11 +171,11 @@
 					 				<td colspan="10">
 					 				<table class="tableBorderWithRoundCorners">
 					 				<tr>
-								    		<td class="text14MediumBlue" title="henas"><spring:message code="systema.sporringoppdrag.mainlist.topic.header.label.avsender"/></td>
+								    		<td class="text14MediumBlue" title="henas"><spring:message code="systema.tror.orders.form.update.label.shipper"/></td>
 								    		<td class="text12">
 								    			<div>
 								    				<label>
-								    					<b>${Xmodel.record.henas}</b>&nbsp;
+								    					<b>${model.record.henas}</b>&nbsp;
 								    				</label>
 								    			</div>
 								    		</td>
@@ -187,17 +183,17 @@
 								    			<div>
 								    				<label>
 								    					&nbsp;<img style="vertical-align: bottom" src="resources/images/addressIcon.png" width="12" hight="12" border="0" alt="address">
-						 							<font class="text12" style="color:#666666;">[${Xmodel.record.heads1}&nbsp;&nbsp;${Xmodel.record.heads2}&nbsp;&nbsp;${Xmodel.record.heads3}]</font>
+						 							<font class="text12" style="color:#666666;">[${model.record.heads1}&nbsp;&nbsp;${model.record.heads2}&nbsp;&nbsp;${model.record.heads3}]</font>
 								    				</label>
 								    			</div>
 								    		</td>
 								    	</tr>
 							    		<tr>
-								    		<td class="text14MediumBlue" title="henak"><spring:message code="systema.sporringoppdrag.mainlist.topic.header.label.mottaker"/></td>
+								    		<td class="text14MediumBlue" title="henak"><spring:message code="systema.tror.orders.form.update.label.consignee"/></td>
 								    		<td class="text12">
 								    			<div>
 								    				<label>
-								    					<b>${Xmodel.record.henak}</b>&nbsp;
+								    					<b>${model.record.henak}</b>&nbsp;
 								    				</label>
 								    			</div>
 						    				</td>
@@ -205,7 +201,7 @@
 								    			<div>
 								    				<label>
 								    					&nbsp;<img style="vertical-align: bottom" src="resources/images/addressIcon.png" width="12" hight="12" border="0" alt="address">
-						 							<font class="text12" style="color:#666666;">[${Xmodel.record.headk1}&nbsp;&nbsp;${Xmodel.record.headk2}&nbsp;&nbsp;${Xmodel.record.headk3}]</font>
+						 							<font class="text12" style="color:#666666;">[${model.record.headk1}&nbsp;&nbsp;${model.record.headk2}&nbsp;&nbsp;${model.record.headk3}]</font>
 								    				</label>
 								    			</div>
 						    				</td>
@@ -230,19 +226,19 @@
 						    		<tr>
 						    			<td class="text12" title="wsetd">&nbsp;Transportid</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXmodel.record.todo}">
+							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
 						    			</td>
 						    		</tr>
 								    <tr>
 						    			<td class="text12" title="wsetd">&nbsp;Container</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXmodel.record.todo}">
+							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
 						    			</td>
 						    		</tr>
 						    		<tr>
 						    			<td class="text12" title="wsetd">&nbsp;Containernr.</td>
 							    		<td class="text12">
-							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXmodel.record.todo}">
+							    			<input type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="11" maxlength="10" value="${XXXmodel.record.todo}">
 						    			</td>
 						    		</tr>
 						    		</table>
@@ -251,44 +247,44 @@
 						    	<tr height="10"><td >&nbsp;</td></tr>
 						    	<tr>
 					 				<td colspan="10">
-					 				<table class="tableBorderWithRoundCorners">
-					 				<tr>
-					 				
-						 			<td class="text12" title="todo">&nbsp;Fraktbrev</td>
-						 			
-						    		<td class="text12">
-						    			<select class="inputTextMediumBlue" name="todo" id="todo" >
-						 				  <option value="">-velg-</option>
-										  <option value="J"<c:if test="${model.record.todo == 'J'}"> selected </c:if> >Ja</option>
-										  <option value="N"<c:if test="${model.record.todo == 'N'}"> selected </c:if> >Nei</option>
-										</select>
-					    			</td>
-						 			<td class="text12" title="todo">&nbsp;Forpassing SAD</td>
-						    		<td class="text12">
-						    			<select class="inputTextMediumBlue" name="todo" id="todo" >
-						 				  <option value="">-velg-</option>
-										  <option value="J"<c:if test="${model.record.todo == 'J'}"> selected </c:if> >Ja</option>
-										  <option value="N"<c:if test="${model.record.todo == 'N'}"> selected </c:if> >Nei</option>
-										</select>
-					    			</td>
-						    		<td class="text12" title="todo">&nbsp;Kjørekvittering</td>
-						    		<td class="text12">
-						    			<select class="inputTextMediumBlue" name="todo" id="todo" >
-						 				  <option value="">-velg-</option>
-										  <option value="J"<c:if test="${model.record.todo == 'J'}"> selected </c:if> >Ja</option>
-										  <option value="N"<c:if test="${model.record.todo == 'N'}"> selected </c:if> >Nei</option>
-										</select>
-					    			</td>
-					    			<td class="text12" title="todo">&nbsp;Tolldekl.</td>
-						    		<td class="text12">
-						    			<select class="inputTextMediumBlue" name="todo" id="todo" >
-						 				  <option value="">-velg-</option>
-										  <option value="J"<c:if test="${model.record.todo == 'J'}"> selected </c:if> >Ja</option>
-										  <option value="N"<c:if test="${model.record.todo == 'N'}"> selected </c:if> >Nei</option>
-										</select>
-					    			</td>
-					    			</tr>
-					    			</table>
+						 				<table class="tableBorderWithRoundCornersGray">
+						 				<tr>
+						 				
+							 			<td class="text12" title="todo">&nbsp;Fraktbrev</td>
+							 			
+							    		<td class="text12">
+							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											</select>
+						    			</td>
+							 			<td class="text12" title="todo">&nbsp;Forpassing SAD</td>
+							    		<td class="text12">
+							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											</select>
+						    			</td>
+							    		<td class="text12" title="todo">&nbsp;Kjørekvittering</td>
+							    		<td class="text12">
+							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											</select>
+						    			</td>
+						    			<td class="text12" title="todo">&nbsp;Tolldekl.</td>
+							    		<td class="text12">
+							    			<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${Xmodel.record.todo == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${Xmodel.record.todo == 'N'}"> selected </c:if> >Nei</option>
+											</select>
+						    			</td>
+						    			</tr>
+						    			</table>
 					    			</td>
 					    			
 					    			<td align="right"><input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/></td>

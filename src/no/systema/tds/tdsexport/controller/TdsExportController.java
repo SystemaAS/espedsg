@@ -166,7 +166,7 @@ public class TdsExportController {
 				successView.addObject(TdsConstants.DOMAIN_MODEL, model);
 		    	
 				successView.addObject(TdsConstants.DOMAIN_LIST, new ArrayList());
-				successView.addObject("searchFilter", recordToValidate);
+				successView.addObject(TdsConstants.DOMAIN_SEARCH_FILTER_TDSEXPORT, recordToValidate);
 				return successView;
 	    		
 		    }else{
@@ -178,6 +178,16 @@ public class TdsExportController {
 	            //binder.registerCustomEditor(...); // if needed
 	            binder.bind(request);
 	            
+	            //Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+	            	session.setAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSEXPORT, searchFilter);
+	            }else{
+	            	SearchFilterTdsExportTopicList sessionFilter = (SearchFilterTdsExportTopicList)session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSEXPORT);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		searchFilter = sessionFilter;
+	            	}
+	            }
 	            //populate list
 	            outputList = this.getTopicList(searchFilter, appUser);
 	            					
@@ -191,7 +201,11 @@ public class TdsExportController {
 				successView.addObject(TdsConstants.DOMAIN_MODEL , model);
 	    		//domain and search filter
 				successView.addObject(TdsConstants.DOMAIN_LIST,outputList);
-				successView.addObject("searchFilter", searchFilter);
+				
+				if(session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSEXPORT) ==null || "".equals(session.getAttribute(TdsConstants.SESSION_SEARCH_FILTER_TDSEXPORT)) ){
+					successView.addObject(TdsConstants.DOMAIN_SEARCH_FILTER_TDSEXPORT, searchFilter);
+				}
+				
 				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 		    	
 				return successView;

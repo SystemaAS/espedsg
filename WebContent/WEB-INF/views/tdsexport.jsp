@@ -36,7 +36,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-          		<a style="display:block;" href="tdsexportzem.do?action=doFind&sign=${searchFilter.sign}">
+          		<a style="display:block;" href="tdsexportzem.do?action=doFind&sign=${searchFilterTdsExport.sign}">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tds.export.list.zem.tab"/></font>
 				</a>					 
 			</td>
@@ -147,7 +147,7 @@
            			<select name="avd" id="avd">
 	            		<option value="">-Välj-</option>
 	 				  	<c:forEach var="record" items="${model.avdList}" >
-                          	 	<option value="${record.avd}"<c:if test="${searchFilter.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>
+                          	 	<option value="${record.avd}"<c:if test="${searchFilterTdsExport.avd == record.avd}"> selected </c:if> >${record.avd}<c:if test="${record.tst == '1'}">&nbsp;(test)</c:if></option>
 						</c:forEach> 
 					</select>
 				</td>
@@ -155,18 +155,18 @@
            			<select name="sign" id="sign">
 	            		<option value="">-Välj-</option>
 	 				  	<c:forEach var="record" items="${model.signList}" >
-                       	 	<option value="${record.sign}" <c:if test="${searchFilter.sign == record.sign}"> selected </c:if> > ${record.sign}</option>
+                       	 	<option value="${record.sign}" <c:if test="${searchFilterTdsExport.sign == record.sign}"> selected </c:if> > ${record.sign}</option>
 						</c:forEach> 
 					</select>
 				</td>
-				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value='${searchFilter.opd}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="xref" id="xref" size="10" maxlength="20" value='${searchFilter.xref}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId" size="14" maxlength="35" value='${searchFilter.tullId}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="mtyp" id="mtyp" size="3" maxlength="3" value='${searchFilter.mtyp}'>&nbsp;</td>
-				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilter.datum}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value='${searchFilter.status}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilter.avsNavn}'>&nbsp;</td>
-				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilter.motNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="10" value='${searchFilterTdsExport.opd}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="xref" id="xref" size="10" maxlength="20" value='${searchFilterTdsExport.xref}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="tullId" id="tullId" size="14" maxlength="35" value='${searchFilterTdsExport.tullId}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="mtyp" id="mtyp" size="3" maxlength="3" value='${searchFilterTdsExport.mtyp}'>&nbsp;</td>
+				<td align="left" ><input onKeyPress="return numberKey(event)" type="text" class="inputText" name="datum" id="datum" size="10" maxlength="8" value='${searchFilterTdsExport.datum}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="status" id="status" size="2" maxlength="1" value='${searchFilterTdsExport.status}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="avsNavn" id="avsNavn" size="10" maxlength="50" value='${searchFilterTdsExport.avsNavn}'>&nbsp;</td>
+				<td align="left" ><input type="text" class="inputText" name="motNavn" id="motNavn" size="10" maxlength="50" value='${searchFilterTdsExport.motNavn}'>&nbsp;</td>
 				<td valign="top" align="left" >
                    &nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'>
                    <img src="resources/images/find.png" border="0" alt="">
@@ -440,7 +440,7 @@
 												<select class="newSign" name="newSign${counter.count}" id="newSign${counter.count}">
 								            		<option value="">-Välj-</option>
 								 				  	<c:forEach var="record" items="${model.signList}" >
-						                             	<option value="${record.sign}" <c:if test="${searchFilter.sign == record.sign}"> selected </c:if> > ${record.sign}</option> 	
+						                             	<option value="${record.sign}" <c:if test="${searchFilterTdsExport.sign == record.sign}"> selected </c:if> > ${record.sign}</option> 	
 													</c:forEach> 
 												</select>
 											</td>
@@ -482,7 +482,7 @@
 			<div id="dialogCopyFromTransportUppdrag" title="Dialog">
 				<form  action="tdsexport_doFetchTopicFromTransportUppdrag.do" name="copyFromTransportUppdragForm" id="copyFromTransportUppdragForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
-					<input type="hidden" name="sign" id="sign" value='${searchFilter.sign}'/>
+					<input type="hidden" name="sign" id="sign" value='${searchFilterTdsExport.sign}'/>
 						
 					<p class="text12" >Du kan hämta ett nytt ärende från Norsk Importförtullning eller från ett Transportuppdrag.
 					 	Du måste då välja:&nbsp;<b>Avdelning</b>&nbsp;och&nbsp;<b>Ärendenummer</b>.
