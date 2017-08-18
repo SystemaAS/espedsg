@@ -34,52 +34,17 @@
 				<c:when test="${empty model.record.heopd}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
+						<img style="vertical-align:middle;" src="resources/images/add.png" width="18px" height="18px" border="0" alt="create new">
 						<font class="tabLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
 					</td>
 				</c:when>
 				<c:otherwise>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<img style="vertical-align:middle;" src="resources/images/update.gif" width="12px" height="12px" border="0" alt="update order">
+						<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
 						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>
 					</td>
-					<c:if test="${ not empty model.record.heur }">
-						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-						<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-							<c:choose>
-								<c:when test="${ model.record.heur == 'A' || model.record.heur == 'B' || model.record.heur == 'C' || model.record.heur == 'D' }">
-									<c:if test="${ model.record.heur == 'A' }">
-										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
-											<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="14px" height="14px" border="0" alt="update sub-order">
-											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.landimport.tab"/></font>
-										</a>
-									</c:if>
-									<c:if test="${ model.record.heur == 'B' }">
-										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
-											<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="14px" height="14px" border="0" alt="update sub-order">
-											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.landexport.tab"/></font>
-										</a>
-									</c:if>
-									<c:if test="${ model.record.heur == 'C' }">
-										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
-											<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="18px" height="18px" border="0" alt="update sub-order">
-											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.airimport.tab"/></font>
-										</a>
-									</c:if>
-									<c:if test="${ model.record.heur == 'D' }">
-										<a class="text14" href="tror_landimportorder.do?action=doFind&heavd=${model.record.heavd}&heopd=${model.record.heopd}" >
-											<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="18px" height="18px" border="0" alt="update sub-order">
-											<font class="tabDisabledLink"><spring:message code="systema.tror.order.suborder.airexport.tab"/></font>
-										</a>
-									</c:if>
-								</c:when>
-								<c:otherwise>
-									<font class="tabDisabledLink">Not yet implemented</font>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
+					
 				</c:otherwise>
 			</c:choose>
 			<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -212,34 +177,35 @@
 				 		<tr>
 							<td colspan="4">
 							<table border="0">
-								<c:if test="${empty model.record.heopd}">
-									<tr>
-										<td align="left" class="text14Bold" >
-						 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
-						 				</td>
-						 				<td class="text14Bold">
-						 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heavd" id="heavd" size="5" maxlength="4" value="" >
-											&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hesg"><spring:message code="systema.tror.orders.form.update.label.signature"/></span>
-						 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesg" id="hesg" size="3" maxlength="3" value="" >
-						 				</td>
-						 			</tr>
-					 			</c:if>
-							 	<tr>
-							 		<td align="left" class="text14Bold" >
-					 					&nbsp;<font class="text16RedBold" >*</font><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span>
-					 				</td>
-					 				<td class="text11">
-					 					<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heur" id="heur">
-					 						<option value="">-velg-</option>
-						 				  	<c:forEach var="record" items="${model.delsystemList}" >
-						 				  		<option value="${record.kfkod}"<c:if test="${model.record.heur == record.kfkod }"> selected </c:if> >${record.kftxt}</option>
-											</c:forEach>  
-										</select>
-					 				</td>
-					 				<td class="text12">&nbsp;&nbsp;<b>Datum</b>&nbsp;${model.record.hedtop}</td>
-					 				<td class="text12">&nbsp;&nbsp;<b>Turnr.</b>&nbsp;${model.record.hepro}</td>
-					 				
-					 			</tr>
+								<c:choose>
+									<c:when test="${empty model.record.heopd}">
+							 			<tr>
+							 				<td align="left" class="text14" >&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.delsystem"/></td>
+							 				<td class="text14"><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
+							 			</tr>
+							 			<tr height="10"><td ></td></tr>
+							 			<tr>
+											<td align="left" class="text14Bold" >
+							 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
+							 				</td>
+							 				<td class="text14Bold">
+							 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="heavd" id="heavd" size="5" maxlength="4" value="" >
+												&nbsp;&nbsp;<font class="text16RedBold" >*</font><span title="hesg"><spring:message code="systema.tror.orders.form.update.label.signature"/></span>
+							 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="hesg" id="hesg" size="3" maxlength="3" value="" >
+							 				</td>
+							 			</tr>
+						 			</c:when>
+						 			<c:otherwise>
+									 	<tr>
+									 		<td align="left" class="text14" >&nbsp;<span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
+							 				<td class="text14"><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
+							 				
+							 				<td class="text14">&nbsp;&nbsp;Datum&nbsp;<b>${model.record.hedtop}</b></td>
+							 				<td class="text14">&nbsp;&nbsp;Turnr.&nbsp;${model.record.hepro}</td>
+							 				
+							 			</tr>
+						 			</c:otherwise>
+					 			</c:choose>
 							</table>
 							</td>
 						</tr>

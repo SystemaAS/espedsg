@@ -288,19 +288,19 @@
 								<c:when test="${ record.heur == 'A' || record.heur == 'B' || record.heur == 'C' || record.heur == 'D' }">
 									<c:if test="${ record.heur == 'A' }">
 										<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="16px" height="16px" border="0" alt="update sub-order">
-			           					&nbsp;<spring:message code="systema.tror.order.suborder.landimport.tab"/>
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.landimport"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'B' }">
 			           					<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="16px" height="16px" border="0" alt="update sub-order">
-			           					&nbsp;<spring:message code="systema.tror.order.suborder.landexport.tab"/>
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.landexport"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'C' }">
 			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.png" width="16px" height="16px" border="0" alt="update sub-order">
-			           					&nbsp;<spring:message code="systema.tror.order.suborder.airimport.tab"/>
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.airimport"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'D' }">
 			           					<img style="vertical-align:middle;" src="resources/images/airplaneBlue.png" width="16px" height="16px" border="0" alt="update sub-order">
-			           					&nbsp;<spring:message code="systema.tror.order.suborder.airexport.tab"/>
+			           					&nbsp;<spring:message code="systema.tror.order.suborder.airexport"/>
 			           				</c:if>
 			           			</c:when>
 			           			<c:otherwise>
