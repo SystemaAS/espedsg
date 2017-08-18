@@ -151,7 +151,7 @@ public class TrorMainOrderHeaderLandImportController {
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
-		ModelAndView successView = new ModelAndView("tror_mainorder");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
