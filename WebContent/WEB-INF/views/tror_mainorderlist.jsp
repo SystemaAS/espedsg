@@ -30,9 +30,10 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a id="createNewOrderTabIdLink" style="display:block;" href="tror_mainorder.do?">
+				
+				<a id="createNewOrderTabIdLink" style="display:block;" runat="server" href="#">
 					<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
-					<font class="tabDisabledLink"><spring:message code="systema.tror.createnew.order.tab" /></font>
+					<font class="tabDisabledLink"><spring:message code="systema.ebooking.createnew.order.tab"/></font>
 				</a>
 				
 			</td>
@@ -171,6 +172,7 @@
 					<thead >
 					<tr style="background-color:#BCC6CC">
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></th>
+						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.edit"/></th>
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></th> 
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.turnr"/></th>
@@ -204,15 +206,80 @@
 		            <input type="hidden" name="unik_${counter.count}" id="unik_${counter.count}" value='${Xrecord.unik}'>
 		            <tr class="tex11" >
 		               <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.heavd}</td>	
+		               <td width="2%" align="center"  >
+			           		<c:choose>
+								<c:when test="${ record.heur == 'A' || record.heur == 'B' || record.heur == 'C' || record.heur == 'D' }">
+								<c:if test="${ record.heur == 'A' }">
+					           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'B' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'C' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderairimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'D' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderairexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    			</a>
+	    		    			</c:if>
+	    		    			</c:when>
+	    		    			<c:otherwise>
+		           					&nbsp;
+			           			</c:otherwise>
+    		    			</c:choose>
+    		    			
+			           </td>
 		               <td title="${record.heopd}" class="text11MediumBlue" id="opd_${record.heopd}@${counter.count}" >
 			           		<div id="opd${record.heopd}_linkcontainer${counter.count}" >
-			           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
-			           			onClick="setBlockUI(this);" href="tror_mainorder.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-    		    				<font class="text11MediumBlue">${record.heopd}</font>
-    		    			</a>
+			           		<c:choose>
+								<c:when test="${ record.heur == 'A' || record.heur == 'B' || record.heur == 'C' || record.heur == 'D' }">
+								<c:if test="${ record.heur == 'A' }">
+					           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'B' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'C' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderairimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'D' }">
+	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderairexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    			</a>
+	    		    			</c:if>
+	    		    			</c:when>
+	    		    			<c:otherwise>
+		           					&nbsp;<font class="text11">${record.heopd}</font>
+			           			</c:otherwise>
+    		    			</c:choose>
     		    			</div>
 			           </td>
+			           
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hepro}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
@@ -224,15 +291,15 @@
 			           					&nbsp;<spring:message code="systema.tror.order.suborder.landimport.tab"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'B' }">
-			           					<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="16px" height="16px" border="0" alt="update sub-order">
+			           					<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="16px" height="16px" border="0" alt="update sub-order">
 			           					&nbsp;<spring:message code="systema.tror.order.suborder.landexport.tab"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'C' }">
-			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="16px" height="16px" border="0" alt="update sub-order">
+			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.png" width="16px" height="16px" border="0" alt="update sub-order">
 			           					&nbsp;<spring:message code="systema.tror.order.suborder.airimport.tab"/>
 			           				</c:if>
 			           				<c:if test="${ record.heur == 'D' }">
-			           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.gif" width="16px" height="16px" border="0" alt="update sub-order">
+			           					<img style="vertical-align:middle;" src="resources/images/airplaneBlue.png" width="16px" height="16px" border="0" alt="update sub-order">
 			           					&nbsp;<spring:message code="systema.tror.order.suborder.airexport.tab"/>
 			           				</c:if>
 			           			</c:when>
@@ -409,6 +476,7 @@
 				</tr>
 		
 				</table>
+				</form>
 				</td>
 			</tr>
 			
@@ -421,29 +489,30 @@
 		<tr>
 		<td>
 			<div id="dialogCreateNewOrder" title="Dialog">
-				<form  action="tror_mainorder.do" name="createNewOrderForm" id="createNewOrderForm" method="post">
+				<form  action="tror_mainordergate.do" name="createNewOrderForm" id="createNewOrderForm" method="post">
 				 	<input type="hidden" name="actionGS" id="actionGS" value='doUpdate'/>
 					<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					
-					<p class="text12" >&nbsp;Velg type av Transportoppdrag.</p>
-										
+					<p class="text12" >&nbsp;<spring:message code="systema.tror.order.suborder.title.types"/></p>
+					 				
 					<table>
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
-								<select name="selectedType" id="selectedType">
-									<c:forEach var="record" items="${Xmodel.containerOpenOrders.orderTypesNew}" >
-	                             	 	<option value="${record.newAvd}@${record.newModul}@${record.newModul2}@${record.newLandKode}@${record.newSideSK}@${record.newText}" >${record.newText}</option>
-									</c:forEach>
-									
-									<%--
-									<option value="0000HD  STransportoppdrag Innland/Utgående" >Transportoppdrag Innland/Utgående</option>
-									<option value="0000HEDKSTransportoppdrag Eksport,Danmark Test" >Transportoppdrag Eksport-Danmakr Test</option>
-									<option value="0000HI  KTransportoppdrag Import" >Transportoppdrag Import</option>
-									--%>									  
+								<%--TO UNCOMMENT
+				 				  	<c:forEach var="record" items="${model.delsystemList}" >
+				 				  		<option value="${record.kfkod}">${record.kftxt}</option>
+									</c:forEach>  
+								--%>	
+								<select class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
+									<option value="A">Land import</option>
+									<option value="B">Land eksport</option>
+									<option value="C">Fly import</option>
+									<option value="D">Fly eksport</option>
 								</select>
 							</td>
 						</tr>
 					</table>
+						
 				</form>
 			</div>
 		</td>

@@ -655,9 +655,11 @@ public class EbookingMainOrderHeaderController {
 		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteCarrier = null;
 		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteInternal = null;
 		
+		//logger.info("AA:" + orderRecord.getMessageNoteConsignee());
 		messageNoteConsignee = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE);
 		messageNoteCarrier = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_CARRIER);
 		messageNoteInternal = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonMainOrderHeaderRecord.MESSAGE_NOTE_INTERNAL);
+		//logger.info("BB:" + messageNoteConsignee);
 		
 		StringBuffer brConsignee = new StringBuffer();
 		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteConsignee ){
@@ -689,11 +691,11 @@ public class EbookingMainOrderHeaderController {
 		orderRecord.setMessageNoteConsigneeOriginal(brConsignee.toString());
 		orderRecord.setMessageNoteCarrierOriginal(brCarrier.toString());
 		orderRecord.setMessageNoteInternalOriginal(brInternal.toString());
-		
 		//populate auxiliary arrays
 		orderRecord.setMessageNoteConsigneeRaw((List)messageNoteConsignee);
 		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);
 		orderRecord.setMessageNoteInternalRaw((List)messageNoteInternal);
+		
 	}
 	
 	/**

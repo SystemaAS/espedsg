@@ -6,7 +6,7 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorder.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -252,6 +252,7 @@
 							<td class="text14Bold">&nbsp;<font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.consignee"/></td>
 						</tr>
 						<tr height="5"><td ></td></tr>
+						<%--
 						
 						<tr>
 							<td >
@@ -267,8 +268,10 @@
 						
 								</tr>
 							</table>
+
 							</td>
 							<td >
+
 							<table class="tableBorderWithRoundCornersLightGray">
 								<tr>
 									<td class="text12Bold"><spring:message code="systema.tror.orders.form.update.label.arrivalDates"/></td>
@@ -280,10 +283,11 @@
 									
 								</tr>
 							</table>
+							
 							</td>		
 						</tr>
 						<tr height="5"><td ></td></tr>
-						
+						 --%>
 						
 						<tr>
 				 			<td valign="top" width="50%" >
@@ -369,21 +373,7 @@
 										
 						 			</td>
 				 				</tr>
-				 				<tr height="5"><td ></td></tr>
-								<tr>
-					 				<td class="text11">&nbsp;<span title="wsscont"><spring:message code="systema.tror.orders.form.update.label.shipper.contactName"/></span></td>
-					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.tror.orders.form.update.label.shipper.telephone"/></span></td>
-					 			</tr>
-					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${Xmodel.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${Xmodel.record.wsstlf}"></td>
-				 				</tr>
-					 			<tr>	
-					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.tror.orders.form.update.label.shipper.email"/></span></td>
-					 			</tr>
-					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wssmail" id="wssmail" size="50" maxlength="70" value="${Xmodel.record.wssmail}"></td>
-				 				</tr>
+				 				
 				 				<tr height="8"><td ></td></tr>
 				 				
 				 				<c:choose>
@@ -526,21 +516,7 @@
 										
 						 			</td>
 				 				</tr>
-				 				<tr height="5"><td ></td></tr>
-				 				<tr>
-					 				<td class="text11">&nbsp;<span title="wskcont"><spring:message code="systema.tror.orders.form.update.label.consignee.contactName"/></span></td>
-					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.tror.orders.form.update.label.consignee.telephone"/></span></td>
-					 			</tr>
-					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${Xmodel.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${Xmodel.record.wsktlf}"></td>
-				 				</tr>
-					 			<tr>	
-					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.tror.orders.form.update.label.consignee.email"/></span></td>
-					 			</tr>
-					 			<tr>	
-				 					<td class="text11" colspan="2"><input type="text" class="inputTextMediumBlue" name="wskmail" id="wskmail" size="50" maxlength="70" value="${Xmodel.record.wskmail}"></td>
-				 				</tr>
+				 				
 				 				<tr height="8"><td ></td></tr>
 				 				
 				 				<c:choose>

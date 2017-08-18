@@ -44,7 +44,9 @@ import no.systema.tror.filter.SearchFilterTrorMainList;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
 import no.systema.tror.service.TrorMainOrderListService;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
@@ -71,6 +73,7 @@ public class TrorMainOrderListController {
 	private LoginValidator loginValidator = new LoginValidator();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private StringManager strMgr = new StringManager();
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -137,7 +140,7 @@ public class TrorMainOrderListController {
 				//Final successView with domain objects
 				//--------------------------------------
 				//drop downs
-				//this.setCodeDropDownMgr(appUser, model);
+				this.setCodeDropDownMgr(appUser, model);
 				successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 	    		//domain and search filter
 				successView.addObject(TrorConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
@@ -341,11 +344,7 @@ public class TrorMainOrderListController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		/* TODO COVI Status
-		 * 
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.tvinnSadDropDownListPopulationService,
-				 model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		*/
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
 	}
 
 	/* @Example on KODTVA, pattern works also for KODTLK, KODTOTY, KODTFR, KODTSF  */
@@ -416,6 +415,12 @@ public class TrorMainOrderListController {
 	public void setTrorMainOrderListService (TrorMainOrderListService value){ this.trorMainOrderListService = value; }
 	public TrorMainOrderListService getTrorMainOrderListService(){ return this.trorMainOrderListService; }
 	
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
+	@Autowired
+	@Required
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
 }
 

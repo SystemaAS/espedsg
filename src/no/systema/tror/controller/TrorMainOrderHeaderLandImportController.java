@@ -82,9 +82,9 @@ import no.systema.tror.validator.TrorOrderHeaderValidator;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderController {
+public class TrorMainOrderHeaderLandImportController {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
-	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderController.class.getName());
+	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -109,7 +109,34 @@ public class TrorMainOrderHeaderController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorder.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandimport.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doInit(HttpSession session, HttpServletRequest request){
+		
+		Map model = new HashMap();
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
+		logger.info("Method: doInit");
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			this.setCodeDropDownMgr(appUser, model);
+			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+    		//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+		}
+		successView.addObject(TrorConstants.DOMAIN_MODEL , model);	
+		return successView;
+		
+	}
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();

@@ -75,9 +75,9 @@
   });
   
   //Present dialog box onClick (href in parent JSP)
-  /*NOT RELEVANT in this module ?
   jq(function() {
 	  jq("#createNewOrderTabIdLink").click(function() {
+		  
 		  //setters (add more if needed)
 		  jq('#dialogCreateNewOrder').dialog( "option", "title", "Lag ny Ordre" );
 		  
@@ -88,7 +88,7 @@
 				 id: "dialogSaveTU",	
 				 text: "Fortsett",
 				 click: function(){
-					 		jq('#createNewOrderForm').submit();
+			 				jq('#createNewOrderForm').submit();
 				 		}
 			 	 },
 	 	 		{
@@ -112,7 +112,7 @@
   //-----------------------------
   //END Create new order - Dialog
   //-----------------------------
-  */
+
   
 //---------------------------------------
   //DELETE Order
@@ -164,7 +164,7 @@
 	  "scrollY":        	"700px",
 	  "scrollCollapse":  	true,
 	  //"columnDefs": [{ className: "dt-head-left", "targets": [ 2 ] }],
-	  "order": [[ 3, "desc" ]], //date
+	  "order": [[ 5, "desc" ]], //date
 	  //"autoWidth": false, //for optimization purposes when initializing the table
 	  "lengthMenu": [ 50, 75, 100],
 	  "language": { "url": getLanguage(lang) }
