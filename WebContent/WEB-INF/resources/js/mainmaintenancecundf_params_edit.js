@@ -40,32 +40,7 @@ jq(function() {
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=sypaid', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
     });	
 
-    jq('#alinkMainMaintGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });      
-    jq('#alinkMainCundfGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });
-    
-    jq('#alinkMainMaintKontaktGate').click(function() {
-    	jq("#formRecord").submit();
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintFritextGate').click(function() {
-    	jq("#formRecord").submit();
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintKundeGate').click(function() {
-    	jq("#formRecord").submit();
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintVareRegGate').click(function() {
-    	jq("#formRecord").submit();
-    	autoSave('mainmaintenancecundf_params_edit.do', "formRecord");
-    });     
-    
+	
 }); 
 
 
@@ -74,11 +49,6 @@ jq(function() {
 //-----------------------
 
 function getRecord(record){
-	if (jq('#syvrdn').val() !='') {  //float
-		jq("#syvrdn").val(jq("#syvrdn").val().replace(',', '.'));
-	}
-	autoSave("mainmaintenancecundf_params_edit.do","formRecord");
-	
 	var rawId = record.id;
 	var applicationUserParam = jq('#applicationUser').val();
 	rawId = rawId.replace("recordUpdate_", "");

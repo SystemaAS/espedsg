@@ -76,47 +76,7 @@ jq(function() {
     jq('#w2valIdLink').click(function() {
     	jq('#w2valIdLink').attr('target','_blank');
     	window.open('mainmaintenance_vkund_edit_childwindow_codes.do?caller=w2val', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
-    });	 
-    
-    jq('#alinkMainMaintGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });      
-    jq('#alinkMainCundfGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });	
-	
-    jq('#alinkMainMaintFritextGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintKundeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintParamsGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintKontaktGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });   		
-	
-    jq('#alinkMainMaintVareExpNoGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });   
-    jq('#alinkMainMaintVareImpSeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });       
-    jq('#alinkMainMaintVareExpSeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");
-    });   
-   
+    });	   
     
 }); 
 
@@ -126,9 +86,6 @@ jq(function() {
 //-----------------------
 
 function getRecord(record){
-	
-   	autoSave('mainmaintenancecundf_vareimp_no_edit.do', "formRecord");	
-	
 	var rawId = record.id;
 	var applicationUserParam = jq('#applicationUser').val();
 	rawId = rawId.replace("recordUpdate_", "");

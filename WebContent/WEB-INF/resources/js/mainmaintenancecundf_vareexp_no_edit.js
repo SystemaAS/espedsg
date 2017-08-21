@@ -32,46 +32,6 @@ jq(function() {
 		});
 	});
 
-
-    jq('#alinkMainMaintGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });      
-    jq('#alinkMainCundfGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });	
-	
-    jq('#alinkMainMaintFritextGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintKundeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintParamsGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });         
-    jq('#alinkMainMaintKontaktGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });   	
-	
-
-    jq('#alinkMainMaintVareExpSeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });   
-    jq('#alinkMainMaintVareImpSeGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });       
-    jq('#alinkMainMaintVareImpNoGate').click(function() {
-    	jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-    	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");
-    });     
     
 }); 
 
@@ -80,9 +40,6 @@ jq(function() {
 //GET specific db-record
 //-----------------------
 function getRecord(record){
-	
-	autoSave('mainmaintenancecundf_vareexp_no_edit.do', "formRecord");	
-	
 	var rawId = record.id;
 	var applicationUserParam = jq('#applicationUser').val();
 	
