@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.FirmDao;
-import no.systema.jservices.common.dao.SvewDao;
-import no.systema.jservices.common.dto.SvewDto;
+import no.systema.jservices.common.dao.SviwDao;
+import no.systema.jservices.common.dto.SviwDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.util.StringUtils;
@@ -35,10 +35,10 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.validator.MaintMainSvewValidator;
+import no.systema.z.main.maintenance.validator.MaintMainSviwValidator;
 
 /**
- * Controller for Export(se) for Vareregister in Kunderegister
+ * Controller for Import(se) for Vareregister in Kunderegister
  * 
  * 
  * @author Fredrik Möller
@@ -48,64 +48,21 @@ import no.systema.z.main.maintenance.validator.MaintMainSvewValidator;
  */
 
 @Controller
-public class MainMaintenanceCundfVareExportSeController {
-	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVareExportSeController.class.getName());
+public class MainMaintenanceCundfVareImportSeController {
+	private static final Logger logger = Logger.getLogger(MainMaintenanceCundfVareImportSeController.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 
-	/**
-	 * This method is called from TDS-Export Maintenance.
-	 * The goal is to redirect to and use the UX-element of the general maintenance routine: Vedlikehold Frimanivå.
-	 *  
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "mainmaintenancecundf_vareexp_se_from_tdsexportmaint.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView doVareExportSeFromTdsExportMaintenance(HttpSession session, HttpServletRequest request) {
-		ModelAndView successView = new ModelAndView("redirect:mainmaintenancecundf_vareexp_se.do"); 
-
-		String kundnr = request.getParameter("kundnr");
-		String knavn = request.getParameter("knavn");
-		String firma = request.getParameter("firma");
-		
-		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		Map model = new HashMap();
-
-		if (appUser == null) {
-			return this.loginView;
-		} else  {
-			KundeSessionParams kundeSessionParams = new KundeSessionParams();
-			kundeSessionParams.setKundnr(kundnr);
-			kundeSessionParams.setKnavn(knavn);
-			kundeSessionParams.setFirma(firma);
-			
-			this.setInstalledModules(kundeSessionParams, appUser.getUser());
-			
-			//JsonMaintMainCundfRecord record = this.fetchRecord(appUser.getUser(), kundnr, firma);
-			//model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-			
-			successView.addObject("tab_knavn_display", VkundControllerUtil.getTrimmedKnav(kundeSessionParams.getKnavn()));
-			model.put("kundnr", kundnr);
-			model.put("firma", firma);
-			session.setAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS, kundeSessionParams);
-			
-		}
-
-		return successView;
-	}
-	
-	
 	/**
 	 * 
 	 * @param session
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "mainmaintenancecundf_vareexp_se.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView doVareExportSe(HttpSession session, HttpServletRequest request) {
-		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
+	@RequestMapping(value = "mainmaintenancecundf_vareimp_se.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doVareImportSe(HttpSession session, HttpServletRequest request) {
+		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareimp_se_edit");
 		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 
@@ -114,7 +71,7 @@ public class MainMaintenanceCundfVareExportSeController {
 		} else  {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 
-			List<SvewDto> list = new ArrayList<SvewDto>();
+			List<SviwDto> list = new ArrayList<SviwDto>();
 			list = fetchList(appUser.getUser(), kundeSessionParams.getKundnr());
 
 			model.put("kundnr", kundeSessionParams.getKundnr());
@@ -129,17 +86,9 @@ public class MainMaintenanceCundfVareExportSeController {
 		return successView;
 	}
 
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param bindingResult
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="mainmaintenancecundf_vareexp_se_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_params_edit(@ModelAttribute ("record") SvewDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareexp_se_edit");
+	@RequestMapping(value="mainmaintenancecundf_vareimp_se_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView mainmaintenancecundf_vareimp_se_edit(@ModelAttribute ("record") SviwDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		ModelAndView successView = new ModelAndView("mainmaintenancecundf_vareimp_se_edit");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
@@ -151,7 +100,7 @@ public class MainMaintenanceCundfVareExportSeController {
 			KundeSessionParams kundeSessionParams = (KundeSessionParams) session.getAttribute(MainMaintenanceConstants.KUNDE_SESSION_PARAMS);
 			adjustRecordToValidate(recordToValidate, kundeSessionParams);
 
-			MaintMainSvewValidator validator = new MaintMainSvewValidator();
+			MaintMainSviwValidator validator = new MaintMainSviwValidator();
 			if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) {
 				validator.validateDelete(recordToValidate, bindingResult);
 			} else {
@@ -193,7 +142,7 @@ public class MainMaintenanceCundfVareExportSeController {
 
 			}
 
-			List<SvewDto> list = new ArrayList<SvewDto>();
+			List<SviwDto> list = new ArrayList<SviwDto>();
 			list = fetchList(appUser.getUser(),  kundeSessionParams.getKundnr());
 
 			model.put("kundnr", kundeSessionParams.getKundnr());
@@ -209,12 +158,12 @@ public class MainMaintenanceCundfVareExportSeController {
 
 	}
 	
-	private int updateRecord(SystemaWebUser appUser, SvewDao record, String mode, StringBuffer errMsg) {
+	private int updateRecord(SystemaWebUser appUser, SviwDao record, String mode, StringBuffer errMsg) {
 		Locale locale = VkundControllerUtil.getLocale(appUser.getUsrLang(), "svew");
 		int retval = 0;
-		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
-		jsonReader.set(new JsonDtoContainer<SvewDao>());
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_DML_UPDATE_URL;
+		JsonReader<JsonDtoContainer<SviwDao>> jsonReader = new JsonReader<JsonDtoContainer<SviwDao>>();
+		jsonReader.set(new JsonDtoContainer<SviwDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVIW_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +locale.getCountry();
 		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
@@ -224,7 +173,7 @@ public class MainMaintenanceCundfVareExportSeController {
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 		if (jsonPayload != null) {
-			JsonDtoContainer<SvewDao> container = (JsonDtoContainer<SvewDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<SviwDao> container = (JsonDtoContainer<SviwDao>) jsonReader.get(jsonPayload);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
 					errMsg.append(container.getErrMsg());
@@ -237,125 +186,48 @@ public class MainMaintenanceCundfVareExportSeController {
 	}	
 	
 	
-	private void adjustRecordToValidate(SvewDao recordToValidate, KundeSessionParams kundeSessionParams) {
-		recordToValidate.setSvew_knnr(Integer.parseInt(kundeSessionParams.getKundnr()));
+	private void adjustRecordToValidate(SviwDao recordToValidate, KundeSessionParams kundeSessionParams) {
+		recordToValidate.setSviw_knnr(Integer.parseInt(kundeSessionParams.getKundnr()));
 	}	
 	
 	
-	private List<SvewDto> fetchList(String applicationUser, String kundnr) {
-		JsonReader<JsonDtoContainer<SvewDao>> jsonReader = new JsonReader<JsonDtoContainer<SvewDao>>();
-		jsonReader.set(new JsonDtoContainer<SvewDao>());
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVEW_GET_URL;
+	private List<SviwDto> fetchList(String applicationUser, String kundnr) {
+		JsonReader<JsonDtoContainer<SviwDao>> jsonReader = new JsonReader<JsonDtoContainer<SviwDao>>();
+		jsonReader.set(new JsonDtoContainer<SviwDao>());
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SVIW_GET_URL;
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + applicationUser);
-		urlRequestParams.append("&svew_knnr=" + kundnr);
+		urlRequestParams.append("&sviw_knnr=" + kundnr);
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		logger.info("jsonPayload="+jsonPayload);
-		List<SvewDto> adjustedlist = new ArrayList<SvewDto>();
+		List<SviwDto> adjustedlist = new ArrayList<SviwDto>();
 		if (jsonPayload != null) {
-			JsonDtoContainer<SvewDao> container = (JsonDtoContainer<SvewDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<SviwDao> container = (JsonDtoContainer<SviwDao>) jsonReader.get(jsonPayload);
 				if (container != null) {
-					SvewDto uiDao = null;
-					for (SvewDao svewDao : container.getDtoList()) {
-						uiDao = new SvewDto();
-						uiDao.setSvew_knnr(kundnr);
-						uiDao.setSvew_brut(StringUtils.convertToSystemaUIFormat(svewDao.getSvew_brut()));
-						uiDao.setSvew_knso(svewDao.getSvew_knso());
-						uiDao.setSvew_neto(StringUtils.convertToSystemaUIFormat(svewDao.getSvew_neto()));
-						uiDao.setSvew_ulkd(svewDao.getSvew_ulkd());
-						uiDao.setSvew_vasl(svewDao.getSvew_vasl());
-						uiDao.setSvew_vata(svewDao.getSvew_vata());
-						adjustedlist.add(uiDao);
+					SviwDto uiDto = null;
+					if (container.getDtoList() != null) {
+						for (SviwDao sviwDao : container.getDtoList()) {
+							uiDto = new SviwDto();
+							uiDto.setSviw_knnr(kundnr);
+							uiDto.setSviw_brut(StringUtils.convertToSystemaUIFormat(sviwDao.getSviw_brut()));
+							uiDto.setSviw_knso(sviwDao.getSviw_knso());
+							uiDto.setSviw_neto(StringUtils.convertToSystemaUIFormat(sviwDao.getSviw_neto()));
+							uiDto.setSviw_ulkd(sviwDao.getSviw_ulkd());
+							uiDto.setSviw_vasl(sviwDao.getSviw_vasl());
+							uiDto.setSviw_vata(sviwDao.getSviw_vata());
+							adjustedlist.add(uiDto);
+						}
 					}
 				}
 		}
 		return adjustedlist;
 	}	
 	
-	/**
-	 * 
-	 * @param kundeSessionParams
-	 * @param appUser
-	 */
-	private void setInstalledModules(KundeSessionParams kundeSessionParams, String appUser) { //Used for views in Vareregister
-		FirmDao firmDao = getFirmDao(appUser);
-		if ("J".equals(firmDao.getFiurse())) {
-			kundeSessionParams.setExportNo(true);
-		}
-		if ("J".equals(firmDao.getFiursi())) {
-			kundeSessionParams.setImportNo(true);
-		}
 
-		//TODO when available in table FIRM
-		kundeSessionParams.setImportSe(true);
-		kundeSessionParams.setExportSe(true);
-		kundeSessionParams.setFantomSpaceWidth(getFantomSpaceWidth(kundeSessionParams));
-	
-	}
-	/**
-	 * 
-	 * @param appUser
-	 * @return
-	 */
-	private FirmDao getFirmDao(String appUser) {
-		JsonReader<JsonDtoContainer<FirmDao>> jsonReader = new JsonReader<JsonDtoContainer<FirmDao>>();
-		jsonReader.set(new JsonDtoContainer<FirmDao>());
-		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMONLY_GET_LIST_URL;
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser);
-
-		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		logger.info("URL PARAMS: " + urlRequestParams);
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//logger.info("jsonPayload="+jsonPayload);
-		FirmDao firmDao = null;
-		if (jsonPayload != null) {
-			JsonDtoContainer<FirmDao> container = (JsonDtoContainer<FirmDao>) jsonReader.get(jsonPayload);
-				if (container != null) {
-					if (container.getDtoList().size() > 0) {
-						firmDao = container.getDtoList().get(0);
-					}
-				}
-		}
-		return firmDao;
-	}
-
-	/**
-	 * 
-	 * @param kundeSessionParams
-	 * @return
-	 */
-	private int getFantomSpaceWidth(KundeSessionParams kundeSessionParams) {
-		int spaceTotal = 1090;
-		if (kundeSessionParams.isExportNo()) {
-			spaceTotal = spaceTotal - 100;
-		}
-		if (kundeSessionParams.isImportNo()) {
-			spaceTotal = spaceTotal - 100;
-		}
-		if (kundeSessionParams.isExportDk()) {
-			spaceTotal = spaceTotal - 100;
-		}
-		if (kundeSessionParams.isImportDk()) {
-			spaceTotal = spaceTotal - 100;
-		}
-		if (kundeSessionParams.isExportSe()) {
-			spaceTotal = spaceTotal - 100;
-		}
-		if (kundeSessionParams.isImportSe()) {
-			spaceTotal = spaceTotal - 100;
-		}
-
-		return spaceTotal;
-	}
-
-	
-	
 	// Wired - SERVICES
 	@Qualifier("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
