@@ -143,6 +143,9 @@ public class TrorUrlDataStore {
 	static public String TROR_PRODUCT_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKUFAST.do";
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTRKODFR.do?user=OSCAR&tkunik=017
 	static public String TROR_ENHET_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRKODFR.do";
+	//http://gw.systema.no:8080/syjservicesbtror/syjsKODTSF.do?user=OSCAR
+	static public String TROR_SIGNATURES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTSF.do";
+		
 			
 	
 	

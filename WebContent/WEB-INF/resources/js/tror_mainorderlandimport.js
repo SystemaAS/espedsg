@@ -21,9 +21,8 @@
   
   
   jq(function() {
-	  jq("#dateTODO").datepicker({ 
-		  dateFormat: 'yymmdd'
-		  //,defaultDate: "-1m"	  
+	  jq("#hedtop").datepicker({ 
+		  dateFormat: 'yymmdd'  
 	  });
 	  
 	  //custom validity
@@ -32,9 +31,15 @@
 	    		refreshCustomValidity(jq('#heavd')[0]);
 	  		}
 	  	});
+	  
 	  jq('#hesg').focus(function() {
 	    	if(jq('#hesg').val()!=''){
 	    		refreshCustomValidity(jq('#hesg')[0]);
+	  		}
+	  	});
+	  jq('#hedtop').focus(function() {
+	    	if(jq('#hedtop').val()!=''){
+	    		refreshCustomValidity(jq('#hedtop')[0]);
 	  		}
 	  	});
 	  jq('#heur').focus(function() {

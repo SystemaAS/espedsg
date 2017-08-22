@@ -26,17 +26,16 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeRecord;
+
 
 
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
-/*
-import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturContainer;
-import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingFrankaturRecord;
-import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingOppdragTypeContainer;
-import no.systema.ebooking.model.jsonjackson.codes.JsonEbookingOppdragTypeRecord;
-import no.systema.ebooking.service.html.dropdown.EbookingDropDownListPopulationService;
-*/
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 /**
  * The class handles general gui drop downs aspect population for Work with Trips - Transport Disponering
@@ -335,6 +334,83 @@ public class CodeDropDownMgr {
 					}
 					
 					model.put(TrorConstants.RESOURCE_MODEL_KEY_ENHET_CODE_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
+		
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateCodesHtmlDropDownsFromJsonSignature(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+				
+					String CODES_URL = TrorUrlDataStore.TROR_SIGNATURES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorSignatureCodeContainer codeContainer = listPopulationService.getSignatureContainer(utfPayload);
+					List<JsonTrorSignatureCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorSignatureCodeRecord codeRecord: codeContainer.getDtoList()){
+						//default
+						list.add(codeRecord);
+						//logger.info(codeRecord.getTkkode());
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_SIGNATURES_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
+		
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateCodesHtmlDropDownsFromJsonAvdelning(UrlCgiProxyService urlCgiProxyService, MaintMainKodtaService specialListPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+				
+					String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
+					String urlRequestParams = "user=" + appUser.getUser();
+					logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			    	logger.info("URL: " + BASE_URL);
+			    	logger.info("URL PARAMS: " + urlRequestParams);
+			    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			    	//extract
+			    	List<JsonMaintMainKodtaRecord> list = new ArrayList();
+			    	if(jsonPayload!=null){
+						//lists
+			    		JsonMaintMainKodtaContainer container = specialListPopulationService.getList(jsonPayload);
+				        if(container!=null){
+				        	list = (List)container.getList();
+				        }
+			    	}
+			    	
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_AVD_LIST, list);
 					
 				
 				}catch(Exception e){

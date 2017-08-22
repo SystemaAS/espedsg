@@ -54,6 +54,11 @@ public final class TrorConstants {
 	public static final String RESOURCE_MODEL_KEY_DELSYSTEM_CODE_LIST = "delsystemList";
 	public static final String RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST = "produktList";
 	public static final String RESOURCE_MODEL_KEY_ENHET_CODE_LIST = "enhetList";
+	//Sig/Avd
+	public static final String RESOURCE_MODEL_KEY_SIGNATURES_LIST = "signatureList";
+	public static final String RESOURCE_MODEL_KEY_AVD_LIST = "avdList";
+	
+	
 	
 	
 	
@@ -92,6 +97,8 @@ public final class TrorConstants {
 	public static final String SESSION_SEARCH_FILTER = "searchFilter";
 	public static final String SESSION_CHILDWINDOW_FLAG = "cw";
 	
+	public static final String SESSION_SEARCH_FILTER_TROR = "searchFilterTror";
+	public static final String DOMAIN_SEARCH_FILTER_TROR = "searchFilterTror";
 
 	//aspects in view (sucha as errors, logs, other
 	public static final String ASPECT_ERROR_MESSAGE = "errorMessage";

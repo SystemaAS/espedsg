@@ -88,6 +88,7 @@
 				 id: "dialogSaveTU",	
 				 text: "Fortsett",
 				 click: function(){
+					 		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 			 				jq('#createNewOrderForm').submit();
 				 		}
 			 	 },

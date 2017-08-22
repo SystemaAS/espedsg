@@ -132,21 +132,35 @@
 				        	<td>&nbsp;<font title="to" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></font></td>
 			        	</tr>
 			        	<tr>
-				        	<td><input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value='${searchFilter.avd}'></td>
-					        <td><input type="text" class="inputText" name="sign" id="sign" size="5" maxlength="3" value='${searchFilter.sign}'></td>
-				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilter.orderNr}'></td>
-					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilter.date}'></td>
+				        	<td>
+				        		<select name="avd" id="avd" >
+			 						<option value="">-velg-</option>
+				 				  	<c:forEach var="record" items="${model.avdList}" >
+				 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+									</c:forEach>  
+								</select>
+				        	</td>
+					        <td>
+					        	<select name="sign" id="sign" >
+			 						<option value="">-velg-</option>
+			 						<c:forEach var="record" items="${model.signatureList}" >
+				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+									</c:forEach>  
+								</select>
+					        </td>
+				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilterTror.orderNr}'></td>
+					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilterTror.date}'></td>
 					        <%--
 					        <td nowrap>	
 				        		<font title="fromDate/fromDate" class="text12"></font>
-					        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilter.fromDate}'>
-					        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilter.toDate}'>
+					        	&nbsp;<input type="text" class="inputText" name="fromDate" id="fromDate" size="9" maxlength="8" value='${searchFilterTror.fromDate}'>
+					        	-<input type="text" class="inputText" name="toDate" id="toDate" size="9" maxlength="8" value='${searchFilterTror.toDate}'>
 					        </td>
 					         --%>
-					        <td><input type="text" class="inputText" name="sender" id="sender" size="15" maxlength="15" value='${searchFilter.sender}'></td>
-				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="15" maxlength="15" value='${searchFilter.receiver}'></td>
-				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'></td>
-					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;</td>
+					        <td><input type="text" class="inputText" name="sender" id="sender" size="15" maxlength="15" value='${searchFilterTror.sender}'></td>
+				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="15" maxlength="15" value='${searchFilterTror.receiver}'></td>
+				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilterTror.from}'></td>
+					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilterTror.to}'>&nbsp;</td>
 					        <td>	
 					        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
 					        </td>   

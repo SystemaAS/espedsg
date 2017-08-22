@@ -69,6 +69,7 @@ import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 
 /**
@@ -1012,6 +1013,10 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		//Sign / AVD
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
+		//general
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCountry(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonIncoterms(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
@@ -1112,13 +1117,19 @@ public class TrorMainOrderHeaderLandImportController {
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
+	
 	
 	@Qualifier ("notisblockService")
 	private NotisblockService notisblockService;
 	@Autowired
 	public void setNotisblockService (NotisblockService value){ this.notisblockService=value; }
 	public NotisblockService getNotisblockService(){return this.notisblockService;}
-	
 	
 	@Qualifier ("ebookingChildWindowService")
 	private EbookingChildWindowService ebookingChildWindowService;

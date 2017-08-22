@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 //application imports
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
-import no.systema.ebooking.util.EbookingConstants;
+import no.systema.tror.util.TrorConstants;
 
 
 @Controller
@@ -36,7 +36,7 @@ public class LogoutTrorController {
 		}else{
 			logger.info("Logging out from Systema Tror ...");
 			session.removeAttribute(AppConstants.ASPECT_ERROR_MESSAGE);
-			//session.removeAttribute(EbookingConstants.SESSION_CHILDWINDOW_FLAG);
+			session.removeAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR);
 			view = this.successView;
 		}
 		return view;

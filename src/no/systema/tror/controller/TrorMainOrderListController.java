@@ -47,10 +47,13 @@ import no.systema.tror.service.TrorMainOrderListService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tvinn.sad.sadimport.filter.SearchFilterSadImportTopicList;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.service.MaintMainKofastService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
@@ -92,11 +95,9 @@ public class TrorMainOrderListController {
 		
 		this.context = TdsAppContext.getApplicationContext();
 		Collection<JsonTrorOrderListRecord> outputListOpenOrders = new ArrayList<JsonTrorOrderListRecord>();
-
 		
 		Map model = new HashMap();
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		
 		ModelAndView successView = new ModelAndView("tror_mainorderlist");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -128,10 +129,23 @@ public class TrorMainOrderListController {
 				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 	    		successView.addObject(TrorConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
 	    		successView.addObject(TrorConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
-	    		successView.addObject("searchFilter", recordToValidate);
+	    		successView.addObject(TrorConstants.DOMAIN_SEARCH_FILTER_TROR, recordToValidate);
 				return successView;
 	    		
 		    }else{
+		    	//Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
+	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
+            		session.setAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR, recordToValidate);
+            		logger.info("A");
+	            }else{
+	            	SearchFilterTrorMainList sessionFilter = (SearchFilterTrorMainList)session.getAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR);
+	            	if(sessionFilter!=null){
+	            		//Use the session filter when applicable
+	            		recordToValidate = sessionFilter;
+	            		logger.info("B");
+	            	}
+	            }
+		    		
 				//STEP [1]
 		    	StringBuffer userAvd = new StringBuffer();
 		    	outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model);
@@ -148,7 +162,10 @@ public class TrorMainOrderListController {
 				if(outputListOpenOrders!=null){
 					session.setAttribute(session.getId() + TrorConstants.SESSION_LIST, outputListOpenOrders);
 				}
-				successView.addObject("searchFilter", recordToValidate);
+				//check filter
+				if (session.getAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR) == null || session.getAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR).equals("")){
+					successView.addObject(TrorConstants.DOMAIN_SEARCH_FILTER_TROR, recordToValidate);
+				}
 				
 				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 				return successView;
@@ -344,6 +361,10 @@ public class TrorMainOrderListController {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		//Sign / AVD
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
+				
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
 	}
 
@@ -421,6 +442,13 @@ public class TrorMainOrderListController {
 	@Required
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
 	
 }
 

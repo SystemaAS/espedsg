@@ -170,7 +170,7 @@
 											</c:if>
 											<c:if test="${fn:contains(record.prog,'-TROR') }">
 							 					<font class="text14">
-							 						<a class="text14" href="tror_mainorderlist.do?lang=${user.usrLang}&action=doFind" onMouseOver="showPop('infoTROR');" onMouseOut="hidePop('infoTROR');" onClick="setBlockUI(this);" > 	
+							 						<a class="text14" href="tror_mainorderlist.do?lang=${user.usrLang}&action=doFind&sign=${user.signatur}" onMouseOver="showPop('infoTROR');" onMouseOut="hidePop('infoTROR');" onClick="setBlockUI(this);" > 	
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
