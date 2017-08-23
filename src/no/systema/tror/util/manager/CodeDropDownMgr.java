@@ -12,6 +12,9 @@ import no.systema.main.service.UrlCgiProxyService;
 //eBooking
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Container;
+import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Record;
+import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCountryCodeContainer;
@@ -29,13 +32,12 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeRecord;
 
-
-
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 
 /**
  * The class handles general gui drop downs aspect population for Work with Trips - Transport Disponering
@@ -417,6 +419,36 @@ public class CodeDropDownMgr {
 					e.printStackTrace();
 				}
 		}
+
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param specialListPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateCodesHtmlDropDownsFromJsonTransporttype(UrlCgiProxyService urlCgiProxyService, MaintSadImportKodts4Service specialListPopulationService,
+				Map model, SystemaWebUser appUser){
+		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS4R_GET_LIST_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user="+ appUser.getUser());
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//extract
+    	List<JsonMaintSadImportKodts4Record> list = new ArrayList();
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintSadImportKodts4Container container = specialListPopulationService.getList(jsonPayload);
+	        if(container!=null){
+	        	list = (List)container.getList();
+	        }
+    	}
+    	model.put(TrorConstants.RESOURCE_MODEL_KEY_TRANSPORTTYPE_CODE_LIST, list);
+    	
+	}
 		
 		
 }

@@ -8,6 +8,36 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  jq(function() {
+	  jq("#selectedType").change(function() {
+		  showDelsystemIcon	(jq("#selectedType").val());		 
+	  });
+	  jq("#selectedType").focus(function() {
+		  showDelsystemIcon	(jq("#selectedType").val());		 
+	  });
+  });
+  function showDelsystemIcon(value){
+	  
+	  if ( value == "A" ){
+			 jq("#imagePreview").empty();
+	    	 jq("#imagePreview").append("<img style=\"vertical-align:middle;\" src=\"resources/images/lorry_green.png\" width=\"24px\" height=\"24px\" " + "\" />");
+	     }else if ( value == "B" ){
+			 jq("#imagePreview").empty();
+	    	 jq("#imagePreview").append("<img style=\"vertical-align:middle;\" src=\"resources/images/lorry_blue.png\" width=\"24px\" height=\"24px\" " + "\" />");
+	     }else if ( value == "C" ){
+			 jq("#imagePreview").empty();
+	    	 jq("#imagePreview").append("<img style=\"vertical-align:middle;\" src=\"resources/images/airplaneYellow.png\" width=\"24px\" height=\"24px\" " + "\" />");
+	     }else if ( value == "D" ){
+			 jq("#imagePreview").empty();
+	    	 jq("#imagePreview").append("<img style=\"vertical-align:middle;\" src=\"resources/images/airplaneBlue.png\" width=\"24px\" height=\"24px\" " + "\" />");
+	     
+	     }else{
+	    	 jq("#imagePreview").empty();
+	    	 jq("#imagePreview").append("displays missing image here...");
+	     }
+	  
+  }
+  
   function printDocument(element){
 	  var id = element.id;
 	  var record = id.split('_');

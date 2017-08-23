@@ -20,6 +20,73 @@
   }
   
   
+  //----------------
+  //CUSTOMER search
+  //----------------
+  jq(function() {
+	  //Agent
+	  jq('#trorAgentIdLink').click(function() {
+		  jq('#trorAgentIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_ag&knr=' + jq('#hekna').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorAgentIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorAgentIdLink').click();
+		  }
+	  });
+	  //Carrier
+	  jq('#trorCarrierIdLink').click(function() {
+		  jq('#trorCarrierIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_car&knr=' + jq('#heknt').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorCarrierIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorCarrierIdLink').click();
+		  }
+	  });
+	  //Seller
+	  jq('#trorSellerIdLink').click(function() {
+		  jq('#trorSellerIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_se&knr=' + jq('#hekns').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorSellerIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorSellerIdLink').click();
+		  }
+	  });
+	  //Seller - Faktmott.
+	  jq('#trorSellerFmIdLink').click(function() {
+		  jq('#trorSellerFmIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_sefm&knr=' + jq('#heknsf').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorSellerFmIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorSellerFmIdLink').click();
+		  }
+	  });
+	  //Buyer
+	  jq('#trorBuyerIdLink').click(function() {
+		  jq('#trorBuyerIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_by&knr=' + jq('#heknk').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorBuyerIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorBuyerIdLink').click();
+		  }
+	  });
+	  //Buyer FMott
+	  jq('#trorBuyerFmIdLink').click(function() {
+		  jq('#trorBuyerFmIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_byfm&knr=' + jq('#heknkf').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorBuyerFmIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorBuyerFmIdLink').click();
+		  }
+	  });
+  });
+  
+  
   jq(function() {
 	  jq("#hedtop").datepicker({ 
 		  dateFormat: 'yymmdd'  
@@ -284,7 +351,7 @@
   
 //Ajax on postal codes
   function getCity(target, id, countryCode){
-	  jq.getJSON('searchPostNumber_Ebooking.do', {
+	  jq.getJSON('TODOsearchPostNumber_Ebooking.do', {
 		  applicationUser : jq('#applicationUser').val(),
 		  id : id,
 		  countryCode : countryCode,
@@ -353,7 +420,7 @@
   jq(function() {  
 	  	//SHIPPER/CONSIGNOR
 	    jq('#hekns').blur(function() {
-	    	getConsignor();
+	    	//getConsignor();
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
@@ -372,7 +439,7 @@
 	    function getConsignor(){
 	    	var hekns = jq('#hekns').val();
     		if(hekns!=null && hekns!=""){
-	    		jq.getJSON('searchCustomer_Ebooking.do', {
+	    		jq.getJSON('TODOsearchCustomer_Ebooking.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : jq('#hekns').val(),
@@ -446,7 +513,7 @@
 	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {
-	    	getConsignee();
+	    	//getConsignee();
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
@@ -463,7 +530,7 @@
 	    function getConsignee(){
 	    	var heknk = jq('#heknk').val();
     		if(heknk!=null && heknk!=""){
-				jq.getJSON('searchCustomer_Ebooking.do', {
+				jq.getJSON('TODOsearchCustomer_Ebooking.do', {
 				applicationUser : jq('#applicationUser').val(),
 				customerName : "",
 				customerNumber : jq('#heknk').val(),

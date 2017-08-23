@@ -126,7 +126,38 @@
 			  }else if(callerType == 'mainttdsexport_kundreg'){
 				  //must redirect on parent window
 				  window.opener.location.href = "mainmaintenancecundf_vareexp_se_from_tdsexportmaint.do?kundnr=" + knr + "&knavn=" + knavn + "&firma=" + firma;
+
+			  //TROR - Oppdragsreg.	  
+			  }else if (callerType == 'tror_ag'){ //Agent
+				  opener.jq('#hekna').val(knr);
+				  opener.jq('#henaa').val(knavn);
+			 
+			  }else if (callerType == 'tror_se'){ //Seller
+				  opener.jq('#hekns').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenas').val(compoundName);
+			  
+			  }else if (callerType == 'tror_sefm'){ //Seller Fakt.mott.
+				  opener.jq('#heknsf').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenasf').val(compoundName);
+			  
+			  }else if (callerType == 'tror_by'){ //Buyer
+				  opener.jq('#heknk').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenak').val(compoundName);
+				  
+			  }else if (callerType == 'tror_byfm'){ //Buyer Faktmott.
+				  opener.jq('#heknkf').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenakf').val(compoundName);
+				  
+			  }else if (callerType == 'tror_car'){ //Carrier
+				  opener.jq('#heknt').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#ownheknt').val(compoundName);
 			  }
+			  
 			  
 			  //close child window
 			  window.close();

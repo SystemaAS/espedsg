@@ -54,6 +54,8 @@ public final class TrorConstants {
 	public static final String RESOURCE_MODEL_KEY_DELSYSTEM_CODE_LIST = "delsystemList";
 	public static final String RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST = "produktList";
 	public static final String RESOURCE_MODEL_KEY_ENHET_CODE_LIST = "enhetList";
+	public static final String RESOURCE_MODEL_KEY_TRANSPORTTYPE_CODE_LIST = "transporttypeList";
+	
 	//Sig/Avd
 	public static final String RESOURCE_MODEL_KEY_SIGNATURES_LIST = "signatureList";
 	public static final String RESOURCE_MODEL_KEY_AVD_LIST = "avdList";

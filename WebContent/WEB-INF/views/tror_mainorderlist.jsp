@@ -512,17 +512,13 @@
 					<table>
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
-								<%--TO UNCOMMENT
-				 				  	<c:forEach var="record" items="${model.delsystemList}" >
-				 				  		<option value="${record.kfkod}">${record.kftxt}</option>
-									</c:forEach>  
-								--%>	
 								<select class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
 									<option value="A">Land import</option>
 									<option value="B">Land eksport</option>
 									<option value="C">Fly import</option>
 									<option value="D">Fly eksport</option>
 								</select>
+								&nbsp;&nbsp;<div style="display:inline;" id="imagePreview"></div>
 							</td>
 						</tr>
 					</table>

@@ -38,6 +38,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
+
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
@@ -83,7 +85,7 @@ public class MainMaintenanceControllerChildWindow {
 	private LoginValidator loginValidator = new LoginValidator();
 	//private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
-	
+	private StringManager strMgr = new StringManager();
 	
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -110,8 +112,11 @@ public class MainMaintenanceControllerChildWindow {
 		String customerNr = request.getParameter("knr");
 		logger.info("callerType:" + callerType);
 		logger.info("customerName:" + customerName);
-		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//fallback to FIRMA
+		if(strMgr.isNull(firma)){
+			firma = appUser.getCompanyCode();
+		}
 		
 		if(appUser==null){
 			return this.loginView;
