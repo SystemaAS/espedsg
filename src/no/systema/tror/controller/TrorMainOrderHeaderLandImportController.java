@@ -40,6 +40,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.StringManager;
 
 import no.systema.main.util.io.FileContentRenderer;
@@ -97,6 +98,7 @@ public class TrorMainOrderHeaderLandImportController {
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	private StringManager strMgr = new StringManager();
+	private DateTimeManager dateMgr = new DateTimeManager();
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -112,7 +114,7 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorderlandimport.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView doInit(HttpSession session, HttpServletRequest request){
+	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
@@ -124,12 +126,64 @@ public class TrorMainOrderHeaderLandImportController {
 			return loginView;
 			
 		}else{
+			
+			this.setDefaultValues(recordToValidate, appUser);
+			
+			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			this.setCodeDropDownMgr(appUser, model);
-			//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
-    		//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+			
 		}
 		successView.addObject(TrorConstants.DOMAIN_MODEL , model);	
 		return successView;
+		
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param appUser
+	 */
+	private void setDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
+		recordToValidate.setHesg(appUser.getSignatur());
+		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
+		
+	}
+	/**
+	 * Special split on Goods no.
+	 * 
+	 * @param recordToValidate
+	 */
+	private void splitGodsnr(JsonTrorOrderHeaderRecord recordToValidate){
+		String str = recordToValidate.getHegn();
+
+		if(str.length()>=4){
+			String ownHegn1 = str.substring(0, 4);
+			logger.info("A:"+ ownHegn1);
+			recordToValidate.setOwnHegn1(ownHegn1);
+			if(str.length()>=9){
+				String ownHegn2 = str.substring(4,9);
+				logger.info("B:"+ ownHegn2);
+				recordToValidate.setOwnHegn2(ownHegn2);
+				if(str.length()>=10){
+					if(str.length()>=15){
+						String ownHegn3 = str.substring(9,15);
+						logger.info("C:"+ ownHegn3);
+						recordToValidate.setOwnHegn3(ownHegn3);
+					}else{
+						String ownHegn3 = str.substring(9);
+						logger.info("D:"+ ownHegn3);
+						recordToValidate.setOwnHegn3(ownHegn3);
+					}
+				}
+			}else{
+				String ownHegn2 = str.substring(4);
+				logger.info("Y:"+ ownHegn2);
+				recordToValidate.setOwnHegn2(ownHegn2);
+			}
+		}else{
+			String ownHegn1 = str;
+			logger.info("Z:"+ ownHegn1);
+			recordToValidate.setOwnHegn1(ownHegn1);
+		}
 		
 	}
 	/**
@@ -230,6 +284,8 @@ public class TrorMainOrderHeaderLandImportController {
 			//if(isValidRecord){
 				logger.info("HEOPD:" + recordToValidate.getHeopd());
 				JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+				//split godsnr
+				this.splitGodsnr(headerOrderRecord);
 				//check if user is allowed to choose invoicee (fakturaBetalare)
 				//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
@@ -280,6 +336,8 @@ public class TrorMainOrderHeaderLandImportController {
 		if(strMgr.isNotNull(recordToValidate.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getHevs2()) ){
 			recordToValidate.setHevs2(recordToValidate.getOwnEnhet2() + SPACE + recordToValidate.getHevs2());
 		}
+		//Godsnr
+		recordToValidate.setHegn(recordToValidate.getOwnHegn1() + recordToValidate.getOwnHegn2() + recordToValidate.getOwnHegn3());
 		//Decimal numbers
 		recordToValidate.setHem3(recordToValidate.getHem3()); //M3
 		recordToValidate.setHelm(recordToValidate.getHelm()); //LM

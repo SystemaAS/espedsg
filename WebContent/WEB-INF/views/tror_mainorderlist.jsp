@@ -31,7 +31,7 @@
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				
-				<a id="createNewOrderTabIdLink" style="display:block;" runat="server" href="#">
+				<a tabindex=-1 id="createNewOrderTabIdLink" style="display:block;" runat="server" href="#">
 					<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
 					<font class="tabDisabledLink"><spring:message code="systema.ebooking.createnew.order.tab"/></font>
 				</a>
@@ -133,7 +133,7 @@
 			        	</tr>
 			        	<tr>
 				        	<td>
-				        		<select name="avd" id="avd" >
+				        		<select name="avd" id="avd" autofocus>
 			 						<option value="">-velg-</option>
 				 				  	<c:forEach var="record" items="${model.avdList}" >
 				 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
@@ -191,6 +191,7 @@
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.turnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></th>
@@ -264,31 +265,31 @@
 								<c:if test="${ record.heur == 'A' }">
 					           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
 					           			onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
 		    		    			</a>
 	    		    			</c:if>
 	    		    			<c:if test="${ record.heur == 'B' }">
 	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
 					           			onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
 		    		    			</a>
 	    		    			</c:if>
 	    		    			<c:if test="${ record.heur == 'C' }">
 	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
 					           			onClick="setBlockUI(this);" href="tror_mainorderairimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
 		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
 		    		    			</a>
 	    		    			</c:if>
 	    		    			<c:if test="${ record.heur == 'D' }">
 	    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
 					           			onClick="setBlockUI(this);" href="tror_mainorderairexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-		    		    				<font class="text11MediumBlue">${record.heopd}</font>
+		    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
 		    		    			</a>
 	    		    			</c:if>
 	    		    			</c:when>
 	    		    			<c:otherwise>
-		           					&nbsp;<font class="text11">${record.heopd}</font>
+		           					&nbsp;<font class="text11"><b>${record.heopd}</b></font>
 			           			</c:otherwise>
     		    			</c:choose>
     		    			</div>
@@ -297,6 +298,7 @@
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hepro}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
+			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;<b><font style="color: orangered">${record.hest}</font></b></td>
 			           <td align="left" class="text11MediumBlue">
 			           		<c:choose>
 								<c:when test="${ record.heur == 'A' || record.heur == 'B' || record.heur == 'C' || record.heur == 'D' }">

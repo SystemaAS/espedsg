@@ -221,6 +221,18 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	public void setOwnEnhet2(String value){ this.ownEnhet2 = value;}
 	public String getOwnEnhet2(){ return this.ownEnhet2; }
 	
+	private String ownHegn1 = null;
+	public void setOwnHegn1(String value){ this.ownHegn1 = value;}
+	public String getOwnHegn1(){ return this.ownHegn1; }
+	
+	private String ownHegn2 = null;
+	public void setOwnHegn2(String value){ this.ownHegn2 = value;}
+	public String getOwnHegn2(){ return this.ownHegn2; }
+	
+	private String ownHegn3 = null;
+	public void setOwnHegn3(String value){ this.ownHegn3 = value;}
+	public String getOwnHegn3(){ return this.ownHegn3; }
+	
 	
 	
 	public String getHedtop() {

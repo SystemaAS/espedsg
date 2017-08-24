@@ -41,8 +41,16 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 	private String heur;
 	private String hepro;
 	private String hegn;
-	
+	private String hest;
 
+	public String getHest() {
+		return hest;
+	}
+
+	public void setHest(String hest) {
+		this.hest = hest;
+	}
+	
 	public String getHeur() {
 		return heur;
 	}

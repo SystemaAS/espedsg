@@ -142,7 +142,7 @@
 				 				</c:otherwise>
 			 				</c:choose>
 			 				<td align="right" class="text12White" width="50%">
-			 					STATUS&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
+			 					STATUS&nbsp;&nbsp;<font style="color: orangered"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
 			 				</td>
 		 				</tr>
 	 					</table>
@@ -224,16 +224,33 @@
 					 				<td valign="top" align="left" width="50%">
 					 					<table border="0">
 					 					<tr>
-							 				<td class="text14" title="hepro"><spring:message code="systema.tror.orders.form.update.label.turnr"/>&nbsp;
-							 					<input type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
+					 						<td class="text12" title="hedtop"><font class="text16RedBold" >*</font>
+							 					<spring:message code="systema.tror.orders.form.update.label.date"/>&nbsp;
 							 				</td>
-									 		<td class="text14" title="hedtop">&nbsp;<font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.date"/>&nbsp;
-									 			<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="hedtop" id="hedtop" size="9" maxlength="8" value="${model.record.hedtop}">
-									 		</td>
-							 				<td class="text14" title="hegn">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.godsnr"/>&nbsp;
-							 					<input type="text" class="inputTextMediumBlue" name="hegn" id="hegn" size="16" maxlength="15" value="${model.record.hegn}">
+							 				<td class="text12" >	
+							 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="hedtop" id="hedtop" size="9" maxlength="8" value="${model.record.hedtop}">
+							 				</td>
+							 				<td class="text12" title="hepro">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.turnr"/></td>
+							 				<td class="text12">
+							 					<input autofocus type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
+							 				</td>
+							 				<td class="text12" title="hepos1"><spring:message code="systema.tror.orders.form.update.label.position"/>
+							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1" size="8" maxlength="7" value="${model.record.hepos1}">
+							 				</td>
+							 				<td class="text12" title="hepos2">
+							 					<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
+							 				</td>
+							 				
+							 			</tr>
+							 			<tr>	
+							 				<td class="text12" title="hegn:${model.record.hegn}"><spring:message code="systema.tror.orders.form.update.label.godsnr"/></td>
+							 				<td colspan="6" class="text12">
+							 					<input type="text" class="inputTextMediumBlue" name="ownHegn1" id="ownHegn1" size="5" maxlength="4" value="${model.record.ownHegn1}">
+							 					<input type="text" class="inputTextMediumBlue" name="ownHegn2" id="ownHegn2" size="6" maxlength="5" value="${model.record.ownHegn2}">
+							 					<input type="text" class="inputTextMediumBlue" name="ownHegn3" id="ownHegn3" size="7" maxlength="6" value="${model.record.ownHegn3}">
 							 				</td>
 						 				</tr>
+						 				
 						 				</table>
 					 				</td>
 					 				

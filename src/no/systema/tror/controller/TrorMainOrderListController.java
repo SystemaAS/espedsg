@@ -136,13 +136,13 @@ public class TrorMainOrderListController {
 		    	//Put in session for further use (within this module) ONLY with: POST method = doFind on search fields
 	            if(request.getMethod().equalsIgnoreCase(RequestMethod.POST.toString())){
             		session.setAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR, recordToValidate);
-            		logger.info("A");
+            		
 	            }else{
 	            	SearchFilterTrorMainList sessionFilter = (SearchFilterTrorMainList)session.getAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR);
 	            	if(sessionFilter!=null){
 	            		//Use the session filter when applicable
 	            		recordToValidate = sessionFilter;
-	            		logger.info("B");
+	            		
 	            	}
 	            }
 		    		

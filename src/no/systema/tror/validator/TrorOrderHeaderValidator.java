@@ -11,13 +11,9 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
+import no.systema.main.util.StringManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
-import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.tror.url.store.TrorUrlDataStore;
-import no.systema.ebooking.util.EbookingConstants;
-import no.systema.ebooking.service.EbookingChildWindowService;
-import no.systema.ebooking.service.EbookingChildWindowServiceImpl;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.validator.EmailValidator;
@@ -32,9 +28,10 @@ import no.systema.main.validator.EmailValidator;
 public class TrorOrderHeaderValidator implements Validator {
 	private static final Logger logger = Logger.getLogger(TrorOrderHeaderValidator.class.getName());
 	//Init services here
-	private EbookingChildWindowService ebookingChildWindowService = new EbookingChildWindowServiceImpl();
-	private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
-	private EmailValidator emailValidator = new EmailValidator();
+	//private EbookingChildWindowService ebookingChildWindowService = new EbookingChildWindowServiceImpl();
+	//private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+	//private EmailValidator emailValidator = new EmailValidator();
+	private StringManager strMgr = new StringManager();
 	/**
 	 * 
 	 */
@@ -51,19 +48,28 @@ public class TrorOrderHeaderValidator implements Validator {
 		//Check for Mandatory fields
 		JsonTrorOrderHeaderRecord record = (JsonTrorOrderHeaderRecord)obj;
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hereff", "systema.ebooking.orders.form.update.error.null.from.hereff");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henas", "systema.tror.orders.form.update.error.null.shipper.name.henas");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heads1", "systema.tror.orders.form.update.error.null.shipper.name.heads1");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henas", "systema.tror.orders.form.update.error.null.shipper.name.henas");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heads1", "systema.tror.orders.form.update.error.null.shipper.name.heads1");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henak", "systema.tror.orders.form.update.error.null.consignee.name.henak");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "headk1", "systema.tror.orders.form.update.error.null.consignee.name.headk1");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "helka", "systema.tror.orders.form.update.error.null.from.helka");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdf", "systema.tror.orders.form.update.error.null.from.hesdf");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hetri", "systema.tror.orders.form.update.error.null.to.hetri");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdt", "systema.tror.orders.form.update.error.null.to.hesdt");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "henak", "systema.tror.orders.form.update.error.null.consignee.name.henak");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "headk1", "systema.tror.orders.form.update.error.null.consignee.name.headk1");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "helka", "systema.tror.orders.form.update.error.null.from.helka");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdf", "systema.tror.orders.form.update.error.null.from.hesdf");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hetri", "systema.tror.orders.form.update.error.null.to.hetri");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hesdt", "systema.tror.orders.form.update.error.null.to.hesdt");
 		
 		
 		//Check rules
 		if(record!=null){
+			//Godsnr (the number can not have empty fields in the precedent field. If field 2 is filled up then field 2 MUST be there ...
+			if(strMgr.isNull(record.getOwnHegn1()) && (strMgr.isNotNull(record.getOwnHegn2()) || strMgr.isNotNull(record.getOwnHegn3()) ) ){
+				errors.rejectValue("hegn", "systema.tror.orders.form.update.error.rule.godsnr.invalid");
+			}else{
+				if( (strMgr.isNotNull(record.getOwnHegn1()) && strMgr.isNull(record.getOwnHegn2()) ) && strMgr.isNotNull(record.getOwnHegn3()) ){	
+					errors.rejectValue("hegn", "systema.tror.orders.form.update.error.rule.godsnr.invalid");
+				}
+			}
+			
 			//Fakturapart
 			/*
 			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
@@ -80,7 +86,7 @@ public class TrorOrderHeaderValidator implements Validator {
 			//START Check References & Invoicees (one of them is always mandatory. In certain cases, both are mandatory)
 			//These keys replaced hereff (ref.JOVO).
 			//-----------------------------------------------------------------------------------------------------------
-			boolean herfaTrigger = false;
+			
 			
 			/*
 			if( (record.getHerfa()!=null && !"".equals(record.getHerfa())) || (record.getHerfk()!=null && !"".equals(record.getHerfk())) ){
