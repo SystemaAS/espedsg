@@ -9,7 +9,7 @@
 	specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tror_childwindow.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
-	<table width="90%" height="500px" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
+	<table width="90%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" cellspacing="0" border="0" cellpadding="0">
 		<tr height="5"><td colspan="2"></td></tr>
 		<tr>
 			<td colspan="3" class="text14Bold">&nbsp;&nbsp;&nbsp;
@@ -20,7 +20,7 @@
 		<tr height="20"><td colspan="2"></td></tr>
 		<tr>
 		<td valign="top">
-		<form action="tror_childwindow_customer_addresses.do?action=doFind" name="searchCustomerForm" id="searchCustomerForm" method="post">
+		<form action="tror_childwindow_seller_addresses.do?action=doFind" name="searchCustomerForm" id="searchCustomerForm" method="post">
 			<input type="hidden" name="ctype" id="ctype" value="${model.container.ctype}">
 			<%-- =====================================================  --%>
           	<%-- Here we have the search [Customer] popup window --%>
@@ -35,7 +35,7 @@
 	           		<tr height="15"><td></td></tr>
 					
 					<tr class="text12" >
-					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:50em;">
+					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:30em;">
 					<%-- this is the datatables grid (content)--%>
 					<table id="customerAddressesList" class="display compact cell-border" width="100%">
 						<thead>
@@ -50,7 +50,7 @@
 		                </thead>
 		                
 		                <tbody>
-		                <c:forEach var="record" items="${model.customerAddressesList}" varStatus="counter">    
+		                <c:forEach var="record" items="${model.sellerAddressesList}" varStatus="counter">    
 			               <tr class="text11" >
 			               
 			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${Xrecord.vadrnr}@navn_${Xrecord.vadrna}@adr1_${Xrecord.vadrn1}@adr2_${Xrecord.vadrn2}@postnrsted_${Xrecord.vadrn3}@counter_${counter.count}">
@@ -59,14 +59,14 @@
 			               <td class="text11" >&nbsp;${record.kukun2}</td>
 			               <td class="text11" >&nbsp;${record.kualfa}</td>
 			               <td width="2%" align="center" class="text11" >&nbsp;
-			               		<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_customer_addresses_vedlikehold.do?action=doUpdate','deliveryAdrMaintWin','top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no')">
+			               		<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_seller_addresses_vedlikehold.do?action=doUpdate','deliveryAdrMaintWin','top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no')">
 		 							<img id="imgDelAdrUpdate" style="vertical-align:bottom; cursor:pointer;" src="resources/images/update.gif" border="0" alt="update">
 								</a>
 			               </td>
 			               <td class="text11" >&nbsp;${record.kuvadr}</td>
 			               <td width="2%" align="center" class="text11" >&nbsp;
 			               		<a style="cursor:pointer;" id="@opd_${record.kukun1}@alinkOpenOrdersListId_${counter.count}"
-				           			onClick="setBlockUI(this);" href="tror_childwindow_customer_addresses_vedlikehold.do?action=doUpdate&rm=1">
+				           			onClick="setBlockUI(this);" href="tror_childwindow_seller_addresses_vedlikehold.do?action=doUpdate&rm=1">
 	    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/delete.gif" border="0" alt="delete">
     		    				</a>
 			               </td>

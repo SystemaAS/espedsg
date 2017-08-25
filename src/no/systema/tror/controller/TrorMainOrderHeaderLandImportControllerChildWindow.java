@@ -35,6 +35,8 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressRecord;
+import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressContainer;
+import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressRecord;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowService;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesRecord;
@@ -54,7 +56,9 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String POSTALCODE_DIRECTION = "direction";
 	private final String DATATABLE_CUSTOMER_LIST = "customerList";
-	private final String DATATABLE_CUSTOMER_ADDRESSES_LIST = "customerAddressesList";
+	private final String DATATABLE_SELLER_ADDRESSES_LIST = "sellerAddressesList";
+	private final String DATATABLE_BUYER_ADDRESSES_LIST = "buyerAddressesList";
+	
 	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
 	private final String DATATABLE_PACKING_CODES_LIST = "packingCodesList";
 	private final String DATATABLE_DANGEROUS_GOODS_LIST = "dangerousGoodsList";
@@ -283,12 +287,12 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_childwindow_customer_addresses.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitCustomerAddresses(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_seller_addresses.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitSellerAddresses(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doInitCustomerAddresses");
 		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_customer_addresses");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_seller_addresses");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		if(appUser==null){
@@ -310,13 +314,13 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_childwindow_customer_addresses.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindCustomerAddresses(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_seller_addresses.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindSellerAddresses(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doFindCustomerAddresses");
+		logger.info("Inside: doFindSellerAddresses");
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_customer_addresses");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_seller_addresses");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		if(appUser==null){
@@ -345,7 +349,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    }else{
 				
 	    		//prepare the access CGI with RPG back-end
-	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_SELLER_URL;
+	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_SELLER_URL;
 	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kukun1=" + recordToValidate.getKukun1(); 
 	    		logger.info("URL: " + BASE_URL);
 	    		logger.info("PARAMS: " + urlRequestParamsKeys);
@@ -362,7 +366,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    			for(JsonTrorSellerDeliveryAddressRecord  record : container.getDtoList()){
 		    				list.add(record);
 		    			}
-		    			model.put(this.DATATABLE_CUSTOMER_ADDRESSES_LIST, list);
+		    			model.put(this.DATATABLE_SELLER_ADDRESSES_LIST, list);
 		    			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
 		    		}
 		    		successView.addObject(TrorConstants.DOMAIN_MODEL , model);
@@ -383,12 +387,12 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_childwindow_customer_addresses_vedlikehold.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_seller_addresses_vedlikehold.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitSellerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitCustomerAddressesVedlikehold");
+		logger.info("Inside: doInitSellerAddressesVedlikehold");
 		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_customer_addresses_vedlikehold");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_seller_addresses_vedlikehold");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		if(appUser==null){
@@ -408,19 +412,19 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_childwindow_customer_addresses_vedlikehold.do", params="action=doUpdate",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doUpdateCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_seller_addresses_vedlikehold.do", params="action=doUpdate",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doUpdateSellerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorSellerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doUpdateCustomerAddressesVedlikehold");
+		logger.info("Inside: doUpdateSellerAddressesVedlikehold");
 		Map model = new HashMap();
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		
 		//check if it is a delete action
 		String removeFlag = request.getParameter("rm");
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_customer_addresses_vedlikehold");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_seller_addresses_vedlikehold");
 		if(strMgr.isNotNull(removeFlag)){
-			successView = new ModelAndView("redirect:tror_mainorderlandimport_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr());
+			successView = new ModelAndView("redirect:tror_mainorderlandimport_childwindow_seller_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr());
 		}
 		
 		if(appUser==null){
@@ -437,6 +441,172 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	    		return successView;
 		}
 	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_buyer_addresses.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitBuyerAddresses(@ModelAttribute ("record") JsonTrorBuyerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitBuyerAddresses");
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_buyer_addresses");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_buyer_addresses.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindBuyerAddresses(@ModelAttribute ("record") JsonTrorBuyerDeliveryAddressContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindCustomerAddresses");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_buyer_addresses");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_BUYER_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kundnr=" + recordToValidate.getKundnr(); 
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorBuyerDeliveryAddressContainer container = this.trorMainOrderHeaderLandimportChildwindowService.getBuyerDeliveryAddressContainer(jsonPayload);
+		    		if(container!=null){
+		    			List<JsonTrorBuyerDeliveryAddressRecord> list = new ArrayList<JsonTrorBuyerDeliveryAddressRecord>();
+		    			for(JsonTrorBuyerDeliveryAddressRecord  record : container.getDtoList()){
+		    				list.add(record);
+		    			}
+		    			model.put(this.DATATABLE_BUYER_ADDRESSES_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+		    		}
+		    		successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+		    		logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+		    		return successView;
+				
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
+		}
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_buyer_addresses_vedlikehold.do", params="action=doInit",  method={RequestMethod.GET} )
+	public ModelAndView doInitBuyerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorBuyerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doInitBuyerAddressesVedlikehold");
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_buyer_addresses_vedlikehold");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_childwindow_buyer_addresses_vedlikehold.do", params="action=doUpdate",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doUpdateBuyerAddressesVedlikehold(@ModelAttribute ("record") JsonTrorBuyerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doUpdateBuyerAddressesVedlikehold");
+		Map model = new HashMap();
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		
+		//check if it is a delete action
+		String removeFlag = request.getParameter("rm");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_childwindow_buyer_addresses_vedlikehold");
+		if(strMgr.isNotNull(removeFlag)){
+			successView = new ModelAndView("redirect:tror_mainorderlandimport_childwindow_buyer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr());
+		}
+		
+		if(appUser==null){
+			return this.loginView;
+			
+		}else{
+			//TODO massor med Create or Update or Delete
+			//väntar på JOVOs CRUD
+			//...
+			
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    		return successView;
+		}
+	}	
+	
+	
+	
+	
 	
 	/**
 	 * 

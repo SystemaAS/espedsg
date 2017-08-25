@@ -55,13 +55,13 @@
 		  }
 	  });
 	  //Seller addresses
-	  jq('#trorSellerAdressesIdLink').click(function() {
-		  jq('#trorSellerAdressesIdLink').attr('target','_blank');
-		  window.open('tror_mainorderlandimport_childwindow_customer_addresses.do?action=doFind&ctype=tror_seadr&kukun1=' + jq('#hekns').val(),"customerAdrWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  jq('#trorSellerAddressesIdLink').click(function() {
+		  jq('#trorSellerAddressesIdLink').attr('target','_blank');
+		  window.open('tror_mainorderlandimport_childwindow_seller_addresses.do?action=doFind&ctype=tror_seadr&kukun1=' + jq('#hekns').val(),"sellerAdrWin","top=300px,left=150px,height=600px,width=900px,scrollbars=no,status=no,location=no");
 	  });
-	  jq('#trorSellerAdressesIdLink').keypress(function(e){ //extra feature for the end user
+	  jq('#trorSellerAddressesIdLink').keypress(function(e){ //extra feature for the end user
 		  if(e.which == 13) {
-			  jq('#trorSellerAdressesIdLink').click();
+			  jq('#trorSellerAddressesIdLink').click();
 		  }
 	  });
 	  //Seller - Faktmott.
@@ -82,6 +82,16 @@
 	  jq('#trorBuyerIdLink').keypress(function(e){ //extra feature for the end user
 		  if(e.which == 13) {
 			  jq('#trorBuyerIdLink').click();
+		  }
+	  });
+	  //Buyer addresses
+	  jq('#trorBuyerAddressesIdLink').click(function() {
+		  jq('#trorBuyerAddressesIdLink').attr('target','_blank');
+		  window.open('tror_mainorderlandimport_childwindow_buyer_addresses.do?action=doFind&ctype=tror_byadr&kundnr=' + jq('#heknk').val(),"buyerAdrWin","top=300px,left=150px,height=600px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorBuyerAddressesIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorBuyerAddressesIdLink').click();
 		  }
 	  });
 	  //Buyer FMott

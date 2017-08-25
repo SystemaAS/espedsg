@@ -139,7 +139,17 @@
 			  opener.jq('#headk3').val(postnrsted);
 			  opener.jq('#henak').focus();
 		  
+		  }else if(jq('#ctype').val()=='tror_byadr'){
+			  //consignee
+			  //opener.jq('#heknk').val(kundNr); //this should not override the customer number
+			  opener.jq('#henak').val(navn);
+			  opener.jq('#headk1').val(adr1);
+			  opener.jq('#headk2').val(adr2);
+			  opener.jq('#headk3').val(postnrsted);
+			  opener.jq('#henak').focus();
+		  
 		  }
+		  
 		  //close child window
 		  window.close();
 	  });
@@ -343,8 +353,7 @@
       //--------------------------
       //table [PostNr From]
 	  //--------------------------
-	  /*
-      jq('#postNrFromList').dataTable( {
+	  jq('#postNrFromList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 50, 75, 100 ],
 		  "language": { "url": getLanguage(lang) }
@@ -379,7 +388,6 @@
 	  jq('input.customerList_filter').on( 'keyup click', function () {
 		  filterCustomerList();
 	  });
-	  */
 	  //related table Customer Addresses
 	  jq('#customerAddressesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
@@ -407,8 +415,7 @@
 	  
 	  //------------------------------
 	  //tables [packing codes]
-	  //------------------------------
-	  /*
+	  //----------------------------
 	  jq('#packingCodesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 50, 75, 100 ],
@@ -431,6 +438,6 @@
 	  jq('input.dangerousGoodsList_filter').on( 'keyup click', function () {
 		  filterDangerousGoodsList();
 	  });
-      */
+      
     });
   	

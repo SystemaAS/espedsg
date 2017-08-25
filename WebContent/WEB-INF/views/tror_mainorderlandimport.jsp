@@ -426,7 +426,7 @@
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
 		 								</c:if> --%>
-	 									<a tabindex="-1" id="trorSellerAdressesIdLink" >
+	 									<a tabindex="-1" id="trorSellerAddressesIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	 									
 					 				</td>
@@ -564,11 +564,14 @@
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
 					 				<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="henak"><spring:message code="systema.tror.orders.form.update.label.consignee.name"/></span>
-					 					<%-- <c:if test="${Xmodel.record.fakBetExists}"> --%>
+					 					<%-- <c:if test="${Xmodel.record.fakBetExists}">
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer_addresses.do?action=doFind&ctype=c&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
-	 									<%-- </c:if> --%>
+	 									</c:if> --%>
+	 									<a tabindex="-1" id="trorBuyerAddressesIdLink" >
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+										</a>
 					 				</td>
 					 				<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.tror.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
