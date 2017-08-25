@@ -18,8 +18,8 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
  * @date Aug 11, 2017
  * 
  */
-public class JsonTrorOrderHeaderMapper {
-	private static final Logger logger = Logger.getLogger(JsonTrorOrderHeaderMapper.class.getName());
+public class JsonTrorOrderHeaderMapperLandimport {
+	private static final Logger logger = Logger.getLogger(JsonTrorOrderHeaderMapperLandimport.class.getName());
 	/**
 	 * 
 	 * @param utfPayload

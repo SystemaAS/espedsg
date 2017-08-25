@@ -66,8 +66,8 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
-import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
+import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
@@ -1043,7 +1043,7 @@ public class TrorMainOrderHeaderLandImportController {
     	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
-    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderService.getOrderHeaderContainer(jsonPayload);
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainer(jsonPayload);
     		model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
     		if(container!=null){
     			if(container.getDtoList()!=null){
@@ -1162,12 +1162,12 @@ public class TrorMainOrderHeaderLandImportController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("trorMainOrderHeaderService")
-	private TrorMainOrderHeaderService trorMainOrderHeaderService;
+	@Qualifier ("trorMainOrderHeaderLandimportService")
+	private TrorMainOrderHeaderLandimportService trorMainOrderHeaderLandimportService;
 	@Autowired
 	@Required
-	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService = value; }
-	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
+	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
+	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
 	
 	
 	@Qualifier ("trorDropDownListPopulationService")

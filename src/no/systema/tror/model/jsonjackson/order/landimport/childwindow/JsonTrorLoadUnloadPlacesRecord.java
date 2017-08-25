@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tror.model.jsonjackson.order.childwindow;
+package no.systema.tror.model.jsonjackson.order.landimport.childwindow;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

@@ -274,10 +274,11 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- TROR - Oppdragsregistrering   -->
 	<!-- ============================  -->
 	<bean id="trorMainOrderListService" class="no.systema.tror.service.TrorMainOrderListServiceImpl"/>
-	<bean id="trorMainOrderHeaderService" class="no.systema.tror.service.TrorMainOrderHeaderServiceImpl"/>
-	<bean id="trorChildWindowService" class="no.systema.tror.service.TrorChildWindowServiceImpl"/>
 	<!-- Drop down bean --> 
 	<bean id="trorDropDownListPopulationService" class="no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService"/>
+	<!-- Land import -->
+	<bean id="trorMainOrderHeaderLandimportService" class="no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportServiceImpl"/>
+	<bean id="trorMainOrderHeaderLandimportChildwindowService" class="no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowServiceImpl"/>
 	
     
 	<!-- ==============================  -->

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tror.service;
+package no.systema.tror.service.landimport;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 
@@ -13,7 +13,7 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
  * 
  *
  */
-public interface TrorMainOrderHeaderService {
+public interface TrorMainOrderHeaderLandimportService {
 	public JsonTrorOrderHeaderContainer getOrderHeaderContainer(String utfPayload);
 
 }

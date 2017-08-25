@@ -65,8 +65,8 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
-import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
+import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
 
@@ -1070,11 +1070,11 @@ public class TrorMainOrderHeaderChildController {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	@Qualifier ("trorMainOrderHeaderService")
-	private TrorMainOrderHeaderService trorMainOrderHeaderService;
+	private TrorMainOrderHeaderLandimportService trorMainOrderHeaderService;
 	@Autowired
 	@Required
-	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService = value; }
-	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
+	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderService = value; }
+	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
 	
 	
 	@Qualifier ("trorDropDownListPopulationService")

@@ -57,7 +57,7 @@
 	  //Seller addresses
 	  jq('#trorSellerAdressesIdLink').click(function() {
 		  jq('#trorSellerAdressesIdLink').attr('target','_blank');
-		  window.open('tror_childwindow_customer_addresses.do?action=doFind&ctype=tror_seadr&knr=' + jq('#hekns').val(),"customerAdrWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+		  window.open('tror_mainorderlandimport_childwindow_customer_addresses.do?action=doFind&ctype=tror_seadr&kukun1=' + jq('#hekns').val(),"customerAdrWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  });
 	  jq('#trorSellerAdressesIdLink').keypress(function(e){ //extra feature for the end user
 		  if(e.which == 13) {

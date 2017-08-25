@@ -1,7 +1,7 @@
 /**
  * 
  */
-package no.systema.tror.model.jsonjackson.order.childwindow;
+package no.systema.tror.model.jsonjackson.order.landimport.childwindow;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  * @date Aug 24, 2017
  * 
  */
-public class JsonTrorCustomerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
+public class JsonTrorSellerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
 	
 	
 	private String kukun1 = null;

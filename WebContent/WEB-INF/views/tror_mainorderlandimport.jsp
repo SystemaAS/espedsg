@@ -232,21 +232,26 @@
 							 				<td class="text12">
 							 					<input autofocus type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
 							 				</td>
-							 				<td class="text12" title="hepos1"><spring:message code="systema.tror.orders.form.update.label.position"/>
+							 				<td class="text12" title="hepos1">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.position"/>
 							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1" size="8" maxlength="7" value="${model.record.hepos1}">
-							 				</td>
-							 				<td class="text12" title="hepos2">
-							 					<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
+							 					&nbsp;<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
 							 				</td>
 							 				
 							 			</tr>
 							 			<tr>	
 							 				<td class="text12" title="hegn:${model.record.hegn}"><spring:message code="systema.tror.orders.form.update.label.godsnr"/></td>
-							 				<td colspan="6" class="text12">
+							 				<td colspan="3" class="text12">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn1" id="ownHegn1" size="5" maxlength="4" value="${model.record.ownHegn1}">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn2" id="ownHegn2" size="6" maxlength="5" value="${model.record.ownHegn2}">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn3" id="ownHegn3" size="7" maxlength="6" value="${model.record.ownHegn3}">
 							 				</td>
+							 				<td class="text12"><img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
+				 								<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.unload"/></span>
+				 								<a href="javascript:void(0);" onClick="window.open('tror_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
+						 							<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+						 						</a>
+				 								<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="25" maxlength="20" value="${model.record.hesdl}">
+											</td>
 						 				</tr>
 						 				
 						 				</table>
@@ -410,7 +415,7 @@
 					 				</td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text12" ><input type="text" class="inputTextMediumBlueUPPERCASE" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
+				 					<td class="text12" ><input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
 								 	<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${XXmodel.record.heknsNavn}&nbsp;-&nbsp;${XXmodel.record.heknsPnSt}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
@@ -443,6 +448,7 @@
 				 				</tr>
 				 				
 				 				<tr height="15"><td ></td></tr>	
+				 				<%--
 				 				<tr>	
 				 					<td class="text12">
 										<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -478,8 +484,8 @@
 										
 						 			</td>
 				 				</tr>
-				 				
 				 				<tr height="8"><td ></td></tr>
+				 				--%>
 				 																 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;
@@ -580,6 +586,7 @@
 				 				</tr>
 				 				
 				 				<tr height="15"><td ></td></tr>
+				 				<%--
 				 				<tr>	
 				 					<td class="text12"><img onMouseOver="showPop('herfk_info');" onMouseOut="hidePop('herfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					 					&nbsp;&nbsp;<span title="herfk"><spring:message code="systema.tror.orders.form.update.label.consignee.ref"/></span>
@@ -611,9 +618,8 @@
 										
 						 			</td>
 				 				</tr>
-				 				
 				 				<tr height="8"><td ></td></tr>
-				 				
+				 				--%>
 				 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;

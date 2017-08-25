@@ -1,9 +1,9 @@
 /**
  * 
  */
-package no.systema.tror.service;
+package no.systema.tror.service.landimport;
 
-import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapper;
+import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperLandimport;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 
 /**
@@ -13,7 +13,7 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
  * 
  * 
  */
-public class TrorMainOrderHeaderServiceImpl implements TrorMainOrderHeaderService {
+public class TrorMainOrderHeaderLandimportServiceImpl implements TrorMainOrderHeaderLandimportService {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class TrorMainOrderHeaderServiceImpl implements TrorMainOrderHeaderServic
 	public JsonTrorOrderHeaderContainer getOrderHeaderContainer(String utfPayload) {
 		JsonTrorOrderHeaderContainer container = null;
 		try{
-			JsonTrorOrderHeaderMapper mapper = new JsonTrorOrderHeaderMapper();
+			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
