@@ -148,7 +148,7 @@ public class EbookingMainOrderHeaderController {
 		    		//check if user is allowed to choose invoicee (fakturaBetalare)
 					this.setFakturaBetalareFlag(recordToValidate, appUser);
 					//populate all message notes
-					this.populateMessageNotes( appUser, recordToValidate);
+					//removed for toten, this was a bug: -->this.populateMessageNotes( appUser, recordToValidate);
 		    		//populate fraktbrev lines
 					this.populateFraktbrev( appUser, recordToValidate);
 					//set always status as in list (since we do not get this value from back-end)
