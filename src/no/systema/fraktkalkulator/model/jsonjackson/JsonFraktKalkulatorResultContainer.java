@@ -27,6 +27,10 @@ public class JsonFraktKalkulatorResultContainer {
 	public void setFra(String value){ this.fra = value;}
 	public String getFra(){ return this.fra; }
 	
+	private String fraNavn = null;
+	public void setFraNavn(String value){ this.fraNavn = value;}
+	public String getFraNavn(){ return this.fraNavn; }
+	
 	private String fralk = null;
 	public void setFralk(String value){ this.fralk = value;}
 	public String getFralk(){ return this.fralk; }
@@ -34,6 +38,10 @@ public class JsonFraktKalkulatorResultContainer {
 	private String til = null;
 	public void setTil(String value){ this.til = value;}
 	public String getTil(){ return this.til; }
+	
+	private String tilNavn = null;
+	public void setTilNavn(String value){ this.tilNavn = value;}
+	public String getTilNavn(){ return this.tilNavn; }
 	
 	private String tillk = null;
 	public void setTillk(String value){ this.tillk = value;}

@@ -30,7 +30,8 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
-
+import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
+import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
 //F.kalkulator
 import no.systema.fraktkalkulator.model.jsonjackson.JsonFraktKalkulatorUserContainer;
 import no.systema.fraktkalkulator.model.jsonjackson.JsonFraktKalkulatorResultContainer;
@@ -176,7 +177,8 @@ public class FraktKalkulatorController {
 		    		JsonFraktKalkulatorResultContainer jsonFraktKalkulatorResultContainer = this.fraktKalkulatorResultService.getContainer(jsonPayload);
 		    		//Set back special characters
 		    		if("%25".equals(recordToValidate.getProd())){ recordToValidate.setProd("%"); }
-		    		
+		    		//Set Cities from Postal codes
+		    		this.setCities(appUser, jsonFraktKalkulatorResultContainer);
 		    		//--------------------------------------
 		    		//Final successView with domain objects
 		    		//--------------------------------------
@@ -197,6 +199,46 @@ public class FraktKalkulatorController {
 		    }
 		}
 	}	
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param jsonFraktKalkulatorResultContainer
+	 */
+	private void setCities(SystemaWebUser appUser, JsonFraktKalkulatorResultContainer jsonFraktKalkulatorResultContainer){
+		
+		final String BASE_URL = FraktKalkulatorUrlDataStore.FRAKTKALKULATOR_FETCH_POSTAL_CODES_URL;
+		StringBuffer urlRequestParams = new StringBuffer();
+		
+		//Fra Postnr
+		urlRequestParams.append("user=" + appUser.getUser() + "&varlk=fralk&varkod=fra");
+		urlRequestParams.append("&soklk=" + jsonFraktKalkulatorResultContainer.getFralk() + "&sokkod=" + jsonFraktKalkulatorResultContainer.getFra());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		if(jsonPayload!=null){
+    		JsonPostalCodesContainer container = this.fraktKalkulatorChildWindowsService.getPostalCodesContainer(jsonPayload);
+    		if(container!=null){
+    			List<JsonPostalCodesRecord> list = new ArrayList();
+    			for(JsonPostalCodesRecord  record : container.getPostnrlist()){
+    				jsonFraktKalkulatorResultContainer.setFraNavn(record.getSt2nvn());
+    			}
+    		}
+		}
+		
+		//Till Postnr
+		urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser() + "&varlk=tillk&varkod=til");
+		urlRequestParams.append("&soklk=" + jsonFraktKalkulatorResultContainer.getTillk() + "&sokkod=" + jsonFraktKalkulatorResultContainer.getTil());
+		jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		if(jsonPayload!=null){
+    		JsonPostalCodesContainer container = this.fraktKalkulatorChildWindowsService.getPostalCodesContainer(jsonPayload);
+    		if(container!=null){
+    			List<JsonPostalCodesRecord> list = new ArrayList();
+    			for(JsonPostalCodesRecord  record : container.getPostnrlist()){
+    				jsonFraktKalkulatorResultContainer.setTilNavn(record.getSt2nvn());
+    			}
+    		}
+		}		
+	}
 	
 	/**
 	 * 

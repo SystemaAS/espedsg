@@ -278,7 +278,7 @@
 		            <tr >
 					 	<td>
 						<table width="100%" class="formFrame" border="0" cellspacing="2" cellpadding="1">
-							<%-- Hide this section until further instructions
+							<%-- Hide this section until further instructions  
 					 		<tr >
 					 			<td class="text12" colspan="8">&nbsp;<span title="avvknr"><spring:message code="systema.fraktkalkulator.main.form.result.label.avvknr"/></span></td>
 			 				</tr>
@@ -302,17 +302,23 @@
 					 				<input readonly type="text" class="inputTextMediumBlueGrayReadOnly" name="vkt" id="vkt" size="5" maxlength="5" value="${model.container.vkt}">
 					 			</td>
 			 				</tr>
-			 				 --%>
-			 				<tr height="10"><td></td></tr>
+			 				--%>
+			 				<tr height="5"><td></td></tr>
 			 				<tr>
-			 					<td class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.fraktvikt"/>:</b>&nbsp;${model.container.fbv}</td>
-			 					<td colspan="2" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.avgangsdagar"/>:</b>&nbsp;${model.container.avdg}</td>
-			 					<td colspan="2" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.framforingstid"/>:</b>&nbsp;${model.container.frdg}</td>
+			 					<td colspan="2" class="text11MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.fra.short"/>:</b>&nbsp;${model.container.fralk}&nbsp;${model.container.fra}&nbsp;${model.container.fraNavn}</td>
+			 					<td colspan="2" >&nbsp;</td>
+			 					<td colspan="2" class="text11MediumBlue"><b><spring:message code="systema.fraktkalkulator.main.form.result.label.til.short"/>:</b>&nbsp;${model.container.tillk}&nbsp;${model.container.til}&nbsp;${model.container.tilNavn}</td>
+			 				</tr>
+		 					<tr height="5"><td></td></tr>
+			 				<tr>
+			 					<td class="text12MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.fraktvikt"/>:</b>&nbsp;${model.container.fbv}</td>
+			 					<td colspan="2" class="text12MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.avgangsdagar"/>:</b>&nbsp;${model.container.avdg}</td>
+			 					<td colspan="2" class="text12MediumBlue">&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.framforingstid"/>:</b>&nbsp;${model.container.frdg}</td>
 			 				</tr>
 		 					
 			 				<tr><td colspan="10"><hr size="1" width="100%"/></td></tr>
 			 				
-			 				<%--Hide this section until further instructions
+			 				<%--Hide this section until further instructions  
 			 				<tr>
 					 			<td class="text12Bold" colspan="2">&nbsp;<spring:message code="systema.fraktkalkulator.main.form.result.label.tillegsparam"/></td>
 			 				</tr>
@@ -333,6 +339,7 @@
 					 				<input readonly type="text" class="inputTextMediumBlueGrayReadOnly" name="lm" id="lm" size="5" maxlength="5" value="${model.container.lm}">
 					 			</td>
 			 				</tr>
+			 				--%>
 			 				<%-- alternative parameters depending on xkunfrakt
 			 				<c:if test="${model.user.xkunfrakt=='N' || model.user.xkunfrakt=='n'}">
 			 					<tr height="5"><td></td></tr>
