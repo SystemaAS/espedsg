@@ -75,7 +75,7 @@ import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 
 /**
- * Tror - Order Header Controller 
+ * Tror - Notisblock Controller 
  * 
  * @author oscardelatorre
  * @date Aug 28, 2017
@@ -85,9 +85,9 @@ import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandImportInvoiceController {
+public class TrorMainOrderHeaderLandImportControllerNotisblock {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
-	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportInvoiceController.class.getName());
+	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerNotisblock.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -113,13 +113,13 @@ public class TrorMainOrderHeaderLandImportInvoiceController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_faktura.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="tror_mainorderlandimport_notisblock.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_faktura");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_notisblock");
 		logger.info("Method: doInit");
 		//check user (should be in session already)
 		if(appUser==null){
@@ -196,7 +196,7 @@ public class TrorMainOrderHeaderLandImportInvoiceController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_faktura.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandimport_notisblock.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -211,7 +211,7 @@ public class TrorMainOrderHeaderLandImportInvoiceController {
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_notisblock");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
