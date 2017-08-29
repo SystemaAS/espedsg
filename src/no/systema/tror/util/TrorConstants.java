@@ -86,6 +86,9 @@ public final class TrorConstants {
 	public static final String DOMAIN_CONTAINER_TRIP_LIST = "containerTripList";
 	
 	public static final String DOMAIN_RECORD_ORDER_TROR = "recordOrderTror";
+	public static final String SESSION_RECORD_ORDER_TROR_LANDIMPORT = "recordOrderTrorLandImport";
+	public static final String SESSION_RECORD_ORDER_TROR_LANDEXPORT = "recordOrderTrorLandExport";
+	
 	
 	public static final String DOMAIN_LIST = "list";
 	public static final String DOMAIN_LIST_CURRENT_ORDERS = "listCurrentOrders";

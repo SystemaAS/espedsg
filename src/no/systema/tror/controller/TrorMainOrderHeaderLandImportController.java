@@ -137,56 +137,7 @@ public class TrorMainOrderHeaderLandImportController {
 		return successView;
 		
 	}
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param appUser
-	 */
-	private void setDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
-		recordToValidate.setHesg(appUser.getSignatur());
-		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
-		
-	}
-	/**
-	 * Special split on Goods no.
-	 * 
-	 * @param recordToValidate
-	 */
-	private void splitGodsnr(JsonTrorOrderHeaderRecord recordToValidate){
-		String str = recordToValidate.getHegn();
-
-		if(str.length()>=4){
-			String ownHegn1 = str.substring(0, 4);
-			logger.info("A:"+ ownHegn1);
-			recordToValidate.setOwnHegn1(ownHegn1);
-			if(str.length()>=9){
-				String ownHegn2 = str.substring(4,9);
-				logger.info("B:"+ ownHegn2);
-				recordToValidate.setOwnHegn2(ownHegn2);
-				if(str.length()>=10){
-					if(str.length()>=15){
-						String ownHegn3 = str.substring(9,15);
-						logger.info("C:"+ ownHegn3);
-						recordToValidate.setOwnHegn3(ownHegn3);
-					}else{
-						String ownHegn3 = str.substring(9);
-						logger.info("D:"+ ownHegn3);
-						recordToValidate.setOwnHegn3(ownHegn3);
-					}
-				}
-			}else{
-				String ownHegn2 = str.substring(4);
-				logger.info("Y:"+ ownHegn2);
-				recordToValidate.setOwnHegn2(ownHegn2);
-			}
-		}else{
-			String ownHegn1 = str;
-			logger.info("Z:"+ ownHegn1);
-			recordToValidate.setOwnHegn1(ownHegn1);
-		}
-		
-	}
-	/**
+		/**
 	 * 
 	 * @param session
 	 * @param request
@@ -306,6 +257,7 @@ public class TrorMainOrderHeaderLandImportController {
 				//TODO headerOrderRecord.setStatus(orderStatus);
 				//domain objects
 				model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
+				session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT, headerOrderRecord);
 			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
@@ -323,6 +275,56 @@ public class TrorMainOrderHeaderLandImportController {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param appUser
+	 */
+	private void setDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
+		recordToValidate.setHesg(appUser.getSignatur());
+		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
+		
+	}
+	/**
+	 * Special split on Goods no.
+	 * 
+	 * @param recordToValidate
+	 */
+	private void splitGodsnr(JsonTrorOrderHeaderRecord recordToValidate){
+		String str = recordToValidate.getHegn();
+
+		if(str.length()>=4){
+			String ownHegn1 = str.substring(0, 4);
+			//logger.info("A:"+ ownHegn1);
+			recordToValidate.setOwnHegn1(ownHegn1);
+			if(str.length()>=9){
+				String ownHegn2 = str.substring(4,9);
+				//logger.info("B:"+ ownHegn2);
+				recordToValidate.setOwnHegn2(ownHegn2);
+				if(str.length()>=10){
+					if(str.length()>=15){
+						String ownHegn3 = str.substring(9,15);
+						//logger.info("C:"+ ownHegn3);
+						recordToValidate.setOwnHegn3(ownHegn3);
+					}else{
+						String ownHegn3 = str.substring(9);
+						//logger.info("D:"+ ownHegn3);
+						recordToValidate.setOwnHegn3(ownHegn3);
+					}
+				}
+			}else{
+				String ownHegn2 = str.substring(4);
+				//logger.info("Y:"+ ownHegn2);
+				recordToValidate.setOwnHegn2(ownHegn2);
+			}
+		}else{
+			String ownHegn1 = str;
+			//logger.info("Z:"+ ownHegn1);
+			recordToValidate.setOwnHegn1(ownHegn1);
+		}
+		
+	}
+
 	/**
 	 * 
 	 * @param recordToValidate

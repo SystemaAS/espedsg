@@ -9,7 +9,8 @@
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_faktura.js?ver=${user.versionEspedsg}"></SCRIPT>			
+	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_invoice.js?ver=${user.versionEspedsg}"></SCRIPT>			
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -131,24 +132,24 @@
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Regnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.serg}</td>
+							           	<td class="text11MediumBlue" align="left">${XrecordTopicTvinnSad.serg}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.senak}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.henas}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse-1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seadk1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads1}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse-2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seadk2}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads2}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seadk3}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads3}</td>
 							        </tr>
 							        <tr>
 							        		<td width="30%" class="text11" align="left">&nbsp;</td>
@@ -164,19 +165,19 @@
 							        
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.senas}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.henak}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse-1&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seads1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk1}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left">Adresse-2&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seads2}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk2}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordTopicTvinnSad.seads3}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk3}</td>
 							        </tr>
 							        <%--
 									<tr>

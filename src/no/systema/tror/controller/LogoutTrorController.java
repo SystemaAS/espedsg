@@ -37,6 +37,9 @@ public class LogoutTrorController {
 			logger.info("Logging out from Systema Tror ...");
 			session.removeAttribute(AppConstants.ASPECT_ERROR_MESSAGE);
 			session.removeAttribute(TrorConstants.SESSION_SEARCH_FILTER_TROR);
+			session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT);
+			session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDEXPORT);
+			
 			view = this.successView;
 		}
 		return view;

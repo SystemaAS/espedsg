@@ -113,13 +113,13 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_faktura.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="Xtror_mainorderlandimport_invoice.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_faktura");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_invoice");
 		logger.info("Method: doInit");
 		//check user (should be in session already)
 		if(appUser==null){
@@ -196,7 +196,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_faktura.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandimport_invoice.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -211,7 +211,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
 		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_faktura");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_invoice");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
