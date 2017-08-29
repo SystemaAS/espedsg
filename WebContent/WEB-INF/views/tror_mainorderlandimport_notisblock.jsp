@@ -44,14 +44,14 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${model.heavd}&heopd=${model.heopd}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" > 	
 					<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${model.heavd}/${model.heopd}</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLandImport.heavd}/${recordOrderTrorLandImport.heopd}</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doInit&heavd=${model.heavd}&heopd=${model.heopd}" >
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doInit&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" >
 					<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font><font class="text12"></font>
 				</a>
 			</td>

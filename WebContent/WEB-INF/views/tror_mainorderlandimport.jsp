@@ -46,7 +46,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doInit&heavd=${model.record.heavd}&heopd=${model.record.heopd}" > 	
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doFetch&heavd=${model.record.heavd}&heopd=${model.record.heopd}" > 	
 							<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font><font class="text12">&nbsp;</font>
 						</a>
 					</td>

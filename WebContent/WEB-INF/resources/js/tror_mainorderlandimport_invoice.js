@@ -181,6 +181,7 @@
       jq('#tblInvoices').dataTable( {
     	  "dom": '<"top">t<"bottom"f><"clear">',
   		  "scrollY":    "150px",
+  		  "order": [[ 2, "asc" ], [ 0, "asc" ]],
   		  "scrollCollapse":  true,
   		  "lengthMenu": [ 25, 50]
   	  });

@@ -66,6 +66,20 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no/sycgip/TBOK009R.pgm?user=OSCAR&HEUNIK=10001176
 	static public String EBOOKING_BASE_SEND_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TBOK009R.pgm";
 	**/
+	
+	//----------------------------------------------------------------
+	//[2] FETCH/UPDATE/CREATE/DELETE Specific Invoice - Invoice lines
+	// It might or might not have a trip cross reference
+	// mode=A (add)
+	// mode=U (update)
+	// mode=D (delete)
+	//----------------------------------------------------------
+	static public String TROR_BASE_FETCH_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE25R.pgm";
+	//Lista -->http://gw.systema.no/sycgip/TJGE25R.pgm?user=JOVO&avd=80&opd=201523&lin=type=A
+	//Linje -->http://gw.systema.no/sycgip/TJGE25R.pgm?user=JOVO&avd=80&opd=201523&lin=55&type=A
+	static public String TROR_BASE_UPDATE_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE26R.pgm";
+	//Update -->http://gw.systema.no/sycgip/TJGE26R.pgm?user=JOVO&avd=80&opd=201523&lin=55&mode=(A)(U)(D)
+		
 
 	//----------------
 	//Child window

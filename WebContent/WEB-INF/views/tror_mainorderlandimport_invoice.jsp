@@ -47,9 +47,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${model.heavd}&heopd=${model.heopd}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" > 	
 					<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${model.heavd}/${model.heopd}</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLandImport.heavd}/${recordOrderTrorLandImport.heopd}</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -58,7 +58,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_notisblock.do?action=doInit&heavd=${model.heavd}&heopd=${model.heopd}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_notisblock.do?action=doInit&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" > 	
 					<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font>
 				</a>
 			</td>
@@ -81,42 +81,27 @@
 	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Avd&nbsp;<b>${model.avd}</b>
-				 				&nbsp;Tolldeknr.&nbsp;<b>${model.opd}</b>
-				 				&nbsp;Sign&nbsp;<b>${model.sign}</b>
-				 				<%--
-				 				&nbsp;&nbsp;&nbsp;&nbsp;Ref.nr.:&nbsp;<b>${XrecordTopicTvinnSad.dkih_07}</b>
-				 				--%>
+				 				&nbsp;Avd&nbsp;<b>${recordOrderTrorLandImport.heavd}</b>
+				 				&nbsp;Ordre&nbsp;<b>${recordOrderTrorLandImport.heopd}</b>
+				 				&nbsp;Sign&nbsp;<b>${recordOrderTrorLandImport.hesg}</b>
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				Status:&nbsp;<b>${model.status}</b>
-				 				&nbsp;&nbsp;Dekl.:&nbsp;<b>${recordTopicTvinnSad.sedty}</b>
+				 				Status:&nbsp;<b>${recordOrderTrorLandImport.hest}</b>
 				 				<div class="text11" style="position: relative;" align="left">
 				 				<span style="position:absolute;top:2px; width:400px;" id="status_info" class="popupWithInputText text11"  >
-					           		<br/>
-				           		 	Bare status <b>M</b> (Fejl) eller <b>' '</b> kan redigeres. 
+					           		Bare status <b>TODO</b> eller <b>' '</b> kan redigeres. 
 				           			<ul>
-				           				<li><b>' '</b>&nbsp;Deklarasjonen er åpen for endring.
-				           				<li><b>+</b>&nbsp;Systemet lager nu utgående EDIFACT melding for å kunne sende deklarasjonen..</li>
-				           				<li><b>A</b>&nbsp;Deklarasjonen ligger i en sending i påvente av å bli sendt.</li>
-				           				<li><b>C</b>&nbsp;Sendingen er videresendt til TVINN.</li>
-				           				<li><b>D</b>&nbsp;Melding om dokumentkontroll er mottatt fra Tollvesenet.</li>
-				           				<li><b>E</b>&nbsp;Deklarasjonen blir endret av en saksbehandler.</li>
-				           				<li><b>F</b>&nbsp;Edifacttekniske fejl oppdaget.</li>
-				           				<li><b>K</b>&nbsp;Deklarasjonen er klar for utskrift men er ikke skrevet ut.</li>
-				           				<li><b>L</b>&nbsp;Deklarasjonen er klar for utskrift men er ikke skrevet ut.</li>	
-				           				<li><b>M</b>&nbsp;Tollteknisk fejl</li>
-				           				<li><b>P</b>&nbsp;Deklarasjonen er skrevet ut. Hvis den er sendt på TVINN vil denne koden bety at tollkvittering er mottatt fra Tollvesenet og skrevet ut.</li>
-				           				<li><b>Q</b>&nbsp;Deklarasjonen ligger i utgående postkasse for TVINN. men er ikke sendt.</li>
-				           				<li><b>T</b>&nbsp;Informasjonsmelding om at deklarasjonen er lagt til manuell ekspedering hos Tollvesenet.</li>
-				           				<li><b>U</b>&nbsp;Utleveringsattest er mottatt fra Tollvesenet.</li>
-				           				<li><b>V</b>&nbsp;Melding om varekontroll er mottatt fra Tollvesenet.</li>
-				           				<li><b>1</b>&nbsp;Melding fra Input-kontroll / Toller er mottatt og klar til å skrives ut.</li>	
-				           				<li><b>2</b>&nbsp;Utleveringsattest er mottatt fra Tvinn og klar til å skrives ut.</li>	
-				           				<li><b>3</b>&nbsp;Tollkvittering/tolldeklarasjon er mottatt fra Tvinn og klar til å skrives ut.</li>		           				
+				           				<li><b>'TODO statuskoder'</b>&nbsp;Deklarasjonen er åpen for endring.
+				           				<li><b>TODO A</b>&nbsp;Deklarasjonen ligger i en sending i påvente av å bli sendt.</li>
+				           				<li><b>TODO C</b>&nbsp;Sendingen er videresendt til TVINN.</li>
+				           				<li><b>etc</b>&nbsp;Melding om dokumentkontroll er mottatt fra Tollvesenet.</li>	           				
 				           			</ul>
 								</span>	
 								</div>
+				 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Turnr&nbsp;<b>${recordOrderTrorLandImport.hepro}</b>
+				 				&nbsp;Godsnr.&nbsp;<b>${recordOrderTrorLandImport.hegn}</b>
+				 				&nbsp;Frankatur&nbsp;<b>${recordOrderTrorLandImport.hefr}</b>
+				 				
 			 				</td>
 		 				</tr>
 	 				</table>
@@ -130,10 +115,7 @@
 							            <td width="30%" class="text11Bold" align="left" >Eksportør</td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
-							        <tr>
-							            <td width="30%" class="text11" align="left">Regnr.&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${XrecordTopicTvinnSad.serg}</td>
-							        </tr>
+							        
 							        <tr>
 							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.henas}</td>
@@ -151,9 +133,7 @@
 							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads3}</td>
 							        </tr>
-							        <tr>
-							        		<td width="30%" class="text11" align="left">&nbsp;</td>
-							        </tr>						        
+							        						        
 			        	        </table>
 					        </td>
 					        <td width="50%">
@@ -179,12 +159,7 @@
 							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk3}</td>
 							        </tr>
-							        <%--
-									<tr>
-							            <td width="30%" class="text11" align="left">Handläggare&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${XX.svih_moha}</td>
-							        </tr>
-							         --%>
+							        
 			        	        </table>
 					        </td>
 				        </tr>
@@ -218,7 +193,8 @@
 										<td class="text12Bold">
 											<c:if test="${model.status == 'M' || empty model.status}">
 												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='TODOtvinnsadexport_edit_finansopplysninger.do';" value="<spring:message code="systema.tvinn.sad.import.item.line.init.createnew.submit"/>">
-												&nbsp;<button title="Import av eksterna fakturaer" name="TODOimportInvoicesButton" id="TODOimportInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera eksterna fakturaer</button>
+												&nbsp;
+												<%--<button title="Import av eksterna fakturaer" name="TODOimportInvoicesButton" id="TODOimportInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera eksterna fakturaer</button> --%>
 											</c:if>
 										</td>
 									</tr>
@@ -267,40 +243,55 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th class="text12">&nbsp;Finans.opplysn.&nbsp;</th> 
-									    <th align="center" class="text12" nowrap>&nbsp;Dato&nbsp;</th>
+										<th width="2%" align="center" class="text12">Lnr.</th>
+									    <th width="2%" align="center" class="text12">Endre</th> 
+									    <th align="center" class="text12">SK</th>
+									    <th align="left" class="text12">Kode</th>
+									    <th align="left" class="text12">Tekst</th> 
+									    <th width="2%" align="center" class="text12">Valuta</th>
 					                    <th align="right" class="text12" nowrap>&nbsp;Beløp&nbsp;</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;Valuta&nbsp;</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;Kurs&nbsp;</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;Faktor&nbsp;</th>
+					                    <th align="right" class="text12" nowrap>&nbsp;Beløp&nbsp;</th>
+					                    <th width="2%" align="center" class="text12" nowrap>Mva</th>
+					                    <th width="2%" align="center" class="text12" nowrap>Opr</th>
+					                    
 					                    <c:if test="${model.status == 'M' || empty model.status}">
-					                    	<th align="center" class="text12" nowrap>Slett</th>
+					                    	<th width="2%" align="center" class="text12" nowrap>Slett</th>
 					                    </c:if> 
 					               </tr> 
 								   </thead>
-								   <body>						               
-				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
-							               <c:choose>           
-							                   <c:when test="${counter.count%2==0}">
-							                       <tr class="tableRow" height="20" >
-							                   </c:when>
-							                   <c:otherwise> 
-							                       <tr class="tableOddRow" height="20" >
-							                   </c:otherwise>
-							               </c:choose>
-							               <td width="2%" class="text11" align="right">
-							               		<a tabindex=-1 id="recordUpdate__${record.sftxt}__${record.sfdt}" href="#" onClick="getFinansOpplysningerItemData(this);">${record.sftxt}
+								   <tbody>						               
+				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">  
+				 					  	<c:if test="${not empty record.fali}">  
+							              <tr class="tableRow">
+										   <td width="2%" align="center" class="text11" >${record.fali}</td>
+							               <td width="2%" class="text11" align="center">
+							               		<a tabindex=-1 id="recordUpdate__${Xrecord.sftxt}__${Xrecord.sfdt}" href="#" onClick="getFinansOpplysningerItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
-							               		</a>&nbsp;&nbsp;
+							               		</a>
 							               </td>
-							               <td align="center" class="text11" >&nbsp;${record.sfdt}</td>
-							               <td align="right" class="text11" >&nbsp;${record.sfbl28}</td>
-							               <td align="right" class="text11" >&nbsp;${record.sfvk28}</td>
-							               <td align="right" class="text11" >&nbsp;${record.sfkr28}</td>
-							               <td align="right" class="text11" >&nbsp;${record.sfom28}</td>
+							               <td width="2%" align="center" class="text11" >${record.fask}</td>
+							               <td width="2%" align="center" class="text11" >${record.favk}</td>
+							               <td class="text11" align="left">
+							               		<a tabindex=-1 id="recordUpdate__${Xrecord.sftxt}__${Xrecord.sfdt}" href="#" onClick="getFinansOpplysningerItemData(this);">
+								               		<c:choose>
+									               		<c:when test="${not empty record.faVT}">
+									               			${record.faVT}
+									               		</c:when>
+									               		<c:otherwise>
+									               			${record.stdVt}
+									               		</c:otherwise>
+								               		</c:choose>	
+							               		</a>
+							               </td>
+							               <td width="2%" align="center" class="text11" >${record.faval}</td>
+							               <td align="right" class="text11" >&nbsp;${record.fabelv}</td>
+							               <td align="right" class="text11" >&nbsp;${record.fabeln}</td>
+							               <td width="2%" align="center" class="text11" >${record.fakdm}</td>
+							               <td width="2%" align="center" class="text11" >${record.fakda}</td>
+							               
 										   <c:if test="${model.status == 'M' || empty model.status}">	
-								               <td class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_finansopplysninger.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${record.sftxt}">
+								               <td width="2%" class="text11" align="center" nowrap>
+								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_finansopplysninger.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${Xrecord.sftxt}">
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>	&nbsp;
 								               </td>
@@ -310,9 +301,10 @@
 								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
 								        --%> 
 								        <%-- this param is used throughout the Controller --%>
-								        <c:set var="numberOfItemLinesInTopic" value="${recordX.svln}" scope="request" /> 
+								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
+								        </c:if>
 								        </c:forEach>
-						            </body>
+						            </tbody>
 						        </table>
 						        </td>
 								</tr>
@@ -396,16 +388,12 @@
 							 		<tr>
 							 			<td class="text12" align="left"><span title="sftxt">
 							 			<img onMouseOver="showPop('finans_opp_info');" onMouseOut="hidePop('finans_opp_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						<b>28.</b>Finans.opplysn.</span>
+				 						Tekst</span>
 										<div class="text11" style="position: relative;" align="left">
 										<span style="position:absolute;top:2px; width:300px;" id="finans_opp_info" class="popupWithInputText text11"  >
-							           		<b>28.Finansielle opplysninger og bankdata</b>
-											<p>
-						           		 	Oppgi fakturanummer og dato. Fakturaer med fortløpende nummer kan oppgis med første og siste nummer. Feks. 270-275.
-						           		 	</p>
-						           		 	<p>
-						           		 	Er det blanding av valutaslag, regner systemet om til NOK.
-						           		 	</p> 
+							           		<b>Tekst</b>
+											<p>Todo</p>
+						           		 	
 										</span>
 										</div>										
 										</td>
@@ -429,7 +417,7 @@
 										<td align="left" nowrap>
 								            	<select class="inputTextMediumBlueMandatoryField" name="sfvk28" id="sfvk28">
 						 						<option value="">-velg-</option>
-							 				  	<c:forEach var="currency" items="${model.currencyCodeList}" >
+							 				  	<c:forEach var="currency" items="${model.XcurrencyCodeList}" >
 							 				  		<option value="${currency.zkod}"<c:if test="${Xmodel.record.sfvk28 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
 												</c:forEach>  
 											</select>
