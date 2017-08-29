@@ -41,6 +41,10 @@ public class SearchFilterSporringOppdragTopicList {
 	public void setWsrfa(String value) { this.wsrfa = value;}
 	public String getWsrfa() { return this.wsrfa;}
 	
+	private String wsrfk = null;
+	public void setWsrfk(String value) { this.wsrfk = value;}
+	public String getWsrfk() { return this.wsrfk;}
+	
 	private String wsfn = null;
 	public void setWsfn(String value) { this.wsfn = value;}
 	public String getWsfn() { return this.wsfn;}

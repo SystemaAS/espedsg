@@ -216,6 +216,9 @@ public class SporringOppdragMainListController {
 		if(searchFilter.getWsrfa()!=null && !"".equals(searchFilter.getWsrfa())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsrfa=" + searchFilter.getWsrfa());
 		}
+		if(searchFilter.getWsrfk()!=null && !"".equals(searchFilter.getWsrfk())){
+			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsrfk=" + searchFilter.getWsrfk());
+		}
 		if(searchFilter.getWsfn()!=null && !"".equals(searchFilter.getWsfn())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsfn=" + searchFilter.getWsfn());
 		}

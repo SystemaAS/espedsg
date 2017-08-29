@@ -109,9 +109,12 @@
 						    		<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsdtt" id="wsdtt" size="9" maxlength="8" value="${searchFilter.wsdtt}"></td>
 						    	</tr>
 									    	
-						    <tr>
+						    	<tr>
 						    		<td class="text11" title="wsrfa">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.oppGivRef"/></td>
 						    		<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsrfa" id="wsrfa" size="15" maxlength="15" value="${searchFilter.wsrfa}"></td>
+						    		<td class="text11" title="wsrfk">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.mottRef"/></td>
+						    		<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsrfk" id="wsrfk" size="15" maxlength="15" value="${searchFilter.wsrfk}"></td>
+						    		
 						    	</tr>
 						    	<tr>	
 						    		<td class="text11" title="wsavd/wsopd" nowrap>&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.oppRef.avdOppNr"/></td>
