@@ -16,27 +16,7 @@
 			
 		});
   	});
-  	
-  	//Vedlikehold adresser
-  	jq(function() {
-	  	jq('#deliveryAdrMaintButton').click(function() {
-	  		window.open('ebooking_childwindow_customer_addresses_vedlikehold.do?action=doInit', "deliveryAdrMaintWin", "top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no");
-	    });
-	  	
-	    jq('#deliveryAdrMaintButton').keypress(function(e){ //extra feature for the end user
-			if(e.which == 13) {
-				jq('#deliveryAdrMaintButton').click();
-			}
-	    });
-	    /*TODO
-	    jq('#todo').focus(function() {
-	    	if(jq('#todo').val()!=''){
-	    		refreshCustomValidity(jq('#todo')[0]);
-	  		}
-	  	});
-	  	*/
-	    
-  	});
+
   	
   //Customer
 	jq(function() {
@@ -388,6 +368,8 @@
         ).draw();
     }
     
+    
+    
     //Init datatables
     jq(document).ready(function() {
 	  var lang = jq('#language').val(); 	
@@ -429,6 +411,8 @@
 	  jq('input.customerList_filter').on( 'keyup click', function () {
 		  filterCustomerList();
 	  });
+	  
+	  
 	  //related table Customer Addresses
 	  jq('#customerAddressesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
@@ -439,7 +423,7 @@
 	  jq('input.customerAddressesList_filter').on( 'keyup click', function () {
 		  filterCustomerAddressesList();
 	  });
-	  
+	 
 	  
 	  //------------------------------
 	  //tables [Load/Unload places]
@@ -481,4 +465,38 @@
 	  });
       
     });
+    
+    //Delete on list of addresses
+    function doDeleteCustomerAddress(element){
+		  //start
+		  var record = element.id.split('@');
+		  
+		  var kundnr = record[0];
+		  var vadrnr = record[1];
+		  kundnr = kundnr.replace("kundnr_","");
+		  vadrnr = vadrnr.replace("vadrnr_","");
+		  	//Start dialog
+		  	jq('<div></div>').dialog({
+		        modal: true,
+		        title: "Dialog - Slett Adresse: " + kundnr + "/" + vadrnr,
+		        buttons: {
+			        Fortsett: function() {
+		        		jq( this ).dialog( "close" );
+			            //do delete
+			            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		        		window.location = "ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate&rm=1&wkundnr=" + kundnr + "&vadrnr=" + vadrnr + "&wkundnvn=" + jq('#wkundnvn').val();
+			        },
+			        Avbryt: function() {
+			            jq( this ).dialog( "close" );
+			        }
+		        },
+		        open: function() {
+			  		  var markup = "Er du sikker på at du vil slette denne?";
+			          jq(this).html(markup);
+			          //make Cancel the default button
+			          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
+			     }
+			});  //end dialog
+	  }
+    
   	
