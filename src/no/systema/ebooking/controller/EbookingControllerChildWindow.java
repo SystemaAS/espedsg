@@ -33,7 +33,10 @@ import no.systema.main.validator.LoginValidator;
 //ebooking
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.ebooking.util.EbookingConstants;
+import no.systema.ebooking.util.RpgReturnResponseHandler;
+import no.systema.ebooking.validator.CustomerDeliveryAdressValidator;
 import no.systema.ebooking.service.EbookingChildWindowService;
+import no.systema.ebooking.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
@@ -70,6 +73,8 @@ public class EbookingControllerChildWindow {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private DateTimeManager dateTimeManager = new DateTimeManager();
 	private StringManager strMgr = new StringManager();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -315,8 +320,11 @@ public class EbookingControllerChildWindow {
 	public ModelAndView doFindCustomerAddresses(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doFindCustomerAddresses");
-		Collection outputList = new ArrayList();
+		
 		Map model = new HashMap();
+		String wkundnvn = request.getParameter("wkundnvn");
+		model.put("custName", wkundnvn);
+		
 		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
@@ -326,83 +334,46 @@ public class EbookingControllerChildWindow {
 		}else{
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			
-			//-----------
-			//Validation
-			//-----------
-			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    validator.validate(recordToValidate, bindingResult);
-		    */
-		    //check for ERRORS
-			if(bindingResult.hasErrors()){
-	    		logger.info("[ERROR Validation] search-filter does not validate)");
-	    		//put domain objects and do go back to the successView from here
-	    		//this.setCodeDropDownMgr(appUser, model);
-	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
-				return successView;
-	    		
-		    }else{
-				
-		    		//prepare the access CGI with RPG back-end
-		    		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
-		    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wkundnr=" + recordToValidate.getWkundnr(); //"&wvadrna=A"; //A=all addresses
-		    		logger.info("URL: " + BASE_URL);
-		    		logger.info("PARAMS: " + urlRequestParamsKeys);
-		    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		    		//Debug -->
-			    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-			    
-		    		if(jsonPayload!=null){
-		    			JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingChildWindowService.getCustomerDeliveryAddressContainer(jsonPayload);
-			    		if(container!=null){
-			    			List<JsonEbookingCustomerDeliveryAddressRecord> list = new ArrayList<JsonEbookingCustomerDeliveryAddressRecord>();
-			    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
-			    				list.add(record);
-			    			}
-			    			model.put(this.DATATABLE_CUSTOMER_ADDRESSES_LIST, list);
-			    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-			    		}
-		    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-					return successView;
-					
-			    	}else{
-					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-					return loginView;
-				}
-				
-		    }
+		
+			List list = this.getCustomerAdressList(appUser, recordToValidate.getWkundnr());
+	    	model.put(this.DATATABLE_CUSTOMER_ADDRESSES_LIST, list);
+	    	successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+			return successView;
 		}
+		
 	}
 	/**
 	 * 
+	 * @param appUser
 	 * @param recordToValidate
-	 * @param session
-	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="ebooking_childwindow_customer_addresses_vedlikehold.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitCustomerAddressesVedlikehold");
-		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses_vedlikehold");
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return this.loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-	    		return successView;
+	private List<JsonEbookingCustomerDeliveryAddressRecord> getCustomerAdressList(SystemaWebUser appUser, String kundnr){
+		List<JsonEbookingCustomerDeliveryAddressRecord> retval = new ArrayList<JsonEbookingCustomerDeliveryAddressRecord>();
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wkundnr=" + kundnr; //"&wvadrna=A"; //A=all addresses
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug -->
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    
+		if(jsonPayload!=null){
+			JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingChildWindowService.getCustomerDeliveryAddressContainer(jsonPayload);
+    		if(container!=null){
+    			List<JsonEbookingCustomerDeliveryAddressRecord> list = new ArrayList<JsonEbookingCustomerDeliveryAddressRecord>();
+    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
+    				list.add(record);
+    			}
+    			retval = list;
+    		}
 		}
-	}	
+		return retval;
+	}
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -411,35 +382,167 @@ public class EbookingControllerChildWindow {
 	 * @return
 	 */
 	@RequestMapping(value="ebooking_childwindow_customer_addresses_vedlikehold.do", params="action=doUpdate",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doUpdateCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressContainer recordToValidate, HttpSession session, HttpServletRequest request){
+	public ModelAndView doUpdateCustomerAddressesVedlikehold(@ModelAttribute ("record") JsonEbookingCustomerDeliveryAddressRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doUpdateCustomerAddressesVedlikehold");
 		Map model = new HashMap();
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
+		//adjust some fields
+		recordToValidate.setAppCustnr(appUser.getCustNr());
+		recordToValidate.setApplicationUser(appUser.getUser());
 		
 		//check if it is a delete action
 		String removeFlag = request.getParameter("rm");
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses_vedlikehold");
-		if(strMgr.isNotNull(removeFlag)){
-			successView = new ModelAndView("redirect:ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr());
-		}
+		//String ctype = request.getParameter("ctype");
+		//String wkundnr = request.getParameter("wkundnr");
+		String wkundnvn = request.getParameter("wkundnvn");
+		model.put("custName", wkundnvn);
 		
-		if(appUser==null){
+		ModelAndView successView = new ModelAndView("redirect:ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr() + "&wkundnvn=" + wkundnvn);
+		ModelAndView fallbackView = new ModelAndView("ebooking_childwindow_customer_addresses");
+		ModelAndView theView = null;
+		
+		if(appUser == null || "".equals(appUser)){
 			return this.loginView;
 			
 		}else{
-			//TODO massor med Create or Update or Delete
-			//väntar på JOVOs CRUD
-			//...
 			
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-	    		return successView;
+			//Validate
+			CustomerDeliveryAdressValidator validator = new CustomerDeliveryAdressValidator();
+			validator.validate(recordToValidate, bindingResult);
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] record does not validate)");
+	    		List list = this.getCustomerAdressList(appUser, appUser.getCustNr());
+	    		model.put(this.DATATABLE_CUSTOMER_ADDRESSES_LIST, list);
+    			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+	    		theView = fallbackView;
+			}else{
+				
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				//Set correct mode
+				String mode = EbookingConstants.MODE_ADD;
+				if ( strMgr.isNotNull(recordToValidate.getVadrnr()) ){
+					if(strMgr.isNotNull(removeFlag)){
+						mode = EbookingConstants.MODE_DELETE;
+					}else{
+						mode = EbookingConstants.MODE_UPDATE;
+					}
+				}
+				//UPDATE now
+				dmlRetval = this.updateRecord(model, appUser.getUser(), appUser.getCustNr(), recordToValidate, mode, errMsg);
+				
+				if(dmlRetval==0){
+					logger.info("[INFO] Record successfully updated, OK ");
+					successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+					theView = successView;
+				}else{
+					model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
+					theView = fallbackView;
+				}
+			}
+			
+			theView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+	    	return theView;
 		}
-	}	
+	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @param applicationUser
+	 * @param wkundnr
+	 * @param recordToValidate
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
+	private int updateRecord(Map model, String applicationUser, String wkundnr, JsonEbookingCustomerDeliveryAddressRecord recordToValidate, String mode, StringBuffer errMsg){
+		int retval = 0;
+		
+		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + applicationUser + "&mode=" + mode);
+		//START Key: kundnr always fallback
+		String kundnr = wkundnr;
+		if(strMgr.isNotNull(recordToValidate.getOwnKundnr())){
+			//This happens when there is a user input in this field
+			kundnr = recordToValidate.getOwnKundnr();
+		}
+		urlRequestParamsKeys.append("&wkundnr=" + kundnr);
+		//END key
+		
+		//Sub-key ONLY with update or delete otherwise (create new) leave it empty.
+		if(EbookingConstants.MODE_UPDATE.equals(mode) || EbookingConstants.MODE_DELETE.equals(mode)){
+			urlRequestParamsKeys.append("&wvadrnr=" + recordToValidate.getVadrnr());
+		}else{
+			urlRequestParamsKeys.append("&wvadrnr=");
+		}
+	
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+		//put the final valid param. string
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS:" + urlRequestParams);
+    	
+    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	logger.info(jsonDebugger.debugJsonPayloadWithLog4J(rpgReturnPayload));
+    	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
+    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
+    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+    		//isValidCreatedRecordTransactionOnRPG = false;
+    		retval = -1; 
+    		
+    	}else{
+    		//Update successfully done!
+    		logger.info("[INFO] Record successfully updated, OK ");
+    		//newly created id. Set it in the recordToValidate in order to fetch (refresh) later on
+    		/*TODO ? -->if(EbookingConstants.MODE_ADD.equals(mode)){
+    			recordToValidate.setHeunik(rpgReturnResponseHandler.getHeunik());
+    			recordToValidate.setHereff(rpgReturnResponseHandler.getHereff());	
+    		}*/
+    		
+    	}
+    	
+    	return retval;
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param rpgReturnResponseHandler
+	 * @param record
+	 */
+	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonEbookingCustomerDeliveryAddressRecord record){
+		logger.info(rpgReturnResponseHandler.getErrorMessage());
+		this.setAspectsInView(model, rpgReturnResponseHandler);
+		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
+        this.setDomainObjectsInView(model, record);
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param rpgReturnResponseHandler
+	 */
+	private void setAspectsInView (Map model, RpgReturnResponseHandler rpgReturnResponseHandler){
+		model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		//extra error information
+		StringBuffer errorMetaInformation = new StringBuffer();
+		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
+		errorMetaInformation.append(rpgReturnResponseHandler.getHereff());
+		model.put(EbookingConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param record
+	 */
+	private void setDomainObjectsInView(Map model, JsonEbookingCustomerDeliveryAddressRecord record){
+		model.put(EbookingConstants.DOMAIN_RECORD, record);
+	}
 	/**
 	 * 
 	 * @param recordToValidate

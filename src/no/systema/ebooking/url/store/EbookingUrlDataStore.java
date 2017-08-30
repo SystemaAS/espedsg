@@ -69,23 +69,17 @@ public class EbookingUrlDataStore {
 	
 	//Fakturakunde - replaces the good old fashioned customer search(not applicable in eBooking)
 	static public String EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQFKU.pgm";
+	
 	//Fakturakunde adresser
-	static public String EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQVADR.pgm";
 	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrnr=1 
 	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrna=A (Alfa search exact)
-	
-	
-	//Customer (N/A)
-	/**
-	static public String EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQKUND.pgm";
-	//http://gw.systema.no/sycgip/TJINQKUND.pgm?user=JOVO&sokknr=1 
-	//flera parametrar är: soknvn, kunpnsted, wsvarnv, maxv
 	static public String EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQVADR.pgm";
-	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrnr=1 
-	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrna=A (all addresses)
-	//...if not empty this will override the customer address (fetched with TJINQKUND.pgm...)
-	**/
 	
+	//http://gw.systema.no/sycgip/TJAUDVADR.pgm?user=OSCAR&wkundnr=70&wvadrnr=&mode=A&vadrna=TEST22222&vadrn1=Adresse1&vadrn2=Adresse2&vadrn3=3014%20Drammen&vakure=KN123&vatlf=&vafax=&vamail=janottar@systema.no
+	static public String EBOOKING_BASE_UPDATE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJAUDVADR.pgm";
+	
+	
+	//Postal codes
 	static public String EBOOKING_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQSDL.pgm";
 	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO(return all)
 	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO&soknvn=T... etc

@@ -14,6 +14,17 @@ import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
  */
 public class JsonEbookingCustomerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
 	
+	private String appCustnr = null;
+	public void setAppCustnr(String value){ this.appCustnr = value;}
+	public String getAppCustnr(){ return this.appCustnr; }
+	
+	private String applicationUser = null;
+	public void setApplicationUser(String value){ this.applicationUser = value;}
+	public String getApplicationUser(){ return this.applicationUser; }
+	
+	private String ownKundnr = null;
+	public void setOwnKundnr(String value){ this.ownKundnr = value;}
+	public String getOwnKundnr(){ return this.ownKundnr; }
 	
 	private String vadrnr = null;
 	public void setVadrnr(String value){ this.vadrnr = value;}

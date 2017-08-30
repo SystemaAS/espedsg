@@ -362,7 +362,7 @@
 		               </td>
 		               
 		               <td align="center" class="text11MediumBlue">
-            		  	 	<a sytle="cursor:pointer;" id="hereff_${record.hereff}@heunik_${record.unik}" title="delete" onClick="doPermanentlyDeleteOrder(this)" tabindex=-1>
+            		  	 	<a sytle="cursor:pointer;" id="hereff_${record.hereff}@heunik_${record.unik}" title="delete" onClick="doPermanentlyDeleteOrder(this);" tabindex=-1>
 			               		<img src="resources/images/delete.gif" border="0" alt="remove">
 			               	</a>&nbsp;
 					   </td>

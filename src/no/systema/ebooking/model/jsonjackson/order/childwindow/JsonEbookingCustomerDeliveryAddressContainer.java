@@ -23,6 +23,10 @@ public class JsonEbookingCustomerDeliveryAddressContainer {
 	public void setWkundnr(String value){ this.wkundnr = value;}
 	public String getWkundnr(){ return this.wkundnr; }
 	
+	private String wkundnvn = null;
+	public void setWkundnvn(String value){ this.wkundnvn = value;}
+	public String getWkundnvn(){ return this.wkundnvn; }
+	
 	private String wvadrnr = null;
 	public void setWvadrnr(String value){ this.wvadrnr = value;}
 	public String getWvadrnr(){ return this.wvadrnr; }
