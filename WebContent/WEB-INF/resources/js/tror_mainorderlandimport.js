@@ -311,7 +311,7 @@
 		
 	    jq('#hesdfIdLink').click(function() {
 	    	jq('#hesdfIdLink').attr('target','_blank');
-	    	window.open('ebooking_childwindow_postalcodes.do?action=doInit&direction=fra&st2lk=' + jq('#helka').val() + '&st2kod=' + jq('#hesdf').val() + '&caller=hesdf', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('TODOebooking_childwindow_postalcodes.do?action=doInit&direction=fra&st2lk=' + jq('#helka').val() + '&st2kod=' + jq('#hesdf').val() + '&caller=hesdf', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#hesdfIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
@@ -359,7 +359,7 @@
 	    
 	    jq('#hesdtIdLink').click(function() {
 	    	jq('#hesdtIdLink').attr('target','_blank');
-	    	window.open('ebooking_childwindow_postalcodes.do?action=doInit&direction=til&st2lk=' + jq('#hetri').val() + '&st2kod=' + jq('#hesdt').val() + '&caller=hesdt', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('TODOebooking_childwindow_postalcodes.do?action=doInit&direction=til&st2lk=' + jq('#hetri').val() + '&st2kod=' + jq('#hesdt').val() + '&caller=hesdt', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#hesdtIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {

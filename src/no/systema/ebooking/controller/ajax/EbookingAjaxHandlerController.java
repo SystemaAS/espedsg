@@ -277,6 +277,65 @@ public class EbookingAjaxHandlerController {
 	  /**
 	   * 
 	   * @param applicationUser
+	   * @param requestString
+	   * @return
+	   */
+	  @RequestMapping(value = "getCustomerDeliveryAddress_Ebooking.do", method = RequestMethod.GET)
+	    public @ResponseBody Set<JsonEbookingCustomerDeliveryAddressRecord> getCustomerDeliveryAddress_Ebooking
+		  						(@RequestParam String applicationUser, @RequestParam String kundnr, @RequestParam String vadrnr){
+			 logger.info("Inside: getCustomerDeliveryAddress_Ebooking");
+			 
+			 Set<JsonEbookingCustomerDeliveryAddressRecord> result = new HashSet<JsonEbookingCustomerDeliveryAddressRecord>();
+				//prepare the access CGI with RPG back-end
+				String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
+				String urlRequestParams = "user=" + applicationUser + "&wkundnr=" + kundnr+ "&wvadrnr=" + vadrnr; 
+				logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParams);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+				if(jsonPayload!=null){
+					JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingChildWindowService.getCustomerDeliveryAddressContainer(jsonPayload);
+		    		if(container!=null){
+		    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
+		    				result.add(record);
+		    			}
+		    		}
+				}
+				return result;
+			 
+			 
+			 /*
+			 Set<JsonMainOrderHeaderFraktbrevRecord> result = new HashSet<JsonMainOrderHeaderFraktbrevRecord>();
+			 //logger.info(requestString);
+			 if(requestString!=null && !"".equals(requestString)){
+			 	final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_LINE_MAIN_ORDER_FRAKTBREV_URL;
+				//add URL-parameters
+			 	String urlRequestParams = requestString;
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				logger.info("URL: " + BASE_URL);
+				logger.info("URL PARAMS: " + urlRequestParams);
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				JsonMainOrderHeaderFraktbrevContainer container = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
+				if(container!=null){
+					for (JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord: container.getAwblineGet()){
+						result.add(fraktbrevRecord);
+						//logger.info(fraktbrevRecord.getFvant());
+					}
+				}
+			 }
+			 
+			 return result;
+			 */
+		}
+		
+	  
+	  /**
+	   * 
+	   * @param applicationUser
 	   * @param id
 	   * @param countryCode
 	   * @return

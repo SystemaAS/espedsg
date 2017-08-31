@@ -415,10 +415,15 @@
 	  
 	  //related table Customer Addresses
 	  jq('#customerAddressesList').dataTable( {
-		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-		  "lengthMenu": [ 50, 75, 100 ],
+		  "dom": '<"top"fi>rt<"bottom"p><"clear">',
+		  //"pageLength": 15,
+		  //"lengthMenu": [ 50, 75, 100 ],
+		  "tabIndex": -1,
 		  "language": { "url": getLanguage(lang) }
+	  	
 	  });
+	  
+	  
 	  //event on input field for search
 	  jq('input.customerAddressesList_filter').on( 'keyup click', function () {
 		  filterCustomerAddressesList();
@@ -498,5 +503,67 @@
 			     }
 			});  //end dialog
 	  }
+    
+jq(function() {
+		//Clean values for createing new record
+		jq('#newRecordButton').click(function() {
+			jq('#vadrnr').val("");
+  			jq('#vadrna').val("");
+  			jq('#vadrn1').val("");
+  			jq('#vadrn2').val("");
+  			jq('#vadrn3').val("");
+  			jq('#valand').val("");
+			jq('#vatlf').val("");
+			jq('#vafax').val("");
+			jq('#vamail').val("");
+		});
+  }); 
+    //-----------------------
+    //GET specific db-record
+    //-----------------------
+    function getRecord(record){
+  	var rawId = record.id;
+    	var applicationUserParam = jq('#applicationUser').val();
+    	
+    	rawId = rawId.replace("recordUpdate_", "");
+    	var record = rawId.split('_');
+    	var kundnr = record[0];
+    	var vadrnr = record[1];
+    	//alert(kundnr + "X" + vadrnr)
+    	
+	  	jq.ajax({
+	  		type: 'GET',
+	  		url: 'getCustomerDeliveryAddress_Ebooking.do',
+	  		data: { applicationUser : jq('#applicationUser').val(), 
+	  			kundnr : kundnr,
+	  			vadrnr : vadrnr},
+  			dataType: 'json',
+  			cache: false,
+  			contentType: 'application/json',
+  			success: function(data) {
+		  	  	var len = data.length;
+		  	  	var status;
+		    		for ( var i = 0; i < len; i++) {
+		   				
+		    			jq('#vadrnr').val("");jq('#vadrnr').val(data[i].vadrnr);
+		  	  			jq('#vadrna').val("");jq('#vadrna').val(data[i].vadrna);
+		  	  			jq('#vadrn1').val("");jq('#vadrn1').val(data[i].vadrn1);
+		  	  			jq('#vadrn2').val("");jq('#vadrn2').val(data[i].vadrn2);
+		  	  			jq('#vadrn3').val("");jq('#vadrn3').val(data[i].vadrn3);
+		  	  			jq('#valand').val("");jq('#valand').val(data[i].valand);
+	  	  				jq('#vatlf').val("");jq('#vatlf').val(data[i].vatlf);	
+	  	  				jq('#vafax').val("");jq('#vafax').val(data[i].vafax);
+	  	  				jq('#vamail').val("");jq('#vamail').val(data[i].vamail);
+		  				
+		    		}
+	   		
+	    	  }, 
+	    	  error: function() {
+	    		  alert('Error loading ...');
+	    	  }
+	    	 
+	  	}); 
+    }
+   
     
   	

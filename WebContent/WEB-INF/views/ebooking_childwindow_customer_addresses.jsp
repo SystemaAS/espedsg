@@ -51,7 +51,7 @@
 					<table id="customerAddressesList" class="display compact cell-border" width="100%">
 						<thead>
 						<tr style="background-color:#EEEEEE">
-							<th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
+							<th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.name"/></th>
 		                    <th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.update"/></th>
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.address"/></th>
@@ -71,20 +71,13 @@
 			                       <tr class="text11" >
 			                   </c:otherwise>
 			               </c:choose>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">
-			               	 <img style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" ><font class="text12SkyBlue" >&nbsp;${record.vadrnr}</font>
+			               
+			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">
+			               	 <font class="text11MediumBlue" >${record.vadrnr}</font>
 			               </td>
 			               <td class="text11" >&nbsp;${record.vadrna}</td>
-			               <td width="2%" align="center" class="text11" >&nbsp;
-			               		<%--
-			               		<a style="cursor:pointer;" id="@opd_${Xrecord.hereff}@alinkOpenOrdersListId_${counter.count}"
-				           			onClick="setBlockUI(this);" href="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate">
-	    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-    		    				</a>
-    		    				--%>
-    		    				<a href="javascript:void(0);" onClick="window.open('ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate','deliveryAdrMaintWin','top=300px,left=300px,height=400px,width=400px,scrollbars=yes,status=no,location=no')">
-		 							<img id="imgDelAdrUpdate" style="vertical-align:bottom; cursor:pointer;" src="resources/images/update.gif" border="0" alt="update">
-								</a>
+			               <td id="recordUpdate_${user.custNr}_${record.vadrnr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
+           					 <img src="resources/images/update.gif" border="0" alt="edit">
 			               </td>
 			               <td class="text11" >&nbsp;${record.vadrn1}&nbsp;${record.vadrn2}</td>
 			               <td class="text11" >&nbsp;${record.vadrn3}&nbsp;${record.valand}</td>
@@ -103,18 +96,19 @@
    			<%-- Vedlikehold on adresses --%>
 				<tr height="5"><td></td></tr>
 				<tr>
-					<td colspan="3" class="text12">
+					<td align="center" colspan="3" class="text12">
 						<img title="search" valign="bottom" src="resources/images/vedlikehold.png" width="30px" height="30px" border="0" alt="search">
 						<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.title"/><br>
 					</td>
 				</tr>
 				<tr>
-				<td>
+				<td align="center">
 					<form action="ebooking_childwindow_customer_addresses_vedlikehold.do?action=doUpdate" name="addressVedlikeholdForm" id="addressVedlikeholdForm" method="post">
-					<%--<input type="hidden" name="ctype" id="ctype" value="${model.container.ctype}">
-					<input type="hidden" name="wkundnr" id="wkundnr" value="${model.container.wkundnr}">--%>
+					<input type="hidden" name="ctype" id="ctype" value="${model.ctype}">
+					<%--<input type="hidden" name="wkundnr" id="wkundnr" value="${model.container.wkundnr}">--%>
 					<input type="hidden" name="wkundnvn" id="wkundnvn" value="${model.custName}">
-					 
+					<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'> 
+					<input type="hidden" name="vadrnr" id="vadrnr" value=''> 
 				
 					<table class="tableBorderWithRoundCornersLightGray">
 						<tr>
@@ -122,112 +116,132 @@
 								<span title="ownKundnr">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
 							</td>
 							<td class="text11">
+								<c:choose>
+									<c:when test="${not empty model.record.ownKundnr}">
+										<input type="text" class="inputTextMediumBlue11" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${model.record.ownKundnr}">
+									</c:when>
+									<c:otherwise>
+										<input type="text" class="inputTextMediumBlue11" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${user.custNr}">
+									</c:otherwise>
+								</c:choose>
+								&nbsp;&nbsp;<button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Slett verdiene</button>&nbsp;
+							</td>
+						</tr>
+						<tr>	
+							<td class="text11">
 								<span title="vadrna">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.name"/></span>
 							</td>
 							<td class="text11">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="vadrna" id="vadrna" size="31" maxlength="30" value="${model.record.vadrna}">
+								<font class="text16RedBold" >*</font>
+							</td>
+						</tr>
+						<tr>	
+							<td class="text11">
 								<span title="vadrn1">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.address1"/></span>
 							</td>
-						</tr>
-						<tr>
 							<td class="text11">
-								<c:choose>
-									<c:when test="${not empty model.record.ownKundnr}">
-										<input type="text" class="inputTextMediumBlue" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${model.record.ownKundnr}">
-									</c:when>
-									<c:otherwise>
-										<input type="text" class="inputTextMediumBlue" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${user.custNr}">
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="text11">
-								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="vadrna" id="vadrna" size="31" maxlength="30" value="${model.record.vadrna}">
-								<font class="text16RedBold" >*</font>
-							</td>
-							<td class="text11">
-								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="vadrn1" id="vadrn1" size="31" maxlength="30" value="${model.record.vadrn1}">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="vadrn1" id="vadrn1" size="31" maxlength="30" value="${model.record.vadrn1}">
 								<font class="text16RedBold" >*</font>
 							</td>
 						</tr>
+						
 						<tr>
 							<td class="text11">
 								<span title="vadrn2">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.address2"/></span>
 							</td>
 							<td class="text11">
+								<input type="text" class="inputTextMediumBlue11" name="vadrn2" id="vadrn2" size="30" maxlength="30" value="${model.record.vadrn2}">
+							</td>
+						</tr>
+						<tr>	
+							<td class="text11">
 								<span title="vadrn3">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.postnrSted"/></span>
 							</td>
 							<td class="text11">
-								<span title="vatlf">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.phone"/></span>
-							</td>
-						</tr>
-						<tr>
-							<td class="text11">
-								<input type="text" class="inputTextMediumBlue" name="vadrn2" id="vadrn2" size="30" maxlength="30" value="${model.record.vadrn2}">
-							</td>
-							<td class="text11">
-								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueMandatoryField" name="vadrn3" id="vadrn3" size="31" maxlength="30" value="${model.record.vadrn3}">
+								<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="vadrn3" id="vadrn3" size="31" maxlength="30" value="${model.record.vadrn3}">
 								<font class="text16RedBold" >*</font>
 							</td>
+						</tr>
+						<tr>	
 							<td class="text11">
-								<input type="text" class="inputTextMediumBlue" name="vatlf" id="vatlf" size="31" maxlength="30" value="${model.record.vatlf}">
+								<span title="vatlf">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.countryCode"/></span>
+							</td>
+							<td class="text11">
+								<input type="text" class="inputTextMediumBlue11" name="valand" id="valand" size="5" maxlength="2" value="${model.record.valand}">
 							</td>
 						</tr>
+						
 						<tr>
+							<td class="text11">
+								<span title="vatlf">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.phone"/></span>
+							</td>
+							<td class="text11">
+								<input type="text" class="inputTextMediumBlue11" name="vatlf" id="vatlf" size="31" maxlength="30" value="${model.record.vatlf}">
+							</td>
+						</tr>
+						<tr>	
 							<td class="text11">
 								<span title="vamail">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.email"/></span>
 							</td>
+							<td class="text11">
+								<input type="text" class="inputTextMediumBlue11" name="vamail" id="vamail" size="31" maxlength="60" value="${model.record.vamail}">
+							</td>
 						</tr>
 						<tr>
-							<td colspan="2" class="text11">
-								<input type="text" class="inputTextMediumBlue" name="vamail" id="vamail" size="40" maxlength="60" value="${model.record.vamail}">
-							</td>
-							<td>
+							<td align="right" colspan="2">
 								<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.ebooking.submit.save"/>'/>
+								
 							</td>
-						</tr>	
+						</tr>
+						<%-- Validation errors --%>	
+						<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>	
+						<tr height="5"><td></td></tr>
+						<tr>
+							<td colspan="20">
+				            	<table align="left" border="0" cellspacing="0" cellpadding="0">
+				            	<tr>
+								<td class="textError">					
+						            <ul>
+						            <c:forEach var="error" items="${errors.allErrors}">
+						                <li >
+						                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
+						                </li>
+						            </c:forEach>
+						            </ul>
+								</td>
+								</tr>
+								</table>
+							</td>
+						</tr>
+						</spring:hasBindErrors>
+						<%-- -------------------------- --%>
+						<%-- Validation errors on model --%>
+						<%-- -------------------------- --%>				
+						<c:if test="${not empty model.errorMessage}">
+							<tr height="5"><td></td></tr>
+							<tr>
+							<td>
+					           	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+					           	<tr>
+								<td valign="bottom" class="textError">					
+						            <ul>
+						            	<li >${model.errorMessage}</li>
+						            </ul>
+								</td>
+								</tr>
+								</table>
+							</td>
+							</tr>		
+						</c:if>	
+							
 	           		</table>
 	           		</form>
 	           	</td>
 	           	</tr>
-	           	
-	           <tr height="15"><td></td></tr>
-				<%-- Validation errors --%>	
-				<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>	
-				<tr>
-					<td colspan="20">
-		            	<table align="left" border="0" cellspacing="0" cellpadding="0">
-		            	<tr>
-						<td class="textError">					
-				            <ul>
-				            <c:forEach var="error" items="${errors.allErrors}">
-				                <li >
-				                	<spring:message code="${error.code}" text="${error.defaultMessage}"/>
-				                </li>
-				            </c:forEach>
-				            </ul>
-						</td>
-						</tr>
-						</table>
-					</td>
-				</tr>
-				</spring:hasBindErrors>
-				<%-- -------------------------- --%>
-				<%-- Validation errors on model --%>
-				<%-- -------------------------- --%>				
-				<c:if test="${not empty model.errorMessage}">
-					<tr>
-					<td>
-			           	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
-			           	<tr>
-						<td valign="bottom" class="textError">					
-				            <ul>
-				            	<li >${model.errorMessage}</li>
-				            </ul>
-						</td>
-						</tr>
-						</table>
-					</td>
-					</tr>		
-				</c:if>	
+	           	<tr height="15"><td></td></tr>
+						
+	           
      </table>
 
 			

@@ -322,7 +322,9 @@ public class EbookingControllerChildWindow {
 		logger.info("Inside: doFindCustomerAddresses");
 		
 		Map model = new HashMap();
+		String ctype = request.getParameter("ctype");
 		String wkundnvn = request.getParameter("wkundnvn");
+		model.put("ctype", ctype);
 		model.put("custName", wkundnvn);
 		
 		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer_addresses");
@@ -393,10 +395,11 @@ public class EbookingControllerChildWindow {
 		
 		//check if it is a delete action
 		String removeFlag = request.getParameter("rm");
-		//String ctype = request.getParameter("ctype");
+		String ctype = request.getParameter("ctype");
 		//String wkundnr = request.getParameter("wkundnr");
 		String wkundnvn = request.getParameter("wkundnvn");
 		model.put("custName", wkundnvn);
+		model.put("ctype", ctype);
 		
 		ModelAndView successView = new ModelAndView("redirect:ebooking_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=" + appUser.getCustNr() + "&wkundnvn=" + wkundnvn);
 		ModelAndView fallbackView = new ModelAndView("ebooking_childwindow_customer_addresses");
@@ -406,10 +409,10 @@ public class EbookingControllerChildWindow {
 			return this.loginView;
 			
 		}else{
-			
 			//Validate
 			CustomerDeliveryAdressValidator validator = new CustomerDeliveryAdressValidator();
 			validator.validate(recordToValidate, bindingResult);
+			
 			if(bindingResult.hasErrors()){
 	    		logger.info("[ERROR Validation] record does not validate)");
 	    		List list = this.getCustomerAdressList(appUser, appUser.getCustNr());
@@ -417,7 +420,6 @@ public class EbookingControllerChildWindow {
     			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 	    		theView = fallbackView;
 			}else{
-				
 				StringBuffer errMsg = new StringBuffer();
 				int dmlRetval = 0;
 				//Set correct mode
