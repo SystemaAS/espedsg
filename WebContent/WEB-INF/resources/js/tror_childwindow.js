@@ -155,7 +155,82 @@
 	  });
 	});
 	
-	
+	//Customer
+	jq(function() {
+		jq('#carrierList').on('click', 'td', function(){
+		  var id = this.id;
+		  
+		  var record = id.split('@');
+		  var kundNr = record[0].replace("kundnr_", "");
+		  var navn = record[1].replace("navn_", "");
+		  var adr1 = record[2].replace("adr1_", "");
+		  var adr2 = record[3].replace("adr2_", "");
+		  var postnrsted = record[4].replace("postnrsted_", "");
+		  var kundName = record[5].replace("kundname_", "");
+		  var kundAddress = record[6].replace("kundaddress_", "");
+		  
+		  
+		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
+		  //addressing a parent field from this child window
+		  /*if(jq('#ctype').val()=='s'){
+			  //shipper/consignor 	
+			  opener.jq('#hekns').val(kundNr);
+			  
+			  if(opener.jq('#xfakBet').val() != 'M'){
+				  opener.jq('#heknsf').val(kundNr);
+		  	  }
+			  opener.jq('#whenas').val(kundName + " - " + kundAddress);
+			  
+			  opener.jq('#henas').val(navn);
+			  opener.jq('#henas').removeClass( "isa_error" );
+			  
+			  opener.jq('#heads1').val(adr1);
+			  opener.jq('#heads2').val(adr2);
+			  opener.jq('#heads3').val(postnrsted);
+			  opener.jq('#hekns').focus();
+			  
+		  }else if(jq('#ctype').val()=='a'){
+			  //agent  
+			  opener.jq('#trknfa').val(kundNr);
+			  opener.jq('#trknfa').focus();
+		  
+		  }else if(jq('#ctype').val()=='c'){
+			  //consignee
+			  opener.jq('#heknk').val(kundNr);
+			  if(opener.jq('#xfakBet').val() == 'M'){
+				  opener.jq('#heknkf').val(kundNr);
+		  	  }
+			  opener.jq('#whenak').val(kundName + " - " + kundAddress);
+			  
+			  opener.jq('#henak').val(navn);
+			  opener.jq('#henak').removeClass( "isa_error" );
+			  
+			  opener.jq('#headk1').val(adr1);
+			  opener.jq('#headk2').val(adr2);
+			  opener.jq('#headk3').val(postnrsted);
+			  opener.jq('#heknk').focus();
+			  
+		  }else if(jq('#ctype').val()=='il'){
+			  opener.jq('#fakunr').val(kundNr);
+			  
+		  }else if(jq('#ctype').val()=='sf'){
+			  //selgers fakturapart  
+			  opener.jq('#heknsf').val(kundNr);
+			  opener.jq('#whenasf').val(kundName + " - " + kundAddress);
+			  opener.jq('#heknsf').focus();
+			  
+		  }else if(jq('#ctype').val()=='kf'){
+			  //kjøpers fakturapart 
+			  opener.jq('#heknkf').val(kundNr);
+			  opener.jq('#whenakf').val(kundName + " - " + kundAddress);
+			  opener.jq('#heknkf').focus();
+		  
+		  }
+		  */
+		  //close child window
+		  window.close();
+	  });
+	});
 	
   	
 	//Select Postal Code From
@@ -318,16 +393,21 @@
     		jq('#postNrToList_filter').val()
         ).draw();
     }
-    
+    */
     function filterCustomerList (){
         jq('#customerList').DataTable().search(
     		jq('#customerList_filter').val()
         ).draw();
     }
-    */
+    
     function filterCustomerAddressesList (){
         jq('#customerAddressesList').DataTable().search(
     		jq('#customerAddressesList_filter').val()
+        ).draw();
+    }
+    function filterCarrierList (){
+        jq('#carrierList').DataTable().search(
+    		jq('#carrierList_filter').val()
         ).draw();
     }
     function filterLoadUnloadPlacesList (){
@@ -398,7 +478,19 @@
 	  jq('input.customerAddressesList_filter').on( 'keyup click', function () {
 		  filterCustomerAddressesList();
 	  });
-	  
+
+	  //-----------------------
+	  //tables [Carrier No.]
+	  //-----------------------
+	  jq('#carrierList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.carrierList_filter').on( 'keyup click', function () {
+		  filterCarrierList();
+	  });
 	  
 	  //------------------------------
 	  //tables [Load/Unload places]

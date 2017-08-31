@@ -5,7 +5,6 @@ package no.systema.tror.service;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 
-
 /**
  * 
  * @author oscardelatorre
