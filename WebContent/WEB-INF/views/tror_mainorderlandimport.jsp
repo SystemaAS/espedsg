@@ -297,7 +297,7 @@
 							 					<input type="text" class="inputTextMediumBlue" name="heknt" id="heknt" size="9" maxlength="8" value="${model.record.heknt}">
 							 				</td>
 							 				<td class="text12" title="ownheknt">	
-							 					<input type="text" class="inputTextReadOnly" name="ownheknt" id="ownheknt" size="20" maxlength="30" value="${Xmodel.record.ownTODO}">
+							 					<input type="text" class="inputTextReadOnly" name="ownheknt" id="ownheknt" size="30" maxlength="30" value="${Xmodel.record.ownTODO}">
 							 				</td>
 							 				<td>&nbsp;&nbsp;</td>
 							 			</tr>

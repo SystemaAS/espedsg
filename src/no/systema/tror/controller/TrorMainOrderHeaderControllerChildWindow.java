@@ -33,13 +33,10 @@ import no.systema.main.validator.LoginValidator;
 //tror
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressContainer;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressRecord;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressContainer;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressRecord;
-import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowService;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesContainer;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesRecord;
+
+import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord;
 
 
 /**
@@ -55,14 +52,10 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	//Postal codes
 	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String POSTALCODE_DIRECTION = "direction";
-	private final String DATATABLE_CUSTOMER_LIST = "customerList";
-	private final String DATATABLE_SELLER_ADDRESSES_LIST = "sellerAddressesList";
-	private final String DATATABLE_BUYER_ADDRESSES_LIST = "buyerAddressesList";
-	
+	private final String DATATABLE_CARRIER_LIST = "carrierList";
 	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
 	private final String DATATABLE_PACKING_CODES_LIST = "packingCodesList";
-	private final String DATATABLE_DANGEROUS_GOODS_LIST = "dangerousGoodsList";
-	
+
 	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private DateTimeManager dateTimeManager = new DateTimeManager();
@@ -209,14 +202,14 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	/*
+	
 	@RequestMapping(value="tror_mainorder_childwindow_carrier.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindCustomer(@ModelAttribute ("record") JsonEbookingCustomerContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFindCarrier(@ModelAttribute ("record") JsonTrorCarrierRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doFindCustomer");
+		logger.info("Inside: doFindCarrier");
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer");
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_carrier");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		//check user (should be in session already)
 		if(appUser==null){
@@ -232,20 +225,20 @@ public class TrorMainOrderHeaderControllerChildWindow {
 			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    validator.validate(recordToValidate, bindingResult);
-		    
+		    */
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
 	    		logger.info("[ERROR Validation] search-filter does not validate)");
 	    		//put domain objects and do go back to the successView from here
 	    		//this.setCodeDropDownMgr(appUser, model);
-	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+	    		model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 				return successView;
 	    		
 		    }else{
 				
 		    		//prepare the access CGI with RPG back-end
-		    		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
+		    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_CARRIER_URL;
 		    		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
 		    		logger.info("URL: " + BASE_URL);
 		    		logger.info("PARAMS: " + urlRequestParamsKeys);
@@ -256,18 +249,18 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    
 		    		if(jsonPayload!=null){
-		    			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
+		    			JsonTrorCarrierContainer container = this.trorMainOrderHeaderChildwindowService.getCarrierListContainer(jsonPayload);
 			    		if(container!=null){
-			    			List<JsonEbookingCustomerRecord> list = new ArrayList<JsonEbookingCustomerRecord>();
-			    			for(JsonEbookingCustomerRecord  record : container.getInqFkund()){
-			    				//logger.info("CUSTOMER NO: " + record.getKundnr());
-			    				//logger.info("NAME: " + record.getNavn());
+			    			List<JsonTrorCarrierRecord> list = new ArrayList<JsonTrorCarrierRecord>();
+			    			for(JsonTrorCarrierRecord  record : container.getDtoList()){
+			    				//logger.info("ID:" + record.getVmtran());
+			    				//logger.info("NAME:" + record.getVmnavn());
 			    				list.add(record);
 			    			}
-			    			model.put(this.DATATABLE_CUSTOMER_LIST, list);
-			    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
+			    			model.put(this.DATATABLE_CARRIER_LIST, list);
+			    			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
 			    		}
-		    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
+		    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 					logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 					return successView;
 					
@@ -279,7 +272,7 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    }
 		}
 	}
-	*/
+
 	
 	/**
 	 * 
@@ -481,20 +474,18 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	 * @param appUser
 	 * @return
 	 */
-	/*
-	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingDangerousGoodsContainer searchFilter, SystemaWebUser appUser){
+	
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonTrorCarrierRecord searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		
-		if(searchFilter.getUnnr()!=null && !"".equals(searchFilter.getUnnr())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "unnr=" + searchFilter.getUnnr());
+		/*
+		if(searchFilter.getTODO()!=null && !"".equals(searchFilter.getTODO())){
+			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "todo=" + searchFilter.getTODO());
 		}
-		//user=JOVO&unnr=1950=&embg=&indx=&getval=&fullinfo=J
-		urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fullinfo=J"); //always the max. nr of columns (as default)
-		
+		*/
 		return urlRequestParamsKeys.toString();
 	}
-	*/
+	
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -505,11 +496,11 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
 	
-	@Qualifier ("trorMainOrderHeaderLandimportChildwindowService")
-	private TrorMainOrderHeaderLandimportChildwindowService trorMainOrderHeaderLandimportChildwindowService;
+	@Qualifier ("trorMainOrderHeaderChildwindowService")
+	private TrorMainOrderHeaderChildwindowService trorMainOrderHeaderChildwindowService;
 	@Autowired
 	@Required
-	public void setTrorMainOrderHeaderLandimportChildwindowService (TrorMainOrderHeaderLandimportChildwindowService value){ this.trorMainOrderHeaderLandimportChildwindowService = value; }
-	public TrorMainOrderHeaderLandimportChildwindowService getTrorMainOrderHeaderLandimportChildwindowService(){ return this.trorMainOrderHeaderLandimportChildwindowService; }
+	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
+	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
 	
 }

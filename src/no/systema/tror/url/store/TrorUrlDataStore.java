@@ -114,11 +114,14 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no/sycgip/TJINQVADR.pgm?user=JOVO&wkundnr=7031&wvadrna=A (Alfa search exact)
 	**/
 	
-	//Customer (N/A)
 	/**
 	static public String EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQKUND.pgm";
 	//http://gw.systema.no/sycgip/TJINQKUND.pgm?user=JOVO&sokknr=1 
 	 **/
+	
+	//http://gw.systema.no:8080/syjservicesbcore/syjsTRAN.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_CARRIER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsTRAN.do";
+	
 	//http://gw.systema.no:8080/syjservicesbcore/syjsKUNKO.do?user=OSCAR&kukun1=1
 	static public String TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_SELLER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKUNKO.do";
 	//http://gw.systema.no:8080/syjservicesbcore/syjsVADR.do?user=OSCAR&kundnr=4
