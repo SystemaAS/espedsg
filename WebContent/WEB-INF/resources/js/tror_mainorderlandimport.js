@@ -303,7 +303,7 @@
 	    	var id = jq('#hesdf').val();
 	    	if(id!=null && id!=""){
 	    		var countryCode = jq('#helka').val();
-	    		getCity(CITY_OWNwppns1,id,countryCode);
+	    		//getCity(CITY_OWNwppns1,id,countryCode);
 	    	}else{
 	    		jq('#OWNwppns1').val("");
 	    	}
@@ -311,7 +311,7 @@
 		
 	    jq('#hesdfIdLink').click(function() {
 	    	jq('#hesdfIdLink').attr('target','_blank');
-	    	window.open('TODOebooking_childwindow_postalcodes.do?action=doInit&direction=fra&st2lk=' + jq('#helka').val() + '&st2kod=' + jq('#hesdf').val() + '&caller=hesdf', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('tror_mainorder_childwindow_postalcodes_sted2.do?action=doFind&ctype=hesdf&direction=fra&st2lk=' + jq('#helka').val() + '&st2kod=' + jq('#hesdf').val() + '&caller=hesdf', "postalcodeSted2Win", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#hesdfIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
@@ -351,7 +351,7 @@
     		var id = jq('#hesdt').val();
     		if(id!=null && id!=""){
     			var countryCode = jq('#hetri').val();
-    			getCity(CITY_OWNwppns2,id,countryCode);
+    			//getCity(CITY_OWNwppns2,id,countryCode);
     		}else{
     			jq('#OWNwppns2').val("");
     		}
@@ -359,15 +359,27 @@
 	    
 	    jq('#hesdtIdLink').click(function() {
 	    	jq('#hesdtIdLink').attr('target','_blank');
-	    	window.open('TODOebooking_childwindow_postalcodes.do?action=doInit&direction=til&st2lk=' + jq('#hetri').val() + '&st2kod=' + jq('#hesdt').val() + '&caller=hesdt', "postalcodeWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    	window.open('tror_mainorder_childwindow_postalcodes_sted2.do?action=doFind&ctype=hesdt&direction=fra&st2lk=' + jq('#hetri').val() + '&st2kod=' + jq('#hesdt').val(), "postalcodeSted2Win", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	    });
 	    jq('#hesdtIdLink').keypress(function(e){ //extra feature for the end user
 			if(e.which == 13) {
 				jq('#hesdtIdLink').click();
 			}
 	    });
+	    //TOLLSTED
+	    jq('#dftollIdLink').click(function() {
+	      	jq('#dftollIdLink').attr('target','_blank');
+	      	window.open('tror_mainorder_childwindow_tollsted.do?action=doFind&ctype=landimport&direction=fra', "tollstedWin", "top=300px,left=450px,height=500px,width=700px,scrollbars=no,status=no,location=no");
+	      });
+	      jq('#dftollIdLink').keypress(function(e){ //extra feature for the end user
+	    		if(e.which == 13) {
+	    			jq('#dftollIdLink').click();
+	    		}
+	      });
 	    
   });
+  
+  
   
 //Ajax on postal codes
   function getCity(target, id, countryCode){
@@ -680,11 +692,11 @@
 	    */
 	    //Fakturapart Seller
 	    jq('#heknsf').blur(function() {
-	    	getInvoicePartySeller();
+	    	//getInvoicePartySeller();
 		});
 	    //Fakturapart Buyer
 	    jq('#heknkf').blur(function() {
-	    	getInvoicePartyBuyer();
+	    	//getInvoicePartyBuyer();
 	    });
 	    //-------------------
 	    //getPrincipalName()

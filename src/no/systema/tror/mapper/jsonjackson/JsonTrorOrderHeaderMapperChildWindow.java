@@ -11,6 +11,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedRecord;
+
+
 
 
 //
@@ -44,6 +50,49 @@ public class JsonTrorOrderHeaderMapperChildWindow {
 		for(JsonTrorCarrierRecord record : fields){
 			//logger.info("knavn: " + record.getKnavn());
 			//logger.info("kundnr: " + record.getKundnr());
+		}
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorPostalCodeContainer getPostnrContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonTrorPostalCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorPostalCodeContainer.class); 
+		
+		//DEBUG
+		Collection<JsonTrorPostalCodeRecord> fields = container.getDtoList();
+		for(JsonTrorPostalCodeRecord record : fields){
+			//logger.info("knavn: " + record.todo());
+			//logger.info("kundnr: " + record.todo());
+		}
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorTollstedContainer getTollstedContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonTrorTollstedContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorTollstedContainer.class); 
+		
+		//DEBUG
+		Collection<JsonTrorTollstedRecord> fields = container.getDtoList();
+		for(JsonTrorTollstedRecord record : fields){
+			//logger.info("knavn: " + record.todo());
+			//logger.info("kundnr: " + record.todo());
 		}
 		return container;
 	}

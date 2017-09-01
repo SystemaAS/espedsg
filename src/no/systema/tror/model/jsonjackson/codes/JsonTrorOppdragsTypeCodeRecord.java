@@ -26,7 +26,10 @@ public class JsonTrorOppdragsTypeCodeRecord  {
 	public void setKo1ntx(String value){ this.ko1ntx = value;}
 	public String getKo1ntx(){ return this.ko1ntx; }
 
-	
+	private String ko1etx = null;
+	public void setKo1etx(String value){ this.ko1etx = value;}
+	public String getKo1etx(){ return this.ko1etx; }
+
 	
 
 }

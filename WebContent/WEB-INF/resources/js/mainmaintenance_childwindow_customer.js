@@ -136,6 +136,14 @@
 				  opener.jq('#hekns').val(knr);
 				  var compoundName = knavn + " - " + adr3 + " " + postnr;
 				  opener.jq('#whenas').val(compoundName);
+				  //?
+				  //opener.jq('#todo').val(knr);
+				  opener.jq('#henas').val(knavn);
+				  //opener.jq('#todo').val(eori);
+				  opener.jq('#heads1').val(adr1);
+				  opener.jq('#heads2').val(adr2);
+				  opener.jq('#heads3').val(adr3 + " " + postnr);
+				  //opener.jq('#todo').val(land);
 			  
 			  }else if (callerType == 'tror_sefm'){ //Seller Fakt.mott.
 				  opener.jq('#heknsf').val(knr);
@@ -146,6 +154,14 @@
 				  opener.jq('#heknk').val(knr);
 				  var compoundName = knavn + " - " + adr3 + " " + postnr;
 				  opener.jq('#whenak').val(compoundName);
+				  //?
+				  //opener.jq('#todo').val(knr);
+				  opener.jq('#henak').val(knavn);
+				  //opener.jq('#todo').val(eori);
+				  opener.jq('#headk1').val(adr1);
+				  opener.jq('#headk2').val(adr2);
+				  opener.jq('#headk3').val(adr3 + " " + postnr);
+				  //opener.jq('#todo').val(land);
 				  
 			  }else if (callerType == 'tror_byfm'){ //Buyer Faktmott.
 				  opener.jq('#heknkf').val(knr);

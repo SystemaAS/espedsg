@@ -736,7 +736,7 @@
 	 									</a>
 					 				</td>
 					 				<td class="text11" colspan="2">
-						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${XXmodel.record.wppns1}">
+						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="35" value="${XXmodel.record.wppns1}">
 					 				</td>
 					 				<td class="text11">&nbsp;&nbsp;</td>
 					 			</tr>
@@ -779,7 +779,7 @@
 			 									</a>
 							 				</td>
 											<td class="text12" colspan="2">
-								 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${XXmodel.record.wppns2}">
+								 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="35" value="${XXmodel.record.wppns2}">
 							 				</td>
 							 				<td class="text12">&nbsp;&nbsp;</td>
 							 			</tr>			
@@ -803,7 +803,7 @@
 									<table class="tableBorderWithRoundCornersLightGray" width="100%" border="0">
 									<tr>
 						 				<td class="text12"><span title="heot"><spring:message code="systema.tror.orders.form.update.label.oppdragstype"/></span>
-						 					<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+						 					<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_oppdragstype.do?action=doFind&ctype=landimport','opptypeWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgOpptype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 						 				</td>
@@ -817,7 +817,7 @@
 											</select>
 							 			</td>
 										<td class="text12">&nbsp;<span title="hefr"><spring:message code="systema.tror.orders.form.update.label.incoterms"/></span>
-											<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_incoterms.do?action=doFind&ctype=landimport','incotermsWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgIncoterms" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 										</td>
@@ -832,7 +832,7 @@
 											</select>
 							 			</td>
 										<td class="text12">&nbsp;<span title="hekdpl"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
-											<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes.do?action=doFind&ctype=landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgProductcodes" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 										</td>
@@ -906,7 +906,7 @@
 							 				<input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="hepk1RO" id="hepk1RO" value="${model.record.hepk1}">
 							 			</td>
 							 			
-							 			<td nowrap class="text12">&nbsp;&nbsp;<span title="TODOdftoll"><spring:message code="systema.tror.orders.form.update.label.tollsted"/></span>
+							 			<td nowrap class="text12">&nbsp;&nbsp;<span title="dftoll"><spring:message code="systema.tror.orders.form.update.label.tollsted"/></span>
 							 				<a tabindex=0 id="dftollIdLink" >
 	 											<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
 	 										</a>
@@ -924,7 +924,11 @@
 							 			<td nowrap class="text12">
 							 				<input type="checkbox" id="todo" name="todo" value="S" <c:if test="${Xmodel.record.dfkdme == 'S'}"> checked </c:if>>
 						 				</td>
-							 			<td style="width:50px">&nbsp;</td>
+						 				<td class="text12">&nbsp;<span title="hentvs"><spring:message code="systema.tror.orders.form.update.label.antalVarelinjer"/></span></td>
+						 				<td class="text12">
+							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" size="5" maxlength="3" name="hentvs" id="hentvs" value="${model.record.hentvs}">
+							 			</td>
+							 			<td>&nbsp;</td>
 							 			<%------------------------ --%>
 							 			<%-- END Fraktbrev section --%>
 							 			<%------------------------ --%>

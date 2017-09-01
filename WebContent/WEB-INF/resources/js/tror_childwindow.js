@@ -139,6 +139,15 @@
 			  opener.jq('#headk3').val(postnrsted);
 			  opener.jq('#henak').focus();
 		  
+		  }else if(jq('#ctype').val()=='tror_seadr'){
+			  //consignor
+			  //opener.jq('#heknk').val(kundNr); //this should not override the customer number
+			  opener.jq('#henas').val(navn);
+			  opener.jq('#heads1').val(adr1);
+			  opener.jq('#heads2').val(adr2);
+			  opener.jq('#heads3').val(postnrsted);
+			  opener.jq('#henas').focus();
+		  
 		  }else if(jq('#ctype').val()=='tror_byadr'){
 			  //consignee
 			  //opener.jq('#heknk').val(kundNr); //this should not override the customer number
@@ -178,27 +187,26 @@
 	});
 	
   	
-	//Select Postal Code From
-	/*
+	//Select Postal Code From and To ?
 	jq(function() {
-		jq('#postNrFromList').on('click', 'td', function(){
+		jq('#postalCodeList').on('click', 'td', function(){
 			var id = this.id;
 			  var record = id.split('@');
 			  var postalCode = record[0].replace("postalcode_","");
 			  var countryCode = record[1].replace("country_","");
 			  var city = record[2].replace("city_","");
-			  var caller="init";
-			  if(record.length>3){
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
 				 caller = record[3].replace("caller_","");
-			  }
+			  }*/
 			  
 			  //addressing a parent field from this child window
-			  if(opener.jq('#hesdf').length && caller=='hesdf'){ //only way to check if field exists. (Order)
+			  if(opener.jq('#hesdf').length && caller =='hesdf'){ //only way to check if field exists. (Order)
 				  opener.jq('#helka').val(countryCode);
 				  opener.jq('#hesdf').val(postalCode);
 				  opener.jq('#hesdf').removeClass("text11RedBold");
 				  opener.jq('#OWNwppns1').val(city);
-			  }else if(opener.jq('#hesdt').length && caller=='hesdt'){ //since there are several postnr callers in the same JSP
+			  }else if(opener.jq('#hesdt').length && caller =='hesdt'){ //since there are several postnr callers in the same JSP
 				  opener.jq('#hetri').val(countryCode);
 				  opener.jq('#hesdt').val(postalCode);
 				  opener.jq('#hesdt').removeClass("text11RedBold");
@@ -210,6 +218,119 @@
 	  });
 	});
 	
+	jq(function() {
+		jq('#tollstedList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='landimport'){ 
+				  opener.jq('#dftoll').val(id);
+				  //opener.jq('#TODOname').val(name);
+				  opener.jq('#dftoll').focus();
+				  
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#hetri').val(countryCode);
+				  //opener.jq('#hesdt').val(postalCode);
+				  //opener.jq('#hesdt').removeClass("text11RedBold");
+				  //opener.jq('#OWNwppns2').val(city);
+			  }
+			  
+			  //close child window
+			  window.close();
+	  });
+	});
+	
+	jq(function() {
+		//incoterms
+		jq('#incotermsList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='landimport'){ 
+				  opener.jq('#hefr').val(id);
+				  //opener.jq('#TODOname').val(name);
+				  opener.jq('#hefr').focus();
+				  
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#hetri').val(countryCode);
+				  //opener.jq('#hesdt').val(postalCode);
+				  //opener.jq('#hesdt').removeClass("text11RedBold");
+				  //opener.jq('#OWNwppns2').val(city);
+			  }
+			  
+			  //close child window
+			  window.close();
+		});
+		//Oppdragstype 
+		jq('#oppdragstypeList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='landimport'){ 
+				  opener.jq('#heot').val(id);
+				  //opener.jq('#TODOname').val(name);
+				  opener.jq('#heot').focus();
+				  
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#hetri').val(countryCode);
+				  //opener.jq('#hesdt').val(postalCode);
+				  //opener.jq('#hesdt').removeClass("text11RedBold");
+				  //opener.jq('#OWNwppns2').val(city);
+			  }
+			  //close child window
+			  window.close();
+		});
+		//product codes 
+		jq('#produktList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='landimport'){ 
+				  opener.jq('#hekdpl').val(id);
+				  //opener.jq('#TODOname').val(name);
+				  opener.jq('#hekdpl').focus();
+				  
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#hetri').val(countryCode);
+				  //opener.jq('#hesdt').val(postalCode);
+				  //opener.jq('#hesdt').removeClass("text11RedBold");
+				  //opener.jq('#OWNwppns2').val(city);
+			  }
+			  //close child window
+			  window.close();
+		});
+		
+	});
+	
+	/*
 	//Select Postal Code To
 	jq(function() {
 		jq('#postNrToList').on('click', 'td', function(){
@@ -327,18 +448,20 @@
     //Datatables jquery 
     //======================
     //private function [Filters]
-    /*
-    function filterPostNrFrom () {
-        jq('#postNrFromList').DataTable().search(
-    		jq('#postNrFromList_filter').val()
+	
+    function filterPostNr () {
+        jq('#postalCodeList').DataTable().search(
+    		jq('#postalCodeList_filter').val()
         ).draw();
     }
+    /*
     function filterPostNrTo () {
         jq('#postNrToList').DataTable().search(
     		jq('#postNrToList_filter').val()
         ).draw();
-    }
-    */
+    }*/
+	
+
     function filterCustomerList (){
         jq('#customerList').DataTable().search(
     		jq('#customerList_filter').val()
@@ -360,6 +483,28 @@
     		jq('#loadUnloadPlacesList_filter').val()
         ).draw();
     }
+    
+    function filterTollstedList (){
+        jq('#tollstedList').DataTable().search(
+    		jq('#tollstedList_filter').val()
+        ).draw();
+    }
+    function filterIncotermsList (){
+        jq('#incotermsList').DataTable().search(
+    		jq('#incotermsList_filter').val()
+        ).draw();
+    }
+    function filterOppdragstypeList (){
+        jq('#oppdragstypeList').DataTable().search(
+    		jq('#oppdragstypeList_filter').val()
+        ).draw();
+    }
+    function filterProductcodeList (){
+        jq('#produktList').DataTable().search(
+    		jq('#produktList_filter').val()
+        ).draw();
+    }
+    
     /*
     function filterPackingCodesList (){
         jq('#packingCodesList').DataTable().search(
@@ -376,21 +521,22 @@
     jq(document).ready(function() {
       var lang = jq('#language').val(); 	
       //--------------------------
-      //table [PostNr From]
+      //table [PostNr]
 	  //--------------------------
-	  jq('#postNrFromList').dataTable( {
+	  jq('#postalCodeList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 50, 75, 100 ],
 		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search
-	  jq('input.postNrFromList_filter').on( 'keyup click', function () {
-		  filterPostNrFrom();
+	  jq('input.postalCodeList_filter').on( 'keyup click', function () {
+		  filterPostNr();
 	  });
 	  
 	  //-----------------------
 	  //tables [PostNr To]
 	  //-----------------------
+	  /*
 	  jq('#postNrToList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 50, 75, 100 ],
@@ -400,7 +546,7 @@
 	  jq('input.postNrToList_filter').on( 'keyup click', function () {
 		  filterPostNrFrom();
 	  });
-	  
+	  */
 	  //-----------------------
 	  //tables [Customer No.]
 	  //-----------------------
@@ -437,6 +583,59 @@
 		  filterCarrierList();
 	  });
 	  
+	  //-----------------------
+	  //tables [Tollsted]
+	  //-----------------------
+	  jq('#tollstedList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.tollstedList_filter').on( 'keyup click', function () {
+		  filterTollstedList();
+	  });
+	  
+	  //-----------------------
+	  //tables [Incoterms]
+	  //-----------------------
+	  jq('#incotermsList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.incotermsList_filter').on( 'keyup click', function () {
+		  filterIncotermsList();
+	  });
+	  
+	  //-----------------------
+	  //tables [Oppdragstype]
+	  //-----------------------
+	  jq('#oppdragstypeList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.oppdragstypeList_filter').on( 'keyup click', function () {
+		  filterOppdragstypeList();
+	  });
+	  
+	  produktList
+	  //-----------------------
+	  //tables [Product codes]
+	  //-----------------------
+	  jq('#produktList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.produktList_filter').on( 'keyup click', function () {
+		  filterProduktList();
+	  });
+
 	  //------------------------------
 	  //tables [Load/Unload places]
 	  //----------------------------

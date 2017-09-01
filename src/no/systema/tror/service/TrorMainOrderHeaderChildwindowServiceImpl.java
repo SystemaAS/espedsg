@@ -5,6 +5,8 @@ package no.systema.tror.service;
 
 import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperChildWindow;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedContainer;
 
 /**
  * 
@@ -27,8 +29,38 @@ public class TrorMainOrderHeaderChildwindowServiceImpl implements TrorMainOrderH
 			e.printStackTrace();
 		}
 		return container;
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonTrorPostalCodeContainer getPostalCodeListContainer(String utfPayload){
+		JsonTrorPostalCodeContainer container = null;
+		try{
+			JsonTrorOrderHeaderMapperChildWindow mapper = new JsonTrorOrderHeaderMapperChildWindow();
+			container = mapper.getPostnrContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 		
 		
 	}
+	/**
+	 * 
+	 */
+	public JsonTrorTollstedContainer getTollstedListContainer(String utfPayload){
+		JsonTrorTollstedContainer container = null;
+		try{
+			JsonTrorOrderHeaderMapperChildWindow mapper = new JsonTrorOrderHeaderMapperChildWindow();
+			container = mapper.getTollstedContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+		
+	}
+	
 
 }

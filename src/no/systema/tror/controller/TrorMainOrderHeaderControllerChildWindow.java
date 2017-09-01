@@ -35,8 +35,21 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 
 import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedRecord;
+//
+import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeRecord;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
+import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeRecord;
+
 
 
 /**
@@ -50,8 +63,9 @@ import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord
 
 public class TrorMainOrderHeaderControllerChildWindow {
 	//Postal codes
-	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String POSTALCODE_DIRECTION = "direction";
+	private final String DATATABLE_TOLLSTED_LIST = "tollstedList";
+	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
 	private final String DATATABLE_CARRIER_LIST = "carrierList";
 	private final String DATATABLE_LOAD_UNLOAD_PLACES_LIST = "loadUnloadPlacesList";
 	private final String DATATABLE_PACKING_CODES_LIST = "packingCodesList";
@@ -66,133 +80,7 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	private LoginValidator loginValidator = new LoginValidator();
 	
 	 
-	/**
-	 * Postal Codes doInit
-	 * 
-	 * @param recordToValidate
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="ebooking_childwindow_postalcodes.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitPostalCodes(@ModelAttribute ("record") JsonPostalCodesRecord recordToValidate, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitPostalCodes");
-		Map model = new HashMap();
-		StringBuffer paramsRedirect = new StringBuffer();
-		paramsRedirect.append("&direction=" + recordToValidate.getDirection());
-		if(recordToValidate.getSt2lk()!=null && !"".equals(recordToValidate.getSt2lk())){
-			paramsRedirect.append("&st2lk=" + recordToValidate.getSt2lk());
-		}
-		if(recordToValidate.getSt2kod()!=null && !"".equals(recordToValidate.getSt2kod())){
-			paramsRedirect.append("&st2kod=" + recordToValidate.getSt2kod());
-		}
-		if(recordToValidate.getCaller()!=null && !"".equals(recordToValidate.getCaller())){
-			paramsRedirect.append("&caller=" + recordToValidate.getCaller());
-		}
-		
-		ModelAndView successView = new ModelAndView("redirect:ebooking_childwindow_postalcodes.do?action=doFind" + paramsRedirect.toString());
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return this.loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			model.put(this.POSTALCODE_DIRECTION, recordToValidate.getDirection());
-			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
-			
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-	    	return successView;
-		}
-	}	
-	*/
-	/**
-	 * Postal Codes
-	 * @param recordToValidate
-	 * @param bindingResult
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="ebooking_childwindow_postalcodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindPostalCodes(@ModelAttribute ("record") JsonPostalCodesRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doFindPostalCodes");
-		Collection outputList = new ArrayList();
-		Map model = new HashMap();
-		
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_postalcodes");
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			//-----------
-			//Validation
-			//-----------
-			/*XXChildWindowSearchCustomerValidator validator = new XXChildWindowSearchCustomerValidator();
-			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
-		    validator.validate(recordToValidate, bindingResult);
-		    
-			
-		    //check for ERRORS
-			if(bindingResult.hasErrors()){
-	    		logger.info("[ERROR Validation] search-filter does not validate)");
-	    		//put domain objects and do go back to the successView from here
-	    		//this.setCodeDropDownMgr(appUser, model);
-	    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
-				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
-				return successView;
-	    		
-		    }else{
-		    	
-		    	boolean exactMatch = false;
-		    	Collection<JsonPostalCodesRecord> list = this.fetchPostalCodes(appUser.getUser(), recordToValidate, exactMatch);
-		    	
-		    	model.put(this.DATATABLE_POSTALCODE_LIST, list);
-	    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
-    			model.put(this.POSTALCODE_DIRECTION, recordToValidate.getDirection());
-	    			
-    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-				logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-				return successView;
-		    		
-		    }
-		}
-	}
-	*/
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="tror_mainorder_childwindow_carrier.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitCustomer(@ModelAttribute ("record") JsonEbookingCustomerContainer recordToValidate, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitCustomer");
-		Map model = new HashMap();
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_customer");
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return this.loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-	    		return successView;
-		}
-	}	
-	*/
+	
 	/**
 	 * Carrier
 	 * 
@@ -211,7 +99,9 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		Map model = new HashMap();
 		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_carrier");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
 		if(appUser==null){
 			return loginView;
 			
@@ -272,36 +162,6 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    }
 		}
 	}
-
-	
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="ebooking_childwindow_packingcodes.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitPackingCodes(@ModelAttribute ("record") JsonEbookingPackingCodesContainer recordToValidate, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doInitPackingCodes");
-		Map model = new HashMap();
-		
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_packingcodes");
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
-		if(appUser==null){
-			return this.loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
-			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-	    		return successView;
-		}
-	}	
-	*/
 	/**
 	 * 
 	 * @param recordToValidate
@@ -310,164 +170,396 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	/*
-	@RequestMapping(value="ebooking_childwindow_packingcodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindPackingCodes(@ModelAttribute ("record") JsonEbookingPackingCodesContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorder_childwindow_postalcodes_sted2.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindPostalCodes(@ModelAttribute ("record") JsonTrorPostalCodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
-		logger.info("Inside: doFindPackingCodes");
-		Collection<JsonEbookingPackingCodesRecord> outputList = new ArrayList();
+		logger.info("Inside: doFindPostalCodes");
+		Collection outputList = new ArrayList();
 		Map model = new HashMap();
-		
-		ModelAndView successView = new ModelAndView("ebooking_childwindow_packingcodes");
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_postalcodes_sted2");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		//check user (should be in session already)
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
 		if(appUser==null){
 			return loginView;
 			
 		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
 	    		logger.info("[ERROR Validation] search-filter does not validate)");
 	    		//put domain objects and do go back to the successView from here
 	    		//this.setCodeDropDownMgr(appUser, model);
-	    		model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-				successView.addObject(EbookingConstants.DOMAIN_MODEL, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 				return successView;
 	    		
 		    }else{
-		    	String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_PACKING_CODES_URL;
-		    	String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
 				
-		    	logger.info("URL: " + BASE_URL);
-				logger.info("PARAMS: " + urlRequestParamsKeys);
-				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				//Debug -->
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_POSTALCODE_STED2_URL;
+	    		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
 		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				
-				if(jsonPayload!=null){
-					JsonEbookingPackingCodesContainer container = this.ebookingChildWindowService.getPackingCodesContainer(jsonPayload);
-		    			if(container!=null){
-		    				outputList = container.getForpaknKoder();
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorPostalCodeContainer container = this.trorMainOrderHeaderChildwindowService.getPostalCodeListContainer(jsonPayload);
+		    		if(container!=null){
+		    			List<JsonTrorPostalCodeRecord> list = new ArrayList<JsonTrorPostalCodeRecord>();
+		    			for(JsonTrorPostalCodeRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
 		    			}
-				}
-		    	
-    			model.put(this.DATATABLE_PACKING_CODES_LIST, outputList);
-    			model.put(EbookingConstants.DOMAIN_CONTAINER, recordToValidate);
-    			successView.addObject(EbookingConstants.DOMAIN_MODEL , model);
-    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-    			return successView;
-				
+		    			model.put(this.DATATABLE_POSTALCODE_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
 		    }
-			
 		}
 	}
-	*/
-	
-	
-	
 	/**
-	 * 	
-	 * @param applicationUser
+	 * 
 	 * @param recordToValidate
-	 * @param exactMatch
+	 * @param bindingResult
+	 * @param session
+	 * @param request
 	 * @return
 	 */
-	/*
-	public Collection<JsonPostalCodesRecord> fetchPostalCodes (String applicationUser,JsonPostalCodesRecord recordToValidate, boolean exactMatch){
-		Collection<JsonPostalCodesRecord> outputList = new ArrayList<JsonPostalCodesRecord>();
-		//prepare the access CGI with RPG back-end
-		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_POSTAL_CODES_URL;
-		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchPostalCodes(applicationUser, recordToValidate, exactMatch);
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParamsKeys);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		//Debug -->
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-    
-		if(jsonPayload!=null){
-			JsonPostalCodesContainer container = this.ebookingChildWindowService.getPostalCodesContainer(jsonPayload);
-    			if(container!=null){
-    				outputList = container.getPostnrlist();
-    				for(JsonPostalCodesRecord  record : outputList){
-    				//DEBUG
-    				}
-    			}
-		}	
-		return outputList;
+	@RequestMapping(value="tror_mainorder_childwindow_tollsted.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindTollsted(@ModelAttribute ("record") JsonTrorTollstedRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindTollsted");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_tollsted");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_TOLLSTED_URL;
+	    		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorTollstedContainer container = this.trorMainOrderHeaderChildwindowService.getTollstedListContainer(jsonPayload);
+		    		if(container!=null){
+		    			List<JsonTrorTollstedRecord> list = new ArrayList<JsonTrorTollstedRecord>();
+		    			for(JsonTrorTollstedRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(this.DATATABLE_TOLLSTED_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
+		}
 	}
-	*/
 	/**
 	 * 
-	 * @param applicationUser
-	 * @param searchFilterRecord
-	 * @param exactMatch
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
 	 * @return
 	 */
-	/*
-	private String getRequestUrlKeyParametersSearchPostalCodes(String applicationUser, JsonPostalCodesRecord searchFilterRecord, boolean exactMatch){
-		final String POSTALCODE_DIRECTION_FRA = "fra";
-		final String POSTALCODE_DIRECTION_TIL = "til";
+	@RequestMapping(value="tror_mainorder_childwindow_incoterms.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindIncoterms(@ModelAttribute ("record") JsonTrorIncotermsCodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindIncoterms");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_incoterms");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
 		
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		urlRequestParamsKeys.append("user=" + applicationUser);
-		if(POSTALCODE_DIRECTION_FRA.equals(searchFilterRecord.getDirection())){
-			urlRequestParamsKeys.append("&varlk=fralk");
-			urlRequestParamsKeys.append("&varkod=fra");
-		}else if(POSTALCODE_DIRECTION_TIL.equals(searchFilterRecord.getDirection())){
-			urlRequestParamsKeys.append("&varlk=tillk");
-			urlRequestParamsKeys.append("&varkod=til");
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_INCOTERMS_CODES_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser();
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorIncotermsCodeContainer container = null;
+	    			try{
+	    				container = this.trorDropDownListPopulationService.getIncotermsContainer(jsonPayload);
+	    			}catch(Exception e){
+	    				e.printStackTrace();
+	    			}
+	    			//go on
+		    		if(container!=null){
+		    			List<JsonTrorIncotermsCodeRecord> list = new ArrayList<JsonTrorIncotermsCodeRecord>();
+		    			for(JsonTrorIncotermsCodeRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_INCOTERMS_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
 		}
-		
-		if(searchFilterRecord.getSt2lk()!=null && !"".equals(searchFilterRecord.getSt2lk())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soklk=" + searchFilterRecord.getSt2lk());
-		}
-		if(searchFilterRecord.getSt2nvn()!=null && !"".equals(searchFilterRecord.getSt2nvn())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "soknvn=" + searchFilterRecord.getSt2nvn());
-		}
-		if(searchFilterRecord.getWskunpa()!=null && !"".equals(searchFilterRecord.getWskunpa())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wskunpa=" + searchFilterRecord.getWskunpa());
-		}
-		if(searchFilterRecord.getSt2kod()!=null && !"".equals(searchFilterRecord.getSt2kod())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sokkod=" + searchFilterRecord.getSt2kod());
-		}
-		if(exactMatch){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
-		}
-		
-		return urlRequestParamsKeys.toString();
 	}
-	*/
-
-	
-	
-	/**
-	 * 
-	 * @param searchFilter
-	 * @param appUser
-	 * @return
-	 */
-	/*
-	private String getRequestUrlKeyParametersSearchChildWindow(JsonEbookingPackingCodesContainer searchFilter, SystemaWebUser appUser){
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		urlRequestParamsKeys.append("user=" + appUser.getUser());
+	@RequestMapping(value="tror_mainorder_childwindow_oppdragstype.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindOppdragstype(@ModelAttribute ("record") JsonTrorOppdragsTypeCodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindOppdragstype");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_oppdragstype");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
 		
-		if(searchFilter.getKode()!=null && !"".equals(searchFilter.getKode())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "kode=" + searchFilter.getKode());
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_OPPDRAGSTYPE_CODES_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser();
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorOppdragsTypeCodeContainer container = null;
+	    			try{
+	    				container = this.trorDropDownListPopulationService.getOppdragsTypeContainer(jsonPayload);
+	    			}catch(Exception e){
+	    				e.printStackTrace();
+	    			}
+	    			//go on
+		    		if(container!=null){
+		    			List<JsonTrorOppdragsTypeCodeRecord> list = new ArrayList<JsonTrorOppdragsTypeCodeRecord>();
+		    			for(JsonTrorOppdragsTypeCodeRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_OPPDRAGSTYPE_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
 		}
-		if(searchFilter.getTekst()!=null && !"".equals(searchFilter.getTekst())){
-			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "tekst=" + searchFilter.getTekst());
-		}
-		//urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
-		urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fullinfo=J"); //always the max. nr of columns (as default)		
-
-		return urlRequestParamsKeys.toString();
 	}
-	*/
+	
+	@RequestMapping(value="tror_mainorder_childwindow_productcodes.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindProductCodes(@ModelAttribute ("record") JsonTrorProductCodeRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindProductCodes");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_productcodes");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_PRODUCT_CODES_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kftyp=PRODTYPE";
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorProductCodeContainer container = null;
+	    			try{
+	    				container = this.trorDropDownListPopulationService.getProductContainer(jsonPayload);
+	    			}catch(Exception e){
+	    				e.printStackTrace();
+	    			}
+	    			//go on
+		    		if(container!=null){
+		    			List<JsonTrorProductCodeRecord> list = new ArrayList<JsonTrorProductCodeRecord>();
+		    			for(JsonTrorProductCodeRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
+		}
+	}
 	/**
 	 * 
 	 * @param searchFilter
@@ -483,6 +575,43 @@ public class TrorMainOrderHeaderControllerChildWindow {
 			urlRequestParamsKeys.append(EbookingConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "todo=" + searchFilter.getTODO());
 		}
 		*/
+		return urlRequestParamsKeys.toString();
+	}
+	
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonTrorPostalCodeRecord searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		if(strMgr.isNotNull(searchFilter.getSt2lk())){
+			urlRequestParamsKeys.append("&st2lk=" + searchFilter.getSt2lk());
+		}
+		if(strMgr.isNotNull(searchFilter.getSt2kod())){
+			urlRequestParamsKeys.append("&st2kod=" + searchFilter.getSt2kod());
+		}
+		
+		return urlRequestParamsKeys.toString();
+	}
+	/**
+	 * 
+	 * @param searchFilter
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersSearchChildWindow(JsonTrorTollstedRecord searchFilter, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		if(strMgr.isNotNull(searchFilter.getKtskod())){
+			urlRequestParamsKeys.append("&ktskod=" + searchFilter.getKtskod());
+		}
+		if(strMgr.isNotNull(searchFilter.getKtsnav())){
+			urlRequestParamsKeys.append("&ktsnav=" + searchFilter.getKtsnav());
+		}
+		
 		return urlRequestParamsKeys.toString();
 	}
 	
@@ -502,5 +631,13 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	@Required
 	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
 	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
+	
+	
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
+	@Autowired
+	@Required
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
 }

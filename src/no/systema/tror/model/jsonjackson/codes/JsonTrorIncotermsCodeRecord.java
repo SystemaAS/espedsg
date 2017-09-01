@@ -26,6 +26,9 @@ public class JsonTrorIncotermsCodeRecord  {
 	public void setKfrntx(String value){ this.kfrntx = value;}
 	public String getKfrntx(){ return this.kfrntx; }
 
+	private String kfrttx = null;
+	public void setKfrttx(String value){ this.kfrttx = value;}
+	public String getKfrttx(){ return this.kfrttx; }
 	
 	
 
