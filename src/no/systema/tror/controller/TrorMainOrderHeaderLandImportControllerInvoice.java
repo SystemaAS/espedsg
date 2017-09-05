@@ -211,7 +211,6 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 			
 			//populate drop downs
 			this.setCodeDropDownMgr(appUser, model);
-			this.setDropDownsFromFiles(model);
 			
     		//--------------------------------------
 			//Final successView with domain objects
@@ -229,19 +228,17 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param model
 	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		/*TODO ? this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(this.urlCgiProxyService, this.trorDropDownListPopulationService,
-				model,appUser,CodeDropDownMgr.CODE_2_COUNTRY, null, null);
-		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringGebyrCodes(this.urlCgiProxyService, this.trorDropDownListPopulationService, 
-				model, appUser);
-				*/
+		//Sign / AVD
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCurrency(urlCgiProxyService, trorDropDownListPopulationService, model, appUser); 
 	}
 	/**
 	 * 
 	 * @param model
 	 */
+	/*
 	private void setDropDownsFromFiles(Map<String, Object> model){
 		model.put(TrorConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.trorDropDownListPopulationService.getCurrencyList());
-	}
+	}*/
 	/**
 	 * 
 	 * @param model
@@ -436,34 +433,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
-	@Qualifier ("maintMainKodtaService")
-	private MaintMainKodtaService maintMainKodtaService;
-	@Autowired
-	@Required
-	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
-	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
 	
 	
-	@Qualifier ("maintSadImportKodts4Service")
-	private MaintSadImportKodts4Service maintSadImportKodts4Service;
-	@Autowired
-	@Required
-	public void setMaintSadImportKodts4Service (MaintSadImportKodts4Service value){ this.maintSadImportKodts4Service = value; }
-	public MaintSadImportKodts4Service getMaintSadImportKodts4Service(){ return this.maintSadImportKodts4Service; }
-	
-	
-	@Qualifier ("notisblockService")
-	private NotisblockService notisblockService;
-	@Autowired
-	public void setNotisblockService (NotisblockService value){ this.notisblockService=value; }
-	public NotisblockService getNotisblockService(){return this.notisblockService;}
-	
-	@Qualifier ("ebookingChildWindowService")
-	private EbookingChildWindowService ebookingChildWindowService;
-	@Autowired
-	@Required
-	public void setEbookingChildWindowService (EbookingChildWindowService value){ this.ebookingChildWindowService = value; }
-	public EbookingChildWindowService getEbookingChildWindowService(){ return this.ebookingChildWindowService; }
 	
 }
 

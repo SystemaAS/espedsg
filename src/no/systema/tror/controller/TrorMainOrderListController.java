@@ -323,8 +323,11 @@ public class TrorMainOrderListController {
     		if(strMgr.isNotNull(recordToValidate.getFrom())){ urlRequestParams.append("&hesdf=" + recordToValidate.getFrom()); }
     		//To and dates
     		if(strMgr.isNotNull(recordToValidate.getTo())){ urlRequestParams.append("&hesdt=" + recordToValidate.getTo()); }
-    		//Status
+    		//other
     		if(strMgr.isNotNull(recordToValidate.getStatus())){ urlRequestParams.append("&hest=" + recordToValidate.getStatus()); }
+    		if(strMgr.isNotNull(recordToValidate.getTtype())){ urlRequestParams.append("&heur=" + recordToValidate.getTtype()); }
+    		if(strMgr.isNotNull(recordToValidate.getGodsNr())){ urlRequestParams.append("&hegn=" + recordToValidate.getGodsNr()); }
+    		
     		
     		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
 	    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");

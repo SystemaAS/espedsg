@@ -178,14 +178,9 @@
 							<td>
 							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODOtvinnsadexport_edit_finansopplysninger.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
-				 				<input type="hidden" name="avd" id="avd" value='${model.avd}'>
-				 				<input type="hidden" name="sign" id="sign" value='${model.sign}'>
-								<input type="hidden" name="opd" id="opd" value='${model.opd}'>
-				 				<input type="hidden" name="refnr" id="refnr" value='${dkih_07}'>
-				 				<input type="hidden" name="status" id="status" value='${model.status}'>
-				 				<input type="hidden" name="datum" id="datum" value='${model.datum}'>
-				 				<input type="hidden" name="fabl" id="fabl" value='${recordTopicTvinnSad.sebel1}'>
-				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
+				 				<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandImport.heavd}'>
+				 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandImport.heopd}'>
+								<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
 				 				
 				 				
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
@@ -233,9 +228,9 @@
 						<tr>
 							<td >
 								<form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
-				 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+				               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
+			 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
+			 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 				 				<table id="container tableTable" width="80%" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
@@ -265,23 +260,14 @@
 							              <tr class="tableRow">
 										   <td width="2%" align="center" class="text11" >${record.fali}</td>
 							               <td width="2%" class="text11" align="center">
-							               		<a tabindex=-1 id="recordUpdate__${Xrecord.sftxt}__${Xrecord.sfdt}" href="#" onClick="getFinansOpplysningerItemData(this);">
-							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
+							               		<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
+							               			<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
 							               		</a>
 							               </td>
 							               <td width="2%" align="center" class="text11" >${record.fask}</td>
 							               <td width="2%" align="center" class="text11" >${record.favk}</td>
-							               <td class="text11" align="left">
-							               		<a tabindex=-1 id="recordUpdate__${Xrecord.sftxt}__${Xrecord.sfdt}" href="#" onClick="getFinansOpplysningerItemData(this);">
-								               		<c:choose>
-									               		<c:when test="${not empty record.faVT}">
-									               			${record.faVT}
-									               		</c:when>
-									               		<c:otherwise>
-									               			${record.stdVt}
-									               		</c:otherwise>
-								               		</c:choose>	
-							               		</a>
+							               <td class="text11" align="left">${record.stdVt}
+						               	   		<c:if test="${not empty record.faVT}">&nbsp;/&nbsp;${record.faVT}</c:if>
 							               </td>
 							               <td width="2%" align="center" class="text11" >${record.faval}</td>
 							               <td align="right" class="text11" >&nbsp;${record.fabelv}</td>
@@ -342,15 +328,17 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form name="sadImportEditTopicFinansOpplysningerItemForm" id="sadImportEditTopicFinansOpplysningerItemForm" method="post">
+	 				<form name="trorEditInvoiceItemForm" id="trorEditInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
+				 	<%-- 
 				 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
 				 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
 				 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
 				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
 				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
 				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicTvinnSad.sebel1}"/>
+				 	--%>
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -397,36 +385,43 @@
 						        		<td align="left">
 						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fask" id="fask">
 						 						<option value="">-velg-</option>
-							 				  	<option value="A"<c:if test="${Xmodel.record.fask == 'A'}"> selected </c:if> >${Xmodel.record.fask}</option>
-												<option value="F"<c:if test="${Xmodel.record.fask == 'F'}"> selected </c:if> >${Xmodel.record.fask}</option>
-												<option value="I"<c:if test="${Xmodel.record.fask == 'I'}"> selected </c:if> >${Xmodel.record.fask}</option>
-												<option value="K"<c:if test="${Xmodel.record.fask == 'K'}"> selected </c:if> >${Xmodel.record.fask}</option>
-												<option value="S"<c:if test="${Xmodel.record.fask == 'S'}"> selected </c:if> >${Xmodel.record.fask}</option>
-												<option value="X"<c:if test="${Xmodel.record.fask == 'X'}"> selected </c:if> >${Xmodel.record.fask}</option>  
+							 				  	<option value="A"<c:if test="${Xmodel.record.fask == 'A'}"> selected </c:if> >A</option>
+												<option value="F"<c:if test="${Xmodel.record.fask == 'F'}"> selected </c:if> >F</option>
+												<option value="I"<c:if test="${Xmodel.record.fask == 'I'}"> selected </c:if> >I</option>
+												<option value="K"<c:if test="${Xmodel.record.fask == 'K'}"> selected </c:if> >K</option>
+												<option value="S"<c:if test="${Xmodel.record.fask == 'S'}"> selected </c:if> >S</option>
+												<option value="X"<c:if test="${Xmodel.record.fask == 'X'}"> selected </c:if> >X</option>  
 											</select>
 										</td>
 										<td class="text12" align="left">
 						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="favk" id="favk">
-						 						<option value="">-velg-</option>
-							 				  	<c:forEach var="record" items="${model.XtodoCodeList}" >
-							 				  		<option value="${record.todo}"<c:if test="${Xmodel.record.favk == record.todo}"> selected </c:if> >${record.todo}</option>
-												</c:forEach>  
+						 						<option value="">-valuta-</option>
+							 				  	<c:forEach var="record" items="${model.todoCodeList}" >
+							 				  		<option value="${Xrecord.kvakod}"<c:if test="${Xmodel.record.hevalk == Xrecord.kvakod || (empty Xmodel.record.favk && Xrecord.kvakod=='NOK')}"> selected </c:if> >${Xrecord.kvakod}</option>
+												</c:forEach> 
 											</select>
 							            </td>
 										<td align="left" nowrap>
-								            <input type="text" class="inputTextMediumBlue" name="faVT" id="faVT" size="6" maxlength="6" value="${Xmodel.record.faVT}">
+											<input type="text" class="inputTextMediumBlue" name="faVT" id="faVT" size="21" maxlength="20" value="${model.record.faVT}">
 										</td>
 						        		<td class="text12" align="left">
 						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="faval" id="faval">
-						 						<option value="">-velg-</option>
-							 				  	<c:forEach var="record" items="${model.XcurrencyCodeList}" >
-							 				  		<option value="${record.todo}"<c:if test="${Xmodel.record.faval == record.todo}"> selected </c:if> >${record.todo}</option>
+						 						<option value="">-valuta-</option>
+							 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
+							 				  		<option value="${record.kvakod}"<c:if test="${model.record.faval == record.kvakod || (empty model.record.faval && record.kvakod=='NOK')}"> selected </c:if> >${record.kvakod}</option>
 												</c:forEach>  
 											</select>
 							            </td>
 							            <td class="text12Grey" align="left" >
-							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${Xmodel.record.fabelv}">
+							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${model.record.fabelv}">
 							 			</td>
+							 			<td align="left">
+						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fakdm" id="fakdm">
+						 						<option value="">-velg-</option>
+							 				  	<option value="J"<c:if test="${model.record.fakdm == 'J'}"> selected </c:if> >J</option>
+												<option value="N"<c:if test="${model.record.fakdm == 'N'}"> selected </c:if> >N</option>
+											</select>
+										</td>
 							        </tr>
 							        <tr height="10"><td class="text" align="left"></td></tr>
 						        </table>
@@ -438,7 +433,7 @@
 									<c:choose>	
 										<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
 											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='todo_edit_finansopplysninger.do';" value='<spring:message code="systema.tror.submit.save"/>'>
-											&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.cancel"/>'>
 										</c:when>
 										<c:otherwise>
 				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>

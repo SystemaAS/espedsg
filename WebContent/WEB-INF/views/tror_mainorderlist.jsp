@@ -119,12 +119,14 @@
 				
 				<tr>
    				    <td> 
-			    	<table width="95%">
+			    	<table width="99%">
 			    		<tr > 
 				    		<td>&nbsp;<font title="avd" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font></td>
 				        	<td>&nbsp;<font title="sign" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font></td>
 				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font></td>
 				        	<td>&nbsp;<font title="date" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></font></td>
+				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></font></td>
+				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></font></td>
 				        	<%--<td>&nbsp;</td> --%>
 				        	<td>&nbsp;<font title="sender" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></font></td>
 				        	<td>&nbsp;<font title="receiver" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></font></td>
@@ -135,7 +137,7 @@
 			        	</tr>
 			        	<tr>
 				        	<td>
-				        		<select name="avd" id="avd" autofocus>
+				        		<select class="inputTextMediumBlue" name="avd" id="avd" autofocus>
 			 						<option value="">-velg-</option>
 				 				  	<c:forEach var="record" items="${model.avdList}" >
 				 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
@@ -143,7 +145,7 @@
 								</select>
 				        	</td>
 					        <td>
-					        	<select name="sign" id="sign" >
+					        	<select class="inputTextMediumBlue" name="sign" id="sign" >
 			 						<option value="">-velg-</option>
 			 						<c:forEach var="record" items="${model.signatureList}" >
 				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
@@ -152,6 +154,16 @@
 					        </td>
 				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilterTror.orderNr}'></td>
 					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilterTror.date}'></td>
+					        <td>
+					        	<select class="inputTextMediumBlue" name="ttype" id="ttype">
+					        		<option value="">-velg-</option>
+									<option value="A" <c:if test="${searchFilterTror.ttype == 'A'}"> selected </c:if> >Land import</option>
+									<option value="B" <c:if test="${searchFilterTror.ttype == 'B'}"> selected </c:if> >Land eksport</option>
+									<option value="C" <c:if test="${searchFilterTror.ttype == 'C'}"> selected </c:if> >Fly import</option>
+									<option value="D" <c:if test="${searchFilterTror.ttype == 'D'}"> selected </c:if> >Fly eksport</option>
+								</select>
+					        </td>
+					        <td><input type="text" class="inputText" name="godsNr" id="godsNr" size="10" maxlength="20" value='${searchFilterTror.godsNr}'></td>
 					        <%--
 					        <td nowrap>	
 				        		<font title="fromDate/fromDate" class="text12"></font>
@@ -163,7 +175,7 @@
 				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="15" maxlength="15" value='${searchFilterTror.receiver}'></td>
 				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilterTror.from}'></td>
 					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilterTror.to}'>&nbsp;</td>
-					        <td><input type="text" class="inputText" name="to" id="to" size="3" maxlength="1" value='${searchFilterTror.status}'>&nbsp;</td>
+					        <td><input type="text" class="inputText" name="status" id="status" size="3" maxlength="1" value='${searchFilterTror.status}'>&nbsp;</td>
 					        <td>	
 					        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
 					        </td>   
@@ -223,7 +235,7 @@
 		            <c:forEach items="${listOpenOrders}" var="record" varStatus="counter">  
 		            <input type="hidden" name="unik_${counter.count}" id="unik_${counter.count}" value='${Xrecord.unik}'>
 		            <tr class="tex11" >
-		               <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.heavd}</td>	
+		               <td width="2%" align="center" class="text11MediumBlue">${record.heavd}</td>	
 		               <td width="2%" align="center"  >
 			           		<c:if test="${empty record.hest || record.hest == 'U' || record.hest == 'O' || record.hest == 'F' }">
 			           			<c:choose>
@@ -295,7 +307,7 @@
 		    		    			</c:if>
 		    		    			</c:when>
 		    		    			<c:otherwise>
-			           					&nbsp;<font class="text11"><b>${record.heopd}</b></font>
+			           					<font class="text11"><b>${record.heopd}</b></font>
 				           			</c:otherwise>
 	    		    			</c:choose>
 	    		    			</c:if>
