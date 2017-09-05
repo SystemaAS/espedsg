@@ -64,6 +64,10 @@ public class SearchFilterTrorMainList {
 	public void setTo(String value) {  this.to = value; }
 	public String getTo() { return this.to;}
 	
+	private String status = null;
+	public void setStatus(String value) {  this.status = value; }
+	public String getStatus() { return this.status;}
+	
 	
 	/**
 	 * In order to check if ALL fields are empty

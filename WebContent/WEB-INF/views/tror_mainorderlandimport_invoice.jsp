@@ -373,7 +373,7 @@
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${activeUrlRPGUpdate_TvinnSad}<br/><br/>
+		           		   				${todo_activeUrlRPGUpdate_TvinnSad}<br/><br/>
 		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
 		           		   			</div>
 						        </span>  
@@ -386,69 +386,47 @@
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td class="text12" align="left"><span title="sftxt">
-							 			<img onMouseOver="showPop('finans_opp_info');" onMouseOut="hidePop('finans_opp_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 						Tekst</span>
-										<div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute;top:2px; width:300px;" id="finans_opp_info" class="popupWithInputText text11"  >
-							           		<b>Tekst</b>
-											<p>Todo</p>
-						           		 	
-										</span>
-										</div>										
-										</td>
-										
-							            <td class="text12" align="left"><span title="sfdt">&nbsp;Dato</span></td>
-							            <td class="text12" align="left"><span title="sfbl28">&nbsp;Beløp</span></td>
-							            <td class="text12" align="left"><span title="sfvk28">&nbsp;Valuta</span></td>
-					            		<td class="text12" align="left"><span title="sfkr28">&nbsp;Kurs</span></td>
-					            		<td class="text12" align="left"><span title="factor">Faktor&nbsp;</span></td>
+							 			<td class="text12" align="left"><span title="fask">&nbsp;SK</span></td>
+							            <td class="text12" align="left"><span title="favk">&nbsp;Kode</span></td>
+							            <td class="text12" align="left"><span title="faVT">&nbsp;Tekst</span></td>
+					            		<td class="text12" align="left"><span title="faval">&nbsp;Valuta</span></td>
+					            		<td class="text12" align="left"><span title="fabelv">&nbsp;Beløp</span></td>
+					            		<td class="text12" align="left"><span title="fakdm">&nbsp;MVA</span></td>
 							        </tr>
 							        <tr>
 						        		<td align="left">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="sftxt" id="sftxt" size="20" maxlength="17" value="${Xmodel.record.sftxt}">
-										</td>
-										<td align="left">
-						        			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sfdt" id="sfdt" size="6" maxlength="6" value="${Xmodel.record.sfdt}">
+						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fask" id="fask">
+						 						<option value="">-velg-</option>
+							 				  	<option value="A"<c:if test="${Xmodel.record.fask == 'A'}"> selected </c:if> >${Xmodel.record.fask}</option>
+												<option value="F"<c:if test="${Xmodel.record.fask == 'F'}"> selected </c:if> >${Xmodel.record.fask}</option>
+												<option value="I"<c:if test="${Xmodel.record.fask == 'I'}"> selected </c:if> >${Xmodel.record.fask}</option>
+												<option value="K"<c:if test="${Xmodel.record.fask == 'K'}"> selected </c:if> >${Xmodel.record.fask}</option>
+												<option value="S"<c:if test="${Xmodel.record.fask == 'S'}"> selected </c:if> >${Xmodel.record.fask}</option>
+												<option value="X"<c:if test="${Xmodel.record.fask == 'X'}"> selected </c:if> >${Xmodel.record.fask}</option>  
+											</select>
 										</td>
 										<td class="text12" align="left">
-						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sfbl28" id="sfbl28" size="13" maxlength="12" value="${Xmodel.record.sfbl28}">
-							            </td>
-										<td align="left" nowrap>
-								            	<select class="inputTextMediumBlueMandatoryField" name="sfvk28" id="sfvk28">
+						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="favk" id="favk">
 						 						<option value="">-velg-</option>
-							 				  	<c:forEach var="currency" items="${model.XcurrencyCodeList}" >
-							 				  		<option value="${currency.zkod}"<c:if test="${Xmodel.record.sfvk28 == currency.zkod}"> selected </c:if> >${currency.zkod}</option>
+							 				  	<c:forEach var="record" items="${model.XtodoCodeList}" >
+							 				  		<option value="${record.todo}"<c:if test="${Xmodel.record.favk == record.todo}"> selected </c:if> >${record.todo}</option>
 												</c:forEach>  
 											</select>
-											<a tabindex="-1" id="sfvk28IdLink">
-											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-											</a>
-											<%-- info span
-											<img onClick="showPop('valutaSearchInfo');" tabindex=-1 style="cursor:pointer;" src="resources/images/find.png" border="0" alt="search" >
-											<span style="position:absolute; left:800px; top:350px; width:350px; height:150px;" id="valutaSearchInfo" class="popupWithInputText"  >
-								           		<div class="text10" align="left">
-							           				<select class="text11" id="currencySearch" name="currencySearch" size="5" onDblClick="hidePop('valutaSearchInfo');">
-								           				<c:forEach var="currency" items="${model.currencyCodeList}" >
-								 				  			<option value="${currency.zkod}">${currency.zkod}&nbsp;${currency.ztxt}</option>
-														</c:forEach>
-								           			</select>
-								           			<table width="100%" align="left" border="0">
-														<tr height="10">&nbsp;<td class="text11">&nbsp;</td></tr>
-														<tr align="left" >
-															<td class="text11">&nbsp;<button name="valutaSearchButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('valutaSearchInfo');">&nbsp;<spring:message code="systema.tvinn.sad.import.ok"/></button> 
-															</td>
-														</tr>
-													</table>
-												</div>
-											</span>
-											--%>
+							            </td>
+										<td align="left" nowrap>
+								            <input type="text" class="inputTextMediumBlue" name="faVT" id="faVT" size="6" maxlength="6" value="${Xmodel.record.faVT}">
 										</td>
 						        		<td class="text12" align="left">
-						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sfkr28" id="sfkr28" size="6" maxlength="6" value="${Xmodel.record.sfkr28}">
+						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="faval" id="faval">
+						 						<option value="">-velg-</option>
+							 				  	<c:forEach var="record" items="${model.XcurrencyCodeList}" >
+							 				  		<option value="${record.todo}"<c:if test="${Xmodel.record.faval == record.todo}"> selected </c:if> >${record.todo}</option>
+												</c:forEach>  
+											</select>
 							            </td>
-							            <%-- this field is only used via Ajax since there is no database field. It is used to disclosed a factor when changing the currency --%>
-							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>
+							            <td class="text12Grey" align="left" >
+							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${Xmodel.record.fabelv}">
+							 			</td>
 							        </tr>
 							        <tr height="10"><td class="text" align="left"></td></tr>
 						        </table>
@@ -458,12 +436,12 @@
 					    <tr>	
 						    <td align="left" colspan="5">
 									<c:choose>	
-										<c:when test="${model.status == 'M' || empty model.status || model.status == '1'}">
-											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tvinnsadexport_edit_finansopplysninger.do';" value='<spring:message code="systema.tvinn.sad.import.item.createnew.submit"/>'>
+										<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='todo_edit_finansopplysninger.do';" value='<spring:message code="systema.tror.submit.save"/>'>
 											&nbsp;&nbsp;
 										</c:when>
 										<c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tvinn.sad.submit.not.editable"/>'/>
+				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>
 				 				    	</c:otherwise>	
 			 				    	</c:choose>	
 							</td>							        	

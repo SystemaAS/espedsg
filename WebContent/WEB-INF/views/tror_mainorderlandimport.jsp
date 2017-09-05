@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="tror_mainorder.do"  name="trorOrderForm" id="trorOrderForm" method="post">
+<form action="tror_mainorderlandimport.do"  onClick="setBlockUI(this);" name="trorOrderForm" id="trorOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -171,6 +171,8 @@
 						<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
 						<input type="hidden" name="hesg" id="hesg" value='${model.record.hesg}'> <%--sign --%>
 						<input type="hidden" name="hest" id="hest" value='${model.record.hest}'> <%--status --%>
+						<input type="hidden" name="heur" id="heur" value='${model.record.heur}'> <%--delsystem --%>
+						
 						
 					</c:if>
 					<%--
@@ -1086,7 +1088,9 @@
 						<td align="right">
 							<c:choose>
 			 				    <c:when test="${ not empty model.record.heopd }">
-			 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+			 				    	<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+			 				    	</c:if>
 			 				    </c:when>
 			 				    <c:otherwise>
 		 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.tror.submit.createnew.order"/>'/>

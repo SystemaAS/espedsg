@@ -46,7 +46,7 @@
 	           		<tr height="15"><td></td></tr>
 					
 					<tr class="text12" >
-					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:30em;">
+					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:35em;">
 					<%-- this is the datatables grid (content)--%>
 					<table id="customerAddressesList" class="display compact cell-border" width="100%">
 						<thead>
