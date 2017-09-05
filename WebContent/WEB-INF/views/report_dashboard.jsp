@@ -60,6 +60,14 @@ a { cursor: pointer }
     background-color: #eee !important;
 }
 
+.show-grid-small {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+}
+
+.border {
+    border: 1px solid #ddd;
+}
 
 .dc-chart g.row text {
     fill: #403131;
@@ -94,35 +102,43 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  d.fakda = d.fakda;
 	});
  
-	// set crossfilter
-	var ndx = crossfilter(faktData);	
-	var all = ndx.groupAll();
+	// set crossfilte. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
+	var  fakt = crossfilter(faktData);	
+	var  all = fakt.groupAll();
 	
-	var  yearDim  = ndx.dimension(function(d) {return d.year;});
-	var  avdDim  = ndx.dimension(function(d) {return d.faavd;});
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return +d.sumfabeln/1000;});
+	var  faktByYearDim  = fakt.dimension(function(d) {return d.year;});
+	var  faktByMonthDim  = fakt.dimension(function(d) {return +d.month;});
+	var  faktByAvdDim  = fakt.dimension(function(d) {return d.faavd;});
+	var  faktByYearDimGroup = faktByYearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
+	var  faktByAvdDimGroup = faktByAvdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
+	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
+	var  fabelnPerAvd = faktByAvdDim.group().reduceSum(function (d) {return +d.sumfabeln ;});	
+
+	var  countFaktByMonth = faktByMonthDim.group().reduceCount();
+	var  countfaktByAvdDim = faktByAvdDim.group().reduceCount();
+	 
+	var  yearChart   = dc.pieChart("#chart-ring-year");
+	var  monthChart   = dc.pieChart('#chart-ring-month');
+	var  avdChart   = dc.pieChart('#chart-ring-avd');
+	var  dataTable = dc.dataTable('#data-table');
+	var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
+	var  revenueSeriesChart = dc.seriesChart("#chart-revenue");
+	var  lineChartDate = dc.lineChart("#line-chart-date");
+	var  moveChart = dc.lineChart('#monthly-move-chart');
+	var  avdFabelnRowChart = dc.rowChart("#chart-row-avdfabeln");	 
+	var  dataCount = dc.dataCount('#data-count')	 
+
+    // Dimension by month
+    var moveMonths = fakt.dimension(function (d) {
+        return d.month;
+    });	
+    // Group by total sumfabeln within month
+    var monthlyMoveGroup = moveMonths.group().reduceSum(function (d) {
+        return d.sumfabeln;
+    });	
 	
-	 var monthDim  = ndx.dimension(function(d) {return +d.month;});
-	 var countPerMonth = monthDim.group().reduceCount();
 
-	 var countAvdDim = avdDim.group().reduceCount();
-	 
-	 
-	 
-	 var  yearChart   = dc.pieChart("#chart-ring-year");
-	 var  monthChart   = dc.pieChart('#chart-ring-month');
-	 var  avdChart   = dc.pieChart('#chart-ring-avd');
-	 var  dataTable = dc.dataTable('#data-table');
-	 var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
-
-	 var avdFabelnRowChart = dc.rowChart("#chart-row-avdfabeln");	 
-	 
-	 
-	 var allDim = ndx.dimension(function(d) {return d;});	 
-	 var dataCount = dc.dataCount('#data-count')	 
-
-    var yearPerformanceGroup = yearDim.group().reduce(
+    var  yearPerformanceGroup = faktByYearDim.group().reduce(
         /* callback for when data is added to the current filter results */
         function (p, v) {
         	++p.faavd;
@@ -157,16 +173,16 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  yearChart
 	    .width(150)
 	    .height(150)
-	    .dimension(yearDim)
-	    .group(yearDimGroup)
+	    .dimension(faktByYearDim)
+	    .group(faktByYearDimGroup)
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
    
 	  monthChart
       .width(150)
       .height(150)
-      .dimension(monthDim)
-      .group(countPerMonth)
+      .dimension(faktByMonthDim)
+      .group(countFaktByMonth)
       .innerRadius(30)
       .ordering(function (d) {
         var order = {
@@ -181,20 +197,16 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  avdChart
 	    .width(150)
 	    .height(150)
-	    .dimension(avdDim)
-	    .group(avdDimGroup)
+	    .dimension(faktByAvdDim)
+	    .group(faktByAvdDimGroup)
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
 	  
 	  
-	  var fabelnPerAvd = avdDim.group().reduceSum(function (d) {
-          return +d.sumfabeln /1000 ; 
-      });
-
 	  avdFabelnRowChart
 	  	.width(900)
 	  	.height(250)
-       .dimension(avdDim)
+       .dimension(faktByAvdDim)
        .group(fabelnPerAvd)
        .colors(d3.scale.ordinal().range(['red','green','blue']))
        .elasticX(true);
@@ -210,13 +222,13 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 
 	    yearlyBubbleChart /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') */
 	        // (_optional_) define chart width, `default = 200`
-	        .width(900)
+	        .width(1000)
 	        // (_optional_) define chart height, `default = 200`
-	        .height(250)
+	        .height(320)
 	        // (_optional_) define chart transition duration, `default = 750`
 	        .transitionDuration(1500)
 	        .margins({top: 10, right: 50, bottom: 30, left: 40})
-	        .dimension(yearDim)
+	        .dimension(faktByYearDim)
 	        //The bubble chart expects the groups are reduced to multiple values which are used
 	        //to generate x, y, and radius for each key (bubble) in the group
 	        .group(yearPerformanceGroup)
@@ -224,10 +236,9 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	        .colors(colorbrewer.RdYlGn[9])
 	        //(optional) define color domain to match your data domain if you want to bind data or color
 	        .colorDomain([-500, 500])
-	    //##### Accessors
+	   		 //##### Accessors
 
 	        //Accessor functions are applied to each value returned by the grouping
-
 	        // `.colorAccessor` - the returned value will be passed to the `.colors()` scale to determine a fill color
 	        .colorAccessor(function (d) {
 	            return d.value.sumfabeln;
@@ -296,7 +307,109 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	    //        return v + '%';
 	    //    });
  	 
- 	 
+ 
+	        //Inspired by https://github.com/dc-js/dc.js/blob/master/web/examples/series.html
+	        var mindate = new Date(2006,0,1),
+               	maxdate = new Date(2006,12,31);
+	        revenueSeriesChart
+	        .width(1200)
+	        .height(320)
+	        .chart(function(c) { return dc.lineChart(c).interpolate('cardinal'); })
+	        //.x(d3.scale.linear().domain([0,20]))
+	        .x(d3.time.scale().domain([mindate, maxdate]))  //.range([1, 5]))
+	        .brushOn(false)
+	        //.yAxisLabel("Y axix")
+	        //.xAxisLabel("X axis")
+	        .clipPadding(10)
+	        .elasticY(true)
+	        .dimension(faktByYearDim)
+	        .group(yearPerformanceGroup)  //, faktByYearDimGroup
+	       // .mouseZoomable(true)
+	        .seriesAccessor(function(d) {
+	        	return "Key: " + d.key[0];
+	        	})
+	        .keyAccessor(function(d) {
+	        	//return +d.key[1];
+	        	 return d.key.sumIndex;
+	        	})
+	        .valueAccessor(function(d) {
+	        	return +d.value.sumfabeln;
+	        	})
+	        //.legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
+	        
+	        revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d);});
+	        //revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d+299500);});
+	        revenueSeriesChart.margins().left += 40;	        
+	        
+		    //https://github.com/dc-js/dc.js/blob/develop/web/play-ground.html        
+	        lineChartDate.width(1000)
+	                .height(320)
+	               //.margins({top: 30, right: 50, bottom: 30, left: 30})
+	                //.dimension(faktByYearDim)
+	                //.group(faktByYearDimGroup, "Id Sum")
+					.dimension(moveMonths)
+       				.group(monthlyMoveGroup, "Kalle")
+	                
+	                //  .stack(faktByYearDimGroup, "Value Sum")
+	              //  .stack(faktByYearDimGroup, "Fixed", function (d) {
+	              //      return 10;
+	              //  })
+	                .brushOn(false)
+	              //  .title(function (d) {
+	              //      return d.value;
+	              //  })
+	               // .x(d3.time.scale().domain([mindate, maxdate]))
+	                .x(d3.scale.linear().domain([0,12]))
+	                .xUnits(d3.time.month)
+	                .elasticY(true)
+	                .renderArea(true)
+	               // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+	                //.xAxis().ticks(5);	        
+	
+               //Specify an area chart by using a line chart with `.renderArea(true)`.
+               // <br>API: [Stack Mixin](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#stack-mixin),
+               // [Line Chart](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#line-chart)
+               moveChart /* dc.lineChart('#monthly-move-chart', 'chartGroup') */
+                   .renderArea(true)
+                   .width(990)
+                   .height(200)
+                   .transitionDuration(1000)
+                   .margins({top: 30, right: 50, bottom: 25, left: 40})
+                   .dimension(moveMonths)
+                   .mouseZoomable(true)
+               // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
+                  // .rangeChart(volumeChart)
+                   .x(d3.time.scale().domain([1,12])) // .x(d3.time.scale().domain([new Date(2000, 0, 1), new Date(2015, 11, 31)])) 
+                   .round(d3.time.month.round)
+                   .xUnits(d3.time.months)
+                   .elasticY(true)
+                   .renderHorizontalGridLines(true)
+               //##### Legend
+
+                   // Position the legend relative to the chart origin and specify items' height and separation.
+                   .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+                   .brushOn(false)
+                   // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
+                   // legend.
+                   // The `.valueAccessor` will be used for the base layer
+                   .group(monthlyMoveGroup, 'Monthly Index Average')  //indexAvgByMonthGroup
+                   .valueAccessor(function (d) {
+                       return d.value /1000; //d.value.avg
+                   })
+                   // Stack additional layers with `.stack`. The first paramenter is a new group.
+                   // The second parameter is the series name. The third is a value accessor.
+                   .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
+                       return d.value / 1000;
+                   })
+                   // Title can be called by any stack layer.
+                  // .title(function (d) {
+                  //     var value = d.value ? d.value : d.value;
+                  //     if (isNaN(value)) {
+                  //         value = 0;
+                  //     }
+                  //     return dateFormat(d.key) + '\n' + numberFormat(value);
+                   //});
+       
 	   // register handlers
 	   d3.selectAll('a#all').on('click', function () {
 	     dc.filterAll();
@@ -312,6 +425,14 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	     monthChart.filterAll();
 	     dc.redrawAll();
 	   });
+	   d3.selectAll('a#test').on('click', function () {
+		  yearlyBubbleChart.filterAll();
+		  dc.redrawAll();
+		});	   
+	   d3.selectAll('a#intekkt').on('click', function () {
+			  lineChartDate.filterAll();
+			  dc.redrawAll();
+	   });	
 	   
 	   d3.selectAll('a#avd').on('click', function () {
 		 avdChart.filterAll();
@@ -320,14 +441,14 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	   
 
 	   dataCount
-	      .dimension(ndx)
+	      .dimension(fakt)
 	      .group(all);  
 
 	   
 	   dataTable
-	    .dimension(allDim)
+	    .dimension(faktAllDim)
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
-	    .size(1000)
+	    .size(2000)
 	    .columns([
 	      function (d) { return d.faavd; },
 	      function (d) { return d.faopd; },
@@ -369,14 +490,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 								<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 							</a>
 					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-		               		<a style="display:block;" id="norsk2Link" href="report_dashboard.do?lib=D3">
-									<font class="tabDisabledLink">&nbsp;Terminalanalyse (D3)</font>
-								<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-							</a>
-					</td>
-					<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>
 		</table>
 		</td>
@@ -393,8 +507,100 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
+
 				<div class="container-fluid">
-				  <div class="row"> <!-- show-grid -->
+				  <div class="row">
+				    <div class="col-md-2">
+				      <div class="row">
+   						 <div class="col-md-12 show-grid-small">
+   						   År <small><a id="year">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   						   						  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   						   tilbakestill</a></small>
+   						 </div>
+   					  </div>
+   					  <div class="row border">
+				        <div class=" col-md-12 dc-chart" id="chart-ring-year"></div> 						 
+				      </div>
+				      <div class="row">
+	  					<div class="col-md-12 show-grid-small">
+	  						Avdeling <small><a id="avd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  						tilbakestill</a></small>
+	  				    </div>
+	  				  </div>
+	  				  <div class="row border">
+					      <div class="col-md-12 dc-chart" id="chart-ring-avd"></div>
+				      </div>
+				    </div>
+				    <div class="col-md-10">
+				      <div class="row">
+   						 <div class="col-md-12 show-grid-small">
+   						    Intekt og kostnad <small><a id="intekkt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  						tilbakestill</a></small> 
+   						 </div>
+				      </div>
+				      <div class="row border">
+						 <div class=" col-md-12 dc-chart" id="line-chart-date"></div>  <!-- chart-revenue,   , monthly-move-chart-->  
+				      </div>
+
+
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col-md-2">
+						row 3 col 1
+						<!--  <div class="dc-chart" id="chart-row-avdfabeln"></div>-->
+					</div>
+				    <div class="col-md-10">
+				      <div class="row">
+   						 <div class="col-md-12 show-grid-small">
+   						  Testing 2 <small><a id="test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  						tilbakestill</a></small> 
+   						 </div>
+				      </div>
+				      <div class="row border">
+						 <div class=" col-md-12 dc-chart" id="yearly-bubble-chart"></div>
+				      </div>
+
+
+					</div>
+				  </div>	
+				  <div class="row">
+				    <div class="col-md-12 show-grid-small" id="data-count"> 
+				        <small>
+				          <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster |
+				           <a id="all" href="#">tilbakestill alt</a>
+				        </small>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col-md-12 show-grid-small">
+				      <table class="table table-bordered table-striped" id="data-table">
+				        <thead>
+				          <tr class="header">
+				            <th>faavd</th>
+				            <th>faopd</th>
+				            <th>sumfabeln</th>
+				            <th>fadato</th>
+				            <th>fakda</th>
+				          </tr>
+				        </thead>
+				      </table>
+				    </div>
+				  </div>
+				</div>
+
+<!--  
+				<div class="container-fluid">
+				  <div class="row">  show-grid
 				    <div class="col-xs-9 dc-data-count dc-chart text12" id="data-count"> 
 				       <h3>Faktura poster
 				        <small>
@@ -405,7 +611,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				    </div>
 				  </div>
 				  
-				  <div class="row" id="control-row">  <!-- show-grid -->
+				  <div class="row" id="control-row">  show-grid 
 				    <div class="col-xs-4 col-md-3 pie-chart">
 				      <h4>År <small><a id="year">tilbakestill&nbsp;&nbsp;</a></small></h4>
 				      <div class="dc-chart" id="chart-ring-year"></div>
@@ -434,7 +640,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				    </div>
 				  </div>
 	
-				  <div class="row"> <!-- show-grid -->
+				  <div class="row">  show-grid 
 				    <div class="col-xs-9 col-md-9">
 				      <table class="table table-bordered table-striped" id="data-table">
 				        <thead>
@@ -451,6 +657,8 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				  </div>
 				</div>	 
 			</div>	    
+-->
+
 		 	   </td>
 	 	    </tr>
 	 	    
