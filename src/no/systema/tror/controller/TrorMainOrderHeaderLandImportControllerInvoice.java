@@ -39,8 +39,14 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeRecord;
+import no.systema.transportdisp.service.TransportDispChildWindowService;
+import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
+import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.TransportDispConstants;
+import no.systema.transportdisp.validator.TransportDispWorkflowSpecificOrderInvoiceValidator;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -76,6 +82,7 @@ import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -97,6 +104,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	//
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
@@ -113,40 +121,6 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	private String INVOICE_MINUS_CHARACTER = "-";
 	
 	
-	/**
-	 * 
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="Xtror_mainorderlandimport_invoice.do",  params="action=doInit", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		
-		Map model = new HashMap();
-		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_invoice");
-		logger.info("Method: doInit");
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-			
-		}else{
-			String avdTmp = request.getParameter("heavd");
-			String opdTmp = request.getParameter("heopd");
-			model.put("heavd", avdTmp);
-			model.put("heopd", opdTmp);
-			
-			//this.setDefaultValues(recordToValidate, appUser);
-			
-			//model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
-			//this.setCodeDropDownMgr(appUser, model);
-			
-		}
-		successView.addObject(TrorConstants.DOMAIN_MODEL , model);	
-		return successView;
-		
-	}
 	
 	/**
 	 * 
@@ -220,8 +194,181 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	    	
     		logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
 		    return successView;
+
 		}
 	}
+	/**
+	 * @Description IMPORTANT
+	 * All services are borrowed from AS400 Transp.Disp. The back-end should be edited when the migration project transfers all services to real java services (TROR)
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_invoice_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doEditInvoice(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		Map model = new HashMap();
+		String action = request.getParameter("action");
+		String heavd = request.getParameter("heavd");
+		String heopd = request.getParameter("heopd");
+		//String parentTrip = request.getParameter("hepro");
+		logger.info("ACTION: " + action);
+		
+		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_invoice.do?action=doFind&heavd=" + heavd + "&heopd=" + heopd + "&itemsType=O");
+		ModelAndView errorView = new ModelAndView("tror_mainorderlandimport_invoice");
+		
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+					
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			String lineId = recordToValidate.getFali();
+			
+			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
+				logger.info("[INFO] doUpdate action ...");
+				TransportDispWorkflowSpecificOrderInvoiceValidator validator = new TransportDispWorkflowSpecificOrderInvoiceValidator();
+				//Fetch some validation conditions
+				this.setGebyrMomsCode(appUser, recordToValidate);
+				//Validate
+				validator.validate(recordToValidate, bindingResult);
+				//check for ERRORS
+				if(bindingResult.hasErrors()){
+					
+					logger.info("[ERROR Validation] Record does not validate)");
+			    	logger.info("[INFO lineId] " + lineId);
+			    	//bindingErrorsExist = true;
+			    	//populate drop downs
+					this.setCodeDropDownMgr(appUser, model);
+					//this.setDropDownsFromFiles(model);
+			    	//return objects on validation errors
+			    	model.put(TransportDispConstants.DOMAIN_CONTAINER, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER));
+			    	model.put(TransportDispConstants.DOMAIN_LIST, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST));
+			    	model.put("record", recordToValidate);
+			    	//model.put("parentTrip", parentTrip);
+			    	//return model
+			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+			    	return errorView;
+			    	
+				}else{
+					String MODE = "U";
+					if(recordToValidate.getFali()!=null && !"".equals(recordToValidate.getFali())){
+						//UPDATE
+						logger.info("[INFO] UPDATE line nr: " + lineId + " start process... ");
+					}else{
+						//CREATE NEW = ADD
+						MODE = "A";
+						logger.info("[INFO] CREATE NEW line nr: " + lineId + " start process... ");
+					}
+					//-------------------------------
+					//Execute back-end Update/Create
+					//-------------------------------
+					JsonTransportDispWorkflowSpecificOrderInvoiceContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE);
+					if(container!=null){
+	    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	    					this.populateAspectsOnBackendError(appUser, container, recordToValidate, model, null, session);
+	    			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    					return errorView;
+	    				}else{
+	    					//succefully done!
+	    		    		logger.info("[INFO] Valid Update -- Record successfully updated, OK ");
+	    				}
+	    			}
+					logger.info("[INFO] UPDATE line nr: " + lineId + " end process. ");
+				}
+				
+			}else if(TvinnSadConstants.ACTION_DELETE.equals(action)){
+				String DELETE_MODE = "D";
+				JsonTransportDispWorkflowSpecificOrderInvoiceContainer container = this.executeUpdateLine(appUser, recordToValidate, DELETE_MODE);
+				if(container!=null){
+    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+    					this.populateAspectsOnBackendError(appUser, container, recordToValidate, model, null, session);
+    			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+    					return errorView;
+    				}else{
+    					//Delete succefully done!
+    		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
+    				}
+    			}
+			}
+		}
+		
+		return successView;
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param mode
+	 * @return
+	 */
+	private JsonTransportDispWorkflowSpecificOrderInvoiceContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate, String mode ){
+		JsonTransportDispWorkflowSpecificOrderInvoiceContainer retval = null;
+		
+		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getFali() + " start process... ");
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_INVOICE_URL;
+    	//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser()); 
+		urlRequestParams.append("&avd=" + recordToValidate.getHeavd());
+		urlRequestParams.append("&opd=" + recordToValidate.getHeopd());
+		urlRequestParams.append("&lin=");
+		if(recordToValidate.getFali()!=null && !"".equals(recordToValidate.getFali())){ urlRequestParams.append(recordToValidate.getFali()); }
+		urlRequestParams.append("&mode=" + mode);
+		//We need to fill out the record in case Update/Create
+		if(!"D".equals(mode)){
+			 String urlRequestParamsRecord = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+			 urlRequestParams.append(urlRequestParamsRecord);
+		}
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//Debug -->
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	
+		if(jsonPayload!=null){
+			JsonTransportDispWorkflowSpecificOrderInvoiceContainer container = this.transportDispWorkflowSpecificOrderService.getOrderInvoiceContainer(jsonPayload);
+			retval = container;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 */
+	private void setGebyrMomsCode(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate){
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_GEBYR_CODES_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kode=" + recordToValidate.getFavk() + "&getval=J";
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug -->
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	
+		if(jsonPayload!=null){
+			JsonTransportDispGebyrCodeContainer container = this.transportDispChildWindowService.getGebyrCodeContainer(jsonPayload);
+			if(container!=null){
+				for(JsonTransportDispGebyrCodeRecord  record : container.getGebyrKoder()){
+					recordToValidate.setIntMVAx(record.getIntMVAx());
+					recordToValidate.setKosMVAx(record.getKosMVAx());
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 * @param appUser
@@ -230,15 +377,30 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		//Sign / AVD
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCurrency(urlCgiProxyService, trorDropDownListPopulationService, model, appUser); 
+		this.codeDropDownMgr.populateHtmlDropDownsFromJsonStringGebyrCodes(this.urlCgiProxyService, this.transportDispDropDownListPopulationService, 
+				model, appUser);
 	}
 	/**
 	 * 
+	 * @param appUser
+	 * @param container
+	 * @param recordToValidate
 	 * @param model
+	 * @param parentTrip
+	 * @param session
 	 */
-	/*
-	private void setDropDownsFromFiles(Map<String, Object> model){
-		model.put(TrorConstants.RESOURCE_MODEL_KEY_CURRENCY_CODE_LIST, this.trorDropDownListPopulationService.getCurrencyList());
-	}*/
+	private void populateAspectsOnBackendError(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderInvoiceContainer container, JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate, Map model, String parentTrip, HttpSession session ){
+		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Linenr:[" + container.getLin() + "] " +  container.getErrMsg());
+		logger.info(container.getErrMsg());
+		//populate drop downs
+		this.setCodeDropDownMgr(appUser, model);
+		//this.setDropDownsFromFiles(model);
+    	//return objects on validation errors
+    	model.put(TransportDispConstants.DOMAIN_CONTAINER, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER));
+    	model.put(TransportDispConstants.DOMAIN_LIST, session.getAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST));
+    	model.put("record", recordToValidate);
+    	//model.put("parentTrip", parentTrip);
+	}
 	/**
 	 * 
 	 * @param model
@@ -410,6 +572,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		record.setFaVT(this.INVOICE_ITEM_LINE_GROUP_TOTAL_RECORD_LEGEND);
 		return record;
 	}
+	
+	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
@@ -433,6 +597,29 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
+	/** 
+	 * Note! IMPORTANT 
+	 * Borrowed from TranspDisp until the migration project starts
+	 *  
+	 */
+	@Qualifier ("transportDispChildWindowService")
+	private TransportDispChildWindowService transportDispChildWindowService;
+	@Autowired
+	public void setTransportDispChildWindowService (TransportDispChildWindowService value){ this.transportDispChildWindowService=value; }
+	public TransportDispChildWindowService getTransportDispChildWindowService(){return this.transportDispChildWindowService;}
+	
+	@Qualifier ("transportDispDropDownListPopulationService")
+	private TransportDispDropDownListPopulationService transportDispDropDownListPopulationService;
+	@Autowired
+	public void setTransportDispDropDownListPopulationService (TransportDispDropDownListPopulationService value){ this.transportDispDropDownListPopulationService=value; }
+	public TransportDispDropDownListPopulationService getTransportDispDropDownListPopulationService(){return this.transportDispDropDownListPopulationService;}
+	
+	@Qualifier ("transportDispWorkflowSpecificOrderService")
+	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
+	@Autowired
+	@Required
+	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService = value; }
+	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){ return this.transportDispWorkflowSpecificOrderService; }
 	
 	
 	

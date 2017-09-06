@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
 	<style type = "text/css">
+	.ui-dialog{font-size: 90.5%;}
+	
 	.ui-datepicker { font-size:9pt;}
 	
 	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
@@ -87,14 +89,25 @@
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 				 				Status:&nbsp;<b>${recordOrderTrorLandImport.hest}</b>
-				 				<div class="text11" style="position: relative;" align="left">
+				 				<div class="text11" style="position: relative; display: inline;" align="left" >
 				 				<span style="position:absolute;top:2px; width:400px;" id="status_info" class="popupWithInputText text11"  >
-					           		Bare status <b>TODO</b> eller <b>' '</b> kan redigeres. 
+					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
+										"syklusen" fra det første gang registreres til det er ferdig fakturert og avsluttet.</p> 
 				           			<ul>
-				           				<li><b>'TODO statuskoder'</b>&nbsp;Deklarasjonen er åpen for endring.
-				           				<li><b>TODO A</b>&nbsp;Deklarasjonen ligger i en sending i påvente av å bli sendt.</li>
-				           				<li><b>TODO C</b>&nbsp;Sendingen er videresendt til TVINN.</li>
-				           				<li><b>etc</b>&nbsp;Melding om dokumentkontroll er mottatt fra Tollvesenet.</li>	           				
+				           				<li><b>' '</b>&nbsp;(blank) "Åpent". Oppdraget er ikke fakturert og det er åpent for alle typer endringer.
+				           				<li><b>U</b>&nbsp;Booking / B/L er laget, men oppdrag er ikke bearbeidet. Hvis et oppdrag i sjø-modulen er påbegynt via Booking eller B/L, vill oppdraget inntil man går inn og jobber med det, ha denne statusen.</li>
+				           				<li><b>K</b>&nbsp;"Ferdigmeldt". Oppdraget ligger i kø for ferdigmeldte oppdrag. Man har fortsatt mulighet for å endre på fakturaen, eller omgjøre klarmeldingen.</li>
+				           				<li><b>C</b>&nbsp;"Klar for samlefaktura". Oppdraget ligger i kø for samlefaktura. Man har fremdeles mulighet for å endre på fakturaen eller fjerne fra samlefakturakø.</li>	
+				           				
+				           				<li><b>F</b>&nbsp;"Fakturert". Oppdraget er fakturert, men ennå ikke overført til økonomisystemet. Oppdraget kan hverken krediteres eller slettes i denne status. De enkelte fakturaer kan derimot slettes (MENU INV, punkt 6).Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ***".</li>	
+				           				<li><b>G</b>&nbsp;"Merket for overføring". Oppdragene har denne status i tiden mellom merking for overføring til regnskap og selve overføringen.Ved denne status kan fakturaer slettes. Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ****".Ordinær kreditering - se under.</li>	
+				           				<li><b>T</b>&nbsp;Overført men ikke oppdatert i statistikk. Et oppdrag med denne statusen er ferdig overført til regnskap, men ennå ikke oppdatert i statistikk.</li>	
+				           				<li><b>O</b>&nbsp;"Overført". Ferdig overført til regnskap. I denne status kan en faktura i sin helhet krediteres, men ikke slettes.</li>	
+				           				<li><b>S</b>&nbsp;"Slettet". Oppdraget er slettet via funksjon for sletting av oppdrag.</li>	
+				           				<li><b>X</b>&nbsp;"Under oppdatering ". Noen arbeider med oppdraget, og oppholder seg på oppdragsbildet. Hvis man, mens man er inne på et oppdrag, "mister" kontakten med systemet, eller det oppstår en feilsituasjon, vil oppdraget kunne bli "hengende" i status X.</li>	
+				           				<li><b>M</b>&nbsp;"Under oppdatering ". Oppdraget er låst fordi en overføring av import-MVA fra fortollingsprogrammet foregår akkurat nå. OBS! Som man forstår skal et oppdrag ha status 'X' eller 'M' kun en begrenset tidsperiode. Dersom oppdrag har denne status permanent skyldes dette unormalt jobbavbrudd - f.eks strømbrudd.
+				           						Ta i så fall kontakt med dataansvarlig slik at hun eller han kan rette statusen på oppdraget til ' '.</li>	
+				           							
 				           			</ul>
 								</span>	
 								</div>
@@ -112,25 +125,25 @@
 					 		<td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Eksportør</td>
+							            <td width="30%" class="text11Bold" align="left" ><spring:message code="systema.tror.orders.form.update.label.shipper"/></td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        
 							        <tr>
-							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.name"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.henas}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse-1&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr1"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse-2&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr2"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads2}</td>
 							        </tr>
 							        
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr3"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.heads3}</td>
 							        </tr>
 							        						        
@@ -139,24 +152,24 @@
 					        <td width="50%">
 						 		<table width="100%" border="0" cellspacing="1" cellpadding="0">
 							 		<tr>
-							            <td width="30%" class="text11Bold" align="left" >Mottaker</td>
+							            <td width="30%" class="text11Bold" align="left" ><spring:message code="systema.tror.orders.form.update.label.consignee"/></td>
 							            <td class="text11" align="left" >&nbsp;&nbsp;</td>
 							        </tr>
 							        
 							        <tr>
-							            <td width="30%" class="text11" align="left">Navn&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.name"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.henak}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse-1&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr1"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk1}</td>
 							        </tr>
 							        <tr>
-							            <td width="30%" class="text11" align="left">Adresse-2&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr2"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk2}</td>
 							        </tr>
 									<tr>
-							            <td width="30%" class="text11" align="left">Adresse-3&nbsp;</td>
+							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr3"/>&nbsp;</td>
 							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandImport.headk3}</td>
 							        </tr>
 							        
@@ -174,31 +187,21 @@
 					<table width="100%" cellspacing="0" border="0" cellpadding="0">
 	    				<%-- separator --%>
 	        			<tr height="10"><td></td></tr> 
+	        			<%--
 						<tr >
 							<td>
 							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODOtvinnsadexport_edit_finansopplysninger.do">
 								<input type="hidden" name="action" id="action" value='doFetch'>
-				 				<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandImport.heavd}'>
-				 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandImport.heopd}'>
-								<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
+				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
 				 				
 				 				
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
-									<tr>
-										<td class="text12Bold">
-											<c:if test="${model.status == 'M' || empty model.status}">
-												<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='TODOtvinnsadexport_edit_finansopplysninger.do';" value="<spring:message code="systema.tvinn.sad.import.item.line.init.createnew.submit"/>">
-												&nbsp;
-												<%--<button title="Import av eksterna fakturaer" name="TODOimportInvoicesButton" id="TODOimportInvoicesButton" class="buttonGrayWithGreenFrame" type="button" >Importera eksterna fakturaer</button> --%>
-											</c:if>
-										</td>
-									</tr>
 									<tr>
 										<td class="text12Bold">&nbsp;Antall varelinjer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerFinansOpplysningerTopic.totalNumberOfItemLines}</b></font>
 						            		</td>
 										<td align="right" class="text11">Fsum:&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopicTvinnSad.sebel1}">
-											<font class="inputText11BlueBoldReadOnly">${recordTopicTvinnSad.seval1}</font>
+											<font class="inputText11BlueBoldReadOnly">${XrecordTopicTvinnSad.seval1}</font>
 										</td>
 										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
 											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${Xmodel.recordItemContainerFinansOpplysningerTopic.calculatedItemLinesTotalAmount}">
@@ -217,20 +220,19 @@
 												</c:choose>
 												size="12" maxlength=20" value='${Xmodel.recordItemContainerFinansOpplysningerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount}'>
 										</td>
-										--%>
+										-- here END tag
 									</tr>
 									<tr height="2"><td></td></tr>
 								</table>
 							</form>
+							
 							</td>
 						</tr> 
-						
+						--%>
 						<tr>
 							<td >
 								<form name="formItemList" id="formItemList" method="POST" >
-				               		<input type="hidden" name="opdItemList" id="opdItemList" value="${model.opd}">
-			 						<input type="hidden" name="avdItemList" id="avdItemList" value="${model.avd}">
-			 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+				               		<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 				 				<table id="container tableTable" width="80%" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
@@ -238,19 +240,21 @@
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-										<th width="2%" align="center" class="text12">Lnr.</th>
-									    <th width="2%" align="center" class="text12">Endre</th> 
-									    <th align="center" class="text12">SK</th>
-									    <th align="left" class="text12">Kode</th>
-									    <th align="left" class="text12">Tekst</th> 
-									    <th width="2%" align="center" class="text12">Valuta</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;Beløp&nbsp;</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;Beløp&nbsp;</th>
-					                    <th width="2%" align="center" class="text12" nowrap>Mva</th>
-					                    <th width="2%" align="center" class="text12" nowrap>Opr</th>
+										<th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
+										<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+									    	<th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
+									    </c:if>
+									    <th align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
+									    <th align="left" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></th>
+									    <th align="left" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.text"/></th> 
+									    <th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.currency"/></th>
+					                    <th align="right" class="text12" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/>&nbsp;</th>
+					                    <th align="right" class="text12" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
+					                    <th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
+					                    <th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
 					                    
-					                    <c:if test="${model.status == 'M' || empty model.status}">
-					                    	<th width="2%" align="center" class="text12" nowrap>Slett</th>
+					                    <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+					                    	<th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.delete"/>Slett</th>
 					                    </c:if> 
 					               </tr> 
 								   </thead>
@@ -259,11 +263,15 @@
 				 					  	<c:if test="${not empty record.fali}">  
 							              <tr class="tableRow">
 										   <td width="2%" align="center" class="text11" >${record.fali}</td>
-							               <td width="2%" class="text11" align="center">
-							               		<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
-							               			<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-							               		</a>
-							               </td>
+
+										   <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+								               <td width="2%" class="text11" align="center">
+							               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
+							               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+							               			</a>							               			
+								               </td>
+							               </c:if>
+
 							               <td width="2%" align="center" class="text11" >${record.fask}</td>
 							               <td width="2%" align="center" class="text11" >${record.favk}</td>
 							               <td class="text11" align="left">${record.stdVt}
@@ -274,13 +282,16 @@
 							               <td align="right" class="text11" >&nbsp;${record.fabeln}</td>
 							               <td width="2%" align="center" class="text11" >${record.fakdm}</td>
 							               <td width="2%" align="center" class="text11" >${record.fakda}</td>
-							               
-										   <c:if test="${model.status == 'M' || empty model.status}">	
-								               <td width="2%" class="text11" align="center" nowrap>
-								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="tvinnsadexport_edit_finansopplysninger.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${Xrecord.sftxt}">
-								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-								               	</a>	&nbsp;
-								               </td>
+							               <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+							               		<td class="text11" align="center" nowrap>
+											   		<c:if test="${record.faopko==' ' || record.faopko=='A' || record.faopko=='B' || record.faopko=='C'}">
+								                   		<c:if test="${not empty record.fali}">
+									                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLandImport.heavd}@heopd_${recordOrderTrorLandImport.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+											               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+											               	</a>&nbsp;
+										               	</c:if>
+									               	</c:if>								               	
+							               		</td>
 							               </c:if>
 							            </tr>
 								        <%-- this param is used ONLY in this JSP 
@@ -288,6 +299,7 @@
 								        --%> 
 								        <%-- this param is used throughout the Controller --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
+								        <c:set var="ownKundnrVar" value="${record.fakunr}" scope="request" /> 
 								        </c:if>
 								        </c:forEach>
 						            </tbody>
@@ -323,6 +335,24 @@
 				</td>
 			</tr>
 			</spring:hasBindErrors>
+			<%-- -------------------------- --%>
+			<%-- Validation errors on model --%>
+			<%-- -------------------------- --%>
+			<c:if test="${not empty model.errorMessage}">
+				<tr>
+				<td>
+		           	<table width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
+		           	<tr>
+					<td valign="bottom" class="textError">					
+			            <ul>
+			            	<li >${model.errorMessage}</li>
+			            </ul>
+					</td>
+					</tr>
+					</table>
+				</td>
+				</tr>		
+			</c:if>
 			<%-- ------------------------------------------------- --%>
            	<%-- DETAIL Section - Create Item line PRIMARY SECTION --%>
            	<%-- ------------------------------------------------- --%>
@@ -331,14 +361,11 @@
 	 				<form name="trorEditInvoiceItemForm" id="trorEditInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<%-- 
-				 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
-				 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
-				 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
-				 	<input type="hidden" name="status" id="status" value="${model.status}"/>
-				 	<input type="hidden" name="datum" id="datum" value="${model.datum}"/>
-				 	<input type="hidden" name="fabl" id="fabl" value="${recordTopicTvinnSad.sebel1}"/>
-				 	--%>
+				 	<input type="hidden" name="fali" id="fali" value='${model.record.fali}'/>
+				 	<input type="hidden" name="fakunr" id="fakunr" value='${ownKundnrVar}'/>
+				 	<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandImport.heavd}'>
+	 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandImport.heopd}'>
+								
 				 	<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -358,7 +385,7 @@
 				           			</button> 
 				           		</div>
 				        		</span>
-				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
+				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit" >&nbsp;&nbsp;<div name="editLineNr" id="editLineNr" style="display: inline;" >${model.record.fali}</div>
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
 		           		   				${todo_activeUrlRPGUpdate_TvinnSad}<br/><br/>
@@ -374,30 +401,62 @@
 					 		<td>
 						 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							 		<tr>
-							 			<td class="text12" align="left"><span title="fask">&nbsp;SK</span></td>
-							            <td class="text12" align="left"><span title="favk">&nbsp;Kode</span></td>
-							            <td class="text12" align="left"><span title="faVT">&nbsp;Tekst</span></td>
-					            		<td class="text12" align="left"><span title="faval">&nbsp;Valuta</span></td>
-					            		<td class="text12" align="left"><span title="fabelv">&nbsp;Beløp</span></td>
-					            		<td class="text12" align="left"><span title="fakdm">&nbsp;MVA</span></td>
+							 			<td class="text12" align="left">
+							 				<img onMouseOver="showPop('sk_info');" onMouseOut="hidePop('sk_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 				<span title="fask"><spring:message code="systema.tror.orders.invoice.update.label.sk"/></span>
+							 				<div class="text11" style="position: relative; display: inline;" align="left">
+											<span style="position:absolute; width:200px;" id="sk_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>SK</b>
+							           			<div>
+							           				<p>
+							           				Selger(S) /Kjøper(K) .Tast <b>S</b> eller <b>K</b> for å styre denne linjen mot selgers eller kjøpers faktura.
+													</p>
+													<p>
+													<ul>
+														<li><b>A</b>=Belastning mot agent. (Gjelder kun for Landmodulen). <br/>
+															Fanges opp av ametasystemet og erstattes av linje med X (se under) ved den endelige belastning.
+														</li>
+														<li><b>X</b>=Fakturalinje mot "fri part". Ikke S eller K. Kundenummer tastes i felt KUNR (X).
+														</li>
+														<li><b>I</b>=Intern avdelingsbelastning. (Gjelder kun for Transport -modulen.)(Se også felt AVD (I)).
+														</li>
+														<li><b>F</b>=Flyfraktbrev. Fakturalinjene legges mot mottagersiden på flyfraktbrevet.
+														</li>
+													</ul>
+													</p>
+													<p>NB: Ved samlast export vil fakturalinjene ha status "K".</p>
+													
+	    										</div>	 
+						           				</font>
+											</span>
+											</div>
+							 			
+							 			</td>
+							            <td class="text12" align="left"><span title="favk">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></span></td>
+							            <td class="text12" align="left"><span title="faVT">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.text"/></span></td>
+					            		<td class="text12" align="left"><span title="faval">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.currency"/></span></td>
+					            		<td class="text12" align="left"><span title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/></span></td>
+					            		<td class="text12" align="left"><span title="fakdm">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.mva"/></span></td>
 							        </tr>
 							        <tr>
 						        		<td align="left">
+						        			
 						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fask" id="fask">
 						 						<option value="">-velg-</option>
-							 				  	<option value="A"<c:if test="${Xmodel.record.fask == 'A'}"> selected </c:if> >A</option>
-												<option value="F"<c:if test="${Xmodel.record.fask == 'F'}"> selected </c:if> >F</option>
-												<option value="I"<c:if test="${Xmodel.record.fask == 'I'}"> selected </c:if> >I</option>
-												<option value="K"<c:if test="${Xmodel.record.fask == 'K'}"> selected </c:if> >K</option>
-												<option value="S"<c:if test="${Xmodel.record.fask == 'S'}"> selected </c:if> >S</option>
-												<option value="X"<c:if test="${Xmodel.record.fask == 'X'}"> selected </c:if> >X</option>  
+							 				  	<option value="A"<c:if test="${model.record.fask == 'A'}"> selected </c:if> >A</option>
+												<option value="F"<c:if test="${model.record.fask == 'F'}"> selected </c:if> >F</option>
+												<option value="I"<c:if test="${model.record.fask == 'I'}"> selected </c:if> >I</option>
+												<option value="K"<c:if test="${model.record.fask == 'K'}"> selected </c:if> >K</option>
+												<option value="S"<c:if test="${model.record.fask == 'S'}"> selected </c:if> >S</option>
+												<option value="X"<c:if test="${model.record.fask == 'X'}"> selected </c:if> >X</option>  
 											</select>
 										</td>
 										<td class="text12" align="left">
 						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="favk" id="favk">
-						 						<option value="">-valuta-</option>
-							 				  	<c:forEach var="record" items="${model.todoCodeList}" >
-							 				  		<option value="${Xrecord.kvakod}"<c:if test="${Xmodel.record.hevalk == Xrecord.kvakod || (empty Xmodel.record.favk && Xrecord.kvakod=='NOK')}"> selected </c:if> >${Xrecord.kvakod}</option>
+						 						<option value="">-select-</option>
+							 				  	<c:forEach var="record" items="${model.gebyrCodesList}" >
+							 				  		<option value="${record.kgekod}"<c:if test="${model.record.favk == record.kgekod}"> selected </c:if> >${record.kgekod}</option>
 												</c:forEach> 
 											</select>
 							            </td>
@@ -430,18 +489,19 @@
 					    <tr height="10"><td colspan="2" ></td></tr>
 					    <tr>	
 						    <td align="left" colspan="5">
-									<c:choose>	
-										<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-											<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='todo_edit_finansopplysninger.do';" value='<spring:message code="systema.tror.submit.save"/>'>
-											&nbsp;&nbsp;&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.cancel"/>'>
-										</c:when>
-										<c:otherwise>
-				 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>
-				 				    	</c:otherwise>	
-			 				    	</c:choose>	
+								<c:choose>	
+									<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+										<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tror_mainorderlandimport_invoice_edit.do';" value='<spring:message code="systema.tror.submit.save"/>'>
+										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.submit.clearValues"/>'>
+									</c:when>
+									<c:otherwise>
+			 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>
+			 				    	</c:otherwise>	
+		 				    	</c:choose>	
 							</td>							        	
 				        </tr>
         	        </table>
+        	        </form>
 		        </td>
 		    </tr>
 			<tr height="20"><td colspan="2" ></td></tr>

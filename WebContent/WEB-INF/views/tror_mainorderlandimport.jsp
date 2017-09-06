@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="tror_mainorderlandimport.do"  onClick="setBlockUI(this);" name="trorOrderForm" id="trorOrderForm" method="post">
+<form action="tror_mainorderlandimport.do" s name="trorOrderForm" id="trorOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -1089,7 +1089,7 @@
 							<c:choose>
 			 				    <c:when test="${ not empty model.record.heopd }">
 			 				    	<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+			 				    		<input tabindex=-1 onClick="setBlockUI(this);" class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 			 				    	</c:if>
 			 				    </c:when>
 			 				    <c:otherwise>

@@ -40,7 +40,7 @@ public class TransportDispWorkflowSpecificOrderInvoiceValidator implements Valid
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fabelv", "systema.transportdisp.orders.invoice.form.error.null.belop.fabelv"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "faval", "systema.transportdisp.orders.invoice.form.error.null.valuta.faval"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fakdm", "systema.transportdisp.orders.invoice.form.error.null.mva.fakdm"); 
-		//logger.info(record.getIntMVAx() + "XXX" + record.getFakdm());
+		logger.info(record.getIntMVAx() + "XXX" + record.getFakdm());
 		//References
 		if(record!=null){
 			if( record.getIntMVAx()!=null && !"".equals(record.getIntMVAx()) ){ 

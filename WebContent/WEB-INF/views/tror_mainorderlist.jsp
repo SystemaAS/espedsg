@@ -125,6 +125,32 @@
 				        	<td>&nbsp;<font title="sign" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></font></td>
 				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.ordernr"/></font></td>
 				        	<td>&nbsp;<font title="date" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></font></td>
+				        	<td>
+				        		<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+				 				<font title="status" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></font>
+				 				<div class="text11" style="position: relative; display: inline;" align="left" >
+				 				<span style="position:absolute;top:2px; width:400px;" id="status_info" class="popupWithInputText text11"  >
+					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
+										"syklusen" fra det første gang registreres til det er ferdig fakturert og avsluttet.</p> 
+				           			<ul>
+				           				<li><b>' '</b>&nbsp;(blank) "Åpent". Oppdraget er ikke fakturert og det er åpent for alle typer endringer.
+				           				<li><b>U</b>&nbsp;Booking / B/L er laget, men oppdrag er ikke bearbeidet. Hvis et oppdrag i sjø-modulen er påbegynt via Booking eller B/L, vill oppdraget inntil man går inn og jobber med det, ha denne statusen.</li>
+				           				<li><b>K</b>&nbsp;"Ferdigmeldt". Oppdraget ligger i kø for ferdigmeldte oppdrag. Man har fortsatt mulighet for å endre på fakturaen, eller omgjøre klarmeldingen.</li>
+				           				<li><b>C</b>&nbsp;"Klar for samlefaktura". Oppdraget ligger i kø for samlefaktura. Man har fremdeles mulighet for å endre på fakturaen eller fjerne fra samlefakturakø.</li>	
+				           				
+				           				<li><b>F</b>&nbsp;"Fakturert". Oppdraget er fakturert, men ennå ikke overført til økonomisystemet. Oppdraget kan hverken krediteres eller slettes i denne status. De enkelte fakturaer kan derimot slettes (MENU INV, punkt 6).Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ***".</li>	
+				           				<li><b>G</b>&nbsp;"Merket for overføring". Oppdragene har denne status i tiden mellom merking for overføring til regnskap og selve overføringen.Ved denne status kan fakturaer slettes. Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ****".Ordinær kreditering - se under.</li>	
+				           				<li><b>T</b>&nbsp;Overført men ikke oppdatert i statistikk. Et oppdrag med denne statusen er ferdig overført til regnskap, men ennå ikke oppdatert i statistikk.</li>	
+				           				<li><b>O</b>&nbsp;"Overført". Ferdig overført til regnskap. I denne status kan en faktura i sin helhet krediteres, men ikke slettes.</li>	
+				           				<li><b>S</b>&nbsp;"Slettet". Oppdraget er slettet via funksjon for sletting av oppdrag.</li>	
+				           				<li><b>X</b>&nbsp;"Under oppdatering ". Noen arbeider med oppdraget, og oppholder seg på oppdragsbildet. Hvis man, mens man er inne på et oppdrag, "mister" kontakten med systemet, eller det oppstår en feilsituasjon, vil oppdraget kunne bli "hengende" i status X.</li>	
+				           				<li><b>M</b>&nbsp;"Under oppdatering ". Oppdraget er låst fordi en overføring av import-MVA fra fortollingsprogrammet foregår akkurat nå. OBS! Som man forstår skal et oppdrag ha status 'X' eller 'M' kun en begrenset tidsperiode. Dersom oppdrag har denne status permanent skyldes dette unormalt jobbavbrudd - f.eks strømbrudd.
+				           						Ta i så fall kontakt med dataansvarlig slik at hun eller han kan rette statusen på oppdraget til ' '.</li>	
+				           							
+				           			</ul>
+								</span>	
+								</div>
+				        	</td>
 				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></font></td>
 				        	<td>&nbsp;<font title="orderNr" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></font></td>
 				        	<%--<td>&nbsp;</td> --%>
@@ -132,7 +158,6 @@
 				        	<td>&nbsp;<font title="receiver" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></font></td>
 				        	<td>&nbsp;<font title="from" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></font></td>
 				        	<td>&nbsp;<font title="to" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></font></td>
-				        	<td>&nbsp;<font title="status" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></font></td>
 				        	
 			        	</tr>
 			        	<tr>
@@ -154,13 +179,15 @@
 					        </td>
 				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilterTror.orderNr}'></td>
 					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilterTror.date}'></td>
+					        <td><input type="text" class="inputText" name="status" id="status" size="3" maxlength="1" value='${searchFilterTror.status}'>&nbsp;</td>
+					        
 					        <td>
 					        	<select class="inputTextMediumBlue" name="ttype" id="ttype">
 					        		<option value="">-velg-</option>
-									<option value="A" <c:if test="${searchFilterTror.ttype == 'A'}"> selected </c:if> >Land import</option>
-									<option value="B" <c:if test="${searchFilterTror.ttype == 'B'}"> selected </c:if> >Land eksport</option>
-									<option value="C" <c:if test="${searchFilterTror.ttype == 'C'}"> selected </c:if> >Fly import</option>
-									<option value="D" <c:if test="${searchFilterTror.ttype == 'D'}"> selected </c:if> >Fly eksport</option>
+									<option value="A" <c:if test="${searchFilterTror.ttype == 'A'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.landimport"/></option>
+									<option value="B" <c:if test="${searchFilterTror.ttype == 'B'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.landexport"/></option>
+									<option value="C" <c:if test="${searchFilterTror.ttype == 'C'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.airimport"/></option>
+									<option value="D" <c:if test="${searchFilterTror.ttype == 'D'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.airexport"/></option>
 								</select>
 					        </td>
 					        <td><input type="text" class="inputText" name="godsNr" id="godsNr" size="10" maxlength="20" value='${searchFilterTror.godsNr}'></td>
@@ -175,7 +202,6 @@
 				        	<td><input type="text" class="inputText" name="receiver" id="receiver" size="15" maxlength="15" value='${searchFilterTror.receiver}'></td>
 				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilterTror.from}'></td>
 					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilterTror.to}'>&nbsp;</td>
-					        <td><input type="text" class="inputText" name="status" id="status" size="3" maxlength="1" value='${searchFilterTror.status}'>&nbsp;</td>
 					        <td>	
 					        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
 					        </td>   
@@ -534,10 +560,10 @@
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
 								<select class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
-									<option value="A">Land import</option>
-									<option value="B">Land eksport</option>
-									<option value="C">Fly import</option>
-									<option value="D">Fly eksport</option>
+									<option value="A"><spring:message code="systema.tror.order.suborder.landimport"/></option>
+									<option value="B"><spring:message code="systema.tror.order.suborder.landexport"/></option>
+									<option value="C"><spring:message code="systema.tror.order.suborder.airimport"/></option>
+									<option value="D"><spring:message code="systema.tror.order.suborder.airexport"/></option>
 								</select>
 								&nbsp;&nbsp;<div style="display:inline;" id="imagePreview"></div>
 							</td>

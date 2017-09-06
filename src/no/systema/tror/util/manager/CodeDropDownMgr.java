@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeRecord;
+import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
+import no.systema.transportdisp.util.TransportDispConstants;
 //eBooking
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
@@ -449,6 +454,41 @@ public class CodeDropDownMgr {
     	model.put(TrorConstants.RESOURCE_MODEL_KEY_TRANSPORTTYPE_CODE_LIST, list);
     	
 	}
+		
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
+		public void populateHtmlDropDownsFromJsonStringGebyrCodes(UrlCgiProxyService urlCgiProxyService, TransportDispDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+					String URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_GEBYR_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser() + "&fullinfo=N");
+					
+					//Now build the payload and send to the back end via the drop down service
+					logger.info("URL:" + URL);
+					logger.info("PARAMS:" + urlRequestParamsKeys.toString());
+					
+					String utfPayload = urlCgiProxyService.getJsonContent(URL, urlRequestParamsKeys.toString());
+					//logger.info(utfPayload);
+					JsonTransportDispGebyrCodeContainer container = listPopulationService.getGebyrCodeContainer(utfPayload);
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTransportDispGebyrCodeRecord record: container.getGebyrKoder()){
+						//logger.info("GEBYR RECORD: " + record.getKgekod());
+					}
+					model.put(TransportDispConstants.RESOURCE_MODEL_KEY_GEBYRCODES_LIST, container.getGebyrKoder());
+					
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+					
+			}	
 		
 		
 }
