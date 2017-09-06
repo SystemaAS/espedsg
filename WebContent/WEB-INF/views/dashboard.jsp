@@ -34,7 +34,7 @@
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
 							 				<a class="text14" href="report_dashboard.do" > 	
-			 									<img src="resources/images/bulletYellow.png" width="10px" height="10px" border="0">&nbsp;
+			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
 			 									<font class="text14NavyBlue">Report Dashboard</font>
 	 										</a>
 	 										
