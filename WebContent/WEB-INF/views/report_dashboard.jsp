@@ -7,6 +7,7 @@
   <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
   <script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
   <script src="http://colorbrewer2.org/export/colorbrewer.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.js"></script>
 
   <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -17,6 +18,7 @@
 
   <script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
   <script src="https://npmcdn.com/universe@latest/universe.js"></script>
+
 
 
 <style>
@@ -51,6 +53,11 @@ text {
   padding-bottom: 50px;
 }
 
+.padded-row {
+  padding-bottom: 50px;
+}
+
+
 a { cursor: pointer }
 
 .show-grid [class^="col-"] {
@@ -64,6 +71,22 @@ a { cursor: pointer }
     border: 1px solid #ddd;
     background-color: #eee !important;
 }
+
+.show-grid-left {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-right-style: none;
+}
+
+.show-grid-right {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-left-style: none;
+    text-align: right;
+    font-size: xx-small;
+    
+}
+
 
 .border {
     border: 1px solid #ddd;
@@ -80,7 +103,6 @@ a { cursor: pointer }
 
 <script type="text/javascript">
 
-// http://localhost:8080/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017
 d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error, data) {
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
@@ -102,30 +124,29 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  d.fakda = d.fakda;
 	});
  
-	// set crossfilte. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
+	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
 	var  fakt = crossfilter(faktData);	
 	var  all = fakt.groupAll();
 	
 	var  faktByYearDim  = fakt.dimension(function(d) {return d.year;});
 	var  faktByMonthDim  = fakt.dimension(function(d) {return +d.month;});
 	var  faktByAvdDim  = fakt.dimension(function(d) {return d.faavd;});
+	var  faktByFakdaDim  = fakt.dimension(function(d) {return d.fakda;});
 	var  faktByYearDimGroup = faktByYearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktByAvdDimGroup = faktByAvdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
-	var  fabelnPerAvd = faktByAvdDim.group().reduceSum(function (d) {return +d.sumfabeln ;});	
-
 	var  countFaktByMonth = faktByMonthDim.group().reduceCount();
-	var  countfaktByAvdDim = faktByAvdDim.group().reduceCount();
+	var  countFaktByFakda = faktByFakdaDim.group().reduceCount();
 	 
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  monthChart   = dc.pieChart('#chart-ring-month');
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
+	var  fakdaChart   = dc.pieChart('#chart-ring-fakda');
 	var  dataTable = dc.dataTable('#data-table');
 	var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  revenueSeriesChart = dc.seriesChart("#chart-revenue");
 	var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  moveChart = dc.lineChart('#monthly-move-chart');
-	var  avdFabelnRowChart = dc.rowChart("#chart-row-avdfabeln");	 
 	var  dataCount = dc.dataCount('#data-count')	 
 
     // Dimension by month
@@ -179,19 +200,19 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	    .controlsUseVisibility(true);
    
 	  monthChart
-      .width(150)
-      .height(150)
-      .dimension(faktByMonthDim)
-      .group(countFaktByMonth)
-      .innerRadius(30)
-      .ordering(function (d) {
-        var order = {
-          'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4,
-          'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8,
-          'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
-        };
-        return order[d.key];
-      });	  
+        .width(150)
+        .height(150)
+        .dimension(faktByMonthDim)
+        .group(countFaktByMonth)
+        .innerRadius(30)
+        .ordering(function (d) {
+          var order = {
+            'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4,
+            'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8,
+            'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+          };
+          return order[d.key];
+          });	  
 	  
 
 	  avdChart
@@ -202,24 +223,21 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
 	  
-	  
-	  avdFabelnRowChart
-	  	.width(900)
-	  	.height(250)
-       .dimension(faktByAvdDim)
-       .group(fabelnPerAvd)
-       .colors(d3.scale.ordinal().range(['red','green','blue']))
-       .elasticX(true);
+	  fakdaChart
+	    .width(150)
+	    .height(150)
+	    .dimension(faktByFakdaDim)
+	    .group(countFaktByFakda)
+	    .innerRadius(30)
+	    .controlsUseVisibility(true);
 	  
 	  
 	    //#### Bubble Chart
-
 	    //Create a bubble chart and use the given css selector as anchor. You can also specify
 	    //an optional chart group for this chart to be scoped within. When a chart belongs
 	    //to a specific group then any interaction with the chart will only trigger redraws
 	    //on charts within the same chart group.
 	    // <br>API: [Bubble Chart](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#bubble-chart)
-
 	    yearlyBubbleChart /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') */
 	        // (_optional_) define chart width, `default = 200`
 	        .width(1000)
@@ -263,7 +281,6 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	        .y(d3.scale.linear().domain([-100, 100]))  //-100, 100
 	        .r(d3.scale.linear().domain([0, 4000]))
 	        //##### Elastic Scaling
-
 	        //`.elasticY` and `.elasticX` determine whether the chart should rescale each axis to fit the data.
 	        .elasticY(true)
 	        .elasticX(true)
@@ -300,42 +317,41 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	        
 	        
 	        //#### Customize Axes
-
 	        // Set a custom tick format. Both `.yAxis()` and `.xAxis()` return an axis object,
 	        // so any additional method chaining applies to the axis, not the chart.
-	    //    .yAxis().tickFormat(function (v) {
-	    //        return v + '%';
-	    //    });
+		    //    .yAxis().tickFormat(function (v) {
+		    //        return v + '%';
+		    //    });
  	 
  
 	        //Inspired by https://github.com/dc-js/dc.js/blob/master/web/examples/series.html
 	        var mindate = new Date(2006,0,1),
                	maxdate = new Date(2006,12,31);
 	        revenueSeriesChart
-	        .width(1200)
-	        .height(320)
-	        .chart(function(c) { return dc.lineChart(c).interpolate('cardinal'); })
-	        //.x(d3.scale.linear().domain([0,20]))
-	        .x(d3.time.scale().domain([mindate, maxdate]))  //.range([1, 5]))
-	        .brushOn(false)
-	        //.yAxisLabel("Y axix")
-	        //.xAxisLabel("X axis")
-	        .clipPadding(10)
-	        .elasticY(true)
-	        .dimension(faktByYearDim)
-	        .group(yearPerformanceGroup)  //, faktByYearDimGroup
-	       // .mouseZoomable(true)
-	        .seriesAccessor(function(d) {
-	        	return "Key: " + d.key[0];
-	        	})
-	        .keyAccessor(function(d) {
-	        	//return +d.key[1];
-	        	 return d.key.sumIndex;
-	        	})
-	        .valueAccessor(function(d) {
-	        	return +d.value.sumfabeln;
-	        	})
-	        //.legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
+		        .width(1200)
+		        .height(320)
+		        .chart(function(c) { return dc.lineChart(c).interpolate('cardinal'); })
+		        //.x(d3.scale.linear().domain([0,20]))
+		        .x(d3.time.scale().domain([mindate, maxdate]))  //.range([1, 5]))
+		        .brushOn(false)
+		        //.yAxisLabel("Y axix")
+		        //.xAxisLabel("X axis")
+		        .clipPadding(10)
+		        .elasticY(true)
+		        .dimension(faktByYearDim)
+		        .group(yearPerformanceGroup)  //, faktByYearDimGroup
+		       // .mouseZoomable(true)
+		        .seriesAccessor(function(d) {
+		        	return "Key: " + d.key[0];
+		        	})
+		        .keyAccessor(function(d) {
+		        	//return +d.key[1];
+		        	 return d.key.sumIndex;
+		        	})
+		        .valueAccessor(function(d) {
+		        	return +d.value.sumfabeln;
+		        	})
+		        //.legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
 	        
 	        revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d);});
 	        //revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d+299500);});
@@ -343,7 +359,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	        
 		    //https://github.com/dc-js/dc.js/blob/develop/web/play-ground.html        
 	        lineChartDate.width(1000)
-	                .height(320)
+	                .height(325)
 	               //.margins({top: 30, right: 50, bottom: 30, left: 30})
 	                //.dimension(faktByYearDim)
 	                //.group(faktByYearDimGroup, "Id Sum")
@@ -362,6 +378,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	                .x(d3.scale.linear().domain([0,12]))
 	                .xUnits(d3.time.month)
 	                .elasticY(true)
+	                .renderHorizontalGridLines(true)
 	                .renderArea(true)
 	               // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
 	                //.xAxis().ticks(5);	        
@@ -438,7 +455,10 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 		 avdChart.filterAll();
 		 dc.redrawAll();
 	   });	   
-	   
+	   d3.selectAll('a#fakda').on('click', function () {
+			 fakdaChart.filterAll();
+			 dc.redrawAll();
+	   });	   
 
 	   dataCount
 	      .dimension(fakt)
@@ -448,7 +468,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	   dataTable
 	    .dimension(faktAllDim)
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
-	    .size(2000)
+	    .size(3000)  //TODO
 	    .columns([
 	      function (d) { return d.faavd; },
 	      function (d) { return d.faopd; },
@@ -464,7 +484,6 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	      
 	  });
 	  
-	
 	  dc.renderAll(); 
     
  });
@@ -512,20 +531,22 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				  <div class="row">
 				    <div class="col-md-2">
 				      <div class="row">
-   						 <div class="col-md-12 show-grid-small">
-   						   År <small><a id="year">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   						   						  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   						   tilbakestill</a></small>
+   						 <div class="col-md-6 show-grid-left">
+   						    År 
    						 </div>
+  	  				    <div class="col-md-6 show-grid-right">
+							 <a id="year">tilbakestill</a>			    
+	  				    </div> 						 
    					  </div>
    					  <div class="row border">
 				        <div class=" col-md-12 dc-chart" id="chart-ring-year"></div> 						 
 				      </div>
 				      <div class="row">
-	  					<div class="col-md-12 show-grid-small">
-	  						Avdeling <small><a id="avd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  						tilbakestill</a></small>
+	  					<div class="col-md-6 show-grid-left">
+	  						Avdeling 
+	  					</div>	
+	  				    <div class="col-md-6 show-grid-right">
+							 <a id="avd">tilbakestill</a>			    
 	  				    </div>
 	  				  </div>
 	  				  <div class="row border">
@@ -534,45 +555,47 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				    </div>
 				    <div class="col-md-10">
 				      <div class="row">
-   						 <div class="col-md-12 show-grid-small">
-   						    Intekt og kostnad <small><a id="intekkt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  						tilbakestill</a></small> 
+   						 <div class="col-md-6 show-grid-left">
+   						    Intekt og kostnad 
    						 </div>
+   	  				    <div class="col-md-6 show-grid-right">
+							 <a id="intekkt">tilbakestill</a>			    
+	  				    </div>						 
 				      </div>
 				      <div class="row border">
 						 <div class=" col-md-12 dc-chart" id="line-chart-date"></div>  <!-- chart-revenue,   , monthly-move-chart-->  
 				      </div>
-
-
 				    </div>
 				  </div>
 				  <div class="row">
 				    <div class="col-md-2">
-						row 3 col 1
-						<!--  <div class="dc-chart" id="chart-row-avdfabeln"></div>-->
+				      <div class="row">
+	  					<div class="col-md-6 show-grid-left">
+	  						Fakda 
+	  				    </div>
+						<div class="col-md-6 show-grid-right">
+							<a id="fakda">tilbakestill</a>
+						</div>
+	  				  </div>
+	  				  <div class="row border">
+					      <div class="col-md-12 dc-chart" id="chart-ring-fakda"></div>
+				      </div>
 					</div>
 				    <div class="col-md-10">
 				      <div class="row">
-   						 <div class="col-md-12 show-grid-small">
-   						  Testing 2 <small><a id="test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  						tilbakestill</a></small> 
+   						 <div class="col-md-6 show-grid-left">
+   						   Testing 2 
    						 </div>
+ 						<div class="col-md-6 show-grid-right">
+							<a id="test">tilbakestill</a>
+						</div>  						 
 				      </div>
 				      <div class="row border">
 						 <div class=" col-md-12 dc-chart" id="yearly-bubble-chart"></div>
 				      </div>
-
-
 					</div>
 				  </div>	
+	
 				  <div class="row">
 				    <div class="col-md-12 show-grid-small" id="data-count"> 
 				        <small>
@@ -581,6 +604,9 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				        </small>
 				    </div>
 				  </div>
+	
+				  <div class="padded-row">&nbsp;</div>
+	
 				  <div class="row">
 				    <div class="col-md-12 show-grid-small">
 				      <table class="table table-bordered table-striped" id="data-table">
@@ -596,6 +622,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				      </table>
 				    </div>
 				  </div>
+	
 				</div>
 
 <!--  
