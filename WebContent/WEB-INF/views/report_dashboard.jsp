@@ -103,7 +103,7 @@ a { cursor: pointer }
 
 <script type="text/javascript">
 
-d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error, data) {
+d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -122,6 +122,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  d.sumfabeln = +d.sumfabeln;
 	  d.fadato = d.fadato;
 	  d.fakda = d.fakda;
+	  d.faopko = d.faopko;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -132,16 +133,19 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	var  faktByMonthDim  = fakt.dimension(function(d) {return +d.month;});
 	var  faktByAvdDim  = fakt.dimension(function(d) {return d.faavd;});
 	var  faktByFakdaDim  = fakt.dimension(function(d) {return d.fakda;});
+	var  faktByFaopkoDim  = fakt.dimension(function(d) {return d.faopko;});
 	var  faktByYearDimGroup = faktByYearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktByAvdDimGroup = faktByAvdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
 	var  countFaktByMonth = faktByMonthDim.group().reduceCount();
 	var  countFaktByFakda = faktByFakdaDim.group().reduceCount();
+	var  countFaktByFaopko = faktByFaopkoDim.group().reduceCount();
 	 
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  monthChart   = dc.pieChart('#chart-ring-month');
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  fakdaChart   = dc.pieChart('#chart-ring-fakda');
+	var  faopkoChart   = dc.pieChart('#chart-ring-faopko');
 	var  dataTable = dc.dataTable('#data-table');
 	var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  revenueSeriesChart = dc.seriesChart("#chart-revenue");
@@ -230,6 +234,15 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	    .group(countFaktByFakda)
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
+	  
+	  faopkoChart
+	    .width(150)
+	    .height(150)
+	    .dimension(faktByFaopkoDim)
+	    .group(countFaktByFaopko)
+	    .innerRadius(30)
+	    .controlsUseVisibility(false);	//true
+	  
 	  
 	  
 	    //#### Bubble Chart
@@ -458,7 +471,13 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	   d3.selectAll('a#fakda').on('click', function () {
 			 fakdaChart.filterAll();
 			 dc.redrawAll();
-	   });	   
+	   });	
+	   d3.selectAll('a#faopko').on('click', function () {
+			 faopkoChart.filterAll();
+			 dc.redrawAll();
+	   });		   
+	   
+	   
 
 	   dataCount
 	      .dimension(fakt)
@@ -474,7 +493,8 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	      function (d) { return d.faopd; },
 	      function (d) { return d.sumfabeln; },
 	      function (d) { return d.fadato; },
-	      function (d) { return d.fakda; }
+	      function (d) { return d.fakda; },
+	      function (d) { return d.faopko; }
 	    ])
 	   // .sortBy(dc.pluck('rating_score'))
 	    .order(d3.descending)
@@ -539,7 +559,9 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  				    </div> 						 
    					  </div>
    					  <div class="row border">
-				        <div class=" col-md-12 dc-chart" id="chart-ring-year"></div> 						 
+				        <div class="col-md-12 dc-chart" id="chart-ring-year" align="center">
+				   			<div><span class="filter"></span></div>
+				        </div> 						 
 				      </div>
 				      <div class="row">
 	  					<div class="col-md-6 show-grid-left">
@@ -550,7 +572,9 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  				    </div>
 	  				  </div>
 	  				  <div class="row border">
-					      <div class="col-md-12 dc-chart" id="chart-ring-avd"></div>
+					      <div class="col-md-12 dc-chart" id="chart-ring-avd" align="center">
+							  <div><span class="filter"></span></div>
+					      </div>
 				      </div>
 				    </div>
 				    <div class="col-md-10">
@@ -563,7 +587,9 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 	  				    </div>						 
 				      </div>
 				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="line-chart-date"></div>  <!-- chart-revenue,   , monthly-move-chart-->  
+						 <div class=" col-md-12 dc-chart" id="line-chart-date" align="center">
+						 	<div><span class="filter"></span></div>
+						 </div>  <!-- chart-revenue,   , monthly-move-chart-->  
 				      </div>
 				    </div>
 				  </div>
@@ -571,14 +597,16 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				    <div class="col-md-2">
 				      <div class="row">
 	  					<div class="col-md-6 show-grid-left">
-	  						Fakda 
+	  						Faopko
 	  				    </div>
 						<div class="col-md-6 show-grid-right">
-							<a id="fakda">tilbakestill</a>
+							<a id="faopko">tilbakestill</a>
 						</div>
 	  				  </div>
 	  				  <div class="row border">
-					      <div class="col-md-12 dc-chart" id="chart-ring-fakda"></div>
+					      <div class="col-md-12 dc-chart" id="chart-ring-faopko" align="center">
+						    <div><span class="filter"></span></div>
+					      </div>
 				      </div>
 					</div>
 				    <div class="col-md-10">
@@ -591,18 +619,20 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 						</div>  						 
 				      </div>
 				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="yearly-bubble-chart"></div>
+						 <div class=" col-md-12 dc-chart" id="yearly-bubble-chart">
+						 	<div><span class="filter"></span></div>
+						 </div>
 				      </div>
 					</div>
 				  </div>	
 	
 				  <div class="row">
-				    <div class="col-md-12 show-grid-small" id="data-count"> 
-				        <small>
-				          <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster |
-				           <a id="all" href="#">tilbakestill alt</a>
-				        </small>
+				    <div class="col-md-6 show-grid-left" id="data-count"> 
+				        <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster.
 				    </div>
+				    <div class="col-md-6 show-grid-right">
+						<a id="all">tilbakestill alt</a>
+					</div> 
 				  </div>
 	
 				  <div class="padded-row">&nbsp;</div>
@@ -617,6 +647,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR&year=2017", function(error,
 				            <th>sumfabeln</th>
 				            <th>fadato</th>
 				            <th>fakda</th>
+					        <th>faopko</th>			            
 				          </tr>
 				        </thead>
 				      </table>
