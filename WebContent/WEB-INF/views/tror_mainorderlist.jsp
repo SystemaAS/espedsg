@@ -203,7 +203,7 @@
 				        	<td><input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilterTror.from}'></td>
 					        <td><input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilterTror.to}'>&nbsp;</td>
 					        <td>	
-					        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
+					        	<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
 					        </td>   
 				        </tr>
 				    </table>    

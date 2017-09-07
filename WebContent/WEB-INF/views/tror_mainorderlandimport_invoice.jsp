@@ -358,7 +358,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form name="trorEditInvoiceItemForm" id="trorEditInvoiceItemForm" method="post">
+	 				<form action="tror_mainorderlandimport_invoice_edit.do" name="trorEditInvoiceItemForm" id="trorEditInvoiceItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 				 	<input type="hidden" name="fali" id="fali" value='${model.record.fali}'/>
@@ -419,7 +419,7 @@
 														</li>
 														<li><b>X</b>=Fakturalinje mot "fri part". Ikke S eller K. Kundenummer tastes i felt KUNR (X).
 														</li>
-														<li><b>I</b>=Intern avdelingsbelastning. (Gjelder kun for Transport -modulen.)(Se også felt AVD (I)).
+														<li><b>I</b>=Intern avdelingsbelastning. (Gjelder kun for Transport -modulen).
 														</li>
 														<li><b>F</b>=Flyfraktbrev. Fakturalinjene legges mot mottagersiden på flyfraktbrevet.
 														</li>
@@ -491,7 +491,7 @@
 						    <td align="left" colspan="5">
 								<c:choose>	
 									<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-										<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='tror_mainorderlandimport_invoice_edit.do';" value='<spring:message code="systema.tror.submit.save"/>'>
+										<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.submit.clearValues"/>'>
 									</c:when>
 									<c:otherwise>
