@@ -283,6 +283,7 @@
 	  		if(jq('#hesdf').val()!=''){
 	    		refreshCustomValidity(jq('#hesdf')[0]);
 	  		}else{
+	  			/*	
 	  			if(jq('#heads3').val()!=''){
 	  				var tmp = jq('#heads3').val();
 	  				var SPACE = " ";
@@ -294,19 +295,20 @@
 	  					postNr = tmp.substring(0, n);
 	  				}
 	  				jq('#hesdf').val(postNr);
-	  			}
+	  			}*/
 	  		}
 	  	});
 	  	
 	  	
 	    jq('#hesdf').blur(function() {
+	    	/*
 	    	var id = jq('#hesdf').val();
 	    	if(id!=null && id!=""){
 	    		var countryCode = jq('#helka').val();
 	    		//getCity(CITY_OWNwppns1,id,countryCode);
 	    	}else{
 	    		jq('#OWNwppns1').val("");
-	    	}
+	    	}*/
 		});
 		
 	    jq('#hesdfIdLink').click(function() {
@@ -332,6 +334,7 @@
 	    	if(jq('#hesdt').val()!=''){
 	    		refreshCustomValidity(jq('#hesdt')[0]);
 	  		}else{
+	  				/*
 	  			if(jq('#headk3').val()!=''){
 	  				var tmp = jq('#headk3').val();
 	  				var SPACE = " ";
@@ -344,17 +347,18 @@
 	  				}
 	  				
 	  				jq('#hesdt	').val(postNr);
-	  			}
+	  			}*/
 	  		}
 	  	});
 	    jq('#hesdt').blur(function() {
+	    	/*
     		var id = jq('#hesdt').val();
     		if(id!=null && id!=""){
     			var countryCode = jq('#hetri').val();
     			//getCity(CITY_OWNwppns2,id,countryCode);
     		}else{
     			jq('#OWNwppns2').val("");
-    		}
+    		}*/
 		});
 	    
 	    jq('#hesdtIdLink').click(function() {

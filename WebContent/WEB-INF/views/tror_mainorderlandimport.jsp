@@ -231,7 +231,7 @@
 						 			</c:otherwise>
 					 			</c:choose>
 						 			
-					 			<table width="100%" border="0">
+					 			<table width="100%" border="0">TT
 					 			<tr height="10"><td ></td></tr>
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
