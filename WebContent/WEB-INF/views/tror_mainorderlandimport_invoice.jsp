@@ -538,70 +538,8 @@
 							 			<td class="text12" align="left" >&nbsp;
 							            	<img onMouseOver="showPop('utgift_info');" onMouseOut="hidePop('utgift_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 				<span title="fakduk/facu33/fabelu"><spring:message code="systema.tror.orders.invoice.update.label.utgift"/></span>
-							 				
-							            </td>
-							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.currency"/></td>
-							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.costbelopp"/></td>
-							            <td class="text12" align="left"><span title="falevn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.id"/></span>
-						            		<a tabindex=-1 id="falevnIdLink" >
-	 											<img id="imgSupplierSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 										</a>
-						            	</td>
-						            	<td class="text12" align="left" ><span title="lnavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.name"/></span></td>
-							            <td>
-							            	<table>
-							            	<tr>
-							            		<td class="text12" align="left"><span title="wkomp">&nbsp;
-								            		<img onMouseOver="showPop('komp_info');" onMouseOut="hidePop('komp_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								            		<spring:message code="systema.tror.orders.invoice.update.label.komplett"/></span>
-							            		</td>
-							            		<td class="text12" align="left"><span title="facd11">&nbsp;&nbsp;&nbsp;
-								            		<img onMouseOver="showPop('sam_info');" onMouseOut="hidePop('sam_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								            		<spring:message code="systema.tror.orders.invoice.update.label.samm"/></span>
-								            	</td>
-					            			</tr>
-					            			<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute; top:20px; width:350px" id="komp_info" class="popupWithInputText"  >
-												<font class="text11">
-							           			<b>Komplett</b>
-							           			<div>
-							           				<p>Man kan her, ved manuell oppretting av fakturalinje, angi hvilken bruttotabell gebyrprisen skal hentes fra.</p>
-							           				Det er ikke krav til feltet.
-							           				<p>Dette feltet er kun i bruk for de som benytter "Frakttabeller/Land og sjø-LCL (ikke postal)" (MENU MAINT3, punkt 3 og MENU MAINT4, punkt 4). Skal frakt beregnes etter komplett enhet ? </p>
-							           				<p>Har kunden booket en komplett enhet kan fraktprisen hentes ved å taste 1,2 eller 3 her.</p>
-							           				<ul>
-														<li><b>1</b> = Hent pris for hele forvognen.</li> 
-														<li><b>2</b> = Hent pris for hele hengeren.</li>
-														<li><b>3</b> = Hent pris for hele vogntoget.</li>
-													</ul>
-													<p>
-													OBS! Om en glemmer å taste noe her, så vil likevel aldri en vektberegnet pris bli større enn tallet gitt i "Komplett" i fraktavtalen.
-							           				</p>
-	    										</div>	 
-						           			</font>
-											</span>
-											</div>
-											
-											<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute; top:20px; width:350px" id="sam_info" class="popupWithInputText"  >
-												<font class="text11">
-							           			<b>Samm</b>
-							           			<div>
-							           				<p>Hvis gebyret i fakturautskriften skal slås sammen med en eller flere andre gebyrlinjer under en felles gebyrtekst,
-							           				 skal det her ligge en kode som forteller hvilke linjer som skal slås sammen og med hvilken gebyrtekst.</p>
-							           				<p>Denne sammenslåingen vil kun påvirke fakturautskriften.
-							           				Systemet vil ta vare på og overføre til regnskap hver enkelt fakturalinje som vanlig</p>
-													
-	    										</div>	 
-						           			</font>
-											</span>
-											</div>
-											
-					            			</table>
-					            		</td>
-					            		
-					            		<div class="text11" style="position: relative;" align="left">
-											<span style="position:absolute; left:10px; top:90px; width:400px;" id="utgift_info" class="popupWithInputText"  >
+							 				<div class="text11" style="position: relative; display: inline;" align="left">
+											<span style="position:absolute; width:400px;" id="utgift_info" class="popupWithInputText"  >
 												<font class="text11">
 							           			<b>Utgift</b>
 							           			<div>
@@ -633,11 +571,66 @@
 													</p>
 													<p>Ved å sette kode N i feltet kan man overstyre kravet til å taste utgift.</p>
 	    										</div>	
-	    										 
-						           			</font>
+	    										</font>
 											</span>
 											</div>
-					            			
+							            </td>
+							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.currency"/></td>
+							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.costbelopp"/></td>
+							            <td class="text12" align="left"><span title="falevn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.id"/></span>
+						            		<a tabindex=-1 id="falevnIdLink" >
+	 											<img id="imgSupplierSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+						            	</td>
+						            	<td colspan="2" class="text12" align="left" ><span title="lnavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.name"/></span></td>
+							            
+					            		<td class="text12" align="left"><span title="wkomp">
+						            		<img onMouseOver="showPop('komp_info');" onMouseOut="hidePop('komp_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            		<spring:message code="systema.tror.orders.invoice.update.label.komplett"/></span>
+						            		<div class="text11" style="position: relative; display: inline;" align="left">
+											<span style="position:absolute; width:350px" id="komp_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Komplett</b>
+							           			<div>
+							           				<p>Man kan her, ved manuell oppretting av fakturalinje, angi hvilken bruttotabell gebyrprisen skal hentes fra.</p>
+							           				Det er ikke krav til feltet.
+							           				<p>Dette feltet er kun i bruk for de som benytter "Frakttabeller/Land og sjø-LCL (ikke postal)" (MENU MAINT3, punkt 3 og MENU MAINT4, punkt 4). Skal frakt beregnes etter komplett enhet ? </p>
+							           				<p>Har kunden booket en komplett enhet kan fraktprisen hentes ved å taste 1,2 eller 3 her.</p>
+							           				<ul>
+														<li><b>1</b> = Hent pris for hele forvognen.</li> 
+														<li><b>2</b> = Hent pris for hele hengeren.</li>
+														<li><b>3</b> = Hent pris for hele vogntoget.</li>
+													</ul>
+													<p>
+													OBS! Om en glemmer å taste noe her, så vil likevel aldri en vektberegnet pris bli større enn tallet gitt i "Komplett" i fraktavtalen.
+							           				</p>
+	    										</div>	 
+						           				</font>
+											</span>
+											</div>
+
+					            		</td>
+					            		<td class="text12" align="left"><span title="facd11">
+						            		<img onMouseOver="showPop('sam_info');" onMouseOut="hidePop('sam_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						            		<spring:message code="systema.tror.orders.invoice.update.label.samm"/></span>
+						            		<div class="text11" style="position: relative; display: inline;" align="left">
+											<span style="position:absolute; width:350px" id="sam_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Samm</b>
+							           			<div>
+							           				<p>Hvis gebyret i fakturautskriften skal slås sammen med en eller flere andre gebyrlinjer under en felles gebyrtekst,
+							           				 skal det her ligge en kode som forteller hvilke linjer som skal slås sammen og med hvilken gebyrtekst.</p>
+							           				<p>Denne sammenslåingen vil kun påvirke fakturautskriften.
+							           				Systemet vil ta vare på og overføre til regnskap hver enkelt fakturalinje som vanlig</p>
+													
+	    										</div>	 
+						           				</font>
+											</span>
+											</div>
+						            		
+						            	</td>
+			            			</tr>
+		            				
 							        </tr>
 							        <tr>
 							        	<td class="text12">&nbsp;
@@ -663,27 +656,39 @@
 										<td class="text12" align="left" >
 											<input type="text" class="inputText" name="falevn" id="falevn" size="9" maxlength="8" value="${model.record.falevn}">
 										</td>
-							            <td class="text12" align="left" >
+							            <td colspan="2" class="text12" align="left" >
 											<input type="text" class="inputText" name="lnavn" id="lnavn" size="20" maxlength="35" value="${model.record.lnavn}">
 										</td>
-							            <td>
-							            	<table>
-							            	<tr>
-												<td class="text12" align="left" nowrap>
-									            	<input type="text" class="inputText" name="wkomp" id="wkomp" size="5" maxlength="5" value="${model.record.wkomp}">
+										<td class="text12" align="left" nowrap>
+							            	<input type="text" class="inputText" name="wkomp" id="wkomp" size="5" maxlength="5" value="${model.record.wkomp}">
+										</td>
+						        		<td class="text12" align="left">
+						            		<input type="text" class="inputText" name="facd11" id="facd11" size="5" maxlength="5" value="${model.record.facd11}">
+						            	</td>
+			            				
+			            				<c:choose>	
+											<c:when test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
+												<td align="center">
+													<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 												</td>
-								        		<td class="text12" align="left">
-								            		<input type="text" class="inputText" name="facd11" id="facd11" size="5" maxlength="5" value="${model.record.facd11}">
-								            	</td>
-					            			</tr>
-					            			</table>
-					            		</td>
+												<td align="left" colspan="3">	
+													<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.submit.clearValues"/>'>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td align="left" colspan="2">
+					 				    			<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>
+					 				    		</td>
+					 				    	</c:otherwise>	
+				 				    	</c:choose>	
+										
 							        </tr>
 							        
 							        <tr height="10"><td class="text" align="left"></td></tr>
 						        </table>
 					        </td>
 				        </tr>
+				        <%--
 					    <tr height="10"><td colspan="2" ></td></tr>
 					    <tr>	
 						    <td align="left" colspan="5">
@@ -698,6 +703,7 @@
 		 				    	</c:choose>	
 							</td>							        	
 				        </tr>
+				         --%>
         	        </table>
         	        </form>
 		        </td>

@@ -205,7 +205,6 @@ public class TrorMainOrderHeaderLandImportController {
 					}else{
 						//create new
 						logger.info("doCreate");
-						/*TODO
 						dmlRetval = this.updateRecord(model, appUser.getUser(), recordToValidate, TrorConstants.MODE_ADD, errMsg);
 						model.put("selectType", "");
 						if(dmlRetval==0){
@@ -216,7 +215,7 @@ public class TrorMainOrderHeaderLandImportController {
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
 				    		
 						}
-			    		*/
+			    		
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
