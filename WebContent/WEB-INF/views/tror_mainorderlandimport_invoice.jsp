@@ -80,15 +80,15 @@
 			<tr>
 	 			<td >		
 	 				<%-- MASTER Topic header --%>
-	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;Avd&nbsp;<b>${recordOrderTrorLandImport.heavd}</b>
-				 				&nbsp;Ordre&nbsp;<b>${recordOrderTrorLandImport.heopd}</b>
-				 				&nbsp;Sign&nbsp;<b>${recordOrderTrorLandImport.hesg}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.avd"/>&nbsp;<b>${recordOrderTrorLandImport.heavd}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.order"/>&nbsp;<b>${recordOrderTrorLandImport.heopd}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sign"/>&nbsp;<b>${recordOrderTrorLandImport.hesg}</b>
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				Status:&nbsp;<b>${recordOrderTrorLandImport.hest}</b>
+				 				<spring:message code="systema.tror.orders.invoice.update.label.status"/>&nbsp;<b>${recordOrderTrorLandImport.hest}</b>
 				 				<div class="text11" style="position: relative; display: inline;" align="left" >
 				 				<span style="position:absolute;top:2px; width:400px;" id="status_info" class="popupWithInputText text11"  >
 					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
@@ -111,15 +111,17 @@
 				           			</ul>
 								</span>	
 								</div>
-				 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Turnr&nbsp;<b>${recordOrderTrorLandImport.hepro}</b>
-				 				&nbsp;Godsnr.&nbsp;<b>${recordOrderTrorLandImport.hegn}</b>
-				 				&nbsp;Frankatur&nbsp;<b>${recordOrderTrorLandImport.hefr}</b>
+				 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.turnr"/>&nbsp;<b>${recordOrderTrorLandImport.hepro}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.godsnr"/>&nbsp;<b>${recordOrderTrorLandImport.hegn}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.frankatur"/>&nbsp;<b>${recordOrderTrorLandImport.hefr}</b>
+				 				&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.fvekt"/>&nbsp;<b>${recordOrderTrorLandImport.hefbv}</b>
+				 				
 				 				
 			 				</td>
 		 				</tr>
 	 				</table>
 					<%-- MASTER Topic information [it is passed through a session object: XX] --%>
-				 	<table height="40" width="80%" align="left" class="formFrameTitaniumWhite" border="0" cellspacing="0" cellpadding="0">
+				 	<table height="40" width="90%" align="left" class="formFrameTitaniumWhite" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="2"><td class="text" align="left" colspan="2"></td></tr>
 				 		<tr>
 					 		<td width="50%">
@@ -233,28 +235,30 @@
 							<td >
 								<form name="formItemList" id="formItemList" method="POST" >
 				               		<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-				 				<table id="container tableTable" width="80%" cellspacing="2" align="left" >
+				 				<table id="container tableTable" width="90%" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 										
 								<table id="tblInvoices" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-										<th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
+										<th width="2%" align="center" class="text12" title="fali"><spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
 										<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
 									    	<th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
 									    </c:if>
-									    <th align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
-									    <th align="left" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></th>
-									    <th align="left" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.text"/></th> 
-									    <th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.currency"/></th>
-					                    <th align="right" class="text12" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/>&nbsp;</th>
-					                    <th align="right" class="text12" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
-					                    <th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
-					                    <th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
+									    <th align="center" class="text12" title="fask"><spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
+									    <th align="left" class="text12" title="favk"><spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></th>
+									    <th align="left" class="text12" title="stdVt/faVT"><spring:message code="systema.tror.orders.invoice.update.label.text"/></th> 
+									    <th width="2%" align="center" class="text12" title="faval"><spring:message code="systema.tror.orders.invoice.update.label.currency"/></th>
+					                    <th align="right" class="text12" title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/>&nbsp;</th>
+					                    <th align="right" class="text12" title="fabeln">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
+					                    <th width="2%" align="center" class="text12" title="fakdm"><spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
+					                    <th width="2%" align="center" class="text12" title="fakda"><spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
+					                    <th class="text12" title="fakunr/knavn"><spring:message code="systema.tror.orders.invoice.update.label.customer"/></th>
+					                    <th align="right" class="text12" title="fabelu"><spring:message code="systema.tror.orders.invoice.update.label.budget"/></th>
 					                    
 					                    <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-					                    	<th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.delete"/>Slett</th>
+					                    	<th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.delete"/></th>
 					                    </c:if> 
 					               </tr> 
 								   </thead>
@@ -282,6 +286,8 @@
 							               <td align="right" class="text11" >&nbsp;${record.fabeln}</td>
 							               <td width="2%" align="center" class="text11" >${record.fakdm}</td>
 							               <td width="2%" align="center" class="text11" >${record.fakda}</td>
+							               <td align="left" class="text11" >&nbsp;<font class="text11MediumBlue"><b>${record.fakunr}</b></font>&nbsp;${record.knavn}</td>
+							               <td align="right" class="text11" >${record.fabelu}</td>
 							               <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
 							               		<td class="text11" align="center" nowrap>
 											   		<c:if test="${record.faopko==' ' || record.faopko=='A' || record.faopko=='B' || record.faopko=='C'}">
@@ -297,9 +303,9 @@
 								        <%-- this param is used ONLY in this JSP 
 								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
 								        --%> 
-								        <%-- this param is used throughout the Controller --%>
+								        <%-- this param is used throughout the Controller 
 								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
-								        <c:set var="ownKundnrVar" value="${record.fakunr}" scope="request" /> 
+								        <c:set var="ownKundnrVar" value="${record.fakunr}" scope="request" /> --%>
 								        </c:if>
 								        </c:forEach>
 						            </tbody>
@@ -362,7 +368,6 @@
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 				 	<input type="hidden" name="fali" id="fali" value='${model.record.fali}'/>
-				 	<input type="hidden" name="fakunr" id="fakunr" value='${ownKundnrVar}'/>
 				 	<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandImport.heavd}'>
 	 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandImport.heopd}'>
 								
@@ -370,7 +375,7 @@
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="80%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
@@ -395,7 +400,7 @@
 			 				</td>
 		 				</tr>
 	 				</table>
-					<table width="80%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
@@ -433,11 +438,25 @@
 											</div>
 							 			
 							 			</td>
-							            <td class="text12" align="left"><span title="favk">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></span></td>
-							            <td class="text12" align="left"><span title="faVT">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.text"/></span></td>
+							            <td class="text12" align="left"><span title="favk">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></span>
+							            	<a tabindex=-1 id="favkIdLink" >
+	 											<img id="imgGebyrCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+							            </td>
+							            <td class="text12" align="left"><span title="wtnr">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.tnr"/></span></td>
+							            <td class="text12" align="left"><span title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/></span></td>
 					            		<td class="text12" align="left"><span title="faval">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.currency"/></span></td>
-					            		<td class="text12" align="left"><span title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/></span></td>
 					            		<td class="text12" align="left"><span title="fakdm">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.mva"/></span></td>
+					            		<td class="text12" align="left"><span title="faVT">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.freetext"/></span></td>
+					            		<td class="text12" align="left"><span title="wantall">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.wantall"/></span></td>
+					            		<td class="text12" align="left"><span title="fakunr">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.customer"/></span>
+							            	<a tabindex=-1 href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=il','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+	 											<img id="imgAgentSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+							            </td>
+							            <td class="text12" align="left"><span title="wkurs">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.kurs"/></span></td>
+					            		<td class="text12" align="left"><span title="faavdr">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.avdi"/></span></td>
+					            		<td class="text12" align="left"><span title="fadocnB">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.opdi"/></span></td>
 							        </tr>
 							        <tr>
 						        		<td align="left">
@@ -448,7 +467,7 @@
 												<option value="F"<c:if test="${model.record.fask == 'F'}"> selected </c:if> >F</option>
 												<option value="I"<c:if test="${model.record.fask == 'I'}"> selected </c:if> >I</option>
 												<option value="K"<c:if test="${model.record.fask == 'K'}"> selected </c:if> >K</option>
-												<option value="S"<c:if test="${model.record.fask == 'S'}"> selected </c:if> >S</option>
+												<option value="S"<c:if test="${model.record.fask == 'S' || empty model.record.fask}"> selected </c:if> >S</option>
 												<option value="X"<c:if test="${model.record.fask == 'X'}"> selected </c:if> >X</option>  
 											</select>
 										</td>
@@ -460,10 +479,13 @@
 												</c:forEach> 
 											</select>
 							            </td>
-										<td align="left" nowrap>
-											<input type="text" class="inputTextMediumBlue" name="faVT" id="faVT" size="21" maxlength="20" value="${model.record.faVT}">
-										</td>
-						        		<td class="text12" align="left">
+							            <td class="text12" align="left">
+						            		<input type="text" class="inputText" name="wtnr" id="wtnr" size="5" maxlength="5" value="${model.record.wtnr}">
+							            </td>
+										<td class="text12Grey" align="left" >
+							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${model.record.fabelv}">
+							 			</td>
+							 			<td class="text12" align="left">
 						            		<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="faval" id="faval">
 						 						<option value="">-valuta-</option>
 							 				  	<c:forEach var="record" items="${model.currencyCodeList}" >
@@ -471,16 +493,28 @@
 												</c:forEach>  
 											</select>
 							            </td>
-							            <td class="text12Grey" align="left" >
-							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${model.record.fabelv}">
-							 			</td>
 							 			<td align="left">
 						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fakdm" id="fakdm">
 						 						<option value="">-velg-</option>
-							 				  	<option value="J"<c:if test="${model.record.fakdm == 'J'}"> selected </c:if> >J</option>
+							 				  	<option value="J"<c:if test="${model.record.fakdm == 'J' || empty model.record.fakdm}"> selected </c:if> >J</option>
 												<option value="N"<c:if test="${model.record.fakdm == 'N'}"> selected </c:if> >N</option>
 											</select>
 										</td>
+										<td align="left" nowrap>
+											<input type="text" class="inputTextMediumBlue" name="faVT" id="faVT" size="21" maxlength="20" value="${model.record.faVT}">
+										</td>
+										<td class="text12" align="left" ><input type="text" class="inputText" onKeyPress="return numberKey(event)" name="wantall" id="wantall" size="5" maxlength="5" value="${model.record.wantall}"></td>
+							            
+										<td class="text12" align="left">
+						            		<input type="text" class="inputText" onKeyPress="return numberKey(event)" name="fakunr" id="fakunr" size="9" maxlength="8" value="${model.record.fakunr}">
+							            </td>
+							            <td class="text12" align="left" ><input type="text" class="inputText" onKeyPress="return amount(event)" name="wkurs" id="wkurs" size="6" maxlength="8" value="${model.record.wkurs}"></td>
+							            <td class="text12">
+						        			<input type="text" class="inputText" name="faavdr" id="faavdr" size="5" maxlength="4" value="${model.record.faavdr}">
+						        		</td>
+						        		<td class="text12" align="left" >
+						        			<input type="text" class="inputText" name="fadocnB" id="fadocnB" size="8" maxlength="7" value="${model.record.fadocnB}">
+						        		</td>
 							        </tr>
 							        <tr height="10"><td class="text" align="left"></td></tr>
 						        </table>

@@ -28,6 +28,20 @@
 	  });
     });
   	
+    //Links on child windows
+	jq(function() {
+		  //supplier child window search
+		  jq('#falevnIdLink').click(function() {
+			jq('#falevnIdLink').attr('target','_blank');  
+			window.open('transportdisp_workflow_childwindow_supplier.do?action=doInit&kode=' + jq('#falevn').val(),"supplierWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+		  });
+		  
+		  //gebyr koder child window search
+		  jq('#favkIdLink').click(function() {
+			jq('#favkIdLink').attr('target','_blank');  
+			window.open('transportdisp_workflow_childwindow_gebyrcode.do?action=doInit&kode=' + jq('#favk').val(),"gebyrCodesWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+		  });
+	});
 	
     /*
 	//-----------------------------------------------------------------------------
@@ -87,6 +101,10 @@
   			jq('#faval').val("");
   			jq('#fabelv').val("");
   			jq('#fakdm').val("");
+  			jq('#fakunr').val("");
+  			jq('#fadocnB').val("");
+			jq('#faavdr').val("");
+  			
   			//aspects
   			jq('#editLineNr').text("");
 		});
@@ -125,13 +143,15 @@
 				jq('#editLineNr').text("");jq('#editLineNr').text(data[i].fali); //for GUI purposes
 				//keys
 				jq('#fali').val("");jq('#fali').val(data[i].fali);
-				jq('#fakunr').val("");jq('#fakunr').val(data[i].fakunr);
 				//the rest
 				jq('#fask').val("");jq('#fask').val(data[i].fask);
 				jq('#favk').val("");jq('#favk').val(data[i].favk);
 				jq('#fabelv').val("");jq('#fabelv').val(data[i].fabelv);
 				jq('#faval').val("");jq('#faval').val(data[i].faval);
 				jq('#fakdm').val("");jq('#fakdm').val(data[i].fakdm);
+				jq('#fakunr').val("");jq('#fakunr').val(data[i].fakunr);
+				jq('#fadocnB').val("");jq('#fadocnB').val(data[i].fadocnB);
+				jq('#faavdr').val("");jq('#faavdr').val(data[i].faavdr);
 				//Fritext
 				jq('#faVT').val("");jq('#faVT').val(data[i].faVT);
 				//jq('#stdVt').val("");jq('#stdVt').val(data[i].stdVt);
