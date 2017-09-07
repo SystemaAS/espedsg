@@ -62,6 +62,7 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
@@ -100,6 +101,8 @@ public class TrorMainOrderHeaderLandImportController {
 	private StringManager strMgr = new StringManager();
 	private DateTimeManager dateMgr = new DateTimeManager();
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
+	private final String DELSYSTEM_LAND_IMPORT = "A";
+	
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -124,11 +127,9 @@ public class TrorMainOrderHeaderLandImportController {
 		//check user (should be in session already)
 		if(appUser==null){
 			return loginView;
-			
 		}else{
 			
 			this.setDefaultValues(recordToValidate, appUser);
-			
 			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			this.setCodeDropDownMgr(appUser, model);
 			
@@ -210,12 +211,10 @@ public class TrorMainOrderHeaderLandImportController {
 						if(dmlRetval==0){
 							//TODO orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully created, OK ");
-							logger.info("[START]: process children <meessageNotes>, etc create... ");
+							//logger.info("[START]: process children <meessageNotes>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
-				    		
 						}
-			    		
 					}
 					if(dmlRetval<0){
 						isValidRecord = false;
@@ -282,6 +281,7 @@ public class TrorMainOrderHeaderLandImportController {
 	private void setDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
 		recordToValidate.setHesg(appUser.getSignatur());
 		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
+		recordToValidate.setHeur(this.DELSYSTEM_LAND_IMPORT);
 		
 	}
 	/**
@@ -339,10 +339,19 @@ public class TrorMainOrderHeaderLandImportController {
 		}
 		//Godsnr
 		recordToValidate.setHegn(recordToValidate.getOwnHegn1() + recordToValidate.getOwnHegn2() + recordToValidate.getOwnHegn3());
-		//Decimal numbers
-		recordToValidate.setHem3(recordToValidate.getHem3()); //M3
-		recordToValidate.setHelm(recordToValidate.getHelm()); //LM
 		
+		//Decimal numbers for db update
+		recordToValidate.setHevalp(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHevalp()));
+		recordToValidate.setHehbre(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHehbre()));
+		recordToValidate.setHelbre(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHelbre()));
+		recordToValidate.setHellen(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHellen()));
+		recordToValidate.setHelm(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHelm()));
+		recordToValidate.setHem3(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getHem3()));
+		recordToValidate.setTrverb(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getTrverb()));
+		recordToValidate.setTrettb(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getTrettb()));
+		recordToValidate.setTrfrab(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getTrfrab()));
+		
+	
 	}
 	
 	/**
@@ -969,45 +978,34 @@ public class TrorMainOrderHeaderLandImportController {
     	logger.info("URL PARAMS:" + urlRequestParams);
     	
     	
-    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    	logger.info(jsonDebugger.debugJsonPayloadWithLog4J(rpgReturnPayload));
-    	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
-    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
-    	if( strMgr.isNotNull(rpgReturnResponseHandler.getErrorMessage()) && !"null".equals(rpgReturnResponseHandler.getErrorMessage()) ){
-    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
-    		//isValidCreatedRecordTransactionOnRPG = false;
-    		retval = -1; 
-    		
-    	}else{
-    		//Update successfully done!
-    		logger.info("[INFO] Record successfully updated, OK ");
-    		//newly created id. Set it in the recordToValidate in order to fetch (refresh) later on
-    		/*TODO
-    		if(TrorConstants.MODE_ADD.equals(mode)){
-    			recordToValidate.setHeopd(rpgReturnResponseHandler.getHeopd());
-    			
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	
+    	if(jsonPayload!=null){
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainer(jsonPayload);
+    		if(container!=null){
+    			if(this.strMgr.isNotNull(container.getErrMsg()) && !"null".equals(container.getErrMsg()) ) {
+    				rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
+    				rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " +  container.getErrMsg());
+    				this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
+    				retval = -1; 
+    				
+    			}else{
+    				for(JsonTrorOrderHeaderRecord record: container.getDtoList()){
+    					//new opd is born
+    					recordToValidate.setHeopd(record.getHeopd());
+    				}
+    				//Update successfully done!
+		    		logger.info("[INFO] Record successfully updated, OK ");
+    			}
     		}
-    		*/
-    		/*TODO messages ...
-    		this.updateMessageNote(messageNote, recordToValidate.getTuavd(), recordToValidate.getTupro(), appUser);
-    		
-    		//set message note (after update aka refresh)
-    		Collection<JsonTransportDispWorkflowSpecificTripMessageNoteRecord> messageNoteAfterUpdate = null;
-    		messageNoteAfterUpdate = this.controllerAjaxCommonFunctionsMgr.fetchMessageNote(appUser.getUser(), recordToValidate.getTuavd(), recordToValidate.getTupro());
-    		StringBuffer br = new StringBuffer();
-    		for(JsonTransportDispWorkflowSpecificTripMessageNoteRecord record:messageNoteAfterUpdate ){
-    			br.append(record.getFrttxt() + "\n");
-    		}
-    		recordToValidate.setMessageNote(br.toString());
-    		//logger.info(recordToValidate.getMessageNote());
-    		
-			//put domain objects
-	    	//this.setDomainObjectsInView(session, model, recordToValidate );
-	    	*/
     	}
     	
-    	  	
+    	
+    	
+    	
     	return retval;
 	}
 	

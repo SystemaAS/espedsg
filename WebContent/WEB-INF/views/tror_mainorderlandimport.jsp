@@ -165,15 +165,13 @@
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
+					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'> <%--delsystem --%>
 					
 					<c:if test="${not empty model.record.heopd}">
 						<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
 						<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
 						<input type="hidden" name="hesg" id="hesg" value='${model.record.hesg}'> <%--sign --%>
 						<input type="hidden" name="hest" id="hest" value='${model.record.hest}'> <%--status --%>
-						<input type="hidden" name="heur" id="heur" value='${model.record.heur}'> <%--delsystem --%>
-						
-						
 					</c:if>
 					<%--
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsigneeOriginal}'>
@@ -196,7 +194,7 @@
 							 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
 							 				</td>
 							 				<td class="text14">
-												<select name="heavd" id="heavd" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" >
+												<select autofocus name="heavd" id="heavd" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" >
 							 						<option value="">-velg-</option>
 								 				  	<c:forEach var="record" items="${model.avdList}" >
 								 				  		<option value="${record.koakon}"<c:if test="${model.record.heavd == record.koakon}"> selected </c:if> >${record.koakon}</option>
@@ -231,7 +229,7 @@
 						 			</c:otherwise>
 					 			</c:choose>
 						 			
-					 			<table width="100%" border="0">TT
+					 			<table width="100%" border="0">
 					 			<tr height="10"><td ></td></tr>
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
@@ -243,7 +241,7 @@
 							 				</td>
 							 				<td class="text12" title="hepro">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.turnr"/></td>
 							 				<td class="text12">
-							 					<input autofocus type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
+							 					<input <c:if test="${ not empty model.record.heopd }"> autofocus </c:if>  type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
 							 				</td>
 							 				<td class="text12" title="hepos1">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.position"/>
 							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1" size="8" maxlength="7" value="${model.record.hepos1}">
@@ -1011,15 +1009,15 @@
 						 				<td align="left" class="tableCell" nowrap>
 						 					<c:choose>
 							 					<c:when test="${not empty model.record.hevs1 && fn:length(model.record.hevs1) > 3}" >
-							 						<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ fn:substring(model.record.hevs1, 3, fn:length(model.record.hevs1)) }">		
+							 						<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ fn:substring(model.record.hevs1, 3, fn:length(model.record.hevs1)) }">		
 							 					</c:when>
 							 					<c:otherwise>
-							 						<input type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ model.record.hevs1 }">
+							 						<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ model.record.hevs1 }">
 							 					</c:otherwise>
 						 					</c:choose>
 						 				</td>
 						 				<td align="right" class="tableCell" nowrap>
-							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="10" maxlength="9" value="${model.record.hevkt}">
+							 				<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" style="text-align:right;" name="hevkt" id="hevkt" size="10" maxlength="9" value="${model.record.hevkt}">
 						 				</td>
 						 				
 						 				<td align="right" class="tableCell" nowrap>

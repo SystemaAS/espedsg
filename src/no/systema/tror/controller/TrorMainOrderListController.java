@@ -39,6 +39,10 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
 import no.systema.main.validator.LoginValidator;
+import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
+import no.systema.transportdisp.util.RpgReturnResponseHandler;
+import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.tror.filter.SearchFilterTrorMainList;
 //EBOOKING
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
@@ -49,7 +53,7 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tvinn.sad.sadimport.filter.SearchFilterSadImportTopicList;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
-import no.systema.tror.util.RpgReturnResponseHandler;
+//import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainChildWindowKofastRecord;
@@ -177,7 +181,6 @@ public class TrorMainOrderListController {
 	
 	
 	/**
-	 * Permanent deletion of a specific order from the order list
 	 * 
 	 * @param recordToValidate
 	 * @param bindingResult
@@ -185,21 +188,16 @@ public class TrorMainOrderListController {
 	 * @param request
 	 * @return
 	 */
-	/*
-	
 	@RequestMapping(value="tror_mainorderlist_permanently_delete_order.do",  method={RequestMethod.GET} )
-	public ModelAndView doPermanentlyDeleteOrder(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doPermanentlyDeleteOrder(@ModelAttribute ("record") SearchFilterTrorMainList recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		Map model = new HashMap();
-
-		logger.info("#HEUNIK:" + recordToValidate.getHeunik());
-		logger.info("#HEREFF:" + recordToValidate.getHereff());
+		
+		logger.info("#AVD:" + recordToValidate.getAvd());
+		logger.info("#OPD:" + recordToValidate.getOrderNr());
 		ModelAndView errorView = new ModelAndView("tror_mainorderlist");
 		StringBuffer params = new StringBuffer();
-		if( (recordToValidate.getHeunik()!=null && !"".equals(recordToValidate.getHeunik())) && 
-			(recordToValidate.getHereff()!=null && !"".equals(recordToValidate.getHereff())) ){	
-			params.append("&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
-		}
+		
 		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlist.do?action=doFind");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
@@ -209,35 +207,74 @@ public class TrorMainOrderListController {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_SPECIFIC_ORDER_URL;
-			String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + EbookingConstants.MODE_DELETE;
-			StringBuffer urlRequestParamsBfr = new StringBuffer();
-			urlRequestParamsBfr.append("&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff());
-			//put the final valid param. string
-			String urlRequestParams = urlRequestParamsKeys + urlRequestParamsBfr.toString();
-			
-			logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-	    	logger.info("URL PARAMS: " + urlRequestParams);
-	    	
-	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-	    	logger.info(Calendar.getInstance().getTime() + " CGI-stop timestamp");
-	    	
-	    	rpgReturnResponseHandler.evaluateRpgResponseOnUpdate(rpgReturnPayload);
-	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-	    		//this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
-	    		//isValidCreatedRecordTransactionOnRPG = false;
+			//-----------
+			//Validation
+			//-----------
+			/* TODO (further on...?)
+			SadImportListValidator validator = new SadImportListValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//drop downs
+	    		this.setCodeDropDownMgr(appUser, model);
+				//this.populateAvdelningHtmlDropDownsFromJsonString(model, appUser);
+				//this.populateSignatureHtmlDropDownsFromJsonString(model, appUser);
+				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, new ArrayList());
+	    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, new ArrayList());
+	    		successView.addObject("searchFilter", recordToValidate);
+				//return errorView;
 	    		
-	    	}else{
-	    		//Update successfully done!
-	    		logger.info("[INFO] Record successfully deleted, OK ");
-
-	    	}
-
+		    }else{
+		    	final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_PERMANENTLY_DELETE_MAIN_ORDER_URL;
+	    		//add URL-parameters
+	    		StringBuffer urlRequestParams = new StringBuffer();
+	    		urlRequestParams.append("user=" + appUser.getUser());
+	    		urlRequestParams.append("&avd=" + recordToValidate.getAvd());
+	    		urlRequestParams.append("&opd=" + recordToValidate.getOrderNr());
+	    		
+	    		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+		    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		    	//Debug --> 
+		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+		    	rpgReturnResponseHandler.evaluateRpgResponseOnPermanentDeleteOrder(rpgReturnPayload);
+		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on DELETE: " + rpgReturnResponseHandler.getErrorMessage());
+		    		this.setFatalErrorPermanentDeleteOrders(model, rpgReturnResponseHandler, recordToValidate);	
+		    		errorView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+		    		errorView.addObject("searchFilter", recordToValidate);
+		    		return errorView;
+		    	}
+		    }
+			return successView;
 		}
-		return successView;
 	}
-	*/
+	/**
+	 * 
+	 * @param model
+	 * @param rpgReturnResponseHandler
+	 * @param record
+	 */
+	private void setFatalErrorPermanentDeleteOrders(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, SearchFilterTrorMainList record){
+		logger.info(rpgReturnResponseHandler.getErrorMessage());
+		model.put(TransportDispConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		//extra error information
+		StringBuffer errorMetaInformation = new StringBuffer();
+		errorMetaInformation.append(rpgReturnResponseHandler.getHeavd());
+		errorMetaInformation.append(rpgReturnResponseHandler.getHeopd());
+		model.put(TransportDispConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
+        this.setDomainObjectsInView(model, record);
+	}
+	
 	/**
 	 * 
 	 * @param recordToValidate

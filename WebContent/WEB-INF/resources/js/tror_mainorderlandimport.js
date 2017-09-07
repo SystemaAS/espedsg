@@ -113,6 +113,22 @@
 	  });
 	  
 	  //custom validity
+	  jq('#hevkt').focus(function() {
+	    	if(jq('#hevkt').val()!=''){
+	    		refreshCustomValidity(jq('#hevkt')[0]);
+	  		}
+	  	});
+	  jq('#hevs1').focus(function() {
+	    	if(jq('#hevs1').val()!=''){
+	    		refreshCustomValidity(jq('#hevs1')[0]);
+	  		}
+	  	});
+	  jq('#hent').focus(function() {
+	    	if(jq('#hent').val()!=''){
+	    		refreshCustomValidity(jq('#hent')[0]);
+	  		}
+	  	});
+	  
 	  jq('#heavd').focus(function() {
 	    	if(jq('#heavd').val()!=''){
 	    		refreshCustomValidity(jq('#heavd')[0]);
@@ -461,11 +477,12 @@
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
 	    jq('#henas').focus(function() {
-	    	
 	    	if(jq('#henas').val()!=''){
 	  			refreshCustomValidity(jq('#henas')[0]);
 	  		}
 	  	});
+	    
+	    
 	    jq('#heads1').focus(function() {
 	    	if(jq('#heads1').val()!=''){
 	    		refreshCustomValidity(jq('#heads1')[0]);

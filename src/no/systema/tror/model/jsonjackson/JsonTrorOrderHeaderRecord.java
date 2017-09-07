@@ -23,14 +23,14 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hesdvt; //     TEGN            5       5        48        Begge    Viderefrakt til  
 	private String hegn;//       TEGN           15      15        53        Begge    Godsnr       
 	private String hegnn; //      TEGN           15      15        68        Begge    Nytt godsnr    
-	private String hepro; //      SONET        8  0       8        83        Begge    Turnummer   
+	private String hepro = "0"; //      SONET        8  0       8        83        Begge    Turnummer   
 	private String heplan; //     TEGN            1       1        91        Begge    Turnummer kode   
-	private String trrund; //   SONET        8  0       8        92        Begge    Rundturnr     
+	private String trrund = "0"; //   SONET        8  0       8        92        Begge    Rundturnr     
 	private String hepos1; //    TEGN            7       7       100        Begge    Posisjon-1  
-	private String hepos2; //    SONET        4  0       4       107        Begge    Posisjon-2  
-	private String trknfa; //    SONET        8  0       8       111        Begge    K.nr oppdragsgiver.     
+	private String hepos2 = "0"; //    SONET        4  0       4       107        Begge    Posisjon-2  
+	private String trknfa = "0"; //    SONET        8  0       8       111        Begge    K.nr oppdragsgiver.     
 	private String henao; //     TEGN           30      30       119        Begge    Navn oppdragsgiver    
-	private String hekna; //      SONET        8  0       8       149        Begge    Agent kundenr  
+	private String hekna = "0"; //      SONET        8  0       8       149        Begge    Agent kundenr  
 	private String henaa;//    TEGN           30      30       157        Begge    Agent navn 
 	private String herfa;//      TEGN           35      35       187        Begge    Agent referans
 	private String hesaml;//   TEGN            6       6       222        Begge    Samlastnr fly  
@@ -39,16 +39,16 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hesdl;//      TEGN           20      20       257        Begge    Lossested   
 	private String hevalt; //     TEGN            3       3       277        Begge    Frakttillegg kode     
 	private String hevalp; // = new BigDecimal(0); //     SONET        3  3       3       280        Begge    Frakttillegg  %        
-	private String heknt; //      SONET        8  0       8       283        Begge    Kundenr Transportør   
+	private String heknt = "0"; //      SONET        8  0       8       283        Begge    Kundenr Transportør   
 	private String helka; //      TEGN            2       2       291        Begge    Landkode   
-	private String hekns; //      SONET        8  0       8       293        Begge    Kundenr Selger  
+	private String hekns = "0"; //      SONET        8  0       8       293        Begge    Kundenr Selger  
 	private String henas; //      TEGN           30      30       301        Begge    Navn Selger      
 	private String heads1;//  TEGN           30      30       331        Begge    Adresse-1 Selger      
 	private String heads2; //     TEGN           30      30       361        Begge    Adresse-2 Selger 
 	private String hepns; //      TEGN            9       9       391        Begge    Postnr Selger
 	private String heads3; //     TEGN           30      30       400        Begge    Adresse-3 Selger   
 	private String helks; //      TEGN            2       2       430        Begge    Landkode selger 
-	private String heknh; //      SONET        8  0       8       432        Begge    Kundenr Hen.adr  
+	private String heknh = "0"; //      SONET        8  0       8       432        Begge    Kundenr Hen.adr  
 	private String henah; //      TEGN           30      30       440        Begge    Navn Hen.adr 
 	private String headh1; //     TEGN           30      30       470        Begge    Adresse-1 Hen.adr
 	private String headh2; //     TEGN           30      30       500        Begge    Adresse-2 Hen.adr    
@@ -59,17 +59,17 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hehblk;//    TEGN            1       1       588        Begge    HENT. BRE/LEN-KODE
 	private String hekdfs; //     TEGN            1       1       589        Begge    Fakturakode Selger   
 	private String hevals; //    TEGN            3       3       590        Begge    Valutakode Selger 
-	private String heknsf;//   SONET        8  0       8       593        Begge    Kundenr Selg.fakm 
-	private String heans;//      SONET        1  0       1       601        Begge    Avtalenr Selger  
+	private String heknsf = "0";//   SONET        8  0       8       593        Begge    Kundenr Selg.fakm 
+	private String heans = "0";//      SONET        1  0       1       601        Begge    Avtalenr Selger  
 	private String henasf;//    TEGN           30      30       602        Begge    Navn Selg.fakm 
-	private String heknk; //      SONET        8  0       8       632        Begge    Kundenr Kjøper 
+	private String heknk = "0"; //      SONET        8  0       8       632        Begge    Kundenr Kjøper 
 	private String henak;//    TEGN           30      30       640        Begge    Navn Kjøper    
 	private String headk1;//     TEGN           30      30       670        Begge    Adresse-1 Kjøper
 	private String headk2; //    TEGN           30      30       700        Begge    Adresse-2 Kjøper
 	private String hepnk; //      TEGN            9       9       730        Begge    Postnr Kjøper
 	private String headk3; //     TEGN           30      30       739        Begge    Adresse-3 Kjøper  
 	private String helkk; //      TEGN            2       2       769        Begge    Landkode kjøper
-	private String heknl; //      SONET        8  0       8       771        Begge    Kundenr Lev.adr
+	private String heknl = "0"; //      SONET        8  0       8       771        Begge    Kundenr Lev.adr
 	private String henal;//   TEGN           30      30       779        Begge    Navn Lev.ad
 	private String headl1; //     tegn           30      30       809        begge    adresse-1 lev.adr 
 	private String headl2; //     tegn           30      30       839        begge    adresse-2 lev.adr 
@@ -81,13 +81,13 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String helblk; //     tegn            1       1       927        begge    leve. bre/len-ko
 	private String hekdfk; //     tegn            1       1       928        begge    fakturakode kjøper 
 	private String hevalk; //     tegn            3       3       929        begge    valutakode kjøper  
-	private String heknkf; //     sonet        8  0       8       932        begge    kundenr kjøp.fakm    
-	private String heank; //      sonet        1  0       1       940        begge    avtalenr kjøper 
+	private String heknkf = "0"; //     sonet        8  0       8       932        begge    kundenr kjøp.fakm    
+	private String heank = "0"; //      sonet        1  0       1       940        begge    avtalenr kjøper 
 	private String henakf; //     tegn           30      30       941        begge    navn kjøp.fakm 
 	private String heot; //       tegn            2       2       971        begge    oppdragstype 
 	private String hekdpl; //     tegn            1       1       973        begge    produktkode
 	private String hefr; //       tegn            3       3       974        begge    frankatur  
-	private String hent; //       sonet        7  0       7       977        begge    antall kolli
+	private String hent = "0"; //       sonet        7  0       7       977        begge    antall kolli
 	private String hevs1; //      tegn           25      25       984        begge    vareslag-1 
 	private String hevs2; //      tegn           25      25      1009        begge    vareslag-2
 	private String hegm1; //      tegn           15      15      1034        begge    godsmerking-1  
@@ -95,33 +95,33 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hevkt; //      pakket       9  0       5      1064        begge    bruttovekt
 	private String helm; // = new BigDecimal(0); //       sonet        4  2       4      1069        begge    lastemeter faktura      
 	private String hem3; // = new BigDecimal(0);//      pakket       7  3       4      1073        begge    kubikkmeter   
-	private String hefbv; //     pakket       9  0       5      1077        begge    fraktb.vekt   
+	private String hefbv = "0"; //     pakket       9  0       5      1077        begge    fraktb.vekt   
 	private String hekf; //       tegn            2       2      1082        begge    utl forb.kode    
 	private String hekft1; //     tegn            1       1      1084        begge    utl forb status   
 	private String heft1; //      tegn           51      51      1085        begge    utl forb tekst      
-	private String hedtcp; //     sonet        2  0       2      1136        begge    regnskapsårhundre 
+	private String hedtcp = "0"; //     sonet        2  0       2      1136        begge    regnskapsårhundre 
 	//OBS å private int hedtåp; //     sonet        2  0       2      1138        begge    regnskapsår
-	private String hedtmp; //     sonet        2  0       2      1140        begge    regnskapsperiod 
+	private String hedtmp = "0"; //     sonet        2  0       2      1140        begge    regnskapsperiod 
 	private String hekdkk; //     tegn            1       1      1142        begge    kreditkode kjøper  
-	private String hefngk; //     sonet        7  0       7      1143        begge    kred. faknr kjøper 
-	private String hefngs;//     sonet        7  0       7      1150        begge    kred. faknr selger 
+	private String hefngk = "0"; //     sonet        7  0       7      1143        begge    kred. faknr kjøper 
+	private String hefngs = "0";//     sonet        7  0       7      1150        begge    kred. faknr selger 
 	private String hekdtm; //     tegn            1       1      1157        begge    sad transp.måte 
-	private String hetrm; //      sonet        2  0       2      1158        begge    sad trans.middel  
+	private String hetrm = "0"; //      sonet        2  0       2      1158        begge    sad trans.middel  
 	private String hetri; //      tegn            2       2      1160        begge    sad tr.midd l
-	private String hetrc; //      sonet        1  0       1      1162        begge    sad container kode
+	private String hetrc = "0"; //      sonet        1  0       1      1162        begge    sad container kode
 	private String hetrcn; //     tegn           17      17      1163        begge    sad container 
-	private String hefbk; //      sonet        7  0       7      1180        begge    sad fraktbeløp
+	private String hefbk = "0"; //      sonet        7  0       7      1180        begge    sad fraktbeløp
 	private String hetle; //      tegn            6       6      1187        begge    sad eksp.enhet 
 	private String hetll; //      tegn           10      10      1193        begge    sad løpenr  
 	private String hetlku; //     tegn            1       1      1203        begge    sad kan utføres 
-	private String hentvs; //     sonet        3  0       3      1204        begge    sad antall linjer  
-	private String hevn;//     sonet        3  0       3      1207        begge    ledig...     
-	private String hentf;//    sonet        4  0       4      1210        begge    sad ant.linjer
-	private String hebelt; //     pakket       9  0       5      1214        begge    sad tollbeløp  
-	private String hebelm; //     pakket       9  0       5      1219        begge    sad momsbeløp
+	private String hentvs = "0"; //     sonet        3  0       3      1204        begge    sad antall linjer  
+	private String hevn = "0";//     sonet        3  0       3      1207        begge    ledig...     
+	private String hentf = "0";//    sonet        4  0       4      1210        begge    sad ant.linjer
+	private String hebelt = "0"; //     pakket       9  0       5      1214        begge    sad tollbeløp  
+	private String hebelm = "0"; //     pakket       9  0       5      1219        begge    sad momsbeløp
 	private String hesgm; //      tegn           10      10      1224        begge    mottatt signatur
 	private String hedtmo; //     tegn            8       8      1234        begge    mottatt dato  
-	private String heklmo; //     sonet        4  0       4      1242        begge    mottatt klokka
+	private String heklmo = "0"; //     sonet        4  0       4      1242        begge    mottatt klokka
 	private String hepk1; //      tegn            1       1      1246        begge    printerkode-
 	private String hepk2; //      tegn            1       1      1247        begge    printerkode-2 
 	private String hepk3; //      tegn            1       1      1248        begge    printerkode-3
@@ -137,20 +137,20 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hesdfr; //     tegn            5       5      1277        begge    frankatur stedskode
 	private String hestfr; //     tegn           30      30      1282        begge    frankatur stedsnavn 
 	private String herfk; //      tegn           35      35      1312        begge    oppdragsgivers ref
-	private String travd0; //     sonet        4  0       4      1349        begge    avdeling opphav  
-	private String tropd0; //     sonet        7  0       7      1353        begge    oppdragsnr opphav 
-	private String travd1; //     sonet        4  0       4      1360        begge    avdeling forfrakt 
-	private String tropd1; //     sonet        7  0       7      1364        begge    oppdragsnr forfrakt  
-	private String travd2; //     sonet        4  0       4      1371        begge    avdeling etterfrakt
-	private String tropd2; //     sonet        7  0       7      1375        begge    oppdragsnr etterfra 
-	private String trsffd; //     sonet        8  0       8      1382        begge    forfrakt dato    
-	private String trsffk; //     sonet        4  0       4      1390        begge    forfrakt klokka  
-	private String trsdfd; //     sonet        8  0       8      1394        begge    fra dato         
-	private String trsdfk; //     sonet        4  0       4      1402        begge    fra klokka       
-	private String trsdtd; //     sonet        8  0       8      1406        begge    til dato         
-	private String trsdtk; //     sonet        4  0       4      1414        begge    til klokka       
-	private String trsvtd; //     sonet        8  0       8      1418        begge    viderefr. dato   
-	private String trsvtk; //     sonet        4  0       4      1426        begge    viderefr. klokka 
+	private String travd0 = "0"; //     sonet        4  0       4      1349        begge    avdeling opphav  
+	private String tropd0 = "0"; //     sonet        7  0       7      1353        begge    oppdragsnr opphav 
+	private String travd1 = "0"; //     sonet        4  0       4      1360        begge    avdeling forfrakt 
+	private String tropd1 = "0"; //     sonet        7  0       7      1364        begge    oppdragsnr forfrakt  
+	private String travd2 = "0"; //     sonet        4  0       4      1371        begge    avdeling etterfrakt
+	private String tropd2 = "0"; //     sonet        7  0       7      1375        begge    oppdragsnr etterfra 
+	private String trsffd = "0"; //     sonet        8  0       8      1382        begge    forfrakt dato    
+	private String trsffk = "0"; //     sonet        4  0       4      1390        begge    forfrakt klokka  
+	private String trsdfd = "0"; //     sonet        8  0       8      1394        begge    fra dato         
+	private String trsdfk = "0"; //     sonet        4  0       4      1402        begge    fra klokka       
+	private String trsdtd = "0"; //     sonet        8  0       8      1406        begge    til dato         
+	private String trsdtk = "0"; //     sonet        4  0       4      1414        begge    til klokka       
+	private String trsvtd = "0"; //     sonet        8  0       8      1418        begge    viderefr. dato   
+	private String trsvtk = "0"; //     sonet        4  0       4      1426        begge    viderefr. klokka 
 	private String trkdak; //    tegn            1       1      1430        begge    oppdragsg.kode   
 	private String trkdff;//     tegn            1       1      1431        begge    fakturere s/k   
 	private String trverv; //     tegn            3       3      1432        begge    valkod vareverdi
@@ -163,10 +163,10 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String trmva; //      tegn            1       1      1463        begge    mvakode frakt  
 	private String trfa11; //     tegn            7       7      1464        begge    farlig gods 11 
 	private String trfa12; //     tegn            4       4      1471        begge    farlig gods 12 
-	private String trflp1; //     pakket       3  0       2      1475        begge    flashpoint 1   
+	private String trflp1 = "0"; //     pakket       3  0       2      1475        begge    flashpoint 1   
 	private String trfa21; //    tegn            7       7      1477        begge    farlig gods 21 
 	private String trfa22; //     tegn            4       4      1484        begge    farlig gods 22 
-	private String trflp2; //     pakket       3  0       2      1488        begge    flashpoint 2         
+	private String trflp2 = "0"; //     pakket       3  0       2      1488        begge    flashpoint 2         
 	private String trtsta; //     tegn            1       1      1490        begge    t-papirstatus        
 	private String trstaf; //     tegn            1       1      1491        begge    dispstat forfrakt    
 	private String trstae; //     tegn            1       1      1492        begge    dispstat etterfrakt  
@@ -174,22 +174,22 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String trsta2; //     tegn            1       1      1494        begge    ledig                
 	private String trsta3; //     tegn            1       1      1495        begge    ledig                
 	private String trsta4; //     tegn            1       1      1496        begge    produkt fly   
-	private String trkm; //       pakket       5  0       3      1497        begge    kjørte kilometer   
+	private String trkm = "0"; //       pakket       5  0       3      1497        begge    kjørte kilometer   
 	private String he01; //       tegn            1       1      1500        begge    oppdat stat
-	private String hestd; //      sonet        4  0       4      1501        begge    avvikende bærer 
+	private String hestd = "0"; //      sonet        4  0       4      1501        begge    avvikende bærer 
 	private String hxsndn; //     tegn           20      20      1505        begge    ean send.nr              
-	private String hxpall; //     sonet        3  0       3      1525        begge    ant paller               
+	private String hxpall = "0"; //     sonet        3  0       3      1525        begge    ant paller               
 	private String hxblgk; //     tegn            3       3      1528        begge    beløp godk. sign         
 	private String hxlkod; //     tegn            5       5      1531        begge    lagersted/innland        
 	private String hxllst; //     tegn            1       1      1536        begge    ls.stat(er printet)      
 	private String hxedik; //     tegn            1       1      1537        begge    edikode,e=edi,k=kweb     
 	private String hxteri; //     tegn            1       1      1538        begge    termin.inn               
-	private String hehakn;//     sonet        8  0       8      1539        begge    hen.adr.kundenr         
-	private String hehaan; //     sonet        3  0       3      1547        begge    hen.adr.adr.nr          
-	private String helakn; //     sonet        8  0       8      1550        begge    lev.adr.kundenr         
-	private String helaan; //     sonet        3  0       3      1558        begge    lev.adr.adr.nr          
+	private String hehakn = "0";//     sonet        8  0       8      1539        begge    hen.adr.kundenr         
+	private String hehaan = "0"; //     sonet        3  0       3      1547        begge    hen.adr.adr.nr          
+	private String helakn = "0"; //     sonet        8  0       8      1550        begge    lev.adr.kundenr         
+	private String helaan = "0"; //     sonet        3  0       3      1558        begge    lev.adr.adr.nr          
 	private String helmla; //     sonet        4  2       4      1561        begge    lastemeter lasting      
-	private String hepoen; //     sonet        5  0       5      1565        begge    adr-poeng                   
+	private String hepoen = "0"; //     sonet        5  0       5      1565        begge    adr-poeng                   
 	private String hestl1; //     tegn            1       1      1570        begge    vlinje 1 status             
 	private String hestl2; //     tegn            1       1      1571        begge    vlinje 2 status             
 	private String hestl3; //     tegn            1       1      1572        begge    vlinje 3 status             
@@ -209,8 +209,8 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	private String hembr; //     tegn           10      10      1638        begge    mbr                       
 	private String hetype; //     tegn            6       6      1648        begge    type melding              
 	private String helvl; //      tegn            3       3      1654        begge    meldingsnivå              
-	private String hesnn; //      pakket       9  0       5      1657        begge    meldingsnr    
-	private String heunik; //     pakket       9  0       5      1662        begge    recordnr      
+	private String hesnn = "0"; //      pakket       9  0       5      1657        begge    meldingsnr    
+	private String heunik = "0"; //     pakket       9  0       5      1662        begge    recordnr      
 	private String hereff; //     tegn           17      17      1667        begge    referanse     
 
 	private String ownEnhet1 = null;

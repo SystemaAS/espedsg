@@ -99,4 +99,38 @@ public class StringManager {
 		}
 		return retval;
 	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public String adjustNullStringToIntegerForDbUpdate(String value){
+		String retval = value;
+		String ZERO = "0";
+		
+		//Integers
+		if(this.isNull(value)){
+			retval = ZERO;
+		}
+		return retval;
+		
+	}
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public String adjustNullStringToDecimalForDbUpdate(String value){
+		String retval = value;
+		String ZERO = "0";
+		
+		if(this.isNotNull(value)){
+			String tmp = value.replace(",", ".");
+			retval = tmp;
+		}else{
+			retval = ZERO;
+		}
+		return retval;
+	}
 }
