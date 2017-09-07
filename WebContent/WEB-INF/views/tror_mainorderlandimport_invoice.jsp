@@ -80,7 +80,7 @@
 			<tr>
 	 			<td >		
 	 				<%-- MASTER Topic header --%>
-	 				<table width="90%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="100%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
 				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.avd"/>&nbsp;<b>${recordOrderTrorLandImport.heavd}</b>
@@ -121,7 +121,7 @@
 		 				</tr>
 	 				</table>
 					<%-- MASTER Topic information [it is passed through a session object: XX] --%>
-				 	<table height="40" width="90%" align="left" class="formFrameTitaniumWhite" border="0" cellspacing="0" cellpadding="0">
+				 	<table height="40" width="100%" align="left" class="formFrameTitaniumWhite" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="2"><td class="text" align="left" colspan="2"></td></tr>
 				 		<tr>
 					 		<td width="50%">
@@ -235,7 +235,7 @@
 							<td >
 								<form name="formItemList" id="formItemList" method="POST" >
 				               		<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
-				 				<table id="container tableTable" width="90%" cellspacing="2" align="left" >
+				 				<table id="container tableTable" width="100%" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
 										
@@ -375,7 +375,7 @@
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="100%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
@@ -400,7 +400,7 @@
 			 				</td>
 		 				</tr>
 	 				</table>
-					<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
@@ -443,7 +443,23 @@
 	 											<img id="imgGebyrCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 							            </td>
-							            <td class="text12" align="left"><span title="wtnr">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.tnr"/></span></td>
+							            <td class="text12" align="left">
+								            <img onMouseOver="showPop('tnr_info');" onMouseOut="hidePop('tnr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								            <span title="wtnr">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.tnr"/></span>
+							            	<div class="text11" style="position: relative; display: inline;" align="left">
+											<span style="position:absolute; width:200px;" id="tnr_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Tabellnr</b>
+							           			<div>
+							           				<p>
+							           				Man kan her, ved manuell oppretting av fakturalinje, angi hvilken bruttotabell gebyrprisen skal hentes fra.Det er ikke krav til feltet.
+													</p>
+	    										</div>	 
+						           				</font>
+											</span>
+											</div>
+							            </td>
+							            
 							            <td class="text12" align="left"><span title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/></span></td>
 					            		<td class="text12" align="left"><span title="faval">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.currency"/></span></td>
 					            		<td class="text12" align="left"><span title="fakdm">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.mva"/></span></td>
@@ -516,6 +532,154 @@
 						        			<input type="text" class="inputText" name="fadocnB" id="fadocnB" size="8" maxlength="7" value="${model.record.fadocnB}">
 						        		</td>
 							        </tr>
+							        <tr height="12"><td class="text" align="left" colspan="20"><hr></td></tr>
+							        <tr height="3"><td class="text" align="left"></td></tr>
+							        <tr>
+							 			<td class="text12" align="left" >&nbsp;
+							            	<img onMouseOver="showPop('utgift_info');" onMouseOut="hidePop('utgift_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 				<span title="fakduk/facu33/fabelu"><spring:message code="systema.tror.orders.invoice.update.label.utgift"/></span>
+							 				
+							            </td>
+							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.currency"/></td>
+							            <td class="text12" align="left" >&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.utgift.costbelopp"/></td>
+							            <td class="text12" align="left"><span title="falevn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.id"/></span>
+						            		<a tabindex=-1 id="falevnIdLink" >
+	 											<img id="imgSupplierSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+						            	</td>
+						            	<td class="text12" align="left" ><span title="lnavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.supplier.name"/></span></td>
+							            <td>
+							            	<table>
+							            	<tr>
+							            		<td class="text12" align="left"><span title="wkomp">&nbsp;
+								            		<img onMouseOver="showPop('komp_info');" onMouseOut="hidePop('komp_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								            		<spring:message code="systema.tror.orders.invoice.update.label.komplett"/></span>
+							            		</td>
+							            		<td class="text12" align="left"><span title="facd11">&nbsp;&nbsp;&nbsp;
+								            		<img onMouseOver="showPop('sam_info');" onMouseOut="hidePop('sam_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								            		<spring:message code="systema.tror.orders.invoice.update.label.samm"/></span>
+								            	</td>
+					            			</tr>
+					            			<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; top:20px; width:350px" id="komp_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Komplett</b>
+							           			<div>
+							           				<p>Man kan her, ved manuell oppretting av fakturalinje, angi hvilken bruttotabell gebyrprisen skal hentes fra.</p>
+							           				Det er ikke krav til feltet.
+							           				<p>Dette feltet er kun i bruk for de som benytter "Frakttabeller/Land og sjø-LCL (ikke postal)" (MENU MAINT3, punkt 3 og MENU MAINT4, punkt 4). Skal frakt beregnes etter komplett enhet ? </p>
+							           				<p>Har kunden booket en komplett enhet kan fraktprisen hentes ved å taste 1,2 eller 3 her.</p>
+							           				<ul>
+														<li><b>1</b> = Hent pris for hele forvognen.</li> 
+														<li><b>2</b> = Hent pris for hele hengeren.</li>
+														<li><b>3</b> = Hent pris for hele vogntoget.</li>
+													</ul>
+													<p>
+													OBS! Om en glemmer å taste noe her, så vil likevel aldri en vektberegnet pris bli større enn tallet gitt i "Komplett" i fraktavtalen.
+							           				</p>
+	    										</div>	 
+						           			</font>
+											</span>
+											</div>
+											
+											<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; top:20px; width:350px" id="sam_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Samm</b>
+							           			<div>
+							           				<p>Hvis gebyret i fakturautskriften skal slås sammen med en eller flere andre gebyrlinjer under en felles gebyrtekst,
+							           				 skal det her ligge en kode som forteller hvilke linjer som skal slås sammen og med hvilken gebyrtekst.</p>
+							           				<p>Denne sammenslåingen vil kun påvirke fakturautskriften.
+							           				Systemet vil ta vare på og overføre til regnskap hver enkelt fakturalinje som vanlig</p>
+													
+	    										</div>	 
+						           			</font>
+											</span>
+											</div>
+											
+					            			</table>
+					            		</td>
+					            		
+					            		<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:10px; top:90px; width:400px;" id="utgift_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Utgift</b>
+							           			<div>
+							           				<p>Felt 1: fast kod</p>
+							           				<ul>
+														<li><b>blank</b>=ikke forventet utgift/budsjett</li>
+														<li><b>B</b>=Budsjettering obligatorisk</li>
+														<li><b>N</b>=Nei / obligatorisk er overstyrt</li>
+														<li><b>S</b>=?</li>
+														<li><b>L</b>=?</li>
+														<li><b>H</b>=?</li>
+													</ul>
+													<p>Felt 2: valuta kode</p>
+													
+													
+													<p>Alle gebyr/varekoder som har felt "SPLITT" utfylt (vedlikehold gebyrkoder MENU MAINT2, punkt 3), krever at et netto kostnadsbeløp i feltet UTGIFT er utfyllt. Avhengig av "splittkoden" benyttes beløpet til ulike formål:</p>
+													<ul>
+														<li>Splitt = <b>B</b>-Budsjett. Netto kostnad flyttes automatisk til budsjett/rekvisisjonssystemet som en
+														forventet inngående faktura. Det er også mulig å angi valutakode for utenlands valuta ved
+														budsjettering av kostnad.
+														</li>
+														<li>Splitt = <b>L</b>-Leverandørføring. Netto kostnad føres automatisk i Leverandørreskontro. Felt LENR(L)
+														må da være utfylt.</li>
+														<li>Splitt = <b>J</b> Netto kostnad føres til reskontro for utleggskontroll.</li>
+ 													</ul>
+													<p> 													
+													Dersom det i gebyr/varekoderegisteret også er utfylt felt %SATS (% av bruttobeløp som trekkes ut som ren inntekt) vil feltet UTGIFT bli automatisk fylt ut med det resterende som er kostnad.
+													Denne verdien kan overstyres.
+													</p>
+													<p>Ved å sette kode N i feltet kan man overstyre kravet til å taste utgift.</p>
+	    										</div>	
+	    										 
+						           			</font>
+											</span>
+											</div>
+					            			
+							        </tr>
+							        <tr>
+							        	<td class="text12">&nbsp;
+						        			<select name="fakduk" id="fakduk">
+						 						<option value=" ">-blank-</option>
+							 				  	<option value="B" <c:if test="${model.record.fakduk == 'B'}"> selected </c:if> >B</option>
+							 				  	<option value="N" <c:if test="${model.record.fakduk == 'N'}"> selected </c:if> >N</option>
+							 				  	<option value="S" <c:if test="${model.record.fakduk == 'S'}"> selected </c:if> >S</option>
+							 				  	<option value="L" <c:if test="${model.record.fakduk == 'L'}"> selected </c:if> >L</option>
+							 				  	<option value="H" <c:if test="${model.record.fakduk == 'H'}"> selected </c:if> >H</option>
+											</select>
+										</td>
+										<td class="text12">	
+						        			<select name="facu33" id="facu33">
+						 						<c:forEach var="record" items="${model.currencyCodeList}" >
+							 				  		<option value="${record.kvakod}"<c:if test="${model.record.facu33 == record.kvakod || (empty model.record.facu33 && record.kvakod=='NOK')}"> selected </c:if> >${record.kvakod}</option>
+												</c:forEach> 
+											</select>
+										</td>
+										<td class="text12">	
+						        			<input type="text" class="inputText" onKeyPress="return amountKey(event)" name="fabelu" id="fabelu" size="15" maxlength="14" value="${model.record.fabelu}">
+										</td>
+										<td class="text12" align="left" >
+											<input type="text" class="inputText" name="falevn" id="falevn" size="9" maxlength="8" value="${model.record.falevn}">
+										</td>
+							            <td class="text12" align="left" >
+											<input type="text" class="inputText" name="lnavn" id="lnavn" size="20" maxlength="35" value="${model.record.lnavn}">
+										</td>
+							            <td>
+							            	<table>
+							            	<tr>
+												<td class="text12" align="left" nowrap>
+									            	<input type="text" class="inputText" name="wkomp" id="wkomp" size="5" maxlength="5" value="${model.record.wkomp}">
+												</td>
+								        		<td class="text12" align="left">
+								            		<input type="text" class="inputText" name="facd11" id="facd11" size="5" maxlength="5" value="${model.record.facd11}">
+								            	</td>
+					            			</tr>
+					            			</table>
+					            		</td>
+							        </tr>
+							        
 							        <tr height="10"><td class="text" align="left"></td></tr>
 						        </table>
 					        </td>

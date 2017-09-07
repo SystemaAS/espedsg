@@ -104,6 +104,16 @@
   			jq('#fakunr').val("");
   			jq('#fadocnB').val("");
 			jq('#faavdr').val("");
+			//
+			jq('#falevn').val("");
+			jq('#fadocnB').val("");
+			jq('#faavdr').val("");
+			jq('#fakduk').val("");
+			jq('#facu33').val("");
+			jq('#fabelu').val("");
+			//
+			jq('#fakunr').val("");
+			jq('#facd11').val("");
   			
   			//aspects
   			jq('#editLineNr').text("");
@@ -139,7 +149,6 @@
 				//alert(data[i].fask);
 				//jq('#editLineNr').text("");jq('#editLineNr').text(data[i].fali);
 				jq('#updCancelButton').show(); //in order to be able to cancel (implicit reload)
-				
 				jq('#editLineNr').text("");jq('#editLineNr').text(data[i].fali); //for GUI purposes
 				//keys
 				jq('#fali').val("");jq('#fali').val(data[i].fali);
@@ -152,9 +161,15 @@
 				jq('#fakunr').val("");jq('#fakunr').val(data[i].fakunr);
 				jq('#fadocnB').val("");jq('#fadocnB').val(data[i].fadocnB);
 				jq('#faavdr').val("");jq('#faavdr').val(data[i].faavdr);
+				jq('#falevn').val("");jq('#falevn').val(data[i].falevn);
+				jq('#fakduk').val("");jq('#fakduk').val(data[i].fakduk);
+				jq('#facu33').val("");jq('#facu33').val(data[i].facu33);
+				jq('#fabelu').val("");jq('#fabelu').val(data[i].fabelu);
+				jq('#facd11').val("");jq('#facd11').val(data[i].facd11);
 				//Fritext
 				jq('#faVT').val("");jq('#faVT').val(data[i].faVT);
 				//jq('#stdVt').val("");jq('#stdVt').val(data[i].stdVt);
+				
 				/* tentative 
 				var freeText = data[i].faVT;
 				if(freeText!=""){
@@ -162,18 +177,8 @@
 				}else{
 					jq('#freeText').val("");jq('#freeText').val(data[i].stdVt); //only for presentation purposes
 				}
-				
-				jq('#falevn').val("");jq('#falevn').val(data[i].falevn);
-				jq('#fadocnB').val("");jq('#fadocnB').val(data[i].fadocnB);
-				jq('#faavdr').val("");jq('#faavdr').val(data[i].faavdr);
-				jq('#fakduk').val("");jq('#fakduk').val(data[i].fakduk);
-				jq('#facu33').val("");jq('#facu33').val(data[i].facu33);
-				jq('#fabelu').val("");jq('#fabelu').val(data[i].fabelu);
-				
-				jq('#fakunr').val("");jq('#fakunr').val(data[i].fakunr);
-				jq('#facd11').val("");jq('#facd11').val(data[i].facd11);
 				*/
-				
+				jq('#fask').focus();
 			}
 	  	  },
 	  	  error: function() {
@@ -240,10 +245,13 @@
       jq('#tblInvoices').dataTable( {
     	  //"dom": '<"top">t<"bottom"f><"clear">',
     	  "dom": '<"top"i>rt<"bottom"f><"clear">',
-  		  "scrollY":    "200px",
+  		  "scrollY":  "200px",
   		  "order": [[ 2, "asc" ], [ 0, "asc" ]],
   		  "scrollCollapse":  true,
-  		  "lengthMenu": [ 25, 50]
+  		  "lengthMenu": [ 25, 50],
+  		  "tabIndex": -1,
+		  "language": { "url": getLanguage(lang) }
+  		  
   	  });
       //event on input field for search
       jq('input.tblInvoices_filter').on( 'keyup click', function () {
