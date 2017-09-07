@@ -28,12 +28,16 @@
 }
 
 .container-fluid {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 10px;
+  padding-right: 20px;
 }
 
 .pie-chart {
   height: 150px;
+}
+
+.number-display {
+  font-size: 30px;
 }
 
 .dc-chart .axis text{
@@ -85,6 +89,13 @@ a { cursor: pointer }
     text-align: right;
     font-size: xx-small;
     
+}
+
+.show-grid-center {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-right-style: none;
+    text-align: center;
 }
 
 
@@ -153,6 +164,11 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var  moveChart = dc.lineChart('#monthly-move-chart');
 	var  dataCount = dc.dataCount('#data-count')	 
 
+	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
+	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
+	var  resultatDisplay = dc.numberDisplay("#resultat");	
+	var  dbDisplay = dc.numberDisplay("#db");	
+	
     // Dimension by month
     var moveMonths = fakt.dimension(function (d) {
         return d.month;
@@ -161,8 +177,12 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
     var monthlyMoveGroup = moveMonths.group().reduceSum(function (d) {
         return d.sumfabeln;
     });	
-	
 
+    
+  //  SUM OMSETNING er jo da alle med FAKDA <> 'K', SUM KOSTNADER er alle med FAKDA = 'K'  
+  //      RESULTAT = Omsetning pluss Kostnad (ligger med motsatt fortegn) - DEKNINGSBIDRAG i % = RESULTAT / OMSETNING * 100   
+    
+    
     var  yearPerformanceGroup = faktByYearDim.group().reduce(
         /* callback for when data is added to the current filter results */
         function (p, v) {
@@ -194,7 +214,39 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
         }
     );	
 	 
-
+    var omsetningsGroup =  faktAllDim.group().reduce(   //all.reduce(   //  faktByYearDim
+            /* callback for when data is added to the current filter results */
+            function (p, v) {
+                ++p.count;
+                if (v.fakda != 'K') {
+                	p.omsetning += v.sumfabeln;   
+                } else {
+                	p.kostnad += v.sumfabeln; 
+                }
+                return p;
+            },
+            /* callback for when data is removed from the current filter results */
+            function (p, v) {
+                --p.count;
+                if (v.fakda != 'K') {
+                	p.omsetning -= v.sumfabeln;   
+                } else {
+                	p.kostnad -= v.sumfabeln; 
+                }
+                return p;
+            },
+            /* initialize p */
+            function () {
+                return {
+                    count: 0,
+                    omsetning: 0,
+                    kostnad: 0,
+                };
+            }
+    );  
+  
+  
+  
 	  yearChart
 	    .width(150)
 	    .height(150)
@@ -243,6 +295,48 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    .innerRadius(30)
 	    .controlsUseVisibility(false);	//true
 	  
+	  omsetningsDisplay
+	     .group(omsetningsGroup)  
+		 .valueAccessor(function (p) {
+			// console.log("p.value.omsetning="+p.value.omsetning);
+			 return p.value.omsetning;
+		  })
+		  .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+	    
+	  kostnadsDisplay
+	     .group(omsetningsGroup)  
+		 .valueAccessor(function (p) {
+			// console.log("p.value.kostnad="+p.value.kostnad);
+			 return p.value.kostnad;
+		  })
+		 .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+	    
+	  resultatDisplay
+	     .group(omsetningsGroup)  
+		 .valueAccessor(function (p) {
+			console.log("p.value.omsetning="+p.value.omsetning);
+			console.log("p.value.kostnad="+p.value.kostnad);
+			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
+			console.log("resultat="+resultat);
+			return resultat;
+		  })
+		 .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+
+	  dbDisplay
+	     .group(omsetningsGroup)  
+		 .valueAccessor(function (p) {
+			console.log("p.value.omsetning="+p.value.omsetning);
+			console.log("p.value.kostnad="+p.value.kostnad);
+			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
+			console.log("resultat="+resultat);
+			var db = resultat / p.value.omsetning;
+			console.log("db="+db);
+			return db;
+		  })
+		 .formatNumber(d3.format(".2%")); 
+	  
+	 // .formatNumber(d3.format(".2%"));
+	// .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
 	  
 	  
 	    //#### Bubble Chart
@@ -549,6 +643,30 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 
 				<div class="container-fluid">
 				  <div class="row">
+					<div class="col-md-12">
+					  <div class="row ">
+		  				<div class="col-md-3 show-grid-center">
+  						       Omsetning
+  						 </div>
+			  			 <div class="col-md-3 show-grid-center">
+  						        Kostnad
+  						 </div> 
+			  			 <div class="col-md-3 show-grid-center">
+  						        Resultat
+  						 </div> 
+ 			  		     <div class="col-md-3 show-grid-center">
+  						        DB
+  						 </div>    						       						     						    
+					  </div> 
+					  <div class="row border">
+						<div class="col-md-3 dc-chart" id="omsetning" align="center"></div>
+				        <div class="col-md-3 dc-chart" id="kostnad" align="center"></div>  
+				        <div class="col-md-3 dc-chart" id="resultat" align="center"></div>  
+				        <div class="col-md-3 dc-chart" id="db" align="center"></div>  
+					  </div> 					  
+					</div>		
+				  </div>
+				  <div class="row">
 				    <div class="col-md-2">
 				      <div class="row">
    						 <div class="col-md-6 show-grid-left">
@@ -593,6 +711,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				      </div>
 				    </div>
 				  </div>
+				  
 				  <div class="row">
 				    <div class="col-md-2">
 				      <div class="row">
@@ -608,7 +727,23 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 						    <div><span class="filter"></span></div>
 					      </div>
 				      </div>
+
+				      <div class="row">
+	  					<div class="col-md-6 show-grid-left">
+	  						Faopko
+	  				    </div>
+						<div class="col-md-6 show-grid-right">
+							<a id="fakda">tilbakestill</a>
+						</div>
+	  				  </div>
+	  				  <div class="row border">
+					      <div class="col-md-12 dc-chart" id="chart-ring-fakda" align="center">
+						    <div><span class="filter"></span></div>
+					      </div>
+				      </div>				      
+	
 					</div>
+ 
 				    <div class="col-md-10">
 				      <div class="row">
    						 <div class="col-md-6 show-grid-left">
@@ -624,6 +759,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 						 </div>
 				      </div>
 					</div>
+
 				  </div>	
 	
 				  <div class="row">
@@ -655,67 +791,6 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				  </div>
 	
 				</div>
-
-<!--  
-				<div class="container-fluid">
-				  <div class="row">  show-grid
-				    <div class="col-xs-9 dc-data-count dc-chart text12" id="data-count"> 
-				       <h3>Faktura poster
-				        <small>
-				          <span class="filter-count"></span> valgt ut av <span class="total-count"></span> poster |
-				           <a id="all" href="#">Tilbakestill alt</a>
-				        </small>
-				        </h3>
-				    </div>
-				  </div>
-				  
-				  <div class="row" id="control-row">  show-grid 
-				    <div class="col-xs-4 col-md-3 pie-chart">
-				      <h4>År <small><a id="year">tilbakestill&nbsp;&nbsp;</a></small></h4>
-				      <div class="dc-chart" id="chart-ring-year"></div>
-				    </div>
-				    <div class="col-xs-4 col-md-3 pie-chart">
-				      <h4>Måned <small><a id="month">tilbakestill&nbsp;&nbsp;</a></small></h4>
-				      <div class="dc-chart" id="chart-ring-month"></div>
-				    </div>
-
-				    <div class="col-xs-4 col-md-3 pie-chart">
-				      <h4>Avdeling <small><a id="avd">tilbakestill</a></small></h4>
-				      <div class="dc-chart" id="chart-ring-avd"></div>
-				    </div>
-  
-				  </div>
-				 
-				  <div class="row">
-				    <div class="col-xs-6 col-md-9">
-					  <strong>Sum fabeln / 1000, per avdeling</strong>
-				      <div class="dc-chart" id="chart-row-avdfabeln"></div>
-				    </div>
-
-				  <div class="row"> 
-				    <div class="col-xs-6 col-md-9">
-	      				<div class="dc-chart" id="yearly-bubble-chart"></div>
-				    </div>
-				  </div>
-	
-				  <div class="row">  show-grid 
-				    <div class="col-xs-9 col-md-9">
-				      <table class="table table-bordered table-striped" id="data-table">
-				        <thead>
-				          <tr class="header">
-				            <th>faavd</th>
-				            <th>faopd</th>
-				            <th>sumfabeln</th>
-				            <th>fadato</th>
-				            <th>fakda</th>
-				          </tr>
-				        </thead>
-				      </table>
-				    </div>
-				  </div>
-				</div>	 
-			</div>	    
--->
 
 		 	   </td>
 	 	    </tr>

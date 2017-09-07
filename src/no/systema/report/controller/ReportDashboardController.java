@@ -38,10 +38,6 @@ public class ReportDashboardController {
 		if (StringUtils.hasValue(lib)) {
 			if (lib.endsWith("DC")){
 				successView = new ModelAndView("report_dashboard_DC");  
-			} else if (lib.endsWith("GoogleChart")) {
-				successView = new ModelAndView("report_dashboard_GoogleChart");
-			} else if (lib.endsWith("D3")) {
-				successView = new ModelAndView("report_dashboard_D3");
 			} else if (lib.endsWith("dt")) {
 				successView = new ModelAndView("report_dashboard_dt");
 			} else if (lib.endsWith("untappd")) {
