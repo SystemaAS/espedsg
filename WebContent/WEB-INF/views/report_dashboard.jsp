@@ -131,7 +131,6 @@ a { cursor: pointer }
 <script type="text/javascript">
 
 	var  dataTable;
-	//var  fakt;
 	var faktSize;
 
 d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
@@ -183,7 +182,6 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var  faopkoChart   = dc.pieChart('#chart-ring-faopko');
 	dataTable = dc.dataTable('#data-table');
 	var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
-	var  revenueSeriesChart = dc.seriesChart("#chart-revenue");
 	var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  moveChart = dc.lineChart('#monthly-move-chart');
 	var  dataCount = dc.dataCount('#data-count')	 
@@ -503,41 +501,6 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 		    //        return v + '%';
 		    //    });
  	 
- 
-	        //Inspired by https://github.com/dc-js/dc.js/blob/master/web/examples/series.html
-			//TODO remove
-	        var mindate = new Date(2006,0,1),
-               	maxdate = new Date(2006,12,31);
-	        revenueSeriesChart
-		        .width(1200)
-		        .height(320)
-		        .chart(function(c) { return dc.lineChart(c).interpolate('cardinal'); })
-		        //.x(d3.scale.linear().domain([0,20]))
-		        .x(d3.time.scale().domain([mindate, maxdate]))  //.range([1, 5]))
-		        .brushOn(false)
-		        //.yAxisLabel("Y axix")
-		        //.xAxisLabel("X axis")
-		        .clipPadding(10)
-		        .elasticY(true)
-		        .dimension(faktByYearDim)
-		        .group(yearPerformanceGroup)  //, faktByYearDimGroup
-		       // .mouseZoomable(true)
-		        .seriesAccessor(function(d) {
-		        	return "Key: " + d.key[0];
-		        	})
-		        .keyAccessor(function(d) {
-		        	//return +d.key[1];
-		        	 return d.key.sumTotal;
-		        	})
-		        .valueAccessor(function(d) {
-		        	return +d.value.sumfabeln;
-		        	})
-		        //.legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
-	        
-	        revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d);});
-	        //revenueSeriesChart.yAxis().tickFormat(function(d) {return d3.format(',d')(d+299500);});
-	        revenueSeriesChart.margins().left += 40;	        
-	        
 		    //https://github.com/dc-js/dc.js/blob/develop/web/play-ground.html        
 	        lineChartDate
 	        		.width(1000)
@@ -546,15 +509,14 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	                //.dimension(faktByYearDim)
 	                //.group(faktByYearDimGroup, "Id Sum")
 					.dimension(moveMonths) // moveMonths  
-       				.group(monthlyGroup, "Omsetning")   //monthlyMoveGroup
+					.group(monthlyGroup, "Kostnad")  
                     .valueAccessor(function (d) {
-                        return d.value.omsetning /1000; //d.value.avg
+                        return d.value.kostnad /1000; 
                     })
-       				.yAxisLabel("NOK")
+                    .yAxisLabel("NOK")
 		        	.xAxisLabel("Måned")          
-	                //.stack(faktByYearDimGroup, "Value Sum")
-	               .stack(monthlyGroup, "Kostnad", function (d) {
-	                    return d.value.kostnad /1000;
+		        	.stack(monthlyGroup, "Omsetning", function (d) {
+	                    return d.value.omsetning /1000;
 	               })
 	                .brushOn(true)
 	               .title(function (d) {
@@ -685,6 +647,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	     	table.select('tr.dc-table-group').remove();
 	  	});
 	   
+	    faktSize = fakt.size();
 	    updateDataTable();
 	  
 	dc.renderAll(); 
@@ -700,6 +663,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    d3.select('#size').text(faktSize);
 	}
 	function updateDataTable() {
+	//	alert("faktSize="+faktSize);
 		dataTable.beginSlice(ofs);
 		dataTable.endSlice(ofs+pag);
 	    display();
@@ -812,7 +776,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				      <div class="row border">
 						 <div class=" col-md-12 dc-chart" id="line-chart-date" align="center">
 						 	<div><span class="filter"></span></div>
-						 </div>  <!-- chart-revenue,   , monthly-move-chart-->  
+						 </div>  <!--    , monthly-move-chart-->  
 				      </div>
 				    </div>
 				  </div>
@@ -894,15 +858,13 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				        </thead>
 				      </table>
 				      <div id="paging">
-   						 Viser <span id="begin"></span>-<span id="end"></span> av <span id="size"></span>.
+   						<!--  Viser <span id="begin"></span>-<span id="end"></span> av <span id="size"></span>.-->
     					<input id="last" type="Button" value="forrige" onclick="javascript:last()" />
     					<input id="next" type="button" value="neste" onclick="javascript:next()"/>
   					  </div>
 				    </div>
 				  </div>
-	
 				</div>
-
 		 	   </td>
 	 	    </tr>
 	 	    
