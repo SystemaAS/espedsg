@@ -18,7 +18,6 @@ import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedRecor
 
 
 
-
 //
 import java.util.*;
 
@@ -96,5 +95,6 @@ public class JsonTrorOrderHeaderMapperChildWindow {
 		}
 		return container;
 	}
+	
 	
 }

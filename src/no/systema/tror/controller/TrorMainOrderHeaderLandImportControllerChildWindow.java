@@ -37,9 +37,10 @@ import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSe
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressRecord;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedRecord;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowService;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesContainer;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesRecord;
+import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
 
 
 /**
@@ -417,9 +418,9 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
-	
+	/*
 	@RequestMapping(value="tror_childwindow_loadunloadplaces.do", params="action=doInit",  method={RequestMethod.GET} )
-	public ModelAndView doInitLoadUloadPlaces(@ModelAttribute ("record") JsonTrorLoadUnloadPlacesContainer recordToValidate, HttpSession session, HttpServletRequest request){
+	public ModelAndView doInitLoadUloadPlaces(@ModelAttribute ("record") JsonTrorLosseLasteStedContainer recordToValidate, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doInitLoadUloadPlaces");
 		Map model = new HashMap();
@@ -437,7 +438,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	    		return successView;
 		}
 	}	
-	
+	*/
 	/**
 	 * 
 	 * @param recordToValidate
@@ -446,8 +447,9 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param request
 	 * @return
 	 */
+	/*
 	@RequestMapping(value="tror_childwindow_loadunloadplaces.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doFindLoadUnloadPlaces(@ModelAttribute ("record") JsonTrorLoadUnloadPlacesContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doFindLoadUnloadPlaces(@ModelAttribute ("record") JsonTrorLosseLasteStedContainer recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		logger.info("Inside: doFindLoadUploadPlaces");
 		Collection outputList = new ArrayList();
@@ -468,21 +470,21 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
 		    validator.validate(recordToValidate, bindingResult);
-		    */
+		    
 		    //check for ERRORS
 			if(bindingResult.hasErrors()){
-		    		logger.info("[ERROR Validation] search-filter does not validate)");
-		    		//put domain objects and do go back to the successView from here
-		    		//this.setCodeDropDownMgr(appUser, model);
-		    		model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);
 				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 				return successView;
 	    		
 		    }else{
 				
 		    		//prepare the access CGI with RPG back-end
-		    		String BASE_URL = "TODO";  //TrorUrlDataStore.EBOOKING_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL;
-		    		String urlRequestParamsKeys = this.getRequestUrlKeyParametersSearchChildWindow(recordToValidate, appUser);
+		    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL;
+		    		String urlRequestParamsKeys = "user=" + appUser.getUser();
 		    		logger.info("URL: " + BASE_URL);
 		    		logger.info("PARAMS: " + urlRequestParamsKeys);
 		    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
@@ -492,10 +494,10 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			    
 		    		if(jsonPayload!=null){
-		    			JsonTrorLoadUnloadPlacesContainer container = null;// TODO this.trorChildWindowService.getLoadUnloadPlacesContainer(jsonPayload);
+		    			JsonTrorLosseLasteStedContainer container = this.trorMainOrderHeaderChildwindowService.getLosseLasteStedContainer(jsonPayload);
 			    		if(container!=null){
-			    			List<JsonTrorLoadUnloadPlacesRecord> list = new ArrayList<JsonTrorLoadUnloadPlacesRecord>();
-			    			for(JsonTrorLoadUnloadPlacesRecord  record : container.getInqlosslass()){
+			    			List<JsonTrorLosseLasteStedRecord> list = new ArrayList<JsonTrorLosseLasteStedRecord>();
+			    			for(JsonTrorLosseLasteStedRecord  record : container.getDtoList()){
 			    				//logger.info("Load PLACE: " + record.getKotmnv());
 			    				list.add(record);
 			    			}
@@ -514,7 +516,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    }
 		}
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param recordToValidate
@@ -690,6 +692,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	 * @param appUser
 	 * @return
 	 */
+	/*
 	private String getRequestUrlKeyParametersSearchChildWindow(JsonTrorLoadUnloadPlacesContainer searchFilter, SystemaWebUser appUser){
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
@@ -702,7 +705,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		}
 		return urlRequestParamsKeys.toString();
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param searchFilter
@@ -762,5 +765,14 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	@Required
 	public void setTrorMainOrderHeaderLandimportChildwindowService (TrorMainOrderHeaderLandimportChildwindowService value){ this.trorMainOrderHeaderLandimportChildwindowService = value; }
 	public TrorMainOrderHeaderLandimportChildwindowService getTrorMainOrderHeaderLandimportChildwindowService(){ return this.trorMainOrderHeaderLandimportChildwindowService; }
+	
+	
+	@Qualifier ("trorMainOrderHeaderChildwindowService")
+	private TrorMainOrderHeaderChildwindowService trorMainOrderHeaderChildwindowService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
+	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
+	
 	
 }

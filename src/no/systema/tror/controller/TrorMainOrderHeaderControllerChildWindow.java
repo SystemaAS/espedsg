@@ -47,6 +47,9 @@ import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeCon
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeRecord;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedRecord;
+
 //
 import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorOppdragsTypeCodeRecord;
@@ -739,6 +742,84 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    				list.add(record);
 		    			}
 		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_ENHET_CODE_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    }
+		}
+	}
+	
+	@RequestMapping(value="tror_mainorder_childwindow_loadunloadplaces.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindLoadUnload(@ModelAttribute ("record") JsonTrorLosseLasteStedRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindLoadUnload");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_loadunloadplaces");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser();
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonTrorLosseLasteStedContainer container = null;
+	    			try{
+	    				container = this.trorMainOrderHeaderChildwindowService.getLosseLasteStedContainer(jsonPayload);
+	    			}catch(Exception e){
+	    				e.printStackTrace();
+	    			}
+	    			//go on
+		    		if(container!=null){
+		    			List<JsonTrorLosseLasteStedRecord> list = new ArrayList<JsonTrorLosseLasteStedRecord>();
+		    			for(JsonTrorLosseLasteStedRecord  record : container.getDtoList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_LOADUNLOAD_CODE_LIST, list);
 		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 		    		}
 	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);

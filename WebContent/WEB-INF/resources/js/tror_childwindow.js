@@ -401,6 +401,28 @@
 	  });
 	});
 	
+	//Select loading places
+	jq(function() {
+		jq('#loadunloadList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+		  var id = record[0].replace("id_", "");
+		  var name = record[1].replace("name_", "");
+		  var caller= jq("#ctype").val();
+		  
+		  if ( caller =='tror_landimport'){ 
+			  opener.jq('#hesdl').val(name);
+			  opener.jq('#hesdl').focus();
+			  
+		  }else if(caller =='todo'){
+			 //TODO
+		  } 
+		  //close child window
+		  window.close();
+		  
+	  });
+	});
+	
 	
 	//======================
     //Datatables jquery 
@@ -473,6 +495,13 @@
     		jq('#uomList_filter').val()
         ).draw();
     }
+    
+    function LoadunloadList (){
+        jq('#loadunloadList').DataTable().search(
+    		jq('#loadunloadList_filter').val()
+        ).draw();
+    }
+    
     
     /*
     function filterPackingCodesList (){
@@ -644,6 +673,19 @@
 	  //event on input field for search
 	  jq('input.uomList_filter').on( 'keyup click', function () {
 		  filterUomList();
+	  });
+	  
+	  //------------------------------
+	  //tables [uom codes]
+	  //----------------------------
+	  jq('#loadunloadList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 50 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.loadunloadList_filter').on( 'keyup click', function () {
+		  filterLoadunloadList();
 	  });
 	  
 	  /*

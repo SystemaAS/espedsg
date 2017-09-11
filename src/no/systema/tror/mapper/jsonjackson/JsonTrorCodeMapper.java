@@ -24,14 +24,8 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorEnhetCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorSignatureCodeRecord;
-
-
-
-
-
-
-
-
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedRecord;
 
 import java.util.*;
 
@@ -241,6 +235,32 @@ public class JsonTrorCodeMapper {
 			//DEBUG
 			Collection<JsonTrorSignatureCodeRecord> fields = codeContainer.getDtoList();
 			for(JsonTrorSignatureCodeRecord record : fields){
+
+			}
+		}	
+		return codeContainer;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorLosseLasteStedContainer getLosseLasteStedContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		JsonTrorLosseLasteStedContainer codeContainer = null;
+		
+		if(utfPayload!=null){
+			//At this point we now have an UTF-8 payload
+			codeContainer = mapper.readValue(utfPayload.getBytes(), JsonTrorLosseLasteStedContainer.class); 
+			//logger.info("Mapping Code object from JSON payload...");
+			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
+			
+			//DEBUG
+			Collection<JsonTrorLosseLasteStedRecord> fields = codeContainer.getDtoList();
+			for(JsonTrorLosseLasteStedRecord record : fields){
 
 			}
 		}	

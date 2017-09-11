@@ -11,11 +11,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedRecord;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressRecord;
 
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesContainer;
-import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorLoadUnloadPlacesRecord;
 
 //
 import java.util.*;
@@ -79,22 +79,20 @@ public class JsonTrorOrderHeaderMapperLandImportChildWindow {
 	 * @return
 	 * @throws Exception
 	 */
-	/*
-	public JsonEbookingLoadUnloadPlacesContainer getLoadUnloadPlacesContainer(String utfPayload) throws Exception{
+	public JsonTrorLosseLasteStedContainer getLosseLasteContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
 		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingLoadUnloadPlacesContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingLoadUnloadPlacesContainer.class); 
+		JsonTrorLosseLasteStedContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorLosseLasteStedContainer.class); 
 		
 		//DEBUG
-		Collection<JsonEbookingLoadUnloadPlacesRecord> fields = container.getInqlosslass();
-		for(JsonEbookingLoadUnloadPlacesRecord record : fields){
-			//logger.info("knavn: " + record.getKnavn());
-			//logger.info("kundnr: " + record.getKundnr());
+		Collection<JsonTrorLosseLasteStedRecord> fields = container.getDtoList();
+		for(JsonTrorLosseLasteStedRecord record : fields){
+			//logger.info("todo: " + record.todo());
+
 		}
 		return container;
 	}
-	*/
 	
 }

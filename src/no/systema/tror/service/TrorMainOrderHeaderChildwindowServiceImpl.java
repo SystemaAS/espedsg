@@ -4,9 +4,14 @@
 package no.systema.tror.service;
 
 import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperChildWindow;
+import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperLandImportChildWindow;
+
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorTollstedContainer;
+
+
 
 /**
  * 
@@ -60,6 +65,19 @@ public class TrorMainOrderHeaderChildwindowServiceImpl implements TrorMainOrderH
 		return container;
 		
 		
+	}
+	/**
+	 * 
+	 */
+	public JsonTrorLosseLasteStedContainer getLosseLasteStedContainer(String utfPayload){
+		JsonTrorLosseLasteStedContainer container = null;
+		try{
+			JsonTrorOrderHeaderMapperLandImportChildWindow mapper = new JsonTrorOrderHeaderMapperLandImportChildWindow();
+			container = mapper.getLosseLasteContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 	}
 	
 

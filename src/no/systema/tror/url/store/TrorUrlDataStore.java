@@ -17,11 +17,9 @@ public class TrorUrlDataStore {
 	//----------------------------
 	//http://localhost:8080/syjservicestror/syjsHEADF_LITE.do?user=OSCAR&limit=100 (dftdg)
 	static public String TROR_BASE_MAIN_ORDER_LIST_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_LITE.do";
-	
 	//http://gw.systema.no/sycgip/syjsHEADF_LITE.do?user=OSCAR&heavd=1&heopd=11111 (mandatory fields)
 	static public String TROR_BASE_FETCH_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF.do";
 		
-	
 	/**
 	 * @Example SELECT http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR
 	 */
@@ -131,11 +129,10 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no:8080/syjservicesbcore/syjsVADR.do?user=OSCAR&kundnr=4
 	static public String TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_BUYER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsVADR.do";
 		
-	/*
-	static public String EBOOKING_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQSDL.pgm";
-	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO(return all)
-	//http://gw.systema.no/sycgip/TJINQSDL.pgm?user=JOVO&soknvn=T... etc
+	//http://localhost:8080/syjservicestror/syjsKODTERLF.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTERLF.do";
 	
+	/**
 	//---------------------------------------------------
 	//[2] GENERAL CODES - for country (AS400 from TVINN) 
 	//---------------------------------------------------
