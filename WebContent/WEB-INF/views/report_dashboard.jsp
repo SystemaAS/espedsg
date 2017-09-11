@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js""></script>
+  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
   <script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
@@ -38,6 +38,13 @@
 
 .number-display {
   font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.padded {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .dc-chart .axis text{
@@ -47,6 +54,11 @@
 text {
   font-size: 16px;
    fill: black;
+}
+
+.filterBold {
+  font-size: 16px;
+  fill: black;
 }
 
 #map {
@@ -92,9 +104,13 @@ a { cursor: pointer }
 }
 
 .show-grid-center {
+    padding-top: 10px;
+    padding-bottom: 10px;
     border: 1px solid #ddd;
     background-color: #eee !important;
     border-right-style: none;
+    font-weight: bold;
+    font-size: 18px;
     text-align: center;
 }
 
@@ -125,21 +141,23 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
-	  d.dd = fullDateFormat.parse(d.fadato);
+	  d.dd = fullDateFormat.parse(d.hedtop);
 	  d.year = yearFormat(d.dd);
 	  d.month = monthFormat(d.dd);
 	  d.faavd = d.faavd;
 	  d.faopd = d.faopd;
 	  d.sumfabeln = +d.sumfabeln;
-	  d.fadato = d.fadato;
+	  d.hedtop = d.hedtop; 
 	  d.fakda = d.fakda;
 	  d.faopko = d.faopko;
+	  d.trknfa = d.trknfa;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
 	var  fakt = crossfilter(faktData);	
 	var  all = fakt.groupAll();
 	
+	var  faktByKundeDim  = fakt.dimension(function(d) {return d.trknfa;});
 	var  faktByYearDim  = fakt.dimension(function(d) {return d.year;});
 	var  faktByMonthDim  = fakt.dimension(function(d) {return +d.month;});
 	var  faktByAvdDim  = fakt.dimension(function(d) {return d.faavd;});
@@ -148,6 +166,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var  faktByYearDimGroup = faktByYearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktByAvdDimGroup = faktByAvdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
+	
 	var  countFaktByMonth = faktByMonthDim.group().reduceCount();
 	var  countFaktByFakda = faktByFakdaDim.group().reduceCount();
 	var  countFaktByFaopko = faktByFaopkoDim.group().reduceCount();
@@ -178,11 +197,38 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
         return d.sumfabeln;
     });	
 
+  
+    var  kundePerformanceGroup = faktByKundeDim.group().reduce(
+            /* callback for when data is added to the current filter results */
+            function (p, v) {
+            	++p.faavd;
+            	++p.faopd;
+                ++p.sumfabeln;
+                ++p.count;
+                p.sumAvd += p.faavd;
+                p.sumTotal += p.sumfabeln;
+                return p;    
+            },
+            /* callback for when data is removed from the current filter results */
+            function (p, v) {
+            	--p.faavd;
+            	--p.faopd;
+                --p.sumfabeln;
+                --p.count;
+                p.sumAvd -= p.faavd;
+                p.sumTotal -= p.sumfabeln;
+                return p;
+            },
+            /* initialize p */
+            function () {
+                return {faavd: 0,faopd: 0, sumfabeln: 0, sumTotal: 0, sumAvd: 0,  count: 0};
+            }
+        );	
     
-  //  SUM OMSETNING er jo da alle med FAKDA <> 'K', SUM KOSTNADER er alle med FAKDA = 'K'  
-  //      RESULTAT = Omsetning pluss Kostnad (ligger med motsatt fortegn) - DEKNINGSBIDRAG i % = RESULTAT / OMSETNING * 100   
     
     
+    
+    //TODO remove
     var  yearPerformanceGroup = faktByYearDim.group().reduce(
         /* callback for when data is added to the current filter results */
         function (p, v) {
@@ -191,8 +237,8 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
             ++p.sumfabeln;
             ++p.count;
             p.sumAvd += p.faavd;
-            p.sumIndex += p.sumfabeln;
-            p.avgIndex = p.sumIndex / p.count;
+            p.sumTotal += p.sumfabeln;
+            p.avgIndex = p.sumTotal / p.count;
             p.percentageGain = p.avgIndex ? (p.sumfabeln / p.avgIndex) * 100 : 0;
             return p;    
         },
@@ -203,14 +249,14 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
             --p.sumfabeln;
             --p.count;
             p.sumAvd -= p.faavd;
-            p.sumIndex -= p.sumfabeln;
-            p.avgIndex = p.count ? p.sumIndex / p.count : 0;
+            p.sumTotal -= p.sumfabeln;
+            p.avgIndex = p.count ? p.sumTotal / p.count : 0;
             p.percentageGain = p.avgIndex ? (p.sumfabel / p.avgIndex) * 100 : 0;
             return p;
         },
         /* initialize p */
         function () {
-            return {faavd: 0,faopd: 0, sumfabeln: 0, sumIndex: 0,sumAvd: 0, avgIndex: 0, percentageGain: 0, count: 0};
+            return {faavd: 0,faopd: 0, sumfabeln: 0, sumTotal: 0, sumAvd: 0, avgIndex: 0, percentageGain: 0, count: 0};
         }
     );	
 	 
@@ -255,6 +301,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
    
+	  //TODO remmove
 	  monthChart
         .width(150)
         .height(150)
@@ -279,6 +326,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    .innerRadius(30)
 	    .controlsUseVisibility(true);
 	  
+	  //TODO remove
 	  fakdaChart
 	    .width(150)
 	    .height(150)
@@ -293,7 +341,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    .dimension(faktByFaopkoDim)
 	    .group(countFaktByFaopko)
 	    .innerRadius(30)
-	    .controlsUseVisibility(false);	//true
+	    .controlsUseVisibility(true);
 	  
 	  omsetningsDisplay
 	     .group(omsetningsGroup)  
@@ -301,7 +349,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 			// console.log("p.value.omsetning="+p.value.omsetning);
 			 return p.value.omsetning;
 		  })
-		  .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+		  .formatNumber(function(d){ return d3.format(",.0f")(d)});
 	    
 	  kostnadsDisplay
 	     .group(omsetningsGroup)  
@@ -309,35 +357,24 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 			// console.log("p.value.kostnad="+p.value.kostnad);
 			 return p.value.kostnad;
 		  })
-		 .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
 	    
 	  resultatDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			console.log("p.value.omsetning="+p.value.omsetning);
-			console.log("p.value.kostnad="+p.value.kostnad);
 			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
-			console.log("resultat="+resultat);
 			return resultat;
 		  })
-		 .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
+		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
 
 	  dbDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			console.log("p.value.omsetning="+p.value.omsetning);
-			console.log("p.value.kostnad="+p.value.kostnad);
 			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
-			console.log("resultat="+resultat);
 			var db = resultat / p.value.omsetning;
-			console.log("db="+db);
 			return db;
 		  })
 		 .formatNumber(d3.format(".2%")); 
-	  
-	 // .formatNumber(d3.format(".2%"));
-	// .formatNumber(function(d){ return d3.format(",.0f")(d)+"M"});
-	  
 	  
 	    //#### Bubble Chart
 	    //Create a bubble chart and use the given css selector as anchor. You can also specify
@@ -352,11 +389,11 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	        .height(320)
 	        // (_optional_) define chart transition duration, `default = 750`
 	        .transitionDuration(1500)
-	        .margins({top: 10, right: 50, bottom: 30, left: 40})
-	        .dimension(faktByYearDim)
+		    .margins({top: 20, right: 10, bottom: 30, left: 80})
+	        .dimension(faktByKundeDim)
 	        //The bubble chart expects the groups are reduced to multiple values which are used
 	        //to generate x, y, and radius for each key (bubble) in the group
-	        .group(yearPerformanceGroup)
+	        .group(kundePerformanceGroup)
 	        // (_optional_) define color function or array for bubbles: [ColorBrewer](http://colorbrewer2.org/)
 	        .colors(colorbrewer.RdYlGn[9])
 	        //(optional) define color domain to match your data domain if you want to bind data or color
@@ -371,12 +408,12 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	        // `.keyAccessor` - the `X` value will be passed to the `.x()` scale to determine pixel location
 	        .keyAccessor(function (p) {
 	           // return p.value.sumfabeln;
-	            return p.value.sumIndex;
+	            return p.value.sumTotal;
 	        })
 	        // `.valueAccessor` - the `Y` value will be passed to the `.y()` scale to determine pixel location
 	        .valueAccessor(function (p) {
 	            return p.value.sumfabeln;
-	            //return p.value.sumIndex;
+	            //return p.value.sumTotal;
 	        })
 	        // `.radiusValueAccessor` - the value will be passed to the `.r()` scale to determine radius size;
 	        //   by default this maps linearly to [0,100]
@@ -400,7 +437,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	        // (_optional_) render vertical grid lines, `default=false`
 	        .renderVerticalGridLines(true)
 	        // (_optional_) render an axis label below the x axis
-	        .xAxisLabel('Summa fabeln per oppdrag')
+	        .xAxisLabel('Omsetning')
 	        // (_optional_) render a vertical axis lable left of the y axis
 	        .yAxisLabel('Antall oppdrag')
 	        //##### Labels and  Titles
@@ -416,11 +453,10 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	        .title(function (p) {
 	            return [
 	                p.key,
-	                'NOK: ' + p.value.sumIndex,
+	                'NOK: ' + p.value.sumTotal,
 	                'Antall oppdrag: ' + p.value.sumfabeln
 	            ].join('\n');
 	        })	        
-	        
 	        
 	        
 	        //#### Customize Axes
@@ -432,6 +468,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
  	 
  
 	        //Inspired by https://github.com/dc-js/dc.js/blob/master/web/examples/series.html
+			//TODO remove
 	        var mindate = new Date(2006,0,1),
                	maxdate = new Date(2006,12,31);
 	        revenueSeriesChart
@@ -453,7 +490,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 		        	})
 		        .keyAccessor(function(d) {
 		        	//return +d.key[1];
-		        	 return d.key.sumIndex;
+		        	 return d.key.sumTotal;
 		        	})
 		        .valueAccessor(function(d) {
 		        	return +d.value.sumfabeln;
@@ -465,34 +502,38 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	        revenueSeriesChart.margins().left += 40;	        
 	        
 		    //https://github.com/dc-js/dc.js/blob/develop/web/play-ground.html        
-	        lineChartDate.width(1000)
+	        lineChartDate
+	        		.width(1000)
 	                .height(325)
-	               //.margins({top: 30, right: 50, bottom: 30, left: 30})
+	               .margins({top: 20, right: 10, bottom: 30, left: 80})
 	                //.dimension(faktByYearDim)
 	                //.group(faktByYearDimGroup, "Id Sum")
 					.dimension(moveMonths)
        				.group(monthlyMoveGroup, "Kalle")
-	                
+	        	    .yAxisLabel("Y axix")
+		        	.xAxisLabel("Måned")          
 	                //  .stack(faktByYearDimGroup, "Value Sum")
 	              //  .stack(faktByYearDimGroup, "Fixed", function (d) {
 	              //      return 10;
 	              //  })
 	                .brushOn(false)
-	              //  .title(function (d) {
-	              //      return d.value;
-	              //  })
+	               .title(function (d) {
+	                    return d.value;
+	                })
 	               // .x(d3.time.scale().domain([mindate, maxdate]))
-	                .x(d3.scale.linear().domain([0,12]))
+	                .x(d3.scale.linear().domain([1,12]))
 	                .xUnits(d3.time.month)
 	                .elasticY(true)
 	                .renderHorizontalGridLines(true)
 	                .renderArea(true)
-	               // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
-	                //.xAxis().ticks(5);	        
+	               // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))  = Kalle
+	               // .xAxis().ticks(5);	        
 	
-               //Specify an area chart by using a line chart with `.renderArea(true)`.
+               
+	        	//Specify an area chart by using a line chart with `.renderArea(true)`.
                // <br>API: [Stack Mixin](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#stack-mixin),
                // [Line Chart](https://github.com/dc-js/dc.js/blob/master/web/docs/api-latest.md#line-chart)
+               //TODO remove
                moveChart /* dc.lineChart('#monthly-move-chart', 'chartGroup') */
                    .renderArea(true)
                    .width(990)
@@ -549,7 +590,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	     monthChart.filterAll();
 	     dc.redrawAll();
 	   });
-	   d3.selectAll('a#test').on('click', function () {
+	   d3.selectAll('a#kunde').on('click', function () {
 		  yearlyBubbleChart.filterAll();
 		  dc.redrawAll();
 		});	   
@@ -586,9 +627,10 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	      function (d) { return d.faavd; },
 	      function (d) { return d.faopd; },
 	      function (d) { return d.sumfabeln; },
-	      function (d) { return d.fadato; },
+	      function (d) { return d.hedtop; },
 	      function (d) { return d.fakda; },
-	      function (d) { return d.faopko; }
+	      function (d) { return d.faopko; },
+	      function (d) { return d.trknfa; }
 	    ])
 	   // .sortBy(dc.pluck('rating_score'))
 	    .order(d3.descending)
@@ -616,14 +658,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 						<font class="tabLink">&nbsp;Lønnsomhetsanalyse</font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-		               		<a style="display:block;" id="norskLink" href="report_dashboard.do?lib=untappd">
-								<font class="tabDisabledLink">&nbsp;Trafikkanalyse (Untappd)</font>
-								<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
-							</a>
-					</td>
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>
 		</table>
 		</td>
@@ -659,10 +694,10 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
   						 </div>    						       						     						    
 					  </div> 
 					  <div class="row border">
-						<div class="col-md-3 dc-chart" id="omsetning" align="center"></div>
-				        <div class="col-md-3 dc-chart" id="kostnad" align="center"></div>  
-				        <div class="col-md-3 dc-chart" id="resultat" align="center"></div>  
-				        <div class="col-md-3 dc-chart" id="db" align="center"></div>  
+						<div class="col-md-3 padded" id="omsetning" align="center"></div>
+				        <div class="col-md-3 padded" id="kostnad" align="center"></div>  
+				        <div class="col-md-3 padded" id="resultat" align="center"></div>  
+				        <div class="col-md-3 padded" id="db" align="center"></div>  
 					  </div> 					  
 					</div>		
 				  </div>
@@ -730,7 +765,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 
 				      <div class="row">
 	  					<div class="col-md-6 show-grid-left">
-	  						Faopko
+	  						Fakda
 	  				    </div>
 						<div class="col-md-6 show-grid-right">
 							<a id="fakda">tilbakestill</a>
@@ -747,15 +782,15 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				    <div class="col-md-10">
 				      <div class="row">
    						 <div class="col-md-6 show-grid-left">
-   						   Testing 2 
+   						   Kunde
    						 </div>
  						<div class="col-md-6 show-grid-right">
-							<a id="test">tilbakestill</a>
+							<a id="kunde">tilbakestill</a>
 						</div>  						 
 				      </div>
 				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="yearly-bubble-chart">
-						 	<div><span class="filter"></span></div>
+						 <div class="col-md-12" id="yearly-bubble-chart">
+						 	<div class="filterBold"><span class="filter"></span></div>
 						 </div>
 				      </div>
 					</div>
@@ -781,9 +816,10 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 				            <th>faavd</th>
 				            <th>faopd</th>
 				            <th>sumfabeln</th>
-				            <th>fadato</th>
+				            <th>hedtop</th>
 				            <th>fakda</th>
-					        <th>faopko</th>			            
+					        <th>faopko</th>		
+					        <th>trknfa</th>		
 				          </tr>
 				        </thead>
 				      </table>
