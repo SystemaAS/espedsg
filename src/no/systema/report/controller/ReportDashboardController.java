@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.util.StringUtils;
 import no.systema.main.util.AppConstants;
 
 @Controller
@@ -30,22 +29,10 @@ public class ReportDashboardController {
 	 */
 	@RequestMapping(value = "report_dashboard.do", method = RequestMethod.GET)
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
-		ModelAndView successView = new ModelAndView("report_dashboard");  //default
+		ModelAndView successView = new ModelAndView("report_dashboard");
 		logger.info("Inside: doReportDashboard");
-		String lib = request.getParameter("lib"); //For PoC testing
-		logger.info("lib="+lib);
-		
-		if (StringUtils.hasValue(lib)) {
-			if (lib.endsWith("DC")){
-				successView = new ModelAndView("report_dashboard_DC");  
-			} else if (lib.endsWith("dt")) {
-				successView = new ModelAndView("report_dashboard_dt");
-			} else if (lib.endsWith("untappd")) {
-				successView = new ModelAndView("report_dashboard_untappd");
-			}
-		} 
-		
-		logger.info("successView="+successView);
+
+		//TODO login
 		
 		return successView;
 	}
