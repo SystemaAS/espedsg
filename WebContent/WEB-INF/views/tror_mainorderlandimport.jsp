@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="tror_mainorderlandimport.do" s name="trorOrderForm" id="trorOrderForm" method="post">
+<form action="tror_mainorderlandimport.do" name="trorOrderForm" id="trorOrderForm" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -313,7 +313,7 @@
 						 				<table width="98%" class="tableBorderWithRoundCornersLightGray" border="0">
 						 				<tr>		
 								 			<td class="text12">&nbsp;<span title="hekdtm"><spring:message code="systema.tror.orders.form.update.label.transporttype"/></span>
-								 				<a href="javascript:void(0);" onClick="window.open('TODOtror_childwindow_customer.do?action=doFind&ctype=s','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+								 				<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_transporttypes.do?action=doFind&ctype=tror_landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 		 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
 								 			</td>
@@ -975,7 +975,7 @@
 										
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hegm1/hegm2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.marks"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hent">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.antal"/>&nbsp;</span></td>
-							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="intern">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
+							 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="ownEnhet1/ownEnhet2">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.forpak"/></span></td>
 							 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="hevs1/hevs2">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.goodsDesc"/></span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hevkt">&nbsp;<font class="text12RedBold" >*</font><spring:message code="systema.tror.orders.form.detail.update.label.weight"/>&nbsp;</span></td>
 							 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="hem3">&nbsp;<spring:message code="systema.tror.orders.form.detail.update.label.m3"/>&nbsp;</span></td>
@@ -1002,9 +1002,15 @@
 							 						</c:choose>
 							 					</c:forEach>
 											</select>
+											
+											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_landimport_e1','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
+	 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
+	 										</a>
+											<%--
 							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
 	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
 	 										</a>
+	 										 --%>
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
 						 					<c:choose>
@@ -1046,9 +1052,10 @@
 							 						</c:choose>
 						 						</c:forEach>
 											</select>
-							 				<a tabindex=0 id="fvpaknIdLinkNewLine" onClick="searchPackingCodesNewLine(this);">
-	 											<img id="imgfvpaknSearch" align="bottom" style="cursor:pointer;" src="resources/images/find2.png" height="11px" width="11px" border="0" alt="search">
+											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_landimport_e2','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
+	 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
 	 										</a>
+							 				
 						 				</td>
 						 				<td align="left" class="tableCell" nowrap>
 						 					<c:choose>
@@ -1087,7 +1094,7 @@
 							<c:choose>
 			 				    <c:when test="${ not empty model.record.heopd }">
 			 				    	<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-			 				    		<input tabindex=-1 onClick="setBlockUI(this);" class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+			 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 			 				    	</c:if>
 			 				    </c:when>
 			 				    <c:otherwise>

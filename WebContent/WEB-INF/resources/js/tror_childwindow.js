@@ -163,8 +163,34 @@
 		  window.close();
 	  });
 	});
-	
-	//Customer
+    //Transporttypes
+	jq(function() {
+		jq('#transporttypesList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='tror_landimport'){ 
+				  opener.jq('#hekdtm').val(id);
+				  jq('#hekdtm').focus();
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#hetri').val(countryCode);
+				  //opener.jq('#hesdt').val(postalCode);
+				  //opener.jq('#hesdt').removeClass("text11RedBold");
+				  //opener.jq('#OWNwppns2').val(city);
+			  }
+			  
+			  //close child window
+			  window.close();
+	  });
+	});
+	//Carrier
 	jq(function() {
 		jq('#carrierList').on('click', 'td', function(){
 		  var id = this.id;
@@ -254,7 +280,7 @@
 			  var record = id.split('@');
 			  var id = record[0].replace("id_","");
 			  var name = record[1].replace("name_","");
-			  var caller= jq("#ctype").val()
+			  var caller= jq("#ctype").val();
 			  /*if(record.length>3){
 				 caller = record[3].replace("caller_","");
 			  }*/
@@ -330,41 +356,7 @@
 		
 	});
 	
-	/*
-	//Select Postal Code To
-	jq(function() {
-		jq('#postNrToList').on('click', 'td', function(){
-			var id = this.id;
-			  var record = id.split('@');
-			  var postalCode = record[0].replace("postalcode_","");
-			  var countryCode = record[1].replace("country_","");
-			  var city = record[2].replace("city_","");
-			  var caller="init";
-			  if(record.length>3){
-				 caller = record[3].replace("caller_","");
-			  }
-			  //addressing a parent field from this child window
-			  if(opener.jq('#tustet').length){ //only way to check if field exists. (Trip)
-				  opener.jq('#tusont').val(countryCode);
-				  opener.jq('#tustet').val(postalCode);
-				  opener.jq('#tusdt').val(city);
-			  }
-			  if(opener.jq('#hesdt').length && caller=='hesdt'){ //only way to check if field exists.(Order)
-				  opener.jq('#hetri').val(countryCode);
-				  opener.jq('#hesdt').val(postalCode);
-				  opener.jq('#hesdt').removeClass("text11RedBold");
-				  opener.jq('#OWNwppns2').val(city);
-			  }else if(opener.jq('#hesdvt').length && caller=='hesdvt'){ //only way to check if field exists.(Order)
-				  opener.jq('#helkk').val(countryCode);
-				  opener.jq('#hesdvt').val(postalCode);
-				  opener.jq('#hesdvt').removeClass("text11RedBold");
-				  opener.jq('#OWNwppns4').val(city);
-			  }
-			  //close child window
-			  window.close();
-	  });
-	});
-	*/
+	
 	//Select Load/Unload place
 	jq(function() {
 		jq('#loadUnloadPlacesList').on('click', 'td', function(){
@@ -383,66 +375,32 @@
 	  });
 	});
 	
-	//Select packing codes
-	/*
+	//Select unit-of-measure codes
 	jq(function() {
-		jq('#packingCodesList').on('click', 'td', function(){
+		jq('#uomList').on('click', 'td', function(){
 		  var id = this.id;
 		  var record = id.split('@');
-		  if(jq('#callerLineCounter').val()!=''){
-			  var fvpakn = record[0].replace("kode_", "");
-			  var text = record[1].replace("text_", "");
-			  var fvlen = record[2].replace("len_", "");
-			  var fvbrd = record[3].replace("brd_", "");
-			  var fvhoy = record[4].replace("hoy_", "");
-			  var fvlm = record[5].replace("lm_", "");
-			  var fvlm2 = record[6].replace("lm2_", "");
+		  var id = record[0].replace("id_", "");
+		  var name = record[1].replace("name_", "");
+		  var caller= jq("#ctype").val();
+		  
+		  if ( caller =='tror_landimport_e1'){ 
+			  opener.jq('#ownEnhet1').val(id);
+			  opener.jq('#ownEnhet1').focus();
 			  
-			  var callerLineCounterStr = jq('#callerLineCounter').val();
-			  var callerLineCounter = 0;
-			  if(callerLineCounterStr!=""){ callerLineCounter = parseInt(callerLineCounterStr);}
-			  //alert(callerLineCounter);
-			  //addressing a parent field from this child window
-			  opener.jq('#fvpakn_' + callerLineCounter).val(fvpakn);
-			  if(opener.jq('#fvvt_' + callerLineCounter).val()==''){ opener.jq('#fvvt_' + callerLineCounter).val(text); }
-			  if(opener.jq('#fvlen_' + callerLineCounter).val()==''){ opener.jq('#fvlen_' + callerLineCounter).val(fvlen); }
-			  if(opener.jq('#fvbrd_' + callerLineCounter).val()==''){ opener.jq('#fvbrd_' + callerLineCounter).val(fvbrd); }
-			  if(opener.jq('#fvhoy_' + callerLineCounter).val()==''){ opener.jq('#fvhoy_' + callerLineCounter).val(fvhoy); }
-			  if(opener.jq('#fvlm_' + callerLineCounter).val()==''){ opener.jq('#fvlm_' + callerLineCounter).val(fvlm); }
-			  if(opener.jq('#fvlm2_' + callerLineCounter).val()==''){ opener.jq('#fvlm2_' + callerLineCounter).val(fvlm2); }
-			  //cosmetics
-			  //opener.jq('#ffunnr_' + callerLineCounter).removeClass("isa_warning");opener.jq('#ffembg_' + callerLineCounter).removeClass("isa_warning");
-			  //opener.jq('#ffindx_' + callerLineCounter).removeClass("isa_warning");
-			  //opener.jq('#ffunnr_' + callerLineCounter).removeClass("isa_error");opener.jq('#ffembg_' + callerLineCounter).removeClass("isa_error");
-			  //opener.jq('#ffindx_' + callerLineCounter).removeClass("isa_error");
-		  }else{
-			  var fvpakn = record[0].replace("kode", "");
-			  var text = record[1].replace("text", "");
-			  var fvlen = record[2].replace("len", "");
-			  var fvbrd = record[3].replace("brd", "");
-			  var fvhoy = record[4].replace("hoy", "");
-			  var fvlm = record[5].replace("lm", "");
-			  var fvlm2 = record[6].replace("lm2", "");
-			  //addressing a parent field from this child window
-			  opener.jq('#fvpakn').val(fvpakn);
-			  if(opener.jq('#fvvt').val()==''){ opener.jq('#fvvt').val(text); }
-			  if(opener.jq('#fvlen').val()==''){ opener.jq('#fvlen').val(fvlen); }
-			  if(opener.jq('#fvbrd').val()==''){ opener.jq('#fvbrd').val(fvbrd); }
-			  if(opener.jq('#fvhoy').val()==''){ opener.jq('#fvhoy').val(fvhoy); }
-			  if(opener.jq('#fvlm').val()==''){ opener.jq('#fvlm').val(fvlm); }
-			  if(opener.jq('#fvlm2').val()==''){ opener.jq('#fvlm2').val(fvlm2); }
-			  //cosmetics
-			  //opener.jq('#ffunnr' + callerLineCounter).removeClass("isa_warning");opener.jq('#ffembg' + callerLineCounter).removeClass("isa_warning");
-			  //opener.jq('#ffindx' + callerLineCounter).removeClass("isa_warning");
-			  //opener.jq('#ffunnr' + callerLineCounter).removeClass("isa_error");opener.jq('#ffembg' + callerLineCounter).removeClass("isa_error");
-			  //opener.jq('#ffindx' + callerLineCounter).removeClass("isa_error");
-		  }
+		  }else if(caller =='tror_landimport_e2'){
+			  opener.jq('#ownEnhet2').val(id);
+			  opener.jq('#ownEnhet2').focus();
+			  
+		  } 
+		  
+		 
 		  //close child window
 		  window.close();
 		  
 	  });
 	});
-	*/
+	
 	
 	//======================
     //Datatables jquery 
@@ -502,6 +460,17 @@
     function filterProductcodeList (){
         jq('#produktList').DataTable().search(
     		jq('#produktList_filter').val()
+        ).draw();
+    }
+    function filterTransporttypesList (){
+        jq('#transporttypesList').DataTable().search(
+    		jq('#transporttypesList_filter').val()
+        ).draw();
+    }
+    
+    function filterUomList (){
+        jq('#uomList').DataTable().search(
+    		jq('#uomList_filter').val()
         ).draw();
     }
     
@@ -596,6 +565,22 @@
 		  filterTollstedList();
 	  });
 	  
+	  
+	  
+	//-----------------------
+	  //tables [Tranporttyp]
+	  //-----------------------
+	  jq('#transporttypesList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.transporttypesList_filter').on( 'keyup click', function () {
+		  filterTransporttypesList();
+	  });
+	  
+	  
 	  //-----------------------
 	  //tables [Incoterms]
 	  //-----------------------
@@ -622,7 +607,6 @@
 		  filterOppdragstypeList();
 	  });
 	  
-	  produktList
 	  //-----------------------
 	  //tables [Product codes]
 	  //-----------------------
@@ -650,6 +634,20 @@
 	  });
 	  
 	  //------------------------------
+	  //tables [uom codes]
+	  //----------------------------
+	  jq('#uomList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 50 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.uomList_filter').on( 'keyup click', function () {
+		  filterUomList();
+	  });
+	  
+	  /*
+	  //------------------------------
 	  //tables [packing codes]
 	  //----------------------------
 	  jq('#packingCodesList').dataTable( {
@@ -674,6 +672,7 @@
 	  jq('input.dangerousGoodsList_filter').on( 'keyup click', function () {
 		  filterDangerousGoodsList();
 	  });
+	  */
       
     });
   	

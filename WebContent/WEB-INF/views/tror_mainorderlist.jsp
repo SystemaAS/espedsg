@@ -524,9 +524,11 @@
 		                --%>
 		                
 		               <td align="center" class="text11MediumBlue">
-            		  	 	<a sytle="cursor:pointer;" id="avd_${record.heavd}@opd_${record.heopd}"  title="delete" onClick="doPermanentlyDeleteOrder(this)" tabindex=-1>
-			               		<img src="resources/images/delete.gif" border="0" alt="remove">
-			               	</a>&nbsp;
+		               		<c:if test="${empty record.hest || record.hest == 'U' || record.hest == 'O' || record.hest == 'F' }">
+            		  	 		<a sytle="cursor:pointer;" id="avd_${record.heavd}@opd_${record.heopd}"  title="delete" onClick="doPermanentlyDeleteOrder(this)" tabindex=-1>
+			               			<img src="resources/images/delete.gif" border="0" alt="remove">
+			               		</a>&nbsp;
+			               	</c:if>
 					   </td>
 		            </tr> 
 		            </c:forEach>

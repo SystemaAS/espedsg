@@ -8,6 +8,12 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  jq(function() {
+	  jq("#trorOrderForm").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+  });
+  
 //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();

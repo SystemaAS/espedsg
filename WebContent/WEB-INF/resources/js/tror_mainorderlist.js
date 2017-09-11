@@ -156,7 +156,7 @@
 	  var opd = record[1];
 	  avd= avd.replace("avd_","");
 	  opd= opd.replace("opd_","");
-	  alert(avd + " " + opd);
+	  //alert(avd + " " + opd);
 	  	//Start dialog
 	  	jq('<div></div>').dialog({
 	        modal: true,
