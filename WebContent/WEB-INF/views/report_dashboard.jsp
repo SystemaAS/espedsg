@@ -741,13 +741,20 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
    						 <div class="col-md-6 show-grid-left">
    						    År 
    						 </div>
+  
   	  				    <div class="col-md-6 show-grid-right">
 							 <a id="year">tilbakestill</a>			    
 	  				    </div> 						 
+ 
+ 
    					  </div>
    					  <div class="row border">
 				        <div class="col-md-12 dc-chart" id="chart-ring-year" align="center">
-				   			<div><span class="filter"></span></div>
+				        	  <div class="reset" style="visibility: hidden;">selected: <span class="filter"></span>
+					      		<a href="javascript:yearChart.filterAll();dc.redrawAll();">reset</a>
+					    	</div> 
+				        
+				   			<!--  <div><span class="filter"></span></div>-->
 				        </div> 						 
 				      </div>
 				      <div class="row">
