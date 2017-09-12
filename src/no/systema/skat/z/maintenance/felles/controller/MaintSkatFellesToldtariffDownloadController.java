@@ -98,18 +98,17 @@ public class MaintSkatFellesToldtariffDownloadController {
 						Path targetPath = new File(this.targetDirectory + File.separator + fileName).toPath();
 						Files.copy(url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 						logger.info(sourceURL + " successfully downloaded");
-						
-						//At this point we have the files in the target directory
-				    	//now run the AS400 service pgm
-				    	StringBuffer errMsg = new StringBuffer();
-			    		this.doIt(appUser.getUser(), errMsg);
-			    		
-			    		if(errMsg!=null && errMsg.length()>0){
-			    			model.put(SkatMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
-			    		}else{
-			    			logger.info("Update on DK-toldtarif back-end successfully ended ...");
-			    		}
 					}
+					//At this point we have the files in the target directory
+			    	//now run the AS400 service pgm
+			    	StringBuffer errMsg = new StringBuffer();
+		    		this.doIt(appUser.getUser(), errMsg);
+		    		
+		    		if(errMsg!=null && errMsg.length()>0){
+		    			model.put(SkatMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+		    		}else{
+		    			logger.info("Update on DK-toldtarif back-end successfully ended ...");
+		    		}
 				}catch(Exception e){
 					e.printStackTrace();
 				}
