@@ -2342,6 +2342,77 @@ select:focus{
 	border: 1px solid #4169E1;	
 }
 
+.container-fluid {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.number-display {
+  font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.padded {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*axis values*/
+.dc-chart .axis text{
+  font-size: 12px;
+}
+/*axis text*/
+text {
+  font-size: 16px;
+  fill: black;
+}
+
+.filterBold {
+  font-size: 16px;
+  fill: black;
+}
+
+.padded-row {
+  padding-bottom: 50px;
+}
+
+a { cursor: pointer }
+
+.show-grid-small {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+}
+
+.show-grid-left {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-right-style: none;
+}
+
+.show-grid-right {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-left-style: none;
+    text-align: right;
+    font-size: xx-small;
+    
+}
+
+.show-grid-center {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-right-style: none;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.border {
+    border: 1px solid #ddd;
+}
 
 
 a.menu:link {text-decoration: none ; font-weight: normal; border: 0px }

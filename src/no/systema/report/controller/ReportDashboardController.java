@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 
 @Controller
@@ -18,6 +19,7 @@ import no.systema.main.util.AppConstants;
 @Scope("session")
 public class ReportDashboardController {
 	private static final Logger logger = Logger.getLogger(ReportDashboardController.class.getName());
+	private ModelAndView loginView = new ModelAndView("login");
 
 	/**
 	 * @Example
@@ -29,12 +31,15 @@ public class ReportDashboardController {
 	 */
 	@RequestMapping(value = "report_dashboard.do", method = RequestMethod.GET)
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		ModelAndView successView = new ModelAndView("report_dashboard");
 		logger.info("Inside: doReportDashboard");
 
-		//TODO login
-		
-		return successView;
+		if(appUser==null){
+			return loginView;
+		}else{
+			return successView;
+		}
 	}
 
 }
