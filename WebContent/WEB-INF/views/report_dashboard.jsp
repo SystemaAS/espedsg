@@ -1,19 +1,17 @@
 <%@ include file="/WEB-INF/views/include.jsp" %>
-
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
- 
 <script type="text/javascript">
 var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
+var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
 
-d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
+d3.json(url, function(error, data) {
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
-    var dateFormat = d3.time.format('%Y%m%d');   
     var fullDateFormat = d3.time.format('%Y%m%d');
     var yearFormat = d3.time.format('%Y');
     var monthFormat = d3.time.format('%m');
@@ -49,13 +47,12 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  countKdaGroup = kdaDim.group().reduceCount();
-	var  countFaktByFaopko = opkoDim.group().reduceCount();
+	var  countOpkoGroup = opkoDim.group().reduceCount();
 	//Charts 
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  kdaChart   = dc.pieChart('#chart-ring-kda');
 	var  opkoChart   = dc.pieChart('#chart-ring-opko');
-	dataTable = dc.dataTable('#data-table');
 	var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
@@ -63,6 +60,7 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
 	var  resultatDisplay = dc.numberDisplay("#resultat");	
 	var  dbDisplay = dc.numberDisplay("#db");	
+	dataTable = dc.dataTable('#data-table');
 	//Group reduce
     var monthlyGroup =  monthDim.group().reduce(   
             /* callback for when data is added to the current filter results */
@@ -158,32 +156,28 @@ d3.json("/syjservicesbcore/syjsFAKT_DB.do?user=OSCAR", function(error, data) {
 	    .height(150)
 	    .dimension(yearDim)
 	    .group(yearDimGroup)
-	    .innerRadius(30)
-	    .controlsUseVisibility(true);
+	    .innerRadius(30);
    
 	avdChart
 	    .width(150)
 	    .height(150)
 	    .dimension(avdDim)
 	    .group(avdDimGroup)
-	    .innerRadius(30)
-	    .controlsUseVisibility(true);
+	    .innerRadius(30);
 	  
 	kdaChart
 	    .width(150)
 	    .height(150)
 	    .dimension(kdaDim)
 	    .group(countKdaGroup)
-	    .innerRadius(30)
-	    .controlsUseVisibility(true);
+	    .innerRadius(30);
 	  
 	opkoChart
 	    .width(150)
 	    .height(150)
 	    .dimension(opkoDim)
-	    .group(countFaktByFaopko)
-	    .innerRadius(30)
-	    .controlsUseVisibility(true);
+	    .group(countOpkoGroup)
+	    .innerRadius(30);
 	  
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
@@ -420,7 +414,7 @@ function last() {
 			You can use nearly any combination of these classes to create more dynamic and flexible layouts.
 			Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
 			-->
-	 		<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
+	 	 <table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
@@ -589,13 +583,9 @@ function last() {
 				</div>
 		 	   </td>
 	 	    </tr>
-	 	    
-	 		</table>
+	 	 </table>
 		</td>
 	</tr>
- 			
-	 
-    
 </table>	
 		
 <!-- ======================= footer ===========================-->
