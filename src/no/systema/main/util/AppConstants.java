@@ -21,7 +21,11 @@ public final class AppConstants {
 	public static final String HTTP_ROOT_CGI =  ApplicationPropertiesUtil.getProperty("http.as400.root.cgi");  //resources.getString("http.as400.root.cgi");
 	public static final String HTTP_ROOT_SERVLET_JSERVICES = ApplicationPropertiesUtil.getProperty("http.syjservices.root.servlet");
 	public static final String HTTP_ROOT_JQUERY_DOCS_ROOT = ApplicationPropertiesUtil.getProperty("http.as400.root.jquery.docs.host");
-	
+	public static final String HTTPS_SKAT_DOWNLOAD_TOLDTARIF_FLATFILE_1 = ApplicationPropertiesUtil.getProperty("https.toldtarif.skat.download.flatfile.1");
+	public static final String HTTPS_SKAT_DOWNLOAD_TOLDTARIF_FLATFILE_2 = ApplicationPropertiesUtil.getProperty("https.toldtarif.skat.download.flatfile.2");
+	public static final String HTTPS_SKAT_DOWNLOAD_TOLDTARIF_FLATFILE_3 = ApplicationPropertiesUtil.getProperty("https.toldtarif.skat.download.flatfile.3");
+	public static final String HTTPS_SKAT_DOWNLOAD_TOLDTARIF_FLATFILE_4 = ApplicationPropertiesUtil.getProperty("https.toldtarif.skat.download.flatfile.4");
+	public static final String HTTPS_SKAT_DOWNLOAD_TOLDTARIF_TARGETDIR = ApplicationPropertiesUtil.getProperty("https.toldtarif.skat.download.target.dir");
 	//version
 	public static final String VERSION_ESPSEDSG = ApplicationPropertiesUtil.getProperty("version.espedsg");
 	public static final String VERSION_SPRING = ApplicationPropertiesUtil.getProperty("version.spring");

@@ -58,5 +58,8 @@ public final class MaintenanceUrlDataStore {
 	//DKX001R
 	//Specific code --> TODO http://gw.systema.no:8080/syjservicesst/syjsDKX001R_U.do?user=OSCAR&mode=U&<record>attributes...
 	static public String MAINTENANCE_BASE_DKX001R_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesst/syjsDKX001R_U.do";
-					
+	
+	//Specific code --> http://gw.systema.no:8080/sycgip/TDKG201R.do?user=OSCAR
+	static public String MAINTENANCE_BASE_DKG210R_RUN_DOWNLOAD_TOLTARIF_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKG201R.pgm";
+		
 }

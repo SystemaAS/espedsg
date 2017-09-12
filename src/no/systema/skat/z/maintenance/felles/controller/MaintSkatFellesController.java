@@ -132,6 +132,16 @@ public class MaintSkatFellesController {
 		object.setStatus("G");
 		object.setPgm("dkt057r");
 		listObject.add(object);
+		//
+		object = new  MaintenanceMainListObject();
+		object.setId("5");
+		object.setSubject("Download af den elektroniske Toldtarif");
+		object.setCode("SKAT");
+		object.setText("SKAT");
+		object.setDbTable("SKAT");
+		object.setStatus("G");
+		object.setPgm("ttariffdownloadr");
+		listObject.add(object);
 		
 		return listObject;
 	}
