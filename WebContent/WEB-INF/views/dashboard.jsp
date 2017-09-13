@@ -31,15 +31,37 @@
 						 			<td align="left" height="60px" class="text14">
 						 			<ol>
 						 			<c:if test="${user.user == 'OSCAR'}">
-						 				<li style="line-height:20px;">
-						 				<font class="text14">
-							 				<a class="text14" href="report_dashboard.do" > 	
+										<li style="line-height:20px;">
+			 								<a id="dialogRunReportDashboardLink" class="text14" style="display:block;" runat="server" href="#" onMouseOver="showPop('infoDashboard');" onMouseOut="hidePop('infoDashboard');" >
 			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">Report Dashboard</font>
+ 												<font class="text14NavyBlue">Rapporter</font>
 	 										</a>
-	 										
-										</font>
-										</li>
+		 								</li>
+	 								    <%-- ===========================================  --%>
+						            	<%-- Here we have the info popup window infoDashboard --%>
+						            	<%-- ===========================================  --%>
+						            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoDashboard" class="popupPlain"  >
+						           		<div align="center">
+						           			<table border = "0">
+						           				<tr>
+													<td align="left" class="text12" >
+														<b>Rapporter</b>, henter data direkte fra databasen.<br/><br/>
+														Rapporter:
+														<br/>- Lønsamhetsanlyse, henter alla data i HEADF og FAKT...
+														<br/>- Traffikanalyse, henter alle data i ...
+														<br/>- Terminalanalyse, hentera alle data i ...
+														<br/>- xXx-analyse, henter alle data i ..
+													</td>
+												</tr>
+												<tr>
+													<td align="left" class="text12">
+														<br/><b>Note:</b> Hente data kan ta litt tid.
+													</td>
+												</tr>
+						           		</table>
+										</div>
+									</span>
+	
 						 			</c:if>
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
@@ -364,7 +386,7 @@
 									           		<div align="center">
 									           			<table border = "0">
 															<tr>
-																<td align="left" class="text10"><i>KALLE ANKA  xXx  Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av:</i><br/>
+																<td align="left" class="text10"><i>Inneholder data under Norsk lisens for offentlige data (NLOD) tilgjengeliggjort av:</i><br/>
 																	<img src="http://scf.brreg.no/bilder/brreg_logo.svg" width="150px" height="25px" align="left">
 																</td>
 															</tr>
@@ -639,15 +661,24 @@
 		</tr>
 		<%-- Pop-up window --%>
 		<tr>
-		<td>
-			<div id="dialogRunKundedatakontroll" title="Dialog">
-				<form  action="tvinnsad_brreg_kundekontroll.do" name="runKundedatakontrollForm" id="runKundedatakontrollForm" method="post">
-					<p class="text12">
-						Utførelse av denne funksjonen kan ta litt tid.
-					</p>
-				</form>
-			</div>
-		</td>
+			<td>
+				<div id="dialogRunKundedatakontroll" title="Dialog">
+					<form  action="tvinnsad_brreg_kundekontroll.do" name="runKundedatakontrollForm" id="runKundedatakontrollForm" method="post">
+						<p class="text12">
+							Utførelse av denne funksjonen kan ta litt tid.
+						</p>
+					</form>
+				</div>
+			</td>
+			<td>
+				<div id="dialogRunReportDashboard" title="Dialog">
+					<form  action="report_dashboard.do" name="runReportDashboardForm" id="runReportDashboardForm" method="post">
+						<p class="text12">
+							Hente data kan ta litt tid.
+						</p>
+					</form>
+				</div>
+			</td>		
 		</tr>
 		
 		<tr class="text" height="30"><td></td></tr>	

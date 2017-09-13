@@ -30,10 +30,6 @@
 	   */
 	}
   
-	 //----------------------------------------
-	  //START Model dialog "Create new order"
-	  //--------------------------------------
-	  //Initialize <div> here
 	  jq(function() { 
 		  jq("#dialogRunKundedatakontroll").dialog({
 			  autoOpen: false,
@@ -45,7 +41,17 @@
 		  });
 	  });
 	
-	//Present dialog box onClick (href in parent JSP)
+	  jq(function() { 
+		  jq("#dialogRunReportDashboard").dialog({
+			  autoOpen: false,
+			  maxWidth:400,
+	          maxHeight: 220,
+	          width: 400,
+	          height: 220,
+			  modal: true
+		  });
+	  });
+
 	  jq(function() {
 		  jq("#dialogRunKundedatakontrollLink").click(function() {
 			  //setters (add more if needed)
@@ -73,6 +79,33 @@
 			  jq('#dialogRunKundedatakontroll').dialog('open');
 		  });
 	  });
-	  //-----------------------------
-	  //END Create new order - Dialog
-	  //- 	
+
+	  jq(function() {
+		  jq("#dialogRunReportDashboardLink").click(function() {
+			  //setters (add more if needed)
+			  jq('#dialogRunReportDashboard').dialog( "option", "title", "Vis Rapporter" );
+			  //deal with buttons for this modal window
+			  jq('#dialogRunReportDashboard').dialog({
+				 buttons: [ 
+		            {
+					 id: "dialogSaveDB",	
+					 text: "Fortsett",
+					 click: function(){
+						 		jq('#runReportDashboardForm').submit();
+						 		jq( this ).dialog( "close" );
+						 		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+					 		}
+				 	 },
+		 	 		{
+				 	 id: "dialogCancelDB",
+				 	 text: "Avbryt", 
+					 click: function(){
+						 		jq( this ).dialog( "close" );
+					 		} 
+		 	 		 } ] 
+			  });
+			  jq('#dialogRunReportDashboard').dialog('open');
+		  });
+	  });
+	  
+	  

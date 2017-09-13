@@ -8,7 +8,17 @@ var faktSize;
 var ofs = 0, pag = 20;
 var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
 
+var jq = jQuery.noConflict();
+var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+
+function setBlockUI(element){
+  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+}
+
+
+
 d3.json(url, function(error, data) {
+	//setBlockUI(this);  //TODO
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     

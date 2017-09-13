@@ -17,6 +17,7 @@
 	<%-- include som javascript functions --%>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js""></script>
+	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
 	<script type="text/javascript" src="resources/js/headerReport.js?ver=${user.versionEspedsg}"></script>
 	
@@ -45,7 +46,7 @@
 				 	<tr>
 				 		<td class="text12white" width="10%" align=left valign="bottom" >&nbsp;</td>
 				 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
-				 			eSped<font style="color:#003300;">sg</font> - Report Dashboard
+				 			eSped<font style="color:#003300;">sg</font> - Rapporter
 				 		</td>
 				 		 
 			    		<td class="text12" width="10%" align="center" valign="middle" ><img src="resources/images/systema_logo.png" border="0" width=80px height=50px ></td>
