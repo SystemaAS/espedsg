@@ -35,12 +35,12 @@
 	<%--datatables grid --%>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 	
-    <table class="noBg" width="1100" border="0" cellspacing="0" cellpadding="0">
+    <table class="noBg" width="1200" border="0" cellspacing="0" cellpadding="0">
 		<%--Banner --%>
 	 	<tr>
 	 		 <%-- class="grayTitanBg" --%>
     		<td height="60" class="headerTdsBannerAreaBg" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
     			 	<tr>
 			        	<td>&nbsp;</td>
 			        	<td>&nbsp;</td>
@@ -68,7 +68,7 @@
 		<%-- Header menu --%>
 		<tr >
 			<td height="22" class="tabThinBorderLightGray" width="100%" align="left" colspan="3"> 
-    			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+    			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
 				 	<tr >
 			    		<td class="text11" width="70%" align="left" >&nbsp;&nbsp;
 			    			<%-- --------------------- --%>
@@ -206,7 +206,7 @@
 	    </tr>
 	    <tr>
 		    <td height="4" class="tabThinBorderOrange" width="100%" align="left" colspan="3"> 
-	   			 <table width="1100" border="0" cellspacing="0" cellpadding="0">
+	   			 <table width="1200" border="0" cellspacing="0" cellpadding="0">
 	   			 </table>
 			</td>
 	    </tr>

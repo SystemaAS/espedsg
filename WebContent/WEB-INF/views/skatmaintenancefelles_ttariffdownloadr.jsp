@@ -61,7 +61,7 @@
 							<td width="100%" class="text14">
 								<ul>
 									<c:forEach var="record" items="${model.list}" >
-										<li><font class="text14MediumBlue"><b>${record}</b></font></li>
+										<li><font class="text14MediumBlue">${record}</font></li>
 									</c:forEach>
 								</ul>
 							</td>
@@ -130,6 +130,7 @@
 			<form  action="skatmaintenancefelles_ttariffdownloadr.do" name="downloadForm" id="downloadForm" method="post">
 			<input type="hidden" name="doIt" id="doIt" value="1">
 				<p>Download af den elektroniske Toldtarif </p>
+				<p>ca ... <b>5 min</b> </p>
 			</form>
 		</div>
 	</td>

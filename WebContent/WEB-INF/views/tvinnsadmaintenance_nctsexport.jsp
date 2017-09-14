@@ -66,10 +66,10 @@
 							<tr>
 								<th class="tableHeaderFieldFirst" align="center" >&nbsp;Id&nbsp;</th>
 								<th width="2%" class="tableHeaderField" align="center" >&nbsp;Endre</th>
-			                    <th width="20%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+			                    <th class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
 			                    <th class="tableHeaderField" align="left" >&nbsp;Kode&nbsp;</th>
 								<th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
-			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+			                    <th width="2%" class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -89,7 +89,7 @@
 				               		</c:otherwise>
 				               	</c:choose>	
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="20%" >
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G' && not empty record.pgm}">
 					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="tvinnsadmaintenance_nctsexport_${record.pgm}.do?id=${record.dbTable}">
@@ -103,7 +103,7 @@
 				               </td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.code}&nbsp;</font></td>
 				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
-		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
+		                       <td width="2%" class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
 		                       		<c:if test="${empty record.status}">
 	                       				<img src="resources/images/bulletRed.png" width="12px" height="12px" border="0">
 		                       		</c:if>
