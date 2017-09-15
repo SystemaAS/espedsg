@@ -2,11 +2,12 @@
   	var jq = jQuery.noConflict();
   	var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
     
-  	jq(document).ready(function() {
-  		//TODO
-  	});
+	function setBlockUI(element){
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  }
   	
   	//Overlay on tab (to mark visually a delay...)
+	/*
     jq(function() {
       jq('#alinkTopicList').click(function() { 
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
@@ -28,5 +29,5 @@
 	  });
 	  
     });
-  	
+  	*/
   	

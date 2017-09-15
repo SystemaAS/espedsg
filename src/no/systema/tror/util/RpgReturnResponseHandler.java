@@ -64,13 +64,15 @@ public class RpgReturnResponseHandler {
 						}
 					}else if(keyValuePair[0].trim().equalsIgnoreCase("user")){
 						this.user = keyValuePair[0] + ":" + keyValuePair[1] + ",";
-					}else if(keyValuePair[0].trim().equalsIgnoreCase("hereff")){
+					}	
+					/*}else if(keyValuePair[0].trim().equalsIgnoreCase("hereff")){
 						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
 						this.hereff = keyValuePair[1].trim();
 					}else if(keyValuePair[0].trim().equalsIgnoreCase("heunik")){
 						//this.tuavd = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
 						this.heunik = keyValuePair[1].trim();
-					}
+					}*/
+						
 				}
 			}
 		}

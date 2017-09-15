@@ -27,13 +27,13 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.PayloadContentFlusher;
 
 import no.systema.main.model.SystemaWebUser;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.archive.JsonSadImportSpecificTopicArchiveContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.archive.JsonSadImportSpecificTopicArchiveRecord;
+import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
+import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveRecord;
 
-import no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicService;
+import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.url.store.TrorUrlDataStore;
-import no.systema.tvinn.sad.sadimport.util.RpgReturnResponseHandler;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
+import no.systema.tror.util.RpgReturnResponseHandler;
+import no.systema.tror.util.TrorConstants;
 
 
 /**
@@ -96,7 +96,7 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 			//url params
 			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(avd, opd, appUser);
 			//for debug purposes in GUI
-			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+			session.setAttribute(TrorConstants.ACTIVE_URL_RPG_TROR, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
@@ -110,15 +110,15 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	
 			if(jsonPayload!=null){
-		    		JsonSadImportSpecificTopicArchiveContainer jsonSadImportSpecificTopicArchiveContainer = this.sadImportSpecificTopicService.getSadImportSpecificTopicArchiveContainer(jsonPayload);
-		    		//add domain objects here
-		    		this.setDomainObjectsInView(model, jsonSadImportSpecificTopicArchiveContainer);
-		    		this.setDomainObjectsInView(request, model);
+				JsonTrorOrderHeaderArchiveContainer container = this.trorMainOrderHeaderService.getArchiveContainer(jsonPayload);
+	    		//add domain objects here
+	    		this.setDomainObjectsInView(model, container);
+	    		this.setDomainObjectsInView(request, model);
+	    		
+	    		successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				successView.addObject(TrorConstants.DOMAIN_LIST,container.getArchiveElements());
 		    		
-		    		successView.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
-				successView.addObject(TvinnSadConstants.DOMAIN_LIST,jsonSadImportSpecificTopicArchiveContainer.getArchiveElements());
-		    		
-		    	}else{
+	    	}else{
 				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 				return loginView;
 			}
@@ -135,9 +135,9 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tvinnsadimport_renderArchive.do", method={ RequestMethod.GET })
-	public ModelAndView doSadImportRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
-		logger.info("Inside doSadImportRenderArchive...");
+	@RequestMapping(value="tror_mainorderlandimport_renderArchive.do", method={ RequestMethod.GET })
+	public ModelAndView doRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		logger.info("Inside doRenderArchive...");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		if(appUser==null){
@@ -146,7 +146,7 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 		}else{
 			
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SIGN_PKI);
-			session.setAttribute(TvinnSadConstants.ACTIVE_URL_RPG_TVINN_SAD, TvinnSadConstants.ACTIVE_URL_RPG_INITVALUE); 
+			session.setAttribute(TrorConstants.ACTIVE_URL_RPG_TROR, TrorConstants.ACTIVE_URL_RPG_INITVALUE); 
 			String filePath = request.getParameter("fp");
 			
 			if(filePath!=null && !"".equals(filePath)){
@@ -200,8 +200,8 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 		String TYP = "DKI";
 		//String action = request.getParameter("action");
 		urlRequestParamsKeys.append("user=" + appUser.getUser());
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
-		urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(TrorConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(TrorConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 		
 		return urlRequestParamsKeys.toString();
 	}
@@ -212,7 +212,7 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param rpgReturnResponseHandler
 	 * @param record
 	 */
-	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonSadImportSpecificTopicArchiveContainer record){
+	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonTrorOrderHeaderArchiveContainer record){
 		logger.info(rpgReturnResponseHandler.getErrorMessage());
 		this.setAspectsInView(model, rpgReturnResponseHandler);
 		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
@@ -227,10 +227,10 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param container
 	 * @return
 	 */
-	private void setDomainObjectsInView(Map model, JsonSadImportSpecificTopicArchiveContainer container){
+	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderArchiveContainer container){
 		//SET HEADER RECORDS  (from RPG)
-		for (JsonSadImportSpecificTopicArchiveRecord record : container.getArchiveElements()){
-			model.put(TvinnSadConstants.DOMAIN_RECORD, record);
+		for (JsonTrorOrderHeaderArchiveRecord record : container.getArchiveElements()){
+			model.put(TrorConstants.DOMAIN_RECORD, record);
 		}
 		
 	}
@@ -274,9 +274,9 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, JsonSadImportSpecificTopicArchiveRecord record){
+	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderArchiveRecord record){
 		//SET HEADER RECORDS  (from RPG)
-		model.put(TvinnSadConstants.DOMAIN_RECORD, record);
+		model.put(TrorConstants.DOMAIN_RECORD, record);
 	}
 	/**
 	 * Sets aspects 
@@ -285,12 +285,12 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 */
 	
 	private void setAspectsInView (Map model, RpgReturnResponseHandler rpgReturnResponseHandler){
-		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
+		model.put(TrorConstants.ASPECT_ERROR_MESSAGE, rpgReturnResponseHandler.getErrorMessage());
 		//extra error information
 		StringBuffer errorMetaInformation = new StringBuffer();
 		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
-		errorMetaInformation.append(rpgReturnResponseHandler.getOpd());
-		model.put(TvinnSadConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		//errorMetaInformation.append(rpgReturnResponseHandler.getOpd());
+		model.put(TrorConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
 		
 	}
 			
@@ -302,12 +302,13 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("sadImportSpecificTopicService")
-	private SadImportSpecificTopicService sadImportSpecificTopicService;
+	
+	@Qualifier ("trorMainOrderHeaderService")
+	private TrorMainOrderHeaderService trorMainOrderHeaderService;
 	@Autowired
 	@Required
-	public void setSadImportSpecificTopicService (SadImportSpecificTopicService value){ this.sadImportSpecificTopicService = value; }
-	public SadImportSpecificTopicService getSadImportSpecificTopicService(){ return this.sadImportSpecificTopicService; }
+	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService = value; }
+	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
 	
 	
 	
