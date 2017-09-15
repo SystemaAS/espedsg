@@ -46,19 +46,18 @@
 	 	    <tr >
 	 	    	<td width="5%">&nbsp;</td>
 				<td align="left">
-					<table class="formFrameHeaderPeachWithBorder" width="50%" cellspacing="0" border="0" align="left">
+					<table class="formFrameHeaderPeachWithBorder" width="40%" cellspacing="0" border="0" align="left">
 						<tr>
-							<td width="5%">&nbsp;</td>
-							<td class="text14" >&nbsp;&nbsp;Download i fast filformat&nbsp;&nbsp;<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="10px" height="10px" alt="prod"></td>
+							<td class="text14" >&nbsp;&nbsp;&nbsp;Download i fast filformat&nbsp;&nbsp;<img style="vertical-align: middle;"  src="resources/images/bulletGreen.png" border="0" width="10px" height="10px" alt="prod"></td>
 						</tr>
 					</table>
 			</tr>
 			<tr>	
 				<td width="5%">&nbsp;</td>
 				<td align="left">	
-					<table class="formFramePeachGrayRoundBottom" width="50%" cellspacing="1" border="0" align="left">
+					<table class="formFramePeachGrayRoundBottom" width="40%" cellspacing="1" border="0" align="left">
 						<tr>	
-							<td width="100%" class="text14">
+							<td align="left" width="100%" class="text14">
 								<ul>
 									<c:forEach var="record" items="${model.list}" >
 										<li><font class="text14MediumBlue">${record}</font></li>
@@ -67,8 +66,8 @@
 							</td>
 						</tr>
 						<tr>	
-							<td width="100%" class="text14">
-								&nbsp;&nbsp;&nbsp;&nbsp;<input class="inputFormSubmit" type="button" name="downloadButton" id="downloadButton" value='Download'/>
+							<td align="left" width="100%" class="text14">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="inputFormSubmit" type="button" name="downloadButton" id="downloadButton" value='Download'/>
 							</td>
 						</tr>
 		 	    	</table>

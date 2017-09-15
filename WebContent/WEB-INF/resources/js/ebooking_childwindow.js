@@ -545,6 +545,7 @@ jq(function() {
 		  	  	var status;
 		    		for ( var i = 0; i < len; i++) {
 		   				
+		    			jq('#vakure').val("");jq('#vakure').val(data[i].vakure);
 		    			jq('#vadrnr').val("");jq('#vadrnr').val(data[i].vadrnr);
 		  	  			jq('#vadrna').val("");jq('#vadrna').val(data[i].vadrna);
 		  	  			jq('#vadrn1').val("");jq('#vadrn1').val(data[i].vadrn1);

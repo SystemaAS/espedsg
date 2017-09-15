@@ -467,9 +467,9 @@ public class EbookingControllerChildWindow {
 		urlRequestParamsKeys.append("user=" + applicationUser + "&mode=" + mode);
 		//START Key: kundnr always fallback
 		String kundnr = wkundnr;
-		if(strMgr.isNotNull(recordToValidate.getOwnKundnr())){
+		if(strMgr.isNotNull(recordToValidate.getVakure())){
 			//This happens when there is a user input in this field
-			kundnr = recordToValidate.getOwnKundnr();
+			kundnr = recordToValidate.getVakure();
 		}
 		urlRequestParamsKeys.append("&wkundnr=" + kundnr);
 		//END key

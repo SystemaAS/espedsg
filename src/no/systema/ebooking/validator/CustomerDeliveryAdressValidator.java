@@ -60,8 +60,8 @@ public class CustomerDeliveryAdressValidator implements Validator {
 		//Check rules
 		if(record!=null){
 			//kundnr validation
-			if( strMgr.isNotNull(record.getOwnKundnr()) ){
-				if(!this.isValidPartId(record, record.getOwnKundnr())){
+			if( strMgr.isNotNull(record.getVakure()) ){
+				if(!this.isValidPartId(record, record.getVakure())){
 					errors.rejectValue("ownKundnr", "systema.ebooking.orders.customeraddresses.vedlikehold.form.update.error.rule.customernr.invalid");
 					
 				}

@@ -141,7 +141,7 @@ public class TrorUrlDataStore {
 	**/
 	
 	//---------------------------------------------------
-	//[1.1] GENERAL FUNCTIONS eg.(signature, other...) 
+	//[3] GENERAL FUNCTIONS eg.(signature, other...) 
 	//---------------------------------------------------
 	//http://localhost:8080/syjservicesbcore/syjsKOFAST.do?user=OSCAR&kftyp=DELSYS
 	static public String TROR_GENERAL_CODES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKOFAST.do";
@@ -160,7 +160,21 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no:8080/syjservicesbtror/syjsKODTSF.do?user=OSCAR
 	static public String TROR_SIGNATURES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTSF.do";
 		
-			
+		
+	//------------------------------------------
+	//[4] LOG and ARCHIVE for a SPECIFIC ARENDE
+	//------------------------------------------
+	//This section contains external functions such as LOGGING, ARCHIVE	
+	
+	//http://gw.systema.no/sycgip/TNOI015R.pgm?user=OSCAR&avd=1&opd=91152 
+	static public String TROR_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI015R.pgm";	
+		
+	//http://gw.systema.no/sycgip/TNOI016R.pgm?user=OSCAR&fmn=84278
+	static public String TROR_BASE_LOG_LARGE_TEXT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI016R.pgm";	
+		
+	//http://gw.systema.no/sycgip/TJGE001.pgm?user=JOVO&avd=1&opd=52919
+	static public String TROR_BASE_ARCHIVE_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE001.pgm";	//this function is actually general for all modules
+		
 	
 	
 	

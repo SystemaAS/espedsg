@@ -52,6 +52,7 @@
 						<thead>
 						<tr style="background-color:#EEEEEE">
 							<th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.id"/></th>   
+		                    <th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.customerid"/></th>   
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.name"/></th>
 		                    <th width="2%" class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.update"/></th>
 		                    <th class="text11">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.label.customeradr.address.address"/></th>
@@ -75,6 +76,7 @@
 			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">
 			               	 <font class="text11MediumBlue" >${record.vadrnr}</font>
 			               </td>
+			               <td align="center" width="2%" class="text11MediumBlue" ><font class="text11MediumBlue" >${record.vakure}</font></td>
 			               <td class="text11" >&nbsp;${record.vadrna}</td>
 			               <td id="recordUpdate_${user.custNr}_${record.vadrnr}" onClick="getRecord(this);" align="center" width="2%" class="tableCellFirst" style="cursor:pointer; border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;">
            					 <img src="resources/images/update.gif" border="0" alt="edit">
@@ -116,14 +118,13 @@
 								<span title="ownKundnr">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
 							</td>
 							<td class="text11">
-								<c:choose>
-									<c:when test="${not empty model.record.ownKundnr}">
-										<input type="text" class="inputTextMediumBlue11" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${model.record.ownKundnr}">
-									</c:when>
+								<input type="text" class="inputTextMediumBlue11" name="vakure" id="vakure" size="9" maxlength="8" value="">
+									<%--
 									<c:otherwise>
 										<input type="text" class="inputTextMediumBlue11" name="ownKundnr" id="ownKundnr" size="9" maxlength="8" value="${user.custNr}">
 									</c:otherwise>
 								</c:choose>
+								 --%>
 								&nbsp;&nbsp;<button name="newRecordButton" id="newRecordButton" class="inputFormSubmitStd" type="button" >Slett verdiene</button>&nbsp;
 							</td>
 						</tr>

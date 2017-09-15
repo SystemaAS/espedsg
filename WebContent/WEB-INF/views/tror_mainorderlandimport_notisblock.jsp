@@ -59,7 +59,15 @@
 			<td width="15%" valign="bottom" class="tab" align="center" nowrap>
 				<font class="tabLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font>
 			</td>
-		
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+					<font class="tabDisabledLink">
+						&nbsp;<spring:message code="systema.tror.order.archive.tab"/>
+					</font>
+					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+				</a>
+			</td>		
 			<td width="50%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
@@ -95,10 +103,10 @@
 	        			<tr height="10"><td></td></tr> 
 						<tr >
 							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODOeditNotisblock.do">
+							<form name="createNewItemLine" id="createNewItemLine" method="post" action="editNotisblock.do">
 								<%--Required key parameters --%>
 							 	<input type="hidden" name="action" id="action" value='doFetch'/>
-							 	<input type="hidden" name="subsys" id="subsys" value='sade'/>
+							 	<input type="hidden" name="subsys" id="subsys" value='tror_li'/>
 							 	<input type="hidden" name="orig" id="orig" value="${model.orig}"/>
 							 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
 							 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
@@ -120,8 +128,8 @@
 						</tr> 
 						
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:830px; height:10em;">
-								<table width="100%" cellspacing="0" border="0" cellpadding="0">
+							<td class="ownScrollableSubWindow" style="width:970px; height:11em;">
+								<table cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 									    <td class="tableHeaderFieldFirst">&nbsp;Linje&nbsp;</td>   
 					                    <td class="tableHeaderField" nowrap>&nbsp;Dato&nbsp;</td>
@@ -143,7 +151,7 @@
 							                   </c:otherwise>
 							               </c:choose>
 							               <td width="2%" class="tableCellFirst" align="right">
-							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="TODOgetNotisblockItemData(this);">${record.frtli}
+							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="getNotisblockItemData(this);">${record.frtli}
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>&nbsp;&nbsp;
 							               </td>
@@ -151,7 +159,7 @@
 							               <td class="tableCell" >&nbsp;${record.frtkod}</td>
 							               <td class="tableCell" >&nbsp;${record.frttxt}</td>
 									       <td class="tableCell" align="center" nowrap>
-							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="editNotisblock.do?action=doDelete&subsys=sade&orig=${model.orig}&sign=${model.sign}&frtli=${record.frtli}&frtdt=${record.frtdt}&opd=${record.frtopd}&avd=${record.frtavd}">
+							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="editNotisblock.do?action=doDelete&subsys=tror_li&orig=${model.orig}&sign=${model.sign}&frtli=${record.frtli}&frtdt=${record.frtdt}&opd=${record.frtopd}&avd=${record.frtavd}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 							               	</a>	&nbsp;
 							               </td>
@@ -169,7 +177,7 @@
 					</table>
 				</td>
 			</tr>
-			<tr height="3"><td></td></tr>
+			<tr height="5"><td></td></tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
@@ -195,10 +203,10 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form name="sadExportEditTopicNotisblockItemForm" id="sadExportEditTopicNotisblockItemForm" method="post">
+	 				<form name="trorLandImportNotisblockItemForm" id="trorLandImportNotisblockItemForm" method="post">
 				 	<%--Required key parameters --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-				 	<input type="hidden" name="subsys" id="subsys" value='sade'/>
+				 	<input type="hidden" name="subsys" id="subsys" value='tror_li'/>
 				 	<input type="hidden" name="orig" id="orig" value="${model.orig}"/>
 				 	
 				 	<input type="hidden" name="frtopd" id="frtopd" value="${model.opd}"/>
@@ -229,7 +237,7 @@
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
-		           		   				${activeUrlRPGUpdate_TvinnSad}<br/><br/>
+		           		   				${TODOactiveUrlRPGUpdate_TvinnSad}<br/><br/>
 		           		   				<button name="updateInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('updateInfo');">Close</button> 
 		           		   			</div>
 						        </span>  
@@ -266,7 +274,7 @@
 					    <tr height="10"><td colspan="2" ></td></tr>
 					    <tr>	
 						    <td align="left" colspan="5">
-								<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='TODOeditNotisblock.do';" value="Lagre notat">
+								<input class="inputFormSubmit" type="submit" name="submit" onclick="javascript: form.action='editNotisblock.do';" value="Lagre notat">
 							</td>							        	
 				        </tr>
         	        </table>

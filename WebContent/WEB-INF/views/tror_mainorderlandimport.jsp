@@ -52,10 +52,20 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_notisblock.do?action=doInit&heavd=${model.record.heavd}&heopd=${model.record.heopd}" > 	
+						<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_li&avd=${model.record.heavd}&opd=${model.record.heopd}&sign=${model.record.hesg}" > 	
 							<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font>
 						</a>
 					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
+							<font class="tabDisabledLink">
+								&nbsp;<spring:message code="systema.tror.order.archive.tab"/>
+							</font>
+							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+						</a>
+					</td>
+					
 				</c:otherwise>
 			</c:choose>
 			<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	

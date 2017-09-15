@@ -100,29 +100,44 @@ public class GeneralNotisblockController {
 		String omberegningFlag = null;
 		String omberegningDate = null;
 		String omberegningType = null;
-		if("sadi".equals(subsystem)){
+		//
+		model.put("avd", avd);
+		model.put("opd", opd);
+		model.put("sign", sign);
+		model.put("orig", caller);
+		//Fallback view in case no other view is provided
+		ModelAndView successView = new ModelAndView("dashboard");
+				
+		if(this.SUBSYSTEM_TVINN_SAD_IMPORT.equals(subsystem)){
 			omberegningFlag = request.getParameter("o2_sist");
 			omberegningDate = request.getParameter("o2_sidt");
 			omberegningType = request.getParameter("o2_simf");
-		}else if("sade".equals(subsystem)){
+			model.put("o2_sist", omberegningFlag);
+			model.put("o2_sidt", omberegningDate);
+			model.put("o2_simf", omberegningType);
+			//view
+			successView = new ModelAndView("tvinnsadimport_edit_notisblock");
+		}else if(this.SUBSYSTEM_TVINN_SAD_EXPORT.equals(subsystem)){
 			omberegningFlag = request.getParameter("o2_sest");
 			omberegningDate = request.getParameter("o2_sedt");
 			omberegningType = request.getParameter("o2_semf");
-		}
+			model.put("o2_sest", omberegningFlag);
+			model.put("o2_sedt", omberegningDate);
+			model.put("o2_semf", omberegningType);
+			//view
+			successView = new ModelAndView("tvinnsadexport_edit_notisblock");
+		
+		}else if("tror_li".equals(subsystem)){
+			//Oppdragsreg. Land import
+			successView = new ModelAndView("tror_mainorderlandimport_notisblock");
+		
+		}//ADD MORE as the notisblock is used for more modules 
 		
 		logger.info("ACTION: " + action);
 		logger.info("SUBSYSTEM:" + subsystem);
 		logger.info("CALLER:" + caller);
 		logger.info("SIGN:" + sign);
 		
-		//Fallback view in case no other view is provided
-		ModelAndView successView = new ModelAndView("dashboard");
-		//Identify the subsystem in turn...
-		if(SUBSYSTEM_TVINN_SAD_IMPORT.equals(subsystem)){
-			successView = new ModelAndView("tvinnsadimport_edit_notisblock");
-		}else if(SUBSYSTEM_TVINN_SAD_EXPORT.equals(subsystem)){
-			successView = new ModelAndView("tvinnsadexport_edit_notisblock");
-		}//ADD MORE as the notisblock is used for more modules 
 		
 		//START with controller now
 		if(appUser==null){
@@ -137,19 +152,7 @@ public class GeneralNotisblockController {
 			}else{
 				isNewItemLine = true;
 			}
-			model.put("avd", avd);
-			model.put("opd", opd);
-			model.put("sign", sign);
-			model.put("orig", caller);
-			if("sadi".equals(subsystem)){
-				model.put("o2_sist", omberegningFlag);
-				model.put("o2_sidt", omberegningDate);
-				model.put("o2_simf", omberegningType);
-			}else if("sade".equals(subsystem)){
-				model.put("o2_sest", omberegningFlag);
-				model.put("o2_sedt", omberegningDate);
-				model.put("o2_semf", omberegningType);
-			}
+			
 			
 			if(this.ACTION_DO_UPDATE.equals(action) || this.ACTION_DO_DELETE.equals(action)){
 				
