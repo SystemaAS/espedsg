@@ -123,15 +123,15 @@ public class TrorUrlDataStore {
 	static public String TROR_BASE_CHILDWINDOW_POSTALCODE_STED2_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsSTED2.do";
 	//http://gw.systema.no:8080/syjservicestror/syjsKODTTST.do?user=OSCAR&ktskod=19
 	static public String TROR_BASE_CHILDWINDOW_TOLLSTED_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTTST.do";
-	
 	//http://gw.systema.no:8080/syjservicesbcore/syjsKUNKO.do?user=OSCAR&kukun1=1
 	static public String TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_SELLER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsKUNKO.do";
 	//http://gw.systema.no:8080/syjservicesbcore/syjsVADR.do?user=OSCAR&kundnr=4
 	static public String TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_BUYER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsVADR.do";
-		
 	//http://localhost:8080/syjservicestror/syjsKODTERLF.do?user=OSCAR
 	static public String TROR_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTERLF.do";
-	
+	//http://gw.systema.no/sycgip/TJINQGEB.pgm?user=JOVO&kode=&tekst=&fullinfo=J
+	static public String TROR_BASE_CHILDWINDOW_GEBYR_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQGEB.pgm";
+		
 	/**
 	//---------------------------------------------------
 	//[2] GENERAL CODES - for country (AS400 from TVINN) 
@@ -160,7 +160,6 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no:8080/syjservicesbtror/syjsKODTSF.do?user=OSCAR
 	static public String TROR_SIGNATURES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTSF.do";
 		
-		
 	//------------------------------------------
 	//[4] LOG and ARCHIVE for a SPECIFIC ARENDE
 	//------------------------------------------
@@ -176,6 +175,35 @@ public class TrorUrlDataStore {
 	
 	//http://gw.systema.no/sycgip/TJGE001.pgm?user=JOVO&avd=1&opd=52919
 	static public String TROR_BASE_ARCHIVE_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE001.pgm";	//this function is actually general for all modules
+	
+	
+	
+		//----------------------------------------------------------------
+		//[2] FETCH/UPDATE/CREATE/DELETE Specific Budget - Budget lines
+		// It might or might not have a trip cross reference
+		// mode=A (add)
+		// mode=U (update)
+		// mode=D (delete)
+		//----------------------------------------------------------
+		//http://gw.systema.no/sycgip/TJGE27RG.pgm?user=JOVO&avd=75&opd=&tur=75000038&bnr=1319143&type=A
+		static public String TROR_BASE_FETCH_MAIN_ORDER_BUDGET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE27RG.pgm";
+		//http://gw.systema.no/sycgip/tjge27ru.pgm?user=JOVO&bnr=1318923&mode=U&bupCc=20&bupAr=15&bupMn
+		static public String TROR_BASE_UPDATE_MAIN_ORDER_BUDGET_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE27RU.pgm";
+		
+		
+		//----------------------------------------------------------------
+		//[3] FETCH/UPDATE/CREATE/DELETE Frie søkeveier
+		// It might or might not have a trip cross reference
+		// mode=A (add)
+		// mode=U (update)
+		// mode=D (delete)
+		// mode=I (inquiry)
+		//----------------------------------------------------------
+		//http://gw.systema.no/sycgip/TJGE28R.pgm?user=JOVO&avd=75&opd=155651
+		static public String TROR_BASE_FETCH_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE28R.pgm";
+		//http://gw.systema.no/sycgip/tjge29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
+		static public String TROR_BASE_UPDATE_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE29R.pgm";
+			
 		
 	
 	

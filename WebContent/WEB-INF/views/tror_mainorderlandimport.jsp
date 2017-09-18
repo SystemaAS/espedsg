@@ -309,6 +309,9 @@
 														 	</div>
 										   				</span>
 											 		</td>
+											 		<td><button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button></td>
+											 		
+											 		
 												</tr>
 											</table>	
 							 				</td>
@@ -322,7 +325,7 @@
 					 			<table width="100%" border="0">
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
-					 					<table border="0">
+					 					<table width="100%" border="0">
 					 					<tr>
 					 						<td class="text12" title="hedtop"><font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.date"/></td>
 							 				<td class="text12" >	
@@ -358,7 +361,7 @@
 					 				</td>
 					 				
 					 				<td valign="top" align="left" width="50%">
-						 				<table width="90%" border="0">
+						 				<table width="100%" border="0">
 						 				<tr>
 						 					<td class="text12" title="hekna"><spring:message code="systema.tror.orders.form.update.label.agent"/>
 						 						<a tabindex="-1" id="trorAgentIdLink" >

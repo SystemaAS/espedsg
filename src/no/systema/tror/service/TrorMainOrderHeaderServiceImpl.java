@@ -4,10 +4,13 @@
 package no.systema.tror.service;
 
 import no.systema.tror.mapper.jsonjackson.order.archive.JsonTrorOrderArchiveMapper;
-import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
+import no.systema.tror.mapper.jsonjackson.order.budget.JsonTrorOrderBudgetMapper;
 import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingMapper;
 import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderTrackAndTraceLoggingMapper;
 import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingLargeTextMapper;
+//beans
+import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
+import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
@@ -76,4 +79,17 @@ public class TrorMainOrderHeaderServiceImpl implements TrorMainOrderHeaderServic
 		return container;
 	}
 
+	/**
+	 * 
+	 */
+	public JsonTrorOrderHeaderBudgetContainer getBudgetContainer(String utfPayload){
+		JsonTrorOrderHeaderBudgetContainer container = null;
+		try{
+			JsonTrorOrderBudgetMapper mapper = new JsonTrorOrderBudgetMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
 }

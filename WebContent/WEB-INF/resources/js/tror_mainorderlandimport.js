@@ -14,7 +14,7 @@
 	  });
   });
   
-//Global functions
+  //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();
   }
@@ -24,6 +24,12 @@
 	  if (currentMonth < 10) { currentMonthStr = '0' + currentMonth; }
 	  return currentMonthStr;
   }
+  
+  jq(function() {
+	  	jq('#budgetButton').click(function() {
+	  		window.open('tror_mainorderlandimport_budget.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'budgetWin','top=120px,left=100px,height=600px,width=1400px,scrollbars=no,status=no,location=no');
+	  	});
+  });
   
   
   //----------------
