@@ -167,11 +167,13 @@ public class TrorUrlDataStore {
 	//This section contains external functions such as LOGGING, ARCHIVE	
 	
 	//http://gw.systema.no/sycgip/TNOI015R.pgm?user=OSCAR&avd=1&opd=91152 
-	static public String TROR_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI015R.pgm";	
-		
+	//static public String TROR_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI015R.pgm";	
+	static public String TROR_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE33R.pgm";	
+	
 	//http://gw.systema.no/sycgip/TNOI016R.pgm?user=OSCAR&fmn=84278
-	static public String TROR_BASE_LOG_LARGE_TEXT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI016R.pgm";	
-		
+	//static public String TROR_BASE_LOG_LARGE_TEXT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TNOI016R.pgm";	
+	static public String TROR_BASE_LOG_LARGE_TEXT_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE34R.pgm";	
+	
 	//http://gw.systema.no/sycgip/TJGE001.pgm?user=JOVO&avd=1&opd=52919
 	static public String TROR_BASE_ARCHIVE_FOR_SPECIFIC_TOPIC_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE001.pgm";	//this function is actually general for all modules
 		

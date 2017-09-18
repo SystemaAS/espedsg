@@ -5,6 +5,10 @@ package no.systema.tror.service;
 
 import no.systema.tror.mapper.jsonjackson.order.archive.JsonTrorOrderArchiveMapper;
 import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
+import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingMapper;
+import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingLargeTextMapper;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingContainer;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
 
 /**
  * 
@@ -28,6 +32,33 @@ public class TrorMainOrderHeaderServiceImpl implements TrorMainOrderHeaderServic
 		}
 		return container;
 	}
-
+	/**
+	 * 
+	 */
+	public JsonTrorOrderHeaderLoggingContainer getLoggingContainer(String utfPayload){
+		JsonTrorOrderHeaderLoggingContainer container = null;
+		try{
+			JsonTrorOrderLoggingMapper mapper = new JsonTrorOrderLoggingMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	/**
+	 * 
+	 */
+	public JsonTrorOrderHeaderLoggingLargeTextContainer getLoggingLargeTextContainer(String utfPayload){
+		JsonTrorOrderHeaderLoggingLargeTextContainer container = null;
+		try{
+			JsonTrorOrderLoggingLargeTextMapper mapper = new JsonTrorOrderLoggingLargeTextMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
 
 }
