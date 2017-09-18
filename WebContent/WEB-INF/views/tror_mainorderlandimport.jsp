@@ -47,28 +47,30 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doFetch&heavd=${model.record.heavd}&heopd=${model.record.heopd}" > 	
+							<img style="vertical-align: bottom" src="resources/images/invoice.png" width="16" hight="16" border="0" alt="show invoice">
 							<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font><font class="text12">&nbsp;</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_li&avd=${model.record.heavd}&opd=${model.record.heopd}&sign=${model.record.hesg}" > 	
+							<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
 							<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_logging.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
-							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>
 							<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>
 						</a>
 					</td>
 					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
-							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>
 							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>
 						</a>
 					</td>
 					
@@ -159,7 +161,7 @@
 						 			<td align="left" class="text14White">
 										&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">	
 										&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.edit"/>
-										&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.heavd} / ${model.record.heopd}</b></font>
+										&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.heavd} / ${model.record.heopd} / ${model.record.hesg}</b></font>
 					 				</td>
 				 				</c:when>
 				 				<c:otherwise>
@@ -195,7 +197,7 @@
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternalOriginal}'>
 					 --%>
 					<table style="width:98%;" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
-				 		<tr height="10"><td ></td></tr>
+				 		<tr height="5"><td ></td></tr>
 				 		<tr>
 							<td colspan="8">
 								<c:choose>
@@ -227,18 +229,90 @@
 							 				</td>
 							 				<td width="5px" class="text14" >&nbsp;</td>
 							 			</tr>
-							 			
 							 			</table>
-							 			
 						 			</c:when>
 						 			<c:otherwise>
-						 				<table class="tableBorderWithRoundCornersLightGray" border="0">
+						 				<table width="100%" border="0">
 									 	<tr>
-									 		<td width="5px" class="text14" >&nbsp;</td>
-									 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
-							 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
-							 				<td class="text14" title="hesg">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.signature"/>&nbsp;<b>${model.record.hesg}</b></td>
-							 				<td width="5px" class="text14" >&nbsp;</td>
+									 		<td valign="top" align="left" width="50%">
+									 		<table width="100%" border="0">
+										 		<tr>
+										 			<td>
+										 			<table class="tableBorderWithRoundCornersLightGray" border="0">
+										 			<tr>
+											 		<td width="5px" class="text14" >&nbsp;</td>
+											 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
+									 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
+									 				<%--
+									 				<td class="text14" title="hesg">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.signature"/>&nbsp;<b>${model.record.hesg}</b></td>
+									 				 --%>
+									 				<td width="5px" class="text14" >&nbsp;</td>
+									 				</tr>
+									 				</table>
+									 				</td>
+								 				</tr>
+							 				</table>
+							 				</td>
+							 				
+							 				<td valign="top" align="left" width="50%">
+							 				<table width="100%" border="0">
+										 		<tr>
+											 		<td valign="bottom"  width="5px" class="text14" >
+											 		<button tabindex=-1 name="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" onClick="showPop('trackAndTraceFields');" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
+												        <span style="background-color:#EEEEEE; position:absolute; left:200px; top:200px; width:850px; height:370px;" id="trackAndTraceFields" class="popupWithInputTextThickBorder"  >
+											           		<table width="95%" border="0" align="left" cellspacing="2">
+											           			<tr>
+												           			<td colspan="3" class="text14">&nbsp;&nbsp;<b><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></b>&nbsp;<img style="vertical-align: bottom" src="resources/images/log-iconLOG.png" width="20" hight="20" border="0" alt="show track and trace"></td>
+												           		</tr>
+												           	</table>	
+											           		<div class="ownScrollableSubWindow" style="width:800px; height:300px; margin:10px;">
+											           			<nav>
+											           			<table width="95%" border="0" align="left" cellspacing="2">
+											           			<tr>	
+																	<td >
+																	<table width="95%" cellspacing="0" border="0" cellpadding="0">
+																		<tr class="tableHeaderField" height="20" valign="left">
+																		    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.fbrev"/>&nbsp;</td>   
+																		    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</td>
+														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</td>   
+														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</td>
+														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</td>
+														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</td>
+													               		</tr> 
+												 						  <c:forEach items="${model.record.trackAndTraceloggingRecord}" var="record" varStatus="counter">    
+																               <c:choose>           
+																                   <c:when test="${counter.count%2==0}">
+																                       <tr class="tableRow" height="20" >
+																                   </c:when>
+																                   <c:otherwise> 
+																                       <tr class="tableOddRow" height="20" >
+																                   </c:otherwise>
+																               </c:choose>
+																               	<td class="tableCellFirst">&nbsp;${record.frBrev}</td>
+																               	<td class="tableCell" >&nbsp;${record.date}</td>
+																               	<td class="tableCell" >&nbsp;${record.time}</td>
+																               	<td class="tableCell" >&nbsp;${record.event}</td>
+																               	<td class="tableCell" >&nbsp;${record.textLoc}</td>
+																               	<td class="tableCell" >&nbsp;${record.user}</td>
+																            	</tr>
+																            </c:forEach>
+															        </table>
+																	</td>											           		
+														         </tr>
+												   			</table>
+												   			
+												   			</nav>
+												   			</div>
+												   			<div>
+																<%-- OK BUTTON --%>
+									           					<p>&nbsp;&nbsp;&nbsp;&nbsp;<button name="trackAndTraceButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('trackAndTraceFields');">&nbsp;Close</button></p>
+														 	</div>
+										   				</span>
+											 		</td>
+												</tr>
+											</table>	
+							 				</td>
+							 				
 							 			</tr>
 							 			
 							 			</table>
@@ -246,7 +320,6 @@
 					 			</c:choose>
 						 			
 					 			<table width="100%" border="0">
-					 			<tr height="10"><td ></td></tr>
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
 					 					<table border="0">

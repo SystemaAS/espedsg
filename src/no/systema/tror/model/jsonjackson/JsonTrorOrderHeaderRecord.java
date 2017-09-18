@@ -3,10 +3,12 @@ package no.systema.tror.model.jsonjackson;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
 
 public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	
@@ -1901,6 +1903,11 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	public void setHereff(String hereff) {
 		this.hereff = hereff;
 	}
+	
+	private Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> trackAndTraceloggingRecord = null;
+	public void setTrackAndTraceloggingRecord(Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> value) {  this.trackAndTraceloggingRecord = value; }
+	public Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> getTrackAndTraceloggingRecord() {return this.trackAndTraceloggingRecord;}
+	
 
 	/**
 	 * Used for java reflection in other classes

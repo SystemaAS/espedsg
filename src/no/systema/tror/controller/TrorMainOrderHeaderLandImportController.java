@@ -35,6 +35,9 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -56,6 +59,7 @@ import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
 
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
@@ -69,6 +73,7 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
+import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
@@ -235,6 +240,8 @@ public class TrorMainOrderHeaderLandImportController {
 				JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 				//split godsnr
 				this.splitGodsnr(headerOrderRecord);
+				//populate track and trace
+				this.populateTrackAndTrace(appUser, headerOrderRecord);
 				//check if user is allowed to choose invoicee (fakturaBetalare)
 				//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 				//populate all message notes
@@ -354,6 +361,46 @@ public class TrorMainOrderHeaderLandImportController {
 	
 	}
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param orderRecord
+	 */
+	private void populateTrackAndTrace(SystemaWebUser appUser, JsonTrorOrderHeaderRecord headerOrderRecord){
+		
+		//===========
+		 //FETCH LIST
+		 //===========
+		 logger.info("Inside: populateTrackAndTrace");
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_GENERAL_TRACK_AND_TRACE_URL;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + headerOrderRecord.getHeavd() + "&opd=" + headerOrderRecord.getHeopd();
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		 
+		 Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> list = new ArrayList<JsonTrorOrderHeaderTrackAndTraceLoggingRecord>();
+		 if(jsonPayload!=null){
+		 	try{
+		 		JsonTrorOrderHeaderTrackAndTraceLoggingContainer container = this.trorMainOrderHeaderService.getTrackAndTraceLoggingContainer(jsonPayload);
+				if(container!=null){
+					list = container.getTrackTraceEvents();
+					for(JsonTrorOrderHeaderTrackAndTraceLoggingRecord record : list){
+						//DEBUG -->logger.info("####Link:" + record.getDoclnk());
+					}
+				}
+				
+		 	}catch(Exception e){
+		 		e.printStackTrace();
+		 	}
+		 }
+		//populate the list on parent record
+		 headerOrderRecord.setTrackAndTraceloggingRecord(list);
+		 
+	}
 	/**
 	 * 
 	 * @param recordToValidate
@@ -1167,6 +1214,16 @@ public class TrorMainOrderHeaderLandImportController {
 	@Required
 	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
 	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
+	
+	
+	
+	@Qualifier ("trorMainOrderHeaderService")
+	private TrorMainOrderHeaderService trorMainOrderHeaderService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService = value; }
+	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
+	
 	
 	
 	@Qualifier ("trorDropDownListPopulationService")

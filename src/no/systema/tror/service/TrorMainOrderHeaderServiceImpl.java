@@ -6,9 +6,11 @@ package no.systema.tror.service;
 import no.systema.tror.mapper.jsonjackson.order.archive.JsonTrorOrderArchiveMapper;
 import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
 import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingMapper;
+import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderTrackAndTraceLoggingMapper;
 import no.systema.tror.mapper.jsonjackson.order.logging.JsonTrorOrderLoggingLargeTextMapper;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
 
 /**
  * 
@@ -59,6 +61,19 @@ public class TrorMainOrderHeaderServiceImpl implements TrorMainOrderHeaderServic
 		}
 		return container;
 		
+	}
+	/**
+	 * 
+	 */
+	public JsonTrorOrderHeaderTrackAndTraceLoggingContainer getTrackAndTraceLoggingContainer(String utfPayload){
+		JsonTrorOrderHeaderTrackAndTraceLoggingContainer container = null;
+		try{
+			JsonTrorOrderTrackAndTraceLoggingMapper mapper = new JsonTrorOrderTrackAndTraceLoggingMapper();
+			container = mapper.getContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 	}
 
 }
