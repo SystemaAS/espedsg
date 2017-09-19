@@ -137,7 +137,7 @@
 						
 						<tr>
 							<td class="ownScrollableSubWindow" style="width:970px; height:11em;">
-								<table cellspacing="0" border="0" cellpadding="0">
+								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
 									    <td class="tableHeaderFieldFirst">&nbsp;Linje&nbsp;</td>   
 					                    <td class="tableHeaderField" nowrap>&nbsp;Dato&nbsp;</td>

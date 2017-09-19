@@ -202,10 +202,14 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 		params.append("&bnr=" + lineId);
 		if(avd!=null && !"".equals(avd)){ params.append("&avd=" + avd); }
 		if(opd!=null && !"".equals(opd)){ params.append("&opd=" + opd); }
-		if(parentTrip!=null && !"".equals(parentTrip)){ 	
-			params.append("&tur=" + parentTrip); 
+		if(parentTrip!=null && !"".equals(parentTrip)){
+			if(tur!="0"){
+				params.append("&tur=" + parentTrip);
+			}
 		}else if(tur!=null && !"".equals(tur)){ 
-			params.append("&tur=" + tur); //delete on tur
+			if(tur!="0"){
+				params.append("&tur=" + tur); //delete on tur
+			}
 		}
 		
 		logger.info("ACTION: " + action);
@@ -264,7 +268,7 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 					//-------------------------------
 					//Execute back-end Update/Create
 					//-------------------------------
-					JsonTrorOrderHeaderBudgetContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE,avd,opd,parentTrip);
+					JsonTrorOrderHeaderBudgetContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE, avd, opd, parentTrip);
 					if(container!=null){
 	    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
 	    					logger.info("[ERROR] Back-end Error: " + container.getErrMsg());
@@ -321,12 +325,16 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 		if("U".equals(mode) || "D".equals(mode)){
 			urlRequestParams.append("&bnr=" + recordToValidate.getBubnr());
 		}else if("A".equals(mode)){
-			if(parentTrip!=null && !"".equals(parentTrip)){
+			/*
+			if( (parentTrip!=null && !"".equals(parentTrip) && parentTrip != "0") ){
 				urlRequestParams.append("&tur=" + parentTrip);
 			}else{
 				urlRequestParams.append("&avd=" + avd);
 				urlRequestParams.append("&opd=" + opd);
-			}
+			}*/
+			urlRequestParams.append("&avd=" + avd);
+			urlRequestParams.append("&opd=" + opd);			
+			
 		}
 		urlRequestParams.append("&mode=" + mode);
 		//We need to fill out the record in case Update/Create

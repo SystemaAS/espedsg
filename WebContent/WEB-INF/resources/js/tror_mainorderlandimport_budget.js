@@ -57,17 +57,17 @@
   
   //Links on child windows
   jq(function() {
-	  //supplier child window search
+	  //supplier child window search (to migrate to Landimport)
 	  jq('#bulnrIdLink').click(function() {
 		jq('#bulnrIdLink').attr('target','_blank');  
 		window.open('transportdisp_workflow_childwindow_supplier.do?action=doInit&kode=' + jq('#bulnr').val(),"supplierWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  });
-	  //gebyr koder child window search
+	  //gebyr koder child window search (to migrate to Landimport)
 	  jq('#buvkIdLink').click(function() {
 		jq('#buvkIdLink').attr('target','_blank');  
 		window.open('transportdisp_workflow_childwindow_gebyrcode.do?action=doInit&kode=' + jq('#buvk').val(),"gebyrCodesWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  });
-	  //Transport carrier id-numbers child window search
+	  //Transport carrier id-numbers child window search (to migrate to Landimport)
 	  jq('#butnrIdLink').click(function() {
 		jq('#butnrIdLink').attr('target','_blank');  
 		window.open('transportdisp_workflow_childwindow_transpcarrier.do?action=doInit&soktnr=' + jq('#butnr').val(),"transpcarrierWin","top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no");
@@ -84,7 +84,7 @@
 	jq("#bulnr").blur(function() { 
 			jq.ajax({
 		  	  type: 'GET',
-		  	  url: 'validateSupplier_TransportDisp.do',
+		  	  url: 'validateSupplier_Landimport.do',
 		  	  data: { applicationUser : jq('#applicationUser').val(), 
 		  		  	  id : jq('#bulnr').val() }, 
 		  	  dataType: 'json',
@@ -180,7 +180,7 @@
 	  	
 	  	jq.ajax({
 	  	  type: 'GET',
-	  	  url: 'getBudgetDetailLine_TransportDisp.do',
+	  	  url: 'getBudgetDetailLine_Landimport.do',
 	  	  data: { applicationUser : applicationUser, 
 	  		  	  requestString : requestString }, 
 	  	  dataType: 'json',
@@ -278,7 +278,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "transportdisp_workflow_budget_edit.do?action=doDelete" + "&bubnr=" + bubnr + "&avd=" + avd + "&opd=" + opd + "&tur=" + tur;
+	            window.location = "tror_mainorderlandimport_budget_edit.do?action=doDelete" + "&bubnr=" + bubnr + "&avd=" + avd + "&opd=" + opd + "&tur=" + tur;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );
@@ -291,5 +291,34 @@
 	          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
 	     }
 	  });  //end dialog
-	}	  
+	}
+	
+	
+	//-------------------
+    //Datatables jquery
+    //-------------------
+    //private function
+    function filterGlobal () {
+      jq('#tblBudget').dataTable().search(
+      	jq('#tblBudget_filter').val()
+      ).draw();
+    }
+
+    jq(document).ready(function() {
+      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+      jq('#tblBudget').dataTable( {
+    	  //"dom": '<"top">t<"bottom"f><"clear">',
+    	  "dom": '<"top"i>rt<"bottom"f><"clear">',
+  		  "scrollY":    "250px",
+  		  "tabIndex":   -1,
+  		  "order": [ [ 3, "asc" ] ],
+  		  "scrollCollapse":  true,
+  		  "lengthMenu": [ 25, 50]
+  	  });
+      //event on input field for search
+      jq('input.tblBudget_filter').on( 'keyup click', function () {
+      		filterGlobal();
+      });
+  	
+    });
   
