@@ -136,37 +136,41 @@
 						</tr> 
 						
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:970px; height:11em;">
-								<table width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
-									    <td class="tableHeaderFieldFirst">&nbsp;Linje&nbsp;</td>   
-					                    <td class="tableHeaderField" nowrap>&nbsp;Dato&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;Part&nbsp;</td>
-					                    <td class="tableHeaderField" nowrap>&nbsp;Fritekst&nbsp;</td>
-					                    	<td align="center" class="tableHeaderField" nowrap>Slett</td>
+							<td class="text11" >
+								<form name="formItemList" id="formItemList" method="POST" >
+			               		<input type="hidden" name="frtavd" id="frtavd" value="${model.avd}">
+		 						<input type="hidden" name="frtopd" id="frtopd" value="${model.opd}">
+		 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+		 						
+								<table id="containerdatatableTable" width="80%" cellspacing="2" align="left" >
+								<tr>
+								<td class="text11">
+								<table id="tblNotes" class="display compact cell-border" >
+									<thead>
+									<tr style="background-color:#DDDDDD">
+									    <th width="2%" align="center" class="text12">&nbsp;Lnr.&nbsp;</th>   
+									    <th width="2%" align="center" class="text12">&nbsp;Endre&nbsp;</th>   
+									    <th class="text12" nowrap>&nbsp;Dato&nbsp;</th>
+					                    <th class="text12" nowrap>&nbsp;Part&nbsp;</th>
+					                    <th class="text12" nowrap>&nbsp;Fritekst&nbsp;</th>
+				                    	<th align="center" class="text12" nowrap>Slett</th>
 					               </tr> 
-					               <form name="formItemList" id="formItemList" method="POST" >
-					               		<input type="hidden" name="frtavd" id="frtavd" value="${model.avd}">
-				 						<input type="hidden" name="frtopd" id="frtopd" value="${model.opd}">
-				 						<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
+					               </thead>
+					               <tbody>
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
-							               <c:choose>           
-							                   <c:when test="${counter.count%2==0}">
-							                       <tr class="tableRow" height="20" >
-							                   </c:when>
-							                   <c:otherwise> 
-							                       <tr class="tableOddRow" height="20" >
-							                   </c:otherwise>
-							               </c:choose>
-							               <td width="2%" class="tableCellFirst" align="right">
-							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="getNotisblockItemData(this);">${record.frtli}
-							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
-							               		</a>&nbsp;&nbsp;
+						               <tr class="tableRow" height="20" >
+							               <td width="2%" align="center" class="text11" >&nbsp;${record.frtli}</td>
+							                   
+							               <td width="2%" align="center" class="text11" >
+							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="getNotisblockItemData(this);">
+							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							               		</a>
 							               </td>
-							               <td class="tableCell" >&nbsp;${record.frtdt}</td>
-							               <td class="tableCell" >&nbsp;${record.frtkod}</td>
-							               <td class="tableCell" >&nbsp;${record.frttxt}</td>
-									       <td class="tableCell" align="center" nowrap>
+							               
+							               <td class="text11" >&nbsp;${record.frtdt}</td>
+							               <td class="text11" >&nbsp;${record.frtkod}</td>
+							               <td class="text11" >&nbsp;${record.frttxt}</td>
+									       <td class="text11" align="center" nowrap>
 							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="editNotisblock.do?action=doDelete&subsys=tror_li&orig=${model.orig}&sign=${model.sign}&frtli=${record.frtli}&frtdt=${record.frtdt}&opd=${record.frtopd}&avd=${record.frtavd}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 							               	</a>	&nbsp;
@@ -178,8 +182,12 @@
 								        <%-- this param is used throughout the Controller --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${counter.count}" scope="request" /> 
 								        </c:forEach>
-						            </form>
+						            </tbody>
 						        </table>
+						        </td>
+						        </tr>
+						        </table>
+						        </form>
 							</td>
 						</tr>
 					</table>
@@ -266,13 +274,13 @@
 							        </tr>
 							        <tr>
 						        		<td align="left" valign="top">
-						        			<input type="text" class="inputText" name="frtdt" id="frtdt" size="9" maxlength="8" value="${model.record.frtdt}">
+						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="frtdt" id="frtdt" size="9" maxlength="8" value="${model.record.frtdt}">
 										</td>
 										<td align="left" valign="top">
-						        			<input type="text" class="inputText" name="frtkod" id="frtkod" size="2" maxlength="1" value="${model.record.frtkod}">
+						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="frtkod" id="frtkod" size="2" maxlength="1" value="${model.record.frtkod}">
 										</td>
 										<td class="text12" align="left">
-						            		<textarea rows="1" cols="79" class="inputText" name="frttxt" id="frttxt" maxlength="79">${model.record.frttxt}</textarea>
+						            		<textarea rows="1" cols="79" class="inputTextMediumBlueMandatoryField" name="frttxt" id="frttxt" maxlength="79">${model.record.frttxt}</textarea>
 							            </td>
 							        </tr>
 							        <tr height="10"><td class="text" align="left"></td></tr>

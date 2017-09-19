@@ -79,5 +79,36 @@
 	  	  }
 	  	});
 	}
+	
+	//-------------------
+    //Datatables jquery
+    //-------------------
+    //private function
+    function filterGlobal () {
+      jq('#tblNotes').dataTable().search(
+      	jq('#tblNotes_filter').val()
+      ).draw();
+    }
+
+    jq(document).ready(function() {
+      //Aspects in general 
+      jq('#updCancelButton').hide();
+    	
+      //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+      jq('#tblNotes').dataTable( {
+    	  //"dom": '<"top">t<"bottom"f><"clear">',
+    	  "dom": '<"top"i>rt<"bottom"f><"clear">',
+  		  "scrollY":    "200px",
+  		  "tabIndex":   -1,
+  		  "order": [[ 0, "asc" ]],
+  		  "scrollCollapse":  true,
+  		  "lengthMenu": [ 25, 50]
+  	  });
+      //event on input field for search
+      jq('input.tblNotes_filter').on( 'keyup click', function () {
+      		filterGlobal();
+      });
+  	
+    });
 	  
 	
