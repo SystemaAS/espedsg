@@ -34,7 +34,7 @@ public class ReportDashboardController {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		ModelAndView successView = new ModelAndView("report_dashboard");
 		logger.info("Inside: doReportDashboard");
-
+		
 		if(appUser==null){
 			return loginView;
 		}else{

@@ -2399,7 +2399,7 @@ a { cursor: pointer }
     
 }
 
-.show-grid-center {
+.show-grid-center-large {
     padding-top: 10px;
     padding-bottom: 10px;
     border: 1px solid #ddd;
@@ -2409,6 +2409,19 @@ a { cursor: pointer }
     font-size: 18px;
     text-align: center;
 }
+
+.show-grid-center-small {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    border-right-style: none;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+
 
 .border {
     border: 1px solid #ddd;

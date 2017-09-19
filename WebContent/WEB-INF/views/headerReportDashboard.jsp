@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js""></script>
 	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="resources/js/systemaWebGlobal.js?ver=${user.versionEspedsg}"></script>
-	<script type="text/javascript" src="resources/js/headerReport.js?ver=${user.versionEspedsg}"></script>
+	<script type="text/javascript" src="resources/js/headerReports.js?ver=${user.versionEspedsg}"></script>
 	
 	<!-- using dc.js as the driver of upgrading of d3 and crossfilter, hence the https://dc-js.github.io/dc.js/js -->
 	<script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
