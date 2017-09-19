@@ -29,9 +29,9 @@ d3.json(url, function(error, data) {
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
-	  d.dd = fullDateFormat.parse(d.hedtop);
-	  d.year = yearFormat(d.dd);
-	  d.month = monthFormat(d.dd);
+	  d.date = fullDateFormat.parse(d.hedtop);
+	  d.year = yearFormat(d.date);
+	  d.month = monthFormat(d.date);
 	  d.tupro = d.tupro;
 	  d.tubilk = d.tubilk;
 	  d.faavd = d.faavd;
@@ -51,11 +51,13 @@ d3.json(url, function(error, data) {
 	//Dimensions
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
 	//var  kundeDim  = fakt.dimension(function(d) {return d.trknfa;});
+	var  dateDim  = fakt.dimension(function(d) {return d.date;});
 	var  yearDim  = fakt.dimension(function(d) {return d.year;});
     var  monthDim = fakt.dimension(function (d) {return d.month;});	
 	var  avdDim  = fakt.dimension(function(d) {return d.faavd;});
 	var  tubilkDim  = fakt.dimension(function(d) {return d.tubilk;});
 	//Groups
+	//var  dateDimGroup = dateDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  monthDimGroup = monthDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
 	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
@@ -66,8 +68,8 @@ d3.json(url, function(error, data) {
 	var  tubilkChart   = dc.pieChart('#chart-ring-tubilk');
 	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeLineChart = dc.compositeChart("#line-chart-composite");
-	var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
-	var  stackedChart = dc.barChart("#stacked-chart");
+	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
+	//var  stackedChart = dc.barChart("#stacked-chart");
 	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
@@ -76,8 +78,11 @@ d3.json(url, function(error, data) {
 	var  dbDisplay = dc.numberDisplay("#db");	
 	dataTable = dc.dataTable('#data-table');
 	
+	var mindate = dateDim.bottom(1)[0].date;
+	var maxdate = dateDim.top(1)[0].date;
+	
 	//Group reduce
-    var monthlyGroup =  monthDim.group().reduce(   
+    var dateDimGroup =  dateDim.group().reduce(   //TESTAR: org=dateDimGroup
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
@@ -107,6 +112,15 @@ d3.json(url, function(error, data) {
                 };
             }
     );  
+	
+	
+    var  dateDimGroupKost = dateDim.group().reduceSum(function(d) {
+    	if (d.fakda == 'K') {
+    		return +d.sumfabeln;
+    	}
+    });
+	
+	
     
 /*
 	var  kundePerformanceGroup = kundeDim.group().reduce(
@@ -175,29 +189,18 @@ d3.json(url, function(error, data) {
 	    .externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .innerRadius(30)
-	    .legend(dc.legend().y(20).itemHeight(10).gap(3));
+	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
    
 	avdChart
-/*
-		.width(250)
-	    .height(250)
+	    .width(300)
+	    .height(300)
+	    //.slicesCap(40)
+	    .innerRadius(40)
+	    .externalLabels(20)
+	    .externalRadiusPadding(50)
 	    .dimension(avdDim)
 	    .group(avdDimGroup)
-	    .innerRadius(30)
-        .externalLabels(10)
-        .externalRadiusPadding(50)
-        .drawPaths(true)
-        .legend(dc.legend());
-*/	
-    .width(300)
-    .height(300)
-    //.slicesCap(40)
-    .innerRadius(30)
-    .externalLabels(20)
-    .externalRadiusPadding(50)
-    .dimension(avdDim)
-    .group(avdDimGroup)
-    .legend(dc.legend().y(20).itemHeight(10).gap(3));
+	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
 /*	
 	avdChart.on('pretransition', function(chart) {
         chart.selectAll('.dc-legend-item text')
@@ -220,19 +223,7 @@ d3.json(url, function(error, data) {
 	    .externalRadiusPadding(50)
 	    .dimension(tubilkDim)
 	    .group(tubilkDimGroup)
-	    .legend(dc.legend().y(20).itemHeight(10).gap(3));
-/*	
-	avdChart.on('pretransition', function(chart) {
-        chart.selectAll('.dc-legend-item text')
-            .text('')
-          .append('tspan')
-            .text(function(d) { return d.name; })
-          .append('tspan')
-            .attr('x', 100)
-            .attr('text-anchor', 'end')
-            .text(function(d) { return d.data; });
-    });	
-*/		
+	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
 	
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
@@ -265,6 +256,12 @@ d3.json(url, function(error, data) {
 			var db = resultat / p.value.omsetning;
 			return db;
 		  })
+//	      .html({
+//	        one:"<span style=\"color:green; font-size: 26px;\">%number</span> Monkey",
+//	        some:"<span style=\"color:red; font-size: 26px;\">%number</span> Total Monkeys",
+//	        none:"<span style=\"color:steelblue; font-size: 26px;\">No</span> Monkeys"
+//	      })		  
+		  
 		 .formatNumber(d3.format(".2%")); 
 	  
 /*
@@ -343,13 +340,13 @@ d3.json(url, function(error, data) {
             .height(325)
             .margins({top: 20, right: 10, bottom: 30, left: 80})
 			.dimension(monthDim) 
-			.group(monthlyGroup, "Kostnad")  
+			.group(dateDimGroup, "Kostnad")  
             .valueAccessor(function (d) {
                    return d.value.kostnad; 
              })
             .yAxisLabel("NOK")
         	.xAxisLabel("Måned")          
-        	.stack(monthlyGroup, "Omsetning", function (d) {
+        	.stack(dateDimGroup, "Omsetning", function (d) {
                    return d.value.omsetning;
             })
             .brushOn(true)
@@ -365,12 +362,14 @@ d3.json(url, function(error, data) {
 	        //.xUnits(d3.time.days)
             .legend(dc.legend().x(900).y(20).itemHeight(5).gap(20));
 */
-	        
+
+
 	compositeLineChart
 		    .width(1200)
 		    .height(400)
 		    .margins({top: 20, right: 10, bottom: 30, left: 80})
-		    .x(d3.scale.linear().domain([1,12]))
+			.x(d3.time.scale().domain([mindate, maxdate])) 	
+			.xUnits(d3.time.months) 		   
             .yAxisLabel("NOK")
             .elasticY(true)
         	.xAxisLabel("Måned")      
@@ -379,92 +378,75 @@ d3.json(url, function(error, data) {
 		    .renderHorizontalGridLines(true)
 		    .compose([
 		         dc.lineChart(compositeLineChart)
-		            .dimension(monthDim)
-		            .colors('green')
-		            .group(monthlyGroup, "Omsetning")
+		            .dimension(dateDim)
+		            .colors('blue')
+		            .group(dateDimGroup, "Omsetning")
 			        .valueAccessor(function (d) {
                 		return d.value.omsetning; 
         			})	            
 		            .dashStyle([5,5]),
 		    	dc.lineChart(compositeLineChart)
-		            .dimension(monthDim)
+		            .dimension(dateDim)
 		            .colors('red')
-		            .group(monthlyGroup, "Kostnad")
+		            .group(dateDimGroup, "Kostnad")
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
            			})
-		            .dashStyle([2,2])
+		            .dashStyle([2,2]),
+			    dc.lineChart(compositeLineChart)
+		            .dimension(dateDim)
+		            .colors('green')
+		            .group(dateDimGroup, "Resultat")
+					.valueAccessor(function (d) {
+						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
+						return resultat;
+					 })
+		            .dashStyle([3,3])     
 		        ])
-		    .brushOn(true);
+		    .brushOn(false);
 	   
-	var mindate = new Date(2017,0,1),
-	maxdate = new Date(2017,12,31);
-
-
+/*
 	compositeStackedChart
 		.width(1200)
 		.height(400)
 		.margins({top: 20, right: 10, bottom: 30, left: 80})
-		//.x(d3.scale.linear().domain([0,13]))
- 		//.x(d3.time.scale().domain([mindate, maxdate])) 	
- 		.x(d3.time.scale().domain([new Date(2017, 1, 1), new Date(2017, 12, 30)]))
-        .xUnits(d3.time.months)  //verkar inte påverka
+		.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
+		.x(d3.time.scale().domain([mindate, maxdate])) 	
+		.xUnits(d3.time.months) 
 		.yAxisLabel("NOK")
 		.xAxisLabel("Måned")   
-		//TESTA.yAxisPadding(5)
-        .elasticY(true)
-		.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
+	    .elasticY(true)
 		.renderHorizontalGridLines(true)
 		.compose([
 		     dc.barChart(compositeStackedChart)
-		     	//.xUnits(dc.units.ordinal) //verkar inte påverka
-		     	//.x(d3.scale.linear().domain([0,13]))
-		     	//.x(d3.time.scale().domain([new Date(2017, 1, 1), new Date(2017, 12, 30)]))  //verkar inte påverka
-		     	//.gap(1) //verkar inte påverka
-		        .dimension(monthDim)
-		        .colors('green')
-		        .group(monthlyGroup, "Omsetning")
-		        .valueAccessor(function (d) {
-		    		return d.value.omsetning; 
-				}),	            
-			dc.barChart(compositeStackedChart)
-			 	//.xUnits(dc.units.ordinal)
-			 	//.x(d3.scale.linear().domain([0,13]))
-			 	//.gap(1)
-			 	//.xAxis().ticks(5)
-		        .dimension(monthDim)
-		        .colors('red')
-		        .group(monthlyGroup, "Kostnad")
+		        .dimension(dateDim)
+		        .group(dateDimGroup, "Kostnad")      
 		        .valueAccessor(function (d) {
 		       		return d.value.kostnad; 
-				}),
-			dc.lineChart(compositeStackedChart)
-			 	 .dimension(monthDim)
-			     .group(monthlyGroup, "Resultat")
-			     .valueAccessor(function (d) {
-		       		return d.value.omsetning + d.value.kostnad;
-				 })
+				})	        
 		])
-		.brushOn(false);
-
-	stackedChart
+		.brushOn(true);	
+	
+ 	stackedChart
 		.width(1200)
 		.height(400)
-		//.margins({top: 20, right: 10, bottom: 30, left: 80})
-		.brushOn(false)
-	 	.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
-	 	//.x(d3.scale.ordinal().domain([0,13]))
-        //.xUnits(dc.units.ordinal)
-	 	.x(d3.time.scale().domain([new Date(2017, 1, 1), new Date(2017, 12, 30)]))
-        .xUnits(d3.time.days)
-        .dimension(monthDim)
-        //.xUnits(d3.time.months) 
-        .group(monthDimGroup);
-        //.valueAccessor(function (d) {
-       	//	return d.value.kostnad; 
-		//});
-        
-     
+		.brushOn(true)
+		.mouseZoomable(true)
+		.centerBar(true)
+		.gap(10)
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.x(d3.time.scale().domain([mindate, maxdate])) 	
+		.xUnits(d3.time.months)
+		.round(d3.time.month.round)
+		.alwaysUseRounding(true)
+        .dimension(dateDim) 
+ 	    .group(dateDimGroupKost);
+//        .group(dateDimGroup, "Kostnad")
+//    	.valueAccessor(function (d) {
+//		       return d.value.kostnad; 
+//		});
+ */       
 	
    	d3.selectAll('a#all').on('click', function () {
      	dc.filterAll();
@@ -479,16 +461,6 @@ d3.json(url, function(error, data) {
 		compositeLineChart.filterAll();
 		dc.redrawAll();
 	});
-	d3.selectAll('a#intekkt2').on('click', function () {
-		compositeStackedChart.filterAll();
-		dc.redrawAll();
-	});	
-
-	d3.selectAll('a#intekkt3').on('click', function () {
-		stackedChart.filterAll();
-		dc.redrawAll();
-	});	
-	
 	d3.selectAll('a#avd').on('click', function () {
 		avdChart.filterAll();
 		dc.redrawAll();
@@ -653,19 +625,20 @@ function last() {
 
 					  </div> 
 					  <div class="row border">
-						<div class="col-md-4" id="chart-ring-avd" align="center">
-				        	<div><span class="filter"></span></div>
+						<div class="col-md-4 border" id="chart-ring-year" align="center">
+							<div><span class="filter"></span></div>
 				        </div>
-				        <div class="col-md-4" id="chart-ring-tubilk" align="center">
+				        <div class="col-md-4 border" id="chart-ring-avd" align="center">
 				        	<div><span class="filter"></span></div>
 				        </div>  
-				        <div class="col-md-4" id="chart-ring-year" align="center">
+				        <div class="col-md-4 border" id="chart-ring-tubilk" align="center">
 				        	<div><span class="filter"></span></div>
 				        </div>  
 					  </div> 					  
 					</div>		
 				  </div>	
-				  
+	
+	<!--   			  
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
@@ -701,7 +674,7 @@ function last() {
 				      </div>
 				    </div>
 				  </div>
-	
+	-->
 	
 	
 	
