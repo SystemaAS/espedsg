@@ -31,11 +31,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTra
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispSupplierRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetContainer; 
-import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetRecord; 
-
 import no.systema.transportdisp.service.TransportDispChildWindowService;
-import no.systema.transportdisp.service.TransportDispWorkflowBudgetService;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 
@@ -43,6 +39,12 @@ import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.RpgReturnResponseHandler;
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 
+import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
+import no.systema.tror.service.TrorMainOrderHeaderService;
+import no.systema.tror.url.store.TrorUrlDataStore;
+
+import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetContainer; 
+import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetRecord; 
 /**
  * This Ajax handler is the class handling ajax request in TROR (Oppdragsreg.) - Landimport. 
  * It will usually be called from within a jQuery function or other javascript alike... 
@@ -254,80 +256,79 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 		}
 		*/
 			
-		/**
-		   * Gets a specific invoice line
-		   * This method is to be ported to a real Landimport module (migration project).
-		   * Right now we borrow all the functionality from Transp.Disp... (AS400 services)
-		   
-		   * @param applicationUser
-		   * @param requestString
-		   * @return
-		   */
+	/**
+	   * Gets a specific invoice line
+	   * This method is to be ported to a real Landimport module (migration project).
+	   * Right now we borrow all the functionality from Transp.Disp... (AS400 services)
+	   
+	   * @param applicationUser
+	   * @param requestString
+	   * @return
+	   */
+	
+		@RequestMapping(value = "getBudgetDetailLine_Landimport.do", method = RequestMethod.GET)
+	    public @ResponseBody List<JsonTrorOrderHeaderBudgetRecord> getBudgetDetailLine
+		  						(@RequestParam String applicationUser, @RequestParam String requestString){
+			 logger.info("Inside: getBudgetDetailLine");
+			 List<JsonTrorOrderHeaderBudgetRecord> result = new ArrayList<JsonTrorOrderHeaderBudgetRecord>();
+			 //logger.info(requestString);
+			 if(requestString!=null && !"".equals(requestString)){
+			 	 final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_MAIN_ORDER_BUDGET_URL;
+			 	 
+				 //add URL-parameters
+				 String urlRequestParams = requestString;
+				 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				 logger.info("URL: " + BASE_URL);
+				 logger.info("URL PARAMS: " + urlRequestParams);
+				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				 
+				 if(jsonPayload!=null){
+					 JsonTrorOrderHeaderBudgetContainer container = this.trorMainOrderHeaderService.getBudgetContainer(jsonPayload);
+		    		if(container!=null){
+		    			List<JsonTrorOrderHeaderBudgetRecord> list = new ArrayList();
+		    			for(JsonTrorOrderHeaderBudgetRecord  record : container.getBudgetLines()){
+		    				logger.info(record.getBubnr());
+		    				list.add(record);
+		    			}
+		    			result = list;
+		    		}
+		    	  }
+			 }
+			 return result;
+		}	
 		
-			@RequestMapping(value = "getBudgetDetailLine_Landimport.do", method = RequestMethod.GET)
-		    public @ResponseBody List<JsonTransportDispWorkflowSpecificBudgetRecord> getBudgetDetailLine
-			  						(@RequestParam String applicationUser, @RequestParam String requestString){
-				 logger.info("Inside: getBudgetDetailLine");
-				 List<JsonTransportDispWorkflowSpecificBudgetRecord> result = new ArrayList<JsonTransportDispWorkflowSpecificBudgetRecord>();
-				 //logger.info(requestString);
-				 if(requestString!=null && !"".equals(requestString)){
-				 	 final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_BUDGET_URL;
-				 	 
-					 //add URL-parameters
-					 String urlRequestParams = requestString;
-					 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-					 logger.info("URL: " + BASE_URL);
-					 logger.info("URL PARAMS: " + urlRequestParams);
-					 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-					 
-					 if(jsonPayload!=null){
-						 JsonTransportDispWorkflowSpecificBudgetContainer container = this.transportDispWorkflowBudgetService.getContainer(jsonPayload);
-			    		if(container!=null){
-			    			List<JsonTransportDispWorkflowSpecificBudgetRecord> list = new ArrayList();
-			    			for(JsonTransportDispWorkflowSpecificBudgetRecord  record : container.getBudgetLines()){
-			    				logger.info(record.getBubnr());
-			    				list.add(record);
-			    			}
-			    			result = list;
-			    		}
-			    	  }
-				 }
-				 return result;
-			}	
-			
-			/**
-			 * 
-			 * @param applicationUser
-			 * @param requestString
-			 * @return
-			 */
-			/*
-			@RequestMapping(value = "getFrisokveiDetailLine_TransportDisp.do", method = RequestMethod.GET)
-		    public @ResponseBody List<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer> getFrisokveiDetailLine
-			  						(@RequestParam String applicationUser, @RequestParam String requestString){
-				 logger.info("Inside: getFrisokveiDetailLine");
-				 List<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer> result = new ArrayList<JsonTransportDispWorkflowSpecificOrderFrisokveiContainer>();
-				 //logger.info(requestString);
-				 if(requestString!=null && !"".equals(requestString)){
-				 	 final String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
-				 	 
-					 //add URL-parameters
-					 String urlRequestParams = requestString;
-					 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-					 logger.info("URL: " + BASE_URL);
-					 logger.info("URL PARAMS: " + urlRequestParams);
-					 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-					 
-					 if(jsonPayload!=null){
-						 JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.transportDispWorkflowSpecificOrderService.getOrderFrisokveiContainer(jsonPayload);
-			    		if(container!=null){
-			    			result.add(container);
-			    		}
-			    	  }
-				 }
-				 return result;
-			}	
-			 */
+		/**
+		 * 
+		 * @param applicationUser
+		 * @param requestString
+		 * @return
+		 */
+		
+		@RequestMapping(value = "getFrisokveiDetailLine_Landimport.do", method = RequestMethod.GET)
+	    public @ResponseBody List<JsonTrorOrderHeaderFrisokveiContainer> getFrisokveiDetailLine
+		  						(@RequestParam String applicationUser, @RequestParam String requestString){
+			 logger.info("Inside: getFrisokveiDetailLine");
+			 List<JsonTrorOrderHeaderFrisokveiContainer> result = new ArrayList<JsonTrorOrderHeaderFrisokveiContainer>();
+			 //logger.info(requestString);
+			 if(requestString!=null && !"".equals(requestString)){
+			 	 final String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
+			 	 
+				 //add URL-parameters
+				 String urlRequestParams = requestString;
+				 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				 logger.info("URL: " + BASE_URL);
+				 logger.info("URL PARAMS: " + urlRequestParams);
+				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				 
+				 if(jsonPayload!=null){
+					 JsonTrorOrderHeaderFrisokveiContainer container = this.trorMainOrderHeaderService.getOrderFrisokveiContainer(jsonPayload);
+		    		if(container!=null){
+		    			result.add(container);
+		    		}
+		    	  }
+			 }
+			 return result;
+		}	
 
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
@@ -352,21 +353,18 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 	  public void setTransportDispChildWindowService(TransportDispChildWindowService value){this.transportDispChildWindowService = value;}
 	  public TransportDispChildWindowService getTransportDispChildWindowService(){ return this.transportDispChildWindowService; }
 	   
-	 
 	  @Qualifier 
 	  private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
 	  @Autowired
 	  @Required	
 	  public void setTransportDispWorkflowSpecificOrderService(TransportDispWorkflowSpecificOrderService value){this.transportDispWorkflowSpecificOrderService = value;}
 	  public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){ return this.transportDispWorkflowSpecificOrderService; }
-	
-	  
-	  @Qualifier ("transportDispWorkflowBudgetService")
-	  private TransportDispWorkflowBudgetService transportDispWorkflowBudgetService;
-	  @Autowired
-	  public void setTransportDispWorkflowBudgetService (TransportDispWorkflowBudgetService value){ this.transportDispWorkflowBudgetService=value; }
-	  public TransportDispWorkflowBudgetService getTransportDispWorkflowBudgetService(){return this.transportDispWorkflowBudgetService;}
 		
+	  @Qualifier ("trorMainOrderHeaderService")
+	  private TrorMainOrderHeaderService trorMainOrderHeaderService;
+	  @Autowired
+	  public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService=value; }
+	  public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){return this.trorMainOrderHeaderService;}
 		
 		
 	  

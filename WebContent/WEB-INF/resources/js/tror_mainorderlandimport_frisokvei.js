@@ -61,7 +61,8 @@
 		  jq('#fsdokk').val("");
 		  //
 		  jq('#isModeUpdate').val("");
-		  
+		  //
+		  jq('#fskode').focus();
 	  });
   });
   
@@ -184,7 +185,7 @@
 	  	
 	  	jq.ajax({
 	  	  type: 'GET',
-	  	  url: 'getFrisokveiDetailLine_TransportDisp.do',
+	  	  url: 'getFrisokveiDetailLine_Landimport.do',
 	  	  data: { applicationUser : applicationUser, 
 	  		  	  requestString : requestString }, 
 	  	  dataType: 'json',
@@ -246,7 +247,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "transportdisp_workflow_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
+	            window.location = "tror_mainorderlandimport_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );
