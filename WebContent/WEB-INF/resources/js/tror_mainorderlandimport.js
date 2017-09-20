@@ -29,6 +29,9 @@
 	  	jq('#budgetButton').click(function() {
 	  		window.open('tror_mainorderlandimport_budget.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'budgetWin','top=120px,left=100px,height=800px,width=1450px,scrollbars=no,status=no,location=no');
 	  	});
+	  	jq('#frisokveiButton').click(function() {
+	  		window.open('tror_mainorderlandimport_frisokvei.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'frisokveiWin','top=120px,left=100px,height=600px,width=900px,scrollbars=no,status=no,location=no');
+	  	});
   });
   
   

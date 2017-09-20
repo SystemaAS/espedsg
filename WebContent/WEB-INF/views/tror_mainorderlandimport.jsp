@@ -235,7 +235,7 @@
 						 				<table width="100%" border="0">
 									 	<tr>
 									 		<td valign="top" align="left" width="50%">
-									 		<table width="100%" border="0">
+									 		<table border="0">
 										 		<tr>
 										 			<td>
 										 			<table class="tableBorderWithRoundCornersLightGray" border="0">
@@ -243,13 +243,13 @@
 											 		<td width="5px" class="text14" >&nbsp;</td>
 											 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
 									 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
-									 				<%--
-									 				<td class="text14" title="hesg">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.signature"/>&nbsp;<b>${model.record.hesg}</b></td>
-									 				 --%>
+									 				
+									 				
 									 				<td width="5px" class="text14" >&nbsp;</td>
 									 				</tr>
 									 				</table>
 									 				</td>
+									 				<td class="text14"><button name="frisokveiButton" id="frisokveiButton" class="buttonGrayWithGreenFrame" type="button" >Frie søkeveier</button></td>
 								 				</tr>
 							 				</table>
 							 				</td>
