@@ -891,8 +891,8 @@
 							<td colspan="10">
 							<table width="100%" border="0">	
 								<tr>
-									<td width="50%" valign="top">
-									<table class="tableBorderWithRoundCornersLightGray" width="100%" border="0">
+									<td align="left" width="100%" valign="top">
+									<table class="tableBorderWithRoundCornersLightGray" border="0">
 									<tr>
 						 				<td class="text12"><span title="heot"><spring:message code="systema.tror.orders.form.update.label.oppdragstype"/></span>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_oppdragstype.do?action=doFind&ctype=landimport','opptypeWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
@@ -936,10 +936,8 @@
 							 					</c:forEach>
 											</select>
 							 			</td>
-							 		</tr>
-							 		
-							 		<tr>		
-											
+							 			
+										<%--	
 							 			<td class="text12" title="todo"><spring:message code="systema.tror.orders.form.update.label.forpassing"/></td>
 							    		<td class="text12">
 							    			<select class="inputTextMediumBlue" name="hepk2" id="hepk2" >
@@ -948,6 +946,7 @@
 											  <option value="N"<c:if test="${model.record.hepk2 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
+						    			--%>
 							    		<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.orders.form.update.label.kkvittering"/></td>
 							    		<td class="text12">
 							    			<select class="inputTextMediumBlue" name="hepk3" id="hepk3" >
@@ -962,15 +961,11 @@
 							 				  <option value="">-velg-</option>
 											  <option value="J"<c:if test="${model.record.hepk4 == 'J'}"> selected </c:if> >Ja</option>
 											  <option value="N"<c:if test="${model.record.hepk4 == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="P"<c:if test="${model.record.hepk4 == 'P'}"> selected </c:if> >P</option>
 											</select>
 						    			</td>
-						 			</tr>
-							 		</table>
-							 		</td>
-							 		
-							 		<td width="50%" valign="top">
-									<table class="tableBorderWithRoundCornersLightGray" width="100%" border="0">
-							 		<tr>		
+						 			
+							 			<td class="text12" width="50px">&nbsp;</td>	
 							 			<%-------------------------- --%>
 							 			<%-- START Fraktbrev section --%>
 							 			<%-------------------------- --%>
@@ -997,7 +992,7 @@
 							 				<input type="checkbox" id="hepk1" name="hepk1" value="J" <c:if test="${model.record.hepk1 == 'J'}"> checked </c:if>>
 							 				<input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="hepk1RO" id="hepk1RO" value="${model.record.hepk1}">
 							 			</td>
-							 			
+							 			<%--
 							 			<td nowrap class="text12">&nbsp;&nbsp;<span title="dftoll"><spring:message code="systema.tror.orders.form.update.label.tollsted"/></span>
 							 				<a tabindex=0 id="dftollIdLink" >
 	 											<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
@@ -1010,7 +1005,7 @@
 							 			<td class="text12">&nbsp;&nbsp;<span title="todo"><spring:message code="systema.tror.orders.form.update.label.merkelapp"/></span></td>
 							 			<td nowrap class="text12">
 							 				<input type="checkbox" id="todo" name="todo" value="S" <c:if test="${Xmodel.record.dfkdme == 'S'}"> checked </c:if>>
-							 				<%-- <input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="dfkdmeRO" id="dfkdmeRO" value="${Xmodel.record.dfkdme}">  --%>
+							 				
 						 				</td>
 							 			<td class="text12">&nbsp;<span title="todo"><spring:message code="systema.tror.orders.form.update.label.etterkrav"/></span></td>
 							 			<td nowrap class="text12">
@@ -1021,17 +1016,15 @@
 							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" size="5" maxlength="3" name="hentvs" id="hentvs" value="${model.record.hentvs}">
 							 			</td>
 							 			<td>&nbsp;</td>
+							 			 --%>
 							 			<%------------------------ --%>
 							 			<%-- END Fraktbrev section --%>
 							 			<%------------------------ --%>
 							 		</tr>
-							 		<tr ><td>&nbsp;</td></tr>
+
 							 		</table>
 							 		</td>
 
-
-							 		
-							 			
 						 			</tr>
 						 			</table>
 						 			</td>
