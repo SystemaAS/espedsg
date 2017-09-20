@@ -160,7 +160,6 @@
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 						               <tr class="tableRow" height="20" >
 							               <td width="2%" align="center" class="text11" >&nbsp;${record.frtli}</td>
-							                   
 							               <td width="2%" align="center" class="text11" >
 							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="getNotisblockItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">

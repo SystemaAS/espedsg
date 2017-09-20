@@ -71,25 +71,28 @@
 			<tr>
 				<td>
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
-					<tr class="tableHeaderField" height="20" valign="left">
+					<thead>
+					<tr class="tableHeaderField" height="20">
 					
-	                    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.topicNr"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.docType"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.subject"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.date"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.time"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.additionalInfo"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.document"/>&nbsp;</td> 
+	                    <th align="left" class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.topicNr"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.docType"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.subject"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.date"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.time"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.additionalInfo"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.archive.list.label.document"/>&nbsp;</th> 
 	                    
 	               </tr> 
+	               </thead>
+	               <tbody>
 	               <c:if test="${not empty list}">    
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
 		                   <c:when test="${counter.count%2==0}">
-		                       <tr class="tableRow" height="20" >
+		                       <tr class="tableRow" height="25" >
 		                   </c:when>
 		                   <c:otherwise>   
-		                       <tr class="tableOddRow" height="20" >
+		                       <tr class="tableOddRow" height="25" >
 		                   </c:otherwise>
 		               </c:choose>
 		               <td class="tableCellFirst" >&nbsp;${model.opd}&nbsp;&nbsp;<font class="text8">[${model.sign}]</font></td>
@@ -108,6 +111,7 @@
 		            </tr> 
 		            </c:forEach>
 		            </c:if>
+		            </tbody>
 	            </table>
 			</td>	
 			</tr>

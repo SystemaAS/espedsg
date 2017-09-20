@@ -3,6 +3,7 @@
  */
 package no.systema.tror.service;
 
+import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
 import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
@@ -24,4 +25,5 @@ public interface TrorMainOrderHeaderService {
 	public JsonTrorOrderHeaderLoggingLargeTextContainer getLoggingLargeTextContainer(String utfPayload);
 	public JsonTrorOrderHeaderTrackAndTraceLoggingContainer getTrackAndTraceLoggingContainer(String utfPayload);
 	public JsonTrorOrderHeaderBudgetContainer getBudgetContainer(String utfPayload);
+	public JsonTrorOrderHeaderFrisokveiContainer getOrderFrisokveiContainer(String utfPayload);
 }

@@ -74,32 +74,35 @@
 			<tr>
 				<td>
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
-					<tr class="tableHeaderField" height="20" valign="left">
-						<td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.topicNr"/>&nbsp;</td>
-						<td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.interchangeId"/>&nbsp;</td>
-						<td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.messageNr"/>&nbsp;</td>
-					    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sender"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.receiver"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.t"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.messageId"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.function"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.date"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sequence"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.ver"/>&nbsp;</td> 
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.eksp"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.s"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sent"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sentReceive"/>&nbsp;</td>
-	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.text"/>&nbsp;</td>
+					<thead>
+					<tr class="tableHeaderField" height="20" >
+						<th align="left" class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.topicNr"/>&nbsp;</th>
+						<th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.interchangeId"/>&nbsp;</th>
+						<th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.messageNr"/>&nbsp;</th>
+					    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sender"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.receiver"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.t"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.messageId"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.function"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.date"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sequence"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.ver"/>&nbsp;</th> 
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.eksp"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.s"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sent"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.sentReceive"/>&nbsp;</th>
+	                    <th align="left" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.logging.list.label.text"/>&nbsp;</th>
 
-	               </tr>     
+	               </tr>
+	               </thead>
+	               <tbody>     
 		           	<c:forEach items="${list}" var="record" varStatus="counter">    
 		               <c:choose>           
 		                   <c:when test="${record.msr == 'R'}">
-		                       <tr class="tableRow" style="background-color:#EEEEEE;" height="20" >
+		                       <tr class="tableRow" style="background-color:#EEEEEE;" height="25" >
 		                   </c:when>
 		                   <c:otherwise>   
-		                       <tr class="tableOddRow" height="20" >
+		                       <tr class="tableOddRow" height="25" >
 		                   </c:otherwise>
 		               </c:choose>
 		               
@@ -138,6 +141,7 @@
 		               </td>
 		            </tr> 
 		            </c:forEach>
+		            </tbody>
 	            </table>
 			</td>	
 			</tr>
