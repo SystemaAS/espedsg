@@ -2386,6 +2386,13 @@ a { cursor: pointer }
     background-color: #eee !important;
 }
 
+.add-field {
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+    vertical-align: bottom;
+    font-size: 8px;
+}
+
 .show-grid-left {
     border: 1px solid #ddd;
     background-color: #eee !important;

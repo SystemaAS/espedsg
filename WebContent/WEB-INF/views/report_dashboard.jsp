@@ -6,8 +6,8 @@
 var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
-//var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
-var url = "/syjservicesbcore/syjsFAKT_DB.do?user=NO_NAME&year=2017";  //TODO back to name
+var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2017";
+//var url = "/syjservicesbcore/syjsFAKT_DB.do?user=NO_NAME&year=2017";  //TODO back to name
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
@@ -114,11 +114,36 @@ d3.json(url, function(error, data) {
     );  
 	
 	
-    var  dateDimGroupKost = dateDim.group().reduceSum(function(d) {
-    	if (d.fakda == 'K') {
-    		return +d.sumfabeln;
-    	}
-    });
+    var monthDimGroup2 =  monthDim.group().reduce(   //TESTAR: org=dateDimGroup
+            /* callback for when data is added to the current filter results */
+            function (p, v) {
+                ++p.count;
+                if (v.fakda != 'K') {
+                	p.omsetning += v.sumfabeln;   
+                } else {
+                	p.kostnad += v.sumfabeln; 
+                }
+                return p;
+            },
+            /* callback for when data is removed from the current filter results */
+            function (p, v) {
+                --p.count;
+                if (v.fakda != 'K') {
+                	p.omsetning -= v.sumfabeln;   
+                } else {
+                	p.kostnad -= v.sumfabeln; 
+                }
+                return p;
+            },
+            /* initialize p */
+            function () {
+                return {
+                    count: 0,
+                    omsetning: 0,
+                    kostnad: 0,
+                };
+            }
+    );  
 	
 	
     
@@ -182,25 +207,25 @@ d3.json(url, function(error, data) {
     );  
   
 	yearChart
-	    .width(300)
+	    .width(350)
 	    .height(300)
 	    .dimension(yearDim)
 	    .group(yearDimGroup)
-	    .externalLabels(20)
+	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .innerRadius(30)
-	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
+	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
    
 	avdChart
-	    .width(300)
+	    .width(350)
 	    .height(300)
-	    //.slicesCap(40)
+	    .slicesCap(20)
 	    .innerRadius(40)
-	    .externalLabels(20)
+	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .dimension(avdDim)
 	    .group(avdDimGroup)
-	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
+	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
 /*	
 	avdChart.on('pretransition', function(chart) {
         chart.selectAll('.dc-legend-item text')
@@ -215,15 +240,15 @@ d3.json(url, function(error, data) {
 */	
 	
 	tubilkChart
-	    .width(300)
+	    .width(350)
 	    .height(300)
 	    //.slicesCap(40)
 	    .innerRadius(30)
-	    .externalLabels(20)
+	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .dimension(tubilkDim)
 	    .group(tubilkDimGroup)
-	    .legend(dc.legend().y(20).itemHeight(8).gap(3));
+	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
 	
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
@@ -369,39 +394,41 @@ d3.json(url, function(error, data) {
 		    .height(400)
 		    .margins({top: 20, right: 10, bottom: 30, left: 80})
 			.x(d3.time.scale().domain([mindate, maxdate])) 	
-			.xUnits(d3.time.months) 		   
+			.xUnits(d3.time.months) 	
+			//.x(d3.time.scale().domain([0,12]))
+            //.xUnits(d3.time.month)
             .yAxisLabel("NOK")
             .elasticY(true)
         	.xAxisLabel("Måned")      
-            .mouseZoomable(true)
+            .mouseZoomable(false)
         	.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
 		    .renderHorizontalGridLines(true)
 		    .compose([
 		         dc.lineChart(compositeLineChart)
-		            .dimension(dateDim)
+		            .dimension(dateDim) 
 		            .colors('blue')
-		            .group(dateDimGroup, "Omsetning")
+		            .group(dateDimGroup, "Omsetning") //dateDimGroup
 			        .valueAccessor(function (d) {
                 		return d.value.omsetning; 
-        			})	            
-		            .dashStyle([5,5]),
+        			}),            
+		            //.dashStyle([5,5]),
 		    	dc.lineChart(compositeLineChart)
-		            .dimension(dateDim)
+		            .dimension(dateDim) 
 		            .colors('red')
 		            .group(dateDimGroup, "Kostnad")
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
-           			})
-		            .dashStyle([2,2]),
+           			}),
+		           // .dashStyle([2,2]),
 			    dc.lineChart(compositeLineChart)
-		            .dimension(dateDim)
+		            .dimension(dateDim) //dateDim
 		            .colors('green')
 		            .group(dateDimGroup, "Resultat")
 					.valueAccessor(function (d) {
 						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
 						return resultat;
 					 })
-		            .dashStyle([3,3])     
+		            .dashStyle([5,5])     
 		        ])
 		    .brushOn(false);
 	   
@@ -458,6 +485,7 @@ d3.json(url, function(error, data) {
 		dc.redrawAll();
 	});
 	d3.selectAll('a#intekkt').on('click', function () {
+		alert("WTF");
 		compositeLineChart.filterAll();
 		dc.redrawAll();
 	});
@@ -468,8 +496,15 @@ d3.json(url, function(error, data) {
 	d3.selectAll('a#tubilk').on('click', function () {
 		tubilkChart.filterAll();
 		dc.redrawAll();
-	});	 
-	   
+	});	
+
+	d3.selectAll('a#avdfilter').on('click', function () {
+		//alert("on clickavdfilter...avdFilter=="+jq('#avd-filter').val());
+		avdChart.filter(jq('#avd-filter').val());
+		dc.redrawAll();
+		jq('#avd-filter').val("");
+	});		
+
 	dataCount
 	      .dimension(fakt)
 	      .group(all);  
@@ -570,7 +605,7 @@ function last() {
   						        Resultat
   						 </div> 
  			  		     <div class="col-md-3 show-grid-center-large">
-  						        DB
+  						        Dekningsbidrag
   						 </div>    						       						     						    
 					  </div> 
 					  <div class="row border">
@@ -581,102 +616,63 @@ function last() {
 					  </div> 					  
 					</div>		
 				  </div>
+	
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
-   						 <div class="col-md-6 show-grid-left">
+   						 <div class="col-md-12 show-grid-left">
    						    Omsetning og kostnad 
    						 </div>
+ <!--   
    	  				    <div class="col-md-6 show-grid-right">
    	  				      <a id="intekkt">tilbakestill</a>	
 	  				    </div>						 
+-->
 				      </div>
 				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="line-chart-composite" align="center"> 
-						 	<div><span class="filter"></span></div>
+						 <div class="col-md-12 dc-chart" id="line-chart-composite" align="center"> 
+						 	<!--  <div><span class="filter"></span></div>-->
 						 </div>  
 				      </div>
 				    </div>
 				  </div>
 				  
+				  
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
-		  				<div class="col-md-2 show-grid-left">
+		  				<div class="col-md-4 show-grid-left">
   						       År
   						</div>
-    				    <div class="col-md-2 show-grid-right">
-						 <a id="year">tilbakestill</a>			    
-  				    	</div>
-
 		  				<div class="col-md-2 show-grid-left">
   						       Avdeling
   						</div>
     				    <div class="col-md-2 show-grid-right">
-						 <a id="avd">tilbakestill</a>			    
+						  avd:<input id="avd-filter" type="text" size="5"/>
+						  <a id="avdfilter">legg til filter</a>			    
   				    	</div>						
   						
-		  				<div class="col-md-2 show-grid-left">
+		  				<div class="col-md-4 show-grid-left">
   						       Bilkode
   						</div>
-    				    <div class="col-md-2 show-grid-right">
-						 <a id="tubilk">tilbakestill</a>			    
-  				    	</div> 
-
+ 
 					  </div> 
 					  <div class="row border">
 						<div class="col-md-4 border" id="chart-ring-year" align="center">
-							<div><span class="filter"></span></div>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
 				        <div class="col-md-4 border" id="chart-ring-avd" align="center">
-				        	<div><span class="filter"></span></div>
-				        </div>  
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div>
 				        <div class="col-md-4 border" id="chart-ring-tubilk" align="center">
-				        	<div><span class="filter"></span></div>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="tubilk" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
 					  </div> 					  
 					</div>		
 				  </div>	
-	
-	<!--   			  
-				  <div class="row">
-				    <div class="col-md-12">
-				      <div class="row">
-   						 <div class="col-md-6 show-grid-left">
-   						    Omsetning og kostnad 2
-   						 </div>
-   	  				    <div class="col-md-6 show-grid-right">
-   	  				      <a id="intekkt2">tilbakestill</a>	
-	  				    </div>						 
-				      </div>
-				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="stacked-chart-composite" align="center"> 
-						 	<div><span class="filter"></span></div>
-						 </div>  
-				      </div>
-				    </div>
-				  </div>
-
-					  <div class="row">
-				    <div class="col-md-12">
-				      <div class="row">
-   						 <div class="col-md-6 show-grid-left">
-   						    Omsetning og kostnad 3
-   						 </div>
-   	  				    <div class="col-md-6 show-grid-right">
-   	  				      <a id="intekkt3">tilbakestill</a>	
-	  				    </div>						 
-				      </div>
-				      <div class="row border">
-						 <div class=" col-md-12 dc-chart" id="stacked-chart" align="center"> 
-						 	<div><span class="filter"></span></div>
-						 </div>  
-				      </div>
-				    </div>
-				  </div>
-	-->
-	
-	
 	
 				  <div class="row">
 				    <div class="col-md-6 show-grid-left" id="data-count"> 
@@ -713,7 +709,7 @@ function last() {
   					  </div>
 				    </div>
 				  </div>
-				</div>
+				 </div>		  
 		 	   </td>
 	 	    </tr>
 	 	 </table>
