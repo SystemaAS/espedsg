@@ -30,7 +30,9 @@
 	  jq( ".clazz_dialog" ).each(function(){
 		jq(this).dialog({
 			autoOpen: false,
-			modal: true
+			modal: true,
+			width: 350,
+			maxWidth:500
 		});
 	  });
   });

@@ -561,6 +561,7 @@
 	  jq('#customerAddressesList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 50, 75, 100 ],
+		  "order": [[ 1, "asc" ]],
 		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search

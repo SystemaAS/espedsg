@@ -35,6 +35,22 @@ public class JsonTrorSellerDeliveryAddressRecord extends JsonAbstractGrandFather
 	public void setKuvadr(String value){ this.kuvadr = value;}
 	public String getKuvadr(){ return this.kuvadr; }
 	
+	private String navn = null;
+	public void setNavn(String value){ this.navn = value;}
+	public String getNavn(){ return this.navn; }
+	
+	private String adr1 = null;
+	public void setAdr1(String value){ this.adr1 = value;}
+	public String getAdr1(){ return this.adr1; }
+	
+	private String adr2 = null;
+	public void setAdr2(String value){ this.adr2 = value;}
+	public String getAdr2(){ return this.adr2; }
+	
+	private String adr3 = null;
+	public void setAdr3(String value){ this.adr3 = value;}
+	public String getAdr3(){ return this.adr3; }
+	
 	
 	
 	/**

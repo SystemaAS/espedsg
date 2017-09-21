@@ -33,6 +33,11 @@ import no.systema.main.validator.LoginValidator;
 //tror
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressContainer;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressRecord;
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressContainer;
@@ -167,6 +172,14 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    		if(container!=null){
 		    			List<JsonTrorSellerDeliveryAddressRecord> list = new ArrayList<JsonTrorSellerDeliveryAddressRecord>();
 		    			for(JsonTrorSellerDeliveryAddressRecord  record : container.getDtoList()){
+		    				//Must now complete the address in 2 steps:
+		    				//Step 1: check VADR. If MATCH = catch the address. If NO MATCH. go to Step 2
+		    				//Step 2: check CUNDF. 
+		    				boolean match1 = this.getFromVadr(record, appUser);
+		    				if (!match1){
+		    					this.getFromCundf(record, appUser);
+		    				}
+		    				//
 		    				list.add(record);
 		    			}
 		    			model.put(this.DATATABLE_SELLER_ADDRESSES_LIST, list);
@@ -183,6 +196,103 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    }
 		}
 	}
+	
+	/**
+	 * 
+	 * @param parentRecord
+	 * @param appUser
+	 * @return
+	 */
+	private boolean getFromVadr(JsonTrorSellerDeliveryAddressRecord parentRecord, SystemaWebUser appUser ){
+		boolean retval = false;
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_BUYER_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser() + "&kundnr=" + parentRecord.getKukun2());
+		urlRequestParamsKeys.append("&vadrnr=" + parentRecord.getKuvadr());
+		//default
+		String firma = appUser.getFallbackCompanyCode();
+		if(strMgr.isNotNull(appUser.getCompanyCode())){ firma = appUser.getFallbackCompanyCode(); }
+		//firma
+		urlRequestParamsKeys.append("&firma=" + firma);
+		
+		//logger.info("URL: " + BASE_URL);
+		//logger.info("PARAMS: " + urlRequestParamsKeys);
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		//Debug -->
+    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    
+		if(jsonPayload!=null){
+			JsonTrorBuyerDeliveryAddressContainer container = this.trorMainOrderHeaderLandimportChildwindowService.getBuyerDeliveryAddressContainer(jsonPayload);
+    		if(container!=null){
+    			List<JsonTrorBuyerDeliveryAddressRecord> list = new ArrayList<JsonTrorBuyerDeliveryAddressRecord>();
+    			for(JsonTrorBuyerDeliveryAddressRecord  record : container.getDtoList()){
+    				//for presentation purposes
+    				parentRecord.setKuvadr(record.getVadrna() + " " + record.getVadrn2());
+    				//for domain realted purposes
+    				parentRecord.setNavn(record.getVadrna());
+    				parentRecord.setAdr1(record.getVadrn1());
+    				parentRecord.setAdr2(record.getVadrn2());
+    				parentRecord.setAdr3(record.getVadrn3());
+    				
+    				retval = true;
+    			}
+    		}
+		}
+		return retval;
+		
+	}
+	
+	/**
+	 * 
+	 * @param parentRecord
+	 * @param appUser
+	 * @return
+	 */
+	private boolean getFromCundf(JsonTrorSellerDeliveryAddressRecord parentRecord, SystemaWebUser appUser ){
+		boolean retval = false;
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser() + "&kundnr=" + parentRecord.getKukun2() );
+		urlRequestParamsKeys.append( "&firma=" + appUser.getFallbackCompanyCode() );
+		
+		//logger.info("URL: " + BASE_URL);
+		//logger.info("PARAMS: " + urlRequestParamsKeys);
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		//debugger
+		//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		if(jsonPayload!=null){
+			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
+			if(container!=null){
+				for(JsonMaintMainCundfRecord  record : container.getList()){
+					//for presentation purposes
+					parentRecord.setKuvadr(record.getKnavn() + " " + record.getPostnr() + " " + record.getAdr3());
+					//for domain realted purposes
+    				parentRecord.setNavn(record.getKnavn());
+    				parentRecord.setAdr1(record.getAdr1());
+    				parentRecord.setAdr2(record.getAdr2());
+    				parentRecord.setAdr3(record.getPostnr() + " " + record.getAdr3());
+					
+					retval = true;
+					
+				}
+			}
+		}	
+		return retval;
+		
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -773,6 +883,14 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	@Required
 	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
 	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
+	
+	
+	@Qualifier 
+	private MaintMainCundfService maintMainCundfService;
+	@Autowired
+	@Required	
+	public void setMaintMainCundfService(MaintMainCundfService value){this.maintMainCundfService = value;}
+	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 	
 	
 }

@@ -382,6 +382,7 @@ public class DashboardController {
 		appUser.setUser(jsonSystemaUserContainer.getUser().toUpperCase());
 		appUser.setUserName(jsonSystemaUserContainer.getUserName());
 		appUser.setCompanyCode(companyCode);//fifirm in firm
+		appUser.setFallbackCompanyCode(this.getCompanyCodeForLogin()); //as a fallback needed in espedsg use cases
 		appUser.setUsrLang(jsonSystemaUserContainer.getUsrLang());
 		appUser.setUserAS400(jsonSystemaUserContainer.getUsrAS400());
 		appUser.setIntern(jsonSystemaUserContainer.getIntern());

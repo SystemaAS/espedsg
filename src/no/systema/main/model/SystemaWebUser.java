@@ -107,6 +107,10 @@ public class SystemaWebUser {
 	public void setCompanyCode(String value) {  this.companyCode = value; }
 	public String getCompanyCode() { return this.companyCode;}
 	
+	private String fallbackCompanyCode = null; 
+	public void setFallbackCompanyCode(String value) {  this.fallbackCompanyCode = value; }
+	public String getFallbackCompanyCode() { return this.fallbackCompanyCode;}
+	
 	private String cssEspedsg = "espedsg.css"; 
 	public void setCssEspedsg(String value) {  this.cssEspedsg = value; }
 	public String getCssEspedsg() { return this.cssEspedsg;}
