@@ -53,15 +53,20 @@ d3.json(url, function(error, data) {
 	//var  kundeDim  = fakt.dimension(function(d) {return d.trknfa;});
 	var  dateDim  = fakt.dimension(function(d) {return d.date;});
 	var  yearDim  = fakt.dimension(function(d) {return d.year;});
-    var  monthDim = fakt.dimension(function (d) {return d.month;});	
+    var  monthDim = fakt.dimension(function (d) {
+    	return d.month;
+    	});	
+    //var  monthDim2 = fakt.dimension(d => d3.time.month(d.month));
 	var  avdDim  = fakt.dimension(function(d) {return d.faavd;});
 	var  tubilkDim  = fakt.dimension(function(d) {return d.tubilk;});
 	//Groups
 	//var  dateDimGroup = dateDim.group().reduceSum(function(d) {return +d.sumfabeln;});
-	var  monthDimGroup = monthDim.group().reduceSum(function(d) {return +d.sumfabeln;});
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return +d.sumfabeln;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return +d.sumfabeln;});
-	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return +d.sumfabeln;});
+	//var  monthDimGroup = monthDim.group().reduceSum(function(d) {return d.sumfabeln;});
+	//var  monthDimGroup2 = monthDim2.group().reduceSum(d => d.sumfabeln);
+	
+	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.sumfabeln;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.sumfabeln;});
+	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.sumfabeln;});
 	//Charts 
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
@@ -69,7 +74,7 @@ d3.json(url, function(error, data) {
 	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeLineChart = dc.compositeChart("#line-chart-composite");
 	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
-	//var  stackedChart = dc.barChart("#stacked-chart");
+	var  stackedBarChart = dc.barChart("#stacked-bar-chart");
 	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
@@ -113,8 +118,7 @@ d3.json(url, function(error, data) {
             }
     );  
 	
-	
-    var monthDimGroup2 =  monthDim.group().reduce(   //TESTAR: org=dateDimGroup
+    var monthDimGroup =  monthDim.group().reduce(   
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
@@ -143,10 +147,12 @@ d3.json(url, function(error, data) {
                     kostnad: 0,
                 };
             }
-    );  
+    );  	
 	
 	
-    
+	
+	
+	
 /*
 	var  kundePerformanceGroup = kundeDim.group().reduce(
            
@@ -219,7 +225,7 @@ d3.json(url, function(error, data) {
 	avdChart
 	    .width(350)
 	    .height(300)
-	    .slicesCap(20)
+	    .slicesCap(25)
 	    .innerRadius(40)
 	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
@@ -242,8 +248,8 @@ d3.json(url, function(error, data) {
 	tubilkChart
 	    .width(350)
 	    .height(300)
-	    //.slicesCap(40)
-	    .innerRadius(30)
+	    .slicesCap(20)
+	    .innerRadius(40)
 	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .dimension(tubilkDim)
@@ -453,28 +459,132 @@ d3.json(url, function(error, data) {
 				})	        
 		])
 		.brushOn(true);	
-	
- 	stackedChart
+ */  
+
+ 
+ var minDate2 = monthDim.bottom(1)[0].date;
+ var maxDate2  = monthDim.top(1)[0].date;
+ //minDate2=d3.time.day.offset(minDate2, -40);
+// console.log("minDate2="+minDate2,"maxDate2="+maxDate2);  
+// console.log("monthDim="+monthDim);
+// console.log("monthDim.top(Infinity)="+monthDim.top(Infinity));
+
+ stackedBarChart
 		.width(1200)
 		.height(400)
-		.brushOn(true)
-		.mouseZoomable(true)
-		.centerBar(true)
-		.gap(10)
-		.elasticY(true)
-		.renderHorizontalGridLines(true)
-		.x(d3.time.scale().domain([mindate, maxdate])) 	
-		.xUnits(d3.time.months)
-		.round(d3.time.month.round)
-		.alwaysUseRounding(true)
-        .dimension(dateDim) 
- 	    .group(dateDimGroupKost);
+		.margins({top: 20, right: 10, bottom: 30, left: 80})
+		//.brushOn(false)
+		//.mouseZoomable(false)
+		//.centerBar(false)
+		//.gap(10)
+		//.elasticY(true)
+		//.renderHorizontalGridLines(true)
+		//.x(d3.time.scale().domain([mindate2, maxdate2])) 	
+		//.xUnits(d3.time.months)
+		//.round(d3.time.month.round)
+		//.alwaysUseRounding(true)
+        //.dimension(monthDim) 
+ 	    //.group(monthDimGroup);
+
+		// .width(400)
+		// .height(260)
+		 //.x(d3.time.scale().domain([minDate2, maxDate2]))
+		 //.xUnits(d3.time.months)
+		 
+         //.x(d3.scale.ordinal())  //funkar!!, time scale funkar inte!!
+         .x(d3.scale.linear().domain([0,13])) //Funkar, enskilt!!
+         //.xUnits(d3.time.months) //funkar men med tunna streck, ihop med linear
+ 		 //.x(d3.time.scale().domain([0,12]))  //funkar, men med tunna streck
+ 		 //.x(d3.time.scale().domain([minDate2, maxDate2]))  //Funkar inte
+ 		 //.x(d3.scale.linear().domain([minDate2, maxDate2]))  //Funkar inte
+         //.xUnits(d3.time.month)        
+         
+         //.x(d3.scale.ordinal().domain([1,12]))  //Funkar inte, smetar ut fel..
+         
+         //.xUnits(dc.units.ordinal)
+         //.xUnits(d3.time.months)
+         .yAxisLabel("NOK")
+         .xAxisLabel("Måned")               
+         .ordering(function(d) { return d.key; })	
+		 .dimension(monthDim)
+
+		 .group(monthDimGroup, "Kostnad", function (d) {
+        	 //console.log("d.value.kostnad="+d.value.kostnad);
+             return Math.abs(d.value.kostnad);
+         })
+         .stack(monthDimGroup, "Omsetning", function (d) {
+             var omsetningStacked = d.value.omsetning + Math.abs(d.value.kostnad);
+             //console.log("omsetningStacked="+omsetningStacked);
+             return omsetningStacked;
+         })
+         
+         .renderHorizontalGridLines(true)
+         .renderVerticalGridLines(true)
+         //.renderTitle(true)
+         //.title(function(d) {
+        //	 	//console.log("title="+d.key + '[' + this.layer + ']: ' + d.value[this.layer]);
+         //     return d.key + '[' + this.layer + ']: ' + d.value[this.layer];
+         //})        
+   		 .renderLabel(true)  
+		 .elasticY(true)
+		 .gap(1)
+		 .centerBar(true)
+		 //.xAxisPadding(15)
+		 //.xAxisPaddingUnit('month')
+//		 .xAxis().tickFormat(function(d){
+//        	  console.log("d.key="+d.key);
+//        	  console.log("d.data.key="+d.data.key);
+//        	  console.log("d.value="+d.value);
+//        	  return d3.time.months;
+//          })
+			
+		 .legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
+		 
+		 
+		 
+		 
+		 
+		 .brushOn(true);
+		// .clipPadding(20);
+
+	/*	inspiration
+         var barChartDateB = dc.barChart("#bar-chart-dateB", "groupB");
+         barChartDateB.width(500)
+                 .height(150)
+                 .dimension(dateDimension)
+                 .group(dateIdSumGroup)
+                 .stack(dateValueSumGroup)
+                 .stack(dateValueSumGroup, function (d) {
+                     return 10;
+                 })
+                 .brushOn(false)
+                 .title(function (d) {
+                     return d.value;
+                 })
+                 .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 07, 15)]))
+                 .xUnits(d3.time.days)
+                 .renderHorizontalGridLines(true)
+                 .renderVerticalGridLines(true)
+                 .gap(0)
+                 .xAxis().tickValues([new Date(2012, 3, 1), new Date(2012, 6, 1), new Date(2012, 9, 1)]);
+         barChartDateB.yAxis().tickValues([0, 75, 140]);
+	*/	
+		
+		
+		
+		
+        // stackedBarChart.xAxis().tickFormat(d3.time.format('%B'));
+		 
+ 
 //        .group(dateDimGroup, "Kostnad")
 //    	.valueAccessor(function (d) {
 //		       return d.value.kostnad; 
 //		});
- */       
-	
+  //Diverse grejer till datum   
+//https://jsfiddle.net/pramod24/q4aquukz/4/
+
+
+
    	d3.selectAll('a#all').on('click', function () {
      	dc.filterAll();
      	dc.renderAll();
@@ -497,9 +607,12 @@ d3.json(url, function(error, data) {
 		tubilkChart.filterAll();
 		dc.redrawAll();
 	});	
+	d3.selectAll('a#stacked-bar').on('click', function () {
+		stackedBarChart.filterAll();
+		dc.redrawAll();
+	});		
 
 	d3.selectAll('a#avdfilter').on('click', function () {
-		//alert("on clickavdfilter...avdFilter=="+jq('#avd-filter').val());
 		avdChart.filter(jq('#avd-filter').val());
 		dc.redrawAll();
 		jq('#avd-filter').val("");
@@ -570,7 +683,7 @@ function last() {
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;Lønnsomhetsanalyse</font>
+						<font class="tabLink">&nbsp;Trafikkregnskap</font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
@@ -592,6 +705,11 @@ function last() {
 		 	    <td>&nbsp;
 
 				<div class="container-fluid">
+				  <div class="row">
+	
+	
+				  
+				  </div>
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
@@ -623,11 +741,6 @@ function last() {
    						 <div class="col-md-12 show-grid-left">
    						    Omsetning og kostnad 
    						 </div>
- <!--   
-   	  				    <div class="col-md-6 show-grid-right">
-   	  				      <a id="intekkt">tilbakestill</a>	
-	  				    </div>						 
--->
 				      </div>
 				      <div class="row border">
 						 <div class="col-md-12 dc-chart" id="line-chart-composite" align="center"> 
@@ -673,6 +786,27 @@ function last() {
 					  </div> 					  
 					</div>		
 				  </div>	
+				  
+				  <div class="row">
+				    <div class="col-md-12">
+				      <div class="row">
+   						 <div class="col-md-12 show-grid-left">
+   						    Omsetning og kostnad /måned 
+   						 </div>
+				      </div>
+
+				      <div class="row">
+						 <div class="col-md-12" id="stacked-bar-chart"  align="center"> 
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="stacked-bar" style="display: none;"> - <i>tilbakestill filter</i></a>
+						  </div>   
+				      </div>
+
+				    </div>
+				  </div>				  
+				  
+				  
+				  
 	
 				  <div class="row">
 				    <div class="col-md-6 show-grid-left" id="data-count"> 
@@ -682,6 +816,7 @@ function last() {
 						<a id="all">tilbakestill alt</a>
 					</div> 
 				  </div>
+				 
 				  
 				  <div class="padded-row">&nbsp;</div>
 	
