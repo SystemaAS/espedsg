@@ -444,6 +444,9 @@
 													</c:forEach> 
 												</select>
 											</td>
+											<td nowrap class="text12">&nbsp;&nbsp;
+												<input tabindex=-1 type="checkbox" name="fullCopy" id="fullCopy" value="1" >Fullständig kopiering
+											</td>
 										</tr>
 									</table>
 								</form>

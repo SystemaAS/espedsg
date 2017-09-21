@@ -34,6 +34,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.skat.util.SkatConstants;
+import no.systema.main.util.StringManager;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureContainer;
@@ -93,6 +94,7 @@ public class TdsExportHeaderController {
 
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
+	private StringManager strMgr = new StringManager();
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -569,6 +571,7 @@ public class TdsExportHeaderController {
 		String opd=null;
 		String newAvd=null;
 		String newSign=null;
+		String fullCopy = null;
 		
 		Enumeration requestParameters = request.getParameterNames();
 	    while (requestParameters.hasMoreElements()) {
@@ -588,6 +591,8 @@ public class TdsExportHeaderController {
     				newSign = value;
     			}else if(element.startsWith("action")){
     				action = value;
+    			}else if(element.startsWith("fullCopy")){
+    				fullCopy = value;
     			}
     		}
     	}
@@ -600,7 +605,7 @@ public class TdsExportHeaderController {
 			//--------------------
 			logger.info("starting COPY record transaction...");
 			String BASE_URL = TdsExportUrlDataStore.TDS_EXPORT_BASE_UPDATE_SPECIFIC_TOPIC_URL;
-			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopy(avd, newAvd, newSign, opd, appUser);
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForCopy(avd, newAvd, newSign, opd, appUser, fullCopy);
 			//for debug purposes in GUI
 			session.setAttribute(TdsConstants.ACTIVE_URL_RPG, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
@@ -1465,10 +1470,11 @@ public class TdsExportHeaderController {
 	 * @param newSign
 	 * @param opd
 	 * @param appUser
+	 * @param fullCopy
 	 * @return
 	 */
-	private String getRequestUrlKeyParametersForCopy(String avd, String newAvd, String newSign, String opd, SystemaWebUser appUser){
-		//user=OSCAR&avd=1&newavd=2&opd=218&mode=C&newsign=OT 
+	private String getRequestUrlKeyParametersForCopy(String avd, String newAvd, String newSign, String opd, SystemaWebUser appUser, String fullCopy){
+		//user=OSCAR&avd=1&newavd=2&opd=218&mode=C&newsign=OT&f=1 
 		final String MODE_COPY = "C";
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		
@@ -1478,7 +1484,9 @@ public class TdsExportHeaderController {
 		urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 		urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + MODE_COPY);
 		urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "newsign=" + newSign);
-		
+		if(strMgr.isNotNull(fullCopy)){
+			urlRequestParamsKeys.append(TdsConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "f=" + fullCopy);
+		}
 		
 		return urlRequestParamsKeys.toString();	
 	}

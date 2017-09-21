@@ -29,6 +29,10 @@ public class JsonTdsExportTopicCopiedContainer {
 	public void setNewopd(String value) {  this.newopd = value; }
 	public String getNewopd() { return this.newopd;}
 	
+	private String fullCopy = null;
+	public void setFullCopy(String value) {  this.fullCopy = value; }
+	public String getFullCopy() { return this.fullCopy;}
+	
 	private String errMsg = null;
 	public void setErrMsg(String value) {  this.errMsg = value; }
 	public String getErrMsg() { return this.errMsg;}
