@@ -884,9 +884,9 @@
 						
 						
 						
-						<tr height="8"><td colspan="2" ></td></tr>
+						<tr height="6"><td colspan="2" ></td></tr>
 						<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#FFFFFF;" class="text"></td></tr>
-						<tr height="8"><td colspan="2" ></td></tr>
+						<tr height="6"><td colspan="2" ></td></tr>
 						<tr>
 							<td colspan="10">
 							<table width="100%" border="0">	
@@ -1034,7 +1034,7 @@
 					 		</td>
 				 		</tr>
 						
-						<tr height="5"><td ></td></tr>	
+						<tr height="10"><td ></td></tr>	
 	 				</table>
             		</td>
             </tr>

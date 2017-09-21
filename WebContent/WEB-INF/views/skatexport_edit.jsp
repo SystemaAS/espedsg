@@ -182,7 +182,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_mrn">MRN-nr:&nbsp;</span><b>${model.record.dkeh_mrn}</b>
 					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_sydt">Dato:&nbsp;</span><b>${model.record.dkeh_sydt}</b>
 					&nbsp;&nbsp;<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					<span title="dkeh_syst">Stat</span><a id="updateStatusLink" runat="server" href="#"><font class="text12MediumBlue">u</font></a>s:
+					<span title="dkeh_syst">Stat</span><a tabindex=-1 id="updateStatusLink" runat="server" href="#"><font class="text12MediumBlue">u</font></a>s:
 					<b>
 						<c:choose>
 							<c:when test="${empty  model.record.dkeh_syst}">
@@ -454,23 +454,50 @@
 			            			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_dtm2" id="dkeh_dtm2" size="16" maxlength="12" value="${model.record.dkeh_dtm2}">
 		            			</td>
 		 				</tr>	
+		 				<tr height="2"><td></td></tr>
 			 			<tr>
 							<td align="left" class="text12Gray">&nbsp;
 		 						<span title="dkeh_fast">&nbsp;&nbsp;&nbsp;Faktisk.utp.sted&nbsp;</span>
 				 			</td>
 				 			<td colspan="4">
-				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast" id="dkeh_fast" size="35" maxlenght="35" value="${model.record.dkeh_fast}">
+				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast" id="dkeh_fast" size="30" maxlenght="35" value="${model.record.dkeh_fast}">
 			 				</td>				 		
-			 			</tr> 
+			 			</tr>
+			 			<tr height="2"><td></td></tr>
 			 			<tr>
 							<td align="left" class="text12Gray">&nbsp;
 		 						<span title="dkeh_xref">&nbsp;&nbsp;&nbsp;Ekstern ref.&nbsp;</span>
 				 			</td>
-				 			<td colspan="4">
-				 				<input type="text" class="inputText" name="dkeh_xref" id="dkeh_xref" size="35" maxlenght="35" value="${model.record.dkeh_xref}">
-			 				</td>				 		
+				 			<td colspan="2">
+				 				<input type="text" class="inputText" name="dkeh_xref" id="dkeh_xref" size="30" maxlenght="35" value="${model.record.dkeh_xref}">
+			 				</td>
+			 				
+			 				<td class="text12" align="left" >
+					            <img onMouseOver="showPop('29_info');" onMouseOut="hidePop('29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
+					            <b>29.</b>&nbsp;<span title="dkeh_29" id="v_dkeh_29" class="validation">Udgangstoldsted</span>
+					            <div class="text11" style="position: relative;" align="left">
+								<span style="position:absolute;top:2px; width:250px;" id="29_info" class="popupWithInputText text11"  >
+					           			<b>29. Udgangstoldsted</b>
+					           			<br/><br/>
+					           			Koden for det toldsted, hvorfra varerne forventes at udpassere af EU's toldområde eller hvor forsendelsesordning begyndes.
+										<br/><br/>
+										Udpasserer varerne som postforsendelse eller med jernbane, anføres henholdsvis kode DK000010 og DK000020.<br/><br/>
+					           			<br/><br/>
+								</span>	
+								</div>
+							</td>
+				            <td >
+				            		<select id="dkeh_29" name="dkeh_29" >
+				            		<option value="">-vælg-</option>
+			 				  	<c:forEach var="record" items="${model.udgangstoldstedCodeList}" >
+			 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkeh_29 == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
+								</c:forEach>
+								</select>
+								<a tabindex="-1" id="dkeh_29IdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>									
+				            </td>			 		
 			 			</tr> 
-			 			
 	 				</table>
  				</td>
 	 		</tr>
@@ -522,6 +549,64 @@
 			</tr>
 			</c:if>
 			
+			<%-- INVOICE AMOUNT Fields --%>
+			<tr height="5"><td></td></tr>
+			<tr>
+				<td width="5">&nbsp;</td>
+	            <td >
+					<%-- Special section --%>
+					<table align="left" class="formFrameHeader" width="100%" border="0" cellspacing="0" cellpadding="0">
+				 		<tr height="15">
+				 			<td class="text12White">
+				 				<b>&nbsp;22.</b>&nbsp;&nbsp;Faktura&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+			 				</td>
+		 				</tr>
+	 				</table>
+	 			</td>
+ 			</tr>
+            <tr>
+	            <td width="5">&nbsp;</td>
+	            <td >
+	                <table class="formFrame" width="100%" align="left" border="0" cellspacing="1" cellpadding="1">
+				 		<tr>
+				 			<td class="text12">
+				 				<b>&nbsp;22.2</b>&nbsp;
+				 				<span title="dkeh_222" id="v_dkeh_222" class="validation">Fakturabeløb&nbsp;</span>
+				 			</td>
+				 			<td align="left" >
+				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_222" id="dkeh_222" size="20" maxlength="19" value="${model.record.dkeh_222}">
+				 			</td>
+				 			<td class="text12">
+				 				<b>&nbsp;22.1</b>&nbsp;
+				 				<span title="dkeh_221" id="v_dkeh_221" class="validation">Fakuramøntsort</span>
+				 				<%-- Note: onChange event in jQuery for this currency list --%>
+				 				<select name="dkeh_221" id="dkeh_221" >
+				 				  <option value="">-vælg-</option>	
+				 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
+			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkeh_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
+								  </c:forEach>  
+								</select>
+								<a tabindex="-1" id="dkeh_221IdLink" >
+									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
+								</a>																	 			
+								
+			 				</td>
+		 				</tr>
+		 				<tr>
+			 				<td class="text12" align="right">
+				 				<span title="dkeh_221b" id="v_dkeh_221b" class="validation">Kurs&nbsp;</span>
+				 			</td>
+				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221b" id="dkeh_221b" size="20" maxlength="20" value="${model.record.dkeh_221b}"></td>
+				 			<td class="text12" align="left" >&nbsp;
+					 			<span title="dkeh_221c">Faktor</span>
+					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221c" id="dkeh_221c" size="8" maxlength="7" value="${model.record.dkeh_221c}">
+				 			</td>
+		 				</tr>
+		 				<tr height="2"><td></td></tr>
+					</table>
+					</td>
+			</tr>
+			<tr height="10"><td></td></tr>
  			<tr>
 	 			<td width="5">&nbsp;</td>
 	            <td >		
@@ -938,49 +1023,7 @@
 				</td>
 		  	</tr>
 		  	
-		  	<%-- INVOICE AMOUNT Fields --%>
-			<tr height="10"><td></td></tr>
-            <tr>
-	            <td width="5">&nbsp;</td>
-	            <td >
-	                <table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td class="text12">
-				 				<b>&nbsp;22.2</b>&nbsp;
-				 				<span title="dkeh_222" id="v_dkeh_222" class="validation">Fakturabeløb&nbsp;</span>
-				 			</td>
-				 			<td align="left" >
-				 				<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_222" id="dkeh_222" size="20" maxlength="19" value="${model.record.dkeh_222}">
-				 			</td>
-				 			<td class="text12">
-				 				<b>&nbsp;22.1</b>&nbsp;
-				 				<span title="dkeh_221" id="v_dkeh_221" class="validation">Fakuramøntsort</span>
-				 				<%-- Note: onChange event in jQuery for this currency list --%>
-				 				<select name="dkeh_221" id="dkeh_221" >
-				 				  <option value="">-vælg-</option>	
-				 				  <c:forEach var="currency" items="${model.currencyCodeList}" >
-			 				  		<option value="${currency.dkkd_kd}"<c:if test="${ model.record.dkeh_221 == currency.dkkd_kd}"> selected </c:if> >${currency.dkkd_kd}</option>
-								  </c:forEach>  
-								</select>
-								<a tabindex="-1" id="dkeh_221IdLink" >
-									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
-								</a>																	 			
-								
-			 				</td>
-		 				</tr>
-		 				<tr>
-			 				<td class="text12" align="right">
-				 				<span title="dkeh_221b" id="v_dkeh_221b" class="validation">Kurs&nbsp;</span>
-				 			</td>
-				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221b" id="dkeh_221b" size="20" maxlength="20" value="${model.record.dkeh_221b}"></td>
-				 			<td class="text12" align="left" >&nbsp;
-					 			<span title="dkeh_221c">Faktor</span>
-					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221c" id="dkeh_221c" size="8" maxlength="7" value="${model.record.dkeh_221c}">
-				 			</td>
-		 				</tr>
-					</table>
-					</td>
-			</tr>
+		  	
            	</table>
 		</td>
 		<%-- --------------- --%>
@@ -1576,36 +1619,8 @@
 					            		</c:if>
 					            </td>
 					        </tr>
-					        
-					        
 					        <tr height="10"><td class="text">&nbsp;</td> </tr>
-					        <tr>
-					            <td class="text12" align="left" >
-					            <img onMouseOver="showPop('29_info');" onMouseOut="hidePop('29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <b>29.</b>&nbsp;<span title="dkeh_29" id="v_dkeh_29" class="validation">Udgangstoldsted</span>
-					            <div class="text11" style="position: relative;" align="left">
-								<span style="position:absolute;top:2px; width:250px;" id="29_info" class="popupWithInputText text11"  >
-					           			<b>29. Udgangstoldsted</b>
-					           			<br/><br/>
-					           			Koden for det toldsted, hvorfra varerne forventes at udpassere af EU's toldområde eller hvor forsendelsesordning begyndes.
-										<br/><br/>
-										Udpasserer varerne som postforsendelse eller med jernbane, anføres henholdsvis kode DK000010 og DK000020.<br/><br/>
-					           			<br/><br/>
-								</span>	
-								</div>
-								</td>
-					            <td >
-					            		<select id="dkeh_29" name="dkeh_29" >
-					            		<option value="">-vælg-</option>
-				 				  	<c:forEach var="record" items="${model.udgangstoldstedCodeList}" >
-				 				  		<option value="${record.dkkd_kd}"<c:if test="${model.record.dkeh_29 == record.dkkd_kd}"> selected </c:if> >${record.dkkd_kd}</option>
-									</c:forEach>
-									</select>
-									<a tabindex="-1" id="dkeh_29IdLink" >
-										<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="16px" height="16px" border="0" alt="search" >
-									</a>									
-					            </td>
-					        </tr>
+					        
 						</table>
 					</td>
 				</tr>
