@@ -14,9 +14,15 @@ import org.springframework.validation.ValidationUtils;
 import no.systema.main.util.StringManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.validator.EmailValidator;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainCundfServiceImpl;
+
 
 /**
  * 
@@ -29,7 +35,9 @@ public class TrorOrderHeaderValidator implements Validator {
 	private static final Logger logger = Logger.getLogger(TrorOrderHeaderValidator.class.getName());
 	//Init services here
 	//private EbookingChildWindowService ebookingChildWindowService = new EbookingChildWindowServiceImpl();
-	//private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+	private UrlCgiProxyService urlCgiProxyService = new UrlCgiProxyServiceImpl();
+	private MaintMainCundfService maintMainCundfService = new MaintMainCundfServiceImpl();
+	
 	//private EmailValidator emailValidator = new EmailValidator();
 	private StringManager strMgr = new StringManager();
 	/**
@@ -71,23 +79,20 @@ public class TrorOrderHeaderValidator implements Validator {
 			}
 			
 			//Fakturapart
-			/*
-			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
+			if( (strMgr.isNotNull(record.getHeknsf())) && (strMgr.isNotNull(record.getHeknkf())) ){
 				errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.both.invoicees.invalid");
 			}else{
-				if( (record.getHeknsf() != null && !"".equals(record.getHeknsf())) || (record.getHeknkf() != null && !"".equals(record.getHeknkf())) ){
+				if( (strMgr.isNotNull(record.getHeknsf())) || (strMgr.isNotNull(record.getHeknkf())) ){
 					//OK (at least one)
 				}else{
 					errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.sendersOrReceiversInvoicee.mustExist");
 				}
 			}
-			*/
+			
 			//-----------------------------------------------------------------------------------------------------------
 			//START Check References & Invoicees (one of them is always mandatory. In certain cases, both are mandatory)
 			//These keys replaced hereff (ref.JOVO).
 			//-----------------------------------------------------------------------------------------------------------
-			
-			
 			/*
 			if( (record.getHerfa()!=null && !"".equals(record.getHerfa())) || (record.getHerfk()!=null && !"".equals(record.getHerfk())) ){
 				//OK. Go on with further validation
@@ -132,35 +137,36 @@ public class TrorOrderHeaderValidator implements Validator {
 					errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.sendersInvoicee.mustExist");
 				}
 			}
+			*/
 			//-----------------------------------
 			//END Check References and Invoicees
 			//-----------------------------------
 			
 			//Check validity of part id - Sender
-			if(record.getHekns()!=null && !"".equals(record.getHekns())){
+			if(strMgr.isNotNull(record.getHekns())){
 				if(!this.isValidPartId(record, record.getHekns())){
 					errors.rejectValue("hekns", "systema.tror.orders.form.update.error.rule.sender.isNotValid");
 				}
 			}
 			//Check validity of part id - Receiver
-			if(record.getHeknk()!=null && !"".equals(record.getHeknk())){
+			if(strMgr.isNotNull(record.getHeknk())){
 				if(!this.isValidPartId(record, record.getHeknk())){
 					errors.rejectValue("heknk", "systema.tror.orders.form.update.error.rule.receiver.isNotValid");
 				}
 			}
 			//Check validity of part id - Seller's invoicee
-			if(record.getHeknsf()!=null && !"".equals(record.getHeknsf())){
+			if(strMgr.isNotNull(record.getHeknsf())){
 				if(!this.isValidPartId(record, record.getHeknsf())){
 					errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.sendersInvoicee.isNotValid");
 				}
 			}
 			//Check validity of part id - Buyer's invoicee
-			if(record.getHeknkf()!=null && !"".equals(record.getHeknkf())){
+			if(strMgr.isNotNull(record.getHeknkf())){
 				if(!this.isValidPartId(record, record.getHeknkf())){
 					errors.rejectValue("heknkf", "systema.tror.orders.form.update.error.rule.receiversInvoicee.isNotValid");
 				}
 			}
-			
+			/*
 			//Check that there is at least one item line
 			if(this.itemLineRecordExist(record)){
 				//OK = valid
@@ -295,25 +301,14 @@ public class TrorOrderHeaderValidator implements Validator {
 		return retval;
 	}
 	*/
-	/**
-	 * 
-	 * @param value
-	 * @return
-	 */
-	private boolean isNotNull(String value){
-		boolean retval = false;
-		if(value!=null && !"".equals(value)){
-			retval = true;
-		}
-		return retval;
-	}
+	
 	/**
 	 * 
 	 * @param record
 	 * @param partId
 	 * @return
 	 */
-	/*
+	
 	private boolean isValidPartId(JsonTrorOrderHeaderRecord record, String partId){
 		boolean retval = false;
 		
@@ -322,8 +317,8 @@ public class TrorOrderHeaderValidator implements Validator {
 			retval = true;
 		}else{
 			//prepare the access CGI with RPG back-end
-			String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
-			String urlRequestParamsKeys = "user=" + record.getApplicationUser();
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+			String urlRequestParamsKeys = "user=" + record.getApplicationUser() + "&kundnr=" + partId;
 			logger.info("URL: " + BASE_URL);
 			logger.info("PARAMS: " + urlRequestParamsKeys);
 			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
@@ -333,9 +328,9 @@ public class TrorOrderHeaderValidator implements Validator {
 			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    
 			if(jsonPayload!=null){
-				JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
+				JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
 	    		if(container!=null){
-	    			for(JsonEbookingCustomerRecord  cusRecord : container.getInqFkund()){
+	    			for(JsonMaintMainCundfRecord  cusRecord : container.getList()){
 	    				if(cusRecord.getKundnr().equals(partId)){
 	    					retval = true;
 	    				}
@@ -344,6 +339,12 @@ public class TrorOrderHeaderValidator implements Validator {
 			}
 		}
 		return retval;
+		
+		
+		
+		
+		
+		
 	}
-	*/
+	
 }

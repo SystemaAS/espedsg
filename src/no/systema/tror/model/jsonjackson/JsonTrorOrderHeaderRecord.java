@@ -235,6 +235,17 @@ public class JsonTrorOrderHeaderRecord extends JsonAbstractGrandFatherRecord  {
 	public void setOwnHegn3(String value){ this.ownHegn3 = value;}
 	public String getOwnHegn3(){ return this.ownHegn3; }
 	
+	private String applicationUser = null;
+	public void setApplicationUser(String value){ this.applicationUser = value;}
+	public String getApplicationUser(){ return this.applicationUser; }
+	
+	private String whenakf = null;
+	public void setWhenakf(String value){ this.whenakf = value;}
+	public String getWhenakf(){ return this.whenakf; }
+	
+	private String whenasf = null;
+	public void setWhenasf(String value){ this.whenasf = value;}
+	public String getWhenasf(){ return this.whenasf; }
 	
 	
 	public String getHedtop() {

@@ -187,9 +187,7 @@ public class TrorMainOrderHeaderLandImportController {
 		    		isValidRecord = false;
 		    		//set always status as in list (since we do not get this value from back-end)
 					//TODO recordToValidate.setStatus(orderStatus);
-					
-		    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
-		    
+		    		
 			    }else{	
 			    	//adjust some db-fields
 			    	this.adjustFields(recordToValidate);
@@ -235,34 +233,45 @@ public class TrorMainOrderHeaderLandImportController {
 			//Fetch record
 			//--------------
 			if(strMgr.isNotNull(recordToValidate.getHeopd()) && strMgr.isNotNull(recordToValidate.getHeavd()) ){
-			//if(isValidRecord){
-				logger.info("HEOPD:" + recordToValidate.getHeopd());
-				JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
-				//split godsnr
-				this.splitGodsnr(headerOrderRecord);
-				//populate track and trace
-				this.populateTrackAndTrace(appUser, headerOrderRecord);
-				//check if user is allowed to choose invoicee (fakturaBetalare)
-				//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
-				//populate all message notes
-				//TODO this.populateMessageNotes( appUser, headerOrderRecord);
-				//populate fraktbrev lines
-				//TODO this.populateFraktbrev( appUser, headerOrderRecord);
-				
-				
-				//Only in case of Create new order (INSERT ORDER)
-				if(orderTypes!=null){
-					/*TODO 
-					if( "".equals(headerOrderRecord.getXfakBet()) ){
-						headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
+				if(isValidRecord){
+					logger.info("HEOPD:" + recordToValidate.getHeopd());
+					JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+					//split godsnr
+					this.splitGodsnr(headerOrderRecord);
+					//populate track and trace
+					this.populateTrackAndTrace(appUser, headerOrderRecord);
+					//check if user is allowed to choose invoicee (fakturaBetalare)
+					//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
+					//populate all message notes
+					//TODO this.populateMessageNotes( appUser, headerOrderRecord);
+					//populate fraktbrev lines
+					//TODO this.populateFraktbrev( appUser, headerOrderRecord);
+					
+					
+					//Only in case of Create new order (INSERT ORDER)
+					if(orderTypes!=null){
+						/*TODO 
+						if( "".equals(headerOrderRecord.getXfakBet()) ){
+							headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
+						}
+						*/
 					}
-					*/
+					//set always status as in list (since we do not get this value from back-end)
+					//TODO headerOrderRecord.setStatus(orderStatus);
+					//domain objects
+					model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
+					session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT, headerOrderRecord);
+				}else{
+					//adjust some db-fields
+			    	this.adjustFields(recordToValidate);
+		    		//split godsnr
+					this.splitGodsnr(recordToValidate);
+					//populate track and trace
+					this.populateTrackAndTrace(appUser, recordToValidate);
+					//put record in model
+					model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+					
 				}
-				//set always status as in list (since we do not get this value from back-end)
-				//TODO headerOrderRecord.setStatus(orderStatus);
-				//domain objects
-				model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
-				session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT, headerOrderRecord);
 			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
@@ -298,35 +307,36 @@ public class TrorMainOrderHeaderLandImportController {
 	 */
 	private void splitGodsnr(JsonTrorOrderHeaderRecord recordToValidate){
 		String str = recordToValidate.getHegn();
-
-		if(str.length()>=4){
-			String ownHegn1 = str.substring(0, 4);
-			//logger.info("A:"+ ownHegn1);
-			recordToValidate.setOwnHegn1(ownHegn1);
-			if(str.length()>=9){
-				String ownHegn2 = str.substring(4,9);
-				//logger.info("B:"+ ownHegn2);
-				recordToValidate.setOwnHegn2(ownHegn2);
-				if(str.length()>=10){
-					if(str.length()>=15){
-						String ownHegn3 = str.substring(9,15);
-						//logger.info("C:"+ ownHegn3);
-						recordToValidate.setOwnHegn3(ownHegn3);
-					}else{
-						String ownHegn3 = str.substring(9);
-						//logger.info("D:"+ ownHegn3);
-						recordToValidate.setOwnHegn3(ownHegn3);
+		if(strMgr.isNotNull(str)){
+			if(str.length()>=4){
+				String ownHegn1 = str.substring(0, 4);
+				//logger.info("A:"+ ownHegn1);
+				recordToValidate.setOwnHegn1(ownHegn1);
+				if(str.length()>=9){
+					String ownHegn2 = str.substring(4,9);
+					//logger.info("B:"+ ownHegn2);
+					recordToValidate.setOwnHegn2(ownHegn2);
+					if(str.length()>=10){
+						if(str.length()>=15){
+							String ownHegn3 = str.substring(9,15);
+							//logger.info("C:"+ ownHegn3);
+							recordToValidate.setOwnHegn3(ownHegn3);
+						}else{
+							String ownHegn3 = str.substring(9);
+							//logger.info("D:"+ ownHegn3);
+							recordToValidate.setOwnHegn3(ownHegn3);
+						}
 					}
+				}else{
+					String ownHegn2 = str.substring(4);
+					//logger.info("Y:"+ ownHegn2);
+					recordToValidate.setOwnHegn2(ownHegn2);
 				}
 			}else{
-				String ownHegn2 = str.substring(4);
-				//logger.info("Y:"+ ownHegn2);
-				recordToValidate.setOwnHegn2(ownHegn2);
+				String ownHegn1 = str;
+				//logger.info("Z:"+ ownHegn1);
+				recordToValidate.setOwnHegn1(ownHegn1);
 			}
-		}else{
-			String ownHegn1 = str;
-			//logger.info("Z:"+ ownHegn1);
-			recordToValidate.setOwnHegn1(ownHegn1);
 		}
 		
 	}

@@ -628,7 +628,16 @@
 							 				
 						 				</tr>
 						 				<tr>	
-						 					<td class="text12" ><input type="text" class="inputTextMediumBlue" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}"></td>
+						 					<td class="text12" >
+						 						<c:choose>
+						 						<c:when test="${'0' != model.record.heknsf}">
+						 							<input type="text" class="inputTextMediumBlue" name="heknsf" id="heknsf" size="10" maxlength="8" value="${model.record.heknsf}">
+						 						</c:when>
+						 						<c:otherwise>
+						 							<input type="text" class="inputTextMediumBlue" name="heknsf" id="heknsf" size="10" maxlength="8" value="">
+						 						</c:otherwise>
+						 						</c:choose>
+						 					</td>
 										 	<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenasf" id="whenasf" size="50" value="${Xmodel.record.heknsfNavn} - ${Xmodel.record.heknsfPnSt}"></td>
 						 					<td class="text12" >
 						 						<select name="hevals" id="hevals">
@@ -764,7 +773,16 @@
 							 				</td>
 						 				</tr>
 						 				<tr>	
-						 					<td class="text12" ><input type="text" class="inputTextMediumBlue" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}"></td>
+						 					<td class="text12" >
+						 						<c:choose>
+						 						<c:when test="${'0' != model.record.heknkf}">
+						 							<input type="text" class="inputTextMediumBlue" name="heknkf" id="heknkf" size="10" maxlength="8" value="${model.record.heknkf}">
+						 						</c:when>
+						 						<c:otherwise>
+						 							<input type="text" class="inputTextMediumBlue" name="heknkf" id="heknkf" size="10" maxlength="8" value="">
+						 						</c:otherwise>
+						 						</c:choose>
+						 					</td>
 										 	<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenakf" id="whenakf" size="50" value="${Xmodel.record.heknkfNavn} - ${Xmodel.record.heknkfPnSt}"></td>
 						 					<td class="text12" >
 						 						<select name="hevalk" id="hevalk">
