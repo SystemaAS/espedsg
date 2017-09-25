@@ -2,11 +2,27 @@
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
+
+<style>
+
+/*
+#accordion .ui-accordion-header{
+	display: block;
+	cursor: pointer;
+	position: relative;
+	margin: 2px 0 0 0;
+	padding: .0em .0em .0em .0em;
+	font-size: 100%;	
+	width: 96%;
+}
+*/
+
+</style>
 <script type="text/javascript">
 var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
-var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2017";
+var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2016";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
@@ -14,7 +30,6 @@ var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 function setBlockUI(element){
   jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 }
-
 
 
 d3.json(url, function(error, data) {
@@ -25,7 +40,8 @@ d3.json(url, function(error, data) {
     var fullDateFormat = d3.time.format('%Y%m%d');
     var yearFormat = d3.time.format('%Y');
     var monthFormat = d3.time.format('%m');
-    var numberFormat = d3.format('.2%');
+    var percentageFormat = d3.format('.2%');
+    var numberFormat = d3.format(",.0f")
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
@@ -41,6 +57,7 @@ d3.json(url, function(error, data) {
 	  d.fakda = d.fakda;
 	  d.faopko = d.faopko;
 	  d.trknfa = d.trknfa;
+	  d.kalle = 10;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -74,7 +91,7 @@ d3.json(url, function(error, data) {
 	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeChart = dc.compositeChart("#chart-composite");
 	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
-	var  stackedBarChart =  dc.barChart("#stacked-bar-chart"); //dc.compositeChart("#bar-chart-composite"); 
+	//var  stackedBarChart =  dc.barChart("#stacked-bar-chart"); //dc.compositeChart("#bar-chart-composite"); 
 	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
@@ -370,8 +387,8 @@ d3.json(url, function(error, data) {
 
 	compositeChart
 		    .width(1200)
-		    .height(400)
-		    .margins({top: 20, right: 10, bottom: 30, left: 80})
+		    .height(500)
+		    .margins({top: 40, right: 10, bottom: 30, left: 80})
 			//.x(d3.time.scale().domain([mindate, maxdate])) 	
 			//.xUnits(d3.time.months) 	
 			//.x(d3.scale.linear().domain([1,12]))
@@ -380,8 +397,12 @@ d3.json(url, function(error, data) {
             //.x(d3.scale.ordinal())  //funkar!!, time scale funkar inte!!
             .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
             //.xUnits(dc.units.ordinal)
-            
+
+            .yAxisPadding('5%')
             .yAxisLabel("NOK")
+			//.yAxis().tickFormat(d3.format("d"))
+
+            
         	.xAxisLabel("Måned")      
             .elasticY(true)
             .renderTitle(true)
@@ -390,8 +411,8 @@ d3.json(url, function(error, data) {
             	var db = resultat / d.value.omsetning;
             	 return [
  	                d.key,
- 	                'Resultat: ' + resultat,
- 	                'Dekningsbidrag: ' + db
+ 	                'Resultat: ' + numberFormat(resultat),
+ 	                'Dekningsbidrag: ' + numberFormat(db)
  	            ].join('\n');
 			 })	
         	.mouseZoomable(false)
@@ -407,7 +428,7 @@ d3.json(url, function(error, data) {
 			        	var resultat = d.data.value.omsetning + d.data.value.kostnad;  
 		            	var db = resultat / d.data.value.omsetning;
 		            	//console.log("d.data.value.omsetning="+d.data.value.omsetning);
-			            return "Db:"+numberFormat(db);
+			            return "Db:"+percentageFormat(db);
 			        })    
 		            .group(monthDimGroup, "Omsetning") //dateDimGroup
 			        .valueAccessor(function (d) {
@@ -432,6 +453,12 @@ d3.json(url, function(error, data) {
 		            .dashStyle([5,3])     
 		     ])         
 		    .brushOn(false);
+	        
+	        
+	    //compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
+	        
+	        
+	        
 	   
  var minDate2 = dateDim.bottom(1)[0].month;
  var maxDate2  = dateDim.top(1)[0].month;
@@ -444,7 +471,7 @@ d3.json(url, function(error, data) {
  //minDate2 = d3.time.month.offset(minDate2, -1);
  //maxDate2 = d3.time.month.offset(maxDate2, 1);
 
- 
+/* 
 stackedBarChart
 		.width(1200)
 		.height(420)
@@ -517,7 +544,7 @@ stackedBarChart
 		 
 		 .brushOn(true);
 		// .clipPadding(20);
-
+*/
 		
 		
 	/*	inspiration
@@ -615,13 +642,36 @@ stackedBarChart
 	      function (d) { return d.fakda; },
 	      function (d) { return d.faopko; },
 	      function (d) { return d.trknfa; }
+	      //function (d) { return d.kalle; }
 	    ])
 	    .order(d3.descending)
 	    .on('renderlet', function (table) {
 	      	// each time table is rendered remove nasty extra row dc.js insists on adding
 	     	table.select('tr.dc-table-group').remove();
 	 });
-	   
+	
+
+	jq('#data-table').on('click', '.data-table-col', function() {
+		  var column = jq(this).attr("data-col");
+		  var faktAllDim2 = fakt.dimension(function(d) {return d[column];});
+		  dataTable.dimension(faktAllDim2)
+		  dataTable.sortBy(function(d) {
+		    return d[column];
+		  });
+		  dataTable.redraw();
+		});
+	
+	
+	
+	d3.select('#download').on('click', function() {
+        var data = faktAllDim.top(Infinity);
+		var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
+        saveAs(blob, 'trafikregnskap.csv');
+    });	
+	
+	
+	
+	 
 	faktSize = fakt.size();
 	updateDataTable();
 	  
@@ -651,6 +701,191 @@ function last() {
     updateDataTable();
     dataTable.redraw();
 }
+
+
+///
+var saveAs = saveAs || (function(view) {
+	"use strict";
+	// IE <10 is explicitly unsupported
+	if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+		return;
+	}
+	var
+		  doc = view.document
+		  // only get URL when necessary in case Blob.js hasn't overridden it yet
+		, get_URL = function() {
+			return view.URL || view.webkitURL || view;
+		}
+		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+		, can_use_save_link = "download" in save_link
+		, click = function(node) {
+			var event = new MouseEvent("click");
+			node.dispatchEvent(event);
+		}
+		, is_safari = /constructor/i.test(view.HTMLElement) || view.safari
+		, is_chrome_ios =/CriOS\/[\d]+/.test(navigator.userAgent)
+		, throw_outside = function(ex) {
+			(view.setImmediate || view.setTimeout)(function() {
+				throw ex;
+			}, 0);
+		}
+		, force_saveable_type = "application/octet-stream"
+		// the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+		, arbitrary_revoke_timeout = 1000 * 40 // in ms
+		, revoke = function(file) {
+			var revoker = function() {
+				if (typeof file === "string") { // file is an object URL
+					get_URL().revokeObjectURL(file);
+				} else { // file is a File
+					file.remove();
+				}
+			};
+			setTimeout(revoker, arbitrary_revoke_timeout);
+		}
+		, dispatch = function(filesaver, event_types, event) {
+			event_types = [].concat(event_types);
+			var i = event_types.length;
+			while (i--) {
+				var listener = filesaver["on" + event_types[i]];
+				if (typeof listener === "function") {
+					try {
+						listener.call(filesaver, event || filesaver);
+					} catch (ex) {
+						throw_outside(ex);
+					}
+				}
+			}
+		}
+		, auto_bom = function(blob) {
+			// prepend BOM for UTF-8 XML and text/* types (including HTML)
+			// note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+			if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+				return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
+			}
+			return blob;
+		}
+		, FileSaver = function(blob, name, no_auto_bom) {
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			// First try a.download, then web filesystem, then object URLs
+			var
+				  filesaver = this
+				, type = blob.type
+				, force = type === force_saveable_type
+				, object_url
+				, dispatch_all = function() {
+					dispatch(filesaver, "writestart progress write writeend".split(" "));
+				}
+				// on any filesys errors revert to saving with object URLs
+				, fs_error = function() {
+					if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+						// Safari doesn't allow downloading of blob urls
+						var reader = new FileReader();
+						reader.onloadend = function() {
+							var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+							var popup = view.open(url, '_blank');
+							if(!popup) view.location.href = url;
+							url=undefined; // release reference before dispatching
+							filesaver.readyState = filesaver.DONE;
+							dispatch_all();
+						};
+						reader.readAsDataURL(blob);
+						filesaver.readyState = filesaver.INIT;
+						return;
+					}
+					// don't create more object URLs than needed
+					if (!object_url) {
+						object_url = get_URL().createObjectURL(blob);
+					}
+					if (force) {
+						view.location.href = object_url;
+					} else {
+						var opened = view.open(object_url, "_blank");
+						if (!opened) {
+							// Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+							view.location.href = object_url;
+						}
+					}
+					filesaver.readyState = filesaver.DONE;
+					dispatch_all();
+					revoke(object_url);
+				}
+			;
+			filesaver.readyState = filesaver.INIT;
+
+			if (can_use_save_link) {
+				object_url = get_URL().createObjectURL(blob);
+				setTimeout(function() {
+					save_link.href = object_url;
+					save_link.download = name;
+					click(save_link);
+					dispatch_all();
+					revoke(object_url);
+					filesaver.readyState = filesaver.DONE;
+				});
+				return;
+			}
+
+			fs_error();
+		}
+		, FS_proto = FileSaver.prototype
+		, saveAs = function(blob, name, no_auto_bom) {
+			return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+		}
+	;
+	// IE 10+ (native saveAs)
+	if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+		return function(blob, name, no_auto_bom) {
+			name = name || blob.name || "download";
+
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			return navigator.msSaveOrOpenBlob(blob, name);
+		};
+	}
+
+	FS_proto.abort = function(){};
+	FS_proto.readyState = FS_proto.INIT = 0;
+	FS_proto.WRITING = 1;
+	FS_proto.DONE = 2;
+
+	FS_proto.error =
+	FS_proto.onwritestart =
+	FS_proto.onprogress =
+	FS_proto.onwrite =
+	FS_proto.onabort =
+	FS_proto.onerror =
+	FS_proto.onwriteend =
+		null;
+
+	return saveAs;
+}(
+	   typeof self !== "undefined" && self
+	|| typeof window !== "undefined" && window
+	|| this.content
+));
+// `self` is undefined in Firefox for Android content script context
+// while `this` is nsIContentFrameMessageManager
+// with an attribute `content` that corresponds to the window
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports.saveAs = saveAs;
+} else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
+  define("FileSaver.js", function() {
+    return saveAs;
+  });
+}
+
+jq( function() {
+	jq( "#accordion" ).accordion({
+    	collapsible: true,
+    	active: false,
+    	heightStyle: "content"
+   });
+} );
+
 
 </script>
 
@@ -761,7 +996,7 @@ function last() {
 					</div>		
 				  </div>	
 	
-  				  
+<!--   				  
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
@@ -780,7 +1015,7 @@ function last() {
 				    </div>
 				  </div>				  
 				  
-	
+--> 	
 				  <div class="row">
 				    <div class="col-md-6 show-grid-left" id="data-count"> 
 				        <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster.
@@ -793,20 +1028,22 @@ function last() {
 				  
 				  <div class="padded-row">&nbsp;</div>
 	
-				  <div class="row">
+   
+				  <div id="accordion" class="row">
+				    <h3>Fakturaposter, utvalg</h3>
 				    <div class="col-md-12 show-grid-small">
 				      <table class="table table-bordered table-striped" id="data-table">
 				        <thead>
 				          <tr class="header">
-				            <th>tupro</th>
-				            <th>tubilk</th>
-				            <th>faavd</th>
-				            <th>faopd</th>
-				            <th>sumfabeln</th>
-				            <th>hedtop</th>
-				            <th>fakda</th>
-					        <th>faopko</th>		
-					        <th>trknfa</th>		
+				            <th class="data-table-col" data-col="tupro">Tupro</th>
+				            <th class="data-table-col" data-col="tubilk">Tubilk</th>
+				            <th class="data-table-col" data-col="faavd">Faavd</th>
+				            <th class="data-table-col" data-col="faopd">Faopd</th>
+				            <th class="data-table-col" data-col="sumfabeln">Sumfabeln</th>
+				            <th class="data-table-col" data-col="hedtop">Hedtop</th>
+				            <th class="data-table-col" data-col="fakda">Fakda</th>
+					        <th class="data-table-col" data-col="faopko">Faopko</th>
+					        <th class="data-table-col" data-col="trknfa">Trknfa</th>
 				          </tr>
 				        </thead>
 				      </table>
@@ -814,10 +1051,14 @@ function last() {
    						<!--  Viser <span id="begin"></span>-<span id="end"></span> av <span id="size"></span>.-->
     					<input id="last" type="Button" value="forrige" onclick="javascript:last()" />
     					<input id="next" type="button" value="neste" onclick="javascript:next()"/>
+    					<button class="btn" id="download">download</button>
   					  </div>
 				    </div>
 				  </div>
-				 </div>		  
+				</div>
+
+				<div class="padded-row">&nbsp;</div>
+
 		 	   </td>
 	 	    </tr>
 	 	 </table>
