@@ -22,18 +22,16 @@
 var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
-var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2016";
+var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2017";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 
-function setBlockUI(element){
-  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-}
-
+function load_data() {
+	
+jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 
 d3.json(url, function(error, data) {
-	//setBlockUI(this);  //TODO
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -666,7 +664,7 @@ stackedBarChart
 	d3.select('#download').on('click', function() {
         var data = faktAllDim.top(Infinity);
 		var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
-        saveAs(blob, 'trafikregnskap.csv');
+        saveAs(blob, 'trafikkregnskap.csv');
     });	
 	
 	
@@ -676,8 +674,12 @@ stackedBarChart
 	updateDataTable();
 	  
 	dc.renderAll(); 
+
+	jq.unblockUI();
     
 });
+
+}
  
 function display() {
     d3.select('#begin').text(ofs);
@@ -886,8 +888,24 @@ jq( function() {
    });
 } );
 
+/*
+function load_button(file) {
+    return function load_it() {
+        d3.csv(file, function(error, experiments) {
+            ndx.remove();
+            ndx.add(experiments);
+            dc.redrawAll();
+        });
+    };
+}
+*/
+
+
+
+
 
 </script>
+
 
 <table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
@@ -917,8 +935,43 @@ jq( function() {
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
-
 				<div class="container-fluid">
+				  <div class="row border">
+					<div class="col-md-2">
+						<select name="selectYear" id="selectYear" >
+		  					<option value="">År - Alle</option>
+		  					<option value="2016">2016</option>
+	  						<option value="2017">2017</option>
+	  					</select>
+					</div>	
+		  			<div class="col-md-2">
+						<select name="selectAvd" id="selectAvd" >
+		  					<option value="">Avdeling - Alle</option>
+		  					<option value="1">1</option>
+	  						<option value="2">2</option>
+	  					</select>
+ 					</div> 
+		  			<div class="col-md-2">
+						<select name="selectBilkode" id="selectBilkode" >
+		  					<option value="">Bilkode - Alle</option>
+		  					<option value="1">1</option>
+	  						<option value="2">2</option>
+	  					</select>
+					</div> 
+	  		    	<div class="col-md-2">
+						<select name="selectKunde" id="selectKunde" >
+		  					<option value="">Kunde - Alle</option>
+		  					<option value="1">1</option>
+	  						<option value="2">2</option>
+	  					</select>
+					</div> 
+	  		    	<div class="col-md-4">
+	   	              	<button class="inputFormSubmitStd" onclick="load_data()">Last data</button>
+					</div>	
+				  </div>
+	
+	  			  <div class="padded-row">&nbsp;</div>
+	
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
@@ -1055,11 +1108,11 @@ jq( function() {
   					  </div>
 				    </div>
 				  </div>
-				</div>
-
+				  
 				<div class="padded-row">&nbsp;</div>
 
-		 	   </td>
+         		</div> <!-- container -->
+		 	    </td>
 	 	    </tr>
 	 	 </table>
 		</td>
