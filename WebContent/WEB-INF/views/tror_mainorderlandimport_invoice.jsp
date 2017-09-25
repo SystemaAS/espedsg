@@ -82,7 +82,16 @@
 					
 				</a>
 			</td>	
-		
+			<c:if test="${recordOrderTrorLandImport.hepk1 == 'J'}">
+				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>
+					</a>
+				</td>
+			</c:if>	
+						
 			<td width="50%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
@@ -207,137 +216,119 @@
 					<table width="100%" cellspacing="0" border="0" cellpadding="0">
 	    				<%-- separator --%>
 	        			<tr height="10"><td></td></tr> 
-	        			<%--
-						<tr >
-							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODOtvinnsadexport_edit_finansopplysninger.do">
-								<input type="hidden" name="action" id="action" value='doFetch'>
-				 				<input type="hidden" name="totalGrossWeight" id="totalGrossWeight" value='${recordTopicTvinnSad.sevkb}'>
-				 				
-				 				
-								<table width="80%" cellspacing="0" border="0" cellpadding="0">
-									<tr>
-										<td class="text12Bold">&nbsp;Antall varelinjer&nbsp;&nbsp;<font class="text12MediumBlue"><b>${Xmodel.recordItemContainerFinansOpplysningerTopic.totalNumberOfItemLines}</b></font>
-						            		</td>
-										<td align="right" class="text11">Fsum:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${recordTopicTvinnSad.sebel1}">
-											<font class="inputText11BlueBoldReadOnly">${XrecordTopicTvinnSad.seval1}</font>
-										</td>
-										<td align="right" class="text11">Vsum&nbsp;(&Sigma;):&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly class="inputText11BlueBoldReadOnly" size="12" maxlength=20" value="${Xmodel.recordItemContainerFinansOpplysningerTopic.calculatedItemLinesTotalAmount}">
-											<font class="inputText11BlueBoldReadOnly">${Xmodel.recordItemContainerFinansOpplysningerTopic.calculatedValidCurrency}</font>											
-										</td>
-										<%--
-										<td align="right" class="text11">Diff:&nbsp;
-											<input tabindex=-1 align="right" type="text" readonly
-												<c:choose>
-												<c:when test="${fn:contains(Xmodel.recordItemContainerFinansOpplysningerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount,'-')}">
-													class="inputText11RedBoldReadOnly" 
-												</c:when>
-												<c:otherwise>
-													class="inputText11BlueBoldReadOnly"
-												</c:otherwise>
-												</c:choose>
-												size="12" maxlength=20" value='${Xmodel.recordItemContainerFinansOpplysningerTopic.diffItemLinesTotalAmountWithInvoiceTotalAmount}'>
-										</td>
-										-- here END tag
-									</tr>
-									<tr height="2"><td></td></tr>
-								</table>
-							</form>
-							
-							</td>
-						</tr> 
-						--%>
+	        			
 						<tr>
-							<td >
+							<td class="ownScrollableSubWindow" style="width:100%; height:20em;"> 
 								<form name="formItemList" id="formItemList" method="POST" >
 				               		<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 				 				<table id="container tableTable" width="100%" cellspacing="2" align="left" >
 								<tr>
 								<td class="text11">
-										
-								<table id="tblInvoices" class="display compact cell-border" >
+								<table width="100%" cellspacing="0" border="0" cellpadding="0">		
+								<%-- <table id="tblInvoices" class="display compact cell-border" >  --%>
 									<thead>
-									<tr style="background-color:#DDDDDD">
-										<th width="2%" align="center" class="text12" title="fali"><spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
+									<tr style="background-color:#DDDDDD" class="tableHeaderField" height="23" valign="left">
+										<th width="2%" align="center" class="tableHeaderFieldFirst" title="fali">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
 										<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-									    	<th width="2%" align="center" class="text12"><spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
+									    	<th width="2%" align="center" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
 									    </c:if>
-									    <th align="center" class="text12" title="fask"><spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
-									    <th align="left" class="text12" title="favk"><spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></th>
-									    <th align="left" class="text12" title="stdVt/faVT"><spring:message code="systema.tror.orders.invoice.update.label.text"/></th> 
-									    <th width="2%" align="center" class="text12" title="faval"><spring:message code="systema.tror.orders.invoice.update.label.currency"/></th>
-					                    <th align="right" class="text12" title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/>&nbsp;</th>
-					                    <th align="right" class="text12" title="fabeln">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
-					                    <th width="2%" align="center" class="text12" title="fakdm"><spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
-					                    <th width="2%" align="center" class="text12" title="fakda"><spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
-					                    <th class="text12" title="fakunr/knavn"><spring:message code="systema.tror.orders.invoice.update.label.customer"/></th>
-					                    <th align="right" class="text12" title="fabelu"><spring:message code="systema.tror.orders.invoice.update.label.budget"/></th>
+									    <th align="center" class="tableHeaderField" title="fask">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
+									    <th align="left" class="tableHeaderField" title="favk">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.gebyrCode"/></th>
+									    <th align="left" class="tableHeaderField" title="stdVt/faVT">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.text"/></th> 
+									    <th width="2%" align="center" class="tableHeaderField" title="faval">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.currency"/></th>
+					                    <th align="right" class="tableHeaderField" title="fabelv">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount1"/>&nbsp;</th>
+					                    <th align="right" class="tableHeaderField" title="fabeln">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
+					                    <th width="2%" align="center" class="tableHeaderField" title="fakdm">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
+					                    <th width="2%" align="center" class="tableHeaderField" title="fakda">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
+					                    <th class="tableHeaderField" title="fakunr/knavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.customer"/></th>
+					                    <th align="right" class="tableHeaderField" title="fabelu"><spring:message code="systema.tror.orders.invoice.update.label.budget"/>&nbsp;</th>
 					                    
 					                    <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-					                    	<th width="2%" align="center" class="text12" nowrap><spring:message code="systema.tror.orders.invoice.update.label.delete"/></th>
+					                    	<th width="2%" align="center" class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.delete"/></th>
 					                    </c:if> 
 					               </tr> 
 								   </thead>
-								   <tbody>						               
+								   <tbody >						               
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">  
-				 					  	<c:if test="${not empty record.fali}">  
-							              <tr class="tableRow">
-										   <td width="2%" align="center" class="text11" >${record.fali}</td>
+				 					  	 
+							              <tr class="tableRow" height="20" >
+										   <td width="2%" align="center" class="tableCellFirst" >${record.fali}</td>
 
 										   <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-								               <td width="2%" class="text11" align="center">
-							               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
-							               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-							               			</a>							               			
+								               <td width="2%" class="tableCell" align="center">
+								               		<c:if test="${not empty record.fali}"> 
+								               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
+								               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+								               			</a>							       
+							               			</c:if>        			
 								               </td>
 							               </c:if>
 
-							               <td width="2%" align="center" class="text11" >${record.fask}</td>
-							               <td width="2%" align="center" class="text11" >${record.favk}</td>
-							               <td class="text11" align="left">${record.stdVt}
-						               	   		<c:if test="${not empty record.faVT}">&nbsp;/&nbsp;${record.faVT}</c:if>
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.fask}</td>
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.favk}</td>
+							               <td class="tableCell" <c:if test="${empty record.fali}"> style="font-weight: bold;" </c:if> align="left">
+						               	   		<c:choose>
+								               		<c:when test="${not empty record.faVT}">&nbsp;${record.faVT}</c:when>
+								               		<c:otherwise>&nbsp;${record.stdVt}</c:otherwise>
+							               		</c:choose>
 							               </td>
-							               <td width="2%" align="center" class="text11" >${record.faval}</td>
-							               <td align="right" class="text11" >&nbsp;${record.fabelv}</td>
-							               <td align="right" class="text11" >&nbsp;${record.fabeln}</td>
-							               <td width="2%" align="center" class="text11" >${record.fakdm}</td>
-							               <td width="2%" align="center" class="text11" >${record.fakda}</td>
-							               <td align="left" class="text11" >&nbsp;<font class="text11MediumBlue"><b>${record.fakunr}</b></font>&nbsp;${record.knavn}</td>
-							               <td align="right" class="text11" >${record.fabelu}</td>
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.faval}</td>
+							               <td align="right" class="tableCell" <c:if test="${record.fakda == 'K'}"> style="color:#D8000C;" </c:if>>&nbsp;${record.fabelv}&nbsp;</td>
+							               
+							               <%--START fabeln --%>
+							               
+							               <c:choose>
+								               <c:when test="${empty record.fali}">
+								               		<c:choose>
+									               		<c:when test="${fn:contains(record.fabeln, '-')}">
+							               					<td class="tableCell" align="right" style="font-weight: bold; color:#D8000C;" >&nbsp;${record.fabeln}&nbsp;</td>
+									               		</c:when>
+									               		<c:otherwise>
+									               			<td class="tableCell" align="right" style="font-weight: bold;" >&nbsp;${record.fabeln}&nbsp;</td>
+									               		</c:otherwise>
+								               		</c:choose>
+								               </c:when>
+							               	<c:otherwise>
+								               		<td class="tableCell" align="right" <c:if test="${record.fakda == 'K'}"> style="color:#D8000C;" </c:if>>&nbsp;${record.fabeln}&nbsp;</td>
+								               </c:otherwise>
+							               </c:choose>
+							               <%-- END fabeln --%>
+							               
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.fakdm}</td>
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.fakda}</td>
+							               <td align="left" class="tableCell" >&nbsp;<font class="text11MediumBlue"><b>${record.fakunr}</b></font>&nbsp;${record.knavn}</td>
+							               <td align="right" class="tableCell" >${record.fabelu}</td>
+							               <%-- DELETE cell --%>
 							               <c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-							               		<td class="text11" align="center" nowrap>
-											   		<c:if test="${record.faopko==' ' || record.faopko=='A' || record.faopko=='B' || record.faopko=='C'}">
-								                   		<c:if test="${not empty record.fali}">
-									                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLandImport.heavd}@heopd_${recordOrderTrorLandImport.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
-											               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-											               	</a>&nbsp;
-										               	</c:if>
-									               	</c:if>								               	
-							               		</td>
+							               		<td class="tableCell" align="center" nowrap>
+											   		<c:if test="${not empty record.fali}">
+								                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLandImport.heavd}@heopd_${recordOrderTrorLandImport.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+										               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+										               	</a>&nbsp;
+									               	</c:if>
+								               	</td>
 							               </c:if>
 							            </tr>
 								        <%-- this param is used ONLY in this JSP 
 								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
 								        --%> 
-								        <%-- this param is used throughout the Controller 
+								        <%-- this param is used throughout the Controller --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
-								        <c:set var="ownKundnrVar" value="${record.fakunr}" scope="request" /> --%>
-								        </c:if>
+								        <%-- <c:set var="ownKundnrVar" value="${record.fakunr}" scope="request" /> --%>
+								        
 								        </c:forEach>
 						            </tbody>
-						        </table>
-						        </td>
-								</tr>
-								</table>	
-						        </form>
-							</td>
-							
-						</tr>
-					</table>
-				</td>
+						           </table>
+						           </td>
+						           </tr> 
+					        	</table>
+					        	</form>
+				        	</td>
+							</tr>
+						</table>
+					</td>
 			</tr>
+
 			<tr height="3"><td></td></tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>

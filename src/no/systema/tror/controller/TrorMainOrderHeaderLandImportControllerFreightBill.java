@@ -47,13 +47,20 @@ import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandImportFreightBillController {
-	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportFreightBillController.class.getName());
+public class TrorMainOrderHeaderLandImportControllerFreightBill {
+	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerFreightBill.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="tror_mainorderlandimport_freightbill_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vareimp_se_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_freightbill");
@@ -106,6 +113,7 @@ public class TrorMainOrderHeaderLandImportFreightBillController {
 					}
 				}
 			} else { // Fetch
+				logger.info("FETCH branch");
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
@@ -120,17 +128,26 @@ public class TrorMainOrderHeaderLandImportFreightBillController {
 		}
 
 	}
-
+	/**
+	 * 
+	 * @param appUser
+	 * @param dfavd
+	 * @param dfopd
+	 * @param dffbnr
+	 * @return
+	 */
 	private DokufDao fetchRecord(SystemaWebUser appUser, int dfavd, int dfopd, int dffbnr) {
 		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();
 		jsonReader.set(new JsonDtoContainer<DokufDao>());
 		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOKUF_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + appUser.getUserName());
+		urlRequestParams.append("user=" + appUser.getUser());
 		urlRequestParams.append("&dfavd=" + dfavd);
 		urlRequestParams.append("&dfopd=" + dfopd);
-		urlRequestParams.append("&dffbnr=" + dffbnr);
-
+		if(dffbnr>0){
+			urlRequestParams.append("&dffbnr=" + dffbnr);
+		}
+		
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
@@ -144,7 +161,14 @@ public class TrorMainOrderHeaderLandImportFreightBillController {
 		}
 		return record;
 	}	
-	
+	/**
+	 * 
+	 * @param appUser
+	 * @param record
+	 * @param mode
+	 * @param errMsg
+	 * @return
+	 */
 	private DokufDao updateRecord(SystemaWebUser appUser, DokufDao record, String mode, StringBuffer errMsg) {
 		DokufDao savedRecord = null;
 		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();

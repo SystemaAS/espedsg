@@ -57,7 +57,15 @@
 						
 					</a>
 				</td>	
-				
+				<c:if test="${recordOrderTrorLandImport.hepk1 == 'J'}">
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+							<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>
+						</a>
+					</td>
+				</c:if>	
 				<td width="50%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			</tr>
 			<tr height="3"><td></td></tr>

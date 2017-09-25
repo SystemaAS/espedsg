@@ -390,7 +390,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param session
 	 */
 	private void populateAspectsOnBackendError(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderInvoiceContainer container, JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate, Map model, String parentTrip, HttpSession session ){
-		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Linenr:[" + container.getLin() + "] " +  container.getErrMsg());
+		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "BACK-END error --> Linenr:[" + container.getLin() + "] " +  container.getErrMsg());
 		logger.info(container.getErrMsg());
 		//populate drop downs
 		this.setCodeDropDownMgr(appUser, model);
@@ -430,6 +430,11 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		Map listGroupsMap = this.setListGroups(list);
 		//[2] Set totals in each group
 		list = this.getListWithTotals(listGroupsMap);
+		//DEBUG
+		/*for(JsonTrorOrderLandImportInvoiceRecord record : list){
+			logger.info(record.getFaVT() + " amount:" + record.getFabeln());
+			
+		}*/
 		
 		//always keep track of the total nr of item lines
 		String nrOfItems = String.valueOf(list.size());
@@ -490,6 +495,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	        		}
 	        	
 	        	}
+	        	//logger.info("THIS RECORD:" + groupRecord.getFaVT());
 	        	listWithTotals.add(groupRecord);
 	        }
 	    }
@@ -539,17 +545,19 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 				map.put(mapIndex, newList);
 			}else{
 				if (previousCode.equals(record.getFask() + record.getFafakt())){
+					//logger.info("Inside: B");
 					newList.add(record);
 					//add the total record for the last record
 					if(index + 1==list.size()){
 						//add the total record
+						//logger.info("Inside: C");
 						newList.add(this.addTotalRecord());
 						map.put(mapIndex, newList);
 					}
 				}else{
 					//add the total record
 					newList.add(this.addTotalRecord());
-					//logger.info("populating map with list:" + newList.size());
+					logger.info("populating map with list:" + newList.size());
 					map.put(mapIndex, newList);
 					//init new list with this very current record
 					mapIndex++;

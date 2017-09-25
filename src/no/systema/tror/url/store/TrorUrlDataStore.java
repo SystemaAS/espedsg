@@ -48,14 +48,14 @@ public class TrorUrlDataStore {
 	 * 			http://gw.systema.no:8080/syjservicestror/syjsDOKUF_U.do?user=OSCAR&dfavd=2&dfopd=100&dfsg=JOV....and all the rest in DokufDao...&mode=U/A/D
 	 * 
 	 */
-	static public String TROR_BASE_DOKUF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKF_U.do?";
+	static public String TROR_BASE_DOKUF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF_U.do?";
 	
 	 /** @Example SELECT list http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999
 	 * 
 	 * @Example SELECT
 	 *          specific:   http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1	
 	 */
-	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKF.do?";
+	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF.do?";
 	
 	
 	/**

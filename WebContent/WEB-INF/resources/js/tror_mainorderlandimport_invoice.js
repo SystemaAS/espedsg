@@ -231,6 +231,7 @@
     //Datatables jquery
     //-------------------
     //private function
+	/* DATATABLE not good in this UC since we have SUBTOTALS that ARE fucked up in the order ...
     function filterGlobal () {
       jq('#tblInvoices').dataTable().search(
       	jq('#tblInvoices_filter').val()
@@ -257,5 +258,5 @@
       });
   	
     });
-
+	*/
 	

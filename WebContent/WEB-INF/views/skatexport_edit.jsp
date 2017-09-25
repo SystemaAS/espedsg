@@ -459,22 +459,12 @@
 							<td align="left" class="text12Gray">&nbsp;
 		 						<span title="dkeh_fast">&nbsp;&nbsp;&nbsp;Faktisk.utp.sted&nbsp;</span>
 				 			</td>
-				 			<td colspan="4">
-				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast" id="dkeh_fast" size="30" maxlenght="35" value="${model.record.dkeh_fast}">
-			 				</td>				 		
-			 			</tr>
-			 			<tr height="2"><td></td></tr>
-			 			<tr>
-							<td align="left" class="text12Gray">&nbsp;
-		 						<span title="dkeh_xref">&nbsp;&nbsp;&nbsp;Ekstern ref.&nbsp;</span>
-				 			</td>
 				 			<td colspan="2">
-				 				<input type="text" class="inputText" name="dkeh_xref" id="dkeh_xref" size="30" maxlenght="35" value="${model.record.dkeh_xref}">
-			 				</td>
-			 				
+				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast" id="dkeh_fast" size="30" maxlenght="35" value="${model.record.dkeh_fast}">
+			 				</td>			
 			 				<td class="text12" align="left" >
 					            <img onMouseOver="showPop('29_info');" onMouseOut="hidePop('29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
-					            <b>29.</b>&nbsp;<span title="dkeh_29" id="v_dkeh_29" class="validation">Udgangstoldsted</span>
+					            <b>29.</b>&nbsp;<span title="dkeh_29" id="v_dkeh_29" class="validation">Udg.toldsted</span>
 					            <div class="text11" style="position: relative;" align="left">
 								<span style="position:absolute;top:2px; width:250px;" id="29_info" class="popupWithInputText text11"  >
 					           			<b>29. Udgangstoldsted</b>
@@ -485,7 +475,17 @@
 					           			<br/><br/>
 								</span>	
 								</div>
-							</td>
+							</td>	 		
+			 			</tr>
+			 			<tr height="2"><td></td></tr>
+			 			<tr>
+							<td align="left" class="text12Gray">&nbsp;
+		 						<span title="dkeh_xref">&nbsp;&nbsp;&nbsp;Ekstern ref.&nbsp;</span>
+				 			</td>
+				 			<td colspan="2">
+				 				<input type="text" class="inputText" name="dkeh_xref" id="dkeh_xref" size="30" maxlenght="35" value="${model.record.dkeh_xref}">
+			 				</td>
+			 				
 				            <td >
 				            		<select id="dkeh_29" name="dkeh_29" >
 				            		<option value="">-vælg-</option>
