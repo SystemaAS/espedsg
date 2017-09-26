@@ -31,12 +31,14 @@
 						 			<td align="left" height="60px" class="text14">
 						 			<ol>
 						 			<c:if test="${user.user == 'OSCAR'}">
-										<li style="line-height:20px;">
-			 								<a id="dialogRunReportDashboardLink" class="text14" style="display:block;" runat="server" href="#" onMouseOver="showPop('infoDashboard');" onMouseOut="hidePop('infoDashboard');" >
+						 				<li style="line-height:20px;">
+						 				<font class="text14">
+							 				<a class="text14" href="report_dashboard.do" > 	
 			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
- 												<font class="text14NavyBlue">Rapporter</font>
+			 									<font class="text14NavyBlue">Rapporter</font>
 	 										</a>
-		 								</li>
+										</font>
+										</li>
 	 								    <%-- ===========================================  --%>
 						            	<%-- Here we have the info popup window infoDashboard --%>
 						            	<%-- ===========================================  --%>
@@ -47,10 +49,7 @@
 													<td align="left" class="text12" >
 														<b>Rapporter</b>, henter data direkte fra databasen.<br/><br/>
 														Rapporter:
-														<br/>- Lønsamhetsanlyse, henter alla data i HEADF og FAKT...
-														<br/>- Traffikanalyse, henter alle data i ...
-														<br/>- Terminalanalyse, hentera alle data i ...
-														<br/>- xXx-analyse, henter alle data i ..
+														<br/>- Trafikkanalyse, henter data fra fakturaposter, oppdrag og turer.
 													</td>
 												</tr>
 												<tr>
