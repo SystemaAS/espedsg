@@ -2379,6 +2379,10 @@ text {
   padding-bottom: 50px;
 }
 
+.padded-row-small {
+  padding-bottom: 10px;
+}
+
 a { cursor: pointer }
 
 .show-grid-small {

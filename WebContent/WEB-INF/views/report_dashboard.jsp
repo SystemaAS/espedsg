@@ -25,7 +25,7 @@ var ofs = 0, pag = 20;
 var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2017";
 
 var jq = jQuery.noConflict();
-var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
+var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 function load_data() {
 	
@@ -409,8 +409,8 @@ d3.json(url, function(error, data) {
             	var db = resultat / d.value.omsetning;
             	 return [
  	                d.key,
- 	                'Resultat: ' + numberFormat(resultat),
- 	                'Dekningsbidrag: ' + numberFormat(db)
+ 	                'Resultat: ' + numberFormat(resultat) + ':-',
+ 	                'Dekningsbidrag: ' + percentageFormat(db)
  	            ].join('\n');
 			 })	
         	.mouseZoomable(false)
@@ -667,9 +667,6 @@ stackedBarChart
         saveAs(blob, 'trafikkregnskap.csv');
     });	
 	
-	
-	
-	 
 	faktSize = fakt.size();
 	updateDataTable();
 	  
@@ -888,22 +885,6 @@ jq( function() {
    });
 } );
 
-/*
-function load_button(file) {
-    return function load_it() {
-        d3.csv(file, function(error, experiments) {
-            ndx.remove();
-            ndx.add(experiments);
-            dc.redrawAll();
-        });
-    };
-}
-*/
-
-
-
-
-
 </script>
 
 
@@ -936,41 +917,40 @@ function load_button(file) {
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
 				<div class="container-fluid">
-				  <div class="row border">
-					<div class="col-md-2">
+				  <div class="row">
+					<div class="col-md-8">
+							År:
 						<select name="selectYear" id="selectYear" >
-		  					<option value="">År - Alle</option>
+		  					<option value="ALL">-Alle-</option>
 		  					<option value="2016">2016</option>
 	  						<option value="2017">2017</option>
 	  					</select>
-					</div>	
-		  			<div class="col-md-2">
+		  					&nbsp;&nbsp;Avdeling:
 						<select name="selectAvd" id="selectAvd" >
-		  					<option value="">Avdeling - Alle</option>
+		  					<option value="ALL">-Alle-</option>
 		  					<option value="1">1</option>
 	  						<option value="2">2</option>
 	  					</select>
- 					</div> 
-		  			<div class="col-md-2">
+	  						&nbsp;&nbsp;Bilkode:
 						<select name="selectBilkode" id="selectBilkode" >
-		  					<option value="">Bilkode - Alle</option>
+		  					<option value="ALL">-Alle-</option>
 		  					<option value="1">1</option>
 	  						<option value="2">2</option>
 	  					</select>
-					</div> 
-	  		    	<div class="col-md-2">
+	  		    			&nbsp;&nbsp;Kunde:
 						<select name="selectKunde" id="selectKunde" >
-		  					<option value="">Kunde - Alle</option>
+		  					<option value="ALL">-Alle-</option>
 		  					<option value="1">1</option>
 	  						<option value="2">2</option>
 	  					</select>
-					</div> 
-	  		    	<div class="col-md-4">
-	   	              	<button class="inputFormSubmitStd" onclick="load_data()">Last data</button>
+					</div>	
+
+	  		    	<div class="col-md-4" align="right">
+	   	              	<button class="inputFormSubmitGrayOnGraph" onclick="load_data()">Last data</button>  <!--  inputFormSubmitStd-->
 					</div>	
 				  </div>
 	
-	  			  <div class="padded-row">&nbsp;</div>
+	  			  <div class="padded-row-small">&nbsp;</div>
 	
 				  <div class="row">
 					<div class="col-md-12">
