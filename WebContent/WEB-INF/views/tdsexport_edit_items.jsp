@@ -442,6 +442,12 @@
 				 	<input type="hidden" name="session_sveh_vakd" id="session_sveh_vakd" value="${recordTopic.sveh_vakd}">
 			        <input type="hidden" name="session_sveh_vaku" id="session_sveh_vaku" value="${recordTopic.sveh_vaku}">
 			        <input type="hidden" name="session_sveh_fabl" id="session_sveh_fabl" value="${recordTopic.sveh_fabl}">
+			        <input type="hidden" name="session_sveh_vuva" id="session_sveh_vuva" value="${recordTopic.sveh_vuva}">
+			        <input type="hidden" name="session_sveh_vuku" id="session_sveh_vuku" value="${recordTopic.sveh_vuku}">
+			        <input type="hidden" name="session_sveh_vufr" id="session_sveh_vufr" value="${recordTopic.sveh_vufr}">
+			        <input type="hidden" name="session_sveh_sydt" id="session_sveh_sydt" value="${recordTopic.sveh_sydt}">
+			        
+			        
 			        <%-- Session fields needed for the AJAX calculation av YKoder - Bilagdahandlingar --%>
 				 	<input type="hidden" name="session_sveh_aube" id="session_sveh_aube" value="${recordTopic.sveh_aube}">
 				 	

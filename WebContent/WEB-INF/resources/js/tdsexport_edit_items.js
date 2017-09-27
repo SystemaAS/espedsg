@@ -204,11 +204,14 @@
 	  	
   	});
   	
-  	
   	//CALCULATE Stat.Values
   	function calculateStatisticalValues() {
   		var svehStrParam = "sveh_vakd=" + jq('#session_sveh_vakd').val() + "&" + "sveh_vaku=" + jq('#session_sveh_vaku').val() + "&" + 	
-							"sveh_fabl=" + jq('#session_sveh_fabl').val() + "&"; 
+							"sveh_fabl=" + jq('#session_sveh_fabl').val() + "&" +
+							"sveh_vuva=" + jq('#session_sveh_vuva').val() + "&" +
+							"sveh_vuku=" + jq('#session_sveh_vuku').val() + "&" +
+							"sveh_vufr=" + jq('#session_sveh_vufr').val() + "&" + 
+							"sveh_sydt=" + jq('#session_sveh_sydt').val() + "&";
 		var svevStrParam = "svev_fabl=" + jq('#svev_fabl').val();	
 		
 		if(jq('#session_sveh_vakd').val()!='' && jq('#session_sveh_vaku').val() !='' && jq('#session_sveh_fabl').val()!='' && jq('#svev_fabl').val()!=''){
