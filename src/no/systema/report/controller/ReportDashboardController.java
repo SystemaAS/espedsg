@@ -33,7 +33,7 @@ public class ReportDashboardController {
 	@RequestMapping(value = "report_dashboard.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		ModelAndView successView = new ModelAndView("report_dashboard"); //default trafikkregnskap
+		ModelAndView successView = new ModelAndView("report_trafikkregnskap"); //default trafikkregnskap
 		logger.info("Inside: doReportDashboard");
 		
 		String report = request.getParameter("report");
@@ -43,7 +43,7 @@ public class ReportDashboardController {
 			return loginView;
 		}else{
 			if (StringUtils.hasValue(report)) {
-				successView.setViewName("report_dashboard");
+				successView.setViewName(report);
 				
 			} else {
 				
