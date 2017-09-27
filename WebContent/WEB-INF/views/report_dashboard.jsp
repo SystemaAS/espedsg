@@ -894,12 +894,21 @@ jq( function() {
 		<%-- tab container component --%>
 		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
+
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;Trafikkregnskap</font>
 						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
-					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="20" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a href="report_dashboard.do">
+							<font class="tabDisabledLink">&nbsp;Fortolling(NO)</font>&nbsp;						
+						</a>
+			  		</td>				
+					
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+	
 				</tr>
 		</table>
 		</td>
@@ -1029,26 +1038,6 @@ jq( function() {
 					</div>		
 				  </div>	
 	
-<!--   				  
-				  <div class="row">
-				    <div class="col-md-12">
-				      <div class="row">
-   						 <div class="col-md-12 show-grid-left">
-   						    Omsetning og kostnad /måned 
-   						 </div>
-				      </div>
-
-				      <div class="row border">
-						 <div class="col-md-12" id="stacked-bar-chart"  align="center"> 
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="stacked-bar" style="display: none;"> - <i>tilbakestill filter</i></a>
-						  </div>   
-				      </div>
-
-				    </div>
-				  </div>				  
-				  
---> 	
 				  <div class="row">
 				    <div class="col-md-6 show-grid-left" id="data-count"> 
 				        <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster.
@@ -1081,7 +1070,6 @@ jq( function() {
 				        </thead>
 				      </table>
 				      <div id="paging">
-   						<!--  Viser <span id="begin"></span>-<span id="end"></span> av <span id="size"></span>.-->
     					<input id="last" type="Button" value="forrige" onclick="javascript:last()" />
     					<input id="next" type="button" value="neste" onclick="javascript:next()"/>
     					<button class="btn" id="download">download</button>

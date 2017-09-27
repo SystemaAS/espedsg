@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.jservices.common.util.StringUtils;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
 
@@ -23,7 +24,7 @@ public class ReportDashboardController {
 
 	/**
 	 * @Example
-	 * 		http://localhost:8080/espedsg/report_dashboard.do
+	 * 		http://localhost:8080/espedsg/report_dashboard.do?report=trafikkregnskap
 	 * 
 	 * @param session
 	 * @param request
@@ -32,12 +33,23 @@ public class ReportDashboardController {
 	@RequestMapping(value = "report_dashboard.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		ModelAndView successView = new ModelAndView("report_dashboard");
+		ModelAndView successView = new ModelAndView("report_dashboard"); //default trafikkregnskap
 		logger.info("Inside: doReportDashboard");
+		
+		String report = request.getParameter("report");
+		logger.info("report="+report);
 		
 		if(appUser==null){
 			return loginView;
 		}else{
+			if (StringUtils.hasValue(report)) {
+				successView.setViewName("report_dashboard");
+				
+			} else {
+				
+			}
+			
+			
 			return successView;
 		}
 	}
