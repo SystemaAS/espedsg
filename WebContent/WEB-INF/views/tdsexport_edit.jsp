@@ -1408,15 +1408,59 @@
 					 			</td>
 					 			<td width="2">&nbsp;</td>
 			 				</tr>
-				 									        
-					     	<tr height="5"><td>&nbsp;</td></tr>
+				 			<tr height="20"><td>&nbsp;</td></tr>
 					     	
+					     	
+					     	<tr>
+								<td colspan="3" >
+									<%-- Special section --%>
+									<table align="left" class="formFrameHeader" width="100%" border="0" cellspacing="0" cellpadding="0">
+								 		<tr height="15">
+								 			<td class="text12White">
+								 				<b>&nbsp;12.</b>&nbsp;Fraktkostnader&nbsp;<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
+							 				</td>
+						 				</tr>
+					 				</table>
+					 			</td>
+				 			</tr>
+					     	<tr>
+				        		<td colspan="3" class="text12">
+					 				<table align="left" class="formFrame" width="100%" border="0" cellspacing="0" cellpadding="0">
+					 				<tr height="5"><td></td></tr>
+					 				<tr>
+					 					<td class="text12">&nbsp;<span title="sveh_vufr">Fraktkostnad&nbsp;</span></td>
+					 					<td><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vufr" id="sveh_vufr" size="15" maxlength="14" value="${model.record.sveh_vufr}"></td>
+					 					<td class="text12">&nbsp;&nbsp;<span title="sveh_vuva">Frakvaluta</span>
+							 				<%-- Note: onChange event in jQuery for this currency list --%>
+							 				<select class="inputTextMediumBlue" name="sveh_vuva" id="sveh_vuva">
+								            		<option value="">-Välj-</option>
+							 				  	<c:forEach var="currency" items="${model.mdxCodeList}" >
+			                                	 	<option value="${currency.svkd_kd}"<c:if test="${model.record.sveh_vuva == currency.svkd_kd}"> selected </c:if> >${currency.svkd_kd}</option>
+												</c:forEach> 
+											</select>
+											<a tabindex="-1" id="sveh_vuvaIdLink">
+												<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+											</a>									
+						 				</td>
+						 				
+				 					</tr>
+				 					<tr>
+					 					<td class="text12">&nbsp;<span title="sveh_vuku">Fraktkurs&nbsp;</span></td>
+					 					<td><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vuku" id="sveh_vuku" size="10" maxlength="8" value="${model.record.sveh_vuku}"></td>
+				 					</tr>
+				 					<tr height="5"><td></td></tr>
+				 					
+			 						</table>
+					 			</td>
+					        </tr>
+					        
+					     	<tr height="10"><td>&nbsp;</td></tr>
+					     
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td width="2">&nbsp;</td>
-			 		<td>
+					<td colspan="3">
 			 			<table width="80%" align="left" border="0" cellspacing="0" cellpadding="0">
 			 				<tr height="5">
 			 					<td class="text">&nbsp;</td> 

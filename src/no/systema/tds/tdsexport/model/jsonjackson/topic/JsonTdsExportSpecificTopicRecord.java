@@ -581,6 +581,19 @@ public class JsonTdsExportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setSveh_kval(String value) {  this.sveh_kval = value; }
 	public String getSveh_kval() { return this.sveh_kval;}
 	
+	private String sveh_vuva = null;
+	public void setSveh_vuva(String value) {  this.sveh_vuva = value; }
+	public String getSveh_vuva() { return this.sveh_vuva;}
+	
+	private String sveh_vuku = null;
+	public void setSveh_vuku(String value) {  this.sveh_vuku = value; }
+	public String getSveh_vuku() { return this.sveh_vuku;}
+	
+	private String sveh_vufr = null;
+	public void setSveh_vufr(String value) {  this.sveh_vufr = value; }
+	public String getSveh_vufr() { return this.sveh_vufr;}
+	
+	
 	/**
 	 * Used for java reflection in other classes
 	 * @return

@@ -76,6 +76,16 @@
 				jq('#sveh_vakdIdLink').click();
 			}
 	    });
+	    //Valutakod Frakt
+	    jq('#sveh_vuvaIdLink').click(function() {
+	    	jq('#sveh_vuvaIdLink').attr('target','_blank');
+	    	window.open('tdsexport_edit_childwindow_generalcodes.do?action=doInit&type=MDX&ctype=sveh_vuva', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	    });
+	    jq('#sveh_vuvaIdLink').keypress(function(e){ //extra feature for the end user
+			if(e.which == 13) {
+				jq('#sveh_vuvaIdLink').click();
+			}
+	    });
 	    //Deklarant - Landkod
 	    jq('#sveh_dklkIdLink').click(function() {
 	    	jq('#sveh_dklkIdLink').attr('target','_blank');
@@ -750,6 +760,24 @@
 					//data[i].svvs_omr;
 					jq('#sveh_vaku').val(data[i].svvk_krs);
 					jq('#sveh_vaom').val(data[i].svvs_omr);
+				}
+				
+			});
+	    });
+	    jq('#sveh_vuva').change(function() {
+	    	//alert('Hej');
+	    	//this parameters must match the AJAX controller parameter names in Spring exactly...
+			jq.getJSON('getCurrencyRate.do', {
+				applicationUser : jq('#applicationUser').val(),
+				currencyCode : jq('#sveh_vuva').val(),
+				ajax : 'true'
+			}, function(data) {
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					//data[i].svvk_krs;
+					//data[i].svvs_omr;
+					jq('#sveh_vuku').val(data[i].svvk_krs);
+					//jq('#sveh_?').val(data[i].svvs_omr);
 				}
 				
 			});

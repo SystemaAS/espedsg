@@ -52,6 +52,11 @@
 				  opener.jq('#sveh_tral').val(kod);
 				  opener.jq('#sveh_golk').focus();
 				  
+			  }else if(callerType == 'sveh_vuva'){
+				  //Valuta
+				  opener.jq('#sveh_vuva').val(kod);
+				  opener.jq('#sveh_vuva').focus();
+				  
 			  }
 			  
 			  
