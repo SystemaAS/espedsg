@@ -58,6 +58,8 @@ d3.json(runningUrl, function(error, data) {
 	  d.registreringsdato = +d.registreringsdato; 
 	  d.signatur =   d.signatur;
 	  d.mottaker =   d.mottaker;
+	  d.totaltoll = d.totaltoll;
+	  d.totalavg = d.totalavg;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -86,9 +88,10 @@ d3.json(runningUrl, function(error, data) {
 	//var  stackedBarChart =  dc.barChart("#stacked-bar-chart"); //dc.compositeChart("#bar-chart-composite"); 
 	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
-	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
-	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
-	var  resultatDisplay = dc.numberDisplay("#resultat");	
+	var  antallDisplay = dc.numberDisplay("#antall");	
+	var  antallVareposterDisplay = dc.numberDisplay("#antallVareposter");	
+	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
+	var  totalAvgDisplay = dc.numberDisplay("#totalAvg");	
 	var  dbDisplay = dc.numberDisplay("#db");	
 	dataTable = dc.dataTable('#data-table');
 	
@@ -146,19 +149,25 @@ d3.json(runningUrl, function(error, data) {
             function (p, v) {
                 ++p.count;
                 p.sum_vareposter += v.vareposter;   
+                p.totaltoll  += v.totaltoll;
+                p.totalavg += v.totalavg;
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
                 p.sum_vareposter -= v.vareposter;   
+                p.totaltoll -= v.totaltoll;
+                p.totalavg -= v.totalavg;
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_vareposter: 0
+                    sum_vareposter: 0,
+                    totaltoll: 0,
+                    totalavg: 0
                 };
             }
     );  
@@ -194,27 +203,29 @@ d3.json(runningUrl, function(error, data) {
 	
 	
 	
-	omsetningsDisplay
+	antallDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			console.log("omsetningdisplay:p.value.sum_vareposter="+p.value.sum_vareposter);
-			 return p.value.sum_vareposter;
-		  })
-		  .formatNumber(function(d){ return d3.format(",.0f")(d)});
-	    
-	kostnadsDisplay
+			 return p.value.count;
+		  });
+	
+	antallVareposterDisplay
+		.group(omsetningsGroup)  
+		.valueAccessor(function (p) {
+				return p.value.sum_vareposter;
+		});
+
+	totalTollDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			// console.log("p.value.kostnad="+p.value.kostnad);
-			 return p.value.kostnad;
+			 return p.value.totaltoll;
 		  })
 		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
 	    
-	resultatDisplay
+	totalAvgDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
-			return resultat;
+			 return p.value.totalavg;
 		  })
 		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
 
@@ -828,36 +839,35 @@ jq( function() {
 	
 	  			  <div class="padded-row-small">&nbsp;</div>
 	
-<!--
+
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
 		  				<div class="col-md-3 show-grid-center-large">
-  						       Omsetning
+  						       Antall fortollinger
   						 </div>
 			  			 <div class="col-md-3 show-grid-center-large">
-  						        Kostnad
+  						       Antal vareposter
   						 </div> 
 			  			 <div class="col-md-3 show-grid-center-large">
-  						        Resultat
+  						       Totalbeløp - toll 
   						 </div> 
  			  		     <div class="col-md-3 show-grid-center-large">
-  						        Dekningsbidrag
+  						         Totalbeløp - avg
   						 </div>    						       						     						    
 					  </div> 
- 	
 	
 					  <div class="row border">
-						<div class="col-md-3 padded" id="omsetning" align="center"></div>
-				        <div class="col-md-3 padded" id="kostnad" align="center"></div>  
-				        <div class="col-md-3 padded" id="resultat" align="center"></div>  
-				        <div class="col-md-3 padded" id="db" align="center"></div>  
+						<div class="col-md-3 padded" id="antall" align="center"></div>
+				        <div class="col-md-3 padded" id="antallVareposter" align="center"></div>  
+				        <div class="col-md-3 padded" id="totalToll" align="center"></div>  
+				        <div class="col-md-3 padded" id="totalAvg" align="center"></div>  
 					  </div> 	
 					  				  
 					</div>		
 				  </div>
 	
--->
+
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
