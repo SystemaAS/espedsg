@@ -3,19 +3,41 @@
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
 <script type="text/javascript">
+"use strict";
 var  dataTable;
 var tolldataSize;
 var ofs = 0, pag = 20;
-var url = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}&year=2016";
+var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
+
 function load_data() {
 	
-jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	var runningUrl = baseUrl;
+	var selectedYear = jq('#selectYear').val();
+	var selectedAvd = jq('#selectAvd').val();
+	var selectedSign = jq('#selectSign').val();
+	var selectedKundenr = jq('#selectKundenr').val();
 
-d3.json(url, function(error, data) {
+	if (selectedYear != "" )	{
+		runningUrl = runningUrl + "&registreringsdato="+selectedYear;
+	}	
+	if (selectedAvd != "" )	{
+		runningUrl = runningUrl + "&avdeling="+selectedAvd;
+	}
+	if (selectedSign != "" )	{
+		runningUrl = runningUrl + "&signatur="+selectedSign;
+	}	
+	if (selectedKundenr != "" )	{
+		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
+	}
+	console.log("runningUrl="+runningUrl); 	
+	
+    jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+
+d3.json(runningUrl, function(error, data) {
 	var tollData = data.dtoList;
     //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -27,14 +49,15 @@ d3.json(url, function(error, data) {
  
     // normalize/parse data
 	 _.each(tollData, function(d) {
-	  d.date = fullDateFormat.parse(d.sidt);
+	  d.date = fullDateFormat.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
 	  d.month = monthFormat(d.date);
-	  d.siavd = d.siavd;
-	  d.sitdn = d.sitdn;
-	  d.antvareposter = +d.antvareposter;
-	  d.sidt = +d.sidt; 
-	  d.sisg =   d.sisg;
+	  d.avdeling = d.avdeling;
+	  d.deklarasjonsnr= d.deklarasjonsnr;
+	  d.vareposter = +d.vareposter;
+	  d.registreringsdato = +d.registreringsdato; 
+	  d.signatur =   d.signatur;
+	  d.mottaker =   d.mottaker;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -47,12 +70,12 @@ d3.json(url, function(error, data) {
 	var  dateDim  = toll.dimension(function(d) {return d.date;});
 	var  yearDim  = toll.dimension(function(d) {return d.year;});
     var  monthDim = toll.dimension(function (d) {return d.month;});	
-	var  avdDim  = toll.dimension(function(d) {return d.siavd;});
-	var  sisgDim  = toll.dimension(function(d) {return d.sisg;});
+	var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
+	var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 	//Groups
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.antvareposter;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.antvareposter;});
-	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.antvareposter;});
+	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.vareposter;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.vareposter;});
+	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.vareposter;});
 	//Charts 
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
@@ -77,20 +100,20 @@ d3.json(url, function(error, data) {
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_antvareposter += v.antvareposter;   
+                p.sum_vareposter += v.vareposter;   
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_antvareposter -= v.antvareposter;   
+                p.sum_vareposter -= v.vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_antvareposter: 0
+                    sum_vareposter: 0
                 };
             }
     );  
@@ -99,20 +122,20 @@ d3.json(url, function(error, data) {
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_antvareposter += v.antvareposter;   
+                p.sum_vareposter += v.vareposter;   
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_antvareposter -= v.antvareposter;   
+                p.sum_vareposter -= v.vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_antvareposter: 0
+                    sum_vareposter: 0
                 };
             }
     );  	
@@ -122,20 +145,20 @@ d3.json(url, function(error, data) {
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_antvareposter += v.antvareposter;   
+                p.sum_vareposter += v.vareposter;   
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_antvareposter -= v.antvareposter;   
+                p.sum_vareposter -= v.vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_antvareposter: 0
+                    sum_vareposter: 0
                 };
             }
     );  
@@ -174,8 +197,8 @@ d3.json(url, function(error, data) {
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			console.log("p.value.sum_antvareposter="+p.value.sum_antvareposter);
-			 return p.value.sum_antvareposter;
+			console.log("omsetningdisplay:p.value.sum_vareposter="+p.value.sum_vareposter);
+			 return p.value.sum_vareposter;
 		  })
 		  .formatNumber(function(d){ return d3.format(",.0f")(d)});
 	    
@@ -314,7 +337,7 @@ d3.json(url, function(error, data) {
 //			        })    
 		            .group(monthDimGroup, "Antall vareposter")
 			        .valueAccessor(function (d) {
-                		return d.value.sum_antvareposter; 
+                		return d.value.sum_vareposter; 
         			})           
 		     ])         
 		    .brushOn(true);
@@ -486,11 +509,12 @@ stackedBarChart
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 	    .size(Infinity) 
 	    .columns([
-	      function (d) { return d.siavd; },
-	      function (d) { return d.sitdn; },
-	      function (d) { return d.antvareposter; },
-	      function (d) { return d.sidt; },
-	      function (d) { return d.sisg ; }
+	      function (d) { return d.avdeling; },
+	      function (d) { return d.deklarasjonsnr; },
+	      function (d) { return d.vareposter; },
+	      function (d) { return d.registreringsdato; },
+	      function (d) { return d.signatur ; },
+	      function (d) { return d.mottaker ; }
 	    ])
 	    .order(d3.descending)
 	    .on('renderlet', function (table) {
@@ -784,30 +808,17 @@ jq( function() {
 				<div class="container-fluid">
 				  <div class="row">
 					<div class="col-md-8">
-							År:
+							Fra år:
 						<select name="selectYear" id="selectYear" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="2016">2016</option>
 	  						<option value="2017">2017</option>
+		  					<option value="2016">2016</option>
 	  					</select>
 		  					&nbsp;&nbsp;Avdeling:
-						<select name="selectAvd" id="selectAvd" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">1</option>
-	  						<option value="2">2</option>
-	  					</select>
+							<input type="text" class="inputTextMediumBlue" name="selectAvd" id="selectAvd" size="5" maxlength="4" >  					
 	  						&nbsp;&nbsp;Signatur:
-						<select name="selectSignatur" id="selectSignatur" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">XXX</option>
-	  						<option value="2">YYY</option>
-	  					</select>
-	  		    			&nbsp;&nbsp;Kunde:
-						<select name="selectKunde" id="selectKunde" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">1</option>
-	  						<option value="2">2</option>
-	  					</select>
+							<input type="text" class="inputTextMediumBlue" name="selectSign" id="selectSign" size="4" maxlength="3" >  	
+	  		    			&nbsp;&nbsp;Mottaker:
+							<input type="text" class="inputTextMediumBlue" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
 					</div>	
 
 	  		    	<div class="col-md-4" align="right">
@@ -918,11 +929,12 @@ jq( function() {
 				      <table class="table table-bordered table-striped" id="data-table">
 				        <thead>
 				          <tr class="header">
-				            <th class="data-table-col" data-col="siavd">siavd</th>
-				            <th class="data-table-col" data-col="sitdn">sitdn</th>
-				            <th class="data-table-col" data-col="antvareposter">antvareposter</th>
-				            <th class="data-table-col" data-col="sidt">sidt</th>
-				            <th class="data-table-col" data-col="sisg">sisg</th>
+				            <th class="data-table-col" data-col="avdeling">avdeling</th>
+				            <th class="data-table-col" data-col="deklarasjonsnr">deklarasjonsnr</th>
+				            <th class="data-table-col" data-col="vareposter">vareposter</th>
+				            <th class="data-table-col" data-col="registreringsdato">registreringsdato</th>
+				            <th class="data-table-col" data-col="signatur">signatur</th>
+				            <th class="data-table-col" data-col="mottaker">mottaker</th>
 				          </tr>
 				        </thead>
 				      </table>

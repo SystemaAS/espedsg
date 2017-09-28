@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
 <script type="text/javascript">
+"use strict";
 var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
