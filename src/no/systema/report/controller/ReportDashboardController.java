@@ -44,11 +44,7 @@ public class ReportDashboardController {
 		}else{
 			if (StringUtils.hasValue(report)) {
 				successView.setViewName(report);
-				
-			} else {
-				
-			}
-			
+			} 
 			
 			return successView;
 		}

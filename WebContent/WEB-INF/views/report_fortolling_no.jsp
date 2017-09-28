@@ -74,11 +74,14 @@ d3.json(runningUrl, function(error, data) {
     var  monthDim = toll.dimension(function (d) {return d.month;});	
 	var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
 	var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
+	var  typeDim  = toll.dimension(function(d) {return d.type;});
 	//Groups
 	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.vareposter;});
 	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.vareposter;});
 	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.vareposter;});
+	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.vareposter;});
 	//Charts 
+	var  typeChart   = dc.pieChart("#chart-ring-type");
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  sisgChart   = dc.pieChart('#chart-ring-sisg');
@@ -172,23 +175,32 @@ d3.json(runningUrl, function(error, data) {
             }
     );  
   
+	typeChart
+	    .width(300)
+	    .height(300)
+	    .dimension(typeDim)
+	    .group(typeDimGroup)
+	    .externalRadiusPadding(50)
+	    .drawPaths(true)
+	    .externalLabels(20)
+	    .innerRadius(40)
+	    
 	yearChart
-	    .width(350)
+	    .width(300)
 	    .height(300)
 	    .dimension(yearDim)
 	    .group(yearDimGroup)
 	    .externalRadiusPadding(50)
-	    .innerRadius(30)
-	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
+	    .innerRadius(40)
    
 	avdChart
 	    .width(350)
 	    .height(300)
+	    .dimension(avdDim)
+	    .group(avdDimGroup)
 	    .slicesCap(25)
 	    .innerRadius(40)
 	    .externalRadiusPadding(50)
-	    .dimension(avdDim)
-	    .group(avdDimGroup)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
 	
 	sisgChart
@@ -200,7 +212,6 @@ d3.json(runningUrl, function(error, data) {
 	    .dimension(sisgDim)
 	    .group(sisgDimGroup)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
-	
 	
 	
 	antallDisplay
@@ -478,6 +489,11 @@ stackedBarChart
      	dc.renderAll();
    	});
 
+	d3.selectAll('a#type').on('click', function () {
+		typeChart.filterAll();
+		dc.redrawAll();
+	});
+
 	d3.selectAll('a#year').on('click', function () {
 		yearChart.filterAll();
 		dc.redrawAll();
@@ -525,7 +541,8 @@ stackedBarChart
 	      function (d) { return d.vareposter; },
 	      function (d) { return d.registreringsdato; },
 	      function (d) { return d.signatur ; },
-	      function (d) { return d.mottaker ; }
+	      function (d) { return d.mottaker ; },
+	      function (d) { return d.type ; }
 	    ])
 	    .order(d3.descending)
 	    .on('renderlet', function (table) {
@@ -887,10 +904,13 @@ jq( function() {
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
-		  				<div class="col-md-4 show-grid-left">
+		  				<div class="col-md-3 show-grid-left">
+  						       Import / Export
+  						</div>
+		  				<div class="col-md-3 show-grid-left">
   						       År
   						</div>
-		  				<div class="col-md-2 show-grid-left">
+		  				<div class="col-md-1 show-grid-left">
   						       Avdeling
   						</div>
     				    <div class="col-md-2 show-grid-right">
@@ -898,21 +918,25 @@ jq( function() {
 						  <a id="avdfilter">legg til filter</a>			    
   				    	</div>						
   						
-		  				<div class="col-md-4 show-grid-left">
+		  				<div class="col-md-3 show-grid-left">
   						       Signatur
   						</div>
  
 					  </div> 
 					  <div class="row border">
-						<div class="col-md-4 border" id="chart-ring-year" align="center">
+						<div class="col-md-3 border" id="chart-ring-type" align="center">
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div>
+						<div class="col-md-3 border" id="chart-ring-year" align="center">
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-				        <div class="col-md-4 border" id="chart-ring-avd" align="center">
+				        <div class="col-md-3 border" id="chart-ring-avd" align="center">
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-				        <div class="col-md-4 border" id="chart-ring-sisg" align="center">
+				        <div class="col-md-3 border" id="chart-ring-sisg" align="center">
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
@@ -945,6 +969,7 @@ jq( function() {
 				            <th class="data-table-col" data-col="registreringsdato">registreringsdato</th>
 				            <th class="data-table-col" data-col="signatur">signatur</th>
 				            <th class="data-table-col" data-col="mottaker">mottaker</th>
+				            <th class="data-table-col" data-col="imp/exp">type</th>
 				          </tr>
 				        </thead>
 				      </table>
