@@ -28,9 +28,7 @@ d3.json(url, function(error, data) {
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
-		 console.log("d.hedtop="+d.hedtop);
 	  d.date = fullDateFormat.parse(d.hedtop);
-	    console.log("d.date="+d.date);
 	  d.year = yearFormat(d.date);
 	  d.month = monthFormat(d.date);
 	  d.tupro = d.tupro;
@@ -42,7 +40,6 @@ d3.json(url, function(error, data) {
 	  d.fakda = d.fakda;
 	  d.faopko = d.faopko;
 	  d.trknfa = d.trknfa;
-	  d.kalle = 10;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
