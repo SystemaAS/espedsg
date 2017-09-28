@@ -19,3 +19,17 @@
 	  if (currentMonth < 10) { currentMonthStr = '0' + currentMonth; }
 	  return currentMonthStr;
   }
+  
+  jq(function() {
+	  //custom validity
+	  jq('#dfsg').focus(function() {
+	    	if(jq('#dfsg').val()!=''){
+	    		refreshCustomValidity(jq('#dfsg')[0]);
+	  		}
+	  });
+	  jq('#dfbela').focus(function() {
+	    	if(jq('#dfbela').val()!=''){
+	    		refreshCustomValidity(jq('#dfbela')[0]);
+	  		}
+	  });
+  });  
