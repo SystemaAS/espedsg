@@ -54,12 +54,11 @@ d3.json(runningUrl, function(error, data) {
 	  d.month = monthFormat(d.date);
 	  d.avdeling = d.avdeling;
 	  d.deklarasjonsnr= d.deklarasjonsnr;
-	  d.vareposter = +d.vareposter;
+	  d.reg_vareposter = +d.reg_vareposter;
+	  d.off_vareposter = +d.off_vareposter;
 	  d.registreringsdato = +d.registreringsdato; 
 	  d.signatur =   d.signatur;
 	  d.mottaker =   d.mottaker;
-	  d.totaltoll = d.totaltoll;
-	  d.totalavg = d.totalavg;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -75,11 +74,6 @@ d3.json(runningUrl, function(error, data) {
 	var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
 	var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 	var  typeDim  = toll.dimension(function(d) {return d.type;});
-	//Groups
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.vareposter;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.vareposter;});
-	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.vareposter;});
-	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.vareposter;});
 	//Charts 
 	var  typeChart   = dc.pieChart("#chart-ring-type");
 	var  yearChart   = dc.pieChart("#chart-ring-year");
@@ -92,7 +86,8 @@ d3.json(runningUrl, function(error, data) {
 	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  antallDisplay = dc.numberDisplay("#antall");	
-	var  antallVareposterDisplay = dc.numberDisplay("#antallVareposter");	
+	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
+	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
 	var  totalAvgDisplay = dc.numberDisplay("#totalAvg");	
 	var  dbDisplay = dc.numberDisplay("#db");	
@@ -101,25 +96,38 @@ d3.json(runningUrl, function(error, data) {
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
 	
+	var minmonth = dateDim.bottom(1)[0].month;
+	var maxmonth = dateDim.top(1)[0].month;
+	
+	//Groups
+	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+
+	
 	//Group reduce
     var dateDimGroup =  dateDim.group().reduce(   
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_vareposter += v.vareposter;   
+                p.sum_reg_vareposter += v.reg_vareposter;   
+                p.sum_off_vareposter  += v.off_vareposter;    
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_vareposter -= v.vareposter;   
+                p.sum_reg_vareposter -= v.reg_vareposter;   
+                p.sum_off_vareposter -= v.off_vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_vareposter: 0
+                    sum_reg_vareposter: 0,
+                    sum_off_vareposter: 0
                 };
             }
     );  
@@ -128,20 +136,23 @@ d3.json(runningUrl, function(error, data) {
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_vareposter += v.vareposter;   
+                p.sum_reg_vareposter += v.reg_vareposter;   
+                p.sum_off_vareposter  += v.off_vareposter;                
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_vareposter -= v.vareposter;   
+                p.sum_reg_vareposter -= v.reg_vareposter;   
+                p.sum_off_vareposter -= v.off_vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_vareposter: 0
+                    sum_reg_vareposter: 0,
+                    sum_off_vareposter: 0
                 };
             }
     );  	
@@ -151,26 +162,23 @@ d3.json(runningUrl, function(error, data) {
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
-                p.sum_vareposter += v.vareposter;   
-                p.totaltoll  += v.totaltoll;
-                p.totalavg += v.totalavg;
+                p.sum_reg_vareposter += v.reg_vareposter;   
+                p.sum_off_vareposter  += v.off_vareposter;
                 return p;
             },
             /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
-                p.sum_vareposter -= v.vareposter;   
-                p.totaltoll -= v.totaltoll;
-                p.totalavg -= v.totalavg;
+                p.sum_reg_vareposter -= v.reg_vareposter; 
+                p.sum_off_vareposter -= v.off_vareposter;   
                 return p;
             },
             /* initialize p */
             function () {
                 return {
                     count: 0,
-                    sum_vareposter: 0,
-                    totaltoll: 0,
-                    totalavg: 0
+                    sum_reg_vareposter: 0,
+                    sum_off_vareposter: 0
                 };
             }
     );  
@@ -220,11 +228,18 @@ d3.json(runningUrl, function(error, data) {
 			 return p.value.count;
 		  });
 	
-	antallVareposterDisplay
+	antallreg_vareposterDisplay
 		.group(omsetningsGroup)  
 		.valueAccessor(function (p) {
-				return p.value.sum_vareposter;
+				return p.value.sum_reg_vareposter;
 		});
+	
+	antalloff_vareposterDisplay
+		.group(omsetningsGroup)  
+		.valueAccessor(function (p) {
+				return p.value.sum_off_vareposter;
+		});	
+	
 
 	totalTollDisplay
 	     .group(omsetningsGroup)  
@@ -322,47 +337,107 @@ d3.json(runningUrl, function(error, data) {
 
 */
 
-
 	compositeChart
 		    .width(1200)
 		    .height(500)
+		    .dimension(monthDim) 
+		    .group(monthDimGroup)
 		    .margins({top: 40, right: 10, bottom: 30, left: 80})
             .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
+            
+            //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt!!??
+            //.xUnits(d3.time.month)
+            
             .yAxisPadding('5%')
             .yAxisLabel("Antall vareposter")
         	.xAxisLabel("Måned")      
             .elasticY(true)
-            .renderTitle(true)
-//	    	.title(function (d) {
-//            	var resultat = d.value.omsetning + d.value.kostnad;  
-//            	var db = resultat / d.value.omsetning;
-//            	 return [
-// 	                d.key,
-// 	                'Resultat: ' + numberFormat(resultat) + ':-',
-// 	                'Dekningsbidrag: ' + percentageFormat(db)
-// 	            ].join('\n');
-//			 })	
-        	.mouseZoomable(false)
-        	.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
+        	.legend(dc.legend().x(1000).y(20).itemHeight(5).gap(20))
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
-		            .dimension(monthDim) 
+		            //.dimension(monthDim) 
 		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .centerBar(true)
+		            .barPadding(1)
 		            .renderLabel(true)
-//			        .label(function (d) {
-//			        	var resultat = d.data.value.omsetning + d.data.value.kostnad;  
-//		            	var db = resultat / d.data.value.omsetning;
-//		            	//console.log("d.data.value.omsetning="+d.data.value.omsetning);
-//			            return "Db:"+percentageFormat(db);
-//			        })    
-		            .group(monthDimGroup, "Antall vareposter")
+		           // .group(monthDimGroup, "Antall registrerte vareposter")
 			        .valueAccessor(function (d) {
-                		return d.value.sum_vareposter; 
-        			})           
-		     ])         
+                		return d.value.sum_reg_vareposter; 
+        			}),
+   		         dc.barChart(compositeChart)
+		           // .dimension(monthDim) 
+		            .colors('mediumvioletred')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		            .xAxisPadding(5000)
+		            .barPadding(1)
+		            .renderLabel(true)
+		           // .group(monthDimGroup, "Antall officielle vareposter")
+			        .valueAccessor(function (d) {
+             			return d.value.sum_off_vareposter; 
+     			})       			
+        			
+		     ])  
+//             .on('renderlet', function (_chart) {
+//                 dc.events.trigger(function () {
+//                	 _chart.selectAll("rect.bar").on("click", _chart.onClick);
+//					dc.redrawAll();
+//                 });
+//             })	
+             
 		    .brushOn(true);
+	        
+       
+	//        compositeChart.on('renderlet.barclicker', function(chart, filter) {
+	//	  		  chart.selectAll('rect.bar').on('click.custom', function(d) {
+	//	        	// use the data in d to take the right action
+	//	        	//chart.filter(multikey(d.x, d.layer)); //TODO filter on måned
+	//	        	dc.redrawAll();
+	//	    		});
+	//		 });        
+        
+	
+/*	        
+	        var compositeChartDate = dc.compositeChart("#composite-chart-date");
+	        compositeChartDate.width(500)
+	                .height(180)
+	                .margins({top: 30, right: 50, bottom: 30, left: 30})
+	                .dimension(dateDimension)
+	                .group(dateIdSumGroup, "Id Sum")
+	                .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 7, 15)]))
+	                .xUnits(d3.time.days)
+	                .shareColors(true)
+	                .compose([
+	                    dc.barChart(compositeChartDate).group(dateValueSumGroup, "Value Sum"),
+	                    dc.lineChart(compositeChartDate),
+	                    dc.lineChart(compositeChartDate).group(dateGroup, "Date Group")
+	                ])
+	                .on('renderlet', function (chart) {
+	                    dc.events.trigger(function () {
+	                        barChartDate.focus(chart.filter());
+	                        lineChartDate.focus(chart.filter());
+	                    });
+	                })
+	                .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+	                .xAxis().ticks(5);	        
+	        
+*/	        
+	        
+/*	        
+var negativeBarChart = dc.barChart("#negative-bar-chart");
+negativeBarChart.width(1100)
+        .height(200)
+        .margins({top: 30, right: 50, bottom: 30, left: 30})
+        .dimension(dateDimension)
+        .group(dateNegativeValueSumGroup)
+        .stack(dateNegativeValueSumGroup)
+        .stack(dateNegativeValueSumGroup)
+        .yAxisPadding(5)
+        .elasticY(true)
+        .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 7, 15)]))
+        .renderHorizontalGridLines(true)
+        .xUnits(d3.time.days);	        
+	        
+*/	        
 	        
 	        
  var minDate2 = dateDim.bottom(1)[0].month;
@@ -538,7 +613,8 @@ stackedBarChart
 	    .columns([
 	      function (d) { return d.avdeling; },
 	      function (d) { return d.deklarasjonsnr; },
-	      function (d) { return d.vareposter; },
+	      function (d) { return d.reg_vareposter; },
+	      function (d) { return d.off_vareposter; },
 	      function (d) { return d.registreringsdato; },
 	      function (d) { return d.signatur ; },
 	      function (d) { return d.mottaker ; },
@@ -801,21 +877,21 @@ jq( function() {
 
 				<tr height="25"> 
 
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a href="report_dashboard.do?report=report_trafikkregnskap">
-							<font class="tabDisabledLink">&nbsp;Trafikkregnskap</font>&nbsp;						
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap style="border-collapse:unset;">
+						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" style="border-collapse:unset;">
+							<font class="tabDisabledLink" style="border-collapse:unset;">&nbsp;Trafikkregnskap</font>&nbsp;						
 						</a>						
-						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;Fortolling(NO)</font>
-						<img valign="bottom" src="resources/images/list.gif" border="0" alt="general list">
+						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="65%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -829,7 +905,7 @@ jq( function() {
 			You can use nearly any combination of these classes to create more dynamic and flexible layouts.
 			Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
 			-->
-	 	 <table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
+	 	 <table width="99%" class="tabThinBorderWhiteWithSideBorders" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
@@ -860,25 +936,21 @@ jq( function() {
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row ">
-		  				<div class="col-md-3 show-grid-center-large">
+		  				<div class="col-md-4 show-grid-center-large">
   						       Antall fortollinger
   						 </div>
-			  			 <div class="col-md-3 show-grid-center-large">
-  						       Antal vareposter
+			  			 <div class="col-md-4 show-grid-center-large">
+  						       Antall registrerte vareposter
   						 </div> 
-			  			 <div class="col-md-3 show-grid-center-large">
-  						       Totalbeløp - toll 
+			  			 <div class="col-md-4 show-grid-center-large">
+  						       Antal officielle vareposter
   						 </div> 
- 			  		     <div class="col-md-3 show-grid-center-large">
-  						         Totalbeløp - avg
-  						 </div>    						       						     						    
 					  </div> 
 	
 					  <div class="row border">
-						<div class="col-md-3 padded" id="antall" align="center"></div>
-				        <div class="col-md-3 padded" id="antallVareposter" align="center"></div>  
-				        <div class="col-md-3 padded" id="totalToll" align="center"></div>  
-				        <div class="col-md-3 padded" id="totalAvg" align="center"></div>  
+						<div class="col-md-4 padded" id="antall" align="center"></div>
+				        <div class="col-md-4 padded" id="antallreg_vareposter" align="center"></div>  
+				        <div class="col-md-4 padded" id="antalloff_vareposter" align="center"></div>  
 					  </div> 	
 					  				  
 					</div>		
@@ -905,7 +977,7 @@ jq( function() {
 					<div class="col-md-12">
 					  <div class="row ">
 		  				<div class="col-md-3 show-grid-left">
-  						       Import / Export
+  						       Import / Eksport
   						</div>
 		  				<div class="col-md-3 show-grid-left">
   						       År
@@ -946,7 +1018,7 @@ jq( function() {
 	
 				  <div class="row">
 				    <div class="col-md-6 show-grid-left" id="data-count"> 
-				        <span class="filter-count"></span> toll poster valgt ut av <span class="total-count"></span> poster.
+				        <span class="filter-count"></span> fortollinge valgt ut <span class="total-count"></span>.
 				    </div>
 				    <div class="col-md-6 show-grid-right">
 						<a id="all">tilbakestill alt</a>
@@ -958,14 +1030,15 @@ jq( function() {
 	
    
 				  <div id="accordion" class="row">
-				    <h3>Tollposter, utvalg</h3>
+				    <h3>Fortollinger, utvalg</h3>
 				    <div class="col-md-12 show-grid-small">
 				      <table class="table table-bordered table-striped" id="data-table">
 				        <thead>
 				          <tr class="header">
 				            <th class="data-table-col" data-col="avdeling">avdeling</th>
 				            <th class="data-table-col" data-col="deklarasjonsnr">deklarasjonsnr</th>
-				            <th class="data-table-col" data-col="vareposter">vareposter</th>
+				            <th class="data-table-col" data-col="reg_vareposter">reg. vareposter</th>
+				             <th class="data-table-col" data-col="off_vareposter">off. vareposter</th>
 				            <th class="data-table-col" data-col="registreringsdato">registreringsdato</th>
 				            <th class="data-table-col" data-col="signatur">signatur</th>
 				            <th class="data-table-col" data-col="mottaker">mottaker</th>
