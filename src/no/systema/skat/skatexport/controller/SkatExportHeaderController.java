@@ -30,7 +30,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.NumberFormatterLocaleAware;
-
+import no.systema.main.util.StringManager;
 
 
 import no.systema.main.model.SystemaWebUser;
@@ -56,19 +56,12 @@ import no.systema.skat.skatexport.validator.SkatExportHeaderValidator;
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicService;
 import no.systema.skat.skatexport.service.SkatExportSpecificTopicItemService;
 import no.systema.skat.skatexport.service.html.dropdown.SkatExportDropDownListPopulationService;
-
 import no.systema.skat.util.SkatConstants;
 import no.systema.skat.url.store.SkatUrlDataStore;
 import no.systema.skat.skatexport.util.RpgReturnResponseHandler;
 import no.systema.skat.skatexport.util.manager.CodeDropDownMgr;
-import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemRecord;
-import no.systema.skat.skatimport.model.topic.SkatImportSpecificTopicTotalItemLinesObject;
-import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalContainer;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicFaktTotalRecord;
-
-
 
 /**
  * SKAT Export Topic Controller 
@@ -86,6 +79,7 @@ public class SkatExportHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	NumberFormatterLocaleAware numFormatter = new NumberFormatterLocaleAware();
+	StringManager strMgr = new StringManager();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -148,6 +142,8 @@ public class SkatExportHeaderController {
 	@RequestMapping(value="skatexport_edit.do")
 	public ModelAndView doSkatExportEdit(@ModelAttribute ("record") JsonSkatExportSpecificTopicRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("skatexport_edit");
+		
+		
 		String method = "doSkatExportEdit [RequestMapping-->skatexport_edit.do]";
 		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
@@ -163,6 +159,13 @@ public class SkatExportHeaderController {
 		String avd = request.getParameter("avd");
 		String sign = request.getParameter("sign");
 		String dkeh_0035 = request.getParameter("dkeh_0035"); //test indicator
+		//proforma indikatorer fallbacks
+		String proforma_mrn = request.getParameter("proforma_mrn");
+		this.adjustProformaFields(proforma_mrn, recordToValidate);
+		//To allow refresh
+		ModelAndView refreshView = new ModelAndView("redirect:skatexport_edit.do?action=doFetch&avd=" + avd + "&opd=" + opd + "&sysg=" + sign);
+		
+		
 		
 		//Action (doFetch, doUpdate, doCreate)
 		logger.info("Action:" + action);
@@ -268,6 +271,8 @@ public class SkatExportHeaderController {
 				    	//put domain objects and do go back to the original view...
 				    	recordToValidate.setDkeh_syav(avd);
 				    	recordToValidate.setDkeh_sysg(sign);
+				    	recordToValidate.setDkeh_mrn(proforma_mrn);
+				    	
 				    	this.setDomainObjectsInView(session, model, recordToValidate, totalItemLinesObject);
 				    	isValidCreatedRecordTransactionOnRPG = false;
 				    	if(opd==null || "".equals(opd)){
@@ -288,6 +293,7 @@ public class SkatExportHeaderController {
 				            binder.bind(request);
 				            //test indicator
 				            jsonSkatExportSpecificTopicRecord.setDkeh_0035(dkeh_0035);
+				          
 				            
 						}else{
 							logger.info("CREATE NEW follow by UDATE transaction...");
@@ -397,6 +403,11 @@ public class SkatExportHeaderController {
 		            //Edit or Create offset
 		    		if(isValidCreatedRecordTransactionOnRPG){
 		    			successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
+		    			//only with update
+		    			if(!"doFetch".equals(action)){
+		    				successView = refreshView;
+		    				logger.info("REFRESH VIEW!!!!!!!!!!!!!!!!!!!!1");
+		    			}
 		            }else{
 	            		//Validation errors have been generated and we must offset to some state (set or changed above in some flow)
 	            		successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, action);
@@ -422,6 +433,9 @@ public class SkatExportHeaderController {
 	    	return successView;
 		}
 	}
+	
+	
+	
 	
 	/**
 	 * Required validation check on item lines
@@ -470,6 +484,15 @@ public class SkatExportHeaderController {
 	private void adjustValidUpdateFlag(Map model, JsonSkatExportSpecificTopicRecord record){
 		record.setValidUpdate(true);
 		model.put(SkatConstants.DOMAIN_RECORD, record);
+	}
+	/**
+	 * 
+	 * @param proforma_mrn
+	 * @param recordToValidate
+	 */
+	private void adjustProformaFields( String proforma_mrn, JsonSkatExportSpecificTopicRecord recordToValidate){
+		//Todo ?
+		
 	}
 	/**
 	 * 
@@ -973,6 +996,107 @@ public class SkatExportHeaderController {
 		return successView;
 	}
 	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="skatexport_updateProforma.do")
+	public ModelAndView doUpdateProforma(JsonSkatExportSpecificTopicRecord recordToUpdate, HttpSession session, HttpServletRequest request){
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_SKAT_EXPORT);
+		
+		RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		
+		//---------------------------------
+		//Crucial request parameters (Keys
+		//---------------------------------
+		String action = SkatConstants.ACTION_SEND;
+		String opd = request.getParameter("currentOpd");
+		String avd = request.getParameter("currentAvd");
+		String sign = request.getParameter("currentSign");
+		
+		ModelAndView successView = new ModelAndView("redirect:skatexport_edit.do?action=doFetch&avd=" + avd + "&opd=" + opd + "&sysg=" + sign);
+		
+		//Action (doFetch, doUpdate, doCreate)
+		logger.info("Action:" + action);
+		Map model = new HashMap();
+		
+		if( appUser==null || "".equals(appUser) ){
+			return this.loginView;
+		}else{
+			
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_PROFORMA_URL;
+			
+			//-------------------
+			//add URL-parameter 
+			//-------------------
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForUpdateProforma(avd, opd, recordToUpdate, appUser);
+			//there are only key parameters in doSend. No other topic (record) specific parameters from GUI or such
+			String urlRequestParams = urlRequestParamsKeys;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	//----------------------------------------------------------------------------
+		    	//EXECUTE the UPDATE (RPG program) here (STEP [2] when creating a new record)
+		    	//----------------------------------------------------------------------------
+		    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+			//Debug --> 
+		    	logger.info("Checking errMsg in rpgReturnPayload" + rpgReturnPayload);
+		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
+		    	rpgReturnResponseHandler.evaluateRpgResponseOnTopicUpdate(rpgReturnPayload);
+		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
+		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+		    		//TODO ERROR HANDLING HERE... stay in the same page ?
+		    	}else{
+		    		//Update succefully done!
+		    		logger.info("[INFO] Status successfully updated [changed status], OK ");
+		    		//put domain objects
+		    		//this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicRecord);
+		    		//TODO SUCCESS should stay at the same side or not? Right now we go to the list of topics
+		    	}
+			
+				
+		}
+		return successView;
+	}
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param recordToUpdate
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForUpdateProforma(String avd, String opd, JsonSkatExportSpecificTopicRecord recordToUpdate, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_mrn=" + recordToUpdate.getDkeh_mrn());
+		//other fields (dates)
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_godt=" + recordToUpdate.getDkeh_godt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_frdt=" + recordToUpdate.getDkeh_frdt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_vadt=" + recordToUpdate.getDkeh_vadt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_fedt=" + recordToUpdate.getDkeh_fedt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_fudt=" + recordToUpdate.getDkeh_fudt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_fvdt=" + recordToUpdate.getDkeh_fvdt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_ctdt=" + recordToUpdate.getDkeh_ctdt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_cfdt=" + recordToUpdate.getDkeh_cfdt());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_fadt=" + recordToUpdate.getDkeh_fadt());
+		//other (strings)
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_fast=" + recordToUpdate.getDkeh_fast());
+		
+		
+		
+		return urlRequestParamsKeys.toString();
+	}
 	/**
 	 * 
 	 * @param avd

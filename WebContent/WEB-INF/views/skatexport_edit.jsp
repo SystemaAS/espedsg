@@ -157,6 +157,9 @@
 	    <c:when test="${editActionOnTopic=='doUpdate' or editActionOnTopic=='doFetch'}">
 	    	<input type="hidden" name="avd" id="avd" value='${model.record.dkeh_syav}'>
 			<input type="hidden" name="sign" id="sign" value='${model.record.dkeh_sysg}'>
+			<%-- proforma angiv. fallback in case user väljer bort proforma. Så att man inte tappar original MRN --%>
+			<input type="hidden" name="proforma_mrn" id="proforma_mrn" value='${model.record.dkeh_mrn}'>
+			
 			<tr >
 				<td align="left" class="text12MediumBlue" >
 					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_syav">Afdeling:&nbsp;</span><b>${model.record.dkeh_syav}</b>&nbsp;&nbsp;<span title="dkeh_syop">Angivelse:&nbsp;</span><b>${model.record.dkeh_syop}</b>
@@ -164,9 +167,10 @@
 					&nbsp;&nbsp;<span title="dkeh_sysg">Sign:&nbsp;</span><b>${model.record.dkeh_sysg}</b>
 				</td>
 				<td align="right" >
+					
 					<c:if test="${'1' != isTestAvd}">
 						<%--This checkbox appears only in real production. Otherwise use the Testavdelning --%>
-						<input type="checkbox" name="dkeh_0035" id="dkeh_0035" value="1" <c:if test="${model.record.dkeh_0035 == '1'}"> checked </c:if>  ><font class="text12MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" name="dkeh_0035" id="dkeh_0035" value="1" <c:if test="${model.record.dkeh_0035 == '1'}"> checked </c:if>  ><font class="text14MediumBlue"><b>TEST flag</b></font>&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<a tabindex=-1 href="skatexport_edit_printTopic.do?avd=${model.record.dkeh_syav}&opd=${model.record.dkeh_syop}">
 					 	<img style="vertical-align: bottom;cursor: pointer;"  src="resources/images/printer.png" width="30" hight="30" border="0" alt="Print">
@@ -200,6 +204,13 @@
 							<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 						</font>
 					</c:if>
+					&nbsp;&nbsp;&nbsp;<input id="updateProformaCheckbox" type="checkbox" name="dkeh_prof" id="dkeh_prof" value="1" <c:if test="${not empty model.record.dkeh_prof}"> checked </c:if>  ><font class="text12MediumBlue">Proforma Angivelse</font>
+					<div id=updateProformaIcon style="display:inline;">
+						<a tabindex=-1 id="updateProformaLink" runat="server" href="#">
+							<img src="resources/images/update.gif" border="0" alt="edit">
+						</a>
+					</div>
+					 
 					<div class="text11" style="position: relative;" align="left">
 					<span style="position:absolute;top:2px; width:250px;" id="status_info" class="popupWithInputText text11"  >	
 		           		<br/>
@@ -213,7 +224,8 @@
 					</div>
 					
 				</td>
-			</tr>	
+			</tr>
+			
 		</c:when>
 		<%-- CREATE MODE --%> 
 		<c:otherwise>
@@ -238,9 +250,8 @@
 				<td>&nbsp;</td>
 			</tr>	
 		</c:otherwise>
-		</c:choose>
-
-		<tr height="10"><td colspan="2">&nbsp;</td></tr>
+		</c:choose>		
+		<tr height="5"><td colspan="2">&nbsp;</td></tr>
 		<%-- --------------- --%>
 		<%-- LEFT SIDE CELL --%>
 		<%-- --------------- --%>
@@ -457,10 +468,10 @@
 		 				<tr height="2"><td></td></tr>
 			 			<tr>
 							<td align="left" class="text12Gray">&nbsp;
-		 						<span title="dkeh_fast">&nbsp;&nbsp;&nbsp;Faktisk.utp.sted&nbsp;</span>
+		 						<span title="dkeh_fast_dummy">&nbsp;&nbsp;&nbsp;Faktisk.utp.sted&nbsp;</span>
 				 			</td>
 				 			<td colspan="2">
-				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast" id="dkeh_fast" size="30" maxlenght="35" value="${model.record.dkeh_fast}">
+				 				<input readonly type="text" class="inputTextReadOnly" name="dkeh_fast_dummy" id="dkeh_fast_dummy" size="30" maxlenght="25" value="${model.record.dkeh_fast}">
 			 				</td>			
 			 				<td class="text12" align="left" >
 					            <img onMouseOver="showPop('29_info');" onMouseOut="hidePop('29_info');"style="vertical-align:top;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">	
@@ -1921,37 +1932,37 @@
 							
 				 				<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_godt">Godkendelsesdato:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_godt_dummy">Godkendelsesdato:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_godt" id="dkeh_godt" size="13" maxlength="12" value="${model.record.dkeh_godt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_godt_dummy" id="dkeh_godt_dummy" size="13" maxlength="12" value="${model.record.dkeh_godt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_frdt">Frigivelsetidspunkt:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_frdt_dummy">Frigivelsetidspunkt:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_frdt" id="dkeh_frdt" size="13" maxlength="12" value="${model.record.dkeh_frdt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_frdt_dummy" id="dkeh_frdt_dummy" size="13" maxlength="12" value="${model.record.dkeh_frdt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_vadt">Valideringstidspunkt:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_vadt_dummy">Valideringstidspunkt:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_vadt" id="dkeh_vadt" size="13" maxlength="12" value="${model.record.dkeh_vadt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_vadt_dummy" id="dkeh_vadt_dummy" size="13" maxlength="12" value="${model.record.dkeh_vadt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_fedt">Fakt.eksp.tidspunkt:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_fedt_dummy">Fakt.eksp.tidspunkt:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fedt" id="dkeh_fedt" size="13" maxlength="12" value="${model.record.dkeh_fedt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fedt_dummy" id="dkeh_fedt_dummy" size="13" maxlength="12" value="${model.record.dkeh_fedt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_fudt">Fakt.udpassagetid:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_fudt_dummy">Fakt.udpassagetid:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fudt" id="dkeh_fudt" size="13" maxlength="8" value="${model.record.dkeh_fudt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fudt_dummy" id="dkeh_fudt_dummy" size="13" maxlength="8" value="${model.record.dkeh_fudt}">
 				 					</td>
 								</tr>
 								
@@ -1965,30 +1976,30 @@
 								</tr>
 								<tr height="1"><td></td></tr>
 			 					<tr>
-				 					<td class="text12" ><span title="dkeh_fvdt">Forv.udpassagetid:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_fvdt_dummy">Forv.udpassagetid:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fvdt" id="dkeh_fvdt" size="10" maxlength="8" value="${model.record.dkeh_fvdt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fvdt_dummy" id="dkeh_fvdt_dummy" size="10" maxlength="8" value="${model.record.dkeh_fvdt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_ctdt">Udt.udpassagectl:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_ctdt_dummy">Udt.udpassagectl:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_ctdt" id="dkeh_ctdt" size="10" maxlength="8" value="${model.record.dkeh_ctdt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_ctdt_dummy" id="dkeh_ctdt_dummy" size="10" maxlength="8" value="${model.record.dkeh_ctdt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_cfdt">Frig.udpassagectl:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_cfdt_dummy">Frig.udpassagectl:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_cfdt" id="dkeh_cfdt" size="10" maxlength="8" value="${model.record.dkeh_cfdt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_cfdt_dummy" id="dkeh_cfdt_dummy" size="10" maxlength="8" value="${model.record.dkeh_cfdt}">
 				 					</td>
 								</tr>
 								<tr height="1"><td></td></tr>
 				 				<tr>
-				 					<td class="text12" ><span title="dkeh_fadt">Fakt.ank.utp.sted:</span>&nbsp;</td>
+				 					<td class="text12" ><span title="dkeh_fadt_dummy">Fakt.ank.utp.sted:</span>&nbsp;</td>
 				 					<td class="text12">
-				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fadt" id="dkeh_fadt" size="10" maxlength="8" value="${model.record.dkeh_fadt}">
+				 						<input readonly style="text-align: right" type="text" class="inputTextReadOnly" name="dkeh_fadt_dummy" id="dkeh_fadt_dummy" size="10" maxlength="8" value="${model.record.dkeh_fadt}">
 				 					</td>
 								</tr>
 			 				</table>
@@ -2666,6 +2677,114 @@
 					</tr>
 				</table>
 				</form>
+		</div>
+	</td>
+</tr>
+
+ <%-- proforma dialog --%>	
+ <tr>
+	<td >
+		<div id="dialogUpdateProforma" title="Dialog">
+			 	<form action="skatexport_updateProforma.do" name="updateProformaForm" id="updateProformaForm" >
+			 	<input type="hidden" name="currentAvd" id="currentAvd" value='${model.record.dkeh_syav}'>
+			 	<input type="hidden" name="currentOpd" id="currentOpd" value='${model.record.dkeh_syop}'>
+			 	<input type="hidden" name="currentOpd" id="currentSign" value='${model.record.dkeh_sysg}'>
+				<p class="text12" >Proforma angivelses felter</p>
+				<table >
+					<tr>
+					<td >
+						<table border="0">
+						<tr>
+							<td class="text12" align="left" title="dkeh_mrn" ><b>MRN</b></td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" name="dkeh_mrn" id="dkeh_mrn" size="20" maxlength="20" value="${model.record.dkeh_mrn}">
+							</td>
+						</tr>
+						<tr>	
+							<td class="text12" align="left" title="dkeh_godt" ><b>Godkendelsesdato</b></td>
+							<td class="text12MediumBlue">
+								<input type="text" class="inputText" name="dkeh_godt" id="dkeh_godt" size="8" maxlength="8" value="${model.record.dkeh_godt}">
+							</td>
+						</tr>
+						</table>
+					</td>
+					</tr>
+
+					<tr height="10"><td></td></tr> 
+					<tr>	
+						<td colspan="5">
+						<table width="100%">
+						<tr>
+							<td valign="top" width="50%">
+								<table >
+								<tr>
+									<td class="text12" align="left"  title="dkeh_frdt" >Frigivelsetidspunkt</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_frdt" id="dkeh_frdt" size="8" maxlength="8" value="${model.record.dkeh_frdt}">
+									</td>
+								</tr>
+								<tr>
+									<td class="text12" align="left"  title="dkeh_vadt" >Valideringstidspunkt</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_vadt" id="dkeh_vadt" size="8" maxlength="8" value="${model.record.dkeh_vadt}">
+									</td>
+								</tr>
+								<tr>	
+									<td class="text12" align="left"  title="dkeh_fedt" >Fakt.eksp.tidspunkt</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_fedt" id="dkeh_fedt" size="8" maxlength="8" value="${model.record.dkeh_frdt}">
+									</td>
+								</tr>
+								<tr>
+									<td class="text12" align="left"  title="dkeh_fudt" >Fakt.udpassagetid</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_fudt" id="dkeh_fudt" size="8" maxlength="8" value="${model.record.dkeh_fudt}">
+									</td>
+								</tr>
+								<tr>
+									<td class="text12" align="left"  title="dkeh_fvdt" >Forv.udpassagetid</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_fvdt" id="dkeh_fvdt" size="8" maxlength="8" value="${model.record.dkeh_fvdt}">
+									</td>
+								</tr>
+								</table>
+							</td>
+							
+							<td valign="top" width="50%">
+								<table >
+								<tr>
+								
+								<td class="text12" align="left"  title="dkeh_ctdt" >Udt.udpassagectl</td>
+								<td class="text12MediumBlue">
+									<input type="text" class="inputText" name="dkeh_ctdt" id="dkeh_ctdt" size="8" maxlength="8" value="${model.record.dkeh_ctdt}">
+								</td>
+								</tr>
+								<tr>	
+									<td class="text12" align="left"  title="dkeh_cfdt" >Frig.udpassagectl</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_cfdt" id="dkeh_cfdt" size="8" maxlength="8" value="${model.record.dkeh_cfdt}">
+									</td>
+								</tr>
+								<tr>	
+									<td class="text12" align="left"  title="dkeh_fadt" >Fakt.ank.utp.sted</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_fadt" id="dkeh_fadt" size="8" maxlength="8" value="${model.record.dkeh_fadt}">
+									</td>
+								</tr>
+								<tr>	
+									<td class="text12" align="left"  title="dkeh_fast" >Faktisk.utp.sted</td>
+									<td class="text12MediumBlue">
+										<input type="text" class="inputText" name="dkeh_fast" id="dkeh_fast" size="25" maxlength="25" value="${model.record.dkeh_fast}">
+									</td>
+								</tr>
+								</table>
+							</td>			
+						</tr>				
+						</table>
+						</td>			
+					</tr>
+					</table>
+				</form>				
 		</div>
 	</td>
 </tr>

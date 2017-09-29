@@ -140,6 +140,11 @@ public final class SkatExportUrlDataStore {
 	// Change status (Admin Role)
 	//-----------------------------
 	static public String SKAT_EXPORT_BASE_UPDATE_STATUS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE051R.pgm";
+	
+	//-----------------------------
+	// Update proforma angivelse
+	//-----------------------------
+	static public String SKAT_EXPORT_BASE_UPDATE_PROFORMA_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TDKE053R.pgm";
 		
 	
 }

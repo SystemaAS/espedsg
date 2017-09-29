@@ -143,7 +143,42 @@
   	
   	jq(document).ready(function(){
   	    jq(this).scrollTop(0); //needed for Chrome (bug)
+  	    //checkbox proforma
+  	    if (jq("#updateProformaCheckbox").is(':checked')){
+	        jq("#updateProformaIcon").show();
+	    }else{
+	    	jq("#updateProformaIcon").hide();
+	    }
+  	    
   	});
+  	//checkbox proforma
+  	jq(function() {
+  		jq('#updateProformaCheckbox').change(function() {
+	    	if (jq(this).prop('checked')){
+    			jq('#updateProformaIcon').show();
+    			
+    		}else{
+    			jq('#updateProformaIcon').hide();
+    			//set fallbacks back
+    			jq('#dkeh_godt').val(jq('#dkeh_godt_dummy').val());
+    			jq('#dkeh_frdt').val(jq('#dkeh_frdt_dummy').val());
+    			jq('#dkeh_vadt').val(jq('#dkeh_vadt_dummy').val());
+    			jq('#dkeh_fedt').val(jq('#dkeh_fedt_dummy').val());
+    			jq('#dkeh_fudt').val(jq('#dkeh_fudt_dummy').val());
+    			jq('#dkeh_fvdt').val(jq('#dkeh_fvdt_dummy').val());
+    			//
+    			jq('#dkeh_ctdt').val(jq('#dkeh_ctdt_dummy').val());
+    			jq('#dkeh_cfdt').val(jq('#dkeh_cfdt_dummy').val());
+    			jq('#dkeh_fadt').val(jq('#dkeh_fadt_dummy').val());
+    			jq('#dkeh_fast').val(jq('#dkeh_fast_dummy').val());
+    			
+    		}
+	    });
+	    
+	    
+	    
+	});
+  	
   	
   	jq(function() {
   		jq('#dkeh_222').calculator({ showOn: 'button',  
@@ -210,6 +245,34 @@
 		  dateFormat: 'yymmdd'
 	  });
   	  
+  	  //proforma dates
+  	  jq("#dkeh_godt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_frdt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_vadt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_fedt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_fudt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_fvdt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_ctdt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_cfdt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
+  	  jq("#dkeh_fadt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
     });
   	
   	//----------------
@@ -1216,6 +1279,57 @@
 		  });
 	  });
 	  
+	  //-------------------------------------------
+	  //START Model dialog: "Update proforma"
+	  //-------------------------------------------
+	  //Initialize <div> here
+	  jq(function() { 
+		  jq("#dialogUpdateProforma").dialog({
+			  autoOpen: false,
+			  maxWidth:600,
+	          maxHeight: 550,
+	          width: 520,
+	          height: 450,
+			  modal: true
+		  });
+	  });
+	  //Present dialog box onClick (href in parent JSP)
+	  jq(function() {
+		  jq("#updateProformaLink").click(function() {
+			  //setters (add more if needed)
+			  jq('#dialogUpdateProforma').dialog( "option", "title", "Opdater angivelse" );
+			  
+			  //deal with buttons for this modal window
+			  jq('#dialogUpdateProforma').dialog({
+				 buttons: [ 
+		            {
+					 id: "dialogSaveTU",	
+					 text: "Ok",
+					 click: function(){
+						 		jq('#updateProformaForm').submit();
+					 		}
+				 	 },
+		 	 		{
+				 	 id: "dialogCancelTU",
+				 	 text: "Cancel", 
+					 click: function(){
+						 		//back to initial state of form elements on modal dialog
+						 		//jq("#dialogSaveTU").button("option", "disabled", true);
+						 		jq( this ).dialog( "close" ); 
+					 		} 
+		 	 		 } ] 
+			  });
+			  //init values
+			  //jq("#dialogSaveTU").button("option", "disabled", true);
+			  //open now
+			  jq('#dialogUpdateProforma').dialog('open');
+		  });
+	  });
+	  //-------------------------------------------
+	  //END Model dialog: "Update proforma"
+	  //-------------------------------------------
+	
+	  
 	  
 	  //----------------------------------------------
 	  //START Model dialog: "Print delere (skilleark)"
@@ -1407,4 +1521,7 @@
 	  //-------------------------------------------
 	  //END Model dialog: "File upload"
 	  //-------------------------------------------
+	  
+	
+		
 	
