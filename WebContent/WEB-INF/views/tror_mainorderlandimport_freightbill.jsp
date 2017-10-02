@@ -220,7 +220,7 @@
 					 					<input type="text" class="inputTextMediumBlue" name="dfntla" id="dfntla" size="5" maxlength="4" value="${model.record.dfntla}">
 					 				</td>
 					 				<td width="20px" class="text14" >&nbsp;</td>
-					 				<td class="text14"><spring:message code="systema.tror.fraktbrev.form.update.label.oppkrav"/>Oppkrav</td>
+					 				<td class="text14"><spring:message code="systema.tror.fraktbrev.form.update.label.oppkrav"/></td>
 					 				<td class="text14" >
 					 					<select  name="dfkde" id="dfkde" class="inputTextMediumBlue" >
 					 						<option value="">-velg-</option>
@@ -293,7 +293,7 @@
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
 					 				<td class="text12">
-					 					&nbsp;<span title="hekns"><spring:message code="systema.tror.fraktbrev.form.update.label.shipper.id"/>&nbsp;</span>
+					 					&nbsp;<span title="dfknss"><spring:message code="systema.tror.fraktbrev.form.update.label.shipper.id"/>&nbsp;</span>
 					 					<a tabindex="-1" id="trorSellerIdLink" >
  											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
  										</a>
@@ -309,7 +309,7 @@
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
-					 				<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="dfnavs"><spring:message code="systema.tror.fraktbrev.form.update.label.shipper.name"/></span>
+					 				<td class="text12">&nbsp;<span title="dfnavs"><spring:message code="systema.tror.fraktbrev.form.update.label.shipper.name"/></span>
 					 					<%-- <c:if test="${XXmodel.record.fakBetExists}">
 						 					<a href="javascript:void(0);" onClick="window.open('tror_childwindow_customer_addresses.do?action=doFind&ctype=s&wkundnr=${user.custNr}','customerWin','top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
@@ -448,7 +448,11 @@
 				 					<table class="tableBorderWithRoundCorners" width="100%">
 					 					<tr>
 					 					
-							 				<td class="text12">&nbsp;<span title="dftran"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.id"/>&nbsp;</span></td>
+							 				<td class="text12">&nbsp;<span title="dftran"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.id"/>&nbsp;</span>
+							 					<a tabindex="-1" id="trorCarrierIdLink" >
+		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 										</a>
+							 				</td>
 							 				<td class="text12" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="${model.record.dftran}"></td>
 						 					<td class="text12">&nbsp;<span title="dfnat"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.name"/>&nbsp;</span></td>
 							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnat" id="dfnat" size="21" maxlength="20" value="${model.record.dfnat}"></td>
@@ -464,6 +468,9 @@
 								 				  		<option value='${record.kfkod}' <c:if test="${record.kfkod == model.record.dfprok}"> selected </c:if> >${record.kfkod}</option>
 													</c:forEach>  
 												</select>
+												<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes.do?action=doFind&ctype=landimport_fb','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
+	 												<img id="imgProductcodes" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 											</a>
 							 				</td>
 							 			</tr>
 							 			<tr>	

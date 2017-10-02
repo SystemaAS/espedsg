@@ -60,7 +60,7 @@
 			               <td width="2%" class="text11MediumBlue" >
 			               		<img style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" >
 			               </td>
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.kukun2}@navn_${record.navn}@adr1_${record.adr1}@adr2_${record.adr2}@postnrsted_${record.adr3}@counter_${counter.count}">
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.kukun2}@navn_${record.navn}@adr1_${record.adr1}@adr2_${record.adr2}@postnrsted_${record.adr3}@postnr_dummy@sted_dummy@counter_${counter.count}">
 			               	 <font class="text12SkyBlue" >&nbsp;${record.kuintn}</font>
 			               </td>
 			               <td class="text11" >&nbsp;${record.kukun2}</td>

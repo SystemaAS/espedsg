@@ -32,4 +32,35 @@
 	    		refreshCustomValidity(jq('#dfbela')[0]);
 	  		}
 	  });
+	  
+	  //Carrier
+	  jq('#trorCarrierIdLink').click(function() {
+		  jq('#trorCarrierIdLink').attr('target','_blank');
+		  window.open('tror_mainorder_childwindow_carrier.do?action=doFind&ctype=tror_car_fb&knr=' + jq('#dftran').val(),"carrierWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorCarrierIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorCarrierIdLink').click();
+		  }
+	  });
+	  //Buyer addresses
+	  jq('#trorBuyerAddressesIdLink').click(function() {
+		  jq('#trorBuyerAddressesIdLink').attr('target','_blank');
+		  window.open('tror_mainorderlandimport_childwindow_buyer_addresses.do?action=doFind&ctype=tror_byadr_fb&kundnr=' + jq('#dfknsm').val(),"buyerAdrWin","top=300px,left=150px,height=600px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorBuyerAddressesIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorBuyerAddressesIdLink').click();
+		  }
+	  });
+	  //Seller addresses
+	  jq('#trorSellerAddressesIdLink').click(function() {
+		  jq('#trorSellerAddressesIdLink').attr('target','_blank');
+		  window.open('tror_mainorderlandimport_childwindow_buyer_addresses.do?action=doFind&ctype=tror_seadr_fb&kundnr=' + jq('#dfknss').val(),"buyerAdrWin","top=300px,left=150px,height=600px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorSellerAddressesIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorSellerAddressesIdLink').click();
+		  }
+	  });
   });  

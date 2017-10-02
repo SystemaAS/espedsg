@@ -52,7 +52,7 @@
 	  //Carrier
 	  jq('#trorCarrierIdLink').click(function() {
 		  jq('#trorCarrierIdLink').attr('target','_blank');
-		  window.open('tror_mainorder_childwindow_carrier.do?action=doFind&ctype=tror_car&knr=' + jq('#heknt').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+		  window.open('tror_mainorder_childwindow_carrier.do?action=doFind&ctype=tror_car&knr=' + jq('#heknt').val(),"carrierWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
 	  });
 	  jq('#trorCarrierIdLink').keypress(function(e){ //extra feature for the end user
 		  if(e.which == 13) {

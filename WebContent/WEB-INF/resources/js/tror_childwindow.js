@@ -118,6 +118,9 @@
 		  var adr1 = record[2].replace("adr1_", "");
 		  var adr2 = record[3].replace("adr2_", "");
 		  var postnrsted = record[4].replace("postnrsted_", "");
+		  //In the case of fraktbrev we must use this 2 fields in the seller address side
+		  var postnr = record[5].replace("postnr_", "");
+		  var sted = record[6].replace("sted_", "");
 		  
 		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
 		  //addressing a parent field from this child window
@@ -157,7 +160,25 @@
 			  opener.jq('#headk3').val(postnrsted);
 			  opener.jq('#henak').focus();
 		  
+		  }else if(jq('#ctype').val()=='tror_byadr_fb'){
+			  //fraktbrevs consignee
+			  opener.jq('#dfnavm').val(navn);
+			  opener.jq('#dfad1m').val(adr1);
+			  opener.jq('#dfad2m').val(adr2);
+			  opener.jq('#dfad3m').val(postnrsted);
+			  opener.jq('#dfnavm').focus();
+			  
+		  }else if(jq('#ctype').val()=='tror_seadr_fb'){
+			  //fraktbrevs consignor uses the same buyer_addresses childwindow. IMPORT NOTE!: It is not like the sellers_addresses in main order
+			  opener.jq('#dfnavs').val(navn);
+			  opener.jq('#dfad1s').val(adr1);
+			  opener.jq('#dfad2s').val(adr2);
+			  opener.jq('#dfad3s').val(sted);
+			  opener.jq('#dfpnls').val(postnr);
+			  //focus
+			  opener.jq('#dfnavs').focus();
 		  }
+		  
 		  
 		  //close child window
 		  window.close();
@@ -201,12 +222,21 @@
 		  var vmnavn = record[2].replace("vmnavn_", "");
 		  var vmtrle = record[3].replace("vmtrle_", "");
 		  var todo = record[4].replace("todo_", "");
+		  var caller= jq("#ctype").val()
 		 
 		  //carrier 
-		  opener.jq('#heknt').val(id);
-		  opener.jq('#ownheknt').val(vmnavn);
-		  opener.jq('#heknt').focus();
-	 
+		  if( caller =='tror_car'){ 
+			  opener.jq('#heknt').val(id);
+			  opener.jq('#ownheknt').val(vmnavn);
+			  opener.jq('#heknt').focus();
+			  
+		  }else if( caller =='tror_car_fb'){ 
+			  opener.jq('#dftran').val(id);
+			  opener.jq('#dfnat').val(vmnavn);
+			  opener.jq('#dfknm').val(vmtrku);
+			  opener.jq('#dftran').focus();
+		  }
+		  
 		  //close child window
 		  window.close();
 		});
@@ -341,14 +371,12 @@
 			  //addressing a parent field from this child window
 			  if( caller =='landimport'){ 
 				  opener.jq('#hekdpl').val(id);
-				  //opener.jq('#TODOname').val(name);
 				  opener.jq('#hekdpl').focus();
 				  
-			  }else if(caller =='todo'){ 
-				  //opener.jq('#hetri').val(countryCode);
-				  //opener.jq('#hesdt').val(postalCode);
-				  //opener.jq('#hesdt').removeClass("text11RedBold");
-				  //opener.jq('#OWNwppns2').val(city);
+			  }else if(caller =='landimport_fb'){ 
+				  opener.jq('#dfprok').val(id);
+				  opener.jq('#dfprok').focus();
+				  
 			  }
 			  //close child window
 			  window.close();

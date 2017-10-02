@@ -6,11 +6,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import no.systema.main.util.StringManager;
 
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
 
 public class JsonTrorBuyerDeliveryAddressRecord extends JsonAbstractGrandFatherRecord  {
-
+	private StringManager strMgr = new StringManager();
+	
 	private String aktkod;
 	private int journr;
 	private String firma; // key
@@ -236,6 +238,35 @@ public class JsonTrorBuyerDeliveryAddressRecord extends JsonAbstractGrandFatherR
 
 	public void setValen(BigDecimal valen) {
 		this.valen = valen;
+	}
+	
+	private String postNr = null;
+	public void setPostNr(String value){ this.postNr = value;}
+	public String getPostNr(){ 
+		if(strMgr.isNotNull (this.getVadrn3()) ){
+			int index = this.getVadrn3().indexOf(" ");
+			if(index >= 0 && this.getVadrn3().length()>5){
+				String tmpPostnr = this.getVadrn3().substring(0, 4);
+				String tmpCity = this.getVadrn3().substring(5);
+				this.postNr = tmpPostnr;
+			}
+		}
+		return this.postNr;
+	}
+	
+	
+	private String city = null;
+	public void setCity(String value){ this.city = value;}
+	public String getCity(){ 
+		if(strMgr.isNotNull (this.getVadrn3()) ){
+			int index = this.getVadrn3().indexOf(" ");
+			if(index >= 0 && this.getVadrn3().length()>5){
+				String tmpPostnr = this.getVadrn3().substring(0, 4);
+				String tmpCity = this.getVadrn3().substring(5);
+				this.city = tmpCity;
+			}
+		}
+		return this.city;
 	}
 
 	/**
