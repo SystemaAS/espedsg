@@ -2,6 +2,11 @@
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
+
+<style>
+
+
+</style>
 <script type="text/javascript">
 "use strict";
 var  dataTable;
@@ -342,7 +347,7 @@ d3.json(runningUrl, function(error, data) {
 		    .height(500)
 		    .dimension(monthDim) 
 		    .group(monthDimGroup)
-		    .margins({top: 40, right: 10, bottom: 30, left: 80})
+		    .margins({top: 40, right: 10, bottom: 40, left: 80})
             .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
             
             //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt!!??
@@ -352,7 +357,15 @@ d3.json(runningUrl, function(error, data) {
             .yAxisLabel("Antall vareposter")
         	.xAxisLabel("Måned")      
             .elasticY(true)
-        	.legend(dc.legend().x(1000).y(20).itemHeight(5).gap(20))
+        	.legend( dc.legend().x(1000).y(20).itemHeight(5).gap(20).legendText(function(d, i) { 
+        				if (i == 0) {
+        					return "Antall registrerte vareposter";
+        				}
+        				if (i==1) {
+        					return "Antall officielle vareposter";
+        				}
+        			}) 
+        	)
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
@@ -361,6 +374,7 @@ d3.json(runningUrl, function(error, data) {
 		            .centerBar(true)
 		            .barPadding(1)
 		            .renderLabel(true)
+				    .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
 		           // .group(monthDimGroup, "Antall registrerte vareposter")
 			        .valueAccessor(function (d) {
                 		return d.value.sum_reg_vareposter; 
@@ -371,6 +385,7 @@ d3.json(runningUrl, function(error, data) {
 		            .xAxisPadding(5000)
 		            .barPadding(1)
 		            .renderLabel(true)
+		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
 		           // .group(monthDimGroup, "Antall officielle vareposter")
 			        .valueAccessor(function (d) {
              			return d.value.sum_off_vareposter; 
@@ -384,7 +399,7 @@ d3.json(runningUrl, function(error, data) {
 //                 });
 //             })	
              
-		    .brushOn(true);
+		    .brushOn(false);
 	        
        
 	//        compositeChart.on('renderlet.barclicker', function(chart, filter) {
@@ -604,10 +619,16 @@ stackedBarChart
 
 	dataCount
 	      .dimension(toll)
-	      .group(all);  
+	      .group(all)
+		  .html({
+            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
+                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
+            all: 'Alle fortollinger. Vennligst klikk på grafen for å bruke filtre.'
+          });      
+	      
 
 	dataTable
-	    .dimension(tollAllDim)
+	    .dimension(tollAllDim) 
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 	    .size(Infinity) 
 	    .columns([
@@ -620,13 +641,24 @@ stackedBarChart
 	      function (d) { return d.mottaker ; },
 	      function (d) { return d.type ; }
 	    ])
-	    .order(d3.descending)
 	    .on('renderlet', function (table) {
 	      	// each time table is rendered remove nasty extra row dc.js insists on adding
 	     	table.select('tr.dc-table-group').remove();
-	 });
+	 	});
 	
-
+	jq(document).ready(function() {
+		var lang = jq('#language').val();
+		jq('#data-table').dataTable({
+			"dom" : '<"top">t<"bottom"flip><"clear">',
+			"scrollY" : "200px",
+			"scrollCollapse" : true,
+			"language": {
+				"url": getLanguage(lang)
+	        }
+		});
+	});
+	
+/*
 	jq('#data-table').on('click', '.data-table-col', function() {
 		  var column = jq(this).attr("data-col");
 		  var tollAllDim2 = toll.dimension(function(d) {return d[column];});
@@ -636,8 +668,9 @@ stackedBarChart
 		  });
 		  dataTable.redraw();
 		});
+*/	
 	
-	
+
 	
 	d3.select('#download').on('click', function() {
 		var today = new Date();
@@ -648,7 +681,7 @@ stackedBarChart
     });	
 	
 	tolldataSize = toll.size();
-	updateDataTable();
+	//updateDataTable();
 	  
 	dc.renderAll(); 
 
@@ -857,29 +890,21 @@ if (typeof module !== "undefined" && module.exports) {
   });
 }
 
-jq( function() {
-	jq( "#accordion" ).accordion({
-    	collapsible: true,
-    	active: false,
-    	heightStyle: "content"
-   });
-} );
-
 </script>
 
 
-<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
+<table width="100%"  cellspacing="0" border="0" cellpadding="0">
 	<tr>
 		<td>
 		<%-- tab container component --%>
-		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
+		<table style="border-collapse:initial;" width="100%"  cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 
 				<tr height="25"> 
 
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap style="border-collapse:unset;">
-						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" style="border-collapse:unset;">
-							<font class="tabDisabledLink" style="border-collapse:unset;">&nbsp;Trafikkregnskap</font>&nbsp;						
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
+							<font class="tabDisabledLink">&nbsp;Trafikkregnskap</font>&nbsp;						
 						</a>						
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
@@ -891,7 +916,7 @@ jq( function() {
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 
-					<td width="65%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -905,28 +930,39 @@ jq( function() {
 			You can use nearly any combination of these classes to create more dynamic and flexible layouts.
 			Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
 			-->
-	 	 <table width="99%" class="tabThinBorderWhiteWithSideBorders" border="0" cellspacing="0" cellpadding="0">
+	 	 <table width="100%" class="tabThinBorderWhiteWithSideBorders" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
 				<div class="container-fluid">
 				  <div class="row">
-					<div class="col-md-8">
+					<div class="col-md-8 text12">
 							Fra år:
 						<select name="selectYear" id="selectYear" >
 	  						<option value="2017">2017</option>
 		  					<option value="2016">2016</option>
 	  					</select>
-		  					&nbsp;&nbsp;Avdeling:
-							<input type="text" class="inputTextMediumBlue" name="selectAvd" id="selectAvd" size="5" maxlength="4" >  					
-	  						&nbsp;&nbsp;Signatur:
-							<input type="text" class="inputTextMediumBlue" name="selectSign" id="selectSign" size="4" maxlength="3" >  	
-	  		    			&nbsp;&nbsp;Mottaker:
-							<input type="text" class="inputTextMediumBlue" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+						<font class="text12">&nbsp;&nbsp;Avdeling:</font>
+		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd">
+	 						<option value="">-alle-</option>
+		 				  	<c:forEach var="record" items="${model.avdList}" >
+		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+							</c:forEach>  
+						</select>		  					
+						<font class="text12">&nbsp;&nbsp;Signatur:</font>
+		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" autofocus>
+			 						<option value="">-alle-</option>
+			 						<c:forEach var="record" items="${model.signatureList}" >
+				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+									</c:forEach>   
+						</select>	
+  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font>
+						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+
 					</div>	
 
 	  		    	<div class="col-md-4" align="right">
-	   	              	<button class="inputFormSubmitGrayOnGraph" onclick="load_data()">Last data</button> 
+	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
 				  </div>
 	
@@ -935,37 +971,50 @@ jq( function() {
 
 				  <div class="row">
 					<div class="col-md-12">
+<!-- 
 					  <div class="row ">
-		  				<div class="col-md-4 show-grid-center-large">
-  						       Antall fortollinger
+		  				<div class="col-md-4">
+  						        <h2>Antall fortollinger</h2>
   						 </div>
-			  			 <div class="col-md-4 show-grid-center-large">
+			  			 <div class="col-md-4">
   						       Antall registrerte vareposter
   						 </div> 
-			  			 <div class="col-md-4 show-grid-center-large">
-  						       Antal officielle vareposter
+			  			 <div class="col-md-4">
+  						      Antal officielle vareposter 
   						 </div> 
 					  </div> 
-	
-					  <div class="row border">
-						<div class="col-md-4 padded" id="antall" align="center"></div>
-				        <div class="col-md-4 padded" id="antallreg_vareposter" align="center"></div>  
-				        <div class="col-md-4 padded" id="antalloff_vareposter" align="center"></div>  
+ -->	
+					  <div class="row">
+						<div class="col-md-4 padded" id="antall" align="center">
+						    <h3 class="text14">Antall fortollinger</h3>
+						</div>
+				        <div class="col-md-4 padded" id="antallreg_vareposter" align="center">
+				           <h3 class="text14">Antall registrerte vareposter</h3>
+				        </div>  
+				        <div class="col-md-4 padded" id="antalloff_vareposter" align="center">
+				          <h3 class="text14">Antal officielle vareposter</h3>
+				        </div>  
 					  </div> 	
-					  				  
 					</div>		
 				  </div>
+	
+				  <div class="row">
+					   <div class="col-md-12">
+					      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+					   </div>
+				  </div>	
 	
 
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
-   						 <div class="col-md-12 show-grid-left">
-   						   Vareposter
+   						 <div class="col-md-12">
+   						   <!--   <h3 class="text11" style="border-bottom-style: solid; border-width: 1px;">Vareposter</h3> -->
    						 </div>
 				      </div>
-				      <div class="row border">
-						 <div class="col-md-12 dc-chart" id="chart-composite" align="center"> 
+				      <div class="row">
+						 <div class="col-md-12 dc-chart" id="chart-composite"> 
+						  	<h3 class="text11">Vareposter</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
 						 </div>  
@@ -974,90 +1023,118 @@ jq( function() {
 				  </div>
 				  
 				  <div class="row">
+				    <div class="col-md-12"></div>
+				  </div>
+				  
+				  <div class="row">
 					<div class="col-md-12">
+<!--  
 					  <div class="row ">
-		  				<div class="col-md-3 show-grid-left">
-  						       Import / Eksport
+		  				<div class="col-md-3">
+  						     Import / Eksport
   						</div>
-		  				<div class="col-md-3 show-grid-left">
+		  				<div class="col-md-3">
   						       År
   						</div>
-		  				<div class="col-md-1 show-grid-left">
+		  				<div class="col-md-1">
   						       Avdeling
   						</div>
-    				    <div class="col-md-2 show-grid-right">
+    				    <div class="col-md-2">
 						  avd:<input id="avd-filter" type="text" size="5"/>
 						  <a id="avdfilter">legg til filter</a>			    
   				    	</div>						
   						
-		  				<div class="col-md-3 show-grid-left">
+		  				<div class="col-md-3">
   						       Signatur
   						</div>
  
 					  </div> 
-					  <div class="row border">
-						<div class="col-md-3 border" id="chart-ring-type" align="center">
+-->					  
+					  <div class="row">
+						   <div class="col-md-12">
+						      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+						   </div>
+					  </div>				  
+					  
+					  <div class="row">
+						<div class="col-md-3" id="chart-ring-type">
+						 	<h3 class="text11">Import / Eksport</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-						<div class="col-md-3 border" id="chart-ring-year" align="center">
+						<div class="col-md-3" id="chart-ring-year">
+							<h3 class="text11">År</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-				        <div class="col-md-3 border" id="chart-ring-avd" align="center">
+				        <div class="col-md-3" id="chart-ring-avd">
+				        	<h3 class="text11">Avdeling
+				        	 <font class="text10">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
+				        	 <a id="avdfilter">&nbsp;legg til filter</a>	
+				        	</h3>
+							 			
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
+	
 				        </div>
-				        <div class="col-md-3 border" id="chart-ring-sisg" align="center">
+				        <div class="col-md-3" id="chart-ring-sisg">
+				        	<h3 class="text11">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
-					  </div> 					  
+					  </div> 	
+
+					  				  
 					</div>		
 				  </div>	
 	
 				  <div class="row">
-				    <div class="col-md-6 show-grid-left" id="data-count"> 
-				        <span class="filter-count"></span> fortollinge valgt ut <span class="total-count"></span>.
-				    </div>
-				    <div class="col-md-6 show-grid-right">
-						<a id="all">tilbakestill alt</a>
-					</div> 
+				    <div class="col-md-12" id="data-count"></div>
 				  </div>
 				 
-				  
-				  <div class="padded-row">&nbsp;</div>
+				  <div class="row">
+					<div class="col-md-12">
+						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+					</div>
+				  </div>	
 	
    
-				  <div id="accordion" class="row">
-				    <h3>Fortollinger, utvalg</h3>
-				    <div class="col-md-12 show-grid-small">
-				      <table class="table table-bordered table-striped" id="data-table">
+				  <div class="row">
+				    <div class="col-md-12">
+				       <font class="text11">Fortollinger, utvalg</font><br>
+				       <div class="padded-row"></div>
+				       <table class="display compact cell-border" id="data-table">
 				        <thead>
-				          <tr class="header">
-				            <th class="data-table-col" data-col="avdeling">avdeling</th>
-				            <th class="data-table-col" data-col="deklarasjonsnr">deklarasjonsnr</th>
-				            <th class="data-table-col" data-col="reg_vareposter">reg. vareposter</th>
-				             <th class="data-table-col" data-col="off_vareposter">off. vareposter</th>
-				            <th class="data-table-col" data-col="registreringsdato">registreringsdato</th>
-				            <th class="data-table-col" data-col="signatur">signatur</th>
-				            <th class="data-table-col" data-col="mottaker">mottaker</th>
-				            <th class="data-table-col" data-col="imp/exp">type</th>
+				          <tr>
+				            <th class="tableHeaderField" >avdeling</th>
+				            <th class="tableHeaderField" >deklarasjonsnr</th>
+				            <th class="tableHeaderField" >reg. vareposter</th>
+				            <th class="tableHeaderField" >off. vareposter</th>
+				            <th class="tableHeaderField" >registreringsdato</th>
+				            <th class="tableHeaderField" >signatur</th>
+				            <th class="tableHeaderField" >mottaker</th>
+				            <th class="tableHeaderField" >type</th>
 				          </tr>
 				        </thead>
-				      </table>
-				      <div id="paging">
-    					<input id="last" type="Button" value="forrige" onclick="javascript:last()" />
-    					<input id="next" type="button" value="neste" onclick="javascript:next()"/>
-    					<button class="btn" id="download">download</button>
+				       </table>
+
+				      <div>
+						<a href="#" id="download">
+	                		<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
+	                		<font class="text12MediumBlue">&nbsp;Excel</font>
+	 	        		</a>
   					  </div>
 				    </div>
+				  
 				  </div>
+	
 				  
 				<div class="padded-row">&nbsp;</div>
 
          		</div> <!-- container -->
 		 	    </td>
+		 	    
+	 		<td width="2%">&nbsp;</td>	 	    
 	 	    </tr>
 	 	 </table>
 		</td>

@@ -861,22 +861,14 @@ if (typeof module !== "undefined" && module.exports) {
   });
 }
 
-jq( function() {
-	jq( "#accordion" ).accordion({
-    	collapsible: true,
-    	active: false,
-    	heightStyle: "content"
-   });
-} );
-
 </script>
 
 
-<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
+<table  width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 		<td>
 		<%-- tab container component --%>
-		<table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
+		<table style="border-collapse:initial;" width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 
 				<tr height="25"> 
