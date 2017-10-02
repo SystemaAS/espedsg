@@ -475,7 +475,7 @@
            									</a>
 										</td>
 						        		<td class="text12" align="left">
-						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svif_vaku" id="svif_vaku" size="8" maxlength="8" value="${model.record.svif_vaku}">
+						            		<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="svif_vaku" id="svif_vaku" size="10" maxlength="8" value="${model.record.svif_vaku}">
 							            </td>
 							            <%-- this field is only used via Ajax since there is no database field. It is used to disclosed a factor when changing the currency --%>
 							 			<td class="text12Grey" align="left" ><input readonly type="text" class="inputTextReadOnly" name="factor" id="factor" size="6" value=""></td>

@@ -73,6 +73,12 @@ public class TdsExportItemsAutoControlMgr {
 				urlRequestParams.append("sveh_vakd=" + headerRecord.getSveh_vakd());
 				urlRequestParams.append("&sveh_vaku=" + headerRecord.getSveh_vaku());
 				urlRequestParams.append("&sveh_fabl=" + headerRecord.getSveh_fabl());
+				//new after DHL's change request (freight 
+				urlRequestParams.append("&sveh_vuva=" + headerRecord.getSveh_vuva());
+				urlRequestParams.append("&sveh_vuku=" + headerRecord.getSveh_vuku());
+				urlRequestParams.append("&sveh_vufr=" + headerRecord.getSveh_vufr());
+				urlRequestParams.append("&sveh_sydt=" + headerRecord.getSveh_sydt());
+				//
 				urlRequestParams.append("&svev_fabl=" + this.record.getSvev_fabl());
 				
 				JsonTdsExportSpecificTopicItemStatisticalValueRecord statValueRecord = this.commonMgr.calculateStatisticalValuesOnItem(this.tdsExportSpecificTopicItemService, applicationUser, urlRequestParams.toString());

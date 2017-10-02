@@ -460,8 +460,8 @@
 							 				<td class="text12" >
 							 					<select name="dfprok" id="dfprok" class="inputTextMediumBlue" >
 							 						<option value="">-velg-</option>
-								 				  	<c:forEach var="record" items="${model.prodkodList}" >
-								 				  		<option value="${Xrecord.todo}"<c:if test="${Xmodel.record.dfprok == Xrecord.todo}"> selected </c:if> >${Xrecord.todo}</option>
+								 				  	<c:forEach var="record" items="${model.produktList}" >
+								 				  		<option value='${record.kfkod}' <c:if test="${record.kfkod == model.record.dfprok}"> selected </c:if> >${record.kfkod}</option>
 													</c:forEach>  
 												</select>
 							 				</td>
@@ -603,7 +603,7 @@
 					 				</td>
 					 				
 					 				<td class="text12">&nbsp;<span title="dfpro2"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode.txt2"/>&nbsp;</span></td>
-					 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfpro2" id="dfpro2" size="35" maxlength="30" value="${model.record.dfpro2}"></td>
+					 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfpro2" id="dfpro2" size="31" maxlength="30" value="${model.record.dfpro2}"></td>
 						 			
 					 			</tr>		
 							 	</table>
@@ -653,8 +653,8 @@
 										 					<option value="" >-velg-</option>
 										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
 										 						<c:choose>
-											 						<c:when test="${not empty model.record.dfvs1 && fn:length(model.record.dfvs1) > 2}" >
-											 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.dfvs1, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
+											 						<c:when test="${not empty model.record.dfvs && fn:length(model.record.dfvs) > 2}" >
+											 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.dfvs, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
 											 						</c:when>
 											 						<c:otherwise>
 											 							<option value='${record.tkkode}'>${record.tkkode}</option>

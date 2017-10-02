@@ -1235,13 +1235,13 @@ public class TrorMainOrderHeaderLandImportController {
 	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
 	
 	
-	
 	@Qualifier ("trorDropDownListPopulationService")
 	private TrorDropDownListPopulationService trorDropDownListPopulationService;
 	@Autowired
 	@Required
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
 	
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
@@ -1265,12 +1265,13 @@ public class TrorMainOrderHeaderLandImportController {
 	public void setNotisblockService (NotisblockService value){ this.notisblockService=value; }
 	public NotisblockService getNotisblockService(){return this.notisblockService;}
 	
+	/*
 	@Qualifier ("ebookingChildWindowService")
 	private EbookingChildWindowService ebookingChildWindowService;
 	@Autowired
 	@Required
 	public void setEbookingChildWindowService (EbookingChildWindowService value){ this.ebookingChildWindowService = value; }
 	public EbookingChildWindowService getEbookingChildWindowService(){ return this.ebookingChildWindowService; }
-	
+	*/
 }
 

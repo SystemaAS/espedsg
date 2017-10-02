@@ -20,6 +20,7 @@
 			  }else if(callerType == 'svif_vakd'){
 				  //Valuta
 				  opener.jq('#svif_vakd').val(kod);
+				  opener.jq('#svif_vakd').change();
 				  opener.jq('#svif_vaku').focus();
 				  
 			  }

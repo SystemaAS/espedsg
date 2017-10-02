@@ -204,7 +204,7 @@
 							<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 						</font>
 					</c:if>
-					&nbsp;&nbsp;&nbsp;<input id="updateProformaCheckbox" type="checkbox" name="dkeh_prof" id="dkeh_prof" value="1" <c:if test="${not empty model.record.dkeh_prof}"> checked </c:if>  ><font class="text12MediumBlue">Proforma Angivelse</font>
+					&nbsp;&nbsp;&nbsp;<input id="updateProformaCheckbox" type="checkbox" name="dkeh_prof" id="dkeh_prof" value="1" <c:if test="${not empty model.record.dkeh_prof}"> checked </c:if>  ><font class="text12MediumBlue">Proformaangivelse</font>
 					<div id=updateProformaIcon style="display:inline;">
 						<a tabindex=-1 id="updateProformaLink" runat="server" href="#">
 							<img src="resources/images/update.gif" border="0" alt="edit">

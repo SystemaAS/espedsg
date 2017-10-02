@@ -425,7 +425,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 				
 	    		//prepare the access CGI with RPG back-end
 	    		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_DELIVERY_ADDRESS_LANDIMPORT_BUYER_URL;
-	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kundnr=" + recordToValidate.getKundnr(); 
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&kundnr=" + recordToValidate.getKundnr() + "&firma=" + appUser.getFallbackCompanyCode(); 
 	    		logger.info("URL: " + BASE_URL);
 	    		logger.info("PARAMS: " + urlRequestParamsKeys);
 	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
@@ -439,7 +439,10 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    		if(container!=null){
 		    			List<JsonTrorBuyerDeliveryAddressRecord> list = new ArrayList<JsonTrorBuyerDeliveryAddressRecord>();
 		    			for(JsonTrorBuyerDeliveryAddressRecord  record : container.getDtoList()){
-		    				list.add(record);
+		    				//only qualifying records 
+		    				if( record.getVadrnr()>0 ) {
+		    					list.add(record);
+		    				}
 		    			}
 		    			model.put(this.DATATABLE_BUYER_ADDRESSES_LIST, list);
 		    			model.put(TrorConstants.DOMAIN_CONTAINER, recordToValidate);

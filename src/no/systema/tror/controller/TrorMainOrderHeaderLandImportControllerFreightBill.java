@@ -30,7 +30,9 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
@@ -52,7 +54,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	/**
 	 * 
 	 * @param recordToValidate
@@ -117,7 +119,9 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
-
+			//get dropdowns
+			this.setCodeDropDownMgr(appUser, model);
+			
 			model.put("action", MainMaintenanceConstants.ACTION_UPDATE); //User can change data
 			model.put("dfavd", recordToValidate.getDfavd());
 			model.put("dfopd", recordToValidate.getDfopd());
@@ -200,6 +204,21 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		return savedRecord;
 	}	
 	
+	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		//Sign / AVD
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, this.maintMainKodtaService, model, appUser);
+		//general
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCountry(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonIncoterms(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonOppdragsType(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonTransporttype(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, appUser);
+		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCurrency(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		
+	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -209,5 +228,12 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
+	@Autowired
+	@Required
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
 }
 

@@ -25,6 +25,7 @@
 			  }else if(callerType == 'svih_vakd'){
 				  //Valuta
 				  opener.jq('#svih_vakd').val(kod);
+				  opener.jq('#svih_vakd').change();
 				  opener.jq('#svih_vaku').focus();
 				  
 			  }else if(callerType == 'svih_dklk'){

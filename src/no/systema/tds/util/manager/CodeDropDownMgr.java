@@ -73,7 +73,7 @@ public class CodeDropDownMgr {
 			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
 			logger.info("CODES_URL:" + CODES_URL);
 			logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
-			logger.info(utfPayload);
+			//logger.info(utfPayload);
 			
 			
 			JsonTdsCodeContainer codeContainer = tdsDropDownListPopulationService.getCodeContainer(utfPayload);
