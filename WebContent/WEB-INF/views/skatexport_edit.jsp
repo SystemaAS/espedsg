@@ -2689,6 +2689,8 @@
 			 	<input type="hidden" name="currentAvd" id="currentAvd" value='${model.record.dkeh_syav}'>
 			 	<input type="hidden" name="currentOpd" id="currentOpd" value='${model.record.dkeh_syop}'>
 			 	<input type="hidden" name="currentOpd" id="currentSign" value='${model.record.dkeh_sysg}'>
+			 	<input type="hidden" name="currentCheckboxProforma" id="currentCheckboxProforma" value=''>
+			 	
 				<p class="text12" >Proforma angivelses felter</p>
 				<table >
 					<tr>

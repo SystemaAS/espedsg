@@ -1016,6 +1016,10 @@ public class SkatExportHeaderController {
 		String opd = request.getParameter("currentOpd");
 		String avd = request.getParameter("currentAvd");
 		String sign = request.getParameter("currentSign");
+		String cbProforma = request.getParameter("currentCheckboxProforma");
+		if(strMgr.isNotNull(cbProforma)){
+			recordToUpdate.setDkeh_prof(cbProforma);
+		}
 		
 		ModelAndView successView = new ModelAndView("redirect:skatexport_edit.do?action=doFetch&avd=" + avd + "&opd=" + opd + "&sysg=" + sign);
 		
@@ -1080,6 +1084,7 @@ public class SkatExportHeaderController {
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_mrn=" + recordToUpdate.getDkeh_mrn());
+		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_prof=" + recordToUpdate.getDkeh_prof());
 		//other fields (dates)
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_godt=" + recordToUpdate.getDkeh_godt());
 		urlRequestParamsKeys.append(SkatConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "dkeh_frdt=" + recordToUpdate.getDkeh_frdt());

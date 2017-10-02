@@ -155,8 +155,8 @@
   	jq(function() {
   		jq('#updateProformaCheckbox').change(function() {
 	    	if (jq(this).prop('checked')){
-    			jq('#updateProformaIcon').show();
-    			
+	    		jq('#updateProformaIcon').show();
+	    		jq('#currentCheckboxProforma').val("1");
     		}else{
     			jq('#updateProformaIcon').hide();
     			//set fallbacks back
