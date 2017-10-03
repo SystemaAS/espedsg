@@ -43,6 +43,16 @@
 			  jq('#trorCarrierIdLink').click();
 		  }
 	  });
+	  //Buyer
+	  jq('#trorBuyerIdLink').click(function() {
+		  jq('#trorBuyerIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_by_fb&knr=' + jq('#dfknsm').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorBuyerIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorBuyerIdLink').click();
+		  }
+	  });
 	  //Buyer addresses
 	  jq('#trorBuyerAddressesIdLink').click(function() {
 		  jq('#trorBuyerAddressesIdLink').attr('target','_blank');
@@ -53,9 +63,20 @@
 			  jq('#trorBuyerAddressesIdLink').click();
 		  }
 	  });
+	  //Seller
+	  jq('#trorSellerIdLink').click(function() {
+		  jq('#trorSellerIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_se_fb&knr=' + jq('#dfknss').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorSellerIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorSellerIdLink').click();
+		  }
+	  });
 	  //Seller addresses
 	  jq('#trorSellerAddressesIdLink').click(function() {
 		  jq('#trorSellerAddressesIdLink').attr('target','_blank');
+		  //has to be buyer_addresses because of the dataset 
 		  window.open('tror_mainorderlandimport_childwindow_buyer_addresses.do?action=doFind&ctype=tror_seadr_fb&kundnr=' + jq('#dfknss').val(),"buyerAdrWin","top=300px,left=150px,height=600px,width=900px,scrollbars=no,status=no,location=no");
 	  });
 	  jq('#trorSellerAddressesIdLink').keypress(function(e){ //extra feature for the end user

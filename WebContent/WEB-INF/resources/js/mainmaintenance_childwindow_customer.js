@@ -172,7 +172,37 @@
 				  opener.jq('#heknt').val(knr);
 				  var compoundName = knavn + " - " + adr3 + " " + postnr;
 				  opener.jq('#ownheknt').val(compoundName);
+			  
+			  }else if (callerType == 'tror_by_fb'){ //Buyer - fraktbrev
+				  opener.jq('#dfknsm').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenak').val(compoundName);
+				  //?
+				  //opener.jq('#todo').val(knr);
+				  opener.jq('#dfnavm').val(knavn);
+				  //opener.jq('#todo').val(eori);
+				  opener.jq('#dfad1m').val(adr1);
+				  opener.jq('#dfad2m').val(adr2);
+				  opener.jq('#dfad3m').val(adr3 + " " + postnr);
+				  //opener.jq('#todo').val(land);
+				  
+			  }else if (callerType == 'tror_se_fb'){ //Seller fraktbrev
+				  opener.jq('#dfknss').val(knr);
+				  var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  opener.jq('#whenas').val(compoundName);
+				  //?
+				  //opener.jq('#todo').val(knr);
+				  opener.jq('#dfnavs').val(knavn);
+				  //opener.jq('#todo').val(eori);
+				  opener.jq('#dfad1s').val(adr1);
+				  opener.jq('#dfad2s').val(adr2);
+				  opener.jq('#dfad3s').val(adr3);
+				  opener.jq('#dfpnls').val(postnr);
+				  
+				  //opener.jq('#todo').val(land);
+			  
 			  }
+			  
 			  
 			  
 			  //close child window
