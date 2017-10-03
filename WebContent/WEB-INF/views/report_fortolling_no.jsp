@@ -9,7 +9,6 @@
 </style>
 <script type="text/javascript">
 "use strict";
-var  dataTable;
 var tolldataSize;
 var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
@@ -43,6 +42,17 @@ function load_data() {
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 
 d3.json(runningUrl, function(error, data) {
+	if (error) {
+		jq.unblockUI();
+		throw error;
+	}
+		
+	if (data.dtoList == '') {
+		jq.unblockUI();
+		alert('Ingen data på urvalg.');  //TODO bättre UI
+		throw error;
+	}
+	
 	var tollData = data.dtoList;
     //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -96,7 +106,7 @@ d3.json(runningUrl, function(error, data) {
 	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
 	var  totalAvgDisplay = dc.numberDisplay("#totalAvg");	
 	var  dbDisplay = dc.numberDisplay("#db");	
-	dataTable = dc.dataTable('#data-table');
+	var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
@@ -110,7 +120,6 @@ d3.json(runningUrl, function(error, data) {
 	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 
-	
 	//Group reduce
     var dateDimGroup =  dateDim.group().reduce(   
             /* callback for when data is added to the current filter results */
@@ -375,7 +384,6 @@ d3.json(runningUrl, function(error, data) {
 		            .barPadding(1)
 		            .renderLabel(true)
 				    .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
-		           // .group(monthDimGroup, "Antall registrerte vareposter")
 			        .valueAccessor(function (d) {
                 		return d.value.sum_reg_vareposter; 
         			}),
@@ -386,7 +394,6 @@ d3.json(runningUrl, function(error, data) {
 		            .barPadding(1)
 		            .renderLabel(true)
 		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
-		           // .group(monthDimGroup, "Antall officielle vareposter")
 			        .valueAccessor(function (d) {
              			return d.value.sum_off_vareposter; 
      			})       			
@@ -623,7 +630,7 @@ stackedBarChart
 		  .html({
             some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
                 ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-            all: 'Alle fortollinger. Vennligst klikk på grafen for å bruke filtre.'
+            all: 'Alle fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });      
 	      
 
@@ -652,6 +659,7 @@ stackedBarChart
 			"dom" : '<"top">t<"bottom"flip><"clear">',
 			"scrollY" : "200px",
 			"scrollCollapse" : true,
+			"destroy": true,
 			"language": {
 				"url": getLanguage(lang)
 	        }
@@ -971,19 +979,6 @@ if (typeof module !== "undefined" && module.exports) {
 
 				  <div class="row">
 					<div class="col-md-12">
-<!-- 
-					  <div class="row ">
-		  				<div class="col-md-4">
-  						        <h2>Antall fortollinger</h2>
-  						 </div>
-			  			 <div class="col-md-4">
-  						       Antall registrerte vareposter
-  						 </div> 
-			  			 <div class="col-md-4">
-  						      Antal officielle vareposter 
-  						 </div> 
-					  </div> 
- -->	
 					  <div class="row">
 						<div class="col-md-4 padded" id="antall" align="center">
 						    <h3 class="text14">Antall fortollinger</h3>
@@ -1028,28 +1023,6 @@ if (typeof module !== "undefined" && module.exports) {
 				  
 				  <div class="row">
 					<div class="col-md-12">
-<!--  
-					  <div class="row ">
-		  				<div class="col-md-3">
-  						     Import / Eksport
-  						</div>
-		  				<div class="col-md-3">
-  						       År
-  						</div>
-		  				<div class="col-md-1">
-  						       Avdeling
-  						</div>
-    				    <div class="col-md-2">
-						  avd:<input id="avd-filter" type="text" size="5"/>
-						  <a id="avdfilter">legg til filter</a>			    
-  				    	</div>						
-  						
-		  				<div class="col-md-3">
-  						       Signatur
-  						</div>
- 
-					  </div> 
--->					  
 					  <div class="row">
 						   <div class="col-md-12">
 						      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
@@ -1101,7 +1074,7 @@ if (typeof module !== "undefined" && module.exports) {
    
 				  <div class="row">
 				    <div class="col-md-12">
-				       <font class="text11">Fortollinger, utvalg</font><br>
+				       <h3 class="text11">Fortollinger, filtrert</h3>
 				       <div class="padded-row"></div>
 				       <table class="display compact cell-border" id="data-table">
 				        <thead>
