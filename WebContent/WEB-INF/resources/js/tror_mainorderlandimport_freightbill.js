@@ -84,4 +84,9 @@
 			  jq('#trorSellerAddressesIdLink').click();
 		  }
 	  });
+	  
+	  jq('#merkelappIdLink').click(function() {
+	    	jq('#merkelappIdLink').attr('target','_blank');
+	    	window.open('tror_mainorder_childwindow_generalcodes.do?action=doFind&ctype=tror_dfkdme_fb&kftype=MLAPKOD', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  });
   });  

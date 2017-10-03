@@ -452,6 +452,32 @@
 	});
 	
 	
+	//Select merkelapp
+	jq(function() {
+		jq('#merkelappList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+		  var id = record[0].replace("id_", "");
+		  var name = record[1].replace("name_", "");
+		  var caller= jq("#ctype").val();
+		  
+		  if ( caller =='tror_dfkdme_fb'){ 
+			  opener.jq('#dfkdme').val(id);
+			  opener.jq('#dfkdme').focus();
+			  
+		  }else if(caller =='todo'){
+			 //TODO
+		  } 
+		  //close child window
+		  window.close();
+		  
+	  });
+	});
+	
+	
+	
+	
+	
 	//======================
     //Datatables jquery 
     //======================
@@ -715,6 +741,15 @@
 	  //event on input field for search
 	  jq('input.loadunloadList_filter').on( 'keyup click', function () {
 		  filterLoadunloadList();
+	  });
+	  
+	  //------------------------------
+	  //tables merkelappList
+	  //----------------------------
+	  jq('#merkelappList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 10, 20, 50 ],
+		  "language": { "url": getLanguage(lang) }
 	  });
 	  
 	  /*

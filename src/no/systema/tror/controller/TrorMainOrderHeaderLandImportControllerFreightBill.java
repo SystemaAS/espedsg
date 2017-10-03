@@ -27,16 +27,18 @@ import no.systema.jservices.common.dao.DokufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.model.SystemaWebUser;
+import no.systema.main.util.StringManager;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
-
+import no.systema.tror.validator.TrorOrderFraktbrevValidator;
 
 /**
  * Tror - Freigt Bill Controller 
@@ -55,6 +57,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private StringManager strMgr = new StringManager();
 	/**
 	 * 
 	 * @param recordToValidate
@@ -71,15 +74,21 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		StringBuffer errMsg = new StringBuffer();
+		JsonTrorOrderHeaderRecord headf = new JsonTrorOrderHeaderRecord();
+		headf.setOwnEnhet1(request.getParameter("ownEnhet1"));
+		headf.setOwnEnhet2(request.getParameter("ownEnhet2"));
+		
+		
 		int dmlRetval = 0;
 		DokufDao savedRecord = null;
 		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
+			
 			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
 				// Validate
-				MaintMainCundfValidator validator = new MaintMainCundfValidator();
+				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
 					logger.info("[ERROR Validation] Record does not validate)");
@@ -98,7 +107,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 
 			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { //Update
 //				adjustRecordToValidate(recordToValidate, kundeSessionParams);
-				MaintMainCundfValidator validator = new MaintMainCundfValidator();
+				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
 					logger.info("[ERROR Validation] Record does not validate)");
@@ -117,6 +126,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+				this.adjustFields( recordToValidate,  headf);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			//get dropdowns
@@ -131,6 +141,32 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			return successView;		
 		}
 
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param headf
+	 */
+	private void adjustFields(DokufDao recordToValidate, JsonTrorOrderHeaderRecord headf){
+		//Vareslag must be concatenated since there is no Enhet-field in target db-table. The enhet is part of the Vareslag as the 2-first characters of dfvs, dfvs2
+		String SPACE = " ";
+		if(strMgr.isNotNull(headf.getOwnEnhet1()) && strMgr.isNotNull(recordToValidate.getDfvs()) ){
+			recordToValidate.setDfvs(headf.getOwnEnhet1() + SPACE + recordToValidate.getDfvs());
+		}
+		if(strMgr.isNotNull(headf.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getDfvs2()) ){
+			recordToValidate.setDfvs2(headf.getOwnEnhet2() + SPACE + recordToValidate.getDfvs2());
+		}
+		//Godsnr
+		//recordToValidate.setHegn(recordToValidate.getOwnHegn1() + recordToValidate.getOwnHegn2() + recordToValidate.getOwnHegn3());
+		
+		//Decimal numbers for db update
+		//recordToValidate.setDfbele(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfbele()));
+		
+		//Integer numbers for db update
+		//recordToValidate.setDfdtu(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfdtu()));
+		//recordToValidate.setDftoll(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDftoll()));
+		//recordToValidate.setDfknss(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfknss()));
+	
 	}
 	/**
 	 * 
@@ -204,19 +240,28 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		return savedRecord;
 	}	
 	
+	/**
+	 * 
+	 * @param appUser
+	 * @param model
+	 */
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_MLAPKOD);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		
 		//Sign / AVD
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, this.maintMainKodtaService, model, appUser);
-		//general
-		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_DELSYSTEM);
+		
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCountry(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonIncoterms(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonOppdragsType(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonTransporttype(this.urlCgiProxyService, this.maintSadImportKodts4Service, model, appUser);
 		//this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonCurrency(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+						
+		
 		
 	}
 	
@@ -234,6 +279,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
 	
 }
 

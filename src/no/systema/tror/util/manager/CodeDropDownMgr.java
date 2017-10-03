@@ -60,6 +60,8 @@ public class CodeDropDownMgr {
 	private static final Logger logger = Logger.getLogger(CodeDropDownMgr.class.getName());
 	//Codes
 	public static final String CODE_TYPE_DELSYSTEM = "DELSYS";
+	public static final String CODE_TYPE_MLAPKOD = "MLAPKOD";
+	
 	
 	/**
 	 * 
@@ -98,6 +100,8 @@ public class CodeDropDownMgr {
 			if(this.CODE_TYPE_DELSYSTEM.equalsIgnoreCase(paramTYP)){
 				model.put(TrorConstants.RESOURCE_MODEL_KEY_DELSYSTEM_CODE_LIST, list);
 				
+			}else if(this.CODE_TYPE_MLAPKOD.equalsIgnoreCase(paramTYP)){
+				model.put(TrorConstants.RESOURCE_MODEL_KEY_MLAPKOD_CODE_LIST, list);
 			}
 			
 		}catch(Exception e){
@@ -489,6 +493,7 @@ public class CodeDropDownMgr {
 				}
 					
 			}	
+		
 		
 		
 }
