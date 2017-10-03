@@ -409,6 +409,13 @@ public class TdsExportItemsController {
 		if(appUser==null){
 			return this.loginView;
 		}else{
+			
+			//STEP [1] check if you must clear all statistical values (upon user choice in modal dialog...)
+			if(strMgr.isNotNull(recordToValidate.getStatValueNullIt())){
+				this.clearAllStatisticalValuesBeforeVarupostcontrol(appUser, recordToValidate);
+			}
+			
+			//STEP [2] now we go on with the usual autokontroll routine
 			StringBuffer params = new StringBuffer();
 			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&opd=" + recordToValidate.getSvev_syop() + "&fabl=" + fabl);
 			successView = new ModelAndView("redirect:tdsexport_edit_items.do?" + params);
@@ -529,6 +536,31 @@ public class TdsExportItemsController {
 		
 		return successView;
 		
+	}
+	
+	/**
+	 * 
+	 * @param record
+	 */
+	private void clearAllStatisticalValuesBeforeVarupostcontrol(SystemaWebUser appUser, JsonTdsExportSpecificTopicItemRecord recordToValidate){
+		
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+	    //---------------------------
+		String BASE_URL_FETCH = TdsExportUrlDataStore.TDS_EXPORT_BASE_STATISTICAL_VALUES_CLEAR_TO_NULL_URL;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		urlRequestParamsKeys.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&opd=" + recordToValidate.getSvev_syop());
+		
+		//--------------------------------------
+		//EXECUTE (RPG program) here
+		//--------------------------------------
+		String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys.toString());
+		
+		//Debug --> 
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayloadFetch));
+		
+		//we should implement a boolean return in case of error but today is Friday and we assume that this call will never fail
+		//...TODO
 	}
 	
 	/**

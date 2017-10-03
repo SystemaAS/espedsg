@@ -33,6 +33,18 @@
   			  modal: true
   		  });
   		});
+  		//Initialize Dialog for Varupostkontroll here
+  		jq(function() { 
+    		  jq("#dialogVarupostkontroll").dialog({
+    			  autoOpen: false,
+    			  maxWidth:500,
+    	          maxHeight: 300,
+    	          width: 400,
+    	          height: 250,
+    			  modal: true
+    		  });
+		});
+  		
   	});
   	
   	jq(function() {
@@ -63,10 +75,10 @@
 	 		"codesWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
   		});
   		//Auto control - autoförtullning
-  		jq('#itemListControlButton').click(function() {
-  			jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
-			window.location = 'tdsexport_edit_items_autocontrol.do?svev_syav='+ jq('#avd').val() + '&svev_syop=' + jq('#opd').val() + '&fablAutoControl=' + jq('#fablAutoControl').val();
-  		});
+  		//jq('#itemListControlButton').click(function() {
+  			//jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+			//window.location = 'tdsexport_edit_items_autocontrol.do?svev_syav='+ jq('#avd').val() + '&svev_syop=' + jq('#opd').val() + '&fablAutoControl=' + jq('#fablAutoControl').val();
+  		//});
   		
   		
   		//=====================================
@@ -718,6 +730,45 @@
     });
 	
 	
+    //========================================
+    //Dialog Varupostkontroll in Autokontroll
+    //========================================
+    jq(function() {
+  	  jq("#itemListControlButton").click(function() {
+
+  		  
+  		  jq("#dialogVarupostkontroll").dialog( "option", "title", "Varupostkontroll" );
+  		  
+  		  //deal with buttons for this modal window
+  		  jq("#dialogVarupostkontroll").dialog({
+  			 buttons: [ 
+  	            {
+  				 id: "dialogSaveTU",	
+  				 text: "Gå vidare",
+  				 click: function(){
+  					 		jq('#varupostkontrollForm').submit();
+  				 		}
+  			 	 },
+  	 	 		{
+  			 	 id: "dialogCancelTU",
+  			 	 text: "Avbryt", 
+  				 click: function(){
+  					 		//back to initial state of form elements on modal dialog
+  					 		//jq("#dialogSaveSU").button("option", "disabled", true);
+  					 		jq( this ).dialog( "close" ); 
+  				 		} 
+  	 	 		 } ] 
+  		  });
+  		  //init values
+  		  //jq("#dialogSaveTU").button("option", "disabled", true);
+  		  //open now
+  		  jq("#dialogVarupostkontroll").dialog('open');
+  		  
+  	  });
+    });
+    //END dialog varupostkontroll
+    
+    
 	
 	//-------------------
     //Datatables jquery

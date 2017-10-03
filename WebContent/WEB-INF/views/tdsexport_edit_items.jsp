@@ -7,15 +7,17 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/tdsexport_edit_items.js?ver=${user.versionEspedsg}"></SCRIPT>
-	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>	
+	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	
-	<%-- for dialog popup 
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
-	--%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<style type = "text/css">
 		.ui-dialog{font-size:10pt;}
 	</style>
+	
+	<%-- for dialog popup 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
+	--%>
+	
 	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
@@ -2024,6 +2026,24 @@
 		</td>
 		</tr>
 		
+		
+		
+		<tr>
+			<td>
+			<div style="display: none;" id="dialogVarupostkontroll" title="Dialog">
+				<form  action="tdsexport_edit_items_autocontrol.do" name="varupostkontrollForm" id="varupostkontrollForm" method="post">
+				 	<input type="hidden" name="svev_syav" id="svev_syav" value='${model.avd}'/>
+					<input type="hidden" name="svev_syop" id="svev_syop" value='${model.opd}'/>
+					<input type="hidden" name="fablAutoControl" id="fablAutoControl" value='${recordTopic.sveh_fabl}'/>
+						
+					<p>Du kan nollställa alla statistiska värden och tullvärden i samtliga varuposter genom att kryssa för flaggan nedan</p>
+					<p>&nbsp;</p>
+					<p style="color:#000080;"><input tabindex=-1 type="checkbox" name="statValueNullIt" id="statValueNullIt" value="1" >Nollställ alla statistiska värden i samtliga varuposter</p>
+							
+				</form>
+			</div>
+		</td>
+		</tr>
 		
 		
 	</table>    

@@ -1430,7 +1430,7 @@
 					 				<tr>
 					 					<td class="text12">&nbsp;<span title="sveh_vufr">Fraktkostnad&nbsp;</span></td>
 					 					<td><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vufr" id="sveh_vufr" size="15" maxlength="14" value="${model.record.sveh_vufr}"></td>
-					 					<td class="text12">&nbsp;&nbsp;<span title="sveh_vuva">Frakvaluta</span>
+					 					<td class="text12">&nbsp;&nbsp;<span title="sveh_vuva">Fraktvaluta</span>
 							 				<%-- Note: onChange event in jQuery for this currency list --%>
 							 				<select class="inputTextMediumBlue" name="sveh_vuva" id="sveh_vuva">
 								            		<option value="">-Välj-</option>

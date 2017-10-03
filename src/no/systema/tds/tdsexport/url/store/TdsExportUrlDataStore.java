@@ -70,7 +70,9 @@ public final class TdsExportUrlDataStore {
 	//----------------------------------
 	//http://gw.systema.no/sycgip/tsve017r.pgm?user=OSCAR&sveh_vakd=USD&sveh_vaku=8,4511&sveh_fabl=600&svev_stva=0&svev_stva2=0&svev_fabl=100 
 	static public String TDS_EXPORT_BASE_STATISTICAL_VALUES_CALCULATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE017R.pgm";	
-	
+	//http://10.13.3.22/sycgip/tsve024r.pgm?user=CB&avd=1&opd=259
+	static public String TDS_EXPORT_BASE_STATISTICAL_VALUES_CLEAR_TO_NULL_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE024R.pgm";	
+		
 	//--------------------------------------
 	//[6.0.2] Update AutoControl error line  
 	//--------------------------------------

@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
+import no.systema.main.util.StringManager;
 
 /**
  * 
@@ -12,6 +13,7 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTop
  *
  */
 public class TdsExportHeaderValidator implements Validator {
+	private StringManager strMgr = new StringManager();
 
 	/**
 	 * 
@@ -150,6 +152,15 @@ public class TdsExportHeaderValidator implements Validator {
 				if(record.getSveh_tral()!=null && !record.getSveh_tral().equals("")){
 					if("5".equalsIgnoreCase(record.getSveh_trgr()) || "7".equalsIgnoreCase(record.getSveh_trgr()) ){
 						errors.rejectValue("sveh_tral", "systema.tds.export.header.error.rule.sveh_tral.optionalWith5Or7TransportVidGransen");
+					}
+				}
+				
+				//check frakt section
+				if( strMgr.isNotNull(record.getSveh_vufr()) || strMgr.isNotNull(record.getSveh_vuva()) || strMgr.isNotNull(record.getSveh_vuku()) ){
+					if( strMgr.isNotNull(record.getSveh_vufr()) && strMgr.isNotNull(record.getSveh_vuva()) && strMgr.isNotNull(record.getSveh_vuku()) ){
+						//OK - since all must exits
+					}else{
+						errors.rejectValue("sveh_vuva", "systema.tds.export.header.error.rule.sveh_vuva.totalValidity");
 					}
 				}
 				

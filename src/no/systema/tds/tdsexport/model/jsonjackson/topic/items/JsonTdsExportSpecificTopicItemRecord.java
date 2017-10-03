@@ -33,6 +33,11 @@ public class JsonTdsExportSpecificTopicItemRecord extends JsonAbstractGrandFathe
 	public void setValidNumberVata(boolean value) {  this.validNumberVata = value; }
 	public boolean isValidNumberVata() {return this.validNumberVata;}
 	
+	//Used in auto-control of varuposter in order to null all statvalues and run the auto-controll afterwards ( in the same method )
+	private String statValueNullIt = null;
+	public void setStatValueNullIt(String value) {  this.statValueNullIt = value; }
+	public String getStatValueNullIt() {return this.statValueNullIt;}
+	
 	
 	//Aux. attr. in order to sum all svev_kota + svev_kot2 + svev_kot3 + svev_kot4 + svev_kot5 on HTML GUI
 	private Integer sum_of_svev_kotas = 0;
