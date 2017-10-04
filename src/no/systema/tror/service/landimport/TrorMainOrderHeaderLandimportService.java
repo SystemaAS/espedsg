@@ -7,7 +7,6 @@ import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportIn
 //import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderInvoiceReadyMarkContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 
-
 /**
  * 
  * @author oscardelatorre

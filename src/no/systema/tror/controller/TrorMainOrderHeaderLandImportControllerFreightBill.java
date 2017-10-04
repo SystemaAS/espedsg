@@ -5,10 +5,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.beans.PropertyEditorSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.WebDataBinder;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.jservices.common.dao.DokufDao;
@@ -34,6 +37,7 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -41,7 +45,7 @@ import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
 import no.systema.tror.validator.TrorOrderFraktbrevValidator;
 
 /**
- * Tror - Freigt Bill Controller 
+ * Tror - Freight Bill Controller 
  * 
  * @author Fredrik Möller
  * @date Aug 20, 2017
@@ -54,10 +58,12 @@ import no.systema.tror.validator.TrorOrderFraktbrevValidator;
 public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerFreightBill.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
-	private static final JsonDebugger jsonDebugger = new JsonDebugger();
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private StringManager strMgr = new StringManager();
+	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -87,6 +93,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		} else {
 			
 			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
+				this.adjustFields( recordToValidate,  headf);
 				// Validate
 				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
 				validator.validate(recordToValidate, bindingResult);
@@ -106,7 +113,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				}
 
 			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { //Update
-//				adjustRecordToValidate(recordToValidate, kundeSessionParams);
+				this.adjustFields( recordToValidate,  headf);
+				//Validate
 				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
@@ -126,7 +134,6 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
-				this.adjustFields( recordToValidate,  headf);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			//get dropdowns
@@ -156,16 +163,6 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		if(strMgr.isNotNull(headf.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getDfvs2()) ){
 			recordToValidate.setDfvs2(headf.getOwnEnhet2() + SPACE + recordToValidate.getDfvs2());
 		}
-		//Godsnr
-		//recordToValidate.setHegn(recordToValidate.getOwnHegn1() + recordToValidate.getOwnHegn2() + recordToValidate.getOwnHegn3());
-		
-		//Decimal numbers for db update
-		//recordToValidate.setDfbele(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfbele()));
-		
-		//Integer numbers for db update
-		//recordToValidate.setDfdtu(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfdtu()));
-		//recordToValidate.setDftoll(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDftoll()));
-		//recordToValidate.setDfknss(this.strMgr.adjustNullStringToDecimalForDbUpdate(recordToValidate.getDfknss()));
 	
 	}
 	/**
@@ -177,6 +174,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @return
 	 */
 	private DokufDao fetchRecord(SystemaWebUser appUser, int dfavd, int dfopd, int dffbnr) {
+		
 		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();
 		jsonReader.set(new JsonDtoContainer<DokufDao>());
 		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOKUF_URL;
@@ -200,6 +198,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			}
 		}
 		return record;
+	
 	}	
 	/**
 	 * 
@@ -223,6 +222,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		logger.info("URL PARAMS: " + urlRequestParams);
 		List<DokufDao> list = new ArrayList<DokufDao>();
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		
 		if (jsonPayload != null) {
 			JsonDtoContainer<DokufDao> container = (JsonDtoContainer<DokufDao>) jsonReader.get(jsonPayload);
 			if (container != null) {
@@ -234,7 +235,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				for (DokufDao dao : list) {
 					savedRecord = dao;
 				}
-			}			
+			}
+			
 		}
 		logger.info("savedRecord="+ReflectionToStringBuilder.toString(savedRecord));
 		return savedRecord;
@@ -279,6 +281,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
 	
 	
 }

@@ -89,4 +89,100 @@
 	    	jq('#merkelappIdLink').attr('target','_blank');
 	    	window.open('tror_mainorder_childwindow_generalcodes.do?action=doFind&ctype=tror_dfkdme_fb&kftype=MLAPKOD', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	  });
+	  
+	  //Adjust fields that are not String in target Dao object
+	  jq("#formRecord").submit(function() {
+		  if (jq('#dfm3').val() =='' ) {
+			jq('#dfm3').val("0");
+		  } else if (jq('#dfm3').val() !='') {  //BigDecimal
+			jq("#dfm3").val(jq("#dfm3").val().replace(',', '.'));
+		  }
+		  if (jq('#dflm').val() =='' ) {
+			jq('#dflm').val("0");
+		  } else if (jq('#dflm').val() !='') {  //BigDecimal
+			jq("#dflm").val(jq("#dflm").val().replace(',', '.'));
+		  }
+		  if (jq('#dffvbl').val() =='' ) {
+			jq('#dffvbl').val("0");
+		  } else if (jq('#dffvbl').val() !='') {  //BigDecimal
+			jq("#dffvbl").val(jq("#dffvbl").val().replace(',', '.'));
+		  }
+		  if (jq('#dfbele').val() =='' ) {
+			jq('#dfbele').val("0");
+		  } else if (jq('#dfbele').val() !='') {  //BigDecimal
+			jq("#dfbele").val(jq("#dfbele").val().replace(',', '.'));
+		  }
+		  //INTEGERs
+		  if (jq('#dfdtu').val() =='' ) {
+			jq('#dfdtu').val("0");
+		  }
+		  if (jq('#dftoll').val() =='' ) {
+			jq('#dftoll').val("0");
+		  }
+		  if (jq('#dfknss').val() =='' ) {
+			jq('#dfknss').val("0");
+		  }
+		  if (jq('#dfpnls').val() =='' ) {
+			jq('#dfpnls').val("0");
+		  }
+		  if (jq('#dfpnat').val() =='' ) {
+			jq('#dfpnat').val("0");
+		  }
+		  if (jq('#dfknsm').val() =='' ) {
+			jq('#dfknsm').val("0");
+		  }
+		  if (jq('#dfpoul').val() =='' ) {
+			jq('#dfpoul').val("0");
+		  }
+		  if (jq('#dfknsx').val() =='' ) {
+			jq('#dfknsx').val("0");
+		  }
+		  if (jq('#dftran').val() =='' ) {
+			jq('#dftran').val("0");
+		  }
+		  if (jq('#dfnteu').val() =='' ) {
+			jq('#dfnteu').val("0");
+		  }
+		  if (jq('#dfntau').val() =='' ) {
+			jq('#dfntau').val("0");
+		  }
+		  if (jq('#dfnt').val() =='' ) {
+			jq('#dfnt').val("0");
+		  }
+		  
+		  if (jq('#dfvktf').val() =='' ) {
+			jq('#dfvktf').val("0");
+		  }
+		  if (jq('#dfntla').val() =='' ) {
+			jq('#dfntla').val("0");
+		  }
+		  if (jq('#dffore').val() =='' ) {
+			jq('#dffore').val("0");
+		  }
+		  if (jq('#dfrg').val() =='' ) {
+			jq('#dfrg').val("0");
+		  }
+		  if (jq('#dfkta').val() =='' ) {
+			jq('#dfkta').val("0");
+		  }
+		  if (jq('#dfktb').val() =='' ) {
+			jq('#dfktb').val("0");
+		  }
+		  if (jq('#df6060').val() =='' ) {
+			jq('#df6060').val("0");
+		  }
+		  if (jq('#df500a').val() =='' ) {
+			jq('#df500a').val("0");
+		  }
+		  if (jq('#df500b').val() =='' ) {
+			jq('#df500b').val("0");
+		  }
+		  
+		  jq.blockUI({
+				message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT
+		  });
+	  });
+		 
   });  
+	  
+	  

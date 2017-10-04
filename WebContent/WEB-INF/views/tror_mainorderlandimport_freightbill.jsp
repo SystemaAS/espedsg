@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="tror_mainorderlandimport_freightbill_edit.do" name="trorOrderForm" id="trorOrderForm" method="post">
+<form action="tror_mainorderlandimport_freightbill_edit.do" name="formRecord" id="formRecord" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -156,10 +156,11 @@
 			 			<td align="left" class="text14White">
 							&nbsp;<img style="vertical-align:bottom;" src="resources/images/complete-icon.png" width="16" hight="16" border="0" alt="edit">	
 							&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;<font style="color: yellow"><b>${fn:substring(model.record.df1004, 0, 2)}&nbsp;${fn:substring(model.record.df1004, 2, 7)}&nbsp;${fn:substring(model.record.df1004, 7, 17)}</b></font>
-							&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dffbnr} / ${model.record.dfsg}</b></font>
-		 				</td>
+							&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dfsg}</b></font>
+							&nbsp;&nbsp;
 		 				<td align="right" class="text12White" width="50%">
-		 					&nbsp;&nbsp;
+		 					<font style="color: red"><b>${model.record.dffbnr}</b></font>&nbsp;&nbsp;
+		 				</td>
 		 				</td>
 	 				</tr>
  					</table>
@@ -170,6 +171,8 @@
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="action" id="action" value='doUpdate'>
+					<%-- dfri = F as offsett. Always. Old rule in order to acquire status "active" ... --%>
+					<input type="hidden" name="dfri" id="dfri" value='F'> 
 					
 					<c:if test="${not empty model.record.dfopd}">
 						<input type="hidden" name="dfopd" id="dfopd" value='${model.record.dfopd}'>
@@ -535,13 +538,13 @@
 						 		<tr height="2"><td ></td></tr>
 							 	<tr>	
 						 			<td class="text12">
-						 				<span title="dffvcu"><b>24.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.vareforsverdi"/></span>
+						 				<span title="dffvcu/dffvbl"><b>24.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.vareforsverdi"/></span>
 				 					</td>
 					 				<td class="text12">
 					 					<input type="text" class="inputTextMediumBlue" name="dffvcu" id="dffvcu" size="4" maxlength="3" value="${model.record.dffvcu}">
 					 				</td>
 						 			<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="${model.record.dffvbl}">
+					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="${fn:replace(model.record.dffvbl,'.',',')}"> 
 					 				</td>
 					 				<td class="text12" width="10">&nbsp;</td>
 						 			<td class="text12">
@@ -606,7 +609,7 @@
 						 				<span title="dfntau">Oppkravs Beløp</span>
 				 					</td>
 					 				<td colspan="2" class="text12">
-					 					<input readonly type="text" class="inputTextReadOnly" name="dfbele" id="dfbele" size="10" maxlength="20" value="${model.record.dfbele}">
+					 					<input readonly type="text" class="inputTextReadOnly" name="dfbele" id="dfbele" size="10" maxlength="20" value="${ fn:replace(model.record.dfbele,'.',',') }"> 
 					 				</td>
 					 				
 					 				<td class="text12">&nbsp;<span title="dfpro2"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode.txt2"/>&nbsp;</span></td>
@@ -690,10 +693,10 @@
 									 				</td>
 									 				
 									 				<td align="right" class="tableCell" nowrap>
-										 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfm3" id="dfm3" size="12" maxlength="11" value="${model.record.dfm3}">
+										 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfm3" id="dfm3" size="12" maxlength="11" value="${fn:replace(model.record.dfm3,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>
-										 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dflm" id="dflm" size="8" maxlength="7" value="${model.record.dflm}">
+										 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dflm" id="dflm" size="8" maxlength="7" value="${fn:replace(model.record.dflm,'.',',')}">
 									 				</td>
 									 			</tr>
 									 			<tr class="tableRow">
@@ -755,18 +758,7 @@
 					 				    <label class="text11Red" id="orderLineErrMsgPlaceHolder"></label>
 				 				    </td>
 									<td align="right">
-										<%-- 
-										<c:choose>
-						 				    <c:when test="${ not empty Xmodel.record.heopd }">
-						 				    	<c:if test="${empty recordOrderTrorLandImport.hest || recordOrderTrorLandImport.hest == 'U' || recordOrderTrorLandImport.hest == 'O' || recordOrderTrorLandImport.hest == 'F' }">
-						 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
-						 				    	</c:if>
-						 				    </c:when>
-						 				    <c:otherwise>
-					 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.tror.submit.createnew.order"/>'/>
-						 				    </c:otherwise>	
-					 				    </c:choose>
-					 				    --%>
+										
 					 				    <input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 				 				    </td>
 							    </tr>

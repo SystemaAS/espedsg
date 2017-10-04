@@ -11,10 +11,10 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
-import no.systema.jservices.common.dao.DokufDao;
 
 import no.systema.main.util.StringManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
+import no.systema.jservices.common.dao.DokufDao;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
@@ -71,13 +71,18 @@ public class TrorOrderFraktbrevValidator implements Validator {
 		
 		//Check rules
 		if(record!=null){
-			//Godsnr (the number can not have empty fields in the precedent field. If field 2 is filled up then field 2 MUST be there ...
+			//Oppkrav fält
 			if(strMgr.isNotNull(record.getDfkde()) ){
 				if(strMgr.isNull(record.getDflevi()) ){
 					errors.rejectValue("dfkde", "systema.tror.fraktbrev.form.update.error.rule.telefon.mustExist");
 				}
 			}
-			
+			//Antall merkelapper
+			if(record.getDfntla() != record.getDfnt() ){
+				if(record.getDfntla() > record.getDfnt() ){
+					errors.rejectValue("dfntla", "systema.tror.fraktbrev.form.update.error.rule.merkelapp.toBig");
+				}
+			}
 			
 			/*
 			//Fakturapart
