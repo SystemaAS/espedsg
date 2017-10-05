@@ -4,19 +4,54 @@
 <!-- =====================end header ==========================-->
 <script type="text/javascript">
 "use strict";
-var  dataTable;
 var faktSize;
 var ofs = 0, pag = 20;
-var url = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}&year=2017";
+var baseUrl = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 function load_data() {
 	
-jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	var runningUrl = baseUrl;
+	var selectedYear = jq('#selectYear').val();
+	var selectedMonth = jq('#selectMonth').val();
+	var selectedAvd = jq('#selectAvd').val();
+	var selectedSign = jq('#selectSign').val();
+	var selectedKundenr = jq('#selectKundenr').val();
+	var selectedVarekode = jq('#selectVarekode').val();
+	
+	runningUrl = runningUrl + "&registreringsdato="+selectedYear + selectedMonth ;
 
-d3.json(url, function(error, data) {
+	if (selectedAvd != "" )	{
+		runningUrl = runningUrl + "&avdeling="+selectedAvd;
+	}
+	if (selectedSign != "" )	{
+		runningUrl = runningUrl + "&signatur="+selectedSign;
+	}	
+	if (selectedKundenr != "" )	{
+		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
+	}
+	if (selectedVarekode != "" )	{
+		runningUrl = runningUrl + "&favk="+selectedVarekode;
+	}
+
+	console.log("runningUrl="+runningUrl); 	
+	
+    jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+
+d3.json(runningUrl, function(error, data) {
+	if (error) {
+		jq.unblockUI();
+		throw error;
+	}
+		
+	if (data.dtoList == '') {
+		jq.unblockUI();
+		alert('Ingen data på urvalg.');  //TODO bättre UI
+		throw error;
+	}	
+	
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -28,18 +63,19 @@ d3.json(url, function(error, data) {
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
-	  d.date = fullDateFormat.parse(d.hedtop);
+	  d.date = fullDateFormat.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
 	  d.month = monthFormat(d.date);
 	  d.tupro = d.tupro;
 	  d.tubilk = d.tubilk;
-	  d.faavd = d.faavd;
+	  d.avdeling = d.avdeling;
 	  d.faopd = d.faopd;
-	  d.sumfabeln = +d.sumfabeln;
-	  d.hedtop = d.hedtop; 
+	  d.fabeln = +d.fabeln;
+	  d.registreringsdato = +d.registreringsdato; 
 	  d.fakda = d.fakda;
-	  d.faopko = d.faopko;
-	  d.trknfa = d.trknfa;
+	  d.mottaker =  d.mottaker;
+	  d.fask = d.fask;
+	  d.favk = d.favk;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -49,27 +85,34 @@ d3.json(url, function(error, data) {
 	
 	//Dimensions
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
-	//var  kundeDim  = fakt.dimension(function(d) {return d.trknfa;});
+	//var  kundeDim  = fakt.dimension(function(d) {return d.mottaker;});
 	var  dateDim  = fakt.dimension(function(d) {return d.date;});
-	var  yearDim  = fakt.dimension(function(d) {return d.year;});
+	//var  yearDim  = fakt.dimension(function(d) {return d.year;});
     var  monthDim = fakt.dimension(function (d) {
     	return d.month;
     	});	
     //var  monthDim2 = fakt.dimension(d => d3.time.month(d.month));
-	var  avdDim  = fakt.dimension(function(d) {return d.faavd;});
+	var  avdDim  = fakt.dimension(function(d) {return d.avdeling;});
 	var  tubilkDim  = fakt.dimension(function(d) {return d.tubilk;});
+	var  favkDim  = fakt.dimension(function(d) {return d.favk;});
+	var  faskDim  = fakt.dimension(function(d) {return d.fask;});
+
 	//Groups
-	//var  dateDimGroup = dateDim.group().reduceSum(function(d) {return +d.sumfabeln;});
-	//var  monthDimGroup = monthDim.group().reduceSum(function(d) {return d.sumfabeln;});
-	//var  monthDimGroup2 = monthDim2.group().reduceSum(d => d.sumfabeln);
+	//var  dateDimGroup = dateDim.group().reduceSum(function(d) {return +d.fabeln;});
+	//var  monthDimGroup = monthDim.group().reduceSum(function(d) {return d.fabeln;});
+	//var  monthDimGroup2 = monthDim2.group().reduceSum(d => d.fabeln);
 	
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.sumfabeln;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.sumfabeln;});
-	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.sumfabeln;});
+	//var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.fabeln;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.fabeln;});
+	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.fabeln;});
+	var  favkDimGroup = favkDim.group().reduceSum(function(d) {return d.fabeln;});
+	var  faskDimGroup = faskDim.group().reduceSum(function(d) {return d.fabeln;});
 	//Charts 
-	var  yearChart   = dc.pieChart("#chart-ring-year");
+	//var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  tubilkChart   = dc.pieChart('#chart-ring-tubilk');
+	var  favkChart   = dc.pieChart('#chart-ring-favk');
+	var  faskChart   = dc.pieChart('#chart-ring-fask');
 	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeChart = dc.compositeChart("#chart-composite");
 	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
@@ -80,34 +123,33 @@ d3.json(url, function(error, data) {
 	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
 	var  resultatDisplay = dc.numberDisplay("#resultat");	
 	var  dbDisplay = dc.numberDisplay("#db");	
-	dataTable = dc.dataTable('#data-table');
+	var dataTable = dc.dataTable('#data-table');
+
 	
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
 	
 	//Group reduce
-    var dateDimGroup =  dateDim.group().reduce(   //TESTAR: org=dateDimGroup
-            /* callback for when data is added to the current filter results */
+  
+	var dateDimGroup =  dateDim.group().reduce(   //TESTAR: org=dateDimGroup
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning += v.sumfabeln;   
+                	p.omsetning += v.fabeln;   
                 } else {
-                	p.kostnad += v.sumfabeln; 
+                	p.kostnad += v.fabeln; 
                 }
                 return p;
             },
-            /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning -= v.sumfabeln;   
+                	p.omsetning -= v.fabeln;   
                 } else {
-                	p.kostnad -= v.sumfabeln; 
+                	p.kostnad -= v.fabeln; 
                 }
                 return p;
             },
-            /* initialize p */
             function () {
                 return {
                     count: 0,
@@ -116,15 +158,16 @@ d3.json(url, function(error, data) {
                 };
             }
     );  
-	
+
+
     var monthDimGroup =  monthDim.group().reduce(   
             /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning += v.sumfabeln;   
+                	p.omsetning += v.fabeln;   
                 } else {
-                	p.kostnad += v.sumfabeln; 
+                	p.kostnad += v.fabeln; 
                 }
                 return p;
             },
@@ -132,9 +175,9 @@ d3.json(url, function(error, data) {
             function (p, v) {
                 --p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning -= v.sumfabeln;   
+                	p.omsetning -= v.fabeln;   
                 } else {
-                	p.kostnad -= v.sumfabeln; 
+                	p.kostnad -= v.fabeln; 
                 }
                 return p;
             },
@@ -156,27 +199,27 @@ d3.json(url, function(error, data) {
 	var  kundePerformanceGroup = kundeDim.group().reduce(
            
             function (p, v) {
-            	++p.faavd;
+            	++p.avdeling;
             	++p.faopd;
-                ++p.sumfabeln;
+                ++p.fabeln;
                 ++p.count;
-                p.sumAvd += p.faavd;
-                p.sumTotal += p.sumfabeln;
+                p.sumAvd += p.avdeling;
+                p.sumTotal += p.fabeln;
                 return p;    
             },
             
             function (p, v) {
-            	--p.faavd;
+            	--p.avdeling;
             	--p.faopd;
-                --p.sumfabeln;
+                --p.fabeln;
                 --p.count;
-                p.sumAvd -= p.faavd;
-                p.sumTotal -= p.sumfabeln;
+                p.sumAvd -= p.avdeling;
+                p.sumTotal -= p.fabeln;
                 return p;
             },
            
             function () {
-                return {faavd: 0,faopd: 0, sumfabeln: 0, sumTotal: 0, sumAvd: 0,  count: 0};
+                return {avdeling: 0,faopd: 0, fabeln: 0, sumTotal: 0, sumAvd: 0,  count: 0};
             }
         );	
  */   
@@ -185,9 +228,9 @@ d3.json(url, function(error, data) {
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning += v.sumfabeln;   
+                	p.omsetning += v.fabeln;   
                 } else {
-                	p.kostnad += v.sumfabeln; 
+                	p.kostnad += v.fabeln; 
                 }
                 return p;
             },
@@ -195,9 +238,9 @@ d3.json(url, function(error, data) {
             function (p, v) {
                 --p.count;
                 if (v.fakda != 'K') {
-                	p.omsetning -= v.sumfabeln;   
+                	p.omsetning -= v.fabeln;   
                 } else {
-                	p.kostnad -= v.sumfabeln; 
+                	p.kostnad -= v.fabeln; 
                 }
                 return p;
             },
@@ -210,7 +253,8 @@ d3.json(url, function(error, data) {
                 };
             }
     );  
-  
+
+ /*
 	yearChart
 	    .width(350)
 	    .height(300)
@@ -220,7 +264,7 @@ d3.json(url, function(error, data) {
 	    .externalRadiusPadding(50)
 	    .innerRadius(30)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
-   
+  */ 
 	avdChart
 	    .width(350)
 	    .height(300)
@@ -254,7 +298,29 @@ d3.json(url, function(error, data) {
 	    .dimension(tubilkDim)
 	    .group(tubilkDimGroup)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
-	
+
+
+    favkChart
+		.width(350)
+		.height(300)
+		.slicesCap(20)
+		.innerRadius(40)
+		.externalRadiusPadding(50)
+		.dimension(favkDim)
+		.group(favkDimGroup)
+		.legend(dc.legend().y(10).itemHeight(8).gap(3));
+		
+    faskChart
+		.width(350)
+		.height(300)
+		.slicesCap(20)
+		.innerRadius(40)
+		.externalRadiusPadding(50)
+		.dimension(faskDim)
+		.group(faskDimGroup)
+		.legend(dc.legend().y(10).itemHeight(8).gap(3));		
+		
+
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
@@ -312,7 +378,7 @@ d3.json(url, function(error, data) {
 	        //Accessor functions are applied to each value returned by the grouping
 	        // `.colorAccessor` - the returned value will be passed to the `.colors()` scale to determine a fill color
 	        .colorAccessor(function (d) {
-	            return d.value.sumfabeln;
+	            return d.value.fabeln;
 	        })
 	        // `.keyAccessor` - the `X` value will be passed to the `.x()` scale to determine pixel location
 	        .keyAccessor(function (p) {
@@ -320,12 +386,12 @@ d3.json(url, function(error, data) {
 	        })
 	        // `.valueAccessor` - the `Y` value will be passed to the `.y()` scale to determine pixel location
 	        .valueAccessor(function (p) {
-	            return p.value.sumfabeln;
+	            return p.value.fabeln;
 	        })
 	        // `.radiusValueAccessor` - the value will be passed to the `.r()` scale to determine radius size;
 	        //   by default this maps linearly to [0,100]
 	        .radiusValueAccessor(function (p) {
-	            return p.value.sumfabeln;
+	            return p.value.fabeln;
 	        })
 	        .maxBubbleRelativeSize(0.3)
 	        .x(d3.scale.linear().domain([-2500, 2500]))
@@ -359,7 +425,7 @@ d3.json(url, function(error, data) {
 	            return [
 	                p.key,
 	                'NOK: ' + p.value.sumTotal,
-	                'Antall oppdrag: ' + p.value.sumfabeln
+	                'Antall oppdrag: ' + p.value.fabeln
 	            ].join('\n');
 	        })	        
 
@@ -367,25 +433,28 @@ d3.json(url, function(error, data) {
 */
 
 
+	        
+	mindate = d3.time.day.offset(mindate, -1);
+	maxdate = d3.time.day.offset(maxdate, +1);
+
 	compositeChart
 		    .width(1200)
 		    .height(500)
-		    .margins({top: 40, right: 10, bottom: 30, left: 80})
-			//.x(d3.time.scale().domain([mindate, maxdate])) 	
-			//.xUnits(d3.time.months) 	
-			//.x(d3.scale.linear().domain([1,12]))
+		    .margins({top: 40, right: 10, bottom: 30, left: 60})
+			.x(d3.time.scale().domain([mindate, maxdate])) 	
+			.xUnits(d3.time.days) 	
+			//.x(d3.scale.linear().domain([1,31]))
             //.xUnits(d3.time.month)
             
             //.x(d3.scale.ordinal())  //funkar!!, time scale funkar inte!!
-            .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
+           //// .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
             //.xUnits(dc.units.ordinal)
 
             .yAxisPadding('5%')
             .yAxisLabel("NOK")
-			//.yAxis().tickFormat(d3.format("d"))
 
             
-        	.xAxisLabel("Måned")      
+        	.xAxisLabel("Dag")      //Måned
             .elasticY(true)
             .renderTitle(true)
 	    	.title(function (d) {
@@ -398,41 +467,44 @@ d3.json(url, function(error, data) {
  	            ].join('\n');
 			 })	
         	.mouseZoomable(false)
-        	.legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
+        	.legend(dc.legend().x(1100).y(10).itemHeight(5).gap(20))
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
-		            .dimension(monthDim) 
+		            .dimension(dateDim) //monthDim
 		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .centerBar(true)
+		            .gap(10)
 		            .renderLabel(true)
 			        .label(function (d) {
 			        	var resultat = d.data.value.omsetning + d.data.value.kostnad;  
 		            	var db = resultat / d.data.value.omsetning;
 		            	//console.log("d.data.value.omsetning="+d.data.value.omsetning);
-			            return "Db:"+percentageFormat(db);
+			            return percentageFormat(db);
 			        })    
-		            .group(monthDimGroup, "Omsetning") //dateDimGroup
+		            .group(dateDimGroup, "Omsetning") //monthDimGroup
 			        .valueAccessor(function (d) {
                 		return d.value.omsetning; 
         			}),            
 		    	dc.barChart(compositeChart)
-		            .dimension(monthDim) 
+		            .dimension(dateDim) 
 		            .colors('mediumvioletred')
 		            .centerBar(true)
-		            .group(monthDimGroup, "Kostnad")
+		            .gap(10)
+		            .group(dateDimGroup, "Kostnad")  //dateDimGroup
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
            			}),
 			    dc.lineChart(compositeChart)
-		            .dimension(monthDim) //dateDim
+		            .dimension(dateDim) //dateDim
 		            .colors('green')
-		            .group(monthDimGroup, "Resultat")
+		            .group(dateDimGroup, "Resultat") //dateDimGroup
 					.valueAccessor(function (d) {
 						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
 						return resultat;
 					 })
 		            .dashStyle([5,3])     
+		            .renderDataPoints([{radius: 5, fillOpacity: 0.8, strokeOpacity: 0.8}])
 		     ])         
 		    .brushOn(false);
 	        
@@ -441,10 +513,10 @@ d3.json(url, function(error, data) {
 	        
 	        
 	        
-	   
+/*	   
  var minDate2 = dateDim.bottom(1)[0].month;
  var maxDate2  = dateDim.top(1)[0].month;
- 
+ */
  //maxDate2.setMonth(maxDate2.getMonth() + 1 );
  
  //var minDate = new Date(dateDim.bottom(1)[0]["timestamp"]);
@@ -573,11 +645,13 @@ stackedBarChart
      	dc.renderAll();
    	});
 
+/*
 	d3.selectAll('a#year').on('click', function () {
 		yearChart.filterAll();
 		dc.redrawAll();
 	});
-	d3.selectAll('a#intekkt').on('click', function () {
+*/
+d3.selectAll('a#intekkt').on('click', function () {
 		alert("WTF");
 		compositeChart.filterAll();
 		dc.redrawAll();
@@ -590,6 +664,17 @@ stackedBarChart
 		tubilkChart.filterAll();
 		dc.redrawAll();
 	});	
+
+	d3.selectAll('a#fask').on('click', function () {
+		faskChart.filterAll();
+		dc.redrawAll();
+	});		
+	
+	d3.selectAll('a#favk').on('click', function () {
+		favkChart.filterAll();
+		dc.redrawAll();
+	});		
+	
 	d3.selectAll('a#composite').on('click', function () {
 		compositeChart.filterAll();
 		dc.redrawAll();
@@ -608,7 +693,13 @@ stackedBarChart
 
 	dataCount
 	      .dimension(fakt)
-	      .group(all);  
+	      .group(all)
+	      .html({
+            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fakturalinjer' +
+                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
+            all: 'Alle fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+          });  
+
 
 	dataTable
 	    .dimension(faktAllDim)
@@ -617,14 +708,12 @@ stackedBarChart
 	    .columns([
 	      function (d) { return d.tupro; },
 	      function (d) { return d.tubilk; },
-	      function (d) { return d.faavd; },
+	      function (d) { return d.registreringsdato; },
+	      function (d) { return d.mottaker; },
+	      function (d) { return d.avdeling; },
 	      function (d) { return d.faopd; },
-	      function (d) { return d.sumfabeln; },
-	      function (d) { return d.hedtop; },
-	      function (d) { return d.fakda; },
-	      function (d) { return d.faopko; },
-	      function (d) { return d.trknfa; }
-	      //function (d) { return d.kalle; }
+	      function (d) { return d.fabeln; },
+	      function (d) { return d.fakda; }
 	    ])
 	    .order(d3.descending)
 	    .on('renderlet', function (table) {
@@ -633,6 +722,22 @@ stackedBarChart
 	 });
 	
 
+
+	jq(document).ready(function() {
+			var lang = jq('#language').val();
+			jq('#data-table').dataTable({
+				"dom" : '<"top">t<"bottom"flip><"clear">',
+				"scrollY" : "200px",
+				"scrollCollapse" : true,
+				"destroy": true,
+				"language": {
+					"url": getLanguage(lang)
+		        }
+			});
+		});	
+	
+	
+/*	
 	jq('#data-table').on('click', '.data-table-col', function() {
 		  var column = jq(this).attr("data-col");
 		  var faktAllDim2 = fakt.dimension(function(d) {return d[column];});
@@ -642,17 +747,18 @@ stackedBarChart
 		  });
 		  dataTable.redraw();
 		});
-	
+*/	
 	
 	
 	d3.select('#download').on('click', function() {
+		var today = new Date();
         var data = faktAllDim.top(Infinity);
 		var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
-        saveAs(blob, 'trafikkregnskap.csv');
+        saveAs(blob, 'trafikkregnskap-' + today + '.csv');
     });	
 	
 	faktSize = fakt.size();
-	updateDataTable();
+	//updateDataTable();
 	  
 	dc.renderAll(); 
 
@@ -873,19 +979,28 @@ if (typeof module !== "undefined" && module.exports) {
 
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;Trafikkregnskap</font>
+						<font class="tabLink">&nbsp;Trafikkregnskap - detaljer</font>
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
-					<td width="20" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" href="#">
+							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - oversikt</font>&nbsp;						
+						</a>
+						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
+			  		</td>		
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_fortolling_no">
 							<font class="tabDisabledLink">&nbsp;Fortolling(NO)</font>&nbsp;						
 						</a>
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
-			  		</td>				
+			  		</td>
+			  						
 					
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -905,35 +1020,57 @@ if (typeof module !== "undefined" && module.exports) {
 		 	    <td>&nbsp;
 				<div class="container-fluid">
 				  <div class="row">
-					<div class="col-md-8">
-							År:
+					<div class="col-md-8 text12">
+						<font class="text12">År:</font>
 						<select name="selectYear" id="selectYear" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="2016">2016</option>
 	  						<option value="2017">2017</option>
+		  					<option value="2016">2016</option>
 	  					</select>
-		  					&nbsp;&nbsp;Avdeling:
-						<select name="selectAvd" id="selectAvd" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">1</option>
-	  						<option value="2">2</option>
-	  					</select>
-	  						&nbsp;&nbsp;Bilkode:
-						<select name="selectBilkode" id="selectBilkode" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">1</option>
-	  						<option value="2">2</option>
-	  					</select>
-	  		    			&nbsp;&nbsp;Kunde:
-						<select name="selectKunde" id="selectKunde" >
-		  					<option value="ALL">-Alle-</option>
-		  					<option value="1">1</option>
-	  						<option value="2">2</option>
-	  					</select>
+						<font class="text12">Måned:</font>
+						<select name="selectMonth" id="selectMonth" >
+	  						<option value="01">Januar</option>
+		  					<option value="02">Februar</option>
+		  					<option value="03">Mars</option>
+		  					<option value="04">April</option>
+		  					<option value="05">Maj</option>
+		  					<option value="06">Juni</option>
+		  					<option value="07">Juli</option>
+		  					<option value="08">August</option>
+		  					<option value="09">September</option>
+		  					<option value="10">Oktober</option>
+		  					<option value="11">November</option>
+		  					<option value="12">Desember</option>
+	  					</select>	  					
+	  					
+						<font class="text12">&nbsp;&nbsp;Avdeling:</font>
+		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd">
+	 						<option value="">-alle-</option>
+		 				  	<c:forEach var="record" items="${model.avdList}" >
+		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+							</c:forEach>  
+						</select>		  					
+						<font class="text12">&nbsp;&nbsp;Signatur:</font>
+		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" autofocus>
+			 						<option value="">-alle-</option>
+			 						<c:forEach var="record" items="${model.signatureList}" >
+				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+									</c:forEach>   
+						</select>	
+						<font class="text12">&nbsp;&nbsp;Varekode:</font>
+		        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode">
+		        					<option value="">-alle-</option>
+			 						<option value="VEG">VEG</option>
+			 						<option value="FRA">FRA</option>
+
+						</select>	
+
+  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font>
+						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+
 					</div>	
 
 	  		    	<div class="col-md-4" align="right">
-	   	              	<button class="inputFormSubmitGrayOnGraph" onclick="load_data()">Last data</button>  <!--  inputFormSubmitStd-->
+	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
 				  </div>
 	
@@ -941,6 +1078,7 @@ if (typeof module !== "undefined" && module.exports) {
 	
 				  <div class="row">
 					<div class="col-md-12">
+<!-- 
 					  <div class="row ">
 		  				<div class="col-md-3 show-grid-center-large">
   						       Omsetning
@@ -955,24 +1093,42 @@ if (typeof module !== "undefined" && module.exports) {
   						        Dekningsbidrag
   						 </div>    						       						     						    
 					  </div> 
-					  <div class="row border">
-						<div class="col-md-3 padded" id="omsetning" align="center"></div>
-				        <div class="col-md-3 padded" id="kostnad" align="center"></div>  
-				        <div class="col-md-3 padded" id="resultat" align="center"></div>  
-				        <div class="col-md-3 padded" id="db" align="center"></div>  
+ -->	
+					  <div class="row">
+						<div class="col-md-3 padded" id="omsetning" align="center">
+ 							<h3 class="text14">Omsetning</h3>
+						</div>
+				        <div class="col-md-3 padded" id="kostnad" align="center">
+				        	<h3 class="text14">Kostnad</h3>
+				        </div>  
+				        <div class="col-md-3 padded" id="resultat" align="center">
+				        	<h3 class="text14">Resultat</h3>
+				        </div>  
+				        <div class="col-md-3 padded" id="db" align="center">
+							<h3 class="text14">Dekningsbidrag</h3>
+				        </div>  
 					  </div> 					  
 					</div>		
 				  </div>
 	
 				  <div class="row">
+					   <div class="col-md-12">
+					      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+					   </div>
+				  </div>	
+	
+				  <div class="row">
 				    <div class="col-md-12">
+<!--  	
 				      <div class="row">
    						 <div class="col-md-12 show-grid-left">
    						    Omsetning og kostnad 
    						 </div>
 				      </div>
-				      <div class="row border">
-						 <div class="col-md-12 dc-chart" id="chart-composite" align="center"> 
+-->
+				      <div class="row">
+						 <div class="col-md-12 dc-chart" id="chart-composite"> 
+						 	<h3 class="text11">Omsetning og kostnad</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
 						 </div>  
@@ -982,75 +1138,83 @@ if (typeof module !== "undefined" && module.exports) {
 				  
 				  <div class="row">
 					<div class="col-md-12">
-					  <div class="row ">
-		  				<div class="col-md-4 show-grid-left">
-  						       År
-  						</div>
-		  				<div class="col-md-2 show-grid-left">
-  						       Avdeling
-  						</div>
-    				    <div class="col-md-2 show-grid-right">
-						  avd:<input id="avd-filter" type="text" size="5"/>
-						  <a id="avdfilter">legg til filter</a>			    
-  				    	</div>						
-  						
-		  				<div class="col-md-4 show-grid-left">
-  						       Bilkode
-  						</div>
- 
-					  </div> 
-					  <div class="row border">
-						<div class="col-md-4 border" id="chart-ring-year" align="center">
+					  <div class="row">
+						   <div class="col-md-12">
+						      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+						   </div>
+					  </div>				  
+					  <div class="row">
+<!--  
+						<div class="col-md-3" id="chart-ring-year">
+							<h3 class="text11">År</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-				        <div class="col-md-4 border" id="chart-ring-avd" align="center">
+-->	
+					    <div class="col-md-3" id="chart-ring-fask">
+				       		<h3 class="text11">Intern / Ekstern oms.</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="fask" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div>	
+		
+				        <div class="col-md-3" id="chart-ring-avd">
+				       		 <h3 class="text11">Avdeling
+					        	 <font class="text10">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
+					        	 <a id="avdfilter">&nbsp;legg til filter</a>	
+				       		 </h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
-				        <div class="col-md-4 border" id="chart-ring-tubilk" align="center">
+				        <div class="col-md-3" id="chart-ring-tubilk">
+				       		<h3 class="text11">Bilkode</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="tubilk" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
+ 
+				        <div class="col-md-3" id="chart-ring-favk">
+				       		<h3 class="text11">Varukode</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="favk" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div> 
+
 					  </div> 					  
 					</div>		
 				  </div>	
 	
 				  <div class="row">
-				    <div class="col-md-6 show-grid-left" id="data-count"> 
-				        <span class="filter-count"></span> faktura poster valgt ut av <span class="total-count"></span> poster.
-				    </div>
-				    <div class="col-md-6 show-grid-right">
-						<a id="all">tilbakestill alt</a>
-					</div> 
+				    <div class="col-md-12" id="data-count"></div>
 				  </div>
 				 
-				  
-				  <div class="padded-row">&nbsp;</div>
+				  <div class="row">
+					<div class="col-md-12">
+						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+					</div>
+				  </div>	
 	
-   
-				  <div id="accordion" class="row">
-				    <h3>Fakturaposter, utvalg</h3>
-				    <div class="col-md-12 show-grid-small">
-				      <table class="table table-bordered table-striped" id="data-table">
+				  <div class="row">
+				    <div class="col-md-12">
+				      <h3 class="text11">Fakturalinjer, filtrert</h3>
+				      <div class="padded-row"></div>
+				      <table class="display compact cell-border" id="data-table">
 				        <thead>
 				          <tr class="header">
-				            <th class="data-table-col" data-col="tupro">Tupro</th>
-				            <th class="data-table-col" data-col="tubilk">Tubilk</th>
-				            <th class="data-table-col" data-col="faavd">Faavd</th>
-				            <th class="data-table-col" data-col="faopd">Faopd</th>
-				            <th class="data-table-col" data-col="sumfabeln">Sumfabeln</th>
-				            <th class="data-table-col" data-col="hedtop">Hedtop</th>
-				            <th class="data-table-col" data-col="fakda">Fakda</th>
-					        <th class="data-table-col" data-col="faopko">Faopko</th>
-					        <th class="data-table-col" data-col="trknfa">Trknfa</th>
+				            <th class="tableHeaderField">Tupro</th>
+				            <th class="tableHeaderField">Tubilk</th>
+				            <th class="tableHeaderField">Hedtop</th>
+					        <th class="tableHeaderField">mottaker</th>
+				            <th class="tableHeaderField">avdeling</th>
+				            <th class="tableHeaderField">Faopd</th>
+				            <th class="tableHeaderField">Fabeln</th>
+				            <th class="tableHeaderField">Fakda</th>
 				          </tr>
 				        </thead>
 				      </table>
-				      <div id="paging">
-    					<input id="last" type="Button" value="forrige" onclick="javascript:last()" />
-    					<input id="next" type="button" value="neste" onclick="javascript:next()"/>
-    					<button class="btn" id="download">download</button>
+				      
+			      	  <div>
+						<a href="#" id="download">
+	                		<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
+	                		<font class="text12MediumBlue">&nbsp;Excel</font>
+	 	        		</a>
   					  </div>
 				    </div>
 				  </div>

@@ -1056,8 +1056,6 @@ if (typeof module !== "undefined" && module.exports) {
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
 					  </div> 	
-
-					  				  
 					</div>		
 				  </div>	
 	
@@ -1070,7 +1068,6 @@ if (typeof module !== "undefined" && module.exports) {
 						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
 					</div>
 				  </div>	
-	
    
 				  <div class="row">
 				    <div class="col-md-12">
