@@ -74,6 +74,7 @@ d3.json(runningUrl, function(error, data) {
 	  d.registreringsdato = +d.registreringsdato; 
 	  d.signatur =   d.signatur;
 	  d.mottaker =   d.mottaker;
+	  d.edim =   d.edim;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -89,11 +90,13 @@ d3.json(runningUrl, function(error, data) {
 	var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
 	var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 	var  typeDim  = toll.dimension(function(d) {return d.type;});
+	var  edimDim  = toll.dimension(function(d) {return d.edim;});
 	//Charts 
 	var  typeChart   = dc.pieChart("#chart-ring-type");
 	var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  sisgChart   = dc.pieChart('#chart-ring-sisg');
+	var  edimChart   = dc.pieChart('#chart-ring-edim');
 	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeChart = dc.compositeChart("#chart-composite");
 	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
@@ -119,7 +122,8 @@ d3.json(runningUrl, function(error, data) {
 	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-
+	var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+	
 	//Group reduce
     var dateDimGroup =  dateDim.group().reduce(   
             /* callback for when data is added to the current filter results */
@@ -203,53 +207,67 @@ d3.json(runningUrl, function(error, data) {
 	    .dimension(typeDim)
 	    .group(typeDimGroup)
 	    .externalRadiusPadding(50)
-	    .drawPaths(true)
-	    .externalLabels(20)
-	    .innerRadius(40)
+	   // .drawPaths(true)
+	   // .externalLabels(20)
+	    .innerRadius(30)
+	   // .cx(100)
 	    
 	yearChart
 	    .width(300)
 	    .height(300)
 	    .dimension(yearDim)
 	    .group(yearDimGroup)
-	    .externalRadiusPadding(50)
-	    .innerRadius(40)
+	     .externalRadiusPadding(50)
+	    .innerRadius(30)
    
 	avdChart
-	    .width(350)
+	    .width(300)
 	    .height(300)
 	    .dimension(avdDim)
 	    .group(avdDimGroup)
 	    .slicesCap(25)
-	    .innerRadius(40)
+	    .innerRadius(30)
 	    .externalRadiusPadding(50)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
 	
 	sisgChart
-	    .width(350)
+	    .width(300)
 	    .height(300)
 	    .slicesCap(25)
-	    .innerRadius(40)
+	   .innerRadius(30)
 	    .externalRadiusPadding(50)
 	    .dimension(sisgDim)
 	    .group(sisgDimGroup)
-	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
+	  //  .legend(dc.legend().y(10).itemHeight(8).gap(3));
+
+	edimChart
+	    .width(300)
+	    .height(300)
+	    .slicesCap(25)
+	    .innerRadius(30)
+	    .externalRadiusPadding(50)
+	    .dimension(edimDim)
+	    .group(edimDimGroup)
+	 //   .legend(dc.legend().y(10).itemHeight(8).gap(3));	
 	
 	
 	antallDisplay
 	     .group(omsetningsGroup)  
+	     .formatNumber(d3.format(".g"))
 		 .valueAccessor(function (p) {
 			 return p.value.count;
 		  });
 	
 	antallreg_vareposterDisplay
 		.group(omsetningsGroup)  
+		.formatNumber(d3.format(".g"))
 		.valueAccessor(function (p) {
 				return p.value.sum_reg_vareposter;
 		});
 	
 	antalloff_vareposterDisplay
 		.group(omsetningsGroup)  
+		.formatNumber(d3.format(".g"))
 		.valueAccessor(function (p) {
 				return p.value.sum_off_vareposter;
 		});	
@@ -606,6 +624,10 @@ stackedBarChart
 	});	 
 	d3.selectAll('a#sisg').on('click', function () {
 		sisgChart.filterAll();
+		dc.redrawAll();
+	});	
+	d3.selectAll('a#edim').on('click', function () {
+		edimChart.filterAll();
 		dc.redrawAll();
 	});	
 	d3.selectAll('a#composite').on('click', function () {
@@ -1029,33 +1051,44 @@ if (typeof module !== "undefined" && module.exports) {
 						   </div>
 					  </div>				  
 					  
+
 					  <div class="row">
-						<div class="col-md-3" id="chart-ring-type">
-						 	<h3 class="text11">Import / Eksport</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text11">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>
-				        <div class="col-md-3" id="chart-ring-avd">
-				        	<h3 class="text11">Avdeling
+	
+					     <div class="col-md-2" id="chart-ring-avd">
+				        	<h3 class="text11" align="justify">Avdeling
 				        	 <font class="text10">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
-				        	 <a id="avdfilter">&nbsp;legg til filter</a>	
+				        	 <a id="avdfilter">legg til</a>	
 				        	</h3>
 							 			
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
 	
 				        </div>
-				        <div class="col-md-3" id="chart-ring-sisg">
-				        	<h3 class="text11">Signatur</h3>
+						<div class="col-md-2" id="chart-ring-type">
+						 	<h3 class="text11" align="center">Import / Eksport</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div>
+						<div class="col-md-2" id="chart-ring-year">
+							<h3 class="text11" align="center">År</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div>
+
+				        <div class="col-md-2" id="chart-ring-sisg">
+				        	<h3 class="text11" align="center">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
+				        <div class="col-md-2" id="chart-ring-edim">
+				        	<h3 class="text11" align="center">Edim</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
+				        </div> 
+
+
 					  </div> 	
+					  
 					</div>		
 				  </div>	
 	
