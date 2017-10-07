@@ -59,6 +59,7 @@ d3.json(runningUrl, function(error, data) {
     var fullDateFormat = d3.time.format('%Y%m%d');
     var yearFormat = d3.time.format('%Y');
     var monthFormat = d3.time.format('%m');
+    var monthNameFormat = d3.time.format('%m.%b');
     var percentageFormat = d3.format('.2%');
     var numberFormat = d3.format(",.0f")
  
@@ -66,7 +67,8 @@ d3.json(runningUrl, function(error, data) {
 	 _.each(tollData, function(d) {
 	  d.date = fullDateFormat.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
-	  d.month = monthFormat(d.date);
+	  //d.month = monthFormat(d.date);
+	  d.month = monthNameFormat(d.date);
 	  d.avdeling = d.avdeling;
 	  d.deklarasjonsnr= d.deklarasjonsnr;
 	  d.reg_vareposter = +d.reg_vareposter;
@@ -372,18 +374,23 @@ d3.json(runningUrl, function(error, data) {
 	compositeChart
 		    .width(1200)
 		    .height(500)
-		    .dimension(monthDim) 
-		    .group(monthDimGroup)
+		    .dimension(monthDim)   //dateDim
+		    .group(monthDimGroup)  //dateDimGroup
 		    .margins({top: 40, right: 10, bottom: 40, left: 80})
-            .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
+           // .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
             
-            //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt!!??
+            //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt, och ihop med time.month o dateDim
             //.xUnits(d3.time.month)
+            
+     		.x(d3.scale.ordinal())  //testing15.06
+            .xUnits(dc.units.ordinal)     //testing 15.06    
             
             .yAxisPadding('5%')
             .yAxisLabel("Antall vareposter")
         	.xAxisLabel("Måned")      
             .elasticY(true)
+            .elasticX(true)
+            .mouseZoomable(false)
         	.legend( dc.legend().x(1000).y(20).itemHeight(5).gap(20).legendText(function(d, i) { 
         				if (i == 0) {
         					return "Antall registrerte vareposter";
@@ -398,7 +405,7 @@ d3.json(runningUrl, function(error, data) {
 		         dc.barChart(compositeChart)
 		            //.dimension(monthDim) 
 		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		            .centerBar(true)
+		           // .centerBar(true)
 		            .barPadding(1)
 		            .renderLabel(true)
 				    .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
@@ -425,6 +432,13 @@ d3.json(runningUrl, function(error, data) {
 //             })	
              
 		    .brushOn(false);
+	        
+	      //  .controlsUseVisibility(true)
+            compositeChart.xAxis().tickFormat(function(d) { 
+            	console.log("d="+d)
+            	return d.substr(3); 
+            });
+	        
 	        
        
 	//        compositeChart.on('renderlet.barclicker', function(chart, filter) {
@@ -479,10 +493,10 @@ negativeBarChart.width(1100)
 	        
 */	        
 	        
-	        
+/*	        
  var minDate2 = dateDim.bottom(1)[0].month;
  var maxDate2  = dateDim.top(1)[0].month;
- 
+*/ 
 
 /* 
 stackedBarChart
@@ -613,11 +627,7 @@ stackedBarChart
 		yearChart.filterAll();
 		dc.redrawAll();
 	});
-	d3.selectAll('a#intekkt').on('click', function () {
-		alert("WTF");
-		compositeChart.filterAll();
-		dc.redrawAll();
-	});
+
 	d3.selectAll('a#avd').on('click', function () {
 		avdChart.filterAll();
 		dc.redrawAll();
@@ -632,14 +642,10 @@ stackedBarChart
 	});	
 	d3.selectAll('a#composite').on('click', function () {
 		compositeChart.filterAll();
+		compositeChart.redraw();
 		dc.redrawAll();
 	});	
 	
-	d3.selectAll('a#stacked-bar').on('click', function () {
-		stackedBarChart.filterAll();
-		dc.redrawAll();
-	});	
-
 	d3.selectAll('a#avdfilter').on('click', function () {
 		avdChart.filter(jq('#avd-filter').val());
 		dc.redrawAll();
