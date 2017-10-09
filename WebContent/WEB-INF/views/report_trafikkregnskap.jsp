@@ -457,10 +457,9 @@ d3.json(runningUrl, function(error, data) {
 
             .yAxisPadding('5%')
             .yAxisLabel("NOK")
-
-            
-        	.xAxisLabel("Dag")      //Måned
+        	.xAxisLabel("Dag") 
             .elasticY(true)
+            .elasticX(true)
             .renderTitle(true)
 	    	.title(function (d) {
             	var resultat = d.value.omsetning + d.value.kostnad;  
@@ -472,7 +471,8 @@ d3.json(runningUrl, function(error, data) {
  	            ].join('\n');
 			 })	
         	.mouseZoomable(false)
-        	.legend(dc.legend().x(1100).y(10).itemHeight(5).gap(20))
+        	.brushOn(false)
+        	.legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
@@ -510,8 +510,7 @@ d3.json(runningUrl, function(error, data) {
 					 })
 		            .dashStyle([5,3])     
 		            .renderDataPoints([{radius: 5, fillOpacity: 0.8, strokeOpacity: 0.8}])
-		     ])         
-		    .brushOn(false);
+		     ]);
 	        
 	        
 	    //compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
@@ -702,7 +701,7 @@ d3.selectAll('a#intekkt').on('click', function () {
 	      .html({
             some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fakturalinjer' +
                 ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-            all: 'Alle fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+            all: 'Alle <strong>%total-count</strong> fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });  
 
 

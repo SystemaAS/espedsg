@@ -67,7 +67,6 @@ d3.json(runningUrl, function(error, data) {
 	 _.each(tollData, function(d) {
 	  d.date = fullDateFormat.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
-	  //d.month = monthFormat(d.date);
 	  d.month = monthNameFormat(d.date);
 	  d.avdeling = d.avdeling;
 	  d.deklarasjonsnr= d.deklarasjonsnr;
@@ -374,8 +373,8 @@ d3.json(runningUrl, function(error, data) {
 	compositeChart
 		    .width(1200)
 		    .height(500)
-		    .dimension(monthDim)   //dateDim
-		    .group(monthDimGroup)  //dateDimGroup
+		    .dimension(monthDim)   
+		    .group(monthDimGroup) 
 		    .margins({top: 40, right: 10, bottom: 40, left: 80})
            // .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
             //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt, och ihop med time.month o dateDim
@@ -390,7 +389,7 @@ d3.json(runningUrl, function(error, data) {
             .elasticY(true)
             .elasticX(true)
             .mouseZoomable(false)
-        	.legend( dc.legend().x(1000).y(20).itemHeight(5).gap(20).legendText(function(d, i) { 
+        	.legend( dc.legend().x(1050).y(1).itemHeight(5).gap(20).legendText(function(d, i) { 
         				if (i == 0) {
         					return "Antall registrerte vareposter";
         				}
@@ -414,7 +413,7 @@ d3.json(runningUrl, function(error, data) {
    		         dc.barChart(compositeChart)
 		           // .dimension(monthDim) 
 		            .colors('mediumvioletred')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		            .xAxisPadding(5000)
+		            //.xAxisPadding(5000)
 		            .barPadding(1)
 		            .renderLabel(true)
 		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
@@ -423,13 +422,6 @@ d3.json(runningUrl, function(error, data) {
      			})       			
         			
 		     ])  
-//             .on('renderlet', function (_chart) {
-//                 dc.events.trigger(function () {
-//                	 _chart.selectAll("rect.bar").on("click", _chart.onClick);
-//					dc.redrawAll();
-//                 });
-//             })	
-             
 		    .brushOn(false);
 	        
 	     
@@ -437,16 +429,6 @@ d3.json(runningUrl, function(error, data) {
             	return d.substr(3); 
             });
 	        
-	        
-       
-	//        compositeChart.on('renderlet.barclicker', function(chart, filter) {
-	//	  		  chart.selectAll('rect.bar').on('click.custom', function(d) {
-	//	        	// use the data in d to take the right action
-	//	        	//chart.filter(multikey(d.x, d.layer)); //TODO filter on måned
-	//	        	dc.redrawAll();
-	//	    		});
-	//		 });        
-        
 	
 /*	        
 	        var compositeChartDate = dc.compositeChart("#composite-chart-date");
@@ -656,7 +638,7 @@ stackedBarChart
 		  .html({
             some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
                 ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-            all: 'Alle fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+            all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });      
 	      
 
@@ -794,7 +776,7 @@ function last() {
 			You can use nearly any combination of these classes to create more dynamic and flexible layouts.
 			Each tier of classes scales up, meaning if you plan on setting the same widths for xs and sm, you only need to specify xs.
 			-->
-	 	 <table width="100%" class="tabThinBorderWhiteWithSideBorders" border="0" cellspacing="0" cellpadding="0">
+	 	 <table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
 	 	    <tr height="20">
 		 	    <td width="2%">&nbsp;</td>
 		 	    <td>&nbsp;
@@ -970,8 +952,6 @@ function last() {
 
          		</div> <!-- container -->
 		 	    </td>
-		 	    
-	 		<td width="2%">&nbsp;</td>	 	    
 	 	    </tr>
 	 	 </table>
 		</td>

@@ -36,16 +36,15 @@ public class ReportDashboardController {
 
 	/**
 	 * @Example
-	 * 		http://localhost:8080/espedsg/report_dashboard.do?report=trafikkregnskap
+	 * 		http://localhost:8080/espedsg/report_dashboard.do?report=report_trafikkregnskap_overview
 	 * 
-	 * @param session
-	 * @param request
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "report_dashboard.do", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView doReportDashboard(HttpSession session, HttpServletRequest request) {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		ModelAndView successView = new ModelAndView("report_trafikkregnskap"); //default trafikkregnskap
+		ModelAndView successView = new ModelAndView("report_trafikkregnskap_overview"); //default trafikkregnskap overview
 		Map model = new HashMap();
 		logger.info("Inside: doReportDashboard");
 		
