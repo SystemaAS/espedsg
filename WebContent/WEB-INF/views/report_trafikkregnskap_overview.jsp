@@ -809,20 +809,19 @@ function last() {
 			<tr height="2"><td></td></tr>
 
 				<tr height="25"> 
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
-							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - oversikt</font>&nbsp;						
-						</a>
-						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
-			  		</td>		
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;Trafikkregnskap - detaljer</font>
+						<font class="tabLink">&nbsp;Trafikkregnskap - oversikt</font>
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
+					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
+							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
+						</a>						
+						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
+					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_fortolling_no">

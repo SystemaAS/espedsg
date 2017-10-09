@@ -58,8 +58,6 @@ public class ReportDashboardController {
 
 			setCodeDropDownMgr(appUser, model);
 			
-			
-			
 			if (StringUtils.hasValue(report)) {
 				successView.setViewName(report);
 			} 

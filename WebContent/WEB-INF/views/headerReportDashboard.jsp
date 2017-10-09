@@ -31,6 +31,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="http://colorbrewer2.org/export/colorbrewer.js"></script>
+	<script type="text/javascript" src="resources/js/FileSaver.js"></script>
 	
 	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
