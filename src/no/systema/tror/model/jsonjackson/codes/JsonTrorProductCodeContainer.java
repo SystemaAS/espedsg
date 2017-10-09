@@ -29,4 +29,8 @@ public class JsonTrorProductCodeContainer {
 	public void setDtoList(Collection<JsonTrorProductCodeRecord> value){ this.dtoList = value;}
 	public Collection<JsonTrorProductCodeRecord> getDtoList(){ return this.dtoList; }
 	
+	private Collection<JsonTrorProductCodeRecord> list = null;
+	public void setList(Collection<JsonTrorProductCodeRecord> value){ this.list = value;}
+	public Collection<JsonTrorProductCodeRecord> getList(){ return this.list; }
+	
 }

@@ -318,6 +318,46 @@ public class CodeDropDownMgr {
 		 * @param model
 		 * @param appUser
 		 */
+		public void populateCodesHtmlDropDownsFromJsonProductLandimporFraktbrev(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+				Map model, SystemaWebUser appUser){
+				//fill in html lists here
+				try{
+				
+					String CODES_URL = TrorUrlDataStore.TROR_GENERAL_CODES_URL;
+					StringBuffer urlRequestParamsKeys = new StringBuffer();
+					urlRequestParamsKeys.append("user=" + appUser.getUser());
+					urlRequestParamsKeys.append("&kftyp=FRBREVPRO");
+					
+					//Now build the payload and send to the back end via the drop down service
+					//logger.info("CODES_URL:" + CODES_URL);
+					//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+					String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+					//debug
+					//logger.info(utfPayload);
+					JsonTrorProductCodeContainer codeContainer = listPopulationService.getProductContainer(utfPayload);
+					List<JsonTrorProductCodeRecord> list = new ArrayList();
+					
+					//Take some exception into consideration here or run the default to populate the final list
+					for(JsonTrorProductCodeRecord codeRecord: codeContainer.getList()){
+						//default
+						list.add(codeRecord);
+						//logger.info("PROD:" + codeRecord.getKfkod	());
+					}
+					
+					model.put(TrorConstants.RESOURCE_MODEL_KEY_PRODUCT_CODE_LIST, list);
+					
+				
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+		}
+		/**
+		 * 
+		 * @param urlCgiProxyService
+		 * @param listPopulationService
+		 * @param model
+		 * @param appUser
+		 */
 		public void populateCodesHtmlDropDownsFromJsonEnhet(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
 				Map model, SystemaWebUser appUser){
 				//fill in html lists here

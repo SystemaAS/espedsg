@@ -250,7 +250,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_MLAPKOD);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProduct(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonProductLandimporFraktbrev(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonEnhet(this.urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser);
 		
 		//Sign / AVD

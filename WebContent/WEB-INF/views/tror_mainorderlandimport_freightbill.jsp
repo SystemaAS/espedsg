@@ -464,14 +464,14 @@
 						 				</tr>
 						 				<tr>
 							 				<td class="text12">&nbsp;<span title="dfprok"><b>14.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode"/>&nbsp;</span></td>
-							 				<td class="text12" >
+							 				<td colspan="2" class="text12" >
 							 					<select name="dfprok" id="dfprok" class="inputTextMediumBlue" >
 							 						<option value="">-velg-</option>
 								 				  	<c:forEach var="record" items="${model.produktList}" >
 								 				  		<option value='${record.kfkod}' <c:if test="${record.kfkod == model.record.dfprok}"> selected </c:if> >${record.kfkod}</option>
 													</c:forEach>  
 												</select>
-												<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes.do?action=doFind&ctype=landimport_fb','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
+												<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes_landimport_fraktbrev.do?action=doFind&ctype=landimport_fb','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 												<img id="imgProductcodes" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 											</a>
 							 				</td>
@@ -596,14 +596,14 @@
 						 				<span title="dfnteu"><b>12.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.utv.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="3" maxlength="2" value="${model.record.dfnteu}">
+					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="3" maxlength="2" value="${model.record.dfnteu}">
 					 				</td>
 						 			<td class="text12" width="10">&nbsp;</td>
 						 			<td class="text12">
 						 				<span title="dfntau"><b>13.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.andre.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="3" maxlength="2" value="${model.record.dfntau}">
+					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="3" maxlength="2" value="${model.record.dfntau}">
 					 				</td>
 					 				<td colspan="3" class="text12">
 						 				<span title="dfntau">Oppkravs Beløp</span>
@@ -758,8 +758,9 @@
 					 				    <label class="text11Red" id="orderLineErrMsgPlaceHolder"></label>
 				 				    </td>
 									<td align="right">
-										
-					 				    <input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+										<c:if test="${not empty model.record.dfopd}">
+					 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+					 				    </c:if>
 				 				    </td>
 							    </tr>
 							    </table>

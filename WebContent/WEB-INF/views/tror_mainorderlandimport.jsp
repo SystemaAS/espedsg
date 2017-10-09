@@ -1129,10 +1129,10 @@
 									 				</td>
 									 				
 									 				<td align="right" class="tableCell" nowrap>
-										 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="hem3" id="hem3" size="12" maxlength="11" value="${model.record.hem3}">
+										 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="hem3" id="hem3" size="12" maxlength="11" value="${ fn:replace(model.record.hem3,'.',',') }">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>
-										 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="helm" id="helm" size="8" maxlength="7" value="${model.record.helm}">
+										 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="helm" id="helm" size="8" maxlength="7" value="${ fn:replace(model.record.helm,'.',',') }"> 
 									 				</td>
 									 			</tr>
 									 			<tr class="tableRow">

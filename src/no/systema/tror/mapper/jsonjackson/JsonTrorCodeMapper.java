@@ -185,10 +185,10 @@ public class JsonTrorCodeMapper {
 			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
 			
 			//DEBUG
-			Collection<JsonTrorProductCodeRecord> fields = codeContainer.getDtoList();
-			for(JsonTrorProductCodeRecord record : fields){
-
-			}
+			/*Collection<JsonTrorProductCodeRecord> fields = codeContainer.getDtoList();
+			if(fields==null){
+				fields = codeContainer.getList();
+			}*/
 		}	
 		return codeContainer;
 	}
