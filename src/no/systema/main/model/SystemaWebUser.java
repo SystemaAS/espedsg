@@ -90,7 +90,11 @@ public class SystemaWebUser {
 	private String httpJQueryDocRoot = null;
 	public void setHttpJQueryDocRoot(String value) {  this.httpJQueryDocRoot = value; }
 	public String getHttpJQueryDocRoot() { return this.httpJQueryDocRoot;}
-		
+	
+	private String os = null; 
+	public void setOs(String value) {  this.os = value; }
+	public String getOs() { return this.os;}
+	
 	private String user = null; 
 	public void setUser(String value) {  this.user = value; }
 	public String getUser() { return this.user;}

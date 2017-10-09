@@ -379,6 +379,8 @@ public class DashboardController {
 	private void doHandOverToSystemaWebUser(HttpServletRequest request, SystemaWebUser appUser, JsonSystemaUserContainer jsonSystemaUserContainer, String companyCode){
 		
 		//user values
+		appUser.setOs(System.getProperty("os.name").toLowerCase());
+		//logger.info("OS:" + appUser.getOs());
 		appUser.setUser(jsonSystemaUserContainer.getUser().toUpperCase());
 		appUser.setUserName(jsonSystemaUserContainer.getUserName());
 		appUser.setCompanyCode(companyCode);//fifirm in firm

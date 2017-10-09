@@ -31,8 +31,8 @@
 						 			<td align="left" height="60px" class="text14">
 						 			<ol>
 						 			
-						 			<%-- 
-						 			<c:if test="${user.user == 'OSCAR'}">
+						 			
+						 			<c:if test="${user.user == 'OSCAR' && fn:startsWith(user.os,'mac') }">
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
 							 				<a class="text14" href="report_dashboard.do" > 	
@@ -43,7 +43,7 @@
 										</li>
 	 								    <%-- ===========================================  --%>
 						            	<%-- Here we have the info popup window infoDashboard --%>
-						            	<%-- =========================================== 
+						            	<%-- =========================================== --%>
 						            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoDashboard" class="popupPlain"  >
 						           		<div align="center">
 						           			<table border = "0">
@@ -63,7 +63,7 @@
 										</div>
 									</span>
 						 			</c:if>
-						 			 --%>
+						 			 
 						 			 
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
