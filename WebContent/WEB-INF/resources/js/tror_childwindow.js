@@ -286,13 +286,12 @@
 			  }*/
 			  
 			  //addressing a parent field from this child window
-			  if( caller =='landimport'){ 
+			  if( caller =='landimport' || caller =='landimport_fb'){ 
 				  opener.jq('#dftoll').val(id);
-				  //opener.jq('#TODOname').val(name);
 				  opener.jq('#dftoll').focus();
 				  
 			  }else if(caller =='todo'){ 
-				  //opener.jq('#hetri').val(countryCode);
+				  opener.jq('#dftoll').val(id);
 				  //opener.jq('#hesdt').val(postalCode);
 				  //opener.jq('#hesdt').removeClass("text11RedBold");
 				  //opener.jq('#OWNwppns2').val(city);
@@ -642,6 +641,7 @@
 	  jq('#tollstedList').dataTable( {
 		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
 		  "lengthMenu": [ 10, 20 ],
+		  "order": [[ 1, "asc" ]],
 		  "language": { "url": getLanguage(lang) }
 	  });
 	  //event on input field for search

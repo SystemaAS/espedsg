@@ -212,7 +212,8 @@
 					 				<td class="text14" ><span title="dfkdme/dfntla"><spring:message code="systema.tror.fraktbrev.form.update.label.marknote"/>
 					 					<a tabindex="-1" id="merkelappIdLink" >
  											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
- 										</a> / <spring:message code="systema.tror.fraktbrev.form.update.label.marknote.qty"/></span></td>
+ 										</a> / <spring:message code="systema.tror.fraktbrev.form.update.label.marknote.qty"/></span>
+ 									</td>
 					 				<td class="text14" >
 					 					<select name="dfkdme" id="dfkdme" class="inputTextMediumBlue" >
 					 						<option value="">-velg-</option>
@@ -231,7 +232,11 @@
 										</select>
 									</td>
 									<td width="5px" class="text14" >&nbsp;</td>	
-					 				<td class="text14"><span title="dftoll"><spring:message code="systema.tror.fraktbrev.form.update.label.tstd"/></span></td>
+					 				<td class="text14"><span title="dftoll"><spring:message code="systema.tror.fraktbrev.form.update.label.tstd"/></span>
+					 					<a tabindex="-1" id="dftollIdLink" >
+ 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+ 										</a>
+					 				</td>
 					 				<td class="text14" ><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="dftoll" id="dftoll" size="5" maxlength="4" value="${model.record.dftoll}"></td>
 					 				<td width="20px" class="text14" >&nbsp;</td>
 					 				<td class="text14"><span title="dfcmn"><spring:message code="systema.tror.fraktbrev.form.update.label.edifact"/></span></td>
@@ -606,7 +611,7 @@
 					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="3" maxlength="2" value="${model.record.dfntau}">
 					 				</td>
 					 				<td colspan="3" class="text12">
-						 				<span title="dfntau">Oppkravs Beløp</span>
+						 				<span title="dfbele">Oppkravs Beløp</span>
 				 					</td>
 					 				<td colspan="2" class="text12">
 					 					<input readonly type="text" class="inputTextReadOnly" name="dfbele" id="dfbele" size="10" maxlength="20" value="${ fn:replace(model.record.dfbele,'.',',') }"> 

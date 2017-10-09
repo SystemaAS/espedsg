@@ -30,28 +30,7 @@
 			 	the cosmetic frame will not follow the whole datatable grid including the search field... --%>
 				<table id="containerdatatableTable" cellspacing="2" align="left" width="100%">
 				
-					<%-- FILTER (when applicable
-					<tr>
-					<td>
-						<table>
-						<form name="trorTollstedForm" id="trorTollstedForm" action="tror_mainorder_childwindow_tollsted.do?action=doFind" method="post">
-						<input type="hidden" name="ctype" id="ctype" value="${model.ctype}">
-						<tr>
-							<td class="text12">&nbsp;<spring:message code="systema.tror.childwindow.tollsted.label.kode"/></td>
-							<td class="text12">&nbsp;<input type="text" class="inputText" name="ktskod" id="ktskod" size="8" maxlength="8" value="${model.record.ktskod}"></td>
-							<td class="text11">&nbsp;</td>
-							<td class="text12">&nbsp;<spring:message code="systema.tror.childwindow.tollsted.label.name"/></td>
-							<td class="text12">&nbsp;<input type="text" class="inputText" name="ktsnav" id="ktsnav" size="10" maxlength="35" value="${model.record.ktsnav}"></td>
-							
-							<td class="text11">&nbsp;</td>
-	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'></td>
-		           		</tr>
-		           		</form>
-		           		</table>
-					</td>
-					</tr>								           		
-	           		<tr height="10"><td></td></tr>
-	           		 --%>
+					
 					<tr class="text12" >
 					<td class="ownScrollableSubWindowDynamicWidthHeight" width="90%" style="height:30em;">
 					<%-- this is the datatables grid (content)--%>
@@ -72,8 +51,8 @@
 			               	 <img style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" >
 			               </td>
 			               --%>
-			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="id_${record.ktskod}@name_${record.ktsnav}@counter_${counter.count}">
-			               	 	${record.ktskod}
+			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="id_${record.ktspnr}@name_${record.ktsnav}@counter_${counter.count}">
+			               	 	${record.ktspnr}
 			               </td>
 			               <td width="60%" class="text11" >&nbsp;${record.ktsnav}</td> 
 			                      

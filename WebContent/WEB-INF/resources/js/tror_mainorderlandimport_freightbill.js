@@ -89,6 +89,24 @@
 	    	jq('#merkelappIdLink').attr('target','_blank');
 	    	window.open('tror_mainorder_childwindow_generalcodes.do?action=doFind&ctype=tror_dfkdme_fb&kftype=MLAPKOD', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	  });
+	  jq('#merkelappIdLink').keypress(function(e){ //extra feature for the end user
+  		if(e.which == 13) {
+  			jq('#merkelappIdLink').click();
+  		}
+	  });
+	  
+	  //TOLLSTED
+	  jq('#dftollIdLink').click(function() {
+		  jq('#dftollIdLink').attr('target','_blank');
+      	  window.open('tror_mainorder_childwindow_tollsted.do?action=doFind&ctype=landimport_fb&direction=fra', "tollstedWin", "top=300px,left=450px,height=500px,width=700px,scrollbars=no,status=no,location=no");
+	  });
+      jq('#dftollIdLink').keypress(function(e){ //extra feature for the end user
+    		if(e.which == 13) {
+    			jq('#dftollIdLink').click();
+    		}
+      });
+	  
+	  
 	  
 	  //Adjust fields that are not String in target Dao object
 	  jq("#formRecord").submit(function() {
