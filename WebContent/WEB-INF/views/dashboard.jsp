@@ -30,6 +30,8 @@
 						 			<%--<td style="border-left: 2px solid #3F9E4D; padding: 5px;" align="left" height="60px" class="text14"> --%>
 						 			<td align="left" height="60px" class="text14">
 						 			<ol>
+						 			
+						 			<%-- 
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
@@ -41,7 +43,7 @@
 										</li>
 	 								    <%-- ===========================================  --%>
 						            	<%-- Here we have the info popup window infoDashboard --%>
-						            	<%-- ===========================================  --%>
+						            	<%-- =========================================== 
 						            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoDashboard" class="popupPlain"  >
 						           		<div align="center">
 						           			<table border = "0">
@@ -60,8 +62,9 @@
 						           		</table>
 										</div>
 									</span>
-	
 						 			</c:if>
+						 			 --%>
+						 			 
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
@@ -96,6 +99,44 @@
 						 					
 											<li style="line-height:20px;">
 					 						<font class="text14">
+					 						
+					 						<c:if test="${fn:contains(record.prog,'-RAPPORTER') }">
+							 					<font class="text14">
+							 						<a class="text14" href="report_dashboard.do" onMouseOver="showPop('infoRAPP');" onMouseOut="hidePop('infoRAPP');" onClick="setBlockUI(this);" > 	
+					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
+					 									<font class="text14NavyBlue">${record.prTxt}</font>
+			 										</a>
+			 										<%-- ====================================================  --%>
+									            	<%-- Here we have the info popup window TROR - Oppdragsreg --%>
+									            	<%-- ====================================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoRAPP" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>${record.prTxt}</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<%--
+																			<img src="resources/images/miniTodo.png" border="0" width="350px"; height="210px">
+																			 --%>
+																		</c:otherwise>
+																	</c:choose>	
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
+												</font>
+											</c:if>
+					 						
 					 						<c:if test="${fn:contains(record.prog,'-WRKTRIPS') }">
 					 							<c:choose>
 						 							<c:when test="${not empty user.userAS400}">
