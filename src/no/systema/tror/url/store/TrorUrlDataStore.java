@@ -131,6 +131,8 @@ public class TrorUrlDataStore {
 	static public String TROR_BASE_CHILDWINDOW_LOAD_UNLOAD_PLACES_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTERLF.do";
 	//http://gw.systema.no/sycgip/TJINQGEB.pgm?user=JOVO&kode=&tekst=&fullinfo=J
 	static public String TROR_BASE_CHILDWINDOW_GEBYR_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQGEB.pgm";
+	//http://gw.systema.no:8080/syjservicestror/syjsPONRN.do?user=OSCAR&ponnr=0010
+	static public String TROR_BASE_CHILDWINDOW_POSTALCODE_PONRN_URL = AppConstants.HTTP_ROOT_CGI + "/syjservicestror/syjsPONRN.do";
 		
 	/**
 	//---------------------------------------------------

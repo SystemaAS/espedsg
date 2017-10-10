@@ -513,7 +513,11 @@
 						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad2l" id="dfad2l" size="25" maxlength="30" value="${model.record.dfad2l}"></td>
 					 					</tr>
 					 					<tr>
-							 				<td class="text12">&nbsp;<span title="dfpoul"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.postcode"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.adr3"/>&nbsp;</span></td>
+							 				<td class="text12">&nbsp;<span title="dfpoul"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.postcode"/></span>
+							 				<a tabindex="-1" id="trorPostalCodePonrnIdLink" >
+	 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+							 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="dfadul"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.adr3"/></span>&nbsp;</td>
 						 				</tr>
 						 				<tr>	
 						 					<td colspan="2" class="text12" >

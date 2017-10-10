@@ -290,11 +290,10 @@
 				  opener.jq('#dftoll').val(id);
 				  opener.jq('#dftoll').focus();
 				  
-			  }else if(caller =='todo'){ 
-				  opener.jq('#dftoll').val(id);
-				  //opener.jq('#hesdt').val(postalCode);
-				  //opener.jq('#hesdt').removeClass("text11RedBold");
-				  //opener.jq('#OWNwppns2').val(city);
+			  }else if(caller =='landimport_fb_dfpoul'){ 
+				  opener.jq('#dfpoul').val(id);
+				  opener.jq('#dfadul').val(name);
+				  opener.jq('#dfpoul').focus();
 			  }
 			  
 			  //close child window
@@ -473,9 +472,7 @@
 	  });
 	});
 	
-	
-	
-	
+
 	
 	//======================
     //Datatables jquery 
@@ -487,6 +484,12 @@
     		jq('#postalCodeList_filter').val()
         ).draw();
     }
+    function filterPostNrPonrn () {
+        jq('#postalCodePonrnList').DataTable().search(
+    		jq('#postalCodePonrnList_filter').val()
+        ).draw();
+    }
+    
     /*
     function filterPostNrTo () {
         jq('#postNrToList').DataTable().search(
@@ -582,6 +585,19 @@
 	  //event on input field for search
 	  jq('input.postalCodeList_filter').on( 'keyup click', function () {
 		  filterPostNr();
+	  });
+	  
+	  //--------------------------
+      //table [PostNr PONRN]
+	  //--------------------------
+	  jq('#postalCodePonrnList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.postalCodePonrnList_filter').on( 'keyup click', function () {
+		  filterPostNrPonrn();
 	  });
 	  
 	  //-----------------------

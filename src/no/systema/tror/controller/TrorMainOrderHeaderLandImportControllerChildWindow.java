@@ -44,9 +44,15 @@ import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBu
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorBuyerDeliveryAddressRecord;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedContainer;
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorLosseLasteStedRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorPostalCodeRecord;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowService;
 import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
-
+import no.systema.jservices.common.dao.DokufDao;
+//
+import no.systema.jservices.common.dao.PonrnDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 
 /**
  * 
@@ -59,7 +65,7 @@ import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
 
 public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	//Postal codes
-	private final String DATATABLE_POSTALCODE_LIST = "postalCodeList";
+	private final String DATATABLE_POSTALCODE_PONRN_LIST = "postalCodePonrnList";
 	private final String POSTALCODE_DIRECTION = "direction";
 	private final String DATATABLE_CUSTOMER_LIST = "customerList";
 	private final String DATATABLE_SELLER_ADDRESSES_LIST = "sellerAddressesList";
@@ -196,6 +202,80 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 		    }
 		}
 	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorder_childwindow_postalcodes_ponrn.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindPostalCodesPonrn(@ModelAttribute ("record") PonrnDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindPostalCodes PONRN");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_postalcodes_ponrn");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+				
+		    	JsonReader<JsonDtoContainer<PonrnDao>> jsonReader = new JsonReader<JsonDtoContainer<PonrnDao>>();
+				jsonReader.set(new JsonDtoContainer<PonrnDao>());
+				String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_POSTALCODE_PONRN_URL;
+				StringBuilder urlRequestParams = new StringBuilder();
+				urlRequestParams.append("user=" + appUser.getUser());
+				if(strMgr.isNotNull(recordToValidate.getPonnr()) ){
+					urlRequestParams.append("&ponnr=" + recordToValidate.getPonnr());
+				}
+				
+				logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParams.toString());
+				String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+				logger.info("jsonPayload=" + jsonPayload);
+				DokufDao record = null;
+				JsonDtoContainer<PonrnDao> container = (JsonDtoContainer<PonrnDao>) jsonReader.get(jsonPayload);
+				if (container != null) {
+					for (PonrnDao dao : container.getDtoList()) {
+						outputList = container.getDtoList();
+					}
+					model.put(this.DATATABLE_POSTALCODE_PONRN_LIST, outputList);
+	    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				}
+				successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+		    }
+		}
+	}
+	
 	
 	/**
 	 * 
