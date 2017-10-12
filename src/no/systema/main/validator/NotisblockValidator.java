@@ -34,10 +34,9 @@ public class NotisblockValidator implements Validator {
 
 		JsonNotisblockRecord record = (JsonNotisblockRecord) obj;
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "frtdt", "notisblock.header.item.null.date_frtdt"); 
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "frtdt", "notisblock.header.item.null.date_frtdt"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "frtkod", "notisblock.header.item.null.date_frtkod"); 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "frttxt", "notisblock.header.item.null.date_frttxt"); 
-		
 		
 	}
 	

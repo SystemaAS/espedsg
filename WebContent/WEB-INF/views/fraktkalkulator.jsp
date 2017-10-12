@@ -383,9 +383,7 @@
 						    			<c:if test="${model.container.xkunfrakt == 'J' || model.container.xkunfrakt == 'j' }">
 							    			<tr class="tableRow" >
 						 						<td class="tableCellFirst"><spring:message code="systema.fraktkalkulator.main.form.result.label.xkunfrakt.column.prices"/></td>
-								    			<td class="tableCell"><b><spring:message code="systema.fraktkalkulator.main.form.result.label.xkunfrakt.column.price"/></b>&nbsp;${model.container.netto}
-								    				&nbsp;&nbsp;<b><spring:message code="systema.fraktkalkulator.main.form.result.label.xkunfrakt.column.grossPrice"/></b>:&nbsp;${model.container.brutto}
-								    			</td>
+								    			<td class="tableCell">&nbsp;${model.container.netto}</td>
 							    			</tr>
 							    			<tr class="tableRow" >
 						 						<td class="tableCellFirst">&nbsp;</td>

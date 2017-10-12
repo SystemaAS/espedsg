@@ -29,6 +29,8 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.StringManager;
+import no.systema.main.util.DateTimeManager;
 import no.systema.main.url.store.MainUrlDataStore;
 //Notisblock
 import no.systema.main.mapper.url.request.UrlRequestParameterMapper;
@@ -54,7 +56,8 @@ public class GeneralNotisblockController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private final String SUBSYSTEM_TVINN_SAD_IMPORT = "sadi";
 	private final String SUBSYSTEM_TVINN_SAD_EXPORT = "sade";
-	
+	private final StringManager strMgr = new StringManager();
+	private final DateTimeManager dateMgr = new DateTimeManager();
 		
 	private ModelAndView loginView = new ModelAndView("login");
 	private final String ACTION_DO_DELETE = "doDelete";
@@ -177,7 +180,7 @@ public class GeneralNotisblockController {
 				    	
 			    }else{
 		    		jsonNotisblockRecord = recordToValidate;
-				
+		    		this.adjustFields(jsonNotisblockRecord);
 		    		if(!isNewItemLine){
 	    			//-------
 					//UPDATE
@@ -303,6 +306,15 @@ public class GeneralNotisblockController {
 		return retval;
 	}
 	
+	/**
+	 * 
+	 * @param record
+	 */
+	private void adjustFields(JsonNotisblockRecord record){
+		if(strMgr.isNotNull(record.getFrtdt())){
+			record.setFrtdt( this.dateMgr.getCurrentDate_ISO() );
+		}
+	}
 	
 	/**
 	 * Sets domain objects

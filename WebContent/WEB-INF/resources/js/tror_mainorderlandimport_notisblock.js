@@ -98,9 +98,9 @@
       jq('#tblNotes').dataTable( {
     	  //"dom": '<"top">t<"bottom"f><"clear">',
     	  "dom": '<"top"i>rt<"bottom"f><"clear">',
-  		  "scrollY":    "200px",
+  		  "scrollY":    "300px",
   		  "tabIndex":   -1,
-  		  "order": [[ 0, "asc" ]],
+  		  "order": [[ 1, "asc" ]],
   		  "scrollCollapse":  true,
   		  "lengthMenu": [ 25, 50]
   	  });

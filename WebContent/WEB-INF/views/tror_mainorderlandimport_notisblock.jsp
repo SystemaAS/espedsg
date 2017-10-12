@@ -157,7 +157,7 @@
 								<table id="tblNotes" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-									    <th width="2%" align="center" class="text12">&nbsp;Lnr.&nbsp;</th>   
+									    <%-- <th width="2%" align="center" class="text12">&nbsp;Lnr.&nbsp;</th>  --%>   
 									    <th width="2%" align="center" class="text12">&nbsp;Endre&nbsp;</th>   
 									    <th class="text12" nowrap>&nbsp;Dato&nbsp;</th>
 					                    <th class="text12" nowrap>&nbsp;Part&nbsp;</th>
@@ -168,7 +168,7 @@
 					               <tbody>
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
 						               <tr class="tableRow" height="20" >
-							               <td width="2%" align="center" class="text11" >&nbsp;${record.frtli}</td>
+							               <%-- <td width="2%" align="center" class="text11" >&nbsp;${record.frtli}</td>  --%>
 							               <td width="2%" align="center" class="text11" >
 							               		<a tabindex=-1 id="recordUpdate_${record.frtli}_${record.frtdt}" href="#" onClick="getNotisblockItemData(this);">
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
@@ -282,7 +282,7 @@
 							        </tr>
 							        <tr>
 						        		<td align="left" valign="top">
-						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="frtdt" id="frtdt" size="9" maxlength="8" value="${model.record.frtdt}">
+						        			<input type="text" class="inputTextMediumBlue" name="frtdt" id="frtdt" size="9" maxlength="8" value="${model.record.frtdt}">
 										</td>
 										<td align="left" valign="top">
 						        			<input type="text" class="inputTextMediumBlueMandatoryField" name="frtkod" id="frtkod" size="2" maxlength="1" value="${model.record.frtkod}">
