@@ -471,7 +471,6 @@ d3.json(runningUrl, function(error, data) {
 		  	.compose([
 		         dc.barChart(compositeChart)
 		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		            .centerBar(true)
 		            .gap(10)
 		            .renderLabel(true)
 			        .label(function (d) {
@@ -484,8 +483,7 @@ d3.json(runningUrl, function(error, data) {
         			}),            
 		    	dc.barChart(compositeChart)
 		            .colors('mediumvioletred')
-		            .centerBar(true)
-		            .gap(10)
+ 					.gap(10)
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
            			}),

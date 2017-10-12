@@ -53,6 +53,23 @@ d3.json(runningUrl, function(error, data) {
 		throw error;
 	}
 	
+//test
+var testObject = { 'one': 1, 'two': 2, 'three': 3 };
+
+// Put the object into storage
+localStorage.setItem('testObject', JSON.stringify(testObject));
+
+// Retrieve the object from storage
+var retrievedObject = localStorage.getItem('testObject');
+
+console.log('retrievedObject: ', JSON.parse(retrievedObject));
+
+//
+	
+	
+	
+	
+	
 	var tollData = data.dtoList;
     //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
@@ -107,9 +124,7 @@ d3.json(runningUrl, function(error, data) {
 	var  antallDisplay = dc.numberDisplay("#antall");	
 	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
-	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
-	var  totalAvgDisplay = dc.numberDisplay("#totalAvg");	
-	var  dbDisplay = dc.numberDisplay("#db");	
+//	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
 	var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
@@ -152,21 +167,18 @@ d3.json(runningUrl, function(error, data) {
     );  
 	
     var monthDimGroup =  monthDim.group().reduce(   
-            /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
                 p.sum_reg_vareposter += v.reg_vareposter;   
-                p.sum_off_vareposter  += v.off_vareposter;                
+                p.sum_off_vareposter  += v.off_vareposter;     
                 return p;
             },
-            /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
                 p.sum_reg_vareposter -= v.reg_vareposter;   
-                p.sum_off_vareposter -= v.off_vareposter;   
+                p.sum_off_vareposter  += v.off_vareposter;     
                 return p;
             },
-            /* initialize p */
             function () {
                 return {
                     count: 0,
@@ -211,7 +223,7 @@ d3.json(runningUrl, function(error, data) {
 	   // .drawPaths(true)
 	   // .externalLabels(20)
 	    .innerRadius(30)
-	   // .cx(100)
+	    .on("filtered", getFiltersValues);
 	    
 	yearChart
 	    .width(300)
@@ -220,6 +232,7 @@ d3.json(runningUrl, function(error, data) {
 	    .group(yearDimGroup)
 	     .externalRadiusPadding(50)
 	    .innerRadius(30)
+	    .on("filtered", getFiltersValues);
    
 	avdChart
 	    .width(300)
@@ -229,17 +242,18 @@ d3.json(runningUrl, function(error, data) {
 	    .slicesCap(25)
 	    .innerRadius(30)
 	    .externalRadiusPadding(50)
-	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
+	    .legend(dc.legend().y(10).itemHeight(8).gap(3))
+	    .on("filtered", getFiltersValues);
 	
 	sisgChart
 	    .width(300)
 	    .height(300)
 	    .slicesCap(25)
-	   .innerRadius(30)
+	    .innerRadius(30)
 	    .externalRadiusPadding(50)
 	    .dimension(sisgDim)
 	    .group(sisgDimGroup)
-	  //  .legend(dc.legend().y(10).itemHeight(8).gap(3));
+	    .on("filtered", getFiltersValues);
 
 	edimChart
 	    .width(300)
@@ -249,7 +263,7 @@ d3.json(runningUrl, function(error, data) {
 	    .externalRadiusPadding(50)
 	    .dimension(edimDim)
 	    .group(edimDimGroup)
-	 //   .legend(dc.legend().y(10).itemHeight(8).gap(3));	
+	    .on("filtered", getFiltersValues);
 	
 	
 	antallDisplay
@@ -273,30 +287,14 @@ d3.json(runningUrl, function(error, data) {
 				return p.value.sum_off_vareposter;
 		});	
 	
-
+/*
 	totalTollDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
 			 return p.value.totaltoll;
 		  })
 		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
-	    
-	totalAvgDisplay
-	     .group(omsetningsGroup)  
-		 .valueAccessor(function (p) {
-			 return p.value.totalavg;
-		  })
-		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
-
-	dbDisplay
-	     .group(omsetningsGroup)  
-		 .valueAccessor(function (p) {
-			var resultat = p.value.omsetning + p.value.kostnad;   // + = spooky algo
-			var db = resultat / p.value.omsetning;
-			return db;
-		  })
-		  
-		 .formatNumber(d3.format(".2%")); 
+*/	    
 	  
 /*
 	yearlyBubbleChart 
@@ -394,7 +392,10 @@ d3.json(runningUrl, function(error, data) {
         					return "Antall registrerte vareposter";
         				}
         				if (i==1) {
-        					return "Antall officielle vareposter";
+        					return "Antall offisielle vareposter";
+        				}
+        				if (i==2) {
+        					return "Antall fortollinger";
         				}
         			}) 
         	)
@@ -402,7 +403,7 @@ d3.json(runningUrl, function(error, data) {
 		  	.compose([
 		         dc.barChart(compositeChart)
 		            //.dimension(monthDim) 
-		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		           // .centerBar(true)
 		            .barPadding(1)
 		            .renderLabel(true)
@@ -412,15 +413,22 @@ d3.json(runningUrl, function(error, data) {
         			}),
    		         dc.barChart(compositeChart)
 		           // .dimension(monthDim) 
-		            .colors('mediumvioletred')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		            //.xAxisPadding(5000)
+		            .colors('coral')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .barPadding(1)
 		            .renderLabel(true)
 		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
 			        .valueAccessor(function (d) {
              			return d.value.sum_off_vareposter; 
-     			})       			
-        			
+     			}),
+  		         dc.barChart(compositeChart)
+		           // .dimension(monthDim) 
+		            .colors('limegreen')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		            .barPadding(1)
+		            .renderLabel(true)
+		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
+			        .valueAccessor(function (d) {
+           				return d.value.count; 
+   				})          			
 		     ])  
 		    .brushOn(false);
 	        
@@ -695,11 +703,63 @@ stackedBarChart
 		
         saveAs(blob, 'fortolling_no-' + today + '.csv');
     });	
+
+	function getFiltersValues() {
+	    var filters = [
+	        { name: 'type', value: typeChart.filters()},
+	        { name: 'year', value: yearChart.filters()},
+	        { name: 'avd',  value: avdChart.filters()},
+	        { name: 'sisg', value: sisgChart.filters()},
+	        { name: 'edim', value:  edimChart.filters()},
+	        { name: 'composite', value: compositeChart.filters()}];
+	    var recursiveEncoded = jq.param( filters );
+	    location.hash = recursiveEncoded;
+	}
 	
+	
+	// Init chart filters
+	function initFilters() {
+		console.log("initFilter");
+		// Get hash values
+	    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&year=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
+	    var parsed = parseHash.exec(decodeURIComponent(location.hash));
+		console.log("parsed="+parsed);
+	    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
+	  
+	    	//chart
+	        if (parsed[rank] == "") {
+	            chart.filter(null);
+	        }
+	        else {
+	            var filterValues = parsed[rank].split(",");
+	            for (var i = 0; i < filterValues.length; i++ ) {
+	                chart.filter(filterValues[i]);
+	            }
+	        }
+	    }
+	    if (parsed) {
+	        filter(typeChart, 1);
+	        filter(yearChart, 2);
+	        filter(avdChart, 3);
+	        filter(sisgChart, 4);
+	        filter(edimChart, 5);
+	    }
+	}
+
+
+
+
+
+
+
+
+
 	tolldataSize = toll.size();
 	//updateDataTable();
 	  
 	dc.renderAll(); 
+	
+	initFilters();
 
 	jq.unblockUI();
     
@@ -729,6 +789,7 @@ function last() {
     updateDataTable();
     dataTable.redraw();
 }
+
 
 
 </script>
@@ -825,7 +886,7 @@ function last() {
 				           <h3 class="text14">Antall registrerte vareposter</h3>
 				        </div>  
 				        <div class="col-md-4 padded" id="antalloff_vareposter" align="center">
-				          <h3 class="text14">Antal officielle vareposter</h3>
+				          <h3 class="text14">Antall offisielle vareposter</h3>
 				        </div>  
 					  </div> 	
 					</div>		
@@ -897,7 +958,7 @@ function last() {
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
 				        <div class="col-md-2" id="chart-ring-edim">
-				        	<h3 class="text11" align="center">Edim</h3>
+				        	<h3 class="text11" align="center">Merknader</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div> 

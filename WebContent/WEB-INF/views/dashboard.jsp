@@ -37,33 +37,11 @@
 						 				<font class="text14">
 							 				<a class="text14" href="report_dashboard.do" > 	
 			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">Rapporter</font>
+			 									<font class="text14NavyBlue">Analyser</font>
 	 										</a>
 										</font>
 										</li>
-	 								    <%-- ===========================================  --%>
-						            	<%-- Here we have the info popup window infoDashboard --%>
-						            	<%-- =========================================== --%>
-						            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoDashboard" class="popupPlain"  >
-						           		<div align="center">
-						           			<table border = "0">
-						           				<tr>
-													<td align="left" class="text12" >
-														<b>Rapporter</b>, henter data direkte fra databasen.<br/><br/>
-														Rapporter:
-														<br/>- Trafikkanalyse, henter data fra fakturaposter, oppdrag og turer.
-													</td>
-												</tr>
-												<tr>
-													<td align="left" class="text12">
-														<br/><b>Note:</b> Hente data kan ta litt tid.
-													</td>
-												</tr>
-						           		</table>
-										</div>
-									</span>
 						 			</c:if>
-						 			 
 						 			 
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
@@ -710,15 +688,6 @@
 					</form>
 				</div>
 			</td>
-			<td>
-				<div id="dialogRunReportDashboard" title="Dialog">
-					<form  action="report_dashboard.do" name="runReportDashboardForm" id="runReportDashboardForm" method="post">
-						<p class="text12">
-							Hente data kan ta litt tid.
-						</p>
-					</form>
-				</div>
-			</td>		
 		</tr>
 		
 		<tr class="text" height="30"><td></td></tr>	

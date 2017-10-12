@@ -81,7 +81,7 @@
 					 		
 					 		
 					 		<td class="text22Bold" width="80%" align="middle" valign="middle" style="color:#778899;" >
-					 			eSped<font style="color:#003300;">sg</font> - <spring:message code="systema.tror.title"/>
+					 			eSped<font style="color:#003300;">sg</font> - Analyser
 					 		</td>
 					 		
 					 		<td class="text12" width="10%" align="center" valign="middle" >
