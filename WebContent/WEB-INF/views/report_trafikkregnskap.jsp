@@ -19,21 +19,26 @@ function load_data() {
 	var selectedAvd = jq('#selectAvd').val();
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
-	var selectedVarekode = jq('#selectVarekode').val();
+	var selectedIncludeVarekode = jq('#selectIncludeVarekode').val();
 	
 	runningUrl = runningUrl + "&registreringsdato="+selectedYear + selectedMonth ;
 
-	if (selectedAvd != "" )	{
+	console.log("selectedAvd="+selectedAvd);
+	console.log("selectedSign="+selectedSign);
+	console.log("selectedIncludeVarekode="+selectedIncludeVarekode);
+	
+	
+	if (selectedAvd != null )	{
 		runningUrl = runningUrl + "&avdeling="+selectedAvd;
 	}
-	if (selectedSign != "" )	{
+	if (selectedSign != null )	{
 		runningUrl = runningUrl + "&signatur="+selectedSign;
 	}	
 	if (selectedKundenr != "" )	{
 		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
 	}
-	if (selectedVarekode != "" )	{
-		runningUrl = runningUrl + "&favk="+selectedVarekode;
+	if (selectedIncludeVarekode != null )	{
+		runningUrl = runningUrl + "&favk="+selectedIncludeVarekode;
 	}
 
 	console.log("runningUrl="+runningUrl); 	
@@ -477,7 +482,7 @@ d3.json(runningUrl, function(error, data) {
 		  	.compose([
 		         dc.barChart(compositeChart)
 		            .dimension(dateDim) //monthDim
-		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .centerBar(true)
 		            .gap(10)
 		            .renderLabel(true)
@@ -493,7 +498,7 @@ d3.json(runningUrl, function(error, data) {
         			}),            
 		    	dc.barChart(compositeChart)
 		            .dimension(dateDim) 
-		            .colors('mediumvioletred')
+		            .colors('coral')
 		            .centerBar(true)
 		            .gap(10)
 		            .group(dateDimGroup, "Kostnad")  //dateDimGroup
@@ -502,7 +507,7 @@ d3.json(runningUrl, function(error, data) {
            			}),
 			    dc.lineChart(compositeChart)
 		            .dimension(dateDim) //dateDim
-		            .colors('green')
+		            .colors('limegreen')
 		            .group(dateDimGroup, "Resultat") //dateDimGroup
 					.valueAccessor(function (d) {
 						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
@@ -728,17 +733,18 @@ d3.selectAll('a#intekkt').on('click', function () {
 
 
 	jq(document).ready(function() {
-			var lang = jq('#language').val();
-			jq('#data-table').dataTable({
-				"dom" : '<"top">t<"bottom"flip><"clear">',
-				"scrollY" : "200px",
-				"scrollCollapse" : true,
-				"destroy": true,
-				"language": {
-					"url": getLanguage(lang)
-		        }
-			});
-		});	
+		var lang = jq('#language').val();
+		jq('#data-table').dataTable({
+			"dom" : '<"top">t<"bottom"flip><"clear">',
+			"scrollY" : "200px",
+			"scrollCollapse" : true,
+			"destroy": true,
+			"language": {
+				"url": getLanguage(lang)
+	        }
+		});
+
+	});	
 	
 	
 /*	
@@ -795,7 +801,14 @@ function last() {
     dataTable.redraw();
 }
 
-
+jq(document).ready(function() {
+	jq('select#selectIncludeVarekode').selectList();
+	jq('select#selectExcludeVarekode').selectList();
+	jq('select#selectSign').selectList();
+	jq('select#selectAvd').selectList();
+	
+	console.log("leaving .ready...");
+});	
 
 </script>
 
@@ -851,14 +864,17 @@ function last() {
 		 	    <td>&nbsp;
 				<div class="container-fluid">
 				  <div class="row">
-					<div class="col-md-8 text12">
-						<font class="text12">År:</font>
-						<select name="selectYear" id="selectYear" >
+					<div class="col-md-1 text12">
+						<font class="text12">År:</font><br>
+						<select name="selectYear" id="selectYear">
 	  						<option value="2017">2017</option>
 		  					<option value="2016">2016</option>
 	  					</select>
-						<font class="text12">Måned:</font>
-						<select name="selectMonth" id="selectMonth" >
+					</div>	
+
+					<div class="col-md-1 text12"> 
+						<font class="text12">Måned:</font><br>
+						<select name="selectMonth" id="selectMonth">
 	  						<option value="01">Januar</option>
 		  					<option value="02">Februar</option>
 		  					<option value="03">Mars</option>
@@ -871,36 +887,56 @@ function last() {
 		  					<option value="10">Oktober</option>
 		  					<option value="11">November</option>
 		  					<option value="12">Desember</option>
-	  					</select>	  					
-	  					
-						<font class="text12">&nbsp;&nbsp;Avdeling:</font>
-		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd">
+	  					</select>					
+					</div>
+
+					<div class="col-md-1 text12">
+						<font class="text12">Avdeling:</font><br>
+		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple">
 	 						<option value="">-alle-</option>
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
-						</select>		  					
-						<font class="text12">&nbsp;&nbsp;Signatur:</font>
-		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" autofocus>
+						</select>						
+					</div>					
+					
+					<div class="col-md-1 text12">
+						<font class="text12">Signatur:</font><br>
+		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple">
 			 						<option value="">-alle-</option>
 			 						<c:forEach var="record" items="${model.signatureList}" >
 				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
 									</c:forEach>   
-						</select>	
-						<font class="text12">&nbsp;&nbsp;Varekode:</font>
-		        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode">
+						</select>					
+					</div>
+					
+					<div class="col-md-2 text12">
+						<font class="text12">Varekode(inkludert):</font><br>
+		        		<select class="inputTextMediumBlue" name="selectIncludeVarekode" id="selectIncludeVarekode" multiple="multiple">
 		        					<option value="">-alle-</option>
 			 						<option value="VEG">VEG</option>
 			 						<option value="FRA">FRA</option>
-
 						</select>	
-
-  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font>
-						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
-
 					</div>	
+	
+					<div class="col-md-2 text12">
+						<font class="text12">Varekode(ekskludert):</font><br>
+		        		<select class="inputTextMediumBlue" name="selectExcludeVarekode" id="selectExcludeVarekode" multiple="multiple">
+		        					<option value="">-alle-</option>
+			 						<option value="VEG">VEG</option>
+			 						<option value="FRA">FRA</option>
+						</select>	
+					</div>
 
-	  		    	<div class="col-md-4" align="right">
+
+					<div class="col-md-1 text12">
+  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
+						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+					</div>
+					
+					
+
+	  		    	<div class="col-md-3" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
 				  </div>
@@ -909,22 +945,6 @@ function last() {
 	
 				  <div class="row">
 					<div class="col-md-12">
-<!-- 
-					  <div class="row ">
-		  				<div class="col-md-3 show-grid-center-large">
-  						       Omsetning
-  						 </div>
-			  			 <div class="col-md-3 show-grid-center-large">
-  						        Kostnad
-  						 </div> 
-			  			 <div class="col-md-3 show-grid-center-large">
-  						        Resultat
-  						 </div> 
- 			  		     <div class="col-md-3 show-grid-center-large">
-  						        Dekningsbidrag
-  						 </div>    						       						     						    
-					  </div> 
- -->	
 					  <div class="row">
 						<div class="col-md-3 padded" id="omsetning" align="center">
  							<h3 class="text14">Omsetning</h3>
@@ -950,13 +970,6 @@ function last() {
 	
 				  <div class="row">
 				    <div class="col-md-12">
-<!--  	
-				      <div class="row">
-   						 <div class="col-md-12 show-grid-left">
-   						    Omsetning og kostnad 
-   						 </div>
-				      </div>
--->
 				      <div class="row">
 						 <div class="col-md-12 dc-chart" id="chart-composite"> 
 						 	<h3 class="text11">Omsetning og kostnad</h3>

@@ -470,7 +470,7 @@ d3.json(runningUrl, function(error, data) {
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
-		            .colors('mediumslateblue')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .gap(10)
 		            .renderLabel(true)
 			        .label(function (d) {
@@ -482,13 +482,13 @@ d3.json(runningUrl, function(error, data) {
                 		return d.value.omsetning; 
         			}),            
 		    	dc.barChart(compositeChart)
-		            .colors('mediumvioletred')
+		            .colors('coral')
  					.gap(10)
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
            			}),
 			    dc.lineChart(compositeChart)
-		            .colors('green')
+		            .colors('limegreen')
 					.valueAccessor(function (d) {
 						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
 						return resultat;

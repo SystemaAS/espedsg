@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<link href="resources/${user.cssEspedsg}?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
+		 <link rel="stylesheet" type="text/css" href="resources/selectlist/css/selectlist.css" />
 				<%-- datatables grid CSS --%>
 		<link type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css" rel="stylesheet">
 		<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/overcast/jquery-ui.css" rel="stylesheet">
@@ -14,6 +15,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 		<title>Systema - eSpedsg</title>
+
+<!--  
+		<script type="text/javascript" src="resources/selectlist/js/jquery.min.js"></script>
+-->
 	</head>
 
 	<body>
@@ -32,6 +37,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 	<script src="http://colorbrewer2.org/export/colorbrewer.js"></script>
 	<script type="text/javascript" src="resources/js/FileSaver.js"></script>
+ 	<script type="text/javascript" src="resources/selectlist/js/jquery.selectlist.min.js"></script>
+	
 	
 	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
