@@ -38,11 +38,17 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.RpgReturnResponseHandler;
+import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tror.util.manager.LandImportManager;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
 import no.systema.tror.validator.TrorOrderFraktbrevValidator;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfContainer;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfRecord;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 
 /**
  * Tror - Freight Bill Controller 
@@ -63,6 +69,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	private LandImportManager landImportMgr = new LandImportManager();
 	
 	/**
 	 * 
@@ -107,7 +114,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
@@ -127,13 +134,13 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
 			} else { // Fetch
 				logger.info("FETCH branch");
-				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 			}
 			//get dropdowns
@@ -160,9 +167,11 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		if(strMgr.isNotNull(headf.getOwnEnhet1()) && strMgr.isNotNull(recordToValidate.getDfvs()) ){
 			recordToValidate.setDfvs(headf.getOwnEnhet1() + SPACE + recordToValidate.getDfvs());
 		}
+		//OBSOLETE
+		/*
 		if(strMgr.isNotNull(headf.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getDfvs2()) ){
 			recordToValidate.setDfvs2(headf.getOwnEnhet2() + SPACE + recordToValidate.getDfvs2());
-		}
+		}*/
 	
 	}
 	/**
@@ -173,7 +182,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param dffbnr
 	 * @return
 	 */
-	private DokufDao fetchRecord(SystemaWebUser appUser, int dfavd, int dfopd, int dffbnr) {
+	private DokufDao fetchRecord(SystemaWebUser appUser, int dfavd, int dfopd, int dffbnr, Map model) {
 		
 		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();
 		jsonReader.set(new JsonDtoContainer<DokufDao>());
@@ -195,11 +204,43 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		if (container != null) {
 			for (DokufDao dao : container.getDtoList()) {
 				record = dao;
+				//adjust some fields for presentation purposes
+				this.setSpecialValuesForPresentation(appUser, record, model);
 			}
 		}
 		return record;
 	
 	}	
+	/**
+	 * 
+	 * @param record
+	 * @param model
+	 */
+	private void setSpecialValuesForPresentation(SystemaWebUser appUser, DokufDao record, Map model ){
+		String UNITOFMEASURE_1 = "uom1";
+		String UNITOFMEASURE_1_LENGTH = "uom1Length";
+		
+		
+		String UOM_SEPARATOR = " ";
+		if(strMgr.isNotNull(record.getDfvs())){
+			int index = record.getDfvs().indexOf(UOM_SEPARATOR);
+			if(index>=0){
+				String uom = record.getDfvs().substring(0,index);
+				//Check if uom is valid
+				if(this.landImportMgr.findUnitOfMeasure(this.urlCgiProxyService, this.maintNctsExportTrkodfService, appUser, uom)){
+					model.put(UNITOFMEASURE_1, uom);
+					model.put(UNITOFMEASURE_1_LENGTH, uom.length());
+					//logger.info("UOM!!!!!!!!!!!!!!!!:" + uom);
+				}else{
+					//logger.info("INVALID uom!!!!!");
+					model.put(UNITOFMEASURE_1, "");
+					model.put(UNITOFMEASURE_1_LENGTH, 0);
+				}
+			}
+		}
+	}
+	
+	
 	/**
 	 * 
 	 * @param appUser
@@ -282,7 +323,13 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
-	
+	@Qualifier ("maintNctsExportTrkodfService")
+	private MaintNctsExportTrkodfService  maintNctsExportTrkodfService;
+	@Autowired
+	@Required
+	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
+	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
+
 	
 }
 

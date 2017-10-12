@@ -374,7 +374,15 @@ public class TrorMainOrderListController {
 	    		JsonTrorOrderListContainer orderListContainer = this.trorMainOrderListService.getMainListContainer(jsonPayload);
 	    		model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, orderListContainer);
 	    		if(orderListContainer!=null){
-		    		outputListOpenOrders = orderListContainer.getDtoList();
+	    			outputListOpenOrders = orderListContainer.getDtoList();
+	    			/*
+	    			for(JsonTrorOrderListRecord record: orderListContainer.getDtoList()){
+	    				//remove invalid cases for this UCase
+	    				if(record.getHeavd()>0){
+	    					outputListOpenOrders.add(record);
+	    				}
+	    			}*/
+		    		
 	    		}
 	    	}		
 

@@ -73,7 +73,7 @@
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>
 						</a>
 					</td>
-					<c:if test="${model.record.hepk1 == 'J'}">
+					<c:if test="${model.record.hepk1 == 'J' || model.record.hepk1 == 'P'}">
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${model.record.heavd}&sign=${model.record.hesg}&dfopd=${model.record.heopd}">
@@ -1003,7 +1003,7 @@
 							 				<div class="text12" style="position: relative;" align="left">
 												<span style="position:absolute; left:0px; top:0px; width:450px" id="fraktbrev_info" class="popupWithInputText"  >
 													<font class="text11">
-								           			<b>Fraktbrev/tollsted</b>
+								           			<b>Fraktbrev</b>
 								           			<div>
 								           				todo
 								           			</div>
@@ -1012,7 +1012,7 @@
 											</div>
 							 			</td>
 							 			<td class="text12">
-							 				<a tabindex=-1 id="fraktbrevRenderPdfLink" name="fraktbrevRenderPdfLink" target="_new" href="TODOtransportdisp_mainorderlist_renderFraktbrev.do?user=${user.user}&wsavd=${model.record.heavd}&wsopd=${model.record.heopd}&wstoll=${Xmodel.record.dftoll}">
+							 				<a tabindex=-1 id="fraktbrevRenderPdfLink" name="fraktbrevRenderPdfLink" target="_new" href="transportdisp_mainorderlist_renderFraktbrev.do?user=${user.user}&wsavd=${model.record.heavd}&wsopd=${model.record.heopd}&wstoll=${Xmodel.record.dftoll}">
 		    									<img id="imgFraktbrevPdf" title="Fraktbr.PDF" style="vertical-align:middle;" src="resources/images/pdf.png" width="16" height="16" border="0" alt="Fraktbr. PDF">
 											</a>
 										</td>
@@ -1099,8 +1099,8 @@
 										 					<option value="" >-velg-</option>
 										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
 										 						<c:choose>
-											 						<c:when test="${not empty model.record.hevs1 && fn:length(model.record.hevs1) > 2}" >
-											 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.hevs1, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
+											 						<c:when test="${not empty model.uom1}" >
+											 							<option value='${record.tkkode}' <c:if test="${ model.uom1 == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
 											 						</c:when>
 											 						<c:otherwise>
 											 							<option value='${record.tkkode}'>${record.tkkode}</option>
@@ -1115,9 +1115,10 @@
 														
 									 				</td>
 									 				<td align="left" class="tableCell" nowrap>
+									 					<fmt:parseNumber scope="request" var="uom1Length" type="number" value="${model.uom1Length}" />
 									 					<c:choose>
-										 					<c:when test="${not empty model.record.hevs1 && fn:length(model.record.hevs1) > 3}" >
-										 						<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ fn:substring(model.record.hevs1, 3, fn:length(model.record.hevs1)) }">		
+										 					<c:when test="${not empty model.uom1 && not empty model.record.hevs1 && fn:length(model.record.hevs1) > uom1Length}" >
+										 						<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ fn:substring(model.record.hevs1, uom1Length, fn:length(model.record.hevs1)) }">		
 										 					</c:when>
 										 					<c:otherwise>
 										 						<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlue11MandatoryField" name="hevs1" id="hevs1" size="30" maxlength="25" value="${ model.record.hevs1 }">
@@ -1140,7 +1141,8 @@
 									 					<input type="text" class="inputTextMediumBlue11" name="hegm2" id="hegm2" size="16" maxlength="15" value="${model.record.hegm2}">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
-									 				<td align="center" class="tableCell" nowrap>
+									 				<td align="center" class="tableCell" >&nbsp;
+									 					<%-- OBSOLETE ?
 										 				<select name="ownEnhet2" id="ownEnhet2">
 										 					<option value="" >-velg-</option>
 										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
@@ -1157,7 +1159,7 @@
 														<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_landimport_e2','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 				 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
 				 										</a>
-										 				
+										 				 --%>
 									 				</td>
 									 				<td align="left" class="tableCell" nowrap>
 									 					<c:choose>

@@ -56,6 +56,7 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tror.util.manager.LandImportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
@@ -71,11 +72,13 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
 import no.systema.ebooking.service.EbookingChildWindowService;
+import no.systema.jservices.common.dao.DokufDao;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
+import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
@@ -98,6 +101,7 @@ public class TrorMainOrderHeaderLandImportController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	//
+	private LandImportManager landImportMgr = new LandImportManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
@@ -188,9 +192,10 @@ public class TrorMainOrderHeaderLandImportController {
 		    		//set always status as in list (since we do not get this value from back-end)
 					//TODO recordToValidate.setStatus(orderStatus);
 		    		
-			    }else{	
+			    }else{
 			    	//adjust some db-fields
 			    	this.adjustFields(recordToValidate);
+			    	
 					//Start DML operations if applicable
 					StringBuffer errMsg = new StringBuffer();
 					int dmlRetval = 0;
@@ -236,6 +241,8 @@ public class TrorMainOrderHeaderLandImportController {
 				if(isValidRecord){
 					logger.info("HEOPD:" + recordToValidate.getHeopd());
 					JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+					//adjust some fields for presentation purposes
+					this.setSpecialValuesForPresentation(appUser, headerOrderRecord, model);
 					//split godsnr
 					this.splitGodsnr(headerOrderRecord);
 					//populate track and trace
@@ -262,6 +269,8 @@ public class TrorMainOrderHeaderLandImportController {
 					model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
 					session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT, headerOrderRecord);
 				}else{
+					//adjust for presentation
+					this.setSpecialValuesForPresentation(appUser, recordToValidate, model);
 					//adjust some db-fields
 			    	this.adjustFields(recordToValidate);
 		    		//split godsnr
@@ -288,6 +297,35 @@ public class TrorMainOrderHeaderLandImportController {
 
 		}
 		
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param record
+	 * @param model
+	 */
+	private void setSpecialValuesForPresentation(SystemaWebUser appUser, JsonTrorOrderHeaderRecord record, Map model ){
+		String UNITOFMEASURE_1 = "uom1";
+		String UNITOFMEASURE_1_LENGTH = "uom1Length";
+		
+		
+		String UOM_SEPARATOR = " ";
+		if(strMgr.isNotNull(record.getHevs1())){
+			int index = record.getHevs1().indexOf(UOM_SEPARATOR);
+			if(index>=0){
+				String uom = record.getHevs1().substring(0,index);
+				//Check if uom is valid
+				if(this.landImportMgr.findUnitOfMeasure(this.urlCgiProxyService, this.maintNctsExportTrkodfService, appUser, uom)){
+					model.put(UNITOFMEASURE_1, uom);
+					model.put(UNITOFMEASURE_1_LENGTH, uom.length());
+					logger.info("UOM!!!!!!!!!!!!!!!!:" + uom);
+				}else{
+					logger.info("INVALID uom!!!!!");
+					model.put(UNITOFMEASURE_1, "");
+					model.put(UNITOFMEASURE_1_LENGTH, 0);
+				}
+			}
+		}
 	}
 	/**
 	 * 
@@ -351,9 +389,13 @@ public class TrorMainOrderHeaderLandImportController {
 		if(strMgr.isNotNull(recordToValidate.getOwnEnhet1()) && strMgr.isNotNull(recordToValidate.getHevs1()) ){
 			recordToValidate.setHevs1(recordToValidate.getOwnEnhet1() + SPACE + recordToValidate.getHevs1());
 		}
+		//OBSOLETE 
+		/*
 		if(strMgr.isNotNull(recordToValidate.getOwnEnhet2()) && strMgr.isNotNull(recordToValidate.getHevs2()) ){
 			recordToValidate.setHevs2(recordToValidate.getOwnEnhet2() + SPACE + recordToValidate.getHevs2());
 		}
+		*/
+		
 		//Godsnr
 		recordToValidate.setHegn(recordToValidate.getOwnHegn1() + recordToValidate.getOwnHegn2() + recordToValidate.getOwnHegn3());
 		
@@ -1261,13 +1303,12 @@ public class TrorMainOrderHeaderLandImportController {
 	public void setNotisblockService (NotisblockService value){ this.notisblockService=value; }
 	public NotisblockService getNotisblockService(){return this.notisblockService;}
 	
-	/*
-	@Qualifier ("ebookingChildWindowService")
-	private EbookingChildWindowService ebookingChildWindowService;
+	
+	@Qualifier ("maintNctsExportTrkodfService")
+	private MaintNctsExportTrkodfService  maintNctsExportTrkodfService;
 	@Autowired
 	@Required
-	public void setEbookingChildWindowService (EbookingChildWindowService value){ this.ebookingChildWindowService = value; }
-	public EbookingChildWindowService getEbookingChildWindowService(){ return this.ebookingChildWindowService; }
-	*/
+	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
+	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
 }
 

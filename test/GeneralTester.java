@@ -16,6 +16,15 @@ public class GeneralTester {
 	 */
 	public static void main(String[] args) {
 		try{
+			String uom = "";
+			String str = "PALLER FOR GODS";
+			int index = str.indexOf(" ");
+			if(index>=0){
+				uom = str.substring(0,index);
+			}
+			System.out.println(uom);
+			
+			/*
 			String str = "1";
 			if(str.length()>=4){
 				String ownHegn1 = str.substring(0, 4);
@@ -40,7 +49,7 @@ public class GeneralTester {
 				String ownHegn1 = str;
 				System.out.println("Z:"+ ownHegn1);
 			}
-			
+			*/
 			
 			/*StringManager mgr = new StringManager();
 			String str = "888,89";

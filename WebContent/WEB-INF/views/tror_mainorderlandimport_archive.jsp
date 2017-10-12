@@ -54,7 +54,7 @@
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 					<font class="tabLink"><spring:message code="systema.tror.order.archive.tab"/></font><font class="text12">&nbsp;</font>
 				</td>
-				<c:if test="${recordOrderTrorLandImport.hepk1 == 'J'}">
+				<c:if test="${recordOrderTrorLandImport.hepk1 == 'J' || recordOrderTrorLandImport.hepk1 == 'P'}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="13%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&dfopd=${recordOrderTrorLandImport.heopd}">

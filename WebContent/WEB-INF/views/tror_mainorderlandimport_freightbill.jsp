@@ -153,15 +153,23 @@
            		<td>
         			<table class="dashboardFrameHeader" width="98%" align="left" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="15">
-			 			<td align="left" class="text14White">
-							&nbsp;<img style="vertical-align:bottom;" src="resources/images/complete-icon.png" width="16" hight="16" border="0" alt="edit">	
-							&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;<font style="color: yellow"><b>${fn:substring(model.record.df1004, 0, 2)}&nbsp;${fn:substring(model.record.df1004, 2, 7)}&nbsp;${fn:substring(model.record.df1004, 7, 17)}</b></font>
-							&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dfsg}</b></font>
-							&nbsp;&nbsp;
-		 				<td align="right" class="text12White" width="50%">
-		 					<font style="color: red"><b>${model.record.dffbnr}</b></font>&nbsp;&nbsp;
-		 				</td>
-		 				</td>
+			 			<c:choose>
+				 			<c:when test="${not empty model.record.dfopd}">
+					 			<td align="left" class="text14White">
+									&nbsp;<img style="vertical-align:bottom;" src="resources/images/complete-icon.png" width="16" hight="16" border="0" alt="edit">	
+									&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;<font style="color: yellow"><b>${fn:substring(model.record.df1004, 0, 2)}&nbsp;${fn:substring(model.record.df1004, 2, 7)}&nbsp;${fn:substring(model.record.df1004, 7, 17)}</b></font>
+									&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dffbnr} / ${model.record.dfsg}</b></font>
+									&nbsp;&nbsp;
+				 				</td>
+			 				</c:when>
+			 				<c:otherwise>
+			 					<td align="left" class="text14White">
+									&nbsp;<img style="vertical-align:bottom;" src="resources/images/bulletRed.png" width="16" hight="16" border="0" alt="edit">	
+									&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: yellow"><b>FINNS IKKE</b></font>
+									&nbsp;&nbsp;
+				 				</td>
+			 				</c:otherwise>
+		 				</c:choose>
 	 				</tr>
  					</table>
            		</td>
@@ -672,8 +680,8 @@
 										 					<option value="" >-velg-</option>
 										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
 										 						<c:choose>
-											 						<c:when test="${not empty model.record.dfvs && fn:length(model.record.dfvs) > 2}" >
-											 							<option value='${record.tkkode}' <c:if test="${ fn:substring(model.record.dfvs, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
+										 							<c:when test="${not empty model.uom1 }" >
+											 							<option value='${record.tkkode}' <c:if test="${ model.uom1 == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
 											 						</c:when>
 											 						<c:otherwise>
 											 							<option value='${record.tkkode}'>${record.tkkode}</option>
@@ -688,12 +696,13 @@
 														
 									 				</td>
 									 				<td align="left" class="tableCell" nowrap>
+									 					<fmt:parseNumber scope="request" var="uom1Length" type="number" value="${model.uom1Length}" />
 									 					<c:choose>
-										 					<c:when test="${not empty model.record.dfvs && fn:length(model.record.dfvs) > 3}" >
-										 						<input type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ fn:substring(model.record.dfvs, 3, fn:length(model.record.dfvs)) }">		
+									 						<c:when test="${not empty model.uom1 && not empty model.record.dfvs && fn:length(model.record.dfvs) > uom1Length}" >
+										 						<input type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ fn:substring(model.record.dfvs, uom1Length, fn:length(model.record.dfvs)) }">		
 										 					</c:when>
 										 					<c:otherwise>
-										 						<input type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ model.record.dfvs }">
+										 						<input title="plaitxt" type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ model.record.dfvs }">
 										 					</c:otherwise>
 									 					</c:choose>
 									 				</td>
@@ -713,7 +722,8 @@
 									 					<input type="text" class="inputTextMediumBlue11" name="dfgm2" id="dfgm2" size="16" maxlength="15" value="${model.record.dfgm2}">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
-									 				<td align="center" class="tableCell" nowrap>
+									 				<td align="center" class="tableCell" >
+									 					<%-- OBSOLETE ?
 										 				<select name="ownEnhet2" id="ownEnhet2">
 										 					<option value="" >-velg-</option>
 										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
@@ -730,18 +740,11 @@
 														<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_landimport_e2','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 				 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
 				 										</a>
+				 										 --%>
 										 				
 									 				</td>
 									 				<td align="left" class="tableCell" nowrap>
-									 					<c:choose>
-										 					<c:when test="${not empty model.record.dfvs2 && fn:length(model.record.dfvs2) > 3}" >
-										 						<input type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="30" maxlength="25" value="${ fn:substring(model.record.dfvs2, 3, fn:length(model.record.dfvs2)) }">		
-										 					</c:when>
-										 					<c:otherwise>
-										 						<input type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="30" maxlength="25" value="${ model.record.dfvs2 }">
-										 					</c:otherwise>
-									 					</c:choose>
-									 					
+									 					<input type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="30" maxlength="25" value="${ model.record.dfvs2 }">
 									 				</td>
 									 				<td align="right" class="tableCell">
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="${model.record.dfvktf}">
