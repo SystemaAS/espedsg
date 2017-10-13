@@ -109,7 +109,7 @@
       //POSTAL CODE PONRN
 	  jq('#trorPostalCodePonrnIdLink').click(function() {
 		  jq('#trorPostalCodePonrnIdLink').attr('target','_blank');
-      	  window.open('tror_mainorder_childwindow_postalcodes_ponrn.do?action=doFind&ctype=landimport_fb_dfpoul', "postalCodeWin", "top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+      	  window.open('tror_mainorder_childwindow_postalcodes_ponrn.do?action=doFind&ctype=landimport_fb_dfpoul&ponnr=' + jq('#dfpoul').val() , "postalCodeWin", "top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no");
 	  });
       jq('#trorPostalCodePonrnIdLink').keypress(function(e){ //extra feature for the end user
     		if(e.which == 13) {

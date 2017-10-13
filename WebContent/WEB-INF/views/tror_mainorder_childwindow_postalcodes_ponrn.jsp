@@ -33,10 +33,7 @@
 						<input type="hidden" name="ctype" id="ctype" value="${model.ctype}">
 						<tr>
 							<td class="text12">&nbsp;<spring:message code="systema.tror.childwindow.postalcodes.label.postnr"/></td>
-							<td class="text12">&nbsp;<input type="text" class="inputText" name="st2kod" id="st2kod" size="10" maxlength="10" value="${model.record.st2kod}"></td>
-							<td class="text11">&nbsp;</td>
-							<td class="text12">&nbsp;<spring:message code="systema.tror.childwindow.postalcodes.label.countryCode"/></td>
-							<td class="text12">&nbsp;<input type="text" class="inputText" name="st2lk" id="st2lk" size="4" maxlength="2" value="${model.record.st2lk}"></td>
+							<td class="text12">&nbsp;<input type="text" class="inputText" name="ponnr" id="ponnr" size="10" maxlength="10" value="${model.record.ponnr}"></td>
 							
 							<td class="text11">&nbsp;</td>
 	           				<td align="right">&nbsp;<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="search.label"/>'></td>
@@ -71,7 +68,7 @@
 			               	 <img style="vertical-align:middle;" src="resources/images/bebullet.gif" border="0" >
 			               </td>
 			               --%>
-			               <td width="5%" align="center" class="text11MediumBlue" style="cursor:pointer;" id="id_${record.ponnr}@name_${record.ponbes}@counter_${counter.count}">
+			               <td width="5%" align="center" class="text11MediumBlue" style="cursor:pointer;" id="id_${record.ponnr}@name_${record.ponnav}@counter_${counter.count}">
 			               	 	${record.ponnr}
 			               </td>
 			               <td class="text11" >&nbsp;${record.ponnav}</td> 

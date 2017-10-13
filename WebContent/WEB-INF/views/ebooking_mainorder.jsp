@@ -16,7 +16,7 @@
 	</style>
 	
 
-<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
+
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>
@@ -116,10 +116,80 @@
 		</tr>		
 	</c:if>
 	
-
+	<%-- ------------------------------- --%>
+	<%-- Floating window for file upload --%>
+	<%-- ------------------------------- 
+		<c:if test="${not empty model.record.hereff}">
+			<tr>
+				<td valign="bottom" >
+					<span style="position:absolute; left:1560px; top:160px; width:550px; height:800px;" id="economyMatrixInfo" class="popupFloating"  >
+		           		<div class="text10" align="left">
+		           		<table align="left" class="popupFloatingWithRoundCorners3D">
+						    <tr height="2"><td></td></tr>
+					    	<tr>
+							<td valign="top">
+							<form name="uploadFileForm" id="uploadFileForm" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="applicationUserUpload" id="applicationUserUpload" value='${user.user}'>
+								<input type="hidden" name="wsavd" id="wsavd" value='${model.record.heavd}'>
+								<input type="hidden" name="wsopd" id="wsopd" value='${model.record.hereff}'>
+								<input type="hidden" name="userDate" id="userDate" value=''>
+								<input type="hidden" name="userTime" id="userTime" value=''>
+								<input type="hidden" name="callerModule" id="callerModule" value='ebooking'>
+								
+									<table id="containerdatatableTable" cellspacing="2" align="left">
+										<tr>
+											<td colspan="3" class="text12Bold">&nbsp;
+												<img style="vertical-align:bottom;" src="resources/images/upload.png" border="0" width="20" height="20" alt="upload">
+												&nbsp;File Upload&nbsp;							
+											</td>
+										</tr>
+										<tr>
+										<tr height="5"><td></td></tr>
+										<tr>
+										<td>
+											<table>
+											<%--
+											<tr>
+												<td class="text11">&nbsp;Nytt filnavn:</td>
+												<td class="text11">&nbsp;<input tabindex=-1 type="text" class="inputText" name="fileNameNew" id="fileNameNew" size="20" maxlength="20" value=""></td>
+											</tr>
+											 HERE!!! comment END
+											<tr>
+												<td class="text11">&nbsp;Arkiv typen:</td>
+												<td class="text11">&nbsp;
+													<select tabindex=-1 name="wstype" id="wstype">
+														<c:forEach var="record" items="${user.arkivKodOpdList}" >
+								                       	 	<option value="${record.arkKod}">${record.arkKod}-${record.arkTxt}</option>
+														</c:forEach> 
+													</select>	
+												</td>
+											</tr>
+											<tr>	
+												<td class="text11">&nbsp;Fil:</td>
+												<td class="text11">
+					           						&nbsp;<input ondragenter="myFileUploadDragEnter(event)" ondragleave="myFileUploadDragLeave(event)" tabindex=-1 class="tableBorderWithRoundCornersLightYellow3D noFileChosenTransparent" style="width:300px;height:200px;display:block;" type="file" name="file" id="file" />
+					       						</td>
+							           		</tr>
+							           		</table>
+										</td>
+										</tr>
+										<tr height="5"><td></td></tr>
+					       			</table>
+							</form>	
+							</td>
+							</tr>
+						</table>
+					  </div>
+					</span>  		
+				</td>
+			</tr>
+		</c:if>
+		--%>
+		
 		<tr>
 		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
+			<form action="ebooking_mainorder.do"  name="ebookingOrderForm" id="ebookingOrderForm" method="post">
 			<input type="hidden" name="parentTrip" id="parentTrip" value="${model.parentTrip}">
 			<table style="width:100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
 			<tr height="10"><td>&nbsp;</td></tr> 
@@ -1099,7 +1169,8 @@
 			</tr>
 			<tr height="10"><td ></td></tr>
 	</table>
-</form>
+	</form>
+
 		
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />

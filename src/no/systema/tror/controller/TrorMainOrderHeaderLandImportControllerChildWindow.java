@@ -76,7 +76,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 	private final String DATATABLE_DANGEROUS_GOODS_LIST = "dangerousGoodsList";
 	
 	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerChildWindow.class.getName());
-	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(1000);
 	private DateTimeManager dateTimeManager = new DateTimeManager();
 	private StringManager strMgr = new StringManager();
 	
@@ -259,7 +259,7 @@ public class TrorMainOrderHeaderLandImportControllerChildWindow {
 				logger.info("URL: " + BASE_URL);
 				logger.info("PARAMS: " + urlRequestParams.toString());
 				String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-				logger.info("jsonPayload=" + jsonPayload);
+				logger.info(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 				DokufDao record = null;
 				JsonDtoContainer<PonrnDao> container = (JsonDtoContainer<PonrnDao>) jsonReader.get(jsonPayload);
 				if (container != null) {

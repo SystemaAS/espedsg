@@ -271,7 +271,25 @@
 			  
 			  //close child window
 			  window.close();
+		});
+		
+		jq('#postalCodePonrnList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  
+			  if(caller =='landimport_fb_dfpoul'){ 
+				  opener.jq('#dfpoul').val(id);
+				  opener.jq('#dfadul').val(name);
+				  opener.jq('#dfpoul').focus();
+			  }
+			  
+			  //close child window
+			  window.close();
 	  });
+		
 	});
 	
 	jq(function() {
@@ -290,10 +308,6 @@
 				  opener.jq('#dftoll').val(id);
 				  opener.jq('#dftoll').focus();
 				  
-			  }else if(caller =='landimport_fb_dfpoul'){ 
-				  opener.jq('#dfpoul').val(id);
-				  opener.jq('#dfadul').val(name);
-				  opener.jq('#dfpoul').focus();
 			  }
 			  
 			  //close child window
