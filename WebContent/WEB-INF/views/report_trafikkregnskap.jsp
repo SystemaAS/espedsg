@@ -20,6 +20,7 @@ function load_data() {
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
 	var selectedIncludeVarekode = jq('#selectIncludeVarekode').val();
+	var selectedExcludeVarekode = jq('#selectExcludeVarekode').val();
 	
 	runningUrl = runningUrl + "&registreringsdato="+selectedYear + selectedMonth ;
 
@@ -28,19 +29,24 @@ function load_data() {
 	console.log("selectedIncludeVarekode="+selectedIncludeVarekode);
 	
 	
-	if (selectedAvd != null )	{
-		runningUrl = runningUrl + "&avdeling="+selectedAvd;
+	if (selectedAvd != null && selectedAvd != "")	{
+		//runningUrl = runningUrl + "&avdeling="+selectedAvd;
+		runningUrl = runningUrl + "&avdelings="+selectedAvd;  //fix when time
 	}
-	if (selectedSign != null )	{
+	if (selectedSign != null && selectedSign != "")	{
 		runningUrl = runningUrl + "&signatur="+selectedSign;
 	}	
-	if (selectedKundenr != "" )	{
+	if (selectedKundenr != "" && selectedKundenr != "")	{
 		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
 	}
-	if (selectedIncludeVarekode != null )	{
+	if (selectedIncludeVarekode != null && selectedIncludeVarekode != "")	{
 		runningUrl = runningUrl + "&favk="+selectedIncludeVarekode;
 	}
 
+	if (selectedExcludeVarekode != null && selectedExcludeVarekode != "")	{
+		runningUrl = runningUrl + "&favkexcl="+selectedExcludeVarekode;
+	}	
+	
 	console.log("runningUrl="+runningUrl); 	
 	
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
@@ -48,13 +54,13 @@ function load_data() {
 d3.json(runningUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
+		console.log("Error:"+error);
 		throw error;
 	}
 		
 	if (data.dtoList == '') {
 		jq.unblockUI();
 		alert('Ingen data på urvalg.');  //TODO bättre UI
-		throw error;
 	}	
 	
 	var faktData = data.dtoList;
@@ -135,7 +141,7 @@ d3.json(runningUrl, function(error, data) {
 	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
 	var  resultatDisplay = dc.numberDisplay("#resultat");	
 	var  dbDisplay = dc.numberDisplay("#db");	
-	var dataTable = dc.dataTable('#data-table');
+	//var dataTable = dc.dataTable('#data-table');
 
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
@@ -709,7 +715,7 @@ d3.selectAll('a#intekkt').on('click', function () {
             all: 'Alle <strong>%total-count</strong> fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });  
 
-
+/*
 	dataTable
 	    .dimension(faktAllDim)
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
@@ -729,9 +735,9 @@ d3.selectAll('a#intekkt').on('click', function () {
 	      	// each time table is rendered remove nasty extra row dc.js insists on adding
 	     	table.select('tr.dc-table-group').remove();
 	 });
-	
+*/	
 
-
+/*
 	jq(document).ready(function() {
 		var lang = jq('#language').val();
 		jq('#data-table').dataTable({
@@ -743,9 +749,8 @@ d3.selectAll('a#intekkt').on('click', function () {
 				"url": getLanguage(lang)
 	        }
 		});
-
 	});	
-	
+*/	
 	
 /*	
 	jq('#data-table').on('click', '.data-table-col', function() {
@@ -892,18 +897,18 @@ jq(document).ready(function() {
 
 					<div class="col-md-1 text12">
 						<font class="text12">Avdeling:</font><br>
-		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple">
-	 						<option value="">-alle-</option>
+		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
+							<option value="1018">1018</option>
+							<option value="850">850</option>
 						</select>						
 					</div>					
 					
 					<div class="col-md-1 text12">
 						<font class="text12">Signatur:</font><br>
-		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple">
-			 						<option value="">-alle-</option>
+		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
 			 						<c:forEach var="record" items="${model.signatureList}" >
 				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
 									</c:forEach>   
@@ -912,19 +917,30 @@ jq(document).ready(function() {
 					
 					<div class="col-md-2 text12">
 						<font class="text12">Varekode(inkludert):</font><br>
-		        		<select class="inputTextMediumBlue" name="selectIncludeVarekode" id="selectIncludeVarekode" multiple="multiple">
-		        					<option value="">-alle-</option>
+		        		<select class="inputTextMediumBlue" name="selectIncludeVarekode" id="selectIncludeVarekode" multiple="multiple" title="-velg-">
 			 						<option value="VEG">VEG</option>
 			 						<option value="FRA">FRA</option>
+			 						<option value="OLJ">OLJ</option>
+			 						<option value="DRO">DRO</option>
+			 						<option value="LEV">LEV</option>
+			 						<option value="INF">INF</option>
+			 						<option value="BOM">BOM</option>
+			 						<option value="TDO">TDO</option>
 						</select>	
 					</div>	
 	
 					<div class="col-md-2 text12">
 						<font class="text12">Varekode(ekskludert):</font><br>
-		        		<select class="inputTextMediumBlue" name="selectExcludeVarekode" id="selectExcludeVarekode" multiple="multiple">
-		        					<option value="">-alle-</option>
+		        		<select class="inputTextMediumBlue" name="selectExcludeVarekode" id="selectExcludeVarekode" multiple="multiple"  title="-velg-">
 			 						<option value="VEG">VEG</option>
 			 						<option value="FRA">FRA</option>
+			 						<option value="OLJ">OLJ</option>
+			 						<option value="DRO">DRO</option>
+			 						<option value="LEV">LEV</option>
+			 						<option value="INF">INF</option>
+			 						<option value="BOM">BOM</option>
+			 						<option value="TDO">TDO</option>
+
 						</select>	
 					</div>
 
@@ -1037,6 +1053,7 @@ jq(document).ready(function() {
 	
 				  <div class="row">
 				    <div class="col-md-12">
+<!--  
 				      <h3 class="text11">Fakturalinjer, filtrert</h3>
 				      <div class="padded-row"></div>
 				      <table class="display compact cell-border" id="data-table">
@@ -1053,7 +1070,7 @@ jq(document).ready(function() {
 				          </tr>
 				        </thead>
 				      </table>
-				      
+	-->			      
 			      	  <div>
 						<a href="#" id="download">
 	                		<img valign="bottom" id="mainListExcel" src="resources/images/excel.gif" width="14" height="14" border="0" alt="excel">
