@@ -274,7 +274,7 @@
 						<input type="hidden" name="hesg" id="hesg" value='${model.record.hesg}'> <%--sign --%>
 						<input type="hidden" name="hest" id="hest" value='${model.record.hest}'> <%--status --%>
 					</c:if>
-					<%--
+					<%-- ORIGINAL
 					<input type="hidden" name="messageNoteConsigneeOriginal" id="messageNoteConsigneeOriginal" value='${Xmodel.record.messageNoteConsigneeOriginal}'>
 					<input type="hidden" name="messageNoteCarrierOriginal" id="messageNoteCarrierOriginal" value='${Xmodel.record.messageNoteCarrierOriginal}'>
 					<input type="hidden" name="messageNoteInternalOriginal" id="messageNoteInternalOriginal" value='${Xmodel.record.messageNoteInternalOriginal}'>

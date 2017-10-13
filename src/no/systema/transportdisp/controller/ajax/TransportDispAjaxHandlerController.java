@@ -1300,7 +1300,7 @@ public class TransportDispAjaxHandlerController {
 				uploadValidationContainer = this.transportDispChildWindowService.getFileUploadValidationContainer(jsonPayload);
 				logger.info(uploadValidationContainer.getErrMsg());
 			}
-			return uploadValidationContainer;
+			return uploadValidationContainer; //return
 		}
 		
 		/**
