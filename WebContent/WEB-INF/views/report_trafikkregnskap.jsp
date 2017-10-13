@@ -11,6 +11,11 @@ var baseUrl = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
+jq('#myFo input').on('change', function() {
+	   alert(jq('input[name=radioName]:checked', '#myForm').val()); 
+	});
+
+
 function load_data() {
 	
 	var runningUrl = baseUrl;
@@ -19,15 +24,15 @@ function load_data() {
 	var selectedAvd = jq('#selectAvd').val();
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
-	var selectedIncludeVarekode = jq('#selectIncludeVarekode').val();
-	var selectedExcludeVarekode = jq('#selectExcludeVarekode').val();
+	var selectedVarekode = jq('#selectVarekode').val();
+	var doExcludeVarekode = jq('#checkbox-exclude').prop('checked');
 	
 	runningUrl = runningUrl + "&registreringsdato="+selectedYear + selectedMonth ;
 
 	console.log("selectedAvd="+selectedAvd);
 	console.log("selectedSign="+selectedSign);
-	console.log("selectedIncludeVarekode="+selectedIncludeVarekode);
-	
+	console.log("selectedVarekode="+selectedVarekode);
+	console.log("doExcludeVarekode="+doExcludeVarekode);
 	
 	if (selectedAvd != null && selectedAvd != "")	{
 		//runningUrl = runningUrl + "&avdeling="+selectedAvd;
@@ -39,12 +44,12 @@ function load_data() {
 	if (selectedKundenr != "" && selectedKundenr != "")	{
 		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
 	}
-	if (selectedIncludeVarekode != null && selectedIncludeVarekode != "")	{
-		runningUrl = runningUrl + "&favk="+selectedIncludeVarekode;
+	if (selectedVarekode != null && selectedVarekode != "")	{
+		runningUrl = runningUrl + "&favk="+selectedVarekode;
 	}
 
-	if (selectedExcludeVarekode != null && selectedExcludeVarekode != "")	{
-		runningUrl = runningUrl + "&favkexcl="+selectedExcludeVarekode;
+	if (doExcludeVarekode)	{
+		runningUrl = runningUrl + "&favkexcl="+doExcludeVarekode;
 	}	
 	
 	console.log("runningUrl="+runningUrl); 	
@@ -807,10 +812,13 @@ function last() {
 }
 
 jq(document).ready(function() {
-	jq('select#selectIncludeVarekode').selectList();
-	jq('select#selectExcludeVarekode').selectList();
+	jq('select#selectVarekode').selectList();
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
+	
+	
+	//jq("#radio-include").prop("checked", true);
+	
 	
 	console.log("leaving .ready...");
 });	
@@ -915,20 +923,39 @@ jq(document).ready(function() {
 						</select>					
 					</div>
 					
-					<div class="col-md-2 text12">
-						<font class="text12">Varekode(inkludert):</font><br>
-		        		<select class="inputTextMediumBlue" name="selectIncludeVarekode" id="selectIncludeVarekode" multiple="multiple" title="-velg-">
-			 						<option value="VEG">VEG</option>
-			 						<option value="FRA">FRA</option>
-			 						<option value="OLJ">OLJ</option>
-			 						<option value="DRO">DRO</option>
-			 						<option value="LEV">LEV</option>
-			 						<option value="INF">INF</option>
-			 						<option value="BOM">BOM</option>
-			 						<option value="TDO">TDO</option>
-						</select>	
+					<div class="col-md-3 text12">
+ 						<div class="row">
+							<div class="col-md-3 text12">
+								<font class="text12">Varekode:</font><br>
+				        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode" multiple="multiple" title="-velg-">
+					 						<option value="VEG">VEG</option>
+					 						<option value="FRA">FRA</option>
+					 						<option value="OLJ">OLJ</option>
+					 						<option value="DRO">DRO</option>
+					 						<option value="LEV">LEV</option>
+					 						<option value="INF">INF</option>
+					 						<option value="BOM">BOM</option>
+					 						<option value="TDO">TDO</option>
+								</select>	
+							</div>
+							<div class="col-md-8 text12">
+<!-- 
+							    <input type="radio" name="radio-include" id="radio-include">
+							    <label for="radio-include">inkluder</label>
+							    <input type="radio" name="radio-exclude" id="radio-exclude">
+							    <label for="radio-exclude">ekskluder</label>		
+ -->							    
+   		 						 <input type="checkbox" name="checkboxExclude" id="checkbox-exclude">				    
+								 <label for="checkbox-exclude">Ekskluder</label>
+							    
+							    
+							    					
+							</div>
+ 						</div>
 					</div>	
+
 	
+<!--  	
 					<div class="col-md-2 text12">
 						<font class="text12">Varekode(ekskludert):</font><br>
 		        		<select class="inputTextMediumBlue" name="selectExcludeVarekode" id="selectExcludeVarekode" multiple="multiple"  title="-velg-">
@@ -943,7 +970,7 @@ jq(document).ready(function() {
 
 						</select>	
 					</div>
-
+-->
 
 					<div class="col-md-1 text12">
   		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
@@ -952,7 +979,7 @@ jq(document).ready(function() {
 					
 					
 
-	  		    	<div class="col-md-3" align="right">
+	  		    	<div class="col-md-4" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
 				  </div>
