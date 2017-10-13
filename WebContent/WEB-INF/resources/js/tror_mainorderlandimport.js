@@ -35,6 +35,101 @@
   });
   
   
+  //-----------------------
+  // UPLOAD FILE - ORDER
+  //---------------------
+  function myFileUploadDragEnter(e){
+	  jq("#file").addClass( "isa_blue" );
+  }
+  function myFileUploadDragLeave(e){
+	  jq("#file").removeClass( "isa_blue" );
+  }
+  
+  jq(function() {
+	  //Triggers drag-and-drop
+	  jq('#file').hover(function(){
+		  jq("#file").removeClass( "isa_success" );
+		  jq("#file").removeClass( "isa_error" );
+	  });   
+	  
+	  //Triggers drag-and-drop
+	  jq('#file').change(function(){
+		  //Init by removing the class used in dragEnter
+		  jq("#file").removeClass( "isa_blue" );
+		  
+		  if(jq("#wstype").val() == 'ZP'){
+			 showTimestampPopup();  
+		  }else{
+			 jq("#userDate").val("");
+			 jq("#userTime").val("");
+			 uploadFile();  
+		  }
+		 
+	  });
+  });
+  function uploadFile(){
+	//grab all form data  
+	  var form = new FormData(document.getElementById('uploadFileForm'));
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  
+	  jq.ajax({
+	  	  type: 'POST',
+	  	  url: 'uploadFileFromOrder.do',
+	  	  data: form,  
+	  	  dataType: 'text',
+	  	  cache: false,
+	  	  processData: false,
+	  	  contentType: false,
+  		  success: function(data) {
+		  	  var len = data.length;
+	  		  if(len>0){
+	  			jq("#file").val("");
+			  	//Check for errors or successfully processed
+			  	var exists = data.indexOf("ERROR");
+			  	if(exists>0){
+			  		//ERROR on back-end
+			  		jq("#file").addClass( "isa_error" );
+			  		jq("#file").removeClass( "isa_success" );
+			  	}else{
+			  		//OK
+			  		jq("#file").addClass( "isa_success" );
+			  		jq("#file").removeClass( "isa_error" );
+			  	}
+			  	//response to end user 
+			  	alert(data);
+			  	if(data.indexOf('[OK') == 0) {
+				  	var status = jq("#hesg").val();
+				  	var avd = jq("#wsavd").val();
+				  	var opd = jq("#wsopd").val();
+				  	//reload
+				  	reloadCallerParentOrder(status,avd,opd);
+			  	}
+			  	//unblock
+			  	jq.unblockUI();
+	  		  }
+	  	  }, 
+	  	  error: function() {
+	  		  jq.unblockUI();
+	  		  alert('Error loading ...');
+	  		  jq("#file").val("");
+	  		  //cosmetics
+	  		  jq("#file").addClass( "isa_error" );
+	  		  jq("#file").removeClass( "isa_success" );
+		  }
+	  });
+  }
+  
+  //Reload the order after being coupled with the trip 
+  //NOTE: this function is call from: 
+  //(1) the child window transport_workflow_childwindow from js-file: transport_workflow_childwindow_trips.js
+  //(2) from this same file in the above ajax: setTripOnOrder(trip,avd,opd)
+  function reloadCallerParentOrder(status, avd, opd) {
+	  window.location = "tror_mainorderlandimport.do?action=doFetch&heavd=" + avd + "&heopd=" + opd + "&status=" + status;
+  }
+  
+  //END UPLOAD ORDERS
+  
+  
   //----------------
   //CUSTOMER search
   //----------------

@@ -550,7 +550,7 @@
 	        			<table style="width:98%;" align="left" class="tableBorderWithRoundCornersLightYellow" cellspacing="0" cellpadding="0">
 				 		<tr height="5"><td colspan="2" ></td></tr>
 				 		<tr>
-							<td valign="top" style="width:100%;border-right:1px solid;border-color:#FFFFFF;""  >
+							<td valign="top" style="width:100%;border-right:1px solid;border-color:#FFFFFF;"  >
 								<table border="0">
 						 		<tr height="2"><td ></td></tr>
 							 	<tr>	
@@ -563,14 +563,12 @@
 						 			<td class="text12">
 					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="${fn:replace(model.record.dffvbl,'.',',')}"> 
 					 				</td>
-					 				<td class="text12" width="10">&nbsp;</td>
-						 			<td class="text12">
+					 				<td class="text12">
 						 				<span title="dffvcu"><spring:message code="systema.tror.fraktbrev.form.update.label.category"/></span>
 				 					</td>
 					 				<td class="text12">
 					 					<input type="text" class="inputTextMediumBlue" name="dffkat" id="dffkat" size="5" maxlength="4" value="${model.record.dffkat}">
 					 				</td>
-						 			<td class="text12" width="10">&nbsp;</td>
 						 			<td class="text12">
 						 				<span title="dfpoli"><b>26.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.polis"/></span>
 				 					</td>
@@ -580,60 +578,50 @@
 						 			<td class="text12">
 					 					<input type="text" class="inputTextMediumBlue" name="dfskfo" id="dfskfo" size="2" maxlength="1" value="${model.record.dfskfo}">
 					 				</td>
-					 				<td class="text12" width="10">&nbsp;</td>
-						 			<td class="text12">
+					 				<td class="text12">
 						 				<span title="dflevb"><b>27.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.levbetingelser"/></span>
 				 					</td>
 					 				<td class="text12">
 					 					<input type="text" class="inputTextMediumBlue" name="dflevb" id="dflevb" size="4" maxlength="3" value="${model.record.dflevb}">
 					 				</td>
 						 			<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="dflevt" id="dflevt" size="31" maxlength="20" value="${model.record.dflevt}">
+					 					<input type="text" class="inputTextMediumBlue" name="dflevt" id="dflevt" size="21" maxlength="20" value="${model.record.dflevt}">
 					 				</td>
-						 			<td class="text12">
+					 				<td class="text12">
 						 				<span title="dflevi"><b>30.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.levintr"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="dflevi" id="dflevi" size="31" maxlength="30" value="${model.record.dflevi}">
+					 					<input type="text" class="inputTextMediumBlue" name="dflevi" id="dflevi" size="21" maxlength="30" value="${model.record.dflevi}">
 					 				</td>
 						 			
 					 			</tr>
-					 			<tr>	
-						 			<td class="text12">
-						 				<span title="todo"><spring:message code="systema.tror.fraktbrev.form.update.label.utlegg.invoice"/></span>
-				 					</td>
+					 			<tr>
+					 				
 					 				<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.todo}">
-					 				</td>
-						 			<td class="text12">
-					 					<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="12" maxlength="11" value="${Xmodel.record.todo}">
-					 				</td>
-						 			<td class="text12" width="10">&nbsp;</td>
-						 			<td class="text12">
 						 				<span title="dfnteu"><b>12.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.utv.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="3" maxlength="2" value="${model.record.dfnteu}">
+					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="4	" maxlength="2" value="${model.record.dfnteu}">
 					 				</td>
-						 			<td class="text12" width="10">&nbsp;</td>
+						 			<td class="text12">&nbsp;</td>
 						 			<td class="text12">
 						 				<span title="dfntau"><b>13.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.andre.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="3" maxlength="2" value="${model.record.dfntau}">
+					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="5" maxlength="2" value="${model.record.dfntau}">
 					 				</td>
-					 				<td colspan="3" class="text12">
-						 				<span title="dfbele">Oppkravs Beløp</span>
+					 				<td class="text12">
+						 				<span title="dfbele">Oppkravs Beløp</span>&nbsp;
+						 				
 				 					</td>
-					 				<td colspan="2" class="text12">
-					 					<input readonly type="text" class="inputTextReadOnly" name="dfbele" id="dfbele" size="10" maxlength="20" value="${ fn:replace(model.record.dfbele,'.',',') }"> 
-					 				</td>
-					 				
-					 				<td class="text12">&nbsp;<span title="dfpro2"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode.txt2"/>&nbsp;</span></td>
-					 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfpro2" id="dfpro2" size="31" maxlength="30" value="${model.record.dfpro2}"></td>
-						 			
-					 			</tr>		
-							 	</table>
+					 				<td class="text12">
+						 				<input readonly type="text" class="inputTextReadOnly" name="dfbele" id="dfbele" size="15" maxlength="20" value="${ fn:replace(model.record.dfbele,'.',',') }">
+				 					</td>
+				 					<td class="text12">&nbsp;</td>
+				 					<td class="text12">&nbsp;<span title="dfpro2"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode.txt2"/>&nbsp;</span></td>
+					 				<td colspan="4" class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfpro2" id="dfpro2" size="30" maxlength="30" value="${model.record.dfpro2}"></td>
+						 		</tr>
+					 			</table>
 							</td>
 
 						</tr>

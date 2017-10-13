@@ -1249,6 +1249,7 @@ public class TransportDispAjaxHandlerController {
 			logger.info("PARAMS: " + urlRequestParamsKeys);
 			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
 			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			logger.info(jsonPayload);
 			//Debug -->
 			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 			if(jsonPayload!=null){
