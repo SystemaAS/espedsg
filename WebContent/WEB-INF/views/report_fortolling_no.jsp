@@ -28,10 +28,11 @@ function load_data() {
 	if (selectedYear != "" )	{
 		runningUrl = runningUrl + "&registreringsdato="+selectedYear;
 	}	
-	if (selectedAvd != "" )	{
-		runningUrl = runningUrl + "&avdeling="+selectedAvd;
+	if (selectedAvd != null && selectedAvd != "")	{
+		//runningUrl = runningUrl + "&avdeling="+selectedAvd;
+		runningUrl = runningUrl + "&avdelings="+selectedAvd;  //fix when time
 	}
-	if (selectedSign != "" )	{
+	if (selectedSign != null && selectedSign != "")	{
 		runningUrl = runningUrl + "&signatur="+selectedSign;
 	}	
 	if (selectedKundenr != "" )	{
@@ -44,13 +45,14 @@ function load_data() {
 d3.json(runningUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
-		throw error;
+		console.log("Error:"+error);
+		//throw error;
 	}
 		
 	if (data.dtoList == '') {
 		jq.unblockUI();
 		alert('Ingen data på urvalg.');  //TODO bättre UI
-		throw error;
+		//throw error;
 	}
 	
 //test
@@ -65,10 +67,6 @@ var retrievedObject = localStorage.getItem('testObject');
 console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
 //
-	
-	
-	
-	
 	
 	var tollData = data.dtoList;
     //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
@@ -125,7 +123,7 @@ console.log('retrievedObject: ', JSON.parse(retrievedObject));
 	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 //	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
-	var  dataTable = dc.dataTable('#data-table');
+//var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
@@ -649,7 +647,7 @@ stackedBarChart
             all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });      
 	      
-
+/*
 	dataTable
 	    .dimension(tollAllDim) 
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
@@ -681,6 +679,7 @@ stackedBarChart
 	        }
 		});
 	});
+*/
 	
 /*
 	jq('#data-table').on('click', '.data-table-col', function() {
@@ -747,13 +746,6 @@ stackedBarChart
 	}
 
 
-
-
-
-
-
-
-
 	tolldataSize = toll.size();
 	//updateDataTable();
 	  
@@ -790,7 +782,13 @@ function last() {
     dataTable.redraw();
 }
 
-
+jq(document).ready(function() {
+	jq('select#selectVarekode').selectList();
+	jq('select#selectSign').selectList();
+	jq('select#selectAvd').selectList();
+	
+	console.log("leaving .ready...");
+});	
 
 </script>
 
@@ -843,34 +841,53 @@ function last() {
 		 	    <td>&nbsp;
 				<div class="container-fluid">
 				  <div class="row">
-					<div class="col-md-8 text12">
-							Fra år:
+					<div class="col-md-1 text12">
+						<font class="text12">Fra år:</font><br>
 						<select name="selectYear" id="selectYear" >
 	  						<option value="2017">2017</option>
 		  					<option value="2016">2016</option>
 	  					</select>
-						<font class="text12">&nbsp;&nbsp;Avdeling:</font>
-		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd">
-	 						<option value="">-alle-</option>
+	  				</div>
+	  				
+	  					
+					<div class="col-md-1 text12">
+						<font class="text12">Avdeling:</font><br>
+		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
-						</select>		  					
-						<font class="text12">&nbsp;&nbsp;Signatur:</font>
-		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" autofocus>
-			 						<option value="">-alle-</option>
+							<option value="1018">1018</option>
+							<option value="1620">1620</option>
+							<option value="1100">1100</option>
+							<option value="1010">1010</option>
+							<option value="1111">1111</option>
+							<option value="1025">1025</option>
+							<option value="1121">1121</option>
+							<option value="1022">1022</option>
+							<option value="1024">1024</option>
+							<option value="1027">1027</option>
+							
+						</select>						
+					</div>	
+						
+					<div class="col-md-1 text12">
+						<font class="text12">Signatur:</font><br>
+		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
 			 						<c:forEach var="record" items="${model.signatureList}" >
 				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
 									</c:forEach>   
-						</select>	
-  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font>
+						</select>					
+					</div>
+					
+					<div class="col-md-1 text12">
+  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+					</div> 	
 
-					</div>	
-
-	  		    	<div class="col-md-4" align="right">
+	  		    	<div class="col-md-8" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
+	
 				  </div>
 	
 	  			  <div class="padded-row-small">&nbsp;</div>
@@ -972,7 +989,8 @@ function last() {
 				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
 				  </div>
-				 
+	
+<!--  				 
 				  <div class="row">
 					<div class="col-md-12">
 						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
@@ -997,6 +1015,8 @@ function last() {
 				          </tr>
 				        </thead>
 				       </table>
+-->
+
 
 				      <div>
 						<a href="#" id="download">

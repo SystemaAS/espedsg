@@ -11,11 +11,6 @@ var baseUrl = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
-jq('#myFo input').on('change', function() {
-	   alert(jq('input[name=radioName]:checked', '#myForm').val()); 
-	});
-
-
 function load_data() {
 	
 	var runningUrl = baseUrl;
@@ -60,7 +55,7 @@ d3.json(runningUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
 		console.log("Error:"+error);
-		throw error;
+		//throw error;
 	}
 		
 	if (data.dtoList == '') {
@@ -816,10 +811,6 @@ jq(document).ready(function() {
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
 	
-	
-	//jq("#radio-include").prop("checked", true);
-	
-	
 	console.log("leaving .ready...");
 });	
 
@@ -910,7 +901,15 @@ jq(document).ready(function() {
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
 							<option value="1018">1018</option>
-							<option value="850">850</option>
+							<option value="1620">1620</option>
+							<option value="1100">1100</option>
+							<option value="1010">1010</option>
+							<option value="1111">1111</option>
+							<option value="1025">1025</option>
+							<option value="1121">1121</option>
+							<option value="1022">1022</option>
+							<option value="1024">1024</option>
+							<option value="1027">1027</option>
 						</select>						
 					</div>					
 					
@@ -939,46 +938,17 @@ jq(document).ready(function() {
 								</select>	
 							</div>
 							<div class="col-md-8 text12">
-<!-- 
-							    <input type="radio" name="radio-include" id="radio-include">
-							    <label for="radio-include">inkluder</label>
-							    <input type="radio" name="radio-exclude" id="radio-exclude">
-							    <label for="radio-exclude">ekskluder</label>		
- -->							    
    		 						 <input type="checkbox" name="checkboxExclude" id="checkbox-exclude">				    
 								 <label for="checkbox-exclude">Ekskluder</label>
-							    
-							    
-							    					
 							</div>
  						</div>
 					</div>	
-
-	
-<!--  	
-					<div class="col-md-2 text12">
-						<font class="text12">Varekode(ekskludert):</font><br>
-		        		<select class="inputTextMediumBlue" name="selectExcludeVarekode" id="selectExcludeVarekode" multiple="multiple"  title="-velg-">
-			 						<option value="VEG">VEG</option>
-			 						<option value="FRA">FRA</option>
-			 						<option value="OLJ">OLJ</option>
-			 						<option value="DRO">DRO</option>
-			 						<option value="LEV">LEV</option>
-			 						<option value="INF">INF</option>
-			 						<option value="BOM">BOM</option>
-			 						<option value="TDO">TDO</option>
-
-						</select>	
-					</div>
--->
 
 					<div class="col-md-1 text12">
   		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
 					</div>
 					
-					
-
 	  		    	<div class="col-md-4" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
 					</div>	
