@@ -353,6 +353,14 @@ d3.json(runningUrl, function(error, data) {
 
 */
 
+
+var colorMap = {
+        "Adv": "#006837",
+        "Pro": "#a6d96a",
+        "Basic": "#fee08b"
+    };
+
+
 	compositeChart
 		    .width(1200)
 		    .height(500)
@@ -373,20 +381,21 @@ d3.json(runningUrl, function(error, data) {
             .elasticX(true)
             .mouseZoomable(false)
         	.legend( dc.legend().x(1050).y(1).itemHeight(5).gap(20).legendText(function(d, i) { 
-        				if (i == 0) {
+        				if (i == 2) {
         					return "Antall registrerte vareposter";
         				}
         				if (i==1) {
         					return "Antall offisielle vareposter";
         				}
-        				if (i==2) {
+        				if (i==0) {
         					return "Antall fortollinger";
         				}
         			}) 
         	)
 		    .renderHorizontalGridLines(true)
 		  	.compose([
-		         dc.barChart(compositeChart)
+/*
+		  		dc.barChart(compositeChart)
 		            //.dimension(monthDim) 
 		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		           // .centerBar(true)
@@ -405,25 +414,127 @@ d3.json(runningUrl, function(error, data) {
 			        .valueAccessor(function (d) {
              			return d.value.sum_off_vareposter; 
      			}),
-  		         dc.barChart(compositeChart)
-		           // .dimension(monthDim) 
-		            .colors('limegreen')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+  */
+     			dc.barChart(compositeChart)
+		            .dimension(monthDim)   
+		    		.group(monthDimGroup) 
+		          //  .colors('limegreen')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .barPadding(1)
 		            .renderLabel(true)
-		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
 			        .valueAccessor(function (d) {
            				return d.value.count; 
-   				})          			
-		     ])  
+   					}) 
+   					.stack(monthDimGroup,function (d) {
+                     	return d.value.sum_off_vareposter;
+                    })
+                    .stack(monthDimGroup,function (d) {
+                     	return d.value.sum_reg_vareposter;
+                    })
+ 	                .on('renderlet', function (chart) {
+ 	                	console.log("renderlet..");
+	                })  
+ 	                .on('pretransition', function (chart) {
+ 	                	console.log("pretransition..");
+ 	                	//chart.selectAll("g.stack rect.bar").attr("fill", function(d){
+ 	                	//chart.selectAll("rect.bar").attr("style", function(d){
+ 	                	/*
+ 	                	chart.selectAll("g.stack rect.bar").attr("style", function(d){
+ 	                		console.log("pretransition..d=.layer="+d.layer);
+ 	                		if(d.layer=="0") {
+ 	                			console.log("pretransition.layer=0");
+ 	                			return 'limegreen';
+ 	                		}
+ 	                		if(d.layer=="1") {
+ 	                			console.log("pretransition.layer=1");
+ 	                			return 'coral';
+ 	                		}
+ 	                		if(d.layer=="2") {
+ 	                			console.log("pretransition.layer=2");
+ 	                			return 'lightslategray';
+ 	                		}
+ 	                		
+ 	                	});  
+ 	                	*/
+	                     chart.selectAll("g rect").style("fill", function (d) {
+	                    	 console.log("d.layer="+d.layer);
+	                    	 return colorMap[d.layer];
+	                    });
+	                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
+	                    	console.log("d.name="+d.name);
+	                    	return colorMap[d.name];
+	                    });	                	
+	 	                	
+		                })  	                
+		     ])
+		     
+/*
+.on('pretransition', function (chart) {
+                    chart.selectAll("g rect").style("fill", function (d) {
+                        return colorMap[d.layer];
+                    });
+                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
+                        return colorMap[d.name];
+                    });
+                });
+		     
+*/		     
+		     
+		     
+		     
+		     
+		     
 		    .brushOn(false);
-	        
 	     
             compositeChart.xAxis().tickFormat(function(d) { 
             	return d.substr(3); 
             });
-	        
-	
-/*	        
+
+
+/*
+	                    dc.events.trigger(function () {
+	                    	console.log("d.key="+d.key);
+	                    });
+				       chart.selectAll("g.rect.stack").attr("fill", function(d) {
+				    	   console.log("d.key2="+d.key);
+				    	   console.log("d.name="+d.name);
+				    	   console.log("d.data="+d.data);
+					      	if(d.key == "a) Free")   
+					        	return "green";
+					      	else if(d.key == "b) Partly Free")
+					         	return "yellow";
+					     	else if(d.key == "c) Not Free")
+					        	return "red"; 
+				        });
+
+
+
+*/
+            
+            
+            
+            
+            
+            
+            /*          
+            moveChart.compose([
+                // when creating sub-chart you need to pass in the parent chart
+                dc.lineChart(moveChart)
+                    .group(indexAvgByMonthGroup) // if group is missing then parent's group will be used
+                    .valueAccessor(function (d){return d.value.avg;})
+                    // most of the normal functions will continue to work in a composed chart
+                    .renderArea(true)
+                    .stack(monthlyMoveGroup, function (d){return d.value;})
+                    .title(function (d){
+                        var value = d.value.avg?d.value.avg:d.value;
+                        if(isNaN(value)) value = 0;
+                        return dateFormat(d.key) + '\n' + numberFormat(value);
+                    }),
+                dc.barChart(moveChart)
+                    .group(volumeByMonthGroup)
+                    .centerBar(true)
+            ]);            
+            
+            
 	        var compositeChartDate = dc.compositeChart("#composite-chart-date");
 	        compositeChartDate.width(500)
 	                .height(180)
@@ -447,9 +558,7 @@ d3.json(runningUrl, function(error, data) {
 	                .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
 	                .xAxis().ticks(5);	        
 	        
-*/	        
-	        
-/*	        
+        
 var negativeBarChart = dc.barChart("#negative-bar-chart");
 negativeBarChart.width(1100)
         .height(200)
@@ -464,90 +573,9 @@ negativeBarChart.width(1100)
         .renderHorizontalGridLines(true)
         .xUnits(d3.time.days);	        
 	        
-*/	        
+       
 	        
-/*	        
- var minDate2 = dateDim.bottom(1)[0].month;
- var maxDate2  = dateDim.top(1)[0].month;
-*/ 
-
-/* 
-stackedBarChart
-		.width(1200)
-		.height(420)
-		.margins({top: 20, right: 10, bottom: 30, left: 80})
-		//.x(d3.time.scale().domain([minDate2, maxDate2])) 	//scale.linear()
-		.x(d3.scale.linear().domain([minDate2, maxDate2])) 	//
-		//.x(d3.time.scale().domain([d3.time.day.offset(minDate2, -15), d3.time.day.offset(maxDate2, 15)]))
-		//.xUnits(d3.time.month)
-		//.round(d3.time.month.round)
-		//.alwaysUseRounding(true)
-        //.dimension(monthDim) 
- 	    //.group(monthDimGroup);
-
-		.xUnits(function(){return 100;})
-		
-         //.x(d3.scale.ordinal())  //funkar!!, time scale funkar inte!!
-         //.x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
-         //.xUnits(d3.time.months) //funkar inte men 
- 		 //.x(d3.time.scale().domain([1,12]))  //funkar, inte
- 		// .x(d3.time.scale().domain([minDate2, maxDate2]))  //Funkar inte
- 		 //.x(d3.scale.linear().domain([minDate2, maxDate2]))  //Funkar inte
-         //.xUnits(d3.time.month)        
-         
-         //.x(d3.scale.ordinal().domain([1,12]))  //Funkar inte, smetar ut fel..
-         
-         //.xUnits(dc.units.ordinal)
-         //.xUnits(d3.time.months)
-         .yAxisLabel("NOK")
-         .xAxisLabel("Måned")   
-         //.ordering(function(d) { 
-        //	return d.key; 
-         // })	
-		 .dimension(monthDim)
-		 .group(monthDimGroup, "Kostnad", function (d) {
-        	 //console.log("d.value.kostnad="+d.value.kostnad);
-             return d.value.kostnad;
-         })
-         .stack(monthDimGroup, "Resultat", function (d) {
-             var resultat = d.value.omsetning + d.value.kostnad;
-             //console.log("resultat="+resultat);
-             return resultat;
-         })
-         .stack(monthDimGroup, "Omsetning", function (d) {
-             //console.log("omsetningStacked="+omsetningStacked);
-             return d.value.omsetning;
-         })         
-         
-         .renderHorizontalGridLines(true)
-         .renderVerticalGridLines(true)
-         //.renderTitle(true)
-         //.title(function(d) {
-        //	 	//console.log("title="+d.key + '[' + this.layer + ']: ' + d.value[this.layer]);
-         //     return d.key + '[' + this.layer + ']: ' + d.value[this.layer];
-         //})        
-   		 .renderLabel(true)  
-   		 .renderTitle(true)
-		 .elasticY(true)
-		 .gap(1)
-		 .centerBar(true)
-		 .xAxisPadding(5000)
-		 .xAxisPaddingUnit('month')
-//		 .xAxis().tickFormat(function(d){
-//        	  console.log("d.key="+d.key);
-//        	  console.log("d.data.key="+d.data.key);
-//        	  console.log("d.value="+d.value);
-//        	  return d3.time.months;
-//          })
-			
-		 .legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
-		 
-		 .brushOn(true);
-		// .clipPadding(20);
-*/
-		
-		
-	/*	inspiration
+		inspiration
          var barChartDateB = dc.barChart("#bar-chart-dateB", "groupB");
          barChartDateB.width(500)
                  .height(150)
@@ -568,19 +596,7 @@ stackedBarChart
                  .gap(0)
                  .xAxis().tickValues([new Date(2012, 3, 1), new Date(2012, 6, 1), new Date(2012, 9, 1)]);
          barChartDateB.yAxis().tickValues([0, 75, 140]);
-	*/	
-		
-		
-		
-		
-        // stackedBarChart.xAxis().tickFormat(d3.time.format('%B'));
-		 
- 
-//        .group(dateDimGroup, "Kostnad")
-//    	.valueAccessor(function (d) {
-//		       return d.value.kostnad; 
-//		});
-
+*/	
 
 //Diverse grejer till datum   
 //https://jsfiddle.net/pramod24/q4aquukz/4/
@@ -865,9 +881,13 @@ jq(document).ready(function() {
 					<div class="col-md-1 text12">
 						<font class="text12">Signatur:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
-			 						<c:forEach var="record" items="${model.signatureList}" >
-				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
-									</c:forEach>   
+	 						<c:forEach var="record" items="${model.signatureList}" >
+		 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+			 				  	<option value="AH">AH</option>
+		 				  		<option value="VH">VH</option>
+		 				  		<option value="IF">IF</option>
+		 				  		<option value="AK">AK</option>	
+							</c:forEach>   
 						</select>					
 					</div>
 					
