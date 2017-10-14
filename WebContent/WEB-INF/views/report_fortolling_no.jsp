@@ -38,14 +38,13 @@ function load_data() {
 	if (selectedKundenr != "" )	{
 		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
 	}
-	console.log("runningUrl="+runningUrl); 	
+	console.log("runningUrl="+runningUrl); 		
 	
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 
 d3.json(runningUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
-		console.log("Error:"+error);
 		//throw error;
 	}
 		
@@ -55,18 +54,6 @@ d3.json(runningUrl, function(error, data) {
 		//throw error;
 	}
 	
-//test
-var testObject = { 'one': 1, 'two': 2, 'three': 3 };
-
-// Put the object into storage
-localStorage.setItem('testObject', JSON.stringify(testObject));
-
-// Retrieve the object from storage
-var retrievedObject = localStorage.getItem('testObject');
-
-console.log('retrievedObject: ', JSON.parse(retrievedObject));
-
-//
 	
 	var tollData = data.dtoList;
     //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
@@ -123,7 +110,7 @@ console.log('retrievedObject: ', JSON.parse(retrievedObject));
 	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 //	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
-//var  dataTable = dc.dataTable('#data-table');
+	var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
@@ -647,7 +634,7 @@ stackedBarChart
             all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });      
 	      
-/*
+
 	dataTable
 	    .dimension(tollAllDim) 
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
@@ -679,7 +666,6 @@ stackedBarChart
 	        }
 		});
 	});
-*/
 	
 /*
 	jq('#data-table').on('click', '.data-table-col', function() {
@@ -744,6 +730,13 @@ stackedBarChart
 	        filter(edimChart, 5);
 	    }
 	}
+
+
+
+
+
+
+
 
 
 	tolldataSize = toll.size();
@@ -849,7 +842,6 @@ jq(document).ready(function() {
 	  					</select>
 	  				</div>
 	  				
-	  					
 					<div class="col-md-1 text12">
 						<font class="text12">Avdeling:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
@@ -889,9 +881,8 @@ jq(document).ready(function() {
 					</div>	
 	
 				  </div>
-	
+
 	  			  <div class="padded-row-small">&nbsp;</div>
-	
 
 				  <div class="row">
 					<div class="col-md-12">
@@ -989,8 +980,7 @@ jq(document).ready(function() {
 				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
 				  </div>
-	
-<!--  				 
+				 
 				  <div class="row">
 					<div class="col-md-12">
 						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
@@ -1015,8 +1005,6 @@ jq(document).ready(function() {
 				          </tr>
 				        </thead>
 				       </table>
--->
-
 
 				      <div>
 						<a href="#" id="download">
