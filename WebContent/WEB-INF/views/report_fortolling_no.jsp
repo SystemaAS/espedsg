@@ -353,14 +353,24 @@ d3.json(runningUrl, function(error, data) {
 
 */
 
+/*
+var colorMap = {
+        "0": "#006837",
+        "1": "#a6d96a",
+        "2": "#fee08b"
+    };
+*/
 
 var colorMap = {
-        "Adv": "#006837",
-        "Pro": "#a6d96a",
-        "Basic": "#fee08b"
-    };
-
-
+        "0": "limegreen",
+        "1": "coral",
+        "2": "lightslategray"
+    };	        
+	        
+	        
+	        
+	        
+	        
 	compositeChart
 		    .width(1200)
 		    .height(500)
@@ -430,9 +440,6 @@ var colorMap = {
                     .stack(monthDimGroup,function (d) {
                      	return d.value.sum_reg_vareposter;
                     })
- 	                .on('renderlet', function (chart) {
- 	                	console.log("renderlet..");
-	                })  
  	                .on('pretransition', function (chart) {
  	                	console.log("pretransition..");
  	                	//chart.selectAll("g.stack rect.bar").attr("fill", function(d){
@@ -455,33 +462,20 @@ var colorMap = {
  	                		
  	                	});  
  	                	*/
-	                     chart.selectAll("g rect").style("fill", function (d) {
-	                    	 console.log("d.layer="+d.layer);
+	/*
+ 	                	chart.selectAll("g rect").style("fill", function (d) {
 	                    	 return colorMap[d.layer];
 	                    });
 	                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
-	                    	console.log("d.name="+d.name);
 	                    	return colorMap[d.name];
-	                    });	                	
-	 	                	
+	                    });	  
+	
+	                    chart.selectAll("g rect.deselected").style("fill", function (d) {
+	                        return '#ccc';
+	                    });
+	 	*/                	
 		                })  	                
 		     ])
-		     
-/*
-.on('pretransition', function (chart) {
-                    chart.selectAll("g rect").style("fill", function (d) {
-                        return colorMap[d.layer];
-                    });
-                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
-                        return colorMap[d.name];
-                    });
-                });
-		     
-*/		     
-		     
-		     
-		     
-		     
 		     
 		    .brushOn(false);
 	     
