@@ -1282,6 +1282,32 @@
 							    </table>
 						    </td>
 						</tr>
+						<tr>
+						<td valign="top" align="left" style="width:30%" >
+							<table> 		
+					 		<tr>
+					 			<td align="left">
+					 			<table class="tableBorderWithRoundCorners" width="480px">
+									<tr>
+							 			<td valign="top" class="text12">Arkiv docs. &nbsp;
+						 					<ul>
+						 					<c:forEach items="${model.archivedDocsRecord}" var="record" varStatus="counter">
+						 						<li>
+						 						<a target="_blank" href="transportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
+		    		    							<img title="Archive" style="vertical-align:middle;" src="resources/images/pdf.png" width="14" height="14" border="0" alt="PDF arch.">
+		    		    							${record.doctxt}
+				   								</a>&nbsp;&nbsp;&nbsp;
+				   								</li>
+						 					</c:forEach>
+						 					</ul>
+						 				</td>
+									</tr>
+								</table>
+								</td>
+							</tr>	
+							</table>
+						</td>
+						</tr>
 	 				</table>
 	 				</form>
             		</td>

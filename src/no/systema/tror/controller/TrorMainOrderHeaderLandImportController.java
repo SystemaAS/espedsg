@@ -37,6 +37,9 @@ import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
+import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
@@ -68,6 +71,7 @@ import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTrac
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
 //import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
@@ -247,6 +251,8 @@ public class TrorMainOrderHeaderLandImportController {
 					this.splitGodsnr(headerOrderRecord);
 					//populate track and trace
 					this.populateTrackAndTrace(appUser, headerOrderRecord);
+					//populate archive docs
+					this.populateArchiveDocs(appUser, headerOrderRecord, model);
 					//check if user is allowed to choose invoicee (fakturaBetalare)
 					//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 					//populate all message notes
@@ -290,6 +296,12 @@ public class TrorMainOrderHeaderLandImportController {
 				action = "doUpdate";
 			}
 			model.put("action", action);
+			//DEBUG
+			List list = (ArrayList)model.get("archivedDocsRecord");
+			if(list!=null && list.size()>0){
+				logger.info("OKOKOKOKO!!!!!");
+			}
+			
 			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -1220,6 +1232,46 @@ public class TrorMainOrderHeaderLandImportController {
 		*/
 		return null;
 	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param orderRecord
+	 * @param model
+	 */
+	private void populateArchiveDocs(SystemaWebUser appUser, JsonTrorOrderHeaderRecord orderRecord, Map model){
+		//===========
+		 //FETCH LIST
+		 //===========
+		 logger.info("Inside: populateArchiveDocs");
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + orderRecord.getHeavd() + "&opd=" + orderRecord.getHeopd();
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.info(jsonPayload);
+		 Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocList = new ArrayList<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord>();
+		    
+		 if(jsonPayload!=null){
+		 	try{
+		 		JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer container = this.transportDispWorkflowSpecificOrderService.getOrderArchivedDocsContainer(jsonPayload);
+				if(container!=null){
+					archivedDocList = container.getGetdoc();
+					for(JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord record : container.getGetdoc()){
+						logger.info("####Link:" + record.getDoclnk());
+					}
+				}
+				
+		 	}catch(Exception e){
+		 		e.printStackTrace();
+		 	}
+		 }
+		 //populate the list on parent record
+		 model.put("archivedDocList", archivedDocList);
+		 
+	}
 	
 	/**
 	 * 
@@ -1310,5 +1362,15 @@ public class TrorMainOrderHeaderLandImportController {
 	@Required
 	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
 	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
+	
+	
+	@Qualifier ("transportDispWorkflowSpecificOrderService")
+	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
+	@Autowired
+	@Required
+	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService = value; }
+	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){ return this.transportDispWorkflowSpecificOrderService; }
+	
+	
 }
 

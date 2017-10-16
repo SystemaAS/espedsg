@@ -35,6 +35,11 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
+import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -268,6 +273,8 @@ public class EbookingMainOrderHeaderController {
 				this.populateMessageNotes( appUser, headerOrderRecord);
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
+				//populate archive docs
+				//this.populateArchiveDocs(appUser, headerOrderRecord);
 				
 				//check if there was an error in item line "save" and put values back in that line
 				//Note: the header is already saved but at this stage: shit happens (TODO another day when I feel happier)
@@ -696,6 +703,46 @@ public class EbookingMainOrderHeaderController {
 		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);
 		orderRecord.setMessageNoteInternalRaw((List)messageNoteInternal);
 		
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param orderRecord
+	 */
+	private void populateArchiveDocs(SystemaWebUser appUser, JsonMainOrderHeaderRecord orderRecord){
+		//===========
+		 //FETCH LIST
+		 //===========
+		 logger.info("Inside: populateArchiveDocs");
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + orderRecord.getHeavd() + "&opd=" + orderRecord.getHeopd();
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.info(jsonPayload);
+		 Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocList = new ArrayList<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord>();
+		    
+		 if(jsonPayload!=null){
+		 	try{
+		 		JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer container = this.transportDispWorkflowSpecificOrderService.getOrderArchivedDocsContainer(jsonPayload);
+				if(container!=null){
+					archivedDocList = container.getGetdoc();
+					for(JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord record : container.getGetdoc()){
+						//DEBUG -->logger.info("####Link:" + record.getDoclnk());
+					}
+				}
+				
+		 	}catch(Exception e){
+		 		e.printStackTrace();
+		 	}
+		 }
+		//populate the list on parent record
+		 orderRecord.setArchivedDocsRecord(archivedDocList);
+		 
 	}
 	
 	/**
@@ -1283,6 +1330,13 @@ public class EbookingMainOrderHeaderController {
 	@Required
 	public void setEbookingChildWindowService (EbookingChildWindowService value){ this.ebookingChildWindowService = value; }
 	public EbookingChildWindowService getEbookingChildWindowService(){ return this.ebookingChildWindowService; }
+	
+	@Qualifier ("transportDispWorkflowSpecificOrderService")
+	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
+	@Autowired
+	@Required
+	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService = value; }
+	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){ return this.transportDispWorkflowSpecificOrderService; }
 	
 }
 

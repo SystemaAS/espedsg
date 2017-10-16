@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
 /**
  * @author oscardelatorre
  * @date Jan 6, 2017
@@ -928,6 +929,10 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	private String wsmail = null;
 	public void setWsmail(String value) {  this.wsmail = value; }
 	public String getWsmail() {return this.wsmail;}
+	
+	private Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocsRecord = null;
+	public void setArchivedDocsRecord(Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> value) {  this.archivedDocsRecord = value; }
+	public Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> getArchivedDocsRecord() {return this.archivedDocsRecord;}
 	
 	
 	private List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = null;
