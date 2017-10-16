@@ -161,7 +161,7 @@ d3.json(runningUrl, function(error, data) {
             function (p, v) {
                 --p.count;
                 p.sum_reg_vareposter -= v.reg_vareposter;   
-                p.sum_off_vareposter  += v.off_vareposter;     
+                p.sum_off_vareposter  -= v.off_vareposter;     
                 return p;
             },
             function () {
@@ -403,6 +403,17 @@ var colorMap = {
         			}) 
         	)
 		    .renderHorizontalGridLines(true)
+		    .renderTitle(true)
+		    .title(function (d) {
+		    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
+                    	 return [
+         	                d.key,
+         	                'Reg. varuposter: ' + numberFormat(d.value.sum_reg_vareposter) ,
+         	                'Off. varuposter: ' + numberFormat(d.value.sum_off_vareposter),
+         	                'Fortollinger: ' + numberFormat(d.value.count),
+         	               ' Differanse reg./off.: ' + numberFormat(diffRegAndOff)
+         	            ].join('\n');
+        	})	
 		  	.compose([
 /*
 		  		dc.barChart(compositeChart)
@@ -426,55 +437,25 @@ var colorMap = {
      			}),
   */
      			dc.barChart(compositeChart)
-		            .dimension(monthDim)   
+		            //.dimension(monthDim)   
 		    		.group(monthDimGroup) 
 		          //  .colors('limegreen')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .barPadding(1)
-		            .renderLabel(true)
-			        .valueAccessor(function (d) {
+		           // .renderLabel(true)
+			        /*Antall fortollinger*/
+		           .valueAccessor(function (d) {
            				return d.value.count; 
    					}) 
+   					/*Antall off. varuposter*/
    					.stack(monthDimGroup,function (d) {
-                     	return d.value.sum_off_vareposter;
+                     	return d.value.sum_off_vareposter;  //100
                     })
+                    /*Antall off. varuposter*/
                     .stack(monthDimGroup,function (d) {
-                     	return d.value.sum_reg_vareposter;
+                     	//return d.value.sum_reg_vareposter;
+                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //100-80=20
+                    	return diffRegAndOff;
                     })
- 	                .on('pretransition', function (chart) {
- 	                	console.log("pretransition..");
- 	                	//chart.selectAll("g.stack rect.bar").attr("fill", function(d){
- 	                	//chart.selectAll("rect.bar").attr("style", function(d){
- 	                	/*
- 	                	chart.selectAll("g.stack rect.bar").attr("style", function(d){
- 	                		console.log("pretransition..d=.layer="+d.layer);
- 	                		if(d.layer=="0") {
- 	                			console.log("pretransition.layer=0");
- 	                			return 'limegreen';
- 	                		}
- 	                		if(d.layer=="1") {
- 	                			console.log("pretransition.layer=1");
- 	                			return 'coral';
- 	                		}
- 	                		if(d.layer=="2") {
- 	                			console.log("pretransition.layer=2");
- 	                			return 'lightslategray';
- 	                		}
- 	                		
- 	                	});  
- 	                	*/
-	/*
- 	                	chart.selectAll("g rect").style("fill", function (d) {
-	                    	 return colorMap[d.layer];
-	                    });
-	                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
-	                    	return colorMap[d.name];
-	                    });	  
-	
-	                    chart.selectAll("g rect.deselected").style("fill", function (d) {
-	                        return '#ccc';
-	                    });
-	 	*/                	
-		                })  	                
 		     ])
 		     
 		    .brushOn(false);
@@ -484,31 +465,6 @@ var colorMap = {
             });
 
 
-/*
-	                    dc.events.trigger(function () {
-	                    	console.log("d.key="+d.key);
-	                    });
-				       chart.selectAll("g.rect.stack").attr("fill", function(d) {
-				    	   console.log("d.key2="+d.key);
-				    	   console.log("d.name="+d.name);
-				    	   console.log("d.data="+d.data);
-					      	if(d.key == "a) Free")   
-					        	return "green";
-					      	else if(d.key == "b) Partly Free")
-					         	return "yellow";
-					     	else if(d.key == "c) Not Free")
-					        	return "red"; 
-				        });
-
-
-
-*/
-            
-            
-            
-            
-            
-            
             /*          
             moveChart.compose([
                 // when creating sub-chart you need to pass in the parent chart
