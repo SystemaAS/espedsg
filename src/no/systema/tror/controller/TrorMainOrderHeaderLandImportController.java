@@ -251,8 +251,8 @@ public class TrorMainOrderHeaderLandImportController {
 					this.splitGodsnr(headerOrderRecord);
 					//populate track and trace
 					this.populateTrackAndTrace(appUser, headerOrderRecord);
-					//populate archive docs
-					this.populateArchiveDocs(appUser, headerOrderRecord, model);
+					//populate archive docs --> there is indeed a tab (own tab) for the archive
+					//this.populateArchiveDocs(appUser, headerOrderRecord, model);
 					//check if user is allowed to choose invoicee (fakturaBetalare)
 					//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
 					//populate all message notes
@@ -288,20 +288,22 @@ public class TrorMainOrderHeaderLandImportController {
 					
 				}
 			}
-			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
+			
 			//TODO this.setDropDownsFromFiles(model);
 			//populate model
 			if(action==null || "".equals(action)){
 				action = "doUpdate";
 			}
 			model.put("action", action);
-			//DEBUG
-			List list = (ArrayList)model.get("archivedDocsRecord");
-			if(list!=null && list.size()>0){
-				logger.info("OKOKOKOKO!!!!!");
-			}
 			
+			//get dropdowns
+			Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> list = (ArrayList)model.get("archivedDocList");
+			 if(list!=null && list.size()>0){
+				 logger.info("WOW2!!!");
+			 }else{
+				 logger.info("FUCK2!!!");
+			 }
 			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 			
 			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
@@ -1232,46 +1234,6 @@ public class TrorMainOrderHeaderLandImportController {
 		*/
 		return null;
 	}
-	/**
-	 * 
-	 * @param appUser
-	 * @param orderRecord
-	 * @param model
-	 */
-	private void populateArchiveDocs(SystemaWebUser appUser, JsonTrorOrderHeaderRecord orderRecord, Map model){
-		//===========
-		 //FETCH LIST
-		 //===========
-		 logger.info("Inside: populateArchiveDocs");
-		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
-		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + orderRecord.getHeavd() + "&opd=" + orderRecord.getHeopd();
-		 logger.info("URL: " + BASE_URL);
-		 logger.info("PARAMS: " + urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		 logger.info(jsonPayload);
-		 Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocList = new ArrayList<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord>();
-		    
-		 if(jsonPayload!=null){
-		 	try{
-		 		JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer container = this.transportDispWorkflowSpecificOrderService.getOrderArchivedDocsContainer(jsonPayload);
-				if(container!=null){
-					archivedDocList = container.getGetdoc();
-					for(JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord record : container.getGetdoc()){
-						logger.info("####Link:" + record.getDoclnk());
-					}
-				}
-				
-		 	}catch(Exception e){
-		 		e.printStackTrace();
-		 	}
-		 }
-		 //populate the list on parent record
-		 model.put("archivedDocList", archivedDocList);
-		 
-	}
 	
 	/**
 	 * 
@@ -1362,14 +1324,6 @@ public class TrorMainOrderHeaderLandImportController {
 	@Required
 	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
 	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
-	
-	
-	@Qualifier ("transportDispWorkflowSpecificOrderService")
-	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
-	@Autowired
-	@Required
-	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService = value; }
-	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){ return this.transportDispWorkflowSpecificOrderService; }
 	
 	
 }
