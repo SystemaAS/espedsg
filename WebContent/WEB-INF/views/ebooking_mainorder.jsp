@@ -118,7 +118,7 @@
 	
 	<%-- ------------------------------- --%>
 	<%-- Floating window for file upload --%>
-	<%-- ------------------------------- 
+	<%-- ------------------------------- --%>
 		<c:if test="${not empty model.record.hereff}">
 			<tr>
 				<td valign="bottom" >
@@ -153,7 +153,7 @@
 												<td class="text11">&nbsp;Nytt filnavn:</td>
 												<td class="text11">&nbsp;<input tabindex=-1 type="text" class="inputText" name="fileNameNew" id="fileNameNew" size="20" maxlength="20" value=""></td>
 											</tr>
-											 HERE!!! comment END
+											 --%>
 											<tr>
 												<td class="text11">&nbsp;Arkiv typen:</td>
 												<td class="text11">&nbsp;
@@ -184,7 +184,7 @@
 				</td>
 			</tr>
 		</c:if>
-		--%>
+		
 		
 		<tr>
 		<td>
