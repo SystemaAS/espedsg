@@ -343,7 +343,7 @@
 	    
   });
   
-//Ajax on postal codes
+  //Ajax on postal codes
   function getCity(target, id, countryCode){
 	  jq.getJSON('searchPostNumber_Ebooking.do', {
 		  applicationUser : jq('#applicationUser').val(),
@@ -503,7 +503,60 @@
 	    		});
     		}
 	    }
-	    
+	    //Hurtigsøk on sender
+	    jq('#wvakure').blur(function() {
+	    	var wvakure = jq('#wvakure').val();
+	    	alert("hi");
+	    	if(wvakure!=null && wvakure!=""){
+	    		alert("2");
+	    		
+	    		jq.getJSON('getSenderAddressHurtigSok_Ebooking.do', {
+				applicationUser : jq('#applicationUser').val(),
+				kundnr : jq('#trknfa').val(),
+				vakure : wvakure,
+				ajax : 'true'
+	    		}, function(data) {
+					//alert("Hello");
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						customer = new Object();
+						customer.kundnr = data[i].vakure;
+						customer.knavn = data[i].vadrna;
+						//customer.auxnavn = data[i].auxnavn;
+						customer.adr1 = data[i].vadrn1;
+						customer.adr2 = data[i].vadrn2;
+						customer.adr3 = data[i].vadrn3;
+						customer.land = data[i].valand;
+						customer.auxtlf = data[i].vatlf;
+						customer.auxmail = data[i].vamail;
+						map[customer.kundnr] = customer;
+					}
+					if(len > 0){
+						//jq('#henas').removeClass( "isa_error" );
+						
+						//only if name is empty
+		    			//if(name==''){
+							jq('#vakure').val(customer.kundnr);
+							jq('#henas').val(customer.knavn);
+							jq('#heads1').val(customer.adr1);
+							jq('#heads2').val(customer.adr2);
+							jq('#heads3').val(customer.adr3 + " " +  customer.land);
+							jq('#wsscont').val("");
+							jq('#wsstlf').val(customer.auxtlf);
+							jq('#wssmail').val(customer.auxmail);
+							//
+							jq('#wvakure').removeClass( "isa_error" );
+		    			//}	
+					}else{
+						//init fields
+						//jq('#hekns').val("");
+						jq('#wvakure').val(jq('#wvakure').val() + '??');
+						jq('#wvakure').addClass( "isa_error" );
+					}
+	    		});
+    		}
+	    	
+		});
 	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {

@@ -331,6 +331,42 @@ public class EbookingAjaxHandlerController {
 			 return result;
 			 */
 		}
+	
+	  	/**
+	  	 * 
+	  	 * @param applicationUser
+	  	 * @param kundnr
+	  	 * @param vakure
+	  	 * @return
+	  	 */
+	  	@RequestMapping(value = "getSenderAddressHurtigSok_Ebooking.do", method = RequestMethod.GET)
+	    public @ResponseBody Set<JsonEbookingCustomerDeliveryAddressRecord> getSenderAddressHurtigSok_Ebooking
+		  						(@RequestParam String applicationUser, @RequestParam String kundnr, @RequestParam String vakure){
+			 logger.info("Inside: getSenderAddressHurtigSok_Ebooking");
+			 
+			 Set<JsonEbookingCustomerDeliveryAddressRecord> result = new HashSet<JsonEbookingCustomerDeliveryAddressRecord>();
+				//prepare the access CGI with RPG back-end
+				String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
+				String urlRequestParams = "user=" + applicationUser + "&wkundnr=" + kundnr+ "&wvakure=" + vakure; 
+				logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParams);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+				if(jsonPayload!=null){
+					JsonEbookingCustomerDeliveryAddressContainer container = this.ebookingChildWindowService.getCustomerDeliveryAddressContainer(jsonPayload);
+		    		if(container!=null){
+		    			for(JsonEbookingCustomerDeliveryAddressRecord  record : container.getInqdeladdr()){
+		    				result.add(record);
+		    			}
+		    		}
+				}
+				return result;
+	
+		}
 		
 	  
 	  /**
@@ -557,6 +593,7 @@ public class EbookingAjaxHandlerController {
 	    	  }
     		  return retval;
 	  }
+	  
 			
 	  /**
 	   * 
