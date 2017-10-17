@@ -900,16 +900,18 @@ jq(document).ready(function() {
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
-							<option value="1018">1018</option>
-							<option value="1620">1620</option>
-							<option value="1100">1100</option>
-							<option value="1010">1010</option>
-							<option value="1111">1111</option>
-							<option value="1025">1025</option>
-							<option value="1121">1121</option>
-							<option value="1022">1022</option>
-							<option value="1024">1024</option>
-							<option value="1027">1027</option>
+							<option value="530">530</option>
+							<option value="540">540</option>
+							<option value="550">550</option>
+							<option value="543">543</option>
+							<option value="590">590</option>
+							<option value="570">570</option>
+							<option value="541">541</option>
+							<option value="553">553</option>
+							<option value="8253">8253</option>
+							<option value="573">573</option>
+							<option value="580">580</option>
+							<option value="2080">2080</option>
 						</select>						
 					</div>					
 					
