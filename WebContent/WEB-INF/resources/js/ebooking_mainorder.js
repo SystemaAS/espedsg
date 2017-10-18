@@ -506,9 +506,9 @@
 	    //Hurtigsøk on sender
 	    jq('#wvakure').blur(function() {
 	    	var wvakure = jq('#wvakure').val();
-	    	alert("hi");
+	    	//alert("hi");
 	    	if(wvakure!=null && wvakure!=""){
-	    		alert("2");
+	    		//alert("2");
 	    		
 	    		jq.getJSON('getSenderAddressHurtigSok_Ebooking.do', {
 				applicationUser : jq('#applicationUser').val(),
