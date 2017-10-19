@@ -31,7 +31,7 @@
 						 			<td align="left" height="60px" class="text14">
 						 			<ol>
 						 			
-						 			
+						 			<%--
 						 			<c:if test="${user.user == 'OSCAR' && fn:startsWith(user.os,'mac') }">
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
@@ -42,7 +42,7 @@
 										</font>
 										</li>
 						 			</c:if>
-						 			 
+						 			 --%> 
 						 			<c:if test="${user.user == 'OSCAR'}">
 						 				<li style="line-height:20px;">
 						 				<font class="text14">
@@ -60,15 +60,7 @@
 	 										</a>
 										</font>
 										</li>
-										<%--
-										<li style="line-height:20px;">
-						 				<font class="text14">
-							 				<a class="text14" href="ebooking_mainorderlist.do?lang=${user.usrLang}&action=doFind" > 	
-			 									<img src="resources/images/bulletGreen.png" width="10px" height="10px" border="0">&nbsp;
-			 									<font class="text14NavyBlue">ebooking eSpedsg</font>
-	 										</a>
-										</font>
-										 --%>
+										
 						 			</c:if>
 			 						<c:forEach items="${list}" var="record" varStatus="counter"> 
 						 				<c:if test="${ fn:contains(record.prog, 'TOMCAT') }">
@@ -85,7 +77,7 @@
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
 			 										<%-- ====================================================  --%>
-									            	<%-- Here we have the info popup window TROR - Oppdragsreg --%>
+									            	<%-- Here we have the info popup window                    --%>
 									            	<%-- ====================================================  --%>
 									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoRAPP" class="popupPlain"  >
 									           		<div align="center">
