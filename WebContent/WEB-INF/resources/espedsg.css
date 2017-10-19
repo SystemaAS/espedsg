@@ -1721,6 +1721,12 @@ END override jQuery elements
     border-width: 1px 1px 1px 1px; 
     border-color:#4E78A0
 }
+.tableProformaAngivelseRow {  
+        font-family: Verdana, Arial, Helvetica, sans-serif; 
+        font-size: 10px; 
+        color: #9F6000;
+    	background-color: #FEEFB3;
+}
 .tableOddRow {  
         font-family: Verdana, Arial, Helvetica, sans-serif; 
         font-size: 10px; 

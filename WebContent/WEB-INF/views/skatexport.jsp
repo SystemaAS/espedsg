@@ -225,6 +225,7 @@
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.aart"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.datum"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.status"/>&nbsp;</td>
+	                    <td align="center" width="2%" class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.proformaang"/>&nbsp;</td>
 	                    <td class="tableHeaderField" title="Send alle status 11">&nbsp;&nbsp;<input type="button" name="buttonSendAll" id="buttonSendAll" value='Send'>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.avsandare"/>&nbsp;</td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.mottagare"/>&nbsp;</td>
@@ -237,11 +238,11 @@
 	                </tr>     
 		            <c:forEach items="${list}" var="topic" varStatus="counter">    
 		               <c:choose>           
-		                   <c:when test="${counter.count%2==0}">
-		                       <tr class="tableRow" height="20" >
+		                   <c:when test="${not empty topic.dkeh_prof}">
+		                       <tr class="tableProformaAngivelseRow" height="20" >
 		                   </c:when>
 		                   <c:otherwise>   
-		                       <tr class="tableOddRow" height="20" >
+		                       <tr class="tableRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
 		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
@@ -261,6 +262,16 @@
 		               <td class="tableCell" >&nbsp;${topic.aart}</td>
 		               <td class="tableCell" >&nbsp;${topic.datum}</td>
 		               <td class="tableCell" >&nbsp;<b>${topic.status}</b></td>
+		               <td width="2%" align="center" class="tableCell" >
+		               	<c:choose>
+		               		<c:when test="${not empty topic.dkeh_prof}">
+		               			&nbsp;Ja
+		               		</c:when>
+		               		<c:otherwise>
+		               			&nbsp;
+		               		</c:otherwise>
+						</c:choose>		               		
+		               </td>
 		               <td class="tableCell" align="center">
 		               		<c:if test="${topic.status == '11'}">
 		               			<input class="clazzSendAware" type="checkbox" value="J" id="syav${topic.avd}_syop${topic.opd}" name="syav${topic.avd}_syop${topic.opd}" >
