@@ -11,6 +11,7 @@ import javax.annotation.PreDestroy;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 //application imports
 import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceRecord;
@@ -47,44 +46,27 @@ import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListP
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.validator.TransportDispWorkflowSpecificOrderInvoiceValidator;
-import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
-import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.StringManager;
 
-import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
-import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
 
 
-//eBooking
 import no.systema.tror.url.store.TrorUrlDataStore;
-import no.systema.tror.util.TrorConstants;
-import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceContainer;
+import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceReadyMarkContainer;
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceRecord;
 
-//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
-//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
-//import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
-
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
-//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
-//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
-import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
-import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
-import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 
 /**
@@ -173,10 +155,12 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	    			JsonTrorOrderLandImportInvoiceContainer container = this.trorMainOrderHeaderLandimportService.getOrderInvoiceContainer(jsonPayload);
 	    			if(container!=null){
 	    				//ready mark status
-	    				//TODO ? JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer readyMarkContainer = this.getReadyMark(appUser, recordToValidate.getHeavd(), recordToValidate.getHeopd());
-	    				//TODO ? container.setReadyMarkStatus(readyMarkContainer.getStatus());
+	    				JsonTrorOrderLandImportInvoiceReadyMarkContainer readyMarkContainer = this.getReadyMark(appUser, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+	    				container.setReadyMarkStatus(readyMarkContainer.getStatus());
+	    				//logger.info("AAAAAAA:" + container.getReadyMarkStatus());
 	    				//set domain object
 	    				this.setDomainObjectsInView(model, container, session);
+	    				//logger.info("BBBBBB:" + container.getReadyMarkStatus());
 	    			}
 	    		}
 	    		
@@ -196,6 +180,47 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		    return successView;
 
 		}
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private JsonTrorOrderLandImportInvoiceReadyMarkContainer getReadyMark(SystemaWebUser appUser, String avd, String opd ){
+		JsonTrorOrderLandImportInvoiceReadyMarkContainer retval = null;
+		
+		logger.info(" Ready mark start process... ");
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_STATUS_READYMARK_MAIN_ORDER_INVOICE_URL;
+    	//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser()); 
+		urlRequestParams.append("&avd=" + avd);
+		urlRequestParams.append("&opd=" + opd);
+		urlRequestParams.append("&mode=G");
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//Debug -->
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	
+		if(jsonPayload!=null){
+			JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer tmpContainer = this.transportDispWorkflowSpecificOrderService.getOrderInvoiceReadyMarkContainer(jsonPayload);
+			JsonTrorOrderLandImportInvoiceReadyMarkContainer container = new JsonTrorOrderLandImportInvoiceReadyMarkContainer();
+			//handover since we do not have an own implementation yet. We are borrowing from TranspDisp
+			try{
+				BeanUtils.copyProperties(container, tmpContainer);
+			}catch(Exception e){
+				logger.info(e.getMessage());
+			}
+			
+			retval = container;
+		}
+		return retval;
 	}
 	/**
 	 * @Description IMPORTANT
@@ -424,7 +449,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		//[1] Sort the list after: fask(code part (S,K,X,etc) and fafakt(inv.nr)
 		Collections.sort(list, new JsonTrorOrderLandImportInvoiceRecord.OrderByCodeAndInvoiceNr());
 		if(list!=null){
-			logger.info("TripleAAA:" + list.size());
+			//logger.info("TripleAAA:" + list.size());
 		}
 		//[1.1] Group the list in sub-lists of related records
 		Map listGroupsMap = this.setListGroups(list);

@@ -217,6 +217,21 @@
 	    				<%-- separator --%>
 	        			<tr height="10"><td></td></tr> 
 	        			
+	        			<tr>
+	        				<td>	        				
+				           		&nbsp;<button name="readyMarkButton" id="readyMarkButton" class="buttonGrayWithGreenFrame" type="button" >&nbsp;Ferdigmelde</button>
+				           		<c:choose>
+					           		<c:when test="${not empty model.container.readyMarkStatus}">
+					           			<font id="readyMarkInvoice" class="text12MediumBlue">&nbsp;Status:&nbsp;${model.container.readyMarkStatus}</font>
+					           		</c:when>
+					           		<c:otherwise>
+					           			<%-- this id must always be present since AJAX call must fill upp with text... --%>
+					           			<font id="readyMarkInvoice" class="text12MediumBlue"></font>
+					           		</c:otherwise>
+				           		</c:choose>
+	        				</td>
+	        			</tr>
+	        			
 						<tr>
 							<td class="ownScrollableSubWindow" style="width:100%; height:20em;"> 
 								<form name="formItemList" id="formItemList" method="POST" >

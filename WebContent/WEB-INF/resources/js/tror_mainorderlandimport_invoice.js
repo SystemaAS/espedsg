@@ -43,6 +43,43 @@
 		  });
 	});
 	
+	
+	
+	//Ferdigmelde (readyMark). 
+	jq(function() {
+	  	jq('#readyMarkButton').click(function() {
+	  		jq.ajax({
+			  	  type: 'GET',
+			  	  url: 'updateReadyMarkInvoice.do',
+			  	  data: { applicationUser : jq('#applicationUser').val(), 
+			  		  	  avd : jq('#heavd').val(),
+			  		  	  opd : jq('#heopd').val() }, 
+			  	  dataType: 'json',
+			  	  cache: false,
+			  	  contentType: 'application/json',
+			  	  success: function(data) {
+			  		var len = data.length;
+		  			for ( var i = 0; i < len; i++) { 
+		  				jq('#readyMarkInvoice').text("");
+		  				if(data[i].status!=''){
+		  					jq('#readyMarkInvoice').removeClass( "isa_error" );
+		  					jq('#readyMarkInvoice').text("[Status: " + data[i].status + "]");
+		  				}else{ 
+		  					if(data[i].errMsg!=''){
+		  						jq('#readyMarkInvoice').addClass( "isa_error" );
+		  						jq('#readyMarkInvoice').text("[ERROR: " + data[i].errMsg + "]");
+	  						}
+		  				}
+					}
+			  	  },
+			  	  error: function() {
+			  	    alert('Error loading ...');
+			  	  }
+			  	}); 
+	  		});
+	});
+	
+	
     /*
 	//-----------------------------------------------------------------------------
   	//jQuery CALCULATOR (related to jquery.calculator.js and jquery.calculator.css
