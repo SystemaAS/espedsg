@@ -785,18 +785,6 @@ jq(document).ready(function() {
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
-							<option value="530">530</option>
-							<option value="540">540</option>
-							<option value="550">550</option>
-							<option value="543">543</option>
-							<option value="590">590</option>
-							<option value="570">570</option>
-							<option value="541">541</option>
-							<option value="553">553</option>
-							<option value="8253">8253</option>
-							<option value="573">573</option>
-							<option value="580">580</option>
-							<option value="2080">2080</option>
 						</select>						
 					</div>					
 					
@@ -814,14 +802,7 @@ jq(document).ready(function() {
 							<div class="col-md-3 text12">
 								<font class="text12">Varekode:</font><br>
 				        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode" multiple="multiple" title="-velg-">
-					 						<option value="VEG">VEG</option>
-					 						<option value="FRA">FRA</option>
-					 						<option value="OLJ">OLJ</option>
-					 						<option value="DRO">DRO</option>
-					 						<option value="LEV">LEV</option>
-					 						<option value="INF">INF</option>
-					 						<option value="BOM">BOM</option>
-					 						<option value="TDO">TDO</option>
+					 						<option value="TODO">-todo-</option>
 								</select>	
 							</div>
 							<div class="col-md-8 text12">

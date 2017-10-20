@@ -12,11 +12,34 @@
 var tolldataSize;
 var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
+var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
+var merknader;
 
+/*
+d3.json(merknaderDescUrl, function(error, data) {
+	if (error) {
+		jq.unblockUI();
+		//throw error;
+	}
+
+	if (data.list == '') {
+		jq.unblockUI();
+		alert('Ingen data for merknader.');  //TODO bättre UI
+		//throw error;
+	} else {
+		merknader = data.list;
+	}
+	
+});
+
+function getMerknadDesc(id) {
+	return  _.findWhere(merknader,{e9705:id});
+}
+*/
 function load_data() {
 	
 	var runningUrl = baseUrl;
@@ -240,6 +263,18 @@ d3.json(runningUrl, function(error, data) {
 	    .group(sisgDimGroup)
 	    .on("filtered", getFiltersValues);
 
+	/* Initialize tooltip */
+/*
+	var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
+	
+	var rowtip = d3.tip()
+    .attr('class', 'd3-tip')
+   // .offset([-10, 0])
+    .html(function (d) { return d.key + "::: "  + d.value; });
+*/	
+	
+	//TODO: hitta d3.tip
+	
 	edimChart
 	    .width(300)
 	    .height(300)
@@ -249,7 +284,13 @@ d3.json(runningUrl, function(error, data) {
 	    .dimension(edimDim)
 	    .group(edimDimGroup)
 	    .on("filtered", getFiltersValues);
-	
+//		.on('pretransition', function(chart) {
+//		    chart.selectAll('g.row')
+//		        .call(rowtip)
+//		        .on('mouseover', rowtip.show)
+//		        .on('mouseout', rowtip.hide);
+//		});	    
+	    
 	
 	antallDisplay
 	     .group(omsetningsGroup)  
@@ -353,24 +394,6 @@ d3.json(runningUrl, function(error, data) {
 
 */
 
-/*
-var colorMap = {
-        "0": "#006837",
-        "1": "#a6d96a",
-        "2": "#fee08b"
-    };
-*/
-
-var colorMap = {
-        "0": "limegreen",
-        "1": "coral",
-        "2": "lightslategray"
-    };	        
-	        
-	        
-	        
-	        
-	        
 	compositeChart
 		    .width(1200)
 		    .height(500)
@@ -814,18 +837,6 @@ jq(document).ready(function() {
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 							</c:forEach>  
-							<option value="530">530</option>
-							<option value="540">540</option>
-							<option value="550">550</option>
-							<option value="543">543</option>
-							<option value="590">590</option>
-							<option value="570">570</option>
-							<option value="541">541</option>
-							<option value="553">553</option>
-							<option value="8253">8253</option>
-							<option value="573">573</option>
-							<option value="580">580</option>
-							<option value="2080">2080</option>
 						</select>						
 					</div>	
 						
@@ -834,10 +845,6 @@ jq(document).ready(function() {
 		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
 	 						<c:forEach var="record" items="${model.signatureList}" >
 		 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
-			 				  	<option value="AH">AH</option>
-		 				  		<option value="VH">VH</option>
-		 				  		<option value="IF">IF</option>
-		 				  		<option value="AK">AK</option>	
 							</c:forEach>   
 						</select>					
 					</div>
