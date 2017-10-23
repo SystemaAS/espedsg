@@ -7,6 +7,7 @@
 
 
 </style>
+
 <script type="text/javascript">
 "use strict";
 var tolldataSize;
@@ -19,7 +20,7 @@ var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 var merknader;
 
-/*
+
 d3.json(merknaderDescUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
@@ -34,12 +35,21 @@ d3.json(merknaderDescUrl, function(error, data) {
 		merknader = data.list;
 	}
 	
+	//console.log("Desc 954="+_.findWhere(merknader,{e9705:'954'}).e4440);
+	
+	
 });
 
 function getMerknadDesc(id) {
-	return  _.findWhere(merknader,{e9705:id});
+	var desc =  _.findWhere(merknader,{e9705:id});
+	if (desc != null) {
+		return desc.e4440;
+	} else {
+		return '['+id+' ikke funnet som funksjonfeil i vedlikehold.]';		
+	}
+
 }
-*/
+
 function load_data() {
 	
 	var runningUrl = baseUrl;
@@ -68,7 +78,7 @@ function load_data() {
 d3.json(runningUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
-		//throw error;
+		throw error;
 	}
 		
 	if (data.dtoList == '') {
@@ -263,18 +273,6 @@ d3.json(runningUrl, function(error, data) {
 	    .group(sisgDimGroup)
 	    .on("filtered", getFiltersValues);
 
-	/* Initialize tooltip */
-/*
-	var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
-	
-	var rowtip = d3.tip()
-    .attr('class', 'd3-tip')
-   // .offset([-10, 0])
-    .html(function (d) { return d.key + "::: "  + d.value; });
-*/	
-	
-	//TODO: hitta d3.tip
-	
 	edimChart
 	    .width(300)
 	    .height(300)
@@ -283,14 +281,20 @@ d3.json(runningUrl, function(error, data) {
 	    .externalRadiusPadding(50)
 	    .dimension(edimDim)
 	    .group(edimDimGroup)
-	    .on("filtered", getFiltersValues);
-//		.on('pretransition', function(chart) {
-//		    chart.selectAll('g.row')
-//		        .call(rowtip)
-//		        .on('mouseover', rowtip.show)
-//		        .on('mouseout', rowtip.hide);
-//		});	    
-	    
+		.renderTitle(true)
+		.title(function (d) {
+			var desc;
+			if (d.key == 'OK') {
+				desc = d.key;
+			} else {
+				var trailingThree = d.key.slice(-3);
+				desc =  getMerknadDesc(trailingThree);
+			}
+            return [
+                d.key + ':',
+                desc
+            ].join('\n');			
+		});	    
 	
 	antallDisplay
 	     .group(omsetningsGroup)  
@@ -769,8 +773,24 @@ jq(document).ready(function() {
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
 	
-	console.log("leaving .ready...");
+//	console.log("leaving .ready...");
 });	
+
+
+window.addEventListener('error', function (e) {
+	  var error = e.error;
+	  jq.unblockUI();
+	  console.log("Event e.error",e.error);
+
+	  if (e instanceof TypeError) {
+			//what todo  
+	  } else {
+		  alert('Uforutsett fel har intreffet. Vennligst gör forfrisk fane Fortolling(NO).');
+	  }
+	  
+});
+
+
 
 </script>
 
