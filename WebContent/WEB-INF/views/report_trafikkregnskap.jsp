@@ -898,7 +898,7 @@ jq(document).ready(function() {
 						<font class="text12">Avdeling:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
 		 				  	<c:forEach var="record" items="${model.avdList}" >
-		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+		 				  		<option value="${record.koakon}">${record.koakon}</option>
 							</c:forEach>  
 						</select>						
 					</div>					
@@ -907,7 +907,7 @@ jq(document).ready(function() {
 						<font class="text12">Signatur:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
 			 						<c:forEach var="record" items="${model.signatureList}" >
-				 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+				 				  		<option value="${record.ksisig}">${record.ksisig}</option>
 									</c:forEach>   
 						</select>					
 					</div>

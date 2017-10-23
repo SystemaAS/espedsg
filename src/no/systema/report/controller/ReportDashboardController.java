@@ -22,8 +22,8 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.transportdisp.util.TransportDispConstants;
-import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
-import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
+import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 
 @Controller
@@ -69,8 +69,8 @@ public class ReportDashboardController {
 	}
 
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, trorDropDownListPopulationService, model, appUser);
-		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
+		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, maintSadFellesKodtsiService, model, appUser);
+		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
 	}	
 	
 	@Qualifier ("urlCgiProxyService")
@@ -80,13 +80,6 @@ public class ReportDashboardController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }	
 	
-	@Qualifier ("trorDropDownListPopulationService")
-	private TrorDropDownListPopulationService trorDropDownListPopulationService;
-	@Autowired
-	@Required
-	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
-	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }	
-
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
 	@Autowired
@@ -94,6 +87,11 @@ public class ReportDashboardController {
 	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
 	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }	
 	
-	
+	@Qualifier ("maintSadFellesKodtsiService")
+	private MaintSadFellesKodtsiService maintSadFellesKodtsiService;
+	@Autowired
+	@Required
+	public void setMaintSadFellesKodtsiService (MaintSadFellesKodtsiService value){ this.maintSadFellesKodtsiService = value; }
+	public MaintSadFellesKodtsiService getMaintSadFellesKodtsiService(){ return this.maintSadFellesKodtsiService; }		
 	
 }

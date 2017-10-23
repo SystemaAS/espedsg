@@ -42,10 +42,10 @@ d3.json(merknaderDescUrl, function(error, data) {
 
 function getMerknadDesc(id) {
 	var desc =  _.findWhere(merknader,{e9705:id});
-	if (desc != null) {
+	if (desc != null && desc != "") {
 		return desc.e4440;
 	} else {
-		return '['+id+' ikke funnet som funksjonfeil i vedlikehold.]';		
+		return "["+id+" ikke funnet som funksjonfeil i vedlikehold.]";		
 	}
 
 }
@@ -84,7 +84,7 @@ d3.json(runningUrl, function(error, data) {
 	if (data.dtoList == '') {
 		jq.unblockUI();
 		alert('Ingen data på urvalg.');  //TODO bättre UI
-		//throw error;
+		return "no data found";
 	}
 	
 	
@@ -724,14 +724,6 @@ negativeBarChart.width(1100)
 	    }
 	}
 
-
-
-
-
-
-
-
-
 	tolldataSize = toll.size();
 	//updateDataTable();
 	  
@@ -773,7 +765,6 @@ jq(document).ready(function() {
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
 	
-//	console.log("leaving .ready...");
 });	
 
 
@@ -855,7 +846,7 @@ window.addEventListener('error', function (e) {
 						<font class="text12">Avdeling:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
 		 				  	<c:forEach var="record" items="${model.avdList}" >
-		 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+		 				  		<option value="${record.koakon}">${record.koakon}</option>
 							</c:forEach>  
 						</select>						
 					</div>	
@@ -864,7 +855,7 @@ window.addEventListener('error', function (e) {
 						<font class="text12">Signatur:</font><br>
 		        		<select class="inputTextMediumBlue" name="selectSign" id="selectSign" multiple="multiple" title="-velg-">
 	 						<c:forEach var="record" items="${model.signatureList}" >
-		 				  		<option value="${record.kosfsi}"<c:if test="${searchFilterTror.sign == record.kosfsi}"> selected </c:if> >${record.kosfsi}</option>
+		 				  		<option value="${record.ksisig}">${record.ksisig}</option>
 							</c:forEach>   
 						</select>					
 					</div>
