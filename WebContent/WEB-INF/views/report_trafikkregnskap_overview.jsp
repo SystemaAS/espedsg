@@ -812,13 +812,16 @@ jq(document).ready(function() {
  						</div>
 					</div>	
 
-					<div class="col-md-1 text12">
+					<div class="col-md-2 text12">
   		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+						<a tabindex="-1" id="kundenrLink">
+							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
+						</a>&nbsp;		
 					</div>
 					
 	  		    	<div class="col-md-4" align="right">
-	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
+	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 				  </div>
 	

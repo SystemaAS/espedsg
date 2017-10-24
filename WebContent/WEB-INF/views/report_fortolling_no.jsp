@@ -3,11 +3,6 @@
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
 
-<style>
-
-
-</style>
-
 <script type="text/javascript">
 "use strict";
 var tolldataSize;
@@ -29,8 +24,8 @@ d3.json(merknaderDescUrl, function(error, data) {
 
 	if (data.list == '') {
 		jq.unblockUI();
-		alert('Ingen data for merknader.');  //TODO bättre UI
-		//throw error;
+		alert('Ingen data for merknader.');  
+		return "no data found";
 	} else {
 		merknader = data.list;
 	}
@@ -62,8 +57,7 @@ function load_data() {
 		runningUrl = runningUrl + "&registreringsdato="+selectedYear;
 	}	
 	if (selectedAvd != null && selectedAvd != "")	{
-		//runningUrl = runningUrl + "&avdeling="+selectedAvd;
-		runningUrl = runningUrl + "&avdelings="+selectedAvd;  //fix when time
+		runningUrl = runningUrl + "&avdelings="+selectedAvd; 
 	}
 	if (selectedSign != null && selectedSign != "")	{
 		runningUrl = runningUrl + "&signatur="+selectedSign;
@@ -133,16 +127,11 @@ d3.json(runningUrl, function(error, data) {
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 	var  edimChart   = dc.pieChart('#chart-ring-edim');
-	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeChart = dc.compositeChart("#chart-composite");
-	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
-	//var  stackedBarChart =  dc.barChart("#stacked-bar-chart"); //dc.compositeChart("#bar-chart-composite"); 
-	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  antallDisplay = dc.numberDisplay("#antall");	
 	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
-//	var  totalTollDisplay = dc.numberDisplay("#totalToll");	
 	var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
@@ -238,8 +227,6 @@ d3.json(runningUrl, function(error, data) {
 	    .dimension(typeDim)
 	    .group(typeDimGroup)
 	    .externalRadiusPadding(50)
-	   // .drawPaths(true)
-	   // .externalLabels(20)
 	    .innerRadius(30)
 	    .on("filtered", getFiltersValues);
 	    
@@ -317,86 +304,6 @@ d3.json(runningUrl, function(error, data) {
 				return p.value.sum_off_vareposter;
 		});	
 	
-/*
-	totalTollDisplay
-	     .group(omsetningsGroup)  
-		 .valueAccessor(function (p) {
-			 return p.value.totaltoll;
-		  })
-		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
-*/	    
-	  
-/*
-	yearlyBubbleChart 
-	        .width(1000)
-	        .height(320)
-	        .transitionDuration(1500)
-		    .margins({top: 20, right: 10, bottom: 30, left: 90})
-		    .dimension(kundeDim)
-	        //The bubble chart expects the groups are reduced to multiple values which are used
-	        //to generate x, y, and radius for each key (bubble) in the group
-	        .group(kundePerformanceGroup)
-	        // (_optional_) define color function or array for bubbles: [ColorBrewer](http://colorbrewer2.org/)
-	        .colors(colorbrewer.RdYlGn[9])
-	        //(optional) define color domain to match your data domain if you want to bind data or color
-	        .colorDomain([-500, 500])
-	   		 //##### Accessors
-	        //Accessor functions are applied to each value returned by the grouping
-	        // `.colorAccessor` - the returned value will be passed to the `.colors()` scale to determine a fill color
-	        .colorAccessor(function (d) {
-	            return d.value.sumfabeln;
-	        })
-	        // `.keyAccessor` - the `X` value will be passed to the `.x()` scale to determine pixel location
-	        .keyAccessor(function (p) {
-	            return p.value.sumTotal;
-	        })
-	        // `.valueAccessor` - the `Y` value will be passed to the `.y()` scale to determine pixel location
-	        .valueAccessor(function (p) {
-	            return p.value.sumfabeln;
-	        })
-	        // `.radiusValueAccessor` - the value will be passed to the `.r()` scale to determine radius size;
-	        //   by default this maps linearly to [0,100]
-	        .radiusValueAccessor(function (p) {
-	            return p.value.sumfabeln;
-	        })
-	        .maxBubbleRelativeSize(0.3)
-	        .x(d3.scale.linear().domain([-2500, 2500]))
-	        .y(d3.scale.linear().domain([-100, 100]))
-	        .r(d3.scale.linear().domain([0, 4000]))
-	        //##### Elastic Scaling
-	        //`.elasticY` and `.elasticX` determine whether the chart should rescale each axis to fit the data.
-	        .elasticY(true)
-	        .elasticX(true)
-	        //`.yAxisPadding` and `.xAxisPadding` add padding to data above and below their max values in the same unit
-	        //domains as the Accessors.
-	        .yAxisPadding(100)
-	        .xAxisPadding(500)
-	        // (_optional_) render horizontal grid lines, `default=false`
-	        .renderHorizontalGridLines(true)
-	        // (_optional_) render vertical grid lines, `default=false`
-	        .renderVerticalGridLines(true)
-	        // (_optional_) render an axis label below the x axis
-	        .xAxisLabel('Omsetning')
-	        // (_optional_) render a vertical axis lable left of the y axis
-	        .yAxisLabel('Antall oppdrag')
-	        //##### Labels and  Titles
-	        //Labels are displayed on the chart for each bubble. Titles displayed on mouseover.
-	        // (_optional_) whether chart should render labels, `default = true`
-	        .renderLabel(true)
-	        .label(function (p) {
-	            return p.key;
-	        })
-	        .renderTitle(true)
-	        .title(function (p) {
-	            return [
-	                p.key,
-	                'NOK: ' + p.value.sumTotal,
-	                'Antall oppdrag: ' + p.value.sumfabeln
-	            ].join('\n');
-	        })	        
-
-
-*/
 
 	compositeChart
 		    .width(1200)
@@ -404,20 +311,15 @@ d3.json(runningUrl, function(error, data) {
 		    .dimension(monthDim)   
 		    .group(monthDimGroup) 
 		    .margins({top: 40, right: 10, bottom: 40, left: 80})
-           // .x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
-            //.x(d3.time.scale().domain([mindate, maxdate]))  //  .x(d3.time.scale().domain([mindate, maxdate])) Funkar  enskilt, och ihop med time.month o dateDim
-            //.xUnits(d3.time.month)
-            
      		.x(d3.scale.ordinal())  
             .xUnits(dc.units.ordinal)   
-            
             .yAxisPadding('5%')
             .yAxisLabel("Antall vareposter")
         	.xAxisLabel("Måned")      
             .elasticY(true)
             .elasticX(true)
             .mouseZoomable(false)
-        	.legend( dc.legend().x(1050).y(1).itemHeight(5).gap(20).legendText(function(d, i) { 
+        	.legend( dc.legend().x(1050).y(1).itemHeight(6).gap(20).legendText(function(d, i) { 
         				if (i == 2) {
         					return "Antall registrerte vareposter";
         				}
@@ -442,33 +344,9 @@ d3.json(runningUrl, function(error, data) {
          	            ].join('\n');
         	})	
 		  	.compose([
-/*
-		  		dc.barChart(compositeChart)
-		            //.dimension(monthDim) 
-		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		           // .centerBar(true)
-		            .barPadding(1)
-		            .renderLabel(true)
-				    .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
-			        .valueAccessor(function (d) {
-                		return d.value.sum_reg_vareposter; 
-        			}),
-   		         dc.barChart(compositeChart)
-		           // .dimension(monthDim) 
-		            .colors('coral')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		            .barPadding(1)
-		            .renderLabel(true)
-		            .legend(dc.legend().legendText(function(d) { return d.name + ': ' + d.data; }))
-			        .valueAccessor(function (d) {
-             			return d.value.sum_off_vareposter; 
-     			}),
-  */
      			dc.barChart(compositeChart)
-		            //.dimension(monthDim)   
 		    		.group(monthDimGroup) 
-		          //  .colors('limegreen')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		            .barPadding(1)
-		           // .renderLabel(true)
 			        /*Antall fortollinger*/
 		           .valueAccessor(function (d) {
            				return d.value.count; 
@@ -479,7 +357,6 @@ d3.json(runningUrl, function(error, data) {
                     })
                     /*Antall off. varuposter*/
                     .stack(monthDimGroup,function (d) {
-                     	//return d.value.sum_reg_vareposter;
                     	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //100-80=20
                     	return diffRegAndOff;
                     })
@@ -492,88 +369,6 @@ d3.json(runningUrl, function(error, data) {
             });
 
 
-            /*          
-            moveChart.compose([
-                // when creating sub-chart you need to pass in the parent chart
-                dc.lineChart(moveChart)
-                    .group(indexAvgByMonthGroup) // if group is missing then parent's group will be used
-                    .valueAccessor(function (d){return d.value.avg;})
-                    // most of the normal functions will continue to work in a composed chart
-                    .renderArea(true)
-                    .stack(monthlyMoveGroup, function (d){return d.value;})
-                    .title(function (d){
-                        var value = d.value.avg?d.value.avg:d.value;
-                        if(isNaN(value)) value = 0;
-                        return dateFormat(d.key) + '\n' + numberFormat(value);
-                    }),
-                dc.barChart(moveChart)
-                    .group(volumeByMonthGroup)
-                    .centerBar(true)
-            ]);            
-            
-            
-	        var compositeChartDate = dc.compositeChart("#composite-chart-date");
-	        compositeChartDate.width(500)
-	                .height(180)
-	                .margins({top: 30, right: 50, bottom: 30, left: 30})
-	                .dimension(dateDimension)
-	                .group(dateIdSumGroup, "Id Sum")
-	                .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 7, 15)]))
-	                .xUnits(d3.time.days)
-	                .shareColors(true)
-	                .compose([
-	                    dc.barChart(compositeChartDate).group(dateValueSumGroup, "Value Sum"),
-	                    dc.lineChart(compositeChartDate),
-	                    dc.lineChart(compositeChartDate).group(dateGroup, "Date Group")
-	                ])
-	                .on('renderlet', function (chart) {
-	                    dc.events.trigger(function () {
-	                        barChartDate.focus(chart.filter());
-	                        lineChartDate.focus(chart.filter());
-	                    });
-	                })
-	                .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
-	                .xAxis().ticks(5);	        
-	        
-        
-var negativeBarChart = dc.barChart("#negative-bar-chart");
-negativeBarChart.width(1100)
-        .height(200)
-        .margins({top: 30, right: 50, bottom: 30, left: 30})
-        .dimension(dateDimension)
-        .group(dateNegativeValueSumGroup)
-        .stack(dateNegativeValueSumGroup)
-        .stack(dateNegativeValueSumGroup)
-        .yAxisPadding(5)
-        .elasticY(true)
-        .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 7, 15)]))
-        .renderHorizontalGridLines(true)
-        .xUnits(d3.time.days);	        
-	        
-       
-	        
-		inspiration
-         var barChartDateB = dc.barChart("#bar-chart-dateB", "groupB");
-         barChartDateB.width(500)
-                 .height(150)
-                 .dimension(dateDimension)
-                 .group(dateIdSumGroup)
-                 .stack(dateValueSumGroup)
-                 .stack(dateValueSumGroup, function (d) {
-                     return 10;
-                 })
-                 .brushOn(false)
-                 .title(function (d) {
-                     return d.value;
-                 })
-                 .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 07, 15)]))
-                 .xUnits(d3.time.days)
-                 .renderHorizontalGridLines(true)
-                 .renderVerticalGridLines(true)
-                 .gap(0)
-                 .xAxis().tickValues([new Date(2012, 3, 1), new Date(2012, 6, 1), new Date(2012, 9, 1)]);
-         barChartDateB.yAxis().tickValues([0, 75, 140]);
-*/	
 
 //Diverse grejer till datum   
 //https://jsfiddle.net/pramod24/q4aquukz/4/
@@ -767,7 +562,6 @@ jq(document).ready(function() {
 	
 });	
 
-
 window.addEventListener('error', function (e) {
 	  var error = e.error;
 	  jq.unblockUI();
@@ -776,12 +570,10 @@ window.addEventListener('error', function (e) {
 	  if (e instanceof TypeError) {
 			//what todo  
 	  } else {
-		  alert('Uforutsett fel har intreffet. Vennligst gör forfrisk fane Fortolling(NO).');
+		  alert('Uforutsett fel har intreffet. Vennligst gör forfrisk på fane Fortolling(NO).');
 	  }
 	  
 });
-
-
 
 </script>
 
@@ -797,7 +589,7 @@ window.addEventListener('error', function (e) {
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - oversikt</font>&nbsp;						
 						</a>
-						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
+						<img  style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0">
 			  		</td>		
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
@@ -860,13 +652,16 @@ window.addEventListener('error', function (e) {
 						</select>					
 					</div>
 					
-					<div class="col-md-1 text12">
+					<div class="col-md-2 text12">
   		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+						<a tabindex="-1" id="kundenrLink">
+							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
+						</a>&nbsp;	
 					</div> 	
 
-	  		    	<div class="col-md-8" align="right">
-	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
+	  		    	<div class="col-md-7" align="right">
+	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 	
 				  </div>

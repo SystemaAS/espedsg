@@ -121,7 +121,10 @@
 				  opener.jq('#fmot').val(knr);
 				  opener.jq('#fmot').change();
 				  opener.jq('#fmot').focus();
-					
+			  } else if(callerType == 'selectKundenr') { //Analyse-view
+				  opener.jq('#selectKundenr').val(knr);
+				  opener.jq('#selectKundenr').change();
+				  opener.jq('#selectKundenr').focus();	  
 			  //Maintenance TDS Export Kunders vareregister		
 			  }else if(callerType == 'mainttdsexport_kundreg'){
 				  //must redirect on parent window

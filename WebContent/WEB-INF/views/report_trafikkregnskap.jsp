@@ -829,7 +829,7 @@ jq(document).ready(function() {
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - oversikt</font>&nbsp;						
 						</a>
-						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
+						<img  style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0">
 			  		</td>		
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 
@@ -912,7 +912,7 @@ jq(document).ready(function() {
 						</select>					
 					</div>
 					
-					<div class="col-md-3 text12">
+					<div class="col-md-2 text12">
  						<div class="row">
 							<div class="col-md-3 text12">
 								<font class="text12">Varekode:</font><br>
@@ -927,13 +927,16 @@ jq(document).ready(function() {
  						</div>
 					</div>	
 
-					<div class="col-md-1 text12">
+					<div class="col-md-2 text12">
   		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
+						<a tabindex="-1" id="kundenrLink">
+							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
+						</a>&nbsp;	
 					</div>
 					
 	  		    	<div class="col-md-4" align="right">
-	   	              	<button class="inputFormSubmit" onclick="load_data()">Hent data</button> 
+	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 				  </div>
 	

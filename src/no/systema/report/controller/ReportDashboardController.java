@@ -1,6 +1,9 @@
 package no.systema.report.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +25,15 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.transportdisp.util.TransportDispConstants;
+import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
+import no.systema.z.main.maintenance.controller.ChildWindowKode;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
@@ -68,6 +77,102 @@ public class ReportDashboardController {
 		}
 	}
 
+	/**
+	 * This method serve as data populater for all child windows for Report analyses.
+	 * 
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="report_dashboard_childwindow_codes.do",  method={RequestMethod.GET} )
+	public ModelAndView getCodes(HttpSession session, HttpServletRequest request){
+		ModelAndView successViewCustomer = new ModelAndView("mainmaintenance_childwindow_customer");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String caller = request.getParameter("caller");  //Field in jsp
+		
+		if (appUser == null) {
+			return this.loginView;
+		} else {
+
+			List list = getCodeList(appUser, caller);
+			model.put("codeList", list);
+			model.put("caller", caller);
+
+			//setLabels(appUser, model, caller);
+			
+			if ("selectKundenr".equals(caller)) { // Reuse of mainmaintenance_childwindow_customer.jsp
+				model.put("ctype", caller);
+				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
+				return successViewCustomer;
+			} else {
+				throw new IllegalArgumentException(caller + " is not supported.");
+			}
+		}
+	}	
+	
+	
+	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {
+		List<ChildWindowKode> list = null;
+
+		if ("selectKundenr".equals(caller)) { 
+			list = getKunder(appUser);
+		} else {
+			throw new IllegalArgumentException(caller + " is not supported.");
+		}
+
+		return list;
+	}
+	
+	private List<ChildWindowKode> getKunder(SystemaWebUser appUser) {
+		Collection<JsonMaintMainCundfRecord> list = fetchList(appUser.getUser(), null, null);
+		List<ChildWindowKode> kodeList = new ArrayList<ChildWindowKode>();
+		ChildWindowKode kode = null;
+		for (JsonMaintMainCundfRecord record : list) {
+			kode = getChildWindowKode(record);
+			kodeList.add(kode);
+		}
+
+		return kodeList;
+	}
+	
+	private ChildWindowKode getChildWindowKode(JsonMaintMainCundfRecord record) {
+		ChildWindowKode kode = new ChildWindowKode();
+		kode.setCode(record.getKundnr());
+		kode.setDescription(record.getKnavn());
+		return kode;
+	}	
+	
+	
+	private Collection<JsonMaintMainCundfRecord> fetchList(String applicationUser, String kundnr, String firma) {
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + applicationUser);
+		if (kundnr != null && firma != null) {
+			urlRequestParams.append("&kundnr=" + kundnr);
+			urlRequestParams.append("&firma=" + firma);
+		}
+
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		Collection<JsonMaintMainCundfRecord> list = new ArrayList<JsonMaintMainCundfRecord>();
+		if (jsonPayload != null) {
+			jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+			JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
+			if (container != null) {
+				list = container.getList();
+/*		        for(JsonMaintMainCundfRecord record : list){
+	        	  logger.info("record:" + record.toString());
+	        	}	
+*/			}
+		}
+
+		return list;
+	}	
+	
+	
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, maintSadFellesKodtsiService, model, appUser);
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
@@ -93,5 +198,16 @@ public class ReportDashboardController {
 	@Required
 	public void setMaintSadFellesKodtsiService (MaintSadFellesKodtsiService value){ this.maintSadFellesKodtsiService = value; }
 	public MaintSadFellesKodtsiService getMaintSadFellesKodtsiService(){ return this.maintSadFellesKodtsiService; }		
+
+	@Qualifier ("maintMainCundfService")
+	private MaintMainCundfService maintMainCundfService;
+	@Autowired
+	@Required
+	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
+	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }	
+	
+	
+	
+	
 	
 }
