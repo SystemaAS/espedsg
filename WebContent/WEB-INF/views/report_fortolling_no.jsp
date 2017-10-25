@@ -15,7 +15,6 @@ var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 var merknader;
 
-
 d3.json(merknaderDescUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
@@ -93,7 +92,7 @@ d3.json(runningUrl, function(error, data) {
     var numberFormat = d3.format(",.0f")
  
     // normalize/parse data
-	 _.each(tollData, function(d) {
+	 _.each(tollData, function( d) {
 	  d.date = fullDateFormat.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
 	  d.month = monthNameFormat(d.date);
@@ -113,7 +112,7 @@ d3.json(runningUrl, function(error, data) {
 	tolldataSize = toll.size();
 	
 	//Dimensions
-	var  tollAllDim = toll.dimension(function(d) {return d;});	 //TODO översyn för exkl. kolumner i download
+	var  tollAllDim = toll.dimension(function(d) {return d;});	
 	var  dateDim  = toll.dimension(function(d) {return d.date;});
 	var  yearDim  = toll.dimension(function(d) {return d.year;});
     var  monthDim = toll.dimension(function (d) {return d.month;});	
@@ -132,7 +131,6 @@ d3.json(runningUrl, function(error, data) {
 	var  antallDisplay = dc.numberDisplay("#antall");	
 	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
-	var  dataTable = dc.dataTable('#data-table');
 	
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
@@ -270,15 +268,22 @@ d3.json(runningUrl, function(error, data) {
 	    .group(edimDimGroup)
 		.renderTitle(true)
 		.title(function (d) {
-			var desc;
+			var key, desc;
 			if (d.key == 'OK') {
-				desc = d.key;
+				key = 'OK';
+				desc = '';
 			} else {
 				var trailingThree = d.key.slice(-3);
-				desc =  getMerknadDesc(trailingThree);
+				if (isNaN(trailingThree)) {  //key is a shapeshifter
+					 key = d.key.slice(0,2);
+					 desc = d.key.slice(2,d.key.lenght);
+		        } else {
+		        	 key = d.key;
+					 desc =  getMerknadDesc(trailingThree);	        	 
+		        }
 			}
             return [
-                d.key + ':',
+                key + ':',
                 desc
             ].join('\n');			
 		});	    
@@ -313,13 +318,13 @@ d3.json(runningUrl, function(error, data) {
 		    .margins({top: 40, right: 10, bottom: 40, left: 80})
      		.x(d3.scale.ordinal())  
             .xUnits(dc.units.ordinal)   
-            .yAxisPadding('5%')
+            .yAxisPadding('10%')
             .yAxisLabel("Antall vareposter")
         	.xAxisLabel("Måned")      
             .elasticY(true)
             .elasticX(true)
-            .mouseZoomable(false)
-        	.legend( dc.legend().x(1050).y(1).itemHeight(6).gap(20).legendText(function(d, i) { 
+            .mouseZoomable(false)  //true npot working in this context
+        	.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
         				if (i == 2) {
         					return "Antall registrerte vareposter";
         				}
@@ -361,14 +366,9 @@ d3.json(runningUrl, function(error, data) {
                     	return diffRegAndOff;
                     })
 		     ])
-		     
-		    .brushOn(false);
-	     
-            compositeChart.xAxis().tickFormat(function(d) { 
+            .xAxis().tickFormat(function(d) { 
             	return d.substr(3); 
             });
-
-
 
 //Diverse grejer till datum   
 //https://jsfiddle.net/pramod24/q4aquukz/4/
@@ -422,8 +422,32 @@ d3.json(runningUrl, function(error, data) {
             all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });      
 	      
+	d3.select('#download').on('click', function() {
+		var today = new Date();
+        var data = tollAllDim.top(Infinity);
+        var saveData = data.map(function(obj) {
+            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
+            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
+            		signatur: obj.signatur, mottaker: obj.mottaker};
+        });
+        
+		var blob = new Blob([d3.csv.format(saveData)], {type: "application/vnd.ms-excel;charset=utf-8"});  // text/csv
+		
+        saveAs(blob, 'fortolling_no-' + today + '.xls');
+    });	
 
-	dataTable
+	var displayed = false;
+	jq('#showTable' ).click(function() {
+	   if (displayed) {
+		   jq( '#detailsTable' ).toggle();
+		   displayed = false;
+	   } else {
+	   jq( '#detailsTable' ).toggle( "slow", function() {
+	    console.log("start filling dataTable...")
+
+	    var dataTable = dc.dataTable('#data-table');
+	    
+		dataTable
 	    .dimension(tollAllDim) 
 	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 	    .size(Infinity) 
@@ -440,42 +464,32 @@ d3.json(runningUrl, function(error, data) {
 	    .on('renderlet', function (table) {
 	      	// each time table is rendered remove nasty extra row dc.js insists on adding
 	     	table.select('tr.dc-table-group').remove();
-	 	});
-	
-	jq(document).ready(function() {
-		var lang = jq('#language').val();
-		jq('#data-table').dataTable({
-			"dom" : '<"top">t<"bottom"flip><"clear">',
+	 	});	    
+	    
+	    dataTable.render();	    //måste vara med
+	    
+	    var lang = jq('#language').val();
+		jq('#data-table').DataTable({
+			"dom" : '<"top">t<"bottom"f><"clear">',
 			"scrollY" : "200px",
-			"scrollCollapse" : true,
-			"destroy": true,
+			"scrollCollapse" : false,
+			destroy : true,
+			"columnDefs" : [ {
+				"type" : "num",
+				"targets" : 0
+			} ],
+			"lengthMenu" : [ 75, 100 ],
 			"language": {
 				"url": getLanguage(lang)
 	        }
-		});
-	});
-	
-/*
-	jq('#data-table').on('click', '.data-table-col', function() {
-		  var column = jq(this).attr("data-col");
-		  var tollAllDim2 = toll.dimension(function(d) {return d[column];});
-		  dataTable.dimension(tollAllDim2)
-		  dataTable.sortBy(function(d) {
-		    return d[column];
-		  });
-		  dataTable.redraw();
-		});
-*/	
-	
-
-	
-	d3.select('#download').on('click', function() {
-		var today = new Date();
-        var data = tollAllDim.top(Infinity);
-		var blob = new Blob([d3.csv.format(data)], {type: "text/csv;charset=utf-8"});
+		}); 
 		
-        saveAs(blob, 'fortolling_no-' + today + '.csv');
-    });	
+		console.log("ready filling dataTable.");
+		displayed = true;
+	    
+	   });
+	  }
+	}); 
 
 	function getFiltersValues() {
 	    var filters = [
@@ -520,7 +534,6 @@ d3.json(runningUrl, function(error, data) {
 	}
 
 	tolldataSize = toll.size();
-	//updateDataTable();
 	  
 	dc.renderAll(); 
 	
@@ -532,35 +545,14 @@ d3.json(runningUrl, function(error, data) {
 
 }
  
-function display() {
-    d3.select('#begin').text(ofs);
-    d3.select('#end').text(ofs+pag-1);
-    d3.select('#last').attr('disabled', ofs-pag<0 ? 'true' : null);
-    d3.select('#next').attr('disabled', ofs+pag>=tolldataSize ? 'true' : null);
-    d3.select('#size').text(tolldataSize);
-}
-function updateDataTable() {
-	dataTable.beginSlice(ofs);
-	dataTable.endSlice(ofs+pag);
-    display();
-}
-function next() {
-    ofs += pag;
-    updateDataTable();
-    dataTable.redraw();
-}
-function last() {
-    ofs -= pag;
-    updateDataTable();
-    dataTable.redraw();
-}
 
 jq(document).ready(function() {
 	jq('select#selectVarekode').selectList();
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
-	
+	jq('#detailsTable').toggle(false); //default hide
 });	
+
 
 window.addEventListener('error', function (e) {
 	  var error = e.error;
@@ -700,7 +692,7 @@ window.addEventListener('error', function (e) {
 				      </div>
 				      <div class="row">
 						 <div class="col-md-12 dc-chart" id="chart-composite"> 
-						  	<h3 class="text11">Vareposter</h3>
+						  	<h3 class="text12">Vareposter</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
 						 </div>  
@@ -722,42 +714,36 @@ window.addEventListener('error', function (e) {
 					  
 
 					  <div class="row">
-	
 					     <div class="col-md-2" id="chart-ring-avd">
-				        	<h3 class="text11" align="justify">Avdeling
-				        	 <font class="text10">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
+				        	<h3 class="text12" align="justify">Avdeling
+				        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
 				        	 <a id="avdfilter">legg til</a>	
 				        	</h3>
-							 			
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
-	
 				        </div>
 						<div class="col-md-2" id="chart-ring-type">
-						 	<h3 class="text11" align="center">Import / Eksport</h3>
+						 	<h3 class="text12" align="center">Import / Eksport</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
 						<div class="col-md-2" id="chart-ring-year">
-							<h3 class="text11" align="center">År</h3>
+							<h3 class="text12" align="center">År</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
 
 				        <div class="col-md-2" id="chart-ring-sisg">
-				        	<h3 class="text11" align="center">Signatur</h3>
+				        	<h3 class="text12" align="center">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
 				        <div class="col-md-2" id="chart-ring-edim">
-				        	<h3 class="text11" align="center">Merknader</h3>
+				        	<h3 class="text12" align="center">Merknader</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div> 
-
-
 					  </div> 	
-					  
 					</div>		
 				  </div>	
 	
@@ -772,22 +758,52 @@ window.addEventListener('error', function (e) {
 				  </div>	
    
 				  <div class="row">
+					<div class="col-md-12" id="showTable">
+  						<h3><a id="showTable"><font class="text12">Vis Fortollinger, filtrert</font>
+  						&nbsp;<img onMouseOver="showPop('vis_fortoll_info');" onMouseOut="hidePop('vis_fortoll_info');" width="12px" height="12px" src="resources/images/info3.png">
+		 				</a></h3>
+		 				<div class="text11" style="position: relative;" align="left">
+		 				<span style="position:absolute; top:2px; width:250px;" id="vis_fortoll_info" class="popupWithInputText text11"  >
+				           		<b>
+				           			Vis Fortollinger, filtrert
+				 	          	</b><br><br>
+				           		Bruk detaljer dersom det finnes intresse att se spesifike fortollinger.
+				           		Hvis stort antall fortollinger er utvalgt, ytelse kan oppleves som mindre bra.
+								<br><br>
+						</span>
+						</div>
+					</div>
+				  </div>	
+				   
+				  <div class="padded-row"></div>
+	
+				  <div class="row" id="detailsTable">
 				    <div class="col-md-12">
-				       <h3 class="text11">Fortollinger, filtrert</h3>
-				       <div class="padded-row"></div>
-				       <table class="display compact cell-border" id="data-table">
+				       <table class="display" id="data-table" cellspacing="0" width="100%">
 				        <thead>
 				          <tr>
-				            <th class="tableHeaderField" >avdeling</th>
-				            <th class="tableHeaderField" >deklarasjonsnr</th>
-				            <th class="tableHeaderField" >reg. vareposter</th>
-				            <th class="tableHeaderField" >off. vareposter</th>
-				            <th class="tableHeaderField" >registreringsdato</th>
-				            <th class="tableHeaderField" >signatur</th>
-				            <th class="tableHeaderField" >mottaker</th>
-				            <th class="tableHeaderField" >type</th>
+				            <th>avdeling</th>
+				            <th>deklarasjonsnr</th>
+				            <th>reg. vareposter</th>
+				            <th>off. vareposter</th>
+				            <th>registreringsdato</th>
+				            <th>signatur</th>
+				            <th>mottaker</th>
+				            <th>type</th>
 				          </tr>
 				        </thead>
+				        <tfoot>
+				          <tr>
+				            <th>avdeling</th>
+				            <th>deklarasjonsnr</th>
+				            <th>reg. vareposter</th>
+				            <th>off. vareposter</th>
+				            <th>registreringsdato</th>
+				            <th>signatur</th>
+				            <th>mottaker</th>
+				            <th>type</th>
+				          </tr>
+				        </tfoot>				        
 				       </table>
 
 				      <div>

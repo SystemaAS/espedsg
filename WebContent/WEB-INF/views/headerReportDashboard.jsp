@@ -7,7 +7,7 @@
 		<link href="resources/${user.cssEspedsg}?ver=${user.versionEspedsg}" rel="stylesheet" type="text/css"/>
 		 <link rel="stylesheet" type="text/css" href="resources/selectlist/css/selectlist.css" />
 				<%-- datatables grid CSS --%>
-		<link type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css" rel="stylesheet">
+		<link type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css" rel="stylesheet">
 		<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/overcast/jquery-ui.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css">
   		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
