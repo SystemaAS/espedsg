@@ -68,480 +68,491 @@ function load_data() {
 	
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 
-d3.json(runningUrl, function(error, data) {
-	if (error) {
-		jq.unblockUI();
-		throw error;
-	}
+	d3.json(runningUrl, function(error, data) {
+		if (error) {
+			jq.unblockUI();
+			throw error;
+		}
+			
+		if (data.dtoList == '') {
+			jq.unblockUI();
+			alert('Ingen data på urvalg.'); 
+			return "no data found";
+		}
 		
-	if (data.dtoList == '') {
-		jq.unblockUI();
-		alert('Ingen data på urvalg.');  //TODO bättre UI
-		return "no data found";
-	}
-	
-	
-	var tollData = data.dtoList;
-    //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
-    
-    var fullDateFormat = d3.time.format('%Y%m%d');
-    var yearFormat = d3.time.format('%Y');
-    var monthFormat = d3.time.format('%m');
-    var monthNameFormat = d3.time.format('%m.%b');
-    var percentageFormat = d3.format('.2%');
-    var numberFormat = d3.format(",.0f")
- 
-    // normalize/parse data
-	 _.each(tollData, function( d) {
-	  d.date = fullDateFormat.parse(d.registreringsdato);
-	  d.year = yearFormat(d.date);
-	  d.month = monthNameFormat(d.date);
-	  d.avdeling = d.avdeling;
-	  d.deklarasjonsnr= d.deklarasjonsnr;
-	  d.reg_vareposter = +d.reg_vareposter;
-	  d.off_vareposter = +d.off_vareposter;
-	  d.registreringsdato = +d.registreringsdato; 
-	  d.signatur =   d.signatur;
-	  d.mottaker =   d.mottaker;
-	  d.edim =   d.edim;
-	});
- 
-	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
-	var toll = crossfilter(tollData);	
-	var  all = toll.groupAll();
-	tolldataSize = toll.size();
-	
-	//Dimensions
-	var  tollAllDim = toll.dimension(function(d) {return d;});	
-	var  dateDim  = toll.dimension(function(d) {return d.date;});
-	var  yearDim  = toll.dimension(function(d) {return d.year;});
-    var  monthDim = toll.dimension(function (d) {return d.month;});	
-	var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
-	var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
-	var  typeDim  = toll.dimension(function(d) {return d.type;});
-	var  edimDim  = toll.dimension(function(d) {return d.edim;});
-	//Charts 
-	var  typeChart   = dc.pieChart("#chart-ring-type");
-	var  yearChart   = dc.pieChart("#chart-ring-year");
-	var  avdChart   = dc.pieChart('#chart-ring-avd');
-	var  sisgChart   = dc.pieChart('#chart-ring-sisg');
-	var  edimChart   = dc.pieChart('#chart-ring-edim');
-	var  compositeChart = dc.compositeChart("#chart-composite");
-	var  dataCount = dc.dataCount('#data-count')	 
-	var  antallDisplay = dc.numberDisplay("#antall");	
-	var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
-	var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
-	
-	var mindate = dateDim.bottom(1)[0].date;
-	var maxdate = dateDim.top(1)[0].date;
-	
-	var minmonth = dateDim.bottom(1)[0].month;
-	var maxmonth = dateDim.top(1)[0].month;
-	
-	//Groups
-	var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-	var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-	var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-	var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-	
-	//Group reduce
-    var dateDimGroup =  dateDim.group().reduce(   
-            /* callback for when data is added to the current filter results */
-            function (p, v) {
-                ++p.count;
-                p.sum_reg_vareposter += v.reg_vareposter;   
-                p.sum_off_vareposter  += v.off_vareposter;    
-                return p;
-            },
-            /* callback for when data is removed from the current filter results */
-            function (p, v) {
-                --p.count;
-                p.sum_reg_vareposter -= v.reg_vareposter;   
-                p.sum_off_vareposter -= v.off_vareposter;   
-                return p;
-            },
-            /* initialize p */
-            function () {
-                return {
-                    count: 0,
-                    sum_reg_vareposter: 0,
-                    sum_off_vareposter: 0
-                };
-            }
-    );  
-	
-    var monthDimGroup =  monthDim.group().reduce(   
-            function (p, v) {
-                ++p.count;
-                p.sum_reg_vareposter += v.reg_vareposter;   
-                p.sum_off_vareposter  += v.off_vareposter;     
-                return p;
-            },
-            function (p, v) {
-                --p.count;
-                p.sum_reg_vareposter -= v.reg_vareposter;   
-                p.sum_off_vareposter  -= v.off_vareposter;     
-                return p;
-            },
-            function () {
-                return {
-                    count: 0,
-                    sum_reg_vareposter: 0,
-                    sum_off_vareposter: 0
-                };
-            }
-    );  	
-	
-	
-    var omsetningsGroup =  tollAllDim.group().reduce(  
-            /* callback for when data is added to the current filter results */
-            function (p, v) {
-                ++p.count;
-                p.sum_reg_vareposter += v.reg_vareposter;   
-                p.sum_off_vareposter  += v.off_vareposter;
-                return p;
-            },
-            /* callback for when data is removed from the current filter results */
-            function (p, v) {
-                --p.count;
-                p.sum_reg_vareposter -= v.reg_vareposter; 
-                p.sum_off_vareposter -= v.off_vareposter;   
-                return p;
-            },
-            /* initialize p */
-            function () {
-                return {
-                    count: 0,
-                    sum_reg_vareposter: 0,
-                    sum_off_vareposter: 0
-                };
-            }
-    );  
-  
-	typeChart
-	    .width(300)
-	    .height(300)
-	    .dimension(typeDim)
-	    .group(typeDimGroup)
-	    .externalRadiusPadding(50)
-	    .innerRadius(30)
-	    .on("filtered", getFiltersValues);
+		
+		var tollData = data.dtoList;
+	    //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
 	    
-	yearChart
-	    .width(300)
-	    .height(300)
-	    .dimension(yearDim)
-	    .group(yearDimGroup)
-	     .externalRadiusPadding(50)
-	    .innerRadius(30)
-	    .on("filtered", getFiltersValues);
-   
-	avdChart
-	    .width(300)
-	    .height(300)
-	    .dimension(avdDim)
-	    .group(avdDimGroup)
-	    .slicesCap(25)
-	    .innerRadius(30)
-	    .externalRadiusPadding(50)
-	    .legend(dc.legend().y(10).itemHeight(8).gap(3))
-	    .on("filtered", getFiltersValues);
+	    var fullDateFormat = d3.time.format('%Y%m%d');
+	    var yearFormat = d3.time.format('%Y');
+	    var monthFormat = d3.time.format('%m');
+	    var monthNameFormat = d3.time.format('%m.%b');
+	    var percentageFormat = d3.format('.2%');
+	    var numberFormat = d3.format(",.0f")
+	 
+	    // normalize/parse data
+		 _.each(tollData, function( d) {
+		  d.date = fullDateFormat.parse(d.registreringsdato);
+		  d.year = yearFormat(d.date);
+		  d.month = monthNameFormat(d.date);
+		  d.avdeling = d.avdeling;
+		  d.deklarasjonsnr= d.deklarasjonsnr;
+		  d.reg_vareposter = +d.reg_vareposter;
+		  d.off_vareposter = +d.off_vareposter;
+		  d.registreringsdato = +d.registreringsdato; 
+		  d.signatur =   d.signatur;
+		  d.mottaker =   d.mottaker;
+		  d.edim =   d.edim;
+		});
+	 
+		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
+		var toll = crossfilter(tollData);	
+		var  all = toll.groupAll();
+		tolldataSize = toll.size();
+		
+		//Dimensions
+		var  tollAllDim = toll.dimension(function(d) {return d;});	
+		var  dateDim  = toll.dimension(function(d) {return d.date;});
+		var  yearDim  = toll.dimension(function(d) {return d.year;});
+	    var  monthDim = toll.dimension(function (d) {return d.month;});	
+		var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
+		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
+		var  typeDim  = toll.dimension(function(d) {return d.type;});
+		var  edimDim  = toll.dimension(function(d) {return d.edim;});
+		//Charts 
+		var  typeChart   = dc.pieChart("#chart-ring-type");
+		var  yearChart   = dc.pieChart("#chart-ring-year");
+		var  avdChart   = dc.pieChart('#chart-ring-avd');
+		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
+		var  edimChart   = dc.pieChart('#chart-ring-edim');
+		var  compositeChart = dc.compositeChart("#chart-composite");
+		var  dataCount = dc.dataCount('#data-count')	 
+		var  antallDisplay = dc.numberDisplay("#antall");	
+		var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
+		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
+		
+		var mindate = dateDim.bottom(1)[0].date;
+		var maxdate = dateDim.top(1)[0].date;
+		
+		var minmonth = dateDim.bottom(1)[0].month;
+		var maxmonth = dateDim.top(1)[0].month;
+		
+		//Groups
+		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		
+		//Group reduce
+	    var dateDimGroup =  dateDim.group().reduce(   
+	            /* callback for when data is added to the current filter results */
+	            function (p, v) {
+	                ++p.count;
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;    
+	                return p;
+	            },
+	            /* callback for when data is removed from the current filter results */
+	            function (p, v) {
+	                --p.count;
+	                p.sum_reg_vareposter -= v.reg_vareposter;   
+	                p.sum_off_vareposter -= v.off_vareposter;   
+	                return p;
+	            },
+	            /* initialize p */
+	            function () {
+	                return {
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
+	                };
+	            }
+	    );  
+		
+	    var monthDimGroup =  monthDim.group().reduce(   
+	            function (p, v) {
+	                ++p.count;
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;     
+	                return p;
+	            },
+	            function (p, v) {
+	                --p.count;
+	                p.sum_reg_vareposter -= v.reg_vareposter;   
+	                p.sum_off_vareposter  -= v.off_vareposter;     
+	                return p;
+	            },
+	            function () {
+	                return {
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
+	                };
+	            }
+	    );  	
+		
+		
+	    var omsetningsGroup =  tollAllDim.group().reduce(  
+	            /* callback for when data is added to the current filter results */
+	            function (p, v) {
+	                ++p.count;
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;
+	                return p;
+	            },
+	            /* callback for when data is removed from the current filter results */
+	            function (p, v) {
+	                --p.count;
+	                p.sum_reg_vareposter -= v.reg_vareposter; 
+	                p.sum_off_vareposter -= v.off_vareposter;   
+	                return p;
+	            },
+	            /* initialize p */
+	            function () {
+	                return {
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
+	                };
+	            }
+	    );  
+	  
+		typeChart
+		    .width(300)
+		    .height(300)
+		    .dimension(typeDim)
+		    .group(typeDimGroup)
+		    .externalRadiusPadding(50)
+		    .innerRadius(30)
+		    .on("filtered", getFiltersValues);
+		    
+		yearChart
+		    .width(300)
+		    .height(300)
+		    .dimension(yearDim)
+		    .group(yearDimGroup)
+		     .externalRadiusPadding(50)
+		    .innerRadius(30)
+		    .on("filtered", getFiltersValues);
+	   
+		avdChart
+		    .width(300)
+		    .height(300)
+		    .dimension(avdDim)
+		    .group(avdDimGroup)
+		    .slicesCap(25)
+		    .innerRadius(30)
+		    .externalRadiusPadding(50)
+		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
+		    .on("filtered", getFiltersValues);
+		
+		sisgChart
+		    .width(300)
+		    .height(300)
+		    .slicesCap(25)
+		    .innerRadius(30)
+		    .externalRadiusPadding(50)
+		    .dimension(sisgDim)
+		    .group(sisgDimGroup)
+		    .on("filtered", getFiltersValues);
 	
-	sisgChart
-	    .width(300)
-	    .height(300)
-	    .slicesCap(25)
-	    .innerRadius(30)
-	    .externalRadiusPadding(50)
-	    .dimension(sisgDim)
-	    .group(sisgDimGroup)
-	    .on("filtered", getFiltersValues);
-
-	edimChart
-	    .width(300)
-	    .height(300)
-	    .slicesCap(25)
-	    .innerRadius(30)
-	    .externalRadiusPadding(50)
-	    .dimension(edimDim)
-	    .group(edimDimGroup)
-		.renderTitle(true)
-		.title(function (d) {
-			var key, desc;
-			if (d.key == 'OK') {
-				key = 'OK';
-				desc = '';
-			} else {
-				var trailingThree = d.key.slice(-3);
-				if (isNaN(trailingThree)) {  //key is a shapeshifter
-					 key = d.key.slice(0,2);
-					 desc = d.key.slice(2,d.key.lenght);
-		        } else {
-		        	 key = d.key;
-					 desc =  getMerknadDesc(trailingThree);	        	 
-		        }
-			}
-            return [
-                key + ':',
-                desc
-            ].join('\n');			
-		});	    
+		edimChart
+		    .width(300)
+		    .height(300)
+		    .slicesCap(25)
+		    .innerRadius(30)
+		    .externalRadiusPadding(50)
+		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
+		    .dimension(edimDim)
+		    .group(edimDimGroup)
+			.renderTitle(true)
+			.title(function (d) {
+				var key, desc;
+				if (d.key == 'OK') {
+					key = 'OK';
+					desc = '';
+				} else {
+					var trailingThree = d.key.slice(-3);
+					if (isNaN(trailingThree)) {  //key is a shapeshifter
+						 key = d.key.slice(0,2);
+						 desc = d.key.slice(2,d.key.lenght);
+			        } else {
+			        	 key = d.key;
+						 desc =  getMerknadDesc(trailingThree);	        	 
+			        }
+				}
+	            return [
+	                key + ':',
+	                desc
+	            ].join('\n');			
+			});	    
+		
+		antallDisplay
+		     .group(omsetningsGroup)  
+		     .formatNumber(d3.format(".g"))
+			 .valueAccessor(function (p) {
+				 return p.value.count;
+			  });
+		
+		antallreg_vareposterDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.valueAccessor(function (p) {
+					return p.value.sum_reg_vareposter;
+			});
+		
+		antalloff_vareposterDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.valueAccessor(function (p) {
+					return p.value.sum_off_vareposter;
+			});	
+		
 	
-	antallDisplay
-	     .group(omsetningsGroup)  
-	     .formatNumber(d3.format(".g"))
-		 .valueAccessor(function (p) {
-			 return p.value.count;
-		  });
+		compositeChart
+			    .width(1200)
+			    .height(500)
+			    .dimension(monthDim)   
+			    .group(monthDimGroup) 
+			    .margins({top: 40, right: 10, bottom: 40, left: 80})
+	     		.x(d3.scale.ordinal())  
+	            .xUnits(dc.units.ordinal)   
+	            .yAxisPadding('10%')
+	            .yAxisLabel("Antall vareposter")
+	        	.xAxisLabel("Måned")      
+	            .elasticY(true)
+	            .elasticX(true)
+	            .mouseZoomable(false)  //true npot working in this context
+	        	.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
+	        				if (i == 2) {
+	        					return "Antall registrerte vareposter";
+	        				}
+	        				if (i==1) {
+	        					return "Antall offisielle vareposter";
+	        				}
+	        				if (i==0) {
+	        					return "Antall fortollinger";
+	        				}
+	        			}) 
+	        	)
+			    .renderHorizontalGridLines(true)
+			    .renderTitle(true)
+			    .title(function (d) {
+			    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
+	                    	 return [
+	         	                d.key,
+	         	                'Reg. varuposter: ' + numberFormat(d.value.sum_reg_vareposter) ,
+	         	                'Off. varuposter: ' + numberFormat(d.value.sum_off_vareposter),
+	         	                'Fortollinger: ' + numberFormat(d.value.count),
+	         	               ' Differanse reg./off.: ' + numberFormat(diffRegAndOff)
+	         	            ].join('\n');
+	        	})	
+			  	.compose([
+	     			dc.barChart(compositeChart)
+			    		.group(monthDimGroup) 
+			            .barPadding(1)
+				        /*Antall fortollinger*/
+			           .valueAccessor(function (d) {
+	           				return d.value.count; 
+	   					}) 
+	   					/*Antall off. varuposter*/
+	   					.stack(monthDimGroup,function (d) {
+	                     	return d.value.sum_off_vareposter;  //100
+	                    })
+	                    /*Antall off. varuposter*/
+	                    .stack(monthDimGroup,function (d) {
+	                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //100-80=20
+	                    	return diffRegAndOff;
+	                    })
+			     ])
+	            .xAxis().tickFormat(function(d) { 
+	            	return d.substr(3); 
+	            });
 	
-	antallreg_vareposterDisplay
-		.group(omsetningsGroup)  
-		.formatNumber(d3.format(".g"))
-		.valueAccessor(function (p) {
-				return p.value.sum_reg_vareposter;
+		//Diverse grejer till datum   
+		//https://jsfiddle.net/pramod24/q4aquukz/4/
+	
+	
+	   	d3.selectAll('a#all').on('click', function () {
+	     	dc.filterAll();
+	     	dc.renderAll();
+	   	});
+	
+		d3.selectAll('a#type').on('click', function () {
+			typeChart.filterAll();
+			dc.redrawAll();
 		});
 	
-	antalloff_vareposterDisplay
-		.group(omsetningsGroup)  
-		.formatNumber(d3.format(".g"))
-		.valueAccessor(function (p) {
-				return p.value.sum_off_vareposter;
+		d3.selectAll('a#year').on('click', function () {
+			yearChart.filterAll();
+			dc.redrawAll();
+		});
+	
+		d3.selectAll('a#avd').on('click', function () {
+			avdChart.filterAll();
+			dc.redrawAll();
+		});	 
+		d3.selectAll('a#sisg').on('click', function () {
+			sisgChart.filterAll();
+			dc.redrawAll();
 		});	
-	
-
-	compositeChart
-		    .width(1200)
-		    .height(500)
-		    .dimension(monthDim)   
-		    .group(monthDimGroup) 
-		    .margins({top: 40, right: 10, bottom: 40, left: 80})
-     		.x(d3.scale.ordinal())  
-            .xUnits(dc.units.ordinal)   
-            .yAxisPadding('10%')
-            .yAxisLabel("Antall vareposter")
-        	.xAxisLabel("Måned")      
-            .elasticY(true)
-            .elasticX(true)
-            .mouseZoomable(false)  //true npot working in this context
-        	.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
-        				if (i == 2) {
-        					return "Antall registrerte vareposter";
-        				}
-        				if (i==1) {
-        					return "Antall offisielle vareposter";
-        				}
-        				if (i==0) {
-        					return "Antall fortollinger";
-        				}
-        			}) 
-        	)
-		    .renderHorizontalGridLines(true)
-		    .renderTitle(true)
-		    .title(function (d) {
-		    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
-                    	 return [
-         	                d.key,
-         	                'Reg. varuposter: ' + numberFormat(d.value.sum_reg_vareposter) ,
-         	                'Off. varuposter: ' + numberFormat(d.value.sum_off_vareposter),
-         	                'Fortollinger: ' + numberFormat(d.value.count),
-         	               ' Differanse reg./off.: ' + numberFormat(diffRegAndOff)
-         	            ].join('\n');
-        	})	
-		  	.compose([
-     			dc.barChart(compositeChart)
-		    		.group(monthDimGroup) 
-		            .barPadding(1)
-			        /*Antall fortollinger*/
-		           .valueAccessor(function (d) {
-           				return d.value.count; 
-   					}) 
-   					/*Antall off. varuposter*/
-   					.stack(monthDimGroup,function (d) {
-                     	return d.value.sum_off_vareposter;  //100
-                    })
-                    /*Antall off. varuposter*/
-                    .stack(monthDimGroup,function (d) {
-                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //100-80=20
-                    	return diffRegAndOff;
-                    })
-		     ])
-            .xAxis().tickFormat(function(d) { 
-            	return d.substr(3); 
-            });
-
-//Diverse grejer till datum   
-//https://jsfiddle.net/pramod24/q4aquukz/4/
-
-
-   	d3.selectAll('a#all').on('click', function () {
-     	dc.filterAll();
-     	dc.renderAll();
-   	});
-
-	d3.selectAll('a#type').on('click', function () {
-		typeChart.filterAll();
-		dc.redrawAll();
-	});
-
-	d3.selectAll('a#year').on('click', function () {
-		yearChart.filterAll();
-		dc.redrawAll();
-	});
-
-	d3.selectAll('a#avd').on('click', function () {
-		avdChart.filterAll();
-		dc.redrawAll();
-	});	 
-	d3.selectAll('a#sisg').on('click', function () {
-		sisgChart.filterAll();
-		dc.redrawAll();
-	});	
-	d3.selectAll('a#edim').on('click', function () {
-		edimChart.filterAll();
-		dc.redrawAll();
-	});	
-	d3.selectAll('a#composite').on('click', function () {
-		compositeChart.filterAll();
-		compositeChart.redraw();
-		dc.redrawAll();
-	});	
-	
-	d3.selectAll('a#avdfilter').on('click', function () {
-		avdChart.filter(jq('#avd-filter').val());
-		dc.redrawAll();
-		jq('#avd-filter').val("");
-	});		
-
-	dataCount
-	      .dimension(toll)
-	      .group(all)
-		  .html({
-            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
-                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-            all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
-          });      
-	      
-	d3.select('#download').on('click', function() {
-		var today = new Date();
-        var data = tollAllDim.top(Infinity);
-        var saveData = data.map(function(obj) {
-            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
-            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
-            		signatur: obj.signatur, mottaker: obj.mottaker};
-        });
-        
-		var blob = new Blob([d3.csv.format(saveData)], {type: "application/vnd.ms-excel;charset=utf-8"});  // text/csv
+		d3.selectAll('a#edim').on('click', function () {
+			edimChart.filterAll();
+			dc.redrawAll();
+		});	
+		d3.selectAll('a#composite').on('click', function () {
+			compositeChart.filterAll();
+			compositeChart.redraw();
+			dc.redrawAll();
+		});	
 		
-        saveAs(blob, 'fortolling_no-' + today + '.xls');
-    });	
-
-	var displayed = false;
-	jq('#showTable' ).click(function() {
-	   if (displayed) {
-		   jq( '#detailsTable' ).toggle();
-		   displayed = false;
-	   } else {
-	   jq( '#detailsTable' ).toggle( "slow", function() {
-	    console.log("start filling dataTable...")
-
-	    var dataTable = dc.dataTable('#data-table');
-	    
-		dataTable
-	    .dimension(tollAllDim) 
-	    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
-	    .size(Infinity) 
-	    .columns([
-	      function (d) { return d.avdeling; },
-	      function (d) { return d.deklarasjonsnr; },
-	      function (d) { return d.reg_vareposter; },
-	      function (d) { return d.off_vareposter; },
-	      function (d) { return d.registreringsdato; },
-	      function (d) { return d.signatur ; },
-	      function (d) { return d.mottaker ; },
-	      function (d) { return d.type ; }
-	    ])
-	    .on('renderlet', function (table) {
-	      	// each time table is rendered remove nasty extra row dc.js insists on adding
-	     	table.select('tr.dc-table-group').remove();
-	 	});	    
-	    
-	    dataTable.render();	    //måste vara med
-	    
-	    var lang = jq('#language').val();
-		jq('#data-table').DataTable({
-			"dom" : '<"top">t<"bottom"f><"clear">',
-			"scrollY" : "200px",
-			"scrollCollapse" : false,
-			destroy : true,
-			"columnDefs" : [ {
-				"type" : "num",
-				"targets" : 0
-			} ],
-			"lengthMenu" : [ 75, 100 ],
-			"language": {
-				"url": getLanguage(lang)
-	        }
+		d3.selectAll('a#avdfilter').on('click', function () {
+			avdChart.filter(jq('#avd-filter').val());
+			dc.redrawAll();
+			jq('#avd-filter').val("");
+		});		
+	
+		d3.selectAll('a#merknadfilter').on('click', function () {
+			edimChart.filter(jq('#merknad-filter').val());
+			dc.redrawAll();
+			jq('#merknad-filter').val("");
+		});		
+		
+		dataCount
+		      .dimension(toll)
+		      .group(all)
+			  .html({
+	            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
+	                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
+	            all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+	          });      
+		      
+		d3.select('#download').on('click', function() {
+			var today = new Date();
+	        var data = tollAllDim.top(Infinity);
+	        var saveData = data.map(function(obj) {
+	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
+	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
+	            		signatur: obj.signatur, mottaker: obj.mottaker};
+	        });
+	       
+			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/vnd.ms-excel;charset=utf-8"});  // text/csv
+			
+	        saveAs(blob, 'fortolling_no-' + today + '.xls');
+	    });	
+	
+		var displayed = false;
+		jq('#showTable' ).click(function() {
+		   if (displayed) {
+			   jq( '#detailsTable' ).toggle();
+			   displayed = false;
+		   } else {
+		   jq( '#detailsTable' ).toggle( "slow", function() {
+		    console.log("start filling dataTable...")
+	
+		    var dataTable = dc.dataTable('#data-table');
+		    
+			dataTable
+		    .dimension(tollAllDim) 
+		    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
+		    .size(Infinity) 
+		    .columns([
+		      function (d) { return d.avdeling; },
+		      function (d) { return d.deklarasjonsnr; },
+		      function (d) { return d.reg_vareposter; },
+		      function (d) { return d.off_vareposter; },
+		      function (d) { return d.registreringsdato; },
+		      function (d) { return d.signatur ; },
+		      function (d) { return d.mottaker ; },
+		      function (d) { return d.type ; }
+		    ])
+		    .on('renderlet', function (table) {
+		      	// each time table is rendered remove nasty extra row dc.js insists on adding
+		     	table.select('tr.dc-table-group').remove();
+		 	});	    
+		    
+		    dataTable.render();	    //måste vara med
+		    
+		    var lang = jq('#language').val();
+			jq('#data-table').DataTable({
+				"dom" : '<"top">t<"bottom"f><"clear">',
+				"scrollY" : "200px",
+				"scrollCollapse" : false,
+				destroy : true,
+				"columnDefs" : [ {
+					"type" : "num",
+					"targets" : 0
+				} ],
+				"lengthMenu" : [ 75, 100 ],
+				"language": {
+					"url": getLanguage(lang)
+		        }
+			}); 
+			
+			console.log("ready filling dataTable.");
+			displayed = true;
+		    
+		   });
+		  }
 		}); 
+	
+		function getFiltersValues() {
+		    var filters = [
+		        { name: 'type', value: typeChart.filters()},
+		        { name: 'year', value: yearChart.filters()},
+		        { name: 'avd',  value: avdChart.filters()},
+		        { name: 'sisg', value: sisgChart.filters()},
+		        { name: 'edim', value:  edimChart.filters()},
+		        { name: 'composite', value: compositeChart.filters()}];
+		    var recursiveEncoded = jq.param( filters );
+		    location.hash = recursiveEncoded;
+		}
 		
-		console.log("ready filling dataTable.");
-		displayed = true;
+		
+		// Init chart filters
+		function initFilters() {
+			console.log("initFilter");
+			// Get hash values
+		    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&year=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
+		    var parsed = parseHash.exec(decodeURIComponent(location.hash));
+			console.log("parsed="+parsed);
+		    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
+		  
+		    	//chart
+		        if (parsed[rank] == "") {
+		            chart.filter(null);
+		        }
+		        else {
+		            var filterValues = parsed[rank].split(",");
+		            for (var i = 0; i < filterValues.length; i++ ) {
+		                chart.filter(filterValues[i]);
+		            }
+		        }
+		    }
+		    if (parsed) {
+		        filter(typeChart, 1);
+		        filter(yearChart, 2);
+		        filter(avdChart, 3);
+		        filter(sisgChart, 4);
+		        filter(edimChart, 5);
+		    }
+		}
+	
+		tolldataSize = toll.size();
+		  
+		dc.renderAll(); 
+		
+		initFilters();
+		
+		jq(document).ready(function() {
+			jq('#toggleArea').toggle(true); //default hide
+		});
+		
+		jq.unblockUI();
 	    
-	   });
-	  }
-	}); 
-
-	function getFiltersValues() {
-	    var filters = [
-	        { name: 'type', value: typeChart.filters()},
-	        { name: 'year', value: yearChart.filters()},
-	        { name: 'avd',  value: avdChart.filters()},
-	        { name: 'sisg', value: sisgChart.filters()},
-	        { name: 'edim', value:  edimChart.filters()},
-	        { name: 'composite', value: compositeChart.filters()}];
-	    var recursiveEncoded = jq.param( filters );
-	    location.hash = recursiveEncoded;
-	}
-	
-	
-	// Init chart filters
-	function initFilters() {
-		console.log("initFilter");
-		// Get hash values
-	    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&year=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
-	    var parsed = parseHash.exec(decodeURIComponent(location.hash));
-		console.log("parsed="+parsed);
-	    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
-	  
-	    	//chart
-	        if (parsed[rank] == "") {
-	            chart.filter(null);
-	        }
-	        else {
-	            var filterValues = parsed[rank].split(",");
-	            for (var i = 0; i < filterValues.length; i++ ) {
-	                chart.filter(filterValues[i]);
-	            }
-	        }
-	    }
-	    if (parsed) {
-	        filter(typeChart, 1);
-	        filter(yearChart, 2);
-	        filter(avdChart, 3);
-	        filter(sisgChart, 4);
-	        filter(edimChart, 5);
-	    }
-	}
-
-	tolldataSize = toll.size();
-	  
-	dc.renderAll(); 
-	
-	initFilters();
-
-	jq.unblockUI();
-    
-});
+	});
 
 }
  
@@ -551,6 +562,7 @@ jq(document).ready(function() {
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
 	jq('#detailsTable').toggle(false); //default hide
+	jq('#toggleArea').toggle(false); //default hide
 });	
 
 
@@ -570,7 +582,7 @@ window.addEventListener('error', function (e) {
 </script>
 
 
-<table width="100%"  cellspacing="0" border="0" cellpadding="0">
+<table id="fullTable" width="100%"  cellspacing="0" border="0" cellpadding="0">
 	<tr>
 		<td>
 		<%-- tab container component --%>
@@ -660,6 +672,8 @@ window.addEventListener('error', function (e) {
 
 	  			  <div class="padded-row-small">&nbsp;</div>
 
+<div id="toggleArea">
+
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row">
@@ -716,8 +730,8 @@ window.addEventListener('error', function (e) {
 					  <div class="row">
 					     <div class="col-md-2" id="chart-ring-avd">
 				        	<h3 class="text12" align="justify">Avdeling
-				        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
-				        	 <a id="avdfilter">legg til</a>	
+					        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
+					        	 <a id="avdfilter">legg til</a>	
 				        	</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
@@ -733,13 +747,16 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>
 
-				        <div class="col-md-2" id="chart-ring-sisg">
+				        <div class="col-md-3" id="chart-ring-sisg">
 				        	<h3 class="text12" align="center">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div>  
-				        <div class="col-md-2" id="chart-ring-edim">
-				        	<h3 class="text12" align="center">Merknader</h3>
+				        <div class="col-md-3" id="chart-ring-edim">
+				        	<h3 class="text12">Merknader
+					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
+					        	 <a id="merknadfilter">legg til</a>	
+				        	 </h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
 				        </div> 
@@ -818,6 +835,10 @@ window.addEventListener('error', function (e) {
 	
 				  
 				<div class="padded-row">&nbsp;</div>
+
+</div>
+
+
 
          		</div> <!-- container -->
 		 	    </td>
