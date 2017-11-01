@@ -7,6 +7,8 @@ package no.systema.tds.tdsimport.mapper.jsonjackson;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicCheckItemErrorContainer;
 //application library
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicRecord;
@@ -111,6 +113,25 @@ public class TdsImportSpecificTopicMapper {
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTdsImportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonTdsImportSpecificTopicCheckItemErrorContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicCheckItemErrorContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+	
+			
 		return container;
 	}
 }

@@ -222,6 +222,8 @@
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_unknown.avgifter"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_err.error"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_fabl.fbelopp"/>&nbsp;</th>
+													                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_stva.statvarde"/>&nbsp;</th>
+													                    
 													                    <c:if test="${model.status == 'M' || empty model.status}">
 													                    	<th align="center" class="text12" nowrap>Radera</th>
 													                    </c:if>   
@@ -253,6 +255,8 @@
 														               		</c:if>
 														               	</td>	
 														               <td class="text11">&nbsp;${record.sviv_fabl}</td>
+														               <td class="text11">&nbsp;${record.sviv_stva}</td>
+														               
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>&nbsp;
 															               	<a onclick="javascript:return confirm('Är du säker på att du vill radera raden?')" tabindex=-1 href="tdsimport_edit_items.do?action=doDelete&avd=${model.avd}&opd=${model.opd}&lin=${record.sviv_syli}&fabl=${recordTopic.svih_fabl}">
@@ -345,6 +349,7 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_unknown.avgifter"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_err.error"/>&nbsp;</th>
 										<th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_fabl.fbelopp"/>&nbsp;</th>
+										<th class="text12">&nbsp;<spring:message code="systema.tds.import.item.list.label.sviv_stva.statvarde"/>&nbsp;</th>
 										<c:if test="${model.status == 'M' || empty model.status}">
 					                    	<th align="center" class="text12" nowrap>Radera</th>
 					                    </c:if>
@@ -441,6 +446,8 @@
 							               		</c:if>
 						               		</td>		
 							               <td class="text11">&nbsp;${record.sviv_fabl}</td>
+							               <td class="text11">&nbsp;${record.sviv_stva}</td>
+							              
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Är du säker på att du vill radera raden?')" tabindex=-1 href="tdsimport_edit_items.do?action=doDelete&avd=${model.avd}&opd=${model.opd}&lin=${record.sviv_syli}&fabl=${recordTopic.svih_fabl}">

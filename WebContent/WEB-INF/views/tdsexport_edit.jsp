@@ -496,10 +496,6 @@
                                     <li>
                                       	Fel vid uppdatering. [ERROR:${model.errorMessage}]  
                                     </li>
-                                    <li>
-                                      	[META-INFO: ${model.errorInfo}]  
-                                    </li>
-                                    
                                 </ul>
 				 			</td>
 						</tr>

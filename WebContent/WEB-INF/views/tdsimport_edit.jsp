@@ -533,9 +533,6 @@
                                     <li>
                                     		Fel vid uppdatering/kopiering. [ERROR/WARN] ${model.errorMessage} 
                                     </li>
-                                    <li>
-                                      	[META-INFO: ${model.errorInfo}]  
-                                    </li>
                                 </ul>
 				 			</td>
 						</tr>

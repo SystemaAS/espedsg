@@ -21,7 +21,7 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicCopied
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceExternalContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicInvoiceExternalForUpdateContainer;
-
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicCheckItemErrorContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicOmbudContainer;
 
@@ -247,6 +247,19 @@ public class TdsExportSpecificTopicServiceImpl implements TdsExportSpecificTopic
 		return container;
 	}
 	
+	/**
+	 * 
+	 */
+	public JsonTdsExportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload){
+		JsonTdsExportSpecificTopicCheckItemErrorContainer container = null;
+		try{
+			TdsExportSpecificTopicMapper mapper = new TdsExportSpecificTopicMapper();
+			container = mapper.getCheckItemErrorContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
 	
 	
 }

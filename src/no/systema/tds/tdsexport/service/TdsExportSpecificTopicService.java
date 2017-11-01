@@ -16,6 +16,8 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.archive.JsonTdsExportSpe
 import no.systema.tds.tdsexport.model.jsonjackson.topic.logging.JsonTdsExportSpecificTopicLoggingContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.logging.JsonTdsExportSpecificTopicLoggingLargeTextContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicFaktTotalContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicCheckItemErrorContainer;
+
 
 
 
@@ -32,6 +34,8 @@ public interface TdsExportSpecificTopicService {
 	public JsonTdsExportTopicCopiedFromTransportUppdragContainer getTdsExportTopicCopiedFromTransportUppdragContainer(String utfPayload);
 	public JsonTdsExportSpecificTopicOmbudContainer getTdsExportSpecificTopicOmbudContainer(String utfPayload);
 	public JsonTdsExportSpecificTopicFaktTotalContainer getTdsExportSpecificTopicFaktTotalContainer (String utfPayload);
+	//error validation at item level
+	public JsonTdsExportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload);
 	
 	//Invoices
 	public JsonTdsExportTopicInvoiceContainer getTdsExportTopicInvoiceContainerContainer (String utfPayload);

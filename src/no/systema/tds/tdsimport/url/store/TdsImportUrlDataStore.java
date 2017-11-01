@@ -53,6 +53,10 @@ public final class TdsImportUrlDataStore {
 	static public String TDS_IMPORT_BASE_UPDATE_TULLTAXA_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI042R.pgm";
 	//http://gw.systema.no/sycgip/tsvi042r.pgm?user=OSCAR&sviw_knnr=XXXX&sviw_knso=YYY&etc.....
 	
+	//In order to validate item lines with save header. Only with OK the user will be allowed to send the declaration
+	//http://gw.systema.no/sycgip/tsvi025r.pgm?user=OSCAR&avd=1&opd=216
+	static public String TDS_IMPORT_BASE_FETCH_TOPIC_ITEMLIST_VALIDATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVI025R.pgm";
+		
 	
 	//-----------------------------------
 	//[6] EDIT A SPECIFIC ITEM RECORD

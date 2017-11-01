@@ -43,14 +43,19 @@ public final class TdsExportUrlDataStore {
 	//-----------------------------
 	//[5] FETCH ITEM RECORDS (LIST)
 	//-----------------------------
-	static public String TDS_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE010R.pgm";
 	//[5.1] FETCH SPECIFIC ITEM (for an update)
-	static public String TDS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE011R.pgm";
+	static public String TDS_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE010R.pgm";
 	//FETCH VARUKODER-KUNDENS Vareregister 
-	static public String TDS_EXPORT_BASE_FETCH_TULLTAXA_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE041R.pgm";
+	static public String TDS_EXPORT_BASE_FETCH_SPECIFIC_TOPIC_ITEM_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE011R.pgm";
 	//http://gw.systema.no/sycgip/tsve041r.pgm?user=OSCAR&levenr=1
-	static public String TDS_EXPORT_BASE_UPDATE_TULLTAXA_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE042R.pgm";
+	static public String TDS_EXPORT_BASE_FETCH_TULLTAXA_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE041R.pgm";
 	//http://gw.systema.no/sycgip/tsve042r.pgm?user=OSCAR&sviw_knnr=XXXX&sviw_knso=YYY&etc.....
+	static public String TDS_EXPORT_BASE_UPDATE_TULLTAXA_KUNDENSVAREREG_VARUKODER_ITEMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE042R.pgm";
+	
+	//In order to validate item lines with save header. Only with OK the user will be allowed to send the declaration
+	//http://gw.systema.no/sycgip/tsve025r.pgm?user=OSCAR&avd=1&opd=267
+	static public String TDS_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_VALIDATION_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSVE025R.pgm";
+	
 	
 	
 	//-----------------------------------

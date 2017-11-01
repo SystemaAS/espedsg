@@ -5,6 +5,8 @@ package no.systema.tds.tdsimport.service;
 
 import org.apache.log4j.Logger;
 
+import no.systema.tds.tdsimport.mapper.jsonjackson.TdsImportSpecificTopicMapper;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicCheckItemErrorContainer;
 import no.systema.tds.tdsimport.controller.ajax.TdsImportAjaxHandlerController;
 import no.systema.tds.tdsimport.mapper.jsonjackson.TdsImportTopicCopiedFromTransportUppdragMapper;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopiedFromTransportUppdragContainer;
@@ -262,6 +264,19 @@ public class TdsImportSpecificTopicServiceImpl implements TdsImportSpecificTopic
 		}
 		return container;
 		
+	}
+	/**
+	 * 
+	 */
+	public JsonTdsImportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload){
+		JsonTdsImportSpecificTopicCheckItemErrorContainer container = null;
+		try{
+			TdsImportSpecificTopicMapper mapper = new TdsImportSpecificTopicMapper();
+			container = mapper.getCheckItemErrorContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 	}
 	
 	

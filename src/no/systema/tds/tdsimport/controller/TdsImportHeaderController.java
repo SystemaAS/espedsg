@@ -29,13 +29,16 @@ import org.springframework.web.bind.WebDataBinder;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.skat.util.SkatConstants;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsAvdelningRecord;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureRecord;
 import no.systema.tds.service.html.dropdown.TdsDropDownListPopulationService;
-import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicCheckItemErrorContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicRecord;
+import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicFaktTotalRecord;
@@ -46,7 +49,6 @@ import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopied
 import no.systema.tds.tdsimport.validator.TdsImportHeaderValidator;
 
 import no.systema.main.model.SystemaWebUser;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicRecord;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopiedContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpecificTopicItemContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.items.JsonTdsImportSpecificTopicItemRecord;
@@ -79,7 +81,7 @@ public class TdsImportHeaderController {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private TaricDirectAccessorMgr taricDirectAccessorMgr = new TaricDirectAccessorMgr();
-	
+	private StringManager strMgr = new StringManager();
 	
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
@@ -361,11 +363,17 @@ public class TdsImportHeaderController {
 					    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsImportSpecificTopicRecord);
 					    		isValidCreatedRecordTransactionOnRPG = false;
 					    	}else{
-					    		//Update succefully done!
-					    		logger.info("[INFO] Record successfully updated, OK ");
-					    		//put domain objects
-					    		this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicRecord, sumTopicRecord );
-					    		this.adjustValidUpdateFlag(model, jsonTdsImportSpecificTopicRecord);
+					    		if(this.validateItemLines(appUser, avd, opd)){
+					    			//Update succefully done!
+					    			logger.info("[INFO] Record successfully updated, OK ");
+					    			//put domain objects
+					    			this.setDomainObjectsInView(session, model, jsonTdsImportSpecificTopicRecord, sumTopicRecord );
+					    			this.adjustValidUpdateFlag(model, jsonTdsImportSpecificTopicRecord);
+					    		}else{
+					    			rpgReturnResponseHandler.setErrorMessage(" FATAL on UPDATE: " + "Det finns varuposter med felstatus...");
+						    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsImportSpecificTopicRecord);
+						    		isValidCreatedRecordTransactionOnRPG = false;
+					    		}
 					    	}
 						}else{
 							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
@@ -412,6 +420,42 @@ public class TdsImportHeaderController {
 		}
 	}
 	
+	/**
+	 * Check if item lines = OK
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private boolean validateItemLines(SystemaWebUser appUser, String avd, String opd){
+		boolean retval = true;
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		String BASE_URL = TdsImportUrlDataStore.TDS_IMPORT_BASE_FETCH_TOPIC_ITEMLIST_VALIDATION_URL;
+		//url params
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonTdsImportSpecificTopicCheckItemErrorContainer container = this.tdsImportSpecificTopicService.getCheckItemErrorContainer(jsonPayload);
+    		if(strMgr.isNotNull(container.getOk()) && "N".equals(container.getOk()) ){
+    			retval = false;
+    		}
+    	}
+    	
+    	return retval;
+	}
 	/**
 	 * 
 	 * Aux method to prevent an end-user for sending the declaration without having saved it first.
@@ -1652,7 +1696,7 @@ public class TdsImportHeaderController {
 		StringBuffer errorMetaInformation = new StringBuffer();
 		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
 		errorMetaInformation.append(rpgReturnResponseHandler.getSvih_syop());
-		model.put(TdsConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		//model.put(TdsConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
 		
 	}
 			

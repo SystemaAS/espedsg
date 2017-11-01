@@ -6,6 +6,7 @@ package no.systema.tds.tdsimport.service;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalForUpdateContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopiedFromTransportUppdragContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicCheckItemErrorContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportSpecificTopicContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopiedContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceContainer;
@@ -35,7 +36,8 @@ public interface TdsImportSpecificTopicService {
 	public JsonTdsImportTopicCopiedFromTransportUppdragContainer getTdsImportTopicCopiedFromTransportUppdragContainer(String utfPayload);
 	public JsonTdsImportSpecificTopicOmbudContainer getTdsImportSpecificTopicOmbudContainer (String utfPayload);
 	public JsonTdsImportSpecificTopicFaktTotalContainer getTdsImportSpecificTopicFaktTotalContainer (String utfPayload);
-	
+	//error validation at item level
+	public JsonTdsImportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload);
 	//Invoices
 	public JsonTdsImportTopicInvoiceContainer getTdsImportTopicInvoiceContainerContainer (String utfPayload);
 	public JsonTdsImportTopicInvoiceContainer getTdsImportTopicInvoiceContainerOneInvoice (String utfPayload);

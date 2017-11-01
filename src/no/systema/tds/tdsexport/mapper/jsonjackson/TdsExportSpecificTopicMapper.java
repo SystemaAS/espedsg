@@ -13,6 +13,8 @@ import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTop
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicOmbudContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicOmbudRecord;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicFaktTotalContainer;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicCheckItemErrorContainer;
+
 
 
 
@@ -59,6 +61,29 @@ public class TdsExportSpecificTopicMapper {
 			
 		return topicListContainer;
 	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTdsExportSpecificTopicCheckItemErrorContainer getCheckItemErrorContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
+		//At this point we now have an UTF-8 payload
+		JsonTdsExportSpecificTopicCheckItemErrorContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportSpecificTopicCheckItemErrorContainer.class); 
+		//logger.info(mapper.writeValueAsString(topicListContainer));
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+	
+			
+		return container;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * 

@@ -207,7 +207,6 @@
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</th>   
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</th>
-													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vati.tillagskod"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_eup1.forfarande1"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_brut.bruttoVikt"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_neto.nettoVikt"/>&nbsp;</th>
@@ -216,6 +215,8 @@
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vasl.varuBeskrivning"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_err.error"/>&nbsp;</th>
 													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_fabl.fbelopp"/>&nbsp;</th>
+													                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_stva.statvarde"/>&nbsp;</th>
+													                    
 													                    <c:if test="${model.status == 'M' || empty model.status}">
 													                    	<th align="center" class="text12" nowrap>Radera</th>
 													                    </c:if>
@@ -234,7 +235,6 @@
 														               <td class="text11" >&nbsp;${record.svev_vano}</td>
 														               <td class="text11" >&nbsp;${record.svev_ulkd}</td>
 														               <td class="text11" >&nbsp;${record.svev_vata}</td>
-														               <td class="text11" >&nbsp;${record.svev_vati}</td>
 														               <td class="text11" >&nbsp;${record.svev_eup1}</td>
 														               <td class="text11" >&nbsp;${record.svev_brut}</td>
 														               <td class="text11" >&nbsp;${record.svev_neto}</td>
@@ -248,6 +248,8 @@
 														               		</c:if>
 														               	</td>	
 														               <td class="text11">&nbsp;${record.svev_fabl}</td>
+														               <td class="text11">&nbsp;${record.svev_stva}</td>
+														               
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>&nbsp;
 															               	<a onclick="javascript:return confirm('Är du säker på att du vill radera raden?')" tabindex=-1 href="tdsexport_edit_items.do?action=doDelete&avd=${model.avd}&opd=${model.opd}&lin=${record.svev_syli}">
@@ -331,7 +333,6 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vano.varupostNr"/>&nbsp;</th>   
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_ulkd.urspLand"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vata.varukod"/> <font class="text9">Taric.nr</font>&nbsp;</th>
-					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vati.tillagskod"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_eup1.forfarande1"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_brut.bruttoVikt"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_neto.nettoVikt"/>&nbsp;</th>
@@ -340,6 +341,8 @@
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_vasl.varuBeskrivning"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_err.error"/>&nbsp;</th>
 										<th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_fabl.fbelopp"/>&nbsp;</th>
+										<th class="text12">&nbsp;<spring:message code="systema.tds.export.item.list.label.svev_stva.statvarde"/>&nbsp;</th>
+													                    
 					                    <c:if test="${model.status == 'M' || empty model.status}">
 					                    	<th align="center" class="text12" nowrap>Radera</th>
 					                    </c:if>
@@ -369,7 +372,6 @@
 							               <td class="text11" >&nbsp;${record.svev_vata}&nbsp;&nbsp;
 							               	  <img id="recordUpdate_${record.svev_syli}_${record.svev_vano}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Lägg till i kundensvarureg.">
 							               </td>	  
-							               <td class="text11" >&nbsp;${record.svev_vati}</td>
 							               <td class="text11" >&nbsp;${record.svev_eup1}</td>
 							               <td class="text11" >&nbsp;${record.svev_brut}</td>
 							               <td class="text11" >&nbsp;${record.svev_neto}</td>
@@ -383,6 +385,8 @@
 							               		</c:if>
 							               	</td>	
 							               <td class="text11">&nbsp;${record.svev_fabl}</td>
+							               <td class="text11">&nbsp;${record.svev_stva}</td>
+							               
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
 								               	<a onclick="javascript:return confirm('Är du säker på att du vill radera raden?')" tabindex=-1 href="tdsexport_edit_items.do?action=doDelete&avd=${model.avd}&opd=${model.opd}&lin=${record.svev_syli}">

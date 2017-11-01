@@ -45,6 +45,7 @@ import no.systema.tds.tdsexport.validator.TdsExportHeaderValidator;
 
 
 import no.systema.main.model.SystemaWebUser;
+import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicCheckItemErrorContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportSpecificTopicRecord;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.JsonTdsExportTopicCopiedContainer;
@@ -361,11 +362,17 @@ public class TdsExportHeaderController {
 					    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsExportSpecificTopicRecord);
 					    		isValidCreatedRecordTransactionOnRPG = false;
 					    	}else{
-					    		//Update successfully done!
-					    		logger.info("[INFO] Record successfully updated, OK ");
-					    		//put domain objects
-					    		this.setDomainObjectsInView(session, model, jsonTdsExportSpecificTopicRecord, sumTopicRecord);
-					    		this.adjustValidUpdateFlag(model, jsonTdsExportSpecificTopicRecord);
+					    		if(this.validateItemLines(appUser, avd, opd)){
+						    		//Update successfully done!
+						    		logger.info("[INFO] Record successfully updated, OK ");
+						    		//put domain objects
+						    		this.setDomainObjectsInView(session, model, jsonTdsExportSpecificTopicRecord, sumTopicRecord);
+						    		this.adjustValidUpdateFlag(model, jsonTdsExportSpecificTopicRecord);
+					    		}else{
+					    			rpgReturnResponseHandler.setErrorMessage(" FATAL on UPDATE: " + "Det finns varuposter med felstatus...");
+						    		this.setFatalError(model, rpgReturnResponseHandler, jsonTdsExportSpecificTopicRecord);
+						    		isValidCreatedRecordTransactionOnRPG = false;
+					    		}
 					    	}
 						}else{
 							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tuid, syop generation : " + rpgReturnResponseHandler.getErrorMessage());
@@ -410,6 +417,44 @@ public class TdsExportHeaderController {
 	    	return successView;
 		}
 	}
+	
+	/**
+	 * Check if item lines = OK
+	 * 
+	 * @param appUser
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private boolean validateItemLines(SystemaWebUser appUser, String avd, String opd){
+		boolean retval = true;
+		//---------------------------
+		//get BASE URL = RPG-PROGRAM
+        //---------------------------
+		String BASE_URL = TdsExportUrlDataStore.TDS_EXPORT_BASE_FETCH_TOPIC_ITEMLIST_VALIDATION_URL;
+		//url params
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	//--------------------------------------
+    	//EXECUTE the FETCH (RPG program) here
+    	//--------------------------------------
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonTdsExportSpecificTopicCheckItemErrorContainer container = this.tdsExportSpecificTopicService.getCheckItemErrorContainer(jsonPayload);
+    		if(strMgr.isNotNull(container.getOk()) && "N".equals(container.getOk()) ){
+    			retval = false;
+    		}
+    	}
+    	
+    	return retval;
+	}
+	
 	
 	/**
 	 * 
@@ -1627,7 +1672,7 @@ public class TdsExportHeaderController {
 		StringBuffer errorMetaInformation = new StringBuffer();
 		errorMetaInformation.append(rpgReturnResponseHandler.getUser());
 		errorMetaInformation.append(rpgReturnResponseHandler.getSveh_syop());
-		model.put(TdsConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
+		//model.put(TdsConstants.ASPECT_ERROR_META_INFO, errorMetaInformation);
 		
 	}
 	
