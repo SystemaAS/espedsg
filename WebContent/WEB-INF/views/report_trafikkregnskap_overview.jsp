@@ -10,6 +10,8 @@ var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 function load_data() {
+
+	//jq('#dateDetails').toggle(false); //close if open
 	
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
@@ -30,8 +32,7 @@ function load_data() {
 	
 
 	if (selectedAvd != null && selectedAvd != "")	{
-		//runningUrl = runningUrl + "&avdeling="+selectedAvd;
-		runningUrl = runningUrl + "&avdelings="+selectedAvd;  //fix when time
+		runningUrl = runningUrl + "&avdelings="+selectedAvd; 
 	}
 	if (selectedSign != null && selectedSign != "")	{
 		runningUrl = runningUrl + "&signatur="+selectedSign;
@@ -58,8 +59,8 @@ d3.json(runningUrl, function(error, data) {
 		
 	if (data.dtoList == '') {
 		jq.unblockUI();
-		alert('Ingen data på urvalg.');  //TODO bättre UI
-		//throw error;
+		alert('Ingen data på urvalg.'); 
+		return "no data found";
 	}	
 	
 	var faktData = data.dtoList;
@@ -95,44 +96,31 @@ d3.json(runningUrl, function(error, data) {
 	
 	//Dimensions
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
-	//var  kundeDim  = fakt.dimension(function(d) {return d.mottaker;});
 	var  dateDim  = fakt.dimension(function(d) {return d.date;});
-	//var  yearDim  = fakt.dimension(function(d) {return d.year;});
     var  monthDim = fakt.dimension(function (d) {return d.month;});	
-    //var  monthDim2 = fakt.dimension(d => d3.time.month(d.month));
 	var  avdDim  = fakt.dimension(function(d) {return d.avdeling;});
 	var  tubilkDim  = fakt.dimension(function(d) {return d.tubilk;});
 	var  favkDim  = fakt.dimension(function(d) {return d.favk;});
-    var faskDim = fakt.dimension(function (d) {
-        var fask = d.fask;
-        if (fask == 'I') {
-            return 'Intern';
-        } else {
-            return 'Extern';
-        } 
+    var  faskDim = fakt.dimension(function (d) {
+	        var fask = d.fask;
+	        if (fask == 'I') {
+	            return 'Intern';
+	        } else {
+	            return 'Extern';
+	        } 
     });
 	
 	//Groups
-	//var  dateDimGroup = dateDim.group().reduceSum(function(d) {return +d.fabeln;});
-	//var  monthDimGroup = monthDim.group().reduceSum(function(d) {return d.fabeln;});
-	//var  monthDimGroup2 = monthDim2.group().reduceSum(d => d.fabeln);
-	
-	//var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.fabeln;});
 	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.fabeln;});
 	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.fabeln;});
 	var  favkDimGroup = favkDim.group().reduceSum(function(d) {return d.fabeln;});
 	var  faskDimGroup = faskDim.group().reduceSum(function(d) {return d.fabeln;});
 	//Charts 
-	//var  yearChart   = dc.pieChart("#chart-ring-year");
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  tubilkChart   = dc.pieChart('#chart-ring-tubilk');
 	var  favkChart   = dc.pieChart('#chart-ring-favk');
 	var  faskChart   = dc.pieChart('#chart-ring-fask');
-	//var  yearlyBubbleChart = dc.bubbleChart('#yearly-bubble-chart');
 	var  compositeChart = dc.compositeChart("#chart-composite");
-	//var  compositeStackedChart = dc.compositeChart("#stacked-chart-composite");
-	//var  stackedBarChart =  dc.barChart("#stacked-bar-chart"); //dc.compositeChart("#bar-chart-composite"); 
-	//var  lineChartDate = dc.lineChart("#line-chart-date");
 	var  dataCount = dc.dataCount('#data-count')	 
 	var  omsetningsDisplay = dc.numberDisplay("#omsetning");	
 	var  kostnadsDisplay = dc.numberDisplay("#kostnad");	
@@ -142,8 +130,15 @@ d3.json(runningUrl, function(error, data) {
 	var mindate = dateDim.bottom(1)[0].date;
 	var maxdate = dateDim.top(1)[0].date;
 	
+	/*
+	var omsKostLineChart = dc.lineChart('#omskost-line-chart');
+	var dateChart = dc.barChart('#date-chart');
+	*/
+	var omsKostLineChart;
+	var dateChart;
+	var dateDetailsDisplayed = false;
 	//Group reduce
-	var dateDimGroup =  dateDim.group().reduce(   //TESTAR: org=dateDimGroup
+	var dateDimGroup =  dateDim.group().reduce(   
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
@@ -173,7 +168,6 @@ d3.json(runningUrl, function(error, data) {
 
 
     var monthDimGroup =  monthDim.group().reduce(   
-            /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
@@ -183,7 +177,6 @@ d3.json(runningUrl, function(error, data) {
                 }
                 return p;
             },
-            /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
                 if (v.fakda != 'K') {
@@ -193,7 +186,6 @@ d3.json(runningUrl, function(error, data) {
                 }
                 return p;
             },
-            /* initialize p */
             function () {
                 return {
                     count: 0,
@@ -203,40 +195,7 @@ d3.json(runningUrl, function(error, data) {
             }
     );  	
 	
-	
-	
-	
-	
-/*
-	var  kundePerformanceGroup = kundeDim.group().reduce(
-           
-            function (p, v) {
-            	++p.avdeling;
-            	++p.faopd;
-                ++p.fabeln;
-                ++p.count;
-                p.sumAvd += p.avdeling;
-                p.sumTotal += p.fabeln;
-                return p;    
-            },
-            
-            function (p, v) {
-            	--p.avdeling;
-            	--p.faopd;
-                --p.fabeln;
-                --p.count;
-                p.sumAvd -= p.avdeling;
-                p.sumTotal -= p.fabeln;
-                return p;
-            },
-           
-            function () {
-                return {avdeling: 0,faopd: 0, fabeln: 0, sumTotal: 0, sumAvd: 0,  count: 0};
-            }
-        );	
- */   
     var omsetningsGroup =  faktAllDim.group().reduce(  
-            /* callback for when data is added to the current filter results */
             function (p, v) {
                 ++p.count;
                 if (v.fakda != 'K') {
@@ -246,7 +205,6 @@ d3.json(runningUrl, function(error, data) {
                 }
                 return p;
             },
-            /* callback for when data is removed from the current filter results */
             function (p, v) {
                 --p.count;
                 if (v.fakda != 'K') {
@@ -256,7 +214,6 @@ d3.json(runningUrl, function(error, data) {
                 }
                 return p;
             },
-            /* initialize p */
             function () {
                 return {
                     count: 0,
@@ -266,46 +223,21 @@ d3.json(runningUrl, function(error, data) {
             }
     );  
 
- /*
-	yearChart
-	    .width(350)
-	    .height(300)
-	    .dimension(yearDim)
-	    .group(yearDimGroup)
-	    //.externalLabels(20)
-	    .externalRadiusPadding(50)
-	    .innerRadius(30)
-	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
-  */ 
 	avdChart
 	    .width(350)
 	    .height(300)
 	    .slicesCap(25)
 	    .innerRadius(40)
-	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .dimension(avdDim)
 	    .group(avdDimGroup)
 	    .legend(dc.legend().y(10).itemHeight(8).gap(3));
-/*	
-	avdChart.on('pretransition', function(chart) {
-        chart.selectAll('.dc-legend-item text')
-            .text('')
-          .append('tspan')
-            .text(function(d) { return d.name; })
-          .append('tspan')
-            .attr('x', 100)
-            .attr('text-anchor', 'end')
-            .text(function(d) { return d.data; });
-    });	
-*/	
 	
 	tubilkChart
 	    .width(350)
 	    .height(300)
 	    .slicesCap(20)
 	    .innerRadius(40)
-	    //.externalLabels(20)
 	    .externalRadiusPadding(50)
 	    .dimension(tubilkDim)
 	    .group(tubilkDimGroup)
@@ -336,7 +268,6 @@ d3.json(runningUrl, function(error, data) {
 	omsetningsDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			// console.log("p.value.omsetning="+p.value.omsetning);
 			 return p.value.omsetning;
 		  })
 		  .formatNumber(function(d){ return d3.format(",.0f")(d)});
@@ -344,7 +275,6 @@ d3.json(runningUrl, function(error, data) {
 	kostnadsDisplay
 	     .group(omsetningsGroup)  
 		 .valueAccessor(function (p) {
-			// console.log("p.value.kostnad="+p.value.kostnad);
 			 return p.value.kostnad;
 		  })
 		 .formatNumber(function(d){ return d3.format(",.0f")(d)});
@@ -364,94 +294,20 @@ d3.json(runningUrl, function(error, data) {
 			var db = resultat / p.value.omsetning;
 			return db;
 		  })
-//	      .html({
-//	        one:"<span style=\"color:green; font-size: 26px;\">%number</span> Monkey",
-//	        some:"<span style=\"color:red; font-size: 26px;\">%number</span> Total Monkeys",
-//	        none:"<span style=\"color:steelblue; font-size: 26px;\">No</span> Monkeys"
-//	      })		  
-		  
 		 .formatNumber(d3.format(".2%")); 
 	  
-/*
-	yearlyBubbleChart 
-	        .width(1000)
-	        .height(320)
-	        .transitionDuration(1500)
-		    .margins({top: 20, right: 10, bottom: 30, left: 90})
-		    .dimension(kundeDim)
-	        //The bubble chart expects the groups are reduced to multiple values which are used
-	        //to generate x, y, and radius for each key (bubble) in the group
-	        .group(kundePerformanceGroup)
-	        // (_optional_) define color function or array for bubbles: [ColorBrewer](http://colorbrewer2.org/)
-	        .colors(colorbrewer.RdYlGn[9])
-	        //(optional) define color domain to match your data domain if you want to bind data or color
-	        .colorDomain([-500, 500])
-	   		 //##### Accessors
-	        //Accessor functions are applied to each value returned by the grouping
-	        // `.colorAccessor` - the returned value will be passed to the `.colors()` scale to determine a fill color
-	        .colorAccessor(function (d) {
-	            return d.value.fabeln;
-	        })
-	        // `.keyAccessor` - the `X` value will be passed to the `.x()` scale to determine pixel location
-	        .keyAccessor(function (p) {
-	            return p.value.sumTotal;
-	        })
-	        // `.valueAccessor` - the `Y` value will be passed to the `.y()` scale to determine pixel location
-	        .valueAccessor(function (p) {
-	            return p.value.fabeln;
-	        })
-	        // `.radiusValueAccessor` - the value will be passed to the `.r()` scale to determine radius size;
-	        //   by default this maps linearly to [0,100]
-	        .radiusValueAccessor(function (p) {
-	            return p.value.fabeln;
-	        })
-	        .maxBubbleRelativeSize(0.3)
-	        .x(d3.scale.linear().domain([-2500, 2500]))
-	        .y(d3.scale.linear().domain([-100, 100]))
-	        .r(d3.scale.linear().domain([0, 4000]))
-	        //##### Elastic Scaling
-	        //`.elasticY` and `.elasticX` determine whether the chart should rescale each axis to fit the data.
-	        .elasticY(true)
-	        .elasticX(true)
-	        //`.yAxisPadding` and `.xAxisPadding` add padding to data above and below their max values in the same unit
-	        //domains as the Accessors.
-	        .yAxisPadding(100)
-	        .xAxisPadding(500)
-	        // (_optional_) render horizontal grid lines, `default=false`
-	        .renderHorizontalGridLines(true)
-	        // (_optional_) render vertical grid lines, `default=false`
-	        .renderVerticalGridLines(true)
-	        // (_optional_) render an axis label below the x axis
-	        .xAxisLabel('Omsetning')
-	        // (_optional_) render a vertical axis lable left of the y axis
-	        .yAxisLabel('Antall oppdrag')
-	        //##### Labels and  Titles
-	        //Labels are displayed on the chart for each bubble. Titles displayed on mouseover.
-	        // (_optional_) whether chart should render labels, `default = true`
-	        .renderLabel(true)
-	        .label(function (p) {
-	            return p.key;
-	        })
-	        .renderTitle(true)
-	        .title(function (p) {
-	            return [
-	                p.key,
-	                'NOK: ' + p.value.sumTotal,
-	                'Antall oppdrag: ' + p.value.fabeln
-	            ].join('\n');
-	        })	        
-
-
-*/
 
 	compositeChart
 		    .width(1200)
 		    .height(500)
 		    .dimension(monthDim)  
-		    .group(monthDimGroup)  
+		    .group(monthDimGroup) 
 		    .margins({top: 40, right: 10, bottom: 30, left: 60})
      		.x(d3.scale.ordinal())  
-            .xUnits(dc.units.ordinal)               
+            .xUnits(dc.units.ordinal)       
+	       // .x(d3.time.scale().domain([mindate, maxdate]))
+    	   // .round(d3.time.month.round)
+        	//.xUnits(d3.time.months)          
             .yAxisPadding('5%')
             .yAxisLabel("NOK")
         	.xAxisLabel("Måned")
@@ -483,11 +339,11 @@ d3.json(runningUrl, function(error, data) {
 		    .renderHorizontalGridLines(true)
 		  	.compose([
 		         dc.barChart(compositeChart)
-		            .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
+		           .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		           // .centerBar(true)
 		            .gap(30)
-		            //.barPadding(1)
-		            .renderLabel(true)
+		           // .barPadding(1)
+		           // .renderLabel(true)
 			        .label(function (d) {
 			        	var resultat = d.data.value.omsetning + d.data.value.kostnad;  
 		            	var db = resultat / d.data.value.omsetning;
@@ -497,8 +353,8 @@ d3.json(runningUrl, function(error, data) {
                 		return d.value.omsetning; 
         			}),            
 		    	dc.barChart(compositeChart)
-		            .colors('coral')
-		          //  .centerBar(true)
+		           .colors('coral')
+		           //.centerBar(true)
  					.gap(30)
  					//.barPadding(1)
 		            .valueAccessor(function (d) {
@@ -516,137 +372,62 @@ d3.json(runningUrl, function(error, data) {
 		     ])         
 		    .brushOn(false);
 	        
-	    //compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
-	
-	    compositeChart.xAxis().tickFormat(function(d) { 
-	        return d.substr(3); 
-	    });
-	       
-	        
-	        
-/*	   
- var minDate2 = dateDim.bottom(1)[0].month;
- var maxDate2  = dateDim.top(1)[0].month;
- */
- //maxDate2.setMonth(maxDate2.getMonth() + 1 );
- 
- //var minDate = new Date(dateDim.bottom(1)[0]["timestamp"]);
- //var maxDate = new Date(dateDim.top(1)[0]["timestamp"]);
- 
- //minDate2 = d3.time.month.offset(minDate2, -1);
- //maxDate2 = d3.time.month.offset(maxDate2, 1);
+	  //  compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
 
-/* 
-stackedBarChart
-		.width(1200)
-		.height(420)
-		.margins({top: 20, right: 10, bottom: 30, left: 80})
-		//.x(d3.time.scale().domain([minDate2, maxDate2])) 	//scale.linear()
-		.x(d3.scale.linear().domain([minDate2, maxDate2])) 	//
-		//.x(d3.time.scale().domain([d3.time.day.offset(minDate2, -15), d3.time.day.offset(maxDate2, 15)]))
-		//.xUnits(d3.time.month)
-		//.round(d3.time.month.round)
-		//.alwaysUseRounding(true)
-        //.dimension(monthDim) 
- 	    //.group(monthDimGroup);
+	    
+/*
+    omsKostLineChart 
+        .renderArea(true)
+        .width(1200)
+        .height(500)
+        .margins({top: 40, right: 10, bottom: 30, left: 60})
+        .dimension(dateDim)
+        .mouseZoomable(false)
+        .rangeChart(dateChart)
+        .yAxisPadding('5%')
+        .yAxisLabel("NOK")
+        .xAxisLabel("Dag")
+        .x(d3.time.scale().domain([mindate, maxdate]))
+        .xUnits(d3.time.months)
+        .elasticY(true)
+        .elasticX(true)
+        .renderHorizontalGridLines(true)
+        .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
+        .brushOn(false)
+        .group(dateDimGroup, 'Kostnad') 
+        .valueAccessor(function (d) {
+            return Math.abs(d.value.kostnad);
+        })
+        .stack(dateDimGroup, 'Omsetning', function (d) {
+            return d.value.omsetning;
+        });
+       
+  	   // omsKostLineChart.xAxis().tickFormat(d3.time.format('%B'));	   
 
-		.xUnits(function(){return 100;})
-		
-         //.x(d3.scale.ordinal())  //funkar!!, time scale funkar inte!!
-         //.x(d3.scale.linear().domain([0,13])) //Funkar, bara enskilt!!
-         //.xUnits(d3.time.months) //funkar inte men 
- 		 //.x(d3.time.scale().domain([1,12]))  //funkar, inte
- 		// .x(d3.time.scale().domain([minDate2, maxDate2]))  //Funkar inte
- 		 //.x(d3.scale.linear().domain([minDate2, maxDate2]))  //Funkar inte
-         //.xUnits(d3.time.month)        
-         
-         //.x(d3.scale.ordinal().domain([1,12]))  //Funkar inte, smetar ut fel..
-         
-         //.xUnits(dc.units.ordinal)
-         //.xUnits(d3.time.months)
-         .yAxisLabel("NOK")
-         .xAxisLabel("Måned")   
-         //.ordering(function(d) { 
-        //	return d.key; 
-         // })	
-		 .dimension(monthDim)
-		 .group(monthDimGroup, "Kostnad", function (d) {
-        	 //console.log("d.value.kostnad="+d.value.kostnad);
-             return d.value.kostnad;
-         })
-         .stack(monthDimGroup, "Resultat", function (d) {
-             var resultat = d.value.omsetning + d.value.kostnad;
-             //console.log("resultat="+resultat);
-             return resultat;
-         })
-         .stack(monthDimGroup, "Omsetning", function (d) {
-             //console.log("omsetningStacked="+omsetningStacked);
-             return d.value.omsetning;
-         })         
-         
-         .renderHorizontalGridLines(true)
-         .renderVerticalGridLines(true)
-         //.renderTitle(true)
-         //.title(function(d) {
-        //	 	//console.log("title="+d.key + '[' + this.layer + ']: ' + d.value[this.layer]);
-         //     return d.key + '[' + this.layer + ']: ' + d.value[this.layer];
-         //})        
-   		 .renderLabel(true)  
-   		 .renderTitle(true)
-		 .elasticY(true)
-		 .gap(1)
-		 .centerBar(true)
-		 .xAxisPadding(5000)
-		 .xAxisPaddingUnit('month')
-//		 .xAxis().tickFormat(function(d){
-//        	  console.log("d.key="+d.key);
-//        	  console.log("d.data.key="+d.data.key);
-//        	  console.log("d.value="+d.value);
-//        	  return d3.time.months;
-//          })
-			
-		 .legend(dc.legend().x(1100).y(20).itemHeight(5).gap(20))
-		 
-		 .brushOn(true);
-		// .clipPadding(20);
+   dateChart.width(1200) 
+	    .height(150)
+	    .margins({top: 0, right: 0, bottom: 30, left: 70})
+	    .dimension(dateDim)
+	    .yAxisPadding('5%')
+        .yAxisLabel("NOK")
+        .xAxisLabel("Dag")
+	    .group(dateDimGroup, 'Resultat')
+	    .valueAccessor(function (d) {
+	    	var resultat = d.value.omsetning + d.value.kostnad;  
+	    	return resultat;
+	     })
+	    .centerBar(true)
+	    .gap(1)
+	    .x(d3.time.scale().domain([mindate, maxdate]))
+	    .elasticY(true)
+	    .elasticX(true)
+	    .renderHorizontalGridLines(true)
+	    .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
+	    .xUnits(d3.time.days);	    
+
+   dateChart.xAxis().tickFormat(d3.time.format('%B'));	  
 */
-		
-		
-	/*	inspiration
-         var barChartDateB = dc.barChart("#bar-chart-dateB", "groupB");
-         barChartDateB.width(500)
-                 .height(150)
-                 .dimension(dateDimension)
-                 .group(dateIdSumGroup)
-                 .stack(dateValueSumGroup)
-                 .stack(dateValueSumGroup, function (d) {
-                     return 10;
-                 })
-                 .brushOn(false)
-                 .title(function (d) {
-                     return d.value;
-                 })
-                 .x(d3.time.scale().domain([new Date(2012, 4, 20), new Date(2012, 07, 15)]))
-                 .xUnits(d3.time.days)
-                 .renderHorizontalGridLines(true)
-                 .renderVerticalGridLines(true)
-                 .gap(0)
-                 .xAxis().tickValues([new Date(2012, 3, 1), new Date(2012, 6, 1), new Date(2012, 9, 1)]);
-         barChartDateB.yAxis().tickValues([0, 75, 140]);
-	*/	
-		
-		
-		
-		
-        // stackedBarChart.xAxis().tickFormat(d3.time.format('%B'));
-		 
- 
-//        .group(dateDimGroup, "Kostnad")
-//    	.valueAccessor(function (d) {
-//		       return d.value.kostnad; 
-//		});
-
-
+   
 //Diverse grejer till datum   
 //https://jsfiddle.net/pramod24/q4aquukz/4/
 
@@ -656,12 +437,6 @@ stackedBarChart
      	dc.renderAll();
    	});
 
-/*
-	d3.selectAll('a#year').on('click', function () {
-		yearChart.filterAll();
-		dc.redrawAll();
-	});
-*/
 	d3.selectAll('a#avd').on('click', function () {
 		avdChart.filterAll();
 		dc.redrawAll();
@@ -686,6 +461,12 @@ stackedBarChart
 		dc.redrawAll();
 	});	
 	
+	d3.selectAll('a#omskost-line').on('click', function () {
+		omsKostLineChart.filterAll();
+		dateChart.filterAll();
+		dc.redrawAll();
+	});	
+	
 	d3.selectAll('a#avdfilter').on('click', function () {
 		avdChart.filter(jq('#avd-filter').val());
 		dc.redrawAll();
@@ -701,7 +482,85 @@ stackedBarChart
             all: 'Alle <strong>%total-count</strong> fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });  
 
+	
+	jq('#showDateDetails' ).click(function() {
+		if (dateDetailsDisplayed) {
+			jq( '#dateDetails').toggle();
+			dateDetailsDisplayed = false;
+		} else {
+		 	jq( '#dateDetails').toggle( "slow", function() {		
+		 		
+			 	omsKostLineChart = dc.lineChart('#omskost-line-chart');
+			 	dateChart = dc.barChart('#date-chart');
+	
+			 	omsKostLineChart 
+			        .renderArea(true)
+			        .width(1200)
+			        .height(500)
+			        .margins({top: 40, right: 10, bottom: 30, left: 60})
+			        .dimension(dateDim)
+			        .mouseZoomable(false)
+			        .rangeChart(dateChart)
+			        .yAxisPadding('5%')
+			        .yAxisLabel("NOK")
+			        .xAxisLabel("Dag")
+			        .x(d3.time.scale().domain([mindate, maxdate]))
+			        .xUnits(d3.time.months)
+			        .elasticY(true)
+			        .elasticX(true)
+			        .renderHorizontalGridLines(true)
+			        .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
+			        .brushOn(false)
+			        .group(dateDimGroup, 'Kostnad') 
+			        .valueAccessor(function (d) {
+			            return Math.abs(d.value.kostnad);
+			        })
+			        .stack(dateDimGroup, 'Omsetning', function (d) {
+			            return d.value.omsetning;
+			        });
+			       
+			  	   // omsKostLineChart.xAxis().tickFormat(d3.time.format('%B'));	   
+	
+			   dateChart.width(1200) 
+				    .height(150)
+				    .margins({top: 0, right: 0, bottom: 30, left: 70})
+				    .dimension(dateDim)
+				    .yAxisPadding('5%')
+			        .yAxisLabel("NOK")
+			        .xAxisLabel("Dag")
+				    .group(dateDimGroup, 'Resultat')
+				    .valueAccessor(function (d) {
+				    	var resultat = d.value.omsetning + d.value.kostnad;  
+				    	return resultat;
+				     })
+				    .centerBar(true)
+				    .gap(1)
+				    .x(d3.time.scale().domain([mindate, maxdate]))
+				    .elasticY(true)
+				    .elasticX(true)
+				    .renderHorizontalGridLines(true)
+				    .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
+				    .xUnits(d3.time.days);	    
+	
+			   //dateChart.xAxis().tickFormat(d3.time.format('%B'));	  
+			 		
+			   omsKostLineChart.render();	   
+			   dateChart.render();	   	
+		 		
+			   dateDetailsDisplayed = true;
+		 	   
+		 	});
+		}
+		
+	});	
+	
+	
 	dc.renderAll(); 
+	
+	jq(document).ready(function() {
+		dateDetailsDisplayed = false;
+		jq('#toggleArea').toggle(true); //default hide
+	});	
 
 	jq.unblockUI();
     
@@ -713,9 +572,24 @@ jq(document).ready(function() {
 	jq('select#selectVarekode').selectList();
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
-	
-	console.log("leaving .ready...");
+	//TODO jq('#detailsTable').toggle(false); //default hide
+	jq('#toggleArea').toggle(false); //default hide
+	jq('#dateDetails').toggle(false); //default hide	
 });	
+ 
+window.addEventListener('error', function (e) {
+	  var error = e.error;
+	  jq.unblockUI();
+	  console.log("Event e.error",e.error);
+
+	  if (e instanceof TypeError) {
+			//what todo  
+	  } else {
+		  alert('Uforutsett fel har intreffet. Vennligst gör forfrisk på fane Fortolling(NO).');
+	  }
+	  
+}); 
+ 
  
  
 </script>
@@ -730,11 +604,11 @@ jq(document).ready(function() {
 
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
-						<font class="tabLink">&nbsp;Trafikkregnskap - oversikt</font>
+						<font class="tabLink">&nbsp;Trafikkregnskap</font>
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-
+<!--  
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
@@ -742,7 +616,7 @@ jq(document).ready(function() {
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-
+-->
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_fortolling_no">
 							<font class="tabDisabledLink">&nbsp;Fortolling(NO)</font>&nbsp;						
@@ -751,7 +625,7 @@ jq(document).ready(function() {
 			  		</td>
 			  						
 					
-					<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -784,6 +658,7 @@ jq(document).ready(function() {
 		        		<select class="inputTextMediumBlue" name="selectAvd" id="selectAvd" multiple="multiple" title="-velg-">
 		 				  	<c:forEach var="record" items="${model.avdList}" >
 		 				  		<option value="${record.koakon}">${record.koakon}</option>
+		 				  			<option value="2252">2252</option>
 							</c:forEach>  
 						</select>						
 					</div>					
@@ -827,6 +702,9 @@ jq(document).ready(function() {
 	
 	  			  <div class="padded-row-small">&nbsp;</div>
 	
+<div id="toggleArea">	
+	
+	
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row">
@@ -856,14 +734,47 @@ jq(document).ready(function() {
 				    <div class="col-md-12">
 				      <div class="row">
 						 <div class="col-md-12 dc-chart" id="chart-composite"> 
-						 	<h3 class="text11">Omsetning og kostnad</h3>
+						 	<h3 class="text11">Omsetning og kostnad / måned</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
 						 </div>  
 				      </div>
 				    </div>
 				  </div>
-				  
+
+			  	  <div class="row">
+					<div class="col-md-12" id="showDateDetails">
+  						<h3><a id="showDateDetails"><font class="text12">Vis Omsetning og kostnad / dag</font>
+  						&nbsp;<img onMouseOver="showPop('vis_fortoll_info');" onMouseOut="hidePop('vis_fortoll_info');" width="12px" height="12px" src="resources/images/info3.png">
+		 				</a></h3>
+		 				<div class="text11" style="position: relative;" align="left">
+		 				<span style="position:absolute; top:2px; width:250px;" id="vis_fortoll_info" class="popupWithInputText text11"  >
+				           		<b>
+				           			Vis Omsetning og kostnad / dag
+				 	          	</b><br><br>
+				           		Bruk dersom det finnes intresse att se spesifike oppdragsposter. Filter på Resultat-vyn.
+								<br><br>
+						</span>
+						</div>
+					</div>
+				  </div>	
+
+	
+				  <div class="row" id="dateDetails">
+				    <div class="col-md-12">
+				      <div class="row">
+						 <div class="col-md-12 dc-chart" id="omskost-line-chart"> 
+						 	<h3 class="text11">Omsetning og kostnad / dag</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="omskost-line" style="display: none;"> - <i>tilbakestill filter</i></a>
+						 </div>  
+				      </div>
+					  <div class="row">
+					     <div id="date-chart"></div>
+					  </div>	
+				    </div>
+				  </div>	
+	
 				  <div class="row">
 					<div class="col-md-12">
 					  <div class="row">
@@ -872,13 +783,6 @@ jq(document).ready(function() {
 						   </div>
 					  </div>				  
 					  <div class="row">
-<!--  
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text11">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>
--->	
 					    <div class="col-md-3" id="chart-ring-fask">
 				       		<h3 class="text11">Intern / Ekstern oms.</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
@@ -912,6 +816,8 @@ jq(document).ready(function() {
 				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
 				  </div>
+	
+</div> <!-- toggleArea -->	
 				 
          		</div> <!-- container -->
 		 	    </td>

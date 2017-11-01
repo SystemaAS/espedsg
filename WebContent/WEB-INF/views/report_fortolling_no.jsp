@@ -547,7 +547,7 @@ function load_data() {
 		initFilters();
 		
 		jq(document).ready(function() {
-			jq('#toggleArea').toggle(true); //default hide
+			jq('#toggleArea').toggle(true); 
 		});
 		
 		jq.unblockUI();
@@ -591,12 +591,12 @@ window.addEventListener('error', function (e) {
 				<tr height="25"> 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
-							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - oversikt</font>&nbsp;						
+							<font class="tabDisabledLink">&nbsp;Trafikkregnskap</font>&nbsp;						
 						</a>
 						<img  style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0">
 			  		</td>		
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-
+<!--  
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
@@ -604,13 +604,13 @@ window.addEventListener('error', function (e) {
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-
+-->
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;Fortolling(NO)</font>
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 
-					<td width="40%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -836,7 +836,7 @@ window.addEventListener('error', function (e) {
 				  
 				<div class="padded-row">&nbsp;</div>
 
-</div>
+</div> <!-- toggleArea -->
 
 
 
