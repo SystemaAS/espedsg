@@ -54,9 +54,11 @@
 							<thead>
 							<tr>
 							    <th width="2%" class="tableHeaderFieldFirst" align="center" >&nbsp;Endre</th>
-			                    <th width="40%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+			                    <th width="80%" class="tableHeaderField" align="left" >&nbsp;Beskrivelse&nbsp;</th>
+			                    <%--
 			                    <th class="tableHeaderField" align="left" >&nbsp;Text&nbsp;</th>
 			                    <th class="tableHeaderField" align="center" >&nbsp;Status&nbsp;</th>
+			                     --%>
 			                </tr>  
 			                </thead> 
 			                <tbody >  
@@ -76,7 +78,7 @@
 				               		</c:otherwise>
 				               	</c:choose>	
 				               </td>
-				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="40%" >
+				               <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" width="80%" >
 				               		<c:choose>
 					               		<c:when test="${record.status == 'G' || record.status == 'Y'}">
 					               			<a id="alinkRecordDesc_${counter.count}" onClick="setBlockUI(this);" href="${record.code}_${record.pgm}.do?id=${record.dbTable}">
@@ -88,6 +90,7 @@
 					               		</c:otherwise>
 				               		</c:choose>
 				               </td>
+				               <%--
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;" ><font class="text12">&nbsp;${record.text}&nbsp;</font></td>
 		                       <td class="tableCell" style="border-style: solid;border-width: 0px 1px 1px 0px;border-color:#FAEBD7;"align="center">
 		                       		<c:if test="${empty record.status}">
@@ -100,6 +103,7 @@
 		                       			<img src="resources/images/bulletYellowModern.png" width="11px" height="11px" border="0">
 		                       		</c:if>
 				              </td>
+				               --%>
 				            </tr> 
 				            </c:forEach>
 				            </tbody>
