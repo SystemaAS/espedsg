@@ -44,6 +44,18 @@ public class TrorMainOrderHeaderLandimportServiceImpl implements TrorMainOrderHe
 		}
 		return container;
 	}
-	
+	/**
+	 * 
+	 */
+	public JsonTrorOrderHeaderContainer getOrderHeaderContainerStatusUpdate(String utfPayload) {
+		JsonTrorOrderHeaderContainer container = null;
+		try{
+			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
+			container = mapper.getContainerStatusUpdate(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
 
 }

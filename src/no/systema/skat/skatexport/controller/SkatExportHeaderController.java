@@ -961,7 +961,6 @@ public class SkatExportHeaderController {
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
 			String BASE_URL = SkatExportUrlDataStore.SKAT_EXPORT_BASE_UPDATE_STATUS_URL;
-			
 			//-------------------
 			//add URL-parameter 
 			//-------------------

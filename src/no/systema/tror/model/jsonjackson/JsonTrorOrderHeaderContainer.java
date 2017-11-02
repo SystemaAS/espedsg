@@ -26,6 +26,10 @@ public class JsonTrorOrderHeaderContainer {
 	public void setDtoList(Collection<JsonTrorOrderHeaderRecord> value){ this.dtoList = value; }
 	public Collection<JsonTrorOrderHeaderRecord> getDtoList(){ return dtoList; }
 	
+	private Collection<JsonTrorOrderHeaderRecordStatus> list;
+	public void setList(Collection<JsonTrorOrderHeaderRecordStatus> value){ this.list = value; }
+	public Collection<JsonTrorOrderHeaderRecordStatus> getList(){ return list; }
+	
 	/**
 	 * Used for java reflection in other classes
 	 * @return

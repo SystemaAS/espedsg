@@ -179,7 +179,67 @@
 		          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
 		     }
 		});  //end dialog
-  }	  
+  }
+  
+  //------------------------------------
+  //START Model dialog "Update status"
+  //------------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq( ".clazz_dialog" ).each(function(){
+		jq(this).dialog({
+			autoOpen: false,
+			maxWidth:500,
+	        maxHeight: 400,
+	        width: 280,
+	        height: 220,
+			modal: true
+		});
+	  });
+  });
+  //Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq(".updateStatus").click(function() {
+		  var id = this.id;
+		  counterIndex = id.replace("updateStatus","");
+		  //setters (add more if needed)
+		  jq('#dialogUpdateStatus'+counterIndex).dialog( "option", "title", "Update Status "  + jq('#currentOpd'+counterIndex).val() );
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialogUpdateStatus'+counterIndex).dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSave"+counterIndex,	
+				 text: "Ok",
+				 click: function(){
+					 		jq('#updateStatusForm'+counterIndex).submit();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancel"+counterIndex,
+			 	 text: "Avbryt", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		//jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+					 		jq("#selectedStatus"+counterIndex).val("");
+					 		jq( this ).dialog( "close" ); 
+					 		  
+				 		} 
+	 	 		 } ] 
+			  
+		  });
+		  //init values
+		  //jq("#dialogSave"+counterIndex).button("option", "disabled", true);
+		  
+		  //open now
+		  jq('#dialogUpdateStatus'+counterIndex).dialog('open');
+		 
+	  });
+  });
+  //-------------------
+  //END Update status
+  //-------------------
+  
   
   
   //-------------------

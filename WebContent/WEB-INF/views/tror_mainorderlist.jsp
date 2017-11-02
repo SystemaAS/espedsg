@@ -107,11 +107,6 @@
 			<%-- search filter component --%>
 			<tr>
 				<td>
-				<form name="searchForm" id="searchForm" action="tror_mainorderlist.do?action=doFind" method="post" >
-					<input type="hidden" name="userAvd" id="userAvd" value=''>
-					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
-					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHostWithoutHttpPrefix}'>
-					<input type="hidden" name="userHttpJQueryDocRoot" id="userHttpJQueryDocRoot" value='${user.httpJQueryDocRoot}'>
 					
 				<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
 					 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
@@ -119,6 +114,13 @@
 				
 				<tr>
    				    <td> 
+   				    
+   				    <form name="searchForm" id="searchForm" action="tror_mainorderlist.do?action=doFind" method="post" >
+					<input type="hidden" name="userAvd" id="userAvd" value=''>
+					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
+					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHostWithoutHttpPrefix}'>
+					<input type="hidden" name="userHttpJQueryDocRoot" id="userHttpJQueryDocRoot" value='${user.httpJQueryDocRoot}'>
+				
 			    	<table width="99%">
 			    		<tr > 
 				    		<td>&nbsp;<font title="avd" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.avd"/></font></td>
@@ -206,9 +208,9 @@
 					        	<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.search"/>'>
 					        </td>   
 				        </tr>
-				    </table>    
-					</td>
-					
+				    </table> 
+				    </form>   
+					</td>					
 				</tr>
 				<%--
 				<c:if test="${not empty model.containerOpenOrders.maxWarning}">
@@ -232,6 +234,7 @@
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.turnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.statusUpdate"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></th>
@@ -325,6 +328,41 @@
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hepro}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
+			           <td width="2%" align="center" class="text11MediumBlue">
+			           		<img class="updateStatus" id="updateStatus${counter.count}" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="12px" height="12px" border="0" alt="change status">
+			           		
+			           		<%-- change status dialog --%>
+							<div style="display: none;" class="clazz_dialog" id="dialogUpdateStatus${counter.count}" title="Dialog">
+							 	<form action="tror_mainorderlandimport_updateStatus.do" name="updateStatusForm${counter.count}" id="updateStatusForm${counter.count}" >
+							 	<input type="hidden" name="currentAvd${counter.count}" id="currentAvd${counter.count}" value='${record.heavd}'>
+							 	<input type="hidden" name="currentOpd${counter.count}" id="currentOpd${counter.count}" value='${record.heopd}'>
+								<p class="text12" >Change status as needed.</p>
+								<table>
+									<tr>
+										<td class="text12" align="left" >
+											Status
+										</td>
+										<td class="text12MediumBlue">
+											<select name="selectedStatus${counter.count}" id="selectedStatus${counter.count}">
+						            			<option value="">-vælg-</option>
+						            			<option value=" ">Åpent</option>
+						            			<option value="U">U</option>
+												<option value="K">K</option>
+												<option value="C">C</option>
+												<option value="F">F</option>
+												<option value="G">G</option>
+												<option value="T">T</option>
+												<option value="O">O</option>
+												<option value="S">S</option>
+												<option value="X">X</option>
+												<option value="M">M</option>
+											</select>	
+										</td>
+									</tr>
+								</table>
+								</form>
+							</div>
+			           </td>
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;<b><font style="color: orangered">${record.hest}</font></b></td>
 			           <td nowrap align="left" class="text11MediumBlue">
 							<c:if test="${ record.heur == 'A' }">
@@ -507,6 +545,8 @@
 			               	</c:if>
 					   </td>
 	            </tr>
+
+	            
 	            </c:if>
 	             
 	            </c:forEach>
@@ -517,7 +557,7 @@
 				</tr>
 		
 				</table>
-				</form>
+				
 				</td>
 			</tr>
 			
@@ -554,6 +594,8 @@
 			</div>
 		</td>
 		</tr>
+		
+		
 		
 </table>	
 		

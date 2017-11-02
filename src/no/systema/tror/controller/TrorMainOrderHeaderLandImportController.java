@@ -35,6 +35,7 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
+import no.systema.skat.util.SkatConstants;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
@@ -61,6 +62,7 @@ import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
@@ -300,9 +302,9 @@ public class TrorMainOrderHeaderLandImportController {
 			//get dropdowns
 			Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> list = (ArrayList)model.get("archivedDocList");
 			 if(list!=null && list.size()>0){
-				 logger.info("WOW2!!!");
+				 //logger.info("WOW2!!!");
 			 }else{
-				 logger.info("FUCK2!!!");
+				 //logger.info("WHAT???");
 			 }
 			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 			
@@ -466,6 +468,84 @@ public class TrorMainOrderHeaderLandImportController {
 		//populate the list on parent record
 		 headerOrderRecord.setTrackAndTraceloggingRecord(list);
 		 
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_updateStatus.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doUpdateStatus(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		
+		Map model = new HashMap();
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		ModelAndView successView = null;
+		
+		String opd = request.getParameter("currentOpd");
+		String avd = request.getParameter("currentAvd");
+		String newStatus = request.getParameter("selectedStatus");
+		//---------------------------------------------------------------------------
+		//This request mapping is called from the order header OR from the order list
+		//---------------------------------------------------------------------------
+		if(strMgr.isNotNull(opd) && strMgr.isNotNull(avd)){
+			//meaning the call was from order header
+			successView = new ModelAndView("redirect:tror_mainorderlandimport.do?action=doFetch&heavd=" + avd + "&heopd=" + opd);
+		}else{
+			//meaning the call was from the order list (main entry point of Oppdragsregistrering)
+			successView = new ModelAndView("redirect:tror_mainorderlist.do?lang=" + appUser.getUsrLang() + "&action=doFind");
+			Enumeration requestParameters = request.getParameterNames();
+		    while (requestParameters.hasMoreElements()) {
+		        String element = (String) requestParameters.nextElement();
+		        String value = request.getParameter(element);
+		        if (element != null && value != null) {
+	        		if(element.startsWith("currentAvd")){
+        				avd = value;
+        			}else if(element.startsWith("currentOpd")){
+        				opd = value;
+        			}else if(element.startsWith("selectedStatus")){
+        				newStatus = value;
+        			}
+        		}
+	    	}
+		}
+		logger.info("Method: doUpdateStatus");
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+		}else{
+			String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_SPECIFIC_ORDER_STATUS_URL;
+			String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=U" + "&heavd=" + avd + "&heopd=" + opd + "&hest=" + newStatus;
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS:" + urlRequestParamsKeys);
+	    	
+	    	
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    	//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	
+	    	if(jsonPayload!=null){
+	    		
+	    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainerStatusUpdate(jsonPayload);
+	    		if(container!=null){
+	    			for(JsonTrorOrderHeaderRecordStatus record : container.getList()){
+	    				logger.info("Status:" + record.getStatus());
+	    				if("ok".equals(record.getStatus())){
+	    					//Update successfully done!
+	    		    		logger.info("[INFO] Record successfully updated, OK ");
+	    				}else{
+	    					logger.info("[ERROR] error at update!! Check it ... ");
+	    				}
+	    			}
+	    		}
+	    	}
+		}
+		return successView;
 	}
 	/**
 	 * 

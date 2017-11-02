@@ -41,7 +41,9 @@ public class TrorUrlDataStore {
 	//----------------------
 	//http://gw.systema.no/syjservicestror/syjsHEADF_U.do?user=OSCAR&heavd=2&heopd=100&...
 	static public String TROR_BASE_UPDATE_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_U.do?";
-	
+	//http://gw.systema.no:8080/syjservicestror/syjsHEADF_STATUS_U.do?user=OSCAR&mode=U&heavd=1&heopd=184&hest=S
+	static public String TROR_BASE_UPDATE_SPECIFIC_ORDER_STATUS_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_STATUS_U.do?";
+		
 	
 	/**
 	 * @Example UPDATE:

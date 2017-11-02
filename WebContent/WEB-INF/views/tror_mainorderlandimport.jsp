@@ -254,7 +254,34 @@
 			 				</c:otherwise>
 		 				</c:choose>
 		 				<td align="right" class="text12White" width="50%">
-		 					STATUS&nbsp;&nbsp;<font style="color: orangered"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
+		 					<img style="vertical-align: middle;" onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+							STATUS
+							<img id="updateStatusImg" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="9px" height="9px" border="0" alt="change status">
+		 					&nbsp;&nbsp;<font style="color: orangered"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
+		 					<div class="text11" style="position: relative; display: inline;" align="left" >
+				 				<span style="position:absolute;left:-40px; top:5px; width:400px;" id="status_info" class="popupWithInputText text11"  >
+					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
+										"syklusen" fra det første gang registreres til det er ferdig fakturert og avsluttet.</p> 
+				           			<ul>
+				           				<li><b>' '</b>&nbsp;(blank) "Åpent". Oppdraget er ikke fakturert og det er åpent for alle typer endringer.
+				           				<li><b>U</b>&nbsp;Booking / B/L er laget, men oppdrag er ikke bearbeidet. Hvis et oppdrag i sjø-modulen er påbegynt via Booking eller B/L, vill oppdraget inntil man går inn og jobber med det, ha denne statusen.</li>
+				           				<li><b>K</b>&nbsp;"Ferdigmeldt". Oppdraget ligger i kø for ferdigmeldte oppdrag. Man har fortsatt mulighet for å endre på fakturaen, eller omgjøre klarmeldingen.</li>
+				           				<li><b>C</b>&nbsp;"Klar for samlefaktura". Oppdraget ligger i kø for samlefaktura. Man har fremdeles mulighet for å endre på fakturaen eller fjerne fra samlefakturakø.</li>	
+				           				
+				           				<li><b>F</b>&nbsp;"Fakturert". Oppdraget er fakturert, men ennå ikke overført til økonomisystemet. Oppdraget kan hverken krediteres eller slettes i denne status. De enkelte fakturaer kan derimot slettes (MENU INV, punkt 6).Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ***".</li>	
+				           				<li><b>G</b>&nbsp;"Merket for overføring". Oppdragene har denne status i tiden mellom merking for overføring til regnskap og selve overføringen.Ved denne status kan fakturaer slettes. Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ****".Ordinær kreditering - se under.</li>	
+				           				<li><b>T</b>&nbsp;Overført men ikke oppdatert i statistikk. Et oppdrag med denne statusen er ferdig overført til regnskap, men ennå ikke oppdatert i statistikk.</li>	
+				           				<li><b>O</b>&nbsp;"Overført". Ferdig overført til regnskap. I denne status kan en faktura i sin helhet krediteres, men ikke slettes.</li>	
+				           				<li><b>S</b>&nbsp;"Slettet". Oppdraget er slettet via funksjon for sletting av oppdrag.</li>	
+				           				<li><b>X</b>&nbsp;"Under oppdatering ". Noen arbeider med oppdraget, og oppholder seg på oppdragsbildet. Hvis man, mens man er inne på et oppdrag, "mister" kontakten med systemet, eller det oppstår en feilsituasjon, vil oppdraget kunne bli "hengende" i status X.</li>	
+				           				<li><b>M</b>&nbsp;"Under oppdatering ". Oppdraget er låst fordi en overføring av import-MVA fra fortollingsprogrammet foregår akkurat nå. OBS! Som man forstår skal et oppdrag ha status 'X' eller 'M' kun en begrenset tidsperiode. Dersom oppdrag har denne status permanent skyldes dette unormalt jobbavbrudd - f.eks strømbrudd.
+				           						Ta i så fall kontakt med dataansvarlig slik at hun eller han kan rette statusen på oppdraget til ' '.</li>	
+				           							
+				           			</ul>
+								</span>	
+							</div>
+		 					
+		 					
 		 				</td>
 	 				</tr>
  					</table>
@@ -1290,6 +1317,44 @@
             <tr height="2"><td></td></tr>
             
 			<tr height="10"><td ></td></tr>
+			
+			<%-- change status dialog --%>	
+			 <tr>
+				<td>
+					<div id="dialogUpdateStatus" title="Dialog">
+						 	<form action="tror_mainorderlandimport_updateStatus.do" name="updateStatusForm" id="updateStatusForm" >
+						 	<input type="hidden" name="currentAvd" id="currentAvd" value='${model.record.heavd}'>
+						 	<input type="hidden" name="currentOpd" id="currentOpd" value='${model.record.heopd}'>
+							<p class="text12" >Change status as needed.</p>
+							<table>
+								<tr>
+									<td class="text12" align="left" >
+										Status
+									</td>
+									<td class="text12MediumBlue">
+										<select name="selectedStatus" id="selectedStatus">
+					            			<option value="">-vælg-</option>
+					            			<option value=" ">Åpent</option>
+					            			<option value="U">U</option>
+											<option value="K">K</option>
+											<option value="C">C</option>
+											<option value="F">F</option>
+											<option value="G">G</option>
+											<option value="T">T</option>
+											<option value="O">O</option>
+											<option value="S">S</option>
+											<option value="X">X</option>
+											<option value="M">M</option>
+										</select>	
+									</td>
+								</tr>
+							</table>
+							</form>
+					</div>
+				</td>
+			</tr>
+
+			
 	</table>
 
 		

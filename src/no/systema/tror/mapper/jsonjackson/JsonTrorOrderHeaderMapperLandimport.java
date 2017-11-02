@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 
 
 
@@ -38,5 +39,24 @@ public class JsonTrorOrderHeaderMapperLandimport {
 		
 		return container;
 	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorOrderHeaderContainer getContainerStatusUpdate(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonTrorOrderHeaderContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderHeaderContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		for (JsonTrorOrderHeaderRecordStatus record : container.getList()){
+			//DEBUG
+		}
+		
+		return container;
+	}
+	
 	
 }

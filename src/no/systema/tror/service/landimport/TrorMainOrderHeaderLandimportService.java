@@ -17,6 +17,7 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 public interface TrorMainOrderHeaderLandimportService {
 	public JsonTrorOrderHeaderContainer getOrderHeaderContainer(String utfPayload);
 	public JsonTrorOrderLandImportInvoiceContainer getOrderInvoiceContainer(String utfPayload);
+	public JsonTrorOrderHeaderContainer getOrderHeaderContainerStatusUpdate(String utfPayload);
 	//public JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer getOrderInvoiceReadyMarkContainer(String utfPayload);
 	
 

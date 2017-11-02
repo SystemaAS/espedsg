@@ -2044,8 +2044,55 @@
 	  return isTrue;
 	  
   }
-  
-//-------------------
+  //-------------------------------------------
+  //START Model dialog ADMIN: "Update status"
+  //-------------------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq("#dialogUpdateStatus").dialog({
+		  autoOpen: false,
+		  maxWidth:500,
+          maxHeight: 400,
+          width: 280,
+          height: 220,
+		  modal: true
+	  });
+  });
+  //Present dialog box onClick (href in parent JSP)
+  jq(function() {
+	  jq("#updateStatusImg").click(function() {
+		  //setters (add more if needed)
+		  jq('#dialogUpdateStatus').dialog( "option", "title", "Update Status" );
+		  
+		  //deal with buttons for this modal window
+		  jq('#dialogUpdateStatus').dialog({
+			 buttons: [ 
+	            {
+				 id: "dialogSaveTU",	
+				 text: "Ok",
+				 click: function(){
+					 		jq('#updateStatusForm').submit();
+				 		}
+			 	 },
+	 	 		{
+			 	 id: "dialogCancelTU",
+			 	 text: "Cancel", 
+				 click: function(){
+					 		//back to initial state of form elements on modal dialog
+					 		jq("#dialogSaveSU").button("option", "disabled", true);
+					 		jq("#selectedStatus").val("");
+					 		jq( this ).dialog( "close" ); 
+				 		} 
+	 	 		 } ] 
+		  });
+		  //init values
+		  jq("#dialogSaveSU").button("option", "disabled", true);
+		  //open now
+		  jq('#dialogUpdateStatus').dialog('open');
+	  });
+  });
+
+  //-------------------
   //Datatables jquery
   //-------------------
   //private function
