@@ -330,7 +330,6 @@
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
 			           <td width="2%" align="center" class="text11MediumBlue">
 			           		<img class="updateStatus" id="updateStatus${counter.count}" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="12px" height="12px" border="0" alt="change status">
-			           		
 			           		<%-- change status dialog --%>
 							<div style="display: none;" class="clazz_dialog" id="dialogUpdateStatus${counter.count}" title="Dialog">
 							 	<form action="tror_mainorderlandimport_updateStatus.do" name="updateStatusForm${counter.count}" id="updateStatusForm${counter.count}" >
