@@ -186,6 +186,7 @@ public class SkatExportHeaderController {
 				totalItemLinesObject.setFakturaListTotValidCurrency(sumFaktTotalRecord.getTot_vakd());
 				totalItemLinesObject.setFakturaListTotSum(sumFaktTotalRecord.getTot_fabl());
 				totalItemLinesObject.setFakturaListTotKurs(sumFaktTotalRecord.getTot_vaku());
+				totalItemLinesObject.setFakturaListMrn(sumFaktTotalRecord.getTot_mrn());
 				
 				//-------------
 				//FETCH RECORD
@@ -1565,6 +1566,8 @@ public class SkatExportHeaderController {
 			record.setFakturaListTotValidCurrency(totalItemLinesObject.getFakturaListTotValidCurrency());
 			record.setFakturaListTotSum(totalItemLinesObject.getFakturaListTotSum());
 			record.setFakturaListTotKurs(totalItemLinesObject.getFakturaListTotKurs());
+			record.setFakturaListMrn(totalItemLinesObject.getFakturaListMrn());
+			
 			
 			model.put(SkatConstants.DOMAIN_RECORD, record);
 			//put the header topic in session for the coming item lines

@@ -244,6 +244,7 @@
 					                    <th class="text12" ><span title="dkef_vakd">&nbsp;Møntsort&nbsp;</span></th>
 					                    <th align="right" class="text12" ><span title="dkef_vaku">&nbsp;Kurs&nbsp;</span></th>
 					                    <th class="text12" align="left"><span title="dkef_omr">Faktor&nbsp;</span></th>
+					                    <th class="text12" align="left"><span title="dkef_mrn">MRN&nbsp;</span></th>
 					                    <c:if test="${ model.status == 'M' || empty  model.status || model.status == '11' || model.status == '20' || model.status == '97'}">
 					                    	<th align="center" class="text12" nowrap>Fjern</th>
 					                    </c:if>
@@ -271,6 +272,8 @@
 							               <td class="text11" >&nbsp;${record.dkef_vakd}</td>
 							               <td align="right" class="text11" >&nbsp;${record.dkef_vaku}&nbsp;</td>
 							               <td class="text11" >&nbsp;${record.dkef_omr}</td>
+							               <td align="left" class="text11" >&nbsp;${record.dkef_mrn}</td>
+							               
 							               <c:if test="${ model.status == 'M' || empty  model.status || model.status == '11' || model.status == '20' || model.status == '97'}">	
 								               <td width="4%" class="text11" align="center" nowrap>
 								               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="skatexport_edit_invoice.do?action=doDelete&sign=${model.sign}&avd=${model.avd}&opd=${model.opd}&status=${model.status}&fak=${record.dkef_fatx}">

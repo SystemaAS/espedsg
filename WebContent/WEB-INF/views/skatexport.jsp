@@ -220,6 +220,7 @@
 	                    </div>
 	                    </td>
 	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.arende"/>&nbsp;</td>
+	                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.skat.export.list.search.label.mrn"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.refnr"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.xrefnr"/>&nbsp;</td>
 	                    <td class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.skat.export.list.search.label.aart"/>&nbsp;</td>
@@ -257,6 +258,7 @@
 	               				&nbsp;${topic.opd}
 		               		</a>
 		               </td>
+		               <td class="tableCell" >&nbsp;${topic.dkeh_mrn}</td>
 		               <td class="tableCell" >&nbsp;${topic.refnr}</td>
 		               <td class="tableCell" >&nbsp;${topic.dkeh_xref}</td>
 		               <td class="tableCell" >&nbsp;${topic.aart}</td>

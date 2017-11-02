@@ -43,7 +43,7 @@
 				                     --%> 
 				                    <th align="right" class="text12">&nbsp;Beløb&nbsp;</th> 
 				                    <th class="text12">&nbsp;Møntsort&nbsp;</th> 
-				                    
+				                    <th align="left" class="text12">&nbsp;MRN&nbsp;</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody>
@@ -65,6 +65,7 @@
 					                --%>
 					               <td align="right" class="text11" >&nbsp;${record.dkef_fabl}&nbsp;</td>
 					               <td align="center" class="text11" >&nbsp;${record.dkef_vakd}</td>
+					               <td align="left" class="text11" >&nbsp;${record.dkef_mrn}</td>
 					               
 				               </tr>
 				               </c:forEach>

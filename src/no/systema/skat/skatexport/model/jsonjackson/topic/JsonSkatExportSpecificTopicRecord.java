@@ -68,6 +68,10 @@ public class JsonSkatExportSpecificTopicRecord extends JsonAbstractGrandFatherRe
 	public void setFakturaListTotKurs(String value) {  this.fakturaListTotKurs = value; }
 	public String getFakturaListTotKurs() { return this.fakturaListTotKurs; }
 	
+	private String fakturaListMrn = null;
+	public void setFakturaListMrn(String value) {  this.fakturaListMrn = value; }
+	public String getFakturaListMrn() { return this.fakturaListMrn; }
+	
 	
 	
 	//in order to validate before a "send topic"

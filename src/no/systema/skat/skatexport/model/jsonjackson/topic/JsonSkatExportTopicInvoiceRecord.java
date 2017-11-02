@@ -39,6 +39,10 @@ public class JsonSkatExportTopicInvoiceRecord extends JsonAbstractGrandFatherRec
 	public void setDkef_faty(String value) {  this.dkef_faty = value; }
 	public String getDkef_faty() { return this.dkef_faty;}
 	
+	private String dkef_mrn = null;
+	public void setDkef_mrn(String value) {  this.dkef_mrn = value; }
+	public String getDkef_mrn() { return this.dkef_mrn;}
+	
 	private String dkef_fatx = null;
 	public void setDkef_fatx(String value) {  this.dkef_fatx = value; }
 	public String getDkef_fatx() { return this.dkef_fatx;}
