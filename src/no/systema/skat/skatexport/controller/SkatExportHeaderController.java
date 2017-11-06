@@ -379,6 +379,7 @@ public class SkatExportHeaderController {
 					    		this.setDomainObjectsInView(session, model, jsonSkatExportSpecificTopicRecord, totalItemLinesObject );
 					    		if(totalItemLinesObject.getSumOfAntalItemLines()>0){
 					    			this.adjustValidUpdateFlag(model, jsonSkatExportSpecificTopicRecord);
+					    			
 					    		}else{
 					    			//this type is allowed to have total_item_lines = 0;
 					    			String ANGIV_50_IE507 = "50";
@@ -406,8 +407,9 @@ public class SkatExportHeaderController {
 		    			successView.addObject(SkatConstants.EDIT_ACTION_ON_TOPIC, SkatConstants.ACTION_UPDATE);
 		    			//only with update
 		    			if(!"doFetch".equals(action)){
-		    				successView = refreshView;
-		    				logger.info("REFRESH VIEW!!!!!!!!!!!!!!!!!!!!1");
+		    				//commented since this affected the is validUpdate attribute ...
+		    				//successView = refreshView;
+		    				//logger.info("REFRESH VIEW!!!!!!!!!!!!!!!!!!!!1");
 		    			}
 		            }else{
 	            		//Validation errors have been generated and we must offset to some state (set or changed above in some flow)

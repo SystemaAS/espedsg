@@ -1054,7 +1054,7 @@
 				 				    <c:when test="${ model.record.dkeh_syst == 'M' || empty  model.record.dkeh_syst || model.record.dkeh_syst == '11' || model.record.dkeh_syst == '20' || model.record.dkeh_syst == '97' || model.record.dkeh_syst == '40'}">
 					 				    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='skatexport_edit.do';" value='<spring:message code="systema.skat.export.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
-					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}">
+					 				    	<c:if test="${not empty  model.record.dkeh_syop && model.record.validUpdate}"> 
 					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='skatexport_send.do';" value='<spring:message code="systema.skat.export.createnew.send"/>'/>
 					 				    	</c:if>
 				 				    </c:when>
