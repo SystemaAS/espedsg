@@ -5,14 +5,13 @@
 <script type="text/javascript">
 "use strict";
 var baseUrl = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
+var baseUrl = "/syjservicesbcore/syjsFAKT_DB_DW.do?user=${user.user}";
 
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 
 function load_data() {
 
-	//jq('#dateDetails').toggle(false); //close if open
-	
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
 	var selectedAvd = jq('#selectAvd').val();
@@ -67,6 +66,7 @@ d3.json(runningUrl, function(error, data) {
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
     
     var fullDateFormat = d3.time.format('%Y%m%d');
+    var fullDateFormatDw = d3.time.format('%Y%m');
     var yearFormat = d3.time.format('%Y');
     var monthFormat = d3.time.format('%m');
     var monthNameFormat = d3.time.format('%m.%b');
@@ -75,19 +75,24 @@ d3.json(runningUrl, function(error, data) {
    
     // normalize/parse data
 	 _.each(faktData, function(d) {
-	  d.date = fullDateFormat.parse(d.registreringsdato);
+	  d.date = fullDateFormatDw.parse(d.registreringsdato);
 	  d.year = yearFormat(d.date);
 	  d.month = monthNameFormat(d.date);
-	  d.tupro = d.tupro;
-	  d.tubilk = d.tubilk;
+	 // d.tupro = d.tupro; OK, ta bort
+	 // d.tubilk = d.tubilk;
+	  d.bilkod = d.bilkod;
 	  d.avdeling = d.avdeling;
-	  d.faopd = d.faopd;
-	  d.fabeln = +d.fabeln;
+	 // d.faopd = d.faopd; OK ta bort
+	 // d.fabeln = +d.fabeln;
+	  d.sumlin = +d.sumlin;
+	  d.belop = +d.belop;
 	  d.registreringsdato = +d.registreringsdato; 
-	  d.fakda = d.fakda;
-	  d.mottaker =  d.mottaker;
-	  d.fask = d.fask;
-	  d.favk = d.favk;
+	 // d.fakda = d.fakda;
+	 // d.mottaker =  d.mottaker;
+	 // d.fask = d.fask;
+	  d.intext = d.intext;
+	 // d.favk = d.favk;
+	  d.varek = d.varek;
 	});
  
 	// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -99,10 +104,10 @@ d3.json(runningUrl, function(error, data) {
 	var  dateDim  = fakt.dimension(function(d) {return d.date;});
     var  monthDim = fakt.dimension(function (d) {return d.month;});	
 	var  avdDim  = fakt.dimension(function(d) {return d.avdeling;});
-	var  tubilkDim  = fakt.dimension(function(d) {return d.tubilk;});
-	var  favkDim  = fakt.dimension(function(d) {return d.favk;});
+	var  tubilkDim  = fakt.dimension(function(d) {return d.bilkod;});
+	var  favkDim  = fakt.dimension(function(d) {return d.varek;});
     var  faskDim = fakt.dimension(function (d) {
-	        var fask = d.fask;
+	        var fask = d.intext;
 	        if (fask == 'I') {
 	            return 'Intern';
 	        } else {
@@ -111,10 +116,10 @@ d3.json(runningUrl, function(error, data) {
     });
 	
 	//Groups
-	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.fabeln;});
-	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.fabeln;});
-	var  favkDimGroup = favkDim.group().reduceSum(function(d) {return d.fabeln;});
-	var  faskDimGroup = faskDim.group().reduceSum(function(d) {return d.fabeln;});
+	var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.belop;});
+	var  tubilkDimGroup = tubilkDim.group().reduceSum(function(d) {return d.belop;});
+	var  favkDimGroup = favkDim.group().reduceSum(function(d) {return d.belop;});
+	var  faskDimGroup = faskDim.group().reduceSum(function(d) {return d.belop;});
 	//Charts 
 	var  avdChart   = dc.pieChart('#chart-ring-avd');
 	var  tubilkChart   = dc.pieChart('#chart-ring-tubilk');
@@ -141,19 +146,19 @@ d3.json(runningUrl, function(error, data) {
 	var dateDimGroup =  dateDim.group().reduce(   
             function (p, v) {
                 ++p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning += v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning += v.belop;   
                 } else {
-                	p.kostnad += v.fabeln; 
+                	p.kostnad += v.belop; 
                 }
                 return p;
             },
             function (p, v) {
                 --p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning -= v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning -= v.belop;   
                 } else {
-                	p.kostnad -= v.fabeln; 
+                	p.kostnad -= v.belop; 
                 }
                 return p;
             },
@@ -170,19 +175,19 @@ d3.json(runningUrl, function(error, data) {
     var monthDimGroup =  monthDim.group().reduce(   
             function (p, v) {
                 ++p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning += v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning += v.belop;   
                 } else {
-                	p.kostnad += v.fabeln; 
+                	p.kostnad += v.belop; 
                 }
                 return p;
             },
             function (p, v) {
                 --p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning -= v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning -= v.belop;   
                 } else {
-                	p.kostnad -= v.fabeln; 
+                	p.kostnad -= v.belop; 
                 }
                 return p;
             },
@@ -198,19 +203,19 @@ d3.json(runningUrl, function(error, data) {
     var omsetningsGroup =  faktAllDim.group().reduce(  
             function (p, v) {
                 ++p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning += v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning += v.belop;   
                 } else {
-                	p.kostnad += v.fabeln; 
+                	p.kostnad += v.belop; 
                 }
                 return p;
             },
             function (p, v) {
                 --p.count;
-                if (v.fakda != 'K') {
-                	p.omsetning -= v.fabeln;   
+                if (v.omskost != 'K') {
+                	p.omsetning -= v.belop;   
                 } else {
-                	p.kostnad -= v.fabeln; 
+                	p.kostnad -= v.belop; 
                 }
                 return p;
             },
@@ -324,7 +329,8 @@ d3.json(runningUrl, function(error, data) {
  	                'Dekningsbidrag: ' + percentageFormat(db)
  	            ].join('\n');
 			 })	
-        	.legend( dc.legend().x(1100).y(2).itemHeight(5).gap(20).legendText(function(d, i) { 
+ /* 
+			 .legend( dc.legend().x(1100).y(2).itemHeight(5).gap(20).legendText(function(d, i) { 
         				if (i == 0) {
         					return "Omsetning";
         				}
@@ -335,10 +341,12 @@ d3.json(runningUrl, function(error, data) {
         					return "Resultat";
         				}
         			}) 
-        	)        	
+        	)   
+ */       	
 		    .renderHorizontalGridLines(true)
 		  	.compose([
-		         dc.barChart(compositeChart)
+/*
+		  		dc.barChart(compositeChart)
 		           .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
 		           // .centerBar(true)
 		            .gap(30)
@@ -352,16 +360,22 @@ d3.json(runningUrl, function(error, data) {
 			        .valueAccessor(function (d) {
                 		return d.value.omsetning; 
         			}),            
-		    	dc.barChart(compositeChart)
-		           .colors('coral')
-		           //.centerBar(true)
+*/
+        		dc.barChart(compositeChart)
  					.gap(30)
- 					//.barPadding(1)
+ 					.group(monthDimGroup) 
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
-           			}),
+           			})
+           			.stack(monthDimGroup, function (d) {
+			        	//var oms = d.value.omsetning + Math.abs(d.value.kostnad); //spooky
+			        	var oms = 10000;
+			            return oms;
+			        })
+/*			        
+			        ,
 			    dc.lineChart(compositeChart)
-		            .colors('limegreen')
+		            //.colors('limegreen')
 					.valueAccessor(function (d) {
 						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
 						return resultat;
@@ -369,64 +383,15 @@ d3.json(runningUrl, function(error, data) {
 		            .dashStyle([5,3])   
 		            .dotRadius(10)
 		            .renderDataPoints([{radius: 5, fillOpacity: 1, strokeOpacity: 1}])
-		     ])         
-		    .brushOn(false);
+			        */
+		            ]) ;
+
+		//    .brushOn(false);
+	
 	        
 	  //  compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
 
 	    
-/*
-    omsKostLineChart 
-        .renderArea(true)
-        .width(1200)
-        .height(500)
-        .margins({top: 40, right: 10, bottom: 30, left: 60})
-        .dimension(dateDim)
-        .mouseZoomable(false)
-        .rangeChart(dateChart)
-        .yAxisPadding('5%')
-        .yAxisLabel("NOK")
-        .xAxisLabel("Dag")
-        .x(d3.time.scale().domain([mindate, maxdate]))
-        .xUnits(d3.time.months)
-        .elasticY(true)
-        .elasticX(true)
-        .renderHorizontalGridLines(true)
-        .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
-        .brushOn(false)
-        .group(dateDimGroup, 'Kostnad') 
-        .valueAccessor(function (d) {
-            return Math.abs(d.value.kostnad);
-        })
-        .stack(dateDimGroup, 'Omsetning', function (d) {
-            return d.value.omsetning;
-        });
-       
-  	   // omsKostLineChart.xAxis().tickFormat(d3.time.format('%B'));	   
-
-   dateChart.width(1200) 
-	    .height(150)
-	    .margins({top: 0, right: 0, bottom: 30, left: 70})
-	    .dimension(dateDim)
-	    .yAxisPadding('5%')
-        .yAxisLabel("NOK")
-        .xAxisLabel("Dag")
-	    .group(dateDimGroup, 'Resultat')
-	    .valueAccessor(function (d) {
-	    	var resultat = d.value.omsetning + d.value.kostnad;  
-	    	return resultat;
-	     })
-	    .centerBar(true)
-	    .gap(1)
-	    .x(d3.time.scale().domain([mindate, maxdate]))
-	    .elasticY(true)
-	    .elasticX(true)
-	    .renderHorizontalGridLines(true)
-	    .legend(dc.legend().x(1100).y(2).itemHeight(5).gap(20))
-	    .xUnits(d3.time.days);	    
-
-   dateChart.xAxis().tickFormat(d3.time.format('%B'));	  
-*/
    
 //Diverse grejer till datum   
 //https://jsfiddle.net/pramod24/q4aquukz/4/
@@ -482,7 +447,7 @@ d3.json(runningUrl, function(error, data) {
             all: 'Alle <strong>%total-count</strong> fakturalinjer for utvalg. Vennligst klikk på grafen for å bruke filtre.'
           });  
 
-	
+/*	
 	jq('#showDateDetails' ).click(function() {
 		if (dateDetailsDisplayed) {
 			jq( '#dateDetails').toggle();
@@ -553,7 +518,7 @@ d3.json(runningUrl, function(error, data) {
 		}
 		
 	});	
-	
+*/	
 	
 	dc.renderAll(); 
 	
@@ -743,8 +708,8 @@ window.addEventListener('error', function (e) {
 				  </div>
 
 			  	  <div class="row">
-					<div class="col-md-12" id="showDateDetails">
-  						<h3><a id="showDateDetails"><font class="text12">Vis Omsetning og kostnad / dag</font>
+					<div class="col-md-12" id="showDateDetailsXXX">
+  						<h3><a id="showDateDetailsXXX"><font class="text12">Vis Omsetning og kostnad / dag BORT</font>
   						&nbsp;<img onMouseOver="showPop('vis_fortoll_info');" onMouseOut="hidePop('vis_fortoll_info');" width="12px" height="12px" src="resources/images/info3.png">
 		 				</a></h3>
 		 				<div class="text11" style="position: relative;" align="left">
