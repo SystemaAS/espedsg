@@ -5,14 +5,17 @@ package no.systema.tds.tdsimport.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceContainer;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalContainer;
 //application library
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalForUpdateContainer;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceContainer;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceRecord;
-import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalContainer;
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceExternalRecord;
+import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoiceRecord;
 
 
 /**
@@ -22,14 +25,12 @@ import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicInvoic
  * 
  * 
  */
-public class TdsImportTopicInvoiceMapper {
+public class TdsImportTopicInvoiceMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsImportTopicInvoiceMapper.class.getName());
 	
 	public JsonTdsImportTopicInvoiceContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsImportTopicInvoiceContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsImportTopicInvoiceContainer.class); 
+		JsonTdsImportTopicInvoiceContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsImportTopicInvoiceContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTdsImportTopicInvoiceRecord record : container.getInvList()){

@@ -3,30 +3,28 @@
  */
 package no.systema.tds.tdsexport.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.tdsexport.model.jsonjackson.topic.archive.JsonTdsExportSpecificTopicArchiveContainer;
 import no.systema.tds.tdsexport.model.jsonjackson.topic.archive.JsonTdsExportSpecificTopicArchiveRecord;
-//
-import java.util.*;
 
 /**
  * @author oscardelatorre
  * @date June 28, 2013
  * 
  */
-public class TdsExportSpecificTopicArchiveMapper {
+public class TdsExportSpecificTopicArchiveMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsExportSpecificTopicArchiveMapper.class.getName());
 	
 	public JsonTdsExportSpecificTopicArchiveContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonTdsExportSpecificTopicArchiveContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportSpecificTopicArchiveContainer.class); 
+		JsonTdsExportSpecificTopicArchiveContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsExportSpecificTopicArchiveContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG

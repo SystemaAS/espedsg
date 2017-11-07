@@ -3,31 +3,29 @@
  */
 package no.systema.tds.mapper.jsonjackson.authorization.topic;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.model.jsonjackson.authorization.topic.JsonTdsAuthorizationTopicListContainer;
 import no.systema.tds.model.jsonjackson.authorization.topic.JsonTdsAuthorizationTopicListRecord;
-
-import java.util.*;
 
 /**
  * @author oscardelatorre
  * 
  */
-public class TdsAuthorizationTopicListMapper {
+public class TdsAuthorizationTopicListMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsAuthorizationTopicListMapper.class.getName());
 	
 	public JsonTdsAuthorizationTopicListContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonTdsAuthorizationTopicListContainer container = null;
 		
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			container = mapper.readValue(utfPayload.getBytes(), JsonTdsAuthorizationTopicListContainer.class); 
+			container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsAuthorizationTopicListContainer.class); 
 			//logger.info(mapper.writeValueAsString(topicListContainer));
 			logger.info("Mapping object from JSON payload...");
 			logger.info("[JSON-String payload status=OK]  " + container.getUser());

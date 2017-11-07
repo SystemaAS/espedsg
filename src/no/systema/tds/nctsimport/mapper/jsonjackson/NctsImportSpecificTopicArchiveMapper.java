@@ -3,30 +3,28 @@
  */
 package no.systema.tds.nctsimport.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.nctsimport.model.jsonjackson.topic.archive.JsonNctsImportSpecificTopicArchiveContainer;
 import no.systema.tds.nctsimport.model.jsonjackson.topic.archive.JsonNctsImportSpecificTopicArchiveRecord;
-//
-import java.util.*;
 
 /**
  * @author oscardelatorre
  * @date Apr 4, 2014
  * 
  */
-public class NctsImportSpecificTopicArchiveMapper {
+public class NctsImportSpecificTopicArchiveMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(NctsImportSpecificTopicArchiveMapper.class.getName());
 	
 	public JsonNctsImportSpecificTopicArchiveContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonNctsImportSpecificTopicArchiveContainer container = mapper.readValue(utfPayload.getBytes(), JsonNctsImportSpecificTopicArchiveContainer.class); 
+		JsonNctsImportSpecificTopicArchiveContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonNctsImportSpecificTopicArchiveContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG

@@ -5,8 +5,8 @@ package no.systema.tds.tdsimport.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopiedFromTransportUppdragContainer;
 
@@ -16,14 +16,12 @@ import no.systema.tds.tdsimport.model.jsonjackson.topic.JsonTdsImportTopicCopied
  * @date Sep 19, 2013
  * 
  */
-public class TdsImportTopicCopiedFromTransportUppdragMapper {
+public class TdsImportTopicCopiedFromTransportUppdragMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsImportTopicCopiedFromTransportUppdragMapper.class.getName());
 	
 	public JsonTdsImportTopicCopiedFromTransportUppdragContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsImportTopicCopiedFromTransportUppdragContainer topicListContainer = mapper.readValue(utfPayload.getBytes(), JsonTdsImportTopicCopiedFromTransportUppdragContainer.class); 
+		JsonTdsImportTopicCopiedFromTransportUppdragContainer topicListContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsImportTopicCopiedFromTransportUppdragContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + topicListContainer.getUser());
 		

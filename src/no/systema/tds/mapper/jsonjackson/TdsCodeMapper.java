@@ -3,34 +3,35 @@
  */
 package no.systema.tds.mapper.jsonjackson;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsCodeRecord;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsNctsCodeContainer;
 import no.systema.tds.model.jsonjackson.codes.JsonTdsNctsCodeRecord;
 
-import java.util.*;
-
 /**
  * @author oscardelatorre
  * 
  */
-public class TdsCodeMapper {
+public class TdsCodeMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsCodeMapper.class.getName());
 	
 	public JsonTdsCodeContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTdsCodeContainer codeContainer = null;
 		
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			codeContainer = mapper.readValue(utfPayload.getBytes(), JsonTdsCodeContainer.class); 
+			codeContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsCodeContainer.class); 
 			//logger.info("Mapping Code object from JSON payload...");
 			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
 			

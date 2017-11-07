@@ -3,24 +3,26 @@
  */
 package no.systema.tds.mapper.jsonjackson.avdsignature;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureContainer;
-import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureRecord;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureNameContainer;
 import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureNameRecord;
-
-
-import java.util.*;
+import no.systema.tds.model.jsonjackson.avdsignature.JsonTdsSignatureRecord;
 
 /**
  * @author oscardelatorre
  * 
  */
-public class TdsSignatureMapper {
+public class TdsSignatureMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(TdsSignatureMapper.class.getName());
 	
 	/**
@@ -30,12 +32,10 @@ public class TdsSignatureMapper {
 	 * @throws Exception
 	 */
 	public JsonTdsSignatureContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonTdsSignatureContainer container = null;
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			container = mapper.readValue(utfPayload.getBytes(), JsonTdsSignatureContainer.class); 
+			container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsSignatureContainer.class); 
 			//logger.info(mapper.writeValueAsString(topicListContainer));
 			//logger.info("Mapping Code object from JSON payload...");
 			//logger.info("[JSON-String payload status=OK]  " + taricCodeContainer.getUser());
