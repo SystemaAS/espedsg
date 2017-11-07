@@ -94,14 +94,13 @@ function load_data() {
 		}
 		
 		var tollData = data.dtoList;
-	    //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
+	    //console.log("tollData="+tollData);  //Tip: Or view i  Chrome devtool; NetWork-(mark xhr row)-Preview
 
 	    var NO = d3.locale(no_NO);
 	    var fullDateFormat = d3.time.format('%Y%m%d');
 	    var yearFormat = d3.time.format('%Y');
 	    var monthNameFormat = NO.timeFormat('%m.%b');
 	    var percentageFormat = d3.format('.2%');
-	    var numberFormat = d3.format(",.0f")
 	 
 	    // normalize/parse data
 		 _.each(tollData, function( d) {
@@ -388,11 +387,11 @@ function load_data() {
 			    .title(function (d) {
 			    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
 	                    	 return [
-	         	                d.key,
-	         	                'Reg. varuposter: ' + numberFormat(d.value.sum_reg_vareposter) ,
-	         	                'Off. varuposter: ' + numberFormat(d.value.sum_off_vareposter),
-	         	                'Fortollinger: ' + numberFormat(d.value.count),
-	         	               ' Differanse reg./off.: ' + numberFormat(diffRegAndOff)
+	                    		 d.key.substr(3) + ':',
+	         	                'Reg. varuposter: ' + d.value.sum_reg_vareposter ,
+	         	                'Off. varuposter: ' + d.value.sum_off_vareposter,
+	         	                'Fortollinger: ' + d.value.count,
+	         	                'Differanse reg./off.: ' + diffRegAndOff
 	         	            ].join('\n');
 	        	})	
 			  	.compose([
