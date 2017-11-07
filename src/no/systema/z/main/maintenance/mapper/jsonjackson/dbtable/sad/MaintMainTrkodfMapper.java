@@ -5,8 +5,8 @@ package no.systema.z.main.maintenance.mapper.jsonjackson.dbtable.sad;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.sad.JsonMaintMainTrkodfRecord;
@@ -18,15 +18,14 @@ import java.util.*;
  * @date Sep 20, 2016
  * 
  */
-public class MaintMainTrkodfMapper {
+public class MaintMainTrkodfMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(MaintMainTrkodfMapper.class.getName());
 	
 	public JsonMaintMainTrkodfContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		
 		
 		//At this point we now have an UTF-8 payload
-		JsonMaintMainTrkodfContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintMainTrkodfContainer.class); 
+		JsonMaintMainTrkodfContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonMaintMainTrkodfContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
 		Collection<JsonMaintMainTrkodfRecord> list = container.getList();

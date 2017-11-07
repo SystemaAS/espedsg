@@ -3,9 +3,8 @@
  */
 package no.systema.z.main.maintenance.mapper.jsonjackson.dbtable;
 
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.IJsonMaintMainContainer;
 
 /**
@@ -15,7 +14,7 @@ import no.systema.z.main.maintenance.model.jsonjackson.dbtable.IJsonMaintMainCon
  * @date Nov 22, 2016
  * 
  */
-public class MaintMainGenericMapper {
+public class MaintMainGenericMapper extends ObjectMapperAbstractGrandFather {
 	private String className = null;
 
 	public MaintMainGenericMapper(IJsonMaintMainContainer container) {
@@ -23,10 +22,8 @@ public class MaintMainGenericMapper {
 	}
 
 	public Object getContainer(String utfPayload) throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
+		
 		Class<?> clazz = Class.forName(className);
-		return mapper.readValue(utfPayload.getBytes(), clazz);
+		return super.getObjectMapper().readValue(utfPayload.getBytes(), clazz);
 	}
 }

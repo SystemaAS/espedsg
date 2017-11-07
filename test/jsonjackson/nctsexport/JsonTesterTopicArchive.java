@@ -5,8 +5,8 @@ package jsonjackson.nctsexport;
 
 import java.io.*;   
 import java.util.Collection;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.DeserializationConfig;
+
+
 //
 import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.util.EncodingTransformer;

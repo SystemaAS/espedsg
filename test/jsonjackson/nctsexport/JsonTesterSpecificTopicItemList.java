@@ -5,8 +5,9 @@ package jsonjackson.nctsexport;
 
 import java.io.*;   
 import java.util.Collection;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
+
 //
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.io.FileUtil;
@@ -37,7 +38,7 @@ public class JsonTesterSpecificTopicItemList{
 	private void run (){
 		try{
 			ObjectMapper mapper = new ObjectMapper();  
-			mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 			//read payload and transform to UTF-8 since all Json strings require UTF-8 encoding
 			FileUtil fileUtil = new FileUtil();
 			String testPayloadFile = "/Users/oscardelatorre/Documents/workspace/espedsg/test/SpecificNctsExportTopicItemListJsonStringPayload.txt";
