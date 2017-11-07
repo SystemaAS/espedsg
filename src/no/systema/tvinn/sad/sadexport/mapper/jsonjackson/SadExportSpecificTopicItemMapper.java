@@ -5,13 +5,11 @@ package no.systema.tvinn.sad.sadexport.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper; 
+
 //application library
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemRecord;
-
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemAvgifterContainer;
 import no.systema.tvinn.sad.sadexport.model.jsonjackson.topic.items.JsonSadExportSpecificTopicItemAvgifterRecord;
 
@@ -25,15 +23,12 @@ import java.util.*;
  * 
  * 
  */
-public class SadExportSpecificTopicItemMapper {
+public class SadExportSpecificTopicItemMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(SadExportSpecificTopicItemMapper.class.getName());
 	
 	public JsonSadExportSpecificTopicItemContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSadExportSpecificTopicItemContainer topicItemContainer = mapper.readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicItemContainer.class); 
+		JsonSadExportSpecificTopicItemContainer topicItemContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicItemContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		//logger.info("[JSON-String payload status=OK]  " + topicItemContainer.getUser());
 		//DEBUG
@@ -55,11 +50,9 @@ public class SadExportSpecificTopicItemMapper {
 	 */
 	
 	public JsonSadExportSpecificTopicItemAvgifterContainer getAvgifterContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonSadExportSpecificTopicItemAvgifterContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicItemAvgifterContainer.class); 
+		JsonSadExportSpecificTopicItemAvgifterContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSadExportSpecificTopicItemAvgifterContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG

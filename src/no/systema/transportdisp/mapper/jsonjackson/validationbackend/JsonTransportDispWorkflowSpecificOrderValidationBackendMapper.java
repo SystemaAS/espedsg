@@ -5,10 +5,9 @@ package no.systema.transportdisp.mapper.jsonjackson.validationbackend;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.order.validationbackend.JsonTransportDispWorkflowSpecificOrderValidationBackendContainer;
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
 
 /**
@@ -16,7 +15,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDi
  * @date Aug 21, 2015
  * 
  */
-public class JsonTransportDispWorkflowSpecificOrderValidationBackendMapper {
+public class JsonTransportDispWorkflowSpecificOrderValidationBackendMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTransportDispWorkflowSpecificOrderValidationBackendMapper.class.getName());
 	/**
 	 * 
@@ -25,10 +24,8 @@ public class JsonTransportDispWorkflowSpecificOrderValidationBackendMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispWorkflowSpecificOrderValidationBackendContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispWorkflowSpecificOrderValidationBackendContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispWorkflowSpecificOrderValidationBackendContainer.class); 
+		JsonTransportDispWorkflowSpecificOrderValidationBackendContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispWorkflowSpecificOrderValidationBackendContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispWorkflowSpecificOrderRecord record : container.getOrdervalidate()){
 			//DEBUG

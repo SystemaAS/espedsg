@@ -5,8 +5,8 @@ package no.systema.transportdisp.mapper.jsonjackson.avdsignature;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.avdsignature.JsonTransportDispSignatureContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.avdsignature.JsonTransportDispSignatureRecord;
@@ -20,7 +20,7 @@ import java.util.*;
  * 
  * 
  */
-public class JsonTransportDispSignatureMapper {
+public class JsonTransportDispSignatureMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTransportDispSignatureMapper.class.getName());
 	
 	/**
@@ -30,12 +30,10 @@ public class JsonTransportDispSignatureMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispSignatureContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonTransportDispSignatureContainer container = null;
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispSignatureContainer.class); 
+			container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispSignatureContainer.class); 
 			//logger.info(mapper.writeValueAsString(topicListContainer));
 			//logger.info("Mapping Code object from JSON payload...");
 			//logger.info("[JSON-String payload status=OK]  " + taricCodeContainer.getUser());
