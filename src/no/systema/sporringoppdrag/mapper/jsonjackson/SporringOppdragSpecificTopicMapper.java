@@ -5,11 +5,11 @@ package no.systema.sporringoppdrag.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
 //application library
 import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpecificTopicContainer;
 import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpecificTopicRecord;
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpecificTopicChildDocumentContainer;
 import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpecificTopicChildDocumentRecord;
 import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpecificTopicChildFreetextContainer;
@@ -31,7 +31,7 @@ import no.systema.sporringoppdrag.model.jsonjackson.topic.JsonSporringOppdragSpe
  * 
  * 
  */
-public class SporringOppdragSpecificTopicMapper {
+public class SporringOppdragSpecificTopicMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(SporringOppdragSpecificTopicMapper.class.getName());
 	/**
 	 * 
@@ -40,10 +40,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicContainer.class); 
+		JsonSporringOppdragSpecificTopicContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicRecord record : container.getDspoppdrag()){
@@ -58,10 +56,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicChildDocumentContainer getChildDocumentContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicChildDocumentContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildDocumentContainer.class); 
+		JsonSporringOppdragSpecificTopicChildDocumentContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildDocumentContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicChildDocumentRecord record : container.getGetdoc()){
@@ -76,10 +72,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicChildFreetextContainer getChildFreetextContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicChildFreetextContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildFreetextContainer.class); 
+		JsonSporringOppdragSpecificTopicChildFreetextContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildFreetextContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicChildFreetextRecord record : container.getFreetextlistA()){
@@ -94,10 +88,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicChildInvoiceContainer getChildInvoiceContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicChildInvoiceContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildInvoiceContainer.class); 
+		JsonSporringOppdragSpecificTopicChildInvoiceContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildInvoiceContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicChildInvoiceRecord record : container.getGetfak()){
@@ -113,10 +105,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicChildFriesokeVeierContainer getChildFriesokeVeierContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicChildFriesokeVeierContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildFriesokeVeierContainer.class); 
+		JsonSporringOppdragSpecificTopicChildFriesokeVeierContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildFriesokeVeierContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicChildFriesokeVeierRecord record : container.getGetfriesokeveier()){
@@ -132,10 +122,8 @@ public class SporringOppdragSpecificTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonSporringOppdragSpecificTopicChildHendelseslogContainer getChildHendelseslogContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonSporringOppdragSpecificTopicChildHendelseslogContainer container = mapper.readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildHendelseslogContainer.class); 
+		JsonSporringOppdragSpecificTopicChildHendelseslogContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSporringOppdragSpecificTopicChildHendelseslogContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonSporringOppdragSpecificTopicChildHendelseslogRecord record : container.getGettrackandtrace()){
