@@ -5,14 +5,27 @@
 
 <script type="text/javascript">
 "use strict";
+var jq = jQuery.noConflict();
+var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
+var no_NO = {
+	  "decimal": ".",
+	  "thousands": ".",
+	  "grouping": [3],
+	  "currency": ["NOK", ""],
+	  "dateTime": "%a %b %e %X %Y",
+	  "date": "%m/%d/%Y",
+	  "time": "%H:%M:%S",
+	  "periods": ["AM", "PM"],
+	  "days": ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+	  "shortDays": ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
+	  "months": ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+	  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+	};
+
 var tolldataSize;
 var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
-
-var jq = jQuery.noConflict();
-var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
-
 var merknader;
 
 d3.json(merknaderDescUrl, function(error, data) {
@@ -80,16 +93,14 @@ function load_data() {
 			return "no data found";
 		}
 		
-		
 		var tollData = data.dtoList;
-	    //console.log("tollData="+tollData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
-	    
+	    //console.log("tollData="+tollData);  //Tip: Or view i  Chrome devtool; NetWork-(mark xhr row)-Preview
+
+	    var NO = d3.locale(no_NO);
 	    var fullDateFormat = d3.time.format('%Y%m%d');
 	    var yearFormat = d3.time.format('%Y');
-	    var monthFormat = d3.time.format('%m');
-	    var monthNameFormat = d3.time.format('%m.%b');
+	    var monthNameFormat = NO.timeFormat('%m.%b');
 	    var percentageFormat = d3.format('.2%');
-	    var numberFormat = d3.format(",.0f")
 	 
 	    // normalize/parse data
 		 _.each(tollData, function( d) {
@@ -226,7 +237,15 @@ function load_data() {
 		    .group(typeDimGroup)
 		    .externalRadiusPadding(50)
 		    .innerRadius(30)
-		    .on("filtered", getFiltersValues);
+		    .on("filtered", getFiltersValues)
+		    .title(function (d) {
+			  	var percentage;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+			});	
 		    
 		yearChart
 		    .width(300)
@@ -235,7 +254,15 @@ function load_data() {
 		    .group(yearDimGroup)
 		     .externalRadiusPadding(50)
 		    .innerRadius(30)
-		    .on("filtered", getFiltersValues);
+		    .on("filtered", getFiltersValues)
+		    .title(function (d) {
+			  	var percentage;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+			});	
 	   
 		avdChart
 		    .width(300)
@@ -246,7 +273,16 @@ function load_data() {
 		    .innerRadius(30)
 		    .externalRadiusPadding(50)
 		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
-		    .on("filtered", getFiltersValues);
+		    .on("filtered", getFiltersValues)
+	 		.title(function (d) {
+			  	var percentage;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+			});	
+
 		
 		sisgChart
 		    .width(300)
@@ -256,7 +292,15 @@ function load_data() {
 		    .externalRadiusPadding(50)
 		    .dimension(sisgDim)
 		    .group(sisgDimGroup)
-		    .on("filtered", getFiltersValues);
+		    .on("filtered", getFiltersValues)
+		    .title(function (d) {
+			  	var percentage;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+			});	
 	
 		edimChart
 		    .width(300)
@@ -269,7 +313,8 @@ function load_data() {
 		    .group(edimDimGroup)
 			.renderTitle(true)
 			.title(function (d) {
-				var key, desc;
+				var key, desc,percentage ;
+				percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 				if (d.key == 'OK') {
 					key = 'OK';
 					desc = '';
@@ -285,7 +330,8 @@ function load_data() {
 				}
 	            return [
 	                key + ':',
-	                desc
+	                desc,
+	                percentageFormat(percentage)
 	            ].join('\n');			
 			});	    
 		
@@ -310,7 +356,6 @@ function load_data() {
 					return p.value.sum_off_vareposter;
 			});	
 		
-	
 		compositeChart
 			    .width(1200)
 			    .height(500)
@@ -324,7 +369,7 @@ function load_data() {
 	        	.xAxisLabel("Måned")      
 	            .elasticY(true)
 	            .elasticX(true)
-	            .mouseZoomable(false)  //true npot working in this context
+	            .mouseZoomable(false)  //true not working in this context
 	        	.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
 	        				if (i == 2) {
 	        					return "Antall registrerte vareposter";
@@ -342,11 +387,11 @@ function load_data() {
 			    .title(function (d) {
 			    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
 	                    	 return [
-	         	                d.key,
-	         	                'Reg. varuposter: ' + numberFormat(d.value.sum_reg_vareposter) ,
-	         	                'Off. varuposter: ' + numberFormat(d.value.sum_off_vareposter),
-	         	                'Fortollinger: ' + numberFormat(d.value.count),
-	         	               ' Differanse reg./off.: ' + numberFormat(diffRegAndOff)
+	                    		 d.key.substr(3) + ':',
+	         	                'Reg. varuposter: ' + d.value.sum_reg_vareposter ,
+	         	                'Off. varuposter: ' + d.value.sum_off_vareposter,
+	         	                'Fortollinger: ' + d.value.count,
+	         	                'Differanse reg./off.: ' + diffRegAndOff
 	         	            ].join('\n');
 	        	})	
 			  	.compose([
@@ -367,7 +412,7 @@ function load_data() {
 	                    	return diffRegAndOff;
 	                    })
 			     ])
-	            .xAxis().tickFormat(function(d) { 
+				.xAxis().tickFormat(function(d) { 
 	            	return d.substr(3); 
 	            });
 	
@@ -438,7 +483,7 @@ function load_data() {
 	            		signatur: obj.signatur, mottaker: obj.mottaker};
 	        });
 	       
-			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/vnd.ms-excel;charset=utf-8"});  // text/csv
+			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/ms-excel;charset=utf-8"});  // text/csv
 			
 	        saveAs(blob, 'fortolling_no-' + today + '.xls');
 	    });	
@@ -476,6 +521,9 @@ function load_data() {
 		    dataTable.render();	    //måste vara med
 		    
 		    var lang = jq('#language').val();
+		    if (lang == '') {
+		    	lang = 'NO';
+		    }
 			jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
@@ -589,6 +637,7 @@ window.addEventListener('error', function (e) {
 		<table style="border-collapse:initial;" width="100%"  cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
+<!-- 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap</font>&nbsp;						
@@ -596,7 +645,7 @@ window.addEventListener('error', function (e) {
 						<img  style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0">
 			  		</td>		
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-<!--  
+ 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
@@ -610,7 +659,7 @@ window.addEventListener('error', function (e) {
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
 					</td>
 
-					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
+					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
 				</tr>
 		</table>
@@ -784,8 +833,8 @@ window.addEventListener('error', function (e) {
 				           		<b>
 				           			Vis Fortollinger, filtrert
 				 	          	</b><br><br>
-				           		Bruk detaljer dersom det finnes intresse att se spesifike fortollinger.
-				           		Hvis stort antall fortollinger er utvalgt, ytelse kan oppleves som mindre bra.
+				           		Bruk detaljer dersom det finnes intresse att se spesifikke fortollinger.
+				           		Hvis et stort antall fortollinger er utvalgt, ytelse kan oppleves som mindre bra.
 								<br><br>
 						</span>
 						</div>

@@ -72,7 +72,7 @@
 					 						
 					 						<c:if test="${fn:contains(record.prog,'-RAPPORTER') }">
 							 					<font class="text14">
-							 						<a class="text14" href="report_dashboard.do" onMouseOver="showPop('infoRAPP');" onMouseOut="hidePop('infoRAPP');" onClick="setBlockUI(this);" > 	
+							 						<a class="text14" href="report_dashboard.do?report=report_fortolling_no" onMouseOver="showPop('infoRAPP');" onMouseOut="hidePop('infoRAPP');" onClick="setBlockUI(this);" > 	
 					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
 					 									<font class="text14NavyBlue">${record.prTxt}</font>
 			 										</a>
@@ -106,7 +106,44 @@
 													</span>
 												</font>
 											</c:if>
-					 						
+ 
+					 						<c:if test="${fn:contains(record.prog,'-TRAFIKKREGNSKAP') }">
+							 					<font class="text14">
+							 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview" onMouseOver="showPop('infoRAPP_TR');" onMouseOut="hidePop('infoRAPP_TR');" onClick="setBlockUI(this);" > 	
+					 									<img src="${imgSrcTomcat}" width="10px" height="10px" border="0">&nbsp;
+					 									<font class="text14NavyBlue">${record.prTxt}</font>
+			 										</a>
+			 										<%-- ====================================================  --%>
+									            	<%-- Here we have the info popup window                    --%>
+									            	<%-- ====================================================  --%>
+									            	<span style="position:absolute; left:720px; top:180px; width:390px; height:300px;" id="infoRAPP_TR" class="popupPlain"  >
+									           		<div align="center">
+									           			<table>
+									           				<tr>
+																<td align="left" class="text12" ><b>${record.prTxt}</b> 
+																</td>
+															</tr>
+															<tr class="text" height="10"><td></td></tr>
+															<tr>
+																<td align="center" >
+																	<c:choose>
+							 											<c:when test="${not empty record.infoImg}">
+																			<img src="${record.infoImg}" border="0" width="350px"; height="210px">
+																		</c:when>
+																		<c:otherwise>
+																			<%--
+																			<img src="resources/images/miniTodo.png" border="0" width="350px"; height="210px">
+																			 --%>
+																		</c:otherwise>
+																	</c:choose>	
+																</td>
+															</tr>
+										           		</table>
+													</div>
+													</span>
+												</font>
+											</c:if>
+
 					 						<c:if test="${fn:contains(record.prog,'-WRKTRIPS') }">
 					 							<c:choose>
 						 							<c:when test="${not empty user.userAS400}">

@@ -573,7 +573,7 @@ window.addEventListener('error', function (e) {
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-<!--  
+ 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
 							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
@@ -581,14 +581,14 @@ window.addEventListener('error', function (e) {
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
--->
+<!-- 
 					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" href="report_dashboard.do?report=report_fortolling_no">
 							<font class="tabDisabledLink">&nbsp;Fortolling(NO)</font>&nbsp;						
 						</a>
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
 			  		</td>
-			  						
+-->			  						
 					
 					<td width="60%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 	
