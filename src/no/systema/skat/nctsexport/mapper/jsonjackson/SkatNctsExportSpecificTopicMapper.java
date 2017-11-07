@@ -3,17 +3,19 @@
  */
 package no.systema.skat.nctsexport.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 //application library
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicContainer;
 import no.systema.skat.nctsexport.model.jsonjackson.topic.JsonSkatNctsExportSpecificTopicRecord;
-
-
-//
-import java.util.*;
 
 /**
  * 
@@ -26,7 +28,7 @@ public class SkatNctsExportSpecificTopicMapper {
 	
 	public JsonSkatNctsExportSpecificTopicContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatNctsExportSpecificTopicContainer topicListContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatNctsExportSpecificTopicContainer.class); 

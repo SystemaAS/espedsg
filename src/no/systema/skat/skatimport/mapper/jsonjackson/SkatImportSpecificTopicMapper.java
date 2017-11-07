@@ -3,22 +3,23 @@
  */
 package no.systema.skat.skatimport.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicContainer;
 //application library
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicFaktTotalContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicContainer;
-import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicOmbudContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicOmbudRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecalculationContainer;
-
-
-
-//
-import java.util.*;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportSpecificTopicRecord;
 
 /**
  * @author oscardelatorre
@@ -37,7 +38,7 @@ public class SkatImportSpecificTopicMapper {
 	 */
 	public JsonSkatImportSpecificTopicContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatImportSpecificTopicContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicContainer.class); 

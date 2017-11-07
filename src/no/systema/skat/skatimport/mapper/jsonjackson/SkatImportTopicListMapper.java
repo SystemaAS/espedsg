@@ -3,17 +3,19 @@
  */
 package no.systema.skat.skatimport.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-//application library
-import no.systema.main.controller.LoginController;
-import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefContainer;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListContainer;
+import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListExternalRefContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.JsonSkatImportTopicListRecord;
-//
-import java.util.*;
 
 /**
  * 
@@ -27,7 +29,7 @@ public class SkatImportTopicListMapper {
 	
 	public JsonSkatImportTopicListContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSkatImportTopicListContainer topicListContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatImportTopicListContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));

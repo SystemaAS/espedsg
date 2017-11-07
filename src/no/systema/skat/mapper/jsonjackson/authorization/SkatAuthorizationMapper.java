@@ -3,15 +3,18 @@
  */
 package no.systema.skat.mapper.jsonjackson.authorization;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 //application library
 import no.systema.skat.model.jsonjackson.authorization.JsonSkatAuthorizationContainer;
 import no.systema.skat.model.jsonjackson.authorization.JsonSkatAuthorizationRecord;
-
-import java.util.*;
 
 /**
  * 
@@ -25,7 +28,7 @@ public class SkatAuthorizationMapper {
 	
 	public JsonSkatAuthorizationContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonSkatAuthorizationContainer container = null;
 		
 		if(utfPayload!=null){
