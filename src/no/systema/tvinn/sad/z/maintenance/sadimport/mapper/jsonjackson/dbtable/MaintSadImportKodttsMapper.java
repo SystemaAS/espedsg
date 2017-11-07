@@ -5,8 +5,8 @@ package no.systema.tvinn.sad.z.maintenance.sadimport.mapper.jsonjackson.dbtable;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodttsContainer;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.JsonMaintSadImportKodttsRecord;
@@ -18,15 +18,13 @@ import java.util.*;
  * @date Jun 20, 2016
  * 
  */
-public class MaintSadImportKodttsMapper {
+public class MaintSadImportKodttsMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(MaintSadImportKodttsMapper.class.getName());
 	
 	public JsonMaintSadImportKodttsContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonMaintSadImportKodttsContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintSadImportKodttsContainer.class); 
+		JsonMaintSadImportKodttsContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonMaintSadImportKodttsContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
 		Collection<JsonMaintSadImportKodttsRecord> list = container.getList();

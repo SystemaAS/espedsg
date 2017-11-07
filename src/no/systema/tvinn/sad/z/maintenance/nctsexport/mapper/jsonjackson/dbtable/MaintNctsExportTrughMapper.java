@@ -3,8 +3,8 @@
  */
 package no.systema.tvinn.sad.z.maintenance.nctsexport.mapper.jsonjackson.dbtable;
 
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrughContainer;
 
@@ -17,7 +17,7 @@ public class MaintNctsExportTrughMapper {
 	
 	public JsonMaintNctsTrughContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonMaintNctsTrughContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintNctsTrughContainer.class); 

@@ -6,8 +6,6 @@ package jsonjackson.overview.ufortolledeoppdrag;
 import java.io.*;   
 import java.util.*;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.DeserializationConfig;
 //
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
