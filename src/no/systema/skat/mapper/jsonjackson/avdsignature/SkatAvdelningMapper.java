@@ -3,16 +3,18 @@
  */
 package no.systema.skat.mapper.jsonjackson.avdsignature;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 //application library
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningContainer;
 import no.systema.skat.model.jsonjackson.avdsignature.JsonSkatAvdelningRecord;
-
-
-import java.util.*;
 
 /**
  * @author oscardelatorre
@@ -31,7 +33,7 @@ public class SkatAvdelningMapper {
 	 */
 	public JsonSkatAvdelningContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonSkatAvdelningContainer container = null;
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload

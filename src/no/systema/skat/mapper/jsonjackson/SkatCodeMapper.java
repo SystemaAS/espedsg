@@ -3,19 +3,22 @@
  */
 package no.systema.skat.mapper.jsonjackson;
 
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Container;
+import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Record;
 //application library
 import no.systema.skat.model.jsonjackson.codes.JsonSkatCodeContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatCodeRecord;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Container;
-import no.systema.skat.model.jsonjackson.codes.JsonSkatCode2Record;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeContainer;
 import no.systema.skat.model.jsonjackson.codes.JsonSkatNctsCodeRecord;
-
-import java.util.*;
 
 /**
  * 
@@ -29,7 +32,7 @@ public class SkatCodeMapper {
 	
 	public JsonSkatCodeContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonSkatCodeContainer codeContainer = null;
 		

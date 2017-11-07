@@ -3,17 +3,19 @@
  */
 package no.systema.skat.mapper.jsonjackson;
 
+//
+import java.util.Collection;
+
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 //application library
 import no.systema.skat.model.jsonjackson.customer.JsonSkatCustomerContainer;
 import no.systema.skat.model.jsonjackson.customer.JsonSkatCustomerRecord;
-
-
-//
-import java.util.*;
 
 /**
  * 
@@ -27,7 +29,7 @@ public class SkatCustomerMapper {
 	
 	public JsonSkatCustomerContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatCustomerContainer customerListContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatCustomerContainer.class); 
