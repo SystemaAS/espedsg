@@ -5,8 +5,9 @@ package no.systema.tvinn.sad.sadimport.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemRecord;
@@ -36,7 +37,7 @@ public class SadImportSpecificTopicItemMapper {
 	
 	public JsonSadImportSpecificTopicItemContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSadImportSpecificTopicItemContainer topicItemContainer = mapper.readValue(utfPayload.getBytes(), JsonSadImportSpecificTopicItemContainer.class); 
@@ -63,7 +64,7 @@ public class SadImportSpecificTopicItemMapper {
 	 */
 	public JsonSadImportSpecificTopicItemPreferenceContainer getPreferenceContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSadImportSpecificTopicItemPreferenceContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadImportSpecificTopicItemPreferenceContainer.class); 
@@ -89,7 +90,7 @@ public class SadImportSpecificTopicItemMapper {
 	 */
 	public JsonSadImportSpecificTopicItemPvaContainer getPvaContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSadImportSpecificTopicItemPvaContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadImportSpecificTopicItemPvaContainer.class); 
@@ -118,7 +119,7 @@ public class SadImportSpecificTopicItemMapper {
 	
 	public JsonSadImportSpecificTopicItemAvgifterBeforeCalculationContainer getAvgifterBeforeCalculationContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSadImportSpecificTopicItemAvgifterBeforeCalculationContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadImportSpecificTopicItemAvgifterBeforeCalculationContainer.class); 
@@ -140,7 +141,7 @@ public class SadImportSpecificTopicItemMapper {
 	 */
 	public JsonSadImportSpecificTopicItemAvgifterAfterCalculationContainer getAvgifterAfterCalculationContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSadImportSpecificTopicItemAvgifterAfterCalculationContainer container = mapper.readValue(utfPayload.getBytes(), JsonSadImportSpecificTopicItemAvgifterAfterCalculationContainer.class); 
