@@ -9,7 +9,6 @@ import java.util.Collection;
 //jackson library
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,7 +62,7 @@ public class SkatImportSpecificTopicMapper {
 	 */
 	public JsonSkatImportSpecificTopicOmbudContainer getOmbudContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatImportSpecificTopicOmbudContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicOmbudContainer.class); 
@@ -96,7 +95,7 @@ public class SkatImportSpecificTopicMapper {
 	 */
 	public JsonSkatImportSpecificTopicRecalculationContainer getRecalculationContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatImportSpecificTopicRecalculationContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicRecalculationContainer.class); 
@@ -114,7 +113,7 @@ public class SkatImportSpecificTopicMapper {
 	 */
 	public JsonSkatImportSpecificTopicFaktTotalContainer getFaktTotalContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatImportSpecificTopicFaktTotalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicFaktTotalContainer.class); 

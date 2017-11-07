@@ -9,10 +9,7 @@ import java.util.Collection;
 //jackson library
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemAvgifterContainer;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemAvgifterRecord;
 import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer;
@@ -33,15 +30,12 @@ import no.systema.skat.skatimport.model.jsonjackson.topic.items.JsonSkatImportSp
  * 
  * 
  */
-public class SkatImportSpecificTopicItemMapper {
+public class SkatImportSpecificTopicItemMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(SkatImportSpecificTopicItemMapper.class.getName());
 	
 	public JsonSkatImportSpecificTopicItemContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemContainer topicItemContainer = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemContainer.class); 
+		JsonSkatImportSpecificTopicItemContainer topicItemContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + topicItemContainer.getUser());
 		
@@ -61,11 +55,8 @@ public class SkatImportSpecificTopicItemMapper {
 	 * @throws Exception
 	 */
 	public JsonSkatImportSpecificTopicItemAvgifterContainer getAvgifterContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemAvgifterContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemAvgifterContainer.class); 
+		JsonSkatImportSpecificTopicItemAvgifterContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemAvgifterContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -84,11 +75,8 @@ public class SkatImportSpecificTopicItemMapper {
 	 * 
 	 */
 	public JsonSkatImportSpecificTopicItemToldvaerdiContainer getTullvaerdiContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemToldvaerdiContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemToldvaerdiContainer.class); 
+		JsonSkatImportSpecificTopicItemToldvaerdiContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemToldvaerdiContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -106,11 +94,8 @@ public class SkatImportSpecificTopicItemMapper {
 	 * @throws Exception
 	 */
 	public JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer getTullvaerdiTransportContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer.class); 
+		JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemToldvaerdiTransportContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -129,11 +114,8 @@ public class SkatImportSpecificTopicItemMapper {
 	 * @throws Exception
 	 */
 	public JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer getBilagdaHandlingarContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer.class); 
+		JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemBilagdaHandlingarContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -151,11 +133,8 @@ public class SkatImportSpecificTopicItemMapper {
 	 * @throws Exception
 	 */
 	public JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container getCertificateNrAndCodeR442Container(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container container = mapper.readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container.class); 
+		JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonSkatImportSpecificTopicItemCertificateNrAndCodeR442Container.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
