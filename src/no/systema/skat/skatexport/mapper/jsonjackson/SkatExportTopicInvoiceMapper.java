@@ -49,7 +49,7 @@ public class SkatExportTopicInvoiceMapper {
 	 */
 	public JsonSkatExportTopicInvoiceContainer getContainerOneInvoice(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportTopicInvoiceContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicInvoiceContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
@@ -70,7 +70,7 @@ public class SkatExportTopicInvoiceMapper {
 	 */
 	public JsonSkatExportTopicInvoiceExternalContainer getContainerInvoiceExternal(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportTopicInvoiceExternalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicInvoiceExternalContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
@@ -91,7 +91,7 @@ public class SkatExportTopicInvoiceMapper {
 	 */
 	public JsonSkatExportTopicInvoiceExternalContainer getContainerOneInvoiceInvoiceExternal(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportTopicInvoiceExternalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicInvoiceExternalContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
@@ -110,7 +110,7 @@ public class SkatExportTopicInvoiceMapper {
 	 */
 	public JsonSkatExportTopicInvoiceExternalForUpdateContainer getContainerOneInvoiceInvoiceExternalForUpdate(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportTopicInvoiceExternalForUpdateContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportTopicInvoiceExternalForUpdateContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));

@@ -56,7 +56,7 @@ public class SkatExportSpecificTopicItemMapper {
 	 */
 	public JsonSkatExportSpecificTopicItemAvgifterContainer getAvgifterContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportSpecificTopicItemAvgifterContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportSpecificTopicItemAvgifterContainer.class); 

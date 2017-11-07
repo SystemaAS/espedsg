@@ -62,7 +62,7 @@ public class SkatExportSpecificTopicMapper {
 	
 	public JsonSkatExportSpecificTopicOmbudContainer getOmbudContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportSpecificTopicOmbudContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportSpecificTopicOmbudContainer.class); 
@@ -86,7 +86,7 @@ public class SkatExportSpecificTopicMapper {
 	 */
 	public JsonSkatExportSpecificTopicFaktTotalContainer getFaktTotalContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonSkatExportSpecificTopicFaktTotalContainer container = mapper.readValue(utfPayload.getBytes(), JsonSkatExportSpecificTopicFaktTotalContainer.class); 

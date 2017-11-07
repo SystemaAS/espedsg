@@ -6,7 +6,7 @@ package no.systema.skat.z.maintenance.main.mapper.jsonjackson.dbtable;
 //jackson library
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import no.systema.skat.z.maintenance.main.model.jsonjackson.dbtable.JsonMaintDkthaContainer;
@@ -22,7 +22,7 @@ public class MaintDkthaMapper {
 	
 	public JsonMaintDkthaContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonMaintDkthaContainer container = mapper.readValue(utfPayload.getBytes(), JsonMaintDkthaContainer.class); 
