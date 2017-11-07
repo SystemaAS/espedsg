@@ -46,10 +46,8 @@ public class TdsExportTopicInvoiceMapper extends ObjectMapperAbstractGrandFather
 	 * @throws Exception
 	 */
 	public JsonTdsExportTopicInvoiceContainer getContainerOneInvoice(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsExportTopicInvoiceContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceContainer.class); 
+		JsonTdsExportTopicInvoiceContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("User:" + container.getUser());
 		//logger.info("oneInvoice:" + container.getOneInvoice());
@@ -67,10 +65,8 @@ public class TdsExportTopicInvoiceMapper extends ObjectMapperAbstractGrandFather
 	 * @throws Exception
 	 */
 	public JsonTdsExportTopicInvoiceExternalContainer getContainerInvoiceExternal(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsExportTopicInvoiceExternalContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalContainer.class); 
+		JsonTdsExportTopicInvoiceExternalContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("User:" + container.getUser());
 		for (JsonTdsExportTopicInvoiceExternalRecord record : container.getListexternfakt()){
@@ -88,10 +84,8 @@ public class TdsExportTopicInvoiceMapper extends ObjectMapperAbstractGrandFather
 	 * @throws Exception
 	 */
 	public JsonTdsExportTopicInvoiceExternalContainer getContainerOneInvoiceInvoiceExternal(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsExportTopicInvoiceExternalContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalContainer.class); 
+		JsonTdsExportTopicInvoiceExternalContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("User:" + container.getUser());
 		for (JsonTdsExportTopicInvoiceExternalRecord record : container.getGetexternfakt()){
@@ -107,10 +101,8 @@ public class TdsExportTopicInvoiceMapper extends ObjectMapperAbstractGrandFather
 	 * @throws Exception
 	 */
 	public JsonTdsExportTopicInvoiceExternalForUpdateContainer getContainerOneInvoiceInvoiceExternalForUpdate(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTdsExportTopicInvoiceExternalForUpdateContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalForUpdateContainer.class); 
+		JsonTdsExportTopicInvoiceExternalForUpdateContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsExportTopicInvoiceExternalForUpdateContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("User:" + container.getUser());
 		

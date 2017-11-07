@@ -8,9 +8,6 @@ import java.util.Collection;
 //jackson library
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.tds.model.jsonjackson.authorization.JsonTdsAuthorizationContainer;
@@ -55,11 +52,8 @@ public class TdsAuthorizationMapper extends ObjectMapperAbstractGrandFather{
 	 * @throws Exception
 	 */
 	public JsonTdsPkiSmsCodeContainer getCodeContainerPkiSmsCode(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonTdsPkiSmsCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsPkiSmsCodeContainer.class); 
+		JsonTdsPkiSmsCodeContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsPkiSmsCodeContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("Mapping object from JSON payload...");
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());

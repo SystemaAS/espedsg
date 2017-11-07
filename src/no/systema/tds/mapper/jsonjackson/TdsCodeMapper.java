@@ -53,14 +53,11 @@ public class TdsCodeMapper extends ObjectMapperAbstractGrandFather{
 	 * @throws Exception
 	 */
 	public JsonTdsNctsCodeContainer getNctsContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		JsonTdsNctsCodeContainer codeContainer = null;
 		
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			codeContainer = mapper.readValue(utfPayload.getBytes(), JsonTdsNctsCodeContainer.class); 
+			codeContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsNctsCodeContainer.class); 
 			//logger.info(mapper.writeValueAsString(topicListContainer));
 			logger.info("Mapping Code object from JSON payload...");
 			logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());

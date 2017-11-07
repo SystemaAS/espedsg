@@ -60,12 +60,10 @@ public class TdsSignatureMapper extends ObjectMapperAbstractGrandFather{
 	 * @throws Exception
 	 */
 	public JsonTdsSignatureNameContainer getSignatureNameContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonTdsSignatureNameContainer container = null;
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			container = mapper.readValue(utfPayload.getBytes(), JsonTdsSignatureNameContainer.class); 
+			container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsSignatureNameContainer.class); 
 			//logger.info(mapper.writeValueAsString(topicListContainer));
 			//logger.info("Mapping Code object from JSON payload...");
 			//logger.info("[JSON-String payload status=OK]  " + taricCodeContainer.getUser());

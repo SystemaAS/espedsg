@@ -52,11 +52,8 @@ public class TdsImportSpecificTopicItemMapper extends ObjectMapperAbstractGrandF
 	 * @throws Exception
 	 */
 	public JsonTdsImportSpecificTopicItemAvgifterContainer getAvgifterContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonTdsImportSpecificTopicItemAvgifterContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemAvgifterContainer.class); 
+		JsonTdsImportSpecificTopicItemAvgifterContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemAvgifterContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -75,11 +72,8 @@ public class TdsImportSpecificTopicItemMapper extends ObjectMapperAbstractGrandF
 	 * @throws Exception
 	 */
 	public JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer getBilagdaHandlingarContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer.class); 
+		JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemBilagdaHandlingarContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
@@ -97,11 +91,8 @@ public class TdsImportSpecificTopicItemMapper extends ObjectMapperAbstractGrandF
 	 * @throws Exception
 	 */
 	public JsonTdsImportSpecificTopicItemFormanskoderContainer getFormanskoderContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-		
 		//At this point we now have an UTF-8 payload
-		JsonTdsImportSpecificTopicItemFormanskoderContainer container = mapper.readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemFormanskoderContainer.class); 
+		JsonTdsImportSpecificTopicItemFormanskoderContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTdsImportSpecificTopicItemFormanskoderContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG
