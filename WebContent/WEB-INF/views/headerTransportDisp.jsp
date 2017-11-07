@@ -104,15 +104,15 @@
 			    			
 			    			</td>		      				
 	      				<td class="text11" width="50%" align="right" valign="middle">
-	      					<img valign="bottom" src="resources/images/countryFlags/
+	      					
 	      					<c:choose>           
-	                   			<c:when test="${user.usrLang =='NO' || empty user.usrLang }">
-		                   			Flag_NO.gif
+	                   			<c:when test="${user.usrLang == 'NO' || empty user.usrLang }">
+		                   			<img src="resources/images/countryFlags/Flag_NO.gif" " height="12" border="0" alt="country">
       							</c:when>
 	      						<c:otherwise>
 	      							<c:choose>           
-	                   				<c:when test="${user.usrLang =='EN'}">
-	      								Flag_UK.gif		
+	                   				<c:when test="${user.usrLang == 'EN'}">
+	                   					<img src="resources/images/countryFlags/Flag_UK.gif" " height="12" border="0" alt="country">	
 	      							</c:when>
 	      							<c:otherwise>
 	      								<%-- put new implementations of flags here --%>
@@ -121,7 +121,7 @@
 	      							</c:choose>
 	      						</c:otherwise>
 	      					</c:choose>
-	      					" height="12" border="0" alt="country">&nbsp;
+	      					&nbsp;
 		      				
 		      				<font class="headerMenuGreen">
 			    				<img src="resources/images/appUser.gif" border="0" onClick="showPop('specialInformationAdmin');" > 

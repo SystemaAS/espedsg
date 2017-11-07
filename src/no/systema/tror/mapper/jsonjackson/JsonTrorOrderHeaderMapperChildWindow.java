@@ -5,8 +5,9 @@ package no.systema.tror.mapper.jsonjackson;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 
 import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
@@ -39,7 +40,7 @@ public class JsonTrorOrderHeaderMapperChildWindow {
 	 */
 	public JsonTrorCarrierContainer getCarrierContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorCarrierContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorCarrierContainer.class); 
@@ -61,7 +62,7 @@ public class JsonTrorOrderHeaderMapperChildWindow {
 	 */
 	public JsonTrorPostalCodeContainer getPostnrContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorPostalCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorPostalCodeContainer.class); 
@@ -82,7 +83,7 @@ public class JsonTrorOrderHeaderMapperChildWindow {
 	 */
 	public JsonTrorTollstedContainer getTollstedContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorTollstedContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorTollstedContainer.class); 

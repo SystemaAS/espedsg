@@ -5,8 +5,9 @@ package no.systema.tror.mapper.jsonjackson.order.logging;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextRecord;
@@ -23,7 +24,7 @@ public class JsonTrorOrderLoggingLargeTextMapper {
 	
 	public JsonTrorOrderHeaderLoggingLargeTextContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorOrderHeaderLoggingLargeTextContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderHeaderLoggingLargeTextContainer.class); 

@@ -5,8 +5,9 @@ package no.systema.tror.mapper.jsonjackson;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 
 import no.systema.tror.model.jsonjackson.order.landimport.childwindow.JsonTrorSellerDeliveryAddressContainer;
@@ -38,7 +39,7 @@ public class JsonTrorOrderHeaderMapperLandImportChildWindow {
 	 */
 	public JsonTrorSellerDeliveryAddressContainer getSellerDeliveryAddressesContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorSellerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorSellerDeliveryAddressContainer.class); 
@@ -60,7 +61,7 @@ public class JsonTrorOrderHeaderMapperLandImportChildWindow {
 	 */
 	public JsonTrorBuyerDeliveryAddressContainer getBuyerDeliveryAddressesContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorBuyerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorBuyerDeliveryAddressContainer.class); 
@@ -81,7 +82,7 @@ public class JsonTrorOrderHeaderMapperLandImportChildWindow {
 	 */
 	public JsonTrorLosseLasteStedContainer getLosseLasteContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
 		JsonTrorLosseLasteStedContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorLosseLasteStedContainer.class); 

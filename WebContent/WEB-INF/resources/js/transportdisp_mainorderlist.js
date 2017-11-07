@@ -368,6 +368,7 @@
 	  	  contentType: 'application/json',
 	  	  success: function(data) {
 	  		var len = data.length;
+	  		//alert(len);
 	  		for ( var i = 0; i < len; i++) {
 	  			if(data[i].errMsg!=''){
 	  					//alert(data[i].errMsg);

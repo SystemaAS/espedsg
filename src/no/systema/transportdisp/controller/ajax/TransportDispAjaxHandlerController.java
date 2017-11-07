@@ -859,9 +859,11 @@ public class TransportDispAjaxHandlerController {
 				 
 				 if(jsonPayload!=null){
 					JsonTransportDispWorkflowSpecificOrderContainer container = this.transportDispWorkflowSpecificOrderService.getContainer(jsonPayload);
-					//logger.info("A");
+					logger.info("A");
 		    		if(container!=null){
-		    			//logger.info("B:" + container.getErrMsg());
+		    			logger.info("B ->errMsg:" + container.getErrMsg());
+		    			logger.info("B ->wsavd:" + container.getWsavd());
+		    			
 		    			result.add(container);
 		    		}
 		    	  }

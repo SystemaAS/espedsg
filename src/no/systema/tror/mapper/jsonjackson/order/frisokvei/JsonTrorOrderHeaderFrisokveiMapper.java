@@ -5,8 +5,9 @@ package no.systema.tror.mapper.jsonjackson.order.frisokvei;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
 import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiRecord;
@@ -26,7 +27,7 @@ public class JsonTrorOrderHeaderFrisokveiMapper {
 	 */
 	public JsonTrorOrderHeaderFrisokveiContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonTrorOrderHeaderFrisokveiContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderHeaderFrisokveiContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());

@@ -5,8 +5,9 @@ package no.systema.tror.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
@@ -41,7 +42,7 @@ public class JsonTrorCodeMapper {
 	
 	public JsonTrorCodeContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorCodeContainer codeContainer = null;
 		
@@ -68,7 +69,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorCountryCodeContainer getCountryCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorCountryCodeContainer codeContainer = null;
 		
@@ -94,7 +95,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorCurrencyCodeContainer getCurrencyCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorCurrencyCodeContainer codeContainer = null;
 		
@@ -120,7 +121,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorOppdragsTypeCodeContainer getOppdragsTypeCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorOppdragsTypeCodeContainer codeContainer = null;
 		
@@ -147,7 +148,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorIncotermsCodeContainer getIncotermsCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorIncotermsCodeContainer codeContainer = null;
 		
@@ -174,7 +175,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorProductCodeContainer getProductCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorProductCodeContainer codeContainer = null;
 		
@@ -201,7 +202,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorEnhetCodeContainer getEnhetCodeContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorEnhetCodeContainer codeContainer = null;
 		
@@ -222,7 +223,7 @@ public class JsonTrorCodeMapper {
 	
 	public JsonTrorSignatureCodeContainer getSignatureContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorSignatureCodeContainer codeContainer = null;
 		
@@ -248,7 +249,7 @@ public class JsonTrorCodeMapper {
 	 */
 	public JsonTrorLosseLasteStedContainer getLosseLasteStedContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTrorLosseLasteStedContainer codeContainer = null;
 		

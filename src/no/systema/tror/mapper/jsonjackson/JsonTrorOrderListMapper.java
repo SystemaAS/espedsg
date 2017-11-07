@@ -5,8 +5,8 @@ package no.systema.tror.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
@@ -28,7 +28,7 @@ public class JsonTrorOrderListMapper {
 	 */
 	public JsonTrorOrderListContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonTrorOrderListContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderListContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
