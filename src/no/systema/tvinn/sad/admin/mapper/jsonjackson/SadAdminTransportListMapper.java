@@ -5,8 +5,9 @@ package no.systema.tvinn.sad.admin.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 //application library
 import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportListContainer;
 
@@ -24,7 +25,7 @@ public class SadAdminTransportListMapper {
 	
 	public JsonSadAdminTransportListContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
 		JsonSadAdminTransportListContainer topicListContainer = mapper.readValue(utfPayload.getBytes(), JsonSadAdminTransportListContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));

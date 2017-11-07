@@ -5,8 +5,9 @@ package no.systema.tvinn.sad.mapper.jsonjackson.authorization;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tvinn.sad.model.jsonjackson.authorization.JsonTvinnSadAuthorizationContainer;
 import no.systema.tvinn.sad.model.jsonjackson.authorization.JsonTvinnSadAuthorizationRecord;
@@ -25,7 +26,7 @@ public class TvinnSadAuthorizationMapper {
 	
 	public JsonTvinnSadAuthorizationContainer getContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		JsonTvinnSadAuthorizationContainer container = null;
 		
 		if(utfPayload!=null){
