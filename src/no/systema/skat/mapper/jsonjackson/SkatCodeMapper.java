@@ -60,7 +60,7 @@ public class SkatCodeMapper {
 	 */
 	public JsonSkatCode2Container getContainer2(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonSkatCode2Container codeContainer = null;
 		
@@ -89,7 +89,7 @@ public class SkatCodeMapper {
 	
 	public JsonSkatNctsCodeContainer getNctsContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonSkatNctsCodeContainer codeContainer = null;
 		
