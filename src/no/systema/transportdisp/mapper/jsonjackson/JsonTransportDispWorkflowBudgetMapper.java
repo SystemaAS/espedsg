@@ -5,8 +5,8 @@ package no.systema.transportdisp.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportDispWorkflowSpecificBudgetRecord;
@@ -19,7 +19,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.budget.JsonTransportD
  * @date Oct 12, 2015
  * 
  */
-public class JsonTransportDispWorkflowBudgetMapper {
+public class JsonTransportDispWorkflowBudgetMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTransportDispWorkflowBudgetMapper.class.getName());
 	/**
 	 * 
@@ -28,10 +28,8 @@ public class JsonTransportDispWorkflowBudgetMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispWorkflowSpecificBudgetContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispWorkflowSpecificBudgetContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispWorkflowSpecificBudgetContainer.class); 
+		JsonTransportDispWorkflowSpecificBudgetContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispWorkflowSpecificBudgetContainer.class); 
 		
 		return container;
 	}

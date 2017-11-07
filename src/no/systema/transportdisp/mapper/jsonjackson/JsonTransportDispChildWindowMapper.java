@@ -5,8 +5,8 @@ package no.systema.transportdisp.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerRecord;
@@ -47,7 +47,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.Jso
  * @date Apr 1, 2015
  * 
  */
-public class JsonTransportDispChildWindowMapper {
+public class JsonTransportDispChildWindowMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(JsonTransportDispChildWindowMapper.class.getName());
 	/**
 	 * 
@@ -56,10 +56,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispAvdContainer getAvdContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispAvdContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispAvdContainer.class); 
+		JsonTransportDispAvdContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispAvdContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispAvdRecord record : container.getAvdelningar()){
 			//DEBUG
@@ -74,10 +72,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispBilCodeContainer getBilCodeContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispBilCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispBilCodeContainer.class); 
+		JsonTransportDispBilCodeContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispBilCodeContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispBilCodeRecord record : container.getBilkodlist()){
 			//DEBUG
@@ -92,10 +88,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispBilNrContainer getBilNrContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispBilNrContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispBilNrContainer.class); 
+		JsonTransportDispBilNrContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispBilNrContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispBilNrRecord record : container.getBilnrlist()){
 			//DEBUG
@@ -109,10 +103,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispTranspCarrierContainer getTranspCarrierContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispTranspCarrierContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispTranspCarrierContainer.class); 
+		JsonTransportDispTranspCarrierContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispTranspCarrierContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispTranspCarrierRecord record : container.getTranslist()){
 			//DEBUG
@@ -127,10 +119,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispDriverContainer getDriverContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispDriverContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispDriverContainer.class); 
+		JsonTransportDispDriverContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispDriverContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispDriverRecord record : container.getSjoflist()){
 			//DEBUG
@@ -145,10 +135,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispCustomerContainer getCustomerContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispCustomerContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispCustomerContainer.class); 
+		JsonTransportDispCustomerContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispCustomerContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispCustomerRecord record : container.getInqcustomer()){
 			//DEBUG
@@ -164,10 +152,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispLoadUnloadPlacesContainer getLoadUnloadPlacesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispLoadUnloadPlacesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispLoadUnloadPlacesContainer.class); 
+		JsonTransportDispLoadUnloadPlacesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispLoadUnloadPlacesContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTransportDispLoadUnloadPlacesRecord record : container.getInqlosslass()){
 			//DEBUG
@@ -183,10 +169,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispFileUploadValidationContainer getFileUploadValidationContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispFileUploadValidationContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispFileUploadValidationContainer.class); 
+		JsonTransportDispFileUploadValidationContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispFileUploadValidationContainer.class); 
 		logger.info("[JSON-String payload errMsg]:" + container.getErrMsg());
 		
 		return container;
@@ -200,10 +184,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispDangerousGoodsContainer getDangerousGoodsContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispDangerousGoodsContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispDangerousGoodsContainer.class); 
+		JsonTransportDispDangerousGoodsContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispDangerousGoodsContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container);
 		for (JsonTransportDispDangerousGoodsRecord record : container.getUnNumbers()){
 			//record.getAdindx();
@@ -218,10 +200,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispPackingCodesContainer getPackingCodesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispPackingCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispPackingCodesContainer.class); 
+		JsonTransportDispPackingCodesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispPackingCodesContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container);
 		for (JsonTransportDispPackingCodesRecord record : container.getForpaknKoder()){
 			//record.getAdindx();
@@ -235,10 +215,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispTollstedCodesContainer getTollstedCodesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispTollstedCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispTollstedCodesContainer.class); 
+		JsonTransportDispTollstedCodesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispTollstedCodesContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container);
 		for (JsonTransportDispTollstedCodesRecord record : container.getTollstedsKoder()){
 			//record.getAdindx();
@@ -254,10 +232,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispSupplierContainer getSupplierContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispSupplierContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispSupplierContainer.class); 
+		JsonTransportDispSupplierContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispSupplierContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container);
 		for (JsonTransportDispSupplierRecord record : container.getLeverandorer()){
 			//record.getAdindx();
@@ -273,10 +249,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispGebyrCodeContainer getGebyrContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispGebyrCodeContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispGebyrCodeContainer.class); 
+		JsonTransportDispGebyrCodeContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispGebyrCodeContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
 		for (JsonTransportDispGebyrCodeRecord record : container.getGebyrKoder()){
 			//record.getAdindx();
@@ -290,10 +264,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispFrisokveiCodesContainer getFrisokveiContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispFrisokveiCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiCodesContainer.class); 
+		JsonTransportDispFrisokveiCodesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiCodesContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
 		for (JsonTransportDispFrisokveiCodesRecord record : container.getAwblinelist()){
 			//record.getAdindx();
@@ -307,10 +279,8 @@ public class JsonTransportDispChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispFrisokveiDocCodesContainer getFrisokveiDocContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispFrisokveiDocCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiDocCodesContainer.class); 
+		JsonTransportDispFrisokveiDocCodesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispFrisokveiDocCodesContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
 		for (JsonTransportDispFrisokveiDocCodesRecord record : container.getAwblinelist()){
 			//record.getAdindx();

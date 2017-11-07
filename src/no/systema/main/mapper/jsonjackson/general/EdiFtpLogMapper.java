@@ -5,8 +5,7 @@ package no.systema.main.mapper.jsonjackson.general;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
 //application library
 import no.systema.main.model.jsonjackson.general.JsonEdiFtpLogContainer;
 import no.systema.main.model.jsonjackson.general.JsonEdiFtpLogRecord;
@@ -22,7 +21,7 @@ import java.util.*;
  * @date May 18, 2016
  * 
  */
-public class EdiFtpLogMapper {
+public class EdiFtpLogMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(EdiFtpLogMapper.class.getName());
 	/**
 	 * 
@@ -31,11 +30,9 @@ public class EdiFtpLogMapper {
 	 * @throws Exception
 	 */
 	public JsonEdiFtpLogContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEdiFtpLogContainer container = mapper.readValue(utfPayload.getBytes(), JsonEdiFtpLogContainer.class); 
+		JsonEdiFtpLogContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEdiFtpLogContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEdiFtpLogRecord> fields = container.getList();
@@ -52,11 +49,9 @@ public class EdiFtpLogMapper {
 	 * @throws Exception
 	 */
 	public JsonEdiFtpLog2Container getLog2Container(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEdiFtpLog2Container container = mapper.readValue(utfPayload.getBytes(), JsonEdiFtpLog2Container.class); 
+		JsonEdiFtpLog2Container container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEdiFtpLog2Container.class); 
 		
 		//DEBUG
 		Collection<JsonEdiFtpLog2Record> fields = container.getList();

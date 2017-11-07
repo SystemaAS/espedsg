@@ -5,8 +5,8 @@ package no.systema.transportdisp.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWorkflowPostUpdateContainer;
 
@@ -17,7 +17,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.JsonTransportDispWork
  * @date Sep 15, 2015
  * 
  */
-public class JsonTransportDispWorkflowPostUpdateMapper {
+public class JsonTransportDispWorkflowPostUpdateMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTransportDispWorkflowPostUpdateMapper.class.getName());
 	/**
 	 * 
@@ -26,10 +26,8 @@ public class JsonTransportDispWorkflowPostUpdateMapper {
 	 * @throws Exception
 	 */
 	public JsonTransportDispWorkflowPostUpdateContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonTransportDispWorkflowPostUpdateContainer container = mapper.readValue(utfPayload.getBytes(), JsonTransportDispWorkflowPostUpdateContainer.class); 
+		JsonTransportDispWorkflowPostUpdateContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispWorkflowPostUpdateContainer.class); 
 		//logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		/*for (JsonTransportDispWorkflowSpecificOrderRecord record : container.getDspoppdrag()){
 			//DEBUG

@@ -5,8 +5,6 @@ package no.systema.ebooking.mapper.jsonjackson;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 //application library
 
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
@@ -18,6 +16,7 @@ import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadU
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadUnloadPlacesRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
 
@@ -31,7 +30,7 @@ import java.util.*;
  * 
  * 
  */
-public class JsonEbookingChildWindowMapper {
+public class JsonEbookingChildWindowMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonEbookingChildWindowMapper.class.getName());
 	/**
 	 * 
@@ -40,11 +39,9 @@ public class JsonEbookingChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonEbookingCustomerContainer getCustomerContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingCustomerContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingCustomerContainer.class); 
+		JsonEbookingCustomerContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEbookingCustomerContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEbookingCustomerRecord> fields = container.getInqFkund();
@@ -62,11 +59,9 @@ public class JsonEbookingChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonEbookingCustomerDeliveryAddressContainer getCustomerDeliveryAddressesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingCustomerDeliveryAddressContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingCustomerDeliveryAddressContainer.class); 
+		JsonEbookingCustomerDeliveryAddressContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEbookingCustomerDeliveryAddressContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEbookingCustomerDeliveryAddressRecord> fields = container.getInqdeladdr();
@@ -83,11 +78,9 @@ public class JsonEbookingChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonEbookingLoadUnloadPlacesContainer getLoadUnloadPlacesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingLoadUnloadPlacesContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingLoadUnloadPlacesContainer.class); 
+		JsonEbookingLoadUnloadPlacesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEbookingLoadUnloadPlacesContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEbookingLoadUnloadPlacesRecord> fields = container.getInqlosslass();
@@ -105,11 +98,9 @@ public class JsonEbookingChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonEbookingPackingCodesContainer getPackingCodesContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingPackingCodesContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingPackingCodesContainer.class); 
+		JsonEbookingPackingCodesContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEbookingPackingCodesContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEbookingPackingCodesRecord> fields = container.getForpaknKoder();
@@ -126,11 +117,9 @@ public class JsonEbookingChildWindowMapper {
 	 * @throws Exception
 	 */
 	public JsonEbookingDangerousGoodsContainer getDangerousGoodsContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonEbookingDangerousGoodsContainer container = mapper.readValue(utfPayload.getBytes(), JsonEbookingDangerousGoodsContainer.class); 
+		JsonEbookingDangerousGoodsContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEbookingDangerousGoodsContainer.class); 
 		
 		//DEBUG
 		Collection<JsonEbookingDangerousGoodsRecord> fields = container.getUnNumbers();

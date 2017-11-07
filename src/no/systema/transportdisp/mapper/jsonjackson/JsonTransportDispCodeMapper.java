@@ -5,8 +5,8 @@ package no.systema.transportdisp.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.codes.JsonTransportDispCodeContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.codes.JsonTransportDispCodeRecord;
@@ -20,18 +20,16 @@ import java.util.*;
  * 
  * 
  */
-public class JsonTransportDispCodeMapper {
+public class JsonTransportDispCodeMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTransportDispCodeMapper.class.getName());
 	
 	public JsonTransportDispCodeContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		JsonTransportDispCodeContainer codeContainer = null;
 		
 		if(utfPayload!=null){
 			//At this point we now have an UTF-8 payload
-			codeContainer = mapper.readValue(utfPayload.getBytes(), JsonTransportDispCodeContainer.class); 
+			codeContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispCodeContainer.class); 
 			//logger.info("Mapping Code object from JSON payload...");
 			//logger.info("[JSON-String payload status=OK]  " + codeContainer.getUser());
 			

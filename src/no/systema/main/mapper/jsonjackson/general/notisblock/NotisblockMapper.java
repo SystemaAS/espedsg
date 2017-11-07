@@ -5,8 +5,8 @@ package no.systema.main.mapper.jsonjackson.general.notisblock;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockRecord;
@@ -20,14 +20,12 @@ import java.util.*;
  * @author oscardelatorre
  * 
  */
-public class NotisblockMapper {
+public class NotisblockMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(NotisblockMapper.class.getName());
 	
 	public JsonNotisblockContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonNotisblockContainer container = mapper.readValue(utfPayload.getBytes(), JsonNotisblockContainer.class); 
+		JsonNotisblockContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonNotisblockContainer.class); 
 		//DEBUG
 		/*
 		logger.info("Mapping mapper container values (i.e. errMsg) JSON payload...");

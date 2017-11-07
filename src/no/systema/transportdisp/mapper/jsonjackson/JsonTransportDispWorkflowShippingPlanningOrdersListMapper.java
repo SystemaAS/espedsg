@@ -5,9 +5,9 @@ package no.systema.transportdisp.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper; 
+import com.fasterxml.jackson.core.JsonParser;
 
 //application library
 import no.systema.transportdisp.model.jsonjackson.workflow.shippinglists.JsonTransportDispWorkflowShippingPlanningCurrentOrdersListContainer;
@@ -30,7 +30,7 @@ public class JsonTransportDispWorkflowShippingPlanningOrdersListMapper {
 	 */
 	public JsonTransportDispWorkflowShippingPlanningCurrentOrdersListContainer getCurrentOrdersContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES,true);
 		
 		//At this point we now have an UTF-8 payload
@@ -50,7 +50,7 @@ public class JsonTransportDispWorkflowShippingPlanningOrdersListMapper {
 	 */
 	public JsonTransportDispWorkflowShippingPlanningOpenOrdersListContainer getOpenOrdersContainer(String utfPayload) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES,true);
 		
 		//At this point we now have an UTF-8 payload

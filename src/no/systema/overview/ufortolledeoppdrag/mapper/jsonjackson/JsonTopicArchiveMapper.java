@@ -5,8 +5,8 @@ package no.systema.overview.ufortolledeoppdrag.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 //application library
 import no.systema.overview.ufortolledeoppdrag.model.jsonjackson.archive.JsonTopicArchiveContainer;
 import no.systema.overview.ufortolledeoppdrag.model.jsonjackson.archive.JsonTopicArchiveRecord;
@@ -18,15 +18,13 @@ import java.util.*;
  * @date Sep 22, 2013
  * 
  */
-public class JsonTopicArchiveMapper {
+public class JsonTopicArchiveMapper extends ObjectMapperAbstractGrandFather{
 	private static final Logger logger = Logger.getLogger(JsonTopicArchiveMapper.class.getName());
 	
 	public JsonTopicArchiveContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonTopicArchiveContainer container = mapper.readValue(utfPayload.getBytes(), JsonTopicArchiveContainer.class); 
+		JsonTopicArchiveContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTopicArchiveContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		//DEBUG

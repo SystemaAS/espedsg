@@ -5,12 +5,11 @@ package no.systema.fraktkalkulator.mapper.jsonjackson;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
 //application library
 import no.systema.fraktkalkulator.model.jsonjackson.customer.JsonFraktKalkulatorCustomerContainer;
 import no.systema.fraktkalkulator.model.jsonjackson.customer.JsonFraktKalkulatorCustomerRecord;
-
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 
 //
 import java.util.*;
@@ -22,7 +21,7 @@ import java.util.*;
  * 
  * 
  */
-public class FraktKalkulatorCustomerMapper {
+public class FraktKalkulatorCustomerMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(FraktKalkulatorCustomerMapper.class.getName());
 	/**
 	 * 
@@ -31,11 +30,9 @@ public class FraktKalkulatorCustomerMapper {
 	 * @throws Exception
 	 */
 	public JsonFraktKalkulatorCustomerContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonFraktKalkulatorCustomerContainer customerListContainer = mapper.readValue(utfPayload.getBytes(), JsonFraktKalkulatorCustomerContainer.class); 
+		JsonFraktKalkulatorCustomerContainer customerListContainer = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonFraktKalkulatorCustomerContainer.class); 
 		//logger.info("Mapping Customer object from JSON payload...");
 		//logger.info("[JSON-String payload status=OK]  " + customerListContainer.getUser());
 		

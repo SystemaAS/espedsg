@@ -5,11 +5,11 @@ package no.systema.efaktura.mapper.jsonjackson;
 
 //jackson library
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
 //application library
 import no.systema.efaktura.model.jsonjackson.JsonEfakturaMainListContainer;
 import no.systema.efaktura.model.jsonjackson.JsonEfakturaMainListRecord;
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 
 
 /**
@@ -17,7 +17,7 @@ import no.systema.efaktura.model.jsonjackson.JsonEfakturaMainListRecord;
  * @date Jun 22, 2015
  * 
  */
-public class JsonEfakturaMainListMapper {
+public class JsonEfakturaMainListMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonEfakturaMainListMapper.class.getName());
 	/**
 	 * 
@@ -26,10 +26,8 @@ public class JsonEfakturaMainListMapper {
 	 * @throws Exception
 	 */
 	public JsonEfakturaMainListContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonEfakturaMainListContainer container = mapper.readValue(utfPayload.getBytes(), JsonEfakturaMainListContainer.class); 
+		JsonEfakturaMainListContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonEfakturaMainListContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonEfakturaMainListRecord record : container.getOrderList()){
 			//DEBUG

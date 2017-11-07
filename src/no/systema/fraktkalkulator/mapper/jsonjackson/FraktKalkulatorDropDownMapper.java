@@ -5,8 +5,7 @@ package no.systema.fraktkalkulator.mapper.jsonjackson;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
+
 //application library
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorDropDownContainer;
 
@@ -14,6 +13,7 @@ import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkul
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorOppdragTypeRecord;
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorProductRecord;
 import no.systema.fraktkalkulator.model.jsonjackson.dropdownlist.JsonFraktKalkulatorTjenesteTypeRecord;
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 
 import java.util.*;
 
@@ -24,7 +24,7 @@ import java.util.*;
  * 
  * 
  */
-public class FraktKalkulatorDropDownMapper {
+public class FraktKalkulatorDropDownMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(FraktKalkulatorDropDownMapper.class.getName());
 	/**
 	 * 
@@ -33,10 +33,8 @@ public class FraktKalkulatorDropDownMapper {
 	 * @throws Exception
 	 */
 	public JsonFraktKalkulatorDropDownContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		//At this point we now have an UTF-8 payload
-		JsonFraktKalkulatorDropDownContainer container = mapper.readValue(utfPayload.getBytes(), JsonFraktKalkulatorDropDownContainer.class); 
+		JsonFraktKalkulatorDropDownContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonFraktKalkulatorDropDownContainer.class); 
 		
 		//DEBUG
 		/*

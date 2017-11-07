@@ -5,21 +5,19 @@ package no.systema.overview.sendingerlevtid.mapper.jsonjackson;
 
 import java.util.Collection;
 
-
+import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
 import no.systema.overview.sendingerlevtid.model.jsonjackson.JsonTopicContainer;
 import no.systema.overview.sendingerlevtid.model.jsonjackson.JsonTopicRecord;
 
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * @author oscardelatorre
  * @date Aug 27, 2013
  * 
  */
-public class JsonTopicMapper {
+public class JsonTopicMapper extends ObjectMapperAbstractGrandFather {
 	private static final Logger logger = Logger.getLogger(JsonTopicMapper.class.getName());
 	
 	/**
@@ -29,11 +27,9 @@ public class JsonTopicMapper {
 	 * @throws Exception
 	 */
 	public JsonTopicContainer getContainer(String utfPayload) throws Exception{
-		ObjectMapper mapper = new ObjectMapper();  
-		mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 		
 		//At this point we now have an UTF-8 payload
-		JsonTopicContainer container = mapper.readValue(utfPayload.getBytes(), JsonTopicContainer.class); 
+		JsonTopicContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTopicContainer.class); 
 		//logger.info(mapper.writeValueAsString(topicListContainer));
 		logger.info("Mapping Customer object from JSON payload...");
 		
