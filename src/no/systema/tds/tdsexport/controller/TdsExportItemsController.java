@@ -405,6 +405,8 @@ public class TdsExportItemsController {
 		String urlRequestParamsKeys = null;
 		//
 		String fabl = request.getParameter("fablAutoControl");
+		String sign = request.getParameter("sign");
+		
 		
 		if(appUser==null){
 			return this.loginView;
@@ -417,7 +419,7 @@ public class TdsExportItemsController {
 			
 			//STEP [2] now we go on with the usual autokontroll routine
 			StringBuffer params = new StringBuffer();
-			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&opd=" + recordToValidate.getSvev_syop() + "&fabl=" + fabl);
+			params.append("user=" + appUser.getUser() + "&avd=" + recordToValidate.getSvev_syav() + "&sign=" + sign + "&opd=" + recordToValidate.getSvev_syop() + "&fabl=" + fabl);
 			successView = new ModelAndView("redirect:tdsexport_edit_items.do?" + params);
 			//FETCH the ITEM LIST of existent ITEMs for this TOPIC
 			//---------------------------

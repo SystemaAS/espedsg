@@ -245,17 +245,80 @@
 														               <td class="text11" >&nbsp;${record.sum_of_sviv_kotas}</td>
 														               <td class="text11" >&nbsp;${record.sviv_vasl}</td>
 														               <td class="text11" align="center">
-														               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_info_${record.sviv_syli}');" onMouseOut="hidePop('avgifterReadOnly_info_${record.sviv_syli}');" alt="info">
+														               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_all_info_${record.sviv_syli}');" onMouseOut="hidePop('avgifterReadOnly_all_info_${record.sviv_syli}');" alt="info">
 														               		 <img valign="bottom" src="resources/images/infoOrange.png" width="12px" height="12px" border="0" alt="avg.info">&nbsp;
 														               		</font>
+														               		
+														               		<div class="text11" style="position: relative;display:inline" align="left" >
+														               		<span class="popupWithInputTextGrayBg" style="position:absolute; top:2px; width:300px;" id="avgifterReadOnly_all_info_${record.sviv_syli}" >
+													
+													           				<table class="noBg" >
+													           					<tr>
+													           						<td colspan="5" class="text12OrangeBold">Avgiftsberäkningar</td>
+													           					</tr>
+													           					<tr height="10"><td class="text12"></td></tr>
+													           					<tr>
+													           						<td class="text12" colspan="2" >Linjenr&nbsp;<b>${record.sviv_syli}</b></td>
+													           						<td class="text12" colspan="3" >Varukod&nbsp;<b>${record.sviv_vata}</b></td>
+													           					</tr>
+													           					<tr height="10"><td class="text12"></td></tr>
+													           					<tr class="tableHeaderField" height="20" valign="left">
+																    					<td class="tableHeaderFieldFirst">&nbsp;Slag&nbsp;</td>   
+																    					<td class="tableHeaderField">&nbsp;Grund&nbsp;</td>   
+																    					<td class="tableHeaderField">&nbsp;Sats&nbsp;</td>   
+																    					<td class="tableHeaderField">&nbsp;Enhet&nbsp;</td>   
+																    					<td class="tableHeaderField">&nbsp;Belopp&nbsp;</td>   
+															    				</tr>	
+															    				<tr class="tableRow" >
+													           						<td class="tableCellFirst" >&nbsp;${record.sviva_abk1}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abg1}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abs1}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abx1}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abb1}</td>
+													           					</tr>
+													           					
+																				<tr class="tableRow" >
+													           						<td class="tableCellFirst" >&nbsp;${record.sviva_abk2}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abg2}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abs2}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abx2}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abb2}</td>
+													           					</tr>
+																				<tr class="tableRow" >
+													           						<td class="tableCellFirst" >&nbsp;${record.sviva_abk3}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abg3}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abs3}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abx3}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abb3}</td>
+													           					</tr>
+																				<tr class="tableRow" >
+													           						<td class="tableCellFirst" >&nbsp;${record.sviva_abk4}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abg4}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abs4}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abx4}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abb4}</td>
+													           					</tr>
+																				<tr class="tableRow" >
+													           						<td class="tableCellFirst" >&nbsp;${record.sviva_abk5}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abg5}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abs5}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abx5}</td>
+													           						<td class="tableCell" >&nbsp;${record.sviva_abb5}</td>
+													           					</tr>
+													           					<tr height="10"><td></td></tr>
+													           					
+													           				</table>		 
+													           			</span>
+													           			</div>
+														               		
 														               </td>
 														               <td align="center" class="text11">&nbsp;
 														               		<c:if test="${not empty record.sviv_err}">
 														               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               	</td>	
-														               <td class="text11">&nbsp;${record.sviv_fabl}</td>
-														               <td class="text11">&nbsp;${record.sviv_stva}</td>
+														               <td class="text11">${record.sviv_fabl}</td>
+														               <td class="text11">${record.sviv_stva}</td>
 														               
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>&nbsp;
@@ -363,24 +426,26 @@
 					               					<img src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 						               			</a>
 							               </td>
-							               <td width="4%" class="text11" align="center">&nbsp;${record.sviv_vano}</td>
+							               <td width="4%" class="text11" align="center">${record.sviv_vano}</td>
 							               <td class="text11" >&nbsp;${record.sviv_ulkd}</td>
 							               <td class="text11" >&nbsp;${record.sviv_vata}&nbsp;&nbsp;
 							               	  <img id="recordUpdate_${record.sviv_syli}_${record.sviv_vano}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Lägg till i kundensvarureg.">
 							               </td>
 							               <td class="text11" >&nbsp;${record.sviv_fokd}</td>
 							               <td class="text11" >&nbsp;${record.sviv_eup1}</td>
-							               <td class="text11" >&nbsp;${record.sviv_brut}</td>
-							               <td class="text11" >&nbsp;${record.sviv_neto}</td>
-							               <td class="text11" >&nbsp;${record.sviv_ankv}</td>
-							               <td class="text11" >&nbsp;${record.sum_of_sviv_kotas}</td>
+							               <td class="text11" >${record.sviv_brut}</td>
+							               <td class="text11" >${record.sviv_neto}</td>
+							               <td class="text11" >${record.sviv_ankv}</td>
+							               <td class="text11" >${record.sum_of_sviv_kotas}</td>
 							               <td class="text11" >&nbsp;${record.sviv_vasl}</td>
 							               <td class="text11" align="center">
 							               		<font class="text12OrangeBold" onMouseOver="showPop('avgifterReadOnly_info_${record.sviv_syli}');" onMouseOut="hidePop('avgifterReadOnly_info_${record.sviv_syli}');" alt="info">
 							               		 <img valign="bottom" src="resources/images/infoOrange.png" width="12px" height="12px" border="0" alt="avg.info">&nbsp;
 							               		</font>
-							               <span class="popupWithInputTextGrayBg" style="position:absolute; left:620px; top:200px;" id="avgifterReadOnly_info_${record.sviv_syli}" >
-							           		<div class="text10" align="left" >
+							               
+							               <div class="text11" style="position: relative;display:inline" align="left" >
+							               <span class="popupWithInputTextGrayBg" style="position:absolute; top:2px; width:300px;" id="avgifterReadOnly_info_${record.sviv_syli}" >
+						
 						           				<table class="noBg" >
 						           					<tr>
 						           						<td colspan="5" class="text12OrangeBold">Avgiftsberäkningar</td>
@@ -437,16 +502,16 @@
 						           					<tr height="10"><td></td></tr>
 						           					
 						           				</table>		 
-						           			</div>
-						           			</span>	
+						           			</span>
+						           			</div>	
 							               	</td>
 							               <td align="center" class="text11">&nbsp;
 							               		<c:if test="${not empty record.sviv_err}">
 							               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 						               		</td>		
-							               <td class="text11">&nbsp;${record.sviv_fabl}</td>
-							               <td class="text11">&nbsp;${record.sviv_stva}</td>
+							               <td class="text11">${record.sviv_fabl}</td>
+							               <td class="text11">${record.sviv_stva}</td>
 							              
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>&nbsp;

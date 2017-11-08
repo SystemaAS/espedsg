@@ -53,7 +53,10 @@ public class JsonSporringOppdragSpecificTopicChildHendelseslogRecord extends Jso
 				//nothing 
 			}else{
 				//the img file is available withing the servers domain path
-				this.wttg = AppConstants.HTTP_ROOT_CGI + this.wttg;
+				//Original--> but Toten has to have cust.toten so we changed it to test (08.Nov.2017)
+				//-->this.wttg = AppConstants.HTTP_ROOT_CGI + this.wttg;
+				this.wttg = AppConstants.HTTP_ROOT_JQUERY_DOCS_ROOT + this.wttg;
+				
 			}
 		}
 		return this.wttg;

@@ -747,6 +747,7 @@
   				 text: "Gå vidare",
   				 click: function(){
   					 		jq('#varupostkontrollForm').submit();
+  					 		jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   				 		}
   			 	 },
   	 	 		{
@@ -790,8 +791,8 @@
     	  "dom": '<"top">t<"bottom"flip><"clear">',
     	  "scrollY":    "800px",
   		  //"scrollCollapse":  true,
-  		  "columnDefs": [{ "type": "num", "targets": 0 }],
-  		  "order": [[ 10, "desc" ], [ 0, 'asc' ]],
+  		  //"columnDefs": [{ "type": "num", "targets": 0 }],
+  		  "order": [[ 9, "desc" ], [ 0, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table
   		  "lengthMenu": [ 75, 100, 300, 400, 900]
   	  });
@@ -801,8 +802,8 @@
     	  "dom": '<"top">t<"bottom"fip><"clear">',
     	  "scrollY":    "180px",
   		  //"scrollCollapse":  true,
-  		  "columnDefs": [{ "type": "num", "targets": 1 }],
-  		  "order": [[ 11, "desc" ], [ 1, 'asc' ]],
+  		  //"columnDefs": [{ "type": "num", "targets": 1 }],
+  		  "order": [[ 10, "desc" ], [ 1, 'asc' ]],
   		  "autoWidth": false, //for optimization purposes when initializing the table
   		  "lengthMenu": [ 75, 100, 300, 400, 900]
   	  });

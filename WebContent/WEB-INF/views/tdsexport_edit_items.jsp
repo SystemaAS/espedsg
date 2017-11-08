@@ -232,23 +232,23 @@
 														                       <tr class="tableOddRow" >
 														                   </c:otherwise>
 														               </c:choose>
-														               <td class="text11" >&nbsp;${record.svev_vano}</td>
-														               <td class="text11" >&nbsp;${record.svev_ulkd}</td>
-														               <td class="text11" >&nbsp;${record.svev_vata}</td>
-														               <td class="text11" >&nbsp;${record.svev_eup1}</td>
-														               <td class="text11" >&nbsp;${record.svev_brut}</td>
-														               <td class="text11" >&nbsp;${record.svev_neto}</td>
-														               <td class="text11" >&nbsp;${record.svev_ankv}</td>
-														               <td class="text11" >&nbsp;${record.sum_of_svev_kotas}</td>
+														               <td class="text11" >${record.svev_vano}</td>
+														               <td class="text11" >${record.svev_ulkd}</td>
+														               <td class="text11" >${record.svev_vata}</td>
+														               <td class="text11" >${record.svev_eup1}</td>
+														               <td class="text11" >${record.svev_brut}</td>
+														               <td class="text11" >${record.svev_neto}</td>
+														               <td class="text11" >${record.svev_ankv}</td>
+														               <td class="text11" >${record.sum_of_svev_kotas}</td>
 														               
-														               <td class="text11" >&nbsp;${record.svev_vasl}</td>
+														               <td class="text11" >${record.svev_vasl}</td>
 														               <td align="center" class="text11">&nbsp;
 														               		<c:if test="${not empty record.svev_err}">
 														               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 														               		</c:if>
 														               	</td>	
-														               <td class="text11">&nbsp;${record.svev_fabl}</td>
-														               <td class="text11">&nbsp;${record.svev_stva}</td>
+														               <td class="text11">${record.svev_fabl}</td>
+														               <td class="text11">${record.svev_stva}</td>
 														               
 														               <c:if test="${model.status == 'M' || empty model.status}">	
 															               <td class="text11" align="center" nowrap>&nbsp;
@@ -367,25 +367,25 @@
 							               			<img valign="bottom" src="resources/images/update.gif" border="0" alt="edit">&nbsp;
 							               		</a>
 						               	   </td>
-   							               <td width="4%" class="text11" >&nbsp;${record.svev_vano}</td>
-							               <td class="text11" >&nbsp;${record.svev_ulkd}</td>
-							               <td class="text11" >&nbsp;${record.svev_vata}&nbsp;&nbsp;
+   							               <td width="4%" class="text11" >${record.svev_vano}</td>
+							               <td class="text11" >${record.svev_ulkd}</td>
+							               <td class="text11" >${record.svev_vata}&nbsp;&nbsp;
 							               	  <img id="recordUpdate_${record.svev_syli}_${record.svev_vano}" onClick="updateKundensVarReg(this);" src="resources/images/addOrder.png" width="12px" height="12px" border="0" title="Lägg till i kundensvarureg.">
 							               </td>	  
-							               <td class="text11" >&nbsp;${record.svev_eup1}</td>
-							               <td class="text11" >&nbsp;${record.svev_brut}</td>
-							               <td class="text11" >&nbsp;${record.svev_neto}</td>
-							               <td class="text11" >&nbsp;${record.svev_ankv}</td>
-							               <td class="text11" >&nbsp;${record.sum_of_svev_kotas}</td>
+							               <td class="text11" >${record.svev_eup1}</td>
+							               <td class="text11" >${record.svev_brut}</td>
+							               <td class="text11" >${record.svev_neto}</td>
+							               <td class="text11" >${record.svev_ankv}</td>
+							               <td class="text11" >${record.sum_of_svev_kotas}</td>
 							               
-							               <td class="text11" >&nbsp;${record.svev_vasl}</td>
+							               <td class="text11" >${record.svev_vasl}</td>
 							               <td align="center" class="text11">&nbsp;
 							               		<c:if test="${not empty record.svev_err}">
 							               			<img valign="bottom" src="resources/images/redFlag.png" width="18px" height="18px" border="0" alt="remove">
 							               		</c:if>
 							               	</td>	
-							               <td class="text11">&nbsp;${record.svev_fabl}</td>
-							               <td class="text11">&nbsp;${record.svev_stva}</td>
+							               <td class="text11">${record.svev_fabl}</td>
+							               <td class="text11">${record.svev_stva}</td>
 							               
 							               <c:if test="${model.status == 'M' || empty model.status}">	
 								               <td class="text11" align="center" nowrap>&nbsp;
@@ -2038,6 +2038,8 @@
 				<form  action="tdsexport_edit_items_autocontrol.do" name="varupostkontrollForm" id="varupostkontrollForm" method="post">
 				 	<input type="hidden" name="svev_syav" id="svev_syav" value='${model.avd}'/>
 					<input type="hidden" name="svev_syop" id="svev_syop" value='${model.opd}'/>
+					<input type="hidden" name="sign" id="sign" value='${model.sign}'/>
+					
 					<input type="hidden" name="fablAutoControl" id="fablAutoControl" value='${recordTopic.sveh_fabl}'/>
 						
 					<p>Du kan nollställa alla statistiska värden och tullvärden i samtliga varuposter genom att kryssa för flaggan nedan</p>
