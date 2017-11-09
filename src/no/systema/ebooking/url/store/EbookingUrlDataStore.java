@@ -52,6 +52,10 @@ public class EbookingUrlDataStore {
 	static public String EBOOKING_BASE_WORKFLOW_VALIDATE_LINE_MAIN_ORDER_FRAKTBREV_2_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE23RV2.pgm";
 	//http://gw.systema.no/sycgip/TJGE23RV2.pgm?user=JOVO&avd=75&opdtyp=OX&fmmrk1=&fvant=2&fvpakn=&fvvt=TEST&fvvkt=1000&fvlen=220&fvbrd=220&fvhoy=120&fvvol=&fvlm=&fvlm2=&ffunr=1234&ffemb=&ffantk=1&ffante=1&ffenh=KGM
 	
+	//Uploaded documents on order...(fetch) borrowed from TranspDisp ... so far
+	//http://gw.systema.no/sycgip/TJGE12R.pgm?User=JOVO&AVD=75&OPD=68
+	static public String EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE12R.pgm";
+		
 	//------------
 	//SEND ORDER
 	//------------

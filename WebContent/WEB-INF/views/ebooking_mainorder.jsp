@@ -117,6 +117,7 @@
 	</c:if>
 	
 	
+	
 		
 		<tr>
 		<td>
@@ -1083,9 +1084,9 @@
 									<tr>
 							 			<td valign="top" class="text12">Arkiv docs. &nbsp;
 						 					<ul>
-						 					<c:forEach items="${Xmodel.record.archivedDocsRecord}" var="record" varStatus="counter">
+						 					<c:forEach items="${model.record.archivedDocsRecord}" var="record" varStatus="counter">
 						 						<li>
-						 						<a target="_blank" href="TODOtransportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
+						 						<a target="_blank" href="transportdisp_workflow_renderArchivedDocs.do?doclnk=${record.doclnk}">
 		    		    							<img title="Archive" style="vertical-align:middle;" src="resources/images/pdf.png" width="14" height="14" border="0" alt="PDF arch.">
 		    		    							${record.doctxt}
 				   								</a>&nbsp;&nbsp;&nbsp;

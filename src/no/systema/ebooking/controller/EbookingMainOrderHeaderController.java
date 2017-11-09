@@ -37,9 +37,7 @@ import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -274,7 +272,7 @@ public class EbookingMainOrderHeaderController {
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
 				//populate archive docs
-				//this.populateArchiveDocs(appUser, headerOrderRecord);
+				this.populateArchiveDocs(appUser, headerOrderRecord);
 				
 				//check if there was an error in item line "save" and put values back in that line
 				//Note: the header is already saved but at this stage: shit happens (TODO another day when I feel happier)
@@ -716,7 +714,8 @@ public class EbookingMainOrderHeaderController {
 		 //===========
 		 logger.info("Inside: populateArchiveDocs");
 		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
+		 String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
+		 
 		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + orderRecord.getHeavd() + "&opd=" + orderRecord.getHeopd();
 		 logger.info("URL: " + BASE_URL);
 		 logger.info("PARAMS: " + urlRequestParamsKeys);
