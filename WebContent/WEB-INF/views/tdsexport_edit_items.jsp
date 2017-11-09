@@ -672,7 +672,20 @@
 							        <tr height="10"><td class="text" align="left" colspan="9"><hr></td></tr>
 							        
 									<tr>
-										<td class="text12" align="left"><b>&nbsp;41.</b><span title="svev_ankv">Extra mängd:&nbsp;</span></td>
+										<td class="text12" align="left">
+											<img onMouseOver="showPop('41_xmenheter_info');" onMouseOut="hidePop('41_xmenheter_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+												
+											<b>41.</b><span title="svev_ankv">Extra mängd:&nbsp;</span>
+											<div class="text11" style="position: relative;" align="left">
+								            <span style="position:absolute;top:2px; width:250px;" id="41_xmenheter_info" class="popupWithInputText text11"  >
+								           		<br/>
+							           			<b>41. Extra mängdenheter</b>
+												<br/>
+							           			Detta fält fyller du bara i för vissa varukoder. Det är varukoden i fält 33 som styr om fältet ska fyllas i eller inte. I Tulltaxan ser du om uppgiften ska deklareras samt vilken mängdenhet du ska ange. Mängdenheten kan exempelvis vara styck, liter eller kubikmeter. Du anger uppgiften i heltal men ska inte ange enheten.
+							           			
+											</span>
+								            </div>
+										</td>
 										<td class="text12">
 										<img onMouseOver="showPop('31_kantal_info');" onMouseOut="hidePop('31_kantal_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 										<span id="kotaRubrik">
@@ -768,7 +781,10 @@
 							        
 							        
 									<tr>
-										<td class="text12" align="left">&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="svev_ankv" id="svev_ankv" size="10" maxlength="10" value='${model.record.svev_ankv}'></td>
+										<td class="text12" align="left">&nbsp;
+											<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="svev_ankv" id="svev_ankv" size="10" maxlength="10" value='${model.record.svev_ankv}'>
+											
+										</td>
 										<td class="text11" valign="bottom">
 											<input onKeyPress="return numberKey(event)" type="text" class="inputText" name="svev_kota" id="svev_kota" size="5" maxlength="5" value="${model.record.svev_kota}">
 										</td>
