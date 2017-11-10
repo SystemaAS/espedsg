@@ -245,6 +245,7 @@
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.m3"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.fortullning"/></th>
 	                    <%-- START Print 
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;F.br&nbsp;</td>
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Cmr&nbsp;</td>
@@ -268,7 +269,6 @@
 		            <tr class="tex11" >
 		               <td width="2%" align="center" class="text11MediumBlue">${record.heavd}</td>	
 		               <td width="2%" align="center"  >
-			           		
 			           		<c:if test="${empty record.hest || record.hest == 'U' || record.hest == 'O' || record.hest == 'F' }">
 								<c:if test="${ record.heur == 'A' }">
 					           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
@@ -389,6 +389,31 @@
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xfralk}${Xrecord.hesdf}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${Xrecord.xtillk}${Xrecord.hesdt}</td>
+		               <td align="center" class="text11MediumBlue">
+		               			<c:if test="${record.hepk4 == 'J'}">
+		               				<c:choose>
+		               				<c:when test="${user.filand == 'NO' || user.filand == 'SE' || user.filand == 'DK' }">
+		               					<c:if test="${user.filand == 'NO'}">
+		               						<a style="cursor:pointer;" onClick="setBlockUI(this);" href="tror_mainorderlist_toSadImport.do?avd=${record.heavd}&opd=${record.heopd}&sign=${record.hesg}">
+					               				<span title="Til SAD">
+					               					<img style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="SAD">
+					               				</span>
+					               			</a>
+					               		</c:if>
+		               					<c:if test="${user.filand == 'DK'}">
+		               						 <img title="To SKAT" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="SKAT">todo
+		               					</c:if>
+		               					<c:if test="${user.filand == 'SE'}">
+		               						<img title="To TDS" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="TDS">todo
+		               					</c:if>
+		               				</c:when>
+		               				<c:otherwise>
+		               					&nbsp;
+		               				</c:otherwise>	
+		               				</c:choose>	
+		               			</c:if>
+		               </td>
+		               
 		               <%-- START Print 
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<%-- only those status that have a real state. Status=null is not allowed to print 

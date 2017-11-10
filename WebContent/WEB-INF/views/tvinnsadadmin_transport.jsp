@@ -121,9 +121,10 @@
 				<td>
 				<table width="100%" cellspacing="0" border="0" cellpadding="0">
 					<tr class="tableHeaderField" height="20" valign="left">
-	                    <td class="tableHeaderFieldFirst" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.avd"/></td>
-                			<td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.sign"/></td>
-		                <td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.transportuppdrag"/></td>
+	                    <td width="2%" class="tableHeaderFieldFirst" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.avd"/></td>
+               			<td width="2%" class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.sign"/></td>
+               			<td width="2%" class="tableHeaderField" align="left" >Endre</td>
+                        <td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.transportuppdrag"/></td>
 		                <td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.sender"/></td>
 		                <td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.receiver"/></td>
 		                <td class="tableHeaderField" align="left" >&nbsp;<spring:message code="systema.tvinn.sad.admin.transport.list.search.label.datum"/></td>
@@ -137,8 +138,15 @@
 		                       <tr class="tableOddRow" height="20" >
 		                   </c:otherwise>
 		               </c:choose>
-		               <td class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
-		               <td class="tableCell" >&nbsp;${topic.sign}</td>
+		               <td width="2%" class="tableCellFirst" width="5%">&nbsp;${topic.avd}</td>
+		               <td width="2%" class="tableCell" >&nbsp;${topic.sign}</td>
+		               <td width="2%" class="tableCell" align="center" >
+							<a style="cursor:pointer;" id="@avd_${topic.avd}@opd_${topic.opd}@alinkOpenOrdersListId_${counter.count}"
+				           			onClick="setBlockUI(this);" href="tvinnsadadmin_toTrorList.do?action=doFetch&avd=${topic.avd}&opd=${topic.opd}&sign=${topic.sign}">
+		  		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    				</a>
+						</td>
+		                
 		               <td class="tableCell" >&nbsp;${topic.opd}</td>
 		               <td class="tableCell" >&nbsp;${topic.avsNavn}</td>
 		               <td class="tableCell" >&nbsp;${topic.motNavn}</td>

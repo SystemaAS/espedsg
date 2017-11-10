@@ -1075,7 +1075,7 @@
 											</select>
 						    			</td>
 						    			--%>
-							    		<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.orders.form.update.label.kkvittering"/></td>
+							    		<td class="text12" title="hepk3">&nbsp;<spring:message code="systema.tror.orders.form.update.label.kkvittering"/></td>
 							    		<td class="text12">
 							    			<select class="inputTextMediumBlue" name="hepk3" id="hepk3" >
 							 				  <option value="">-velg-</option>
@@ -1083,7 +1083,7 @@
 											  <option value="N"<c:if test="${model.record.hepk3 == 'N'}"> selected </c:if> >Nei</option>
 											</select>
 						    			</td>
-						    			<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.orders.form.update.label.tolldekl"/></td>
+						    			<td class="text12" title="hepk4">&nbsp;<spring:message code="systema.tror.orders.form.update.label.tolldekl"/></td>
 							    		<td class="text12">
 							    			<select class="inputTextMediumBlue" name="hepk4" id="hepk4" >
 							 				  <option value="">-velg-</option>

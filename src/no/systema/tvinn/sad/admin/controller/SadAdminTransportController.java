@@ -29,7 +29,13 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.validator.UserValidator;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
+import no.systema.tror.service.TrorMainOrderListService;
+import no.systema.tror.url.store.TrorUrlDataStore;
+import no.systema.tror.util.TrorConstants;
 import no.systema.main.util.AppConstants;
+import no.systema.main.util.JsonDebugger;
 import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tvinn.sad.service.html.dropdown.TvinnSadDropDownListPopulationService;
@@ -43,6 +49,9 @@ import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadAvdelning
 import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadAvdelningRecord;
 import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadSignatureContainer;
 import no.systema.tvinn.sad.model.jsonjackson.avdsignature.JsonTvinnSadSignatureRecord;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
+import no.systema.tvinn.sad.sadimport.service.SadImportTopicListService;
+import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 //
 import no.systema.tvinn.sad.admin.service.SadAdminTransportService;
 import no.systema.tvinn.sad.admin.model.jsonjackson.topic.JsonSadAdminTransportListContainer;
@@ -68,6 +77,7 @@ public class SadAdminTransportController {
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
 	
 	/**
 	 * 
@@ -197,7 +207,87 @@ public class SadAdminTransportController {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tvinnsadadmin_toTrorList.do", method=RequestMethod.GET)
+	public ModelAndView doGoToTrorList(HttpSession session, HttpServletRequest request){
+		String TYPE_LAND_IMPORT = "A";
+		String TYPE_LAND_EXPORT = "B";
+		String TYPE_AIR_IMPORT = "C";
+		String TYPE_AIR_EXPORT = "D";
+		
+		//---------------------------------
+		//Crucial request parameters (Keys
+		//---------------------------------
+		String opd = request.getParameter("opd");
+		String avd = request.getParameter("avd");
+		String sign = request.getParameter("sign");
+				
+		ModelAndView successView = null;//new ModelAndView("redirect:tror_mainorderlist.do?action=doFind");
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		SearchFilterSadAdminTransportList searchFilter = new SearchFilterSadAdminTransportList();
+		
+		Map model = new HashMap();
+		if(appUser==null){
+			return this.loginView;
+		}else{
+			appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TROR);
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = TrorUrlDataStore.TROR_BASE_MAIN_ORDER_LIST_URL;
+			
+			//-------------------
+			//add URL-parameter 
+			//-------------------
+			//add URL-parameters
+    		StringBuffer urlRequestParams = new StringBuffer(); 
+    		urlRequestParams.append("user=" + appUser.getUser());
+    		urlRequestParams.append("&heavd=" + avd + "&heopd=" + opd + "&hesg=" + sign);
+    		
+    		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	
+	    	String typeOfOppdrag = ""; //default;
+	    	String status = "";//default;
+	    	JsonTrorOrderListContainer orderListContainer = this.trorMainOrderListService.getMainListContainer(jsonPayload);
+    		if(orderListContainer!=null){
+    			for(JsonTrorOrderListRecord record: orderListContainer.getDtoList()){
+    				//remove invalid cases for this UCase
+    				typeOfOppdrag = record.getHeur(); 
+    				status = record.getHest();
+    				logger.info("heur:" + typeOfOppdrag);
+    				logger.info("status:X" + status + "X");
+    				
+    			}
+	    		
+    		}
+	    	//redirect back to the correct Oppdrag ...
+			if(TYPE_LAND_IMPORT.equals(typeOfOppdrag)){
+				if("".equals(status) || "U".equals(status) || "O".equals(status) || "F".equals(status) ){
+					//editable
+					//successView = new ModelAndView("redirect:tror_mainorderlandimport.do?action=doFetch" + "&heavd=" + avd + "&heopd=" + opd + "&hesg=" + sign );
+					
+					//should be change to the above but some session variables are missing so we go to the list = entry point
+					successView = new ModelAndView("redirect:tror_mainorderlist.do?action=doFind" + "&avd=" + avd + "&orderNr=" + opd + "&sign=" + sign );
+				}else{
+					//read only
+					successView = new ModelAndView("redirect:tror_mainorderlist.do?action=doFind" + "&avd=" + avd + "&orderNr=" + opd + "&sign=" + sign );
+				}
+			}else{
+				successView = new ModelAndView("redirect:tror_mainorderlist.do?action=doFind" + "&avd=" + avd + "&orderNr=" + opd + "&sign=" + sign );
+			}
 
+	    	return successView;
+		}
+	}
 	/**
 	 * 
 	 * @param model
@@ -317,6 +407,14 @@ public class SadAdminTransportController {
 	@Required
 	public void setSadAdminTransportService (SadAdminTransportService value){ this.sadAdminTransportService = value; }
 	public SadAdminTransportService getSadAdminTransportService(){ return this.sadAdminTransportService; }
+	
+	
+	@Qualifier ("trorMainOrderListService")
+	private TrorMainOrderListService trorMainOrderListService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderListService (TrorMainOrderListService value){ this.trorMainOrderListService = value; }
+	public TrorMainOrderListService getTrorMainOrderListService(){ return this.trorMainOrderListService; }
 	
 	
 }

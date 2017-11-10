@@ -44,7 +44,9 @@ import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpeci
 
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicRecord;
 import no.systema.tvinn.sad.sadimport.service.SadImportSpecificTopicService;
+import no.systema.tvinn.sad.sadimport.service.SadImportTopicListService;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
 
@@ -756,7 +758,7 @@ public class SadImportHeaderController {
 	 * @return
 	 * 
 	 */
-	@RequestMapping(value="tvinnsadimport_doFetchTopicFromTransportUppdrag.do", method={RequestMethod.POST} )
+	@RequestMapping(value="tvinnsadimport_doFetchTopicFromTransportUppdrag.do", method={RequestMethod.POST, RequestMethod.GET} )
 	public ModelAndView doFetchTopicFromTransportUppdrag( HttpSession session, HttpServletRequest request){
 		JsonSadImportTopicCopiedFromTransportUppdragContainer jsonContainer = null;
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
@@ -940,6 +942,8 @@ public class SadImportHeaderController {
 		}
 		return successView;
 	}
+	
+	
 	
 	
 	/**
@@ -1659,6 +1663,14 @@ public class SadImportHeaderController {
 	@Required
 	public void setSadImportSpecificTopicService (SadImportSpecificTopicService value){ this.sadImportSpecificTopicService = value; }
 	public SadImportSpecificTopicService getSadImportSpecificTopicService(){ return this.sadImportSpecificTopicService; }
+	
+	
+	@Qualifier ("sadImportTopicListService")
+	private SadImportTopicListService sadImportTopicListService;
+	@Autowired
+	@Required
+	public void setSadImportTopicListService (SadImportTopicListService value){ this.sadImportTopicListService = value; }
+	public SadImportTopicListService getSadImportTopicListService(){ return this.sadImportTopicListService; }
 	
 	
 }

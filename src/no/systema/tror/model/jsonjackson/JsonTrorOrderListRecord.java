@@ -42,6 +42,9 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 	private String hepro;
 	private String hegn;
 	private String hest;
+	private String hepk3;
+	private String hepk4;
+	
 
 	public String getHest() {
 		return hest;
@@ -179,7 +182,22 @@ public class JsonTrorOrderListRecord extends JsonAbstractGrandFatherRecord {
 	public void setHeavd(int heavd) {
 		this.heavd = heavd;
 	}
+	
+	public String getHepk3() {
+		return hepk3;
+	}
 
+	public void setHepk3(String hepk3) {
+		this.hepk3 = hepk3;
+	}
+	public String getHepk4() {
+		return hepk4;
+	}
+	public void setHepk4(String hepk4) {
+		this.hepk4 = hepk4;
+	}
+	
+	
 	
 	/**
 	 * Used for java reflection in other classes
