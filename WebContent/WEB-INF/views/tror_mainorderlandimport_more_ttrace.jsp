@@ -173,13 +173,13 @@
  	   	 		<td align="center" width="99%">
  					<table class="formFrameHeaderTransparent" width="99%" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-								<td width="15%" valign="bottom" class="tabSub" align="center" nowrap>
-									<font class="tabLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.fellesprint.subtab"/></font>
-								</td>
-								<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintKontaktGate" href="tror_mainorderlandimport_more_ttrace.do">
-										<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktrace.subtab"/></font>&nbsp;						
+								<td width="15%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+									<a id="alinkMainMaintKontaktGate" href="tror_mainorderlandimport_more.do">
+										<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.fellesprint.subtab"/></font>&nbsp;						
 									</a>
+								</td>
+								<td width="12%" valign="bottom" class="tabSub" align="center" nowrap>
+									<font class="tabLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktrace.subtab"/></font>&nbsp;						
 								</td>
 								<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
 									<font class="tabDisabledLinkMinor">&nbsp;...</font>&nbsp;
