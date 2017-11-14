@@ -6,7 +6,7 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_more_ttrace.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -200,157 +200,66 @@
 				<td align="center" width="99%">
 					<table class="tabThinBorderWhite" width="99%" cellspacing="0" border="0">
  	   	 				<tr height="30px"><td ></td></tr>
- 	   	 				<tr>
-							<td >
-							<table width="50%" border="0">
-								<tr>
-									<td class="text12" title="todo">&nbsp;Avdeling</td>
-									<td class="text12" title="todo">&nbsp;Signatur</td>
-									<td class="text12" title="todo">&nbsp;Turnr.</td>
-									<td class="text12" title="todo">&nbsp;Oppdragsnr.</td>
-									<td class="text12" title="todo">&nbsp;Godsnr.</td>
-								</tr>
-								<tr>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="4" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="3" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="7" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="17" maxlength="15" value=''></td>
-								</tr>	
-							</table>
-							</td>
-						</tr>
-						<tr height="10px"><td ></td></tr>
-
+ 	   	 				
 						<tr>
-						<td>	
-							<table width="80%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+						<td width="40%" >	
+							<%--
+							<table align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15">
-						 			<td class="text12White" align="left" >
-						 				<b>&nbsp;&nbsp;Parametrer</b>
+						 			<td colspan="10" class="text12White" align="left" >
+						 				<b>&nbsp;&nbsp;Tidsloggning avgang/ankomst på oppdrag</b>
 					 				</td>
 				 				</tr>
 			 				</table>
-							<table width="80%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
-						 		<tr height="15"><td class="text" align="left"></td></tr>
+			 				 --%>
+							<table width="50%" align="left" border="0" cellspacing="0" cellpadding="0">
+						 		<tr height="5"><td class="text" align="left"></td></tr>
+						 		<tr height="15">
+						 			<td>
+								 		<table class="formFrameHeader" width="100%" border="0" cellspacing="0" cellpadding="0">
+								 		<tr>
+								 			<td class="text12White" align="left" >
+								 				<b>&nbsp;&nbsp;Tidsloggning avgang/ankomst på oppdrag</b>
+							 				</td>
+						 				</tr>
+						 				</table>
+					 				</td>
+				 				</tr>
+				 				<tr height="1px"><td ></td></tr>
 						 		<tr>
 							 		<td>
-								 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									 		<tr>
-									 			<td class="text12" align="left" title="todo">&nbsp;Oppdragsformular</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Stykkgodsfraktbrev / EDI</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Tollpassfraktbrev</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Forpassing på SAD</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Innenlands flyfraktbrev</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Losselista</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Ferdigmeldte fakturaer</td>
-									       		<td class="text12" align="left" title="todo">&nbsp;CMR-fraktbrev</td>
-									        </tr>
-									        <tr>
-									 			<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>								
-									        </tr>
-									        <tr height="10px"><td class="text" align="left"></td></tr>
-									        <tr>
-									 			<td valign="top" colspan="3">
-									 				<table >
-									 					<tr>
-									 						<td colspan="3" class="text12" align="left" title="todo">&nbsp;Fakturere oppdragstyper</td>
-									 					</tr>
-									 					<tr>
-												        	<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        		</td>		
-												        </tr>
-									 				</table>
-									 			</td>
-									 			<td valign="top" colspan="6">
-									 				<table class="tableBorderWithRoundCornersLightGray"	>
-									 					<tr>
-									 						<td class="text12MediumBlue" align="left" title="todo">&nbsp;Skal jobbkø benyttes</td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;Avvikende skriver</td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;Avvikende skriver.mlapp.</td>
-									            		</tr>
-									            		<tr>
-									            			<td align="left">
-											        			<select class="inputTextMediumBlue" name="todo" id="todo">
-											 						<option value="">-velg-</option>
-												 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-																	<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-																</select>
-															</td>
-															<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''>
-											        		</td>
-											        		<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''>
-											        		</td>		
-									            		</tr>
-									 				</table>
-									 			</td>
-									        </tr>
-									        
-									        
+								 		<table class="formFrame" width="100%" border="0" cellspacing="0" cellpadding="0">
+								 		<tr>
+									 		<td>
+									 		<table width="90%" >
+									 			<tr height="2px"><td class="text" align="left"></td></tr>
+										 		<tr>
+										 			
+										 			<td class="text12" align="left" title="todo"><b>&nbsp;Avgang</b></td>
+										 			<td class="text12" align="left" title="todo">&nbsp;ETD/Tid</td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoEtd" id="todoEtd" size="10" maxlength="8" value=''></td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoEtdTid" id="todoEtdTid" size="5" maxlength="4" value=''></td>
+										 			<td class="text12" align="left" title="todo">&nbsp;ATD/Tid</td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoAtd" id="todoAtd" size="10" maxlength="8" value=''></td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoAtdTid" id="todoAtaTid" size="5" maxlength="4" value=''></td>
+										 			
+										        </tr>
+										        <tr>
+										        	<td class="text12" align="left" title="todo"><b>&nbsp;Ankomst</b></td>
+										 			<td class="text12" align="left" title="todo">&nbsp;ETA/Tid</td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoEta" id="todoEta" size="10" maxlength="8" value=''></td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoEtaTid" id="todoEtaTid" size="5" maxlength="4" value=''></td>
+										 			<td class="text12" align="left" title="todo">&nbsp;ATA/Tid</td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoAta" id="todoAta" size="10" maxlength="8" value=''></td>
+										 			<td class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoAtaTid" id="todoAtaTid" size="5" maxlength="4" value=''></td>
+										 			
+										        </tr>
+										        <tr height="2px"><td class="text" align="left"></td></tr>
+									        </table>
+									        </td>
+								        </tr>
 								        </table>
+								        
 							        </td>
 						        </tr>
 						        <tr height="10px"><td class="text" align="left"></td></tr>
