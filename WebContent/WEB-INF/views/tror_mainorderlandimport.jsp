@@ -374,6 +374,7 @@
 							 				<table width="100%" border="0">
 										 		<tr>
 											 		<td valign="bottom"  width="5px" class="text14" >
+											 		<button name="xButton" id="xButton" class="buttonGrayWithGreenFrame" type="button" >x</button>
 											 		<button tabindex=-1 name="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" onClick="showPop('trackAndTraceFields');" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
 												        <span style="background-color:#EEEEEE; position:absolute; left:200px; top:200px; width:850px; height:370px;" id="trackAndTraceFields" class="popupWithInputTextThickBorder"  >
 											           		<table width="95%" border="0" align="left" cellspacing="2">

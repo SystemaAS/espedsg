@@ -204,11 +204,11 @@
 							<td >
 							<table width="50%" border="0">
 								<tr>
-									<td class="text12" title="todo">&nbsp;Avdeling</td>
-									<td class="text12" title="todo">&nbsp;Signatur</td>
-									<td class="text12" title="todo">&nbsp;Turnr.</td>
-									<td class="text12" title="todo">&nbsp;Oppdragsnr.</td>
-									<td class="text12" title="todo">&nbsp;Godsnr.</td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avd"/></td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sign"/></td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.turnr"/></td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdragnr"/></td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/></td>
 								</tr>
 								<tr>
 									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="4" value=''></td>
@@ -227,7 +227,7 @@
 							<table width="80%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15">
 						 			<td class="text12White" align="left" >
-						 				<b>&nbsp;&nbsp;Parametrer</b>
+						 				<b>&nbsp;&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.parameter"/></b>
 					 				</td>
 				 				</tr>
 			 				</table>
@@ -237,14 +237,14 @@
 							 		<td>
 								 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									 		<tr>
-									 			<td class="text12" align="left" title="todo">&nbsp;Oppdragsformular</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Stykkgodsfraktbrev / EDI</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Tollpassfraktbrev</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Forpassing på SAD</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Innenlands flyfraktbrev</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Losselista</td>
-									            <td class="text12" align="left" title="todo">&nbsp;Ferdigmeldte fakturaer</td>
-									       		<td class="text12" align="left" title="todo">&nbsp;CMR-fraktbrev</td>
+									 			<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdformular"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.styckkfraktbrev"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.tpassfraktbrev"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.fsad"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.inlandflyfraktbrev"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.losselista"/></td>
+									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.ffaktura"/></td>
+									       		<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.cmr"/></td>
 									        </tr>
 									        <tr>
 									 			<td align="left">
@@ -309,7 +309,7 @@
 									 			<td valign="top" colspan="3">
 									 				<table >
 									 					<tr>
-									 						<td colspan="3" class="text12" align="left" title="todo">&nbsp;Fakturere oppdragstyper</td>
+									 						<td colspan="3" class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.faktoppdtyper"/></td>
 									 					</tr>
 									 					<tr>
 												        	<td align="left">
@@ -326,9 +326,9 @@
 									 			<td valign="top" colspan="6">
 									 				<table class="tableBorderWithRoundCornersLightGray"	>
 									 					<tr>
-									 						<td class="text12MediumBlue" align="left" title="todo">&nbsp;Skal jobbkø benyttes</td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;Avvikende skriver</td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;Avvikende skriver.mlapp.</td>
+									 						<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.jobbko"/></td>
+									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver"/></td>
+									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver.mlapp"/></td>
 									            		</tr>
 									            		<tr>
 									            			<td align="left">
