@@ -675,6 +675,7 @@ public class TransportDispMainOrderListController {
     		if(!"".equals(recordToValidate.getTo())&& recordToValidate.getTo()!=null ){ urlRequestParams.append("&wssdt=" + recordToValidate.getTo()); }
     		if(!"".equals(recordToValidate.getToDateF())&& recordToValidate.getToDateF()!=null ){ urlRequestParams.append("&wopdtt=" + recordToValidate.getToDateF()); }
     		if(!"".equals(recordToValidate.getToDateT())&& recordToValidate.getToDateT()!=null ){ urlRequestParams.append("&wopdtt2=" + recordToValidate.getToDateT()); }
+    		if(!"".equals(recordToValidate.getWsprebook())&& recordToValidate.getWsprebook()!=null ){ urlRequestParams.append("&wsprebook=" + recordToValidate.getWsprebook()); }
     		
     		
     		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 

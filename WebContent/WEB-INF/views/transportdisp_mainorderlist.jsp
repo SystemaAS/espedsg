@@ -329,7 +329,7 @@
 					<input type="hidden" name="tur" id="tur" value='${searchFilter.tur}'>
 					<input type="hidden" name="userAvd" id="userAvd" value='${model.userAvd}'>
 			    	<td> 
-			    	<table width="100%">
+			    	<table width="90%">
 			    		<tr> 
 			    		<td>
 							<img onMouseOver="showPop('dpts_info');" onMouseOut="hidePop('dpts_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -337,43 +337,78 @@
 							<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_avd.do?action=doInit','avdWin','top=100px,left=300px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 		 						<img id="imgAvdSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="14px" width="14px" border="0" alt="search">
 		 					</a>
-			        		&nbsp;<input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value='${searchFilter.avd}'>
+			        		
 			        	</td>
 			        	<td>	
-			        		<font title="opd" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.ourRef"/></font>
+			        		&nbsp;<font title="opd" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.ourRef"/></font>
 			        		<%-- release 2 BRING (punkt (17)) and delete the above space with the link --%>
 			        		<a href="javascript:void(0);" onClick="window.open('sporringoppdraggate.do?lang=NO&cw=true','opdWin','top=100px,left=300px,height=900px,width=1200px,scrollbars=no,status=no,location=no')">
 		 						<img id="imgOpdSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="14px" width="14px" border="0" alt="search">
 		 					</a>
-		 				 
-		 					&nbsp;<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.opd}'>
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="opdType" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.orderType"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="opdType" id="opdType" size="10" maxlength="15" value='${searchFilter.opdType}'>
+				        	
 				        </td>
 				        <td>	
 			        		&nbsp;<font title="sign" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.sign"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="sign" id="sign" size="10" maxlength="15" value='${searchFilter.sign}'>
 				        </td>
 			        	
 			        	<td>	
 			        		&nbsp;<font title="from" class="text12"><spring:message code="systema.transportdisp.orders.open.search.label.from"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'>
 				        </td>
 				        <td>	
-			        		&nbsp;<font title="fromDateF/fromDateT" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.date"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="fromDateF" id="fromDateF" size="9" maxlength="8" value='${searchFilter.fromDateF}'>
+				        	&nbsp;<font title="fromDateF/fromDateT" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.date"/></font>
+				        </td>
+				        
+				        <td>	
+				        	&nbsp;<font title="to" class="text12"><spring:message code="systema.transportdisp.orders.open.search.label.to"/></font>
+				        </td>
+				        <td>	
+				        	&nbsp;<font title="toDateF/toDateT" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.date"/></font>
+				        </td>
+				        
+				        <td>
+				        	&nbsp;<font title="to" class="text12"><spring:message code="systema.transportdisp.orders.open.search.label.prebook"/></font>
+				        	
+				        </td>
+				        
+				        </tr>
+				        
+				        <tr> 
+			    		<td>
+							<input type="text" class="inputText" name="avd" id="avd" size="5" maxlength="4" value='${searchFilter.avd}'>
+			        	</td>
+			        	<td>	
+			        		<input type="text" class="inputText" name="opd" id="opd" size="10" maxlength="15" value='${searchFilter.opd}'>
+				        </td>
+				        <td>	
+			        		<input type="text" class="inputText" name="opdType" id="opdType" size="10" maxlength="15" value='${searchFilter.opdType}'>
+				        </td>
+				        <td>	
+			        		<input type="text" class="inputText" name="sign" id="sign" size="10" maxlength="15" value='${searchFilter.sign}'>
+				        </td>
+			        	
+			        	<td>	
+			        		<input type="text" class="inputText" name="from" id="from" size="9" maxlength="8" value='${searchFilter.from}'>
+				        </td>
+				        <td>	
+			        		<input type="text" class="inputText" name="fromDateF" id="fromDateF" size="9" maxlength="8" value='${searchFilter.fromDateF}'>
 				        	-<input type="text" class="inputText" name="fromDateT" id="fromDateT" size="9" maxlength="8" value='${searchFilter.fromDateT}'>
 				        </td>
 				        <td>	
-				        	&nbsp;<font title="to" class="text12"><spring:message code="systema.transportdisp.orders.open.search.label.to"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>&nbsp;&nbsp;&nbsp;
+				        	<input type="text" class="inputText" name="to" id="to" size="9" maxlength="8" value='${searchFilter.to}'>
 				        </td>
 				        <td>	
-			        		&nbsp;<font title="toDateF/toDateT" class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.date"/></font>
-				        	&nbsp;<input type="text" class="inputText" name="toDateF" id="toDateF" size="9" maxlength="8" value='${searchFilter.toDateF}'>
+			        		<input type="text" class="inputText" name="toDateF" id="toDateF" size="9" maxlength="8" value='${searchFilter.toDateF}'>
 				        	-<input type="text" class="inputText" name="toDateT" id="toDateT" size="9" maxlength="8" value='${searchFilter.toDateT}'>
+				        </td>
+				        <td>
+				        	<select class="inputTextMediumBlue" name="wsprebook" id="wsprebook">
+		 						<option value="A" <c:if test="${searchFilter.wsprebook == 'A'}"> selected </c:if> >Alle</option>
+		 						<option value="F" <c:if test="${searchFilter.wsprebook == 'F'}"> selected </c:if> >Ferdige</option>
+		 						<option value="P" <c:if test="${searchFilter.wsprebook == 'P'}"> selected </c:if> >PreBook</option>
+							</select>
 				        </td>
 				        <td>	
 				        	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.transportdisp.search"/>'>

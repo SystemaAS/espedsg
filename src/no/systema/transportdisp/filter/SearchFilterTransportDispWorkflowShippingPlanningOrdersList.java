@@ -71,6 +71,11 @@ public class SearchFilterTransportDispWorkflowShippingPlanningOrdersList {
 	public void setToDateT(String value) {  this.toDateT = value; }
 	public String getToDateT() { return this.toDateT;}
 	
+	private String wsprebook = null;
+	public void setWsprebook(String value) {  this.wsprebook = value; }
+	public String getWsprebook() { return this.wsprebook;}
+	
+	
 	
 	
 	/**
