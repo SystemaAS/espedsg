@@ -508,6 +508,7 @@ jq(function() {
 		//Clean values for createing new record
 		jq('#newRecordButton').click(function() {
 			jq('#vadrnr').val("");
+			jq('#vakure').val("");
   			jq('#vadrna').val("");
   			jq('#vadrn1').val("");
   			jq('#vadrn2').val("");

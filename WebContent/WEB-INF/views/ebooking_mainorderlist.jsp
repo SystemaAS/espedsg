@@ -110,13 +110,13 @@
 				<%-- this container table is necessary in order to separate the datatables element and the frame above, otherwise
 					 the cosmetic frame will not follow the whole datatable grid including the search field... --%>
 				<table id="containerdatatableTable" width="100%" cellspacing="2" align="left" >
+				<%--
 				<tr>
    				    <form name="searchForm" id="searchForm" action="ebooking_mainorderlist.do?action=doFind" method="post" >
 					<input type="hidden" name="userAvd" id="userAvd" value=''>
 					<input type="hidden" name="userHttpCgiRoot" id="userHttpCgiRoot" value='${user.httpCgiRoot}'>
 					<input type="hidden" name="userServletHost" id="userServletHost" value='${user.servletHostWithoutHttpPrefix}'>
 					<input type="hidden" name="userHttpJQueryDocRoot" id="userHttpJQueryDocRoot" value='${user.httpJQueryDocRoot}'>
-					
 					
 			    	<td> 
 			    	<table width="100%">
@@ -175,9 +175,12 @@
 					<thead >
 					<tr style="background-color:#BCC6CC">
 						<th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.ordernr"/></th>   
-	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.date"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender"/></th>
+	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender.etd"/></th>
+	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.sender.etdtime"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver"/></th>
+	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver.etd"/></th>
+	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.receiver.etdtime"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.antall"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.weight"/></th>
 	                    <th class="text12"><spring:message code="systema.ebooking.orders.open.list.search.label.m3"/></th>
@@ -210,14 +213,18 @@
     		    			</a>
     		    			</div>
 			           </td>
-			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
-		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
-		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.xfralk}${record.hesdf}</td>
-		               <td align="center" class="text11MediumBlue">&nbsp;${record.xtillk}${record.hesdt}</td>
+			           <td align="left" class="text11MediumBlue">${record.henas}</td>
+		               <td align="left" class="text11MediumBlue">${record.trsdfd}</td>
+		               <td align="left" class="text11MediumBlue">${record.trsdfk}</td>
+		               <td align="left" class="text11MediumBlue">${record.henak}</td>
+		               <td align="left" class="text11MediumBlue">${record.trsdtd}</td>
+		               <td align="left" class="text11MediumBlue">${record.trsdtk}</td>
+		               
+		               <td align="center" class="text11MediumBlue">${record.hent}</td>
+		               <td align="center" class="text11MediumBlue">${record.hevkt}</td>
+		               <td align="center" class="text11MediumBlue">${record.hem3}</td>
+		               <td align="center" class="text11MediumBlue">${record.xfralk}${record.hesdf}</td>
+		               <td align="center" class="text11MediumBlue">${record.xtillk}${record.hesdt}</td>
 		               <%-- START Print --%>
 	                    <td class="tableCellEbookingPrint" align="center">
 	                    	<%-- only those status that have a real state. Status=null is not allowed to print --%>

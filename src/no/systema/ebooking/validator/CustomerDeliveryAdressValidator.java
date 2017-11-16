@@ -61,10 +61,12 @@ public class CustomerDeliveryAdressValidator implements Validator {
 		if(record!=null){
 			//kundnr validation
 			if( strMgr.isNotNull(record.getVakure()) ){
+				/*OBSOLETE since vakure is a free field and not a customerNr (as for today)
 				if(!this.isValidPartId(record, record.getVakure())){
 					errors.rejectValue("ownKundnr", "systema.ebooking.orders.customeraddresses.vedlikehold.form.update.error.rule.customernr.invalid");
 					
 				}
+				*/
 			}
 			//email validation
 			if( strMgr.isNotNull( record.getVamail()) ){

@@ -429,6 +429,7 @@
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>	
 	 									<%-- </c:if> --%>
+	 									
 					 				</td>
 					 				<td class="text11">
 					 					&nbsp;<span title="whenak"><spring:message code="systema.ebooking.orders.form.update.label.consignee.buyer"/>&nbsp;</span>
@@ -446,11 +447,14 @@
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
 	 									<%-- </c:if> --%>
+	 									<font style="margin-left:12em;color:darkgreen;">Hurtigsøk-knr</font>
 					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}"></td>
+				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="henak" id="henak" size="25" maxlength="30" value="${model.record.henak}">
+				 						&nbsp;<input type="text" class="inputTextMediumBlue" name="wvakure2" id="wvakure2" size="10" maxlength="25" value="${Xmodel.record.todo}">
+				 					</td>
 				 					<td class="text11"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" type="text" class="inputTextMediumBlueUPPERCASEMandatoryField" name="headk1" id="headk1" size="25" maxlength="30" value="${model.record.headk1}"></td>
 				 				</tr>
 					 			<tr>	

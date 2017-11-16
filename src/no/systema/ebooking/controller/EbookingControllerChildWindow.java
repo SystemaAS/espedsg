@@ -465,13 +465,15 @@ public class EbookingControllerChildWindow {
 		final String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_UPDATE_CHILDWINDOW_CUSTOMER_DELIVERY_ADDRESS_URL;
 		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		urlRequestParamsKeys.append("user=" + applicationUser + "&mode=" + mode);
+		urlRequestParamsKeys.append("&wkundnr=" + wkundnr);
 		//START Key: kundnr always fallback
-		String kundnr = wkundnr;
+		/*String kundnr = wkundnr;
 		if(strMgr.isNotNull(recordToValidate.getVakure())){
 			//This happens when there is a user input in this field
 			kundnr = recordToValidate.getVakure();
 		}
 		urlRequestParamsKeys.append("&wkundnr=" + kundnr);
+		*/
 		//END key
 		
 		//Sub-key ONLY with update or delete otherwise (create new) leave it empty.

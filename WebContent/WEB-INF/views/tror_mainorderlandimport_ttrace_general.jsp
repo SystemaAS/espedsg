@@ -84,6 +84,7 @@
 					                    <td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</td>
 					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</td>
 					                    <td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</td>
+					        			<td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.delete"/>&nbsp;</td>
 					        			
 					               </tr> 
 					               	 <c:forEach items="${model.trackAndTraceloggingList}" var="record" varStatus="counter">    
@@ -103,7 +104,7 @@
 						               	<td class="tableCell" >&nbsp;${record.user}</td>
 						               	<%-- DELETE cell --%>							           
 						               	<td width="2%" class="tableCell" align="center">
-						               	   <c:if test="${not empty record.date && not empty record.event}">
+						               	   <c:if test="${not empty record.date && not empty record.time}">
 						                   		<a style="cursor:pointer;" id="avd_${model.avd}@opd_${model.opd}@date_${record.date}@time_${record.time}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>&nbsp;
@@ -274,7 +275,9 @@
 					    <tr height="10"><td colspan="2" ></td></tr>
 					    <tr>	
 						    <td align="left" colspan="5">
+						    	<%--TODO 
 								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
+								--%>
 								<%-- 
 								&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.transportdisp.cancel"/>'>
 								--%>

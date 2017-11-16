@@ -98,6 +98,24 @@ public class JsonMainOrderListRecord extends JsonAbstractGrandFatherRecord {
 	public void setStatus(String value){ this.status = value;}
 	public String getStatus(){ return this.status; }
 	
+	private String trsdfd = null;
+	public void setTrsdfd(String value){ this.trsdfd = value;}
+	public String getTrsdfd(){ return this.trsdfd; }
+	
+	private String trsdfk = null;
+	public void setTrsdfk(String value){ this.trsdfk = value;}
+	public String getTrsdfk(){ return this.trsdfk; }
+	
+	private String trsdtd = null;
+	public void setTrsdtd(String value){ this.trsdtd = value;}
+	public String getTrsdtd(){ return this.trsdtd; }
+	
+	private String trsdtk = null;
+	public void setTrsdtk(String value){ this.trsdtk = value;}
+	public String getTrsdtk(){ return this.trsdtk; }
+	
+	
+	
 	/**
 	 * User for java reflection in other classes
 	 * @return

@@ -115,7 +115,7 @@
 					<table class="tableBorderWithRoundCornersLightGray">
 						<tr>
 							<td class="text11">
-								<span title="ownKundnr">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
+								<span title="vakure">&nbsp;<spring:message code="systema.ebooking.childwindow.customeraddresses.maint.label.customeradr.address.customernr"/></span>
 							</td>
 							<td class="text11">
 								<input type="text" class="inputTextMediumBlue11" name="vakure" id="vakure" size="9" maxlength="8" value="">

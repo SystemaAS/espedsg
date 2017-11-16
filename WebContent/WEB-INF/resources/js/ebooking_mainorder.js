@@ -558,6 +558,61 @@
 	    	
 		});
 	    
+	    //Hurtigsøk on receiver
+	    jq('#wvakure2').blur(function() {
+	    	var wvakure = jq('#wvakure2').val();
+	    	//alert("hi");
+	    	if(wvakure!=null && wvakure!=""){
+	    		//alert("2");
+	    		
+	    		jq.getJSON('getSenderAddressHurtigSok_Ebooking.do', {
+				applicationUser : jq('#applicationUser').val(),
+				kundnr : jq('#trknfa').val(),
+				vakure : wvakure,
+				ajax : 'true'
+	    		}, function(data) {
+					//alert("Hello");
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						customer = new Object();
+						customer.kundnr = data[i].vakure;
+						customer.knavn = data[i].vadrna;
+						//customer.auxnavn = data[i].auxnavn;
+						customer.adr1 = data[i].vadrn1;
+						customer.adr2 = data[i].vadrn2;
+						customer.adr3 = data[i].vadrn3;
+						customer.land = data[i].valand;
+						customer.auxtlf = data[i].vatlf;
+						customer.auxmail = data[i].vamail;
+						map[customer.kundnr] = customer;
+					}
+					if(len > 0){
+						//jq('#henas').removeClass( "isa_error" );
+						
+						//only if name is empty
+		    			//if(name==''){
+							jq('#vakure').val(customer.kundnr);
+							jq('#henak').val(customer.knavn);
+							jq('#headk1').val(customer.adr1);
+							jq('#headk2').val(customer.adr2);
+							jq('#headk3').val(customer.adr3 + " " +  customer.land);
+							jq('#wskcont').val("");
+							jq('#wsktlf').val(customer.auxtlf);
+							jq('#wskmail').val(customer.auxmail);
+							//
+							jq('#wvakure2').removeClass( "isa_error" );
+		    			//}	
+					}else{
+						//init fields
+						//jq('#hekns').val("");
+						jq('#wvakure2').val(jq('#wvakure2').val() + '??');
+						jq('#wvakure2').addClass( "isa_error" );
+					}
+	    		});
+    		}
+	    	
+		});
+	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {
 	    	getConsignee();
