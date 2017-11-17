@@ -315,28 +315,36 @@ public class DashboardController {
 		StringBuffer url = request.getRequestURL();
 		String uri = request.getRequestURI();
 		String hostRaw = url.substring(0, url.indexOf(uri));
-		
+		String protocol = HTTP_PREFIX;
 		//update Tomcat port if it exists from DB-login return (when a user must be redirected to the same http but different port (TOTEN-case. Multi-firm)
 		if(appUser.getTomcatPort()!=null){
 			Integer indexHttps = hostRaw.indexOf(HTTPS_PREFIX);
 			Integer indexHttp = hostRaw.indexOf(HTTP_PREFIX);
 			//default
-			hostRaw = hostRaw.replace(HTTP_PREFIX, "");
-			//https (if applicable)
-			if(indexHttps > 0){
+			if(indexHttp >= 0){
+				hostRaw = hostRaw.replace(HTTP_PREFIX, "");
+				logger.info("HTTP hostRaw: " + hostRaw);
+			}else if(indexHttps >= 0){
+				//https (if applicable)
 				hostRaw = hostRaw.replace(HTTPS_PREFIX, "");
+				protocol = HTTPS_PREFIX;
+				logger.info("HTTPs hostRaw: " + hostRaw);
 			}
+			
 			//now to the issue
 			Integer indx = hostRaw.indexOf(":");
-			if(indx > 0){
+			if(indx >= 0){
 				String host = hostRaw.substring(0, indx + 1);
-				String protocol = HTTP_PREFIX;
-				if(indexHttps > 0){
-					protocol = HTTPS_PREFIX;
+				//default
+				String port = appUser.getTomcatPort();
+				if(protocol.contains(HTTPS_PREFIX)){
+					//take the port from the url and not from the json-return on ...symn0J.pgm
+					Integer indxPort = hostRaw.lastIndexOf(":");
+					String portTmp = hostRaw.substring(indxPort + 1);
+					port = portTmp;
 				}
-				//http + port string
-				hostRaw = protocol + host + appUser.getTomcatPort();
-				logger.info("HTTP host with port: " + hostRaw);
+				hostRaw = protocol + host + port;
+				logger.info("HTTP host with protocol and port: " + hostRaw);
 			}
 		}
 		//POST not working (with change of port-TOTEN) - OBSOLETE 
