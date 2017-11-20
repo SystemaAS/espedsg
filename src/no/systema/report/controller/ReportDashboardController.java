@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import no.systema.jservices.common.dao.SingleValueObject;
 import no.systema.jservices.common.dao.SvewDao;
+import no.systema.jservices.common.dto.SingleValueDto;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.util.StringUtils;
@@ -185,8 +185,8 @@ public class ReportDashboardController {
 	}	
 	
 	private void populateCodesHtmlDropDownsFromJsonYear(Map model, SystemaWebUser appUser) {
-		JsonReader<JsonDtoContainer<SingleValueObject>> jsonReader = new JsonReader<JsonDtoContainer<SingleValueObject>>();
-		jsonReader.set(new JsonDtoContainer<SingleValueObject>());
+		JsonReader<JsonDtoContainer<SingleValueDto>> jsonReader = new JsonReader<JsonDtoContainer<SingleValueDto>>();
+		jsonReader.set(new JsonDtoContainer<SingleValueDto>());
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_HEADF_YEARS_GET_URL;
 		StringBuilder urlRequestParams = new StringBuilder();
 		urlRequestParams.append("user=" + appUser.getUser());
@@ -194,8 +194,8 @@ public class ReportDashboardController {
 		logger.info("PARAMS: " + urlRequestParams.toString());
 		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
 		logger.info("jsonPayload=" + jsonPayload);
-		List<SingleValueObject> list = new ArrayList();
-		JsonDtoContainer<SingleValueObject> container = (JsonDtoContainer<SingleValueObject>) jsonReader.get(jsonPayload);
+		List<SingleValueDto> list = new ArrayList();
+		JsonDtoContainer<SingleValueDto> container = (JsonDtoContainer<SingleValueDto>) jsonReader.get(jsonPayload);
 		if (container != null) {
 			list = (List) container.getDtoList();
 		}
