@@ -2,6 +2,37 @@
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
+
+<style>
+
+fieldset { 
+    display: inline-block;
+    margin-right: 2px;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: 1px solid silver;
+    white-space: nowrap;
+}
+
+legend {
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0rem;
+    font-size: 0rem;
+    line-height: inherit;
+    padding-left: 2px;
+    padding-right: 30px;
+    border: none; 
+}
+
+
+</style>
+
+
+
 <script type="text/javascript">
 "use strict";
 var baseUrl = "/syjservicesbcore/syjsFAKT_DB.do?user=${user.user}";
@@ -755,18 +786,21 @@ window.addEventListener('error', function (e) {
 					</div>
 					
 					<div class="col-md-2 text12">
- 						<div class="row">
-							<div class="col-md-5 text12">
-								<font class="text12">Varekode:</font><br>
-				        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode" multiple="multiple" title="-velg-">
-					 						<option value="TODO">-todo-</option>
-								</select>	
+						<fieldset class="form-group">
+						  <legend><font class="text12">Varekode: </font></legend>
+						 	<!--  <div class="col-md-12"> -->
+						 	<div class="form-check form-check-inline">
+							 	<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode" multiple="multiple" title="-velg-">
+						 			<option value="TODO">-todo-</option>
+								</select>
 							</div>
-							<div class="col-md-7 text12">
-   		 						 <input type="checkbox" name="checkboxExclude" id="checkbox-exclude">				    
-								 <label for="checkbox-exclude">Ekskluder</label>
-							</div>
- 						</div>
+							<div class="form-check form-check-inline">
+							  <label class="form-check-label">
+							    <input class="form-check-input" type="checkbox" name="checkboxExclude" id="checkbox-exclude">
+							    Ekskluder
+							  </label>
+							</div>		
+ 						</fieldset>
 					</div>	
 
 					<div class="col-md-2 text12">
