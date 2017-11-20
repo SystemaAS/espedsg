@@ -398,29 +398,71 @@
 							 				<td class="text12" >	
 							 					<input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="hedtop" id="hedtop" size="9" maxlength="8" value="${model.record.hedtop}">
 							 				</td>
-							 				<td class="text12" title="hepro">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.turnr"/></td>
+							 				<td class="text12" title="hepro">
+							 					<img onMouseOver="showPop('turnr_info');" onMouseOut="hidePop('turnr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.turnr"/>
+							 					<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute;top:5px; width:200px;" id="turnr_info" class="popupWithInputText text11"  >
+										           		<p><b>Turnr</b></p> 
+									           			Turnr hentes automatisk fra teller ved tasting av F-9. Feltet er tilgjengelig slik at en allerede
+														eksisterende tur kan tastes inn
+													</span>	
+												</div>
+							 				
+							 				</td>
 							 				<td class="text12">
 							 					<input <c:if test="${ not empty model.record.heopd }"> autofocus </c:if>  type="text" class="inputTextMediumBlue" name="hepro" id="hepro" size="9" maxlength="8" value="${model.record.hepro}">
 							 				</td>
-							 				<td class="text12" title="hepos1">&nbsp;&nbsp;<spring:message code="systema.tror.orders.form.update.label.position"/>
+							 				<td class="text12" title="hepos1">
+							 					<img onMouseOver="showPop('hepos_info');" onMouseOut="hidePop('hepos_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.position"/>
 							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1" size="8" maxlength="7" value="${model.record.hepos1}">
 							 					&nbsp;<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
+							 					
+							 					<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; left:-100px; top:5px; width:200px;" id="hepos_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.position"/></b></p> 
+									           			Hovedposisjon er 4 lang. Underposisjon er 4 lang. Overføres til rubrikk 49 på SAD-dokumentet
+														( konnossement nr. ).
+													</span>	
+												</div>
+							 					
 							 				</td>
 							 				
 							 			</tr>
 							 			<tr>	
-							 				<td class="text12" title="hegn:${model.record.hegn}"><spring:message code="systema.tror.orders.form.update.label.godsnr"/></td>
+							 				<td class="text12" title="hegn:${model.record.hegn}">
+							 					<img onMouseOver="showPop('hegn_info');" onMouseOut="hidePop('hegn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.godsnr"/>
+							 					<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; left:-150px; top:5px; width:200px;" id="hegn_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.godsnr"/></b></p> 
+									           			Her tastes forsendelsens godsnummer.
+													</span>	
+												</div>
+							 				</td>
+							 				
 							 				<td colspan="3" class="text12">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn1" id="ownHegn1" size="5" maxlength="4" value="${model.record.ownHegn1}">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn2" id="ownHegn2" size="6" maxlength="5" value="${model.record.ownHegn2}">
 							 					<input type="text" class="inputTextMediumBlue" name="ownHegn3" id="ownHegn3" size="7" maxlength="6" value="${model.record.ownHegn3}">
 							 				</td>
-							 				<td class="text12"><img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
+							 				<td class="text12">
+							 					<img onMouseOver="showPop('hesdl_info');" onMouseOut="hidePop('hesdl_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
 				 								<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.unload"/></span>
 				 								<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_loadunloadplaces.do?action=doFind&ctype=tror_landimport','loadunloadWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 							<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 						</a>
 				 								<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="25" maxlength="20" value="${model.record.hesdl}">
+				 								
+				 								<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; left:-250px; top:5px; width:200px;" id="hesdl_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.unload"/></b></p> 
+									           			Lossested. Det som står i dette feltet skrives på ankomstmelding og losseliste.
+														Det er ikke krav til feltet.
+													</span>	
+												</div>
 											</td>
 						 				</tr>
 						 				
@@ -430,10 +472,19 @@
 					 				<td valign="top" align="left" width="50%">
 						 				<table width="100%" border="0">
 						 				<tr>
-						 					<td class="text12" title="hekna"><spring:message code="systema.tror.orders.form.update.label.agent"/>
+						 					<td class="text12" title="hekna">
+						 						<img onMouseOver="showPop('hekna_info');" onMouseOut="hidePop('hekna_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 						<spring:message code="systema.tror.orders.form.update.label.agent"/>
 						 						<a tabindex="-1" id="trorAgentIdLink" >
 		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
+		 										<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="hekna_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.agent"/></b></p> 
+									           			Tast agents kundenr eller søk i kunderegister.
+													</span>	
+												</div>
+		 										
 		 									</td>
 		 									<td class="text12" >	
 						 						<input type="text" class="inputTextMediumBlue" name="hekna" id="hekna" size="9" maxlength="8" value="${model.record.hekna}">
@@ -441,16 +492,33 @@
 						 					<td class="text12" title="henaa">	
 						 						<input type="text" class="inputTextReadOnly" name="henaa" id="henaa" size="20" maxlength="30" value="${model.record.henaa}">
 							 				</td>
-									 		<td class="text12" title="herfa">&nbsp;<spring:message code="systema.tror.orders.form.update.label.agentRef"/>&nbsp;
+									 		<td class="text12" title="herfa">
+									 			<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+									 			<spring:message code="systema.tror.orders.form.update.label.agentRef"/>&nbsp;
 									 			<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="15" maxlength="14" value="${model.record.herfa}">
+									 			<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; left:-150px; top:5px; width:200px;" id="herfa_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.agentRef"/></b></p> 
+									           			Agents referanse kan tastes her. Feltet kan ellers benyttes til hva man måtte ønske.
+													</span>	
+												</div>
 									 		</td>
 							 				
 							 			</tr>
 							 			<tr>
-							 				<td class="text12" title="heknt"><spring:message code="systema.tror.orders.form.update.label.transport"/>
+							 				<td class="text12" title="heknt">
+							 					<img onMouseOver="showPop('heknt_info');" onMouseOut="hidePop('heknt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.transport"/>
 							 					<a tabindex="-1" id="trorCarrierIdLink" >
 		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
+		 										
+		 										<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="heknt_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transport"/></b></p> 
+									           			Tast transportørs kundenr eller søk i kunderegister.
+													</span>	
+												</div>
 		 									</td>
 		 									<td class="text12" >	
 							 					<input type="text" class="inputTextMediumBlue" name="heknt" id="heknt" size="9" maxlength="8" value="${model.record.heknt}">
@@ -471,10 +539,34 @@
 								 	<td align="left" width="50%">
 						 				<table width="98%" class="tableBorderWithRoundCornersLightGray" border="0">
 						 				<tr>		
-								 			<td class="text12">&nbsp;<span title="hekdtm"><spring:message code="systema.tror.orders.form.update.label.transporttype"/></span>
+								 			<td class="text12">
+								 				<img onMouseOver="showPop('hekdtm_info');" onMouseOut="hidePop('hekdtm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<span title="hekdtm"><spring:message code="systema.tror.orders.form.update.label.transporttype"/></span>
 								 				<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_transporttypes.do?action=doFind&ctype=tror_landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 		 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
+		 										
+		 										<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="hekdtm_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transporttype"/></b></p> 
+									           			Tast gyldig kode for transportmåte ved grense. Overføres SAD:
+									           			<ul>
+									           				<li><b>10</b>&nbsp;Fartøy, norske utenlandske.
+									           				<li><b>12</b>&nbsp;Jernbanevogn på fartøy.</li>
+									           				<li><b>16</b>&nbsp;Bil på fartøy.</li>
+									           				<li><b>17</b>&nbsp;Tilhenger på fartøy.</li>	
+									           				<li><b>20</b>&nbsp;Jernbane.</li>	
+									           				<li><b>23</b>&nbsp;Bil/tilhenger på jernbanevogn.</li>	
+									           				<li><b>30</b>&nbsp;Bil (vegtransport).</li>	
+									           				<li><b>40</b>&nbsp;Luftfartøy.</li>	
+									           				<li><b>50</b>&nbsp;Post.</li>	
+									           				<li><b>70</b>&nbsp;Faste installasjoner (rør, kabler etc..).</li>	
+									           				<li><b>80</b>&nbsp;Transport på innenlandske vannveier.</li>
+									           				<li><b>90</b>&nbsp;Egen framdrift.</li>
+									           						
+									           			</ul>
+													</span>	
+												</div>
 								 			</td>
 								 			<td class="text12">
 								 				<select name="hekdtm" id="hekdtm">
