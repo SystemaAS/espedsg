@@ -408,6 +408,14 @@ public final class MaintenanceMainUrlDataStore {
 	 * 
 	 */
 	static public String MAINTENANCE_MAIN_BASE_SVTPRO_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSVTPRO.do";			
+
+	/**
+	 * Retrieve a List of SingleValueObject, placeholder of available years in HEADF
+	 * 
+	 * @Example SELECT list: http://gw.systema.no:8080/syjservicesbcore/syjsFAKT_DB_DISTINCT_YEAR.do?user=OSCAR
+	 * 
+	 */
+	static public String MAINTENANCE_MAIN_BASE_HEADF_YEARS_GET_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKT_DB_DISTINCT_YEAR.do";		
 	
 	//OS-Users (general)
 	//http://gw.systema.no:8080/syjservicesbcore/syjsSYQAOKP08AR.do?user=OSCAR&wos8dden==ROGER

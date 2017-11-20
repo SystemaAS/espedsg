@@ -35,6 +35,28 @@
 	<script type="text/javascript" src="resources/js/FileSaver.js"></script>
  	<script type="text/javascript" src="resources/selectlist/js/jquery.selectlist.min.js"></script>
 	<script type="text/javascript" src="resources/js/headerReports.js?ver=${user.versionEspedsg}"></script>	
+	
+	<script>
+	//org  "date": "%m/%d/%Y",
+	var no_NO = {
+			  "decimal": ".",
+			  "thousands": ".",
+			  "grouping": [3],
+			  "currency": ["NOK", ""],
+			  "dateTime": "%a %b %e %X %Y",
+			  "date": "%d%m%Y",
+			  "time": "%H:%M:%S",
+			  "periods": ["AM", "PM"],
+			  "days": ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+			  "shortDays": ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
+			  "months": ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+			  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+			};	
+  	var NO = d3.locale(no_NO);  
+	
+	</script>
+	
+	
 	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
     <table class="noBg" width="1300" border="0" cellspacing="0" cellpadding="0">

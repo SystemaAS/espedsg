@@ -14,6 +14,7 @@ function load_data() {
 
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
+	var selectedYearComp = jq('#selectYearComp').val();
 	var selectedAvd = jq('#selectAvd').val();
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
@@ -64,12 +65,15 @@ d3.json(runningUrl, function(error, data) {
 	
 	var faktData = data.dtoList;
    // console.log("faktData="+faktData);  //Tip: View i  Chrome devtool; NetWork-(mark xhr row)-Preview
-    
+ 
     var fullDateFormat = d3.time.format('%Y%m%d');
-    var fullDateFormatDw = d3.time.format('%Y%m');
+    //var fullDateFormatDw = d3.time.format('%Y%m');
+    var fullDateFormatDw = NO.timeFormat('%Y%m');
     var yearFormat = d3.time.format('%Y');
     var monthFormat = d3.time.format('%m');
-    var monthNameFormat = d3.time.format('%m.%b');
+    //var monthNameFormat = d3.time.format('%m.%b');
+    
+    var monthNameFormat = NO.timeFormat('%m.%b');
     var percentageFormat = d3.format('.2%');
     var numberFormat = d3.format(",.0f")
    
@@ -101,8 +105,16 @@ d3.json(runningUrl, function(error, data) {
 	
 	//Dimensions
 	var  faktAllDim = fakt.dimension(function(d) {return d;});	 
-	var  dateDim  = fakt.dimension(function(d) {return d.date;});
-    var  monthDim = fakt.dimension(function (d) {return d.month;});	
+	var  dateDim  = fakt.dimension(function(d) {
+		var year = yearFormat(d.date);
+		//console.log("year",year);  //http://jsfiddle.net/gordonwoodhull/uy7dqwr5/29/
+		if (year == selectedYear) {
+			return d.date;			
+		}
+
+	});
+
+	var  monthDim = fakt.dimension(function (d) {return d.month;});	
 	var  avdDim  = fakt.dimension(function(d) {return d.avdeling;});
 	var  tubilkDim  = fakt.dimension(function(d) {return d.bilkod;});
 	var  favkDim  = fakt.dimension(function(d) {return d.varek;});
@@ -301,17 +313,55 @@ d3.json(runningUrl, function(error, data) {
 		  })
 		 .formatNumber(d3.format(".2%")); 
 	  
+	var filterDateDim = dateDim.filterRange([new Date(2016, 1, 1), new Date(2016, 4, 30)]);
 
+	var filterDateDimGroup =  filterDateDim.group().reduce(   
+            function (p, v) {
+                ++p.count;
+                if (v.omskost != 'K') {
+                	p.omsetning += v.belop;   
+                } else {
+                	p.kostnad += v.belop; 
+                }
+                return p;
+            },
+            function (p, v) {
+                --p.count;
+                if (v.omskost != 'K') {
+                	p.omsetning -= v.belop;   
+                } else {
+                	p.kostnad -= v.belop; 
+                }
+                return p;
+            },
+            function () {
+                return {
+                    count: 0,
+                    omsetning: 0,
+                    kostnad: 0,
+                };
+            }
+    );  
+	
+	
+	
+	filterDateDim.filter(mindate);
+	
+	console.log("filterDateDim.top(5)", filterDateDim.top(5));
+	
+	
 	compositeChart
 		    .width(1200)
 		    .height(500)
-		    .dimension(monthDim)  
-		    .group(monthDimGroup) 
+		    .dimension(filterDateDim.filter(mindate))  
+		    .group(filterDateDimGroup) 
+		   //.filter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))
+		   // .replaceFilter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))
 		    .margins({top: 40, right: 10, bottom: 30, left: 60})
      		.x(d3.scale.ordinal())  
             .xUnits(dc.units.ordinal)       
-	       // .x(d3.time.scale().domain([mindate, maxdate]))
-    	   // .round(d3.time.month.round)
+	        //.x(d3.time.scale().domain([mindate, maxdate]))
+    	    //.round(d3.time.month.round)
         	//.xUnits(d3.time.months)          
             .yAxisPadding('5%')
             .yAxisLabel("NOK")
@@ -319,6 +369,7 @@ d3.json(runningUrl, function(error, data) {
             .elasticY(true)
             .elasticX(true)
             .mouseZoomable(false)
+            .brushOn(false)
             .renderTitle(true)
 	    	.title(function (d) {
             	var resultat = d.value.omsetning + d.value.kostnad;  
@@ -329,7 +380,7 @@ d3.json(runningUrl, function(error, data) {
  	                'Dekningsbidrag: ' + percentageFormat(db)
  	            ].join('\n');
 			 })	
- /* 
+ 
 			 .legend( dc.legend().x(1100).y(2).itemHeight(5).gap(20).legendText(function(d, i) { 
         				if (i == 0) {
         					return "Omsetning";
@@ -342,16 +393,15 @@ d3.json(runningUrl, function(error, data) {
         				}
         			}) 
         	)   
- */       	
+        	
 		    .renderHorizontalGridLines(true)
 		  	.compose([
-/*
 		  		dc.barChart(compositeChart)
 		           .colors('lightslategray')  //https://www.w3.org/TR/SVG/types.html#ColorKeywords
-		           // .centerBar(true)
 		            .gap(30)
-		           // .barPadding(1)
-		           // .renderLabel(true)
+		             .dimension(filterDateDim.filter(mindate))  
+		             //.filter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))
+		            .renderLabel(true)
 			        .label(function (d) {
 			        	var resultat = d.data.value.omsetning + d.data.value.kostnad;  
 		            	var db = resultat / d.data.value.omsetning;
@@ -360,37 +410,90 @@ d3.json(runningUrl, function(error, data) {
 			        .valueAccessor(function (d) {
                 		return d.value.omsetning; 
         			}),            
-*/
         		dc.barChart(compositeChart)
  					.gap(30)
- 					.group(monthDimGroup) 
+ 					 .dimension(filterDateDim.filter(mindate))  
+ 					 //.filter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))
+ 					.colors('coral')
 		            .valueAccessor(function (d) {
                    		return d.value.kostnad; 
            			})
-           			.stack(monthDimGroup, function (d) {
-			        	//var oms = d.value.omsetning + Math.abs(d.value.kostnad); //spooky
-			        	var oms = 10000;
-			            return oms;
-			        })
-/*			        
 			        ,
 			    dc.lineChart(compositeChart)
-		            //.colors('limegreen')
+		            .colors('limegreen')
+		             .dimension(filterDateDim.filter(mindate))  
+		             //.filter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))
 					.valueAccessor(function (d) {
-						var resultat = d.value.omsetning + d.value.kostnad;   // + = spooky algo
+						var resultat = d.value.omsetning + d.value.kostnad;   
 						return resultat;
 					 })
 		            .dashStyle([5,3])   
 		            .dotRadius(10)
 		            .renderDataPoints([{radius: 5, fillOpacity: 1, strokeOpacity: 1}])
-			        */
-		            ]) ;
-
-		//    .brushOn(false);
+		        ])
 	
-	        
-	  //  compositeChart.xAxis().tickFormat(d3.time.format('%B'));	        
-
+				.on('renderlet', function(_chart, filter){
+			       // 	chart.selectAll("rect.bar").on("click", function (d) {
+						//chart.filter(null);
+						//chart.filter(d.key);
+						
+					//})	 
+					console.log("WTF"); //https://github.com/dc-js/dc.js/issues/657
+					console.log("_chart.hasFilter()",_chart.hasFilter());
+		       /*
+			       if (_chart.hasFilter()) {
+		            	_chart.selectAll('rect.bar').classed(dc.constants.SELECTED_CLASS, function (d) {
+		                   // return _chart.hasFilter(d.x);
+		                });
+		            	_chart.selectAll('rect.bar').classed(dc.constants.DESELECTED_CLASS, function (d) {
+		                    //return !_chart.hasFilter(d.x);
+		                });
+		            } else {
+		            	_chart.selectAll('rect.bar').classed(dc.constants.SELECTED_CLASS, false);
+		            	_chart.selectAll('rect.bar').classed(dc.constants.DESELECTED_CLASS, false);
+		            }		
+				*/	
+					
+				//	chart.selectAll('rect.bar')
+				//	.classed(dc.constants.DESELECTED_CLASS, false);   //https://github.com/dc-js/dc.js/issues/558  kolla här
+	                // .classed('bar-deselected', function(d) {
+	                      // display stack faded if the chart has filters AND
+	                      // the current stack is not one of them
+	                      //var key = multikey(d.x, d.layer);
+	                      //return chart.filter() && chart.filters().indexOf(key)===-1;
+	                 // })
+					
+				})
+		
+	/*
+				.on('renderlet.barclicker', function(chart, filter){
+    				chart.selectAll('rect.bar').on('click.custom', function(d) {
+        			console.log("how to deselect");
+    				});
+				})		
+	*/	
+	/*
+		       .on('renderlet', function(chart) {
+    		        chart.selectAll("rect.bar").on("click", function (d) {
+            		    chart.filter(null)
+                    	.filter(d.data.key)
+                    	.redrawGroup();
+            	})
+		       })
+	*/	
+				
+			.on('preRender', function(_chart, filter){
+				_chart.filter(null);
+				//_chart.filter(mindate);
+				//filterDateDim.filter(mindate);
+				_chart.filter(dc.filters.RangedFilter(new Date(2017, 1, 1), new Date(2017, 4, 30)))  //Denna verkar funka, men vill åt dimension
+				console.log("prerender");
+			})
+	
+	
+		        .xAxis().tickFormat(NO.timeFormat('%b'));	 
+      
+	compositeChart.filter(mindate);
 	    
    
 //Diverse grejer till datum   
@@ -423,6 +526,7 @@ d3.json(runningUrl, function(error, data) {
 	
 	d3.selectAll('a#composite').on('click', function () {
 		compositeChart.filterAll();
+		//compositeChart.render();
 		dc.redrawAll();
 	});	
 	
@@ -613,10 +717,23 @@ window.addEventListener('error', function (e) {
 					<div class="col-md-1 text12">
 						<font class="text12">År:</font><br>
 						<select name="selectYear" id="selectYear">
-	  						<option value="2017">2017</option>
-		  					<option value="2016">2016</option>
+	  						<option value="">-velg-</option>
+		 				  	<c:forEach var="record" items="${model.yearList}" >
+		 				  		<option value="${record.value}">${record.value}</option>
+							</c:forEach> 
 	  					</select>
 	  				</div>
+
+					<div class="col-md-2 text12">
+						<font class="text12">Sammenlignings år:</font><br>
+						<select name="selectYearComp" id="selectYearComp">
+							<option value="">-velg-</option>
+		 				  	<c:forEach var="record" items="${model.yearList}" >
+		 				  		<option value="${record.value}">${record.value}</option>
+							</c:forEach> 
+	  					</select>
+	  				</div>	
+	
 				
 					<div class="col-md-1 text12">
 						<font class="text12">Avdeling:</font><br>
@@ -637,15 +754,15 @@ window.addEventListener('error', function (e) {
 						</select>					
 					</div>
 					
-					<div class="col-md-3 text12">
+					<div class="col-md-2 text12">
  						<div class="row">
-							<div class="col-md-3 text12">
+							<div class="col-md-5 text12">
 								<font class="text12">Varekode:</font><br>
 				        		<select class="inputTextMediumBlue" name="selectVarekode" id="selectVarekode" multiple="multiple" title="-velg-">
 					 						<option value="TODO">-todo-</option>
 								</select>	
 							</div>
-							<div class="col-md-8 text12">
+							<div class="col-md-7 text12">
    		 						 <input type="checkbox" name="checkboxExclude" id="checkbox-exclude">				    
 								 <label for="checkbox-exclude">Ekskluder</label>
 							</div>
@@ -660,7 +777,7 @@ window.addEventListener('error', function (e) {
 						</a>&nbsp;		
 					</div>
 					
-	  		    	<div class="col-md-4" align="right">
+	  		    	<div class="col-md-3" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 				  </div>
@@ -707,6 +824,7 @@ window.addEventListener('error', function (e) {
 				    </div>
 				  </div>
 
+<!--  
 			  	  <div class="row">
 					<div class="col-md-12" id="showDateDetailsXXX">
   						<h3><a id="showDateDetailsXXX"><font class="text12">Vis Omsetning og kostnad / dag BORT</font>
@@ -739,6 +857,8 @@ window.addEventListener('error', function (e) {
 					  </div>	
 				    </div>
 				  </div>	
+	
+-->	
 	
 				  <div class="row">
 					<div class="col-md-12">
