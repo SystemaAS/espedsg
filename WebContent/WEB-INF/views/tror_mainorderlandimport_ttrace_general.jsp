@@ -74,36 +74,39 @@
 							</td>
 						</tr> 
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:90%; height:15em;">
-								<table width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
+							<td class="text11" >
+								<table id="tblMain" class="display compact cell-border" >
+									<thead>
+									<tr style="background-color:#DDDDDD">
 										
-					        			<td align="center" width="2%" class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.fbrev"/>&nbsp;</td>   
-									    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</td>
-					                    <td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</td>   
-					                    <td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</td>
-					                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</td>
-					                    <td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</td>
-					        			<td align="center" width="5%" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.delete"/>&nbsp;</td>
+					        			<th align="center" width="2%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.fbrev"/>&nbsp;</th>
+					        			<th align="center" width="2%" class="text12">&nbsp;Endre&nbsp;</th>
+					        			<th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</th>
+					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</th>   
+					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</th>
+					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</th>
+					        			<th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.delete"/>&nbsp;</th>
 					        			
 					               </tr> 
+					               </thead>
+					               <tbody>
 					               	 <c:forEach items="${model.trackAndTraceloggingList}" var="record" varStatus="counter">    
-						               <c:choose>           
-						                   <c:when test="${counter.count%2==0}">
-						                       <tr class="tableRow" height="20" >
-						                   </c:when>
-						                   <c:otherwise> 
-						                       <tr class="tableOddRow" height="20" >
-						                   </c:otherwise>
-						               </c:choose>
-						               	<td class="tableCellFirst">&nbsp;${record.frBrev}</td>
-						               	<td class="tableCell" >&nbsp;${record.date}</td>
-						               	<td class="tableCell" >&nbsp;${record.time}</td>
-						               	<td class="tableCell" >&nbsp;${record.event}</td>
-						               	<td class="tableCell" >&nbsp;${record.textLoc}</td>
-						               	<td class="tableCell" >&nbsp;${record.user}</td>
+						               <tr class="tableRow" height="20" >
+						                   
+						               	<td class="text11">&nbsp;${record.frBrev}</td>
+						               	<td align="center" class="text11" >
+							               	<a id="recordUpdate_${record.date}@time_${record.time}" href="#" onClick="getBudgetItemData(this);">
+					               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+					               			</a>
+							            </td>   			
+						               	<td class="text11" >&nbsp;${record.date}</td>
+						               	<td align="right" class="text11" >&nbsp;${record.time}</td>
+						               	<td class="text11" >&nbsp;${record.event}</td>
+						               	<td class="text11" >&nbsp;${record.textLoc}</td>
+						               	<td class="text11" >&nbsp;${record.user}</td>
 						               	<%-- DELETE cell --%>							           
-						               	<td width="2%" class="tableCell" align="center">
+						               	<td width="2%" class="text11" align="center">
 						               	   <c:if test="${not empty record.date && not empty record.time}">
 						                   		<a style="cursor:pointer;" id="avd_${model.avd}@opd_${model.opd}@date_${record.date}@time_${record.time}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
@@ -113,52 +116,8 @@
 				               		  	</td> 
 						            	</tr>
 						            </c:forEach>
-					               		
-					               
-									  <%--						               
-				 					  <c:forEach items="${Xmodel.list}" var="record" varStatus="counter">    
-							               <c:choose>           
-							                   <c:when test="${counter.count%2==0}">
-							                   	   <%--highlight cost lines 	
-							                       <tr class="tableRow" height="20" >
-							                   </c:when>
-							                   <c:otherwise> 
-							                       <tr class="tableOddRow" height="20" >
-							                   </c:otherwise>
-							               </c:choose>
-							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${record.fskode}</td>
-							               <td align="center" width="2%" class="tableCell" >
-							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
-							     					<c:choose>
-								     					<c:when test="${not empty record.fskode && not empty record.fssok}">
-						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-						               					</c:when>
-						               					<c:otherwise>
-						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="update">&nbsp;
-						               					</c:otherwise>
-					               					</c:choose>
-					               				</a>
-						               	   </td>
-							               <td class="tableCell" >&nbsp;${record.fssok}</td>
-							               <td width="4%" class="tableCell" >&nbsp;${record.krav}</td>
-							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
-							               <%-- DELETE cell 							           
-							               <td width="2%" class="tableCell" align="center">
-							               	   <c:if test="${not empty record.fskode && not empty record.fssok}">
-							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
-									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-									               	</a>&nbsp;
-									               	
-								               	</c:if>
-					               		  </td> 
-							            </tr>
-								        <%-- this param is used ONLY in this JSP 
-								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
-								         
-								        <%-- this param is used throughout the Controller 
-								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
-								        </c:forEach>
-						            --%>
+					               	</tbody>	
+
 						        </table>
 							</td>
 						</tr>
@@ -242,33 +201,76 @@
 				 		<tr height="12"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
-						 		<table  class="tableBorderWithRoundCornersGray" width="90%" border="0" cellspacing="0" cellpadding="0">
+						 		<table  class="tableBorderWithRoundCornersGray" width="95%" border="0" cellspacing="0" cellpadding="0">
 						 			<tr height="5"><td class="text" align="left"></td></tr>
 						 			<tr >
 						 				
-						            	<td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fskode">&nbsp;Kode</span>
-							            	<a tabindex=-1 id="fskodeIdLink">
-	 											<img id="imgFrisokveiCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 										</a>
-							            </td>
-							            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span>
-					            			<a tabindex=-1 id="fsdokkIdLink">
-	 											<img id="imgFrisokveiDocCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 										</a>
-					            		</td>
-					            		
+						            	<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;Fraktbrevnr.</span></td>
+							            <td class="text12" align="left">&nbsp;<span title="todo">&nbsp;Kode</span></td>
+					            		<td width="5%" class="text12" align="left">&nbsp;<span title="todo">Hendelsestidspunkt</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Status</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Event code</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Reason code</span></td>
 							        </tr>
 							        <tr>
-						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fskode" id="fskode" size="4" maxlength="3" value="${model.record.fskode}"></td>
-							            <td class="text12" align="left" >
-						        			&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fssok" id="fssok" size="36" maxlength="35" value="${model.record.fssok}">
-						        		</td>
-						        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="fsdokk" id="fsdokk" size="11" maxlength="10" value="${model.record.fsdokk}"></td>
-							            
+						        		<td class="text12" align="left" >&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.fsdokk}"></td>
+							            <td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.fsdokk}"></td>
+							            <td width="5%" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoDate" id="todoDate" size="10" maxlength="8" value=''>
+							 			&nbsp;Kl:<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue"  name="todoDateTime" id="todoDateTime" size="5" maxlength="4" value=''></td>	
+							            	
+							            <td class="text12" align="left" >&nbsp;
+							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <option value="S"<c:if test="${Xmodel.record.hepk3 == 'S'}"> selected </c:if> >Send</option>
+											  <option value="F"<c:if test="${Xmodel.record.hepk3 == 'F'}"> selected </c:if> >Ferdig</option>
+											  <option value="J"<c:if test="${Xmodel.record.hepk3 == 'J'}"> selected </c:if> >Man</option>
+											</select>
+							            </td>	
+							            <td class="text12" align="left" >&nbsp;
+							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <%-- TODO underregister --%> 
+											</select>
+							            </td>	
+							            <td class="text12" align="left" >&nbsp;
+							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							 				  <option value="">-velg-</option>
+											  <%-- TODO underregister --%>
+											</select>
+							            </td>							            
+							        </tr>
+							        <tr height="5"><td class="text" align="left"></td></tr>
+							        <tr >
+						 				<td class="text12" align="left"><span title="todo">&nbsp;NO tekst</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="75" maxlength="71" value=''></td>
+							        </tr>
+							        <tr >
+						 				<td class="text12" align="left"><span title="todo">&nbsp;EN tekst</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="75" maxlength="71" value=''></td>
+							        </tr>
+							        <tr height="5"><td class="text" align="left"></td></tr>
+							        <tr >
+						 				<td class="text12" align="left"><span title="todo">&nbsp;Depot/term</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''></td>
+							        </tr>
+							        <tr >
+						 				<td class="text12" align="left"><span title="todo">&nbsp;Name</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''></td>
+							        </tr>
+							        <tr height="10"><td class="text" align="left"></td></tr>
+							              
+							         <tr >
+						 				<td class="text12" align="left"><span title="todo">&nbsp;Loggføringstid</span></td>
+						 				<td colspan="2" class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="todoDateNow" id="todoDateNow" size="10" maxlength="8" value=''>
+							 				&nbsp;Kl:<input readonly type="text" class="inputTextReadOnly"  name="todoDateTimeNow" id="todoDateTimeNow" size="5" maxlength="4" value=''>
+							 			</td>
+							 			<td class="text12" align="left"><span title="todo">&nbsp;Av bruker ID</span></td>
+						 				<td class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="todo" id="todo" size="8" maxlength="10" value=''></td>
 							        </tr>
 							        
+							        
 							        <tr height="8"><td class="text" align="left"></td></tr>
+							        
 						        </table>
 					        </td>
 				        </tr>

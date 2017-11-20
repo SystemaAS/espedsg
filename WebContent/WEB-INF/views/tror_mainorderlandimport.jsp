@@ -374,61 +374,11 @@
 							 				<table width="100%" border="0">
 										 		<tr>
 											 		<td valign="bottom"  width="5px" class="text14" >
-											 		<button name="xButton" id="xButton" class="buttonGrayWithGreenFrame" type="button" >x</button>
-											 		<button tabindex=-1 name="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" onClick="showPop('trackAndTraceFields');" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
-												        <span style="background-color:#EEEEEE; position:absolute; left:200px; top:200px; width:850px; height:370px;" id="trackAndTraceFields" class="popupWithInputTextThickBorder"  >
-											           		<table width="95%" border="0" align="left" cellspacing="2">
-											           			<tr>
-												           			<td colspan="3" class="text14">&nbsp;&nbsp;<b><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></b>&nbsp;<img style="vertical-align: bottom" src="resources/images/log-iconLOG.png" width="20" hight="20" border="0" alt="show track and trace"></td>
-												           		</tr>
-												           	</table>	
-											           		<div class="ownScrollableSubWindow" style="width:800px; height:300px; margin:10px;">
-											           			<nav>
-											           			<table width="95%" border="0" align="left" cellspacing="2">
-											           			<tr>	
-																	<td >
-																	<table width="95%" cellspacing="0" border="0" cellpadding="0">
-																		<tr class="tableHeaderField" height="20" valign="left">
-																		    <td class="tableHeaderFieldFirst">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.fbrev"/>&nbsp;</td>   
-																		    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</td>
-														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</td>   
-														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</td>
-														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</td>
-														                    <td class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</td>
-													               		</tr> 
-												 						  <c:forEach items="${model.record.trackAndTraceloggingRecord}" var="record" varStatus="counter">    
-																               <c:choose>           
-																                   <c:when test="${counter.count%2==0}">
-																                       <tr class="tableRow" height="20" >
-																                   </c:when>
-																                   <c:otherwise> 
-																                       <tr class="tableOddRow" height="20" >
-																                   </c:otherwise>
-																               </c:choose>
-																               	<td class="tableCellFirst">&nbsp;${record.frBrev}</td>
-																               	<td class="tableCell" >&nbsp;${record.date}</td>
-																               	<td class="tableCell" >&nbsp;${record.time}</td>
-																               	<td class="tableCell" >&nbsp;${record.event}</td>
-																               	<td class="tableCell" >&nbsp;${record.textLoc}</td>
-																               	<td class="tableCell" >&nbsp;${record.user}</td>
-																            	</tr>
-																            </c:forEach>
-															        </table>
-																	</td>											           		
-														         </tr>
-												   			</table>
-												   			
-												   			</nav>
-												   			</div>
-												   			<div>
-																<%-- OK BUTTON --%>
-									           					<p>&nbsp;&nbsp;&nbsp;&nbsp;<button name="trackAndTraceButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('trackAndTraceFields');">&nbsp;Close</button></p>
-														 	</div>
-										   				</span>
-											 		</td>
-											 		<td><button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button></td>
-											 		
-											 		
+											 			<button tabindex=-1 name="trackAndTraceButton" id="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
+												    </td>
+											 		<td>
+											 			<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
+													</td>
 												</tr>
 											</table>	
 							 				</td>

@@ -74,29 +74,24 @@
 							</td>
 						</tr> 
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:90%; height:15em;">
-								<table width="100%" cellspacing="0" border="0" cellpadding="0">
-									<tr class="tableHeaderField" height="20" valign="left">
-										<td align="center" width="4%" class="tableHeaderFieldFirst" >&nbsp;<span title="fskode">Kode&nbsp;</span></td>
-										<td align="center" width="2%" class="tableHeaderField" >&nbsp;<span title="todo">Oppd.&nbsp;</span></td>
-										<td class="tableHeaderField" >&nbsp;<span title="fssok">Søketekst&nbsp;</span></td>  
-										<td width="4%" class="tableHeaderField" >&nbsp;<span title="krav">Krav&nbsp;</span></td>
-					                    <td class="tableHeaderField" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></td>
-					        			<td align="center" width="2%" class="tableHeaderField" >&nbsp;Slett&nbsp;</td>
+							<td class="text11" >
+								<table id="tblMain" class="display compact cell-border" >
+									<thead>
+									<tr style="background-color:#DDDDDD">
+										<th align="center" width="4%" class="text12" >&nbsp;<span title="fskode">Kode&nbsp;</span></th>
+										<th align="center" width="2%" class="text12" >&nbsp;<span title="todo">Oppd.&nbsp;</span></th>
+										<th class="text12" >&nbsp;<span title="fssok">Søketekst&nbsp;</span></th>  
+										<th width="4%" class="text12" >&nbsp;<span title="krav">Krav&nbsp;</span></th>
+					                    <th class="text12" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></th>
+					        			<th align="center" width="2%" class="text12" >&nbsp;Slett&nbsp;</th>
 					               </tr> 
-					               
+					               </thead>
+					               <tbody>
 				 					  <c:forEach items="${model.list}" var="record" varStatus="counter">    
-							               <c:choose>           
-							                   <c:when test="${counter.count%2==0}">
-							                   	   <%--highlight cost lines --%>	
-							                       <tr class="tableRow" height="20" >
-							                   </c:when>
-							                   <c:otherwise> 
-							                       <tr class="tableOddRow" height="20" >
-							                   </c:otherwise>
-							               </c:choose>
-							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${record.fskode}</td>
-							               <td align="center" width="2%" class="tableCell" >
+							               <tr class="tableRow" height="20" >
+							                
+							               <td align="center" width="4%" class="text11" align="center">&nbsp;${record.fskode}</td>
+							               <td align="center" width="2%" class="text11" >
 							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
 							     					<c:choose>
 								     					<c:when test="${not empty record.fskode && not empty record.fssok}">
@@ -108,11 +103,11 @@
 					               					</c:choose>
 					               				</a>
 						               	   </td>
-							               <td class="tableCell" >&nbsp;${record.fssok}</td>
-							               <td width="4%" class="tableCell" >&nbsp;${record.krav}</td>
-							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
+							               <td class="text11" >&nbsp;${record.fssok}</td>
+							               <td width="4%" class="text11" >&nbsp;${record.krav}</td>
+							               <td class="text11" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
-							               <td width="2%" class="tableCell" align="center">
+							               <td width="2%" class="text11" align="center">
 							               	   <c:if test="${not empty record.fskode && not empty record.fssok}">
 							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
@@ -127,7 +122,7 @@
 								        <%-- this param is used throughout the Controller --%>
 								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
 								        </c:forEach>
-						           
+						           </tbody>
 						        </table>
 							</td>
 						</tr>

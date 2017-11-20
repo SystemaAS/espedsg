@@ -17,6 +17,15 @@
 	  if (currentMonth < 10) { currentMonthStr = '0' + currentMonth; }
 	  return currentMonthStr;
   }
+
+  jq(function() {
+		jq("#todoDate").datepicker({ 
+			dateFormat: 'yymmdd'  
+		});
+  });
+  
+  
+  
   /*
   jq(function() {
 	  jq("#bufedt").datepicker({ 
@@ -179,5 +188,32 @@
 	  });  //end dialog
 	}
 	*/
+  
+//-------------------
+  //Datatables jquery
+  //-------------------
+  //private function
+  function filterGlobal () {
+    jq('#tblMain').dataTable().search(
+    	jq('#tblMain_filter').val()
+    ).draw();
+  }
+
+  jq(document).ready(function() {
+    //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
+    jq('#tblMain').dataTable( {
+  	  //"dom": '<"top">t<"bottom"f><"clear">',
+  	  "dom": '<"top"i>rt<"bottom"f><"clear">',
+		  "scrollY":  "200px",
+		  "order": [ [ 2, "desc" ] ],
+		  "scrollCollapse":  true,
+		  "lengthMenu": [ 25, 50]
+	  });
+    //event on input field for search
+    jq('input.tblMain_filter').on( 'keyup click', function () {
+    		filterGlobal();
+    });
+	
+  });
 	 
   

@@ -32,7 +32,7 @@
 	  	jq('#frisokveiButton').click(function() {
 	  		window.open('tror_mainorderlandimport_frisokvei.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'frisokveiWin','top=120px,left=100px,height=600px,width=900px,scrollbars=no,status=no,location=no');
 	  	});
-	  	jq('#xButton').click(function() {
+	  	jq('#trackAndTraceButton').click(function() {
 	  		window.open('tror_mainorderlandimport_ttrace_general.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'ttraceGeneralWin','top=120px,left=100px,height=600px,width=900px,scrollbars=no,status=no,location=no');
 	  	})
   });
