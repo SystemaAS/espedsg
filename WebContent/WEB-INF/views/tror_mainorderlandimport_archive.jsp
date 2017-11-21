@@ -5,6 +5,8 @@
 <jsp:include page="/WEB-INF/views/headerTror.jsp" />
 <!-- =====================end header ==========================-->
 <SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_archive.js?ver=${user.versionEspedsg}"></SCRIPT>
+<SCRIPT type="text/javascript" src="resources/js/trorFkeys_landimport.js?ver=${user.versionEspedsg}"></SCRIPT>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">

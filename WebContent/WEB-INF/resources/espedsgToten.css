@@ -1338,6 +1338,9 @@ END override jQuery elements
 .text10Red{  
     font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 10px; color:#FF0000;  
 }
+.text10Orange{  
+    font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 10px; color:#FF6600;
+}
 .text10Bold{  
     font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 10px; color:#000000; font-weight:bold ; 
 }

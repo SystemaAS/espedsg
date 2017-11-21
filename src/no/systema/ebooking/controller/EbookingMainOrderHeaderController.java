@@ -43,6 +43,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.util.StringManager;
 import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
@@ -93,6 +94,8 @@ public class EbookingMainOrderHeaderController {
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
+	private StringManager strMgr = new StringManager();
+	
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -272,7 +275,9 @@ public class EbookingMainOrderHeaderController {
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
 				//populate archive docs
-				this.populateArchiveDocs(appUser, headerOrderRecord);
+				if( strMgr.isNotNull(headerOrderRecord.getHeavd()) && strMgr.isNotNull(headerOrderRecord.getHeopd())   ){
+					this.populateArchiveDocs(appUser, headerOrderRecord);
+				}
 				
 				//check if there was an error in item line "save" and put values back in that line
 				//Note: the header is already saved but at this stage: shit happens (TODO another day when I feel happier)

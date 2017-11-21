@@ -7,6 +7,8 @@
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
 	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/trorFkeys_landimport.js?ver=${user.versionEspedsg}"></SCRIPT>
+	
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -27,7 +29,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind" > 	
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>
 				</a>
 			</td>
 			<c:choose>
@@ -42,20 +44,20 @@
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
-						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>
+						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doFetch&heavd=${model.record.heavd}&heopd=${model.record.heopd}" > 	
 							<img style="vertical-align: bottom" src="resources/images/invoice.png" width="16" hight="16" border="0" alt="show invoice">
-							<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font><font class="text12">&nbsp;</font>
+							<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font>&nbsp;<font class="text10Orange">F10</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_li&avd=${model.record.heavd}&opd=${model.record.heopd}&sign=${model.record.hesg}" > 	
 							<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
-							<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font>
+							<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font>&nbsp;<font class="text10Orange">F9</font>
 						</a>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -578,7 +580,15 @@
 												
 								 			</td>
 								 			<td class="text12">&nbsp;
+												<img onMouseOver="showPop('hetrm_info');" onMouseOut="hidePop('hetrm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 												<span title="hetrm"><spring:message code="systema.tror.orders.form.update.label.transportland"/></span>
+												<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="hetrm_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transportland"/></b></p> 
+									           			Tast landkode (tobokstavs) for transportmidlets hjemland.
+									           			
+													</span>	
+												</div>
 								 			</td>
 								 			<td class="text12">
 								 				<select name="hetrm" id="hetrm">
@@ -591,7 +601,18 @@
 								 			</td>
 								 			
 								 			<td class="text12">&nbsp;
+								 				<img onMouseOver="showPop('hetrc_info');" onMouseOut="hidePop('hetrc_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 												<span title="hetrc"><spring:message code="systema.tror.orders.form.update.label.container"/></span>
+												<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="hetrc_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.container"/></b></p> 
+									           			Tast gyldig kode for å angi om varen ble fraktet i container ved grensepassering.
+									           			<ul>
+									           				<li><b>0</b>&nbsp;ikke i container.
+									           				<li><b>1</b>&nbsp;i container.</li>
+									           			</ul>	
+													</span>	
+												</div>
 								 			</td>
 								 			<td class="text12">
 								 				<select class="inputTextMediumBlue" name="hetrc" id="hetrc" >
@@ -601,7 +622,17 @@
 								 			</td>
 								 		</tr>
 								 		<tr>	
-								 			<td class="text12">&nbsp;<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.containernr"/></span></td>
+								 			<td class="text12">
+								 			<img onMouseOver="showPop('hetrcn_info');" onMouseOut="hidePop('hetrcn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.containernr"/></span>
+								 			<div class="text11" style="position: relative; display: inline;" align="left" >
+									 				<span style="position:absolute; top:5px; width:200px;" id="hetrcn_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.containernr"/></b></p> 
+									           			Tast containernr dersom 1 er svart i foregående felt.
+									           			KRAV til feltet dersom CONT = 1.
+													</span>	
+											</div>
+								 			</td>
 								 			<td colspan="2" class="text12">
 								 				<input type="text" class="inputTextMediumBlue" name="hetrcn" id="hetrcn" size="18" maxlength="17" value="${model.record.hetrcn}">
 								 			</td>

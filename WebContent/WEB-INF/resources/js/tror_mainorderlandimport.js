@@ -14,6 +14,8 @@
 	  });
   });
   
+  
+  
   //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();
