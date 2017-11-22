@@ -19,7 +19,6 @@
 	
 	<style type = "text/css">
 	.ui-datepicker { font-size:9pt;}
-	
 	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 	.ui-timepicker-div dl { text-align: left; }
 	.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }

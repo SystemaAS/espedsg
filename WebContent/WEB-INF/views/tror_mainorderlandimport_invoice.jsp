@@ -18,7 +18,6 @@
 	
 	<style type = "text/css">
 	.ui-dialog{font-size: 90.5%;}
-	
 	.ui-datepicker { font-size:9pt;}
 	
 	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }

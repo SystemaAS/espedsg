@@ -403,8 +403,8 @@
 							 				<td class="text12" title="hepro">
 							 					<img onMouseOver="showPop('turnr_info');" onMouseOut="hidePop('turnr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 					<spring:message code="systema.tror.orders.form.update.label.turnr"/>
-							 					<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute;top:5px; width:200px;" id="turnr_info" class="popupWithInputText text11"  >
+							 					<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="turnr_info" class="popupWithInputText text11"  >
 										           		<p><b>Turnr</b></p> 
 									           			Turnr hentes automatisk fra teller ved tasting av F-9. Feltet er tilgjengelig slik at en allerede
 														eksisterende tur kan tastes inn
@@ -421,8 +421,8 @@
 							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1" size="8" maxlength="7" value="${model.record.hepos1}">
 							 					&nbsp;<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
 							 					
-							 					<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; left:-100px; top:5px; width:200px;" id="hepos_info" class="popupWithInputText text11"  >
+							 					<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hepos_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.position"/></b></p> 
 									           			Hovedposisjon er 4 lang. Underposisjon er 4 lang. Overføres til rubrikk 49 på SAD-dokumentet
 														( konnossement nr. ).
@@ -436,8 +436,8 @@
 							 				<td class="text12" title="hegn:${model.record.hegn}">
 							 					<img onMouseOver="showPop('hegn_info');" onMouseOut="hidePop('hegn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 					<spring:message code="systema.tror.orders.form.update.label.godsnr"/>
-							 					<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; left:-150px; top:5px; width:200px;" id="hegn_info" class="popupWithInputText text11"  >
+							 					<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hegn_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.godsnr"/></b></p> 
 									           			Her tastes forsendelsens godsnummer.
 													</span>	
@@ -458,8 +458,8 @@
 						 						</a>
 				 								<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="25" maxlength="20" value="${model.record.hesdl}">
 				 								
-				 								<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; left:-250px; top:5px; width:200px;" id="hesdl_info" class="popupWithInputText text11"  >
+				 								<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hesdl_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.unload"/></b></p> 
 									           			Lossested. Det som står i dette feltet skrives på ankomstmelding og losseliste.
 														Det er ikke krav til feltet.
@@ -480,8 +480,8 @@
 						 						<a tabindex="-1" id="trorAgentIdLink" >
 		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
-		 										<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="hekna_info" class="popupWithInputText text11"  >
+		 										<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hekna_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.agent"/></b></p> 
 									           			Tast agents kundenr eller søk i kunderegister.
 													</span>	
@@ -498,8 +498,8 @@
 									 			<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									 			<spring:message code="systema.tror.orders.form.update.label.agentRef"/>&nbsp;
 									 			<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="15" maxlength="14" value="${model.record.herfa}">
-									 			<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; left:-150px; top:5px; width:200px;" id="herfa_info" class="popupWithInputText text11"  >
+									 			<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="herfa_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.agentRef"/></b></p> 
 									           			Agents referanse kan tastes her. Feltet kan ellers benyttes til hva man måtte ønske.
 													</span>	
@@ -514,9 +514,8 @@
 							 					<a tabindex="-1" id="trorCarrierIdLink" >
 		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
-		 										
-		 										<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="heknt_info" class="popupWithInputText text11"  >
+		 										<div class="text11" style="position: relative;"" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="heknt_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transport"/></b></p> 
 									           			Tast transportørs kundenr eller søk i kunderegister.
 													</span>	
@@ -547,9 +546,8 @@
 								 				<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_transporttypes.do?action=doFind&ctype=tror_landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 		 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
-		 										
-		 										<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="hekdtm_info" class="popupWithInputText text11"  >
+		 										<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hekdtm_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transporttype"/></b></p> 
 									           			Tast gyldig kode for transportmåte ved grense. Overføres SAD:
 									           			<ul>
@@ -582,8 +580,8 @@
 								 			<td class="text12">&nbsp;
 												<img onMouseOver="showPop('hetrm_info');" onMouseOut="hidePop('hetrm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 												<span title="hetrm"><spring:message code="systema.tror.orders.form.update.label.transportland"/></span>
-												<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="hetrm_info" class="popupWithInputText text11"  >
+												<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hetrm_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transportland"/></b></p> 
 									           			Tast landkode (tobokstavs) for transportmidlets hjemland.
 									           			
@@ -603,8 +601,8 @@
 								 			<td class="text12">&nbsp;
 								 				<img onMouseOver="showPop('hetrc_info');" onMouseOut="hidePop('hetrc_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 												<span title="hetrc"><spring:message code="systema.tror.orders.form.update.label.container"/></span>
-												<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="hetrc_info" class="popupWithInputText text11"  >
+												<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hetrc_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.container"/></b></p> 
 									           			Tast gyldig kode for å angi om varen ble fraktet i container ved grensepassering.
 									           			<ul>
@@ -625,8 +623,8 @@
 								 			<td class="text12">
 								 			<img onMouseOver="showPop('hetrcn_info');" onMouseOut="hidePop('hetrcn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.containernr"/></span>
-								 			<div class="text11" style="position: relative; display: inline;" align="left" >
-									 				<span style="position:absolute; top:5px; width:200px;" id="hetrcn_info" class="popupWithInputText text11"  >
+								 			<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hetrcn_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.containernr"/></b></p> 
 									           			Tast containernr dersom 1 er svart i foregående felt.
 									           			KRAV til feltet dersom CONT = 1.
@@ -1089,9 +1087,7 @@
 							</table>
 							</td>
 						</tr>
-						
-						
-						
+
 						<tr height="6"><td colspan="2" ></td></tr>
 						<tr height="1"><td colspan="2" style="border-bottom:1px solid;border-color:#FFFFFF;" class="text"></td></tr>
 						<tr height="6"><td colspan="2" ></td></tr>
@@ -1102,10 +1098,24 @@
 									<td align="left" width="100%" valign="top">
 									<table class="tableBorderWithRoundCornersLightGray" border="0">
 									<tr>
-						 				<td class="text12"><span title="heot"><spring:message code="systema.tror.orders.form.update.label.oppdragstype"/></span>
+						 				<td class="text12">
+						 					<img onMouseOver="showPop('heot_info');" onMouseOut="hidePop('heot_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 					<span title="heot"><spring:message code="systema.tror.orders.form.update.label.oppdragstype"/></span>
 						 					<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_oppdragstype.do?action=doFind&ctype=landimport','opptypeWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgOpptype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
+	 										<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:250px" id="heot_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b><spring:message code="systema.tror.orders.form.update.label.oppdragstype"/></b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.oppdragstypeList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.ko1kod}</b>&nbsp;${record.ko1ntx}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+											</div>
 						 				</td>
 							 			<td class="text12">
 							 				<select name="heot" id="heot">
@@ -1115,11 +1125,26 @@
 							 						<c:set var="listSizeHeot" value="${counter.count}" scope="request" /> 
 							 					</c:forEach>
 											</select>
+											
 							 			</td>
-										<td class="text12">&nbsp;<span title="hefr"><spring:message code="systema.tror.orders.form.update.label.incoterms"/></span>
+										<td class="text12">
+											<img onMouseOver="showPop('hefr_info');" onMouseOut="hidePop('hefr_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 					<span title="hefr"><spring:message code="systema.tror.orders.form.update.label.incoterms"/></span>
 											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_incoterms.do?action=doFind&ctype=landimport','incotermsWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgIncoterms" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
+	 										<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:200px" id="hefr_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b><spring:message code="systema.tror.orders.form.update.label.incoterms"/></b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.incotermsList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.kfrkod}</b>&nbsp;${record.kfrntx}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+											</div>
 										</td>
 							 			<td class="text12">
 							 				<select name="hefr" id="hefr">
@@ -1131,10 +1156,25 @@
 							 					
 											</select>
 							 			</td>
-										<td class="text12">&nbsp;<span title="hekdpl"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
+										<td class="text12">
+											<img onMouseOver="showPop('hekdpl_info');" onMouseOut="hidePop('hekdpl_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+											<span title="hekdpl"><spring:message code="systema.tror.orders.form.update.label.productcode"/></span>
 											<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes.do?action=doFind&ctype=landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
 	 											<img id="imgProductcodes" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
+	 										<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute;top:2px; width:200px" id="hekdpl_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b><spring:message code="systema.tror.orders.form.update.label.productcode"/></b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.produktList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.kfkod}</b>&nbsp;${record.kftxt}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+											</div>
+	 										
 										</td>
 							 			<td class="text12">
 							 				<select name="hekdpl" id="hekdpl">

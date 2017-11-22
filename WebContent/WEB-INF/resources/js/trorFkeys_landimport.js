@@ -7,8 +7,13 @@
   	 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   	 //rest
   
-  	 function setBlockUI(element){
-  		 jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  	 function setBlockUIKeys(){
+  		 jq.blockUI({
+  			css: { 
+  	            fontSize:'16px'
+  	        },
+  			 message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}
+  		 );
   	 }
   	
   	 //KEY's shortcuts
@@ -28,25 +33,28 @@
   		 
   		 var f18 = 80;
 	  
-  		 
   		 var charCode = (evt.which) ? evt.which : event.keyCode;
   		 //debug ->
   		 //alert(charCode);
   		 if (charCode == f10){
   			 //Faktura link
-  			 window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val(); 
+  			setBlockUIKeys();
+  			window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val(); 
   		 
   		 }else if (charCode == f9){
   			 //Notisblock link 
-  			 window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#heavd').val() + "&opd=" + jq('#heopd').val() + "&sign=" + jq('#hesg').val(); 
+  			setBlockUIKeys();
+  			window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#heavd').val() + "&opd=" + jq('#heopd').val() + "&sign=" + jq('#hesg').val(); 
   		 
   		 }else if (charCode == f2){
-  			 //Notisblock link 
-  			 window.location.href = "tror_mainorderlist.do?action=doFind"; 
+  			 //Orderlist link 
+  			setBlockUIKeys();
+  			window.location.href = "tror_mainorderlist.do?action=doFind"; 
   		 
   		 }else if (charCode == f4){
-  			 //Notisblock link 
-  			 window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val();
+  			 //Order link 
+  			setBlockUIKeys();
+  			window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val();
   		 }
   	 });
   	

@@ -144,9 +144,9 @@ public class CodeDropDownMgr {
 				urlRequestParamsKeys.append("user=" + appUser.getUser());
 				
 				//Now build the payload and send to the back end via the drop down service
-				//logger.info("URL:" + URL);
+				logger.info("URL:" + URL);
 				String utfPayload = urlCgiProxyService.getJsonContent(URL, urlRequestParamsKeys.toString());
-				//logger.info(utfPayload);
+				logger.info(utfPayload);
 				JsonEbookingOppdragTypeContainer container = listPopulationService.getOppdragTypeContainer(utfPayload);
 				
 				//Take some exception into consideration here or run the default to populate the final list
