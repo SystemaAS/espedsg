@@ -30,10 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.JsonDebugger;
+import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispFileUploadValidationContainer;
+import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesRecord;
 //ebooking
 import no.systema.ebooking.model.EbookingOrderLineValidationObject;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderFileUploadValidationContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
@@ -483,6 +486,158 @@ public class EbookingAjaxHandlerController {
 			return result;
 	  }
 	  
+	  /**
+		 * 
+		 * @param request
+		 * @return
+		 */
+		@RequestMapping(value="uploadFileFromOrder_Ebooking.do", method = RequestMethod.POST)
+	    public @ResponseBody String uploadFileFromOrder(MultipartHttpServletRequest request) {
+			final String ERROR_TAG = "[ERROR] ";
+			
+			logger.info("Inside: uploadFileFromOrder_Ebooking");
+			Iterator<String> itr = request.getFileNames();
+		    MultipartFile file = null;
+		    try {
+		        file = request.getFile(itr.next()); //Get the file.
+		    } catch (NoSuchElementException e) {
+		    	logger.info(ERROR_TAG + e.toString());
+		    }
+		    String applicationUser = request.getParameter("applicationUserUpload");
+		    //String avd = request.getParameter("wsavd");
+		    //String opd = request.getParameter("wsopd");
+		    String unik = request.getParameter("wsunik");
+		    String type = request.getParameter("wstype");
+		    String fileNameNew = request.getParameter("fileNameNew");
+		    //timestamps (when applicable)
+		    String userDate = request.getParameter("userDate");
+		    String userTime = request.getParameter("userTime");
+		    //logger.info("userDate:" + userDate);
+		    //logger.info("userTime:" + userTime);
+		    
+		    
+		    if (file!=null && !file.isEmpty()) {
+      		String fileName = file.getOriginalFilename();
+      		logger.info("FILE NAME:" + fileName);
+      		if(fileNameNew!=null && !"".equals(fileNameNew)){ fileName = fileNameNew; }
+              //validate file
+      		JsonMainOrderFileUploadValidationContainer uploadValidationContainer = this.validateFileUpload(fileName, applicationUser);
+              //if valid
+              if(uploadValidationContainer!=null && "".equals(uploadValidationContainer.getErrMsg())){
+	                // TEST String rootPath = System.getProperty("catalina.home");
+              		String rootPath	= uploadValidationContainer.getTmpdir();
+              	    File dir = new File(rootPath);
+              	    
+		        	    try {
+			                byte[] bytes = file.getBytes();
+			                // Create the file on server
+			                File serverFile = new File(dir.getAbsolutePath() + File.separator +  fileName);
+			                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+			                stream.write(bytes);
+			                stream.close();
+			                logger.info("Server File Location=" + serverFile.getAbsolutePath());
+			                //catch parameters
+			                //uploadValidationContainer.setWsavd(avd); not in ebooking
+	        	    		//uploadValidationContainer.setWsopd(opd); not in ebooking
+			                uploadValidationContainer.setWsunik(unik);
+	        	    		uploadValidationContainer.setWstype(type);
+	        	    		//this will check if either the wstur or wsavd/wsopd will save the upload
+	        	    		uploadValidationContainer = this.saveFileUpload(uploadValidationContainer, fileName, applicationUser, userDate, userTime);
+			                if(uploadValidationContainer!=null && uploadValidationContainer.getErrMsg()==""){
+		                		String suffixMsg = "";
+		                		if(uploadValidationContainer.getWsunik()!=null && !"".equals(uploadValidationContainer.getWsunik())){
+		                			suffixMsg = "  -->Key(Wsunik):" + "["+ uploadValidationContainer.getWsunik() + "]";
+		                		}
+		                		return "[OK] You successfully uploaded file:" + fileName +  suffixMsg;
+			                }else{
+		                		return ERROR_TAG + "You failed to upload [on MOVE] =" + fileName;
+			                }
+		        	    } catch (Exception e) {
+		            		//run time upload error
+		            		String absoluteFileName = rootPath + File.separator + fileName;
+		            		return ERROR_TAG + "You failed to upload to:" + fileName + " runtime error:" + e.getMessage();
+		        	    }
+
+              }else{
+		        		if(uploadValidationContainer!=null){
+		        			logger.info(uploadValidationContainer.getErrMsg());
+		        			//Back-end error message output upon validation
+		        			return ERROR_TAG + uploadValidationContainer.getErrMsg();
+		        		}else{
+		        			return ERROR_TAG + "NULL on upload file validation Object??";
+		        		}
+	        	}
+	        } else {
+	        	logger.info("FILE NAME empty!");
+	        	return ERROR_TAG + "You failed to upload " + fileNameNew + " because the file was empty.";
+	        }
+		    
+		}
+	  
+		
+		/**
+	     * 
+	     * @param fileName
+	     * @param appUser
+	     * @return
+	     */
+		private JsonMainOrderFileUploadValidationContainer validateFileUpload(String fileName, String applicationUser){
+			JsonMainOrderFileUploadValidationContainer uploadValidationContainer = null;
+			//prepare the access CGI with RPG back-end
+			String BASE_URL = EbookingUrlDataStore.EBOOKING_UPLOAD_FILE_VALIDATION_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser + "&wsdokn=" + fileName;
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			logger.info(jsonPayload);
+			//Debug -->
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			if(jsonPayload!=null){
+				uploadValidationContainer = this.ebookingMainOrderHeaderService.getFileUploadValidationContainer(jsonPayload);
+				logger.info(uploadValidationContainer.getErrMsg());
+			}
+			return uploadValidationContainer;
+		}
+		
+		/**
+		 * 
+		 * @param uploadValidationContainer
+		 * @param fileName
+		 * @param applicationUser
+		 * @param userDate
+		 * @param userTime
+		 * @return
+		 */
+		private JsonMainOrderFileUploadValidationContainer saveFileUpload(JsonMainOrderFileUploadValidationContainer uploadValidationContainer, String fileName, String applicationUser, String userDate, String userTime){
+			//prepare the access CGI with RPG back-end
+			String BASE_URL = EbookingUrlDataStore.EBOOKING_UPLOAD_FILE_AFTER_VALIDATION_APPROVAL_URL;
+			String absoluteFileName = uploadValidationContainer.getTmpdir() + fileName;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + applicationUser);
+			//Heunik
+			if(uploadValidationContainer.getWsunik()!=null && !"".equals(uploadValidationContainer.getWsunik())){
+				urlRequestParamsKeys.append("&wsunik=" + uploadValidationContainer.getWsunik());
+			}
+			urlRequestParamsKeys.append("&wstype=" + uploadValidationContainer.getWstype());
+			urlRequestParamsKeys.append("&wsdokn=" + absoluteFileName);
+			//Timestamp (if applicable)
+			if( (userDate!=null && !"".equals(userDate)) && (userTime!=null && !"".equals(userTime))){
+				urlRequestParamsKeys.append("&wsdate=" + userDate + "&wstime=" + userTime);
+			}
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+			//Debug -->
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			if(jsonPayload!=null){
+				uploadValidationContainer = this.ebookingMainOrderHeaderService.getFileUploadValidationContainer(jsonPayload);
+				logger.info(uploadValidationContainer.getErrMsg());
+			}
+			return uploadValidationContainer; //return
+		}
+			
 	  /**
 	   * 
 	   * @param applicationUser

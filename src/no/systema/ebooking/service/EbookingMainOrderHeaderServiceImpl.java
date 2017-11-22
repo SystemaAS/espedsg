@@ -7,10 +7,14 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import no.systema.ebooking.mapper.jsonjackson.JsonOrderHeaderMapper;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderFileUploadValidationContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
+import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispChildWindowMapper;
+import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispFileUploadValidationContainer;
 
 
 /**
@@ -74,6 +78,35 @@ public class EbookingMainOrderHeaderServiceImpl implements EbookingMainOrderHead
 			e.printStackTrace();
 		}
 		
+		return container;
+		
+	}
+	/**
+	 * 
+	 */
+	public JsonMainOrderHeaderArchivedDocsContainer getArchiveDocsContainer(String utfPayload){
+		JsonMainOrderHeaderArchivedDocsContainer container = null;
+		try{
+			JsonOrderHeaderMapper mapper = new JsonOrderHeaderMapper();
+			container = mapper.getArchiveDocsContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return container;
+		
+	}
+	/**
+	 * 
+	 */
+	public JsonMainOrderFileUploadValidationContainer getFileUploadValidationContainer(String utfPayload){
+		JsonMainOrderFileUploadValidationContainer container = null;
+		try{
+			JsonOrderHeaderMapper mapper = new JsonOrderHeaderMapper();
+			container = mapper.getFileUploadValidationContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return container;
 		
 	}

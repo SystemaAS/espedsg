@@ -17,6 +17,7 @@ import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingLoadU
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingPackingCodesRecord;
 import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderFileUploadValidationContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingDangerousGoodsRecord;
 
@@ -127,6 +128,20 @@ public class JsonEbookingChildWindowMapper extends ObjectMapperAbstractGrandFath
 			//logger.info("knavn: " + record.getKnavn());
 			//logger.info("kundnr: " + record.getKundnr());
 		}
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonMainOrderFileUploadValidationContainer getFileUploadValidationContainer(String utfPayload) throws Exception{
+		//At this point we now have an UTF-8 payload
+		JsonMainOrderFileUploadValidationContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonMainOrderFileUploadValidationContainer.class); 
+		logger.info("[JSON-String payload errMsg]:" + container.getErrMsg());
+		
 		return container;
 	}
 }

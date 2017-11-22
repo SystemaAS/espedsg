@@ -35,8 +35,8 @@ import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
+//import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
+//import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
 import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
@@ -59,6 +59,8 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevContain
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsRecord;
 
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
@@ -275,7 +277,7 @@ public class EbookingMainOrderHeaderController {
 				//populate fraktbrev lines
 				this.populateFraktbrev( appUser, headerOrderRecord);
 				//populate archive docs
-				if( strMgr.isNotNull(headerOrderRecord.getHeavd()) && strMgr.isNotNull(headerOrderRecord.getHeopd())   ){
+				if( strMgr.isNotNull(headerOrderRecord.getHeunik()) ) {
 					this.populateArchiveDocs(appUser, headerOrderRecord);
 				}
 				
@@ -721,21 +723,21 @@ public class EbookingMainOrderHeaderController {
 		 //prepare the access CGI with RPG back-end
 		 String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_UPLOADED_DOCS_URL;
 		 
-		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + orderRecord.getHeavd() + "&opd=" + orderRecord.getHeopd();
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&wsunik=" + orderRecord.getHeunik();
 		 logger.info("URL: " + BASE_URL);
 		 logger.info("PARAMS: " + urlRequestParamsKeys);
 		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
 		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		 logger.info(jsonPayload);
-		 Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocList = new ArrayList<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord>();
+		 Collection<JsonMainOrderHeaderArchivedDocsRecord> archivedDocList = new ArrayList<JsonMainOrderHeaderArchivedDocsRecord>();
 		    
 		 if(jsonPayload!=null){
 		 	try{
-		 		JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer container = this.transportDispWorkflowSpecificOrderService.getOrderArchivedDocsContainer(jsonPayload);
+		 		JsonMainOrderHeaderArchivedDocsContainer container = this.ebookingMainOrderHeaderService.getArchiveDocsContainer(jsonPayload);
 				if(container!=null){
-					archivedDocList = container.getGetdoc();
-					for(JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord record : container.getGetdoc()){
+					archivedDocList = container.getGetdoctrip();
+					for(JsonMainOrderHeaderArchivedDocsRecord record : container.getGetdoctrip()){
 						//DEBUG -->logger.info("####Link:" + record.getDoclnk());
 					}
 				}

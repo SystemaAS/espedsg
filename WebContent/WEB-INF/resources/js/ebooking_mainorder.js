@@ -67,7 +67,7 @@
 	  
 	  jq.ajax({
 	  	  type: 'POST',
-	  	  url: 'uploadFileFromOrder.do',
+	  	  url: 'uploadFileFromOrder_Ebooking.do',
 	  	  data: form,  
 	  	  dataType: 'text',
 	  	  cache: false,
@@ -92,11 +92,12 @@
 			  	alert(data);
 			  	if(data.indexOf('[OK') == 0) {
 				  	var status = jq("#status").val();
-				  	var avd = jq("#wsavd").val();
-				  	var opd = jq("#wsopd").val();
+				  	//var avd = jq("#wsavd").val();
+				  	//var opd = jq("#wsopd").val();
 				  	var heunik = jq("#heunik").val();
+				  	var hereff = jq("#hereff").val();
 				  	//reload
-				  	reloadCallerParentOrder(status,avd,opd,heunik);
+				  	reloadCallerParentOrder(status,hereff,heunik);
 			  	}
 			  	//unblock
 			  	jq.unblockUI();
@@ -114,19 +115,14 @@
   }
   
   //Reload the order after being coupled with the trip 
-  //NOTE: this function is call from: 
-  //(1) the child window transport_workflow_childwindow from js-file: transport_workflow_childwindow_trips.js
-  //(2) from this same file in the above ajax: setTripOnOrder(trip,avd,opd)
-  function reloadCallerParentOrder(status, avd, opd, heunik) {
-	  window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + heunik + "&hereff=" + opd + "&status=" + status;
+  function reloadCallerParentOrder(status, hereff, heunik) {
+	  window.location = "ebooking_mainorder.do?action=doFetch&heunik=" + heunik + "&hereff=" + hereff + "&status=" + status;
   }
   
   //END UPLOAD ORDERS
   
   
-  
-  
-  
+ 
   //Invoicee events
   jq(function() {
 	  jq("#xfakBet").change(function(){

@@ -16,6 +16,11 @@ import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecor
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressContainer;
 import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerDeliveryAddressRecord;
 import no.systema.main.mapper.jsonjackson.general.ObjectMapperAbstractGrandFather;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsContainer;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderFileUploadValidationContainer;
+
+
 
 
 /**
@@ -88,4 +93,38 @@ public class JsonOrderHeaderMapper extends ObjectMapperAbstractGrandFather {
 		
 		return container;
 	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonMainOrderHeaderArchivedDocsContainer getArchiveDocsContainer(String utfPayload) throws Exception{
+		//At this point we now have an UTF-8 payload
+		JsonMainOrderHeaderArchivedDocsContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonMainOrderHeaderArchivedDocsContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		for (JsonMainOrderHeaderArchivedDocsRecord record : container.getGetdoctrip()){
+			//DEBUG
+		}
+		
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonMainOrderFileUploadValidationContainer getFileUploadValidationContainer(String utfPayload) throws Exception{
+		//At this point we now have an UTF-8 payload
+		JsonMainOrderFileUploadValidationContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonMainOrderFileUploadValidationContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		
+		
+		return container;
+	}
+	
+	
 }

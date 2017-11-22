@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import no.systema.main.model.jsonjackson.general.JsonAbstractGrandFatherRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderArchivedDocsRecord;
 /**
  * @author oscardelatorre
  * @date Jan 6, 2017
@@ -930,9 +930,9 @@ public class JsonMainOrderHeaderRecord extends JsonAbstractGrandFatherRecord {
 	public void setWsmail(String value) {  this.wsmail = value; }
 	public String getWsmail() {return this.wsmail;}
 	
-	private Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> archivedDocsRecord = null;
-	public void setArchivedDocsRecord(Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> value) {  this.archivedDocsRecord = value; }
-	public Collection<JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord> getArchivedDocsRecord() {return this.archivedDocsRecord;}
+	private Collection<JsonMainOrderHeaderArchivedDocsRecord> archivedDocsRecord = null;
+	public void setArchivedDocsRecord(Collection<JsonMainOrderHeaderArchivedDocsRecord> value) {  this.archivedDocsRecord = value; }
+	public Collection<JsonMainOrderHeaderArchivedDocsRecord> getArchivedDocsRecord() {return this.archivedDocsRecord;}
 	
 	
 	private List<JsonMainOrderHeaderFraktbrevRecord> fraktbrevList = null;
