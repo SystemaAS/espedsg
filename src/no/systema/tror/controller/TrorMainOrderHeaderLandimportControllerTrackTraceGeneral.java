@@ -47,7 +47,11 @@ import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 //import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 //import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
 import no.systema.transportdisp.mapper.url.request.UrlRequestParameterMapper;
-
+import no.systema.jservices.common.dao.KodtvaDao;
+//common
+import no.systema.jservices.common.dao.TrackfDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 //tror
 import no.systema.tror.validator.TrorOrderHeaderFrisokveiValidator;
 import no.systema.tror.service.TrorMainOrderHeaderService;
@@ -248,37 +252,39 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @param avd
 	 * @param opd
 	 */
-	private Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> fetchItemLines(SystemaWebUser appUser, String avd, String opd){
+	private Collection<TrackfDao> fetchItemLines(SystemaWebUser appUser, String avd, String opd){
 		//===========
 		 //FETCH LIST
 		 //===========
+		JsonReader<JsonDtoContainer<TrackfDao>> jsonReader = new JsonReader<JsonDtoContainer<TrackfDao>>();
+		jsonReader.set(new JsonDtoContainer<TrackfDao>());
+		
 		 logger.info("Inside: fetchItemLines");
 		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_GENERAL_TRACK_AND_TRACE_URL;
-		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&avd=" + avd + "&opd=" + opd;
+		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_ALL_TRACK_AND_TRACE_URL;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&ttavd=" + avd + "&ttopd=" + opd;
+		 
 		 logger.info("URL: " + BASE_URL);
 		 logger.info("PARAMS: " + urlRequestParamsKeys);
 		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 
+		 List<TrackfDao> daoList = new ArrayList<TrackfDao>();
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
 		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		 
-		 Collection<JsonTrorOrderHeaderTrackAndTraceLoggingRecord> list = new ArrayList<JsonTrorOrderHeaderTrackAndTraceLoggingRecord>();
 		 if(jsonPayload!=null){
 		 	try{
-		 		JsonTrorOrderHeaderTrackAndTraceLoggingContainer container = this.trorMainOrderHeaderService.getTrackAndTraceLoggingContainer(jsonPayload);
+		 		JsonDtoContainer<TrackfDao> container = (JsonDtoContainer<TrackfDao>) jsonReader.get(jsonPayload);
 				if(container!=null){
-					list = container.getTrackTraceEvents();
-					for(JsonTrorOrderHeaderTrackAndTraceLoggingRecord record : list){
-						//DEBUG -->logger.info("####Link:" + record.getDoclnk());
-					}
+					daoList = container.getDtoList();
 				}
 				
 		 	}catch(Exception e){
 		 		e.printStackTrace();
 		 	}
 		 }
-		 return list;
+		 return daoList;
 		 
 	}
 	

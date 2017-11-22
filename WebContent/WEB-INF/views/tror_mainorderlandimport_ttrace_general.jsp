@@ -94,21 +94,25 @@
 					               	 <c:forEach items="${model.trackAndTraceloggingList}" var="record" varStatus="counter">    
 						               <tr class="tableRow" height="20" >
 						                   
-						               	<td class="text11">&nbsp;${record.frBrev}</td>
+						               	<td class="text11">
+						               		<c:if test="${record.ttfbnr > 0}">
+						               		${record.ttfbnr}
+						               		</c:if>
+						               	</td>
 						               	<td align="center" class="text11" >
-							               	<a id="recordUpdate_${record.date}@time_${record.time}" href="#" onClick="getBudgetItemData(this);">
+							               	<a id="recordUpdate_${record.ttdate}@time_${record.tttime}" href="#" onClick="getBudgetItemData(this);">
 					               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
 					               			</a>
 							            </td>   			
-						               	<td class="text11" >&nbsp;${record.date}</td>
-						               	<td align="right" class="text11" >&nbsp;${record.time}</td>
-						               	<td class="text11" >&nbsp;${record.event}</td>
-						               	<td class="text11" >&nbsp;${record.textLoc}</td>
-						               	<td class="text11" >&nbsp;${record.user}</td>
+						               	<td class="text11" >${record.ttdate}</td>
+						               	<td align="right" class="text11" >${record.tttime}</td>
+						               	<td class="text11" >${record.ttacti}</td>
+						               	<td class="text11" >${record.tttexl}</td>
+						               	<td class="text11" >${record.ttuser}</td>
 						               	<%-- DELETE cell --%>							           
 						               	<td width="2%" class="text11" align="center">
-						               	   <c:if test="${not empty record.date && not empty record.time}">
-						                   		<a style="cursor:pointer;" id="avd_${model.avd}@opd_${model.opd}@date_${record.date}@time_${record.time}" onClick="doDeleteItemLine(this);" tabindex=-1 >
+						               	   <c:if test="${not empty record.ttdate && not empty record.tttime}">
+						                   		<a style="cursor:pointer;" id="avd_${model.avd}@opd_${model.opd}@date_${record.ttdate}@time_${record.tttime}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>&nbsp;
 								               	

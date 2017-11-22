@@ -208,8 +208,11 @@ public class TrorUrlDataStore {
 		//http://gw.systema.no/sycgip/tjge29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
 		static public String TROR_BASE_UPDATE_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE29R.pgm";
 			
-		
-	
+		//----------------------------------------------------------------
+		//[3] FETCH/UPDATE/CREATE/DELETE Track & Trace general
+		//----------------------------------------------------------------
+		//http://localhost:8080/syjservicesbcore/syjsTRACKF.do?user=OSCAR&ttavd=1&ttopd=184
+		static public String TROR_BASE_FETCH_ALL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF.do";
 	
 	
 }
