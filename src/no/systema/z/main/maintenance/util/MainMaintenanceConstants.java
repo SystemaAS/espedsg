@@ -51,8 +51,6 @@ public final class MainMaintenanceConstants {
 	//CODES
 	public static final int ERROR_CODE = -1;
 	
-	
-	
 	//domain objects for model-view passing values
 	public static final String DOMAIN_MODEL = "model";
 	public static final String DOMAIN_RECORD = "record";

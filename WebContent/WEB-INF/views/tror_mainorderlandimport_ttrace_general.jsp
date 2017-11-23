@@ -61,7 +61,7 @@
 	        			<tr height="10"><td></td></tr> 
 						<tr >
 							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODO.do">
+							
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>
 										<td class="text12">
@@ -70,7 +70,7 @@
 									</tr>
 									<tr height="2"><td></td></tr>
 								</table>
-							</form>
+						
 							</td>
 						</tr> 
 						<tr>
@@ -92,7 +92,7 @@
 					               </tr> 
 					               </thead>
 					               <tbody>
-					               	 <c:forEach items="${model.trackAndTraceloggingList}" var="record" varStatus="counter">    
+					               	 <c:forEach items="${model.list}" var="record" varStatus="counter">    
 						               <tr class="tableRow" height="20" >
 						                   
 						               	<td class="text11">
@@ -176,21 +176,23 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td class="text12" align="left" >
-					<input tabindex=-1  class="inputFormSubmitStd" type="button" name="newRecordButton" id="newRecordButton" value='Lage ny'>
+					<form name="createNewItemLine" id="createNewItemLine" method="post" action="tror_mainorderlandimport_ttrace_general.do">
+						<input type="hidden" name="ttavd" id="ttavd" value='${model.record.ttavd}'>
+						<input type="hidden" name="ttopd" id="ttopd" value='${model.record.ttopd}'>
+						<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" id="submit" value='Lage ny'>
+					</form>
 				</td>
 			</tr>
 			<tr height="5"><td class="text12" align="left" ></td></tr>
            	<tr>
 	 			<td >
-	 				<form action="tror_mainorderlandimport_frisokvei_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
+	 				<form action="tror_mainorderlandimport_ttrace_general_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-					<input type="hidden" name="avd" id="avd" value='${model.container.avd}'>
-					<input type="hidden" name="opd" id="opd" value='${model.container.opd}'>
-					<input type="hidden" name="fskodeKey" id="fskodeKey" value='${model.record.fskodeKey}'>
-					<input type="hidden" name="fssokKey" id="fssokKey" value='${model.record.fssokKey}'>
-					<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}">
+					<input type="hidden" name="ttavd" id="ttavd" value='${model.record.ttavd}'>
+					<input type="hidden" name="ttopd" id="ttopd" value='${model.record.ttopd}'>
+					<input type="hidden" name="updateId" id="updateId" value="${model.updateId}">
 					
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
@@ -216,21 +218,21 @@
 							            <td class="text12" align="left">&nbsp;<span title="ttacti">&nbsp;Kode</span></td>
 					            		<td width="5%" class="text12" align="left">&nbsp;<span title="ttdate/tttime">Hendelsestidspunkt</span></td>
 					            		<td class="text12" align="left">&nbsp;<span title="ttmanu">&nbsp;&nbsp;Status</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="ttacti">&nbsp;&nbsp;Event code</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Reason code</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="ttedev">&nbsp;&nbsp;Event code</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="ttedre">&nbsp;&nbsp;Reason code</span></td>
 							        </tr>
 							        <tr>
-						        		<td class="text12" align="left" >&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="ttfbnr" id="ttfbnr" size="4" maxlength="3" value="${Xmodel.record.ttfbnr}"></td>
-							            <td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="ttacti" id="ttacti" size="4" maxlength="3" value="${Xmodel.record.ttacti}"></td>
-							            <td width="5%" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="ttdate" id="ttdate" size="10" maxlength="8" value='${Xmodel.record.ttdate}'>
-							 			&nbsp;Kl:<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue"  name="tttime" id="tttime" size="7" maxlength="6" value='${Xmodel.record.tttime}'></td>	
+						        		<td class="text12" align="left" >&nbsp;<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ttfbnr" id="ttfbnr" size="4" maxlength="3" value="<c:if test="${model.record.ttfbnr > 0}">${model.record.ttfbnr}</c:if>"/></td>
+							            <td class="text12" align="left" >&nbsp;<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ttacti" id="ttacti" size="4" maxlength="3" value="${model.record.ttacti}"></td>
+							            <td width="5%" class="text12" align="left"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="ttdate" id="ttdate" size="10" maxlength="8" value='${model.record.ttdate}'>
+							 			&nbsp;Kl:<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="tttime" id="tttime" size="7" maxlength="6" value='${model.record.tttime}'></td>	
 							            	
 							            <td class="text12" align="left" >&nbsp;
 							            	<select class="inputTextMediumBlue" name="ttmanu" id="ttmanu" >
 							 				  <option value="">-velg-</option>
-											  <option value="S"<c:if test="${Xmodel.record.ttmanu == 'S'}"> selected </c:if> >Send</option>
-											  <option value="F"<c:if test="${Xmodel.record.ttmanu == 'F'}"> selected </c:if> >Ferdig</option>
-											  <option value="J"<c:if test="${Xmodel.record.ttmanu == 'J'}"> selected </c:if> >Manuelt</option>
+											  <option value="S"<c:if test="${model.record.ttmanu == 'S'}"> selected </c:if> >Send</option>
+											  <option value="F"<c:if test="${model.record.ttmanu == 'F'}"> selected </c:if> >Ferdig</option>
+											  <option value="J"<c:if test="${model.record.ttmanu == 'J'}"> selected </c:if> >Manuelt</option>
 											</select>
 							            </td>	
 							            <td class="text12" align="left" >&nbsp;

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
@@ -32,28 +33,23 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 //application imports
 import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
-import no.systema.main.service.UrlCgiProxyServiceImpl;
 import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
-import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
+
 
 //Trans.Disp
 import no.systema.transportdisp.service.TransportDispChildWindowService;
-import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-//import no.systema.transportdisp.service.TransportDispWorkflowSpecificTripService;
-//import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
-//import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
-import no.systema.transportdisp.mapper.url.request.UrlRequestParameterMapper;
-import no.systema.jservices.common.dao.KodtvaDao;
+import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 //common
 import no.systema.jservices.common.dao.TrackfDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 //tror
-import no.systema.tror.validator.TrorOrderHeaderFrisokveiValidator;
+import no.systema.tror.validator.TrorOrderTrackfValidator;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
@@ -81,12 +77,13 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandimportControllerTrackTraceGeneral.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
-	
+	//
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
-	
+	//
+	private StringManager strMgr = new StringManager();
 	
 	
 	@PostConstruct
@@ -104,15 +101,12 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_ttrace_general.do", method={RequestMethod.GET} )
-	public ModelAndView doInit( HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderlandimport_ttrace_general.do", method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doInit( @ModelAttribute ("record") TrackfDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
 		String action = request.getParameter("action");
-		String avd = request.getParameter("avd"); 
-		String opd = request.getParameter("opd"); 
-		
 		
 		logger.info("ACTION: " + action);
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
@@ -125,10 +119,9 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 			
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-			List list = (List)this.fetchItemLines(appUser, avd, opd);
-			model.put("trackAndTraceloggingList", list);
-			model.put("avd", avd);
-			model.put("opd", opd);
+			List list = (List)this.fetchItemLines(appUser, recordToValidate);
+			model.put(TrorConstants.DOMAIN_LIST, list);
+			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			//
 	    	successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 	    	return successView;
@@ -143,20 +136,18 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorderlandimport_ttrace_general_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTrorOrderHeaderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doEditTrackAndTraceGeneral(@ModelAttribute ("record") TrackfDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
 		String action = request.getParameter("action");
-		String avd = request.getParameter("avd");
-		String opd = request.getParameter("opd");
-		logger.info("isModeUpdate:" + recordToValidate.getIsModeUpdate());
+		String updateId = request.getParameter("updateId");
 		
 		//Params
 		StringBuffer params = new StringBuffer();
 		//params.append("&bnr=" + lineId);
-		if(avd!=null && !"".equals(avd)){ params.append("&avd=" + avd); }
-		if(opd!=null && !"".equals(opd)){ params.append("&opd=" + opd); }
+		params.append("&ttavd=" + recordToValidate.getTtavd());
+		params.append("&ttopd=" + recordToValidate.getTtopd());
 		
 		logger.info("ACTION: " + action);
 		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_ttrace_general.do?action=doFind" + params.toString() );
@@ -169,100 +160,82 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 			return loginView;
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			this.adjustRecordToValidate(recordToValidate);
 			
-			if(TrorConstants.ACTION_UPDATE.equals(action)){
-				logger.info("[INFO] doUpdate action ...");
-				TrorOrderHeaderFrisokveiValidator validator = new TrorOrderHeaderFrisokveiValidator();
-				
-				//Validate
+			TrorOrderTrackfValidator validator = new TrorOrderTrackfValidator();
+			if (TrorConstants.ACTION_DELETE.equals(action)) {
+				validator.validateDelete(recordToValidate, bindingResult);
+			} else {
 				validator.validate(recordToValidate, bindingResult);
-				//check for ERRORS
-				if(bindingResult.hasErrors()){
-					logger.info("[ERROR Validation] Record does not validate)");
-			    	logger.info("[INFO Kod/sokText] " + recordToValidate.getFskode() + " " + recordToValidate.getFssok());
-			    	//fetch of lines
-					//TODO this.fetchItemLines(appUser, avd, opd, model, session);
-					model.put("record", recordToValidate);
-			    	
-					errorView.addObject(TrorConstants.DOMAIN_MODEL , model);
-			    	
-			    	return errorView;
-			    	
-				}else{
-					
-					String MODE = "U";
-					if(recordToValidate.getIsModeUpdate()!=null && "true".equalsIgnoreCase(recordToValidate.getIsModeUpdate())){
-						//UPDATE
-						logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " start process... ");
-					}else{
-						//CREATE NEW
-						MODE = "A";
-						logger.info("[INFO] CREATE new line in process...");
-					}
-					
-					//-------------------------------
-					//Execute back-end Update/Create
-					//-------------------------------
-					/*TODO 
-					JsonTrorOrderHeaderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE, avd, opd);
-					if(container!=null){
-	    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	    					logger.info("[ERROR] Back-end Error: " + container.getErrMsg());
-	    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
-	    					//fetch item lines
-	    					this.fetchItemLines(appUser, avd, opd, model, session);
-	    					
-	    			    	errorView.addObject(TrorConstants.DOMAIN_MODEL , model);
-	    					return errorView;
-	    				}else{
-	    					//succefully done!
-	    		    		logger.info("[INFO] Valid Update -- Record successfully updated, OK ");
-	    				}
-	    			}
-					logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " end process. ");
-					*/
-				}
-				
-			}else if(TrorConstants.ACTION_DELETE.equals(action)){
-				String DELETE_MODE = "D";
-				/*
-				JsonTrorOrderHeaderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, DELETE_MODE, avd, opd);
-				if(container!=null){
-    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
-    			    	errorView.addObject(TrorConstants.DOMAIN_MODEL , model);
-    					return errorView;
-    				}else{
-    					//Delete succefully done!
-    		    		logger.info("[INFO] Valid Delete -- Record successfully deleted, OK ");
-    				}
-    			}
-				*/
 			}
-			//fetch of lines
-			//TODO this.fetchItemLines(appUser, avd, opd, model, session);
+			if (bindingResult.hasErrors()) {
+				logger.info("[ERROR Validation] Record does not validate)");
+				if (updateId != null && !"".equals(updateId)) {
+					// meaning bounced in an Update and not a Create new
+					model.put("updateId", updateId);
+				}
+				model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView = errorView;
+				
+			} else {
+				StringBuffer errMsg = new StringBuffer();
+				int dmlRetval = 0;
+				
+				if (TrorConstants.ACTION_UPDATE.equals(action)) {
+					if (updateId != null && !"".equals(updateId)) {
+						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg);
+					} else {
+						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg);
+					}
+				} else if (TrorConstants.ACTION_DELETE.equals(action)) {
+					dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg);
+				}
+				// check for Update errors
+				if (dmlRetval < 0) {
+					logger.info("[ERROR DML] Record does not validate)");
+					logger.info(" errMsg.toString()="+ errMsg.toString());
+					model.put(TrorConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					logger.info("recordToValidate, err="+ReflectionToStringBuilder.toString(recordToValidate));
+					model.put(TrorConstants.DOMAIN_RECORD, recordToValidate); 
+					
+					if (updateId != null && !"".equals(updateId)) {
+						// meaning bounced in an Update and not a Create new
+						model.put("updateId", updateId);
+						successView = errorView;
+					}
+				}
+
+			}
+
+			List list = (List)this.fetchItemLines(appUser, recordToValidate);
+			model.put(TrorConstants.DOMAIN_LIST, list);
+
+			successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 			
 	    	return successView;
 		}
 	}
 	
+	private void adjustRecordToValidate(TrackfDao recordToValidate) {
+		//...
+	}
 	/**
 	 * 
 	 * @param appUser
 	 * @param avd
 	 * @param opd
 	 */
-	private Collection<TrackfDao> fetchItemLines(SystemaWebUser appUser, String avd, String opd){
+	private Collection<TrackfDao> fetchItemLines(SystemaWebUser appUser, TrackfDao record){
 		//===========
-		 //FETCH LIST
-		 //===========
+		//FETCH LIST
+		//===========
 		JsonReader<JsonDtoContainer<TrackfDao>> jsonReader = new JsonReader<JsonDtoContainer<TrackfDao>>();
 		jsonReader.set(new JsonDtoContainer<TrackfDao>());
 		
 		 logger.info("Inside: fetchItemLines");
 		 //prepare the access CGI with RPG back-end
 		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_TRACK_AND_TRACE_URL;
-		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&ttavd=" + avd + "&ttopd=" + opd;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&ttavd=" + record.getTtavd() + "&ttopd=" + record.getTtopd();
 		 
 		 logger.info("URL: " + BASE_URL);
 		 logger.info("PARAMS: " + urlRequestParamsKeys);
@@ -287,67 +260,41 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 		 return daoList;
 		 
 	}
-	
-	
 	/**
-	 * Update line ( (A)dd, (U)pdate, (D)elete )
+	 * 
 	 * @param appUser
-	 * @param recordToValidate
+	 * @param record
 	 * @param mode
-	 * @param avd
-	 * @param opd
+	 * @param errMsg
 	 * @return
 	 */
-	/*
-	private JsonTrorOrderHeaderFrisokveiContainer executeUpdateLine(SystemaWebUser appUser, JsonTrorOrderHeaderFrisokveiRecord recordToValidate, String mode,
-										String avd, String opd){
-		JsonTrorOrderHeaderFrisokveiContainer retval = null;
-		
-		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getFskode() + " start process... ");
-		String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_MAIN_ORDER_FRISOKVEI_URL;
-    	//add URL-parameters
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&avd=" + avd);
-		urlRequestParams.append("&opd=" + opd);
-		urlRequestParams.append("&mode=" + mode);
-		
-		if("U".equals(mode)){
-			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
-			urlRequestParams.append("&fssok=" + recordToValidate.getFssok());
-			urlRequestParams.append("&fsdokk=" + recordToValidate.getFsdokk());
-			urlRequestParams.append("&o_fskode=" + recordToValidate.getFskodeKey());
-			urlRequestParams.append("&o_fssok=" + recordToValidate.getFssokKey());
-			
-		}else if("A".equals(mode)){
-			urlRequestParams.append("&fskode=" + recordToValidate.getFskode());
-			urlRequestParams.append("&fssok=" + recordToValidate.getFssok());
-			urlRequestParams.append("&fsdokk=" + recordToValidate.getFsdokk());
-			
-		}else if("D".equals(mode)){
-			urlRequestParams.append("&o_fskode=" + recordToValidate.getFskode());
-			urlRequestParams.append("&o_fssok=" + recordToValidate.getFssok());
-			
+	private int updateRecord(SystemaWebUser appUser, TrackfDao record, String mode, StringBuffer errMsg) {
+		//Locale locale = VkundControllerUtil.getLocale(appUser.getUsrLang(), "svew");
+		int retval = 0;
+		JsonReader<JsonDtoContainer<TrackfDao>> jsonReader = new JsonReader<JsonDtoContainer<TrackfDao>>();
+		jsonReader.set(new JsonDtoContainer<TrackfDao>());
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_TRACK_AND_TRACE_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" + appUser.getUsrLang();
+		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
+		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		logger.info("URL PARAMS: " + urlRequestParams);
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		if (jsonPayload != null) {
+			JsonDtoContainer<TrackfDao> container = (JsonDtoContainer<TrackfDao>) jsonReader.get(jsonPayload);
+			if (container != null) {
+				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
+					errMsg.append(container.getErrMsg());
+					retval = TrorConstants.ERROR_CODE;
+				}
+			}			
 		}
-		
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		//Debug -->
-		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	
-		if(jsonPayload!=null){
-			JsonTrorOrderHeaderFrisokveiContainer container = this.trorMainOrderHeaderService.getOrderFrisokveiContainer(jsonPayload);
-			retval = container;
-			if(container.getErrMsg()!=null){
-				logger.info(container.getErrMsg());
-			}
-		}
+
 		return retval;
-	}
-	*/
+	}	
+	
 	/**
 	 * 
 	 * @param appUser

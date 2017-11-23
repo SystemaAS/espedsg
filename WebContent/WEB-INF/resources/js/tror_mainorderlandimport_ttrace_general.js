@@ -25,39 +25,29 @@
   });
   
   
-  
-  /*
-  jq(function() {
-	  jq("#bufedt").datepicker({ 
-		  onSelect: function(date) {
-		  	jq("#bufedt").focus();
-	      },
-		  dateFormat: 'yymmdd',
-		  firstDay: 1 //monday
-		  /*showOn: "button",
-	      buttonImage: "resources/images/calendar.gif",
-	      buttonImageOnly: true,
-	      buttonText: "Select date" 
-		  
-		  //dateFormat: 'ddmmy', 
-	  });
-	  jq("#bufedt").blur(function(){
-		  //now check the user input alternatives
-		  var str = jq("#bufedt").val();
-		  if(str!=''){
-			  var length = str.length;
-			  if(length==2){
-				  jq("#bufedt").val(g_getCurrentYearStr() + g_getCurrentMonthStr() + str);  
-			  }else if (length==4){
-				  var userDay = str.substring(0,2);
-				  var userMonth = str.substring(2,4);
-				  jq("#bufedt").val(g_getCurrentYearStr() + userMonth + userDay);
-			  }
-		  }
-	  });
-	  
+//custom validity
+  jq('#ttfbnr').focus(function() {
+	  if(jq('#ttfbnr').val()!=''){
+		  refreshCustomValidity(jq('#ttfbnr')[0]);
+	  }
   });
-  */
+  jq('#ttacti').focus(function() {
+		if(jq('#ttacti').val()!=''){
+			refreshCustomValidity(jq('#ttacti')[0]);
+		}
+	  });
+  jq('#ttdate').focus(function() {
+		if(jq('#ttdate').val()!=''){
+			refreshCustomValidity(jq('#ttdate')[0]);
+		}
+  });
+  jq('#tttime').focus(function() {
+		if(jq('#tttime').val()!=''){
+			refreshCustomValidity(jq('#tttime')[0]);
+		}
+  });
+  
+ /*
   jq(function() {
 	  jq('#newRecordButton').click(function() {
 		  jq('#fskode').val("");
@@ -74,23 +64,7 @@
 		  jq('#fskode').focus();
 	  });
   });
-  
-  //Links on child windows
-  jq(function() {
-	  /*
-	  //frisokvei koder child window search
-	  jq('#fskodeIdLink').click(function() {
-		jq('#fskodeIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_frisokveicodes.do?action=doFind',"frisokveiCodesWin","top=300px,left=50px,height=600px,width=550px,scrollbars=no,status=no,location=no");
-	  });
-	  //frisokvei dok.koder child window search
-	  jq('#fsdokkIdLink').click(function() {
-		jq('#fsdokkIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_frisokveidoccodes.do?action=doFind',"frisokveiDocCodesWin","top=300px,left=150px,height=600px,width=550px,scrollbars=no,status=no,location=no");
-	  });
-	  */
-  });
-  
+    */
   
   //-------------------
   //Fetch specific line
@@ -109,8 +83,7 @@
 		
 	  	//id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}
 	  	var requestString = "user=" + jq('#applicationUser').val() + "&ttavd=" + avd + "&ttopd=" + opd + "&ttdate=" + date + "&tttime=" + time;
-	  	//DEBUG--> 
-	  	alert(requestString);
+	  	//DEBUG--> alert(requestString);
 	  	
 	  	jq.ajax({
 	  	  type: 'GET',
@@ -125,7 +98,7 @@
 			for ( var i = 0; i < len; i++) {
 				//alert(data[i].fask);
 				
-				jq('#isModeUpdate').val("");jq('#isModeUpdate').val("true");
+				jq('#updateId').val("");jq('#updateId').val("true");
 				jq('#ttfbnr').val("");jq('#ttfbnr').val(data[i].ttfbnr); 
 				jq('#ttacti').val("");jq('#ttacti').val(data[i].ttacti); 
 				jq('#ttdate').val("");jq('#ttdate').val(data[i].ttdate); 

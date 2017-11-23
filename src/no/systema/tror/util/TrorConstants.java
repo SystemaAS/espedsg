@@ -64,7 +64,9 @@ public final class TrorConstants {
 	
 	
 	
-	
+	//CODES
+	public static final int ERROR_CODE = -1;
+		
 	
 	
 	public static final Integer CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES = 4;
