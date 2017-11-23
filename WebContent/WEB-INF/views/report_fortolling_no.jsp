@@ -430,14 +430,14 @@ function load_data() {
 			    .renderHorizontalGridLines(true)
 			    .renderTitle(true)
 			    .title(function (d) {
-			    			var diffRegAndOff = d.value.sum_reg_vareposter - d.value.sum_off_vareposter;
-	                    	 return [
-	                    		 d.key.substr(3) + ':',
-	         	                'Reg. varuposter: ' + d.value.sum_reg_vareposter ,
-	         	                'Off. varuposter: ' + d.value.sum_off_vareposter,
-	         	                'Fortollinger: ' + d.value.count,
-	         	                'Differanse reg./off.: ' + diffRegAndOff
-	         	            ].join('\n');
+					var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
+                   	 return [
+                   		 d.key.substr(3) + ':',
+                   			'Fortollinger: ' + d.value.count,
+                   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
+        	                'Registrerte varuposter: ' + d.value.sum_reg_vareposter ,
+        	                'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
+        	            ].join('\n');
 	        	})	
 			  	.compose([
 	     			dc.barChart(compositeChart)
