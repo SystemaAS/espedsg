@@ -83,8 +83,9 @@
 					        			<th align="center" width="2%" class="text12">&nbsp;Endre&nbsp;</th>
 					        			<th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</th>
 					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</th>   
-					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.event"/>&nbsp;</th>
+					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.kode"/>&nbsp;</th>
 					                    <th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.text"/>&nbsp;</th>
+					                    <th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.status"/>&nbsp;</th>
 					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.user"/>&nbsp;</th>
 					        			<th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.delete"/>&nbsp;</th>
 					        			
@@ -100,7 +101,7 @@
 						               		</c:if>
 						               	</td>
 						               	<td align="center" class="text11" >
-							               	<a id="recordUpdate_${record.ttdate}@time_${record.tttime}" href="#" onClick="getBudgetItemData(this);">
+							               	<a style="cursor:pointer;" id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}" onClick="getItemData(this);">
 					               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
 					               			</a>
 							            </td>   			
@@ -108,14 +109,16 @@
 						               	<td align="right" class="text11" >${record.tttime}</td>
 						               	<td class="text11" >${record.ttacti}</td>
 						               	<td class="text11" >${record.tttexl}</td>
+						               	<td align="center" class="text11" >${record.ttmanu}</td>
 						               	<td class="text11" >${record.ttuser}</td>
 						               	<%-- DELETE cell --%>							           
 						               	<td width="2%" class="text11" align="center">
 						               	   <c:if test="${not empty record.ttdate && not empty record.tttime}">
-						                   		<a style="cursor:pointer;" id="avd_${model.avd}@opd_${model.opd}@date_${record.ttdate}@time_${record.tttime}" onClick="doDeleteItemLine(this);" tabindex=-1 >
+						               	   		<c:if test="${record.ttmanu == 'J'}">
+						                   		<a style="cursor:pointer;" id="avd_${record.ttavd}opd_${record.ttopd}date_${record.ttdate}time_${record.tttime}" onClick="TODODeletegetItemData(this);" tabindex=-1 >
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>&nbsp;
-								               	
+								               	</c:if>
 							               	</c:if>
 				               		  	</td> 
 						            	</tr>
@@ -209,35 +212,35 @@
 						 			<tr height="5"><td class="text" align="left"></td></tr>
 						 			<tr >
 						 				
-						            	<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;Fraktbrevnr.</span></td>
-							            <td class="text12" align="left">&nbsp;<span title="todo">&nbsp;Kode</span></td>
-					            		<td width="5%" class="text12" align="left">&nbsp;<span title="todo">Hendelsestidspunkt</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Status</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Event code</span></td>
+						            	<td class="text12" align="left">&nbsp;<span title="ttfbnr">&nbsp;Fraktbrevnr.</span></td>
+							            <td class="text12" align="left">&nbsp;<span title="ttacti">&nbsp;Kode</span></td>
+					            		<td width="5%" class="text12" align="left">&nbsp;<span title="ttdate/tttime">Hendelsestidspunkt</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="ttmanu">&nbsp;&nbsp;Status</span></td>
+					            		<td class="text12" align="left">&nbsp;<span title="ttacti">&nbsp;&nbsp;Event code</span></td>
 					            		<td class="text12" align="left">&nbsp;<span title="todo">&nbsp;&nbsp;Reason code</span></td>
 							        </tr>
 							        <tr>
-						        		<td class="text12" align="left" >&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.fsdokk}"></td>
-							            <td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.fsdokk}"></td>
-							            <td width="5%" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todoDate" id="todoDate" size="10" maxlength="8" value=''>
-							 			&nbsp;Kl:<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue"  name="todoDateTime" id="todoDateTime" size="5" maxlength="4" value=''></td>	
+						        		<td class="text12" align="left" >&nbsp;<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="ttfbnr" id="ttfbnr" size="4" maxlength="3" value="${Xmodel.record.ttfbnr}"></td>
+							            <td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="ttacti" id="ttacti" size="4" maxlength="3" value="${Xmodel.record.ttacti}"></td>
+							            <td width="5%" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="ttdate" id="ttdate" size="10" maxlength="8" value='${Xmodel.record.ttdate}'>
+							 			&nbsp;Kl:<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue"  name="tttime" id="tttime" size="7" maxlength="6" value='${Xmodel.record.tttime}'></td>	
 							            	
 							            <td class="text12" align="left" >&nbsp;
-							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							            	<select class="inputTextMediumBlue" name="ttmanu" id="ttmanu" >
 							 				  <option value="">-velg-</option>
-											  <option value="S"<c:if test="${Xmodel.record.hepk3 == 'S'}"> selected </c:if> >Send</option>
-											  <option value="F"<c:if test="${Xmodel.record.hepk3 == 'F'}"> selected </c:if> >Ferdig</option>
-											  <option value="J"<c:if test="${Xmodel.record.hepk3 == 'J'}"> selected </c:if> >Man</option>
+											  <option value="S"<c:if test="${Xmodel.record.ttmanu == 'S'}"> selected </c:if> >Send</option>
+											  <option value="F"<c:if test="${Xmodel.record.ttmanu == 'F'}"> selected </c:if> >Ferdig</option>
+											  <option value="J"<c:if test="${Xmodel.record.ttmanu == 'J'}"> selected </c:if> >Manuelt</option>
 											</select>
 							            </td>	
 							            <td class="text12" align="left" >&nbsp;
-							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							            	<select class="inputTextMediumBlue" name="ttedev" id="ttedev" >
 							 				  <option value="">-velg-</option>
 											  <%-- TODO underregister --%> 
 											</select>
 							            </td>	
 							            <td class="text12" align="left" >&nbsp;
-							            	<select class="inputTextMediumBlue" name="todo" id="todo" >
+							            	<select class="inputTextMediumBlue" name="ttedre" id="ttedre" >
 							 				  <option value="">-velg-</option>
 											  <%-- TODO underregister --%>
 											</select>
@@ -245,31 +248,31 @@
 							        </tr>
 							        <tr height="5"><td class="text" align="left"></td></tr>
 							        <tr >
-						 				<td class="text12" align="left"><span title="todo">&nbsp;NO tekst</span></td>
-						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="75" maxlength="71" value=''></td>
+						 				<td class="text12" align="left"><span title="tttexl">&nbsp;NO tekst</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="tttexl" id="tttexl" size="75" maxlength="71" value='${model.record.tttexl}'></td>
 							        </tr>
 							        <tr >
-						 				<td class="text12" align="left"><span title="todo">&nbsp;EN tekst</span></td>
-						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="75" maxlength="71" value=''></td>
+						 				<td class="text12" align="left"><span title="tttext">&nbsp;EN tekst</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="tttext" id="tttext" size="75" maxlength="71" value='${model.record.tttext}'></td>
 							        </tr>
 							        <tr height="5"><td class="text" align="left"></td></tr>
 							        <tr >
-						 				<td class="text12" align="left"><span title="todo">&nbsp;Depot/term</span></td>
-						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''></td>
+						 				<td class="text12" align="left"><span title="ttdepo">&nbsp;Depot/term</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="ttdepo" id="ttdepo" size="12" maxlength="10" value='${model.record.ttdepo}'></td>
 							        </tr>
 							        <tr >
-						 				<td class="text12" align="left"><span title="todo">&nbsp;Name</span></td>
-						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''></td>
+						 				<td class="text12" align="left"><span title="ttname">&nbsp;Name</span></td>
+						 				<td colspan="10" class="text12" align="left"><input type="text" class="inputTextMediumBlue"  name="ttname" id="ttname" size="12" maxlength="10" value='${model.record.ttname}'></td>
 							        </tr>
 							        <tr height="10"><td class="text" align="left"></td></tr>
 							              
 							         <tr >
-						 				<td class="text12" align="left"><span title="todo">&nbsp;Loggføringstid</span></td>
-						 				<td colspan="2" class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="todoDateNow" id="todoDateNow" size="10" maxlength="8" value=''>
-							 				&nbsp;Kl:<input readonly type="text" class="inputTextReadOnly"  name="todoDateTimeNow" id="todoDateTimeNow" size="5" maxlength="4" value=''>
+						 				<td class="text12" align="left"><span title="ttdatl/tttiml">&nbsp;Loggføringstid</span></td>
+						 				<td colspan="2" class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="ttdatl" id="ttdatl" size="10" maxlength="8" value='${model.record.ttdatl}'>
+							 				&nbsp;Kl:<input readonly type="text" class="inputTextReadOnly"  name="tttiml" id="tttiml" size="7" maxlength="6" value='${model.record.tttiml}'>
 							 			</td>
-							 			<td class="text12" align="left"><span title="todo">&nbsp;Av bruker ID</span></td>
-						 				<td class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="todo" id="todo" size="8" maxlength="10" value=''></td>
+							 			<td class="text12" align="left"><span title="ttuser">&nbsp;Av bruker ID</span></td>
+						 				<td class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="ttuser" id="ttuser" size="8" maxlength="10" value='${model.record.ttuser}'></td>
 							        </tr>
 							        
 							        
@@ -281,14 +284,10 @@
 					    <tr height="10"><td colspan="2" ></td></tr>
 					    <tr>	
 						    <td align="left" colspan="5">
-						    	<%--TODO 
-								<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-								--%>
-								<%-- 
+						    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 								&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.transportdisp.cancel"/>'>
-								--%>
 							</td>
-														        	
+													        	
 				        </tr>
         	        </table>
        	         	</form>

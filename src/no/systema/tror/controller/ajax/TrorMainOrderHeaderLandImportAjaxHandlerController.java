@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import no.systema.jservices.common.dao.TrackfDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 
@@ -329,7 +332,76 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 			 }
 			 return result;
 		}	
-
+		/**
+		 * 
+		 * @param applicationUser
+		 * @param requestString
+		 * @return
+		 */
+		@RequestMapping(value = "getTrackAndTraceGeneralDetailLine.do", method = RequestMethod.GET)
+	    public @ResponseBody List<TrackfDao> getTrackAndTraceGeneralDetailLine (@RequestParam String applicationUser, @RequestParam String requestString){
+			//===========
+			 //FETCH LIST
+			 //===========
+			JsonReader<JsonDtoContainer<TrackfDao>> jsonReader = new JsonReader<JsonDtoContainer<TrackfDao>>();
+			jsonReader.set(new JsonDtoContainer<TrackfDao>());
+			
+			 logger.info("Inside: fetchItemLines");
+			 //prepare the access CGI with RPG back-end
+			 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_TRACK_AND_TRACE_URL;
+			 String urlRequestParamsKeys = requestString;
+			 
+			 logger.info("URL: " + BASE_URL);
+			 logger.info("PARAMS: " + urlRequestParamsKeys);
+			 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+			 
+			 List<TrackfDao> daoList = new ArrayList<TrackfDao>();
+			 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			 logger.info(jsonPayload);
+			 
+			 if(jsonPayload!=null){
+			 	try{
+			 		JsonDtoContainer<TrackfDao> container = (JsonDtoContainer<TrackfDao>) jsonReader.get(jsonPayload);
+					if(container!=null){
+						daoList = container.getDtoList();
+					}
+					
+			 	}catch(Exception e){
+			 		e.printStackTrace();
+			 	}
+			 }
+			 return daoList; 
+			
+			 /*
+			 logger.info("Inside: getTrackAndTraceGeneralDetailLine");
+			 List<JsonTrorOrderHeaderBudgetRecord> result = new ArrayList<JsonTrorOrderHeaderBudgetRecord>();
+			 //logger.info(requestString);
+			 if(requestString!=null && !"".equals(requestString)){
+			 	 final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_MAIN_ORDER_BUDGET_URL;
+			 	 
+				 //add URL-parameters
+				 String urlRequestParams = requestString;
+				 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+				 logger.info("URL: " + BASE_URL);
+				 logger.info("URL PARAMS: " + urlRequestParams);
+				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+				 
+				 if(jsonPayload!=null){
+					 JsonTrorOrderHeaderBudgetContainer container = this.trorMainOrderHeaderService.getBudgetContainer(jsonPayload);
+		    		if(container!=null){
+		    			List<JsonTrorOrderHeaderBudgetRecord> list = new ArrayList();
+		    			for(JsonTrorOrderHeaderBudgetRecord  record : container.getBudgetLines()){
+		    				logger.info(record.getBubnr());
+		    				list.add(record);
+		    			}
+		    			result = list;
+		    		}
+		    	  }
+			 }
+			 return result;
+			 */
+		}		
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
 	  private UrlCgiProxyService urlCgiProxyService;

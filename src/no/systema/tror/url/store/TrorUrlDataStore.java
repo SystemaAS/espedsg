@@ -211,8 +211,10 @@ public class TrorUrlDataStore {
 		//----------------------------------------------------------------
 		//[3] FETCH/UPDATE/CREATE/DELETE Track & Trace general
 		//----------------------------------------------------------------
-		//http://localhost:8080/syjservicesbcore/syjsTRACKF.do?user=OSCAR&ttavd=1&ttopd=184
-		static public String TROR_BASE_FETCH_ALL_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF.do";
-	
+		//http://localhost:8080/syjservicesbcore/syjsTRACKF.do?user=OSCAR&ttavd=1&ttopd=184...
+		static public String TROR_BASE_FETCH_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF.do";
+		//http://gw.systema.no/sycgip/tjge27ru.pgm?user=JOVO&bnr=1318923&mode=U&bupCc=20&bupAr=15&bupMn
+		static public String TROR_BASE_UPDATE_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF_U.pgm";
+				
 	
 }

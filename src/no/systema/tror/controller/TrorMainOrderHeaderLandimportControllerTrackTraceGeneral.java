@@ -261,7 +261,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 		
 		 logger.info("Inside: fetchItemLines");
 		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_ALL_TRACK_AND_TRACE_URL;
+		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_TRACK_AND_TRACE_URL;
 		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&ttavd=" + avd + "&ttopd=" + opd;
 		 
 		 logger.info("URL: " + BASE_URL);

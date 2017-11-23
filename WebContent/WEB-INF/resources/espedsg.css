@@ -499,6 +499,11 @@ END override jQuery elements
 	padding: 4px 7px;
 	cursor:pointer;
 }
+.inputFormSubmit:focus{
+	color:#000000;
+	background-color: lightyellow;
+	border: 2px solid #3F9E4D;
+}
 .inputFormSubmit11{
 	border: 1px solid #ccc;
 	-moz-border-radius: 5px;
@@ -665,7 +670,7 @@ END override jQuery elements
 	outline: 0;
 }
 
-.inputFormSubmitUoppNeutralR {  
+.UoppNeutralR {  
     border: 1px solid #CCCCCC;
 	font-size: 10px;
 	font-weight:bold ;
@@ -1292,8 +1297,12 @@ END override jQuery elements
 	padding: 2px 4px;
 	outline: 0;
 	cursor:pointer;
-	
 }
+.buttonGrayWithGreenFrame:focus{
+	color:#000000;
+	background-color: lightyellow;
+}
+
 .buttonGrayWithGreenFrame11{
 	border: 2px solid #3F9E4D;
 	-moz-border-radius: 5px;

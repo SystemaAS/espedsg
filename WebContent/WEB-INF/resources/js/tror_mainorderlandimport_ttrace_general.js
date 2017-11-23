@@ -19,7 +19,7 @@
   }
 
   jq(function() {
-		jq("#todoDate").datepicker({ 
+		jq("#ttdate").datepicker({ 
 			dateFormat: 'yymmdd'  
 		});
   });
@@ -95,22 +95,26 @@
   //-------------------
   //Fetch specific line
   //-------------------
-  /*
   function getItemData(record) {
-		var FIELD_SEPARATOR = "_";
+		var FIELD_SEPARATOR = "@";
 	  	var htmlValue = record.id;
 	  	var applicationUser = jq('#applicationUser').val();
 	  	//alert(htmlValue);
 	  	htmlValue = htmlValue.replace("recordUpdate_","");
 	  	var fields = htmlValue.split(FIELD_SEPARATOR);
-	  	var requestString = "user=" + jq('#applicationUser').val() + "&avd=" + jq('#avd').val() + "&opd=" + jq('#opd').val() + "&mode=I" +
-	  						"&o_fskode=" + fields[0] + "&o_fssok=" + fields[1];
-	  	//DEBUG--> alert(requestString);
-	  	//http://user=JOVO&avd=75&opd=103&mode=I&o_fskode=IFB&o_fssok=70701550001424817 
+	  	var avd = fields[0].replace("avd_","");
+		var opd = fields[1].replace("opd_","");
+		var date = fields[2].replace("date_","");
+		var time = fields[3].replace("time_","");
+		
+	  	//id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}
+	  	var requestString = "user=" + jq('#applicationUser').val() + "&ttavd=" + avd + "&ttopd=" + opd + "&ttdate=" + date + "&tttime=" + time;
+	  	//DEBUG--> 
+	  	alert(requestString);
 	  	
 	  	jq.ajax({
 	  	  type: 'GET',
-	  	  url: 'getFrisokveiDetailLine_Landimport.do',
+	  	  url: 'getTrackAndTraceGeneralDetailLine.do',
 	  	  data: { applicationUser : applicationUser, 
 	  		  	  requestString : requestString }, 
 	  	  dataType: 'json',
@@ -122,10 +126,22 @@
 				//alert(data[i].fask);
 				
 				jq('#isModeUpdate').val("");jq('#isModeUpdate').val("true");
-				jq('#fskodeKey').val("");jq('#fskodeKey').val(data[i].kode); //hidden field
-				jq('#fssokKey').val("");jq('#fssokKey').val(data[i].sok); //hidden field
+				jq('#ttfbnr').val("");jq('#ttfbnr').val(data[i].ttfbnr); 
+				jq('#ttacti').val("");jq('#ttacti').val(data[i].ttacti); 
+				jq('#ttdate').val("");jq('#ttdate').val(data[i].ttdate); 
+				jq('#tttime').val("");jq('#tttime').val(data[i].tttime); 
+				jq('#tttexl').val("");jq('#tttexl').val(data[i].tttexl); 
+				jq('#tttext').val("");jq('#tttext').val(data[i].tttext); 
+				//
+				jq('#ttdepo').val("");jq('#ttdepo').val(data[i].ttdepo); 
+				jq('#ttname').val("");jq('#ttname').val(data[i].ttname); 
+				
+				//logg and user data (read only)
+				jq('#ttdatl').val("");jq('#ttdatl').val(data[i].ttdatl); 
+				jq('#tttiml').val("");jq('#tttiml').val(data[i].tttiml); 
+				jq('#ttuser').val("");jq('#ttuser').val(data[i].ttuser); 
 				//read only field(s)
-				jq('#fskode').val("");
+				/*jq('#fskode').val("");
 				jq('#fskode').prop("readonly", true);
 				jq('#fskode').removeClass("inputTextMediumBlueMandatoryField");
 				jq('#fskode').addClass("inputTextReadOnly");
@@ -133,22 +149,18 @@
 				jq('#fskode').val("");jq('#fskode').val(data[i].kode);
 				jq('#fssok').val("");jq('#fssok').val(data[i].sok);
 				jq('#fsdokk').val("");jq('#fsdokk').val(data[i].dokk);
-				/*
-				jq('#buoavd').val("");
-				if(data[i].buoavd!='0'){
-					jq('#buoavd').val(data[i].buoavd);
-				}
-				TO CLOSE comment tag here!
-					
+				*/
 			}
 	  	  },
 	  	  error: function() {
 	  	    alert('Error loading ...');
 	  	  }
+	  	  
 	  	});
 	  	
+	  	
 	}
-	*/
+	
   	//---------------------------------------
 	//DELETE Invoice line
 	//This is done in order to present a jquery
