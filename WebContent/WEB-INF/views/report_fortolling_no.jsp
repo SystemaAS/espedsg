@@ -3,30 +3,53 @@
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
 
+
+<style>
+
+.horizontal-scroll-group > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flow-root;
+}
+
+.horizontal-scroll-group > .row > .col-md-3 {
+  display: inline-block;
+  float: none;
+  margin-right: -90px;
+}
+
+.horizontal-scroll-group > .row > .col-md-4 {
+  display: inline-block;
+  float: none;
+  
+}
+
+/* Decorations */
+.col-md-4 { color: #fff; font-size: 40px; margin-right: -30px; margin-left: 15px;  }
+.col-md-4:nth-child(3n+1) { background: #69c; }
+.col-md-4:nth-child(3n+2) { background: #f19411; }
+.col-md-4:nth-child(3n+3) { background: #9c6;}  
+
+</style>
+
+
 <script type="text/javascript">
 "use strict";
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
-var no_NO = {
-	  "decimal": ".",
-	  "thousands": ".",
-	  "grouping": [3],
-	  "currency": ["NOK", ""],
-	  "dateTime": "%a %b %e %X %Y",
-	  "date": "%m/%d/%Y",
-	  "time": "%H:%M:%S",
-	  "periods": ["AM", "PM"],
-	  "days": ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
-	  "shortDays": ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
-	  "months": ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
-	  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
-	};
-
 var tolldataSize;
 var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var merknader;
+var colorMap = {
+        "fortollinger": "#69c",
+        "reg_vp":  "#9c6",
+        "off_vp": "#f19411"
+    };	
+
+
+
 
 d3.json(merknaderDescUrl, function(error, data) {
 	if (error) {
@@ -131,12 +154,14 @@ function load_data() {
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
+		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";});
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
 		var  yearChart   = dc.pieChart("#chart-ring-year");
 		var  avdChart   = dc.pieChart('#chart-ring-avd');
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
+		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
 		var  compositeChart = dc.compositeChart("#chart-composite");
 		var  dataCount = dc.dataCount('#data-count')	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
@@ -155,6 +180,7 @@ function load_data() {
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //Labb
 		
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
@@ -246,7 +272,25 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');	
 			});	
-		    
+	
+		inputTypeChart
+		    .width(300)
+		    .height(300)
+		    .dimension(inputTypeDim)
+		    .group(inputTypeDimGroup)
+		    .externalRadiusPadding(50)
+		    .innerRadius(30)
+		    .on("filtered", getFiltersValues)
+		    .title(function (d) {
+			  	var percentage;
+			  	percentage = 45;
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+		});			
+		
+		
 		yearChart
 		    .width(300)
 		    .height(300)
@@ -356,6 +400,7 @@ function load_data() {
 					return p.value.sum_off_vareposter;
 			});	
 		
+
 		compositeChart
 			    .width(1200)
 			    .height(500)
@@ -369,8 +414,8 @@ function load_data() {
 	        	.xAxisLabel("Måned")      
 	            .elasticY(true)
 	            .elasticX(true)
-	            .mouseZoomable(false)  //true not working in this context
-	        	.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
+	            .mouseZoomable(false)  //true is not working in this context
+	            .legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
 	        				if (i == 2) {
 	        					return "Antall registrerte vareposter";
 	        				}
@@ -396,22 +441,34 @@ function load_data() {
 	        	})	
 			  	.compose([
 	     			dc.barChart(compositeChart)
-			    		.group(monthDimGroup) 
+			    		.group(monthDimGroup, 'fortollinger') 
 			            .barPadding(1)
 				        /*Antall fortollinger*/
 			           .valueAccessor(function (d) {
 	           				return d.value.count; 
 	   					}) 
 	   					/*Antall off. varuposter*/
-	   					.stack(monthDimGroup,function (d) {
+	   					.stack(monthDimGroup,'off_vp' ,function (d) {
 	                     	return d.value.sum_off_vareposter;  //100
 	                    })
 	                    /*Antall off. varuposter*/
-	                    .stack(monthDimGroup,function (d) {
-	                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //100-80=20
+	                    .stack(monthDimGroup, 'reg_vp',function (d) {
+	                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
 	                    	return diffRegAndOff;
 	                    })
 			     ])
+				.on('pretransition', function (chart) {
+                    chart.selectAll("g rect").style("fill", function (d) {
+                        return colorMap[d.layer];
+                    });
+                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
+                        return colorMap[d.name];
+                    });
+                    chart.selectAll("g rect.deselected").style("fill", function (d) {
+                        return '#ccc';
+                    });                  
+                    
+                })			     
 				.xAxis().tickFormat(function(d) { 
 	            	return d.substr(3); 
 	            });
@@ -637,23 +694,6 @@ window.addEventListener('error', function (e) {
 		<table style="border-collapse:initial;" width="100%"  cellspacing="0" border="0" cellpadding="0">
 			<tr height="2"><td></td></tr>
 				<tr height="25"> 
-<!-- 
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap_overview">
-							<font class="tabDisabledLink">&nbsp;Trafikkregnskap</font>&nbsp;						
-						</a>
-						<img  style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0">
-			  		</td>		
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
- 
-					<td width="20%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" href="report_dashboard.do?report=report_trafikkregnskap" >
-							<font class="tabDisabledLink">&nbsp;Trafikkregnskap - detaljer</font>&nbsp;						
-						</a>						
-						<img style="vertical-align:middle;" src="resources/images/lorry_green.png"  width="18px" height="18px" border="0" alt="Trafikkregnskap rapport">
-					</td>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
--->
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;Fortolling(NO)</font>
 						<img  style="vertical-align:middle;" src="resources/images/list.gif" border="0" alt="general list">
@@ -729,11 +769,11 @@ window.addEventListener('error', function (e) {
 						<div class="col-md-4 padded" id="antall" align="center">
 						    <h3 class="text14">Antall fortollinger</h3>
 						</div>
-				        <div class="col-md-4 padded" id="antallreg_vareposter" align="center">
-				           <h3 class="text14">Antall registrerte vareposter</h3>
-				        </div>  
 				        <div class="col-md-4 padded" id="antalloff_vareposter" align="center">
 				          <h3 class="text14">Antall offisielle vareposter</h3>
+				        </div>  
+				        <div class="col-md-4 padded" id="antallreg_vareposter" align="center">
+				           <h3 class="text14">Antall registrerte vareposter</h3>
 				        </div>  
 					  </div> 	
 					</div>		
@@ -749,15 +789,11 @@ window.addEventListener('error', function (e) {
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
-   						 <div class="col-md-12">
-   						   <!--   <h3 class="text11" style="border-bottom-style: solid; border-width: 1px;">Vareposter</h3> -->
-   						 </div>
-				      </div>
-				      <div class="row">
 						 <div class="col-md-12 dc-chart" id="chart-composite"> 
 						  	<h3 class="text12">Vareposter</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
 						 </div>  
 				      </div>
 				    </div>
@@ -766,41 +802,58 @@ window.addEventListener('error', function (e) {
 				  <div class="row">
 				    <div class="col-md-12"></div>
 				  </div>
-				  
+	
 				  <div class="row">
-					<div class="col-md-12">
-					  <div class="row">
-						   <div class="col-md-12">
-						      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
-						   </div>
-					  </div>				  
-					  
-
-					  <div class="row">
-					     <div class="col-md-2" id="chart-ring-avd">
+					   <div class="col-md-12">
+					      <h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
+					   </div>
+				  </div>	
+	
+				  <div class="horizontal-scroll-group">
+				   <div class="row text-center">
+					     <div class="col-md-3" id="chart-ring-avd">
 				        	<h3 class="text12" align="justify">Avdeling
 					        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
 					        	 <a id="avdfilter">legg til</a>	
 				        	</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>
-						<div class="col-md-2" id="chart-ring-type">
+						    <div class="clear"></div>		
+						    
+				     	</div>
+
+						<div class="col-md-3" id="chart-ring-type">
 						 	<h3 class="text12" align="center">Import / Eksport</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						 	<!--  <span>Import / Eksport</span>-->
+						    <span class="reset" style="display: none;">filter: 
+						    	<span class="filter"></span>
+						    </span>
 						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>
-						<div class="col-md-2" id="chart-ring-year">
+  						    <div class="clear"></div>					 	
+
+				        </div>				     	
+	
+						<div class="col-md-3" id="chart-ring-inputtype">
+						 	<h3 class="text12" align="center">Manuell / EDI</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
+ 							<div class="clear"></div>			
+				        </div>	
+	
+						<div class="col-md-3" id="chart-ring-year">
 							<h3 class="text12" align="center">År</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
 				        </div>
-
+	
 				        <div class="col-md-3" id="chart-ring-sisg">
 				        	<h3 class="text12" align="center">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div>  
+						    <div class="clear"></div>	
+				        </div> 	
+
 				        <div class="col-md-3" id="chart-ring-edim">
 				        	<h3 class="text12">Merknader
 					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
@@ -808,15 +861,15 @@ window.addEventListener('error', function (e) {
 				        	 </h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
-				        </div> 
-					  </div> 	
-					</div>		
-				  </div>	
-	
-				  <div class="row">
+						    <div class="clear"></div>	
+				        </div> 	
+				    </div>
+				  </div>  
+   
+ 				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
-				  </div>
-				 
+				  </div>  
+    
 				  <div class="row">
 					<div class="col-md-12">
 						<h3 class="text14" style="border-bottom-style: solid; border-width: 1px;">&nbsp;</h3>
