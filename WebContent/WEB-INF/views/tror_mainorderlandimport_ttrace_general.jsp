@@ -201,7 +201,7 @@
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="100%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 	 					
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
@@ -210,7 +210,7 @@
 			 				</td>
 		 				</tr>
 	 				</table>
-					<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="12"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
@@ -279,7 +279,7 @@
 											  </c:forEach> 
 											</select>							            	
 							            </td>
-							            <td width="5%" class="text12" align="left"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="ttdate" id="ttdate" size="10" maxlength="8" value="<c:if test="${model.record.ttdate > 0}">${model.record.ttdate}</c:if>"/>
+							            <td nowrap width="5%" class="text12" align="left"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="ttdate" id="ttdate" size="10" maxlength="8" value="<c:if test="${model.record.ttdate > 0}">${model.record.ttdate}</c:if>"/>
 							 			&nbsp;Kl:<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="tttime" id="tttime" size="7" maxlength="6" value="<c:if test="${model.record.tttime > 0}">${model.record.tttime}</c:if>"/></td>	
 							            	
 							            <td class="text12" align="left" >
