@@ -264,6 +264,7 @@ function load_data() {
 		    .externalRadiusPadding(50)
 		    .innerRadius(30)
 		    .on("filtered", getFiltersValues)
+		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
@@ -281,6 +282,7 @@ function load_data() {
 		    .externalRadiusPadding(50)
 		    .innerRadius(30)
 		    .on("filtered", getFiltersValues)
+		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
 			  	percentage = 45;
@@ -296,9 +298,10 @@ function load_data() {
 		    .height(300)
 		    .dimension(yearDim)
 		    .group(yearDimGroup)
-		     .externalRadiusPadding(50)
+		    .externalRadiusPadding(50)
 		    .innerRadius(30)
 		    .on("filtered", getFiltersValues)
+		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
@@ -315,9 +318,24 @@ function load_data() {
 		    .group(avdDimGroup)
 		    .slicesCap(25)
 		    .innerRadius(30)
+		    .renderLabel(true)
 		    .externalRadiusPadding(50)
 		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
 		    .on("filtered", getFiltersValues)
+			.on('renderlet', function (chart) {
+					var legends = chart.selectAll(".dc-legend-item");
+			   		legends
+			   			.append('title').text(function (d) {
+						  	var percentage;
+						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+				            return [
+				                d.name + ':',
+				                percentageFormat(percentage)
+				            ].join('\n');	
+			   			});
+             })	
+   			.othersLabel("Andre")     
+   			.emptyTitle('tom')
 	 		.title(function (d) {
 			  	var percentage;
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
@@ -337,6 +355,8 @@ function load_data() {
 		    .dimension(sisgDim)
 		    .group(sisgDimGroup)
 		    .on("filtered", getFiltersValues)
+		    .emptyTitle('tom')
+		    .othersLabel("Andre") 
 		    .title(function (d) {
 			  	var percentage;
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
@@ -356,6 +376,37 @@ function load_data() {
 		    .dimension(edimDim)
 		    .group(edimDimGroup)
 			.renderTitle(true)
+			.on('renderlet', function (chart) {
+					var legends = chart.selectAll(".dc-legend-item");
+			   		legends
+			   			.append('title').text(function (d) {
+							var name, desc,percentage ;
+							percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+							if (d.name == 'OK') {
+								name = 'OK';
+								desc = '';
+							}  else if (d.name == 'Andre') {
+								name = 'Andre';
+								desc = '';
+							}  else {
+								var trailingThree = d.name.slice(-3);
+								if (isNaN(trailingThree)) { 
+									 name = d.name.slice(0,2);
+									 desc = d.name.slice(2,d.name.lenght);
+						        } else {
+						        	 name = d.name;
+									 desc =  getMerknadDesc(trailingThree);	        	 
+						        }
+							}
+				            return [
+				                name + ':',
+				                desc,
+				                percentageFormat(percentage)
+				            ].join('\n');				   			
+				        });					
+			 })
+			.othersLabel("Andre")
+			.emptyTitle('tom')
 			.title(function (d) {
 				var key, desc,percentage ;
 				percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
@@ -811,8 +862,32 @@ window.addEventListener('error', function (e) {
 	
 				  <div class="horizontal-scroll-group">
 				   <div class="row text-center">
+				        <div class="col-md-3" id="chart-ring-edim">
+				        	<h3 class="text12">Merknader
+					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
+					        	 <a id="merknadfilter">legg til</a>	
+				        	 </h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div> 	
+
+						<div class="col-md-3" id="chart-ring-inputtype">
+						 	<h3 class="text12" align="center">Manuell / EDI</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
+ 							<div class="clear"></div>			
+				        </div>
+
+				        <div class="col-md-3" id="chart-ring-sisg">
+				        	<h3 class="text12" align="center">Signatur</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div> 
+
 					     <div class="col-md-3" id="chart-ring-avd">
-				        	<h3 class="text12" align="justify">Avdeling
+				        	<h3 class="text12" align="center">Avdeling
 					        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
 					        	 <a id="avdfilter">legg til</a>	
 				        	</h3>
@@ -824,21 +899,11 @@ window.addEventListener('error', function (e) {
 
 						<div class="col-md-3" id="chart-ring-type">
 						 	<h3 class="text12" align="center">Import / Eksport</h3>
-						 	<!--  <span>Import / Eksport</span>-->
-						    <span class="reset" style="display: none;">filter: 
-						    	<span class="filter"></span>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span>
 						    </span>
 						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
   						    <div class="clear"></div>					 	
-
 				        </div>				     	
-	
-						<div class="col-md-3" id="chart-ring-inputtype">
-						 	<h3 class="text12" align="center">Manuell / EDI</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
- 							<div class="clear"></div>			
-				        </div>	
 	
 						<div class="col-md-3" id="chart-ring-year">
 							<h3 class="text12" align="center">År</h3>
@@ -846,23 +911,6 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>	
 				        </div>
-	
-				        <div class="col-md-3" id="chart-ring-sisg">
-				        	<h3 class="text12" align="center">Signatur</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div> 	
-
-				        <div class="col-md-3" id="chart-ring-edim">
-				        	<h3 class="text12">Merknader
-					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
-					        	 <a id="merknadfilter">legg til</a>	
-				        	 </h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div> 	
 				    </div>
 				  </div>  
    
