@@ -57,6 +57,8 @@ public final class TrorConstants {
 	public static final String RESOURCE_MODEL_KEY_TRANSPORTTYPE_CODE_LIST = "transporttypeList";
 	public static final String RESOURCE_MODEL_KEY_LOADUNLOAD_CODE_LIST = "loadUnloadList";
 	public static final String RESOURCE_MODEL_KEY_MLAPKOD_CODE_LIST = "merkelappList";
+	public static final String RESOURCE_MODEL_KEY_GENERIC_CODE_LIST = "genericList";
+	
 	
 	//Sig/Avd
 	public static final String RESOURCE_MODEL_KEY_SIGNATURES_LIST = "signatureList";

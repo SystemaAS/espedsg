@@ -63,22 +63,13 @@ import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
-import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeContainer;
-import no.systema.tror.model.jsonjackson.codes.JsonTrorCodeRecord;
-import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
 
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteRecord;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
-import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
-import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
-//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerContainer;
-//import no.systema.ebooking.model.jsonjackson.order.childwindow.JsonEbookingCustomerRecord;
-import no.systema.ebooking.service.EbookingChildWindowService;
-import no.systema.jservices.common.dao.DokufDao;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.service.TrorMainOrderHeaderService;

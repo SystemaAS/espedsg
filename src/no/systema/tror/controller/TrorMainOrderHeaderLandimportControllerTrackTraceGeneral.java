@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Scope;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.ServletRequestDataBinder;
 
 //application imports
 import no.systema.main.context.TdsAppContext;
@@ -51,13 +50,10 @@ import no.systema.jservices.common.json.JsonReader;
 //tror
 import no.systema.tror.validator.TrorOrderTrackfValidator;
 import no.systema.tror.service.TrorMainOrderHeaderService;
-import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
-import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
-import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiRecord;
-import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
-import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
+import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
+import no.systema.tror.util.manager.CodeDropDownMgr;
 
 
 
@@ -82,6 +78,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
+	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	//
 	private StringManager strMgr = new StringManager();
 	
@@ -121,12 +118,29 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			List list = (List)this.fetchItemLines(appUser, recordToValidate);
 			model.put(TrorConstants.DOMAIN_LIST, list);
+			
+			this.adjustDefaultsOnGui(recordToValidate);
 			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+			this.setCodeDropDownMgr(appUser, model);
 			//
-	    	successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 	    	return successView;
 		}
-	}	
+	}
+	/**
+	 * For defaults returning to GUI
+	 * @param recordToValidate
+	 */
+	private void adjustDefaultsOnGui(TrackfDao recordToValidate){
+		int nowDate = Integer.parseInt(new DateTimeManager().getCurrentDate_ISO());
+		int nowTime = Integer.parseInt(new DateTimeManager().getCurrentDate_ISO("HHmmss"));
+		
+		if(recordToValidate.getTtdatl() == 0){ recordToValidate.setTtdatl(nowDate); }
+		if(recordToValidate.getTtdate() == 0){ recordToValidate.setTtdate(nowDate); }
+		if(recordToValidate.getTttiml() == 0){ recordToValidate.setTttiml(nowTime); }
+		if(recordToValidate.getTttime() == 0){ recordToValidate.setTttime(nowTime); }
+		
+	}
 	/**
 	 * 
 	 * @param recordToValidate
@@ -183,11 +197,14 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 				
 				if (TrorConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
+						//logger.info("UPDATE!!!");
 						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg);
 					} else {
+						//logger.info("CREATE NEW!!!");
 						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg);
 					}
 				} else if (TrorConstants.ACTION_DELETE.equals(action)) {
+					//logger.info("DELETE !!!");
 					dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg);
 				}
 				// check for Update errors
@@ -209,7 +226,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 
 			List list = (List)this.fetchItemLines(appUser, recordToValidate);
 			model.put(TrorConstants.DOMAIN_LIST, list);
-
+			this.setCodeDropDownMgr(appUser, model);
 			successView.addObject(TrorConstants.DOMAIN_MODEL, model);
 			
 	    	return successView;
@@ -298,111 +315,15 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	/**
 	 * 
 	 * @param appUser
-	 * @param avd
-	 * @param opd
 	 * @param model
-	 * @param session
 	 */
-	/*
-	private void fetchItemLines(SystemaWebUser appUser, String avd, String opd, Map model, HttpSession session ){
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_MAIN_ORDER_FRISOKVEI_URL;
-		//add URL-parameters
-		StringBuffer urlRequestParams = new StringBuffer();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&avd=" + avd); 
-		urlRequestParams.append("&opd=" + opd);
-		
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		if(jsonPayload!=null){
-			JsonTrorOrderHeaderFrisokveiContainer container = this.trorMainOrderHeaderService.getOrderFrisokveiContainer(jsonPayload);
-			if(container!=null){
-				this.setDomainObjectsInView(model, container, session);
-			}	
-		}
-	}
-	*/
-	/**
-	 * 
-	 * @param appUser
-	 * @param errorMessage
-	 * @param recordToValidate
-	 * @param model
-	 * @param parentTrip
-	 * @param session
-	 */
-	
-	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTrorOrderHeaderFrisokveiRecord recordToValidate, Map model, HttpSession session ){
-		model.put(TrorConstants.ASPECT_ERROR_MESSAGE, "Kode/sokText:[" + recordToValidate.getFskode() + " " +  recordToValidate.getFssok() + "] " +  errorMessage);
-		
-    	//return objects on validation errors
-		model.put("record", recordToValidate);
-	}
-	
-	
-	/**
-	 * 
-	 * @param model
-	 * @param container
-	 * @param session
-	 */
-	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderFrisokveiContainer container, HttpSession session){
-		Collection<JsonTrorOrderHeaderFrisokveiRecord> list = new ArrayList<JsonTrorOrderHeaderFrisokveiRecord>();
-		//could be two options
-		if(container.getAwblinelist()!=null){
-			list = container.getAwblinelist();
-			/*
-			for (JsonTransportDispWorkflowSpecificOrderFrisokveiRecord record: container.getAwblinelist()){
-				
-				list.add(record);
-			}*/
-		}
-		
-		//always keep track of the total nr of item lines
-		//String nrOfItems = String.valueOf(list.size());
-		//container.setTotalNumberOfItemLines(nrOfItems);
-		
-		logger.info("putting on model...");
-		model.put(TrorConstants.DOMAIN_CONTAINER, container);
-		model.put(TrorConstants.DOMAIN_LIST, list);
-		//put the objects in session ONLY for the validation errors routine in an UPDATE. Otherwise we do have to retrive th
-		//session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_CONTAINER, container);
-		//session.setAttribute(session.getId() + TransportDispConstants.DOMAIN_LIST, list);
+	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
+		//general
+		this.codeDropDownMgr.populateCodesHtmlDropDownsFromJsonString(urlCgiProxyService, this.trorDropDownListPopulationService, model, appUser, this.codeDropDownMgr.CODE_TYPE_TRACKT);
 		
 	}
 	
 	
-	/**
-	 * 
-	 * @param ccyy
-	 * @return
-	 */
-	private String getCentury2digits(String ccyy){
-		String retval = ccyy;
-		if(ccyy!=null && !"".equals(ccyy)){
-		  if(ccyy.length()==4){
-			  retval = ccyy.substring(0,2);
-		  }
-		}
-		return retval;
-	}
-	/**
-	 * 
-	 * @param ccyy
-	 * @return
-	 */
-	private String getYear2digits(String ccyy){
-		String retval = ccyy;
-		if(ccyy!=null && !"".equals(ccyy)){
-		  if(ccyy.length()==4){
-			  retval = ccyy.substring(2);
-		  }
-		}
-		return retval;
-	}
 	
 	//SERVICES
 	@Qualifier ("urlCgiProxyService")
@@ -420,27 +341,6 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	public void setTransportDispChildWindowService(TransportDispChildWindowService value){this.transportDispChildWindowService = value;}
 	public TransportDispChildWindowService getTransportDispChildWindowService(){ return this.transportDispChildWindowService; }
 	
-	/*	
-	@Qualifier ("transportDispDropDownListPopulationService")
-	private TransportDispDropDownListPopulationService transportDispDropDownListPopulationService;
-	@Autowired
-	public void setTransportDispDropDownListPopulationService (TransportDispDropDownListPopulationService value){ this.transportDispDropDownListPopulationService=value; }
-	public TransportDispDropDownListPopulationService getTransportDispDropDownListPopulationService(){return this.transportDispDropDownListPopulationService;}
-	
-
-	@Qualifier ("transportDispWorkflowSpecificOrderService")
-	private TransportDispWorkflowSpecificOrderService transportDispWorkflowSpecificOrderService;
-	@Autowired
-	public void setTransportDispWorkflowSpecificOrderService (TransportDispWorkflowSpecificOrderService value){ this.transportDispWorkflowSpecificOrderService=value; }
-	public TransportDispWorkflowSpecificOrderService getTransportDispWorkflowSpecificOrderService(){return this.transportDispWorkflowSpecificOrderService;}
-	
-	@Qualifier 
-	private TransportDispWorkflowSpecificTripService transportDispWorkflowSpecificTripService;
-	@Autowired
-	@Required	
-	public void setTransportDispWorkflowSpecificTripService(TransportDispWorkflowSpecificTripService value){this.transportDispWorkflowSpecificTripService = value;}
-	public TransportDispWorkflowSpecificTripService getTransportDispWorkflowSpecificTripService(){ return this.transportDispWorkflowSpecificTripService; }
-	*/
 	
 	@Qualifier 
 	private TrorMainOrderHeaderService trorMainOrderHeaderService;
@@ -448,6 +348,13 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	@Required	
 	public void setTrorMainOrderHeaderService(TrorMainOrderHeaderService value){this.trorMainOrderHeaderService = value;}
 	public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){ return this.trorMainOrderHeaderService; }
+	
+	@Qualifier ("trorDropDownListPopulationService")
+	private TrorDropDownListPopulationService trorDropDownListPopulationService;
+	@Autowired
+	@Required
+	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
+	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
 	
 	

@@ -29,13 +29,22 @@ public class DateTimeManager {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(ISO_FORMAT);
 		Calendar cal = Calendar.getInstance();
 		try{
-			
 			retval = dateFormat.format(cal.getTime()); 
-			
 		}catch(Exception e){
 			//Nothing
 		}
-		
+		return  retval; 
+	}
+	
+	public String getCurrentDate_ISO(String mask){
+		String retval = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(mask);
+		Calendar cal = Calendar.getInstance();
+		try{
+			retval = dateFormat.format(cal.getTime()); 
+		}catch(Exception e){
+			//Nothing
+		}
 		return  retval; 
 	}
 	

@@ -40,7 +40,7 @@ public class DateTester {
 			System.out.println("Invalid");
 		}*/
 		
-		System.out.println(mgr.getNewDateFromNow(-10));
+		System.out.println(mgr.getCurrentDate_ISO("yyyyMMdd:HHmmss"));
 			
 		
 	}

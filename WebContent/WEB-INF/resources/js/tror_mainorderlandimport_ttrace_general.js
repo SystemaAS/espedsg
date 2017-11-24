@@ -3,6 +3,15 @@
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
+  jq(function() {
+	  jq("#trorUpdateTracktForm").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+	  jq("#createNewLineForm").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+  });
+  
   jq(document).ready(function() {
 		//jq('#updCancelButton').hide();
   });
@@ -101,28 +110,35 @@
 				jq('#updateId').val("");jq('#updateId').val("true");
 				jq('#ttfbnr').val("");jq('#ttfbnr').val(data[i].ttfbnr); 
 				jq('#ttacti').val("");jq('#ttacti').val(data[i].ttacti); 
+				//keys (plus ttavd and ttopd of course
 				jq('#ttdate').val("");jq('#ttdate').val(data[i].ttdate); 
-				jq('#tttime').val("");jq('#tttime').val(data[i].tttime); 
+				jq('#tttime').val("");jq('#tttime').val(data[i].tttime);
+				//
+				jq('#ttmanu').val("");jq('#ttmanu').val(data[i].ttmanu); 
+				jq('#ttedev').val("");jq('#ttedev').val(data[i].ttedev); 
+				jq('#ttedre').val("");jq('#ttedre').val(data[i].ttedre); 
+				//texts
 				jq('#tttexl').val("");jq('#tttexl').val(data[i].tttexl); 
 				jq('#tttext').val("");jq('#tttext').val(data[i].tttext); 
-				//
+				//other
 				jq('#ttdepo').val("");jq('#ttdepo').val(data[i].ttdepo); 
 				jq('#ttname').val("");jq('#ttname').val(data[i].ttname); 
-				
 				//logg and user data (read only)
 				jq('#ttdatl').val("");jq('#ttdatl').val(data[i].ttdatl); 
 				jq('#tttiml').val("");jq('#tttiml').val(data[i].tttiml); 
 				jq('#ttuser').val("");jq('#ttuser').val(data[i].ttuser); 
-				//read only field(s)
-				/*jq('#fskode').val("");
-				jq('#fskode').prop("readonly", true);
-				jq('#fskode').removeClass("inputTextMediumBlueMandatoryField");
-				jq('#fskode').addClass("inputTextReadOnly");
-				//fields
-				jq('#fskode').val("");jq('#fskode').val(data[i].kode);
-				jq('#fssok').val("");jq('#fssok').val(data[i].sok);
-				jq('#fsdokk').val("");jq('#fsdokk').val(data[i].dokk);
-				*/
+				//read only field(s) on GUI
+				jq('#ttdate').prop("readonly", true);
+				jq('#ttdate').removeClass("inputTextMediumBlueMandatoryField");
+				jq('#ttdate').addClass("inputTextReadOnly");
+				//remove datepicker
+				jq( '#ttdate' ).datepicker( "destroy" );
+				jq( '#ttdate' ).removeClass("hasDatepicker").removeAttr('id');
+				//end datepicker
+				jq('#tttime').prop("readonly", true);
+				jq('#tttime').removeClass("inputTextMediumBlueMandatoryField");
+				jq('#tttime').addClass("inputTextReadOnly");
+				
 			}
 	  	  },
 	  	  error: function() {
@@ -139,7 +155,6 @@
 	//This is done in order to present a jquery
 	//Alert modal pop-up
 	//----------------------------------------
-  	/*TODO
 	function doDeleteItemLine(element){
 	  //start
 		//avd_${model.avd}@opd_${model.opd}@date_${record.date}@time_${record.time}
@@ -158,7 +173,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "tror_mainorderlandimport_ttrace_general_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&Xdate=" + date + "&Xtime=" + time;
+	            window.location = "tror_mainorderlandimport_ttrace_general_edit.do?action=doDelete" + "&ttavd=" + avd + "&ttopd=" + opd + "&ttdate=" + date + "&tttime=" + time;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );
@@ -172,7 +187,6 @@
 	     }
 	  });  //end dialog
 	}
-	*/
   
 //-------------------
   //Datatables jquery

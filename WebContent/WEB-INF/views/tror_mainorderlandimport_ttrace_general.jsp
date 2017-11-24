@@ -41,7 +41,7 @@
 			<td colspan="3" class="text16Bold">&nbsp;&nbsp;&nbsp;
 				<img width="20px" height="20px" src="resources/images/find.png" border="0" alt="frisok">
 				<spring:message code="systema.tror.title"/> - <spring:message code="systema.tror.order.tracktracel.general.label"/>
-				&nbsp;&nbsp;&nbsp;<font class="text16MediumBlue">Avd/Opd&nbsp;&nbsp;<b>${model.avd}</b>/<b>${model.opd}</b></font>	
+				&nbsp;&nbsp;&nbsp;<font class="text16MediumBlue">Avd/Opd&nbsp;&nbsp;<b>${model.record.ttavd}</b>/<b>${model.record.ttopd}</b></font>	
 			</td>
 		</tr>
 		<tr height="5"><td colspan="2">&nbsp;</td></tr>
@@ -101,9 +101,13 @@
 						               		</c:if>
 						               	</td>
 						               	<td align="center" class="text11" >
-							               	<a style="cursor:pointer;" id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}" onClick="getItemData(this);">
-					               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-					               			</a>
+						               		<c:if test="${not empty record.ttdate && not empty record.tttime}">
+						               	   		<c:if test="${record.ttmanu == 'J'}">
+								               	<a style="cursor:pointer;" id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}" onClick="getItemData(this);">
+						               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+						               			</a>
+						               			</c:if>
+					               			</c:if>
 							            </td>   			
 						               	<td class="text11" >${record.ttdate}</td>
 						               	<td align="right" class="text11" >${record.tttime}</td>
@@ -115,7 +119,7 @@
 						               	<td width="2%" class="text11" align="center">
 						               	   <c:if test="${not empty record.ttdate && not empty record.tttime}">
 						               	   		<c:if test="${record.ttmanu == 'J'}">
-						                   		<a style="cursor:pointer;" id="avd_${record.ttavd}opd_${record.ttopd}date_${record.ttdate}time_${record.tttime}" onClick="TODODeletegetItemData(this);" tabindex=-1 >
+						                   		<a style="cursor:pointer;" id="avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 								               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 								               	</a>&nbsp;
 								               	</c:if>
@@ -176,7 +180,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td class="text12" align="left" >
-					<form name="createNewItemLine" id="createNewItemLine" method="post" action="tror_mainorderlandimport_ttrace_general.do">
+					<form name="createNewLineForm" id="createNewLineForm" method="post" action="tror_mainorderlandimport_ttrace_general.do">
 						<input type="hidden" name="ttavd" id="ttavd" value='${model.record.ttavd}'>
 						<input type="hidden" name="ttopd" id="ttopd" value='${model.record.ttopd}'>
 						<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" id="submit" value='Lage ny'>
@@ -186,7 +190,7 @@
 			<tr height="5"><td class="text12" align="left" ></td></tr>
            	<tr>
 	 			<td >
-	 				<form action="tror_mainorderlandimport_ttrace_general_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
+	 				<form action="tror_mainorderlandimport_ttrace_general_edit.do" name="trorUpdateTracktForm" id="trorUpdateTracktForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
@@ -214,37 +218,93 @@
 						 			<tr height="5"><td class="text" align="left"></td></tr>
 						 			<tr >
 						 				
-						            	<td class="text12" align="left">&nbsp;<span title="ttfbnr">&nbsp;Fraktbrevnr.</span></td>
-							            <td class="text12" align="left">&nbsp;<span title="ttacti">&nbsp;Kode</span></td>
-					            		<td width="5%" class="text12" align="left">&nbsp;<span title="ttdate/tttime">Hendelsestidspunkt</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="ttmanu">&nbsp;&nbsp;Status</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="ttedev">&nbsp;&nbsp;Event code</span></td>
-					            		<td class="text12" align="left">&nbsp;<span title="ttedre">&nbsp;&nbsp;Reason code</span></td>
+						            	<td class="text12" align="left"><span title="ttfbnr">&nbsp;<font class="text14RedBold" >*</font>Fraktbrevnr.</span></td>
+							            <td class="text12" align="left">
+							            	<img onMouseOver="showPop('ttacti_info');" onMouseOut="hidePop('ttacti_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			<span title="ttacti"><font class="text14RedBold" >*</font>Kode</span>
+											<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute; left:25px; top:-400px; width:250px" id="ttacti_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b>Kode</b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.genericList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.kfkod}</b>&nbsp;${record.kftxt}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+											</div>	
+							            </td>
+					            		<td width="5%" class="text12" align="left"><span title="ttdate/tttime"><font class="text14RedBold" >*</font>Hendelsestidspunkt</span></td>
+					            		<td class="text12" align="left"><span title="ttmanu">&nbsp;&nbsp;Status</span></td>
+					            		<td class="text12" align="left">
+					            			<img onMouseOver="showPop('ttedev_info');" onMouseOut="hidePop('ttedev_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			<span title="ttedev">Event code</span>
+											<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute; left:25px; top:-400px; width:250px" id="ttedev_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b>Event code</b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.genericList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.kfkod}</b>&nbsp;${record.kftxt}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+											</div>	
+				            			</td>
+					            		<td class="text12" align="left">
+					            			<img onMouseOver="showPop('ttedre_info');" onMouseOut="hidePop('ttedre_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+					            			<span title="ttedre">Reason code</span>
+											<div class="text11" style="position: relative;" align="left">
+												<span style="position:absolute; left:25px; top:-400px; width:250px" id="ttedre_info" class="popupWithInputText"  >
+													<font class="text11">
+								           			<b>Reason code</b>
+								           			<ul>
+								           				<c:forEach var="record" items="${model.genericList}" varStatus="counter">
+								           					<li><font class="text10"><b>${record.kfkod}</b>&nbsp;${record.kftxt}</font></li>
+								           				</c:forEach>
+								           			</ul>
+							           			</font>
+												</span>
+					            		</td>
 							        </tr>
 							        <tr>
 						        		<td class="text12" align="left" >&nbsp;<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ttfbnr" id="ttfbnr" size="4" maxlength="3" value="<c:if test="${model.record.ttfbnr > 0}">${model.record.ttfbnr}</c:if>"/></td>
-							            <td class="text12" align="left" >&nbsp;<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="ttacti" id="ttacti" size="4" maxlength="3" value="${model.record.ttacti}"></td>
-							            <td width="5%" class="text12" align="left"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="ttdate" id="ttdate" size="10" maxlength="8" value='${model.record.ttdate}'>
-							 			&nbsp;Kl:<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="tttime" id="tttime" size="7" maxlength="6" value='${model.record.tttime}'></td>	
-							            	
-							            <td class="text12" align="left" >&nbsp;
-							            	<select class="inputTextMediumBlue" name="ttmanu" id="ttmanu" >
+							            <td class="text12" align="left" >
+							            	<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="ttacti" id="ttacti" >
 							 				  <option value="">-velg-</option>
+											  <c:forEach var="record" items="${model.genericList}" >
+							 				  		<option value="${record.kfkod}"<c:if test="${model.record.ttacti == record.kfkod}"> selected </c:if> >${record.kfkod}</option>
+											  </c:forEach> 
+											</select>							            	
+							            </td>
+							            <td width="5%" class="text12" align="left"><input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="ttdate" id="ttdate" size="10" maxlength="8" value="<c:if test="${model.record.ttdate > 0}">${model.record.ttdate}</c:if>"/>
+							 			&nbsp;Kl:<input required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlueMandatoryField"  name="tttime" id="tttime" size="7" maxlength="6" value="<c:if test="${model.record.tttime > 0}">${model.record.tttime}</c:if>"/></td>	
+							            	
+							            <td class="text12" align="left" >
+							            	<select class="inputTextMediumBlue" name="ttmanu" id="ttmanu" >
+							 				  <%--
 											  <option value="S"<c:if test="${model.record.ttmanu == 'S'}"> selected </c:if> >Send</option>
 											  <option value="F"<c:if test="${model.record.ttmanu == 'F'}"> selected </c:if> >Ferdig</option>
-											  <option value="J"<c:if test="${model.record.ttmanu == 'J'}"> selected </c:if> >Manuelt</option>
+											   --%>
+											  <option value="J">Manuelt</option>
 											</select>
 							            </td>	
-							            <td class="text12" align="left" >&nbsp;
+							            <td class="text12" align="left" >
 							            	<select class="inputTextMediumBlue" name="ttedev" id="ttedev" >
 							 				  <option value="">-velg-</option>
-											  <%-- TODO underregister --%> 
+											  <c:forEach var="record" items="${model.genericList}" >
+							 				  		<option value="${record.kfkod}"<c:if test="${model.record.ttedev == record.kfkod}"> selected </c:if> >${record.kfkod}</option>
+											  </c:forEach> 
 											</select>
 							            </td>	
-							            <td class="text12" align="left" >&nbsp;
+							            <td class="text12" align="left" >
 							            	<select class="inputTextMediumBlue" name="ttedre" id="ttedre" >
 							 				  <option value="">-velg-</option>
-											  <%-- TODO underregister --%>
+											  <c:forEach var="record" items="${model.genericList}" >
+							 				  		<option value="${record.kfkod}"<c:if test="${model.record.ttedre == record.kfkod}"> selected </c:if> >${record.kfkod}</option>
+											  </c:forEach>
 											</select>
 							            </td>							            
 							        </tr>
@@ -274,7 +334,16 @@
 							 				&nbsp;Kl:<input readonly type="text" class="inputTextReadOnly"  name="tttiml" id="tttiml" size="7" maxlength="6" value='${model.record.tttiml}'>
 							 			</td>
 							 			<td class="text12" align="left"><span title="ttuser">&nbsp;Av bruker ID</span></td>
-						 				<td class="text12" align="left"><input readonly type="text" class="inputTextReadOnly"  name="ttuser" id="ttuser" size="8" maxlength="10" value='${model.record.ttuser}'></td>
+						 				<td class="text12" align="left">
+						 					<c:choose>
+						 					<c:when test="${not empty model.record.ttuser}">
+						 						<input readonly type="text" class="inputTextReadOnly"  name="ttuser" id="ttuser" size="8" maxlength="10" value='${model.record.ttuser}'>
+						 					</c:when>
+						 					<c:otherwise>
+						 						<input readonly type="text" class="inputTextReadOnly"  name="ttuser" id="ttuser" size="8" maxlength="10" value='${user.user}'>
+						 					</c:otherwise>
+						 				</c:choose>
+						 				</td>
 							        </tr>
 							        
 							        
@@ -287,9 +356,7 @@
 					    <tr>	
 						    <td align="left" colspan="5">
 						    	<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-								&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.transportdisp.cancel"/>'>
 							</td>
-													        	
 				        </tr>
         	        </table>
        	         	</form>
