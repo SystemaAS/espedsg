@@ -1,5 +1,6 @@
 package no.systema.report.controller;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -182,6 +183,8 @@ public class ReportDashboardController {
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, maintSadFellesKodtsiService, model, appUser);
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
 		populateCodesHtmlDropDownsFromJsonYear(model, appUser);
+		populateCodesHtmlDropDownsFromFromJsonYear(model, appUser);
+		
 	}	
 	
 	private void populateCodesHtmlDropDownsFromJsonYear(Map model, SystemaWebUser appUser) {
@@ -203,6 +206,22 @@ public class ReportDashboardController {
 		model.put("yearList", list);
 		
 	}
+	
+	private void populateCodesHtmlDropDownsFromFromJsonYear(Map model, SystemaWebUser appUser) {
+		List<Integer> fromYearList = new ArrayList<Integer>();
+		
+		ZonedDateTime thisYear =ZonedDateTime.now();
+		ZonedDateTime prevYear = thisYear.minusYears(1);  //TODO parameterize
+		
+		fromYearList.add(thisYear.getYear());
+		fromYearList.add(prevYear.getYear());
+		
+		logger.info("fromYearList="+fromYearList);
+		
+		model.put("fromYearList", fromYearList);
+		
+	}	
+	
 
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;

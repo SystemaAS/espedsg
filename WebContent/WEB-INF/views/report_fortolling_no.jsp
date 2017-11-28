@@ -6,7 +6,6 @@
 
 <style>
 
-
 .horizontal-scroll-group > .row {
   width: 1200px;
   overflow-x: scroll;
@@ -37,12 +36,7 @@
   margin-left: 15px;
 }
 
-/* Decorations */
-//.col-md-4 { color: #fff; font-size: 40px; margin-right: -30px; margin-left: 15px;  }
 .col-md-4 { margin-right: -30px; margin-left: 15px;  }
-//.col-md-4:nth-child(3n+1) { background: #69c; }
-//.col-md-4:nth-child(3n+2) { background: #f19411; }
-//.col-md-4:nth-child(3n+3) { background: #9c6;}  
 
 </style>
 
@@ -63,8 +57,6 @@ var colorMap = {
     };	
 
 
-
-
 d3.json(merknaderDescUrl, function(error, data) {
 	if (error) {
 		jq.unblockUI();
@@ -78,9 +70,6 @@ d3.json(merknaderDescUrl, function(error, data) {
 	} else {
 		merknader = data.list;
 	}
-	
-	//console.log("Desc 954="+_.findWhere(merknader,{e9705:'954'}).e4440);
-	
 	
 });
 
@@ -131,7 +120,6 @@ function load_data() {
 		}
 		
 		var tollData = data.dtoList;
-	    //console.log("tollData="+tollData);  //Tip: Or view i  Chrome devtool; NetWork-(mark xhr row)-Preview
 
 	    var NO = d3.locale(no_NO);
 	    var fullDateFormat = d3.time.format('%Y%m%d');
@@ -559,9 +547,6 @@ function load_data() {
 	            	return d.substr(3); 
 	            });
 	
-		//Diverse grejer till datum   
-		//https://jsfiddle.net/pramod24/q4aquukz/4/
-	
 	
 	   	d3.selectAll('a#all').on('click', function () {
 	     	dc.filterAll();
@@ -817,8 +802,9 @@ window.addEventListener('error', function (e) {
 					<div class="col-md-1 text12">
 						<font class="text12">Fra år:</font><br>
 						<select name="selectYear" id="selectYear" >
-	  						<option value="2017">2017</option>
-		  					<option value="2016">2016</option>
+							<c:forEach var="record"  items="${model.fromYearList}" >
+								<option value="${record}">${record}</option>
+	  						</c:forEach>  
 	  					</select>
 	  				</div>
 	  				
@@ -964,66 +950,7 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>	
 				        </div>
 
-	<!--  
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text12" align="center">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div>
-	
-						<div class="col-md-3" id="chart-ring-type">
-						 	<h3 class="text12" align="center">Import / Eksport</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span>
-						    </span>
-						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
-  						    <div class="clear"></div>					 	
-				        </div>		
-	
-						<div class="col-md-3" id="chart-ring-kapittel">
-						 	<h3 class="text12" align="center">Kapittel</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="kapittel" style="display: none;"> - <i>tilbakestill filter</i></a>
- 							<div class="clear"></div>			
-				        </div>	
-
-					     <div class="col-md-3" id="chart-ring-avd" style="margin-left: 15px;" >
-				        	<h3 class="text12" align="center">Avdeling
-					        	 <font class="text11">&nbsp;&nbsp;&nbsp;avd:&nbsp;<input id="avd-filter" type="text" size="5"/>  </font>
-					        	 <a id="avdfilter">legg til</a>	
-				        	</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>		
-				     	 </div>
-  
-				        <div class="col-md-3" id="chart-ring-sisg">
-				        	<h3 class="text12" align="center">Signatur</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="sisg" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div> 	
-	
-						<div class="col-md-3" id="chart-ring-inputtype">
-						 	<h3 class="text12" align="center">Manuell / EDI</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
- 							<div class="clear"></div>			
-				        </div>	
-	
-				        <div class="col-md-3" id="chart-ring-edim">
-				        	<h3 class="text12">Merknader
-					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
-					        	 <a id="merknadfilter">legg til</a>	
-				        	 </h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="edim" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div> 
-
-
-
-
+<!-- 
 	
 					 <div class="col-md-4">1</div>
 					 <div class="col-md-4">2</div>
