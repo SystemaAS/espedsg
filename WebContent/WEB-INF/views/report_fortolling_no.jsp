@@ -52,9 +52,11 @@ var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
+var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
 
 var merknader;
 var avdelinger;
+var signaturer;
 var colorMap = {
         "fortollinger": "#69c",
         "reg_vp":  "#9c6",
@@ -103,6 +105,26 @@ d3.queue()
 				
 				})
 	 		}, avdelingDescUrl)	
+	.defer(function(signaturerDescUrl, callback) {
+			d3.json(signaturerDescUrl, function(error, data) {
+				if (error) {
+					jq.unblockUI();
+				}
+
+				callback(error, data);
+
+				if (data.list == '') {
+					jq.unblockUI();
+					alert('Ingen data for signaturer.');  
+					return "no data found";
+				} else {
+					signaturer = data.list;
+				}
+				
+				console.log("Desc FM="+_.findWhere(signaturer,{ksisig:'FM'}).ksinav);		
+				
+				})
+	 		}, signaturerDescUrl)	
 	.awaitAll(function(error, data) { 
 			if (error) console.log("error",error);
 		});
@@ -131,6 +153,18 @@ function getAvdelingDesc(id) {
 	}
 
 }
+
+function getSignaturDesc(id) {
+	var desc =  _.findWhere(signaturer,{ksisig:id});
+	if (desc != null && desc != "") {
+		return desc.ksinav;
+	} else {
+		return "["+id+" ikke funnet som gyldig tariffør i vedlikehold.]";		
+	}
+
+}
+
+
 
 function load_data() {
 	
@@ -396,14 +430,13 @@ function load_data() {
 		    .on("filtered", getFiltersValues)
 			.on('renderlet', function (chart) {
 					var legends = chart.selectAll(".dc-legend-item");
-					var desc;
 			   		legends
 			   			.append('title').text(function (d) {
 						  	var percentage;
 						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 				            return [
 				                d.name + ':',
-				                desc =  getAvdelingDesc(d.name),     
+				                getAvdelingDesc(d.name),     
 				                percentageFormat(percentage)
 				            ].join('\n');	
 			   			});
@@ -415,6 +448,7 @@ function load_data() {
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
+	                getAvdelingDesc(d.key),
 	                percentageFormat(percentage)
 	            ].join('\n');	
 			});	
@@ -430,13 +464,28 @@ function load_data() {
 		    .dimension(sisgDim)
 		    .group(sisgDimGroup)
 		    .on("filtered", getFiltersValues)
+			.on('renderlet', function (chart) {
+					var legends = chart.selectAll(".dc-legend-item");
+			   		legends
+			   			.append('title').text(function (d) {
+						  	var percentage;
+						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+				            return [
+				                d.name + ':',
+				                getSignaturDesc(d.name),     
+				                percentageFormat(percentage)
+				            ].join('\n');	
+			   			});
+             })	
+
 		    .emptyTitle('tom')
 		    .othersLabel("Andre") 
 		    .title(function (d) {
-			  	var percentage;
+			  	var percentage, desc;
 			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
+	                getSignaturDesc(d.key),     
 	                percentageFormat(percentage)
 	            ].join('\n');	
 			});	
