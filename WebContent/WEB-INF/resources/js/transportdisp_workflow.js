@@ -3,10 +3,22 @@
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
-//-----------------------------------
+//BlockUI behaviour
+  function setBlockUI(element){
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  }
+  
+  jq(function() {
+	  jq('#alinkOrderListId').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  }); 
+  });
+  //End BlockUI
+  
+  //-----------------------------------
   //START - Drag from Trips to Order 
   //----------------------------------
-//this drag function is used when the order is the SOURCE of a drag and not the target
+  //this drag function is used when the order is the SOURCE of a drag and not the target
   function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
@@ -238,16 +250,6 @@
 	  */
   //END UPLOAD FILE
   
-  //BlockUI behaviour	  
-  jq(function() {
-	  jq('#alinkOrderListId').click(function() { 
-		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	  }); 
-  });
-  function setBlockUI(element){
-	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  }
-  //End BlockUI
   
   jq(function() {
 	  jq("#tudt").focus(function(){
@@ -1030,7 +1032,7 @@
 		  		}
 		  	  },
 		  	  error: function() {
-		  	    alert('Error loading ...');
+		  	    alert('Error loading ... workflowTrips onClick');
 		  	  }
 		  });
 		  

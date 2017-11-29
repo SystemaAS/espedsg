@@ -289,12 +289,13 @@
 			               <td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@statusA_${record.turclose}@${counter.count}">
 				               <c:choose>
 				               <c:when test="${record.turclose=='close'}"> 
-			        		       <a id="alinkTripListId_${counter.count}" onClick="setBlockUI(this);" style="display:block;" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${record.tuavd}&wstur=${record.tupro}">
+				               		<a id="alinkTripListId_${counter.count}" onClick="setBlockUI(this);" style="display:block;" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${record.tuavd}&wstur=${record.tupro}">
 										<div style="line-height: 25px;line-width: 100px;" id="dtuavd${record.tuavd}_dtupro${record.tupro}_onlistA${counter.count}" ondrop="drop(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" > 
 										<img title="Trip planning" src="resources/images/math.png" width="14px" height="14px" border="0" alt="planning">
 										<font class="text11MediumBlue">${record.tupro}</font>
 										</div>
 			            	       </a>
+			            	     
 				               </c:when>
 				               <c:otherwise>
 				               		&nbsp;${record.tupro}

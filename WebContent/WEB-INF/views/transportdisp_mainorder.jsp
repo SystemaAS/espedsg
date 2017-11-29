@@ -663,7 +663,7 @@
 						<tr height="5"><td ></td></tr>
 						
 						<tr>
-				 			<td valign="top" >
+				 			<td width="50%" valign="top" >
 				 			 <table style="width:99%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
@@ -695,10 +695,6 @@
 					 				<td class="text11">&nbsp;<span title="heads3"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.postalcode.city"/></span></td>
 					 			</tr>
 								<tr>	
-				 					
-				 					
-				 					
-				 					
 				 					
 				 					<td class="text11" >
 				 					<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${model.record.heads2}">
@@ -1049,11 +1045,11 @@
 				</td>
 			</tr>
 			<tr>
-            		<td>
-	        			<table style="width:99%;" align="left" class="tableBorderWithRoundCornersGray" cellspacing="0" cellpadding="0">
+            		<td colspan="4">
+	        			<table border="0" style="width:99%;" align="left" class="tableBorderWithRoundCornersGray" cellspacing="0" cellpadding="0">
 				 		<tr height="5"><td colspan="2" ></td></tr>
 				 		<tr>
-							<td style="width:45%;border-right:1px solid;border-color:#FFFFFF;""  >
+							<td valign="top" style="width:50%;border-right:1px solid;border-color:#FFFFFF;" >
 								<table>
 						 		<tr height="2"><td ></td></tr>
 							 	<tr>	
@@ -1089,7 +1085,11 @@
 					 				<td class="text11" colspan="2">
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${model.record.wppns1}">
 					 				</td>
-					 				<td class="text11">&nbsp;&nbsp;</td>
+					 				<td width="20px" class="text11">&nbsp;</td>
+					 				<td class="text11">Via avd</td>
+						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			<td class="text11">Opd.type</td>
+						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
 					 			</tr>
 					 			<tr>	
 					 				<td class="text11" align="left">
@@ -1145,6 +1145,10 @@
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
 						 			</td>
+						 			<td width="20px" class="text11">&nbsp;</td>
+			 			 			<td class="text11">Beløp</td>
+						 			<td colspan="2" class="text11"><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			
 					 			</tr>
 					 			<tr>	
 					 				<td class="text11" align="left">
@@ -1200,6 +1204,11 @@
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
 						 			</td>
+						 			<td width="20px" class="text11">&nbsp;</td>
+						 			<td class="text11">Via avd</td>
+						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			<td class="text11">Opd.type</td>
+						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
 					 			</tr>
 					 			<tr>	
 						 			<td class="text11">
@@ -1235,12 +1244,16 @@
 									<td class="text11" colspan="2">
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${model.record.wppns2}">
 					 				</td>
-					 				<td class="text11">&nbsp;&nbsp;</td>
+					 				<td width="20px" class="text11">&nbsp;</td>
+					 				<td class="text11">Beløp</td>
+						 			<td colspan="2" class="text11"><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			
 					 			</tr>					 			
 							 	</table>
 							</td>
-							<td align="left">
-							<table >
+							
+							<td valign="top" align="left">
+								<table >
 						 		<tr>	
 									<td nowrap class="text11">&nbsp;
 										<img onMouseOver="showPop('frakt_info');" onMouseOut="hidePop('frakt_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">

@@ -124,12 +124,12 @@ public class TransportDispAjaxHandlerController {
 		logger.info("Inside: getTripHeading");
 		this.controllerAjaxCommonFunctionsMgr = new ControllerAjaxCommonFunctionsMgr(this.urlCgiProxyService, this.transportDispWorkflowSpecificTripService);
 		List<JsonTransportDispWorkflowSpecificTripRecord> result = new ArrayList<JsonTransportDispWorkflowSpecificTripRecord>();
-		 
+		
 	 	try{
 	 		JsonTransportDispWorkflowSpecificTripContainer container = this.controllerAjaxCommonFunctionsMgr.fetchTripHeading(applicationUser, avdNr, tripNr);
 			if(container!=null){
-				Collection<JsonTransportDispWorkflowSpecificTripMessageNoteRecord> messageNote = null;
-				Collection<JsonTransportDispWorkflowSpecificTripArchivedDocsRecord> archiveDocsList = null;
+				Collection<JsonTransportDispWorkflowSpecificTripMessageNoteRecord> messageNote = new ArrayList<JsonTransportDispWorkflowSpecificTripMessageNoteRecord>();
+				Collection<JsonTransportDispWorkflowSpecificTripArchivedDocsRecord> archiveDocsList = new ArrayList<JsonTransportDispWorkflowSpecificTripArchivedDocsRecord>();
 				for(JsonTransportDispWorkflowSpecificTripRecord  record : container.getGetonetrip()){
 					logger.info("####TUPRO-field:" + record.getTupro());
 					//Now fetch the Message Note and fill the parent record with it
