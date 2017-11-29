@@ -40,6 +40,8 @@
 
 </style>
 
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 
 <script type="text/javascript">
 "use strict";
@@ -49,29 +51,62 @@ var tolldataSize;
 var ofs = 0, pag = 20;
 var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
+var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
+
 var merknader;
+var avdelinger;
 var colorMap = {
         "fortollinger": "#69c",
         "reg_vp":  "#9c6",
         "off_vp": "#f19411"
     };	
 
+//Preload desc for avdeling, merkander
+d3.queue()
+	.defer(function(merknaderDescUrl, callback) {
+			d3.json(merknaderDescUrl, function(error, data) {
+				if (error) {
+					jq.unblockUI();
+				}
 
-d3.json(merknaderDescUrl, function(error, data) {
-	if (error) {
-		jq.unblockUI();
-		//throw error;
-	}
+				callback(error, data);
 
-	if (data.list == '') {
-		jq.unblockUI();
-		alert('Ingen data for merknader.');  
-		return "no data found";
-	} else {
-		merknader = data.list;
-	}
-	
-});
+				if (data.list == '') {
+					jq.unblockUI();
+					alert('Ingen data for merknader.');  
+					return "no data found";
+				} else {
+					merknader = data.list;
+				}
+				
+				//console.log("Desc 954="+_.findWhere(merknader,{e9705:'954'}).e4440);				
+				
+				})
+	 		}, merknaderDescUrl)	
+	.defer(function(avdelingDescUrl, callback) {
+			d3.json(avdelingDescUrl, function(error, data) {
+				if (error) {
+					jq.unblockUI();
+				}
+
+				callback(error, data);
+
+				if (data.list == '') {
+					jq.unblockUI();
+					alert('Ingen data for avdelinger.');  
+					return "no data found";
+				} else {
+					avdelinger = data.list;
+				}
+				
+				//console.log("Desc 2790="+_.findWhere(avdelinger,{koaavd:'2790'}).koanvn);		
+				
+				})
+	 		}, avdelingDescUrl)	
+	.awaitAll(function(error, data) { 
+			if (error) console.log("error",error);
+		});
+
 
 function getMerknadDesc(id) {
 	var desc =  _.findWhere(merknader,{e9705:id});
@@ -79,6 +114,20 @@ function getMerknadDesc(id) {
 		return desc.e4440;
 	} else {
 		return "["+id+" ikke funnet som funksjonfeil i vedlikehold.]";		
+	}
+
+}
+
+
+function getAvdelingDesc(id) {
+	var cadaquienconsucacaenloscalzones = ''+id+'';
+	var desc =  _.findWhere(avdelinger,{koaavd:cadaquienconsucacaenloscalzones});
+	//console.log("desc",desc);
+
+	if (desc != null && desc != "") {
+		return desc.koanvn;
+	} else {
+		return "["+id+" ikke funnet som avdeling i vedlikehold.]";		
 	}
 
 }
@@ -347,12 +396,14 @@ function load_data() {
 		    .on("filtered", getFiltersValues)
 			.on('renderlet', function (chart) {
 					var legends = chart.selectAll(".dc-legend-item");
+					var desc;
 			   		legends
 			   			.append('title').text(function (d) {
 						  	var percentage;
 						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 				            return [
 				                d.name + ':',
+				                desc =  getAvdelingDesc(d.name),     
 				                percentageFormat(percentage)
 				            ].join('\n');	
 			   			});
@@ -375,6 +426,7 @@ function load_data() {
 		    .slicesCap(25)
 		    .innerRadius(30)
 		    .externalRadiusPadding(50)
+		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
 		    .dimension(sisgDim)
 		    .group(sisgDimGroup)
 		    .on("filtered", getFiltersValues)

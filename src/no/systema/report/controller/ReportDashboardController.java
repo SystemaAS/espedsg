@@ -209,19 +209,16 @@ public class ReportDashboardController {
 	
 	private void populateCodesHtmlDropDownsFromFromJsonYear(Map model, SystemaWebUser appUser) {
 		List<Integer> fromYearList = new ArrayList<Integer>();
-		
-		ZonedDateTime thisYear =ZonedDateTime.now();
-		ZonedDateTime prevYear = thisYear.minusYears(1);  //TODO parameterize
-		
+
+		ZonedDateTime thisYear = ZonedDateTime.now();
+		ZonedDateTime prevYear = thisYear.minusYears(1);
+
 		fromYearList.add(thisYear.getYear());
 		fromYearList.add(prevYear.getYear());
-		
-		logger.info("fromYearList="+fromYearList);
-		
+
 		model.put("fromYearList", fromYearList);
-		
+
 	}	
-	
 
 	@Qualifier ("urlCgiProxyService")
 	private UrlCgiProxyService urlCgiProxyService;
