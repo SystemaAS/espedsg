@@ -2,10 +2,7 @@
 <!-- ======================= header ===========================-->
 <jsp:include page="/WEB-INF/views/headerReportDashboard.jsp" />
 <!-- =====================end header ==========================-->
-
-
 <style>
-
 .horizontal-scroll-group > .row {
   width: 1200px;
   overflow-x: scroll;
@@ -40,9 +37,6 @@
 
 </style>
 
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="https://d3js.org/d3-queue.v3.min.js"></script>
-
 <script type="text/javascript">
 "use strict";
 var jq = jQuery.noConflict();
@@ -57,6 +51,7 @@ var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
 var merknader;
 var avdelinger;
 var signaturer;
+
 var colorMap = {
         "fortollinger": "#69c",
         "reg_vp":  "#9c6",
@@ -121,7 +116,7 @@ d3.queue()
 					signaturer = data.list;
 				}
 				
-				console.log("Desc FM="+_.findWhere(signaturer,{ksisig:'FM'}).ksinav);		
+				//console.log("Desc FM="+_.findWhere(signaturer,{ksisig:'FM'}).ksinav);		
 				
 				})
 	 		}, signaturerDescUrl)	
@@ -164,10 +159,7 @@ function getSignaturDesc(id) {
 
 }
 
-
-
 function load_data() {
-	
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
 	var selectedAvd = jq('#selectAvd').val();
@@ -239,37 +231,32 @@ function load_data() {
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
-		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";});
-		var  kapittelDim  = toll.dimension(function(d) {return "XXX";});
+		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";}); //TODO
+		var  kapittelDim  = toll.dimension(function(d) {return "XXX";});  //TODO
+		var  openDaysDim  = toll.dimension(function(d) {return "YYY";});  //TODO
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
 		var  yearChart   = dc.pieChart("#chart-ring-year");
 		var  avdChart   = dc.pieChart('#chart-ring-avd');
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
-		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
-		var  kapittelChart   = dc.pieChart('#chart-ring-kapittel');
+		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype'); //TODO
+		var  kapittelChart   = dc.pieChart('#chart-ring-kapittel');   //TODO
+		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');   //TODO
 		var  compositeChart = dc.compositeChart("#chart-composite");
 		var  dataCount = dc.dataCount('#data-count')	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
 		var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
-		
-		var mindate = dateDim.bottom(1)[0].date;
-		var maxdate = dateDim.top(1)[0].date;
-		
-		var minmonth = dateDim.bottom(1)[0].month;
-		var maxmonth = dateDim.top(1)[0].month;
-		
 		//Groups
 		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //Labb
-		var  kapittelDimGroup = kapittelDim.group().reduceSum(function(d) {return d;});  //Labb
-		
+		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //TODO
+		var  kapittelDimGroup = kapittelDim.group().reduceSum(function(d) {return d;});  //TODO
+		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d;});  //TODO
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
@@ -318,7 +305,6 @@ function load_data() {
 	            }
 	    );  	
 		
-		
 	    var omsetningsGroup =  tollAllDim.group().reduce(  
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
@@ -362,7 +348,7 @@ function load_data() {
 	            ].join('\n');	
 			});	
 	
-		inputTypeChart
+		inputTypeChart  //TODO
 		    .width(300)
 		    .height(300)
 		    .dimension(inputTypeDim)
@@ -380,7 +366,7 @@ function load_data() {
 	            ].join('\n');	
 		});			
 		
-		kapittelChart
+		kapittelChart //TODO
 		    .width(300)
 		    .height(300)
 		    .dimension(kapittelDim)
@@ -397,7 +383,24 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');	
 		});			
-		
+	
+		openDaysChart  //TODO
+		    .width(300)
+		    .height(300)
+		    .dimension(openDaysDim)
+		    .group(openDaysDimGroup)
+		    .externalRadiusPadding(50)
+		    .innerRadius(30)
+		    .on("filtered", getFiltersValues)
+		    .emptyTitle('tom')
+		    .title(function (d) {
+			  	var percentage;
+			  	percentage = 45;
+	            return [
+	                d.key + ':',
+	                percentageFormat(percentage)
+	            ].join('\n');	
+		});			
 		
 		yearChart
 		    .width(300)
@@ -453,7 +456,6 @@ function load_data() {
 	            ].join('\n');	
 			});	
 
-		
 		sisgChart
 		    .width(300)
 		    .height(300)
@@ -477,7 +479,6 @@ function load_data() {
 				            ].join('\n');	
 			   			});
              })	
-
 		    .emptyTitle('tom')
 		    .othersLabel("Andre") 
 		    .title(function (d) {
@@ -575,7 +576,6 @@ function load_data() {
 					return p.value.sum_off_vareposter;
 			});	
 		
-
 		compositeChart
 			    .width(1200)
 			    .height(500)
@@ -684,6 +684,10 @@ function load_data() {
 			inputTypeChart.filterAll();
 			dc.redrawAll();
 		});			
+		d3.selectAll('a#opendays').on('click', function () {
+			openDaysChart.filterAll();
+			dc.redrawAll();
+		});		
 		
 		d3.selectAll('a#composite').on('click', function () {
 			compositeChart.filterAll();
@@ -864,9 +868,7 @@ window.addEventListener('error', function (e) {
 	  }
 	  
 });
-
 </script>
-
 
 <table id="fullTable" width="100%"  cellspacing="0" border="0" cellpadding="0">
 	<tr>
@@ -967,7 +969,6 @@ window.addEventListener('error', function (e) {
 					   </div>
 				  </div>	
 	
-
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
@@ -993,7 +994,6 @@ window.addEventListener('error', function (e) {
 	
 				  <div class="horizontal-scroll-group">
 				   <div class="row text-center">
- 	
 				        <div class="col-md-3" id="chart-ring-edim">
 				        	<h3 class="text12">Merknader
 					        	<font class="text11">&nbsp;&nbsp;&nbsp;merknad:&nbsp;<input id="merknad-filter" type="text" size="5"/>  </font>
@@ -1028,7 +1028,6 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>		
 				     	</div>
 
-
 						<div class="col-md-3" id="chart-ring-kapittel">
 						 	<h3 class="text12" align="center">Kapittel</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
@@ -1051,19 +1050,12 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>	
 				        </div>
 
-<!-- 
-	
-					 <div class="col-md-4">1</div>
-					 <div class="col-md-4">2</div>
-					 <div class="col-md-4">3</div>
-					 <div class="col-md-4">4</div>
-					 <div class="col-md-4">5</div>
-					 <div class="col-md-4">6</div>			        
-				     <div class="col-md-4">7</div>	
-				     <div class="col-md-4">8</div>	
-				     <div class="col-md-4">9</div>	  
-	-->	
-				        
+						<div class="col-md-3" id="chart-ring-opendays">
+							<h3 class="text12" align="center">Antal dager</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="opendays" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div>
 				    </div>
 				  </div>  
    
@@ -1136,12 +1128,9 @@ window.addEventListener('error', function (e) {
 				  
 				  </div>
 	
-				  
 				<div class="padded-row">&nbsp;</div>
 
 </div> <!-- toggleArea -->
-
-
 
          		</div> <!-- container -->
 		 	    </td>
@@ -1150,8 +1139,6 @@ window.addEventListener('error', function (e) {
 		</td>
 	</tr>
 </table>	
-		
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 <!-- =====================end footer ==========================-->
-

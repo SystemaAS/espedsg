@@ -17,9 +17,7 @@
 		<title>Systema - eSpedsg</title>
 
 	</head>
-
 	<body>
-
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="resources/js/jquery.blockUI.js"></script>
@@ -27,37 +25,33 @@
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<!-- using dc.js as the driver of upgrading of d3 and crossfilter, hence the https://dc-js.github.io/dc.js/js -->
 	<script type="text/javascript" src="https://dc-js.github.io/dc.js/js/d3.js"></script>
+	<script type="text/javascript" src="https://d3js.org/d3-queue.v3.min.js"></script>
 	<script type="text/javascript" src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-	<!--script type="text/javascript" src="http://colorbrewer2.org/export/colorbrewer.js"></script-->
 	<script type="text/javascript" src="resources/js/FileSaver.js"></script>
  	<script type="text/javascript" src="resources/selectlist/js/jquery.selectlist.min.js"></script>
 	<script type="text/javascript" src="resources/js/headerReports.js?ver=${user.versionEspedsg}"></script>	
 	
 	<script>
-	//org  "date": "%m/%d/%Y",
-	var no_NO = {
-			  "decimal": ".",
-			  "thousands": ".",
-			  "grouping": [3],
-			  "currency": ["NOK", ""],
-			  "dateTime": "%a %b %e %X %Y",
-			  "date": "%d%m%Y",
-			  "time": "%H:%M:%S",
-			  "periods": ["AM", "PM"],
-			  "days": ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
-			  "shortDays": ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
-			  "months": ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
-			  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
-			};	
-  	var NO = d3.locale(no_NO);  
-	
+		var no_NO = {
+				  "decimal": ".",
+				  "thousands": ".",
+				  "grouping": [3],
+				  "currency": ["NOK", ""],
+				  "dateTime": "%a %b %e %X %Y",
+				  "date": "%d%m%Y",
+				  "time": "%H:%M:%S",
+				  "periods": ["AM", "PM"],
+				  "days": ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+				  "shortDays": ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"],
+				  "months": ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+				  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+				};	
+	  	var NO = d3.locale(no_NO);  
 	</script>
-	
-	
 	<input type="hidden" name="language" id=language value="${user.usrLang}">
 	
     <table class="noBg" width="1300" border="0" cellspacing="0" cellpadding="0">
