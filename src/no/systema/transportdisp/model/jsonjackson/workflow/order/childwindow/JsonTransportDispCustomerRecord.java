@@ -65,6 +65,25 @@ public class JsonTransportDispCustomerRecord extends JsonAbstractGrandFatherReco
 	public void setAuxmail(String value){ this.auxmail = value;}
 	public String getAuxmail(){ return this.auxmail; }
 	
+	
+	//vareadresser
+	private String vadrna = null;
+	public void setVadrna(String value){ this.vadrna = value;}
+	public String getVadrna(){ return this.vadrna; }
+	
+	private String vadrn1 = null;
+	public void setVadrn1(String value){ this.vadrn1 = value;}
+	public String getVadrn1(){ return this.vadrn1; }
+	
+	private String vadrn2 = null;
+	public void setVadrn2(String value){ this.vadrn2 = value;}
+	public String getVadrn2(){ return this.vadrn2; }
+	
+	private String vadrn3 = null;
+	public void setVadrn3(String value){ this.vadrn3 = value;}
+	public String getVadrn3(){ return this.vadrn3; }
+	
+	
 	/**
 	 * User for java reflection in other classes
 	 * @return

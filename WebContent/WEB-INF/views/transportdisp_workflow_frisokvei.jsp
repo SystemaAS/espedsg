@@ -99,17 +99,26 @@
 							               <td align="center" width="2%" class="tableCell" >
 							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
 							     					<c:choose>
-								     					<c:when test="${not empty record.fskode && not empty record.fssok}">
+								     					<c:when test="${not empty record.fskode}">
 						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
 						               					</c:when>
 						               					<c:otherwise>
-						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="update">&nbsp;
+						               						&nbsp;
 						               					</c:otherwise>
 					               					</c:choose>
 					               				</a>
 						               	   </td>
 							               <td class="tableCell" >&nbsp;${record.fssok}</td>
-							               <td width="4%" class="tableCell" >&nbsp;${record.krav}</td>
+							               <td align="center" width="2%" class="tableCell" >
+							               		<c:choose>
+								     					<c:when test="${not empty record.krav && record.krav == '2'}">
+						               						<img title="Obligatorisk" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="mandatory">
+						               					</c:when>
+						               					<c:otherwise>
+						               						<img title="${record.krav}" style="vertical-align: bottom;" src="resources/images/info3.png" width="12px" height="12px" border="0" alt="info">
+						               					</c:otherwise>
+					               					</c:choose>
+							               	</td>
 							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="tableCell" align="center">

@@ -157,11 +157,11 @@ public class EbookingMainOrderHeaderController {
 					this.setFakturaBetalareFlag(recordToValidate, appUser);
 					//populate all message notes
 					//removed for toten, this was a bug: -->this.populateMessageNotes( appUser, recordToValidate);
-		    		//populate fraktbrev lines
+					//populate fraktbrev lines
 					this.populateFraktbrev( appUser, recordToValidate);
 					//set always status as in list (since we do not get this value from back-end)
 					recordToValidate.setStatus(orderStatus);
-					
+					logger.info("VALIDATE error msgNoteConsigneeOriginal:" + recordToValidate.getMessageNoteConsigneeOriginal());
 		    		model.put(EbookingConstants.DOMAIN_RECORD, recordToValidate);
 		    		
 			    }else{	
@@ -197,8 +197,7 @@ public class EbookingMainOrderHeaderController {
 				    		this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
 				    		
 				    		//Update the order lines if applicable
-				    		
-			    			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
+				    		if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
 				    			if(!this.processOrderLine(model, request, recordToValidate, appUser)){
 				    				isValidItemLineRecord = false;
 				    			}else{
@@ -465,20 +464,26 @@ public class EbookingMainOrderHeaderController {
 		    String name = entry.getKey();
 		    String value = entry.getValue()[0];
 		    if(name.contains("ownMessageNoteReceiverLineNr")){
-		    	logger.info("AA:" + value);
+		    	logger.info("Mottaker msg:" + value);
 		    	ownMessageNoteReceiverLineNrRawList.add(value); 
 		    }
-		    if(name.contains("ownMessageNoteCarrierLineNr")){ ownMessageNoteCarrierLineNrRawList.add(value); }
-		    if(name.contains("ownMessageNoteInternalLineNr")){ ownMessageNoteInternalLineNrRawList.add(value); }
+		    if(name.contains("ownMessageNoteCarrierLineNr")){ 
+		    	logger.info("Transportør msg:" + value);
+		    	ownMessageNoteCarrierLineNrRawList.add(value); 
+		    }
+		    if(name.contains("ownMessageNoteInternalLineNr")){ 
+		    	logger.info("Internal msg:" + value);
+		    	ownMessageNoteInternalLineNrRawList.add(value); 
+		    }
 		}
 		
 		if(recordToValidate !=null){
 			String messageNoteConsigneeOriginal = request.getParameter("messageNoteConsigneeOriginal");
 			if(!messageNoteConsigneeOriginal.equals(recordToValidate.getMessageNoteConsignee())){
-				logger.info("CONSIGNEE NOT EQUAL");
+				logger.info("CONSIGNEE NOT EQUAL" + messageNoteConsigneeOriginal + "XX" + recordToValidate.getMessageNoteConsignee());
+				logger.info("AA:" + ownMessageNoteReceiverLineNrRawList.size());
 				//CONSIGNEE (RECEIVER)
 				//Delete all values
-				logger.info("BB:" + ownMessageNoteReceiverLineNrRawList.size());
 				this.deleteOriginalMessageNote(JsonMainOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
 				//Add new values
 				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
@@ -539,6 +544,7 @@ public class EbookingMainOrderHeaderController {
 
 		}
 	}
+	
 	
 	
 	/**
@@ -710,6 +716,7 @@ public class EbookingMainOrderHeaderController {
 		
 	}
 	
+	
 	/**
 	 * 
 	 * @param appUser
@@ -764,6 +771,7 @@ public class EbookingMainOrderHeaderController {
 		//FETCH LIST
 		//===========
 		//get BASE URL
+			logger.info("FETCH messageNote ...");
     		final String BASE_LIST_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_MESSAGE_NOTE_URL;
     		//add URL-parameters
     		StringBuffer urlRequestParams = new StringBuffer();
@@ -774,12 +782,12 @@ public class EbookingMainOrderHeaderController {
     		
     		
     		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-	    	//logger.info("URL: " + BASE_LIST_URL);
-	    	//logger.info("URL PARAMS: " + urlRequestParams);
+	    	logger.info("URL: " + BASE_LIST_URL);
+	    	logger.info("URL PARAMS: " + urlRequestParams);
 	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
 	    	//Debug --> 
-	    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-	    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    	if(jsonPayload!=null){
 	    		JsonMainOrderHeaderMessageNoteContainer messageNoteContainer = this.ebookingMainOrderHeaderService.getMessageNoteContainer(jsonPayload);
 	    		Collection<JsonMainOrderHeaderMessageNoteRecord> tmpList = messageNoteContainer.getFreetextlist();

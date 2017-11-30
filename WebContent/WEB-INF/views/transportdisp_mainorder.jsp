@@ -346,9 +346,17 @@
 				 						<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="travd0" id="travd0" size="3" value="${model.record.travd0}">
 				 						<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="tropd0" id="tropd0" size="7" value="${model.record.tropd0}">
 				 						
-				 						<c:if test="${not empty model.record.heopd}">
-					 						&nbsp;&nbsp;
-											<button tabindex=-1 name="trackAndTraceButton" class="inputFormSubmitStd" type="button" onClick="showPop('trackAndTraceFields');" >Hend.logg</button> 
+				 						
+			 						</td>
+				 				</tr>
+				 				<tr>
+				 					
+				 					<td colspan="4" class="text11">
+				 						
+				 						<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
+								   		&nbsp;<button name="planleggingButton" id="planleggingButton" class="buttonGrayWithGreenFrame" type="button" >Til planlegging</button>
+								   		<c:if test="${not empty model.record.heopd}">
+					 						&nbsp;&nbsp;&nbsp;<button tabindex=-1 name="trackAndTraceButton" class="inputFormSubmitStd" type="button" onClick="showPop('trackAndTraceFields');" >Hend.logg</button> 
 										        <span style="background-color:#EEEEEE; position:absolute; left:200px; top:200px; width:900px; height:500px;" id="trackAndTraceFields" class="popupWithInputTextThickBorder"  >
 									           		<table width="95%" border="0" align="left" cellspacing="2">
 									           			<tr>
@@ -397,25 +405,13 @@
 													<%-- OK BUTTON --%>
 							           				<tr align="left" >
 														<td class="text11">&nbsp;&nbsp;<button name="trackAndTraceButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('trackAndTraceFields');">&nbsp;Close</button></td>
-														<%--
-										 	        	<td class="text12">&nbsp;&nbsp;&nbsp;
-															<a href="TODOExcelView.do" target="_new">
-									                 		<img valign="bottom" id="itemListExcel" src="resources/images/excel.png" border="0" alt="excel">&nbsp;Excel
-										 	        		</a>
-										 	        		&nbsp;
-										 	        	</td>
-								 	        			 --%>
 												 	</tr>
 													</table>
 								   				</span>
-								   				&nbsp;<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
-								   				<%-- TODO -->expose when Bring accepts estimates - COVI!!! --%>
-								   				&nbsp;<button name="planleggingButton" id="planleggingButton" class="buttonGrayWithGreenFrame" type="button" >Til planlegging</button>
-								   				
 										</c:if>
-			 						</td>
-			 						
+				 					</td>
 				 				</tr>
+				 			
 				 				</table>
 							</td>
 						</tr>
@@ -669,7 +665,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.transportdisp.orders.form.update.label.shipper.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=s','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=s','customerWin','top=300px,left=50px,height=800px,width=1000px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>
 					 				</td>
@@ -863,7 +859,7 @@
 						 		<tr>
 					 				<td class="text11">
 					 					&nbsp;<span title="heknk"><spring:message code="systema.transportdisp.orders.form.update.label.consignee.id"/>&nbsp;</span>
-					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=c','customerWin','top=300px,left=50px,height=800px,width=900px,scrollbars=no,status=no,location=no')">
+					 					<a href="javascript:void(0);" onClick="window.open('transportdisp_workflow_childwindow_customer.do?action=doInit&ctype=c','customerWin','top=300px,left=50px,height=800px,width=1000px,scrollbars=no,status=no,location=no')">
 	 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 									</a>	
 					 				</td>

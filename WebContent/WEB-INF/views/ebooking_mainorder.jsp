@@ -1105,10 +1105,12 @@
 						 				<%-- this is used ONLY for the delete line operation (mandatory date/linenr) --%>
 						 				<c:forEach items="${model.record.messageNoteConsigneeRaw}" var="freeTextRecord" varStatus="counter">
 						 					<c:if test="${not empty freeTextRecord.frtli}">
+						 						<%-- DEBUG <input type="text" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">  --%>
 						 						<input type="hidden" id="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" name="ownMessageNoteReceiverLineNr_${freeTextRecord.frtli}" value="${freeTextRecord.frtli}@${freeTextRecord.frtdt}">
 						 					</c:if>
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
+						 				
 						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>

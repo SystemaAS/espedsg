@@ -83,10 +83,11 @@
 					<table id="customerList" class="display compact cell-border" width="100%">
 						<thead>
 						<tr style="background-color:#EEEEEE">
-						    <th class="text11">&nbsp;Customer No.</th>   
-		                    <th class="text11">&nbsp;Name</th>
-		                    <th class="text11">&nbsp;Address</th>
-		                    <th class="text11">&nbsp;Post.Code/City/Country</th>
+						    <th class="text11">Customer No.</th>   
+		                    <th class="text11">Name</th>
+		                    <th class="text11">Address</th>
+		                    <th class="text11">Post.Code/City/Country</th>
+		                    <th class="text11">Vareadresse</th>
 		                    
 		                </tr> 
 		                </thead>
@@ -118,6 +119,7 @@
 			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if> >&nbsp;${record.navn}</td>
 			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adr1}</td>
 			               <td class="text11" <c:if test="${record.aktkod == 'I'}">style="color:#9F6000;background-color:#FEEFB3;"</c:if>>&nbsp;${record.adresse}</td>
+			               <td class="text11" style="color:#4F8A10;background-color:#DFF2BF;">&nbsp;${record.vadrna}&nbsp;${record.vadrn1}&nbsp;&nbsp;${record.vadrn2}&nbsp;${record.vadrn3}</td>
 			               
 			            </tr> 
 			            </c:forEach>
