@@ -831,6 +831,7 @@ function load_data() {
 		//initFilters();
 		
 		jq(document).ready(function() {
+			jq('#detailsTable').toggle(false); //default hide
 			jq('#toggleArea').toggle(true); 
 		});
 		
