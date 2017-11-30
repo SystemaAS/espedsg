@@ -243,7 +243,7 @@ function load_data() {
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype'); //TODO
 		var  kapittelChart   = dc.pieChart('#chart-ring-kapittel');   //TODO
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');   //TODO
-		var  compositeChart = dc.compositeChart("#chart-composite");
+		var  varuposterChart = dc.barChart("#chart-varuposter");
 		var  dataCount = dc.dataCount('#data-count')	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
 		var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
@@ -575,80 +575,75 @@ function load_data() {
 			.valueAccessor(function (p) {
 					return p.value.sum_off_vareposter;
 			});	
-		
-		compositeChart
-			    .width(1200)
-			    .height(500)
-			    .dimension(monthDim)   
-			    .group(monthDimGroup) 
-			    .margins({top: 40, right: 10, bottom: 40, left: 80})
-	     		.x(d3.scale.ordinal())  
-	            .xUnits(dc.units.ordinal)   
-	            .yAxisPadding('10%')
-	            .yAxisLabel("Antall vareposter")
-	        	.xAxisLabel("Måned")      
-	            .elasticY(true)
-	            .elasticX(true)
-	            .mouseZoomable(false)  //true is not working in this context
-	            .legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
-	        				if (i == 2) {
-	        					return "Antall registrerte vareposter";
-	        				}
-	        				if (i==1) {
-	        					return "Antall offisielle vareposter";
-	        				}
-	        				if (i==0) {
-	        					return "Antall fortollinger";
-	        				}
-	        			}) 
-	        	)
-			    .renderHorizontalGridLines(true)
-			    .renderTitle(true)
-			    .title(function (d) {
-					var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
-                   	 return [
-                   		 d.key.substr(3) + ':',
-                   			'Fortollinger: ' + d.value.count,
-                   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
-        	                'Registrerte varuposter: ' + d.value.sum_reg_vareposter ,
-        	                'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
-        	            ].join('\n');
-	        	})	
-			  	.compose([
-	     			dc.barChart(compositeChart)
-			    		.group(monthDimGroup, 'fortollinger') 
-			            .barPadding(1)
-				        /*Antall fortollinger*/
-			           .valueAccessor(function (d) {
-	           				return d.value.count; 
-	   					}) 
-	   					/*Antall off. varuposter*/
-	   					.stack(monthDimGroup,'off_vp' ,function (d) {
-	                     	return d.value.sum_off_vareposter;  //100
-	                    })
-	                    /*Antall off. varuposter*/
-	                    .stack(monthDimGroup, 'reg_vp',function (d) {
-	                    	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
-	                    	return diffRegAndOff;
-	                    })
-			     ])
-				.on('pretransition', function (chart) {
-                    chart.selectAll("g rect").style("fill", function (d) {
-                        return colorMap[d.layer];
-                    });
-                    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
-                        return colorMap[d.name];
-                    });
-                    chart.selectAll("g rect.deselected").style("fill", function (d) {
-                        return '#ccc';
-                    });                  
-                    
-                })			     
-				.xAxis().tickFormat(function(d) { 
-	            	return d.substr(3); 
-	            });
-	
-	
+
+
+		varuposterChart
+			.width(1200)
+			.height(500)
+			.dimension(monthDim)   
+			.group(monthDimGroup) 
+			.margins({top: 40, right: 10, bottom: 40, left: 80})
+			.x(d3.scale.ordinal())
+			.xUnits(dc.units.ordinal)   
+			.yAxisPadding('10%')
+			.yAxisLabel("Antall vareposter")
+			.xAxisLabel("Måned")      
+			.elasticY(true)
+			.elasticX(true)
+			.mouseZoomable(false)  //true is not working in this context ??
+			.legend( dc.legend().x(1020).y(0).itemHeight(10).gap(10).legendText(function(d, i) { 
+						if (i == 2) {
+							return "Antall registrerte vareposter";
+						}
+						if (i==1) {
+							return "Antall offisielle vareposter";
+						}
+						if (i==0) {
+							return "Antall fortollinger";
+						}
+					}) 
+			)
+			.renderHorizontalGridLines(true)
+			.renderTitle(true)
+			.title(function (d) {
+				var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
+			   	 return [
+			   		 d.key.substr(3) + ':',
+			   			'Fortollinger: ' + d.value.count,
+			   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
+			            'Registrerte varuposter: ' + d.value.sum_reg_vareposter ,
+			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
+			        ].join('\n');
+			})	
+			.group(monthDimGroup, 'fortollinger') 
+	        //Antall fortollinger
+	       .valueAccessor(function (d) {
+					return d.value.count; 
+			}) 
+			//Antall off. varuposter
+			.stack(monthDimGroup,'off_vp' ,function (d) {
+	         	return d.value.sum_off_vareposter;  //100
+	        })
+	        //Antall off. varuposter
+	        .stack(monthDimGroup, 'reg_vp',function (d) {
+	        	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
+	        	return diffRegAndOff;
+	        })
+			.on('pretransition', function (chart) {
+			    chart.selectAll("g rect").style("fill", function (d) {
+			        return colorMap[d.layer];
+			    });
+			    chart.selectAll('g.dc-legend-item rect').style('fill', function (d) {
+			        return colorMap[d.name];
+			    });
+			    chart.selectAll("g rect.deselected").style("fill", function (d) {
+			        return '#ccc';
+			    });                  
+			})
+			.xAxis().tickFormat(function(d) { 
+				return d.substr(3); 
+			});
+
 	   	d3.selectAll('a#all').on('click', function () {
 	     	dc.filterAll();
 	     	dc.renderAll();
@@ -689,9 +684,8 @@ function load_data() {
 			dc.redrawAll();
 		});		
 		
-		d3.selectAll('a#composite').on('click', function () {
-			compositeChart.filterAll();
-			compositeChart.redraw();
+		d3.selectAll('a#varuposter').on('click', function () {
+			varuposterChart.filterAll();
 			dc.redrawAll();
 		});	
 		
@@ -795,7 +789,7 @@ function load_data() {
 		        { name: 'avd',  value: avdChart.filters()},
 		        { name: 'sisg', value: sisgChart.filters()},
 		        { name: 'edim', value:  edimChart.filters()},
-		        { name: 'composite', value: compositeChart.filters()}];
+		        { name: 'varuposter', value: varuposterChart.filters()}];
 		    var recursiveEncoded = jq.param( filters );
 		    location.hash = recursiveEncoded;
 		}
@@ -803,11 +797,11 @@ function load_data() {
 		
 		// Init chart filters
 		function initFilters() {
-			console.log("initFilter");
+			//console.log("initFilter");
 			// Get hash values
 		    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&year=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
 		    var parsed = parseHash.exec(decodeURIComponent(location.hash));
-			console.log("parsed="+parsed);
+			//console.log("parsed="+parsed);
 		    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
 		  
 		    	//chart
@@ -834,7 +828,7 @@ function load_data() {
 		  
 		dc.renderAll(); 
 		
-		initFilters();
+		//initFilters();
 		
 		jq(document).ready(function() {
 			jq('#toggleArea').toggle(true); 
@@ -972,11 +966,11 @@ window.addEventListener('error', function (e) {
 				  <div class="row">
 				    <div class="col-md-12">
 				      <div class="row">
-						 <div class="col-md-12 dc-chart" id="chart-composite"> 
+						 <div class="col-md-12 dc-chart" id="chart-varuposter"> 
 						  	<h3 class="text12">Vareposter</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="composite" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
+						    <a class="reset" id="varuposter" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>
 						 </div>  
 				      </div>
 				    </div>
