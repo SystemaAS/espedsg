@@ -35,6 +35,18 @@
 
 .col-md-4 { margin-right: -30px; margin-left: 15px;  }
 
+
+td.details-control {
+    background: url('/espedsg/resources/images/bulletGreen.gif') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('/espedsg/resources/images/bulletRed.gif'') no-repeat center center;
+}
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -746,12 +758,15 @@ function load_data() {
 		});
 	
 
+		
+		var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch&avd=1&opd=54946";
 	    dcDataTable = dc.dataTable('#data-table');
 		dcDataTable
 		    .dimension(tollAllDim) 
 		    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 		    .size(Infinity) 
 		    .columns([
+		    	function (d) { return 'dummy'; },
 			  function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.avdeling; },
 		      function (d) { return d.reg_vareposter; },
@@ -767,23 +782,7 @@ function load_data() {
 		     	table.select('tr.dc-table-group').remove();
 		      	
 				if (dataTable != null && dataTable != "")	{
-					dataTable =jq('#data-table').DataTable({
-						"dom" : '<"top">t<"bottom"f><"clear">',
-						"scrollY" : "200px",
-						"scrollCollapse" : false,
-						destroy : true,
-						"columnDefs" : [ {
-							"targets" : 0,
-						    "data": "deklarasjonsnr",
-						    "render": function ( data, type, row, meta ) {
-						       return '<a href=/fredrik_path'+data+'>'+data+'</a>';
-						    }					
-						} ],
-						"lengthMenu" : [ 75, 100 ],
-						"language": {
-							"url": getLanguage(lang)
-				        }
-					}); 	
+					dataTable =setupDataTable();
 				} 	      	
 		      	
 	 		});	    
@@ -793,31 +792,120 @@ function load_data() {
 			
 		    dcDataTable.render();
 
-			dataTable =jq('#data-table').DataTable({
+		    dataTable = setupDataTable();
+
+		    console.log("ready filling dataTable.");
+
+			displayed = true;
+			
+		}
+
+
+		function setupDataTable() {
+			var dataTable =jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
 				"scrollCollapse" : false,
+				"columns": [
+					{
+		                "className":      'details-control',
+		                "orderable":      false,
+		                "data":           null,
+		                "defaultContent": ''
+		            },
+		            { "data": "deklarasjonsnr" },
+		            { "data": "avdeling" },
+		            { "data": "reg_vareposter" },
+		            { "data": "off_vareposter" },		            
+		            { "data": "registreringsdato" },
+		            { "data": "signatur" },
+		            { "data": "mottaker" },
+		            { "data": "type" },
+		            { "data": "edim" }		
+		        ],			
 				destroy : true,
 				"columnDefs" : [ {
-					"targets" : 0,
-				    "data": "deklarasjonsnr",
+					"targets" : 1,
 				    "render": function ( data, type, row, meta ) {
-				    		//console.log("dataTables, render, data=",data)
-				      return '<a href=/fredrik_path'+data+'>'+data+'</a>';
+				       	//console.log("row",row);
+				     	//console.log("row.deklarasjonsnr",row.deklarasjonsnr);
+				    	//console.log("row.registreringsdato",row.registreringsdato);
+				       return '<a href='+baseImportUrl+'?opd='+data+'>'+data+'</a>';
 				    }					
 				} ],
 				"lengthMenu" : [ 75, 100 ],
 				"language": {
 					"url": getLanguage(lang)
 		        }
-			}); 		    
-		    
-			console.log("ready filling dataTable.");
-
-			displayed = true;
+			}); 	
+			
+			return dataTable;
 			
 		}
 
+		
+		function setupDataTableORG() {
+			var dataTable =jq('#data-table').DataTable({
+				"dom" : '<"top">t<"bottom"f><"clear">',
+				"scrollY" : "200px",
+				"scrollCollapse" : false,
+				destroy : true,
+				"columnDefs" : [ {
+					"targets" : 0,
+				    "render": function ( data, type, row, meta ) {
+				       	console.log("row[7]",row[7]);
+				       return '<a href='+baseImportUrl+'?opd='+data+'>'+data+'</a>';
+				    }					
+				} ],
+				"lengthMenu" : [ 75, 100 ],
+				"language": {
+					"url": getLanguage(lang)
+		        }
+			}); 	
+			
+			return dataTable;
+			
+		}		
+		
+
+		// Add event listener for opening and closing details
+	    jq('body').on('click', 'td.details-control', function () {
+			console.log("anyone here...");
+	    	var tr = jq(this).closest('tr');
+	        var row = dataTable.row( tr );
+	 
+	        if ( row.child.isShown() ) {
+	            // This row is already open - close it
+	            row.child.hide();
+	            tr.removeClass('shown');
+	        }
+	        else {
+	            // Open this row
+	            row.child( format(row.data()) ).show();
+	            tr.addClass('shown');
+	        }
+	    } );		
+		
+		
+		function format ( d ) {
+		    // `d` is the original data object for the row
+		    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="90%">'+
+		        '<tr>'+
+		            '<td>Full name:</td>'+
+		            '<td>'+d.type+'</td>'+
+		        '</tr>'+
+		        '<tr>'+
+		            '<td>Extension number:</td>'+
+		            '<td>'+d.type+'</td>'+
+		        '</tr>'+
+		        '<tr>'+
+		            '<td>Extra info:</td>'+
+		            '<td>And any further details here (images etc)...</td>'+
+		        '</tr>'+
+		    '</table>';
+		}
+		
+		
 		function getFiltersValues() {
 		    var filters = [
 		        { name: 'type', value: typeChart.filters()},
@@ -1125,6 +1213,7 @@ window.addEventListener('error', function (e) {
 				       <table class="display" id="data-table" cellspacing="0" width="100%">
 				        <thead>
 				          <tr>
+				           	<th>xXx</th>
 				            <th>deklarasjonsnr</th>
 				            <th>avdeling</th>
 				            <th>reg. vareposter</th>
@@ -1133,7 +1222,7 @@ window.addEventListener('error', function (e) {
 				            <th>signatur</th>
 				            <th>mottaker</th>
 				            <th>type</th>
-				            <th>edim</th>
+				            <th>merknad</th>
 				          </tr>
 				        </thead>
 <!-- 
