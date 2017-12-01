@@ -2312,6 +2312,85 @@
 	  
   }
  
+  
+  
+//----------------------------------------------
+  //START Model dialog: "Print delere (skilleark)"
+  //----------------------------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq("#dialogDup").dialog({
+		  autoOpen: false,
+		  maxWidth:400,
+          maxHeight: 300,
+          width: 380,
+          height: 280,
+		  modal: true,
+		  dialogClass: 'main-dialog-class'
+	  });
+  });
+  //----------------------------
+  //Present dialog box onClick 
+  //----------------------------
+  jq(function() {
+	  jq("#hesdff").blur(function() {
+		  if(jq("#hesdff").val() != ''){
+			  presentDupDialog();
+		  }
+	  });
+	  jq("#hesdvt").blur(function() {
+		  if(jq("#hesdvt").val() != ''){
+			  presentDupDialog();
+		  }
+	  });
+	  
+  });
+  function presentDupDialog(){
+	//setters (add more if needed)
+	  jq('#dialogDup').dialog( "option", "title", "DUP" );
+	  //deal with buttons for this modal window
+	  jq('#dialogDup').dialog({
+		 buttons: [ 
+            {
+			 id: "dialogSaveTU",	
+			 text: "Fortsæt",
+			 click: function(){
+				 		jq('#skilleArkForm').submit();
+			 		}
+		 	 },
+ 	 		{
+		 	 id: "dialogCancelTU",
+		 	 text: "Annullér", 
+			 click: function(){
+				 		//back to initial state of form elements on modal dialog
+				 		jq("#dialogSaveTU").button("option", "disabled", true);
+				 		//jq("#selectedType").val("");
+				 		jq( this ).dialog( "close" ); 
+			 		} 
+ 	 		 } ] 
+	  });
+	  //init values
+	  //jq("#dialogSaveTU").button("option", "disabled", true);
+	  //open now
+	  jq('#dialogDup').dialog('open');
+  }
+  //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
+  /*
+  jq(function() {
+	  jq("#selectedType").change(function() {
+		  if(jq("#selectedType").val()!=''){
+			  jq("#dialogSaveTU").button("option", "disabled", false);
+			  
+		  }else{
+			  jq("#dialogSaveTU").button("option", "disabled", true);
+		  }
+	  });
+	  
+  });*/
+  //-------------------------------------------
+  //END Model dialog: "Print skilleark"
+  //-------------------------------------------
+
 
   
 

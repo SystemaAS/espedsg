@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
 	<style type = "text/css">
-	.ui-dialog{font-size:10pt;}
+	.ui-dialog{font-size:11pt;}
 	.ui-datepicker { font-size:9pt;}
 	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 	.ui-timepicker-div dl { text-align: left; }
@@ -24,6 +24,10 @@
 	.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 	.ui-timepicker-rtl dl dt{ float: right; clear: right; }
 	.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
+	/* this is in order to customize a SPECIFIC ui dialog in the .js file ...dialog() */
+	/*.main-dialog-class .ui-widget-header{ background-color:#DAC8BA } */
+	.main-dialog-class .ui-widget-content{ background-image:none;background-color:lemonchiffon }
+
 	</style>
 
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
@@ -1081,11 +1085,7 @@
 					 				<td class="text11" colspan="2">
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns1" id="OWNwppns1" size="20" maxlength="14" value="${model.record.wppns1}">
 					 				</td>
-					 				<td width="20px" class="text11">&nbsp;</td>
-					 				<td class="text11">Via avd</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 			<td class="text11">Opd.type</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+					 				
 					 			</tr>
 					 			<tr>	
 					 				<td class="text11" align="left">
@@ -1141,9 +1141,8 @@
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
 						 			</td>
-						 			<td width="20px" class="text11">&nbsp;</td>
-			 			 			<td class="text11">Beløp</td>
-						 			<td colspan="2" class="text11"><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			
+						 			
 						 			
 					 			</tr>
 					 			<tr>	
@@ -1200,11 +1199,7 @@
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
 						 			</td>
-						 			<td width="20px" class="text11">&nbsp;</td>
-						 			<td class="text11">Via avd</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 			<td class="text11">Opd.type</td>
-						 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 			
 					 			</tr>
 					 			<tr>	
 						 			<td class="text11">
@@ -1240,10 +1235,7 @@
 									<td class="text11" colspan="2">
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="OWNwppns2" id="OWNwppns2" size="20" maxlength="14" value="${model.record.wppns2}">
 					 				</td>
-					 				<td width="20px" class="text11">&nbsp;</td>
-					 				<td class="text11">Beløp</td>
-						 			<td colspan="2" class="text11"><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 			
+					 				
 					 			</tr>					 			
 							 	</table>
 							</td>
@@ -2154,7 +2146,47 @@
 					</table>
 			</div>
 		</td>
-	</tr>
+		</tr>
+		
+		<%-- -------------------------- --%>	
+ 		<%-- DUP dialog    --%>	
+ 		<%-- -------------------------- --%>	
+		 <tr>
+			<td>
+				<div id="dialogDup" title="Dialog">
+					<form action="skatexport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
+					 	<input type="hidden" name="currentAvd" id="currentAvd" value="${Xmodel.record.dkeh_syav}">
+					 	<input type="hidden" name="currentOpd" id="currentOpd" value="${Xmodel.record.dkeh_syop}">
+						<table>
+							<tr>
+								<td class="text12">Via avd</td>
+						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 		<td class="text12">Opd.type</td>
+						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12">Beløp</td>
+					 			<td colspan="2" ><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 	</tr>	
+						 	<tr height="5"><td ></td></tr>
+						 	<tr>
+								<td class="text12">Via avd</td>
+						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 		<td class="text12">Opd.type</td>
+						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12">Beløp</td>
+					 			<td colspan="2" ><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+						 	</tr>		
+							
+						</table>
+					</form>
+				</div>
+			</td>
+		</tr> 
+		
+		
 		
 </table>	
 		

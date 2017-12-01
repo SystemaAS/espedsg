@@ -112,10 +112,12 @@
 							               <td align="center" width="2%" class="tableCell" >
 							               		<c:choose>
 								     					<c:when test="${not empty record.krav && record.krav == '2'}">
-						               						<img title="Obligatorisk" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="mandatory">
+						               						<span title="Obligatorisk"><img style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="mandatory"></span>
 						               					</c:when>
 						               					<c:otherwise>
-						               						<img title="${record.krav}" style="vertical-align: bottom;" src="resources/images/info3.png" width="12px" height="12px" border="0" alt="info">
+						               						<c:if test="${not empty record.krav}">
+						               							<span title="${record.krav}"><img style="vertical-align: bottom;" src="resources/images/info3.png" width="12px" height="12px" border="0" alt="info"></span>
+						               						</c:if>
 						               					</c:otherwise>
 					               					</c:choose>
 							               	</td>
