@@ -201,7 +201,12 @@ function load_data() {
 	    var yearFormat = d3.time.format('%Y');
 	    var monthNameFormat = NO.timeFormat('%m.%b');
 	    var percentageFormat = d3.format('.2%');
-	 
+
+	    var lang = jq('#language').val();
+	    if (lang == '') {
+	    	lang = 'NO';
+	    }	    
+	    
 	    // normalize/parse data
 		 _.each(tollData, function( d) {
 		  d.date = fullDateFormat.parse(d.registreringsdato);
@@ -248,6 +253,7 @@ function load_data() {
 		var  antallDisplay = dc.numberDisplay("#antall");	
 		var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
+		var  dcDataTable;
 		//Groups
 		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
@@ -716,7 +722,7 @@ function load_data() {
 	        var saveData = data.map(function(obj) {
 	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
 	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
-	            		signatur: obj.signatur, mottaker: obj.mottaker};
+	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim};
 	        });
 	       
 			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/ms-excel;charset=utf-8"});  // text/csv
@@ -725,63 +731,93 @@ function load_data() {
 	    });	
 	
 		var displayed = false;
+		var dataTable;
 		jq('#showTable' ).click(function() {
 		   if (displayed) {
-			   jq( '#detailsTable' ).toggle();
-			   displayed = false;
+			  jq( '#detailsTable' ).toggle();
+			  displayed = false;
+			  dataTable = null;
+			 console.log("dataTable nulled.")
 		   } else {
-		   jq( '#detailsTable' ).toggle( "slow", function() {
-		    console.log("start filling dataTable...")
+		   	  jq( '#detailsTable' ).toggle( "slow", function() {
+			   		renderDataTable();
+		   	  });
+		   }
+		});
 	
-		    var dataTable = dc.dataTable('#data-table');
-		    
-			dataTable
+
+	    dcDataTable = dc.dataTable('#data-table');
+		dcDataTable
 		    .dimension(tollAllDim) 
 		    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 		    .size(Infinity) 
 		    .columns([
+			  function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.avdeling; },
-		      function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.reg_vareposter; },
 		      function (d) { return d.off_vareposter; },
 		      function (d) { return d.registreringsdato; },
 		      function (d) { return d.signatur ; },
 		      function (d) { return d.mottaker ; },
-		      function (d) { return d.type ; }
+		      function (d) { return d.type ; },
+		      function (d) { return d.edim ; }
 		    ])
 		    .on('renderlet', function (table) {
 		      	// each time table is rendered remove nasty extra row dc.js insists on adding
 		     	table.select('tr.dc-table-group').remove();
-		 	});	    
-		    
-		    dataTable.render();	    //måste vara med
-		    
-		    var lang = jq('#language').val();
-		    if (lang == '') {
-		    	lang = 'NO';
-		    }
-			jq('#data-table').DataTable({
+		      	
+				if (dataTable != null && dataTable != "")	{
+					dataTable =jq('#data-table').DataTable({
+						"dom" : '<"top">t<"bottom"f><"clear">',
+						"scrollY" : "200px",
+						"scrollCollapse" : false,
+						destroy : true,
+						"columnDefs" : [ {
+							"targets" : 0,
+						    "data": "deklarasjonsnr",
+						    "render": function ( data, type, row, meta ) {
+						       return '<a href=/fredrik_path'+data+'>'+data+'</a>';
+						    }					
+						} ],
+						"lengthMenu" : [ 75, 100 ],
+						"language": {
+							"url": getLanguage(lang)
+				        }
+					}); 	
+				} 	      	
+		      	
+	 		});	    
+		
+		function renderDataTable() {
+		    console.log("start filling dataTable...");
+			
+		    dcDataTable.render();
+
+			dataTable =jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
 				"scrollCollapse" : false,
 				destroy : true,
 				"columnDefs" : [ {
-					"type" : "num",
-					"targets" : 0
+					"targets" : 0,
+				    "data": "deklarasjonsnr",
+				    "render": function ( data, type, row, meta ) {
+				    		//console.log("dataTables, render, data=",data)
+				      return '<a href=/fredrik_path'+data+'>'+data+'</a>';
+				    }					
 				} ],
 				"lengthMenu" : [ 75, 100 ],
 				"language": {
 					"url": getLanguage(lang)
 		        }
-			}); 
-			
-			console.log("ready filling dataTable.");
-			displayed = true;
+			}); 		    
 		    
-		   });
-		  }
-		}); 
-	
+			console.log("ready filling dataTable.");
+
+			displayed = true;
+			
+		}
+
 		function getFiltersValues() {
 		    var filters = [
 		        { name: 'type', value: typeChart.filters()},
@@ -1089,16 +1125,18 @@ window.addEventListener('error', function (e) {
 				       <table class="display" id="data-table" cellspacing="0" width="100%">
 				        <thead>
 				          <tr>
-				            <th>avdeling</th>
 				            <th>deklarasjonsnr</th>
+				            <th>avdeling</th>
 				            <th>reg. vareposter</th>
 				            <th>off. vareposter</th>
 				            <th>registreringsdato</th>
 				            <th>signatur</th>
 				            <th>mottaker</th>
 				            <th>type</th>
+				            <th>edim</th>
 				          </tr>
 				        </thead>
+<!-- 
 				        <tfoot>
 				          <tr>
 				            <th>avdeling</th>
@@ -1111,6 +1149,7 @@ window.addEventListener('error', function (e) {
 				            <th>type</th>
 				          </tr>
 				        </tfoot>				        
+ -->
 				       </table>
 
 				      <div>
