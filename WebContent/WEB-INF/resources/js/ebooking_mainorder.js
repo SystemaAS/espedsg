@@ -2010,12 +2010,88 @@
 	      
 	});
 	
-  
-  
-  
-  
-  
-  
+  //TEXTAREA jQuery function to limit the number of characters per line
+  //and per textarea
+  //messageNoteConsignee
+  jq(function() {
+	    var limit = function (event) {
+        var linha = jq(this).attr("limit").split(",")[0];
+        var coluna = jq(this).attr("limit").split(",")[1];
 
+        var array = jq(this)
+            .val()
+            .split("\n");
+
+        jq.each(array, function (i, value) {
+            array[i] = value.slice(0, linha);
+        });
+
+        if (array.length >= coluna) {
+            array = array.slice(0, coluna);
+        }
+
+        jq(this).val(array.join("\n"))
+
+	    }
+	    //function call
+	    jq("#messageNoteConsignee[limit]")
+	        .keydown(limit)
+	        .keyup(limit);
+  });
+  //messageNoteCarrier
+  jq(function() {
+	    var limit = function (event) {
+      var linha = jq(this).attr("limit").split(",")[0];
+      var coluna = jq(this).attr("limit").split(",")[1];
+
+      var array = jq(this)
+          .val()
+          .split("\n");
+
+      jq.each(array, function (i, value) {
+          array[i] = value.slice(0, linha);
+      });
+
+      if (array.length >= coluna) {
+          array = array.slice(0, coluna);
+      }
+
+      jq(this).val(array.join("\n"))
+
+	    }
+	   
+	    jq("#messageNoteCarrier[limit]")
+	    .keydown(limit)
+	    .keyup(limit);
+	   
+  });
+  //messageNoteInternal
+  jq(function() {
+	  var limit = function (event) {
+      var linha = jq(this).attr("limit").split(",")[0];
+      var coluna = jq(this).attr("limit").split(",")[1];
+
+      var array = jq(this)
+          .val()
+          .split("\n");
+
+      jq.each(array, function (i, value) {
+          array[i] = value.slice(0, linha);
+      });
+
+      if (array.length >= coluna) {
+          array = array.slice(0, coluna);
+      }
+
+      jq(this).val(array.join("\n"))
+
+	  }
+	  
+	  jq("#messageNoteInternal[limit]")
+      .keydown(limit)
+      .keyup(limit);
+
+  });
+//END TEXTAREA
   
   

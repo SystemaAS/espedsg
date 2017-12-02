@@ -1111,7 +1111,7 @@
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5" wrap="hard">${model.record.messageNoteConsignee}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='65,4' cols="80" rows="4" >${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>
@@ -1124,7 +1124,7 @@
 						 					 </c:if>
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='70,2' cols="75" rows="5">${model.record.messageNoteCarrier}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='65,4' cols="80" rows="4">${model.record.messageNoteCarrier}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr>
@@ -1137,7 +1137,7 @@
 						 					</c:if> 
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='70,2' cols="75" rows="5">${model.record.messageNoteInternal}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteInternal" name="messageNoteInternal" limit='65,4' cols="80" rows="4">${model.record.messageNoteInternal}</textarea>
 					 				</td>
 				 				</tr>
 				 				<tr height="5"><td></td></tr>
