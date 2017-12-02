@@ -1111,7 +1111,7 @@
 						 				</c:forEach>
 						 				<%-- this is ONLY for presentation issues and the INSERT DML  --%>
 						 				
-						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5">${model.record.messageNoteConsignee}</textarea>
+						 				<textarea class="text11UPPERCASE" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='70,2' cols="75" rows="5" wrap="hard">${model.record.messageNoteConsignee}</textarea>
 					 				</td>
 				 				</tr>
 								<tr>

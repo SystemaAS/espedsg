@@ -1140,6 +1140,7 @@
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
+						 				<img id="viaFromDialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
 						 			</td>
 						 			
 						 			
@@ -1198,6 +1199,7 @@
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
+						 				<img id="viaFrom2DialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
 						 			</td>
 						 			
 					 			</tr>
@@ -2154,34 +2156,53 @@
 		 <tr>
 			<td>
 				<div id="dialogDup" title="Dialog">
-					<form action="skatexport_edit_printSkilleArkTopic.do" name="skilleArkForm" id="skilleArkForm" method="post">
-					 	<input type="hidden" name="currentAvd" id="currentAvd" value="${Xmodel.record.dkeh_syav}">
-					 	<input type="hidden" name="currentOpd" id="currentOpd" value="${Xmodel.record.dkeh_syop}">
-						<table>
+					 	<table>
 							<tr>
-								<td class="text12">Via avd</td>
-						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 		<td class="text12">Opd.type</td>
-						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+								<td class="text12"><span title="ffavd">Via avd</span></td>
+						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}"></td>
+						 		<td class="text12"><span title="ffoty">Opd.type</span></td>
+						 		<td class="text11">
+						 			<select class="inputTextMediumBlue" name="ffoty" id="ffoty">
+					            		<option value="">-select-</option>
+					 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
+				                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.ffoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+										</c:forEach> 
+									</select>
+						 			
+						 		</td>
 						 	</tr>
 						 	<tr>		
-					 			<td class="text12">Beløp</td>
-					 			<td colspan="2" ><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+					 			<td class="text12"><span title="ffbel">Beløp</span></td>
+					 			<td class="text11" colspan="2" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}"></td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12"><span title="ffbelk">A/E</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}"></td>
 						 	</tr>	
-						 	<tr height="5"><td ></td></tr>
+						 	<tr height="10"><td ></td></tr>
 						 	<tr>
-								<td class="text12">Via avd</td>
-						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 		<td class="text12">Opd.type</td>
-						 		<td class="text"><input type="text" class="inputTextMediumBlue11" size="5" maxlength="5" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
+								<td class="text12"><span title="vfavd">Via avd</span></td>
+						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}"></td>
+						 		<td class="text12"><span title="vfoty">Opd.type</span></td>
+						 		<td class="text11">
+						 			<select class="inputTextMediumBlue" name="vfoty" id="vfoty">
+					            		<option value="">-select-</option>
+					 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
+				                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.vfoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+										</c:forEach> 
+									</select>
+						 		</td>
 						 	</tr>
 						 	<tr>		
-					 			<td class="text12">Beløp</td>
-					 			<td colspan="2" ><input type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="todo" id="todo" value="${Xmodel.record.todo}"></td>
-						 	</tr>		
+					 			<td class="text12"><span title="vfbel">Beløp</span></td>
+					 			<td colspan="2" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}"></td>
+						 	</tr>	
+						 	<tr>		
+					 			<td class="text12"><span title="vfbelk">A/E</span></td>
+					 			<td ><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}"></td>
+						 	</tr>	
 							
 						</table>
-					</form>
 				</div>
 			</td>
 		</tr> 

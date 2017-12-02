@@ -2321,10 +2321,10 @@
   jq(function() { 
 	  jq("#dialogDup").dialog({
 		  autoOpen: false,
-		  maxWidth:400,
-          maxHeight: 300,
+		  maxWidth:450,
+          maxHeight: 400,
           width: 380,
-          height: 280,
+          height: 340,
 		  modal: true,
 		  dialogClass: 'main-dialog-class'
 	  });
@@ -2333,6 +2333,7 @@
   //Present dialog box onClick 
   //----------------------------
   jq(function() {
+	  /* TOO uncertain ...
 	  jq("#hesdff").blur(function() {
 		  if(jq("#hesdff").val() != ''){
 			  presentDupDialog();
@@ -2342,7 +2343,14 @@
 		  if(jq("#hesdvt").val() != ''){
 			  presentDupDialog();
 		  }
+	  });*/
+	  jq("#viaFromDialogImg").click(function() {
+		  presentDupDialog();
 	  });
+	  jq("#viaFrom2DialogImg").click(function() {
+		  presentDupDialog();
+	  });
+	  
 	  
   });
   function presentDupDialog(){
@@ -2353,17 +2361,17 @@
 		 buttons: [ 
             {
 			 id: "dialogSaveTU",	
-			 text: "Fortsæt",
+			 text: "Fortsett",
 			 click: function(){
-				 		jq('#skilleArkForm').submit();
+				 		//jq('#skilleArkForm').submit();
 			 		}
 		 	 },
  	 		{
 		 	 id: "dialogCancelTU",
-		 	 text: "Annullér", 
+		 	 text: "Lukk", 
 			 click: function(){
 				 		//back to initial state of form elements on modal dialog
-				 		jq("#dialogSaveTU").button("option", "disabled", true);
+				 		//jq("#dialogSaveTU").button("option", "disabled", true);
 				 		//jq("#selectedType").val("");
 				 		jq( this ).dialog( "close" ); 
 			 		} 

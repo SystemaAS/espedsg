@@ -1028,6 +1028,39 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public void setWhenak(String value) {  this.whenak = value; }
 	public String getWhenak() {return this.whenak;}
 	
+	//START Via-fält
+	private String ffavd = null;
+	public void setFfavd(String value) {  this.ffavd = value; }
+	public String getFfavd() {return this.ffavd;}
+	
+	private String ffoty = null;
+	public void setFfoty(String value) {  this.ffoty = value; }
+	public String getFfoty() {return this.ffoty;}
+	
+	private String ffbel = null;
+	public void setFfbel(String value) {  this.ffbel = value; }
+	public String getFfbel() {return this.ffbel;}
+	
+	private String ffbelk = null;
+	public void setFfbelk(String value) {  this.ffbelk = value; }
+	public String getFfbelk() {return this.ffbelk;}
+	
+	private String vfavd = null;
+	public void setVfavd(String value) {  this.vfavd = value; }
+	public String getVfavd() {return this.vfavd;}
+	
+	private String vfoty = null;
+	public void setVfoty(String value) {  this.vfoty = value; }
+	public String getVfoty() {return this.vfoty;}
+	
+	private String vfbel = null;
+	public void setVfbel(String value) {  this.vfbel = value; }
+	public String getVfbel() {return this.vfbel;}
+	
+	private String vfbelk = null;
+	public void setVfbelk(String value) {  this.vfbelk = value; }
+	public String getVfbelk() {return this.vfbelk;}
+	//END Via-fält
 	
 	private List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> fraktbrevList = null;
 	public void setFraktbrevList(List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> value) {  this.fraktbrevList = value; }
