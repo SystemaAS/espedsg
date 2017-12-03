@@ -286,7 +286,10 @@
 			               <td align="center" class="text11 tableCellGray">
 			               		${record.tuavd}
 			               </td>
-			               <td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@statusA_${record.turclose}@${counter.count}">
+			               <td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray" id="htmlpost_${counter.count}">
+			               <%--OLD before upgrade to Spring 4 OBS:remove if the above is working
+			               	<td nowrap align="left" style="width: 100px;" class="text11MediumBlue tableCellGray" id="avd_${record.tuavd}@tripnr_${record.tupro}@statusA_${record.turclose}@${counter.count}"> 
+			               --%>
 				               <c:choose>
 				               <c:when test="${record.turclose=='close'}"> 
 				               		<a id="alinkTripListId_${counter.count}" onClick="setBlockUI(this);" style="display:block;" href="transportdisp_mainorderlist.do?action=doFind&wssavd=${record.tuavd}&wstur=${record.tupro}">

@@ -835,208 +835,213 @@
   //Select Specific Trip
   //----------------------
   jq(function() {
-	  jq('#workflowTrips').on('click', 'td', function(){	 
-		  var ARCHIVE_DOCS_RECORD_SEPARATOR = "&nbsp;|&nbsp;";
-		  var id = this.id;
-		  var record = id.split('@');
-		  var avd = record[0];
-		  var trip = record[1];
-		  var status = record[2];
-		  avd = avd.replace("avd_","");
-		  trip = trip.replace("tripnr_","");
-		  status = status.replace("status_","");
-		  //DEBUG --> 
-		  //alert("avd:" + avd + "trip:" + trip + "appUser:" + jq('#applicationUser').val());
-		  jq.ajax({
-		  	  type: 'GET',
-		  	  url: 'getTripHeading_TransportDisp.do',
-		  	  data: { applicationUser : jq('#applicationUser').val(), 
-		  		  	  avdNr : avd, 
-		  		  	  tripNr : trip },
-		  	  dataType: 'json',
-		  	  cache: false,
-		  	  contentType: 'application/json',
-		  	  success: function(data) {
-		  		var len = data.length;
-		  		for ( var i = 0; i < len; i++) {
-		  			jq('#centuryYearTurccTuraar').val("");jq('#centuryYearTurccTuraar').val(data[i].turacc + data[i].turaar);
-		  			jq('#turmnd').val("");jq('#turmnd').val(data[i].turmnd);
-		  			//avd och tripNo
-		  			jq('#tuavd').val(""); jq('#tuavd').val(data[i].tuavd);
-		  			jq("#tuavd").attr('readonly', true);jq("#tuavd").attr('class', 'inputTextReadOnly');
-		  			jq('#tupro').val(""); jq('#tupro').val(data[i].tupro);
-		  			jq('#tusg').val(""); jq('#tusg').val(data[i].tusg);
-		  			
-		  			//Trip nr is required for some GUI aspects
-		  			if(data[i].tupro!=""){
-		  				if(status=='close'){ //only the active trips are allowed to have this option (tur planning)
-		  					jq('.clazzAvdCreateNew').css('visibility', 'collapse');
-		  					jq('.clazzOrderTripTab').css('visibility', 'visible');
-		  					jq('.ordersTripOpen').attr('href', 'transportdisp_mainorderlist.do?action=doFind&wssavd='+ data[i].tuavd + '&wstur=' + data[i].tupro);
-		  					jq('#tuproTab').text(data[i].tupro);jq('#tuproTab').addClass('text12MediumBlue');
-		  					//Info fields on EDIT
-		  					//jq('#tuavdJS').text(""); jq('#tuavdJS').text(data[i].tuavd);
-				  			jq('#tuproJS').text(""); jq('#tuproJS').text(data[i].tupro);
-				  			jq('#tuproJS').addClass('text14MediumBlue');
-				  			
-		  				}
-		  				jq('.submitSaveClazz').val("Lagre");//change value for the submit button according to an "Update" TODO=localize!
-		  				//init uploaded/archived elements' attributes
-		  				jq('#uploadedDocs').attr('title', data[i].tupro);
-		  				jq('#resultUploadedDocs').text("");
-		  				
-		  				//START populate Message Note-text area
-		  				jq('#messageNote').text("");
-		  				var frtxtlen = data[i].freetextlist.length;
-		  				for ( var j = 0; j < frtxtlen; j++) {
-		  					//OK=alert(data[i].freetextlist[j].frttxt);
-		  					jq('#messageNote').append(data[i].freetextlist[j].frttxt);
-		  					jq('#messageNote').append("\n");
-		  				}//END Message Note
-		  				
-		  				//START populate ArchDocs list
-		  				var doctriplen = data[i].getdoctrip.length;
-		  				jq('#resultUploadedDocs').text("");
-		  				for ( var j = 0; j < doctriplen; j++) {
-		  					if(data[i].getdoctrip[j].doclnk.indexOf(".pdf")>0 ||data[i].getdoctrip[j].doclnk.indexOf(".PDF")>0){
-					  			imgSrc="resources/images/pdf.png";
-		  					}else{
-		  						imgSrc="resources/images/jpg.png";
-		  					}
-		  					jq('<img/>',{
-		  						src: imgSrc,
-		  						width: '14px',
-		  						height: '14px'
-	  		  			  	}).appendTo(jq('#resultUploadedDocs'));	
-					  		  
-		  					jq('<a>',{
-				  			    text: data[i].getdoctrip[j].doctxt,
-				  			    target: '_blank',
-				  			    href: 'transportdisp_workflow_renderArchivedDocs.do?doclnk='+data[i].getdoctrip[j].doclnk,
-				  			    click: function(){ BlahFunc( options.rowId );return false;}
-		  					}).appendTo(jq('#resultUploadedDocs'));
-					  		jq('#resultUploadedDocs').append(ARCHIVE_DOCS_RECORD_SEPARATOR);
-					  	}//END ArchDocs
-		  				
-		  			}
-		  			
-		  			//Truck Lic
-		  			jq('#tubiln').val(""); jq('#tubiln').val(data[i].tubiln);
-		  			jq('#tulk').val(""); jq('#tulk').val(data[i].tulk);
-		  			jq('#tuheng').val(""); jq('#tuheng').val(data[i].tuheng);
-		  			jq('#tulkh').val(""); jq('#tulkh').val(data[i].tulkh);
-		  			//Container
-		  			jq('#tucon1').val(""); jq('#tucon1').val(data[i].tucon1);
-		  			jq('#tulkc1').val(""); jq('#tulkc1').val(data[i].tulkc1);
-		  			jq('#tucon2').val(""); jq('#tucon2').val(data[i].tucon2);
-		  			jq('#tulkc2').val(""); jq('#tulkc2').val(data[i].tulkc2);
-		  			
-		  			//Truck No.
-		  			jq('#tuknt2').val(""); jq('#tuknt2').val(data[i].tuknt2);
-		  			jq('#tunat').val(""); jq('#tunat').val(data[i].tunat);
-		  			//Truck type
-		  			jq('#tubilk').val(""); jq('#tubilk').val(data[i].tubilk);
-		  			//Order type
-		  			jq('#tuopdt').val(""); jq('#tuopdt').val(data[i].tuopdt);
-		  			//Drivers
-		  			jq('#tusja1').val(""); jq('#tusja1').val(data[i].tusja1);
-		  			jq('#tusjn1').val(""); jq('#tusjn1').val(data[i].tusjn1);
-		  			jq('#tusja2').val(""); jq('#tusja2').val(data[i].tusja2);
-		  			jq('#tusjn2').val(""); jq('#tusjn2').val(data[i].tusjn2);
-		  			//Dates
-		  			//ETD
-		  			jq('#tudt').val(""); 
-		  			if(data[i].tudt!=""){
-		  				var tudt = jq.datepicker.parseDate('yymmdd', data[i].tudt);
-		  				jq("#tudt").val(jq.datepicker.formatDate('yymmdd', tudt));
-		  				jq(jq("#tudt")).css({ "font-style": "normal", "color": "#000080"});
-		  			}
-		  			jq('#tutm').val(""); 
-		  			if(data[i].tutm!=""){
-		  				jq("#tutm").val(data[i].tutm);
-		  			}else{
-		  				jq("#tutm").val('0000');
-		  			}
-		  			jq(jq("#tutm")).css({ "font-style": "normal", "color": "#000080"});
-		  			
-		  			//ETA
-		  			jq('#tudtt').val(""); 
-		  			if(data[i].tudtt!=""){
-		  				var tudtt = jq.datepicker.parseDate('yymmdd', data[i].tudtt);
-		  				jq("#tudtt").val(jq.datepicker.formatDate('yymmdd', tudtt));
-		  				jq(jq("#tudtt")).css({ "font-style": "normal", "color": "#000080"});
-		  			}
-		  			jq('#tutmt').val(""); 
-		  			if(data[i].tutmt!=""){
-		  				jq("#tutmt").val(data[i].tutmt);
-		  			}else{
-		  				jq("#tutmt").val('0000');
-		  			}
-		  			jq(jq("#tutmt")).css({ "font-style": "normal", "color": "#000080"});
-		  			//END dates
-		  			
-		  			jq('#tusonf').val(""); jq('#tusonf').val(data[i].tusonf);
-		  			jq('#tustef').val(""); jq('#tustef').val(data[i].tustef);
-		  			jq('#tusdf').val(""); jq('#tusdf').val(data[i].tusdf);
-		  			jq('#tusont').val(""); jq('#tusont').val(data[i].tusont);
-		  			jq('#tustet').val(""); jq('#tustet').val(data[i].tustet);
-		  			jq('#tusdt').val(""); jq('#tusdt').val(data[i].tusdt);
-		  			//Agreed/Price
-		  			jq('#tutval').val(""); jq('#tutval').val(data[i].tutval);
-		  			jq('#tutbel').val(""); jq('#tutbel').val(data[i].tutbel);
-		  			jq('#tutako').val(""); jq('#tutako').val(data[i].tutako);
-		  			//new fields
-		  			jq('#tutm3').text(data[i].tutm3); 
-		  			jq('#tutlm').text(data[i].tutlm); 
-		  			jq('#tukvkt').text(data[i].tukvkt);
-		  			jq('#tutvkt').text(data[i].tutvkt);
-		  			jq('#tutara').text(data[i].tutara);
-		  			jq('#tukam3').text(data[i].tukam3);
-		  			jq('#tukalM').text(data[i].tukalM);
-		  			//Henger høyd
-		  			jq('#tuhoyh').text(data[i].tuhoyh);
-		  			jq('#tuhoyb').text(data[i].tuhoyb);
-		  			//Estim.Transpo.kost
-		  			jq('#berbud').val(data[i].berbud);
-		  			//Simulerad 
-		  			jq('#simlm').text(data[i].simlm);
-		  			jq('#simm3').text(data[i].simm3);
-		  			
-		  			//Totals
-		  			jq('#tuao').val(""); jq('#tuao').val(data[i].tuao);
-		  			jq('#tuts').val(""); jq('#tuts').val(data[i].tuts);
-		  			//Total weight
-		  			var capacity1 = data[i].tukvkt;if(capacity1==''){capacity1="0";}
-		  			var capacity2 = data[i].tutvkt;if(capacity2==''){capacity2="0";}
-		  			var tara = data[i].tutara;if(tara==''){tara="0";}
-		  			jq('#wstov1').text(Number(capacity1) + Number(tara));
-		  			jq('#wstov2').text(Number(capacity2) + Number(tara));
-		  			
-		  			//Totals
-		  			jq('#totiaa').text(data[i].totiaa);
-		  			jq('#totioa').text(data[i].totioa);
-		  			jq('#totisa').text(data[i].totisa);
-		  			jq('#totiag').text(data[i].totiag);
-		  			jq('#totiog').text(data[i].totiog);
-		  			jq('#totisg').text(data[i].totisg);
-		  			jq('#totkaa').text(data[i].totkaa);
-		  			jq('#totkoa').text(data[i].totkoa);
-		  			jq('#totksa').text(data[i].totksa);
-		  			jq('#totkao').text(data[i].totkao);
-		  			jq('#totkoo').text(data[i].totkoo);
-		  			jq('#totkso').text(data[i].totkso);
-		  			jq('#totopn').text(data[i].totopn);
-		  			jq('#totovf').text(data[i].totovf);
-		  			jq('#totsum').text(data[i].totsum);
-		  			
-		  		}
-		  	  },
-		  	  error: function() {
-		  	    alert('Error loading ... workflowTrips onClick');
-		  	  }
-		  });
-		  
+	  
+	  jq('#workflowTrips').on('click', 'td', function(){
+		  var avdString = "avd_"; //substring from the td=id when ajax is needed
+		  //Only when wanting an Ajax call. There are other cells with html POST that must be exluded from this call ...
+		  if(this.id.indexOf(avdString) !== -1){
+			  var ARCHIVE_DOCS_RECORD_SEPARATOR = "&nbsp;|&nbsp;";
+			  var id = this.id;
+			  var record = id.split('@');
+			  var avd = record[0];
+			  var trip = record[1];
+			  var status = record[2];
+			  avd = avd.replace("avd_","");
+			  trip = trip.replace("tripnr_","");
+			  status = status.replace("status_","");
+			  //DEBUG --> 
+			  //alert("avd:" + avd + "trip:" + trip + "appUser:" + jq('#applicationUser').val());
+			  jq.ajax({
+			  	  type: 'GET',
+			  	  url: 'getTripHeading_TransportDisp.do',
+			  	  data: { applicationUser : jq('#applicationUser').val(), 
+			  		  	  avdNr : avd, 
+			  		  	  tripNr : trip },
+			  	  dataType: 'json',
+			  	  cache: false,
+			  	  contentType: 'application/json',
+			  	  success: function(data) {
+			  		var len = data.length;
+			  		for ( var i = 0; i < len; i++) {
+			  			jq('#centuryYearTurccTuraar').val("");jq('#centuryYearTurccTuraar').val(data[i].turacc + data[i].turaar);
+			  			jq('#turmnd').val("");jq('#turmnd').val(data[i].turmnd);
+			  			//avd och tripNo
+			  			jq('#tuavd').val(""); jq('#tuavd').val(data[i].tuavd);
+			  			jq("#tuavd").attr('readonly', true);jq("#tuavd").attr('class', 'inputTextReadOnly');
+			  			jq('#tupro').val(""); jq('#tupro').val(data[i].tupro);
+			  			jq('#tusg').val(""); jq('#tusg').val(data[i].tusg);
+			  			
+			  			//Trip nr is required for some GUI aspects
+			  			if(data[i].tupro!=""){
+			  				if(status=='close'){ //only the active trips are allowed to have this option (tur planning)
+			  					jq('.clazzAvdCreateNew').css('visibility', 'collapse');
+			  					jq('.clazzOrderTripTab').css('visibility', 'visible');
+			  					jq('.ordersTripOpen').attr('href', 'transportdisp_mainorderlist.do?action=doFind&wssavd='+ data[i].tuavd + '&wstur=' + data[i].tupro);
+			  					jq('#tuproTab').text(data[i].tupro);jq('#tuproTab').addClass('text12MediumBlue');
+			  					//Info fields on EDIT
+			  					//jq('#tuavdJS').text(""); jq('#tuavdJS').text(data[i].tuavd);
+					  			jq('#tuproJS').text(""); jq('#tuproJS').text(data[i].tupro);
+					  			jq('#tuproJS').addClass('text14MediumBlue');
+					  			
+			  				}
+			  				jq('.submitSaveClazz').val("Lagre");//change value for the submit button according to an "Update" TODO=localize!
+			  				//init uploaded/archived elements' attributes
+			  				jq('#uploadedDocs').attr('title', data[i].tupro);
+			  				jq('#resultUploadedDocs').text("");
+			  				
+			  				//START populate Message Note-text area
+			  				jq('#messageNote').text("");
+			  				var frtxtlen = data[i].freetextlist.length;
+			  				for ( var j = 0; j < frtxtlen; j++) {
+			  					//OK=alert(data[i].freetextlist[j].frttxt);
+			  					jq('#messageNote').append(data[i].freetextlist[j].frttxt);
+			  					jq('#messageNote').append("\n");
+			  				}//END Message Note
+			  				
+			  				//START populate ArchDocs list
+			  				var doctriplen = data[i].getdoctrip.length;
+			  				jq('#resultUploadedDocs').text("");
+			  				for ( var j = 0; j < doctriplen; j++) {
+			  					if(data[i].getdoctrip[j].doclnk.indexOf(".pdf")>0 ||data[i].getdoctrip[j].doclnk.indexOf(".PDF")>0){
+						  			imgSrc="resources/images/pdf.png";
+			  					}else{
+			  						imgSrc="resources/images/jpg.png";
+			  					}
+			  					jq('<img/>',{
+			  						src: imgSrc,
+			  						width: '14px',
+			  						height: '14px'
+		  		  			  	}).appendTo(jq('#resultUploadedDocs'));	
+						  		  
+			  					jq('<a>',{
+					  			    text: data[i].getdoctrip[j].doctxt,
+					  			    target: '_blank',
+					  			    href: 'transportdisp_workflow_renderArchivedDocs.do?doclnk='+data[i].getdoctrip[j].doclnk,
+					  			    click: function(){ BlahFunc( options.rowId );return false;}
+			  					}).appendTo(jq('#resultUploadedDocs'));
+						  		jq('#resultUploadedDocs').append(ARCHIVE_DOCS_RECORD_SEPARATOR);
+						  	}//END ArchDocs
+			  				
+			  			}
+			  			
+			  			//Truck Lic
+			  			jq('#tubiln').val(""); jq('#tubiln').val(data[i].tubiln);
+			  			jq('#tulk').val(""); jq('#tulk').val(data[i].tulk);
+			  			jq('#tuheng').val(""); jq('#tuheng').val(data[i].tuheng);
+			  			jq('#tulkh').val(""); jq('#tulkh').val(data[i].tulkh);
+			  			//Container
+			  			jq('#tucon1').val(""); jq('#tucon1').val(data[i].tucon1);
+			  			jq('#tulkc1').val(""); jq('#tulkc1').val(data[i].tulkc1);
+			  			jq('#tucon2').val(""); jq('#tucon2').val(data[i].tucon2);
+			  			jq('#tulkc2').val(""); jq('#tulkc2').val(data[i].tulkc2);
+			  			
+			  			//Truck No.
+			  			jq('#tuknt2').val(""); jq('#tuknt2').val(data[i].tuknt2);
+			  			jq('#tunat').val(""); jq('#tunat').val(data[i].tunat);
+			  			//Truck type
+			  			jq('#tubilk').val(""); jq('#tubilk').val(data[i].tubilk);
+			  			//Order type
+			  			jq('#tuopdt').val(""); jq('#tuopdt').val(data[i].tuopdt);
+			  			//Drivers
+			  			jq('#tusja1').val(""); jq('#tusja1').val(data[i].tusja1);
+			  			jq('#tusjn1').val(""); jq('#tusjn1').val(data[i].tusjn1);
+			  			jq('#tusja2').val(""); jq('#tusja2').val(data[i].tusja2);
+			  			jq('#tusjn2').val(""); jq('#tusjn2').val(data[i].tusjn2);
+			  			//Dates
+			  			//ETD
+			  			jq('#tudt').val(""); 
+			  			if(data[i].tudt!=""){
+			  				var tudt = jq.datepicker.parseDate('yymmdd', data[i].tudt);
+			  				jq("#tudt").val(jq.datepicker.formatDate('yymmdd', tudt));
+			  				jq(jq("#tudt")).css({ "font-style": "normal", "color": "#000080"});
+			  			}
+			  			jq('#tutm').val(""); 
+			  			if(data[i].tutm!=""){
+			  				jq("#tutm").val(data[i].tutm);
+			  			}else{
+			  				jq("#tutm").val('0000');
+			  			}
+			  			jq(jq("#tutm")).css({ "font-style": "normal", "color": "#000080"});
+			  			
+			  			//ETA
+			  			jq('#tudtt').val(""); 
+			  			if(data[i].tudtt!=""){
+			  				var tudtt = jq.datepicker.parseDate('yymmdd', data[i].tudtt);
+			  				jq("#tudtt").val(jq.datepicker.formatDate('yymmdd', tudtt));
+			  				jq(jq("#tudtt")).css({ "font-style": "normal", "color": "#000080"});
+			  			}
+			  			jq('#tutmt').val(""); 
+			  			if(data[i].tutmt!=""){
+			  				jq("#tutmt").val(data[i].tutmt);
+			  			}else{
+			  				jq("#tutmt").val('0000');
+			  			}
+			  			jq(jq("#tutmt")).css({ "font-style": "normal", "color": "#000080"});
+			  			//END dates
+			  			
+			  			jq('#tusonf').val(""); jq('#tusonf').val(data[i].tusonf);
+			  			jq('#tustef').val(""); jq('#tustef').val(data[i].tustef);
+			  			jq('#tusdf').val(""); jq('#tusdf').val(data[i].tusdf);
+			  			jq('#tusont').val(""); jq('#tusont').val(data[i].tusont);
+			  			jq('#tustet').val(""); jq('#tustet').val(data[i].tustet);
+			  			jq('#tusdt').val(""); jq('#tusdt').val(data[i].tusdt);
+			  			//Agreed/Price
+			  			jq('#tutval').val(""); jq('#tutval').val(data[i].tutval);
+			  			jq('#tutbel').val(""); jq('#tutbel').val(data[i].tutbel);
+			  			jq('#tutako').val(""); jq('#tutako').val(data[i].tutako);
+			  			//new fields
+			  			jq('#tutm3').text(data[i].tutm3); 
+			  			jq('#tutlm').text(data[i].tutlm); 
+			  			jq('#tukvkt').text(data[i].tukvkt);
+			  			jq('#tutvkt').text(data[i].tutvkt);
+			  			jq('#tutara').text(data[i].tutara);
+			  			jq('#tukam3').text(data[i].tukam3);
+			  			jq('#tukalM').text(data[i].tukalM);
+			  			//Henger høyd
+			  			jq('#tuhoyh').text(data[i].tuhoyh);
+			  			jq('#tuhoyb').text(data[i].tuhoyb);
+			  			//Estim.Transpo.kost
+			  			jq('#berbud').val(data[i].berbud);
+			  			//Simulerad 
+			  			jq('#simlm').text(data[i].simlm);
+			  			jq('#simm3').text(data[i].simm3);
+			  			
+			  			//Totals
+			  			jq('#tuao').val(""); jq('#tuao').val(data[i].tuao);
+			  			jq('#tuts').val(""); jq('#tuts').val(data[i].tuts);
+			  			//Total weight
+			  			var capacity1 = data[i].tukvkt;if(capacity1==''){capacity1="0";}
+			  			var capacity2 = data[i].tutvkt;if(capacity2==''){capacity2="0";}
+			  			var tara = data[i].tutara;if(tara==''){tara="0";}
+			  			jq('#wstov1').text(Number(capacity1) + Number(tara));
+			  			jq('#wstov2').text(Number(capacity2) + Number(tara));
+			  			
+			  			//Totals
+			  			jq('#totiaa').text(data[i].totiaa);
+			  			jq('#totioa').text(data[i].totioa);
+			  			jq('#totisa').text(data[i].totisa);
+			  			jq('#totiag').text(data[i].totiag);
+			  			jq('#totiog').text(data[i].totiog);
+			  			jq('#totisg').text(data[i].totisg);
+			  			jq('#totkaa').text(data[i].totkaa);
+			  			jq('#totkoa').text(data[i].totkoa);
+			  			jq('#totksa').text(data[i].totksa);
+			  			jq('#totkao').text(data[i].totkao);
+			  			jq('#totkoo').text(data[i].totkoo);
+			  			jq('#totkso').text(data[i].totkso);
+			  			jq('#totopn').text(data[i].totopn);
+			  			jq('#totovf').text(data[i].totovf);
+			  			jq('#totsum').text(data[i].totsum);
+			  			
+			  		}
+			  	  },
+			  	  error: function() {
+			  	    alert('Error loading ... workflowTrips onClick');
+			  	  }
+			  });
+		  }  
 	  });
+	  
   });
   
   jq(function () {
